@@ -17,14 +17,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.sugarmummy.model.record.BloodSugar;
-import seedu.sugarmummy.model.record.Bmi;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.records.BloodSugar;
+import seedu.sugarmummy.model.records.Bmi;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
+
+//@@author chen-xi-cx
 
 /**
- * A map of average values with key as {@code LocalDate} and value as {@code Double}. Keys represent the time period of
- * the average values. Values represent the average from values within time period of keys.
+ * Calculates the average values required by {@code AverageCommand}. The averages are stored as a map
+ * with key as {@code LocalDate} and value as {@code Double}. Key represents the time period.
+ * Value represents the average values.
  */
 public class AverageMap {
 
@@ -50,12 +53,12 @@ public class AverageMap {
 
     /**
      * Calculates average values of a given record type based on the average type given.
-     * Pre-requisite: filteredRecord list must contain only the record type specified by average command.
+     * Pre-requisite: filteredRecordList must contain only the record type specified by {@code AverageCommand}.
      *
-     * @param filteredRecordList  list of records containing only the record type specified by @param recordType.
-     * @param averageType the average type.
-     * @param recordType  the record type.
-     * @param count the number of most recent averages to calculate
+     * @param filteredRecordList list of records containing only the record type specified by @param recordType.
+     * @param averageType        the average type.
+     * @param recordType         the record type.
+     * @param count              the number of most recent averages to calculate.
      */
     public void calculateAverage(ObservableList<Record> filteredRecordList,
                                  AverageType averageType, RecordType recordType, int count) {
@@ -63,7 +66,7 @@ public class AverageMap {
         Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 
         // Calculate averages for each grouping in groupByTimeRecords
-        Map<LocalDate, Double> averages = getAverage(recordType, groupByTimeRecords);
+        Map<LocalDate, Double> averages = calculateAverageMap(recordType, groupByTimeRecords);
 
         // Sort by descending date
         Map<LocalDate, Double> averageMap = new TreeMap<>(Collections.reverseOrder());
@@ -77,7 +80,6 @@ public class AverageMap {
         internalMap.putAll(countAverageMap);
 
         internalAverageType.setValue(averageType.toString());
-
         internalRecordType.setValue(recordType.toString());
     }
 
@@ -86,9 +88,9 @@ public class AverageMap {
      * together.
      *
      * @param averageType the average type.
-     * @param recordList  list of records.
+     * @param recordList  list of records containing only one type of record.
      * @return returns a {@code Map} object that maps a time period to the respective records found in that time
-     *         period.
+     * period.
      */
     private Map<LocalDate, List<Record>> groupByAverageType(AverageType averageType,
                                                             ObservableList<Record> recordList) {
@@ -103,10 +105,10 @@ public class AverageMap {
      * @param recordType the record type.
      * @param recordMap  a {@code Map} object that maps a time period to the respective records found in that time
      *                   period.
-     * @return returns a {@code Map} object that maps a time period to the respective average values of records found in
-     *         that time period.
+     * @return returns a {@code Map} object that maps a time period to the respective average values of records
+     * found in that time period.
      */
-    private Map<LocalDate, Double> getAverage(RecordType recordType, Map<LocalDate, List<Record>> recordMap) {
+    private Map<LocalDate, Double> calculateAverageMap(RecordType recordType, Map<LocalDate, List<Record>> recordMap) {
         switch (recordType) {
         case BLOODSUGAR:
             return recordMap.entrySet().stream()
@@ -121,14 +123,13 @@ public class AverageMap {
                             .map(record -> record.getBmi())
                             .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
+            assert false : "Record type is not found and should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
     /**
      * Returns the backing map as an unmodifiable {@code ObservableMap}
-     *
-     * @return
      */
     public ObservableMap<LocalDate, Double> asUnmodifiableObservableMap() {
         return internalUnmodifiableMap;

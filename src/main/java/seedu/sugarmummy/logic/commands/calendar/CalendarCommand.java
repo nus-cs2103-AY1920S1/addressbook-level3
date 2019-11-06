@@ -7,7 +7,6 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_YEAR_MONTH_WEEK;
 
 import java.util.Optional;
 
-import seedu.sugarmummy.logic.commands.CalendarCommandResult;
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
@@ -73,7 +72,7 @@ public class CalendarCommand extends Command {
     }
 
     @Override
-    public boolean getNewPaneIsToBeCreated() {
+    public boolean isToCreateNewPane() {
         return true;
     }
 }

@@ -18,28 +18,28 @@ import seedu.sugarmummy.logic.Logic;
 import seedu.sugarmummy.logic.LogicManager;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.ModelManager;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
 import seedu.sugarmummy.model.ReadOnlyData;
-import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.ReadOnlyUserPrefs;
 import seedu.sugarmummy.model.UserPrefs;
-import seedu.sugarmummy.model.bio.UserList;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
-import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
+import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.util.SampleCalendarDataUtil;
 import seedu.sugarmummy.model.util.SampleFoodDataUtil;
 import seedu.sugarmummy.model.util.SampleRecordDataUtil;
 import seedu.sugarmummy.model.util.SampleUserDataUtil;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
-import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
-import seedu.sugarmummy.storage.JsonCalendarStorage;
-import seedu.sugarmummy.storage.JsonRecordListStorage;
 import seedu.sugarmummy.storage.JsonUserPrefsStorage;
 import seedu.sugarmummy.storage.Storage;
 import seedu.sugarmummy.storage.StorageManager;
-import seedu.sugarmummy.storage.UserListStorage;
 import seedu.sugarmummy.storage.UserPrefsStorage;
-import seedu.sugarmummy.storage.bio.JsonUserListStorage;
+import seedu.sugarmummy.storage.biography.JsonUserListStorage;
+import seedu.sugarmummy.storage.biography.UserListStorage;
+import seedu.sugarmummy.storage.calendar.JsonCalendarStorage;
+import seedu.sugarmummy.storage.foodrecommendations.JsonFoodListStorage;
+import seedu.sugarmummy.storage.records.JsonRecordListStorage;
 import seedu.sugarmummy.ui.Ui;
 import seedu.sugarmummy.ui.UiManager;
 
@@ -152,7 +152,7 @@ public class MainApp extends Application {
         Object initialData;
         try {
             Optional<? extends ReadOnlyData> dataOptional = getOptionalData(dataType);
-            if (!dataOptional.isPresent()) {
+            if (dataOptional.isEmpty()) {
                 logger.info(capitaliseFirstLetter(dataType) + " data file not found. Will be starting a sample "
                         + dataType + " data file");
                 initialData = sampleDataSupplier.get();

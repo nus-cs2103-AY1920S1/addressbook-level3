@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main/tree/master
 
 By: `AY1920S1-CS2103-T16-1`      Since: `Oct 2019`      Licence: `MIT`
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/sugarmummy/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/sugarmummy/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/sugarmummy/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,7 +96,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/sugarmummy/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -117,7 +117,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -137,7 +137,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/sugarmummy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -147,67 +147,132 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.sugarmummy.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Average graph feature
+// tag::average[]
+=== Data Sumamry/Analysis feature
 
-The average graph shows how the average blood sugar level or weight of users change over time.
+==== Average graph feature: Displays the daily/weekly/monthly average of records in a line graph: `average`
+
+The average graph shows how the average blood sugar level or BMI of users change over time.
 Daily, weekly, monthly average are supported.
 
-==== Implementation
+===== Implementation
 
-The average graph is implemented by `AverageMap` and the average values are stored
-internally as `internalAverageMap`. Additionally, it implements the following method:
+User input to get average graph is parsed by `SugarMummyParser` which creates a new `AverageCommandParser`.
+`AverageCommandParser` then parses user input and creates a new `AverageCommand`. Next, `AverageCommand`
+performs operations on `AverageMap` in `Model` with the help from `RecordContainsRecordTypePredicate` to
+filter `UniqueRecordList` in `Model`. The result of the execution is returned to `Ui` as a
+`CommandResult` object and is displayed to the user. In addition, `Ui` calls and displays average graph
+related `.fxml` file to the user.
 
-* `AverageMap#calculateAverage()` - calculates and stores the average values needed by the user.
-* `AverageMap#asUnmodifiableObservableMap()` - returns an read only version of `internalAverageMap`.
+The average graph data points generation is implemented by `AverageMap` and the average values are stored
+internally as `internalMap`. Additionally, it implements the following method:
+
+* `AverageMap#calculateAverage()` - calculates and stores the average values needed by `AverageCommand`.
+* `AverageMap#asUnmodifiableObservableMap()` - returns a read only version of `internalMap`.
 
 
 These operations are exposed in the `Model` interface as `Model#calculateAverageMap()` and
 `Model#getAverageMap()` respectively.
 
+===== Example Usage Scenario
 Below is an example usage scenario and how average graph is created.
 
-Step 1. The user launches the application for the first time. The `AverageMap` will be
-initialized and `internalAverageMap` will be empty.
+Step 1. User launches the application for the first time. The `AverageMap` will be
+initialized and `internalMap` will be empty.
 
-Step 2. The user enters `average a/daily rt/bloodsugar` in SugarMummy to get daily average blood sugar.
-The average command then call for `Model#calculateAverageMap()` which updates the `internalAverageMap` with
-new average values.
+Step 2. User enters `average a/daily rt/bloodsugar n/4` in SugarMummy to get daily average blood sugar.
+Input is parsed and send to `AverageCommand`. `AverageCommand` then calls `Model#updateFilteredRecordList`
+to filter record list with `RecordContainsRecordTypePredicate`. This results in a list of
+records containing only blood sugar records. Subsequently, `AverageCommand` calls
+`Model#calculateAverageMap()` to update the `internalMap` to store 4 most recent daily average values by using the filtered
+record list.
 
 The following sequence diagram shows how the average operation works:
 
 .Sequence diagram of how average command calculates average values.
 image::AverageSequenceDiagram.png[]
 
-NOTE: Step 2a. If the user enters `average a/daily rt/bloodsugar` and there is no data available,
-then the command will fail to execute. This step is illustrated in the activity diagram below.
+NOTE: The lifeline for `AverageCommand` should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
+
+Step 2a. If the user enters `average a/daily rt/bloodsugar n/4` and there is no data available,
+then the command will fail to execute and throw a `CommandException`. Alternatively, if user enters
+an invalid command, a `ParseException` will be thrown.
+This is illustrated in the activity diagram below.
 
 .Activity diagram of user enter an average command.
 image::AverageCommandFailureActivityDiagram.png[]
 
-Step 3. `Ui` receives average command result from `LogicManager` and creates a new `AverageGraphPanel`.
-It then display the `AverageGraphPanel`.
+Step 3. `Ui` receives average `CommandResult` from `LogicManager` and creates a new `AverageGraphPane`
+as well as all other necessary components (see below). `Ui` then displays the `AverageGraphPane` to
+user.
 
-.Sequence diagram of how `Ui` displays average graph.
-image::AverageGraphUiSequenceDiagram.png[]
+Average graph Ui consists of several parts:
 
-==== Design Considerations
+* `AverageGraphPane`: Placeholder for `AverageGraph` and `LegendPane`.
+* `AverageGraph`: Contains the average graph. Data points are generated by `internalMap`.
+* `CustomLineChart`: The implementation for average graph which extends and override JavaFx `LineChart`.
+* `LegendPane`: Placeholder for `LegendRow`. This is the legend box for average graph.
+* `LegendRow`: Consists of a colored legend symbol and its description.
 
-===== Aspect: Data structure for `internalAverageMap`.
+.Class diagram of average graph ui related classes.
+image::AverageUiClassDiagram.png[]
 
-* **Alternative 1 (current choice):** Use `observableMap<LocalDate, Double>` where key is the
-time period records are from and value is the average values.
-** Pros: Easy to implement.
-** Cons: Lower level of abstraction.
-* **Alternative 2:** Use `observableList<Average>` where we store each average values in an
-`Average` class.
-** Pros: Higher level of abstraction.
-** Cons: More codes to write.
+===== Design Considerations
+
+===== Aspect: How to display average graph to user.
+
+The dilemma arises because users, especially recently diagnosed type 2 diabetics,
+do not know the normal range of BMI and blood sugar level. An intuitive and aesthetically
+pleasing method is needed to convey this information to user.
+
+* **Alternative 1:** Use JavaFx `LineChart` to display the average graph and display the ranges below
+the graph using JavaFx `Label`.
+** Pros: Do not need to implement anything.
+** Cons: User need to trace data points to the y axis to find it's value and compare it with the
+ranges given below the graph. This can be annoying and tedious for the user.
+* **Alternative 2 (current choice):** Override JavaFx `LineChart` by adding horizontal range markers
+to the graph and color the area between the markers.
+** Pros: User is able to tell which range a particular data point falls in immediately.
+** Cons: Need to implement horizontal range markers and lay it out on the graph. In addition,
+a custom legend box is needed to label the horizontal range markers.
+
+==== Data Summary/Analysis Feature `coming in v2.0`
+
+===== [Proposed] Summary statistics of a particular record type `[coming in v2.0]`
+
+The implementation will be similar to average graph feature. The `UniqueRecordList` can be filtered
+the same way as average graph feature to get a list containing only the specified record type.
+If only records from a certain time period is needed, a new date predicate class needs to be created
+to further filter the `UniqueRecordList` by starting and ending date. Using the filtered record list,
+count the number of low, normal and high values based on some threshold set by the developer. These
+counts will then be displayed using JavaFX `PieChart`. Also calculate the minimum, maximum and average of the
+filtered record list. These 3 statistics will be displayed right under the pie chart as plain text.
+
+===== [Proposed] Shows relationship between record types: `[coming in v2.0]`
+
+The implementation will be similar to average graph feature. But now, `UniqueRecordList` needs to
+be filtered so that it only contains the two record types needed. To do this, future developer
+need to tweak the current `RecordContainsRecordTypePredicate` to be able to filter two record types.
+
+NOTE: Since SugarMummy only supports two record types now, filtering `UniqueRecordList` is
+redundant. However, this implementation consider the situation that more record types may be added
+in the future.
+
+Using the filtered record list, pair two different record types from the same day together and this pair
+represents a data point. Discard records that cannot be paired. Once the pairing process finishes,
+display the points in JavaFX `ScatterChart`.
+
+===== [Proposed] Exports summary of all medical records into pdf `[coming in v2.0]`
+
+This feature can be implemented using `PDFBOX` libraries or any other existing libraries.
+// end::average[]
 
 // tag::recmf[]
 === Food Recommendation Feature
@@ -333,7 +398,7 @@ Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command to 
 
 image::AddSequenceDiagram.png[]
 
-Step 4. The user now decides that adding the record was a mistake, and decides to delete that record. The delete command is first parsed by `AddressBookParser` then parsed by `DeleteCommandParser`. In `DeleteCommandParser`, we use `ParseUtil` to check whether the index is a positive number, otherwise a `ParseException` will be thrown. `DeleteCommand` receives the positive index and checks whether the positive index indexes a record. `DeleteCommand` will call `Model#deleteRecord()`, which will call `Model#deleteRecord()` and call `ModelManager#deleteRecord()` performing a `remove()` operation on the list.
+Step 4. The user now decides that adding the record was a mistake, and decides to delete that record. The delete command is first parsed by `AddressBookParser` then parsed by `DeleteCommandParser`. In `DeleteCommandParser`, we use `ParseUtil` to check whether the index is a positive number, otherwise a `ParseException` will be thrown. `DeleteCommand` receives the positive index and checks whether the positive index indices a record. `DeleteCommand` will call `Model#deleteRecord()`, which will call `Model#deleteRecord()` and call `ModelManager#deleteRecord()` performing a `remove()` operation on the list.
 
 Step 5. After command has executed in `LogicManager`, we attempt to write the recordList in memory to `recordList.json` on disk using `Storage#saveRecordList()`. The command result is returned to `MainWindow` which calls `MainDisplayPane` in step 2 using `MainWindow#switchToMainDisplayPane()`. This lists out the updated record list in the UI (step 2).
 
@@ -446,7 +511,9 @@ image:CalendarSequenceDiagram.png[]
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
 
+//tag::personalisedUserExperienceDgPppPart0[]
 === Personalised User Experience Feature
+//end::personalisedUserExperienceDgPppPart0[]
 
 To personalise the diabetic user’s the experience in using the SugarMummy app, several sub-features are used,
 including:
@@ -456,6 +523,7 @@ including:
 * Display of motivational quotes for the user (initialisation phase; in progress)
 * `Achievements` to be shown to the user upon achieving a milestone.
 
+//tag::personalisedUserExperienceDgOverviewPppPart1[]
 ==== Overview
 * The `User` class is used to represent a diabetic user. A diabetic user is composed of the `Name`, `ProfileDesc`,
 `DisplayPicPath`, `Nric`, `Gender`, `Phone`, `MedicalCondition`, `Address`, `Goal` and `OtherBioInfo` classes.
@@ -464,7 +532,7 @@ these classes inherit the `ListableField` Interface.
 * The structure of a `User` and its interactions are shown as follows:
 
 image::UserModelClassDiagram.png[]
-
+//end::personalisedUserExperienceDgOverviewPppPart1[]
 
 * A `User` implements `ListableField` by storing them in a java `List`.
 * A `User` that is created is added to a `UserList`. Although not more than one `User` can be added in current versions
@@ -486,13 +554,16 @@ modifying the CSS file used itself.
 * All command words in this program, not restricted to this feature alone, are not case sensitive and implemented under
 `SugarMummyParser`.
 
+//tag::personalisedUserExperienceDgBioPppPart1[]
 ==== Implementation
 ===== Biography
-The biography feature is supported by the `addbio`, `editbio` and `clrbio` commands. Each command adheres to the main
+The biography feature is supported by the `addbio`, `editbio` and `clrbio` commands.
+//end::personalisedUserExperienceDgBioPppPart1[]
+Each command adheres to the main
 flow of information used by this application. In other words, when a command is received, the command is first parsed
 by `SugarMummyParser`, and to individual parsers where required, before return a `Command` object. The `Command` object
-is then executed by `Logic`, during which it updates `Model`, and after which Storage is updated `Logic`, before the
-feedback from the ``CommandResult`` returned by the `Command` object is shown to the user back at the `Ui`.
+is then executed by `LogicManager`, during which it updates `ModelManager`, and after which Storage is updated, before feedback from
+the `CommandResult` returned by the `Command` object is shown to the user back at the `Ui`.
 
 * The following are possible scenarios for each of the following types of command words.
 
@@ -501,49 +572,64 @@ feedback from the ``CommandResult`` returned by the `Command` object is shown to
 ** Scenario 3: User keys in `bio`
 ** Scenario 4: User keys in `clrbio`
 
-* In all scenarios, `SugarMummyParser` responds to the command word via a series of switch cases. As mentioned above,
-`addbio` and `editbio` will AddCommandParser and `EditCommandParser` respectively.
+* In all scenarios,
+//tag::personalisedUserExperienceDgBioPppPart2[]
+`SugarMummyParser` responds to the command word via a series of switch cases.
+//end::personalisedUserExperienceDgBioPppPart2[]
+As mentioned above,
+//tag::personalisedUserExperienceDgBioPppPart3[]
+`addbio` and `editbio` returns `AddBioCommandParser` and `EditBioCommandParser` respectively.
+//end::personalisedUserExperienceDgBioPppPart3[]
 
 * A key difference between the parsers for `addbio` and `editbio` is that the former requires `Name`, `ContactNumber`,
 `EmergencyContact`, and `MedicalCondition` to be compulsory whereas `editbio` requires at least one argument denoting
-the `User`’s biography field to be changed. Furthermore, `EditCommandParser` determines whether or not subarguments for
+the `User`’s biography field to be changed. Furthermore, `EditBioCommandParser` determines whether or not subarguments for
 fields of `ListableField` type contain the format `INDEX/`, denoting the particular number in the list to be changed.
-* `CommandParser` then  returns an `AddBioCommand` object that stores the `User` to be created. `EditCommandParser` on
+//tag::personalisedUserExperienceDgBioPppPart4[]
+* `CommandParser` then  returns an `AddBioCommand` object that stores the `User` to be created. `EditBioCommandParser` on
 the other hand creates an `EditBioCommand` object that stores an `EditedUserDescription` containing information on which
-fields are edited to be edited. A `List` of `HashMaps` that maps indexes to `ListableField`s is usedin
-`EditedUserDescription` to denote changes to be made within each `ListableField`. When executed by `Logic` afterwards,
-the `AddBioCommand` creates the `User` to be stored in model whereas the `EditBioCommand` creates a new `User` based on
-information in `EditedUserDescription`. A `UserList` is used in the `Model` to store Users. At any point of time when a
-user attempts to access biography information, `Logic` accesses the `UserList` from `Model` to display information. In
-order to be able to display the same information upon startup, `Logic` saves this `UserList` to the storage after
-execution of each command.
-* For the `bio` and `clrbio` commands, the implementations are relatively more straightforward. A BioCommand returned by
-`SugarMummyParser` simply overrides the `getDisplayPaneType()` of the `Command` object (that each `Command` object
-contains) so that back at `Ui`, `Ui` knows to display the `BioPane` of the `Ui` in the `MainDisplayPane` part of the
-window. This is also done for all other biography-related commands so after each biography-related command, the
+fields are edited to be edited.
+** A `List` of `HashMaps` that maps indices to `ListableField` is used in `EditedUserDescription` to denote changes to be made within each `ListableField`. When executed by `Logic` afterwards,
+the `AddBioCommand` creates the `User` to be stored in the `ModelManager` whereas the `EditBioCommand` creates a new `User` based on
+information in `EditedUserDescription`. A `UserList` is used in the `ModelManager` to store `User` instances.
+** At any point of time when a user attempts to access biography information, `LogicManager` accesses the `UserList` from
+`ModelManager` to display information. In order to be able to display the same information upon startup, `LogicManager` saves this
+`UserList` to the storage after execution of each command.
+* For the `bio` and `clrbio` commands, the implementations are relatively more straightforward.
+** A `BioCommand` returned by `SugarMummyParser` simply overrides the `getDisplayPaneType()` of the `Command` object
+(that each `Command` object contains) so that back at `Ui`, `Ui` knows to display the `BioPane` of the `Ui` in the
+`MainDisplayPane` part of the window.
+//end::personalisedUserExperienceDgBioPppPart4[]
+** This is also done for all other biography-related commands so after each biography-related command, the
 `BioPane` is displayed.  A `DisplayPane` is stored in the form of an enumeration as the type of display would be
-predefined to all it’s accessors. The `ClearBioCommand` simply clears the `UserList` stored in the model upon execution.
+predefined to all it’s accessors. The `ClearBioCommand` class simply clears the `UserList` stored in the `ModelManager` upon
+execution.
 * In the cases of `bio` and `clrbio` commands, `SugarMummyParser` requires non-null arguments just as it does for other
 single-word commands such as `exit`.
-* Each `Command` returns a ``CommandResult`` to logic containing feedback to be displayed to the user. Any exception
+* Each `Command` returns a `CommandResult` to logic containing feedback to be displayed to the user. Any exception
 that is thrown to the user is caught back at `Ui` `Ui`. Feedback is displayed to the user using the `ResultsDisplayPane`.
 The display of user biography is implemented using JavaFX `TableView`. If the `DisplayPicPath` of a `User` is unchanged,
 the `Ui` does not reload the image, so as to optimise performance of the program. If an entire pane is left unchanged,
 the pane is not reloaded, even upon execution of commands that are used to display the pane, unless explicitly indicated
 in the `getNewPaneIsToBeCreated()` method of the. `Command`. Caching is implemented using a `HashMap` that maps
 `DisplayPane` enumerations to the corresponding `UiPart` representing the respective pane.
-* An illustration of how the information flows for the `editbio` command (Scenario 2) is shown as follows:
+//tag::personalisedUserExperienceDgBioPppPart5[]
+* An illustration of how the information flows for the `editbio` command is shown as follows:
 
 image::EditBioSequenceDiagram.png[]
+//end::personalisedUserExperienceDgBioPppPart5[]
 
 * The rest of the biography commands follow a similar logic, with key differences in the parser and command steps as
 described above.  Validation within parsers are done via the `ParserUtil` class.
 
+//tag::personalisedUserExperienceDgAestheticsPppPart1[]
 ===== Aesthetics
 The aesthetics aspects of the application help to support the feature of personalised user experience and are
-implemented using the command words “`fontcolour`” and “`background`” respectively.
+implemented using the command words `fontcolour` and `bg` respectively.
+//end::personalisedUserExperienceDgAestheticsPppPart1[]
 
 * Possible valid usages are as follows:
+
 ** Scenario 1: User keys in `fontcolour`
 ** Scenario 2: User keys in `fontcolour white`
 ** Scenario 3: User keys in `fontcolour #FFFF00`
@@ -553,43 +639,55 @@ implemented using the command words “`fontcolour`” and “`background`” re
 ** Scenario 7: User keys in `bg /Users/John/displayPicture.jpg s/cover`
 ** Scenario 8: User keys in `bg r/no-repeat`
 
-* As mentioned above, `Colour` and `Background` are independent classes, and `Colour` makes use of enumerations of
-colour codes and colour names to determine validity of the colours.
-* Upon receival of the command “`fontcolour`”, if `fontcolour` has no arguments (checked by `FontColourParser`), a new
-`FontColourCommand` with no arguments is returned, and upon execution return a `CommandResult` that shows the existing
-font used via access of `Model` (logic is similar to the ones for biography) Otherwise if arguments are received,
-validity of the arguments is checked against, and if the colour is a valid `Colour`, it is set in `Model` and saved to
-Storage. `FontColourCommand` overrides the `getDisplayPane()` to return the `DisplayPane.COLOUR` enumeration. i.e. the
-`MainDisplayPane` is unchanged in `Ui`, and only font colours change.
-* `Background` on the other hand, checks for additional possible arguments. First of all, as observed in Scenarios 6
-and 7, an argument could either represent a `Colour` or a path leading to an image to be used to set the background
-picture (this is similar to the `DisplayPicPath` of `bio` field). Thus, `BackgroundParser` first determines if the
-argument received is a colour. If so it returns a `BackgroundCommand` storing a `Background` that has a `background`
-colour attribute. Otherwise, it checks, via `ParserUtil` , whether or not the argument before valid prefixes (preamble)
-is a valid file path. If so, a `Background` that has a `backgroundPicPath` attribute is used to create the
-`BackgroundCommand`. Otherwise a parse exception is returned. Possible arguments that a `background` command can have
-include the size and repeat feature, corresponding to CSS `background` attributes. In current versions of the program,
-the program allows for fixed constants of this features to be used, that are stored in `Background`ImageArgs class and
-used by the `Background` model for validation. `Background``Command` overrides the `getDisplayPane()` to return
-`DisplayPane.BACKGROUND` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only the `background`
-changes. Similar to font colour, the command word on its own simply displays to the user current `background` settings.
+* As mentioned above,
+//tag::personalisedUserExperienceDgAestheticsPppPart2[]
+`Colour` and `Background` are independent classes, and `Colour` makes use of enumerations of colour names and
+hexadecimal colour codes to determine validity of the colours.
 
-* An illustration of the logic for handling a `background` command is shown as follows:
+* Upon receival of the command `fontcolour`, if `fontcolour` has no arguments (checked by `FontColourParser`), a new
+`FontColourCommand` with no arguments is returned, and upon execution return a `CommandResult` that shows the existing
+`fontcolour` used via access of `ModelManager` (logic is similar to the ones for biography)
+** Otherwise if arguments are received, validity of the arguments is checked against, and if the colour is a valid `Colour`,
+it is set in `ModelManager` and saved to Storage. `FontColourCommand` overrides the `getDisplayPane()` to return the
+`DisplayPane.COLOUR` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only font colours change.
+* `Background` on the other hand, checks for additional possible arguments.
+//end::personalisedUserExperienceDgAestheticsPppPart2[]
+First of all, as observed in Scenarios 6
+and 7, an argument could either represent a `Colour` or a path leading to an image to be used to set the background
+picture (this is similar to the `DisplayPicPath` of `bio` field). Thus,
+//tag::personalisedUserExperienceDgAestheticsPppPart3[]
+`BackgroundParser` first determines if the
+argument received is a `Colour`. If so it returns a `BackgroundCommand` storing a `Background` that has a `backgroundColour` attribute. Otherwise, it checks, via `ParserUtil` , whether or not the argument before valid prefixes (preamble)
+is a valid file path. If so, a `Background` that has a `backgroundPicPath` attribute is used to create the
+`BackgroundCommand`.
+
+** Otherwise a `ParseException` is returned.
+//end::personalisedUserExperienceDgAestheticsPppPart3[]
+Possible arguments that a `bg` command can have
+include the size and repeat feature, corresponding to CSS `background` attributes.
+** In current versions of the program, the program allows for fixed constants of this features to be used, that are stored in `BackgroundImageArgs` class and
+used by the `Background` model for validation.
+** `BackgroundCommand` overrides the `getDisplayPane()` method to return
+`DisplayPane.BACKGROUND` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only the `background`
+changes.
+** Similar to font colour, the command word on its own simply displays to the user current `background` settings.
+//tag::personalisedUserExperienceDgAestheticsPppPart4[]
+** An illustration of the logic for handling a `bg` command is shown as follows:
 
 image::BackgroundActivityDiagram.png[]
+//end::personalisedUserExperienceDgAestheticsPppPart4[]
 
-* For both `fontcolour` and `background` commands, the StyleManager class of `Ui` is used to set the user’s intention of
+* For both `fontcolour` and `bg` commands, the StyleManager class of `Ui` is used to set the user’s intention of
 `fontcolour` and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy
 of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
 * Perhaps an interesting area of the `Colour` and `Background` commands in more recent updates would include
-implementation using command composition.
-* The driving factor that fueled this is the need to ensure the `Fontcolour` and `Background` do not have colours that are
-too similar (or otherwise the text could get difficult or impossible to see).
-* This above-mentioned checking was implemented by Summing square of the differences in red, green and blue channels'
+implementation using command composition. The driving factor that fueled this is the need to ensure the `Fontcolour`
+and `Background` do not have colours that are too similar (or otherwise the text could get difficult or impossible to see).
+This above-mentioned checking was implemented by summing the square of the differences in red, green and blue channels'
 values between the `Colour` of the `Fontcolour` and `Background`.
-* How then a `Colour` for a `Background` with an image instead of a `Colour` is determined would be by extracting the
+* The `Colour` for a `Background` with an image instead of a solid `Colour` is determined by extracting the
 `Colour` that appears the most often using the `ImageTester` class.
-* An issue that arose in checking for colour differences would be addressing the situation when the user intends to make
+* An major issue with checking for colour differences would be the situation when the user intends to make
 changes to a `Fontcolour` that clashes with the `Background` if changed. Take for example a change in `fontcolour`
 intended to be changed from white to black, with a background that is curently _already_ black. The system would not have
 allowed changes of the text from white to black because of the background's black colour and would have suggested to
@@ -597,20 +695,21 @@ change the background first. The background is required to be changed to somethi
 be set to black. However, if the background cannot be changed to something that is lighter than it's current colour but
 yet dark enough not to clash with the current background colour, then the user could find it hard to switch to the new
 colours without going through a series of specific steps that would not cause colour clash.
-* Command composition allows the `background` and `fontcolour` commands to be combined such that the user is able to
+* Command composition allows the `bg` and `fontcolour` commands to be combined such that the user is able to
 set both the `background` and `fontcolour` simultaneously, and as such colour comparison is made solely between the
 new colours entered rather than any of the current colours.
-* How it works is that `BackgroundParser` parses for `fontcolour/` and its arguments while `FontColourParser` parses for
-`bg/` and its arguments. Any of these prefixes observed will result in the Parser generating a `FontColourCommand` and
-\`BackgroundColourCommand` respectively. `BackgroundParser` then returns a `BackgroundColourCommand` that has a
-`FontColourCommand` _stored_ in it and vice versa. When `Logic` executes `BackgroundCommand`, for instance,
+* `BackgroundParser` parses for `fontcolour/` and its arguments while `FontColourParser` parses for
+`bg/` and its arguments. Any of these prefixes observed results in the Parser generating a `FontColourCommand` and
+`BackgroundColourCommand` respectively. `BackgroundParser` then returns a `BackgroundColourCommand` that has a
+`FontColourCommand` _stored_ in it and vice versa. When `LogicManager` executes `BackgroundCommand`, for instance,
 `BackgroundCommand` executes the `FontColourCommand` stored in it as well. The necessary adjustments are made to model
 accordingly and the feedback to users from both commands will be returned to the user.
 * The idea of a command running another command allows commands such as `bg black fontcolour/red` to be entered by the
 user. Modified methods in the `ArgumentMultimap` class of the `logic` package also allows the program to ensure that
-the user does not entert multiple arguments of the same type at once eg. disallowing `bg black fontcolour/red
+the user does not enter multiple arguments of the same type at once eg. disallowing `bg black fontcolour/red
 fontcolor/yellow`.
 
+//tag::personalisedUserExperienceDgAchievementsPppPart1[]
 ===== Achievements
 
 * A diabetic user’s `Achievements` is supported by the `achvm` command, that displays the list of user’s achievements.
@@ -618,49 +717,61 @@ Similar to how `bio` is implemented, `SugarMummyParser` returns an `Achievements
 `getDisplayPane()` method to return  `DisplayPane.ACHVM` – such that `Ui` of `Ui` sets the children of the
 `MainDisplayPane` node to be the `AchievementsPane`. Each `Achievement` is represented using an `ImageView` in JavaFX
 `TilePane` so that all images are of the same size.
-* An `Achievement` is implemented as an abstract class in the `Model` package. Each achievement contains attributes that
+//end::personalisedUserExperienceDgAchievementsPppPart1[]
+* An `Achievement` is implemented as an abstract class in the `model` package. Each achievement contains attributes that
 define the `Achievement` such as its `title` and `description` which specifies the requirements needed to attain it.
 A significant attribute of the `Achievement` class is it's three states - `Achieved`, `Yet to Achieve` and `Previously
 Achieved`. Another would be the `level` of the achievement (eg. `Bronze`, `Silver`, `Gold` etc.)
 * Current `Achievement` objects have `recordType` `Bmi` and `BloodSugar`, with corresponding interfaces that represent
 the `Achievement` for its `RecordType`. Specific classes inherit the `Bmi` and `BloodSugar` interfaces while extending
 the `Achievement` abstract class to specify defining attributes and methods.
-* When the program starts, an `AchievementsMap` containing the list of all `Achievement` objects that the program has is
-created in the `model` of the program. All `Achievement` objects are initially all at the state of `Yet to Achieve`.
-Thereafter, the `AchievementStateProcessor` class is called, which iterates through the list of all `Record` elements
-stored in `model`.
+//tag::personalisedUserExperienceDgAchievementsPppPart2[]
+* When the program starts, an `AchievementsMap` containing a `Map` of `RecordType` to `List` of all `Achievement` objects
+that the program has is created in `ModelManager`.
+//end::personalisedUserExperienceDgAchievementsPppPart2[]
+All `Achievement` objects are initially all at the state of `Yet to Achieve`.
+//tag::personalisedUserExperienceDgAchievementsPppPart3[]
+* The `AchievementStateProcessor` class is then called, which iterates through the list of all `Record` elements
+stored in `ModelManager` and updates the `State` of each `Achievement` if necessary.
+//end::personalisedUserExperienceDgAchievementsPppPart3[]
 * For each `RecordType` and `Level` of `Achievement`, the `AchievementStateProcessor` class checks whether the records
-fulfils the requirements for a predefined number of consecutive days. Requirements are in turn termined by the
+fulfils the requirements for a predefined number of consecutive days. Requirements are in turn determined by the
 `MAXIMUM` and `MINIMUM` values stored in the interfaces of the `Achievement` class. State changes are made to the
 `Achievement` class if requirements are fulfilled (eg. if the number of requirements of a `RecordType` for `Gold` are met,
 then the `Achievement` of `level` `Gold` and of that particular `RecordType` would have it's state updated to reflect
-that change. This is accomplised using methods such as the `promote` and `demote` in the `AchievementStateProcessor`).
+that change. This is accomplished using methods such as the `promote` and `demote` in the `AchievementStateProcessor`).
 * In order to determine whether requirements are fulfilled, interaction with not only the `RecordType` is implemented,
 but also the methods of the `Average` feature (to obtain daily averages of record types before comparing them).
 * A notable aspect of the implementation is the reversal of `level` from high to low level. This is such that if a
 higher-level `Achievement` has been achieved, lower levels of achievement would also have been attained. In such cases,
 the program automatically sets lower levels of `Achievement` to be achieved without having to iterate through the rest
 of the `Record` elements in the `RecordList`.
+//tag::personalisedUserExperienceDgAchievementsPppPart4[]
 * Thereafter, for each addition and removal of `Record` elements, the same process described above is used to update the
-`AchievementsMap`, that maps `RecordType` to an `AchievementsList` of `Achievement` elements.
-* When the `achvm` command is received by the program, this `AchievementsMap` is simply retrieved from `Model` to
-`Logic`and the corresponding images representing the `Achievement` objects in the list, with their `State` values,
+`AchievementsMap`, that maps `RecordType` to an `AchievementsList` of `Achievement` elements with updated `State` attributes.
+* When the `achvm` command is received by the program, this `AchievementsMap` is simply retrieved from `ModelManager` to
+`LogicManager` and the corresponding images representing the `Achievement` objects in the list, with their `State` values,
 and attributes are presented to the user via the `MainDisplayPane` of the `MainWindow`.
+//end::personalisedUserExperienceDgAchievementsPppPart4[]
 * If the `AchievementsList` happens to be unchanged since the last time the pane is loaded in the same session, the pane
 is not reload so as to optimise performance of the program and minimise unnecessary access and loading of images.
 
+//tag::personalisedUserExperienceDgMotivationPppPart1[]
 ===== Motivation
 
 * Motivational aspects of the application are supported using motivational quotes.
-* Each motivational quote exists as a `String` in an unmodifiable `List` of tthe class `MotivationalQuotes`.
+* Each motivational quote exists as a `String` in an unmodifiable `List` of the class `MotivationalQuotes`.
 * The `List` of quotes (collated from different sources but modified to have the same formats) are initialised to be part
-of the `model` when the program first starts up.
+of `ModelManager` when the program first starts up.
 * Upon initialisation of the program, the `MotivationalQuotesLabel.fxml` file is referenced via its corresponding class.
-* Retrieval of the `List` of motivational quotes is done via `Logic` which accesses the `List` of motivational quotes in
+* Retrieval of the `List` of motivational quotes is done via `LogicManager` which accesses the `List` of motivational quotes in
 `ModelManager`.
 * A quote is randomly selected and then displayed to the user via the program's user interface.
+//end::personalisedUserExperienceDgMotivationPppPart1[]
 
+//tag::personalisedUserExperienceDgDesignConsiderationsPppPart1[]
 ==== Design Considerations
+//end::personalisedUserExperienceDgDesignConsiderationsPppPart1[]
 
 ===== Number of Users
 * It could be argued that multiple user support is not required and thus a `UserList` should not be used to store data.
@@ -669,33 +780,30 @@ for the application, as the choice of a fully personalised experience for diabet
 multiple users (having diabetes and using the same app), as well as the possibilities of such scenarios are debatable.
 Furthermore, our user stories appear to suggest the desire for a more personalised application.
 * In the strict case of single-user support that leaves the app less open to such modification, the alternative would be
-to simply implement and store the `User` in `Model`, rather than the `UserList`.
+to simply implement and store the `User` in `ModelManager`, rather than the `UserList`.
 
-===== `Background` Sub-Argument Values
+===== Background Sub-Argument Values
 * The use of `enum` is a possibility to implement `static final background` sub-argument values (eg, `auto` of attribute
 `background` size). However considerations that eventually led against this idea included the possibility of values that
 are not in proper `String` format that may not be able to be directly enumerated (leading to the required use of
 additional lengthy switch cases). Additionally other `background` fields may be added by future developers  and it would
 be more concise to have them all in a single class rather than as separate enumerations.
 
-===== `Command` Classification
-* It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. addfontcolour,
-editfontcolour, showfontcolour, `clrfontcolour`). However, this is likely unnecessary as this will not only require the
-end user to type more words, but also introduce redundancy (eg. ``clrfontcolour`` could simply be `fontcolour` black and
+//tag::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
+===== Command Classification
+* It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. `addfontcolour`,
+`editfontcolour`, `showfontcolour`, `clrfontcolour`). However, this is likely unnecessary as this will not only require the
+end user to type more words, but also introduce redundancy (eg. `clrfontcolour` could simply be `fontcolour black` and
 this is not hard to achieve the same effects as `clrfontcolour`, which also adds a restrictive definition on what the
 default colour to the user upon clearing settings should be).
 
 ===== Modification of Application Style Dynamically
-* An alternative idea to achieving font colours and backgrounds throughout the entire app was to visit each child node
+* An alternative idea to achieving `fontcolour` and `background` throughout the entire app was to visit each `JavaFX` child `Node`
 recursively and set the colours and backgrounds if the nodes are of specific instances with these attributes (eg.
-`Label` which has textfill attribute). However this idea was quickly aborted as the `TableView` implemented only renders
+`Label` which has `textfill` attribute). However this idea was quickly aborted as the `TableView` implemented only renders
 headers after the scene has been set and to include such a case in thet recursive solution adds significant complexity
 to the program on top of the possibility of severely breaking abstraction.
-
-===== Use of `Label` instead of `TextArea` Nodes
-* The `ResultDisplay` was originally implanted as a `TextArea` but was eventually replaced with a `Label` which achieves
-similarly results. The reasoning for this change was the inability to or difficulty in setting the `background` of
-`TextArea`, even via CSS. A `Label` serves as a perfect alternative since in the case both are non-editable to the user.
+//end::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 
 ===== Restricting User Modification of Motivational Quotes
 * The user is specifically designed to have no access in modifying the list as that would not only have taken away the
@@ -731,19 +839,29 @@ for _consecutive_ number of days. i.e. streak
 * This ensures that the user is incentivised not only to achieve good records (and in the process improve his or her
 health), but also acquire a good habit of keying in and storing records.
 
-==== Saving of user's preferred themes: `[coming in v2.0]`
+//tag::personalisedUserExperienceDgFutureDevelopmentsPppPart1[]
+==== Future Developments
 
-This feature has not currently been implemented, but could possibly be implemented using the
-`StyleManager` class, which processes users' `background` and `fontColour`. A list could be used to save an
-archive of users' preferred themes during that session. Adding, editing and deletion could be accomplished using `List`
-methods. A `HashMap` could also be used such that the user can self-define names for each of the themes. A variable
-would serve as a current pointer to determine the current theme the user is using. A change in theme could be achieved
-by updating the pointer and / or the `HashMap`, if any is implemented. If the user does not have any themes,
-then default aesthetics would be loaded, or if there is at least one saved settings (as there is in this current version
-of the application), the users' preferences' in those settings would be loaded. Upon termination of the program, the
-contents of the list could be saved to a JsonStorage file.
+===== Saving of user's preferred themes: `[coming in v2.0]`
 
-==== Displaying of cartoon avatar that represents the user: `[coming in v2.0]`
+This feature has not currently been implemented, but could possibly be implemented using the existing
+`StyleManager` class, which processes users' `background` and `fontColour`. A `List` could be used to save an
+archive of users' preferred themes during that session.
+//end::personalisedUserExperienceDgFutureDevelopmentsPppPart1[]
+Adding, editing and deletion could be accomplished using `List`
+methods. A `HashMap` could also be used such that the user can self-define names for each of the themes.
+//tag::personalisedUserExperienceDgFutureDevelopmentsPppPart2[]
+A variable would serve as a current pointer to determine the current theme the user is using. A change in theme could
+be achieved by updating the pointer and / or the `HashMap`, if any is implemented.
+//end::personalisedUserExperienceDgFutureDevelopmentsPppPart2[]
+If the user does not have any themes, then default aesthetics would be loaded, or if there is at least one set of saved
+settings (as there is in this current version of the application), the users' preferences' in those settings would be
+loaded.
+//tag::personalisedUserExperienceDgFutureDevelopmentsPppPart3[]
+Upon termination of the program, the contents of the `HashMap` could be saved to a `JsonStorage` file.
+//end::personalisedUserExperienceDgFutureDevelopmentsPppPart3[]
+
+===== Displaying of cartoon avatar that represents the user: `[coming in v2.0]`
 
 This feature has yet to be implemented but could possibly be implemented using a class / method that interacts with the
 user's `RecordList`. A larger BMI of the user could be represented by a figure with a wider profile while a smaller BMI
@@ -751,16 +869,21 @@ could lead to the avatar being represented otherwise. Users could also have the 
 This dynamically changing avatar could be achieved by combining shapes that change according to the values in `ReordList`,
 or by using an existing library that allows for this.
 
-==== Follow up on user's goals: `[coming in v2.0]`
+//tag::personalisedUserExperienceDgFutureDevelopmentsPppPart4[]
+===== Follow up on user's goals: `[coming in v2.0]`
 
-This feature has yet to be implemented but could possibly be implemented by first parsing the input which the user has
-entered for the Goals field. If recognised in the correct format, the program can automatically store the recognised
-fields in an array and Json file. As the days progress, the program automatically checks on the user's progress by
-analysing data in the user's `RecordList, and gives timely feedback to the user by using the `LocalDate` java class to
-check how close users are to the goal as well as encourage them to set more realistic targets as time passes by. For
-instance, the program may display a new alert-box like window via the `UI` indicating to user 'good job' for perhaps
-being 'halfway there' in attaining set goals. This feature may also implement some methods from the `Reminder`feature so
-a goal can be automatically be reminded about at specific time intervals as desired by the user.
+This feature has yet to be implemented but could possibly be implemented by first parsing inputs tat the user has
+entered for the `Goal` fields. If in a format that is recognised, the program would store the recognised
+parsed `Goal` and corresponding `LocalDate` in an `ArrayList` and `JsonStorage` file. The program would then check
+the user's progress over time by analysing data in the user's `RecordList`, and provide timely feedback by
+comparing the current date and date by which to reach the `Goal` targets set.
+//end::personalisedUserExperienceDgFutureDevelopmentsPppPart4[]
+For instance, the program may display a new alert-box like window via the `UI` indicating to user 'good job' for perhaps
+being 'halfway there' in attaining set goals.
+//tag::personalisedUserExperienceDgFutureDevelopmentsPppPart5[]
+This feature may also implement some methods from the `Reminder` feature so the user can choose to automatically be
+reminded about his/her `Goal` inputs at specific time intervals desired.
+//end::personalisedUserExperienceDgFutureDevelopmentsPppPart5[]
 
 == Documentation
 
@@ -798,24 +921,29 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: convenient all-in-one app for effectively managing diabetes that is faster than a typical mouse/GUI driven app
 //end::productScope[]
 
+//tag::userStoriesSample0[]
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="90%",cols="20%,<25%,<25%,<30%",options="header",]
+[width="95%",cols="20%,<25%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+//end::userStoriesSample0[]
 |`* * *` |diabetic patient who has different options on medical care |know exactly how much I am spending on medication
 and consultation |know which hospitals to seek medical care from
 
+//tag::userStoriesSample1[]
 |`* * *` |very busy diabetic |use a flexible calendar system that can account for updates | easily make changes to
 appointments that I have to change often due to other commitments
+//end::userStoriesSample1[]
 
 |`* * *` |diabetic |keep track of my medical expenses |better manage my finance
 
+//tag::userStoriesSample2[]
 |`* * *` |person who likes numbers |see summary statistics |better track my progress
-
+//end::userStoriesSample2[]
 
 |`* * *` |diabetic |get an overview of my dieting/exercising data regularly |save time because I am working 9-5
 
@@ -891,6 +1019,8 @@ that is always easily accessible |instantly calculate all my medical costs when 
 
 |`*` |medical consultant |export my patient's health data  |save my time
 |=======================================================================
+
+
 //tag::useCases[]
 [appendix]
 == Use Cases
@@ -1102,3 +1232,47 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Average command
+
+.. Prerequisites: There are exactly 7 different days of blood sugar and exactly 7 different days of BMI records.
+... Test case: `average a/daily rt/bloodsugar` +
+    Expected: Shows a graph with 5 data points. The dates of the 5 data points are the 5 most
+    recent blood sugar records.
+... Test case: `average a/daily rt/bmi n/10` +
+    Expected: Since there are only 7 BMI records, the graph will only have 7 data points instead
+    of 10.
+... Test case: `average a/yearly rt/bmi n/3` +
+    Expected: This is an unsupported average type. An error message is displayed saying +
+    `Please enter correct input for a/AVERAGE_TYPE! +
+    AVERAGE_TYPE is "daily", "weekly" or "monthly"`.
+... Test case: `average a/weekly` +
+    Expected: Missing compulsory field rt/RECORD_TYPE. An error message is shown: +
+    `Oops! The command you've entered appears to be in an invalid format. +
+    average: Shows daily/weekly/monthly average of different record types in a line graph. +
+    Format: average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT] +
+    Example: average a/daily rt/bloodsugar n/5`
+.. Prerequisites: There are exactly 3 distinct weeks of blood sugar records and no BMI records.
+... Test case: `average a/weekly rt/bloodsugar` +
+    Expected: Since there are only 3 blood sugar records, the graph will only have 3 data points
+    with dates of the 3 most recent blood sugar records in terms of week. There is not enough
+    records to show 5 data points.
+... Test case: `average a/weekly rt/bmi` +
+    Expected: Since there are no bmi records, an error message is displayed saying +
+    `Sorry! You do not have any BMI record.`
+.. Prerequisites: There are at least 12 distinct months of BMI records and no blood sugar records.
+... Test case: `average a/monthly rt/bmi n/9` +
+    Expected: Shows a graph with 9 data points and these points are the average
+    BMI values of the 9 most recent month.
+... Test case: `average a/monthly rt/expenses n/3` +
+    Expected: This is an unsupported record type. Following error message will be shown: +
+    `Please enter correct input for rt/RECORD_TYPE! +
+    RECORD_TYPE is "BLOODSUGAR" or "BMI"`
+... Test case: `average a/monthly rt/bmi n/13` +
+    Expected: COUNT field is out of the range 1 and 12 inclusive. Following error message will be shown: +
+    `Please enter correct input for n/COUNT! +
+    COUNT takes integer value between 1 and 12 inclusive.`
+... Test case: `average a/monthly rt/bmi n/five` +
+    Expected: COUNT field only takes integer value. Following error message will be shown: +
+    `Please enter correct input for n/COUNT! +
+    COUNT takes integer value between 1 and 12 inclusive.`

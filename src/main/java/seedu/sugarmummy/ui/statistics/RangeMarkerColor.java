@@ -2,6 +2,8 @@ package seedu.sugarmummy.ui.statistics;
 
 import javafx.scene.paint.Color;
 
+//@@author chen-xi-cx
+
 /**
  * Contains the color used for horizontal range markers in {@code CustomLineChart} common to {@code AverageGraph} and
  * {@code LegendPane}.

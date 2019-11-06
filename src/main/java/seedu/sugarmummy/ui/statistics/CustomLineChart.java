@@ -11,9 +11,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+//@@author chen-xi-cx
+
 /**
- * An extended line chart to add horizontal range markers. Area between horizontal range markers is highlighted by user
- * specified color.
+ * An extended version of JavaFX {@code LineChart} to add horizontal range markers.
+ * Area between horizontal range markers is highlighted by user specified color.
  */
 public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
@@ -30,13 +32,11 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
         horizontalRangeMarkers.addListener((InvalidationListener) observable -> layoutPlotChildren());
     }
 
-    //TODO: create a new marker class.
-
     /**
      * Adds two horizontal markers and color the area between them.
      *
      * @param marker the y coordinates (Y1,Y2) of the two horizontal markers, Y2 must be greater than Y1.
-     * @param color  fill the region within horizontal range marker with {@code Color} object.
+     * @param color  fills the region within horizontal range marker with {@code Color} object color.
      */
     public void addHorizontalRangeMarker(Data<Y, Y> marker, Color color) {
         requireNonNull(marker);
@@ -58,6 +58,9 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
         getPlotChildren().clear();
     }
 
+    /**
+     * Updates and layout the plot children (including horizontal range markers).
+     */
     @Override
     protected void layoutPlotChildren() {
         super.layoutPlotChildren();

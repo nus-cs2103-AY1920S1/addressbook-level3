@@ -2,11 +2,11 @@ package seedu.sugarmummy.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.sugarmummy.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
 import static seedu.sugarmummy.model.achievements.AchievementState.ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.YET_TO_ACHIEVE;
 import static seedu.sugarmummy.model.achievements.AchievementsMap.ACHIEVEMENTS_MAP;
+import static seedu.sugarmummy.model.motivationalquotes.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -28,35 +28,42 @@ import seedu.sugarmummy.model.achievements.AchievementStateProcessor;
 import seedu.sugarmummy.model.achievements.AchievementsMap;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.User;
-import seedu.sugarmummy.model.bio.UserList;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
+import seedu.sugarmummy.model.biography.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.foodrecommendations.FoodComparator;
+import seedu.sugarmummy.model.foodrecommendations.UniqueFoodList;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
-import seedu.sugarmummy.recmfood.model.Food;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
- * Represents the in-memory sugarmummy.recmfood.model of the SugarMummy data.
+ * Represents the in-memory sugarmummy.model of the SugarMummy data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
     private final FilteredList<User> filteredUserList;
-    private final UniqueFoodList foodList;
     private final UserList userList;
+
+    private final UniqueFoodList foodList;
     private final FilteredList<Food> filteredFoodList;
+
     private final UniqueRecordList recordList;
     private final FilteredList<Record> filteredRecordList;
+
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
+
     private final AverageMap averageMap;
     private final List<String> motivationalQuotesList;
     private final Map<RecordType, List<Achievement>> achievementsMap;
@@ -80,7 +87,7 @@ public class ModelManager implements Model {
         this.userList = new UserList(userList);
         this.filteredUserList = new FilteredList<>(this.userList.getUserList());
         this.foodList = foodList;
-        this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
+        this.filteredFoodList = new FilteredList<>(this.foodList.getUnmodifiableObservableList());
         this.recordList = recordList;
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
@@ -139,6 +146,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs)
+                && filteredUserList.equals(other.filteredUserList)
+                && filteredFoodList.equals(other.filteredFoodList)
                 && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }
@@ -300,7 +309,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Food> getFoodList() {
-        return foodList.asUnmodifiableObservableList();
+        return foodList.getUnmodifiableObservableList();
     }
 
     @Override
@@ -318,6 +327,23 @@ public class ModelManager implements Model {
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoodList.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return foodList.getMixedFoodList();
+    }
+
+    @Override
+    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
+    }
+
+    @Override
+    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
     }
 
     //=========== Records =============================================================

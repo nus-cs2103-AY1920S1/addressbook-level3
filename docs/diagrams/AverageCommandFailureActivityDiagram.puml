@@ -11,14 +11,14 @@ else ([else])
 endif
     :execute average command;
 if () then ([no data found])
-    :throw CommandException - no records found;
+    :displays error message - no records found;
 else ([else])
-    :Model calculates average;
+    :Model filters record list and calculates average;
     :Ui creates chart;
     :Ui displays graph to user;
 endif
 else ([invalid command])
-    :throw ParseException;
+    :displays error message - invalid command;
 endif
 
 stop

@@ -170,8 +170,10 @@ Search for all entries by providing keyword, time interval, type, venue or peopl
 
 Delete an event that you do not want to keep track anymore.
 
+//tag::personalisedUserExperience[]
 === PERSONALISED USER EXPERIENCE
 
+//tag::personalisedUserExperienceAchvmPppPart1[]
 ==== Show a list of all achievements the user has attained: `achvm`
 
 Format: `achvm`
@@ -184,6 +186,7 @@ would only be able to see, for each achievement, the corresponding picture that 
 achievement (eg. if a user has yet to achieve the achievement, he / she will only see a silhouette image of the
 character in the picture rather than the actual image. Achieving the achievement will allow the user to "unlock" its
 coloured image).
+//end::personalisedUserExperienceAchvmPppPart1[]
 
 For each record type, there are five levels of achievements available:
 
@@ -260,12 +263,14 @@ _personalised_ user experience :)
 
 The command word, as for all other commands, is not case-sensitive for convenience to user.
 
+//tag::personalisedUserExperienceBioPppPart1[]
 ==== Shows a page displaying the user profile of the user: `bio`
 
 Format: `bio`
 
 Displays a pane containing user information such as the user’s profile picture, name, NRIC, gender, date of birth,
 contact number, address and other biography information that the user would like to include.
+//end::personalisedUserExperienceBioPppPart1[]
 
 The pane first includes the user's name, profile picture and profile description, followed by biography information displayed in a table
 with the following fields:
@@ -316,8 +321,10 @@ the user via the application, to be corrupted. We don't want a situation such th
 replaced or relocated, the user loses all other biography data. As such, if `DP PATH` can no longer be loaded as an image,
 the default profile picture is used instead, and the user is notified that the display picture cannot be found.
 
+//tag::personalisedUserExperienceBioPppPart2[]
 If the biography file storing the biography information is deleted or cannot be found, a sample biography with the
 default profile picture is loaded instead.
+//end::personalisedUserExperienceBioPppPart2[]
 
 This command cannot have any sub-arguments, and thus, if the user enters `bio 1`, an error message will be displayed,
 as the user's intention may not have been necessarily to show the biography. Trailing spaces are automatically trimmed
@@ -326,10 +333,13 @@ and as such pose no issue.
 Upon loading, a message is included in the feedback display pane to remind users to keep their biography data safe.
 
 The command word, as for all all other commands, is not case-sensitive for convenience to user.
+//end::personalisedUserExperienceBioPart1[]
 
+//tag::personalisedUserExperienceAddBioPppPart1[]
 ==== Adds a biography for the user using specified fields: `addbio`
 
 Format: `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
+//end::personalisedUserExperienceAddBioPppPart1[]
 
 A user may add a biography if there isn't already an existing one stored in the application. This could occur if the
 storage file is corrupted (refer to above sub-section on `bio`), or if the user decides to clear the biography (refer to
@@ -346,13 +356,15 @@ diabetes, and the presence of a biography could be useful in times of emergency 
 could help them to recall important information. If a user has no biography saved, a message is shown in feedback
 display pane, encouraging them to create one.
 
-A user is allowed to add all the fields using the format above, in any order of fields to add the biography. In adding
-a biography, it is compulsory for the user to include the following information (i.e. should not be blank):
+A user is allowed to add all the fields using the format above, in any order of fields to add the biography.
+//tag::personalisedUserExperienceAddBioPppPart2[]
+In adding a biography, it is *compulsory* for the user to include the following information (i.e. should not be blank):
 
-* Name
-* Contact Number
-* Emergency Contact
-* Medical Condition
+* `NAME`
+* `CONTACT NUMBER`
+* `EMERGENCY CONTACT`
+* `MEDICAL CONDITION`
+//end::personalisedUserExperienceAddBioPppPart2[]
 
 Other information such as `NRIC` and `DATE OF BIRTH` are optional, as this depends on how willing the user is to provide
 information that is personal to them, and they can furthermore be added any time afterwards using the `editbio` command.
@@ -365,6 +377,7 @@ containing biography information is also deemed to be corrupted if it does not c
 biography will be loaded instead. If a user, however, does not have any medical conditions using this application, he
 or she may input "NIL". However, this is highly not recommended, especially for users who do have medical conditions.
 
+//tag::personalisedUserExperienceAddBioPppPart3[]
 A user can have more than one of the following types of fields:
 
 * Contact Number
@@ -374,6 +387,7 @@ A user can have more than one of the following types of fields:
 
 This means that a user can add multiple emergency contacts, for instance, by having more than one prefix for the
 argument in this form: `e/91234567` `e/98765432`.
+//end::personalisedUserExperienceAddBioPppPart3[]
 
 Other fields can only have one data value associated with it. If multiple fields of the same type are entered for
 fields other than the ones listed above, an error message is displayed to the user, along with the prefixes that the
@@ -419,18 +433,23 @@ Although the command word is not case-sensitive, its arguments are so as to mini
 what the program understands eg. `a/exampleAddress M/test` is understood differently to the program
 than `a/exampleAddress m/test` is. Ultimately, the user has a balance of convenience and flexibility.
 
+//tag::personalisedUserExperienceAddBioPppPart4[]
 Examples of *VALID* `addbio` commands, provided that a biography does not yet exist, include:
 
-* `addbio dp//Users/whneo97/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/2019-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `addbio dp//Users/bob/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/2019-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 * `addbio n/testMinimal p/91234567 e/81234567 m/testMedicalCondition`
+//end::personalisedUserExperienceAddBioPppPart4[]
 
+//tag::personalisedUserExperienceEditBioPppPart1[]
 ==== Edits a biography for the user using specified fields: `editbio`
 
 Format: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
 
 A biography can be edited only if one already exists. An error message will be shown to a user who attempts to use the
-`editbio` command to edit fields before a biography is added. As the fields used by `addbio` and `editbio` commands are
+`editbio` command to edit fields before a biography is added.
+//end::personalisedUserExperienceEditBioPppPart1[]
+As the fields used by `addbio` and `editbio` commands are
 identical and can appear in any order, a user who attempts to add a biography that does not yet exist using the `editbio`
 command, after receiving the error message, can simply amend `editbio` to `addbio` before re-entering the line of
 command, without having to re-enter all the fields. (this is, of course, with the exception that the fields do not
@@ -455,22 +474,25 @@ that the field should not be blank. The only way to remove compulsory fields is 
 (see `clrbio` section below) completely. Otherwise, so long as a biography exists, at least one value must be present
 for each compulsory field.
 
-Another key aspect of the `editbio` feature is that for fields that can take multiple values
+//tag::personalisedUserExperienceEditBioPppPart2[]
+A key aspect of the `editbio` feature is that for fields that can take multiple values
 (i.e. phone numbers, medical conditions and goals, as described in the `addbio` section above),
-indexes may be specified to edit (a) particular value(s) of the field.
+indices may be specified to edit (a) particular value(s) of the field.
 
 Take for instance the following phone numbers that are displayed in the user's biography table.
 
-. 91234567
-. 98765432
-. 81234567
+. `91234567`
+. `98765432`
+. `81234567`
 
 If the user intends to edit the second number in the list, he or she may input `editbio p/2/1234567` to change the second
-number in the list of phone numbers. Similarly, if he or she wishes to edit the first and third number,
+number in the list of phone numbers.
+//end::personalisedUserExperienceEditBioPppPart2[]
+Similarly, if he or she wishes to edit the first and third number,
 `editbio p/1/1234567 p/2/12121212` would be a valid line of command. Similar to other arguments, this can be combined
 with other arguments for fields to be edited (whether or not they allow for multiple values).
 
-It should be noted, however, that the indexes provided should be one based (i.e. starts from one) and positive integers
+It should be noted, however, that the indices provided should be one based (i.e. starts from one) and positive integers
 that are not out of bounds of the list. As such, still with reference to this example, `editbio p/4/1234567` is equally
 *INVALID* as `editbio p/0/1234567`, `editbio p/-1/1234567` and `editbio p/string/1234567' and an error message will be
 shown in each of these cases.
@@ -479,7 +501,7 @@ This way of entering commands is exclusive for fields that support multiple valu
 recognised for arguments of other fields such as name (i.e. `editbio n/1/testName` is invalid).
 
 However, fields that support multiple values may use *EITHER* the indexing format _or_ non-indexing format
-(i.e. format used by all other fields). When a sub-argument without indexes such as `p/1234567 p/98765432`, the program
+(i.e. format used by all other fields). When a sub-argument without indices such as `p/1234567 p/98765432`, the program
 automatically takes it that a replacement is to be made (i.e. values in the original list is replaced by the new values
 given). A combination of the two is however not allowed as it is ambiguous and will never likely be the intention of
 the user. As such `editbio p/1234567 p/1/2345678 p/23423423` will be *INVALID* and an error message will be given in the
@@ -523,22 +545,27 @@ Although the command word is not case-sensitive, its arguments are so as to mini
 what the program understands eg. `a/exampleAddress M/test` is understood differently to the program
 than `a/exampleAddress m/test` is. Ultimately, the user has a balance of convenience and flexibility.
 
+//tag::personalisedUserExperienceEditBioPppPart3[]
 Examples of *VALID* `editbio` commands, provided that a biography exists, include:
 
 * `editbio desc/hello world n/testName nric/testNric gender/testGender dob/12/12/2019 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 * `editbio dob/2019-12-28`
+//end::personalisedUserExperienceEditBioPppPart3[]
 * `editbio p/1234567 p/23456789`
 * `editbio p/1/234567 p/2/3456789`
 * `editbio m/medicalCondition1 m/medicalCondition2 m/medicalCondition3 m/medicalCondition4`
 * `editbio n/Hello World`
 
+//tag::personalisedUserExperienceClearBioPppPart1[]
 ==== Clears the biography of the user using: `clrbio`
 
 Format: `clrbio`
 
 A user may clear his or her biography using the `clrbio` command. If a biography exists, all data from all biography
 fields will be removed. If a biography does not exist, the user will be displayed a message that the biography is
-already empty and there is no biography information to clear. If a biography is successfully cleared, the
+already empty and there is no biography information to clear.
+//end::personalisedUserExperienceClearBioPppPart1[]
+If a biography is successfully cleared, the
 biography display pane with an empty biography table is shown to the user. A user cannot execute `editbio` after
 clearing the biography until another biography has been added using `addbio`.
 
@@ -551,6 +578,7 @@ and as such pose no issue.
 
 The command word, as for all all other commands, is not case-sensitive for convenience to user.
 
+//tag::personalisedUserExperienceFontColourPppPart1[]
 ==== Sets the font color of the text: `fontcolour` or `fontcolor`
 
 Formats:
@@ -560,19 +588,25 @@ Formats:
 * `fontcolour COLOUR`; or
 * `fontcolor COLOUR`; or
 * any of the above with `[bg/BACKGROUND ARGUMENTS]`
+//end::personalisedUserExperienceFontColourPppPart1[]
 
 To accomplish higher levels of personalisation, the user may select not only from a range of colours or standard colours,
 but _any_ colour. This means that a user can set a colour using *EITHER* colour names or hexadecimal values.
 
+//tag::personalisedUserExperienceFontColourPppPart2[]
 To set a colour of a font using a colour name, simply enter `fontcolour` (or the American spelling `fontcolor`;
 both are recognised by the program) followed by the intended name of the colour. For instance, one may enter:
-`fontcolour yellow` or `fontcolor skyblue`. So long as the colour names are within the 140+ colour
+`fontcolour yellow` or `fontcolor skyblue`.
+//end::personalisedUserExperienceFontColourPppPart2[]
+So long as the colour names are within the 140+ colour
 names recognised by CSS, the colours will be set accordingly on the user's application. If the colour is not recognised,
 the program attempts to interpret it as a hexadecimal value colour. Note that `transparent` is NOT a valid colour.
 
+//tag::personalisedUserExperienceFontColourPppPart3[]
 A colour may be set using its hexadecimal value provided it follows format beginning with a '#' followed byt six valid
 alphanumeric characters representing a hexadecimal colour. For instance, one may enter: `fontcolour #FFFF00`
 or `fontcolor #FFFF3A`.
+//end::personalisedUserExperienceFontColourPppPart3[]
 
 If a coloured entered belongs to neither categories of names nor hexadecimal values, an error message will be shown to
 the user in the feedback display panel.
@@ -605,8 +639,11 @@ set as the font colour as the text may get too difficult to read on screen. (eg.
 In such cases the user will be prompted to change the colour or image of the background first before proceeding with the change
 in font colour.
 
+//tag::personalisedUserExperienceFontColourPppPart4[]
 Alternatively, the user is allowed to change the font colour and background _simultaneously_ by combining the commands for
-font colour and background, using the `bg/` prefix. eg. fontcolour yellow bg/black. This allows the user to not only
+font colour and background, using the `bg/` prefix. eg. fontcolour yellow bg/black.
+//end::personalisedUserExperienceFontColourPppPart4[]
+This allows the user to not only
 save time but also make contrasting changes in colours which would otherwise have been difficult to achieve. For
 instance, a user intending to change the font colour from white to black with a current dark background will benefit
 from this feature as sequentially changing switching to a light background or dark font colour would be impossible.
@@ -616,8 +653,11 @@ This program does not implement a command to clear a font colour due to its redu
 the font colour may simply change the colour to his or her preference, or use generic colours by keying in
 `fontcolour black` (or `fontcolor black`) along with a white background.
 
+//tag::personalisedUserExperienceFontColourPppPart5[]
 A user is also allowed to key in `fontcolour`  (or `fontcolor`) on its own and the program having received this will
-display the current font colour settings in the feedback display pane. This allows the user to view the current settings
+display the current font colour settings in the feedback display pane.
+//end::personalisedUserExperienceFontColourPppPart5[]
+This allows the user to view the current settings
 of the font colour without having to use the `bio` command to navigate to the biography display pane.
 
 The command word, as for all all other commands, is not case-sensitive for convenience to user. The colour entered for
@@ -625,20 +665,23 @@ both colour names and hexadecimal values are also not case sensitive, as the pos
 lower as compared to sub-arguments of commands such as `editbio`, or `add`. As such, convenience is prioritised for the
 user for this command and both `fonTColour yElLoW` and `fONtColOur #fFFf00` will work.
 
+//tag::personalisedUserExperienceFontColourPppPart6[]
 Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 
 * `fontcolour lime`
 * `fontcolor indigo`
 * `fontcolour #202020`
+//end::personalisedUserExperienceFontColourPppPart6[]
 * `fontcolor #000000`
 * `fontcolour`
 * `fontcolor`
 * `fONTCOLOUr wHITE`
 * `foNTcoLOr #FFffFf`
 * `fontcolour yellow bg/black`
-* `fontcolor yellow bg//Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg s/cover`
+* `fontcolor yellow bg//Users/bob/Desktop/SpaceModified.jpg s/cover`
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 
+//tag::personalisedUserExperienceBgPppPart1[]
 ==== Sets the background picture using a specified file path: `bg`
 
 Formats:
@@ -653,7 +696,8 @@ Users are allowed to set the background either using a `COLOUR` or a `PATH` to a
 
 The `COLOUR` argument of the background works in exactly the same way as described in the `fontcolour` or (`fontcolor`)
 sub-section above, except that command word used is now `bg` instead of `fontcolour` (or `fontcolor`).
-i.e. a user may enter`bg blue` or bg `#202020` to set the background image.
+i.e. a user may enter `bg blue` or `bg #202020` to set the background image.
+//end::personalisedUserExperienceBgPppPart1[]
 
 Just as for the `fontcolour` (or `fontcolor`) command, upon successful execution of the `bg` command with `COLOUR`,
 the colour would be applied universally and instantaneously, from the backgrounds of scrollpanes to the backgrounds of
@@ -675,11 +719,17 @@ the `background` and `fontcolour` (or `fontcolor`) are reset to its default aest
 By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
 respectively.
 
-In addition to specifying a `COLOUR`, a user may also specify a `PATH` for background image. This works similarly to
-the `dp` argument of the `addbio` or `editbio` commands. The program first interprets the given argument as a `COLOUR`,
-and if it fails at doing so, attempts to interpret is a a `PATH` for an image. If the image given has an invalid path
-or cannot be loaded as an image, an error message is shown to the user. Thus, file paths have to be valid paths in order
-for the command to proceed.
+//tag::personalisedUserExperienceBgPppPart2[]
+In addition to specifying a `COLOUR`, a user may also specify a `PATH` for background image.
+//end::personalisedUserExperienceBgPppPart2[]
+This works similarly to the `dp` argument of the `addbio` or `editbio` commands.
+The program first interprets the given argument as a `COLOUR`, and if it fails at doing so, attempts to interpret is a a
+`PATH` for an image.
+//tag::personalisedUserExperienceBgPppPart3[]
+If the image given has an invalid path or cannot be loaded as an image, an error message is shown
+to the user.
+//end::personalisedUserExperienceBgPppPart3[]
+Thus, file paths have to be valid paths in order for the command to proceed.
 
 Optional prefixes `s/` and `r/` also allow the user to change the size and repeat attributes of the background image
 respectively. Currently, for both prefixes, the sub-arguments allow only for predefined values known to CSS.
@@ -777,23 +827,29 @@ in a way that the device recognises (eg. double backslash for Windows instead of
 Font colours and backgrounds can be changed independently and sequentially. As such, high customisation is possible,
 with the user having the freedom to choose any combination of font colours and background colours / images desired.
 
+//tag::personalisedUserExperienceBgPppPart4[]
 Examples of *VALID* `bg` commands:
 
 * `bg lime`
 * `bg indigo`
 * `bg #202020`
+//end::personalisedUserExperienceBgPppPart4[]
 * `bg #000000`
 * `bg`
 * `Bg wHITE`
 * `bG #FFffFf`
-* `bg /Users/whneo97/Desktop/doge.png s/auto`
-* `bg /Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg`
+* `bg /Users/bob/Desktop/doge.png s/auto`
+//tag::personalisedUserExperienceBgPppPart5[]
+* `bg /Users/bob/Desktop/SpaceModified.jpg`
+//end::personalisedUserExperienceBgPppPart5[]
 * `bg s/cover` (if background is already a background image)
 * `bg r/no-repeat s/contain` (if background is already a background image)
 * `bg black fontcolor/#FFFF00`
-* `bg /Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg s/cover fontcolour/yellow`
+* `bg /Users/bob/Desktop/SpaceModified.jpg s/cover fontcolour/yellow`
 
+//tag::personalisedUserExperienceBgPppPart6[]
 (Note: For each of the examples with paths above, it is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
+//end::personalisedUserExperienceBgPppPart6[]
 
 ==== Displays a motivational quote: `[no action required]`
 
@@ -839,73 +895,84 @@ Allows users to save goals in a certain format such the program will be able to 
 Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they
 have worked towards their goal(s)). Users may also set reminders to remind them of their goal and receive timely
 feedback.
+//end::personalisedUserExperience[]
 
-=== DATA ANALYSIS
+// tag::average[]
+=== DATA SUMMARY/ANALYSIS
 
-==== Display the daily/weekly/monthly average of records in a line graph: `average`
+==== Displays the daily/weekly/monthly average of records in a line graph: `average`
 
 Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
 
 AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
 RECORD_TYPE is either "bloodsugar" or "bmi". +
-Displays a graph of the "daily"/"weekly"/"monthly" average of a particular RECORD_TYPE.
-COUNT is an integer between 1 to 9 inclusive. +
-If COUNT is given, SugarMummy shows __up to__ COUNT most recent number of average values.
-Else, COUNT is set to 5 by default and show most recent 5 average values.
+Displays a graph of the "daily", "weekly" or "monthly" average of a particular RECORD_TYPE. +
+COUNT is an optional field that takes integer between 1 to 12 inclusive. +
+If COUNT is given, SugarMummy shows **up to** COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
-NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
+NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
 that means you do not have enough records in the database.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
-Shows the latest 5 weekly average of blood sugar records.
+Shows the 5 latest weekly average of blood sugar records.
 
 Example usage 2: `average a/daily rt/bmi n/9`:
-Shows the latest 9 weekly average of BMI records.
+Shows the 9 latest daily average of BMI records.
 
 
-==== Display interesting statistics: `summary` `[coming in v1.4]`
+==== Summary statistics of a particular record type `[coming in v2.0]`
 
-Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
-in pie chart.
+Shows minimum, maximum, average of a record type. Categorizes records into low, normal
+and high values in a pie chart. User can specify the date interval of the summary by giving
+a start date and end date.
 
-Format: `summary rt/RECORD_TYPE [d/START_DATE]`
+==== Shows relationship between record types: `[coming in v2.0]`
 
-If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
-Else, statistics will be based on all data.
+User can see how a particular record type changes with other record types.
+This information will be displayed on a scatter plot where trends can be spotted
+easily. Note that this feature will work well only if
 
-==== Export summary of all medical records into pdf: `export` `[coming in v2.0]`
+. You have records for both record types in any given day.
+. You have more than 50 days worth of records.
 
+==== Exports summary of all medical records into pdf `[coming in v2.0]`
 
-Format: `export [d/START_DATE]`
-
-If START_DATE is given, summary from START_DATE to the current date will be exported.
-Else, summary of all data will be exported.
+Need to share your records with your doctor or others? With SugarMummy export function,
+you can save any graphs and plots generated in a pdf file.
+// end::average[]
 
 === Food Recommendation
 
 ==== Recommending food: `recmf`
 
 Recommends some medically suggested foods for type II diabetes patients. +
-To make searching more efficient, the user can specify two kinds of filters:
+To make searching more efficient, the user can specify two kinds of filters and one sorting order:
+
+***
 
 * food type: in the form of following flags:
 
-    -nsv: non-starchy vegetable, such as broccoli
+====
+*-nsv*: non-starchy vegetable, such as broccoli
 
-    -sv: starchy vegetable, such as potato
+*-sv*: starchy vegetable, such as potato
 
-    -f: fruit, such as cherry
+*-f*: fruit, such as cherry
 
-    -p: protein, such as lean lamb
+*-p*: protein, such as lean lamb
 
-    -s: snack, such fig roll
+*-s*: snack, such fig roll
 
-    -m: meal, such as spanish omelet
+*-m*: meal, such as spanish omelet
+====
 
 Note::
 ** Flags are case-insensitive.
 ** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
 ** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+
+***
 
 * food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
 
@@ -914,11 +981,46 @@ Note::
 ** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
 ** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
 
+***
+
+* Sorting order: in the form of only one of the following two types:
+
+** `+sort/SORT_ORDER_TYPE`: sort the recommendations in ascending order based on the specified `SORT_ORDER_TYPE`
+*** Sort order type: in the form of any of the following six types:
++
+`fn`: food name, `ft`: food type, `ca`: calorie, `gi`: glycemic index, `su`: sugar, `fa`: fat
+** `-sort/SORT_ORDER_TYPE`: sort the recommendations in descending order
+
+[]
+NOTE::
+** `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE` cannot be both present even though they may be with different
+`SORT_ORDER_TYPE`.
+** Only exactly one valid sort order type will be accepted after the sorting prefix.
+** Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.
+**
+
+***
+
 Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 
 Examples:
 
 `recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
+
+==== Recommending food combination: `recmfmix`
+
+Recommends one food from each type to the user. The nutrition values of all the recommended foods will be summarized as a
+separate food card appended to the end.
+
+Note::
+** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+** If any of the summary data is decimals, it will be formatted into two decimal places.
+** Please note the GI (glycemic index) is the average among all foods instead of total sum. This For more information about
+GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link]
+
+Format: `recmfmix`
+
+Example: `recmfmix`
 
 ==== Adding new food items : `addfood`
 
@@ -943,8 +1045,8 @@ Fat should be less than 35(g) to be considered as safe for type II diabetes pati
 
 Note::
 ** No duplicate food names are allowed.
-** All nutrition values are numerical values and should be equal or greater than zero.
-Besides, the values are suggested to be per serving.
+** All nutrition values are numerical values. Such value should be equal or greater than zero and contain no more than four
+decimals. Besides, the values are suggested to be normalized as per serving for more useful value comparisons and calculations.
 ** The order of fields is flexible.
 ** Duplicate fields are allowed and only the last one will be considered. Therefore, the last occurrence must be in
 valid format for the command to be executed.
@@ -953,6 +1055,18 @@ Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
 `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
+
+==== Resetting food data: `resetf`
+
+Cleans all the modifications on the foods done by the user, such as deleting newly added foods. Namely, the recommendations will
+be based on the originally pre-loaded food data.
+
+Note::
+** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+
+Format: `resetf`
+
+Example: `resetf`
 
 === Other Common Features
 
@@ -1049,8 +1163,6 @@ E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
-. *Summary*: `summary rt/RECORD_TYPE [d/START_DATE]`
-E.g `summary rt/bloodsugar d/01.09.2019`
 
 == FAQ
 
@@ -1058,3 +1170,6 @@ E.g `summary rt/bloodsugar d/01.09.2019`
 How should I save my data?::
 SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+[qanda]
+How should I reset all the data?::
+You can simply delete the data file within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.

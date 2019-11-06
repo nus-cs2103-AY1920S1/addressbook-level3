@@ -13,16 +13,16 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.Model;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
-import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.achievements.Achievement;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.User;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
+import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -62,9 +62,15 @@ public interface Logic {
      */
     ObservableList<Food> getFilterFoodList();
 
+    /**
+     * Returns an unmodifiable view of the mix of foods from each food type.
+     */
+    ObservableList<Food> getMixedFoodList();
+
     ObservableList<Record> getRecordList();
 
     ObservableList<Record> getFilterRecordList();
+
 
     /**
      * Returns the user prefs' GUI settings.
@@ -144,7 +150,8 @@ public interface Logic {
     SimpleStringProperty getRecordType();
 
     /**
-     * Returns a {@code Map} object that maps time period to the respective average values.
+     * Returns an unmodifiable view of the map of average values with key being the time period and
+     * key being the average value.
      */
     ObservableMap<LocalDate, Double> getAverageMap();
 

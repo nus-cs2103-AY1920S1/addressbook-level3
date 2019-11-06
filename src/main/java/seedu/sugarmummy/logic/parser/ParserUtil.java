@@ -2,7 +2,10 @@ package seedu.sugarmummy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_POSSIBLE_AVERAGE_TYPE;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_POSSIBLE_RECORD_TYPE;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
+import static seedu.sugarmummy.logic.commands.statistics.AverageCommand.MESSAGE_INVALID_AVGTYPE;
 
 import java.awt.Image;
 import java.io.File;
@@ -18,28 +21,28 @@ import javax.imageio.ImageIO;
 
 import seedu.sugarmummy.commons.core.index.Index;
 import seedu.sugarmummy.commons.util.StringUtil;
-import seedu.sugarmummy.logic.commands.AverageCommand;
 import seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand;
+import seedu.sugarmummy.logic.commands.statistics.AverageCommand;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.Address;
-import seedu.sugarmummy.model.bio.DateOfBirth;
-import seedu.sugarmummy.model.bio.DisplayPicPath;
-import seedu.sugarmummy.model.bio.Gender;
-import seedu.sugarmummy.model.bio.Goal;
-import seedu.sugarmummy.model.bio.MedicalCondition;
-import seedu.sugarmummy.model.bio.Name;
-import seedu.sugarmummy.model.bio.Nric;
-import seedu.sugarmummy.model.bio.OtherBioInfo;
-import seedu.sugarmummy.model.bio.Phone;
-import seedu.sugarmummy.model.bio.ProfileDesc;
+import seedu.sugarmummy.model.biography.Address;
+import seedu.sugarmummy.model.biography.DateOfBirth;
+import seedu.sugarmummy.model.biography.DisplayPicPath;
+import seedu.sugarmummy.model.biography.Gender;
+import seedu.sugarmummy.model.biography.Goal;
+import seedu.sugarmummy.model.biography.MedicalCondition;
+import seedu.sugarmummy.model.biography.Name;
+import seedu.sugarmummy.model.biography.Nric;
+import seedu.sugarmummy.model.biography.OtherBioInfo;
+import seedu.sugarmummy.model.biography.Phone;
+import seedu.sugarmummy.model.biography.ProfileDesc;
 import seedu.sugarmummy.model.calendar.Description;
 import seedu.sugarmummy.model.calendar.Repetition;
-import seedu.sugarmummy.model.record.Concentration;
-import seedu.sugarmummy.model.record.Height;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.record.Weight;
+import seedu.sugarmummy.model.records.Concentration;
+import seedu.sugarmummy.model.records.Height;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.records.Weight;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.time.DateTime;
 import seedu.sugarmummy.model.time.TimeDuration;
@@ -64,7 +67,8 @@ public class ParserUtil {
         try {
             return RecordType.valueOf(trimmedRType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException("System does not accommodate such a record type.");
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER,
+                    AverageCommand.MESSAGE_INVALID_RECORD_TYPE, MESSAGE_POSSIBLE_RECORD_TYPE));
         }
     }
 
@@ -80,8 +84,8 @@ public class ParserUtil {
         try {
             return AverageType.valueOf(trimmedAverageType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER,
+                    MESSAGE_INVALID_AVGTYPE, MESSAGE_POSSIBLE_AVERAGE_TYPE));
         }
     }
 
@@ -349,7 +353,7 @@ public class ParserUtil {
         if (otherInfo.isPresent()) {
             requireNonNull(otherInfo);
             String trimmedOtherInfo = otherInfo.get().trim();
-            if (!OtherBioInfo.isValidOtherInfo(trimmedOtherInfo)) {
+            if (!OtherBioInfo.isValidOtherBioInfo(trimmedOtherInfo)) {
                 throw new ParseException(OtherBioInfo.MESSAGE_CONSTRAINTS);
             }
             return new OtherBioInfo(trimmedOtherInfo);

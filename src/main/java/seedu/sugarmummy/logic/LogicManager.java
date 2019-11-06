@@ -18,16 +18,16 @@ import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.logic.parser.SugarMummyParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.Model;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
-import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.achievements.Achievement;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.User;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
+import seedu.sugarmummy.model.foodrecommendations.Food;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.storage.Storage;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.isToCreateNewPane();
         commandResult = command.execute(model);
 
         try {
@@ -104,6 +104,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Food> getFilterFoodList() {
         return model.getFilterFoodList();
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return model.getMixedFoodList();
     }
 
     //=========== Record List =============================================================
@@ -180,6 +185,7 @@ public class LogicManager implements Logic {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return model.getAverageMap();
     }
+
     //=========== Aesthetics =============================================================
 
     @Override
