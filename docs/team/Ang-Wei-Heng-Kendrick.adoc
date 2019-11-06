@@ -31,7 +31,7 @@ the existing code base. The implementation too was challenging as it required ch
 designed such that enhancements could be easily added.
 ** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
