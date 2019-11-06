@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.BudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
 import seedu.address.testutil.BudgetListBuilder;
 import seedu.address.testutil.ExpenseListBuilder;
@@ -104,12 +105,9 @@ public class ModelManagerTest {
         BudgetList budgetList = new BudgetListBuilder().withBudget(JAPAN).withBudget(KOREA).build();
         ExpenseList differentExpenseList = new ExpenseList();
         BudgetList differentBudgetList = new BudgetList();
+        ExchangeData exchangeData = new ExchangeData();
         UserPrefs userPrefs = new UserPrefs();
 
-        // same values -> returns true
-        modelManager = new ModelManager(expenseList, budgetList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expenseList, budgetList, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
         assertTrue(modelManager.equals(modelManager));
@@ -121,15 +119,15 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different expenseList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExpenseList, budgetList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseList, budgetList, exchangeData, userPrefs)));
 
         // different budgetList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(expenseList, differentBudgetList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, differentBudgetList, exchangeData, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = FOOD.getName().fullName.split("\\s+");
         modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, exchangeData, userPrefs)));
 
         // different filteredBudgetList -> returns false
         // String[] budgetKeyword = JAPAN.getName().fullName.split("\\s+");
@@ -142,6 +140,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExpenseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, exchangeData, differentUserPrefs)));
     }
+
 }

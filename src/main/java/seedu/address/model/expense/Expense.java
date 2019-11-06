@@ -1,8 +1,10 @@
 package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +15,7 @@ import seedu.address.model.tag.Tag;
  * Represents an expense in the expense list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Expense {
+public class Expense implements Comparable<Expense> {
 
     // Identity fields
     private final Name name;
@@ -40,8 +42,17 @@ public class Expense {
         return name;
     }
 
+    public Amount getConvertedAmount() {
+        double convertedAmount = amount.getValue() / currency.getRate();
+        return new Amount(String.format("%.2f", convertedAmount));
+    }
+
     public Amount getAmount() {
         return amount;
+    }
+
+    public boolean isForeign() {
+        return !currency.value.equals(DEFAULT_BASE_CURRENCY);
     }
 
     public Currency getCurrency() {
@@ -99,6 +110,17 @@ public class Expense {
     }
 
     @Override
+    public int compareTo(Expense other) {
+        if (date.localDate.isBefore(other.getDate().localDate)) {
+            return -1;
+        } else if (date.localDate.isAfter(other.getDate().localDate)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, amount, currency, date, tags);
@@ -108,14 +130,24 @@ public class Expense {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
-            .append(getName())
-            .append(" ")
-            .append(getAmount())
+            .append("Name: " + getName())
+            .append("\n")
+            .append("Amount: " + getAmount())
             .append(" " + getCurrency())
             .append("\n")
-            .append(getDate())
+            .append("Date: " + getDate())
             .append("\n");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Return Comparator to sort data automatically
+     */
+    public static class SortByDate implements Comparator<Expense> {
+
+        public int compare(Expense a, Expense b) {
+            return a.compareTo(b);
+        }
     }
 }

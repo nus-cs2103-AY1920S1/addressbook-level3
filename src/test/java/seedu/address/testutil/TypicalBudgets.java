@@ -12,9 +12,9 @@ import seedu.address.model.budget.BudgetList;
  */
 public class TypicalBudgets {
 
-    public static final Budget KOREA = new BudgetBuilder().withName("Korea Trip").withAmount("$3000")
+    public static final Budget KOREA = new BudgetBuilder().withName("Korea Trip").withAmount("3000")
             .withStartDate("5/1/2019").withEndDate("9/1/2019").build();
-    public static final Budget JAPAN = new BudgetBuilder().withName("Japan Travel").withAmount("$5000")
+    public static final Budget JAPAN = new BudgetBuilder().withName("Japan Travel").withAmount("5000")
             .withStartDate("14/6/2019").withEndDate("23/6/2019").build();
     public static final Budget FRANCE = new BudgetBuilder().withName("France Fun").withAmount("8000")
             .withStartDate("23/4/2019").withEndDate("11/5/2019").build();

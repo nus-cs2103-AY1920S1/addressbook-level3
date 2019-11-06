@@ -9,9 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount should contain numbers, 1-12 digits and it may have a "
-        + "prefix of currency sign" + "and it should not be blank";
-    public static final String VALIDATION_REGEX = "[\\p{Sc}]?[\\d]{1,12}[.]??[\\d]{0,2}";
+    public static final String MESSAGE_CONSTRAINTS = "Amount should should not be blank, may"
+        + " contain numbers, up to 14 digits and 2 decimal places. No currency prefix is needed and"
+        + " amount cannot be 0 or negative";
+    public static final String VALIDATION_REGEX = "[\\d]{1,12}[.]??[\\d]{0,2}";
 
     public final String value;
 
@@ -23,19 +24,22 @@ public class Amount {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        value = amount;
-        //TODO: Remove $ from requirement or standaraize all displays with $.
+        value = convertToTwoDecimal(amount);
     }
 
     /**
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) != 0.0;
     }
 
     public double getValue() {
         return Double.parseDouble(value.replaceAll("[^\\d.]", ""));
+    }
+
+    public String convertToTwoDecimal(String value) {
+        return String.format("%.2f", Double.parseDouble(value));
     }
 
     @Override

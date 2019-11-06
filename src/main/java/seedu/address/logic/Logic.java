@@ -9,6 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -34,14 +36,41 @@ public interface Logic {
     ReadOnlyExpenseList getExpenseList();
 
     /**
+     * Returns an unmodifiable view of the list of expenses
+     */
+    ObservableList<Expense> getExpenses();
+
+    /**
      * Returns an unmodifiable view of the filtered list of expenses
      */
     ObservableList<Expense> getFilteredExpenseList();
 
     /**
+     * Returns an unmodifiable view of the filtered list of all expenses including those in budgets
+     */
+    //    ObservableList<Expense> getFilteredFullExpenseList();
+
+    /**
      * Returns the user prefs' expense list file path.
      */
     Path getExpenseListFilePath();
+
+    /**
+     * Returns the BudgetList.
+     *
+     * @see Model#getBudgetList()
+     */
+    ReadOnlyBudgetList getBudgetList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of budgets
+     */
+    ObservableList<Budget> getFilteredBudgetList();
+
+    /**
+     * Returns the user prefs' budget list file path.
+     */
+    Path getBudgetListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -52,4 +81,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    ObservableList<Expense> updateExpenses();
 }

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.expense.Expense;
 
 
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Textbook "
-            + PREFIX_AMOUNT + "$23.50 "
+            + PREFIX_AMOUNT + "23.50 "
             + PREFIX_CURRENCY + "USD "
             + PREFIX_DATE + "1245 "
             + PREFIX_TAG + "education "
@@ -56,6 +57,7 @@ public class AddCommand extends Command {
         }
 
         model.addExpense(toAdd);
+        model.setViewState(ViewState.DEFAULT_EXPENSELIST);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

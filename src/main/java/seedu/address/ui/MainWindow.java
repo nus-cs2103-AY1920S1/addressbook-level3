@@ -32,8 +32,12 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ExpenseListPanel expenseListPanel;
+    private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsDisplay statsDisplay;
+
+    private String displayExpenseBudget;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +46,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane expenseListPanelPlaceholder;
+    private StackPane leftListPanelPlaceHolder;
+
+    @FXML
+    private StackPane rightListPanelPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane statsDisplayPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -109,13 +119,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+
+        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
+        rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statsDisplay = new StatsDisplay();
+        statsDisplay.setDisplayData(logic.getFilteredExpenseList());
+        statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
+
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
+        //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -165,6 +182,10 @@ public class MainWindow extends UiPart<Stage> {
         return expenseListPanel;
     }
 
+    public BudgetListPanel getBudgetListPanel() {
+        return budgetListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -175,6 +196,28 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            displayExpenseBudget = commandText.split(" ")[0];
+
+            if (commandResult.getExpenseList() != null && commandResult.getBudgetList() == null) {
+                expenseListPanel = new ExpenseListPanel(commandResult.getExpenseList());
+                rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                if (commandResult.getBudget() != null) {
+                    statsDisplay.setDisplayDataBudget(commandResult.getExpenseList(), commandResult.getBudget());
+                } else {
+                    statsDisplay.setDisplayData(commandResult.getExpenseList());
+                }
+            } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
+                budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
+                rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
+            } else {
+                statsDisplay.setDisplayData(logic.getFilteredExpenseList());
+            }
+
+            //TODO: remove this hack
+            expenseListPanel = new ExpenseListPanel(logic.updateExpenses());
+            leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+            //            statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
