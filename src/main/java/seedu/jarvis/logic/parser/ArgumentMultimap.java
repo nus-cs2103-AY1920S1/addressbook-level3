@@ -76,13 +76,4 @@ public class ArgumentMultimap {
         return false;
     }
 
-    /**
-     * Retrieves the set of prefixes parsed from the user input
-     * @return a set of {@code Prefix}
-     */
-    //TODO test
-    public Set<Prefix> getPrefixSet() {
-        return argMultimap.keySet();
-    }
-
 }
