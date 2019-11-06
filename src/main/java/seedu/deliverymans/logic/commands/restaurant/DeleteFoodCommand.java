@@ -2,20 +2,13 @@ package seedu.deliverymans.logic.commands.restaurant;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.food.Food;
-import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
