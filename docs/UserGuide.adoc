@@ -261,8 +261,7 @@ You can specify one or more attributes to change, but at least one valid attribu
 Format: `update -FLAG /id id [/attributeName attributeValue ...]`
 
 
-|===
-| :bulb: a|
+
 When you update the `fridgeId` of a `Body`, changes to the fridges will be made as follows:
 
 * Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `Body`.
@@ -273,7 +272,6 @@ When you update the status of a `Body` to `CONTACT_POLICE`, the `Notif` associat
 
 When you update `bodyStatus` to `ARRIVED`, a `Notif` pop-up will be shown after 10 seconds.
 
-|===
 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
@@ -341,14 +339,13 @@ Finds bodies or workers whose names contain any of the given keywords. +
 
 Format: `find (flag) (keyword)...`
 
-|===
-| :bulb: a|
+[TIP]
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-|===
+
 
 Format: `find -FLAG [keyword...]`
 
@@ -370,10 +367,9 @@ You can delete a body, worker or fridge entry, using its Identification Number. 
 
 Format: `delete -FLAG  id`
 
-|===
-| :bulb: a| When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
-|===
 
+[TIP]
+When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
 
 * Deletes the body, worker or fridge entry with the specified identification number.
 
@@ -467,8 +463,6 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-|===
-|:bulb: a|
 Only commands that change Mortago's data can be undone. The `add`, `update`, `clear`, and `delete` commands can be undone.
 Commands like `list` or `find` cannot be undone.
 
@@ -476,9 +470,6 @@ You can `undo` a `clear` command, but note that you cannot redo any past undone 
 
 Automated commands like changes caused by a `Notif` can be undone and redone. For example, the automatic
 status change of a `Body` from `ARRIVED` to `CONTACT_POLICE` can be undone.
-
-
-|===
 
 Example: +
 Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!

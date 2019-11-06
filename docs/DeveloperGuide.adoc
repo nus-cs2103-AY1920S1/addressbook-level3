@@ -467,7 +467,8 @@ The following activity diagram shows what happens when a user adds a new body an
 image::NotifCommandActivityDiagram.png[]
 
 |===
-|:bulb: *Is `NotifCommand` only executed when a `Body` is added?*
+a|[TIP]
+*Is `NotifCommand` only executed when a `Body` is added?*
 a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` is still
 executed. The `Notif` is scheduled to be executed after the specified `period` from the point in time when the
 status of the body was updated.
@@ -481,10 +482,9 @@ changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be ex
 
 |===
 
-|:bulb: *When is the `NotifComand` not executed?*
-
+a|[TIP]
+*When is the `NotifCommand` not executed?*
 a|* If the status of the `Body` is changed before the 10 second window.
-
 * If the `Body` is deleted before the time period.
 
 |===
