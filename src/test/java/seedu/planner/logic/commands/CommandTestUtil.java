@@ -42,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_TWENTY = "20";
     public static final String VALID_COST_HUNDRED = "100";
     public static final String VALID_COST_TWO_HUNDRED = "200";
+    public static final String VALID_ACTIVITY_COUNT = "6";
 
 
 

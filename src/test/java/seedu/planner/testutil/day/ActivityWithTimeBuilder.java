@@ -7,7 +7,7 @@ import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.testutil.activity.TypicalActivity;
 
 /**
- * A utility class to help with building Contact objects.
+ * A utility class to help with building ActivityWithTime objects.
  */
 public class ActivityWithTimeBuilder {
 
