@@ -1,4 +1,8 @@
 @startuml
+!include ClassDiagramStyle.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 
 abstract class Command
 
@@ -11,14 +15,17 @@ execute(model : Model) : CommandResult
 
 class CommandResult {
 showStats : boolean
+type : Type
 isShowStats() : boolean
 setType(type : Type)
 getType() : Type
 }
 
 enum Type {
-CHART
+STATS
 QUESTIONS
+REPORT
+OVERVIEW
 }
 
 @enduml
