@@ -30,7 +30,7 @@ public class MemberListPanel extends UiPart<Region> {
         super(FXML);
         ObservableList<IndivMemberCard> memberCards = FXCollections.observableArrayList();
 
-        for (int i=0; i<memberList.size(); i++) {
+        for (int i = 0; i < memberList.size(); i++) {
             Member memberInvolved = memberList.get(i);
 
             ArrayList<Task> specificTasks = new ArrayList<>();
@@ -40,7 +40,7 @@ public class MemberListPanel extends UiPart<Region> {
                 }
             }
 
-            IndivMemberCard memberCard = new IndivMemberCard(memberInvolved, i+1,  specificTasks);
+            IndivMemberCard memberCard = new IndivMemberCard(memberInvolved, i + 1, specificTasks);
             memberCards.add(memberCard);
         }
 

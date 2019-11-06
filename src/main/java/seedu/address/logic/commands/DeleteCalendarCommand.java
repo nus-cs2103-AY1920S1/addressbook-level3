@@ -6,11 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.CalendarWrapper;
-import seedu.address.model.calendar.exceptions.CalendarNotFoundException;
 import seedu.address.model.member.MemberName;
 
 /**
@@ -19,6 +17,7 @@ import seedu.address.model.member.MemberName;
 public class DeleteCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-calendar";
+    public static final String PREFIX_USAGE = PREFIX_MEMBER_NAME.getPrefix();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the calendar identified by the member name used when adding the calendar.\n"
@@ -38,7 +37,7 @@ public class DeleteCalendarCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<CalendarWrapper>calendarWrapperList = model.getFilteredCalendarList();
+        List<CalendarWrapper> calendarWrapperList = model.getFilteredCalendarList();
 
         for (CalendarWrapper calendar : calendarWrapperList) {
             if (calendar.hasMemberName(calendarMemberName)) {

@@ -4,10 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,7 +23,6 @@ import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
-import seedu.address.model.mapping.UniqueInvMemMappingList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
@@ -539,4 +537,13 @@ public class ModelManager implements Model {
     public void setClockFormat(ClockFormat newClockFormat) {
         userSettings.setClockFormat(newClockFormat);
     }
+
+    // ====================== Util methods ======================================================================
+
+    @Override
+    public void updateData() {
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+    }
+
 }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
@@ -12,12 +11,12 @@ import seedu.address.model.task.Task;
 
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the project.
  */
 public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add-task";
-    public static final String PREFIX_USAGE = "tn/ s/ tt/";
+    public static final String PREFIX_USAGE = PREFIX_TASK_NAME + "  "+ PREFIX_TASK_STATUS + "  " + PREFIX_TASK_TAG;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "

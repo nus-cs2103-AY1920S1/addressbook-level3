@@ -18,7 +18,7 @@ import seedu.address.model.task.Task;
 
 public class FireCommand extends Command {
     public static final String COMMAND_WORD = "fire";
-    public static final String PREFIX_USAGE = "ti/ mi/";
+    public static final String PREFIX_USAGE = PREFIX_TASK_INDEX +  " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a member indicated "
             + "by the index number used in the displayed task list, from the task indicated "
@@ -37,7 +37,7 @@ public class FireCommand extends Command {
     private final MemberId memberId;
 
     /**
-     * @param taskId of the task in the filtered task list to be added to member
+     * @param taskId   of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
     public FireCommand(Index taskId, MemberId memberId) {

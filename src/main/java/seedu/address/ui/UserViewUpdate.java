@@ -6,7 +6,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Communicates with {@code UserViewManager} to update the view based on user's command.
  * Updates each time a command is executed to refresh data.
- *
  */
 public class UserViewUpdate {
 
@@ -36,8 +35,7 @@ public class UserViewUpdate {
 
         paneToRender.getChildren().clear();
 
-        switch(preamble) {
-
+        switch (preamble) {
         case "add-task":
 
         case "list-tasks":
@@ -98,10 +96,9 @@ public class UserViewUpdate {
             break;
 
 
-
         case "member-stats":
-           paneToRender.getChildren().add(userViewMain.loadMemberStats());
-           break;
+            paneToRender.getChildren().add(userViewMain.loadMemberStats());
+            break;
 
 
         case "task-stats":
@@ -134,6 +131,8 @@ public class UserViewUpdate {
 
         case "help":
             paneToRender.getChildren().add(userViewMain.loadHelpView());
+            break;
+
         default:
             // show nothing (only exit has no case)
         }

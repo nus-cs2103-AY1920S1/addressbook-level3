@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -10,8 +9,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,9 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
@@ -49,13 +44,13 @@ import seedu.address.testutil.MemberBuilder;
 public class AddInventoryCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddInventoryCommand(null,null,null));
+        assertThrows(NullPointerException.class, () -> new AddInventoryCommand(null, null, null));
     }
 
     @Test
     public void execute_inventoryAcceptedByModel_addSuccessful() throws Exception {
         AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest
-                                                                                .ModelStubAcceptingInventoryAdded();
+                .ModelStubAcceptingInventoryAdded();
         Inventory validInventory = new InventoryBuilder().build();
 
         //Commented out for assertion error
@@ -71,7 +66,7 @@ public class AddInventoryCommandTest {
     public void execute_duplicateInventory_throwsCommandException() {
         Inventory validInventory = new InventoryBuilder().build();
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
-                                    validInventory.getName(), validInventory.getPrice(), new MemberId("GS"));
+                validInventory.getName(), validInventory.getPrice(), new MemberId("GS"));
         ModelStub modelStub = new ModelStubWithInventory(validInventory);
         //Commented out for assertion error
 //        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
@@ -104,16 +99,16 @@ public class AddInventoryCommandTest {
         Inventory toy = new InventoryBuilder().withName("Toy").build();
         Inventory ball = new InventoryBuilder().withName("Ball").build();
         AddInventoryCommand addToyCommand = new AddInventoryCommand(new Index(1),
-                                                    toy.getName(), toy.getPrice(), new MemberId("rak"));
+                toy.getName(), toy.getPrice(), new MemberId("rak"));
         AddInventoryCommand addBallCommand = new AddInventoryCommand(new Index(1),
-                                                    ball.getName(), ball.getPrice(), new MemberId("rak"));
+                ball.getName(), ball.getPrice(), new MemberId("rak"));
 
         // same object -> returns true
         assertTrue(addToyCommand.equals(addToyCommand));
 
         // same values -> returns true
         AddInventoryCommand addToyCommandCopy = new AddInventoryCommand(new Index(1),
-                                                    toy.getName(), toy.getPrice(), new MemberId("rak"));
+                toy.getName(), toy.getPrice(), new MemberId("rak"));
         assertTrue(addToyCommand.equals(addToyCommandCopy));
 
         // different types -> returns false
@@ -369,6 +364,11 @@ public class AddInventoryCommandTest {
 
         @Override
         public void setClockFormat(ClockFormat newClockFormat) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateData() {
             throw new AssertionError("This method should not be called.");
         }
 

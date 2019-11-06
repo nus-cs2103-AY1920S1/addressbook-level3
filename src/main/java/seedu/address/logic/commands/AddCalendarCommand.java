@@ -3,16 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.Model;
-import seedu.address.model.task.Task;
-
-import java.util.Iterator;
+import seedu.address.model.calendar.CalendarWrapper;
 
 
 /**
@@ -21,7 +15,7 @@ import java.util.Iterator;
 public class AddCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "add-calendar";
-    public static final String PREFIX_USAGE = "mn/ {FILEPATH}";
+    public static final String PREFIX_USAGE = PREFIX_MEMBER_NAME + " " + PREFIX_FILE_PATH;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a calendar. "
             + "Parameters: "

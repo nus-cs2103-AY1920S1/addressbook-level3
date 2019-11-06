@@ -37,9 +37,11 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DURATION = "Duration(hours) is not a non-zero unsigned integer.";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -83,6 +85,7 @@ public class ParserUtil {
     /**
      * Parses {@code price} into an {@code Price} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Price parsePrice(String price) throws ParseException {
@@ -140,6 +143,7 @@ public class ParserUtil {
     }
 
     //MEMBER RELATED
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -158,6 +162,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static MemberId parseMemberId(String memberId) throws ParseException {
@@ -174,6 +179,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static String parseMemberImage(String url) throws ParseException {
@@ -186,6 +192,7 @@ public class ParserUtil {
     /**
      * Parses {@code dateTime} into an {@code LocalDateTime} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws DateTimeParseException if the input string is not in the valid format.
      */
     public static LocalDateTime parseDate(String dateTime) throws DateTimeParseException {
@@ -199,6 +206,7 @@ public class ParserUtil {
     /**
      * Parses {@code filePath} into an {@code filePath} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws DateTimeParseException if the input string is not in the valid format.
      */
     public static FilePath parseFilePath(String filePath) throws ParseException {
@@ -215,6 +223,7 @@ public class ParserUtil {
     /**
      * Parses {@code filePath} into an {@code filePath} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws DateTimeParseException if the input string is not in the valid format.
      */
     public static Calendar parseCalendar(String calendarStorageFormat) throws ParseException {
@@ -233,6 +242,7 @@ public class ParserUtil {
     /**
      * Parses {@code theme} into a {@code Theme} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the given {@code theme}'s code is invalid.
      */
     public static Theme parseTheme(String theme) throws ParseException {
@@ -252,6 +262,7 @@ public class ParserUtil {
     /**
      * Parses {@code clock} into a {@code ClockFormat} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the given {@code clock}'s format is invalid.
      */
     public static ClockFormat parseClock(String clock) throws ParseException {
@@ -271,6 +282,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Duration parseHours(String hoursString) throws ParseException {

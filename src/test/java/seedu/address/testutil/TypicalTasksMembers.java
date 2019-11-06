@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,7 @@ public class TypicalTasksMembers {
     //TASKS
     public static final Task ORDER_SHIRTS = new TaskBuilder().withName("Order shirts from supplier")
             .withStatus(TaskStatus.UNBEGUN)
+            .withDeadline(LocalDateTime.now().plusWeeks(3))
             .withTags("inventory").build();
     public static final Task PRINT_POSTERS = new TaskBuilder().withName("Print posters for student fair")
             .withStatus(TaskStatus.UNBEGUN)
@@ -43,11 +45,13 @@ public class TypicalTasksMembers {
     public static final Task ORDER_CATERING = new TaskBuilder()
             .withName("Find caterers for snacks in student fair booth")
             .withStatus(TaskStatus.DOING)
+            .withDeadline(LocalDateTime.now().plusWeeks(5))
             .withTags("inventory")
             .build();
     public static final Task BRIEFING_PREPARATION = new TaskBuilder()
             .withName("Prepare presentation briefing")
             .withStatus(TaskStatus.DONE)
+            .withDeadline(LocalDateTime.now().plusWeeks(4))
             .withTags("personal")
             .build();
     public static final Task ORGANISE_STORE = new TaskBuilder()
@@ -65,6 +69,7 @@ public class TypicalTasksMembers {
     public static final Task FAREWELL_PARTY = new TaskBuilder()
             .withStatus(TaskStatus.DONE)
             .withTags("recreation", "important")
+            .withDeadline(LocalDateTime.now().plusWeeks(7))
             .withName("Ida Mueller").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
@@ -121,14 +126,15 @@ public class TypicalTasksMembers {
             .withTags(VALID_MEMBER_TAG_PUBLICITY)
             .build();
 
-    private TypicalTasksMembers() {} // prevents instantiation
+    private TypicalTasksMembers() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code ProjectDashboard} with all the typical persons.
      */
     public static ProjectDashboard getTypicalProjectDashboard() {
         ProjectDashboard ab = new ProjectDashboard();
-        for (Task task : getTypicalTasksMembers()) {
+        for (Task task : getTypicalTasks()) {
             ab.addTask(task);
         }
 
@@ -136,17 +142,17 @@ public class TypicalTasksMembers {
             ab.addMember(member);
         }
 
-        for (Inventory inventory: TypicalInventories.getTypicalInventories()) {
+        for (Inventory inventory : TypicalInventories.getTypicalInventories()) {
             ab.addInventory(inventory);
         }
 
-        for (TasMemMapping tasMem: TypicalTasMemMapping.getTypicalTasMemMapping()) {
+        for (TasMemMapping tasMem : TypicalTasMemMapping.getTypicalTasMemMapping()) {
             ab.addMapping(tasMem);
         }
         return ab;
     }
 
-    public static List<Task> getTypicalTasksMembers() {
+    public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(ORDER_SHIRTS, PRINT_POSTERS, GET_SPONSORS,
                 RECRUIT_MEMBERS, ORDER_CATERING, BRIEFING_PREPARATION, ORGANISE_STORE));
     }

@@ -1,5 +1,8 @@
 package seedu.address.model.calendar;
 
+/**
+ * Util class to create, validate and obtain calendar file path.
+ */
 public class FilePath {
     public static final String MESSAGE_CONSTRAINTS =
             "File paths should not be blank";
@@ -18,7 +21,7 @@ public class FilePath {
 
     public static boolean isValidFilePath(String filePath) {
         String trimmed = filePath.trim();
-        return trimmed!= null
+        return trimmed != null
                 && !trimmed.isEmpty();
     }
 }

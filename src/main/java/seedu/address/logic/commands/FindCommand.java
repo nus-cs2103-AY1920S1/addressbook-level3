@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.model.Model;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 
@@ -15,10 +16,10 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find-task";
     public static final String PREFIX_USAGE = "{keyword}";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " review budget";
 
     private final NameContainsKeywordsPredicate predicate;
 
@@ -30,6 +31,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTasksList(predicate);
+        AppUtil.scheduleDataUpdate(model::updateData);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTasksList().size()));
     }

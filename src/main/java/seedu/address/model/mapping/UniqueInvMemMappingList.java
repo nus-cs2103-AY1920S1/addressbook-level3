@@ -3,9 +3,8 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +17,8 @@ import seedu.address.model.mapping.exceptions.MappingNotFoundException;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueInvMemMappingList implements Iterable<InvMemMapping> {
 
@@ -164,7 +162,7 @@ public class UniqueInvMemMappingList implements Iterable<InvMemMapping> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueInvMemMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueInvMemMappingList) other).internalList));
+                && internalList.equals(((UniqueInvMemMappingList) other).internalList));
     }
 
     @Override
@@ -187,17 +185,17 @@ public class UniqueInvMemMappingList implements Iterable<InvMemMapping> {
     }
 
     public ObservableList<ObservableList<InvMemMapping>> getMappings() {
-        ObservableList<ObservableList<InvMemMapping>>result = FXCollections.observableArrayList();
-        for(InvMemMapping map: internalList) {
+        ObservableList<ObservableList<InvMemMapping>> result = FXCollections.observableArrayList();
+        for (InvMemMapping map : internalList) {
             boolean isAdded = false;
-            for(ObservableList<InvMemMapping> e: result) {
-                if(e.get(0).getMemberIndex() == (map.getMemberIndex())) {
+            for (ObservableList<InvMemMapping> e : result) {
+                if (e.get(0).getMemberIndex() == (map.getMemberIndex())) {
                     e.add(map);
                     isAdded = true;
                 }
             }
-            if(!isAdded) {
-                ObservableList<InvMemMapping>listToAdd = FXCollections.observableArrayList();
+            if (!isAdded) {
+                ObservableList<InvMemMapping> listToAdd = FXCollections.observableArrayList();
                 listToAdd.add(map);
                 result.add(listToAdd);
             }

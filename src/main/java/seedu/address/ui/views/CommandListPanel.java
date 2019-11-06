@@ -1,20 +1,16 @@
 package seedu.address.ui.views;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.Keywords;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpCard;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -40,12 +36,13 @@ public class CommandListPanel extends UiPart<Region> {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 // Your action here
                 System.out.println("new value: " + newValue.toString());
-                System.out.println("liza: " +  getRoot().toString());
+                System.out.println("liza: " + getRoot().toString());
                 MainWindow.updateCommandBox(Keywords.getParameters(newValue));
                 // commandBox.setCommandText(Keywords.getParameters(newValue));
             }
         });
     }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Command} using a {@code HelpCard}.
      */

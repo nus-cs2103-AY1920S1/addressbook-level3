@@ -14,13 +14,14 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path projectDashboardFilePath = Paths.get("data" , "projectdashboard.json");
-    private Path userSettingsFilePath = Paths.get("data" , "plusworksettings.json");
+    private Path projectDashboardFilePath = Paths.get("data", "projectdashboard.json");
+    private Path userSettingsFilePath = Paths.get("data", "plusworksettings.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.

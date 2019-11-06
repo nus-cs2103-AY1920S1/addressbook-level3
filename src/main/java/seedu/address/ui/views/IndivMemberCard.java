@@ -99,7 +99,7 @@ public class IndivMemberCard extends UiPart<Region> {
         String listOfTasks = "";
 
         for (int i = 0; i < tasks.size(); i++) {
-            listOfTasks += (i+1) + ". " + tasks.get(i).toStringShort() + "\n";
+            listOfTasks += (i + 1) + ". " + tasks.get(i).toStringShort() + "\n";
         }
 
         listTasks.setText(listOfTasks);

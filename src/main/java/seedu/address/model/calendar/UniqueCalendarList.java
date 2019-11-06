@@ -3,28 +3,25 @@ package seedu.address.model.calendar;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.ArrayList;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.calendar.exceptions.CalendarNotFoundException;
-import seedu.address.model.calendar.exceptions.DuplicateCalendarException;
-import seedu.address.model.member.MemberName;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Period;
 import net.fortuna.ical4j.model.PeriodList;
-
+import seedu.address.model.calendar.exceptions.CalendarNotFoundException;
+import seedu.address.model.calendar.exceptions.DuplicateCalendarException;
+import seedu.address.model.member.MemberName;
 
 
 /**
@@ -33,7 +30,7 @@ import net.fortuna.ical4j.model.PeriodList;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Task#isSameTask(Task)
@@ -140,7 +137,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
             if (calendar.hasMemberName(target)) {
                 found = true;
             }
-            count ++;
+            count++;
         }
         if (!found) {
             throw new CalendarNotFoundException();
@@ -310,9 +307,9 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     }
 
     public LinkedHashMap<LocalDateTime, List<MemberName>> generateAttendance(LocalDateTime lcdStartDate,
-                                                                    LocalDateTime lcdEndDate,
-                                                                    Duration meetingDuration,
-                                                                    net.fortuna.ical4j.model.Period searchPeriod) {
+                                                                             LocalDateTime lcdEndDate,
+                                                                             Duration meetingDuration,
+                                                                             net.fortuna.ical4j.model.Period searchPeriod) {
         LocalTime lastDailyMeetingTime = DEFAULT_END_TIME.minus(meetingDuration);
         List<LocalDateTime> meetingTimeslots = generateTimeslots(lcdStartDate, lcdEndDate,
                 meetingDuration, lastDailyMeetingTime);
@@ -346,7 +343,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
                 new net.fortuna.ical4j.model.Period(ical4jStartDate, ical4jEndDate);
 
         LinkedHashMap<LocalDateTime, List<MemberName>> timeslotAttendance = generateAttendance(startDate, endDate,
-                                                                    duration, searchPeriod);
+                duration, searchPeriod);
         int maxAttendance = 0;
         for (LocalDateTime timeslot : timeslotAttendance.keySet()) {
             List<MemberName> memberNameList = timeslotAttendance.get(timeslot);

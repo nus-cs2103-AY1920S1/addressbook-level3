@@ -2,12 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
@@ -17,6 +14,7 @@ import seedu.address.model.member.MemberId;
 
 public class AddICommand extends Command {
     public static final String COMMAND_WORD = "add-i";
+    public static final String PREFIX_USAGE = PREFIX_INVENTORY_PRICE + " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a inventory to the project Dashboard. "
             + "Parameters: "
@@ -61,7 +59,7 @@ public class AddICommand extends Command {
         }
 
         //Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
-        Inventory toAdd = new Inventory( new InvName("DUMMY"), price);
+        Inventory toAdd = new Inventory(new InvName("DUMMY"), price);
 
         if (model.hasInventory(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_INVENTORY);

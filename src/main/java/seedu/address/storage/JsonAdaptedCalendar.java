@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
-import net.fortuna.ical4j.model.Calendar;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;

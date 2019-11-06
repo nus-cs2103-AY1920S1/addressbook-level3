@@ -73,7 +73,7 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
      * Saves the given {@link ReadOnlyUserSettings} to the storage.
      *
      * @param userSettings cannot be null.
-     * @param filePath cannot be null.
+     * @param filePath     cannot be null.
      * @throws IOException if there was any problem writing to file.
      */
     @Override

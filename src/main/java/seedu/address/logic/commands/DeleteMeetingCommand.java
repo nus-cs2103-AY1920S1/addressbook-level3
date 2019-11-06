@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.Meeting;
-import seedu.address.model.calendar.exceptions.MeetingNotFoundException;
 
 /**
  * Deletes a task identified using it's displayed index from the address book.
@@ -18,6 +17,7 @@ import seedu.address.model.calendar.exceptions.MeetingNotFoundException;
 public class DeleteMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-meeting";
+    public static final String PREFIX_USAGE = PREFIX_MEETING_INDEX.toString();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the meeting identified by the index in the meeting list.\n"

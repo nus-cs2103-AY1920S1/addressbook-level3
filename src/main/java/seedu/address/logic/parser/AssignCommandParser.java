@@ -18,6 +18,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteMemberCommand
      * and returns a DeleteMemberCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AssignCommand parse(String args) throws ParseException {

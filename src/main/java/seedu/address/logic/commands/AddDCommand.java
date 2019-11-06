@@ -13,6 +13,7 @@ import seedu.address.model.member.MemberId;
 
 public class AddDCommand extends Command {
     public static final String COMMAND_WORD = "add-d";
+    public static final String PREFIX_USAGE = PREFIX_DEADLINE + " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds deadline & member to task. "
             + "Parameters: "
@@ -38,14 +39,16 @@ public class AddDCommand extends Command {
         this.dateTime = dateTime;
         this.memId = memId;
     }
+
     public AddDCommand(LocalDateTime dateTime) {
         requireAllNonNull(dateTime);
         this.dateTime = dateTime;
-        this.memId = null;
+        this.memId = new MemberId("NIL");
     }
+
     public AddDCommand(MemberId memId) {
         requireAllNonNull(memId);
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.MIN;
         this.memId = memId;
     }
 
@@ -61,7 +64,7 @@ public class AddDCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasMemberId(memId)) {
+        if ((!memId.equals(new MemberId("NIL"))) && (!model.hasMemberId(memId))) {
             throw new CommandException(MESSAGE_MEMBERID_INVALID);
         }
 

@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -13,10 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 
 /**
  * Edits the details of an existing task in the address book.
@@ -24,6 +19,7 @@ import seedu.address.model.task.TaskStatus;
 public class AddMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "add-meeting";
+    public static final String PREFIX_USAGE = PREFIX_MEETING_INDEX.getPrefix();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a meeting from the list of possible meeting times "

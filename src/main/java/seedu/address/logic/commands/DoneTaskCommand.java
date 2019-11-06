@@ -22,7 +22,7 @@ import seedu.address.model.task.TaskStatus;
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "done-task";
-    public static final String PREFIX_USAGE = "ti/";
+    public static final String PREFIX_USAGE = PREFIX_TASK_INDEX.getPrefix();
 
     public static final String UPDATED_STATUS = TaskStatus.DONE.getDisplayName();
 
@@ -72,10 +72,10 @@ public class DoneTaskCommand extends Command {
 
         model.setTask(taskToUpdate, updatedTask);
         model.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
-        if(taskToUpdate.getTags().contains(new Tag("Inventory"))) {
+        if (taskToUpdate.getTags().contains(new Tag("Inventory"))) {
             return new CommandResult("Type-1 /"
-                                                        + taskToUpdate.getName().toString() + "/"
-                                                        + index.getOneBased());
+                    + taskToUpdate.getName().toString() + "/"
+                    + index.getOneBased());
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, updatedTask));
     }

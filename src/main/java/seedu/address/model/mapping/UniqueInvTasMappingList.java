@@ -3,9 +3,8 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +17,8 @@ import seedu.address.model.mapping.exceptions.MappingNotFoundException;
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
  * as to ensure that the task with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
 
@@ -162,7 +160,7 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueInvTasMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueInvTasMappingList) other).internalList));
+                && internalList.equals(((UniqueInvTasMappingList) other).internalList));
     }
 
     @Override
@@ -185,17 +183,17 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
     }
 
     public ObservableList<ObservableList<InvTasMapping>> getMappings() {
-        ObservableList<ObservableList<InvTasMapping>>result = FXCollections.observableArrayList();
-        for(InvTasMapping map: internalList) {
+        ObservableList<ObservableList<InvTasMapping>> result = FXCollections.observableArrayList();
+        for (InvTasMapping map : internalList) {
             boolean isAdded = false;
-            for(ObservableList<InvTasMapping> e: result) {
-                if(e.get(0).getTaskIndex() == (map.getTaskIndex())) {
+            for (ObservableList<InvTasMapping> e : result) {
+                if (e.get(0).getTaskIndex() == (map.getTaskIndex())) {
                     e.add(map);
                     isAdded = true;
                 }
             }
-            if(!isAdded) {
-                ObservableList<InvTasMapping>listToAdd = FXCollections.observableArrayList();
+            if (!isAdded) {
+                ObservableList<InvTasMapping> listToAdd = FXCollections.observableArrayList();
                 listToAdd.add(map);
                 result.add(listToAdd);
             }
