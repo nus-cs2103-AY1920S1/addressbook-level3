@@ -2,7 +2,7 @@ package seedu.weme.logic.commands.memecommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class MemeClearCommandTest {
     @Test
     public void execute_deleteStagedMeme_failure() {
         Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND.getZeroBased());
         model.stageMeme(memeInList);
         assertCommandFailure(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_NON_EMPTY_STAGING_AREA);
     }

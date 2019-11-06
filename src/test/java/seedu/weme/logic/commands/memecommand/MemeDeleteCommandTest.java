@@ -81,9 +81,9 @@ public class MemeDeleteCommandTest {
 
     @Test
     public void execute_deleteStagedMeme_failure() {
-        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND.getZeroBased());
         model.stageMeme(memeInList);
-        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_SECOND_MEME);
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_SECOND);
         assertCommandFailure(memeDeleteCommand, model, MemeDeleteCommand.MESSAGE_STAGED_MEME);
     }
 
