@@ -18,7 +18,7 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows you to successfully achieve your objectives for your project.
++Work is a project management tool that allows students to successfully achieve your objectives for their project.
 It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
 +Work is a one-stop application to help you manage your members, meeting times, task allocations as well as equipment purchased.
 Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
@@ -61,26 +61,38 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
-[%header,cols=2*]
 .List of Prefixes
 |===
-|Prefix
-|Description
-* Parameters can be given in any order
-|mn/
-|Member name
-|mi/
-|Member ID (set by you)
-|mt/
-|Member tag
-|im/
-|Image Path
-|tn/
-|Task name
-|s/
-|Task status
-|tt/
-|Task tag
+|Command Type |Prefix | Description + Parameters can be given in any order
+
+1.1+h|Calendars
+|fp/|File path
+
+1.4+h|Inventories
+|i/|Inventory name
+|p/|Price
+|ii/|Inventory tag
+|ty/|PDF type
+
+1.4+h|Meetings
+|meeting/|Meeting index
+|start/|Start period
+|end/|End period
+|hours/|Duration of meeting
+
+1.4+h|Members
+|mn/|Member name
+|mi/|Member ID (set by you)
+|mt/|Member tag
+|im/|Image path
+
+1.5+h|Tasks
+|tn/|Task name
+|ti/|Task index
+|at/|Task deadline
+|s/|Task status
+|tt/|Task tag
+
 |===
 
 * *Tags*
@@ -373,10 +385,10 @@ Usage of this command is very similar to setting a task status to `doing` as exp
 
 This sets a deadline for an existing task in your project.
 
-Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd/mm/yy hh:mm]`
+Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd-mm-yyyy hh:mm]`
 
 [TIP]
-Remember to input using the 24 hour time format of dd/mm/yy hh:mm
+Remember to input using the 24 hour time format of dd-mm-yyyy hh:mm
 
 Example:
 
@@ -635,7 +647,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
-* `add-meeting [at/ dd/mm/yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
+* `add-meeting [at/dd-mm-yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
 
 * `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
@@ -649,7 +661,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
 
-* `deadline-task [ti/TASK_ID] [at/dd/mm/yy hh:mm]`: *Assigns a deadline to a task*
+* `deadline-task [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
 
 * `delete-inventory [ii/ITEM_ID]`: *Deletes an inventory*
 
@@ -684,3 +696,5 @@ _{explain how the user can enable/disable data encryption}_
 * `theme dark`: *Switches to the dark theme*
 
 * `theme light`: *Switches to the light theme*
+
+== Upcoming Features
