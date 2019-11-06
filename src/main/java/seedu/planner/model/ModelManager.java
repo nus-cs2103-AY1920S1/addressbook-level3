@@ -305,6 +305,10 @@ public class ModelManager implements Model {
                 activityContactMap.put(newAct, oldContact);
             }
         } else if (newAct.getContact().isPresent()) {
+            Contact newContact = newAct.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAct.getContact().get());
             addActivityMapping(newAct);
         }

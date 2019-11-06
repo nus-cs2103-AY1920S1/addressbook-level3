@@ -49,13 +49,6 @@ public class EditEventFactory {
                     String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
             );
         }
-
-        /*
-        case(EditDayCommand.SECOND_COMMAND_WORD):
-            EditDayCommand tempCommand4 = (EditDayCommand)command;
-            generateEditDayEvent(tempCommand4.getToEdit());
-        }
-        */
     }
 
     public static EditAccommodationEvent generateEditAccommodationEvent(
@@ -72,10 +65,4 @@ public class EditEventFactory {
             Index index, EditContactDescriptor editInfo, Model model) throws EventException {
         return new EditContactEvent(index, editInfo, model);
     }
-
-    /*
-    public static EditDayEvent generateEditDayEvent(int daysEdited) {
-        return new EditDayEvent(daysEdited);
-    }
-    */
 }

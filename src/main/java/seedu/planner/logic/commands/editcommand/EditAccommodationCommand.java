@@ -70,7 +70,7 @@ public class EditAccommodationCommand extends EditCommand {
     }
 
     public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor, boolean isUndo) {
-        requireAllNonNull(index, editAccommodationDescriptor);
+        requireAllNonNull(index, editAccommodationDescriptor, isUndo);
         this.index = index;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
         this.isUndo = isUndo;

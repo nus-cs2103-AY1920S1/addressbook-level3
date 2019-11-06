@@ -39,12 +39,13 @@ public class EditAccommodationEvent implements Event {
      * @param model Current model in the application.
      * @return the EditAccommodationDescriptor containing information of the original Accommodation to be edited.
      */
-    private EditAccommodationDescriptor generateReverseEditInfo(Model model) {
+    private EditAccommodationDescriptor generateReverseEditInfo(Model model) throws EventException {
         EditAccommodationDescriptor result = new EditAccommodationDescriptor();
 
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
-
-
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new EventException(Messages.MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX);
+        }
         Accommodation originalAccommodation = lastShownList.get(index.getZeroBased());
 
         result.setName(originalAccommodation.getName());
