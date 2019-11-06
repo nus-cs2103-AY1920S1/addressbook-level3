@@ -299,7 +299,7 @@ Feeling less stress? You can type `priority` again to bring you out of the prior
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hh:mm` and ELISA will turn it off at that specific time for you.
 
-Format: `priority` or `priority dd/mm/yyyy hh:mm`
+Format: `priority` or `priority dd/mm/yyyy hhmm`
 
 Examples:
 
