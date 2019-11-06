@@ -28,7 +28,7 @@ public class ImportMergeCommand extends MutatorCommand {
             + ": Imports data from a .csv file in /imports.\n"
             + "All patients in the .csv will be imported and merged with existing data.\n"
             + "File name provided must exist and be in .csv format\n"
-            + "Parameters: [" + PREFIX_FILENAME + "FILENAME]\n"
+            + "Parameters: " + PREFIX_FILENAME + "FILENAME\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "new_patients_data";
 
     public static final String MESSAGE_SUCCESS = "Import success!";

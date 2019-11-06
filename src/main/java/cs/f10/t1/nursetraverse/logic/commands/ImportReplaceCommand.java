@@ -27,7 +27,7 @@ public class ImportReplaceCommand extends MutatorCommand {
             + "All patients in the .csv will be imported. ALL EXISTING PERSONS WILL BE ERASED.\n"
             + "File name provided must exist and be in .csv format\n"
             + "Cannot import and replace when visit is ongoing. \n"
-            + "Parameters: [" + PREFIX_FILENAME + "FILENAME]\n"
+            + "Parameters: " + PREFIX_FILENAME + "FILENAME\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "assigned_patient_data";
 
     public static final String MESSAGE_SUCCESS = "Import success!";
@@ -50,6 +50,7 @@ public class ImportReplaceCommand extends MutatorCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Replacing not allowed when there is an ongoing association
         if (model.getOngoingVisit().isPresent()) {
             throw new CommandException(MESSAGE_VISIT_ONGOING);
         }

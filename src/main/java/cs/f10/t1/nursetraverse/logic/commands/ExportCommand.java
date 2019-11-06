@@ -6,6 +6,7 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class ExportCommand extends Command {
             + "Patients are exported selectively by index.\n"
             + "If indexes are not provided, all patients will be exported.\n"
             + "File name must be new - overriding an existing file is not permitted.\n"
-            + "Parameters: [" + PREFIX_FILENAME + "FILENAME] "
+            + "Parameters: " + PREFIX_FILENAME + "FILENAME "
             + "[" + PREFIX_INDEXES + "INDEXES]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
             + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 " + PREFIX_INDEXES + "6";
@@ -101,5 +102,43 @@ public class ExportCommand extends Command {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        } else if (that instanceof ExportCommand) {
+            return this.exportFileName.equals(((ExportCommand) that).exportFileName)
+                    && compareOptionalIndexSet(this.targetIndexes, ((ExportCommand) that).targetIndexes);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Compares two optional sets of indexes and returns true if they have the same indexes.
+     */
+
+    private boolean compareOptionalIndexSet(Optional<Set<Index>> first, Optional<Set<Index>> second) {
+        if (first.isEmpty() && second.isEmpty()) {
+            return true;
+        } else if (first.isEmpty() || second.isEmpty()) {
+            return false;
+        } else {
+            return indexSetToIntSet(first.get())
+                    .equals(indexSetToIntSet(second.get()));
+        }
+    }
+
+    /**
+     * Converts a set of indexes into a set of integers.
+     */
+    private Set<Integer> indexSetToIntSet(Set<Index> indexes) {
+        Set<Integer> result = new HashSet<>();
+        for (Index index : indexes) {
+            result.add(index.getOneBased());
+        }
+        return result;
     }
 }
