@@ -12,7 +12,7 @@ import seedu.address.model.borrower.BorrowerId;
 /**
  * Opens a serving session for a borrower and allows the borrower to start borrower book
  */
-public class ServeCommand extends ReversibleCommand {
+public class ServeCommand extends Command {
     public static final String COMMAND_WORD = "serve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the Serve Mode. "
@@ -59,12 +59,9 @@ public class ServeCommand extends ReversibleCommand {
 
         model.setServingBorrower(borrowerId);
         Borrower borrower = model.getServingBorrower();
+        model.resetCommandHistory();
 
-        undoCommand = new DoneCommand();
-        redoCommand = this;
-        commandResult = CommandResult.commandResultServe(String.format(MESSAGE_SUCCESS, borrower));
-
-        return commandResult;
+        return CommandResult.commandResultServe(String.format(MESSAGE_SUCCESS, borrower));
     }
 
     @Override
