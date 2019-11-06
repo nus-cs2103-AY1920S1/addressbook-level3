@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
@@ -16,8 +17,10 @@ import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -57,7 +60,7 @@ public class DisplayModelManager {
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
         this.startTime = LocalTime.of(8, 0);
-        this.endTime = LocalTime.of(19, 0);
+        this.endTime = LocalTime.of(20, 0);
     }
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager, LocalTime startTime, LocalTime endTime) {
@@ -88,17 +91,12 @@ public class DisplayModelManager {
                                             TimeBook timeBook) {
 
         try {
-            HashMap<Integer, ArrayList<PersonSchedule>> personMonthSchedules = new HashMap<>();
-            for (int i = 0; i < 4; i++) {
-                ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
+            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-                PersonSchedule personSchedule =
-                        generatePersonSchedule(name.toString(), time.plusDays(i * DAYS_OF_A_WEEK),
-                                timeBook.getPersonList().findPerson(name), Role.emptyRole());
-                personSchedulesForWeek.add(personSchedule);
-                personMonthSchedules.put(i, personSchedulesForWeek);
-            }
-            ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personMonthSchedules, type);
+            PersonSchedule personSchedule = generatePersonSchedule(name.toString(),
+                    time, timeBook.getPersonList().findPerson(name), Role.emptyRole());
+            personSchedules.add(personSchedule);
+            ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (PersonNotFoundException e) {
@@ -115,16 +113,10 @@ public class DisplayModelManager {
      */
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
         User user = timeBook.getPersonList().getUser();
-
-        HashMap<Integer, ArrayList<PersonSchedule>> personSchedules = new HashMap<>();
-        for (int i = 0; i < 4; i++) {
-            ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
-
-            PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                    time.plusDays(i * DAYS_OF_A_WEEK), user, Role.emptyRole());
-            personSchedulesForWeek.add(personSchedule);
-            personSchedules.put(i, personSchedulesForWeek);
-        }
+        ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+        PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
+                time, user, Role.emptyRole());
+        personSchedules.add(personSchedule);
 
         ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
         updateScheduleWindowDisplay(scheduleWindowDisplay);
@@ -151,37 +143,37 @@ public class DisplayModelManager {
 
             ArrayList<PersonId> personIds = timeBook.getPersonToGroupMappingList()
                     .findPersonsOfGroup(group.getGroupId());
-            HashMap<Integer, ArrayList<PersonSchedule>> combinedMonthsSchedules = new HashMap<>();
             ArrayList<FreeSchedule> freeScheduleForMonth = new ArrayList<>();
-            for (int h = 0; h < 4; h++) {
-                ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-                User user = timeBook.getPersonList().getUser();
-                Role userRole = group.getUserRole();
+            User user = timeBook.getPersonList().getUser();
+            Role userRole = group.getUserRole();
 
-                //Add user schedule.
-                personSchedules.add(generatePersonSchedule(groupName.toString(),
-                        now.plusDays(h * DAYS_OF_A_WEEK), user, userRole));
+            //Add user schedule.
+            personSchedules.add(generatePersonSchedule(groupName.toString(),
+                    now, user, userRole));
 
-                //Add other schedules.
-                for (int i = 0; i < personIds.size(); i++) {
-                    Person person = timeBook.getPersonList().findPerson(personIds.get(i));
-                    Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
-                    if (role == null) {
-                        role = Role.emptyRole();
-                    }
-                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
-                            now.plusDays(h * DAYS_OF_A_WEEK),
-                            person, role);
-                    personSchedules.add(personSchedule);
+            //Add other schedules.
+            for (int i = 0; i < personIds.size(); i++) {
+                Person person = timeBook.getPersonList().findPerson(personIds.get(i));
+                Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
+                if (role == null) {
+                    role = Role.emptyRole();
                 }
-
-                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules, now);
-                combinedMonthsSchedules.put(h, personSchedules);
+                PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
+                        now,
+                        person, role);
+                personSchedules.add(personSchedule);
+            }
+            for (int h = 0; h < 4; h++) {
+                final int finalH = h;
+                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules
+                        .stream().map(sch -> sch.getScheduleDisplay().getScheduleForWeek(finalH))
+                        .collect(Collectors.toCollection(ArrayList::new)), now);
                 freeScheduleForMonth.add(freeSchedule);
             }
             ScheduleWindowDisplay scheduleWindowDisplay =
-                    new ScheduleWindowDisplay(combinedMonthsSchedules, freeScheduleForMonth, groupDisplay, type);
+                    new ScheduleWindowDisplay(personSchedules, freeScheduleForMonth, groupDisplay, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (GroupNotFoundException | MappingNotFoundException e) {
@@ -255,7 +247,15 @@ public class DisplayModelManager {
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
+        WeekSchedule weekZeroSchedule = new WeekSchedule(getWeekScheduleOf(now, person));
+        WeekSchedule weekOneSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(7), person));
+        WeekSchedule weekTwoSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(14), person));
+        WeekSchedule weekThreeSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(21), person));
+        return new PersonSchedule(scheduleName, new PersonDisplay(person, role), new MonthSchedule(weekZeroSchedule,
+                weekOneSchedule, weekTwoSchedule, weekThreeSchedule));
+    }
 
+    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> getWeekScheduleOf(LocalDateTime date, Person person) {
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay = new HashMap<>();
 
         Schedule personSchedule = person.getSchedule();
@@ -279,8 +279,8 @@ public class DisplayModelManager {
                 Venue currentVenue = currentTimeslot.getVenue();
 
                 //Checks to see if the currentStartTime is within the upcoming 7 days.
-                if (now.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
-                        && now.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
+                if (date.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
+                        && date.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
                         && (startTime.isBefore(currentStartTime.toLocalTime())
                         || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
                         && endTime.isAfter(currentStartTime.toLocalTime())) {
@@ -299,8 +299,7 @@ public class DisplayModelManager {
                 }
             }
         }
-
-        return new PersonSchedule(scheduleName, new PersonDisplay(person, role), scheduleDisplay);
+        return scheduleDisplay;
     }
 
     /**
@@ -309,7 +308,8 @@ public class DisplayModelManager {
      * @param personSchedules to generate the free schedule from
      * @return FreeSchedule
      */
-    private FreeSchedule generateFreeSchedule(ArrayList<PersonSchedule> personSchedules, LocalDateTime now) {
+    private FreeSchedule generateFreeSchedule(ArrayList<WeekSchedule> personSchedules,
+                                              LocalDateTime now) {
 
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
 
@@ -347,8 +347,7 @@ public class DisplayModelManager {
 
                 // loop through each person
                 for (int j = 0; j < personSchedules.size(); j++) {
-                    ArrayList<PersonTimeslot> timeslots = personSchedules.get(j)
-                            .getScheduleDisplay().get(DayOfWeek.of(day));
+                    ArrayList<PersonTimeslot> timeslots = personSchedules.get(j).get(DayOfWeek.of(day));
 
                     // loop through each timeslot
                     for (int k = 0; k < timeslots.size(); k++) {
