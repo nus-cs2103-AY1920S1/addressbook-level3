@@ -59,13 +59,12 @@ public class PieChartStatistics extends Statistics {
 
     /**
      * Creates a PieChartStatistics object with all the required information filled in its attributes
-     * @param expenses List of expenses
      * @param validCategories List of allowed categories in MooLah
      * @param startDate The start date of the tracking period
      * @param endDate The end date of the tracking period
      * @param primaryBudget The primary budget whose statistics is taken
      */
-    public static PieChartStatistics run(ObservableList<Expense> expenses, List<Category>
+    public static PieChartStatistics run(List<Category>
             validCategories, Timestamp startDate, Timestamp endDate, Budget primaryBudget) {
 
         requireNonNull(primaryBudget);
@@ -73,19 +72,17 @@ public class PieChartStatistics extends Statistics {
         boolean isStartPresent = startDate != null;
         boolean isEndPresent = endDate != null;
 
-        if (isStartPresent && isEndPresent) {
-            //pass
-        } else if (isStartPresent) {
-            endDate = startDate.createForwardTimestamp(primaryBudget.getPeriod()).minusDays(1);
-        } else if (isEndPresent) {
-            startDate = endDate.createBackwardTimestamp(primaryBudget.getPeriod()).plusDays(1);
-        } else {
+        if (!isStartPresent && !isEndPresent) {
             startDate = primaryBudget.getStartDate();
             endDate = primaryBudget.getEndDate();
+        } else if (isStartPresent && !isEndPresent) {
+            endDate = startDate.createForwardTimestamp(primaryBudget.getPeriod()).minusDays(1);
+        } else if (!isStartPresent) {
+            startDate = endDate.createBackwardTimestamp(primaryBudget.getPeriod()).plusDays(1);
         }
 
-
-        PieChartStatistics statistics = PieChartStatistics.verify(expenses, validCategories, startDate, endDate);
+        PieChartStatistics statistics = PieChartStatistics.verify(primaryBudget.getExpenses(),
+                validCategories, startDate, endDate);
         statistics.generatePieChartData();
         return statistics;
     }
@@ -96,8 +93,6 @@ public class PieChartStatistics extends Statistics {
      * Gathers the data to be used for the elements of the PieChart
      */
     private void generatePieChartData() {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
 
         this.budgetCategories = collateBudgetCategories(expenses);
 
@@ -134,9 +129,12 @@ public class PieChartStatistics extends Statistics {
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
 
+
             if (date.compareDateTo(startDate) != -1 && date.compareDateTo(endDate) != 1) {
+
                 int index = budgetCategories.indexOf(expense.getCategory());
                 expensesInCategories.get(index).add(expense);
+
             }
         }
         return expensesInCategories;
@@ -168,8 +166,14 @@ public class PieChartStatistics extends Statistics {
 
         double totalAmount = 0.0;
 
+
+
+
         for (int i = 0; i < percentages.size(); i++) {
+
             ArrayList<Expense> categoryStats = data.get(i);
+
+
             for (Expense expense : categoryStats) {
                 double oldCategoricalTotal = percentages.get(i);
                 double price = Double.parseDouble(expense.getPrice().value);
@@ -177,6 +181,8 @@ public class PieChartStatistics extends Statistics {
                 totalAmount += price;
                 int oldNumberOfEntries = numberOfEntries.get(i);
                 numberOfEntries.set(i, oldNumberOfEntries + 1);
+
+
             }
         }
 
@@ -186,12 +192,16 @@ public class PieChartStatistics extends Statistics {
 
 
         for (int i = 0; i < percentages.size(); i++) {
+
             double categoricalTotal = percentages.get(i);
             double roundedResult = Math.round(categoricalTotal * 10000 / totalAmount) / 100.0;
+
+
             if (roundedResult != 0.00) {
                 String oldName = names.get(i);
                 formattedCategories.add(String.format("%s(%.2f%%)", oldName, roundedResult));
                 formattedPercentages.add(roundedResult);
+
             }
         }
 

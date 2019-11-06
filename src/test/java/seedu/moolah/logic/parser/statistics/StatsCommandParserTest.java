@@ -19,11 +19,11 @@ class StatsCommandParserTest {
 
     @Test
     void parse_optionalFields_success() throws ParseException {
-        //correct order
+        //start date and end date in the usual order
         assertNotNull(parser.parse(String.format(" %s01-10-2019 %s31-10-2019",
                 PREFIX_START_DATE,
                 PREFIX_END_DATE)));
-        //flipped
+        //with start date and end date but flipped
         assertNotNull(parser.parse(String.format(" %s31-10-2019 %s01-10-2019",
                 PREFIX_END_DATE,
                 PREFIX_START_DATE)));
@@ -36,19 +36,34 @@ class StatsCommandParserTest {
         //end date
         assertNotNull(parser.parse(String.format(" %s31-10-2019 ",
                 PREFIX_END_DATE)));
+        //empty
+        assertNotNull(parser.parse(""));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a",
+        assertParseFailure(parser, CommandTestUtil.STATS_WITHOUT_PREFIX,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_WITHOUT_CATEGORY,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_PREFIX_WITHOUT_INPUT, Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
+        assertParseFailure(parser, CommandTestUtil.STATS_START_DATE_PREFIX_MISSING_INPUT,
+                Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
+        assertParseFailure(parser, CommandTestUtil.STATS_END_DATE_PREFIX_MISSING_INPUT,
+                Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         assertParseFailure(parser, CommandTestUtil.STATS_INVALID_PREFIX,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         assertParseFailure(parser, CommandTestUtil.STATS_HIGHER_END_DATE, Statistics.MESSAGE_CONSTRAINTS_END_DATE);
-        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_CATEGORY,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
     }
 }
+        /*
+        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_DATE_PREFIX,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_DATE_PREFIX_WITH_COMMAND,
+                MESSAGE_REPEATED_PREFIX_COMMAND);
+
+         */
+
+
+    //consider checking for natural language commands
+
+
+
+

@@ -36,10 +36,6 @@ public class StatsCompareCommandParser implements Parser<StatsCompareCommand> {
      */
     public StatsCompareCommand parse(String args) throws ParseException {
 
-
-
-
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE);
         if (!arePrefixesPresent(argMultimap, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE)

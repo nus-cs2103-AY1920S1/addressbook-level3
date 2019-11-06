@@ -61,21 +61,173 @@ public class SampleDataUtil {
                     getCategory("food"), Timestamp.createTimestampIfValid("04-10").get(),
                     NUS_CANTEENS, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Movie"), new Price("10.50"),
+
+
+
+
+            new Expense(new Description("Chicken rice"), new Price("3.50"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("28-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Duck rice"), new Price("4.50"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("29-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Pork chop"), new Price("8.00"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("26-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Lamb chop"), new Price("6.00"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("01-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Lamb chop"), new Price("6.00"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("01-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Mee rebus"), new Price("10.50"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("20-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+            new Expense(new Description("Comfort Delgro Taxi"), new Price("20"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("29-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Grab Taxi"), new Price("13"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("25-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+            new Expense(new Description("Bus fare"), new Price("2.50"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("19-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+            new Expense(new Description("MRT concession"), new Price("45"),
+                    getCategory("transport"), Timestamp.createTimestampIfValid("03-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+            new Expense(new Description("Levis"), new Price("30"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("30-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Timberland"), new Price("50"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("24-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Uniqlo"), new Price("30"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("14-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Pull&Bears"), new Price("30"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("05-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+
+            new Expense(new Description("Giant"), new Price("10.70"),
+                    getCategory("utilities"), Timestamp.createTimestampIfValid("31-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Hardware shop at YX's house"), new Price("25.40"),
+                    getCategory("utilities"), Timestamp.createTimestampIfValid("23-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("IKEA"), new Price("15.65"),
+                    getCategory("utilities"), Timestamp.createTimestampIfValid("07-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+            new Expense(new Description("Sheng Siong"), new Price("31"),
+                    getCategory("utilities"), Timestamp.createTimestampIfValid("15-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+
+            new Expense(new Description("Panadol"), new Price("20"),
+                    getCategory("healthcare"), Timestamp.createTimestampIfValid("01-11").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Sleeping pills"), new Price("31"),
+                    getCategory("healthcare"), Timestamp.createTimestampIfValid("22-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Lung Cancer operation"), new Price("30000"),
+                    getCategory("healthcare"), Timestamp.createTimestampIfValid("28-10-2018").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("02-11").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("01-11").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("31-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("30-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
                     getCategory("entertainment"), Timestamp.createTimestampIfValid("29-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Bird Park"), new Price("13.00"),
-                    getCategory("entertainment"), Timestamp.createTimestampIfValid("18-10").get(),
+            new Expense(new Description("Infinity War Movie"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("28-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Clothes"), new Price("18.90"),
-                    getCategory("shopping"), Timestamp.createTimestampIfValid("15-10").get(),
+            new Expense(new Description("Museum Visit"), new Price("10.90"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("21-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
 
-            new Expense(new Description("Genki Sushi"), new Price("23.50"),
-                    getCategory("food"), Timestamp.createTimestampIfValid("31-10").get(),
+            new Expense(new Description("Swimming pool visit"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("13-10").get(),
                     OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Bowling"), new Price("10"),
+                    getCategory("entertainment"), Timestamp.createTimestampIfValid("16-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+            new Expense(new Description("Debt to Debby"), new Price("100"),
+                    getCategory("others"), Timestamp.createTimestampIfValid("03-11").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+            new Expense(new Description("Debt to Debby"), new Price("100"),
+                    getCategory("others"), Timestamp.createTimestampIfValid("27-10").get(),
+                    OUTSIDE_SCHOOL, UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+
+
+
+
+
+
+
+
+
+
+
+
 
             new Expense(new Description("Air Ticket"), new Price("349.56"),
                     getCategory("transport"), Timestamp.createTimestampIfValid("01-11").get(),

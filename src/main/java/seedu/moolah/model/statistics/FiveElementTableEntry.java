@@ -15,7 +15,7 @@ public class FiveElementTableEntry {
 
     private int differenceNumEntries;
 
-    private FiveElementTableEntry(String name, double overlapAmount, int overlapNumEntries,
+    public FiveElementTableEntry(String name, double overlapAmount, int overlapNumEntries,
                                   double differenceAmount, int differenceNumEntries) {
 
         this.name = name;
@@ -23,6 +23,10 @@ public class FiveElementTableEntry {
         this.overlapNumEntries = overlapNumEntries;
         this.differenceAmount = differenceAmount;
         this.differenceNumEntries = differenceNumEntries;
+    }
+
+    public static FiveElementTableEntry createEmptyWithName(String name) {
+        return new FiveElementTableEntry(name, 0, 0, 0 , 0);
     }
 
     /**
@@ -57,5 +61,24 @@ public class FiveElementTableEntry {
     public int getDifferenceNumEntries() {
         return differenceNumEntries;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s %f %d %f %d]", getName(), getOverlapAmount(),
+                getOverlapNumEntries(), getDifferenceAmount(), getDifferenceNumEntries());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof FiveElementTableEntry)
+                && (name.equals(((FiveElementTableEntry) other).getName()))
+                && (overlapAmount == (((FiveElementTableEntry) other).getOverlapAmount()))
+                && (overlapNumEntries == (((FiveElementTableEntry) other).getOverlapNumEntries()))
+                && (differenceAmount == (((FiveElementTableEntry) other).getDifferenceAmount()))
+                && (differenceNumEntries == (((FiveElementTableEntry) other).getDifferenceNumEntries()));
+    }
+
+
 
 }

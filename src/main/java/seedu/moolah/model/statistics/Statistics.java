@@ -65,24 +65,25 @@ public class Statistics {
     /**
      * The main handler method of the Statistics model object to identify what kind of Statistics has to be done
      * with each command word
-     * @param expenses List of expenses
      * @param command Command word provided by the user
      * @param date1 First date input given by the user
      * @param date2 Second date input given by the user
      * @param primaryBudget The primary budget whose statistics is taken
      */
-    public static Statistics calculateStats(ObservableList<Expense> expenses, String command,
+    public static Statistics calculateStats(String command,
                                             Timestamp date1, Timestamp date2,
                                             Budget primaryBudget, boolean isBudgetMode) {
-        requireNonNull(expenses);
+        requireNonNull(command);
+        requireNonNull(primaryBudget);
+
         List<Category> validCategories = Category.getValidCategories();
         switch (command) {
         case StatsCommand.COMMAND_WORD:
-            return PieChartStatistics.run(expenses, validCategories, date1, date2, primaryBudget);
+            return PieChartStatistics.run(validCategories, date1, date2, primaryBudget);
         case StatsCompareCommand.COMMAND_WORD:
-            return TabularStatistics.run(expenses, validCategories, date1, date2, primaryBudget);
+            return TabularStatistics.run(validCategories, date1, date2, primaryBudget);
         case StatsTrendCommand.COMMAND_WORD:
-            return TrendStatistics.run(expenses, validCategories, date1, date2, primaryBudget, isBudgetMode);
+            return TrendStatistics.run(validCategories, date1, date2, primaryBudget, isBudgetMode);
         default:
             return null;
         }

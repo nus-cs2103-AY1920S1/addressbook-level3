@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.moolah.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
+import static seedu.moolah.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.moolah.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.moolah.testutil.Assert.assertThrows;
@@ -19,6 +22,7 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
+import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
@@ -109,13 +113,31 @@ public class CommandTestUtil {
     public static final EditExpenseCommand.EditExpenseDescriptor DESC_CHICKEN;
     public static final EditEventCommand.EditEventDescriptor DESC_BUFFET;
 
-    public static final String STATS_WITHOUT_CATEGORY = " 5";
-    public static final String STATS_PREFIX_WITHOUT_INPUT = String.format(" %s ", PREFIX_START_DATE);
+    public static final String STATS_WITHOUT_PREFIX = " 5";
+    public static final String STATS_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
+            PREFIX_START_DATE, PREFIX_END_DATE);
+    public static final String STATS_END_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
+            PREFIX_END_DATE, PREFIX_START_DATE);
+
+    public static final String STATS_FIRST_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
+            PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE);
+    public static final String STATS_SECOND_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
+            PREFIX_SECOND_START_DATE, PREFIX_FIRST_START_DATE);
+
     public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_CATEGORY);
     public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
-    public static final String STATS_DUPLICATE_CATEGORY = String.format("%s31-10-2019 %s01-10-2019",
+    public static final String STATS_DUPLICATE_DATE_PREFIX = String.format("%s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_START_DATE);
+    public static final String STATS_DUPLICATE_DATE_PREFIX_WITH_COMMAND = String.format("%s %s31-10-2019 %s01-10-2019",
+            StatsCommand.COMMAND_WORD, PREFIX_START_DATE, PREFIX_START_DATE);
+
+    public static final String STATS_TREND_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019 %sbudget",
+            PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
+    public static final String STATS_TREND_END_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019 %scategory",
+            PREFIX_END_DATE, PREFIX_START_DATE, PREFIX_MODE);
+    public static final String STATS_TREND_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019 %scategory",
+            PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
 
     public static final Timestamp OCTOBER_FIRST = Timestamp.createTimestampIfValid("01-10-2019").get();
     public static final Timestamp OCTOBER_LAST = Timestamp.createTimestampIfValid("31-10-2019").get();
