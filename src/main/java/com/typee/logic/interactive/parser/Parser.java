@@ -15,6 +15,7 @@ import com.typee.logic.commands.CurrentCommand;
 import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.ListCommand;
 import com.typee.logic.commands.PdfCommand;
 import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.commands.SortCommand;
@@ -32,6 +33,7 @@ import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
+import com.typee.logic.interactive.parser.state.listmachine.ListState;
 import com.typee.logic.interactive.parser.state.pdfmachine.PdfIndexState;
 import com.typee.logic.interactive.parser.state.redomachine.RedoState;
 import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
@@ -272,6 +274,10 @@ public class Parser implements InteractiveParser {
 
         case CalendarCommand.COMMAND_WORD:
             currentState = new CalendarState(new ArgumentMultimap());
+            break;
+
+        case ListCommand.COMMAND_WORD:
+            currentState = new ListState(new ArgumentMultimap());
             break;
 
         default:
