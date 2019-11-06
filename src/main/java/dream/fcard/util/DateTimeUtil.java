@@ -84,7 +84,8 @@ public class DateTimeUtil {
         return new JsonValue(obj);
     }
 
-    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws JsonWrongValueException {
+    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws
+            JsonWrongValueException, NullPointerException {
         return LocalDateTime.of(
                 obj.get(Schema.DATE_TIME_YEAR).getInt(),
                 obj.get(Schema.DATE_TIME_MONTH).getInt(),
