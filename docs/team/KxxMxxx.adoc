@@ -33,7 +33,7 @@ view of their itinerary. For more budget-minded users, they are able to use the 
 ** Justification: This feature improves the product because it allows users to rid the schedule of conflicts with a single command.
 ** Highlights: This enhancement can be easily extended to allow the user to optimise the schedule besides budget.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=KxxMxxx[RepoSense Report]]
 
 * *Other contributions*:
 
