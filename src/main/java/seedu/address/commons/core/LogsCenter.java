@@ -25,17 +25,6 @@ public class LogsCenter {
     private static ConsoleHandler consoleHandler;
 
     /**
-     * Initializes with a custom log level (specified in the {@code config} object)
-     * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name
-     * is requested again from the LogsCenter.
-     */
-    public static void init(Config config) {
-        currentLogLevel = config.getLogLevel();
-        logger.info("currentLogLevel: " + currentLogLevel);
-    }
-
-    /**
      * Creates a logger with the given name.
      */
     public static Logger getLogger(String name) {

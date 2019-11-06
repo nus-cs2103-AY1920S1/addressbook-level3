@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.UiManager.WINDOW_HEIGHT;
+import static seedu.address.logic.UiManager.WINDOW_WIDTH;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javafx.util.Duration;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
@@ -80,7 +81,8 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.onCommandInput = onCommandInput;
 
-        setWindowDefaultSize(new GuiSettings());
+        primaryStage.setWidth(WINDOW_WIDTH);
+        primaryStage.setHeight(WINDOW_HEIGHT);
     }
 
     public Stage getPrimaryStage() {
@@ -131,18 +133,6 @@ public class MainWindow extends UiPart<Stage> {
         addResizingListeners();
         welcomeMessage();
         delayResize();
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
     }
 
     /**

@@ -33,6 +33,9 @@ import seedu.address.ui.listeners.UserOutputListener;
  */
 public class UiManager implements Ui, UserOutputListener, ModelListListener {
 
+    public static final int WINDOW_WIDTH = 1280;
+    public static final int WINDOW_HEIGHT = 720;
+
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
