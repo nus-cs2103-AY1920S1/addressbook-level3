@@ -166,7 +166,6 @@ public enum Responses {
                         return true;
                     }
 
-                    
                     try {
                         return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                     } catch (DuplicateInChoicesException dicExc) {
