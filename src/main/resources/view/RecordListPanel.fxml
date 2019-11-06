@@ -12,7 +12,7 @@
    <content>
       <VBox style="-fx-background-color: snow;">
          <children>
-            <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" text="Records Overview" textFill="#797373">
+            <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" stylesheets="@DarkTheme.css" text="Records Overview" textFill="#797373">
                <padding>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
