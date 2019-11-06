@@ -24,6 +24,15 @@ import seedu.address.model.util.Date;
  */
 public class InCommandParser implements Parser<InCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the InCommand
+     * and checks for valid conditions of arguments
+     *
+     * @param args user input after command word 'in'
+     * @return InCommand of an InTransaction if all checks passes
+     * @throws ParseException if amount is negative, 0 or larger than 1 million.
+     * Exception is also thrown if compulsory fields Description, Amount or date is not entered correctly or missing.
+     */
     @Override
     public InCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -46,7 +55,7 @@ public class InCommandParser implements Parser<InCommand> {
 
         }
 
-        /* handles overflow value */
+        /* handles overflow value of transaction */
         if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) >= 1000000) {
             throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_OVERFLOW));
         }

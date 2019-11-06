@@ -145,14 +145,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+    public void deleteLedger(LedgerOperation ledgerToDelete) {
+        versionedUserState.remove(ledgerToDelete);
+    }
+
+    @Override
+    public void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 
         versionedUserState.set(transactionTarget, transactionEdit);
     }
 
     @Override
-    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+    public void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit) {
+        requireAllNonNull(ledgerTarget, ledgerEdit);
+
+        versionedUserState.set(ledgerTarget, ledgerEdit);
+    }
+
+    @Override
+    public void set(Budget budgetTarget, Budget budgetEdit) {
         requireAllNonNull(budgetTarget, budgetEdit);
 
         versionedUserState.set(budgetTarget, budgetEdit);

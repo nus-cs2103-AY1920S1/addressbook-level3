@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -87,6 +88,19 @@ public class DeleteCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
+            // delete command for Split
+        } else if (this.type.equals("l")) {
+            ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_INDEX);
+            }
+
+            LedgerOperation ledgerToDelete = lastShownList.get(targetIndex.getZeroBased());
+            model.deleteLedger(ledgerToDelete);
+            model.commitUserState();
+            return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, ledgerToDelete),
+                    false, false, Tab.LEDGER);
         } else {
             throw new CommandException("Unknown command error");
         }

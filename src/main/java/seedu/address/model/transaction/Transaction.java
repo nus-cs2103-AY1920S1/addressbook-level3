@@ -10,7 +10,7 @@ import seedu.address.model.util.Date;
 /**
  * API of Transaction.
  */
-public abstract class Transaction implements UndoableAction {
+public abstract class Transaction {
 
     protected Amount amount;
     protected Date date;

@@ -56,7 +56,7 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
      * The ledger operation identity of {@code ledgerOperationEdit} must not be the same as
      * another existing ledger operation in the list.
      */
-    public void setTransaction(LedgerOperation ledgerOperationTarget, LedgerOperation ledgerOperationEdit) {
+    public void set(LedgerOperation ledgerOperationTarget, LedgerOperation ledgerOperationEdit) {
         requireAllNonNull(ledgerOperationTarget, ledgerOperationEdit);
 
         int index = internalList.indexOf(ledgerOperationTarget);

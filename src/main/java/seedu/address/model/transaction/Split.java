@@ -15,7 +15,7 @@ import seedu.address.model.util.Date;
 /**
  * Split consists of Amount amount, Date date, {@code List<Amount> splitAmount}, and peopleInvolved
  */
-public class Split extends Transaction implements UndoableAction, LedgerOperation {
+public class Split extends Transaction implements LedgerOperation {
 
     public static final String SHARE_CONSTRAINTS = "number of shares must be one more than people involved";
 

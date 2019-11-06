@@ -8,6 +8,7 @@ import seedu.address.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
 
 /**
@@ -32,6 +33,7 @@ public class UpdateTransactionDescriptorBuilder {
     public UpdateTransactionDescriptorBuilder(BankAccountOperation transaction) {
         descriptor = new UpdateTransactionDescriptor();
         descriptor.setAmount(transaction.getAmount());
+        descriptor.setDescription(transaction.getDescription());
         descriptor.setDate(transaction.getDate());
         descriptor.setCategories(transaction.getCategories());
     }
@@ -49,6 +51,14 @@ public class UpdateTransactionDescriptorBuilder {
      */
     public UpdateTransactionDescriptorBuilder withDate(String date) {
         descriptor.setDate(new Date(date));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Description} of the {@code UpdateTransactionDescriptor} that we are building.
+     */
+    public UpdateTransactionDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

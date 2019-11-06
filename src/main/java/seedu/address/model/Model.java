@@ -138,7 +138,15 @@ public interface Model {
      * The transaction identity of {@code editedTransaction} must not be
      * the same as another existing transaction in the bank account.
      */
-    void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
+    void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
+
+    /**
+     * Replaces the given ledger operation {@code ledgerTarget} with {@code ledgerEdit}.
+     * {@code target} must exist in the bank account.
+     * The ledger operation identity of {@code ledgerEdit} must not be
+     * the same as another existing ledger operation in the Ledger.
+     */
+    void set(LedgerOperation ledgerTarget, LedgerOperation ledgerEdit);
 
     /**
      * Replaces the given budget {@code budget} with {@code editedBudget}.
@@ -146,7 +154,7 @@ public interface Model {
      * The budget identity of {@code editedBudget} must not be
      * the same as another existing budget in the bank account.
      */
-    void setBudget(Budget budgetTarget, Budget budgetEdit);
+    void set(Budget budgetTarget, Budget budgetEdit);
 
     /**
      * Adds the given transaction.
@@ -210,6 +218,12 @@ public interface Model {
      * The projection must exist in the bank account.
      */
     void deleteProjection(Projection projectionToDelete);
+
+    /**
+     * Deletes the given ledger.
+     * The ledger must exist in the bank account.
+     */
+    void deleteLedger(LedgerOperation ledgerToDelete);
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
     ObservableList<Projection> getFilteredProjectionsList();
