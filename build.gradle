@@ -16,7 +16,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.guilttrip.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -70,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'guiltTrip().jar'
+    archiveName = 'guilttrip().jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

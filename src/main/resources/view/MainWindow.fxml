@@ -18,7 +18,7 @@
 
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-<!--        <Image url="@/images/guiltTrip()_32.png" />-->
+        <Image url="@/images/guiltTrip()_32.png" />
     </icons>
     <scene>
         <Scene fx:id="scene">
@@ -47,11 +47,12 @@
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="5">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="expenseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="IncomeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
