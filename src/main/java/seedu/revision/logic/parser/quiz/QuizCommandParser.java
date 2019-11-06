@@ -32,18 +32,21 @@ public class QuizCommandParser {
      * @throws ParseException
      */
     public static Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
+        if (currentAnswerable instanceof Mcq || currentAnswerable instanceof TrueFalse) {
+            final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
-        final String commandWord = matcher.group("commandWord");
+            if (!matcher.matches()) {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
-        switch (commandWord) {
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-        default:
-            break;
+            final String commandWord = matcher.group("commandWord");
+
+            switch (commandWord) {
+                case ExitCommand.COMMAND_WORD:
+                    return new ExitCommand();
+                default:
+                    break;
+            }
         }
 
         if (currentAnswerable instanceof Mcq) {
