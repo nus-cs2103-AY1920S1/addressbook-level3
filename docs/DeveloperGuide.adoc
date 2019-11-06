@@ -202,6 +202,16 @@ of diagram.
 [[Design-Model]]
 === Model component
 
+The `Model` API is responsible for interacting with the data in JARVIS including
+the various aspects such as user's preferences, command history,
+finance management, cca information, courses and schedule information.
+
+Below is a class diagram involving the `Model` interface, which inherits
+from the feature specific model interfaces.
+
+.Model Interface
+image::
+
 .Structure of the Model Component
 image::ModelDiagram.png[]
 

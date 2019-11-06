@@ -11,9 +11,8 @@ import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * The API of the {@code Model} component.
- * This extends all the different models for all the features.
- * {@code UserPrefsModel} is the API for User Preferences and GUI settings.
- * {@code HistoryModel} is the API for undoing and redoing commands.
+ * The model extends from other feature specific model which define their own API.
+ * Therefore model is composed of the API of the feature specific model that it extends from.
  */
 
 public interface Model extends UserPrefsModel, HistoryModel, FinanceTrackerModel,
