@@ -11,6 +11,7 @@ import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.model.Model;
+import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
