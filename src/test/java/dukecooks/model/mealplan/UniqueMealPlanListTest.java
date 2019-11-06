@@ -2,12 +2,14 @@ package dukecooks.model.mealplan;
 
 import static dukecooks.testutil.mealplan.TypicalMealPlans.BURGER_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.MILO_MP;
+import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlans;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -19,8 +21,9 @@ import dukecooks.model.mealplan.exceptions.DuplicateMealPlanException;
 import dukecooks.model.mealplan.exceptions.MealPlanNotFoundException;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
+import dukecooks.testutil.mealplan.MealPlanUtil;
 
-public class UniqueMealPlanBookListTest {
+public class UniqueMealPlanListTest {
 
     private final UniqueMealPlanList uniqueMealPlanList = new UniqueMealPlanList();
 
@@ -242,5 +245,22 @@ public class UniqueMealPlanBookListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, ()
             -> uniqueMealPlanList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void testUniqueMealPlanListHashCode() {
+        UniqueMealPlanList list1 = new UniqueMealPlanList();
+        list1.setMealPlans(getTypicalMealPlans());
+        UniqueMealPlanList list2 = new UniqueMealPlanList();
+        list2.setMealPlans(getTypicalMealPlans());
+
+        assertEquals(list1.hashCode(), list2.hashCode());
+    }
+
+    @Test
+    public void testUniqueMealPlanListIterator() {
+        UniqueMealPlanList list1 = new UniqueMealPlanList();
+
+        assertTrue(list1.iterator() instanceof Iterator);
     }
 }
