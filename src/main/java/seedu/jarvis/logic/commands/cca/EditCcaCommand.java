@@ -237,7 +237,9 @@ public class EditCcaCommand extends Command {
         CcaName updatedName = editCcaDescriptor.getCcaName().orElse(ccaToEdit.getName());
         CcaType updatedCcaType = editCcaDescriptor.getCcaType().orElse(ccaToEdit.getCcaType());
         EquipmentList updatedEquipmentList = editCcaDescriptor.getEquipmentList().orElse(ccaToEdit.getEquipmentList());
-        CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress().orElse(ccaToEdit.getCcaProgress());
+
+        CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress()
+                .orElse(new CcaProgress(ccaToEdit.getCcaProgress()));
 
         if (editCcaDescriptor.getCcaMilestoneList().isPresent()) {
             updatedCcaProgress.setMilestones(editCcaDescriptor.getCcaMilestoneList().get());
