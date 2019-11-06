@@ -12,10 +12,9 @@ public class HtmlExporter extends Exporter {
     /**
      * Exports a String to a HTML file.
      * @param formattedString The formatted content.
-     * @return True if the file does not exist, false if the file already exists.
      * @throws IOException The exception to be thrown.
      */
-    public static boolean export(String formattedString) throws IOException {
+    public static void export(String formattedString) throws IOException {
         File dir = new File(EXPORT_DIRECTORY_PATH);
         dir.mkdir();
 
@@ -23,7 +22,7 @@ public class HtmlExporter extends Exporter {
 
         File file = new File(filePath);
         if (file.exists()) {
-            return false;
+            throw new IOException("The file has already existed");
         }
 
 
@@ -31,7 +30,5 @@ public class HtmlExporter extends Exporter {
         fos.write(formattedString.getBytes());
         fos.flush();
         fos.close();
-
-        return true;
     }
 }

@@ -263,10 +263,9 @@ public class AccountsManager {
 
     /**
      * Exports the overview report of all accounts.
-     * @return boolean
      * @throws IOException
      */
-    public boolean exportReport() throws IOException {
+    public void exportReport() throws IOException {
         StringBuilder reportAllAccount = new StringBuilder();
 
         reportAllAccount.append("<!DOCTYPE html>\n<html>\n<body>\n" + "<center><h2>")
@@ -283,6 +282,6 @@ public class AccountsManager {
 
         reportAllAccount.append("</body>\n" + "</html>\n");
 
-        return HtmlExporter.export(reportAllAccount.toString());
+        HtmlExporter.export(reportAllAccount.toString());
     }
 }

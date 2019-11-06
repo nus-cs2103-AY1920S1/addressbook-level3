@@ -26,15 +26,14 @@ public class AccountOverviewCommand extends Command {
     public static final String HTML_EXISTS = "The html file has already existed.";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, IOException {
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager());
         model.getAccountsManager().resetFilteredAccountList();
 
-        boolean isSuccess = model.getAccountsManager().exportReport();
-
-        if (isSuccess) {
+        try {
+            model.getAccountsManager().exportReport();
             return new CommandResult(MESSAGE_SUCCESS, CommandCategory.ACCOUNT);
-        } else {
+        } catch (IOException e) {
             throw new CommandException(HTML_EXISTS);
         }
     }

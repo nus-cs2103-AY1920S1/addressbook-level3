@@ -3,8 +3,6 @@ package budgetbuddy.logic.commands;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
-
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 
@@ -35,7 +33,7 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel, null);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-        } catch (CommandException | IOException ce) {
+        } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

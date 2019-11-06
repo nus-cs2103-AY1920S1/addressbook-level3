@@ -1,7 +1,5 @@
 package budgetbuddy.ui;
 
-import java.io.IOException;
-
 import budgetbuddy.logic.Logic;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
@@ -35,11 +33,11 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered() throws CommandException, ParseException {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -74,7 +72,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
 }
