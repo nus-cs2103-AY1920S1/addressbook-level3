@@ -54,35 +54,35 @@ public class SampleDataUtil {
 
     public static Student[] getSampleStudents2E6() {
         return new Student[] {
-                new Student(new Name("Alexandra Chin"), new Phone("93810385"), new Email("alexandrachin@hotmail.com"),
-                        new ParentPhone("93185033"), new Address("Blk 39 Hougang Street 16, #06-20"),
-                        new MedicalCondition("NIL"), getTagSet("PE REP")),
-                new Student(new Name("Benjamin Xu"), new Phone("93260711"), new Email("benjaminxu@gmail.com"),
-                        new ParentPhone("95821112"), new Address("Blk 16 Jurong West Gardens, #07-18"),
-                        new MedicalCondition("Asthma"), getTagSet()),
-                new Student(new Name("Crystal Tan"), new Phone("98802194"), new Email("crystal@gmail.com"),
-                        new ParentPhone("93333333"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        new MedicalCondition("Asthma"), getTagSet())
+            new Student(new Name("Alexandra Chin"), new Phone("93810385"), new Email("alexandrachin@hotmail.com"),
+                    new ParentPhone("93185033"), new Address("Blk 39 Hougang Street 16, #06-20"),
+                    new MedicalCondition("NIL"), getTagSet("PE REP")),
+            new Student(new Name("Benjamin Xu"), new Phone("93260711"), new Email("benjaminxu@gmail.com"),
+                    new ParentPhone("95821112"), new Address("Blk 16 Jurong West Gardens, #07-18"),
+                    new MedicalCondition("Asthma"), getTagSet()),
+            new Student(new Name("Crystal Tan"), new Phone("98802194"), new Email("crystal@gmail.com"),
+                    new ParentPhone("93333333"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    new MedicalCondition("Asthma"), getTagSet())
         };
     }
 
     public static Student[] getSampleStudents3E8() {
         return new Student[] {
-                new Student(new Name("Cindy Chan"), new Phone("83019928"), new Email("cindychan@gmail.com"),
-                        new ParentPhone("98019211"), new Address("Blk 14 Tampinese Street 69, #12-40"),
-                        new MedicalCondition("NIL"), getTagSet("Math REP")),
-                new Student(new Name("Dominic Ng"), new Phone("98128401"), new Email("domdom@hotmail.com"),
-                        new ParentPhone("99112830"), new Address("Blk 14 Jurong West Avenue 3, #06-18"),
-                        new MedicalCondition("Asthma"), getTagSet()),
-                new Student(new Name("Genna Lim"), new Phone("91830511"), new Email("gennarox@gmail.com"),
-                        new ParentPhone("91830511"), new Address("Blk 16 Yishun Street 14, #13-04"),
-                        new MedicalCondition("Sinus"), getTagSet("Likes to eat her pencil")),
-                new Student(new Name("Sandra Sim"), new Phone("91120009"), new Email("sandra@gmail.com"),
-                        new ParentPhone("81125252"), new Address("Blk 801 Clementi Street 16, #02-46"),
-                        new MedicalCondition("Allergic to nuts"), getTagSet("Likes to eat nuts")),
-                new Student(new Name("Xavier Lim"), new Phone("91820112"), new Email("xavierdaman@gmail.com"),
-                        new ParentPhone("98019304"), new Address("Blk 69 Jurong East Street 2, #14-65"),
-                        new MedicalCondition("NIL"), getTagSet("Cannot sit next to Sandra"))
+            new Student(new Name("Cindy Chan"), new Phone("83019928"), new Email("cindychan@gmail.com"),
+                    new ParentPhone("98019211"), new Address("Blk 14 Tampinese Street 69, #12-40"),
+                    new MedicalCondition("NIL"), getTagSet("Math REP")),
+            new Student(new Name("Dominic Ng"), new Phone("98128401"), new Email("domdom@hotmail.com"),
+                    new ParentPhone("99112830"), new Address("Blk 14 Jurong West Avenue 3, #06-18"),
+                    new MedicalCondition("Asthma"), getTagSet()),
+            new Student(new Name("Genna Lim"), new Phone("91830511"), new Email("gennarox@gmail.com"),
+                    new ParentPhone("91830511"), new Address("Blk 16 Yishun Street 14, #13-04"),
+                    new MedicalCondition("Sinus"), getTagSet("Likes to eat her pencil")),
+            new Student(new Name("Sandra Sim"), new Phone("91120009"), new Email("sandra@gmail.com"),
+                    new ParentPhone("81125252"), new Address("Blk 801 Clementi Street 16, #02-46"),
+                    new MedicalCondition("Allergic to nuts"), getTagSet("Likes to eat nuts")),
+            new Student(new Name("Xavier Lim"), new Phone("91820112"), new Email("xavierdaman@gmail.com"),
+                    new ParentPhone("98019304"), new Address("Blk 69 Jurong East Street 2, #14-65"),
+                    new MedicalCondition("NIL"), getTagSet("Cannot sit next to Sandra"))
         };
     }
 
@@ -190,17 +190,17 @@ public class SampleDataUtil {
 
     public static Assignment[] getSampleAssignments2E6() {
         return new Assignment[] {
-                new Assignment(new AssignmentName("Math Worksheet 2"), new AssignmentDeadline("23/11/2019 1800")),
-                new Assignment(new AssignmentName("English Worksheet 1"), new AssignmentDeadline("18/11/2019 2359")),
-                new Assignment(new AssignmentName("Math Assignment 1"), new AssignmentDeadline("19/11/2019 1400"))
+            new Assignment(new AssignmentName("Math Worksheet 2"), new AssignmentDeadline("23/11/2019 1800")),
+            new Assignment(new AssignmentName("English Worksheet 1"), new AssignmentDeadline("18/11/2019 2359")),
+            new Assignment(new AssignmentName("Math Assignment 1"), new AssignmentDeadline("19/11/2019 1400"))
         };
     }
 
     public static Assignment[] getSampleAssignments3E8() {
         return new Assignment[] {
-                new Assignment(new AssignmentName("Math Assignment 3"), new AssignmentDeadline("23/11/2019 1900")),
-                new Assignment(new AssignmentName("English Essay 4"), new AssignmentDeadline("29/11/2019 2359")),
-                new Assignment(new AssignmentName("English Tutorial 2"), new AssignmentDeadline("19/11/2019 1400"))
+            new Assignment(new AssignmentName("Math Assignment 3"), new AssignmentDeadline("23/11/2019 1900")),
+            new Assignment(new AssignmentName("English Essay 4"), new AssignmentDeadline("29/11/2019 2359")),
+            new Assignment(new AssignmentName("English Tutorial 2"), new AssignmentDeadline("19/11/2019 1400"))
         };
     }
 
