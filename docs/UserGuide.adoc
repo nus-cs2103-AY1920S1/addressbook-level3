@@ -273,7 +273,7 @@ image::BeforeAssign.png[width="790"]
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
-image::AfterAssignNew.png[width="790"]
+image::AfterAssign.png[width="790"]
 
 // end::MemberCommands[]
 
