@@ -10,7 +10,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.predicates.FavoriteBookmarkPredicate;
+import seedu.mark.model.tag.Tag;
 import seedu.mark.storage.Storage;
 
 /**
@@ -47,7 +47,7 @@ public class FavoriteCommand extends Command {
 
         Bookmark bookmarkToFavorite = lastShownList.get(targetIndex.getZeroBased());
 
-        if (new FavoriteBookmarkPredicate().test(bookmarkToFavorite)) {
+        if (bookmarkToFavorite.containsTag(Tag.FAVORITE)) {
             throw new CommandException(MESSAGE_FAVORITE_BOOKMARK_DUPLICATE);
         }
 

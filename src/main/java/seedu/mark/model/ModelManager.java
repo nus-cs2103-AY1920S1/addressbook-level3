@@ -20,8 +20,8 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.predicates.FavoriteBookmarkPredicate;
 import seedu.mark.model.reminder.Reminder;
+import seedu.mark.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -49,7 +49,8 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
-        favoriteBookmarks = new FilteredList<>(versionedMark.getBookmarkList(), new FavoriteBookmarkPredicate());
+        favoriteBookmarks = new FilteredList<>(versionedMark.getBookmarkList(),
+            bookmark -> bookmark.containsTag(Tag.FAVORITE));
     }
 
     public ModelManager() {
