@@ -25,10 +25,10 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.cca.CcaListView;
-import seedu.jarvis.ui.course.CoursePlannerWindow;
+import seedu.jarvis.ui.course.CoursePlannerView;
 import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.planner.PlannerUiType;
-import seedu.jarvis.ui.planner.PlannerWindow;
+import seedu.jarvis.ui.planner.PlannerView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -172,17 +172,18 @@ public class MainWindow extends UiPart<Stage> {
         });
 
         // filling individual tabs
-        CoursePlannerWindow cpw = new CoursePlannerWindow(this, logic, model);
-        PlannerWindow pw = new PlannerWindow(this, logic, model, PlannerUiType.SCHEDULE);
+        CoursePlannerView cpv = new CoursePlannerView(this, logic, model);
+        PlannerView pw = new PlannerView(this, logic, model, PlannerUiType.SCHEDULE);
         CcaListView clv = new CcaListView(this, logic, model);
         FinanceListView flv = new FinanceListView(this, logic, model);
 
         model.updateSchedule();
+        model.updateUnfilteredTaskList();
         pw.fillPage();
         plannerContentPlaceholder.getChildren().add(pw.getRoot());
 
-        cpw.fillPage();
-        moduleContentPlaceholder.getChildren().add(cpw.getRoot());
+        cpv.fillPage();
+        moduleContentPlaceholder.getChildren().add(cpv.getRoot());
 
         clv.fillPage();
         ccaContentPlaceholder.getChildren().add(clv.getRoot());
@@ -279,12 +280,12 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case LIST_PLANNER_SCHEDULE:
-            newView = new PlannerWindow(this, logic, model, PlannerUiType.SCHEDULE);
+            newView = new PlannerView(this, logic, model, PlannerUiType.SCHEDULE);
             toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 
         case LIST_PLANNER_FIND:
-            newView = new PlannerWindow(this, logic, model, PlannerUiType.FIND);
+            newView = new PlannerView(this, logic, model, PlannerUiType.FIND);
             toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 
@@ -294,7 +295,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case LIST_COURSE:
-            newView = new CoursePlannerWindow(this, logic, model);
+            newView = new CoursePlannerView(this, logic, model);
             toUpdatePlaceHolder = moduleContentPlaceholder;
             break;
 

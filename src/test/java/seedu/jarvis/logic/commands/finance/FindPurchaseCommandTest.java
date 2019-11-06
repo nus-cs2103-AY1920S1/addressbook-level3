@@ -92,7 +92,7 @@ public class FindPurchaseCommandTest {
         PurchaseNameContainsKeywordsPredicate predicate = preparePredicate("Lunch Dinner");
         FindPurchaseCommand command = new FindPurchaseCommand(predicate);
         expectedModel.updateFilteredPurchaseList(predicate);
-        assertEquals(Arrays.asList(LUNCH_JAPANESE, DINNER_REEDZ), model.getFilteredPurchaseList());
+        assertEquals(Arrays.asList(DINNER_REEDZ, LUNCH_JAPANESE), model.getFilteredPurchaseList());
         //assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 

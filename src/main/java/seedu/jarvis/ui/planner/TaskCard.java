@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
@@ -49,6 +50,11 @@ public class TaskCard extends UiPart<Region> {
         taskDes.setText(task.getTaskDes());
         taskType.setText(task.getTaskType().toString());
         status.setText(task.getStatus().getIcon());
+        if (task.getStatus() == Status.NOT_DONE) {
+            status.setStyle("-fx-text-fill: MEDIUMVIOLETRED");
+        } else {
+            status.setStyle("-fx-text-fill: LIGHTSEAGREEN");
+        }
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

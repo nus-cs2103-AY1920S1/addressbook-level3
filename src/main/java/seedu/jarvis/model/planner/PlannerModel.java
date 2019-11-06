@@ -112,6 +112,11 @@ public interface PlannerModel {
     void updateSchedule();
 
     /**
+     * Updates the list of tasks according to changes made in the planner
+     */
+    void updateUnfilteredTaskList();
+
+    /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */
