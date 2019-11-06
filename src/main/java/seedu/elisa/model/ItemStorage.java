@@ -19,7 +19,7 @@ import seedu.elisa.commons.util.JsonUtil;
  * The central storage of all the items in the program.
  */
 public class ItemStorage {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ItemModelManager.class);
 
     private ArrayList<Item> items = new ArrayList<>();
 
