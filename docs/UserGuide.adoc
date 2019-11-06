@@ -658,11 +658,12 @@ you will not be able to redo the commands.
 
 === Cca Tracker
 
-* `add-cca n/NAME t/TYPE`
-* `delete-cca n/NAME`
-* `edit-cca n/NAME`
+* `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
+* `delete-cca INDEX`
+* `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 * `list-cca`
-* `find-cca k/KEYWORD`
+* `find-cca KEYWORD`
+* `add-progress INDEX p/MILESTONE `
 * `increment-progress INDEX`
 
 === Course Planner
