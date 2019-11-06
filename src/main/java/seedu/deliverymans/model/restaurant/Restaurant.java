@@ -119,6 +119,26 @@ public class Restaurant {
     }
 
     /**
+     * Replaces the food {@code target} in the menu with {@code editedFood}.
+     * {@code target} must exist in the menu.
+     * The food identity of {@code editedFood} must not be the same as another existing food in the menu.
+     */
+    public void setFood(Food target, Food editedFood) {
+        requireAllNonNull(target, editedFood);
+
+        int index = menu.indexOf(target);
+        if (index == -1) {
+            throw new FoodNotFoundException();
+        }
+
+        if (!target.isSameFood(editedFood) && menu.stream().anyMatch(editedFood::isSameFood)) {
+            throw new DuplicateFoodException();
+        }
+
+        menu.set(index, editedFood);
+    }
+
+    /**
      * Removes the food time from the restaurant's menu
      *
      * @param toRemove
@@ -137,13 +157,13 @@ public class Restaurant {
         for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
             for (Food food : this.menu) {
                 if (food.getName().equals(entry.getKey())) {
-                    this.quantityOrdered += entry.getValue().intValue();
-                    food.addQuantity(entry.getValue().intValue());
+                    this.quantityOrdered += entry.getValue();
+                    setFood(food, food.addQuantity(entry.getValue()));
                 }
             }
         }
-        for (Food food : this.menu) {
-            food.updateTag(this.quantityOrdered, this.menu.size());
+        for (Food food : menu) {
+            setFood(food, food.updateTag(this.quantityOrdered, menu.size()));
         }
     }
 

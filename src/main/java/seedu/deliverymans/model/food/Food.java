@@ -5,11 +5,11 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 
@@ -22,8 +22,8 @@ public class Food {
 
     private final Name name;
     private final BigDecimal price;
-    private final ObservableList<Tag> tags = FXCollections.observableArrayList();
-    private int quantityOrdered;
+    private final Set<Tag> tags;
+    private final int quantityOrdered;
 
     /**
      * Constructs a {@code Food}.
@@ -32,23 +32,18 @@ public class Food {
      * @param price A non-negative price.
      * @param tags Tags of the food.
      */
-    public Food(Name name, BigDecimal price, ObservableList<Tag> tags) {
-        requireAllNonNull(name, price, tags);
-        checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        this.name = name;
-        this.price = price;
-        this.quantityOrdered = 0;
-        this.tags.addAll(tags);
+    public Food(Name name, BigDecimal price, Set<Tag> tags) {
+        this(name, price, tags, 0);
     }
 
-    public Food(Name name, BigDecimal price, ObservableList<Tag> tags, int quantityOrdered) {
+    public Food(Name name, BigDecimal price, Set<Tag> tags, int quantityOrdered) {
         requireAllNonNull(name, price, quantityOrdered, tags);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
         checkArgument(isValidQuantity(quantityOrdered), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
         this.quantityOrdered = quantityOrdered;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
     }
 
     /**
@@ -66,19 +61,25 @@ public class Food {
     }
 
     /**
-     * Add quantity to quantityOrdered.
+     * Returns a new Food with quantity added to quantityOrdered.
      */
-    public void addQuantity(int quantity) {
-        this.quantityOrdered += quantity;
+    public Food addQuantity(int quantity) {
+        return new Food(name, price, tags, quantityOrdered + quantity);
     }
 
     /**
-     * Updates tags with "Popular" tag.
+     * Updates tags with "Popular" tag and returns a new Food if necessary.
      */
-    public void updateTag(int totalQuantity, int menuSize) {
-        this.tags.remove(new Tag("Popular"));
-        if (this.quantityOrdered != 0 && this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {
-            this.tags.add(new Tag("Popular"));
+    public Food updateTag(int totalQuantity, int menuSize) {
+        Set<Tag> updatedTags = new HashSet<>(tags);
+        updatedTags.remove(new Tag("Popular"));
+        if (quantityOrdered != 0 && quantityOrdered >= 1.5 * totalQuantity / menuSize) {
+            updatedTags.add(new Tag("Popular"));
+        }
+        if (tags.equals(updatedTags)) {
+            return this;
+        } else {
+            return new Food(name, price, updatedTags, quantityOrdered);
         }
     }
 
@@ -94,7 +95,7 @@ public class Food {
         return quantityOrdered;
     }
 
-    public ObservableList<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 

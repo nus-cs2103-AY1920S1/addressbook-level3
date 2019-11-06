@@ -5,7 +5,8 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
-import javafx.collections.ObservableList;
+import java.util.Set;
+
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -51,11 +52,11 @@ public class AddFoodCommand extends Command {
         requireNonNull(model);
         Restaurant restaurant = model.getEditingRestaurantList().get(0);
 
-        ObservableList<Tag> newTags = toAdd.getTags();
+        Set<Tag> newTags = toAdd.getTags();
         if (newTags.size() > 1) {
             throw new CommandException(MESSAGE_WRONG_TAG);
         } else if (newTags.size() == 1) {
-            if (!newTags.get(0).tagName.equals("Recommended")) {
+            if (!newTags.contains(new Tag("Recommended"))) {
                 throw new CommandException(MESSAGE_WRONG_TAG);
             }
         }
