@@ -14,6 +14,7 @@ import seedu.address.logic.commands.expenditure.edit.DoneEditExpenditureCommand;
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.MiscExpenditure;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
@@ -66,7 +67,7 @@ public class EditExpenditurePage extends Page<AnchorPane> {
      * Sets fields as disabled.
      */
     public void setDisabledFields() {
-        if (expenditureToEdit == null || expenditureToEdit.getRemovability()) {
+        if (expenditureToEdit == null || expenditureToEdit instanceof MiscExpenditure) {
             return;
         } else {
             expenditureNameFormItem.getRoot().setDisable(true);

@@ -25,6 +25,8 @@ import seedu.address.logic.parser.expense.ExpenseManagerCommand;
 import seedu.address.model.Model;
 import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.MiscExpenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
@@ -121,8 +123,8 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
         List<Node> expenditureCards = IntStream.range(0, expenses.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    ExpenditureCard expenditureCard = new ExpenditureCard(expenses.get(index.getZeroBased()),
-                            index, model);
+                    Expenditure expenditure = expenses.get(index.getZeroBased());
+                    ExpenditureCard expenditureCard = generateExpenditureCard(expenditure, index);
                     return expenditureCard.getRoot();
                 }).collect(Collectors.toList());
         expenditureCardsContainer.getChildren().addAll(expenditureCards);
@@ -155,13 +157,35 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
 
         for (int j = 0; j < expenses.size(); j++) {
             Expenditure expenditure = expenses.get(j);
+
             if (expenditure.getDayNumber().isEmpty()) {
-                expenditureLists.get(0).add(new ExpenditureCard(expenditure, Index.fromZeroBased(j), model));
+                ExpenditureCard expenditureCard = generateExpenditureCard(expenditure, Index.fromZeroBased(j));
+                expenditureLists.get(0).add(expenditureCard);
             } else {
+                ExpenditureCard expenditureCard = generateExpenditureCard(expenditure, Index.fromZeroBased(j));
                 expenditureLists.get(Integer.parseInt(expenditure.getDayNumber().get().value))
-                        .add(new ExpenditureCard(expenditure, Index.fromZeroBased(j), model));
+                        .add(expenditureCard);
             }
         }
+    }
+
+    /**
+     * Generates an expenditure card according to expenditure type
+     *
+     * @param expenditure expenditure to be displayed in expenditure card
+     * @param index index of expenditure card
+     * @return an expenditure card with matching type
+     */
+    private ExpenditureCard generateExpenditureCard(Expenditure expenditure, Index index) {
+        ExpenditureCard expenditureCard;
+        if (expenditure instanceof PlannedExpenditure) {
+            expenditureCard = new PlannedExpenditureCard(expenditure, index, model, mainWindow);
+        } else if (expenditure instanceof MiscExpenditure) {
+            expenditureCard = new MiscExpenditureCard(expenditure, index, model);
+        } else {
+            throw new AssertionError("Invalid expenditure type");
+        }
+        return expenditureCard;
     }
 
     /**

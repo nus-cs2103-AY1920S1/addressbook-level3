@@ -10,7 +10,7 @@ import seedu.address.model.itinerary.Name;
 /**
  * Generic abstraction of expenditure.
  */
-public class Expenditure {
+public abstract class Expenditure {
 
     // Compulsory fields
     private final Name name;
@@ -19,15 +19,11 @@ public class Expenditure {
     // Optional fields
     private final DayNumber dayNumber;
 
-    // Indicate whether the expenditure can be deleted manually
-    private final boolean isRemovable;
-
     /**
      * Constructs an {@code Expenditure}.
      */
-    public Expenditure(Name name, Budget budget, DayNumber dayNumber, boolean isRemovable) {
-        this.isRemovable = isRemovable;
-        requireAllNonNull(name, budget, dayNumber);
+    public Expenditure(Name name, Budget budget, DayNumber dayNumber) {
+        requireAllNonNull(name, budget);
         this.name = name;
         this.budget = budget;
         this.dayNumber = dayNumber;
@@ -36,18 +32,13 @@ public class Expenditure {
     /**
      * Constructs an expenditure with optional dayNumber field.
      */
-    public Expenditure(Name name, Budget budget, Optional<DayNumber> dayNumber, boolean isRemovable) {
-        this.isRemovable = isRemovable;
-        requireAllNonNull(name, budget, dayNumber);
+    public Expenditure(Name name, Budget budget, Optional<DayNumber> dayNumber) {
+        requireAllNonNull(name, budget);
         this.name = name;
         this.budget = budget;
-        if (dayNumber.isPresent()) {
-            this.dayNumber = dayNumber.get();
-        } else {
-            this.dayNumber = null;
-        }
-    }
+        this.dayNumber = dayNumber.orElse(null);
 
+    }
 
     public Name getName() {
         return name;
@@ -58,10 +49,6 @@ public class Expenditure {
     public Optional<DayNumber> getDayNumber() {
         return Optional.ofNullable(dayNumber);
     }
-    public boolean getRemovability() {
-        return isRemovable;
-    }
-
 
     /**
      * Check if two expenditures are the same
@@ -74,7 +61,10 @@ public class Expenditure {
             return true;
         } else if (otherExpenditure == null) {
             return false;
-        } else if (otherExpenditure instanceof Expenditure) {
+        } else if (otherExpenditure instanceof MiscExpenditure && this instanceof MiscExpenditure) {
+            return otherExpenditure.getName().equals(getName())
+                    && otherExpenditure.getDayNumber().get().equals(getDayNumber().get());
+        } else if (otherExpenditure instanceof PlannedExpenditure && this instanceof PlannedExpenditure) {
             return otherExpenditure.getName().equals(getName())
                     && otherExpenditure.getDayNumber().get().equals(getDayNumber().get());
         } else {

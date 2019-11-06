@@ -9,5 +9,6 @@ public enum ExpenseManagerCommand {
     DELETE,
     SHOWDAYS,
     SHOWLIST,
-    CURRENCY
+    CURRENCY,
+    SHOW
 }

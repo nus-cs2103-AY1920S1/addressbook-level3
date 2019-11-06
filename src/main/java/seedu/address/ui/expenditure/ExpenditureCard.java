@@ -29,8 +29,8 @@ public class ExpenditureCard extends UiPart<HBox> {
     private Index displayedIndex;
     private Model model;
 
-    public ExpenditureCard(Expenditure expenditure, Index displayedIndex, Model model) {
-        super(FXML);
+    public ExpenditureCard(String fxmlFileName, Expenditure expenditure, Index displayedIndex, Model model) {
+        super(fxmlFileName);
         this.expenditure = expenditure;
         this.displayedIndex = displayedIndex;
         this.model = model;

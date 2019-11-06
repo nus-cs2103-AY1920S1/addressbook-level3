@@ -123,7 +123,7 @@ public class ExpenditureList implements Iterable<Expenditure> {
     public void removeByUser(Expenditure toRemove) throws ExpenditureNotFoundException,
             ExpenditureNotRemovableException {
         requireNonNull(toRemove);
-        if (toRemove.getRemovability()) {
+        if (toRemove instanceof MiscExpenditure) {
             if (!internalList.remove(toRemove)) {
                 throw new ExpenditureNotFoundException();
             }

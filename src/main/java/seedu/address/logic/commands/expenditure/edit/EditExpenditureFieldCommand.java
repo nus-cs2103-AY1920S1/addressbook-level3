@@ -15,6 +15,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.MiscExpenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 
@@ -39,6 +41,7 @@ public class EditExpenditureFieldCommand extends Command {
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
     public static final String MESSAGE_NOT_EDITABLE = "The expenditure is linked to an event, only the amount can be "
             + "edited. To change name and day number, please edit the corresponding event";
+    public static final String MESSAGE_BUILD_FAILED = "Error in building a new expenditure";
 
     private final EditExpenditureDescriptor editExpenditureDescriptor;
 
@@ -58,7 +61,7 @@ public class EditExpenditureFieldCommand extends Command {
         boolean hasName = editExpenditureDescriptor.getName().isPresent();
         boolean hasDayNumber = editExpenditureDescriptor.getDayNumber().isPresent();
         if (expenditure != null) {
-            if (!expenditure.getRemovability() && (hasName || hasDayNumber)) {
+            if (expenditure instanceof PlannedExpenditure && (hasName || hasDayNumber)) {
                 throw new CommandException(MESSAGE_NOT_EDITABLE);
             }
         }
@@ -159,7 +162,7 @@ public class EditExpenditureFieldCommand extends Command {
          */
         public Expenditure buildExpenditure() {
             if (isAllPresent(name, budget)) {
-                return new Expenditure(name.get(), budget.get(), dayNumber, true);
+                return new MiscExpenditure(name.get(), budget.get(), dayNumber);
             } else {
                 throw new NullPointerException();
             }
@@ -177,7 +180,6 @@ public class EditExpenditureFieldCommand extends Command {
             Name expenditureName = expenditure.getName();
             Budget budget = expenditure.getBudget();
             Optional<DayNumber> dayNumber = expenditure.getDayNumber();
-            boolean isRemovable = expenditure.getRemovability();
 
             if (this.name.isPresent()) {
                 expenditureName = this.name.get();
@@ -189,7 +191,13 @@ public class EditExpenditureFieldCommand extends Command {
                 dayNumber = this.dayNumber;
             }
 
-            return new Expenditure(expenditureName, budget, dayNumber, isRemovable);
+            if (expenditure instanceof PlannedExpenditure) {
+                return new PlannedExpenditure(expenditureName, budget, dayNumber);
+            } else if (expenditure instanceof MiscExpenditure) {
+                return new MiscExpenditure(expenditureName, budget, dayNumber);
+            } else {
+                throw new AssertionError(MESSAGE_BUILD_FAILED);
+            }
         }
 
         /**

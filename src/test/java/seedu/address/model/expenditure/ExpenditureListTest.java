@@ -25,12 +25,12 @@ public class ExpenditureListTest {
     public static final Expenditure EXPENDITURE_A = ExpenditureBuilder.newInstance().setName(new Name("Expenditure A"))
             .setBudget(new Budget(123))
             .setDayNumber(Optional.of(new DayNumber("1")))
-            .setRemovability(true)
+            .setType("misc")
             .build();
     public static final Expenditure EXPENDITURE_B = ExpenditureBuilder.newInstance().setName(new Name("Expenditure B"))
             .setBudget(new Budget(123.12))
             .setDayNumber(Optional.of(new DayNumber("1")))
-            .setRemovability(false)
+            .setType("planned")
             .build();
 
     @Test

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.MiscExpenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 
@@ -20,7 +22,7 @@ public class JsonAdaptedExpenditure {
     private final String name;
     private final Double budget;
     private final Optional<String> dayNumber;
-    private final boolean isRemovable;
+    private final String type;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given Expenditure details.
@@ -29,11 +31,11 @@ public class JsonAdaptedExpenditure {
     public JsonAdaptedExpenditure(@JsonProperty("name") String name,
                                   @JsonProperty("budget") Double budget,
                                   @JsonProperty("dayNumber") Optional<String> dayNumber,
-                                  @JsonProperty("removable") boolean isRemovable) {
+                                  @JsonProperty("type") String type) {
         this.name = name;
         this.budget = budget;
         this.dayNumber = dayNumber;
-        this.isRemovable = isRemovable;
+        this.type = type;
 
     }
 
@@ -48,7 +50,14 @@ public class JsonAdaptedExpenditure {
         } else {
             this.dayNumber = Optional.empty();
         }
-        this.isRemovable = source.getRemovability();
+        if (source instanceof MiscExpenditure) {
+            this.type = "misc";
+        } else if (source instanceof PlannedExpenditure) {
+            this.type = "planned";
+        } else {
+            throw new AssertionError("Unsupported expenditure type");
+        }
+
     }
 
     /**
@@ -86,6 +95,12 @@ public class JsonAdaptedExpenditure {
         final Name modelName = new Name(name);
         final Budget modelTotalBudget = new Budget(budget);
 
-        return new Expenditure(modelName, modelTotalBudget, modelDayNumber, isRemovable);
+        if (type.equals("misc")) {
+            return new MiscExpenditure(modelName, modelTotalBudget, modelDayNumber);
+        } else if (type.equals("planned")) {
+            return new PlannedExpenditure(modelName, modelTotalBudget, modelDayNumber);
+        } else {
+            throw new IllegalValueException("Invalid expenditure type");
+        }
     }
 }

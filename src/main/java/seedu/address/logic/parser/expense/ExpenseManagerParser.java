@@ -6,6 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.currency.EnterCreateCurrencyCommand;
 import seedu.address.logic.commands.expenditure.DeleteExpenditureCommand;
 import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
+import seedu.address.logic.commands.expenditure.EnterDayOfExpenditureCommand;
 import seedu.address.logic.commands.expenditure.EnterDaysViewCommand;
 import seedu.address.logic.commands.expenditure.EnterEditExpenditureCommand;
 import seedu.address.logic.commands.expenditure.EnterListViewCommand;
@@ -22,6 +23,7 @@ public class ExpenseManagerParser implements PageParser {
             + EnterCreateExpenditureCommand.COMMAND_WORD + " "
             + DeleteExpenditureCommand.COMMAND_WORD + " "
             + EnterEditExpenditureCommand.COMMAND_WORD + " "
+            + EnterDayOfExpenditureCommand.COMMAND_WORD + " "
             + EnterDaysViewCommand.COMMAND_WORD + " "
             + EnterListViewCommand.COMMAND_WORD + " "
             + EnterCreateCurrencyCommand.COMMAND_WORD + " | "
@@ -49,6 +51,8 @@ public class ExpenseManagerParser implements PageParser {
             return new EnterListViewParser().parse(arguments);
         case CURRENCY:
             return new EnterCreateCurrencyParser().parse(arguments);
+        case SHOW:
+            return new EnterDayOfExpenditureParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

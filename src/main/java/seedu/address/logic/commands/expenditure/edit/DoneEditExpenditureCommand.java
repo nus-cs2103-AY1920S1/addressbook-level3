@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 import seedu.address.model.itinerary.day.Day;
@@ -66,9 +67,9 @@ public class DoneEditExpenditureCommand extends Command {
                     }
                 }
                 model.getPageStatus().getTrip().getExpenditureList().set(expenditureToEdit, expenditureToAdd);
-                if ((!expenditureToAdd.getRemovability())) {
+                if (expenditureToAdd instanceof PlannedExpenditure) {
                     DayList dayList = model.getPageStatus().getTrip().getDayList();
-                    Day day = dayList.internalList.get(expenditureToAdd.getDayNumber().get().getValue() - 1);
+                    Day day = dayList.get(expenditureToAdd.getDayNumber().get().getValue() - 1);
                     day.getEventList().updateExpenditure(expenditureToAdd);
                 }
                 commandResult = new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, expenditureToAdd),

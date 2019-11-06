@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Budget;
@@ -205,8 +206,8 @@ public class EditEventFieldCommand extends Command {
                     DayList list = model.getPageStatus().getTrip().getDayList();
                     Day day = model.getPageStatus().getDay();
                     int index = list.internalList.indexOf(day);
-                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(),
-                            new DayNumber(Integer.toString(index + 1)), false);
+                    Expenditure newExpenditure = new PlannedExpenditure(name.get(), totalBudget.get(),
+                            new DayNumber(Integer.toString(index + 1)));
                     expenditure = Optional.of(newExpenditure);
                 }
                 return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get());
@@ -248,8 +249,8 @@ public class EditEventFieldCommand extends Command {
             if (this.totalBudget.isPresent()) {
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
-                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
-                        new DayNumber(Integer.toString(index + 1)), false);
+                Expenditure newExpenditure = new PlannedExpenditure(eventName, this.totalBudget.get(),
+                        new DayNumber(Integer.toString(index + 1)));
                 expenditure = Optional.of(newExpenditure);
             }
             if (this.inventory.isPresent()) {

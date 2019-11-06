@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.MiscExpenditure;
+import seedu.address.model.expenditure.PlannedExpenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 
@@ -17,7 +19,7 @@ public class ExpenditureBuilder {
     private Name name;
     private Budget budget;
     private Optional<DayNumber> dayNumber;
-    private boolean isRemovable;
+    private String type;
 
     private ExpenditureBuilder() {}
 
@@ -33,11 +35,21 @@ public class ExpenditureBuilder {
      */
     public static ExpenditureBuilder of(Expenditure expenditure) {
         requireAllNonNull(expenditure.getName(), expenditure.getBudget());
-        return ExpenditureBuilder.newInstance()
-                .setName(expenditure.getName())
-                .setBudget(expenditure.getBudget())
-                .setDayNumber(expenditure.getDayNumber())
-                .setRemovability(expenditure.getRemovability());
+        if (expenditure instanceof PlannedExpenditure) {
+            return ExpenditureBuilder.newInstance()
+                    .setName(expenditure.getName())
+                    .setBudget(expenditure.getBudget())
+                    .setDayNumber(expenditure.getDayNumber())
+                    .setType("planned");
+        } else if (expenditure instanceof MiscExpenditure) {
+            return ExpenditureBuilder.newInstance()
+                    .setName(expenditure.getName())
+                    .setBudget(expenditure.getBudget())
+                    .setDayNumber(expenditure.getDayNumber())
+                    .setType("misc");
+        } else {
+            throw new AssertionError("Invalid expenditure type");
+        }
     }
 
     public ExpenditureBuilder setName(Name name) {
@@ -55,8 +67,8 @@ public class ExpenditureBuilder {
         return this;
     }
 
-    public ExpenditureBuilder setRemovability(boolean isRemovable) {
-        this.isRemovable = isRemovable;
+    public ExpenditureBuilder setType(String type) {
+        this.type = type;
         return this;
     }
 
@@ -64,7 +76,13 @@ public class ExpenditureBuilder {
      * Terminal method to construct new {@link Expenditure}.
      */
     public Expenditure build() {
-        return new Expenditure(name, budget, dayNumber, isRemovable);
+        if (type.equals("planned")) {
+            return new PlannedExpenditure(name, budget, dayNumber);
+        } else if (type.equals("misc")) {
+            return new MiscExpenditure(name, budget, dayNumber);
+        } else {
+            throw new AssertionError("Invalid expenditure type");
+        }
     }
 
 }

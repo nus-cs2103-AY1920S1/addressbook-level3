@@ -36,10 +36,6 @@ public class DayNumber {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isValidDayNumber(int test) {
-        return test > 0;
-    }
-
     public int getValue() {
         return Integer.parseInt(value);
     }
