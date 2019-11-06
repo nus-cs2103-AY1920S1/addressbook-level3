@@ -3,7 +3,7 @@ package seedu.weme.logic.parser.commandparser.importcommandparser;
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class ImportDeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new ImportDeleteCommand(INDEX_FIRST_MEME));
+        assertParseSuccess(parser, "1", new ImportDeleteCommand(INDEX_FIRST));
     }
 
     @Test

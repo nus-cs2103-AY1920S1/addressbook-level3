@@ -2,7 +2,7 @@ package seedu.weme.logic.commands.memecommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +35,13 @@ public class MemeListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showMemeAtIndex(model, INDEX_FIRST_MEME);
+        showMemeAtIndex(model, INDEX_FIRST);
+        assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFilteredArchived_showsUnarchived() {
+        model.updateFilteredMemeList(Model.PREDICATE_SHOW_ALL_ARCHIVED_MEMES);
         assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

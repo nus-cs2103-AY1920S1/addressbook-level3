@@ -15,9 +15,9 @@ import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +77,7 @@ public class MemeEditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_MEME;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + TAG_DESC_JOKER
                 + DESCRIPTION_DESC_CHARMANDER + TAG_DESC_CHARMANDER;
 
@@ -91,7 +91,7 @@ public class MemeEditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_MEME;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_JOKER;
 
         MemeEditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
@@ -104,7 +104,7 @@ public class MemeEditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // description
-        Index targetIndex = INDEX_THIRD_MEME;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHARMANDER;
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_CHARMANDER).build();
@@ -120,7 +120,7 @@ public class MemeEditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_MEME;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHARMANDER
                 + TAG_DESC_CHARMANDER + DESCRIPTION_DESC_CHARMANDER + TAG_DESC_CHARMANDER
                 + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER;
@@ -135,7 +135,7 @@ public class MemeEditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_MEME;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder().withTags().build();

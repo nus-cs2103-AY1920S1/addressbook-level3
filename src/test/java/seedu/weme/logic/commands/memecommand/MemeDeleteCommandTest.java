@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
-import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
@@ -28,8 +28,8 @@ public class MemeDeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
-        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
+        Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST.getZeroBased());
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
@@ -51,10 +51,10 @@ public class MemeDeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showMemeAtIndex(model, INDEX_FIRST_MEME);
+        showMemeAtIndex(model, INDEX_FIRST);
 
-        Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST_MEME.getZeroBased());
-        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
+        Meme memeToDelete = model.getFilteredMemeList().get(INDEX_FIRST.getZeroBased());
+        MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
@@ -68,9 +68,9 @@ public class MemeDeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showMemeAtIndex(model, INDEX_FIRST_MEME);
+        showMemeAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_MEME;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of meme list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getWeme().getMemeList().size());
 
@@ -81,14 +81,14 @@ public class MemeDeleteCommandTest {
 
     @Test
     public void equals() {
-        MemeDeleteCommand deleteFirstCommand = new MemeDeleteCommand(INDEX_FIRST_MEME);
-        MemeDeleteCommand deleteSecondCommand = new MemeDeleteCommand(INDEX_SECOND_MEME);
+        MemeDeleteCommand deleteFirstCommand = new MemeDeleteCommand(INDEX_FIRST);
+        MemeDeleteCommand deleteSecondCommand = new MemeDeleteCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        MemeDeleteCommand deleteFirstCommandCopy = new MemeDeleteCommand(INDEX_FIRST_MEME);
+        MemeDeleteCommand deleteFirstCommandCopy = new MemeDeleteCommand(INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

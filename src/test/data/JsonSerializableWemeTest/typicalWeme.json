@@ -20,6 +20,11 @@
     "tagged" : ["toy"],
     "description" : "A toy story meme.",
     "isArchived": false
+  }, {
+    "filePath": "src/test/data/memes/pikachu_meme.png",
+    "tagged" : ["pikachu"],
+    "description" : "Pikachu",
+    "isArchived": true
   }],
   "templates" : [ {
     "name" : "Drake Reaction",
@@ -33,6 +38,10 @@
     "name" : "Quiz Kid",
     "filePath": "src/test/data/templates/quiz_kid_template.jpg",
     "isArchived": false
+  }, {
+    "name" : "Surprised Pikachu",
+    "filePath": "src/test/data/templates/pikachu_template.jpg",
+    "isArchived": true
   } ],
   "stats" : {
     "likeMap" : {
