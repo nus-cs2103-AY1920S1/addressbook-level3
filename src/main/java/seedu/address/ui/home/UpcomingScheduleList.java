@@ -10,7 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.home.ScheduleDisplayCard;
 
 /**
  * Ui Component to show the upcoming schedules for the user.
