@@ -1,11 +1,10 @@
 package seedu.elisa.model;
 
-
+/*
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
 
-    /*
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
@@ -114,5 +113,6 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 
-     */
+
 }
+*/
