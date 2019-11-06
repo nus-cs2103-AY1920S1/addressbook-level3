@@ -177,14 +177,14 @@ To set a profile picture for a member in +Work, use the command `set-image` foll
 
 Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
 
-Example: `set-image mi/NM im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\NewUserImage.png` can be executed as follows:
+Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
 image::BeforeSet.png[width="790"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
-enter the command `set-image mi/NM im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\NewUserImage.png` into the command prompt box.
+enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
 
 *Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
@@ -196,8 +196,9 @@ image::SetImage.png[width="790"]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
 [IMPORTANT]
-If you shift the image's location in your computer, +Work will be unable to find the image to display. It
-is recommended that you store all the images in a central folder to prevent this from happening.
+If you shift the image's location in your computer, +Work will be unable to find the image to display, and will
+display a warning message, before displaying the default profile picture.
+It is recommended that you store all the images in a central folder to prevent this from happening.
 
 
 ==== Editing a member : `edit-member`
@@ -273,6 +274,8 @@ image::BeforeAssign.png[width="790"]
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
 image::AfterAssign.png[width="790"]
+
+// end::MemberCommands[]
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
@@ -533,7 +536,7 @@ image::TaskStats.png[width="790"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
-as well as the time taken for each inputted tasks in +Work.
+as well as the time taken for each task inputted into +Work.
 
 '''
 // end::Statistics[]
