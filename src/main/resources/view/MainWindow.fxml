@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<?import javafx.scene.control.ScrollPane?>
 <fx:root minHeight="600" minWidth="800.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
@@ -22,29 +21,30 @@
             <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                         prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1"
                         xmlns:fx="http://javafx.com/fxml/1">
-                <right>
-                    <VBox maxWidth="500.0" minWidth="350.0" prefWidth="500.0" styleClass="foundation_pane"
-                          BorderPane.alignment="CENTER">
-                        <padding>
-                            <Insets bottom="10" left="10" right="10" top="10"/>
-                        </padding>
-                        <StackPane fx:id="borrowerPanelPlaceholder"
-                                   styleClass="placeholder" VBox.vgrow="ALWAYS">
-                        </StackPane>
-                    </VBox>
-                </right>
                 <center>
-                    <VBox fx:id="bookList" minWidth="400.0" prefWidth="600.0" styleClass="foundation_pane"
-                          VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets bottom="10" left="10" right="5" top="10"/>
-                        </padding>
-                        <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS"/>
-                        <Pane minHeight="10" prefHeight="10.0"/>
-                        <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0"
-                                    styleClass="placeholder" VBox.vgrow="ALWAYS">
-                        </AnchorPane>
-                    </VBox>
+                    <HBox BorderPane.alignment="CENTER" alignment="CENTER">
+                        <VBox fx:id="bookList" minWidth="350.0" prefWidth="600.0" styleClass="foundation_pane"
+                              alignment="CENTER_LEFT"
+                              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="10" left="7" right="10" top="10"/>
+                            </padding>
+                            <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS"/>
+                            <Pane minHeight="10" prefHeight="10.0"/>
+                            <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0"
+                                        styleClass="placeholder" VBox.vgrow="ALWAYS">
+                            </AnchorPane>
+                        </VBox>
+                        <VBox maxWidth="500.0" minWidth="320.0" prefWidth="500.0" styleClass="foundation_pane"
+                                alignment="CENTER_RIGHT">
+                            <padding>
+                                <Insets bottom="10" left="7" right="10" top="10"/>
+                            </padding>
+                            <StackPane fx:id="borrowerPanelPlaceholder"
+                                       styleClass="placeholder" VBox.vgrow="ALWAYS">
+                            </StackPane>
+                        </VBox>
+                    </HBox>
                 </center>
                 <top>
                     <HBox styleClass="header_pane" prefHeight="47.0" prefWidth="615.0" BorderPane.alignment="CENTER">
