@@ -17,7 +17,7 @@ public class SyncCommandParser implements Parser<SyncCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public SyncCommand parse(String args) throws ParseException, OnlineConnectionException {
+    public SyncCommand parse(String args, String currentPanel) throws ParseException, OnlineConnectionException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SyncCommand(index);

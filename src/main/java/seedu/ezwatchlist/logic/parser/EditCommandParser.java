@@ -29,7 +29,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditCommand parse(String args, String currentPanel) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE_OF_RELEASE, PREFIX_DESCRIPTION,
@@ -48,9 +48,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editShowDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
-            editShowDescriptor.setDateOfRelease(
-                    ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get()));
+            String getDateFromUserInput = argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get();
+            editShowDescriptor.setDateOfRelease(ParserUtil.parseDateAddEditCommand(getDateFromUserInput));
         }
         if (argMultimap.getValue(PREFIX_IS_WATCHED).isPresent()) {
             editShowDescriptor.setIsWatched(ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get()));

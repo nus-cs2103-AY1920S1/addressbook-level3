@@ -8,8 +8,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Description should not be blank";
     public static final String DEFAULT_DESCRIPTION = "n.a.";
     /*
      * The first character of the show's description must not be a whitespace,

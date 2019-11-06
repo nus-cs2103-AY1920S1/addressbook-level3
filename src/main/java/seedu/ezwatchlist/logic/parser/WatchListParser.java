@@ -34,13 +34,16 @@ public class WatchListParser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
+     * @param currentTab
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException, OnlineConnectionException {
+
+    public Command parseCommand(String userInput, String currentTab) throws ParseException, OnlineConnectionException {
         if (shortCutKey(userInput)) {
-            return new GoToParser().parse(userInput);
+            return new GoToParser().parse(userInput, currentTab);
         }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -51,22 +54,22 @@ public class WatchListParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser().parse(arguments, currentTab);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser().parse(arguments, currentTab);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments, currentTab);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case WatchCommand.COMMAND_WORD:
-            return new WatchCommandParser().parse(arguments);
+            return new WatchCommandParser().parse(arguments, currentTab);
 
         case SearchCommand.COMMAND_WORD:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser().parse(arguments, currentTab);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -88,9 +91,13 @@ public class WatchListParser {
      * @return check if is short cut key
      */
     private boolean shortCutKey(String userInput) {
-        int shortCutKey = Integer.parseInt(userInput);
-        boolean isShortCutKey = shortCutKey == 1 || shortCutKey == 2 || shortCutKey == 3 || shortCutKey == 4;
-        return isShortCutKey;
+        try {
+            int shortCutKey = Integer.parseInt(userInput);
+            boolean isShortCutKey = shortCutKey == 1 || shortCutKey == 2 || shortCutKey == 3 || shortCutKey == 4;
+            return isShortCutKey;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
