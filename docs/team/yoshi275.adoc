@@ -45,5 +45,3 @@ include::../UserGuide.adoc[tag=findi]
 |===
 
 include::../DeveloperGuide.adoc[tag=incidentsearch]
-
-include::../DeveloperGuide.adoc[tag=findIncidents]
