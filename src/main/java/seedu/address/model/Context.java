@@ -24,7 +24,7 @@ public class Context {
         this.type = ContextType.LIST_CONTACT;
     }
 
-    private Context(ContextType type) {
+    public Context(ContextType type) {
         this.object = Optional.empty();
         this.type = type;
     }
