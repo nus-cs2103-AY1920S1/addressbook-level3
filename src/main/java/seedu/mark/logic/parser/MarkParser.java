@@ -3,6 +3,8 @@ package seedu.mark.logic.parser;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import static seedu.mark.logic.parser.ParserUtil.NoArgumentParser;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,13 +85,13 @@ public class MarkParser {
             return new GotoCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new NoArgumentParser<>(ClearCommand::new).parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new NoArgumentParser<>(ListCommand::new).parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
@@ -98,10 +100,10 @@ public class MarkParser {
             return new ImportCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            return new NoArgumentParser<>(ExitCommand::new).parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new NoArgumentParser<>(HelpCommand::new).parse(arguments);
 
         case TabCommand.COMMAND_WORD:
             return new TabCommandParser().parse(arguments);

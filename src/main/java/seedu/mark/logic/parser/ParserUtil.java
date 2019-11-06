@@ -8,10 +8,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.commands.AnnotationCommand;
+import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Folder;
@@ -22,7 +24,7 @@ import seedu.mark.model.reminder.Note;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods and classes used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
@@ -253,5 +255,27 @@ public class ParserUtil {
      */
     public static boolean isValidFilename(String name) {
         return name.matches("[\\p{Alnum}\\-_]+");
+    }
+
+    /**
+     * Ensures that a {@code Command} of type {@code T} not accepting arguments does not have arguments.
+     */
+    public static class NoArgumentParser<T extends Command> implements Parser<T> {
+
+        private final Supplier<T> commandSupplier;
+
+        public NoArgumentParser(Supplier<T> commandSupplier) {
+            this.commandSupplier = commandSupplier;
+        }
+
+        @Override
+        public T parse(String args) throws ParseException {
+            String trimmedArgs = args.trim();
+            if (!trimmedArgs.isEmpty()) {
+                throw new ParseException("No arguments expected.");
+            }
+            return commandSupplier.get();
+        }
+
     }
 }
