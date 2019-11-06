@@ -87,7 +87,7 @@ public class StatisticsBox extends Tabs<AnchorPane> {
     /**
      * Generate custom Pie Charts to display {@code Event} and {@code Employee} {@code Tag} data.
      */
-    private void generatePieChart() {
+    public void generatePieChart() {
         ObservableList<PieChart.Data> pieChartEmployeeTagData = FXCollections.observableArrayList();
         ObservableList<PieChart.Data> pieChartEventTagData = FXCollections.observableArrayList();
         List<Employee> employeeList = logic.getFullEmployeeList();
@@ -149,6 +149,8 @@ public class StatisticsBox extends Tabs<AnchorPane> {
     private void generateStatistics() throws ParseException, CommandException {
         mainWindow.executeCommand(GenerateStatisticsCommand.COMMAND_WORD);
         generatePieChart();
+        employeeLabel.setText("# employees");
+        eventLabel.setText("# events");
     }
 
     /**

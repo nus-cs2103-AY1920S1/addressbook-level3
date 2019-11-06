@@ -27,8 +27,8 @@
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="193.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="40.0" prefWidth="243.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="59.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="185.0" minWidth="5.0" prefWidth="141.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="70.0" prefWidth="114.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.0" minWidth="5.0" prefWidth="328.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="45.0" prefWidth="45.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="30.0" minHeight="29.0" prefHeight="29.0" />
@@ -41,7 +41,7 @@
                                     <Font name="System Bold" size="22.0" />
                                  </font></Label>
                               <Button fx:id="generateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateStatistics" text="Generate Statistics" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button fx:id="generateButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateDetailedStatistics" text="Generate Detailed Statistics" GridPane.columnIndex="2" />
+                              <Button fx:id="generateButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateDetailedStatistics" text="Generate Detailed Statistics" GridPane.columnIndex="5" />
                            </children>
                         </GridPane>
                      </children>

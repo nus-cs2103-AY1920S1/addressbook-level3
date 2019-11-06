@@ -313,6 +313,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Statistics")) {
                 selectionModel.select(3);
+                statisticsBox.generatePieChart();
             }
 
             if (commandResult.getType().equals("Detail")) {
