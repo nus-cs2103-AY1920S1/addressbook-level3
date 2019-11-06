@@ -34,7 +34,7 @@ public class BudgetCard extends UiPart<Region> {
         super(FXML);
         this.budget = budget;
         id.setText(displayedIndex + ". ");
-        amount.setText(budget.getBudget().toString());
+        amount.setText(budget.displayBudget());
         date.setText(budget.getDeadline().toString());
         categories.getChildren().add(new Label(budget.getBetween()));
         budget.getCategories().stream()
