@@ -76,12 +76,11 @@ public class EditCommand extends Command {
         }
 
         EditSpendingDescriptor tempDescriptor = editSpendingDescriptor;
-        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")) {
-            if (tempDescriptor.getCost().isPresent()) {
-                Cost cost = tempDescriptor.getCost().get();
-                double updatedCost = Double.parseDouble(cost.value) / model.getCurrencyInUse().rate;
-                tempDescriptor.setCost(new Cost(String.format("%.2f", updatedCost)));
-            }
+        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")
+                && tempDescriptor.getCost().isPresent()) {
+            Cost cost = tempDescriptor.getCost().get();
+            double updatedCost = Double.parseDouble(cost.value) / model.getCurrencyInUse().rate;
+            tempDescriptor.setCost(new Cost(String.format("%.2f", updatedCost)));
         }
 
         Spending spendingToEdit = lastShownList.get(index.getZeroBased());
