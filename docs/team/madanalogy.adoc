@@ -50,7 +50,7 @@ include::../UserGuide.adoc[tag=account]
 include::../UserGuide.adoc[tag=AccountDelete]
 
 |===
-|_Omitted from this portfolio for page requirement constraints is the `find-a` command from the user guide._
+|_Omitted from this portfolio for page requirement constraints is the `find-a` command from the https://whattheduke.netlify.com/UserGuide.html#locating-accounts-by-name-or-username-code-find-a-code[user guide]._
 |===
 
 == Contributions to the Developer Guide
