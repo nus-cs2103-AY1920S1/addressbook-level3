@@ -113,6 +113,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void toggleGuiSettingsTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public UserSettings getUserSettings() {
             throw new AssertionError("This method should not be called.");
         }

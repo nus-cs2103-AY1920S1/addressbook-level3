@@ -14,10 +14,12 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /** The application should exit */
     private final boolean exit;
 
     /** The application is serving a borrower */
@@ -26,6 +28,9 @@ public class CommandResult {
     /** The application is done serving a borrower */
     private final boolean done;
 
+    /** The application should toggle its ui */
+    private final boolean toggleUi;
+
     /** The application is showing information about a book*/
     private final Optional<Book> info;
 
@@ -33,13 +38,15 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     private CommandResult(String feedbackToUser,
-                         boolean showHelp, boolean exit, boolean serve, boolean done, Optional<Book> info) {
+                          boolean showHelp, boolean exit, boolean serve, boolean done, boolean toggleUi,
+                          Optional<Book> info) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.serve = serve;
         this.done = done;
         this.info = info;
+        this.toggleUi = toggleUi;
     }
 
     /**
@@ -47,27 +54,31 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, Optional.empty());
+        this(feedbackToUser, false, false, false, false, false, Optional.empty());
     }
 
     public static CommandResult commandResultHelp(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, true, false, false, false, Optional.empty());
+        return new CommandResult(feedbackToUser, true, false, false, false, false, Optional.empty());
     }
 
     public static CommandResult commandResultExit(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, false, true, false, false, Optional.empty());
+        return new CommandResult(feedbackToUser, false, true, false, false, false, Optional.empty());
     }
 
     public static CommandResult commandResultServe(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, false, false, true, false, Optional.empty());
+        return new CommandResult(feedbackToUser, false, false, true, false, false, Optional.empty());
     }
 
     public static CommandResult commandResultDone(String feedbackToUser) {
-        return new CommandResult(feedbackToUser, false, false, false, true, Optional.empty());
+        return new CommandResult(feedbackToUser, false, false, false, true, false, Optional.empty());
+    }
+
+    public static CommandResult commandResultToggleUi(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, false, false, true, Optional.empty());
     }
 
     public static CommandResult commandResultInfo(String feedbackToUser, Book book) {
-        return new CommandResult(feedbackToUser, false, false, false, false, Optional.of(book));
+        return new CommandResult(feedbackToUser, false, false, false, false, false, Optional.of(book));
     }
 
     public String getFeedbackToUser() {
@@ -94,6 +105,10 @@ public class CommandResult {
         return done;
     }
 
+    public boolean isToggleUi() {
+        return toggleUi;
+    }
+
     public Book getBook() {
         assert info.isPresent() : "No book info present";
         return info.get();
@@ -116,14 +131,15 @@ public class CommandResult {
                 && exit == otherCommandResult.exit
                 && serve == otherCommandResult.serve
                 && done == otherCommandResult.done
+                && toggleUi == otherCommandResult.toggleUi
                 && (info.isPresent() && otherCommandResult.info.isPresent()
-                    && info.get().equals(otherCommandResult.info.get())
-                        || !info.isPresent() && !otherCommandResult.info.isPresent());
+                && info.get().equals(otherCommandResult.info.get())
+                || !info.isPresent() && !otherCommandResult.info.isPresent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, serve, done, info);
+        return Objects.hash(feedbackToUser, showHelp, exit, serve, done, toggleUi, info);
     }
 
 }
