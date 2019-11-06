@@ -228,6 +228,7 @@ public class StorageManager {
             System.out.println("JSON file has errors\n" + e2.getMessage());
         }
         return null;
+        // todo: add parsing for session list in deck
     }
 
     /**
@@ -274,7 +275,7 @@ public class StorageManager {
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
                 //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
-                // todo: only need setScore for SessionLists containing TestSession objects. @AHaliq
+                // todo: or abstract out and use this to load deck session list too?
                 arr.add(session);
             }
             UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));

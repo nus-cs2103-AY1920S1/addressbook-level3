@@ -66,6 +66,7 @@ public class SessionListUtil {
      */
     public static String getAverageScore(SessionList sessionList) {
         // it is known that this method will only be called on SessionLists containing TestSessions.
+        // todo
         return "";
     }
 }
