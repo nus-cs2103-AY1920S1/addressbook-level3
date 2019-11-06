@@ -314,12 +314,12 @@ image::AfterFireMember.png[width="790"]
 ==== Adding a task: `add task`
 
 To add a task to the project, use the 'add-task' command in the format below. +
-Format: `add-task [t/TASK_NAME]` +
-Optional Parameters: `[s/STATUS]` `[t/TAG]`
+Format: `add-task [tn/TASK_NAME]` +
+Optional Parameters: `[s/STATUS]` `[tt/TAG]`
 
 Example:
 
-* `add-task t/Finish up milestone setting` +
+* `add-task tn/Finish up milestone setting` +
 A new task will be added to the project dashboard
 
 ==== Removing a task: remove-task
@@ -649,7 +649,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
-* `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`: *Adds a task*
+* `add-task [tn/TASK_NAME] s/TASK_STATUS tt/TASK_TAG`: *Adds a task*
 
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
