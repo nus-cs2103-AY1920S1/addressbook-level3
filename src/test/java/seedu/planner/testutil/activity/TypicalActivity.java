@@ -122,7 +122,7 @@ public class TypicalActivity {
     public static final Activity ACTIVITYNINE = new ActivityBuilder().withName("Watch Kabuki show")
             .withAddress("Osaka")
             .withContact("Gaara",
-                    "81241034",
+                    "91037493",
                     "Gaara@example.com",
                     "Tennoji Ward, Osaka, 543-0017")
             .withDuration("300")
@@ -164,6 +164,6 @@ public class TypicalActivity {
 
     public static List<Activity> getTypicalActivities() {
         return new ArrayList<>(Arrays.asList(ACTIVITYONE, ACTIVITYTWO, ACTIVITYTHREE,
-                ACTIVITYFOUR, ACTIVITYFIVE, ACTIVITYSIX, ACTIVITYSEVEN, ACTIVITYEIGHT, ACTIVITYNINE));
+                ACTIVITYFOUR, ACTIVITYFIVE, ACTIVITYSIX, ACTIVITYSEVEN));
     }
 }
