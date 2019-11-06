@@ -175,13 +175,13 @@ public class ParserUtil {
             getTime = LocalDateTime.parse(trimmedTime, formatter);
             LocalDateTime now = LocalDateTime.now();
             if (now.isAfter(getTime)) {
-                throw new Exception("Invalid time. Cannot set time before now.");
+                throw new ParseException("Invalid time. Cannot set time before now.");
             }
         } catch (DateTimeParseException e) {
             System.out.println(e);
             throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
-        } catch (Exception e) {
-            throw new ParseException("Invalid time. Cannot set time before now.");
+        } catch (ParseException e) {
+            throw e;
         }
 
         return getTime;
