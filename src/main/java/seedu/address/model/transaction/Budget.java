@@ -15,6 +15,7 @@ import seedu.address.model.util.Date;
  * Handles Budget of a BankAccount.
  */
 public class Budget {
+    private Amount initialAmount;
     private Amount amount;
     private Date deadline;
     private boolean valid;
@@ -28,17 +29,19 @@ public class Budget {
 
     /**
      * Constructor for Budget with no categories given.
-     * By default, category is "general"
+     * By default, category is "Uncategorised"
      */
     public Budget(Amount amount, Date date) {
+        this.initialAmount = amount;
         this.amount = amount;
         this.deadline = date;
-        this.categories.add(new Category("general"));
+        this.categories.add(new Category("Uncategorised"));
         this.valid = true;
         this.between = calculateRemaining();
     }
 
     public Budget(Amount amount, Date date, Set<Category> categories) {
+        this.initialAmount = amount;
         this.amount = amount;
         this.deadline = date;
         this.categories.addAll(categories);
@@ -47,10 +50,15 @@ public class Budget {
     }
 
     public Budget(Amount amount, int duration) {
+        this.initialAmount = amount;
         this.amount = amount;
         this.deadline = calculateDeadline(duration);
         this.valid = true;
         this.between = calculateRemaining();
+    }
+
+    public void setInitialAmount(Amount amount) {
+        this.initialAmount = amount;
     }
 
     public Amount getBudget() {
@@ -90,10 +98,13 @@ public class Budget {
         }
 
         if (isSameCategory) {
-            Amount newBudget = this.amount.addAmount(amount);
-            this.amount = newBudget;
+            Amount newAmount = this.amount.addAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else {
+            return this;
         }
-        return this;
     }
 
     private void updateDeadline(Date date) {
@@ -133,6 +144,20 @@ public class Budget {
             && otherBudget.getBudget().equals(getBudget())
             && otherBudget.getCategories().equals(getCategories())
             && otherBudget.getDeadline().equals(getDeadline());
+    }
+
+    public String displayBudget() {
+        return String.format("$%s out of $%s remaining", this.amount.toString(), this.initialAmount.toString());
+    }
+
+    /**
+     * Displays the percentage of budget remaining out of initial budget set.
+     *
+     * @return String representing the float percentage of remaining budget
+     */
+    public String displayPercentage() {
+        double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+        return String.format("%.2f%% remaining", percentage);
     }
 
     @Override
