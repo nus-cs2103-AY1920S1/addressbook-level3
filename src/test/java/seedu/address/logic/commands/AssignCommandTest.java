@@ -3,7 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.AssignCommand.MESSAGE_ASSIGN_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.model.person.Schedule.MESSAGE_EVENT_START_BEFORE_NOW;
+import static seedu.address.model.person.Schedule.MESSAGE_EARLIER_AVAILABLE;
+import static seedu.address.model.person.Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT;
 import static seedu.address.testutil.SampleEntity.VALID_DRIVER;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getSampleFreshModel;
@@ -63,7 +64,7 @@ class AssignCommandTest {
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
 
         assertCommandFailure(cmd, model,
-                String.format(Schedule.MESSAGE_SUGGEST_TIME_FORMAT,
+                MESSAGE_EARLIER_AVAILABLE + String.format(Schedule.MESSAGE_SUGGEST_TIME_FORMAT,
                         EventTime.parse("1400", "1500").toString()) + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE);
     }
 
@@ -88,7 +89,8 @@ class AssignCommandTest {
     void execute_addPastTime_throwsException() {
         EventTime proposed = EventTime.parse("900", "1100");
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
-        assertCommandFailure(cmd, model, MESSAGE_EVENT_START_BEFORE_NOW);
+        assertCommandFailure(cmd, model, String.format(MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
+                GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
     }
 
 

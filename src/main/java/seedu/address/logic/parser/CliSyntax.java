@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -48,4 +52,27 @@ public class CliSyntax {
 
         return classMap;
     }
+
+    public static Prefix[] getAllPrefixes() {
+        Field[] fields = CliSyntax.class.getDeclaredFields();
+        List<Prefix> result = new ArrayList<>();
+        for (Field field : fields) {
+            int modifier = field.getModifiers();
+            if ((!Modifier.isFinal(modifier)) || (!Modifier.isStatic(modifier))) {
+                continue;
+            }
+
+            if (!field.getType().getSimpleName().equals("Prefix")) {
+                continue;
+            }
+
+            try {
+                result.add((Prefix) field.get(new Object()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result.toArray(new Prefix[1]);
+    }
 }
+

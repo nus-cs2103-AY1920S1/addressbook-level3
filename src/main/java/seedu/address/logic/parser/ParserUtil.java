@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -32,13 +34,14 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
-            + "Chosen date should be from today onwards.";
+                    + "Chosen date should be from today onwards.";
 
     public static final String MESSAGE_INVALID_ID = "ID should be a integer number and more than 0.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -215,15 +218,36 @@ public class ParserUtil {
      */
     public static EventTime parseEventTime(String duration) throws ParseException {
         requireNonNull(duration);
-        String trimmedId = duration.trim();
-        if (!EventTime.isValidEventTime(trimmedId)) {
+        if (!duration.matches(EventTime.VALIDATION_REGEX)) {
             throw new ParseException(EventTime.MESSAGE_CONSTRAINTS);
         }
 
-        return EventTime.parse(trimmedId);
+        EventTime candidate;
+        //split string into 3 parts to get start time, "-" and end time
+        List<String> times = Stream.of(duration.split("-")).map(String::trim).collect(Collectors.toList());
+
+        try {
+            candidate = EventTime.parse(times.get(0), times.get(1));
+            if (candidate.getStart().compareTo(candidate.getEnd()) >= 0) {
+                throw new ParseException(EventTime.MESSAGE_END_BEFORE_START);
+            }
+        } catch (NumberFormatException | DateTimeParseException nfe) {
+            throw new ParseException(EventTime.MESSAGE_CONSTRAINTS);
+        }
+
+        return candidate;
+
     }
 
     public static int getNoOfPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return (int) Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count();
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

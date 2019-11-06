@@ -90,7 +90,8 @@ public class AssignCommand extends Command {
 
         // check current time against system time
         if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
-            throw new CommandException(Schedule.MESSAGE_EVENT_START_BEFORE_NOW);
+            throw new CommandException(String.format(Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
+                    GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
         }
 
 

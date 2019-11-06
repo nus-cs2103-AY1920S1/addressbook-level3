@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.Objects;
@@ -21,15 +20,13 @@ public class FreeCommand extends Command {
     public static final String MESSAGE_TASK_NOT_ASSIGNED = "Task #%1$s is not assigned to a driver.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Remove a driver from a task, and set the corresponding "
-            + "start and end time. "
+            + ": Remove the assigned driver and the scheduled time of a task."
             + "\n"
             + "Parameters: "
-            + "[" + PREFIX_DRIVER + "DRIVER_ID] "
-            + "[" + PREFIX_TASK + "TASK_ID] " + "\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_DRIVER + "1 "
-            + PREFIX_TASK + "3 ";
+            + "[" + PREFIX_TASK + "TASK_ID] "
+            + "\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TASK + "1";
 
     private int taskId;
 

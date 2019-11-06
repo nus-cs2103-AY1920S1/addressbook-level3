@@ -18,16 +18,20 @@ import seedu.address.model.person.exceptions.SchedulingException;
  */
 public class Schedule {
     public static final String MESSAGE_EMPTY_SCHEDULE = "No task assigned";
-    public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s";
-    public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule.";
-    public static final String MESSAGE_OUTSIDE_WORKING_HOURS = "The person does not work during the specified time.";
-    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "The proposed time is in the past.";
+    public static final String MESSAGE_EARLIER_AVAILABLE = "An earlier time slot is available. ";
+    public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s ";
+    public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule. ";
+    public static final String MESSAGE_EVENT_START_BEFORE_NOW_FORMAT =
+            "The event cannot happen in the past. The time now is %s. ";
 
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
+    private static EventTime workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
 
+    public static final String MESSAGE_OUTSIDE_WORKING_HOURS =
+            String.format("The person does not work during the specified time. Working Hours: %s",
+                    workingHours.toString());
     private NavigableSet<EventTime> schedule;
-    private EventTime workingHours;
 
 
     /**
@@ -35,7 +39,6 @@ public class Schedule {
      */
     public Schedule() {
         this.schedule = new TreeSet<>();
-        this.workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
 
         EventTime beforeWorkingHours = EventTime.parse("0000", START_WORK_TIME);
         EventTime afterWorkingHours = EventTime.parse(END_WORK_TIME, "2359");
@@ -67,7 +70,7 @@ public class Schedule {
         }
 
         // has suggestion but dismissible
-        return suggested + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE;
+        return MESSAGE_EARLIER_AVAILABLE + suggested + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE;
     }
 
     /**

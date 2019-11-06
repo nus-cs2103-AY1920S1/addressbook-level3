@@ -5,8 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
-
-import java.time.format.DateTimeParseException;
+import static seedu.address.logic.parser.CliSyntax.getAllPrefixes;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,7 +32,11 @@ public class AssignCommandParser implements Parser<AssignCommand> {
     public AssignCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DRIVER, PREFIX_TASK, PREFIX_EVENT_TIME);
+                ArgumentTokenizer.tokenize(args, getAllPrefixes());
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_DRIVER, PREFIX_TASK, PREFIX_EVENT_TIME)) {
+            throw getWrongFormatException();
+        }
 
 
         // check if the force flag is correctly spelled
@@ -52,12 +56,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
 
         String time = argMultimap.getValue(PREFIX_EVENT_TIME).orElseThrow(AssignCommandParser::getWrongFormatException);
 
-        EventTime proposed;
-        try {
-            proposed = ParserUtil.parseEventTime(time);
-        } catch (DateTimeParseException e) {
-            throw getWrongFormatException();
-        }
+        EventTime proposed = ParserUtil.parseEventTime(time);
 
         return new AssignCommand(driverId, taskId, proposed, isForce);
     }
