@@ -18,7 +18,7 @@ public class Date {
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])[0-9]{4}$";
+    public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])([1-3])[0-9]{3}$";
     private static final SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
     public final String value;
     public final String storageDate;
@@ -39,7 +39,26 @@ public class Date {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX)) {
+            String day = test.substring(0, 2);
+            String month = test.substring(2, 4);
+            String year = test.substring(4);
+            if ((day.equals("29") || day.equals("30") || day.equals("31")) && month.equals("02")) {
+                int numYear = Integer.parseInt(year);
+                if (numYear % 400 == 0) {
+                    return true;
+                } else if (numYear % 100 == 0) {
+                    return false;
+                } else if (numYear % 4 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

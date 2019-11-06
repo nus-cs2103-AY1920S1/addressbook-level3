@@ -50,12 +50,12 @@
                   </VBox>
             </bottom>
             <center>
-               <VBox prefHeight="200.0" prefWidth="100.0" styleClass="placeholder-background" BorderPane.alignment="CENTER">
+               <VBox fx:id="placeholderBackground" prefHeight="200.0" prefWidth="100.0" styleClass="placeholder-background" BorderPane.alignment="CENTER">
                   <children>
                      <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" prefWidth="195.0" />
-                     <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="195.0" styleClass="divider-coloured"/>
-                     <VBox id="background-placeholder" fx:id="backgroundPlaceholder" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-                     <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="195.0" styleClass="divider-coloured"/>
+                     <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="195.0" styleClass="divider-coloured" />
+                     <VBox id="background-placeholder" fx:id="backgroundPlaceholder" alignment="CENTER" prefHeight="200.0" prefWidth="450.0" VBox.vgrow="ALWAYS" />
+                     <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="195.0" styleClass="divider-coloured" />
                   </children></VBox>
             </center>
          </BorderPane>

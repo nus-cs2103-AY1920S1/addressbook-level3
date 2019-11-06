@@ -20,9 +20,9 @@ import seedu.address.logic.parser.Prefix;
  * Parses input arguments and creates a SetDetailsCommand object
  */
 public class SetDetailsCommandParser {
-    private final String SET_DETAILS_USAGE = "In particular, input your setDetails command like this: \n" +
-            "setDetails user/{username} password/{password} Eg: user/myname password/mypassword." +
-            " \n Note: all details have to be at least 8 characters and only alphanumeric";
+    private final String SET_DETAILS_USAGE = "In particular, input your setDetails command like this: \n \n" +
+            "setDetails user/USERNAME password/PASSWORD | EG: user/myname password/mypassword." +
+            " \nNote: all details have to be at least 8 characters and only alphanumeric";
     /**
      * Parses the given {@code String} of arguments in the context of the SetDetails
      * and returns an SetDetails object for execution.

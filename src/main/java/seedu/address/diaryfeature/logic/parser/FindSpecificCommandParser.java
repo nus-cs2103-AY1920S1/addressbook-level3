@@ -21,10 +21,10 @@ import seedu.address.logic.parser.ArgumentTokenizer;
  */
 public class FindSpecificCommandParser {
     private static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
-            "findSpecific prefix/{target} Eg: findSpecific t/birthday. " +
+            "findSpecific PREFIX/TARGET | EG: findSpecific t/birthday. " +
             "\n Note that the input cant be empty, and has " +
             "to be at least 1 character \n" +
-            "The parameters that you can use are t for title, d for date, p for place and m for memory";
+            "The parameters that you can use for PREFIX are t for title, d for date, p for place and m for memory";
 
 
     /**

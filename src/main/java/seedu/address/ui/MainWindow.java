@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import seedu.address.achievements.ui.AchievementsPage;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.ui.AddressBookPage;
-import seedu.address.address.ui.PersonListPanel;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -64,9 +63,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private MenuItem helpMenuItem;
 
     @FXML
-    private ImageView imageView;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -92,7 +88,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
         helpWindow = new HelpWindow();
         codeWindow = new CodeWindow();
-        financialTrackerPage = new FinancialTrackerPage();
+        financialTrackerPage = new FinancialTrackerPage(logic.getFinancialTrackerLogic());
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage(logic.getItineraryLogic());
         diaryPage = new DiaryPage(logic.getDiaryLogic());
@@ -120,7 +116,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
      */
     private void setBackgroundImage() {
         ImageView backgroundImage = new ImageView("/images/mainpage.png");
-        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.9));
+        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.6));
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty().multiply(0.9));
         backgroundImage.setPreserveRatio(true);
         backgroundPlaceholder.getChildren().add(backgroundImage);

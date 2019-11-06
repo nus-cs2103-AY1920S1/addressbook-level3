@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -93,7 +94,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
      * Executes the command and returns the result.
      *
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws ParseException, CommandException, EmptyArgumentException {
         try {
             CommandResult commandResult = logicHandler.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -106,7 +107,11 @@ public class DiaryPage extends UiPart<Region> implements Page {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | NullPointerException e) {
+        } catch (ParseException | EmptyArgumentException e) {
+            logger.info("Invalid command: " + commandText + e);
+            resultDisplay.setFeedbackToUser(e.toString());
+             throw e;
+        } catch (CommandException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
