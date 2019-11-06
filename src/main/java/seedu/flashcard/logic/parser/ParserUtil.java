@@ -23,6 +23,7 @@ import seedu.flashcard.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DURATION = "Duration is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -35,6 +36,14 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    public static Integer parseDuration(String duration) throws ParseException {
+        String trimmedDuration = duration.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedDuration)) {
+            throw new ParseException(MESSAGE_INVALID_DURATION);
+        }
+        return Integer.parseInt(trimmedDuration);
     }
 
     /**
@@ -99,6 +108,7 @@ public class ParserUtil {
      */
     public static Answer parseAnswer(String answer) throws ParseException {
         String trimmedAnswer = answer.trim();
+        if (answer.)
         if (!Answer.isValidAnswer(trimmedAnswer)) {
             throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
         }

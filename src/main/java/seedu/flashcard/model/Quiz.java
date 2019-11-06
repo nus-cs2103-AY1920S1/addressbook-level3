@@ -3,6 +3,7 @@ package seedu.flashcard.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 
@@ -12,6 +13,7 @@ import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 public class Quiz {
 
     private List<Flashcard> quizableFlashcards = new ArrayList<>();
+    private IntegerProperty duration;
 
     public Quiz() {
 
@@ -44,6 +46,10 @@ public class Quiz {
         } else {
             return quizableFlashcards.get(0);
         }
+    }
+
+    public void setDuration(int duration) {
+        this.duration.set(duration);
     }
 
     /**

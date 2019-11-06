@@ -22,16 +22,19 @@ public class QuizCommand extends Command {
         + ": Quiz the flashcard identified by the index number used in the displayed flashcard list.\n"
         + "Only the choices with the flashcard will be shown but the answer will not.\n"
         + "The quiz command should be preceded by a flip command to answer the flashcard. \n"
-        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Parameters: INDEX (must be a positive integer) DURATION(must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
+    public static final String MESSAGE_INVALID_DURATION = "The duration you entered is invalid!";
     public static final String MESSAGE_RESULT_SUCCESS = "Please answer the flashcard below with the flip command.";
     private final Index targetIndex;
+    private final int duration;
 
-    public QuizCommand(Index targetIndex) {
+    public QuizCommand(Index targetIndex, int duration) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.duration = duration;
     }
 
     /**
@@ -47,10 +50,12 @@ public class QuizCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
+
         Flashcard cardToView = lastShownList.get(targetIndex.getZeroBased());
         List<Flashcard> quizList = new ArrayList<>();
         quizList.add(cardToView);
         model.setQuiz(quizList);
+        model.setQuizDuration(duration);
         return new CommandResult(MESSAGE_RESULT_SUCCESS, true, cardToView.toString());
     }
 

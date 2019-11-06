@@ -202,6 +202,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setQuizDuration(int duration){
+        quiz.setDuration(duration);
+    }
+
+    @Override
     public boolean canUndoFlashcardList() {
         return versionedFlashcardList.canUndo();
     }

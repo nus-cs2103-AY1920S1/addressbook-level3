@@ -147,6 +147,12 @@ public interface Model {
     void setQuiz(List<Flashcard> quizableFlashcards);
 
     /**
+     * Sets the duration of each quiz question.
+     * @param duration duration of quiz questions.
+     */
+    void setQuizDuration(int duration);
+
+    /**
      * Returns true if the model has previous flashcard list states to restore.
      */
     boolean canUndoFlashcardList();

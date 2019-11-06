@@ -41,9 +41,9 @@
                                  <StackPane fx:id="flashcardDisplayPlaceholder" VBox.vgrow="ALWAYS" />
                               </children>
                            </VBox>
-                           <VBox HBox.hgrow="ALWAYS">
+                           <VBox minWidth="300.0" HBox.hgrow="ALWAYS">
                               <children>
-                                 <StackPane fx:id="flashcardListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="flashcardListPanelPlaceholder" minWidth="300.0" VBox.vgrow="ALWAYS" />
                                  <StackPane fx:id="timerDisplayPlaceHolder" />
                               </children>
                            </VBox>
