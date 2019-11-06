@@ -95,7 +95,7 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
             // delete command for Split
-        } else if (this.type.equals("s")) {
+        } else if (this.type.equals("l")) {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
