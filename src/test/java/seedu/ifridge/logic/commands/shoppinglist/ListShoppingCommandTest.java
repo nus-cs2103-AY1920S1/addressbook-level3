@@ -1,6 +1,5 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
-import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
@@ -14,6 +13,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
 import seedu.ifridge.model.UnitDictionary;
@@ -40,13 +40,15 @@ public class ListShoppingCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         expectedModel.sortShoppingItems();
-        ShoppingCommandTestUtil.assertCommandSuccess(new ListShoppingCommand(), model, ListShoppingCommand.MESSAGE_SUCCESS, expectedModel);
+        ShoppingCommandTestUtil.assertCommandSuccess(new ListShoppingCommand(), model,
+                ListShoppingCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
         expectedModel.sortShoppingItems();
-        ShoppingCommandTestUtil.assertCommandSuccess(new ListShoppingCommand(), model, ListShoppingCommand.MESSAGE_SUCCESS, expectedModel);
+        ShoppingCommandTestUtil.assertCommandSuccess(new ListShoppingCommand(), model,
+                ListShoppingCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

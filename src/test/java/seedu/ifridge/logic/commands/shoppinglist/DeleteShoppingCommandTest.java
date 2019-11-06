@@ -54,7 +54,8 @@ public class DeleteShoppingCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShoppingList().size() + 1);
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(outOfBoundIndex);
 
-        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model,
+                Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
@@ -86,7 +87,8 @@ public class DeleteShoppingCommandTest {
 
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(outOfBoundIndex);
 
-        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model,
+                Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
