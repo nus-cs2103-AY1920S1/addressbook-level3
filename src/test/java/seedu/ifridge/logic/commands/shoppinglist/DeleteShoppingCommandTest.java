@@ -2,8 +2,6 @@ package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
@@ -56,7 +54,7 @@ public class DeleteShoppingCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShoppingList().size() + 1);
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
@@ -72,9 +70,10 @@ public class DeleteShoppingCommandTest {
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
         expectedModel.deleteShoppingItem(shoppingItemToDelete);
+        expectedModel.sortShoppingItems();
         showNoShoppingItem(expectedModel);
 
-        assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
+        ShoppingCommandTestUtil.assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -87,7 +86,7 @@ public class DeleteShoppingCommandTest {
 
         DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        ShoppingCommandTestUtil.assertCommandFailure(deleteShoppingCommand, model, Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
