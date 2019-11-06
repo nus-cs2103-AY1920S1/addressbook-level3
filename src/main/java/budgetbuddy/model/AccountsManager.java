@@ -281,7 +281,7 @@ public class AccountsManager {
                     .append("<b>Categories : </b>" + account.getCategories() + "<br>\n");
         }
 
-        reportAllAccount.append("</body>\n" + "</html>");
+        reportAllAccount.append("</body>\n" + "</html>\n");
 
         return HtmlExporter.export(reportAllAccount.toString());
     }
