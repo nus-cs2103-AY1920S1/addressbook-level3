@@ -18,9 +18,9 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.McqBuilder;
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyRevisionTool newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyRevisionTool getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,8 +194,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyRevisionTool getAddressBook() {
+            return new RevisionTool();
         }
     }
 

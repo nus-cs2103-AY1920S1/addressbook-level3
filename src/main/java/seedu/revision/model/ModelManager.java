@@ -19,26 +19,26 @@ import seedu.revision.model.answerable.Answerable;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final RevisionTool addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Answerable> filteredAnswerables;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRevisionTool addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with revision tool: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new RevisionTool(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredAnswerables = new FilteredList<>(this.addressBook.getAnswerableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new RevisionTool(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,24 +67,24 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getRevisionToolFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setRevisionToolFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== RevisionTool ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyRevisionTool addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyRevisionTool getAddressBook() {
         return addressBook;
     }
 

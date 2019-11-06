@@ -6,7 +6,7 @@ import seedu.revision.model.answerable.Answerable;
 /**
  * Unmodifiable view of an revision tool.
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyRevisionTool {
 
     /**
      * Returns an unmodifiable view of the answerables list.

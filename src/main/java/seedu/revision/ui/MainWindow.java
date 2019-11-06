@@ -15,9 +15,9 @@ import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.ui.answerables.AnswerableListPanel;
@@ -108,9 +108,9 @@ public class MainWindow extends Window {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == confirmRestore) {
-            ReadOnlyAddressBook sampleData;
-            sampleData = SampleDataUtil.getSampleAddressBook();
-            passedModel.setAddressBook(new AddressBook(sampleData));
+            ReadOnlyRevisionTool sampleData;
+            sampleData = SampleDataUtil.getSampleRevisionTool();
+            passedModel.setAddressBook(new RevisionTool(sampleData));
         }
     }
 

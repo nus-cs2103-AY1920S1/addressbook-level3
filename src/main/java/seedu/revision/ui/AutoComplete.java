@@ -75,7 +75,8 @@ public class AutoComplete extends TextField {
         entries.add(RestoreCommand.COMMAND_WORD);
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE);
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_NORMAL);
-        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CHAOS);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_ARCADE);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CUSTOM);
     }
 
     /**

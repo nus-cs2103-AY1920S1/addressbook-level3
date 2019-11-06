@@ -15,7 +15,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.logic.parser.quiz.QuizCommandParser;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
 
@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         try {
             //We can deduce that the previous line of code modifies model in some way
             //since it's being stored here.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveRevisionTool(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyRevisionTool getAddressBook() {
         return model.getAddressBook();
     }
 

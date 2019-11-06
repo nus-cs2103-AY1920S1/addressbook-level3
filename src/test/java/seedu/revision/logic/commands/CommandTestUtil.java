@@ -19,7 +19,7 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -116,7 +116,7 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        RevisionTool expectedAddressBook = new RevisionTool(actualModel.getAddressBook());
         List<Answerable> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAnswerableList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

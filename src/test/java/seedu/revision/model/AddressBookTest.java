@@ -23,7 +23,7 @@ import seedu.revision.testutil.McqBuilder;
 
 public class AddressBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final RevisionTool addressBook = new RevisionTool();
 
     @Test
     public void constructor() {
@@ -37,7 +37,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        RevisionTool newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -48,7 +48,7 @@ public class AddressBookTest {
         Answerable editedAlice = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         List<Answerable> newAnswerables = Arrays.asList(MCQ_STUB, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newAnswerables);
+        RevisionToolStub newData = new RevisionToolStub(newAnswerables);
 
         assertThrows(DuplicateAnswerableException.class, () -> addressBook.resetData(newData));
     }
@@ -75,12 +75,12 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose answerables list can violate interface constraints.
+     * A stub ReadOnlyRevisionTool whose answerables list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class RevisionToolStub implements ReadOnlyRevisionTool {
         private final ObservableList<Answerable> answerables = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Answerable> answerables) {
+        RevisionToolStub(Collection<Answerable> answerables) {
             this.answerables.setAll(answerables);
         }
 

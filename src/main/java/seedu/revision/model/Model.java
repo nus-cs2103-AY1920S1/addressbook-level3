@@ -47,10 +47,10 @@ public interface Model {
     /**
      * Replaces revision tool data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyRevisionTool addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the RevisionTool */
+    ReadOnlyRevisionTool getAddressBook();
 
     /**
      * Returns true if a answerable with the same identity as {@code answerable} exists in the revision tool.

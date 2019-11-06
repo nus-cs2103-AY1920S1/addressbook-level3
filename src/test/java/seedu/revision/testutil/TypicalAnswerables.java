@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 
@@ -70,10 +70,10 @@ public class TypicalAnswerables {
     private TypicalAnswerables() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical answerables.
+     * Returns an {@code RevisionTool} with all the typical answerables.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static RevisionTool getTypicalAddressBook() {
+        RevisionTool ab = new RevisionTool();
         for (Answerable answerable : getTypicalAnswerables()) {
             ab.addAnswerable(answerable);
         }

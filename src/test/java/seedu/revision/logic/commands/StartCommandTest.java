@@ -15,7 +15,7 @@ import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
-public class StartQuizCommandTest {
+public class StartCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     private Mode modeNormal = new NormalMode();

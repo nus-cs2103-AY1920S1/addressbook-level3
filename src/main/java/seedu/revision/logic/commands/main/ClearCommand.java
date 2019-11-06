@@ -3,7 +3,7 @@ package seedu.revision.logic.commands.main;
 import static java.util.Objects.requireNonNull;
 
 import seedu.revision.logic.commands.Command;
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
 
 /**
@@ -18,7 +18,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setAddressBook(new RevisionTool());
         return new CommandResult().withFeedBack(MESSAGE_SUCCESS).build();
     }
 }
