@@ -20,7 +20,6 @@ import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
-import cs.f10.t1.nursetraverse.model.ModelState;
 import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyAppointmentBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
@@ -302,11 +301,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ModelState getModelState() {
             throw new AssertionError("This method should not be called.");
         }
     }

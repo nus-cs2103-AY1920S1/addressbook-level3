@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = patientBookParser.parseCommand(commandText, model.getModelState());
+        Command command = patientBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         if (command instanceof MutatorCommand) {

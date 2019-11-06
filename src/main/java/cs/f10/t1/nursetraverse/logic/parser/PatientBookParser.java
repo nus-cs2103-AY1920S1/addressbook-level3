@@ -2,8 +2,6 @@ package cs.f10.t1.nursetraverse.logic.parser;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static cs.f10.t1.nursetraverse.model.ModelState.MESSAGE_REQUIRE_STATE_NORMAL;
-import static cs.f10.t1.nursetraverse.model.ModelState.MESSAGE_REQUIRE_STATE_VISIT_ONGOING;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +36,6 @@ import cs.f10.t1.nursetraverse.logic.parser.appointment.FindAppointmentCommandPa
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 import cs.f10.t1.nursetraverse.logic.parser.visit.BeginVisitCommandParser;
 import cs.f10.t1.nursetraverse.logic.parser.visit.UpdateOngoingVisitCommandParser;
-import cs.f10.t1.nursetraverse.model.ModelState;
 
 
 /**
@@ -58,7 +55,7 @@ public class PatientBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, ModelState modelState) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -106,9 +103,6 @@ public class PatientBookParser {
             break;
 
         case ImportReplaceCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.VISIT_ONGOING)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
-            }
             command = new ImportReplaceCommandParser().parse(arguments);
             break;
 
@@ -129,30 +123,18 @@ public class PatientBookParser {
             break;
 
         case BeginVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.VISIT_ONGOING)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_NORMAL);
-            }
             command = new BeginVisitCommandParser().parse(arguments);
             break;
 
         case FinishOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
             command = new FinishOngoingVisitCommand();
             break;
 
         case UpdateOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
             command = new UpdateOngoingVisitCommandParser().parse(arguments);
             break;
 
         case CancelOngoingVisitCommand.COMMAND_WORD:
-            if (modelState.equals(ModelState.NORMAL)) {
-                throw new ParseException(MESSAGE_REQUIRE_STATE_VISIT_ONGOING);
-            }
             command = new CancelOngoingVisitCommand();
             break;
 
