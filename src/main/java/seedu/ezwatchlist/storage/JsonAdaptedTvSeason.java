@@ -75,7 +75,6 @@ class JsonAdaptedTvSeason {
         if (!TvSeason.isValidTotalNumOfEpisodes(totalNumOfEpisodes)) {
             throw new IllegalValueException(TvSeason.MESSAGE_CONSTRAINTS_TOTAL_EPISODES);
         }
-        final Set<Episode> modelActors = new HashSet<>(seasonEpisodes);
         return new TvSeason(seasonNumber, totalNumOfEpisodes, (ArrayList<Episode>) seasonEpisodes);
     }
 
