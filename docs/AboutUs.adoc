@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Voong Yu Xuan
 image::ambervoong.png[width="150", align="left"]
-{empty}[https://github.com/ambervoong[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ambervoong[github]] [<<ambervoong#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Undo/Redo
