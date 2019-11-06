@@ -1,6 +1,8 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_REPLENISH_SHIFT_SUCCESS;
+import static io.xpire.model.ListType.REPLENISH;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
@@ -106,14 +109,13 @@ public class DeleteCommand extends Command {
             return new CommandResult(this.result);
         case QUANTITY:
             assert this.quantity != null;
-            XpireItem newQuantityXpireItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
-            Name itemName = newQuantityXpireItem.getName();
-            model.setItem(targetXpireItem, newQuantityXpireItem);
+            XpireItem updatedItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
+            model.setItem(XPIRE, targetXpireItem, updatedItem);
             // transfer item to replenish list
-            if (Quantity.quantityIsZero(newQuantityXpireItem.getQuantity())) {
-                model.shiftItemToReplenishList(newQuantityXpireItem);
+            if (Quantity.quantityIsZero(updatedItem.getQuantity())) {
+                shiftItemToReplenishList(model, updatedItem);
                 this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem)
-                        + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName);
+                        + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, updatedItem.getName());
                 setShowInHistory(true);
                 return new CommandResult(this.result);
             }
@@ -164,6 +166,12 @@ public class DeleteCommand extends Command {
         Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
         targetXpireItem.setQuantity(updatedQuantity);
         return targetXpireItem;
+    }
+
+    private void shiftItemToReplenishList(Model model, XpireItem itemToShift) {
+        Item remodelledItem = itemToShift.remodel();
+        model.addItem(REPLENISH, remodelledItem);
+        model.deleteItem(XPIRE, itemToShift);
     }
 
     @Override

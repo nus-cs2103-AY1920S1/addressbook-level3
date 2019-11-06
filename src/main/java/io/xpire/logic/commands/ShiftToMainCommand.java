@@ -1,6 +1,8 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static io.xpire.model.ListType.REPLENISH;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -52,19 +54,18 @@ public class ShiftToMainCommand extends Command {
 
         requireNonNull(model);
         stateManager.saveState(new ModifiedState(model));
-        List<Item> lastShownList = model.getFilteredReplenishItemList();
-
+        List<? extends Item> lastShownList = model.getCurrentList();
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
         Item targetItem = lastShownList.get(this.targetIndex.getZeroBased());
         XpireItem toShiftItem = adaptItemToXpire(targetItem, expiryDate, quantity);
         this.xpireItem = toShiftItem;
-        if (model.hasItem(toShiftItem)) {
+        if (model.hasItem(XPIRE, toShiftItem)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         } else {
-            model.addItem(toShiftItem);
-            model.deleteReplenishItem(targetItem);
+            model.addItem(XPIRE, toShiftItem);
+            model.deleteItem(REPLENISH, targetItem);
         }
         this.result = String.format(MESSAGE_SUCCESS, toShiftItem.getName());
         setShowInHistory(true);

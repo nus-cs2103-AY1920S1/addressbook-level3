@@ -116,6 +116,22 @@ public class Quantity {
         return newQuantity;
     }
 
+    /**
+     * Reduces quantity by specified amount.
+     *
+     * @param increaseAmount quantity to be increased.
+     * @return new Quantity of item.
+     * @throws ParseException if new quantity is not within valid range.
+     */
+    public Quantity increaseQuantity(Quantity increaseAmount) throws ParseException {
+        Quantity newQuantity;
+        if ((increaseAmount.quantity + this.quantity) >= MAX_VALUE) {
+            throw new ParseException(MESSAGE_QUANTITY_LIMIT);
+        }
+        newQuantity = new Quantity(this.quantity + increaseAmount.quantity);
+        return newQuantity;
+    }
+
     @Override
     public String toString() {
         return "" + this.quantity;
