@@ -263,8 +263,9 @@ image::newCommandAutoNAfterSS.png[]
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
 For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
-Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.]
 
+// tag::fill[]
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
@@ -315,6 +316,9 @@ image::fillCommandWithParamsAfterScreenshot.png[]
 
 Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
+// end::fill[]
+
+// tag::submit[]
 === Submitting a completed draft report: `submit`
 Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
 
@@ -354,6 +358,8 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 .Fig X. The incident filled using the `fill` command above has been submitted. The newly submitted incident is listed at the top and its status changes from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`.
 
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
+// end::submit[]
+
 // end::incident[]
 
 === Listing all incidents: `list-i`
