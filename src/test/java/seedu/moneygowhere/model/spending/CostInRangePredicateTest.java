@@ -31,7 +31,7 @@ public class CostInRangePredicateTest {
     }
 
     @Test
-    public void test_costInRange_returnsTrue() {
+    public void predicate_costInRange_returnsTrue() {
         Cost min = new Cost("1.00");
         Cost max = new Cost("3.00");
 
@@ -43,7 +43,7 @@ public class CostInRangePredicateTest {
     }
 
     @Test
-    public void test_dateOutOfRange_returnsFalse() {
+    public void predicate_costOutOfRange_returnsFalse() {
         Cost min = new Cost("1.00");
         Cost max = new Cost("3.00");
 

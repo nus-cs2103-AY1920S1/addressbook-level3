@@ -67,7 +67,7 @@ class JsonAdaptedCurrencyTest {
     }
 
     @Test
-    public void test_compareTo() {
+    public void compareTo_equals() {
         assertEquals(0, SGD_CURRENCY.compareTo(SGD_CURRENCY));
     }
 }

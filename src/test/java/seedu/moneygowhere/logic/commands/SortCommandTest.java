@@ -26,6 +26,12 @@ class SortCommandTest {
     private Model model;
     private Model expectedModel;
 
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
+    }
+
     @Test
     public void equals() {
         SortCommand sortCommand = new SortCommand(SortUtil.getDefaultSortFieldSet());
@@ -45,12 +51,6 @@ class SortCommandTest {
 
         // different value -> returns false
         assertFalse(sortCommand.equals(new SortCommand(new LinkedHashSet<>())));
-    }
-
-    @BeforeEach
-    public void setUp() {
-        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
     }
 
     @Test
