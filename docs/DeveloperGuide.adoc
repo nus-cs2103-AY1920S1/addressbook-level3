@@ -220,13 +220,14 @@ The `Model`,
 === Storage component
 
 The `Storage` API is responsible for reading and writing data in
-json format. This allows the application is remeber information in
+json format. This allows the application is remember information in
 json format when the user closes the application.
 
-Below is a class diagram involving `Storage`.
+Below is a class diagram involving the `Storage` interface, which
+inherits from feature specific storage interfaces.
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Storage Interface
+image::storage/StorageInterfaceClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -235,6 +236,36 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save `HistoryManager`, `FinanceTracker`, `CcaTracker`,
 `CoursePlanner` and `Planner` data in json format and read it back.
+
+The concrete class `StorageManager` implements `Storage` and manages
+the storage for `UserPrefs`, `FinanceTracker`, `CcaTracker`,
+`CoursePlanner`, `Planner` and `HistoryManager`.
+
+Below is a class diagram of `StorageManager`.
+
+.`StorageManager` class
+image::storage/UpdatedStorageClassDiagram.png[]
+
+Each feature of JARVIS is able to save its information to local storage
+in `JSON` format, by adapting each feature component into
+`JsonSerializable{Component Name}` class.
+
+Below are the class diagrams for these adapted classes.
+
+.`JsonSerializableHistoryManager`
+image::storage/HistoryManagerStorageClassDiagram.png[]
+
+.`JsonSerializableCcaTracker`
+image::storage/CcaTrackerStorageClassDiagram.png[]
+
+.`JsonSerializableCoursePlanner`
+image::storage/CoursePlannerStorageClassDiagram.png[]
+
+.`JsonSerializableFinanceTracker`
+image::storage/FinanceTrackerStorageClassDiagram.png[]
+
+.`JsonSerializablePlanner`
+image::storage/PlannerStorageClassDiagram.png[]
 
 [[Design-Commons]]
 === Common classes
@@ -461,10 +492,13 @@ give the user more flexibility in their inputs. Undo and redo operations
 should also be undo or redo multiple commands in a command. In the event that
 a undo/redo command that comprises of multiple undo/redo operations fails at
 any point, all changes made by the command should be rolled back. This is
-reflected in the Activity Diagram below:
+reflected in the Activity Diagrams below.
 
-.Activity Diagram for undo and redo commands
-image::UndoRedoActivityDiagram.png[]
+.Activity Diagram for undo command
+image::undoredo/UndoCommandActivityDiagram.png[]
+
+.Activity Diagram for redo command
+image::undoredo/RedoCommandActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the
 `Model`. Commands that just render a view without actually changing the
@@ -488,7 +522,7 @@ The following activity diagram illustrates how commands are remembered when a
 user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
-image::CommandActivityDiagram.png[]
+image::undoredo/InverseCommandActivityDiagram.png[]
 
 The section below will discuss in more detail how undo/redo is implemented.
 
@@ -558,7 +592,7 @@ Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
 `CommandDeque` and `Command`.
 
 .Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
-image::HistoryManagerClassDiagram.png[]
+image::undoredo/HistoryManagerModelClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
 These commands store an integer value referencing the number of commands to
@@ -567,13 +601,23 @@ undo or redo, represented by `UndoCommand#numberOfTimes` and
 `UndoCommand` and `RedoCommand`.
 
 .Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
-image::UndoRedoCommandClassDiagram.png[]
+image::undoredo/CommandClassDiagram.png[]
 
-Below is a Sequence Diagram of how an `UndoCommand` executes in the program.
-`RedoCommand` follows a similar process.
+Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
+executes in the program. The sequence diagrams below show the process of undo
+and redo of a single command for simplicity and clarity.
 
-.Sequence Diagram for `UndoCommand`
-image::UndoCommandSequenceDiagram.png[]
+Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
+executes in the program.
+
+.Sequence Diagram for `UndoCommand` (undo a single command)
+image::undoredo/UndoSequenceDiagramNew.png[]
+
+Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
+executes in the program.
+
+.Sequence Diagram for `RedoCommand` (redo a single command)
+image::undoredo/RedoSequenceDiagramNew.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
@@ -661,50 +705,67 @@ The Course Planner feature allows the user to track what courses they
 The feature offers updated information on courses offered by NUS, along with
 convenient add, delete and check operations on the user's course list.
 
-==== Implementation
+The `CoursePlanner`
 
-The Course Planner feature closely follows the extendable OOP solution
-implemented within Jarvis. Within `model`, the `CoursePlanner` class
-manages all aspects related to this feature.
+==== The Course Planner Model
+
+The `CoursePlanner` class within the model provides an interface between the
+components of the feature and the updating of the overall model. Like other
+features, `Model` is associated with the course planner feature via
+implementing `CoursePlannerModel`, from which `Model` implements.
+
+Some of the more interesting methods (i.e not simple accessor and mutator
+methods) within `CoursePlanner` are shown below:
+
+* `Model#addCourse(Course)` - Adds a course to the user's list
+* `Model#deleteCourse(Course)` - Deletes the course from the user's list
+* `Model#lookUpCourse(Course)` - Looks up information about the given course
+* `Model#checkCourse(Course)` - Checks if the user can take this course
+* `Model#hasCourse(Course)` - Checks if the given course exists in the user's
+  list
 
 The list of courses of the user is stored internally using a `UniqueCourseList`
-object, providing an abstraction with `add`, `delete` and `getCourseList`
-operations that are called by `CoursePlanner`.
+object, providing an abstraction with `add` and `delete` operations that
+are called by `CoursePlanner` and its model.
 
-The `String` that is displayed to the user within a the UI text box is
-abstracted within a class called `CourseText`. This is a simple class that
-abstracts some operations of operations on a `String`, such as setting,
-getting, printing to a displayable form, etc.
+The text that is displayed to the user within the UI showing information about
+the Course Planner is abstracted within the course text display. This is a
+simple class that uses `Observable` to track changes to it as the program runs.
+The class abstracts some operations on this string such as setting, getting,
+printing to a displayable form, etc.
 
-* `Model#getCoursePlanner()` - Gets the `CoursePlanner` instance
-* `Model#lookUpCourse(Course)` - Looks up a course's information
-* `Model#addCourse(Course)` - Adds a course to the user's list
-* `Model#addCourse(Index, Course)` - Adds a course to the user's list at the
-  specified index
-* `Model#deleteCourse(Course)` - Deletes the given Course from the user's list
-* `Model#hasCourse(Course)` - Checks if the user has this course in their list
-* `Model#getUnfilteredCourseList()` - Returns an `ObservableList` containing
-  the user's list of courses
-* `Model#getCourseText()` - Returns a `CourseText` object
-* `Model#setCourseText(String)` - Sets the `String` displayed by the
-  `CourseText` object.
+Shown below is the Class diagram for the Course Planner.
 
 .Course Model Class Diagram
 image::ModelCoursePlannerClassDiagram.png[]
+
+Every `Course` has a few non-nullable attributes - `Title`, `CourseCode`,
+`CourseCredit`, `Faculty` and `Description`. The other three (`PrereqTree`,
+`Preclusion` and `FulfillRequirements`) are not required to exist as it
+depends on the course's data.
+
+==== Design Considerations
+
+As explained above, the `CoursePlanner` is implemented by `Model` and follows
+much of the extendable OOP solution implemented within Jarvis that is common
+to the other features.
+
+This section will discuss about the individual components that were created
+for this feature, the alternative Software Engineering design choices for each
+one, and our thought process of the eventual choices made for each component.
 
 ===== Course Datasets
 
 Course data-sets are taken directly from the {nus-mods-api}[NUSMods API]. These
 data-sets are stored using the `.json` file format on NUSMod's API. Since
-Jarvis already heavily uses the Jackson JSON API, we have opted to store
-all course data within Jarvis in their original form. Therefore, all data
-is read directly from `.json` files.
+Jarvis already heavily uses the Jackson JSON API, we have opted to store all
+course data within Jarvis in their original form. Therefore, all data is read
+directly from `.json` files.
 
 [NOTE]
 NUSMods is a popular website officially affiliated with NUS, where
-students are able to look up information about courses and plan their
-school timetable. This makes its data-set a reliable source of course
-information.
+students are able to look up information about courses and plan their school
+timetable. This makes its data-set a reliable source of course information.
 
 Each course, and their data, are given its own file. These files are laid out
 in `/modinfo` within `/resources` to be easily accessible by the program.
@@ -715,12 +776,10 @@ A sample, valid `AB1234.json` is given below for a fictional course `AB1234`.
 ----
 {
     "courseCode": "AB1234",
-    "courseCredit": "4",
+    "courseCredit": "4",]
     "description": "Course description for AB1234.",
     "faculty": "A Faculty in NUS",
-    "fulfillRequirements": [
-        "AB2234"
-    ],
+    "fulfillRequirements": [ "AB2234" ],
     "preclusion": "AB1231, AB1232",
     "prereqTree": {
         "and": [
@@ -737,86 +796,141 @@ A sample, valid `AB1234.json` is given below for a fictional course `AB1234`.
 }
 ----
 
-The current codebase requires that every course datafile **must** have the
-following attributes:
+As explained above, certain attributes of a `Course` are non-nullable. This
+choice was made due to the actual course datasets -
 
-* `courseCode`
-* `courseCredit`
-* `title`
-* `faculty`
-* `description`
+This also means that every semester, all datasets must be pre-processed before
+being deployed into the application. It is quite simple to create a script to do
+the pre-processing, and is such a good trade-off as opposed to manually
+checking every field when pulling data from a course file.
 
-These attributes are *non-nullable*, this is as from the 11000+ course
-datafiles downloaded from NUSMods, all at least have these attributes. The
-other three: `fulfillRequirements`, `preclusion` and `prereqTree` are
-optional, nullable attributes.
+====== Storing of Course Datasets
 
-==== And-Or Tree
+A decision we had to make concerned the way we would store the data to be
+referenced on runtime. Considering the multiple options, two stood out as
+being the most feasible within Jarvis.
 
-===== Overview
+* **Option 1: Storing every course in a single, large JSON file**
++
+This makes file handling easier to manage. Every course can be found in single
+file and the code need not deal with many `FileNotFoundException` or
+`IOException` upon lookup, as the file is guaranteed to exist.
++
+The trade-off is that a large file will be difficult to view for a developer.
+It will also have slow performance as the entire file would have to be
+processed to look up one course.
++
+The developer may also:
++
+.. Store the whole file in a buffer for faster lookup, but this may be
+   time-consuming and troublesome to implement, especially due to the memory
+   consumption, or:
++
+.. Process the whole file and create all `Course` objects upon start-up.
+   However, due to the large number of course files (11000+), this may also
+   have significant memory overhead.
 
-The `AndOrTree<R>` is a tree data structure served by the `util/andor`
-package that provides an abstraction for processing the prerequisite tree.
-The prerequisite tree (henceforth referred to as `prereqTree`) is an attribute
-of a `Course` that is available in the NUSMod's course data-set, the data
-comes in the form of a `String` and will be covered shortly.
+* **Option 2: Storing each course as its own file**
++
+This allows for fast lookup as the contents of all 11000+ course files of data
+do not need to be scanned directly. Fast string concatenation of file paths
+directly to the relevant `.json` file can be used instead.
++
+Unfortunately, this also makes the data-set difficult to manage. If we want
+to modify the data-set in any way, a script will have to be written to process
+every file in the data-set. Additionally, every lookup must deal with
+file-related exceptions.
 
-===== The `AndOrTree` Class
+====== Our Thoughts
+
+We decided to go with Option 2, as once the files were downloaded and
+processed, there was no need to modify them any further. Processing, or loading
+inside a buffer, of very large text files are likely to significantly hamper
+performance for little benefit. Manual lookup information about a specific
+course during development is also much easier with such a method.
+
+
+===== And-Or Tree
+
+The `AndOrTree<R>` is a tree data structure served by the `util/andor` package
+that provides an abstraction for processing the prerequisite tree.  The
+prerequisite tree (henceforth referred to as `prereqTree`) is an attribute of a
+`Course` that is available in the NUSMod's course data-set, the data comes in
+the form of a `String` and will be covered shortly.
+
+Before covering the tree itself, it would be helpful to cover its building
+blocks.
+
+====== The `AndOrNode` Class
+
+Each node in the tree of type `R` is represented by an `AndOrNode<R>`. Every
+node has a `List<AndOrNode<R>>`, to be used in checking the truth condition
+of the tree, and every node is either an `AndNode`, `OrNode` or `DataNode`
+node. This determines the conditional used to check the truth condition of a
+node.
+
+The truth condition of a node is determined using the method:
+`boolean fulfills(Collection<R>)`. This checks the truth condition of the node
+based on the following predicates:
+
+1. The node is an `AndNode`
++
+Any subset of elements in `Collection<R>` must match all children of this
+node.
+
+2. The node is an `OrNode`
++
+Any element in `Collection<R>` must match at least one of the children of this
+node.
+
+3. The node is a `DataNode`
++
+Any element in `Collection<R>` must match the data stored in this node.
+
+So, an `AndNode<String>` with children `{"1", "2", "3"}` will match `true`
+against a collection of `{"1", "2", "3", "4"}` and `false` against a collection
+of `{"2", "3"}`.
+
+====== Node Creation
+
+The following class diagram demonstrates the structure of the `abstract class`
+`AndOrNode` and its sub-classes.
+
+.AndOrNode Inheritance Diagram
+image::AndOrNodeInheritanceClassDiagram.png[800,600]
+
+Using this format, a static method of the form `AndOrNode#createNode(T,String)`
+is able to construct all instances of its sub-class, thus the caller will not
+need to know of the different type of nodes.
+
+====== The `AndOrTree` Class
 
 The following are `public` methods in `AndOrTree`.
 
 * `buildTree(String, Function<String, ? extends R>)`
 +
-Builds a tree from the given jsonString. `Function` is a mapper
-that processes a `String` and returns a value of type `R`, where `R` is the
-type of data stored by each node in the tree.
+Builds a tree from the given jsonString. `Function` is a mapper that processes
+a `String` and returns a value of type `R`, where `R` is the type of data
+stored by each node in the tree.
 
 * `fulfills(Collection<R>)`
 +
-Checks if the given `Collection` of type `R` fulfills the condition
-specified by this tree. `AndOrNode` has its own corresponding `fulfill` that
-checks its children or data against `Collection`.
+Checks if the given `Collection` of type `R` fulfills the condition specified
+by this tree. `AndOrNode` has its own corresponding `fulfill` that checks its
+children or data against `Collection`.
 
-Due to the arbitrary ordering of the tree, `insert()` and `delete()`
-operations commonly found in implementations of ordered trees are
-difficult to implement. Instead, the tree is fully created upon the call to
-`buildTree()` and is then enforced to be immutable once built. This is
-reflected in the class' lack of mutator methods.
+Due to the arbitrary ordering of the tree, `insert()` and `delete()` operations
+commonly found in implementations of ordered trees are difficult to implement.
+Instead, the tree is fully created upon the call to `buildTree()` and is then
+enforced to be immutable once built. This is reflected in the class' lack of
+mutator methods.
 
-===== The `AndOrNode` Class
-
-Each node in the tree of type `R` is represented by an `AndOrNode<R>`. Every
-node can exist as either of these types:
-
-1. `AND`
-+
-Any subset of elements in a `Collection<R>` must match all children
-of this node.
-
-2. `OR`
-+
-Any element in a `Collection<R>` must match at least one of the
-children of this node
-
-3. `DATA`
-+
-Any element in a  `Collection<R>` must match the data stored in
-this node
-
-The following class diagram demonstrates the structure of the `abstract class`
-`AndOrNode` class and its sub-classes.
-
-.AndOrNode Inheritance Diagram
-image::AndOrNodeInheritanceClassDiagram.png[800, 600]
-
-Using this format, `AndOrNode#createNode(T,String)` is able to construct
-all instances of its sub-class, thus the caller will not need to know the
-different types of nodes there are.
 
 ====== Building of the `AndOrTree`
 
-As mentioned above, we use the `prereqTree` attribute in order to build
-the tree. An example of a processable json string is as such:
+As mentioned above, we use the `prereqTree` attribute in order to build the
+tree. An example of a processable json string is as such:
+
 ----
 "prereqTree": {
     "and": [
@@ -835,118 +949,96 @@ This can be read as:
 
 ----
 To take AB1234, you require...
-|
-└ all of
-  ├── one of
-  |   ├─ "CD1111"
-  |   └─ "XY2222"
-  └─ "EF3333"
+ |
+ └ all of
+   ├── one of
+   |   ├─ "CD1111"
+   |   └─ "XY2222"
+   └─ "EF3333"
 ----
 
 This means that to take the fictional course `AB1234`, a user would have to
 complete `EF3333`, **and** either `CD1111` or `XY2222`.
 
-The `buildTree()` method takes in the `json` string as an input. The
-Jackson API uses this string to create a root `JsonNode` object, and the tree
-is built recursively from the root. The sequence diagram of the tree building
-process is shown below:
+The `buildTree()` method takes in the `json` string as an input. The Jackson
+API uses this string to create a root `JsonNode` object, and the tree is built
+recursively from the root. The sequence diagram of the tree building process is
+shown below:
 
 .buildTree() Sequence Diagram
 image::AndOrSequenceDiagramSimplified.png[]
 
-The class looks at each node - checks if its is an `Object`, `Array` or
-a `String`, and does the appropriate actions and function calls.
+The class looks at each node - checks if its is an `Object`, `Array` or a
+`String`, and does the appropriate actions and function calls.
 
 Other ways of building the tree can be easily extended by overloading the
-`buildTree` method. However, this will not override the immutable properties
-of the tree.
+`buildTree` method. However, this will not override the immutable properties of
+the tree.
 
-==== Design Considerations
+====== `AndOrTree` Dependency on Course
 
-===== Aspect: Storing of Course data-sets
+The `AndOrTree` posed some difficult for us in the decision to couple the
+implementation of `AndOrTree` with `Course`. This is because the tree would
+only ever be used by the Course Planner within the program, and thus it is
+not required to implement the tree using generics. However, this would increase
+coupling between `AndOrTree` and `Course`, which is unfavourable for testing.
 
-* **Alternative 1**: Storing every course in a single, large JSON file
-** **Pros:**
+We came up with two possible scenarios to this issue:
+
+* **Option 1: couple `AndOrTree` to `Course`**
 +
-Easier to manage. Every course can be found in a single file. The code need
-not deal with `FileNotFoundException` or `IOException` as the single file
-is guaranteed to exist.
-
-** **Cons:**
+This means that there is no need to pass any mapper function into the
+`buildTree()` method as the class does not need to know how to map from `String`
+to `R`. This also makes handling mapping exceptions easier as they can be
+handled directly by `Course` instead of by `AndOrTree`.
 +
-A large file will be difficult to view for a developer. It will also have
-slow performance as the entire file would have to be processed to look up
-one course.
-+
-A developer may also:
-+
-1. Store the whole file in a buffer for faster lookup, but this may be
-   time-consuming and troublesome to implement.
-+
-2. Process the whole file and create all `Course` objects upon start-up.
-   However, due to the large number of course files (11000+), this may have
-   significant memory overhead.
-
-* **Current Choice**: Storing each course as its own file
-** **Pros:**
-+
-Fast lookup as the contents of 11000+ files worth of data do not need
-to be scanned directly. Fast, `String` concatenation of file paths directly
-to the file is used instead.
-
-** **Cons:**
-+
-Difficult to manage. If we want to modify the data-sets in any way, a script
-will have to be written to process every file in the dataset, unless a
-developer wants to manually change all files.
-
-We did not go with alternative 1 as once the files were downloaded and
-processed, there was no need to modify them any further. Processing, or
-loading inside a buffer, of very large text files will likely significantly
-hamper performance for little benefit. Manual lookup information about a
-specific course during development is also much easier with such a method.
-
-===== Aspect: `AndOrTree` of fixed type vs `AndOrTree<R>` of generic type `R`
-
-
-* **Alternative 1**: `AndOrTree` dependent on `Course` (or any fixed datatype)
-** **Pros:**
-+
-There is no need to pass any mapper function into the `buildTree()` method as
-the class will already know how to map each `String` to a type `R`. This
-makes handling exceptions easier as they can be handled directly by the class
-instead of by the caller.
-
-** **Cons:**
-+
-This increases coupling between the tree and the fixed data-type used by
-the tree, resulting the correctness of the `AndOrTree` class being dependent
-on the fixed data-type, as there will be no way to stub it.
-The tree will also only be locked to a specific data-type and is
+However, this increases coupling between the tree and `Course`, resulting in
+the correctness of the `AndOrTree` class being dependent on `Course` as there
+is no way to stub it. The tree will also only be locked to `Course` and is
 non-extendable.
 
-* **Current choice**: `AndOrTree` with generics
-** **Pros:**
+* **Option 2: Using Generics**
 +
-This makes the tree reusable in the future. The tree will also be able to
-store any data-type which allows for easier unit testing, since it won't be
-dependent on the correctness of the fixed data-type (`Course` in this
-instance). Instead well-tested libraries such as Java's `String` API can
-be used to test the class instead.
-
-** **Cons:**
+This makes the tree reusable in the future. The tree will also
+be able to store any data-type which allows for easier unit testing, since
+it won't be dependent on the correctness of `Course`. Instead well-tested
+libraries such as Java's `String` API can be used to test the class instead.
 +
-Due to how the tree is built (i.e from a json string), a **mapper function**
-must be passed into the `buildTree()` method to process the string in each
-node to the generic type of the tree. The function should be of a type
-`Function<String, ? extends R>`, for a tree of type `R`.
+However, due to how the tree is built (i.e from a json string), a
+mapper function must be passed into the `buildTree()` method to process
+the string in each node to the generic type of the tree. The function is of
+the type `Function<String, ? extends R>`, for a tree of type `R`.
 
-Due to its benefits far outweighing its disadvantages, we picked out
-current choice. While extendability and resusability of the class is a nice
-bonus, the decrease in coupling and increase in testability was the deciding
-factor in choosing between these two approaches. Furthermore, behavior of
-the building of the tree can be easily extended by either inheritance, or
+====== Our Thoughts
+
+Due to its benefits far outweighing its disadvantages, we picked the second
+choice of using generics. While extendability and re-usability of the class is
+a nice bonus, the decrease in coupling and increase in testability was the
+deciding factor in choosing between these two approaches. Furthermore, behavior
+of the building of the tree can be easily extended by either inheritance, or
 overloading of the `buildTree()` method.
+
+==== Implementation
+
+With the significant individual components covered, the process of the
+Course Planner can be discussed. We will be covering the `check` command
+since the rest of the commands are either simple insert and delete operations
+on a list, or retrieving data from a file. This command allows us to see the
+full extent of back-end to front-end operations on the Course Planner.
+
+The `check` operation allows users to check if they are able to take a certain
+course. Whether the user can take the course depends on the courses in their
+list. The following is the activity diagram of general overview of the process
+when the user types a `check` command.
+
+.Check Command Activity Diagram
+image::CheckActivityDiagram.png[TODO]
+
+Additionally, the following below shows the sequence diagram of how the
+program checks if the user satisfies the course's prerequisites.
+
+.CheckCommand Sequence Diagram
+image::CheckCommandSequenceDiagram.png[]
 
 === Finance Tracker feature
 

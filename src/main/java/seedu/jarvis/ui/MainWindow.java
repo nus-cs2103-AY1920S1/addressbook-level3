@@ -289,6 +289,11 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 
+        case LIST_PLANNER_PULL:
+            newView = new PlannerView(this, logic, model, PlannerUiType.PULL);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
+            break;
+
         case LIST_FINANCE:
             newView = new FinanceListView(this, logic, model);
             toUpdatePlaceHolder = financeContentPlaceholder;

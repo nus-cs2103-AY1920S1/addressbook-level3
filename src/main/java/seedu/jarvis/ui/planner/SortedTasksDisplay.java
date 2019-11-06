@@ -10,8 +10,7 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
 /**
- * Represents the output of any sorting of tasks - by date
- * or tags.
+ * Represents the output of any sorting of tasks by task description
  */
 public class SortedTasksDisplay extends UiPart<Region> {
     public static final String FXML = "SortedTaskDisplay.fxml";

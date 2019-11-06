@@ -17,6 +17,7 @@ public class PlannerView extends View<AnchorPane> {
     private TaskListView taskListView;
     private SortedTasksDisplay sortedTasksDisplay;
     private ScheduleDisplay scheduleDisplay;
+    private PulledTasksDisplay pulledTasksDisplay;
     private PlannerUiType type;
 
     @FXML
@@ -38,10 +39,14 @@ public class PlannerView extends View<AnchorPane> {
             scheduleDisplay = new ScheduleDisplay(logic.getTasksToday(), logic.getTasksThisWeek());
             taskSplitPane.getItems().addAll(taskListView.getRoot(),
                     scheduleDisplay.getRoot());
-        } else {
+        } else if (type == PlannerUiType.FIND) {
             sortedTasksDisplay = new SortedTasksDisplay(logic.getFilteredTaskList());
             taskSplitPane.getItems().addAll(taskListView.getRoot(),
                     sortedTasksDisplay.getRoot());
+        } else {
+            pulledTasksDisplay = new PulledTasksDisplay(logic.getFilteredTaskList());
+            taskSplitPane.getItems().addAll(taskListView.getRoot(),
+                    pulledTasksDisplay.getRoot());
         }
     }
 }

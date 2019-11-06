@@ -64,6 +64,9 @@ public class ArgumentMultimap {
      */
     public boolean hasMultiplePrefixValues() {
         for (Prefix p : argMultimap.keySet()) {
+            if (p.equals(new Prefix("#"))) {
+                continue;
+            }
             List<String> values = this.getAllValues(p);
             if (values.size() > 1) {
                 return true;

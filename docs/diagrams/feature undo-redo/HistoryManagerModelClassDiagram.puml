@@ -3,12 +3,12 @@ skinparam classAttributeIconSize 0
 
 interface Model
 
-Model <|.. ModelManager
-ModelManager ..> "1" HistoryManager
-HistoryManager ..> Model
-HistoryManager ..> "2" CommandDeque
-CommandDeque o-- "*" Command
-Command ..> Model
+ModelManager .up.|> Model
+ModelManager .left.> "1" HistoryManager
+HistoryManager .up.> Model
+HistoryManager .down.> "2" CommandDeque
+CommandDeque o-right-> "*" Command
+Command .up.> Model
 
 class HistoryManager {
 -CommandDeque executedCommands

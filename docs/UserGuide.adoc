@@ -574,6 +574,8 @@ This command increments the progress for a CCA at the specified index.
 [NOTE]
 Note that progress can only be incremented if a progress has been added to that Cca.
 
+Note that progress can only be incremented if a progress has been added to that Cca.
+
 Format: `increment-progress INDEX`
 
 ===== Example
@@ -713,11 +715,12 @@ you will not be able to redo the commands.
 
 === Cca Tracker
 
-* `add-cca n/NAME t/TYPE`
-* `delete-cca n/NAME`
-* `edit-cca n/NAME`
+* `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
+* `delete-cca INDEX`
+* `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 * `list-cca`
-* `find-cca k/KEYWORD`
+* `find-cca KEYWORD`
+* `add-progress INDEX p/MILESTONE `
 * `increment-progress INDEX`
 
 === Course Planner

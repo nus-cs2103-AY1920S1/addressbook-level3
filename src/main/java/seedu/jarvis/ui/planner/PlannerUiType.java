@@ -5,5 +5,6 @@ package seedu.jarvis.ui.planner;
  */
 public enum PlannerUiType {
     SCHEDULE,
-    FIND
+    FIND,
+    PULL
 }

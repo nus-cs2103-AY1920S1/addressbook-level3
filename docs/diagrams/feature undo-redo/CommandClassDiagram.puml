@@ -2,8 +2,8 @@
 skinparam classAttributeIconSize 0
 abstract class Command
 
-Command <|-- UndoCommand
-Command <|-- RedoCommand
+UndoCommand -up-|> Command
+RedoCommand -up-|> Command
 
 abstract class Command {
 {abstract}+execute(Model)
