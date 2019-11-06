@@ -66,6 +66,14 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         return notUrlKeywords;
     }
 
+    public Set<String> getFolderNames() {
+        return folderNames;
+    }
+
+    public Set<String> getNotFolderNames() {
+        return notFolderNames;
+    }
+
     @Override
     public boolean test(Bookmark bookmark) {
         return predicate.test(bookmark);
@@ -218,22 +226,22 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("[");
         if (!nameKeywords.isEmpty()) {
-            stringBuilder.append("Name: " + nameKeywords + ",");
+            stringBuilder.append("Name: ").append(nameKeywords).append(",");
         }
         if (!notNameKeywords.isEmpty()) {
-            stringBuilder.append("Not name: " + notNameKeywords + ",");
+            stringBuilder.append("Not name: ").append(notNameKeywords).append(",");
         }
         if (!urlKeywords.isEmpty()) {
-            stringBuilder.append("URL: " + urlKeywords + ",");
+            stringBuilder.append("URL: ").append(urlKeywords).append(",");
         }
         if (!notUrlKeywords.isEmpty()) {
-            stringBuilder.append("Not URL: " + notUrlKeywords + ",");
+            stringBuilder.append("Not URL: ").append(notUrlKeywords).append(",");
         }
         if (!folderNames.isEmpty()) {
-            stringBuilder.append("Folder: " + folderNames + ",");
+            stringBuilder.append("Folder: ").append(folderNames).append(",");
         }
         if (!notFolderNames.isEmpty()) {
-            stringBuilder.append("Folder: " + notFolderNames + ",");
+            stringBuilder.append("Not folder: ").append(notFolderNames).append(",");
         }
         if (stringBuilder.substring(stringBuilder.length() - 1).equals(",")) {
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
