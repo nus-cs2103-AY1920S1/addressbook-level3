@@ -38,6 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             for (int i = 0; i < argsArr.length; i++) {
                 // Check if are they all numbers
+                ParserUtil.parseIndex(argsArr[i]);
                 int dishNumber = Integer.parseInt(argsArr[i]);
                 dishIntList.add(dishNumber);
             }

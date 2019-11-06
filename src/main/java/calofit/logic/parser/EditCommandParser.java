@@ -33,11 +33,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Index index;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        }
+
+        index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         EditCommand.EditDishDescriptor editDishDescriptor = new EditCommand.EditDishDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
