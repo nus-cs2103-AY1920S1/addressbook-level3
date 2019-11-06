@@ -134,23 +134,69 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storageuml[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageUML.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * application data is split into 4 different components, `Accommodation`, `Activity`, `Contact`, `Itinerary`.
-* can save `Accommodation` objects in json format and read it back.
-* can save `Activity` objects in json format and read it back.
-* can save `Contact` objects in json format and read it back.
-* can save `Itinerary` objects in json format and read it back.
 
+==== Accommodation Storage component
+.Structure of Accommodation Storage component
+image::AccommodationStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/accommodation/AccommodationStorage.java[`AccommodationStorage.java`]
+
+The `Accommodation Storage` component,
+
+* can save `Accommodation` objects in json format and read it back.
+* as `Tag is a field in Accommodation`, similarly JsonAdaptedTag is a field within JsonAdaptedAccommodation. Hence
+the association as shown in the diagram above.
+* as `Contact is a field in Accommodation`, similarly JsonAdaptedContact is a field within JsonAdaptedAccommodation. Hence
+the association as shown in the diagram above.
+
+==== Activity Storage component
+.Structure of Activity Storage component
+image::ActivityStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/activity/ActivityStorage.java[`ActivityStorage.java`]
+
+* can save `Activity` objects in json format and read it back.
+* as `Tag is a field in Activity`, similarly JsonAdaptedTag is a field within JsonAdaptedActivity. Hence
+the association as shown in the diagram above.
+* as `Contact is a field in Activity`, similarly JsonAdaptedContact is a field within JsonAdaptedActivity. Hence
+the association as shown in the diagram above.
+
+==== Contact Storage component
+.Structure of Contact Storage component
+image::ContactStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/contact/ContactStorage.java[`ContactStorage.java`]
+
+* can save `Contact` objects in json format and read it back.
+* as `Tag is a field in Contact`, similarly JsonAdaptedTag is a field within JsonAdaptedContact. Hence
+the association as shown in the diagram above.
+
+==== Itinerary Storage component
+.Structure of Itinerary Storage component
+image::ItineraryStorageUML.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/day/ItineraryStorage.java[`ItineraryStorage.java`]
+
+* can save `Itinerary` objects in json format and read it back.
+* as `ActivityWithTime is a field in Day`, similarly JsonAdaptedActivityWithTime is a field within JsonAdaptedDay. Hence
+the association as shown in the diagram above.
+* as `Activity is a field in ActivityWithTime`, similarly JsonAdaptedActivity is a field within JsonAdaptedActivityWithTime.
+Hence the association as shown in the diagram above.
+
+// end::storageuml[]
 [[Design-Commons]]
 === Common classes
 
