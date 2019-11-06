@@ -37,7 +37,7 @@ public class DurationTest {
         assertFalse(Duration.isValidDuration("30min")); // alphabets within digits
         assertFalse(Duration.isValidDuration("1440")); // exceed max duration
         assertFalse(Duration.isValidDuration("0")); // exceed min duration
-        
+
         // valid duration
         assertTrue(Duration.isValidDuration("1")); //min duration
         assertTrue(Duration.isValidDuration("1439")); // max value

@@ -6,31 +6,33 @@ import static seedu.planner.commons.util.AppUtil.checkArgument;
 /**
  * Represents the priority of an Activity in the application.
  * Guarantees: immutable;
+ *
  * @@author oscarsu97
  */
 public class Priority {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Value of priority should be a non-zero positive integer";
+    public static final String VALIDATION_REGEX = "\\d{1,}";
 
-    public final int priorityValue;
+    public final Integer priorityValue;
 
     /**
      * Constructs a {@code Priority}.
      *
      * @param value A valid priority value.
      */
-    public Priority(int value) {
+    public Priority(Integer value) {
         requireNonNull(value);
-        checkArgument(isValidPriority(value), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPriority(value.toString()), MESSAGE_CONSTRAINTS);
         this.priorityValue = value;
     }
 
     /**
      * Returns true if a given integer is a valid priority value.
      */
-    public static boolean isValidPriority(Integer test) {
-        return test >= 0;
+    public static boolean isValidPriority(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
