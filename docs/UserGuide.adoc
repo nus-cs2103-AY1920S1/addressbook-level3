@@ -148,7 +148,8 @@ Adds a spending to the list when the user incurs a new spending. Key information
 *Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to the end of this month.
+A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to the end of this month. Also, if you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
+
 
 *Examples:*
 
@@ -176,6 +177,7 @@ Edits a spending at a specified index in the list. +
 * Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 * If a spending date is in the future, it can only be up to end of this month.
+* If you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
 ****
 
 *Examples:*
@@ -675,6 +677,12 @@ e.g. `delete 123`
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
+| *Sort* | `sort [PREFIX/SORT_ORDER]...` +
+e.g. `sort d/DESC c/ASC`
+| *Currency* | `currency [CURRENCYCODE]` +
+e.g. `currency USD`
+| *Exchange rate* | `exchangerate [AMOUNT] [CURRENCYCODE]` +
+e.g. `exchangerate`, `exchangerate 5 USD`
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +

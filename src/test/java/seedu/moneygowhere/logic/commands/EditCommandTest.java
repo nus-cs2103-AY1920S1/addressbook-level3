@@ -1,6 +1,7 @@
 package seedu.moneygowhere.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.DESC_BOB;
@@ -23,6 +24,7 @@ import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.UserPrefs;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.EditSpendingDescriptorBuilder;
 import seedu.moneygowhere.testutil.SpendingBuilder;
@@ -122,6 +124,34 @@ public class EditCommandTest {
                 new EditSpendingDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SPENDING_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_editedSpendingWithDifferentCurrency_success() {
+        Spending editedSpending = new SpendingBuilder().withCost("1.00").build();
+        EditSpendingDescriptor descriptor = new EditSpendingDescriptorBuilder(editedSpending).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SPENDING, descriptor);
+
+        Currency usdCurrency = null;
+        for (Currency currency : model.getSpendingBook().getCurrencies()) {
+            if (currency.name.equalsIgnoreCase("USD")) {
+                usdCurrency = currency;
+            }
+        }
+
+        assertNotNull(usdCurrency);
+
+        model.setCurrencyInUse(usdCurrency);
+
+        double updatedCost = Double.parseDouble(editedSpending.getCost().value) / usdCurrency.rate;
+        Spending convertedSpending = new SpendingBuilder().withCost(String.format("%.2f", updatedCost)).build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SPENDING_SUCCESS, convertedSpending);
+
+        Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
+        expectedModel.setSpending(model.getFilteredSpendingList().get(0), convertedSpending);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

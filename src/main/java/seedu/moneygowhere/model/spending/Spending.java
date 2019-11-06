@@ -119,7 +119,8 @@ public class Spending {
                     .append(getRemark());
         }
         builder.append(" Cost: ")
-                .append(getCost());
+                .append(getCost())
+                .append(" SGD");
         if (getTags().size() > 0) {
             builder.append(" Tags: ");
             getTags().forEach(builder::append);
