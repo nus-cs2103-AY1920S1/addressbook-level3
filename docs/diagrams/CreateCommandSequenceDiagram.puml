@@ -81,10 +81,10 @@ deactivate JsonUtil
 JsonWordBankListStorage --> StorageManager
 deactivate JsonWordBankListStorage
 
-StorageManager --> ModelManager
+StorageManager --> LogicManager
 deactivate StorageManager
-ModelManager --> LogicManager
-deactivate ModelManager
+'ModelManager --> LogicManager
+'deactivate ModelManager
 
 
 

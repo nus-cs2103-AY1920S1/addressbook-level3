@@ -198,15 +198,14 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Word Bank data.
-* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* contains information that the game requires at run time. They include: `WordBankList`, `WordBankStatisticsList`,
+ `GlobalStatistics`, `Game`, `AppSettings`, `UserPrefs`.
+* has a direct reference to a user selected `WordBank`.
+* contains an underlying unmodifiable `ObservableList<Card>` and `ObservableList<WordBank` structure that can be
+'observed'. The `UI` is bounded to this two list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`
+* can be visualised as playing the role of a computer's RAM, while `Logic` plays the role of an operating system,
+and `Storage` plays the role of a hard disk.
 
 // end::chenhui-model[]
 
@@ -214,7 +213,6 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Game]]
 === Game component
-
 
 .Structure of the Game Component
 image::GameClassDiagram.png[]
@@ -240,10 +238,14 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* contains multiple types of distinct storage.
+* handles function calls directly to the computer's system.
+* can save data objects in json format and read it back.
+* can be visualised as playing the role of a computer's hard disk, while `Logic` plays the role of an operating system
+, and `Model` plays the role of a RAM.
 
 // end::chenhui-storage[]
+
 // tag::jasonstats[]
 [[Design-Statistics]]
 === Statistics component
@@ -600,56 +602,52 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#WordBank Features#
-Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
-It comes along with a set of commands that either modifies it's data, or modify the view. +
-These commands will then synchronise the data in storage, or update the model for viewing. +
-Lastly, there is a cool drag and drop feature for word banks, to transfer the files into and out of your computer.
+=== [underline]#Word Bank Management#
+This section discusses the implementation of Word Bank Management in varied levels of detail. +
+This can be split into four complimentary distinct sections.
 
-Let's begin by explaining some key terms:
+They are: +
 
-A `Card` contains a word and a unique meaning. (May contain tags) +
-`CardCommands` work on `Cards`. +
+** Word Bank’s data structure and storage +
+** User Commands +
+** Revision Word Bank +
+** Drag and Drop
 
-A `WordBank` contains multiple `Cards`. (May contain tags) +
-`WordBankCommands` work on `WordBanks`.
-
-A `WordBankList` contains multiple `WordBanks`.
-
-Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
-`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
-
-{nbsp} +
+{nbsp}
 
 ---
 
-A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
+==== Word Bank's data structure and storage
+In the following class diagrams which details the data structure and storage of `WordBankList`,
+observe closely the attributes and methods. +
+Each of them are implemented with close examination so that it is easily usable and extended upon by other
+teammates/complimentary features.
 
-{nbsp} +
-
-.`CardCommands`
-image::CardCommands.png[]
-
-{nbsp} +
-
-.`Cards`
-image::Cards.png[]
-
-{nbsp} +
-
-.`WordBankCommands`
-image::WordBankCommands.png[]
-
-{nbsp} +
-
-.`WordBanks`
-image::WordBanks.png[]
-
-{nbsp} +
-
----
-
-==== Data Structure Overview
+//A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
+//
+//{nbsp} +
+//
+//.`CardCommands`
+//image::CardCommands.png[]
+//
+//{nbsp} +
+//
+//.`Cards`
+//image::Cards.png[]
+//
+//{nbsp} +
+//
+//.`WordBankCommands`
+//image::WordBankCommands.png[]
+//
+//{nbsp} +
+//
+//.`WordBanks`
+//image::WordBanks.png[]
+//
+//{nbsp} +
+//
+//---
 We start from the lowest level - `Card`. +
 
 .Class diagram of `Card`.
@@ -657,15 +655,13 @@ image::CardDiagram.png[]
 
 A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
-`id` : for statistical tracking +``
-`word`: answer to the question +
+`id` : for statistical tracking +
+`word`: answer to the question (meaning) +
 `meaning`: the question that will appear in the game +
-`tags`: optional tag to classify cards
+`tags`: optional tags to classify cards
 
 [NOTE]
 Cards with the same meaning are duplicates, and is disallowed.
-
-{nbsp} +
 
 ---
 
@@ -683,7 +679,6 @@ A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 Internally, the `UniqueCardList` contains an observable list of `Card`.
 This is so any changes to the cards gets updated in the `Model` and thus the `UI` automatically.
 
-{nbsp} +
 
 ---
 
@@ -704,36 +699,70 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
+Architecture overview - `WordBankList`
 
-.Entire overview `WordBankList`.
+.Overview of `WordBankList`.
 image::OverviewOfWordBankList.png[]
 
 ---
 
-Now the integration - How these data structures are stored in `Model` and `Storage`.
+Now the integration with storage - How `WordBankList` is stored in `Model` and `Storage`.
 
-.Overview class diagram of `Storage` and `Model`.
+.Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
 
----
-==== Implementation of CardCommands and WordBankCommands
-A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
-WordBank data structure. +
-A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
-the WordBankList data structure.
+WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
+Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
 
-To have a better understanding of how these commands work, I will show you how these commands are structured in `Logic`
-and then walk you through a Sequence Diagram of executing a particular command.
+On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
+by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
+
+{nbsp}
+
+---
+
+==== User Commands
+Allows user to customise his cards and group them according to topics (word banks). +
+User commands edits and manipulates `Cards` and `WordBanks` heavily.
+
+NOTE: As mentioned previously, user commands will extend and utilise word bank's data structure and storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
+
+//A `WordBankList` contains multiple `WordBanks`.
+
+//Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
+//`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
+
+//A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
+//WordBank data structure. +
+//A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
+//the WordBankList data structure.
+
+Let me first introduce you how these commands are structured in `Logic`. +
 
 .Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
 image::WBLogicStorageModel.png[]
 
-With the understanding of `WordBankList` data structure, and how the `Commands` are structured within `Logic`,
-I will now take you through what happens when a `Command` is called. +
-For instance, `CreateCommand`: +
+Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
+To segregate cards according to their function, I have the following:
 
-.Sequence diagram describing the updating of `WordBankList` using `WordBankCommand` through different components
+//A `Card` contains a word and a unique meaning. (May contain tags) +
+`CardCommands` work on `Cards`. +
+
+//A `WordBank` contains multiple `Cards`. (May contain tags) +
+`WordBankCommands` work on `WordBanks`.
+
+//With the understanding of `WordBankList` data structure, and how the `Commands` are structured within `Logic`,
+//I will now take you through what happens when a `Command` is called. +
+//For instance, `CreateCommand`: +
+
+---
+I will now walk you through a Sequence Diagram to show how these commands utilise word bank's data structure and storage.
+
+.Sequence diagram detailing a successful `WordBankCommand` through different components
 image::CreateCommandSequenceDiagram.png[]
+
+NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams.
 
 We will see the case where the input: "create bank1" is valid.
 
@@ -756,28 +785,55 @@ same instance as referenced by `Model`.
 10. It returns void all the way back to `LogicManager`, and then success message is then passed back to `AppManager`,
 then to the `UI` to notify the user.
 
+{nbsp}
+
 ---
 
-==== Drag and drop feature and it's implementation.
-As much as a pro CLI user would love to type all the commands, I figured a good old drag and drop feature will save
-the user lots of time. +
-It aims to streamline the process of sharing word banks with friends.
+==== Drag and drop
+Enables saving/loading a word bank file into/out of user's computer through drag and drop. +
+Improves user experience by making it easy to share word banks with friends.
 
-.Screenshot showing drag and drop steps
-image::dragAndDropSteps.png[]
+NOTE: As mentioned previously, drag and drop will extend and utilise word bank's storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
 
-.Screenshot showing drag and drop steps
-image::dragAndDropSteps.png[]
+.Word bank file
+image::DragAndDrop1.png[150, 150]
 
-From `HOME` mode, you can view `WordBank`, then simply drag and drop a `WordBank`, out of the application, into say,
+.Dragging into Dukemon
+image::DragAndDrop2.png[150, 150]
+
+.Dukemon registers the bank
+image::DragAndDrop3.png[150, 150]
+
+From `HOME` mode, you can view your `WordBanks`.
+Simply drag and drop a `WordBank` json file from your computer into Dukemon.
+Likewise, drag and drop a `WordBank` out of the application, into say,
 your desktop, or chat applications. +
-From your computer, simply drag and drop a `WordBank` json file into Dukemon's `HOME` page.
 
-With the well designed `WordBankList` data structure and it's functions, drag and drop feature is simply an import and export
-function call, linked by the JavaFX's UI drag detection and drag dropped methods.
+.Sequence diagram showing how drag and drop utilises the ImportCommand and thus the word bank's storage.
+image::DragAndDropSequenceDiagram.png[]
+
+`LoadBankPanel` is the corresponding class and fxml that displays the word banks for the user. +
+It only has access to an `ObserverableList` of `WordBank`, which gets updated within `Model` or `Storage`. +
+This means it has no way to perform commands, update model or update storage.
+
+To work around this, a functional callback is registered within LoadBankPanel.
+LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
+Afterwhich, the callback essentially performs an `ImportCommand`, to load the word bank.
+
+{nbsp}
 
 ---
 
+==== Revision Word Bank
+Serves as a centralised bank that collects cards across different word banks through the game play.
+The update to revision word bank is done automatically after every game session. +
+
+NOTE: As mentioned previously, revision word bank will extend and utilise word bank's data structure and storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
+
+.Activity diagram showing different scenarios possible while trying to update revision bank.
+image::RevisionBankActivityDiagram.png[]
 ==== Design Considerations
 // Why one WBL is referenced both in model and in storage.
 // Talk about the commands being executed in logic, because requires a reference to model and storage.

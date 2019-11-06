@@ -12,10 +12,10 @@ package Storage <<Database>> {
 
 Interface Storage <<Interface>>  #A38300
 Class StorageManager #A38300
-Class JsonUserPrefsStorage #A38300
-Class JsonAppSettingsStorage #A38300
-Class JsonGlobalStatisticsStorage #A38300
-Class JsonWordBankStatisticsListStorage #A38300
+'Class JsonUserPrefsStorage #A38300
+'Class JsonAppSettingsStorage #A38300
+'Class JsonGlobalStatisticsStorage #A38300
+'Class JsonWordBankStatisticsListStorage #A38300
 
 package WordBankListStorage {
 Interface WordBankListStorage <<Interface>>  #A38300 {
@@ -24,19 +24,20 @@ Interface WordBankListStorage <<Interface>>  #A38300 {
    importWordBank(String, Path)
    exportWordBank(String, Path)
    updateWordBank(WordBank)
-   getWordBankList()
+   getWordBankFromName()
    getFilteredWordBankList()
-   getWordBanksFilePath()
+'   getWordBankList()
+'   getWordBanksFilePath()
 }
 
 Class JsonWordBankListStorage #A38300 {
     -wordBanksFilePath: Path
     -addWordBank(ReadOnlyWordBank, Path)
-    -deleteWordBank(WordBank)
+    -deleteWordBank(ReadOnlyWordBank)
     -saveWordBank(ReadOnlyWordBank, Path)
     -initData(Path, String)
     -initWordBankList()
-    +jsonToWordBank(Path)
+'    +jsonToWordBank(Path)
 }
 Class JsonSerializableWordBank #A38300
 Class JsonAdaptedCard #A38300
@@ -45,16 +46,16 @@ Class JsonAdaptedTag #A38300
 }
 
 StorageManager .left[#A38300].|> Storage
-StorageManager o-up[#A38300]-> JsonUserPrefsStorage
+'StorageManager o-up[#A38300]-> JsonUserPrefsStorage
 StorageManager o-down[#A38300]-> JsonWordBankListStorage
-StorageManager o-up[#A38300]-> JsonWordBankStatisticsListStorage
-StorageManager o-up[#A38300]-> JsonGlobalStatisticsStorage
-StorageManager o-up[#A38300]-> JsonAppSettingsStorage
+'StorageManager o-up[#A38300]-> JsonWordBankStatisticsListStorage
+'StorageManager o-up[#A38300]-> JsonGlobalStatisticsStorage
+'StorageManager o-up[#A38300]-> JsonAppSettingsStorage
 
 JsonWordBankListStorage .left[#A38300].|> WordBankListStorage
 JsonWordBankListStorage .down[#A38300].> JsonSerializableWordBank
-JsonWordBankListStorage o-left[#A38300]-> "1" WordBankList
-JsonSerializableWordBank ..down[#A38300]> JsonAdaptedCard
+JsonWordBankListStorage o-[#A38300]> "1" WordBankList
+JsonSerializableWordBank .left[#A38300]> JsonAdaptedCard
 JsonAdaptedCard .left[#A38300]> JsonAdaptedTag
 
 skinparam arrowThickness 1.2
@@ -65,13 +66,13 @@ Package Model <<Rectangle>> {
 
 Interface Model <<Interface>>
 Class WordBankList
-Class WordBankStatisticsList
-Class GlobalStatistics
-Class AppSettings
+'Class WordBankStatisticsList
+'Class GlobalStatistics
+'Class AppSettings
 Class Model
 Class ModelManager
-Class UserPrefs
-Class Game
+'Class UserPrefs
+'Class Game
 
 Package WordBankList {
 
@@ -81,45 +82,43 @@ Interface ReadOnlyWordBankList <<Interface>> {
 Class WordBankList {
 }
 
-Package WordBank {
+'Package WordBank {
 
 Class WordBank
-Class UniqueCardList
+'Class UniqueCardList
+'}
+
+'Package Card {
+'Class Card
+'Class Meaning
+'Class Word
+'}
+}
 }
 
-Package Card {
-Class Card
-Class Meaning
-Class Word
-}
-}
-}
+WordBankList .|> ReadOnlyWordBankList
 
-WordBankList ..|> ReadOnlyWordBankList
+'ModelManager .right|> StorageManager
+ModelManager .|> Model
+ModelManager -down-> "1" WordBankList
+'ModelManager --> "1" ReadOnlyWordBankList
 
-ModelManager .left.|> Model
-ModelManager -down--> "1" WordBankList
-ModelManager -up-> "1" WordBankStatisticsList
-ModelManager -up-> "1" GlobalStatistics
-ModelManager -up-> "1" AppSettings
-ModelManager -up-> "1" UserPrefs
-ModelManager -up-> "1" Game
+'ModelManager -up--> "1" WordBankStatisticsList
+'ModelManager -up--> "1" GlobalStatistics
+'ModelManager -up--> "1" AppSettings
+'ModelManager -up--> "1" UserPrefs
+'ModelManager -up--> "1" Game
 
-WordBankList -right-> "1" WordBank
-WordBank --> "*" UniqueCardList
-UniqueCardList -right-> "1" Card
-Card --> "1" Word
-Card --> "1" Meaning
+WordBankList -down-> "*" WordBank
+'WordBank --> "1" UniqueCardList
+'UniqueCardList -right-> "*" Card
+'Card --> "1" Word
+'Card --> "1" Meaning
 
-ModelManager --> WordBank : selected
-ModelManager --> Card : filteredList
+'ModelManager -left-> "1" WordBank : selected
+'ModelManager --> Card : filteredList
 
 @enduml
-
-
-
-
-
 
 
 '

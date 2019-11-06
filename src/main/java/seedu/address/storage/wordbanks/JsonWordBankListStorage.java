@@ -200,7 +200,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param wordBank data. Cannot be null.
      */
-    private void deleteWordBank(WordBank wordBank) {
+    private void deleteWordBank(ReadOnlyWordBank wordBank) {
         Path filePath = Paths.get(wordBanksFilePath.toString(), wordBank.getName() + ".json");
         File toDelete = filePath.toFile();
         if (toDelete.exists()) {

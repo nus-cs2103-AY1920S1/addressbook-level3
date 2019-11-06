@@ -1,0 +1,19 @@
+@startuml
+start
+
+:Game session finishes;
+note right: AppManager calls logic.updateRevisionBank()
+
+- Create revision bank if it doesn't exist
+
+if () then ([Word bank played is revision bank])
+    :Removes correct card from revision bank;
+
+else ([Word bank played is not revision bank])
+    :Retrieves a list of correct and wrong cards from current word bank;
+    :Removes correct card from revision bank;
+    :Updates revision bank with cards that were wrong;
+
+endif
+stop
+@enduml

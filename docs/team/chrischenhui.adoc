@@ -70,21 +70,22 @@ General flow of program usage:
 ** Enables user to have full control over his word banks and cards through typed commands and
 graphical user interface. Behind the scenes, Dukemon manages your word banks automatically.
 
+. *Word Bank's data structure and storage*: +
+Is implemented with a robust underlying `WordBankList` data structure, with it's own `WordBankListStorage`,
+along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise it's data.
+
 . *User Commands*: +
 Allows users to edit cards/word banks through `CardCommands`/ `WordBankCommands`.
-
-. *Word Bank data structure and it's synchronisation with storage*: +
-Is implemented with a flexible and robust underlying `WordBank` data structure, along with rich integration with `Storage`, `Model` and `Logic`.
-
-. *Revision Word Bank*: +
-Serves as a centralised bank that collects cards across different word banks throughout the game play. +
-Cards that were answered wrongly are automatically added to this revision bank. +
-Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
 
 . *Drag and Drop*: +
 Supports sharing of word banks with friends. +
 User can export their word bank to their computer simply by dragging it out of Dukemon. +
 Likewise, drag a word bank file into Dukemon to import the word bank.
+
+. *Revision Word Bank*: +
+Serves as a centralised bank that collects cards across different word banks throughout the game play. +
+Cards that were answered wrongly are automatically added to this revision bank. +
+Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
 
 //{nbsp}
 
