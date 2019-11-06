@@ -31,7 +31,7 @@ public class FontColourCommand extends Command {
     public static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
             + "what has already been set in your current settings! As such, there's nothing for me to update :)";
 
-    public static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The font colour you have keyed in has colours "
+    private static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The font colour you have keyed in has colours "
             + "that are too close to the dominant colour of the current background. Please try changing your "
             + "background first or selecting a different font colour. Alternatively you may combine the fontcolour "
             + "command for the new font colour with a background command, using the prefix [bg/].\n"
