@@ -76,7 +76,7 @@ public class InformationDisplay extends UiPart<Region> {
         address.setPrefWidth(150);
         address.setWrapText(true);
         email.setText(this.person.getEmail().value);
-        //gender.setText(this.person.getGender().genderOfPerson);
+        gender.setText(this.person.getGender().genderOfPerson);
         photo.setImage(new Image(this.person.getPhoto().filePath));
         photo.setPreserveRatio(true);
         photo.setSmooth(true);
@@ -93,7 +93,7 @@ public class InformationDisplay extends UiPart<Region> {
                 String eventName = event.getName();
                 String mostRecentDate = event.getLatestTiming(person)[0];
                 String mostRecentTiming = event.getLatestTiming(person)[1];
-                String personalBest = "" + event.getPersonalBest(person);
+                String personalBest = event.getPersonalBest(person) + " seconds";
                 PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay(eventName, mostRecentDate,
                                                                                            personalBest,
                                                                                            mostRecentTiming);
