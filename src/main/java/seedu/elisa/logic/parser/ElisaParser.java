@@ -113,10 +113,10 @@ public class ElisaParser {
             return new ThemeCommand(description);
 
         case UpCommand.COMMAND_WORD:
-            return new UpCommand(description);
+            return new UpCommand();
 
         case DownCommand.COMMAND_WORD:
-            return new DownCommand(description);
+            return new DownCommand();
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(description, flags);
