@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.customer.Address;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
@@ -117,6 +118,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Address parseAddress(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
+        return new Address(trimmedAddress);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -212,5 +228,18 @@ public class ParserUtil {
             quantitySet.add(parseQuantity(quantityName));
         }
         return quantitySet;
+    }
+
+    /**
+     * to fill
+     */
+    public static boolean hasRepeatedPrefix(String input, Prefix... prefixes) {
+        for (Prefix prefix : prefixes) {
+            final String s = prefix.getPrefix();
+            if (input.indexOf(s) != input.lastIndexOf(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

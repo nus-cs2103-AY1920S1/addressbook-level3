@@ -348,10 +348,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addOrderInCustomer(Order order) {
+        Customer customer = null;
+        for (Customer cust : getFilteredCustomerList()) {
+            if (cust.getUserName().equals(order.getCustomer())) {
+                customer = cust;
+                break;
+            }
+        }
+        Restaurant restaurant = null;
+        for (Restaurant rest : getFilteredRestaurantList()) {
+            if (rest.getName().equals(order.getRestaurant())) {
+                restaurant = rest;
+                break;
+            }
+        }
+        customer.addOrder(order, restaurant.getTags());
+
+    }
+
+    @Override
     public void deleteOrderInCustomer(Order order) {
         Customer customer = null;
         for (Customer cust : getFilteredCustomerList()) {
-            if (cust.getName().equals(order.getCustomer())) {
+            if (cust.getUserName().equals(order.getCustomer())) {
                 customer = cust;
                 break;
             }

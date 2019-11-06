@@ -37,7 +37,8 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()
+                || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_PRICE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 

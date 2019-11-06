@@ -6,12 +6,14 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
@@ -46,8 +48,8 @@ public class AddOrderCommand extends Command {
     private static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
     private static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
     private static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
-    private static String[] prefixesList = {PREFIX_CUSTOMER.getPrefix(), PREFIX_RESTAURANT.getPrefix(),
-            PREFIX_FOOD.getPrefix(), PREFIX_QUANTITY.getPrefix()};
+    private static final LinkedList<Prefix> prefixesList = new LinkedList<>(
+            List.of(PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
 
     private final Order toAdd;
 
@@ -57,8 +59,8 @@ public class AddOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
-        Name deliverymanToAdd = null;
+    public CommandResult execute(Model model) throws CommandException {
+        Name deliverymanToAdd;
 
         // Validity checks for customer, restaurant and foodList
         isValidOrder(toAdd, model);
@@ -79,7 +81,7 @@ public class AddOrderCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
         model.addOrder(order);
-
+        model.addOrderInCustomer(order);
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
     }
 
@@ -92,7 +94,7 @@ public class AddOrderCommand extends Command {
 
         // Customer validity check
         for (Customer customer : model.getFilteredCustomerList()) {
-            if (customer.getName().equals(toAdd.getCustomer())) {
+            if (customer.getUserName().equals(toAdd.getCustomer())) {
                 customerToAdd = customer;
                 break;
             }
@@ -126,11 +128,9 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
-
-        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
     }
 
-    public static String[] getPrefixesList() {
+    public static LinkedList<Prefix> getPrefixesList() {
         return prefixesList;
     }
 

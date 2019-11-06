@@ -198,7 +198,7 @@ image::userguide\EditOrder3.png[width="790"]
 
 .Requirements
 
-* The index `i/INDEX` provided must be within the order list size and be greater than or equals to 0.
+* The index `i/INDEX` provided must be within the order list size and be greater than or equals to 1.
 
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
@@ -308,19 +308,25 @@ This is a customer and its information.
 
 ==== Adding a customer: `add`
 
-This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer.
+This command allows you to add a new customer to the customer list. `USERNAME`, `NAME`, `PHONE` and `ADDRESS` are necessary to a customer.
 
-Format: `add n/NAME p/PHONE`
+[NOTE]
+====
 
-Example: `add n/John Doe p/91234567`
+The `USERNAME` of customer cannot be changed after adding.
+====
+
+Format: `add u/USERNAME n/NAME p/PHONE ad/ADDRESS`
+
+Example: `add u/JohnDoe n/John Doe p/91234567 ad/311, Clementi Ave 2, #02-25`
 
 {nbsp} +
 
 ==== Editing a customer: `edit`
 
-This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional. For example, you can edit the customer's name without editing the phone number.
+This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional. For example, you can edit the customer's `NAME` without editing `PHONE`.
 
-Format: `edit INDEX [n/NAME] [p/PHONE]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]`
 
 Example: `edit 1 n/John Hoe p/97654321`
 
@@ -328,7 +334,7 @@ Example: `edit 1 n/John Hoe p/97654321`
 ====
 
 .Requirements
-* add requirements here
+* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 {nbsp} +
@@ -345,7 +351,7 @@ Example: `delete 1`
 ====
 
 .Requirements
-* add requirements here
+* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 {nbsp} +
@@ -362,7 +368,7 @@ Example: `history 1`
 ====
 
 .Requirements
-* add requirements here
+* The index `i/INDEX` provided must be within the customer list size and be greater than or equals to 1.
 ====
 
 // end::customerCommand[]
@@ -502,10 +508,16 @@ Example: `rate 4`
 
 {nbsp} +
 
-==== Exiting EditMode: 'exitedit'
+==== Exiting EditMode: `exitedit`
 This command exits EditMode for the specific restaurant and returns to the list of restaurants
 
 Format: `exitedit`
+
+{nbsp} +
+
+==== Auto-tagging of food item as "Popular"
+Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
+will be auto-tagged as "Popular". Food items quantity ordered will only be updated upon completion of an order.
 
 {nbsp} +
 
@@ -659,8 +671,8 @@ Example: `enter 1`
 - Exit application: `-exit`
 
 * Customer commands
-- Add a customer: `add n/NAME p/PHONE [t/TAG]...`
-- Edit a customer: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+- Add a customer: `add u/USERNAME n/NAME p/PHONE ad/ADDRESS`
+- Edit a customer: `edit INDEX [n/NAME] [p/PHONE] [ad/ADDRESS]`
 - Delete a customer: `delete INDEX`
 - View a customer's order history: `history INDEX`
 

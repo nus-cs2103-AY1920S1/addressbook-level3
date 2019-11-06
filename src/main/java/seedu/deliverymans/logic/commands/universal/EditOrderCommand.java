@@ -11,6 +11,7 @@ import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,10 +19,10 @@ import java.util.Optional;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.CollectionUtil;
-import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -47,11 +48,13 @@ public class EditOrderCommand extends Command {
             + PREFIX_FOOD + "Shrooms Burger "
             + PREFIX_QUANTITY + "3";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided!";
+    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided!";
+
+    private static final String MESSAGE_ALREADY_COMPLETED = "The order cannot be edited as it is already completed!";
     private static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
-    private static String[] prefixesList = {PREFIX_INDEX.getPrefix(), PREFIX_CUSTOMER.getPrefix(),
-            PREFIX_RESTAURANT.getPrefix(), PREFIX_FOOD.getPrefix(), PREFIX_QUANTITY.getPrefix()};
+    private static final LinkedList<Prefix> prefixesList = new LinkedList<>(
+            List.of(PREFIX_INDEX, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY));
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -68,7 +71,7 @@ public class EditOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Logic logic) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         List<Order> lastShownList = model.getFilteredOrderList();
@@ -78,6 +81,9 @@ public class EditOrderCommand extends Command {
 
         // Creating editedOrder and testing validity
         Order orderToEdit = lastShownList.get(index.getZeroBased());
+        if (orderToEdit.isCompleted()) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
         AddOrderCommand.isValidOrder(editedOrder, model);
 
@@ -103,7 +109,7 @@ public class EditOrderCommand extends Command {
                 .completeOrder();
     }
 
-    public static String[] getPrefixesList() {
+    public static LinkedList<Prefix> getPrefixesList() {
         return prefixesList;
     }
 

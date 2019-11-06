@@ -5,13 +5,15 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
+import seedu.deliverymans.logic.parser.Prefix;
+
 /**
  * Javadoc comment
  */
 class Trie {
     private final HashMap<Character, Trie> children;
     private final LinkedList<String> contentList = new LinkedList<>();
-
+    private final LinkedList<Prefix> prefixList = new LinkedList<>();
     private boolean containsCommandWord;
 
     Trie() {
@@ -21,7 +23,7 @@ class Trie {
     /**
      * TO fill
      */
-    void insertCommand(String key, String... prefixes) {
+    void insertCommand(String key, LinkedList<Prefix> prefixes) {
         insertCommand(key, key, prefixes);
     }
 
@@ -29,13 +31,13 @@ class Trie {
      * TO fill
      */
     void insertCommand(String key) {
-        insertCommand(key, key, new String[0]);
+        insertCommand(key, key, new LinkedList<>());
     }
 
     /**
      * Inserts a {@code String} into the Trie.
      */
-    private void insertCommand(String key, String command, String... prefixes) {
+    private void insertCommand(String key, String command, LinkedList<Prefix> prefixes) {
         if (key.length() == 1) {
             char c = key.charAt(0);
             if (!children.containsKey(c)) {
@@ -43,7 +45,7 @@ class Trie {
             }
             Trie leaf = children.get(c);
             leaf.addContent(command);
-            leaf.insertPrefixes(prefixes);
+            leaf.addPrefixes(prefixes);
             leaf.containsCommandWord = true;
         } else if (key.length() > 1) {
             char first = key.charAt(0);
@@ -59,32 +61,23 @@ class Trie {
     /**
      * TO fill
      */
-    private void insertPrefixes(String... prefixes) {
-        for (String prefix : prefixes) {
-            insertPrefix(prefix);
-        }
+    private LinkedList<Prefix> getPrefixList() {
+        return this.prefixList;
     }
 
     /**
      * TO fill
      */
-    private void insertPrefix(String prefix) {
-        Trie curr = this;
-        char[] cArray = prefix.toCharArray();
-        for (int i = 0; i < cArray.length; ++i) {
-            char c = cArray[i];
-            if (i == cArray.length - 1) {
-                if (!curr.children.containsKey(c)) {
-                    curr.children.put(c, new Trie());
-                }
-                curr.children.get(c).addContent(prefix);
-            } else {
-                if (!curr.children.containsKey(c)) {
-                    curr.children.put(c, new Trie());
-                }
-                curr = curr.children.get(c);
-            }
+    private void addPrefixes(LinkedList<Prefix> prefixes) {
+        this.prefixList.addAll(prefixes);
+    }
+
+    LinkedList<Prefix> getPrefixes(String toFind) {
+        Trie result = search(toFind);
+        if (result == null) { // commandWord does not exist
+            return new LinkedList<>();
         }
+        return result.getPrefixList();
     }
 
     /**
@@ -108,9 +101,7 @@ class Trie {
         return curr;
     }
 
-    /**
-     * Tofill.
-     */
+    /*
     LinkedList<String> autoCompletePrefix(String commandWord, String prefixes) {
         Trie commandResult = search(commandWord);
         if (commandResult == null) { // commandWord does not exist
@@ -124,9 +115,6 @@ class Trie {
         return prefixResult.getAllPrefixes();
     }
 
-    /**
-     * Tofill.
-     */
     private LinkedList<String> getAllPrefixes() {
         LinkedList<String> contentList = new LinkedList<>();
         if (children.isEmpty()) {
@@ -140,6 +128,34 @@ class Trie {
         contentList.sort(String::compareToIgnoreCase);
         return contentList;
     }
+
+    private void insertPrefixes(LinkedList<LinkedList<String>> prefixes) {
+        for (LinkedList<String> prefixList : prefixes) {
+            for (String prefix : prefixList) {
+                insertPrefix(prefix);
+            }
+        }
+    }
+
+    private void insertPrefix(String prefix) {
+        Trie curr = this;
+        char[] cArray = prefix.toCharArray();
+        for (int i = 0; i < cArray.length; ++i) {
+            char c = cArray[i];
+            if (i == cArray.length - 1) {
+                if (!curr.children.containsKey(c)) {
+                    curr.children.put(c, new Trie());
+                }
+                curr.children.get(c).addContent(prefix);
+            } else {
+                if (!curr.children.containsKey(c)) {
+                    curr.children.put(c, new Trie());
+                }
+                curr = curr.children.get(c);
+            }
+        }
+    }
+    */
 
     /**
      * Tofill.

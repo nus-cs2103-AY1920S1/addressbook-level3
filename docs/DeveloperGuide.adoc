@@ -247,15 +247,13 @@ image::CommitActivityDiagram.png[]
 
 // tag::autocomplete commands[]
 
-=== [Proposed] Autocomplete commands feature
+=== Autocomplete commands feature
 
 This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the UG/DG of this application.
 
-==== Proposed Implementation
+==== Implementation
 
 The autocomplete mechanism is facilitated by the ‘KeyListener’, which will pass the current character that is being pressed on the keyboard to the trie, a tree-like abstract data type (ADT). The list of matching commands will then be passed back to the ‘Ui’ and displayed via a dropdown box below the user input command box.
-
-For implementation of the trie, please consult ‘google’ or ‘stackoverflow’.
 
 Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
 
@@ -263,7 +261,7 @@ Step 1: The user launches the application. The current user input command box wi
 
 *insert picture of the ui at startup*
 
-Step 2: The user wants to switch to the customer context for customer-focused commands with the command ‘customer’, however is unsure how to spell the command and types in ‘cus’. The ‘KeyListener’ will pass the characters that have been typed to the trie. The trie will then search for relevant commands and pass them as a list to the ‘Ui’, which will display the relevant results in a dropdown box below the user input command box.
+Step 2: The user wants to switch to the customer context for customer-focused commands with the command ‘customer’, however is unsure how to spell the command and types in ‘cus’. The ‘KeyListener’ passes the characters that have been typed to the trie. The trie searches for relevant commands and pass them as a list to the ‘Ui’, which displays the relevant results in a dropdown box below the user input command box.
 
 *insert picture of 'cus' being typed in/ class diagram*
 
