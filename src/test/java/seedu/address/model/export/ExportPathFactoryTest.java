@@ -5,6 +5,7 @@ package seedu.address.model.export;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.ExportTestUtil.isRunningOnWindows;
 
 import org.junit.jupiter.api.Test;
 
@@ -74,25 +75,27 @@ public class ExportPathFactoryTest {
 
     @Test
     public void getExportPath_validWindowsPath_success() {
-        String filePathNoExtension = "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2)";
+        if (isRunningOnWindows()) {
+            String filePathNoExtension = "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2)";
 
-        for (String validExtension : validExtensions) {
-            String filePath = filePathNoExtension + validExtension;
-            ExportPath exportPath = ExportPathFactory.getExportPath(filePath);
+            for (String validExtension : validExtensions) {
+                String filePath = filePathNoExtension + validExtension;
+                ExportPath exportPath = ExportPathFactory.getExportPath(filePath);
 
-            switch (validExtension.toLowerCase()) {
-            case ".docx":
-                assertTrue(
-                        exportPath instanceof DocumentPath
-                );
-                break;
-            case ".json":
-                assertTrue(
-                        exportPath instanceof JsonExportPath
-                );
-                break;
-            default:
-                fail("Valid export path not recognized as valid: " + filePath);
+                switch (validExtension.toLowerCase()) {
+                    case ".docx":
+                        assertTrue(
+                                exportPath instanceof DocumentPath
+                        );
+                        break;
+                    case ".json":
+                        assertTrue(
+                                exportPath instanceof JsonExportPath
+                        );
+                        break;
+                    default:
+                        fail("Valid export path not recognized as valid: " + filePath);
+                }
             }
         }
     }
