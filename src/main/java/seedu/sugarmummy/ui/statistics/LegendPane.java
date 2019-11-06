@@ -19,8 +19,9 @@ import javafx.scene.layout.Region;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.ui.UiPart;
 
+//@@author chen-xi-cx
 /**
- * Represents ui of a custom chart legend.
+ * Represents ui of a {@code CustomLineChart} legend.
  */
 public class LegendPane extends UiPart<Region> {
 
@@ -57,16 +58,14 @@ public class LegendPane extends UiPart<Region> {
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                lineChartLegendFlowPane.getChildren().clear();
-                updateLegendPane(averageMap, recordType);
+                refreshLegendFlowPane(averageMap, recordType);
             }
         });
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                lineChartLegendFlowPane.getChildren().clear();
-                updateLegendPane(averageMap, recordType);
+                refreshLegendFlowPane(averageMap, recordType);
             }
         });
 
@@ -74,7 +73,20 @@ public class LegendPane extends UiPart<Region> {
     }
 
     /**
-     * Updates legend box to suit the record type given.
+     * A convenience function to update lineChartLegendFlowPane with new symbols and description whenever averageMap
+     * or recordType changes.
+     *
+     * @param averageMap the newly updated averageMap containing the average values.
+     * @param recordType the newly updated type of record.
+     */
+    private void refreshLegendFlowPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
+        lineChartLegendFlowPane.getChildren().clear();
+        updateLegendPane(averageMap, recordType);
+    }
+
+    /**
+     * Calculates the maximum average values and updates lineChartLegendFlowPane with legends
+     * that suit the record type and maximum average values given.
      */
     private void updateLegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
         double maxAvg = findMax(averageMap);
@@ -102,6 +114,7 @@ public class LegendPane extends UiPart<Region> {
             }
             break;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }

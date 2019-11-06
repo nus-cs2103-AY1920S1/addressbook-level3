@@ -9,6 +9,7 @@ import seedu.sugarmummy.model.record.Bmi;
 import seedu.sugarmummy.model.record.Record;
 import seedu.sugarmummy.model.record.RecordType;
 
+//@@author chen-xi-cx
 /**
  * Tests that a {@code Record} is an instance of a given {@code RecordType}.
  */
@@ -28,6 +29,7 @@ public class RecordContainsRecordTypePredicate implements Predicate<Record> {
         case BMI:
             return record instanceof Bmi;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }

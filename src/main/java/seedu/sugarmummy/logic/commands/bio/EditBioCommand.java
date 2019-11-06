@@ -81,7 +81,6 @@ public class EditBioCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
             + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
-    public static final String MESSAGE_DUPLICATE_USER = "his user already exists in the address book.";
 
     private final EditUserDescriptor editUserDescriptor;
 
@@ -180,10 +179,6 @@ public class EditBioCommand extends Command {
         if (!lastShownList.isEmpty()) {
             User userToEdit = lastShownList.get(0);
             User editedUser = createEditedUser(userToEdit, editUserDescriptor);
-
-            if (!userToEdit.isSameUser(editedUser) && model.hasUser(editedUser)) {
-                throw new CommandException(MESSAGE_DUPLICATE_USER);
-            }
 
             model.setUser(userToEdit, editedUser);
             model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
@@ -590,4 +585,5 @@ public class EditBioCommand extends Command {
                     && getOtherBioInfo().equals(e.getOtherBioInfo());
         }
     }
+
 }

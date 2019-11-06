@@ -103,4 +103,13 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, showBio, showAchvm, exit);
     }
 
+    @Override
+    public String toString() {
+        return "CommandResult with attributes:\n"
+                + "FeedbackToUser: " + feedbackToUser + "\n"
+                + "ShowHelp: " + showHelp + "\n"
+                + "ShowAchievements: " + showAchvm + "\n"
+                + "Exit: " + exit;
+    }
+
 }

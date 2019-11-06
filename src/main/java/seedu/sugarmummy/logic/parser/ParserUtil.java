@@ -2,7 +2,10 @@ package seedu.sugarmummy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_POSSIBLE_AVERAGE_TYPE;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_POSSIBLE_RECORD_TYPE;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
+import static seedu.sugarmummy.logic.commands.AverageCommand.MESSAGE_INVALID_AVGTYPE;
 
 import java.awt.Image;
 import java.io.File;
@@ -64,7 +67,8 @@ public class ParserUtil {
         try {
             return RecordType.valueOf(trimmedRType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException("System does not accommodate such a record type.");
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER,
+                    AverageCommand.MESSAGE_INVALID_RECORD_TYPE, MESSAGE_POSSIBLE_RECORD_TYPE));
         }
     }
 
@@ -80,8 +84,8 @@ public class ParserUtil {
         try {
             return AverageType.valueOf(trimmedAverageType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER,
+                    MESSAGE_INVALID_AVGTYPE, MESSAGE_POSSIBLE_AVERAGE_TYPE));
         }
     }
 
@@ -349,7 +353,7 @@ public class ParserUtil {
         if (otherInfo.isPresent()) {
             requireNonNull(otherInfo);
             String trimmedOtherInfo = otherInfo.get().trim();
-            if (!OtherBioInfo.isValidOtherInfo(trimmedOtherInfo)) {
+            if (!OtherBioInfo.isValidOtherBioInfo(trimmedOtherInfo)) {
                 throw new ParseException(OtherBioInfo.MESSAGE_CONSTRAINTS);
             }
             return new OtherBioInfo(trimmedOtherInfo);
@@ -457,14 +461,7 @@ public class ParserUtil {
         if (!TimeDuration.isValidTimeDuration(trimmedTimeDuration)) {
             throw new ParseException(TimeDuration.MESSAGE_CONSTRAINTS);
         }
-        try {
-            String[] hm = trimmedTimeDuration.split(":");
-            int hours = Integer.parseInt(hm[0]);
-            int minutes = Integer.parseInt(hm[1]);
-            return new TimeDuration(hours, minutes);
-        } catch (NumberFormatException e) {
-            throw new ParseException(e.getMessage());
-        }
+        return new TimeDuration(trimmedTimeDuration);
     }
 
     /**

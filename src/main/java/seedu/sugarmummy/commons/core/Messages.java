@@ -20,7 +20,7 @@ public class Messages {
             + "the sub-arguments is/are inconsistent. (i.e. some prefixes of the same type have no indices while "
             + "others do)";
     public static final String MESSAGE_ARGUMENTS_MUST_BE_EMPTY = "Oops! This command cannot have any arguments.";
-    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s!\n%1$s";
+    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %1$s!\n%2$s\n";
 
     //---Record---
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
@@ -29,6 +29,9 @@ public class Messages {
     //---Statistics---
     public static final String MESSAGE_INVALID_RECORD_TYPE = "System does not accommodate such a record type.";
     public static final String MESSAGE_INVALID_AVERAGE_TYPE = "System does not accommodate such a average type.";
+    public static final String MESSAGE_POSSIBLE_RECORD_TYPE = "RECORD_TYPE is \"BLOODSUGAR\" or \"BMI\"";
+    public static final String MESSAGE_POSSIBLE_AVERAGE_TYPE = "AVERAGE_TYPE is \"daily\", \"weekly\" or \"monthly\"";
+    public static final String MESSAGE_POSSIBLE_COUNT = "COUNT takes integer value between 1 and 12 inclusive.";
 
     //---Bio---
     public static final String MESSAGE_NO_BIO_FOUND = "It looks like you have not set your biography. :( "
@@ -66,4 +69,7 @@ public class Messages {
     public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
             + "the \'achvm\' command to view your updated list of achievements.";
 
+    //--Calendar--
+    public static final String MESSAGE_INVALID_EVENT_ENDING_TIME = "Oops! The ending date time of an event should come"
+            + " after starting date time.";
 }
