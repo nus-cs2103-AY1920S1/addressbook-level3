@@ -136,6 +136,7 @@ public class TutorAidTest {
     public void getEarningsList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> tutorAid.getEarningsList().remove(0));
     }
+
     /**
      * A stub ReadOnlyTutorAid whose persons list can violate interface constraints.
      */
