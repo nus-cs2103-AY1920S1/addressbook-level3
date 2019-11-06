@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Ng Choon Wah - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
