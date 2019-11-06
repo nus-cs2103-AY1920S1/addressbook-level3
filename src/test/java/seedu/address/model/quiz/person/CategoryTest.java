@@ -6,10 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.quiz.person.Category;
-
-
-
 public class CategoryTest {
 
     @Test
@@ -37,29 +33,18 @@ public class CategoryTest {
         assertFalse(Category.isValidCategory("peterjackexample.com")); // missing '@' symbol
         assertFalse(Category.isValidCategory("peterjack@")); // missing domain name
 
-        // invalid parts
-        assertFalse(Category.isValidCategory("peterjack@-")); // invalid domain name
-        assertFalse(Category.isValidCategory("peterjack@exam_ple.com")); // underscore in domain name
-        assertFalse(Category.isValidCategory("peter jack@example.com")); // spaces in local part
-        assertFalse(Category.isValidCategory("peterjack@exam ple.com")); // spaces in domain name
-        assertFalse(Category.isValidCategory(" peterjack@example.com")); // leading space
-        assertFalse(Category.isValidCategory("peterjack@example.com ")); // trailing space
-        assertFalse(Category.isValidCategory("peterjack@@example.com")); // double '@' symbol
-        assertFalse(Category.isValidCategory("peter@jack@example.com")); // '@' symbol in local part
-        assertFalse(Category.isValidCategory("peterjack@example@com")); // '@' symbol in domain name
-        assertFalse(Category.isValidCategory("peterjack@.example.com")); // domain name starts with a period
-        assertFalse(Category.isValidCategory("peterjack@example.com.")); // domain name ends with a period
-        assertFalse(Category.isValidCategory("peterjack@-example.com")); // domain name starts with a hyphen
-        assertFalse(Category.isValidCategory("peterjack@example.com-")); // domain name ends with a hyphen
+        // invalid category
+        assertFalse(Category.isValidCategory("PeterJack_1190@example.com"));
+        assertFalse(Category.isValidCategory("a@bc")); // minimal
+        assertFalse(Category.isValidCategory("test@localhost")); // alphabets only
+        assertFalse(Category.isValidCategory("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
+        assertFalse(Category.isValidCategory("123@145")); // numeric local part and domain name
+        assertFalse(Category.isValidCategory("a1+be!@example1.com")); // mixture of alphanumeric and special characters
+        assertFalse(Category.isValidCategory("peter_jack@very-very-very-long-example.com")); // long domain name
+        assertFalse(Category.isValidCategory("if.you.dream.it_you.can.do.it@example.com")); // long local part
 
-        // valid email
-        assertTrue(Category.isValidCategory("PeterJack_1190@example.com"));
-        assertTrue(Category.isValidCategory("a@bc")); // minimal
-        assertTrue(Category.isValidCategory("test@localhost")); // alphabets only
-        assertTrue(Category.isValidCategory("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
-        assertTrue(Category.isValidCategory("123@145")); // numeric local part and domain name
-        assertTrue(Category.isValidCategory("a1+be!@example1.com")); // mixture of alphanumeric and special characters
-        assertTrue(Category.isValidCategory("peter_jack@very-very-very-long-example.com")); // long domain name
-        assertTrue(Category.isValidCategory("if.you.dream.it_you.can.do.it@example.com")); // long local part
+        // valid category
+        assertTrue(Category.isValidCategory("halloween"));
+        assertTrue(Category.isValidCategory("halloween party"));
     }
 }

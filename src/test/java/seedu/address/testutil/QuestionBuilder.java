@@ -35,7 +35,7 @@ public class QuestionBuilder {
         answer = new Answer(DEFAULT_ANSWER);
         category = new Category(DEFAULT_CATEGORY);
         type = new Type(DEFAULT_TYPE);
-        comment = new Comment(DEFAULT_COMMENT);
+        comment = null;
         tags = new HashSet<>();
     }
 
@@ -47,7 +47,7 @@ public class QuestionBuilder {
         answer = personToCopy.getAnswer();
         category = personToCopy.getCategory();
         type = personToCopy.getType();
-        comment = personToCopy.getComment();
+        comment = null;
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -88,14 +88,6 @@ public class QuestionBuilder {
      */
     public QuestionBuilder withCategory(String category) {
         this.category = new Category(category);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Comment} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withComment(String comment) {
-        this.comment = new Comment(comment);
         return this;
     }
 

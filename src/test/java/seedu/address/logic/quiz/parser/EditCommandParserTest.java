@@ -1,29 +1,30 @@
 package seedu.address.logic.quiz.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.TYPE_DESC_AMY;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.TYPE_DESC_BOB;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.CATEGORY_DESC_BOB;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_TYPE_DESC;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_ANSWER_DESC;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.NAME_DESC_AMY;
+
 import static seedu.address.logic.quiz.commands.CommandTestUtil.ANSWER_DESC_AMY;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.ANSWER_DESC_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.CATEGORY_DESC_AMY;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.CATEGORY_DESC_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_ANSWER_DESC;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.INVALID_TYPE_DESC;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.TAG_DESC_LECTURE;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_AMY;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.TYPE_DESC_AMY;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.TYPE_DESC_BOB;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_ANSWER_AMY;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_CATEGORY_BOB;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_ANSWER_AMY;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TAG_LECTURE;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_AMY;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.quiz.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.quiz.parser.CommandParserTestUtil.assertParseSuccess;
@@ -36,14 +37,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.quiz.commands.EditCommand;
 import seedu.address.logic.quiz.commands.EditCommand.EditQuestionDescriptor;
-import seedu.address.model.quiz.person.Type;
+import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
 import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Answer;
+import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
 import seedu.address.testutil.EditQuestionDescriptorBuilder;
-
-
 
 public class EditCommandParserTest {
 

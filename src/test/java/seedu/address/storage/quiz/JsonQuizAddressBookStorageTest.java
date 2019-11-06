@@ -3,9 +3,6 @@ package seedu.address.storage.quiz;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalQuestion.ALICE;
-import static seedu.address.testutil.TypicalQuestion.BOB;
-import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,11 +10,18 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyQuizBook;
+import seedu.address.model.quiz.person.Question;
+import seedu.address.testutil.QuestionBuilder;
 
 public class JsonQuizAddressBookStorageTest {
+    public static final Question ALICE = new QuestionBuilder().withName("What is alice favourite fruit?")
+            .withAnswer("Watermelon").withCategory("Sec4").withType("normal").withTags("friends").build();
+    public static final Question BOB = new QuestionBuilder().withName("What is bob favourite fruit?")
+            .withAnswer("Banana").withCategory("PrimarySch").withType("high").withTags("owesMoney", "friends").build();
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir
@@ -29,7 +33,8 @@ public class JsonQuizAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyQuizBook> readAddressBook(String filePath) throws Exception {
-        return new JsonQuizAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonQuizAddressBookStorage(Paths.get(filePath))
+                .readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -61,7 +66,8 @@ public class JsonQuizAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        AddressQuizBook original = getTypicalAddressQuizBook();
+        AddressQuizBook original = new AddressQuizBook();
+        original.addQuestion(ALICE);
         JsonQuizAddressBookStorage jsonAddressBookStorage = new JsonQuizAddressBookStorage(filePath);
 
         // Save in new file and read back

@@ -7,10 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.quiz.commands.AddCommand;
@@ -19,12 +15,9 @@ import seedu.address.logic.quiz.commands.DeleteCommand;
 import seedu.address.logic.quiz.commands.EditCommand;
 import seedu.address.logic.quiz.commands.EditCommand.EditQuestionDescriptor;
 import seedu.address.logic.quiz.commands.ExitCommand;
-import seedu.address.logic.quiz.commands.FindCommand;
 import seedu.address.logic.quiz.commands.HelpCommand;
 import seedu.address.logic.quiz.commands.ListCommand;
-import seedu.address.logic.quiz.parser.QuizBookParser;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
-import seedu.address.model.quiz.person.NameContainsKeywordsPredicate;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.testutil.EditQuestionDescriptorBuilder;
 import seedu.address.testutil.QuestionBuilder;
@@ -83,8 +76,8 @@ public class QuizBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE),
-                () -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
     }
 
     @Test

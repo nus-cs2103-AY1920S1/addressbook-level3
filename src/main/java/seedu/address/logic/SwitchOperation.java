@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import javafx.stage.Stage;
@@ -39,9 +38,9 @@ import seedu.address.storage.cap.JsonCapUserPrefsStorage;
 import seedu.address.storage.finance.FinanceStorageManager;
 import seedu.address.storage.finance.JsonFinanceStorage;
 import seedu.address.storage.finance.JsonFinanceUserPrefsStorage;
-import seedu.address.storage.quiz.QuizBookStorage;
 import seedu.address.storage.quiz.JsonQuizAddressBookStorage;
 import seedu.address.storage.quiz.JsonQuizUserPrefsStorage;
+import seedu.address.storage.quiz.QuizBookStorage;
 import seedu.address.storage.quiz.StorageQuizManager;
 import seedu.address.storage.quiz.UserPrefsStorage;
 import seedu.address.ui.calendar.UiManager;

@@ -5,27 +5,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
+import static seedu.address.testutil.TypicalQuestion.ALICE;
+//import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.ModelQuizManager;
 import seedu.address.model.quiz.UserPrefs;
 import seedu.address.model.quiz.person.Question;
+import seedu.address.testutil.QuestionBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
-
-    private Model model = new ModelQuizManager(getTypicalAddressQuizBook(), new UserPrefs());
+    public static final Question ALICE = new QuestionBuilder().withName("What is alice favourite fruit?")
+            .withAnswer("Watermelon").withCategory("Sec4").withType("normal").withTags("friends").build();
+    private Model model = new ModelQuizManager(new AddressQuizBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        model.addQuestion(ALICE);
         Question personToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
@@ -47,6 +52,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
+        model.addQuestion(ALICE);
         showQuestionAtIndex(model, INDEX_FIRST_PERSON);
 
         Question personToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -63,12 +69,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
+        model.addQuestion(ALICE);
         showQuestionAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getQuestionList().size());
-
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);

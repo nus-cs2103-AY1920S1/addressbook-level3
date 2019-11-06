@@ -6,9 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.quiz.person.Name;
-
-
 public class NameTest {
 
     @Test
@@ -17,18 +14,11 @@ public class NameTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    }
-
-    @Test
     public void isValidName() {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
 
         // invalid name
-        assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName("<qns>")); // contain instruction keyword only
 
         // valid name

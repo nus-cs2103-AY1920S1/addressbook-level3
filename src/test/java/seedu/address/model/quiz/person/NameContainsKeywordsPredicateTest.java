@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.quiz.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.QuestionBuilder;
 
 public class NameContainsKeywordsPredicateTest {
@@ -19,8 +18,10 @@ public class NameContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList, false);
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList, false);
+        NameContainsKeywordsPredicate firstPredicate = new
+                NameContainsKeywordsPredicate(firstPredicateKeywordList, false);
+        NameContainsKeywordsPredicate secondPredicate =
+                new NameContainsKeywordsPredicate(secondPredicateKeywordList, false);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
@@ -69,10 +70,5 @@ public class NameContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"), false);
         assertFalse(predicate.test(new QuestionBuilder().withName("Alice Bob").build()));
-
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice", "lecture", "low"), false);
-        assertFalse(predicate.test(new QuestionBuilder().withName("Alice").withAnswer("12345")
-                .withCategory("alice lecture").withType("low").build()));
     }
 }

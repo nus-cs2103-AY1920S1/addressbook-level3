@@ -2,13 +2,13 @@ package seedu.address.storage.quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalQuestion.getTypicalAddressQuizBook;
 
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyQuizBook;
@@ -53,7 +53,7 @@ public class StorageManagerTest {
          * {@link JsonQuizAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressQuizBook original = getTypicalAddressQuizBook();
+        AddressQuizBook original = new AddressQuizBook();
         storageManager.saveAddressBook(original);
         ReadOnlyQuizBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressQuizBook(retrieved));

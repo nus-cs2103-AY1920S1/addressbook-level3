@@ -26,47 +26,49 @@ import seedu.address.testutil.EditQuestionDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-        public static final String VALID_NAME_AMY = "What is always coming, but never arrives?";
-        public static final String VALID_NAME_BOB = "What is it that goes up, but never comes down?";
-        public static final String VALID_ANSWER_AMY = "Tomorrow";
-        public static final String VALID_ANSWER_BOB = "Age";
-        public static final String VALID_CATEGORY_AMY = "CS2131";
-        public static final String VALID_CATEGORY_BOB = "Leetcode";
-        public static final String VALID_TYPE_AMY = "normal";
-        public static final String VALID_TYPE_BOB = "high";
-        public static final String VALID_COMMENT_AMY = "The explanation is on lecture 10";
-        public static final String VALID_COMMENT_BOB = "The explanation is on lecture 20";
-        public static final String VALID_TAG_LECTURE = "lecture";
-        public static final String VALID_TAG_TUTORIAL = "tutorial";
+    public static final String VALID_NAME_AMY = "What is always coming, but never arrives?";
+    public static final String VALID_NAME_BOB = "What is it that goes up, but never comes down?";
+    public static final String VALID_ANSWER_AMY = "Tomorrow";
+    public static final String VALID_ANSWER_BOB = "Age";
+    public static final String VALID_CATEGORY_AMY = "CS2131";
+    public static final String VALID_CATEGORY_BOB = "Leetcode";
+    public static final String VALID_TYPE_AMY = "normal";
+    public static final String VALID_TYPE_BOB = "high";
+    public static final String VALID_COMMENT_AMY = "The explanation is on lecture 10";
+    public static final String VALID_COMMENT_BOB = "The explanation is on lecture 20";
+    public static final String VALID_TAG_LECTURE = "lecture";
+    public static final String VALID_TAG_TUTORIAL = "tutorial";
 
-        public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
-        public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
-        public static final String ANSWER_DESC_AMY = " " + PREFIX_ANSWER + VALID_ANSWER_AMY;
-        public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_BOB;
-        public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
-        public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
-        public static final String TYPE_DESC_AMY = " " + PREFIX_TYPE + VALID_TYPE_AMY;
-        public static final String TYPE_DESC_BOB = " " + PREFIX_TYPE + VALID_TYPE_BOB;
-        public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
-        public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
+    public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
+    public static final String ANSWER_DESC_AMY = " " + PREFIX_ANSWER + VALID_ANSWER_AMY;
+    public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_BOB;
+    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
+    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
+    public static final String TYPE_DESC_AMY = " " + PREFIX_TYPE + VALID_TYPE_AMY;
+    public static final String TYPE_DESC_BOB = " " + PREFIX_TYPE + VALID_TYPE_BOB;
+    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
 
-        public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + "James<qns>"; // '&' not allowed in names
-        public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + "911<ans>a"; // 'a' not allowed in phones
-        public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY; // empty string not allowed
-        public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "something"; // invalid type
-        public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + "James<qns>"; // '&' not allowed in names
+    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + "911<ans>a"; // 'a' not allowed in phones
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY; // empty string not allowed
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "something"; // invalid type
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-        public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-        public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditCommand.EditQuestionDescriptor DESC_AMY;
+    public static final EditCommand.EditQuestionDescriptor DESC_BOB;
 
-        public static final EditCommand.EditQuestionDescriptor DESC_AMY = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY)
-                    .withComment(VALID_COMMENT_AMY).withAnswer(VALID_ANSWER_AMY).withCategory(VALID_CATEGORY_AMY)
-                    .withType(VALID_TYPE_AMY).withTags(VALID_TAG_TUTORIAL).build();
-        public static final EditCommand.EditQuestionDescriptor DESC_BOB = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
-                    .withComment(VALID_COMMENT_BOB).withAnswer(VALID_ANSWER_BOB).withCategory(VALID_CATEGORY_BOB)
-                    .withType(VALID_TYPE_BOB).withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL).build();
-
+    static {
+        DESC_AMY = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY).withAnswer(VALID_ANSWER_AMY)
+                .withCategory(VALID_CATEGORY_AMY).withType(VALID_TYPE_AMY).withTags(VALID_TAG_TUTORIAL).build();
+        DESC_BOB = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).withAnswer(VALID_ANSWER_BOB)
+                .withCategory(VALID_CATEGORY_BOB).withType(VALID_TYPE_BOB)
+                .withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL).build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -78,7 +80,6 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -111,17 +112,17 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredQuestionList());
     }
 
-        /**
-         * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
-         * {@code model}'s address book.
-         */
-        public static void showQuestionAtIndex(Model model, Index targetIndex) {
-            assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
+    /**
+     * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showQuestionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
 
-            Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
-            final String[] splitName = question.getName().fullName.split("\\s+");
-            model.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0]), false));
+        Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
+        final String[] splitName = question.getName().fullName.split("\\s+");
+        model.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0]), false));
 
-            assertEquals(1, model.getFilteredQuestionList().size());
-        }
+        assertEquals(1, model.getFilteredQuestionList().size());
+    }
 }

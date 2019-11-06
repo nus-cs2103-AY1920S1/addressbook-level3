@@ -3,11 +3,9 @@ package seedu.address.model.quiz.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TAG_LECTURE;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalQuestion.ALICE;
-import static seedu.address.testutil.TypicalQuestion.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,7 +19,10 @@ import seedu.address.testutil.QuestionBuilder;
 
 
 public class UniqueQuestionListTest {
-
+    public static final Question ALICE = new QuestionBuilder().withName("What is alice favourite fruit?")
+            .withAnswer("Watermelon").withCategory("Sec4").withType("normal").withTags("friends").build();
+    public static final Question BOB = new QuestionBuilder().withName("What is bob favourite fruit?")
+            .withAnswer("Banana").withCategory("PrimarySch").withType("high").withTags("owesMoney", "friends").build();
     private final UniqueQuestionList uniqueQuestionList = new UniqueQuestionList();
 
     @Test
@@ -160,7 +161,8 @@ public class UniqueQuestionListTest {
     @Test
     public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
         List<Question> listWithDuplicateQuestions = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.setQuestions(listWithDuplicateQuestions));
+        assertThrows(DuplicateQuestionException.class, () ->
+                uniqueQuestionList.setQuestions(listWithDuplicateQuestions));
     }
 
     @Test
