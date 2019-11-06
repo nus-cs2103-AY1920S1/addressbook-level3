@@ -21,6 +21,6 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         model.updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
-        return new CommandResult(MESSAGE_SUCCESS, true,"main");
+        return new CommandResult(MESSAGE_SUCCESS, true, "main");
     }
 }

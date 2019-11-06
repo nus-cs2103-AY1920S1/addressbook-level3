@@ -61,13 +61,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given GuiltTrip and userPrefs.
      */
-    public ModelManager(ReadOnlyGuiltTrip GuiltTrip, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyGuiltTrip guiltTrip, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(GuiltTrip, userPrefs);
+        requireAllNonNull(guiltTrip, userPrefs);
 
-        logger.fine("Initializing with guilttrip book: " + GuiltTrip + " and user prefs " + userPrefs);
+        logger.fine("Initializing with guilttrip book: " + guiltTrip + " and user prefs " + userPrefs);
 
-        versionedGuiltTrip = new VersionedGuiltTrip(GuiltTrip);
+        versionedGuiltTrip = new VersionedGuiltTrip(guiltTrip);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedGuiltTrip.getIncomeCategoryList();
         expenseCategoryList = versionedGuiltTrip.getExpenseCategoryList();
@@ -134,17 +134,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setGuiltTripFilePath(Path GuiltTripFilePath) {
-        requireNonNull(GuiltTripFilePath);
-        userPrefs.setGuiltTripFilePath(GuiltTripFilePath);
+    public void setGuiltTripFilePath(Path guiltTripFilePath) {
+        requireNonNull(guiltTripFilePath);
+        userPrefs.setGuiltTripFilePath(guiltTripFilePath);
     }
 
     // =========== GuiltTrip
     // ================================================================================
 
     @Override
-    public void setGuiltTrip(ReadOnlyGuiltTrip GuiltTrip) {
-        versionedGuiltTrip.resetData(GuiltTrip);
+    public void setGuiltTrip(ReadOnlyGuiltTrip guiltTrip) {
+        versionedGuiltTrip.resetData(guiltTrip);
     }
 
     @Override

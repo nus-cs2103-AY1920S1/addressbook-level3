@@ -100,12 +100,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setGuiltTripFilePath(Path GuiltTripFilePath) {
+    public void setGuiltTripFilePath(Path guiltTripFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setGuiltTrip(ReadOnlyGuiltTrip GuiltTrip) {
+    public void setGuiltTrip(ReadOnlyGuiltTrip guiltTrip) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -47,7 +47,8 @@ public class DeleteIncomeCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredIncomes().size() + 1);
         DeleteIncomeCommand deleteIncomeCommand = new DeleteIncomeCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteIncomeCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX, commandHistory);
+        assertCommandFailure(deleteIncomeCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX,
+                commandHistory);
     }
 
     @Test
@@ -76,7 +77,8 @@ public class DeleteIncomeCommandTest {
 
         DeleteIncomeCommand deleteIncomeCommand = new DeleteIncomeCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteIncomeCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX, commandHistory);
+        assertCommandFailure(deleteIncomeCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX,
+                commandHistory);
     }
 
     @Test

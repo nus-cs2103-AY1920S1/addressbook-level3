@@ -201,7 +201,8 @@ public class EditIncomeCommandTest {
                 new EditIncomeDescriptorBuilder().withDescription(VALID_DESC_SALARY_INCOME).build());
 
         // same values -> returns true
-        EditIncomeDescriptor copyDescriptor = new EditIncomeDescriptorBuilder().withDescription(VALID_DESC_SALARY_INCOME).build();
+        EditIncomeDescriptor copyDescriptor = new EditIncomeDescriptorBuilder()
+                .withDescription(VALID_DESC_SALARY_INCOME).build();
         EditIncomeCommand commandWithSameValues = new EditIncomeCommand(INDEX_FIRST_ENTRY, copyDescriptor);
         assertEquals(standardCommand, commandWithSameValues);
 

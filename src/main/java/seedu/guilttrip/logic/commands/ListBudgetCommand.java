@@ -19,6 +19,6 @@ public class ListBudgetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS, true,"budget");
+        return new CommandResult(MESSAGE_SUCCESS, true, "budget");
     }
 }

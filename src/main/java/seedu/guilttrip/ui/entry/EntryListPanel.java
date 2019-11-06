@@ -11,9 +11,9 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.ui.UiPart;
 import seedu.guilttrip.ui.expense.ExpenseCard;
 import seedu.guilttrip.ui.income.IncomeCard;
-import seedu.guilttrip.ui.UiPart;
 
 /**
  * Panel containing the list of entries.
