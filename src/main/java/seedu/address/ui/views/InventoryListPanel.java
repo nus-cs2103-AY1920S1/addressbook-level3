@@ -86,7 +86,7 @@ public class InventoryListPanel extends UiPart<Region> {
                 }
             }
 
-            Member invMem = new Member(new MemberName("No member attached"), new MemberId(""),
+            Member invMem = new Member(new MemberName("No member attached"), new MemberId("NIL"),
                     Collections.<Tag>emptySet());
             for (InvMemMapping mapping : invMemMappings) {
                 if (mapping.getInventoryIndex() == i) {
