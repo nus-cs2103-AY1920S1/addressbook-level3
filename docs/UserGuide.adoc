@@ -424,17 +424,22 @@ Feature by
 -> Tan Ye Kai
 ////
 === CCA tracker
+Oh no, you have recently enrolled into NUS and are enthralled by the plethora of Ccas available. Before you know it,
+you are competing for your faculty's basketball team, singing for your hall band , planning an overseas service-learning
+project and handing out welfare packs for NUSSU. Thankfully, the **Cca Tracker** feature is here to help you keep track
+of each Cca.
 
 ==== Add a CCA: `add-cca`
-Add a CCA to your list. You need to to specify the name of the course and the
-type of CCA. The types of the CCA will be limited to the following:
+Firstly, lets add some Ccas to the Cca Tracker. The `add-cca` command adds a CCA to your list. You need to to specify
+the name of the cca and the type of CCA. The types of the CCA will be limited to the following:
 
 . `performingArt`
 . `sport`
 . `club`
 . `uniformedGroup`
 
-Note that equipment for each `Cca` is not compulsory.
+[NOTE]
+Note that the equipment for each `Cca` is not compulsory.
 
 Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
 
@@ -446,7 +451,8 @@ add-cca n/Guitar Ensemble t/performingArt e/guitar
 ----
 
 ==== Delete a CCA: `delete-cca`
-Deletes the specified CCA by index from your list.
+What if you over-commit and end up quitting the Cca? Don't worry, you can delete the Cca from the tracker too!. The
+`delete-cca` command deletes the specified CCA by index from the tracker.
 
 Format: `delete-cca INDEX`
 
@@ -457,7 +463,9 @@ delete-cca 1
 
 
 ==== Edit a CCA: `edit-cca`
-Edits the CCA. Note that the keywords in square brackets are optional.
+Oh no, a slip of the finger and you have accidentally classified the Canoeing as a 'club' instead of a 'cca'. Not to
+worry, the `edit-cca` command allows you to edit the details of your CCA. Note that the keywords in square brackets are
+optional.
 
 Format: `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 
@@ -468,17 +476,19 @@ edit-cca 1 t/performingArt
 edit-cca 1 n/Running e/shoes e/water bottle
 ----
 
+[NOTE]
+Note that you cannot edit your milestones for the Cca! This feature is coming in v2.0!
 
 ==== List a CCA: `list-cca`
-List the CCAs that the user is participating in. If user does not participate
-in any CCAs, an empty list will be shown.
+This command lists the CCAs that you are participating in. If you do not participate in any CCAs, an empty list will be
+shown.
 
 Format: `list-cca`
 
 
 ==== Find a CCA: `find-cca`
-Find a CCA based on keyword. If no such CCA can be found, an empty list will
-be shown. Note that you can use any number of keywords.
+This command finds a CCA based on keyword. If no such CCA can be found, an empty list will be shown. Note that you can
+use any number of keywords.
 
 Format: `find-cca KEYWORD`
 
@@ -490,7 +500,9 @@ find-cca canoeing guitar
 
 
 ==== Add progress levels for a CCA: `add-progress`
-Adds the progress milestones for the CCA.
+Very often, Ccas tend to have certain milestones to achieve. For example, swimming might require you to achieve the
+different grade levels (example show below). The `add-progress` command adds the progress milestones for each chosen
+CCA.
 
 Format: `add-progress INDEX p/MILESTONE `
 
@@ -502,8 +514,9 @@ add-progress n/Guitar Ensemble l/8
 ----
 
 ==== Increment progress level: `increment-progress`
-Increments the progress for a CCA at the specified index.
+This command increments the progress for a CCA at the specified index.
 
+[NOTE]
 Note that progress can only be incremented if a progress has been added to that Cca.
 
 Format: `increment-progress INDEX`
