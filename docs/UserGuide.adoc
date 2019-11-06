@@ -766,7 +766,7 @@ Views the command history of all your previous commands.
 image::ug-command/ug-history.png[width="800"]
 
 // tag::statisticsCommandUG[]
-==== Generate stats : `generate-s`
+=== Generate stats : `generate-s`
 
 `v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
 
@@ -798,6 +798,13 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 Shown below:
 
 image::StatsExampleGraph.png[width="600"]
+
+[TIP]
+Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+[TIP]
+Accuracy is guaranteed up to $0.01 *only*
+[TIP]
+Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
 
 Limitations:
 
