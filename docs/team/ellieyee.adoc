@@ -1,0 +1,102 @@
+= Ellie Yee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103-T14-2/main
+:prURL: {repoURL}/pull
+
+== PROJECT: T.A.rence
+
+Hi there, I'm _Ellie_. I am currently pursuing a double major in Real Estate and Computer Science at National University of Singapore (NUS). +
+I love to build practical applications that can help with our day-to-day activities.
+
+== Overview
+
+T.A.rence is a class management system for teaching assistants in NUS. Given that many students in NUS serve as TAs and take up multiple +
+classes in 1 semester, this application will allow for a smoother management process. T.A.rence is designed to be a simple and intuitive
+application that allows users to interact by typing the commands using the Command Line Interface. In addition, T.A.rence also comes with a
+clean Graphical User Interface (GUI) that presents information in an organized manner.
+
+== Summary of contributions
+
+=== *Major Enhancement*: added *GUI enhancement and GUI commands*
+
+==== All GUI enhancements and displays shown in T.A.rence, list, displayAttendance, displayAssignmentScore, listAssignment, changeTab
+
+* Summary of the features:
+** Allows the user to generate graphs and view the various information such as students, tutorials, modules, attendance and assignments to be displayed in a easy-to-understand form.
+** Summarizes data such as assignment scores into multiple formats (graph and table) to allow different ways of understanding the data.
+** Commands such as changeTab also allows the user to change the view of T.A.rence purely using the command line
+
+* Justification:
+** These features compresses the large and complex data pool stored within T.A.rence to be observed by the user in easily understandable formats.
+
+* Highlights:
+** This enhancement affects existing commands and commands to be added in the future. Given the large variety of data structures used to store information in T.A.rence, an in-depth analysis of display formats and design alternatives were
+considered in the process.
+** The implementation too was challenging as it required to work with a variety of data structures, so as to maintain the efficiency and effectiveness of data processing.
+** Given the many layers of information contained within T.A.rence, information had to carefully extracted without compromising other related systems.
+
+* Credits:
+** Attendance table generation code was adapted from the following link: {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
+
+* *Minor enhancement*:
+** Implemented the find command to allow users to find students based on their name
+** Implemented shortcut format for addStudentCommand to allow users to add students into tutorials based on their index instead of having to type out both the tutorial and module name.
+
+* *Code contributed*:
+* [link:{repoURL}/commits?author=ellieyee[Commits]] [link:{repoURL}/pulls?q=is%3Apr+author%3AEllieyee+is%3Aclosed[Pull Requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Ellie&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Code Contribution Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3` and `v1.4` (3 releases) on GitHub
+
+** Enhancements to existing features:
+*** Performed surgical *refactoring* of the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)] codebase to fit our requirements (example: PRs link:{prURL}/2[#2], link:{prURL}/11[#11], link:{prURL}/12[#12])
+*** Wrote additional tests for existing features to increase coverage from 65.5% to 69.7% (Pull requests link:{prURL}/33[#33])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: link:{prURL}/173[#173], link:{prURL}/108[#108]
+*** Did cosmetic tweaks to existing contents of the Developer guide: link:{prURL}/92[#92]
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/Ellieyee/ped/issues)
+
+** Tools:
+*** Integrated https://travis-ci.org/AY1920S1-CS2103-T14-2/main[Travis] & https://ci.appveyor.com/project/Ellieyee/main[AppVeyor] *Continuous Integration (CI)* tools,
+https://coveralls.io/github/AY1920S1-CS2103-T14-2/main?branch=master[Coveralls] (examples: PRs {prURL}/25[#25], {prURL}/26[#26], {prURL}/29[#29])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-module-deletemodule[deletemodule]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-tutorial-deletetutorial[deleteTutorial]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#deleting-a-student-deletestudent[deleteStudent]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#editing-a-student-edit[edit]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#searching-student-by-name-find[find]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#listing-students-from-a-tutorial-list[list]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#display-tutorial-class-test-results-displayassignmentscore[displayAssignmentScore]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#display-tutorial-class-attendance-displayattendance[displayAttendance]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/UserGuide.adoc#changing-the-ui-tab-cd[cd]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/DeveloperGuide.adoc#edit-feature[edit]
+
+include:: https://github.com/Ellieyee/main/blob/pp-update/docs/DeveloperGuide.adoc#list-feature[tag=list]

@@ -323,9 +323,6 @@ Below is an activity diagram showing the process of invoking the `MarkAttendance
 
 image::MarkAttendanceActivityDiagram.png[]
 
-The sequence diagram below shows the interaction with the Logic components as described above.
-
-image::AddStudentCommandSequenceDiagram.png[]
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
