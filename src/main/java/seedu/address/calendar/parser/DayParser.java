@@ -9,7 +9,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.Optional;
 
 public class DayParser {
-    private static final String MESSAGE_INVALID_DAY_RANGE_ERROR = "Invalid day. Day should exist within stated month.";
     private static final String MESSAGE_NON_INT_DAY_ERROR = "Invalid day. Day should be represented numerically.";
     private static final String DAY_EXTRA_ARG = "after day";
 
@@ -23,13 +22,11 @@ public class DayParser {
     }
 
     private Day parse(int dayOfMonth, MonthOfYear monthOfYear, Year year) throws ParseException {
-        if (dayOfMonth <= 0 || dayOfMonth > DateUtil.getNumDaysInMonth(monthOfYear, year)) {
-            throw new ParseException(MESSAGE_INVALID_DAY_RANGE_ERROR);
+        if (!Day.isValidDayOfMonth(dayOfMonth, monthOfYear, year)) {
+            throw new ParseException(Day.MESSAGE_INVALID_DAY_RANGE_ERROR);
         }
 
-        Day day = DateUtil.getDay(dayOfMonth, monthOfYear, year);
-
-        return day;
+        return Day.getDay(dayOfMonth, monthOfYear, year);
     }
 
     Optional<Day> parse(Optional<String> dayInput, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {

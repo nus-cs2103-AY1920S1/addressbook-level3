@@ -22,7 +22,7 @@ public class Type {
     public Type(String type) {
         requireNonNull(type);
         AppUtil.checkArgument(isValidType(type), MESSAGE_CONSTRAINTS);
-        this.value = type;
+        this.value = type.toUpperCase();
     }
 
     /**

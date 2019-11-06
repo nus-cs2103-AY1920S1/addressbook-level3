@@ -1,13 +1,10 @@
 package seedu.address.itinerary.ui;
 
-import static seedu.address.address.logic.AddressBookLogicManager.FILE_OPS_ERROR_MESSAGE;
-
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -19,14 +16,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.itinerary.logic.parser.ItineraryParser;
-import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.storage.ItineraryStorage;
-import seedu.address.itinerary.storage.JsonItineraryStorage;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -58,11 +51,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     private ItineraryParser itineraryParser;
 
-    private Model model;
-
     private TagDropdown tagDropdown;
-
-    private Stage primaryStage;
 
     private HelpWindow helpWindow;
 
@@ -71,6 +60,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private ItineraryStorage itineraryStorage;
 
     private ItineraryLogic itineraryLogic;
+
+    private Stage primaryStage;
 
     @FXML
     private Scene itineraryScene;
@@ -104,15 +95,12 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         "search", "search title/ date/ time/ l/ d/ tag/"
     };
 
-    public ItineraryPage(Stage primaryStage) {
+    public ItineraryPage(ItineraryLogic itineraryLogic) {
         super(fxmlWindow);
-        this.itineraryScene = new Scene(itineraryPane);
         this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
-        this.model = new Model();
-        this.itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
 
-        this.itineraryLogic = new ItineraryLogic(model, itineraryStorage);
+        this.itineraryLogic = itineraryLogic;
 
         fillInnerParts();
     }
@@ -122,13 +110,14 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     private void fillInnerParts() {
 
-        eventPanel = new EventPanel(model.getSortedEventList());
+        eventPanel = new EventPanel(itineraryLogic.getSortedEventList());
         eventPlaceHolder.getChildren().add(eventPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList(), possibleSuggestions);
+        CommandBox commandBox = new CommandBox(this::executeCommand, itineraryLogic.getActionList(),
+                possibleSuggestions);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         tagDropdown = new TagDropdown();
@@ -174,18 +163,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private void handleExit() {
         helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    @Override
-    public Scene getScene() {
-        setAccelerators();
-
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
-
-        fillInnerParts();
-        return itineraryScene;
+        itineraryScene.getWindow().hide();
     }
 
     @Override
@@ -201,17 +179,9 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
             //update tagging dropDown menu
             tagDropdown.updateDropdownText();
-            Command command = itineraryParser.parseCommand(commandText);
-            model.addAction(commandText);
-            CommandResult commandResult = command.execute(model);
+            CommandResult commandResult = itineraryLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            try {
-                itineraryStorage.saveItinerary(model.getItinerary());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
 
             if (commandResult.isExit()) {
                 PageManager.closeWindows();
@@ -241,7 +211,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
-        itineraryScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        itineraryPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
@@ -251,5 +221,16 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     public String[] getPossibleSuggestions() {
         return possibleSuggestions;
+    }
+
+    @Override
+    public Parent getParent() {
+        setAccelerators();
+
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+
+        fillInnerParts();
+        return itineraryPane;
     }
 }

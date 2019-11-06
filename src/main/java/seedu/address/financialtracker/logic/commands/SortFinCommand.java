@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class SortFinCommand extends Command<Model> {
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " time, date, amount or default";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " time, date, amount, type or default";
 
     public static final String MESSAGE_SUCCESS = "Expense List sorted!";
     private final String comparingType;

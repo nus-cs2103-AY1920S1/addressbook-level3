@@ -22,7 +22,7 @@ import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.address.logic.parser.AddressBookParser;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.address.logic.commands.FindCommand;
-import seedu.address.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.address.logic.commands.ListCommand;
 import seedu.address.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

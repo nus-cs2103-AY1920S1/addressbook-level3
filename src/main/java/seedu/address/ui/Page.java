@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 
 /**
  * Page for a specified feature / extension.
@@ -8,14 +8,14 @@ import javafx.scene.Scene;
 public interface Page {
 
     /**
-     * Gets the scene for {@code this} page
-     * @return scene for {@code this} page
-     */
-    Scene getScene();
-
-    /**
      * Gets the page type of {@code this} page
      * @return page type of {@code this} page
      */
     PageType getPageType();
+
+    /**
+     * Gets the parent node for {@code this} page
+     * @return parent node for {@code this} page
+     */
+    Parent getParent();
 }

@@ -63,8 +63,7 @@ public class LogicManagerTest {
         //no changes to address book logic
         AddressBookLogic addressBookLogic = logicManager.getAddressBookLogic();
         assertEquals(Paths.get("addressbook.json"), logicManager.getAddressBookLogic().getAddressBookFilePath());
-        assertEquals(new GuiSettings(90, 45, 30, 15),
-                logicManager.getAddressBookLogic().getGuiSettings());
+
         assertEquals(1, logicManager.getAddressBookLogic().getFilteredPersonList().size());
         assertEquals(new AddressBookBuilder().withPerson(new PersonBuilder().build()).build(),
                 logicManager.getAddressBookLogic().getAddressBook());

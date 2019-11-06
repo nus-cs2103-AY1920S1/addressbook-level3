@@ -13,6 +13,7 @@ import java.util.Optional;
 public class DateParser {
     static Date parseStartDate(ArgumentMultimap argMultimap, Prefix monthPrefix, Prefix yearPrefix,
                                Prefix dayPrefix) throws ParseException {
+        // todo: ensure that startDay is not null?
         Optional<MonthOfYear> startMonth = new MonthParser().parse(argMultimap.getValue(monthPrefix));
         Optional<Year> startYear = new YearParser().parse(argMultimap.getValue(yearPrefix));
         Optional<Day> startDay = new DayParser().parse(argMultimap.getValue(dayPrefix),

@@ -22,6 +22,8 @@ public class ExpenseList {
             .getDateToCompare().compareTo(ep1.getDate().getDateToCompare());
     private final Comparator<? super Expense> byAmount = (ep1, ep2) ->
             Double.compare(ep2.getAmount().numericalValue, ep1.getAmount().numericalValue);
+    private final Comparator<? super Expense> byType = (ep1, ep2) ->
+            ep1.getType().value.compareTo(ep2.getType().value);
 
     private final String country;
     private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
@@ -60,6 +62,9 @@ public class ExpenseList {
             break;
         case "AMOUNT":
             this.currentComparator = byAmount;
+            break;
+        case "TYPE":
+            this.currentComparator = byType;
             break;
         default:
             this.currentComparator = null;

@@ -1,6 +1,8 @@
 package seedu.address.itinerary.logic;
 
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -10,10 +12,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.itinerary.logic.parser.ItineraryParser;
 import seedu.address.itinerary.model.Itinerary;
+import seedu.address.itinerary.model.ItinerarySampleDataUtil;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.ReadOnlyItinerary;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.storage.ItineraryStorage;
+import seedu.address.itinerary.storage.JsonItineraryStorage;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,19 +35,20 @@ public class ItineraryLogic {
     private final ItineraryStorage itineraryStorage;
     private final ItineraryParser itineraryParser;
 
-    public ItineraryLogic(Model itineraryModel, ItineraryStorage storage) {
-        this.model = itineraryModel;
-        this.itineraryStorage = storage;
+    public ItineraryLogic() {
+        this.model = new Model();
+        this.itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
         this.itineraryParser = new ItineraryParser();
         Itinerary itinerary = new Itinerary();
 
         try {
             Optional<ReadOnlyItinerary> itineraryOptional = itineraryStorage.readItinerary();
-            if (itineraryOptional.isPresent()) {
-                itinerary.updateItinerary(itineraryOptional.get());
-            } else {
-                System.out.println("Starting without a json file!");
-            }
+
+            itineraryOptional.ifPresentOrElse(ItinerarySampleDataUtil::doNothing,
+                    () -> System.out.println("Starting without a json file!"));
+
+            itinerary.updateItinerary(itineraryOptional.orElse(ItinerarySampleDataUtil.getSampleItinerary()));
+
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty Itinerary");
             // todo: what to do about data? JUST OVERWRITE
@@ -66,6 +71,7 @@ public class ItineraryLogic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+        model.addAction(commandText);
         Command command = itineraryParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
@@ -81,7 +87,11 @@ public class ItineraryLogic {
     /**
      * Returns an observe only expense list with current country specified in financial tracker.
      */
-    public ObservableList<Event> getEventList() {
+    public ObservableList<Event> getSortedEventList() {
         return model.getSortedEventList();
+    }
+
+    public ArrayList<String> getActionList() {
+        return model.getActionList();
     }
 }

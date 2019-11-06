@@ -53,7 +53,8 @@ public class AddressBookLogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        addressBookLogic = new AddressBookLogicManager(userPrefsModel, addressBookModel, storage);
+        addressBookLogic = new AddressBookLogicManager(addressBookModel, addressBookStorage);
+
     }
 
     @Test
@@ -82,7 +83,7 @@ public class AddressBookLogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        addressBookLogic = new AddressBookLogicManager(userPrefsModel, addressBookModel, storage);
+        addressBookLogic = new AddressBookLogicManager(addressBookModel, addressBookStorage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
