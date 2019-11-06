@@ -73,7 +73,7 @@ This enhancement allows users to toggle amongst the features in the StudyBuddyPr
 
 This enhancement allows users to clear specific feature's data in the StudyBuddyPro. As such, users do not need to clear the entire data if desired.
 
-==== Code Contribution (TO BE ADDED)
+==== Code Contribution
 
 Please do refer to the link https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jaesimin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jaesimin&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[here] my functional codes and https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jaesimin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jaesimin&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[here] for my test codes.
 
