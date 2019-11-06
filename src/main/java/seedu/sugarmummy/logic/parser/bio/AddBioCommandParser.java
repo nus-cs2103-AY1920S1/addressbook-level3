@@ -94,6 +94,11 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         List<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOALS));
         OtherBioInfo otherInfo = ParserUtil.parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO));
 
+        assert !name.toString().isEmpty() : "Name in biography cannot be empty";
+        assert !contactNumberList.isEmpty() : "Contact numbers in biography cannot be empty";
+        assert !emergencyContactList.isEmpty() : "Emergency contacts in biography cannot be empty";
+        assert !medicalConditionList.isEmpty() : "Medical conditions in biography cannot be empty";
+
         User user = new User(name, displayPicPath, profileDesc, nric, gender, dateOfBirth, contactNumberList,
                 emergencyContactList, medicalConditionList, address, goalList, otherInfo);
 
