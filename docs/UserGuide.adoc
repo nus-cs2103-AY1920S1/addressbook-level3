@@ -651,7 +651,8 @@ Shows annotated offline copy of bookmark 1.
 //Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
 //then annotations are shown as well.
 
-
+//tag::ReminderCommand[]
+[[Reminder-Command]]
 === Adding a reminder: *`reminder`*
 
 Adds a reminder of a specified bookmark. You can set the time for the reminder.
@@ -707,6 +708,8 @@ Examples:
 
 * `*reminder-delete* 1` +
 Delete the reminder of index 1.
+
+//end::ReminderCommand[]
 
 === Expanding the folder hierarchy: *`expand`*
 
@@ -783,6 +786,7 @@ Examples:
 * `*folder-delete* CS2103` +
 Deletes the folder named `CS2103` and all of its subfolders.
 
+// tag::sort[]
 === Sorting bookmarks: *`sort`* `[coming in v2.0]`
 
 Sorts the displayed bookmarks according to different criterion (name,
@@ -804,6 +808,7 @@ Lists all the bookmarks based on name/alphabetical order.
 
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
+// end::sort[]
 
 === Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
 
