@@ -242,6 +242,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editPersonTrainingRecords(Person target, Person editedPerson) {
+        this.attendance.editPersonTrainingRecords(target, editedPerson);
+    }
+
+    @Override
     public boolean hasTrainingOnDate(AthletickDate date) {
         return this.attendance.hasTrainingOnDate(date);
     }
@@ -295,6 +300,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteEvent(Event target) {
+        performance.removeEvent(target);
+    }
+
+    @Override
     public ReadOnlyPerformance getPerformance() {
         return performance;
     }
@@ -312,5 +322,10 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerformanceOn(AthletickDate date) {
         return performance.hasPerformanceOn(date);
+    }
+
+    @Override
+    public ArrayList<Event> getAthleteEvents(Person athlete) {
+        return performance.getAthleteEvent(athlete);
     }
 }

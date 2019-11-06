@@ -1,19 +1,23 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 import static seedu.address.logic.parser.CliSyntax.FLAG_PERSON;
 import static seedu.address.logic.parser.CliSyntax.FLAG_TRAINING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.performance.Event;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new appropriate DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
@@ -29,14 +33,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        DeleteCommand deleteCommand = null;
-        if (args.contains(FLAG_PERSON.toString())) {
+        DeleteCommand deleteCommand;
+        String flag = getFlag(trimmedArgs);
+        if (flag.equals(FLAG_PERSON.getFlag())) {
             deleteCommand = parsePerson(trimmedArgs);
-        } else if (args.contains(FLAG_TRAINING.toString())) {
+        } else if (flag.equals(FLAG_EVENT.getFlag())) {
+            deleteCommand = parseEvent(trimmedArgs);
+        } else if (flag.equals(FLAG_TRAINING.getFlag())) {
             deleteCommand = parseTraining(trimmedArgs);
         } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         return deleteCommand;
     }
@@ -46,6 +52,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeletePersonCommand parsePerson(String args) throws ParseException {
         args = args.replaceAll(FLAG_PERSON.toString(), "");
+        if (args.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE));
+        }
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeletePersonCommand(index);
@@ -53,6 +63,41 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    /**
+     * Creates a DeleteEventCommand object if the flag given is for an event.
+     */
+    public DeleteEventCommand parseEvent(String args) throws ParseException {
+        args = args.replaceAll(FLAG_EVENT.toString(), "");
+        if (args.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
+        }
+        try {
+            String eventName = ParserUtil.parseEvent(args);
+            Event event = new Event(eventName);
+            return new DeleteEventCommand(event);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    /**
+     * Extracts the valid flag from the argument string.
+     */
+    public String getFlag(String args) throws ParseException {
+        requireNonNull(args);
+        String[] stringArray = args.split("\\s+", 2);
+        String flag = stringArray[0].trim();
+        if (flag.length() < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        if (!Flag.isValidFlag(flag)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        return flag;
     }
 
     /**
@@ -64,7 +109,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
         if (!isPrefixPresent(argMultimap, PREFIX_DATE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteTrainingCommand.MESSAGE_USAGE));
+                DeleteTrainingCommand.MESSAGE_USAGE));
         }
         AthletickDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         return new DeleteTrainingCommand(date);
@@ -77,4 +122,5 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
         return argumentMultimap.getValue(prefix).isPresent();
     }
+
 }

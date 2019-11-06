@@ -180,6 +180,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void editPersonTrainingRecords(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
@@ -226,14 +231,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void addEvent(Event event) {
-
-        }
+        public void addEvent(Event event) { }
 
         @Override
         public boolean hasEvent(Event event) {
             return false;
         }
+
+        @Override
+        public void deleteEvent(Event target) { }
 
         @Override
         public ReadOnlyPerformance getPerformance() {
@@ -253,6 +259,11 @@ public class AddCommandTest {
         @Override
         public boolean hasPerformanceOn(AthletickDate date) {
             return false;
+        }
+
+        @Override
+        public ArrayList<Event> getAthleteEvents(Person person) {
+            return null;
         }
     }
 

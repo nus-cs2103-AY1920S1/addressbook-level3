@@ -66,7 +66,7 @@ public class PerformanceCommand extends Command {
         Event createdEvent = new Event(event);
 
         if (!model.hasEvent(createdEvent)) {
-            throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, event));
+            throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, event));
         }
 
         Person athlete = lastShownList.get(index.getZeroBased());

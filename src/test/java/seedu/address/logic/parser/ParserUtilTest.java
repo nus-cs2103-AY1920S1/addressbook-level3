@@ -41,17 +41,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseEvent_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEvent((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEvent(null));
     }
 
     @Test
-    public void parseEvent_validValueWithoutWhitespace_returnsEvent() {
+    public void parseEvent_validValueWithoutWhitespace_returnsEvent() throws ParseException {
         Event expectedEvent = new Event(VALID_EVENT);
         assertEquals(expectedEvent, new Event(ParserUtil.parseEvent(VALID_EVENT)));
     }
 
     @Test
-    public void parseEvent_validValueWithWhitespace_returnsTrimmedEvent() {
+    public void parseEvent_validValueWithWhitespace_returnsTrimmedEvent() throws ParseException {
         Event expectedEvent = new Event(VALID_EVENT);
         assertEquals(expectedEvent, new Event(ParserUtil.parseEvent(VALID_EVENT + WHITESPACE)));
     }

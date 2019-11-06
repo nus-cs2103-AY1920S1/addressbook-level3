@@ -14,10 +14,10 @@ import seedu.address.model.training.Training;
  */
 public class DeleteTrainingCommand extends DeleteCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + FLAG_TRAINING
             + ": Deletes the training identified by the date.\n"
             + "Parameters: " + PREFIX_DATE + "DATE\n"
-            + "Date must be in the format: " + DATE_FORMAT_TYPE_ONE
+            + "Date must be in the format: " + DATE_FORMAT_TYPE_ONE + "\n"
             + "Example: " + COMMAND_WORD + " " + FLAG_TRAINING + " " + PREFIX_DATE + "20102019";
 
     public static final String MESSAGE_DELETE_TRAINING_SUCCESS = "Deleted training on %s";

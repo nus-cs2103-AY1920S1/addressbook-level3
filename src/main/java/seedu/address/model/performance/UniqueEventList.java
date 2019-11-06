@@ -3,6 +3,7 @@ package seedu.address.model.performance;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
+import seedu.address.model.performance.exceptions.NoEventException;
+import seedu.address.model.person.Person;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -35,8 +38,8 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Adds an event to the list.
-     * The event must not already exist in the list.
+     * Adds an event to this list.
+     * The event must not already exist in this list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
@@ -46,6 +49,18 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Removes an event from this list.
+     * The event must already exist in this list.
+     */
+    public void remove(Event toRemove) {
+        requireNonNull(toRemove);
+        if (!contains(toRemove)) {
+            throw new NoEventException();
+        }
+        internalList.remove(toRemove);
+    }
+
     public Event getEvent(String eventName) {
         for (Event event : internalList) {
             if (event.getName().equals(eventName)) {
@@ -53,6 +68,16 @@ public class UniqueEventList implements Iterable<Event> {
             }
         }
         return null;
+    }
+
+    public ArrayList<Event> getAthleteEvent(Person person) {
+        ArrayList<Event> athleteEventList = new ArrayList<>();
+        for (Event event : internalList) {
+            if (event.getRecords().containsKey(person)) {
+                athleteEventList.add(event);
+            }
+        }
+        return athleteEventList;
     }
 
     /**
