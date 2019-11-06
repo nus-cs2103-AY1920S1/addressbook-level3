@@ -27,6 +27,14 @@ import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.finance.purchase.PurchaseDescription;
 import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
 
 /**
  * Contains utility methods for populating {@code CoursePlanner} and {@code FinanceTracker} with sample data.
@@ -62,6 +70,20 @@ public class SampleDataUtil {
         };
     }
 
+    public static Task[] getSampleTasks() {
+        return new Task[]{
+            new Todo("Return equipment", Priority.LOW, null,
+                    Status.NOT_DONE, Set.of(new Tag("track"))),
+            new Deadline("geq forum posts", Priority.HIGH, Frequency.MONTHLY, Status.DONE,
+                    Set.of(new Tag("school"), new Tag("geq")),
+                    LocalDate.parse("7/11/2019", Task.getDateFormat())),
+            new Event("workshop", null, null, Status.NOT_DONE, Set.of(),
+                    LocalDate.parse("10/11/2019", Task.getDateFormat()),
+                    LocalDate.parse("15/11/2019", Task.getDateFormat()))
+        };
+    }
+
+
 
 
     /**
@@ -85,6 +107,12 @@ public class SampleDataUtil {
         Arrays.stream(getSamplePurchases()).forEach(financeTracker::addPurchaseToBack);
         Arrays.stream(getSampleInstallments()).forEach(financeTracker::addInstallment);
         return financeTracker;
+    }
+
+    public static Planner getSamplePlanner() {
+        Planner planner = new Planner();
+        Arrays.stream(getSampleTasks()).forEach(planner::addTask);
+        return planner;
     }
 
     public static CcaTracker getSampleCcaTracker() {
