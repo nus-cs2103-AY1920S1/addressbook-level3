@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
+:javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
 By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -27,16 +28,16 @@ GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
+.  Ensure that you have the latest version of JavaFX installed in your Computer. (Previous versions of JavaFX may cause
+bugs related to displaying pop ups. more info about this bug can be found at this link:{javaFxBugURL}/link[link])
 .  Download the latest RT link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your `*test bank*`.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. The image below shows the app in configuration mode.
 +
 image::Ui.png[width="790"]
-image::Ui2.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try in configuration mode:
 
 * *`list`* : lists all categories and difficulties for the user to choose.
 * **`add `**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
@@ -46,6 +47,13 @@ y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduct
 * *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
+
+. To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated
+in <<Quiz Mode>> .
++
+image::Ui2.png[width="790"]
++
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
@@ -133,6 +141,7 @@ Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER 
 
 [TIP]
 [%hardbreaks]
+The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
 *SAQ*: Multiple correct answers, wrong answers omitted.
@@ -140,8 +149,8 @@ Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER 
 Examples:
 
 * `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
-x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
-* `add type/tf q/OODMs are Clas>1 secs Diagrams cat/uml diff/2 y/true`
+x/Greenfield x/Brownfield y/None of the others x/Padifield`
+* `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
 * `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
 
 === Editing a question : `edit`
@@ -244,7 +253,7 @@ _{explain how the user can import / export test banks}_
 == Quiz Mode
 
 === Normal Mode
-Levels are separated by difficulty. User has the choice to move on to the next level or exit the quiz.
+Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
 
 === Arcade Mode
 Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
@@ -259,7 +268,7 @@ Answers can only be A, B, C, or D (Case insensitive)
 ==== True and False
 Answers can only be True (T) / False (F) (Case insensitive)
 
-=== SAQ
+==== SAQ
 Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
 
 == FAQ
@@ -299,6 +308,5 @@ e.g. `find user story`
 * *Restore* : `restore`
 
 [TIP]
-[%hardbreaks]
-*AutoComplete*: Use the "TAB" key to see dropdown options
-for auto completion.
+*AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
+arrow keys and hit kbd:[Enter] to complete the command.
