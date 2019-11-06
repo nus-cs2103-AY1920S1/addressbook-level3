@@ -64,9 +64,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private MenuItem helpMenuItem;
 
     @FXML
-    private ImageView imageView;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -120,7 +117,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
      */
     private void setBackgroundImage() {
         ImageView backgroundImage = new ImageView("/images/mainpage.png");
-        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.9));
+        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.6));
         backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty().multiply(0.9));
         backgroundImage.setPreserveRatio(true);
         backgroundPlaceholder.getChildren().add(backgroundImage);
