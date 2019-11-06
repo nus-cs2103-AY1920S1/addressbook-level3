@@ -117,12 +117,60 @@ Examples:
 === Deleting previous meal entry : `delete`
 
 Deletes a meal that the user previously ate today. +
+The meal will be removed from the consumed meal section +
+and the calorie tracking bar.
+
 Format: `delete MEAL_NUMBER [MEAL_NUMBER] ...`
 
-Examples:
+Example usage: +
+You thought you were going to have Mushroom Soup for lunch when you were queuing.
+So you decided add Mushroom Soup to the meal log using the add command.
+However, while queuing, your boss called you saying that there is an emergency and
+wants you back in the office immediately. You abandon the queue and go back to the office.
+Since you did not consume the meal, you would want to remove it from the meal log.
+What do you do?
 
-* `delete 1`
-* `delete 1 2 3`
+* Type `delete 1` into the command bar and press the `enter` key.
+
+image::DeleteCommandDelete1.png[]
+
+* When the meal is successfully deleted, a message will appear in the
+result box and the meal will be removed
+
+image::DeleteCommandDelete1Success.png[]
+
+[NOTE]
+"1" can be changed to any number in the consumed meal section. However,
+in this example, Mushroom Soup is located at index 1.
+
+Commands below are come other example commands:
+
+* `delete 1` - deletes the first meal in the consumed meal section.
+* `delete 1 2 3` - bulk deleting of meals 1, 2 and 3 in the consumed meal section.
+
+=== Find meals in the meal database: `find`
+
+Searches for meals contains the words you have input.+
+The search results will be shown under the "Suggested Meals" section of the application. +
+To toggle it back to suggest mode after use, just enter the `suggest` command.
+
+Format: `find MEAL_WORD`
+
+Example usage:
+You would like to know the amount of calories in an "Apple Pie" which
+you know exist in the CaloFit database. However, you
+do not want to scroll through the suggested list just to find it.
+What do you do?
+
+* Type `find apple pie` into the command bar and press the `enter` key.
+
+image::FindCommandFindApplePie.png[]
+
+* The apple pie result will show under the suggested meals section with its
+relevant calorie information.
+
+image::FindCommandFindApplePieSuccess.png[]
+
 
 === Suggesting Meal options: `suggest`
 
