@@ -10,8 +10,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.UserPrefs;
-import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
-import seedu.sugarmummy.storage.bio.JsonUserListStorage;
+import seedu.sugarmummy.storage.biography.JsonUserListStorage;
+import seedu.sugarmummy.storage.calendar.JsonCalendarStorage;
+import seedu.sugarmummy.storage.recmf.JsonFoodListStorage;
+import seedu.sugarmummy.storage.records.JsonRecordListStorage;
 
 public class StorageManagerTest {
 
@@ -26,7 +28,8 @@ public class StorageManagerTest {
         JsonUserListStorage userListStorage = new JsonUserListStorage(getTempFilePath("userList"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(getTempFilePath("fl"));
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(getTempFilePath("rl"));
-        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(getTempFilePath("el"), getTempFilePath("rl"));
+        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(getTempFilePath("el"),
+                getTempFilePath("rl"));
         storageManager = new StorageManager(userPrefsStorage, userListStorage, jsonFoodListStorage,
                 jsonRecordListStorage, jsonCalendarStorage);
     }

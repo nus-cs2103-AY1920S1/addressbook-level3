@@ -64,7 +64,6 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         String backgroundArg = argMultimap.getPreamble();
 
         Background background = ParserUtil.parseBackground(backgroundArg);
-        background.setDominantColour();
 
         if (background.isBackgroundColour() && !argMultimap.isEmpty()) {
             if (!argMultimap.containsOnlyPrefixes(PREFIX_FONT_COLOR, PREFIX_FONT_COLOUR)) {
@@ -92,11 +91,14 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
             bgRepeat = bgRepeat.get().equals("") ? Optional.of("repeat") : bgRepeat;
         }
 
-        String bgSizeToString = bgSize.orElse("");
-        String bgRepeatToString = bgRepeat.orElse("");
+        String bgSizeToString = bgSize.orElse(!background.isBackgroundColour() ? "auto" : "");
+        String bgRepeatToString = bgRepeat.orElse(!background.isBackgroundColour() ? "repeat" : "");
 
         background.setBgSize(bgSizeToString);
         background.setBgRepeat(bgRepeatToString);
+
+        assert background.getBgRepeat() != null;
+        assert background.getBgSize() != null;
 
         return fontColourCommand == null
                 ? new BackgroundCommand(background)

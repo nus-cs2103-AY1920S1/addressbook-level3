@@ -2,11 +2,11 @@ package seedu.sugarmummy.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.sugarmummy.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
 import static seedu.sugarmummy.model.achievements.AchievementState.ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.sugarmummy.model.achievements.AchievementState.YET_TO_ACHIEVE;
 import static seedu.sugarmummy.model.achievements.AchievementsMap.ACHIEVEMENTS_MAP;
+import static seedu.sugarmummy.model.motivationalquotes.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -28,19 +28,21 @@ import seedu.sugarmummy.model.achievements.AchievementStateProcessor;
 import seedu.sugarmummy.model.achievements.AchievementsMap;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
-import seedu.sugarmummy.model.bio.User;
-import seedu.sugarmummy.model.bio.UserList;
+import seedu.sugarmummy.model.biography.ReadOnlyUserList;
+import seedu.sugarmummy.model.biography.User;
+import seedu.sugarmummy.model.biography.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
-import seedu.sugarmummy.model.record.Record;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.model.recmf.Food;
+import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.UniqueFoodList;
+import seedu.sugarmummy.model.records.Record;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
-import seedu.sugarmummy.recmfood.model.Food;
-import seedu.sugarmummy.recmfood.model.FoodComparator;
-import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Represents the in-memory sugarmummy.model of the SugarMummy data.
@@ -381,13 +383,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
-        requireNonNull(foodComparator);
-        foodList.sortFoods(foodComparator);
-    }
-
-    @Override
-    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+    public void sortFoodList(FoodComparator foodComparator) {
         requireNonNull(foodComparator);
         foodList.sortFoods(foodComparator);
     }

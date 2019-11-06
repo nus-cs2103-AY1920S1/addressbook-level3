@@ -191,7 +191,7 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueCalendarEntryList // instanceof handles nulls
-                && internalList.equals(((UniqueCalendarEntryList) other).internalList));
+                        && internalList.equals(((UniqueCalendarEntryList) other).internalList));
     }
 
     @Override

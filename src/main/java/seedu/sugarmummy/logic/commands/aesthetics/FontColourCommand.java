@@ -65,7 +65,7 @@ public class FontColourCommand extends Command {
             return new CommandResult(MESSAGE_CURRENT_FONT_COLOUR + previousColour.toString());
         }
 
-        Colour bgColourToCompare = backgroundCommand == null
+        Colour bgColourToCompare = backgroundCommand == null || (backgroundCommand.getBackground().isEmpty())
                 ? model.getBackground().getDominantColour()
                 : backgroundCommand.getBackground().getDominantColour();
 
@@ -74,7 +74,11 @@ public class FontColourCommand extends Command {
         }
 
         Colour newColour = fontColour;
+
+        boolean noChangeInColour = false;
+
         if (previousColour.equals(newColour)) {
+            noChangeInColour = true;
             if (backgroundCommand == null) {
                 throw new CommandException(MESSAGE_NO_CHANGE);
             } else {
@@ -85,7 +89,9 @@ public class FontColourCommand extends Command {
         }
 
         model.setFontColour(newColour);
-        String updateMessage = "Colour has been changed from " + previousColour + " to " + newColour + ".\n";
+        String updateMessage = noChangeInColour
+                ? ""
+                : "Colour has been changed from " + previousColour + " to " + newColour + ".\n";
 
         if (backgroundCommand != null) {
             if (!backgroundCommand.getBackground().equals(model.getBackground())) {
@@ -95,7 +101,9 @@ public class FontColourCommand extends Command {
             }
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + " " + updateMessage.trim());
+        return new CommandResult((noChangeInColour
+                ? MESSAGE_NO_CHANGE
+                : MESSAGE_SUCCESS) + "\n" + updateMessage.trim());
     }
 
     public Colour getFontColour() {
@@ -135,12 +143,17 @@ public class FontColourCommand extends Command {
 
                 assert this.fontColour != null;
                 assert this.backgroundCommand != null;
+
                 return this.fontColour.equals(((FontColourCommand) other).fontColour)
                         && this.backgroundCommand.equals(((FontColourCommand) other).backgroundCommand);
             } else {
                 return false;
             }
         }
+    }
+
+    public BackgroundCommand getBackgroundCommand() {
+        return backgroundCommand;
     }
 
     @Override

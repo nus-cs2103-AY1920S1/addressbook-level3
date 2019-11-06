@@ -13,6 +13,8 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T16-1/main/tree/master
+:recmfPath: /src/main/java/seedu/sugarmummy/recmfood
+
 
 By: `AY1920S1-CS2103-T16-1`      Since: `Oct 2019`      Licence: `MIT`
 
@@ -274,90 +276,210 @@ display the points in JavaFX `ScatterChart`.
 This feature can be implemented using `PDFBOX` libraries or any other existing libraries.
 // end::average[]
 
+
 // tag::recmf[]
 === Food Recommendation Feature
-The food recommendation feature externally shows a filtered food list in the form of cards. Internally, it mainly consists of three parts:
 
-* Food Model: holds data for a certain food
+The food recommendation mechanism is based on the manipulation on `UniqueFoodList`, with the implementation of operations:
+
+* *Showing filtered food cards* -- Shows recommended foods to the users, which are filtered by`Flags` and / or `FoodNames`.
+* *Sorting the food list* -- Sorts the recommendation order based on comparing food fields specified in `SortOrderType`.
+* *Showing concise recommendations* -- Recommends one food from each food type with an additional _summary_ food.
+* *Adding new a food* -- Adds a new food to the food database and for future recommendations.
+* *Resetting food database* -- Clears user-added foods.
+
+These operations are respectively exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFoodList()`,`Model#getMixedFoodList`, `Model#addFood()`, `Model#setFoods()`.
+
+anchor:recmf_overview[]
+
+==== Overview of Data Structures
+
+The main data structures used to support food recommendation feature are *Food Model*, *UniqueFoodList*, and *Predicates*
+
+anchor:recmf_food_model[]
+
+.*1. Food Model*
+* *Food Model*: holds data for a certain food
 * Predicates: indicates the filters that the user wants to apply on partial presentation of the foods
 * Unique Food List: holds the collection of all foods
 
-==== Overview
-* Internal Data Structure
-+
+*API:* link:{repoURL}{recmfPath}/model/Food.java[`Food.java`]
+
+---
+
+anchor:recmf_uniqueFoodList[]
+
+.*2. UniqueFoodList*
 The `UniqueFoodList` is the main model that contains all the foods and interacts with logic and UI. It exposes an
 unmodifiable `ObservableList<Food>` that associates the UI display of food recommendations.
 
+*API:* link:{repoURL}{recmfPath}/model/UniqueFoodList.java[`UniqueFoodList.java`]
+
+anchor:recmf_predicates[]
+
+.*3. Predicates*
+
+*API:* link:{repoURL}{recmfPath}/predicates/FoodNameContainsKeywordsPredicate.java[`FoodNameContainsKeywordsPredicate.java`]
+link:{repoURL}{recmfPath}/predicates/FoodTypeIsWantedPredicate.java[`FoodTypeIsWantedPredicate.java`]
+
+---
+
+The following class diagram shows the main association and interactions among the main components. Other essential parts are summaries as follows:
+
+* UI: `FoodFlowPanel` holds an `ObservableList` of `Food`, each visulized in the form of `FoodCard`.
+* Storage: Reading data from and writing data to is handled by `JsonFoodListStorage`, inherited methods from `JsonGeneralStorage`.
+
 image::FoodModelClassDiagram.png[]
 
-* Parsers
-** `RecmFoodCommandParser` specifies the filters applied on the food list. Filters are implemented by two `Predicate` and are based on `Flag` and / or `FoodName`.
-** `AddFoodCommandParser` specifies and checks each fields of a new input food.
+==== Implementation of _recmf_ and _recmfmix_ command
 
-* UI: Two main components are `FoodCard`, which shows the food information, and `FoodFlowPanel`: holds all the cards. It is nested in a `Scrollable` One highlight of the design is the background color usage for food name. Different colors are corresponding to different types of foods.
+===== _recmf_ command
 
-==== Implementation
+_The_ `_recmf_` _command visualizes medically suggested foods as food cards for diabetics that are contained in_ `_UniqueFoodList_`.
 
-The food recommendation mechanism majorly implements the following operations:
+The customised presentation of food recommendations is implemented via the following three ways:
 
-* `SugarMummy#recmf()` -- Recommends a list of foods to the user.
-* `SugarMummy#sort()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
-* `SugarMummy#addfood()` -- Inputs new foods into the database for future recommendations.
+.*1. Specifying flags* +
+Flags are similar to the usage of flags / options in Unix commands. In SugarMummy, they are used to specify food types
+that are intended to be shown. The existence of a certain flag depends on available food types in `FoodType`.
+The flags in the user input will eventually be translated to `FoodTypeIsWantedPredicate` and applied on `UniqueFoodList`.
 
-These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()`, `Model#addFood()` respectively.
-
-Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
-
-Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data from `SampleFoodDataUtil`.
-
-Step 2. The user executes `recmf -f -sv` command. `IsWantedTypePredicate` will be applied on the food list to select specified types.
-
+Data Structure::
+A `HashSet` is used to hold specified `FoodTypes` translated from user-input flags.
 [NOTE]
-If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
+If no flag is specified, `RecmFoodCommandParser#getWantedFoodTypes(flagsStr)` will return an empty `HashSet`.
 
-Step 3. The user executes `recmf fn/Cherry`. Similar to step 2, `FoodNameContainsKeywordPredicate` will be applied.
+*API:* link:{repoURL}{recmfPath}/model/Flag.java[Flag.java]
 
-Step 4. The user executes `recmf sort/calorie`.
+---
 
-[NOTE]
-Collectively, Step 2 to 4 have similar underlying logic implementation and Ui updates. The whole food list wil be iterated through to get a filter or reordered food list.
+.*2. Filtering food names* +
+A `List` of strings as food names will be supplied to `FoodNameContainsKeywordsPredicate`.
+Similar to the situation of no specified flags, an empty `ArrayList` will be returned by `RecmFoodCommandParser#getWantedFoodKeywords(namesStr)`. +
 
-Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`. The `foodlist.json` storage file will be immediately updated if the execution is successful.
+The implementation is simple, details about `FoodNameContainsKeywordsPredicate` and `RecmFoodCommandParser` can be referred at <<recmf_overview, Overview>> section.
 
-* The following sequence diagram shows how the typical food recommendation operation works: `recmf -f fn/Cherry`
+Diagram::
+The following sequence diagrams shows the how recmf command with food name as the filter works.
 
 image::RecmFoodSequenceDiagram.png[]
 
+---
+
+.*3. Sorting* +
+Sorting the food recommendations is via supplying a `FoodComparator` to `UniqueFoodList#sortFoods`.
+To maintain or change the ordering of food recommendations, `model#sortFoodList` method must be added to `execute` method of relevant commands.
 [NOTE]
-The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The default sort order is currently set to be by food type, specified in public variable `FoodComparator#DEFAULT_SORT_ORDER_STRING`.
+It is used when there is no specified sort type from the user and for the `addfood` command.
 
-* The following activity diagram summarizes what happens when a user executes `addfood` command.
+Data Structure::
+* A `Comparator` is wrapped by `FoodComparator` to handle the main logic, such as reversing the `FoodComparator` via `Comparator#reversed()`.
+* A inner enum class SortOrderType` is used to specify all the available food fields for comparison and sorting. (See <<recmf_food_model, Food>> model for its field details.)
 
-image::AddFoodActivityDiagram.png[]
+[NOTE]
+Instantiating `FoodComparator` by other classes is done by supplying `String` that matches one of the enum value of its inner enum class `SortOrderType`.
+Instantiate FoodComparator directly from `Comparator` is for internal usage of getting reversed `FoodComparator`.
+
+*API:* link:{repoURL}{recmfPath}/model/FoodComparator.java[`FoodComparator.java`]
+
+---
+
+Diagram::
+The following object diagram summaries the components in food recommendation mechanism.
+
+===== _recmfmix_ command
+
+_Compared to_ `_recmf_` command with customized options, `_recmfmix_`  _is a simpler command that concisely recommends one food from each type with a summary food card at the end._
+
+*General:*
+Randomly selecting foods is implemented by `UniqueFoodList#getMixedFoodList()` that generates a separate and temporary `ObservableList` from the existing food data of `UniqueFoodList`.
+This list of mixed foods will be accessible by the `Model` and will be further used by the `Logic` to fill the content of `FoodFlowPanel`.
+
+*Food Summary Card:* It is essentially treated as `Food` with _Summary_ as food name and _meal_ as food type.
+The total / average nutrition values are calculated by `FoodCalculator`.
+
+[NOTE]
+This command has to override the `Command#isToCreateNewPane()` to return a `true` value,
+since it should refresh the display pane each time by randomly getting new foods, rather than getting the existing display pane from `typeToPaneMap`.
+
+Diagram::
+The following sequence diagram shows how recmfmix operation work.
+
+*API:* link:{repoURL}{recmfPath}/model/FoodCalculator.java[`FoodCalculator.java`]
+
+==== Implementation of other supplementary commands
+
+The following two commands are designed to help expand and clean up database of foods.
+
+===== _addfood_ command
+_`addfood` _command adds a new food with all specified fields into the food list._
+
+It is implemented by using `AddFoodCommandParser`, which relies on `RecmFoodParserUtil` to check the validation of input values.
+
+*API:* link:{repoURL}{recmfPath}/parser/RecmFoodParserUtil.java[`RecmFoodParserUtil.java`]
+
+===== _resetf_ command
+_`resetf` _command clears(deletes) all newly added foods from the user._
+
+It is implemented by setting the internal list of `UniqueFoodList` to be the pre-loaded food data in `SampleFoodDataUtil`.
+
+==== Example Usage Scenario and Summary
+
+Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
+
+. The user launches the application and enter `recmf` command for the first time.
+.. The `foodlist.json` storage file will be created and written with the pre-loaded food data from `SampleFoodDataUtil`.
+.. The `UniqueFoodList` will indirectly (via `Model`) supply a list of foods to `FoodFlowPane` to display.
+
+. The user executes `recmf -f -sv fn/Chicken` command.
+.. `RecmFoodParser` will parse the flag string as _fruit_ and _starchy vegetable_ for `FoodTypeIsWantedPredicate`
+and the food name string as _Chicken_ for `FoodNameContainsKeywordPredicate`. Meanwhile, `FoodComparator` will be of default sorting order
+.. They will be supplied to instantiate a `RecmFoodCommand` to update the display of food recommendations.
+
+. The user executes `recmfmix` command.
+.. The `UniqueFoodList#getMixedFoodList()` method will return a list of randomly selected foods from each food type.
+.. A summary food with calculated value by `FoodCalculator` will be appended at the end.
+
+. The user feels the database is insufficient and wants to add a new food by executing `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`.
+.. The display will switch to show the full list containing the newly added food in the default sorting order.
+.. The `foodlist.json` storage file will be immediately updated with this new food.
+
+. The user executes `resetf` command.
+.. `UniqueFoodList` will reset its internal list to hold the sample data from from `SampleFoodDataUtil`.
+
+[]
+Diagram::
+The following activity diagram summarizes the above steps.
+
+image::RecmFoodActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How recommendations are presented to user
+===== Aspect: Data Structure of the Food Collection
 
-* **Alternative 1 (current choice):** Shows the user a pane of cards. Different types are indicated by the different background colors of the food names.
-** Pros: Easy to implement.
-** Cons:
-* **Alternative 2:** Use several scrollable horizontal list views to hold different food type.
-** Pros:
-*** The content is more organized and the user does not need to specify food types in the filter.
-*** The food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
+* **Alternative 1 (current choice):** Use a `List` to store all the foods
+** Pros: The logic can be easily understood.
+** Cons: Filtering, sorting, and adding new foods need to enumerating through the whole list.
+* **Alternative 2:** Use a `Map` that categorizes foods based on their food types
+** Pros: For the `Flag` filtering, it can simply get the wanted types from the `Map`.
+Besides, maintaining the order after adding a new food only requires to sort foods of the same type.
+It can improve efficiency especially the database is large.
+** Cons: There is no `FilteredMap` class supported by JavaFX. Thus, additionally structures needs to be defined to accept
+`Predicate` as filters.
+
+===== Aspect: The presentation of food recommendations (UI)
+
+* **Alternative 1 (current choice):** Show the user a pane of cards. Different types are indicated by the different background colors of the food names.
+** Pros: Easy to implement. The usage of cheerful colors may make reading recommendations more pleasant.
+** Cons: The size of food cards cannot be customized. If the window size is relatively small, the user may need to
+repeatedly scroll up and down to locate some foods.
+* **Alternative 2:** Use several horizontal `ListViews` to hold different food type.
+** Pros: The content is more organized and the user does not need to specify food types in the filter.
+Besides, the food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
 ** Cons: The operations targeting at the whole list, such as filtering based on food names, need to be applied repeatedly for each food list.
 
-===== Aspect: Data structure to support the recmf command
-
-* **Alternative 1 (current choice):** Use a list to store all the foods
-** Pros: The logic can be easily understood.
-** Cons:
-* **Alternative 2:** Use a map that maps different food types to corresponding food list
-** Pros:
-** Cons:
-
-===== Aspect: New food data input from user
+===== Aspect: Inputting New Food Data
 
 * **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
 ** Pros: It is easy for data manipulation. Specifically, this prevents some foods from permanently having empty fields. Additionally, this may further hinder the data usage for data analysis.
@@ -366,18 +488,41 @@ image::AddFoodActivityDiagram.png[]
 ** Pros: This provides the user with more freedom and flexibility of entering data.
 ** Cons: Every change or manipulation on food data needs to be applied on two lists. Transferring data from one list to the other may also be error-prone.
 
-// tag::dataencryption[]
 
-=== [Proposed] Data Encryption
+===== Aspect: Data Recovery after Resetting
 
-==== Future Development Direction
+* **Alternative 1 (current choice):** There is additional storage for holding the food database just before resetting.
+** Pros: The implementation is straightforward. The management of storage is also simple since it only needs synchronized with one `UniqueFoodList`.
+** Cons: There is no way for the user to recover data.
+* **Alternative 2:** Pop up another command to confirm with the user about the resetting.
+** Pros: Prevent the situation of resetting all food data due to accidentally entering a wrong command.,
+** Cons: The recovery is still unavailable. Besides, this expands one command to two steps.
+* **Alternative 3:** Save only one copy before resetting all the food data. Update that copy whenever `reset` command is executed.
+** Pros: Provide more flexibility for the user to temporarily clean up the food data.
+This may be useful when another user want to temporarily use the same jar file on the same PC to get food recommendations.
+** Cons: Only the latest history of food list is available.
+* **Alternative 4:** Save every copies before resetting.
+** Pros: Provide more freedom to the user to manipulate the history.
+** Cons: The implementation can be complex. Besides, it may take up much more storage if the database is large.
 
-** Larger database for food recommendations
-To increase the usability of food recommendations, it is suggested to have more food data at the beginning instead of depending on user inputs. Ideally, the recommendation data can be connected to online database for dynamic updates while can have local storage for offline operations.
+==== Future Development Suggestion
 
-** Diet records and analysis
-The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
+** Editing and Deleting Foods
+This would provide more flexibility to the user to manipulate food data, instead of resetting all the food data.
+
+** Disliking Foods
+This would prevent the user from repeatedly seeing the foods they dislike, cannot eat (due to religion reason), or are allergic to.
+
+** Expanding the food database
+This would relieve the extra work required from the user to input unavailable food data.
+Ideally, the recommendation data can be connected to online database for dynamic updates while can be stored locally for offline operations.
+
+** Recording and Analyzing diets
+This would allow the user to have an overview of his food consumption statistics. Bases on such statistics,
+more specific suggestions can be proposed to to balance the user's nutrition intake.
+
 // end::recmf[]
+
 
 //tag::datalogDG[]
 === [Proposed] Data log feature
@@ -570,7 +715,7 @@ the `CommandResult` returned by the `Command` object is shown to the user back a
 
 * The following are possible scenarios for each of the following types of command words.
 
-** Scenario 1: User keys in `addbio n/testMinimal p/91234567 e/81234567 /testMedicalCondition`
+** Scenario 1: User keys in `addbio n/test minimal p/91234567 e/81234567 /test medical condition`
 ** Scenario 2: User keys in `editbio p/2/91234567`
 ** Scenario 3: User keys in `bio`
 ** Scenario 4: User keys in `clrbio`
@@ -1214,7 +1359,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
@@ -1228,7 +1373,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
@@ -1236,7 +1381,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Average command
+=== Average Command
 
 .. Prerequisites: There are exactly 7 different days of blood sugar and exactly 7 different days of BMI records.
 ... Test case: `average a/daily rt/bloodsugar` +
@@ -1279,3 +1424,221 @@ _{ more test cases ... }_
     Expected: COUNT field only takes integer value. Following error message will be shown: +
     `Please enter correct input for n/COUNT! +
     COUNT takes integer value between 1 and 12 inclusive.`
+
+=== Achievement Commands
+
+... Test case: `achvm asdf` +
+    Expected: A error message is shown to the user indicating that the command cannot have any arguments.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+... Test case: `achvm`+
+Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. Coloured image representing achievement is shown.
+... Test case: `achVm`+
+Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. The `achvm` command is not case-sensitive.
+
+.. Prerequisites: There are at least 2 days worth of bloodsugar records with a minimum of the past two days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-06 12:12 con/4.5`+
+Expected: An achievement message is appended to the message showing successful addition of records in the feedback display pane, indicated the attainment of (an) achievement(s). Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane when `achvm` is entered.
+
+.. Prerequisites: There are EXACTLY 3 days of bloodsugar records (one record per day) having consistent daily bloodsugar levels of 4.0 to 7.8 mmol/L.
+... Test case: `delete 3`+
+Expected: A nessage is appended to the successful records removal message indicating the loss of (an) achievement(s). Bronze level achievement for BloodSugar is no longer shown to be `ACHIEVED` in the achievements pane when `achvm` is entered. Achievement state resets to `YET TO ACHIEVE` and image representing achievement can is in silhouette form again.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/4.5`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `ACHIEVED` in the achievements pane if `achvm` is entered.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-08 12:12 con/4.5`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+
+.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/7.9`+
+Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+
+=== Biography Commands
+
+.. Prerequisites: NIL
+... Test case: `bio`+
+    Expected: Existing biography pane with profile picture, fields and data. If no biography has been set, an empty biography containing a default profile picture will be shown. Fields showing background, background size/ repeat and font colour should not be affected whether or not there is a biography. If a field has no item, it should be an empty `String`.
+... Test case: `clrbio asdf` +
+    Expected: A error message is shown to the user indicating that the command cannot have any arguments.
+
+.. Prerequisites: There is no existing biography.
+... Test case: `addbio n/test minimal p/91234567 e/81234567 m/test medical condition` +
+    Expected: A biography with updated fields name, phone, emergency contacts and medical condition is shown in the biography display pane. All other fields will remain blank. A message indicating success is displayed in the feedback display pane along with fields added.
+... Test case: `addbio desc/hello world n/testName nric/testNric gender/testGender dob/1920-10-08 p/12343567 p/91234567 e/81234567 m/test medical condition a/example address 123 goal/testGoal o/testOtherInfo` +
+    Expected: A biography with entered fields is shown in the biography display pane. For listable fields (i.e. of prefix p/ e/ m/ g/), if more than one field is entered, the items will be presented in a numbered list in it's cell of the biography table. A message indicating success is displayed in the feedback display pane along with fields added.
+... Test case: `addbio n/firstTestName n/secondTestName p/91234567 e/81234567 m/test medical condition `
+    Expected: An error message is displayed showing there cannot be more than one prefix for n/.
+... Test case: `addbio n/firstTestName n/secondTestName gender/Male gender/Female p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing there cannot be more than one prefix for n/ and gender/ (displayed as the default `String` representation of a list to the user).
+... Test case: `addbio n/name1 p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing names can only contain alphabets and spaces, and should not be blank.
+... Test case: `addbio n/test minimal nric/@2 p/91234567 e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing NRICs can only contain alphanumeric characters and spaces, and should not be blank.
+... Test case: `addbio n/test minimal p/91234567hi e/81234567 m/test medical condition` +
+Expected: An error message is displayed showing that phone numbers should only contain numbers, and should be at least 3 digits long.
+... Test case: `addbio n/test minimal p/91234567 e/81 m/test medical condition` +
+Expected: An error message is displayed showing that phone numbers should only contain numbers, and should be at least 3 digits long.
+... Test case: `addbio n/test minimal p/91234567 e/12345 m/test medical condition m/test medical condition` +
+Expected: An error message is displayed showing that there are duplicate medical conditions found.
+... Test case: `addbio n/  test minimal p/  91234567   e/12345 m/test medical condition` +
+Expected: Biography is added successfully with a message displayed to the user on fields added. Spaces in between fields do not affect parsing and spaces before arguments are automatically removed. Biography display pane is shown.
+... Test case: `editbio n/test minimal` +
+Expected: An error message is displayed to the user indicating that a bio does not exist and to suggest creating a new biography.
+... Test case: `aDdBio n/test minimal p/91234567 e/81234567 m/test medical condition` +
+    Expected: A biography with updated fields name, phone, emergency contacts and medical condition is shown in the biography display pane. All other fields will remain blank. A message indicating success is displayed in the feedback display pane along with fields added. Capital letters in the command word do not affect the use of the program.
+... Test case: `addbio N/test minimal p/91234567 e/81234567 m/test medical condition` +
+   Expected: An error message is displayed to the user as upper case fields are not recognised.
+... Test case: `addbio n/test minimal p/91234567 e/81234567 m/test medical condition GENDER/male` +
+   Expected: Biography is added successfully but `GENDER/male` will be appended rather than added as a field.
+... Test case: `addbio m/test medical condition p/91234567 e/81234567 n/test minimal` +
+   Expected: Biography is added successfully with similar results as described above (for successful addition). Order of fields do not matter so long as command word is in front.
+... Test case: `addbio m/test Medical Conditionp/91234567 e/81234567 n/test minimal` +
+   Expected: An error message is shown to the user as fields must be separated by a space and in this case, the field for contact number cannot be found.
+... Test case: `addbio m/test Medical Conditionp/91234567 p/123 e/81234567 n/test minimal` +
+   Expected: Biography is added successfully but `p/91234567` is appended to `test medical condition` as fields need to be separated by a space.
+... Test case: `addbio m/test Medical Condition p/91234567 123 e/81234567 n/test minimal` +
+   Expected: An error message is shown to the user as phone numbers cannot contain a space.
+... Test case: `clrbio` +
+    Expected: A error message is shown to the user that the biography is already empty and there is no biography to be cleared.
+
+.. Prerequisites: There is an existing biography.
+... Test case: `addbio n/test Minimal p/91234567 e/81234567 m/test Medical Condition` +
+Expected: An error message is displayed to the user indicating that a bio already exists and suggest clearing, editing or viewing the biography.
+... Test case: `editbio n/Alan Wong` +
+Expected: Name is sucessfully changed to Alan Wong in biography. Feedback displays the successful change and modified fields and biography display pane is shown. (if not already on the biography display pane)
+... Test case: `editBio n/Alan Wong` +
+Expected: Name is sucessfully changed to Alan Wong in biography. Feedback displays the successful change and modified fields and biography display pane is shown. (if not already on the biography display pane) Capital letters in the command do not affect parsing.
+... Test case: `editBio N/Alan Wong` +
+Expected: An error is shown to the user as `N/` is not recognised. Field prefixes are case-sensitive.
+... Test case: `editbio n/Alan Wong p/12345678 p/234567` +
+Expected: Fields are edited successfully. Feedback displays the successful change and modified fields. Previous list of phone numbers will be replaced by `12345678` and `234567`.
+... Sub-prerequisite: `Alan Wong` is already the name in the biography and phone number is `12345678` +
+Test case: `editbio n/Alan Wong p/12345678` +
+Expected: A message is indicated to the user indicating there is nothing to edit.
+... Sub-prerequisite: `Alan Wong` is already the name in the biography and phone number is NOT `12345678` +
+Test case: `editbio n/Alan Wong p/12345678` +
+Expected: Phone number is successfully replaced with `12345678` but modified fields in the feedback display will show only the change in name.
+... Sub-prerequisite: There contains two or more emergency contact numbers. +
+Test case: `editbio e/1/12345 e/2/23456` +
+Expected: First and second existing emergency contact numbers in the list of emergency contact numbers will be replaced by the ones specified at index 1 and 2 respectively. Note that this should also similarly work for other listable fields such as Medical Conditions and Goals)
+... Sub-prerequisite: There does NOT contain two or more emergency contact numbers. +
+Test case: `editbio e/1/12345 e/2/23456` +
+Expected: An error message is shown to the user that index is out of bounds.
+... Test case: `editbio e/1/12345 e/23456` +
+Expected: An error message is displayed to the user indicating that there is inconsistent indexing.
+... Sub-prerequisite: There contains two or more emergency contact numbers and two or more goals. +
+Test case: `editbio e/1/12345 e/2/3456 goal/first goal goal/second goal` +
+Expected: Biography is edited successfully, with edited fields displayed in feedback display pane. Where there is more than one item edited for a field, they are displayed in the `String` representation of a list. Inconsistent indexing applies only if it is within a type of field (eg. emergency contacts in previous test case).
+... Test case: `editbio n/Alan n/Amy` +
+Expected: An error message is shown to the user that there can only be one prefix for `n/` (since `Name` is not a `ListableField`)
+... Test case: `editbio e/1/12345 e/-2/23456` +
+Expected: An error message is shown to the user that index is invalid (since index cannot be negative).
+... Test case: `editbio e/1/12345 e/hello/23456` +
+Expected: An error message is shown to the user that index is invalid (since index cannot be a string).
+... Test case: `editbio n/1/Amy` +
+Expected: An error message is shown to the user that names can only contain alphabets and spaces and cannot be blank since this format for editing is not recognised for fields that do not inherit `ListableField`.
+... Test case: `editbio o/1/Amy` +
+Expected: Biography is edited successfully but `1/Amy` is treated as a `String` since this format for editing is not recognised for fields that do not inherit `ListableField`.
+... Test case: `clrbio` +
+    Expected: A message indicates that the biography is successfully cleared and the user is shown the biography page with a default profile picture. All fields in the biography table should be blank except for the ones showing aesthetics (i.e. `Background`, `Background Size`, `Background Repeat`, `Font Colour`)
+... Test action: Restart the application and enter `bio`.
+Expected: Last set biography is loaded upon start up and displayed.
+
+=== Aesthetics Commands
+
+.. Prerequisites: Current font colour is NOT yellow and background colour (or dominant colour of background image) is dark (eg. not white)
+... Test case: `fontcolour yellow` +
+Expected: Font colour is successfully changed to yellow. Colour changes instantaneously and applies to entire app. User is shown feedback that colour is changed from previous colour to "yellow" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously.
+... Test case: `fontcolour #FFFF00` +
+Expected: Font colour is successfully changed to yellow as described above. User is shown feedback that colour is changed from previous colour to "yellow" (as the colour is automatically converted)
+... Test case: `fontcolOUr yeLlow` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "yellow". (always displayed in lower case)
+... Test case: `fontcolOUr #FfFF00` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. Furthermore, there is automatic conversion of colour. User feedback should indicate that colour is changed to "yellow".
+... Test case: `fontcolor yellow` +
+Expected: Font colour is successfully changed as described above as the American spelling of "color" is also recognised.
+... Test action: Restart the application
+Expected: Last set font colour is loaded upon start up.
+
+.. Prerequisites: Current background colour (or dominant colour of background image) is NOT yellow and font colour is dark (eg. not white)
+... Test case: `bg yellow` +
+Expected: Background colour is successfully changed to yellow. Colour changes instantaneously and applies to entire app. User is shown feedback that colour is changed from previous colour to "yellow" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Background` field changes instantaneously.
+... Test case: `bg #FFFF00` +
+Expected: Background colour is successfully changed to yellow as described above. User is shown feedback that colour is changed from previous colour to "yellow" (as the colour is automatically converted)
+... Test case: `bG yeLlow` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "yellow". (always displayed in lower case)
+... Test case: `Bg #FfFF00` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. Furthermore, there is automatic conversion of colour. User feedback should indicate that colour is changed to "yellow".
+
+.. Prerequisites: Current font colour is NOT yellow and background colour (or dominant colour of background image) is close to yellow (eg. white)
+... Test case: `fontcolour yellow` +
+Expected: Colour is not set and an error message is shown to the user indicating font colour is too close to background's dominant colour. Feedback suggests for user to either change the background colour/ image first or simultaneously change both font colour and background together.
+
+.. Prerequisites: Current background colour (or dominant colour of background image) is NOT yellow and font colour is close to yellow (eg. white)
+... Test case: `fontcolour yellow` +
+Expected: Colour is not set and an error message is shown to the user indicating background colour (or dominant colour of background image) is too close to font colour. Feedback suggests for user to either change the font colour first or simultaneously change both background and font colour together.
+
+.. Prerequisites: Current font colour is NOT #FF2020 and background colour (or dominant colour of background image) is NOT close to #FF2020 (eg. red)
+... Test case: `fontcolour #FF2020` +
+Expected: Font colour is successfully changed to yellow. Colour changes instantaneously. User is shown feedback that colour is changed from previous colour to "#FF2020#" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously. Feedback indicates colour as #FF2020 as there is no CSS colour name assigned for this colour.
+... Test case: `fontcolOUr #Ff2020` +
+Expected: Font colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "#FF2020". (always displayed in upper case)
+
+.. Prerequisites: Background colour (or dominant colour of background image) is NOT #FF2020 and font colour is NOT close to #FF2020 (eg. red)
+... Test case: `bg #FF2020` +
+Expected: Background is successfully changed to #FF2020. Colour changes instantaneously. User is shown feedback that colour is changed from previous colour to "#FF2020" but the display pane that the user is on should not change. If the user is viewing the biography pane, the `Font Colour` field changes instantaneously. Feedback indicates colour as #FF2020 as there is no CSS colour name assigned for this colour.
+... Test case: `bg #Ff2020` +
+Expected: Background colour is successfully changed as described above as both commands and colours are not case sensitive. User feedback should indicate that colour is changed to "#FF2020". (always displayed in upper case)
+
+.. Prerequisites: Current font colour is yellow
+... Test case: `fontcolour yellow` +
+Expected: An error message is shown to the user indicating that the font colour is already the same as what was requested and thus there is nothing to be changed.
+... Test case: `fontcolour `#FFFF00` +
+Expected: An error message is shown to the user indicating that the font colour is already the same as what was requested and thus there is nothing to be changed.
+
+.. Prerequisites: Current background colour is yellow
+... Test case: `bg yellow` +
+Expected: An error message is shown to the user indicating that the background is already the same as what was requested and thus there is nothing to be changed.
+... Test case: `bg `#FFFF00` +
+Expected: An error message is shown to the user indicating that the background is already the same as what was requested and thus there is nothing to be changed.
+
+.. Prerequisites: Current font colour is NOT yellow (background can be any colour but different from what it was previously)
+... Test case: `fontcolour yellow bg/black` +
+    Expected: Font colour is successfully changed to yellow as described above AND background is changed to black. Feedback message indicates both changes.
+
+.. Prerequisites: Current background colour is NOT yellow (font colour can be any colour but different from what it was previously)
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background colour is successfully changed to yellow as described above AND font colour is changed to black. Feedback message indicates both changes.
+
+.. Prerequisites: Current font colour is yellow (background can be any colour but different from what it was previously)
+... Test case: `fontcolour yellow bg/black` +
+Expected: Font Colour is changed to black. Feedback message indicates that there is nothing to change for background and indicates the change in font colour.
+
+.. Prerequisites: Current background colour is yellow (font colour can be any colour but different from what it was previously)
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background is changed to black. Feedback message indicates that there is nothing to change for fontcolour and indicates the change in background colour.
+
+.. Prerequisites: Current font colour is NOT yellow and background colour is black.
+... Test case: `fontcolour yellow bg/black` +
+Expected: Font colour is changed to yellow. Feedback message indicates change in font colour and that there is nothing to change for background colour.
+
+.. Prerequisites: Current background colour is NOT yellow and font colour is black
+... Test case: `bg yellow fontcolour/black` +
+Expected: Background colour is changed to yellow. Feedback message indicates change in background colour and that there is nothing to change for font colour.
+
+.. Prerequisites: Current font colour is yellow and background colour is black.
+... Test case: `fontcolour yellow bg/black +
+Expected: Feedback message indicates that there is nothing to change.
+
+.. Prerequisites: Current background colour is yellow and font colour is black.
+... Test case: `bg yellow fontcolour/black +
+Expected: Feedback message indicates that there is nothing to change.
+
+=== Motivational Quotes Feature
+
+.. Prerequisites: NIL
+... Test action: Restart the application +
+Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.

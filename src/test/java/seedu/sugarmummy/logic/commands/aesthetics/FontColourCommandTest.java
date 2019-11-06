@@ -4,17 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static seedu.sugarmummy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.sugarmummy.logic.commands.aesthetics.FontColourCommand.MESSAGE_CURRENT_FONT_COLOUR;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_BACKGROUND;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_FONT_COLOUR;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_BACKGROUND;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_FONT_COLOUR;
 import static seedu.sugarmummy.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
-import seedu.sugarmummy.model.AestheticsModelStub;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForBackground;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForFontColour;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForBackground;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForFontColour;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
@@ -86,7 +86,7 @@ class FontColourCommandTest {
         String updateMessage = "Colour has been changed from " + model.getFontColour() + " to yellow.";
 
         CommandResult expectedCommandResult = new CommandResult(FontColourCommand.MESSAGE_SUCCESS
-                + " " + updateMessage);
+                + "\n" + updateMessage);
         expectedModel.setFontColour(fontColour);
 
         assertCommandSuccess(new FontColourCommand(fontColour), model, expectedCommandResult, expectedModel);
@@ -114,9 +114,8 @@ class FontColourCommandTest {
                 + modelStubForBackground.getBackground() + " to white.";
 
         CommandResult expectedCommandResult =
-                new CommandResult(FontColourCommand.MESSAGE_SUCCESS + " " + updateMessage);
-        System.out.println(background.getDominantColour());
-        System.out.println(fontColour);
+                new CommandResult(FontColourCommand.MESSAGE_SUCCESS + "\n" + updateMessage);
+
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,
                 expectedCommandResult, expectedModel);
     }
@@ -134,7 +133,7 @@ class FontColourCommandTest {
         updateMessage += "\n" + "Background: " + BackgroundCommand.MESSAGE_NO_CHANGE;
 
         CommandResult expectedCommandResult = new CommandResult(FontColourCommand.MESSAGE_SUCCESS
-                + " " + updateMessage);
+                + "\n" + updateMessage);
         expectedModel.setFontColour(fontColour);
 
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,

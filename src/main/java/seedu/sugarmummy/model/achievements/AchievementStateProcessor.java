@@ -22,8 +22,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import seedu.sugarmummy.model.Model;
-import seedu.sugarmummy.model.record.RecordType;
-import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
+import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.statistics.predicates.RecordContainsRecordTypePredicate;
 
 /**
  * Class that processes the changes made to the list of achievements stored in this program, if any.
@@ -129,10 +129,10 @@ public class AchievementStateProcessor {
     /**
      * Returns whether or not the requirement for an achievement has previously been met.
      *
-     * @param achievement Achievement which is to be assessed on whether or not its requirement
-     *                    to achieve it has previously been met.
-     * @param daysToIterate Duration in number of days to check on whether or not achievement has
-     *                      met the requirement previously.
+     * @param achievement                    Achievement which is to be assessed on whether or not its requirement
+     *                                       to achieve it has previously been met.
+     * @param daysToIterate                  Duration in number of days to check on whether or not achievement has
+     *                                       met the requirement previously.
      * @param averageAchievementKeyValueList List containing map entries of local dates and average daily values for
      *                                       a particular record type.
      * @return Whether or not the requirement for an achievement has previously been met.
@@ -154,16 +154,16 @@ public class AchievementStateProcessor {
     /**
      * Returns whether or not the requirement for an achievement has already been met.
      *
-     * @param achievement Achievement which is to be assessed on whether or not its requirement
-     *                    to achieve it has been met.
-     * @param daysToIterate Duration in number of days to check on whether or not achievement has
-     *                      met the requirement.
+     * @param achievement                    Achievement which is to be assessed on whether or not its requirement
+     *                                       to achieve it has been met.
+     * @param daysToIterate                  Duration in number of days to check on whether or not achievement has
+     *                                       met the requirement.
      * @param averageAchievementKeyValueList List containing map entries of local dates and average daily values for
      *                                       a particular record type.
      * @return Whether or not the requirement for an achievement has already been met.
      */
     private boolean requirementIsMet(Achievement achievement, int daysToIterate,
-                                     List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList) {
+            List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList) {
         boolean fulfillsRequirements = true;
         LocalDate moreRecentDate = null;
         for (int i = 0; i < daysToIterate; i++) {

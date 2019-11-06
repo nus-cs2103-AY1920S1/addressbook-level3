@@ -3,6 +3,8 @@ package seedu.sugarmummy.logic.parser.aesthetics;
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_USE_ONLY_ONE_BACKGROUND_PREFIX;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BACKGROUND;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BG_REPEAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BG_SIZE;
 import static seedu.sugarmummy.logic.parser.ParserUtil.parseColour;
 
 import seedu.sugarmummy.logic.commands.aesthetics.BackgroundCommand;
@@ -39,8 +41,13 @@ public class FontColourCommandParser implements Parser<FontColourCommand> {
             if (!argMultimap.isUniquePrefix(PREFIX_BACKGROUND)) {
                 throw new ParseException(MESSAGE_USE_ONLY_ONE_BACKGROUND_PREFIX);
             }
-            backgroundCommand = (new BackgroundCommandParser())
-                    .parse(argMultimap.getValue(PREFIX_BACKGROUND).get());
+            String backgroundArg = argMultimap.getValue(PREFIX_BACKGROUND).get();
+            if (backgroundArg.startsWith(PREFIX_BG_SIZE.toString())
+                    || backgroundArg.startsWith(PREFIX_BG_REPEAT.toString())) {
+                backgroundArg = " " + backgroundArg;
+            }
+            backgroundCommand = (new BackgroundCommandParser()
+                    .parse(backgroundArg));
         }
 
         Colour fontColour = parseColour(argMultimap.getPreamble());

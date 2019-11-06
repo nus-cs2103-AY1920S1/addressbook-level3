@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.sugarmummy.model.ReadOnlyCalendar;
 
 /**
  * Wraps all data at the calendar level Duplicates are not allowed
@@ -194,7 +193,7 @@ public class Calendar implements ReadOnlyCalendar {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Calendar // instanceof handles nulls
-                && calendarEntries.equals(((Calendar) other).calendarEntries));
+                        && calendarEntries.equals(((Calendar) other).calendarEntries));
     }
 
     @Override

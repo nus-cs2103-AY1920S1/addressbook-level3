@@ -253,7 +253,8 @@ class BackgroundTest {
     @Test
     public void getDominantColour_nullTest() {
         Background background = new Background("yellow");
-        assertNull(background.getDominantColour());
+        assertNotNull(background.getDominantColour());
+        assertEquals(new Colour("yellow"), background.getDominantColour());
     }
 
     @Test

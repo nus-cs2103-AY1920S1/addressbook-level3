@@ -11,12 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.sugarmummy.logic.Logic;
 import seedu.sugarmummy.model.achievements.Achievement;
-import seedu.sugarmummy.model.bio.User;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.biography.User;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
-import seedu.sugarmummy.recmfood.ui.FoodFlowPanel;
-import seedu.sugarmummy.ui.bio.BioPane;
+import seedu.sugarmummy.ui.achievements.AchievementsPane;
+import seedu.sugarmummy.ui.biography.BioPane;
+import seedu.sugarmummy.ui.calendar.CalendarMonthScrollPanel;
+import seedu.sugarmummy.ui.recmf.FoodFlowPanel;
+import seedu.sugarmummy.ui.records.RecordListPanel;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
 
 /**
@@ -24,13 +27,13 @@ import seedu.sugarmummy.ui.statistics.AverageGraphPane;
  */
 public class MainDisplayPane {
 
-    private Map<DisplayPaneType, UiPart<Region>> map;
+    private Map<DisplayPaneType, UiPart<Region>> typeToPaneMap;
     private DisplayPaneType currPaneType;
     private Logic logic;
 
     public MainDisplayPane(Logic logic) {
         this.logic = logic;
-        map = new HashMap<>();
+        typeToPaneMap = new HashMap<>();
     }
 
     /**
@@ -46,7 +49,7 @@ public class MainDisplayPane {
         switch (displayPaneType) {
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
-            BioPane previousBioPane = (BioPane) map.get(DisplayPaneType.BIO);
+            BioPane previousBioPane = (BioPane) typeToPaneMap.get(DisplayPaneType.BIO);
             Image previousDp = previousBioPane != null ? previousBioPane.getImg() : null;
 
             if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
@@ -61,7 +64,7 @@ public class MainDisplayPane {
             }
         case ACHVM:
             Map<RecordType, List<Achievement>> achievementsMap = logic.getAchievementsMap();
-            AchievementsPane previousAchievementsPane = (AchievementsPane) map.get(DisplayPaneType.ACHVM);
+            AchievementsPane previousAchievementsPane = (AchievementsPane) typeToPaneMap.get(DisplayPaneType.ACHVM);
             Map<RecordType, List<Achievement>> previousMap = previousAchievementsPane != null
                     ? previousAchievementsPane.getAchievementsMap()
                     : null;
@@ -74,6 +77,11 @@ public class MainDisplayPane {
                                 logic.getFilteredUserList()),
                         newPaneIsToBeCreated);
             }
+
+        case ADD_FOOD:
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
+                newPaneIsToBeCreated);
+
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);
@@ -91,6 +99,7 @@ public class MainDisplayPane {
             return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
                     logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
+            assert false : "DisplayPaneType is not recognised inside MainDisplayPane class.";
             return null;
         }
     }
@@ -99,7 +108,7 @@ public class MainDisplayPane {
      * Returns a calendar pane representing the Main Display Pane observed by the user.
      */
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
-                              YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
+            YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
         return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
                 logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
 
@@ -108,20 +117,20 @@ public class MainDisplayPane {
     /**
      * Returns a UiPart to be displayed to the user, after adding it to the map of display panes, if not yet added.
      *
-     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneSupplier      A Supplier object containing the UiPart to be returned if a mapping for it does not
-     *                             exist yet, unless new pane is given to be created regardless.
+     * @param displayPaneType   An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param newPaneSupplier   A Supplier object containing the UiPart to be returned if a mapping for it does not
+     *                          exist yet, unless new pane is given to be created regardless.
      * @param isToCreateNewPane Boolean indicating whether a new pane is to be created, regardless of whether a pane
-     *                             of the same type already exists.
+     *                          of the same type already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
-                                         Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
-        UiPart<Region> mappedPane = map.get(displayPaneType);
+            Supplier<UiPart<Region>> newPaneSupplier, boolean isToCreateNewPane) {
+        UiPart<Region> mappedPane = typeToPaneMap.get(displayPaneType);
         currPaneType = displayPaneType;
         if (mappedPane == null || isToCreateNewPane) {
             mappedPane = newPaneSupplier.get();
-            map.put(displayPaneType, mappedPane);
+            typeToPaneMap.put(displayPaneType, mappedPane);
         }
         return mappedPane;
     }

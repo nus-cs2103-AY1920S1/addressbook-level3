@@ -54,8 +54,8 @@ public class TimeDuration {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TimeDuration) // instanceof handles nulls
-                && this.hours == ((TimeDuration) other).hours
-                && this.minutes == ((TimeDuration) other).minutes;
+                        && this.hours == ((TimeDuration) other).hours
+                                && this.minutes == ((TimeDuration) other).minutes;
     }
 
     @Override
