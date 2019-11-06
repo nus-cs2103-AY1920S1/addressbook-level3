@@ -247,10 +247,10 @@ public class MainApp extends Application {
     private double[] initOverviewModelManager(seedu.address.overview.storage.Storage storage) {
         try {
             return storage.readFromFile();
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IOException e) {
+            logger.warning(e.toString());
             logger.warning("Data file not in correct format or problem reading from the file. "
                     + "Will reset all Overview values to 0.");
-        } finally {
             return new double[6];
         }
     }

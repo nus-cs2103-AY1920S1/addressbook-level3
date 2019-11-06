@@ -163,8 +163,104 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/138[12])
 ** Added Codacy's code quality service to the team repository
 
 == Contributions to the User Guide
-The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
 
+:sectnums!:
+=== 5.6 Overview Tab
+
+====
+*Summary of features in the Overview Tab*
+
+* The overview tab displays a variety of statistics for the user.
+* These include:
+** Total expenses made thus far
+** Total inventory value
+** Total sales revenue
+** Remaining budget
+* The user may also set financial goals and set up percentage thresholds to receive notifications.
+* Leo will notify the user any time their financial goals have been reached.
+====
+
+==== 5.6.1 Statistics Information
+The following describes how the various statistics are calculated:
+
+* Expense Summary: Total spent represents the sum of all negative transactions (cash outflows) made by the club.
+* Inventory Summary: Inventory value represents the total cost of all goods currently in the inventory.
+* Sales Summary: Total sales represents the sum of all positive transactions (cash inflow) from the Sales category.
+* Budget Overview: Amount remaining represents the budget goal + total sales - expenses.
+
+==== 5.6.2 Set a Financial Goal
+This command enables you to set a financial goal.
+
+* Command:
+** To set budget goal: `set b/AMOUNT`
+** To set expense goal: `set e/AMOUNT`
+** To set sales goal: `set s/AMOUNT`
+
+* Examples:
+** To set budget goal: [blue]`set b/500`
+** To set expense goal: [blue]`set e/500`
+** To set sales goal: [blue]`set s/500`
+
+[NOTE]
+The amount should be non-negative, and the maximum amount you may set is 10,000,000
+(10 million).
+
+* Steps:
+. Type the command with the corresponding target and amount.
+
+//.Screenshot of user input into Command Box for Set Command in Overview Tab
+image::overviewUG/SetCommandExample.png[width="600"]
+
+[start = 2]
+. Hit `Enter`
+
+//.Screenshot of a successful user input for Set Command in Overview Tab
+image::overviewUG/SetCommandResult.png[width="600"]
+
+Leo displays a confirmation showing that the goal was successfully set. +
+The user interface reflects this under the respective section.
+
+==== 5.6.3 Set a Notification Threshold
+
+* Command:
+** To set budget goal notification: `notify b/PERCENTAGE`
+** To set expense goal notification: `notify e/PERCENTAGE`
+** To set sales goal notification: `notify s/PERCENTAGE`
+
+* Examples:
+** To set budget goal notification: [blue]`notify b/PERCENTAGE`
+** To set expense goal notification: [blue]`notify e/PERCENTAGE`
+** To set sales goal notification: [blue]`notify s/PERCENTAGE`
+
+[NOTE]
+The percentage value should be a value from 0 - 100.
+
+* Steps:
+. Type the command with the corresponding target and amount.
+
+//.Screenshot of user input into Command Box for Notify Command in Overview Tab
+image::overviewUG/NotifyCommandExample.png[width="600"]
+
+[start = 2]
+. Hit `Enter`
+
+//.Screenshot of a successful user input for Notify Command in Overview Tab
+image::overviewUG/NotifyCommandResult.png[width="600"]
+
+Leo displays a confirmation showing that the notification was successfully set. +
+Additionally, if the goal is already reached, it will display the notification immediately.
+
+==== 5.6.4 Viewing Notifications
+
+Notifications in treasurerPro are automatically displayed upon app launch by Leo as long as the threshold is met. +
+Notifications show only once per app run, or whenever a target or threshold is modified.
+
+The following screenshot shows an example of the notifications:
+
+//.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
+image::overviewUG/NotificationExample.png[width="600"]
+
+:sectnums:
 ==  Contributions to the Developer Guide
-The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
+The following section shows my additions to the treasurerPro Developer Guide for the Overview tab features.
 
