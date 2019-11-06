@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.EventTime;
 import seedu.address.model.task.Task;
 
 /**
@@ -50,9 +51,9 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().value);
         taskId.setText("Task ID: #" + task.getId());
-        assigned.setText("Assigned: " + task.getDriver().get().getSchedule() + " @ "
-            + task.getDriver().get().getName().fullName + " (#" + task.getDriver().get().getId()
-            + ") - " + task.getDriver().get().getPhone());
+        assigned.setText("Assigned: " + task.getEventTime().map(EventTime::toString).orElse("NOT ALLOCATED") + " @ "
+                + task.getDriver().get().getName().fullName + " (#" + task.getDriver().get().getId()
+                + ") - " + task.getDriver().get().getPhone());
         deliverTo.setText("Deliver To: " + task.getCustomer().getName().fullName
                 + " (#" + task.getCustomer().getId() + ") - " + task.getCustomer().getPhone());
         address.setText("Address: " + task.getCustomer().getAddress().value);
