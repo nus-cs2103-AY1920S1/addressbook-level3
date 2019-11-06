@@ -13,9 +13,9 @@
          <Label fx:id="totalSessions" text="Test sessions for this deck: 0 sessions" />
          <Label fx:id="totalDuration" text="Total duration of test sessions: 0 hours 0 minutes 0 seconds" />
          <Label styleClass="window-subtitle" text="My Sessions" />
-         <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="60.0" prefHeight="200.0">
+         <ScrollPane fx:id="deckSessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="60.0" prefHeight="200.0">
             <content>
-               <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
+               <TableView fx:id="deckSessionsTableView" fixedCellSize="24.0">
                   <placeholder><Label text="There are no recorded sessions yet!"/></placeholder>
                </TableView>
             </content>

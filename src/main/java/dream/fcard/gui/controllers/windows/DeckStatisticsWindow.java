@@ -5,6 +5,7 @@ import java.io.IOException;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
+import dream.fcard.util.stats.StatsDisplayUtil;
 //import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private TableView<Session> sessionsTableView;
+    private TableView<Deck> deckSessionsTableView;
 
     private Deck deck;
     private SessionList deckSessionList;
@@ -52,6 +53,9 @@ public class DeckStatisticsWindow extends ScrollPane {
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();
+
+        //this.deckSessionsTableView = StatsDisplayUtil.getDeckSessionsTableView();
+        //this.sessionsScrollPane.setContent(sessionsTableView);
         //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
     }
 

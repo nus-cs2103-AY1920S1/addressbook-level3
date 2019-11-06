@@ -19,8 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class StatsDisplayUtil {
 
     /** Creates the TableView object from the given list of sessions. */
-    public static TableView<Session> getSessionsTableView() {
-        SessionList sessionList = UserStatsHolder.getUserStats().getSessionList();
+    public static TableView<Session> getSessionsTableView(SessionList sessionList) {
         ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
         TableView<Session> sessionsTableView = new TableView<>();
 
@@ -49,6 +48,12 @@ public class StatsDisplayUtil {
         return sessionsTableView;
     }
 
+    /** Creates the TableView object for the user's login sessions. */
+    public static TableView<Session> getUserSessionsTableView() {
+        SessionList userSessionList = UserStatsHolder.getUserStats().getSessionList();
+        return getSessionsTableView(userSessionList);
+    }
+
     /** Creates the TableView object representing the list of decks. */
     public static TableView<Deck> getDeckTableView() {
         // for each deck in list of decks in state, get the DeckStats object
@@ -56,7 +61,6 @@ public class StatsDisplayUtil {
 
         TableView<Deck> deckTableView = new TableView<>();
         deckTableView.setItems(FXCollections.observableArrayList(decks));
-        deckTableView.setPlaceholder(new Label("There are no decks!"));
 
         TableColumn<Deck, String> nameColumn = new TableColumn<>("Deck name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("deckName"));
@@ -70,17 +74,6 @@ public class StatsDisplayUtil {
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
         //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
-        // todo: currently do not know which cards were tested in each exam
-        // todo: on click, show the deck stats for the selected deck
-        //TableColumn<DeckStats, String> startColumn = new TableColumn<>("Start");
-        //startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
-        //
-        //TableColumn<DeckStats, String> endColumn = new TableColumn<>("End");
-        //endColumn.setCellValueFactory(new PropertyValueFactory<>("sessionEndString"));
-        //
-        //TableColumn<DeckStats, String> durationColumn = new TableColumn<>("Duration");
-        //durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
-
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
         deckTableView.getColumns().add(numSessionsColumn);
@@ -88,4 +81,6 @@ public class StatsDisplayUtil {
 
         return deckTableView;
     }
+
+    ///** Creates the TableView object representing the list of sessions for a deck. */
 }
