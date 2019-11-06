@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
@@ -38,6 +40,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String SPACE = " ";
 
     public static final Statistics DUE_STATISTICS = new Statistics(LocalDate.now().minusDays(1),
             LocalDate.now(), ScheduleIncrement.FIRST);
@@ -101,9 +105,24 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_SAMPLE = "Sample Content";
     public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
             + "multiple instructions simultaneously.";
+    public static final String VALID_TAG_CS2100 = "CS2100";
+    public static final String VALID_TAG_MIDTERMS = "Midterms";
 
-    public static final String EXPECTED_VIEW_SAMPLE = "\nTitle: Sample Title\nContent: Sample Content\nTags: "
-            + "[SampleTag2][SampleTag1]";
+    public static final String VALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + VALID_TITLE_PIPELINE;
+    public static final String VALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + VALID_CONTENT_PIPELINE;
+    public static final String VALID_NOTE_TAG_1_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_CS2100;
+    public static final String VALID_NOTE_TAG_2_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_MIDTERMS;
+
+    public static final String INVALID_NOTE_TITLE = "*";
+    public static final String INVALID_NOTE_CONTENT = " ";
+    public static final String INVALID_NOTE_TAG = "Two words";
+
+    public static final String INVALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + INVALID_NOTE_TITLE;
+    public static final String INVALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + INVALID_NOTE_CONTENT;
+    public static final String INVALID_NOTE_TAG_PIPELINE = SPACE + PREFIX_TAG + INVALID_NOTE_TAG;
+
+    public static final String EXPECTED_VIEW_SAMPLE = "Viewing note: \n\tTitle: Sample Title\n\tContent: Sample "
+            + "Content\n\tTags: [sampletag2][sampletag1]";
     public static final String EXPECTED_VIEW_PIPELINE = "\nTitle: Pipelining Definition\nContent: Pipelining is the "
             + "process of making a single processor run multiple instructions simultaneously.\nTags: [CS2100] "
             + "[Midterms]";
@@ -141,6 +160,8 @@ public class CommandTestUtil {
                 .withTitle(VALID_TITLE_GEM).withTags(VALID_TAG_CHEATSHEET, VALID_TAG_FORMULA).build();
     }
 
+    private static Logger logger = Logger.getLogger(CommandTestUtil.class.getName());
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -150,15 +171,14 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-            System.out.println("expectedCommandResult " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("result " + result.getFeedbackToUser());
+            logger.info("expectedCommandResult\n" + expectedCommandResult.getFeedbackToUser());
+            logger.info("result\n" + result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
-
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
@@ -244,7 +264,7 @@ public class CommandTestUtil {
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
-        System.out.println("Notes: " + model.getFilteredNoteList().size());
+        logger.info("Number of Notes: " + model.getFilteredNoteList().size());
 
         assertEquals(1, model.getFilteredNoteList().size());
     }
