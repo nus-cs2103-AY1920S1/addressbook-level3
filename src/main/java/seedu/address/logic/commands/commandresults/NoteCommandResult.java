@@ -60,8 +60,9 @@ public class NoteCommandResult extends CommandResult {
 
         NoteCommandResult otherNoteCommandResult = (NoteCommandResult) other;
         return feedbackToUser.equals(otherNoteCommandResult.feedbackToUser)
-                && note == otherNoteCommandResult.note;
+                && note.equals(otherNoteCommandResult.note);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, note);
