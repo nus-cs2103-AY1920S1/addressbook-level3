@@ -20,7 +20,13 @@ You can import patient data from a .csv file into the application using
 
 Reads patient data from a specified .csv file.
 
+[WARNING]
+=====
 All existing patient data will be deleted and replaced with this new data.
+
+All existing appointment data will be deleted.
+=====
+
 Provided file should not be empty.
 
 **Cannot be executed when there is an ongoing visit.**
@@ -61,14 +67,15 @@ Examples:
 =====
 CSV files used for importing must adhere to the following format requirements.
 
+* Provided file name should not be blank, and can contain only alphanumerics, hyphens and underscores.
 * The top row of the file must be exactly the following headers in the order:
 
-	name, phone, email, address, conditions, visitTodos
+	name, phone, email, address, tagged, visitTodos
 
 * Each row in the .csv corresponds to one patient.
 * The data in each cell must adhere to the format of the field it belongs in.
 ** Cells under `phone` must contain 8 digit numbers, cells under `name` must contain only alphanumerics and spaces, etc.
-** For the fields `conditions` and `visitTodos` with multiple elements per cell,
+** For the fields `tagged` and `visitTodos` with multiple elements per cell,
 each element is to be separated with a newline.
 * The data row for any patient cannot have empty cells in the following fields:
 
@@ -114,10 +121,5 @@ Examples:
 
 * **Patients' visit data will not be exported.**
 
-* Ensure the provided file name does not contain any illegal characters shown below:
-
-	< >  : " / \ | ? *
-
-They are also system specific restrictions, such as for
-link:https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file?redirectedfrom=MSDN[Windows]
+* The provided file name cannot be blank, and can contain only alphanumerics, hyphens and underscores.
 =====
