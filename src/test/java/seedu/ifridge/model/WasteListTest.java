@@ -72,12 +72,6 @@ public class WasteListTest {
         assertThrows(UnsupportedOperationException.class, () -> wasteList.getWasteList().remove(0));
     }
 
-    @Test
-    void getWasteStatistic() {
-        //assertEquals(WASTE_STATISTIC_CURRENT_MONTH, wasteList.getWasteStatistic());
-        assertEquals(7, wasteList.getWasteList().size());
-    }
-
 
     @Test
     void getWasteListByMonth() {
