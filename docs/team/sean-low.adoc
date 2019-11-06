@@ -72,35 +72,37 @@ criterion at the top of the food list.
 
 Finally, they should be able to view the fields of the custom comparator using `viewsort`.
 
-=== Minor enhancement: Filter Feature
+=== Minor Enhancement: Alias Feature
 
-I have added a filter feature to $aveNUS which allows users to filter food items based on some specific criterion.
+I have added a alias feature to $aveNUS which allows users to create shortcuts for commonly used commands.
 
 ==== What it does
 
-The filter feature only shows food that satisfy the criterion given by the user.  This is done by taking
-into account  specific fields given from the command line interface.
+The alias feature allows users to create shortcuts for commonly used commands. For example, if the user wishes to
+view the custom comparator made, but does not want to type in `viewsort` all the time, he can add an alias to it. He
+can do use by typing `alias viewsort v` where `v` is now the shortcut for `viewsort`.
 
-For example, if the user wishes to see the list of food items which have a price of less than $5.00, only
-food items with a price of $4.99 and below can be seen in the display panel.
+When he does not require the alias for `viewsort`, he can clear it anytime using `alias viewsort`.
 
 ==== Justification
 
-NUS students might have certain restrictions with regards to the food that they can eat. As a result, it will be
-good for them to be able to filter the type of food they can order.
+NUS Students occasionally forget how to execute certain commands which may seem too long such as `viewsort` and
+`customsort`. As a result, it would be good for the user to be able to add shortcuts to save time and typing.
 
-For example, if they want to view halal food, they can just type in the following:
+==== Highlights.
 
-`filter CATEGORY EQUALS_TO halal`.
+I only had to add the `alias` command to implement this new feature. However, I had to make sure that users will not
+accidentally keep in other conflicting shortcuts. For exampke, `alias viewsort sort`. is an invalid command as `sort` is
+already a command word in $aveNUS.
 
-==== Highlights
+Storage functionality for the user's alias shortcuts were also implemented. This means that the shortcuts are conveniently saved
+into their hard disk and persist even after the application is closed and restarted.
 
-While implementing this feature, I had to implement the `filter` command. This is done in a way such that it
-will only affect the food list display panel. As a result, the food items stored in the data files will not
-be accidentally edited or removed.
-
-In this way, if the user wishes to see his entire food list again, the user can simply type in the command
-`list`.
+=== Code contributions:
+Here are the https://github.com/AY1920S1-CS2103T-F13-2/main/commits/master?author=seanlowjk[commits],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Aseanlowjk[pull requests] and
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seanlowjk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code]
+that I have contributed for this project.
 
 === Other contributions
 
@@ -127,8 +129,7 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/issues/194[#194]]
 ** Updated the Developer Guide
 
 *** Edited main UML Diagrams [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/164[#164]
-https://github.com/AY1920S1-CS2103T-F13-2/main/pull/201[#201]
-]
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/201[#201]]
 
 ** Community:
 
@@ -140,10 +141,6 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestrev
 This section shows the contributions that I have made to the sorting feature of the User Guide.
 
 include::../UserGuide.adoc[tag=sorting]
-
-This section shows the contributions that I have made to the filter feature of the User Guide.
-
-include::../UserGuide.adoc[tag=filters]
 
 == Contributions to the Developer Guide
 
