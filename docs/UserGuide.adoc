@@ -445,29 +445,6 @@ Format: `showNotifs`
 
 // end::notifs[]
 
-// tag::sortfilter[]
-
-==== Sort all entries: `sort` `[coming in v2.0]`
-Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
-Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
-Types of ordering can be found below:
-
-* `name`: entries are sorted by alphabetical order of their names
-* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
-    ** `id asc`: entries are sorted in ascending order of id number
-    ** `id desc`: entries are sorted in descending order of id number
-         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
-* `status`: entries are sorted by their statuses in this order:
-
-Format: `sort /order order`
-
-Example:
-
-* `sort /order status` +
-All entries will be sorted and grouped according to their statuses.
-* `sort /order id asc` +
-All entries will be sorted according to their id number in ascending order.
-
 ==== Filter all entries: `filter`
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
@@ -544,6 +521,30 @@ Exits the program. +
 Format: `exit`
 
 // end::exit[]
+
+// tag::sortfilter[]
+
+==== Sort all entries: `sort` `[coming in v2.0]`
+Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
+Types of ordering can be found below:
+
+* `name`: entries are sorted by alphabetical order of their names
+* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
+    ** `id asc`: entries are sorted in ascending order of id number
+    ** `id desc`: entries are sorted in descending order of id number
+         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
+* `status`: entries are sorted by their statuses in this order:
+
+Format: `sort /order order`
+
+Example:
+
+* `sort /order status` +
+All entries will be sorted and grouped according to their statuses.
+* `sort /order id asc` +
+All entries will be sorted according to their id number in ascending order.
+
 
 // tag::documentGeneration[]
 === Document Generation
@@ -678,21 +679,13 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 
 // tag::help[]
 
-==== View all commands: `help` `[coming in v2.0]`
+==== View all commands: `help`
 View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
-Format: `help -FLAG`
+Format: `help`
 
-Example: `help -v` +
+Example: `help` +
 Shows a link to the User Guide.
-
-3.5.b. Get information about a command: `help command`
-View the detailed description of the specified command and its flags, if any.
-
-Format: `help command`
-
-Example: `help undo` +
-Shows undo command description.
 
 // end::help[]
 
@@ -767,10 +760,9 @@ Lists emergency help hotlines.
 * *Assign tasks* : `assign` `[coming in v2.0]`
     ** Assign a body and task to a worker.
     Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
-* *Help summary*: `help` `[coming in v2.0]`
+* *Help summary*: `help`
     ** Get information about the commands
-    Format: `help -FLAG` `[coming in v2.0]`
-* *Help for specific command* : `help command` `[coming in v2.0]`
+    Format: `help`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
 == Glossary
