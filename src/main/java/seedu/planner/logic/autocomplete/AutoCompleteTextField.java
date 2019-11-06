@@ -116,7 +116,8 @@ public class AutoCompleteTextField extends TextField {
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(actionEvent -> {
                 String input = getText();
-                setText(replaceFromBack(input, result));
+                boolean suggestionIsPrefix = result.contains("/");
+                setText(replaceFromBack(input, result, suggestionIsPrefix));
                 positionCaret(getText().length());
                 entriesPopup.hide();
             });
@@ -130,22 +131,26 @@ public class AutoCompleteTextField extends TextField {
      * Replaces the input with the given replacement.
      * Ensures that any half written part of replacement is removed before adding replacement.
      */
-    private String replaceFromBack(String input, String replacement) {
-        String[] splitWords = input.split(" ");
-        String match = "";
-        for (int i = splitWords.length - 1; i >= 0; i--) {
-            String curr;
-            if (match == "") {
-                curr = splitWords[i];
-            } else {
-                curr = splitWords[i] + " " + match;
+    private String replaceFromBack(String input, String replacement, boolean isPrefix) {
+        if (isPrefix) {
+            return input.trim() + replacement;
+        } else {
+            String[] splitWords = input.split(" ");
+            String match = "";
+            for (int i = splitWords.length - 1; i >= 0; i--) {
+                String curr;
+                if (match == "") {
+                    curr = splitWords[i];
+                } else {
+                    curr = splitWords[i] + " " + match;
+                }
+                if (Pattern.compile("\\b" + curr).matcher(replacement).find()) {
+                    match = curr;
+                } else {
+                    break;
+                }
             }
-            if (Pattern.compile("\\b" + curr).matcher(replacement).find()) {
-                match = curr;
-            } else {
-                break;
-            }
+            return input.replaceFirst(match + "\\s*\\Z", replacement);
         }
-        return input.replaceFirst(match + "\\s*\\Z", replacement);
     }
 }
