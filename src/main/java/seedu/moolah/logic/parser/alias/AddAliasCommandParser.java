@@ -8,7 +8,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.alias.AddAliasCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -41,7 +40,7 @@ public class AddAliasCommandParser implements Parser<AddAliasCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ALIAS_ALIAS_INPUT, PREFIX_ALIAS_ALIAS_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT)
+        if (!argMultimap.arePrefixesPresent(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
         }
@@ -58,14 +57,6 @@ public class AddAliasCommandParser implements Parser<AddAliasCommand> {
         Alias alias = ParserUtil.parseAlias(aliasName.get(), aliasInputMapping.get());
 
         return new AddAliasCommand(alias);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

@@ -86,7 +86,7 @@ are valid inputs
 Format: `help`
 
 // tag::undo[]
-=== Undo/Redo
+=== Undo and Redo
 ==== Undo the previous command : `undo`
 
 Did something wrong? You can undo it.
@@ -211,6 +211,27 @@ Examples:
 * `addexpense d/Brian birthday p/40 c/Shopping t/10-10`
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
+
+==== Adding an expense from NUS canteens' menu : `addmenuexpense`
+
+This is what makes MooLah special for NUS students.
+Shortcut your way on adding expenses for foods and drinks in NUS!
+
+Currently, MooLah only supports just a handful of menu items, though. Head over to <<Menu Items List>> to see the
+supported menu items. A more comprehensive menu list is on its way in v2.0!
+
+Format:
+----
+addmenuexpense m/<MENU_ITEM> [t/TIMESTAMP]
+----
+
+Example:
+----
+addmenuexpense m/deck chicken rice
+----
+
+This will add a new expense that corresponds to The Deck's Chicken Rice and MooLah will automatically fill in
+the description, price, and category for you.
 
 ==== Listing all expenses : `listexpenses`
 
@@ -986,9 +1007,14 @@ e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 * *See all aliases* : `listaliases`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
 
+== Menu Items List
 
-
-
-
-
-
+[width="59%",cols="30%,<25%",options="header",]
+|=======================================================================
+|Menu Item                       |Price
+|Deck Chicken Rice               |2.50
+|Finefood Western Combo Set Meal |7.50
+|YIH Nutella Waffle              |1.50
+|Deck Ice Milo                   |1.50
+|E2 Fried Fish Fillet            |3.50
+|=======================================================================

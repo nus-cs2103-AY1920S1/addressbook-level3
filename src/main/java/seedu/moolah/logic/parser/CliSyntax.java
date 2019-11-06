@@ -18,6 +18,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ALIAS_ALIAS_NAME = new Prefix("a/", "alias name");
     public static final Prefix PREFIX_ALIAS_ALIAS_INPUT = new Prefix("i/", "alias input");
     public static final Prefix PREFIX_MODE = new Prefix("mode/", "category OR budget");
+    public static final Prefix PREFIX_MENU = new Prefix("m/", "menu item");
+
 }
 
 

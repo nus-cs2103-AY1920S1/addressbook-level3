@@ -6,7 +6,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -33,13 +32,13 @@ public class DeleteBudgetByNameCommandParser implements Parser<DeleteBudgetByNam
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteBudgetByNameCommand.MESSAGE_USAGE));
         }
 
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_DESCRIPTION)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_DESCRIPTION)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -48,19 +47,4 @@ public class DeleteBudgetByNameCommandParser implements Parser<DeleteBudgetByNam
         return new DeleteBudgetByNameCommand(description);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true if none of the prefixes are repeated
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
-    }
 }

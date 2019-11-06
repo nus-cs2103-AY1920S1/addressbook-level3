@@ -10,7 +10,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.moolah.logic.commands.event.AddEventCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -48,14 +47,14 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY)
+        if (!argMultimap.arePrefixesPresent(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_USAGE));
         }
 
-        if (hasRepeatedPrefixes(argMultimap, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP)) {
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP)) {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
@@ -75,22 +74,6 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         } else {
             throw new ParseException("Event must occur in the future");
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true if none of the prefixes are repeated
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean hasRepeatedPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return !(Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() <= 1));
     }
 
 }
