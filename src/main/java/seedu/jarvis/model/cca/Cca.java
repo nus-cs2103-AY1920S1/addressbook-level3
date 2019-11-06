@@ -30,7 +30,7 @@ public class Cca {
      * Every field must be present and not null.
      */
     public Cca(CcaName name, CcaType ccaType, EquipmentList equipmentList, CcaProgress ccaProgress) {
-        requireAllNonNull(name, ccaType, equipmentList);
+        requireAllNonNull(name, ccaType, equipmentList, ccaProgress);
         this.name = name;
         this.ccaType = ccaType;
         this.equipmentList = equipmentList;

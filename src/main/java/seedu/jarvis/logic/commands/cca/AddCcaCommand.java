@@ -11,6 +11,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddCcaCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -86,7 +87,9 @@ public class AddCcaCommand extends Command {
 
         model.addCca(toAddCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca), false);
+        model.setViewStatus(ViewType.LIST_CCA);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca), true);
     }
 
     @Override
@@ -98,8 +101,10 @@ public class AddCcaCommand extends Command {
         }
 
         model.removeCca(toAddCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(ViewType.LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAddCca));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAddCca), true);
     }
 
     /**
