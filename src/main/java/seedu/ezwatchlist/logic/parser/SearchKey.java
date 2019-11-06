@@ -1,5 +1,8 @@
 package seedu.ezwatchlist.logic.parser;
 
+/**
+ * Enumeration for the possible search key in a search command.
+ */
 public enum SearchKey {
     KEY_NAME("name"),
     KEY_TYPE("type"),

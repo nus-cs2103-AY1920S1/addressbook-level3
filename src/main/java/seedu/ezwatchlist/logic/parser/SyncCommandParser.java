@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.logic.parser;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.SyncCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 

@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_EPISODES;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_SEASONS;
 
-import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.WatchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 

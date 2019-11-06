@@ -274,15 +274,12 @@ public class SearchCommand extends Command {
      * @param showName Name of the show to be searched.
      * @throws OnlineConnectionException If online exception occurred.
      */
-    private void addOnlineMovieSearchedByNameToResult(String showName) {
-        try {
-            List<Movie> movies = onlineSearch.getMovieByName(showName);
-            for (Movie movie : movies) {
-                searchResult.add(movie);
-            }
-        } catch (OnlineConnectionException e) {
-        }
+    private void addOnlineMovieSearchedByNameToResult(String showName) throws OnlineConnectionException {
 
+        List<Movie> movies = onlineSearch.getMovieByName(showName);
+        for (Movie movie : movies) {
+            searchResult.add(movie);
+        }
     }
 
     /**

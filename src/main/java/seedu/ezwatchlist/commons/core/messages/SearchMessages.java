@@ -1,7 +1,9 @@
 package seedu.ezwatchlist.commons.core.messages;
 
+/**
+ * Container for user visible messages when executing the search command.
+ */
 public class SearchMessages {
-
     public static final String MESSAGE_USAGE =
             "Search : Searches for shows whose names contain any of the given keywords from the watchlist, "
             + "watched list and online.\n"

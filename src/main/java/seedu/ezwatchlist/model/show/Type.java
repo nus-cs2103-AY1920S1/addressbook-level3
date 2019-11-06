@@ -1,5 +1,8 @@
 package seedu.ezwatchlist.model.show;
 
+/**
+ * Enumeration for the possible type of a show, movie or tv.
+ */
 public enum Type {
     MOVIE("movie"),
     TV_SHOW("tv");

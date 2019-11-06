@@ -1,14 +1,14 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_FROM_ONLINE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
-import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +49,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         return new SearchCommand(searchShowsHashMap);
     }
 
+    /**
+     * Checks if the user input the command correctly with the correct syntax.
+     * @param args User input to be checked for the correct syntax
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private void checkSyntaxError(String args) throws ParseException {
         String[] keywordsArray = args.split(" ");
         int length = keywordsArray.length;
