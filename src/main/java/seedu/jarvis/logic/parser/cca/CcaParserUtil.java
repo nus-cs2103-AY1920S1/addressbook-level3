@@ -11,6 +11,7 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaCurrentProgress;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
@@ -119,5 +120,18 @@ public class CcaParserUtil {
             ccaMilestoneList.add(parseCcaMilestone(ccaMilestoneName));
         }
         return ccaMilestoneList;
+    }
+
+    /**
+     * Parses {@code currentProgress} into a {@code CcaCurrentProgress}.
+     */
+    public static CcaCurrentProgress parseCcaCurrentProgress(String currentProgress) throws ParseException {
+        requireNonNull(currentProgress);
+        String trimmedCurrentProgress = currentProgress.trim();
+        if (!StringUtil.isNonNegativeUnsignedInteger(currentProgress)) {
+            throw new ParseException(MESSSAGE_INVALID_PROGRESS_LEVEL);
+        }
+        int currentProgressInt = Integer.parseInt(trimmedCurrentProgress);
+        return new CcaCurrentProgress(currentProgressInt);
     }
 }

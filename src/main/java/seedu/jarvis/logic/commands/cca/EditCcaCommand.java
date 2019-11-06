@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_CCA_PROGRESS_NOT_YET_SET;
+import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_INCREMENT_AT_MAX;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
@@ -250,6 +252,16 @@ public class EditCcaCommand extends Command {
             updatedCcaProgress.resetCcaCurrentProgress();
         }
 
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() && updatedCcaProgress.ccaMilestoneListIsEmpty()) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        }
+
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() &&
+                editCcaDescriptor.getCcaCurrentProgress().get().getCurrentProgress() >
+                        updatedCcaProgress.getMilestoneList().size()) {
+            throw new CommandException(MESSAGE_INCREMENT_AT_MAX);
+        }
+
         if (editCcaDescriptor.getCcaCurrentProgress().isPresent()) {
             updatedCcaProgress.setCcaCurrentProgress(editCcaDescriptor.getCcaCurrentProgress().get());
         }
@@ -349,7 +361,7 @@ public class EditCcaCommand extends Command {
             return Optional.ofNullable(ccaProgress);
         }
 
-        private void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
+        public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
             this.ccaCurrentProgress = ccaCurrentProgress;
         }
 
