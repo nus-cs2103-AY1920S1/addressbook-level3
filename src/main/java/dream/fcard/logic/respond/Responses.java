@@ -110,34 +110,34 @@ public enum Responses {
     CREATE_NEW_DECK_WITH_NAME(
             "^((?i)create)\\s+((?i)deck/)\\s*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
-            i -> {
-                String deckName = i.split("(?i)deck/\\s*")[1];
-                if (StateHolder.getState().hasDeckName(deckName) == -1) {
-                    StateHolder.getState().addDeck(deckName);
-                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
-                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
-                            .getState().getDecks().size());
-                    try {
-                        StorageManager.writeDeck(StateHolder.getState().getDeck(deckName));
-                    } catch (DeckNotFoundException e) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
-                                + " again when you shut me down.");
-                    }
+                i -> {
+                    String deckName = i.split("(?i)deck/\\s*")[1];
+                    if (StateHolder.getState().hasDeckName(deckName) == -1) {
+                        StateHolder.getState().addDeck(deckName);
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
+                                .getState().getDecks().size());
+                        try {
+                            StorageManager.writeDeck(StateHolder.getState().getDeck(deckName));
+                        } catch (DeckNotFoundException e) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
+                                    + " again when you shut me down.");
+                        }
 
-                } else {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "That name is in use.");
-                }
-                return true;
-            } //done
+                    } else {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "That name is in use.");
+                    }
+                    return true;
+                } //done
     ),
     CREATE_DECK_ERROR(
             "^((?i)create).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
-            i -> {
-                LogsCenter.getLogger(Responses.class).info("COMMAND: CREATE_DECK_ERROR");
-                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
-                return true;
-            } //done
+                i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: CREATE_DECK_ERROR");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
+                    return true;
+                } //done
     ),
     // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
     // Only used for MCQ and FrontBack cards
@@ -145,52 +145,52 @@ public enum Responses {
     ADD_CARD(
             RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
-            i -> {
-                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
-                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
-                        i);
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                            i);
 
-                //@@author huiminlim
-                LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
 
-                // Checks if "deck/", "front/"  and "back/" are supplied.
-                boolean hasOnlyOneDeck = res.get(0).size() == 1;
-                boolean hasOnlyOnePriority = res.get(1).size() == 1;
-                boolean hasOnlyOneFront = res.get(2).size() == 1;
-                boolean hasOnlyOneBack = res.get(3).size() == 1;
+                    // Checks if "deck/", "front/"  and "back/" are supplied.
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                    boolean hasOnlyOneFront = res.get(2).size() == 1;
+                    boolean hasOnlyOneBack = res.get(3).size() == 1;
 
-                //boolean isFrontBack = res.get(4).size() == 0;
-                //boolean isMCQ = res.get(4).size() > 1;
-                boolean isInvalidCard = res.get(4).size() == 1;
+                    //boolean isFrontBack = res.get(4).size() == 0;
+                    //boolean isMCQ = res.get(4).size() > 1;
+                    boolean isInvalidCard = res.get(4).size() == 1;
 
-                // Perform command validation
+                    // Perform command validation
 
-                if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
-                        || !hasOnlyOneBack || isInvalidCard) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
-                    return true;
+                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
+                            || !hasOnlyOneBack || isInvalidCard) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
+                        return true;
+                    }
+                    //@author
+
+                    try {
+                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                    } catch (DuplicateInChoicesException dicExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                        return true;
+                    } catch (NumberFormatException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
+                        return true;
+                    }
                 }
-                //@author
-
-                try {
-                    return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
-                } catch (DuplicateInChoicesException dicExc) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
-                    return true;
-                } catch (NumberFormatException n) {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
-                    return true;
-                }
-            }
     ),
     ADD_CARD_ERROR(
             "^((?i)(add)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
-            i -> {
-                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
-                        + "format of the Add command, type 'help command/add'");
-                return true;
-            }
+                i -> {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                            + "format of the Add command, type 'help command/add'");
+                    return true;
+                }
     ),
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
