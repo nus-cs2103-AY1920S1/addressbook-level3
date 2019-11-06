@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -170,5 +171,7 @@ public interface Model {
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 
     boolean hasPerformanceOn(AthletickDate date);
+
+    ArrayList<Event> getAthleteEvents(Person athlete);
 
 }

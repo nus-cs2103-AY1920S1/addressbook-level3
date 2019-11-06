@@ -311,4 +311,9 @@ public class ModelManager implements Model {
     public boolean hasPerformanceOn(AthletickDate date) {
         return performance.hasPerformanceOn(date);
     }
+
+    @Override
+    public ArrayList<Event> getAthleteEvents(Person athlete) {
+        return performance.getAthleteEvent(athlete);
+    }
 }

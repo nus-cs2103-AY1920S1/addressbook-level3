@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -7,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,11 +22,11 @@ public class InformationDisplay extends UiPart<Region> {
     private static final String FXML = "InformationDisplay.fxml";
 
     public final Person person;
+    public final String attendance;
+    public final ArrayList<Event> athleteEvents;
 
     @FXML
     private FlowPane tags;
-    @FXML
-    private GridPane informationBlock;
     @FXML
     private ImageView photo;
     @FXML
@@ -41,35 +42,20 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private Label attendanceRate;
     @FXML
-    private Label performance;
-    @FXML
-    private Label title;
-    @FXML
-    private Label secondaryTitle;
-    @FXML
     private VBox imageHolder;
     @FXML
     private VBox informationBox;
+    @FXML
+    private VBox performanceDisplay;
 
-    public InformationDisplay(Person selectedPerson, String attendance) {
+    public InformationDisplay(Person person, String attendance, ArrayList<Event> athleteEvents) {
         super(FXML);
-        this.person = selectedPerson;
-        name.setText(this.person.getName().fullName);
-        phone.setText(this.person.getPhone().value);
-        address.setText(this.person.getAddress().value);
-        address.setPrefWidth(150);
-        address.setWrapText(true);
-        gender.setText(this.person.getGender().genderOfPerson);
-        email.setText(this.person.getEmail().value);
-        photo.setImage(new Image(this.person.getPhoto().filePath));
-        photo.setPreserveRatio(true);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add((new TagLayout(tag.tagName)).getRoot()));
-        //setText of attendance and performance. Should attendance and performance be tag to a person?
-        attendanceRate.setText(attendance);
-        performance.setText("superb");
-        resizeImage();
+        this.person = person;
+        this.attendance = attendance;
+        this.athleteEvents = athleteEvents;
+        displayPersonalInfo();
+        performanceDisplay();
+
     }
 
     /**
@@ -79,4 +65,54 @@ public class InformationDisplay extends UiPart<Region> {
         photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(40));
         photo.fitWidthProperty().bind(imageHolder.widthProperty());
     }
+
+    /**
+     * Displays the personal information of the selected person
+     */
+    public void displayPersonalInfo() {
+        name.setText(this.person.getName().fullName);
+        phone.setText(this.person.getPhone().value);
+        address.setText(this.person.getAddress().value);
+        address.setPrefWidth(150);
+        address.setWrapText(true);
+        email.setText(this.person.getEmail().value);
+        gender.setText(this.person.getGender().genderOfPerson);
+        photo.setImage(new Image(this.person.getPhoto().filePath));
+        photo.setPreserveRatio(true);
+        photo.setSmooth(true);
+        person.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add((new TagLayout(tag.tagName)).getRoot()));
+        attendanceRate.setText(attendance);
+        resizeImage();
+    }
+
+    /**
+     * Displays the performance of the selected person.
+     */
+    public void performanceDisplay() {
+        if (!athleteEvents.isEmpty()) {
+            for (Event event : athleteEvents) {
+                String eventName = event.getName();
+                String mostRecentDate = event.getLatestTiming(person)[0];
+                String mostRecentTiming = event.getLatestTiming(person)[1];
+                String personalBest = event.getPersonalBest(person)[0];
+                String personalBestDate = event.getPersonalBest(person)[1];
+                PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay(eventName, personalBestDate,
+                                                                                           personalBest,
+                                                                                           mostRecentDate,
+                                                                                           mostRecentTiming);
+                performanceDisplay.getChildren().add(athletePerformance.getRoot());
+
+            }
+        } else {
+            PersonPerformanceDisplay athletePerformance = new PersonPerformanceDisplay("-", "-",
+                                                                                       "-", "-",
+                                                                                       "-");
+            performanceDisplay.getChildren().add(athletePerformance.getRoot());
+        }
+    }
+
+
+
 }

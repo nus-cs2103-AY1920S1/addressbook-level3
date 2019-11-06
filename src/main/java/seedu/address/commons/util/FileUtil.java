@@ -6,6 +6,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 /**
  * Writes and reads files
  */
@@ -79,5 +80,4 @@ public class FileUtil {
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
     }
-
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -8,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,6 +43,8 @@ public interface Logic {
     Person getPerson();
 
     String getPersonAttendance();
+
+    ArrayList<Event> getAthleteEvents();
 
     /**
      * Returns the user prefs' GUI settings.
