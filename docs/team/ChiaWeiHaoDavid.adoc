@@ -31,8 +31,7 @@ developer guides in relation to these enhancements.
 
 Note the following formatting used in this document:
 
-[NOTE]
-This symbol indicates important information.
+NOTE: This symbol indicates important information.
 
 `archive` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
@@ -103,20 +102,18 @@ https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
 
 == Contributions to the User Guide
 
-|===
-| As the original addressbook application does not have features similar to the major enhancements I made, I had to add new content to the User Guide regarding these changes.
+As the original addressbook application does not have features similar to the major enhancements I made, I had to add new content to the User Guide regarding these changes.
 
 Given below is an excerpt from the _**Billboard User Guide**_ showcasing instructions on how to use the new `archive` feature I added.
 This excerpt reflects my ability to write documentation meant for students, the targeted user group of the application, in a clear and concise manner so that they will be able to easily
 understand what each `archive` operation does and how to use them.
-|===
+
 
 include::../UserGuide.adoc[tag=archive]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
 
 include::../DeveloperGuide.adoc[tag=archive]
