@@ -11,19 +11,20 @@ box Incident MODEL_COLOR_T1
 participant "draft:Incident" as Incident MODEL_COLOR
 end box
 
-box FindVehiclesCommand LOGIC_COLOR_T1
-participant "f:FindVehiclesCommand" as FindVehiclesCommand LOGIC_COLOR
+box VehicleAssignmentCommand LOGIC_COLOR_T1
+participant "f:VehicleAssignmentCommand" as VehicleAssignmentCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":Session" as Session MODEL_COLOR
+participant "filteredVehicles:FilteredList<Vehicle>" as FilteredList MODEL_COLOR
 end box
-[-> LogicManager : execute("new l/1 auto/y")
+[-> LogicManager : execute("new dist/1 auto/y")
 activate LogicManager
 
 '# parsing'
-LogicManager -> IncidentManagerParser : parseCommand("new l/1 auto/y")
+LogicManager -> IncidentManagerParser : parseCommand("new dist/1 auto/y")
 activate IncidentManagerParser
 
 create NewCommand
@@ -61,19 +62,53 @@ Incident --> NewCommand : draft
 deactivate Incident
 
 '# dispatch vehicle'
-create FindVehiclesCommand
-NewCommand -> FindVehiclesCommand : dispatchVehicle(draft, true, model)
-activate FindVehiclesCommand
+create VehicleAssignmentCommand
+NewCommand -> VehicleAssignmentCommand : dispatchVehicle()
+activate VehicleAssignmentCommand
 
-FindVehiclesCommand --> NewCommand : f
-deactivate FindVehiclesCommand
+VehicleAssignmentCommand --> NewCommand : f
+deactivate VehicleAssignmentCommand
 
-NewCommand -> FindVehiclesCommand : execute()
-activate FindVehiclesCommand
+NewCommand -> VehicleAssignmentCommand : execute()
+activate VehicleAssignmentCommand
 
-FindVehiclesCommand -> FindVehiclesCommand : autoAssignVehicle
-FindVehiclesCommand --> NewCommand : dispatchedVehicle
-deactivate FindVehiclesCommand
+'# filtering'
+VehicleAssignmentCommand -> Model : updatedFilteredIncidentList(PREDICATE_DISTRICT)
+activate Model
+
+Model -> FilteredList : setPredicate(PREDICATE_DISTRICT)
+activate FilteredList
+
+FilteredList --> Model :
+deactivate FilteredList
+
+Model --> VehicleAssignmentCommand
+deactivate Model
+
+'# fetching filtered v'
+VehicleAssignmentCommand -> Model : getFilteredIncidentList()
+activate Model
+
+Model -> FilteredList : getFilteredIncidentList()
+activate FilteredList
+
+FilteredList --> Model : nearbyVehicles
+deactivate FilteredList
+
+Model --> VehicleAssignmentCommand : nearbyVehicles
+deactivate Model
+
+'# dispatching'
+VehicleAssignmentCommand -> VehicleAssignmentCommand : autoAssign(nearbyVehicles)
+
+VehicleAssignmentCommand --> Incident : draft.addVehicle(nearbyVehicles.get(0))
+activate Incident
+
+Incident --> VehicleAssignmentCommand
+deactivate Incident
+
+VehicleAssignmentCommand --> NewCommand
+deactivate VehicleAssignmentCommand
 
 NewCommand --> LogicManager : result
 deactivate NewCommand
