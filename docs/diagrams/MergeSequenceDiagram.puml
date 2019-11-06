@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T2
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":MergePersonCommandParser" as MergePersonCommandParser LOGIC_COLOR
