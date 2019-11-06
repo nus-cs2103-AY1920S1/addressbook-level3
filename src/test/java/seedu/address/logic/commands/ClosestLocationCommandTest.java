@@ -35,7 +35,17 @@ class ClosestLocationCommandTest {
     }
 
     @Test
-    void testEquals() {
+    void executeSadFlow() throws CommandException {
+        ArrayList<String> locationNameList = new ArrayList<>();
+        ClosestLocationCommand closestLocationCommand = new ClosestLocationCommand(locationNameList);
+        String expectedResult = "Closest location found: Cannot get result because You must enter at least one "
+                + "location.\n"
+                + " location you entered: ";
+        assertEquals(closestLocationCommand.execute(model).getFeedbackToUser(), expectedResult);
+    }
+
+    @Test
+    void testEqualsSameInstance() {
         ClosestLocationCommand closestLocationCommand = new ClosestLocationCommand(locationNameList);
         assertEquals(closestLocationCommand, closestLocationCommand);
     }

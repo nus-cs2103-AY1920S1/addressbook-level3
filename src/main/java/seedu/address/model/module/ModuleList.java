@@ -32,7 +32,7 @@ public class ModuleList {
                 return module;
             }
         }
-        throw new ModuleNotFoundException();
+        throw new ModuleNotFoundException(id.getModuleCode().toString());
     }
 
     public ArrayList<Module> getModules() {

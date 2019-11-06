@@ -46,7 +46,7 @@ public class ClosestLocation {
                         .toStringCommaSpaced(data.getInvalidLocation()) + "\n";
             }
         } else {
-            result = "Internal error for " + locationNameList;
+            result = "Cannot get result because " + data.getErrorResponse();
         }
 
         return result;

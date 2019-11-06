@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
@@ -54,14 +53,13 @@ class ProcessVenuesTest {
         assertTrue(newProcessVenues.getValidLocationList().contains(lt17));
     }
 
-    @Disabled
     @Test
     void imageSanityCheck() {
         processVenues.process();
         ArrayList<Location> validLocationList = processVenues.getValidLocationList();
         for (int i = 0; i < validLocationList.size(); i++) {
             String currValidLocation = validLocationList.get(i).getValidLocation();
-            String path = Cache.loadImagePath(currValidLocation);
+            String path = Cache.writeImagePath(currValidLocation);
             assertTrue(FileUtil.isFileExists(Path.of(path)));
         }
     }

@@ -114,7 +114,7 @@ public class NusModsData {
         } catch (ModuleNotFoundException ex1) {
             Optional<Module> moduleOptional = Cache.loadModule(moduleId);
             if (moduleOptional.isEmpty()) {
-                throw new ModuleNotFoundException();
+                throw new ModuleNotFoundException(moduleId.getModuleCode().toString());
             }
             module = moduleOptional.get();
         }

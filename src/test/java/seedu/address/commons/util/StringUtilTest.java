@@ -225,8 +225,13 @@ public class StringUtilTest {
     }
 
     @Test
-    void removeNusPrefix() {
+    void removeNusPrefixContainPrefix() {
         assertEquals("LT17", StringUtil.removeNusPrefix("NUS_LT17"));
+    }
+
+    @Test
+    void removeNusPrefixNoPrefix() {
+        assertEquals("LT17", StringUtil.removeNusPrefix("LT17"));
     }
 
 }

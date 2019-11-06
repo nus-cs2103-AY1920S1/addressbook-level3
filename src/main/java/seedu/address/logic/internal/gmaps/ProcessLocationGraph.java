@@ -31,9 +31,6 @@ public class ProcessLocationGraph {
 
     private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end) {
         if (distanceMatrix.size() != end - start + 1) {
-            System.out.println("size: " + distanceMatrix.size());
-            System.out.println("start: " + start);
-            System.out.println("end: " + end);
             throw new InvalidParameterException("distanceMatrix size must equal to start - end + 1");
         } else {
             for (int i = 0; i < distanceMatrix.size(); i++) {

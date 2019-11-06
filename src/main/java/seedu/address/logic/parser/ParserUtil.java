@@ -25,14 +25,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.Role;
-import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.LessonType;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
-import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.LessonTypeNotFoundException;
-import seedu.address.model.module.exceptions.SemesterNoNotFoundException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -154,6 +151,9 @@ public class ParserUtil {
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
         return new ModuleCode(trimmedModuleCode);
     }
 
@@ -186,38 +186,6 @@ public class ParserUtil {
         }
 
         return lessonTypeNoMap;
-    }
-
-    /**
-     * Parses a String semesterNo, and trims the String.
-     *
-     * @param acadYear String to be trimmed
-     * @return Trimmed String
-     * @throws ParseException null
-     */
-    public static AcadYear parseAcadYear(String acadYear) throws ParseException {
-        requireNonNull(acadYear);
-        String trimmedAcadYear = acadYear.trim();
-        return new AcadYear(trimmedAcadYear);
-    }
-
-    /**
-     * Parses a String semesterNo, and trims the String.
-     *
-     * @param semesterNo String to be trimmed
-     * @return Trimmed String
-     * @throws ParseException null
-     */
-    public static SemesterNo parseSemesterNo(String semesterNo) throws ParseException {
-        requireNonNull(semesterNo);
-        String trimmedSemesterNo = semesterNo.trim();
-
-        try {
-            SemesterNo semNo = SemesterNo.findSemesterNo(trimmedSemesterNo);
-            return semNo;
-        } catch (SemesterNoNotFoundException e) {
-            throw new ParseException("Semester number not found!");
-        }
     }
 
     /**
@@ -294,6 +262,11 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
+
+        if (tag.equals("")) {
+            return null;
+        }
+
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
@@ -307,7 +280,10 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            Tag currentTag = parseTag(tagName);
+            if (currentTag != null) {
+                tagSet.add(currentTag);
+            }
         }
         return tagSet;
     }

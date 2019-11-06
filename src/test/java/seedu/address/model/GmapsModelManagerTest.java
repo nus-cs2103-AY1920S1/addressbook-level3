@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +10,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.gmaps.Location;
 
 class GmapsModelManagerTest {
     private GmapsModelManager gmapsModelManager;
@@ -46,5 +50,19 @@ class GmapsModelManagerTest {
     @Test
     void validLocationSuggesterSadFlow() {
         assertEquals(gmapsModelManager.validLocationSuggester("foobarfoobar"), new ArrayList<String>());
+    }
+
+    @Test
+    void populateCoordinates() {
+        gmapsModelManager.populateCoordinates();
+        ArrayList<Location> locationArrayList = gmapsModelManager.getValidLocationList();
+        for (int i = 0; i < locationArrayList.size(); i++) {
+            assertFalse(locationArrayList.get(i).getLatLng().equals(","));
+        }
+    }
+
+    @Test
+    void generateImageFailureNoKey() {
+        assertThrows(TimeBookInvalidState.class, ()->gmapsModelManager.generateImage());
     }
 }

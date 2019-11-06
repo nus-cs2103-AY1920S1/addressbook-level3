@@ -1,6 +1,8 @@
 package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +30,29 @@ class LocationArrayListUtilsTest {
     }
 
     @Test
+    void getIndexNullElement() {
+        locationArrayList.add(null);
+        locationArrayList.add(new Location("BarFoo"));
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFoo"), 4);
+    }
+
+    @Test
     void getIndexExceptionFlow() {
         assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFooBarFoo"), -1);
+    }
+
+    @Test
+    void containLocationNameHappyFlow() {
+        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo"),
+                new Location("Bar")));
+        assertTrue(LocationArrayListUtils.containLocationName(list, "Foo"));
+        assertTrue(LocationArrayListUtils.containLocationName(list, "Bar"));
+    }
+
+    @Test
+    void containLocationNameSadFlow() {
+        ArrayList<Location> list = new ArrayList<>(Arrays.asList(new Location("Foo"),
+                new Location("Bar")));
+        assertFalse(LocationArrayListUtils.containLocationName(list, "FooBar"));
     }
 }

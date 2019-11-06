@@ -1,8 +1,11 @@
 package seedu.address.websocket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -66,11 +69,17 @@ class CacheTest {
     }
 
     @Test
-    void loadPlaces() {
+    void loadPlacesHappyFlow() {
         JSONObject placeResponse1 = Cache.loadPlaces("NUS_LT17");
         assertEquals("OK", GmapsJsonUtils.getStatus(placeResponse1));
         JSONObject placeResponse2 = Cache.loadPlaces("FOOB");
         assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(placeResponse2));
+    }
+
+    @Test
+    void loadPlacesSadFlow_callApiNoKey() {
+        JSONObject response = Cache.loadPlaces("HAI DI LAO");
+        assertEquals(new JSONObject(), response);
     }
 
     @Test
@@ -89,8 +98,29 @@ class CacheTest {
     }
 
     @Test
+    public void loadImagePathSadFlow() {
+        String actualPath = Cache.loadImagePath("NUS_foo");
+        BufferedImage image = Cache.loadImage(actualPath);
+        assertNull(image);
+    }
+
+    @Test
+    public void loadImagePathHappyFlow() {
+        String actualPath = Cache.loadImagePath("NUS_LT17");
+        BufferedImage image = Cache.loadImage(actualPath);
+        assertNull(image);
+    }
+
+    @Test
     public void writeImagePath() {
         String actualPath = Cache.writeImagePath("NUS_foo");
         assertEquals("src/main/resources//ApiResponseCache/GoogleMapsApi/GmapsImages/NUS_foo.png", actualPath);
+    }
+
+    @Test
+    public void saveToJsonNullEntry() {
+        assertThrows(NullPointerException.class, () -> Cache.saveToJson("test", "test", null));
+        assertThrows(NullPointerException.class, () -> Cache.saveToJson("test", null, "test"));
+        assertThrows(NullPointerException.class, () -> Cache.saveToJson(null, "test", "test"));
     }
 }
