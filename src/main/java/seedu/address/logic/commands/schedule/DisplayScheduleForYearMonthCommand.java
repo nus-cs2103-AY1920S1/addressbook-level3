@@ -13,7 +13,7 @@ import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
  * Keyword matching is case insensitive and in the following format MM/yyyy.
  */
 public class DisplayScheduleForYearMonthCommand extends Command {
-    public static final String COMMAND_WORD = "display_schedule";
+    public static final String COMMAND_WORD = "display_schedule_month";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific month, year. \n"
             + "Example: " + COMMAND_WORD + " for/12/2019";
