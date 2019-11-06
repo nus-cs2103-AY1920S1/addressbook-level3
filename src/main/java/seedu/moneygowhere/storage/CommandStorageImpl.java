@@ -7,11 +7,10 @@ import java.util.ArrayList;
  */
 public class CommandStorageImpl implements CommandStorage {
     private ArrayList<String> commands;
-    private int currIndex = 1;
+    private int currIndex = 0;
 
     public CommandStorageImpl() {
         commands = new ArrayList<String>();
-        commands.add("");
     }
 
     /**
@@ -29,11 +28,11 @@ public class CommandStorageImpl implements CommandStorage {
      * @return the previous command with respect to the current index.
      */
     public String getPrevCommand() {
-        if (currIndex <= 0) {
-            currIndex = 0;
-            return commands.get(0);
+        if (--currIndex < 0) {
+            currIndex = -1;
+            return "";
         } else {
-            return commands.get(--currIndex);
+            return commands.get(currIndex);
         }
     }
 
@@ -43,11 +42,11 @@ public class CommandStorageImpl implements CommandStorage {
      * @return the next command with respect tot eh current index.
      */
     public String getNextCommand() {
-        if (currIndex >= commands.size() - 1) {
+        if (++currIndex > commands.size() - 1) {
             currIndex = commands.size();
             return "";
         } else {
-            return commands.get(++currIndex);
+            return commands.get(currIndex);
         }
     }
 }
