@@ -191,7 +191,6 @@ public class UpdateCommand extends UndoableCommand {
                         && !doesNotifExist(model)) {
                     Notif notif = new Notif((Body) entity);
                     Platform.runLater(() -> model.addNotif(notif));
-                    System.out.println("Added ehre");
                 }
 
             }

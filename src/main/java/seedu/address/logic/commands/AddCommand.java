@@ -63,7 +63,6 @@ public class AddCommand extends UndoableCommand {
             //@@author ambervoong
             if (getCommandState().equals(UndoableCommandState.REDOABLE)) {
                 toAdd.getIdNum().addMapping(toAdd); // Add mapping again since this is not a new Body.
-//                notifCommand.addNotif(model);
             } else {
                 if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                     notifCommand.addNotif(model); // adds ONLY notif when status of the added body is contact police

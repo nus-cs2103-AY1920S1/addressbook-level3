@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://AY1920S1-CS2103T-T13-2.github.io/docs/Team.html[AY1920S1-CS2103T-T13-2] team. +
+Mortago was developed by the https://AY1920S1-CS2103T-T13-2.github.io/docs/Team.html[AY1920S1-CS2103T-T13-2] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -24,7 +24,7 @@ image::arjavibahety.png[width="150", align="left"]
 {empty}[http://github.com/arjavibahety[github]] [<<arjavibahety#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Alerts
+Responsibilities: Notification
 
 '''
 
