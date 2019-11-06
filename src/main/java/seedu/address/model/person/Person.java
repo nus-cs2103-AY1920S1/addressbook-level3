@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 
-//@@author madanalogy
 /**
  * Represents an account in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -123,6 +122,7 @@ public class Person {
         return password;
     }
 
+    //@@author madanalogy
     /**
      * Checks whether a person is a regular user or an admin.
      * @param person represents the person to be checked
