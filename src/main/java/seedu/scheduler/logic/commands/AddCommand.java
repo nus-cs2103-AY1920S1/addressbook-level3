@@ -65,8 +65,8 @@ public abstract class AddCommand extends Command {
             + PREFIX_SLOT + DefaultValues.DEFAULT_SLOT + " "
             + PREFIX_TAG + "friends";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the scheduler book";
+    public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This entity already exists in the scheduler book";
 
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;

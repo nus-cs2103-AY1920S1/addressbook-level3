@@ -135,6 +135,7 @@ public class ModelManager implements Model {
     @Override
     public void addInterviewee(Interviewee interviewee) {
         intervieweeList.addEntity(interviewee);
+        updateFilteredIntervieweeList(PREDICATE_SHOW_ALL_INTERVIEWEES);
     }
 
     @Override
@@ -171,6 +172,7 @@ public class ModelManager implements Model {
     public void addInterviewer(Interviewer interviewer) {
         interviewerList.addEntity(interviewer);
         this.updateScheduleList();
+        updateFilteredInterviewerList(PREDICATE_SHOW_ALL_INTERVIEWERS);
     }
 
     /**
