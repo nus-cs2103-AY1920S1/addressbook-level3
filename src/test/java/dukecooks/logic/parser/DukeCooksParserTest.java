@@ -23,10 +23,13 @@ import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.ViewCommand;
+import dukecooks.logic.commands.diary.AddDiaryCommand;
 import dukecooks.logic.commands.diary.FindDiaryCommand;
 import dukecooks.logic.commands.diary.ListDiaryCommand;
+import dukecooks.logic.commands.exercise.AddExerciseCommand;
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
+import dukecooks.logic.commands.health.ListHealthCommand;
 import dukecooks.logic.commands.mealplan.AddMealPlanCommand;
 import dukecooks.logic.commands.mealplan.ClearMealPlanCommand;
 import dukecooks.logic.commands.mealplan.DeleteMealPlanCommand;
@@ -44,12 +47,18 @@ import dukecooks.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanNameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
+import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.testutil.diary.DiaryBuilder;
+import dukecooks.testutil.diary.DiaryUtil;
+import dukecooks.testutil.exercise.ExerciseBuilder;
+import dukecooks.testutil.exercise.ExerciseUtil;
 import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
 import dukecooks.testutil.mealplan.MealPlanUtil;
@@ -216,6 +225,14 @@ public class DukeCooksParserTest {
                 + " 3") instanceof ClearExerciseCommand);
     }
 
+    @Test
+    public void parseCommand_addExercise() throws Exception {
+        Exercise exercise = new ExerciseBuilder().build();
+        AddExerciseCommand command = (AddExerciseCommand) parser.parseCommand(ExerciseUtil
+                .getAddExerciseCommand(exercise));
+        assertEquals(new AddExerciseCommand(exercise), command);
+    }
+
     /**  ------------------------------------  DIARY ---------------------------------------- */
 
     @Test
@@ -233,6 +250,21 @@ public class DukeCooksParserTest {
                 FindDiaryCommand.COMMAND_WORD + " " + FindDiaryCommand.VARIANT_WORD
                         + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindDiaryCommand(new DiaryNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_addDiary() throws Exception {
+        Diary recipe = new DiaryBuilder().build();
+        AddDiaryCommand command = (AddDiaryCommand) parser.parseCommand(DiaryUtil.getAddCommand(recipe));
+        assertEquals(new AddDiaryCommand(recipe), command);
+    }
+
+    /**  ------------------------------------  HEALTH ---------------------------------------- */
+
+    @Test
+    public void parseCommand_listHealth() throws Exception {
+        assertTrue(parser.parseCommand(ListHealthCommand.COMMAND_WORD
+                + " " + ListHealthCommand.VARIANT_WORD) instanceof ListHealthCommand);
     }
 
     /**  ------------------------------------  COMMON ---------------------------------------- */

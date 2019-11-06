@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.model.Model;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
@@ -137,7 +136,7 @@ public class MealPlan {
      * Searches through all {@code Recipe} in {@code MealPlan} for instances of {@code recipeToDelete},
      * removes it, and returns an updated copy of MealPlan
      */
-    public MealPlan[] removeRecipe(Recipe recipeToDelete, Model model) {
+    public MealPlan[] removeRecipe(Recipe recipeToDelete) {
         List<RecipeName> day1 = new ArrayList<>(getDay1());
         List<RecipeName> day2 = new ArrayList<>(getDay2());
         List<RecipeName> day3 = new ArrayList<>(getDay3());

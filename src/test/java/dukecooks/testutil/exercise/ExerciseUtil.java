@@ -20,7 +20,8 @@ public class ExerciseUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddExerciseCommand(Exercise exercise) {
-        return AddExerciseCommand.COMMAND_WORD + " " + getExerciseDetails(exercise);
+        return AddExerciseCommand.COMMAND_WORD + " " + AddExerciseCommand.VARIANT_WORD + " "
+                + getExerciseDetails(exercise);
     }
 
     /**
