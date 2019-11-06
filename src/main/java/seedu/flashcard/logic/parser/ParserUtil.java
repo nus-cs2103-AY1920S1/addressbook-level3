@@ -98,7 +98,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code definition} is invalid.
      */
     public static Answer parseAnswer(String answer) throws ParseException {
-        requireNonNull(answer);
         String trimmedAnswer = answer.trim();
         if (!Answer.isValidAnswer(trimmedAnswer)) {
             throw new ParseException(Answer.MESSAGE_CONSTRAINTS);

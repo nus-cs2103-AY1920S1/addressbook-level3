@@ -11,10 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" accessibleRole="LIST_VIEW" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="600.0">
-        <columnConstraints>
-            <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
-        </columnConstraints>
+    <GridPane maxHeight="-Infinity" maxWidth="-Infinity">
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
@@ -26,7 +23,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="question" minWidth="500.0" styleClass="cell_big_label" text="\$first" wrapText="true" />
+                <Label fx:id="question" styleClass="cell_big_label" text="\$first" wrapText="true" />
             </HBox>
             <FlowPane fx:id="tags" />
             <Label fx:id="definition" styleClass="cell_small_label" text="\$phone" />
@@ -34,5 +31,8 @@
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
+      <columnConstraints>
+         <ColumnConstraints />
+      </columnConstraints>
     </GridPane>
 </HBox>

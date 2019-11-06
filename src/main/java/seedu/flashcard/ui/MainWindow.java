@@ -1,18 +1,15 @@
 package seedu.flashcard.ui;
 
-import java.util.Stack;
+import java.util.Timer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.address.ui.StatusBarFooter;
@@ -55,13 +52,18 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane viewFlashcardListPanelPlaceholder;
+    private StackPane flashcardDisplayPlaceholder;
 
     @FXML
     private StackPane statisticsDisplayPlaceholder;
 
     @FXML
+    private StackPane timerDisplayPlaceHolder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    private TimerDisplay timerDisplay;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -127,10 +129,11 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         flashcardDisplay = new FlashcardDisplay();
-        statisticsDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
+        flashcardDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
 
         seedu.address.ui.StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFlashcardListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -190,6 +193,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    private void handleTimer(){
+        if(timerDisplay == null) {
+            timerDisplay = new TimerDisplay(this::executeCommand);
+            timerDisplayPlaceHolder.getChildren().add(timerDisplay.getRoot());
+        }else{
+            timerDisplay.initializeTimer();
+        }
+    }
+
     public FlashcardListPanel getPersonListPanel() {
         return flashcardListPanel;
     }
@@ -219,6 +231,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isFlip()) {
                 flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
+                handleTimer();
             }
 
             return commandResult;

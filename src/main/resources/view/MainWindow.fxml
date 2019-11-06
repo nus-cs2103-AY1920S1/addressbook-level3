@@ -38,10 +38,15 @@
                               <children>
                                  <StackPane fx:id="commandBoxPlaceholder" />
                                  <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" />
-                                 <StackPane fx:id="statisticsDisplayPlaceholder" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="flashcardDisplayPlaceholder" VBox.vgrow="ALWAYS" />
                               </children>
                            </VBox>
-                           <StackPane fx:id="flashcardListPanelPlaceholder" HBox.hgrow="ALWAYS" />
+                           <VBox HBox.hgrow="ALWAYS">
+                              <children>
+                                 <StackPane fx:id="flashcardListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="timerDisplayPlaceHolder" />
+                              </children>
+                           </VBox>
                         </children>
                      </HBox>
                      <StackPane fx:id="statusbarPlaceholder" />

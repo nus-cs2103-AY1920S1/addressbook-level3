@@ -3,6 +3,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="placeHolder" maxHeight="Infinity" maxWidth="Infinity" prefWidth="300" styleClass="pane-with-border" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="flashcardDisplay" editable="false" maxHeight="Infinity" maxWidth="Infinity" prefWidth="300" styleClass="flashcard-display" stylesheets="@DarkTheme.css" wrapText="true" />
+<StackPane fx:id="placeHolder" maxHeight="Infinity" maxWidth="Infinity" prefWidth="300" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <TextArea fx:id="flashcardDisplay" editable="false" maxHeight="Infinity" maxWidth="Infinity" prefWidth="300" styleClass="background" wrapText="true" />
 </StackPane>
