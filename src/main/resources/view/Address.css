@@ -17,6 +17,11 @@
   -fx-text-fill: white;
 }
 
+/* Header Styling */
+#border {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
+
 /* List View Styling */
 .list-view {
   -fx-background-insets: 0;
