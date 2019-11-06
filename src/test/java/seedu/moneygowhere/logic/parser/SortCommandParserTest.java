@@ -17,6 +17,7 @@ import seedu.moneygowhere.logic.sorting.SortAttribute;
 import seedu.moneygowhere.logic.sorting.SortField;
 import seedu.moneygowhere.logic.sorting.SortOrder;
 
+//@@author Nanosync
 public class SortCommandParserTest {
 
     private SortCommandParser parser = new SortCommandParser();
@@ -90,6 +91,15 @@ public class SortCommandParserTest {
         SortCommand expectedSortCommand = new SortCommand(fields);
         assertParseSuccess(parser, " " + PREFIX_DATE + "ASC" + " "
                 + PREFIX_COST + "DESC", expectedSortCommand);
+    }
+
+    @Test
+    public void parse_duplicateArgs_failure() {
+        assertParseFailure(parser, " " + PREFIX_DATE + "DESC" + " " + PREFIX_DATE + "ASC",
+                SortCommand.MESSAGE_SORT_DUPLICATE_FIELD);
+
+        assertParseFailure(parser, " " + PREFIX_DATE + "ASC" + " " + PREFIX_DATE + "ASC",
+                SortCommand.MESSAGE_SORT_DUPLICATE_FIELD);
     }
 
     @Test

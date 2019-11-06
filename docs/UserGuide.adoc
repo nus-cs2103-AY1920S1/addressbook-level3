@@ -315,7 +315,7 @@ Existing budget of current month is overwritten if budget has already been set.
 *Example:*
 
 * `budget 500000` +
-Sets a budget of `$500,000` for this month
+Sets a budget of $`500000` for this month
 
 *Expected Output:*
 
@@ -335,7 +335,7 @@ Sets the currency used to display spending entries. +
 *Format:* `currency [CURRENCYCODE]`
 
 ****
-* If CURRENCYCODE is not specified, the current currency used is displayed.
+* If CURRENCYCODE is not specified, the currency in use is displayed.
 * CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 ****
 
