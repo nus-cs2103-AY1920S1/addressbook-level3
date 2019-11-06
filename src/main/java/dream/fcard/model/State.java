@@ -2,7 +2,6 @@ package dream.fcard.model;
 
 import java.util.ArrayList;
 
-import dream.fcard.logic.stats.UserStats;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
@@ -66,7 +65,6 @@ public class State {
         this.currentDeck = deck;
     }
 
-
     /**
      * Removes the deck from the decks list, if there is a deck with a matching name.
      * Else, throw exception when no deck with matching name is found.
@@ -92,7 +90,6 @@ public class State {
         }
         return decks.get(indexOfDeck);
     }
-
 
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.

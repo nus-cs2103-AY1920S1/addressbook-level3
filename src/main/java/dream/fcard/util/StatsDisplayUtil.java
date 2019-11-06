@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 
@@ -18,7 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class StatsDisplayUtil {
 
     /** Creates the TableView object from the given list of sessions. */
-    public static TableView<Session> getSessionsTableView(SessionList sessionList) {
+    public static TableView<Session> getSessionsTableView() {
+        SessionList sessionList = UserStatsHolder.getUserStats().getSessionList();
         ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
         TableView<Session> sessionsTableView = new TableView<>();
 

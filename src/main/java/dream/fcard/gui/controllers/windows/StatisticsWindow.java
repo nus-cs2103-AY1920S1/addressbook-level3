@@ -30,7 +30,7 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private TableView<Deck> deckTableView;
 
-    private UserStats userStats = UserStatsHolder.getUserStats();
+    private UserStats userStats;
 
     /** Creates a new instance of StatisticsWindow. */
     public StatisticsWindow() {
@@ -45,11 +45,12 @@ public class StatisticsWindow extends ScrollPane {
             e.printStackTrace();
         }
 
+        this.userStats = UserStatsHolder.getUserStats();
         //ArrayList<Deck> decks = StateHolder.getState().getDecks(); TODO
 
         displaySummaryStats();
-        this.sessionsTableView = StatsDisplayUtil.getSessionsTableView(userStats.getSessionList());
-        this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
+        this.sessionsTableView = StatsDisplayUtil.getSessionsTableView();
+        //this.deckTableView = StatsDisplayUtil.getDeckTableView(StateHolder.getState());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */

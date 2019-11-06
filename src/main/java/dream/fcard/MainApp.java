@@ -31,6 +31,7 @@ public class MainApp extends Application {
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
             stage.show();
 
+            StorageManager.loadUserStats();
             // start a session. if UserStats has not been retrieved, it will do so at this point.
             UserStatsHolder.getUserStats().startCurrentSession();
 
