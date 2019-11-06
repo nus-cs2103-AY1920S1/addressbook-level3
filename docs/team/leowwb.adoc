@@ -20,7 +20,7 @@ It has roughly 17 KLoC, up from the original addressbook application's 10 KLoC.
 
 Here is a screenshot of our project:
 
-image::Ui.png[KeyboardFlashCards]
+image::annotatedUi.png[KeyboardFlashCards]
 _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 Please note the following symbols and formatting, which will appear throughout the rest of the document:
