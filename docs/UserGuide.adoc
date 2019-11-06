@@ -284,6 +284,11 @@ Returns any templates whose names contain `stonks`, `doge`, or `pikachu`
 Deletes the template at the specified index. +
 Format: `delete INDEX`
 
+==== Clearing all templates: `clear`
+
+Clears all templates. +
+Format: `clear`
+
 ==== Archiving a template: `archive`
 
 Archives the template at the specified index. +
@@ -520,6 +525,7 @@ e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
 ** *Add Template* : `add n/NAME p/PATH`
 ** *Edit Template* : `edit INDEX n/NAME`
 ** *Delete Template* : `delete INDEX`
+** *Clear Templates* : `clear`
 ** *Find Template* : `find KEYWORD [MORE_KEYWORDS]`
 ** *Archive Template* : `archive INDEX`
 ** *Unarchive Template* : `unarchive INDEX`

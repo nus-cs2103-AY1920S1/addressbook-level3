@@ -252,6 +252,11 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void clearTemplates() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addTemplate(Template template) {
             throw new AssertionError("This method should not be called.");
         }

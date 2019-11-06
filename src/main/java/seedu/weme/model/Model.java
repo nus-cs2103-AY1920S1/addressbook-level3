@@ -105,7 +105,7 @@ public interface Model {
     ReadOnlyWeme getWeme();
 
     /**
-     * Replaces meme data with the data in {@code memes}.
+     * Deletes all memes from Weme.
      */
     void clearMemes();
 
@@ -195,6 +195,11 @@ public interface Model {
      * The template must exist in Weme.
      */
     void deleteTemplate(Template template);
+
+    /**
+     * Deletes all templates from Weme.
+     */
+    void clearTemplates();
 
     /**
      * Adds the given template.

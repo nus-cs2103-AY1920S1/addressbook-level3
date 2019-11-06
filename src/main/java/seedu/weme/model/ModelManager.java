@@ -250,6 +250,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearTemplates() {
+        versionedWeme.setTemplates(new ArrayList<>());
+    }
+
+    @Override
     public void addTemplate(Template template) {
         versionedWeme.addTemplate(template);
         updateFilteredTemplateList(PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
