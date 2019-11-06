@@ -4,43 +4,75 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.model.person.Interviewer;
 
+
+
 /**
- * Panel containing the list of interviewers.
+ * Panel containing the list of interviewer.
  */
 public class InterviewerListPanel extends UiPart<Region> {
     private static final String FXML = "InterviewerListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(InterviewerListPanel.class);
 
-    @FXML
-    private ListView<Interviewer> interviewerListView;
+    private ObservableList<Interviewer> interviewerList;
 
-    public InterviewerListPanel(ObservableList<Interviewer> interviewers) {
+    @FXML
+    private TableView<Interviewer> interviewerTableView;
+
+    InterviewerListPanel(ObservableList<Interviewer> interviewerList) {
         super(FXML);
-        interviewerListView.setItems(interviewers);
-        interviewerListView.setCellFactory(listView -> new InterviewerListViewCell());
+        this.interviewerList = interviewerList;
+        initialise();
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Interviewer} using a {@code InterviewerCard}.
+     * Set the columns and the data from each column
      */
-    class InterviewerListViewCell extends ListCell<Interviewer> {
-        @Override
-        protected void updateItem(Interviewer interviewer, boolean empty) {
-            super.updateItem(interviewer, empty);
+    private void initialise() {
+        setTableColumn();
+        this.interviewerTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.interviewerTableView.setItems(this.interviewerList);
+    }
 
-            if (empty || interviewer == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new InterviewerCard(interviewer, getIndex() + 1).getRoot());
-            }
-        }
+    /**
+     * Set the table columns.
+     */
+    private void setTableColumn() {
+        createNewTableColumn("Full Name");
+        createNewTableColumn("NUS Email");
+        createNewTableColumn("Personal Email");
+        createNewTableColumn("Mobile");
+        createNewTableColumn("Faculty/School");
+        createNewTableColumn("Acad Year");
+        createNewTableColumn("Choice of Department");
+        createNewTableColumn("Time Slots");
+    }
+
+    /**
+     * Create a new TableColumn object.
+     * @param titles The titles for each columns.
+     */
+    private void createNewTableColumn(String titles) {
+        TableColumn columnTitle = new TableColumn(titles);
+        columnTitle.setReorderable(false);
+        columnTitle.setMinWidth(80);
+
+        interviewerTableView.getColumns().add(columnTitle);
+    }
+
+    protected void listUpdated(ObservableList<Interviewer> newInterviewerList) {
+        clearData();
+        this.interviewerTableView.setItems(newInterviewerList);
+    }
+
+    protected void clearData() {
+        this.interviewerTableView.getItems().removeAll();
     }
 }
+

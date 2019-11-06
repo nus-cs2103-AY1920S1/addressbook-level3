@@ -11,12 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Scheduler App" minWidth="760" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
-
   <scene>
     <Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
       <stylesheets>
@@ -50,11 +51,37 @@
                 <Insets bottom="5" left="10" right="10" top="5" />
               </padding>
             </StackPane>
-            <StackPane fx:id="schedulePanelPlaceholder" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-              <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-              </padding>
-            </StackPane>
+            <TabPane fx:id="tabPane" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <stylesheets>
+                <URL value="@TabView.css" />
+              </stylesheets>
+            <tabs>
+                <Tab fx:id="scheduleTab" text="Schedules">
+                  <StackPane fx:id="schedulePanelPlaceholder" xmlns="http://javafx.com/javafx/8"
+                             xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                  </StackPane>
+                </Tab>
+                <Tab fx:id="intervieweeTab" text="Interviewee">
+                  <StackPane fx:id="intervieweeListPlaceholder" xmlns="http://javafx.com/javafx/8"
+                           xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                  </StackPane>
+                </Tab>
+                <Tab fx:id="interviewerTab" text="Interviewer">
+                  <StackPane fx:id="interviewerListPlaceholder" xmlns="http://javafx.com/javafx/8"
+                         xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                  </StackPane>
+                </Tab>
+              </tabs>
+            </TabPane>
             <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="SOMETIMES" />
           </children>
         </VBox>

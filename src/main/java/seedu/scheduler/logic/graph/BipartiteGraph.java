@@ -9,11 +9,11 @@ import seedu.scheduler.commons.util.Pair;
  * for the underlying list to store some additional information.
  */
 public class BipartiteGraph {
-    private List<Pair<IntervieweeVertex, List<InterviewSlotVertex>>> graph;
+    private List<Pair<IntervieweeVertex, List<InterviewerSlotVertex>>> graph;
     private int numInterviewees;
     private int numInterviewSlots;
 
-    public BipartiteGraph(List<Pair<IntervieweeVertex, List<InterviewSlotVertex>>> graph,
+    public BipartiteGraph(List<Pair<IntervieweeVertex, List<InterviewerSlotVertex>>> graph,
             int numInterviewees, int numInterviewSlots) {
         this.graph = graph;
         this.numInterviewees = numInterviewees;
@@ -32,14 +32,14 @@ public class BipartiteGraph {
      * Returns the pair of intervieweeVertex and list of associated interview slots vertices based on the
      * given @code{index} of the intervieweeVertex.
      */
-    public Pair<IntervieweeVertex, List<InterviewSlotVertex>> getIntervieweePair(int index) {
+    public Pair<IntervieweeVertex, List<InterviewerSlotVertex>> getIntervieweePair(int index) {
         return graph.get(index);
     }
 
     /**
      * Returns the list of interview slots associated with the interviewee vertex of @code{index}.
      */
-    public List<InterviewSlotVertex> getInterviewSlotVertices(int index) {
+    public List<InterviewerSlotVertex> getInterviewSlotVertices(int index) {
         return graph.get(index).getTail();
     }
 

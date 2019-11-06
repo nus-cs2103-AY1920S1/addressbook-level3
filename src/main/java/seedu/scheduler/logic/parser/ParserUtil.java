@@ -12,6 +12,7 @@ import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.util.StringUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
+import seedu.scheduler.model.FilePath;
 import seedu.scheduler.model.person.Department;
 import seedu.scheduler.model.person.Email;
 import seedu.scheduler.model.person.Faculty;
@@ -39,6 +40,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code filePath} into an {@code FilePath} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified filePath is invalid.
+     */
+    public static FilePath parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+        if (!FilePath.isValidFilePath(trimmedFilePath)) {
+            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        }
+        return new FilePath(trimmedFilePath);
     }
 
     /**

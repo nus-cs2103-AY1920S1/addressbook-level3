@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import java.net.URL?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="interviewerListView" VBox.vgrow="ALWAYS" />
+    <TableView fx:id="interviewerTableView" VBox.vgrow="ALWAYS">
+        <stylesheets>
+            <URL value="@TableView.css" />
+        </stylesheets>
+    </TableView>
 </VBox>
 

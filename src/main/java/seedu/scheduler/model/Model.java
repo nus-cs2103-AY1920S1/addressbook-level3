@@ -11,10 +11,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.scheduler.commons.core.GuiSettings;
-import seedu.scheduler.model.person.InterviewSlot;
+import seedu.scheduler.commons.exceptions.ScheduleException;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
+import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
 
@@ -199,19 +200,10 @@ public interface Model {
     // ============================================ Schedule ===================================================
 
     /**
-     * Generates a list of schedules from the current list of interviewers.
+     * Generates a list of empty schedules from the current list of interviewers.
      * @throws ParseException
      */
     void setEmptyScheduleList() throws ParseException;
-    /**
-     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
-     * and returns true. Otherwise, the method will not addEntity the interviewer and return false.
-     */
-    void addInterviewerToSchedule(Interviewer interviewer);
-    /**
-     * Returns the date of the schedule in which the interviewer exists in, otherwise return empty string.
-     */
-    String scheduleHasInterviewer(Interviewer interviewer);
 
     /**
      * Replaces schedule data with the data in {@code schedule}.
@@ -220,12 +212,11 @@ public interface Model {
 
     /**
      * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
+     * @return
      */
-    Optional<InterviewSlot> getInterviewSlot(String intervieweeName);
+    Optional<Slot> getAllocatedSlot(String intervieweeName);
 
-    /**
-     * Returns a list of observable list of the schedules.
-     */
+    /** Returns a list of observable list of the schedules **/
     List<ObservableList<ObservableList<String>>> getObservableLists();
 
     /** Returns the schedulesList **/
@@ -234,6 +225,10 @@ public interface Model {
     /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
     List<List<String>> getTitlesLists();
 
+    /**
+     * Updates the schedules after schedule command is executed by placing the interviewees into their allocated slot.
+     **/
+    void updateSchedulesAfterScheduling() throws ScheduleException;
     // ============================================ User Prefs ===================================================
 
     /**
@@ -252,9 +247,9 @@ public interface Model {
     GuiSettings getGuiSettings();
 
     /**
-     * Clears the allocated slot of all interviewees.
+     * Resets the relevant data before running a schedule command.
      */
-    void clearAllAllocatedSlot();
+    void resetDataBeforeScheduling();
 
     /**
      * Sets the user prefs' GUI settings.

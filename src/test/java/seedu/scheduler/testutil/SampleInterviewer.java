@@ -1,5 +1,6 @@
 package seedu.scheduler.testutil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -21,6 +22,8 @@ import seedu.scheduler.model.tag.Tag;
  * A class which gives sample interviewers.
  */
 public class SampleInterviewer {
+    private static String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+
     public static Interviewer getInterviewerOneValidAvailability() {
         String[] availabilities = new String[]{"10/09/2019 18:00-18:30"};
         return getAlicePauline(availabilities);
@@ -79,7 +82,7 @@ public class SampleInterviewer {
         return bernard;
     }
 
-    private static Interviewer getInterviewer(String nameString, String departmentString) {
+    public static Interviewer getInterviewer(String nameString, String departmentString) {
         Person alice = TypicalPersons.ALICE;
         Department department = new Department(departmentString);
         Name name = new Name(nameString);
@@ -104,11 +107,11 @@ public class SampleInterviewer {
         slots1.add(slots.get(1));
 
         List<Slot> slots2 = new LinkedList<>();
-        slots1.add(slots.get(2));
-        slots1.add(slots.get(3));
+        slots2.add(slots.get(2));
+        slots2.add(slots.get(3));
 
         List<Slot> slots3 = new LinkedList<>();
-        slots1.add(slots.get(4));
+        slots3.add(slots.get(4));
 
         Interviewer interviewer1 = new Interviewer.InterviewerBuilder(new Name("Chris"), new Phone("12345678"),
                 new HashSet<>()).department(new Department("Technical")).availabilities(slots1).build();
@@ -119,5 +122,30 @@ public class SampleInterviewer {
 
         Interviewer[] interviewersArr = new Interviewer[]{interviewer1, interviewer2, interviewer3};
         return Arrays.asList(interviewersArr);
+    }
+
+    /**
+     * Helper method to get expected list of interviewers for testing.
+     * @return expected list of interviewers
+     */
+    public static List<Interviewer> getSampleListOfInterviewers() {
+        ArrayList<Interviewer> expectedInterviewers = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Name interviewerName = new Name("Person " + alphabets[i]);
+            Department interviewerDepartment = new Department("Department " + alphabets[i]);
+            Interviewer.InterviewerBuilder interviewerBuilder =
+                    new Interviewer.InterviewerBuilder(interviewerName,
+                            DefaultValues.DEFAULT_PHONE, DefaultValues.DEFAULT_TAGS);
+            interviewerBuilder.department(interviewerDepartment);
+            if (i == 0) {
+                ArrayList<Slot> slots = new ArrayList<>();
+                slots.add(Slot.fromString("10/10/2019 18:00-18:30"));
+                interviewerBuilder.availabilities(slots);
+            } else {
+                interviewerBuilder.availabilities(new ArrayList<>());
+            }
+            expectedInterviewers.add(interviewerBuilder.build());
+        }
+        return expectedInterviewers;
     }
 }

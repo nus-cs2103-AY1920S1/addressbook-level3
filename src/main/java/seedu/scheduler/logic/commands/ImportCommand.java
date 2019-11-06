@@ -10,9 +10,12 @@ import java.util.logging.Logger;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
+import seedu.scheduler.model.FilePath;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
+import seedu.scheduler.model.person.Role;
+import seedu.scheduler.model.person.RoleType;
 import seedu.scheduler.model.person.exceptions.DuplicatePersonException;
 import seedu.scheduler.model.util.CsvReader;
 
@@ -25,34 +28,32 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Import .csv file containing "
             + "interviewer or interviewee's information.\n"
             + "Example: " + COMMAND_WORD + " interviewer " + "<csvFilePath>";
-
     public static final String SUCCESS_MESSAGE = "Data imported successfully.";
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Command not implemented yet";
-    private static final String INCORRECT_FORMAT = "Data is in incorrect format. Please refer to the "
+    public static final String INCORRECT_FORMAT = "Data is in incorrect format. Please refer to the "
             + "User Guide for the supported format";
-    private static final String FILE_DOES_NOT_EXIST = "Target file does not exist. Please ensure that "
+    public static final String FILE_DOES_NOT_EXIST = "Target file does not exist. Please ensure that "
             + "the file path is correct.";
-    private static final String DUPLICATE_PERSON_ERROR = "Data contains entries that are duplicated/already exists "
+    public static final String DUPLICATE_PERSON_ERROR = "Data contains entries that are duplicated/already exists "
             + "in storage. Please type 'clear'(without the quote) to remove those entries before running the import "
             + "command.";
-    private static final String DATE_FORMAT_ERROR_MESSAGE = "Error in data formatting: ";
+    public static final String DATE_FORMAT_ERROR_MESSAGE = "Error in data formatting: ";
     private static final Logger logger = LogsCenter.getLogger(ImportCommand.class);
 
-    private String filePath;
-    private String type;
+    private FilePath filePath;
+    private Role type;
 
-    public ImportCommand(String args) {
-        String[] strings = args.split(" ");
-        this.type = strings[0];
-        this.filePath = strings[1];
+    public ImportCommand(Role type, FilePath filePath) {
+        this.type = type;
+        this.filePath = filePath;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
         try {
-            if (this.type.equals("interviewer")) {
-                CsvReader csvReader = new CsvReader(filePath);
+            if (type.getRole().equals(RoleType.INTERVIEWER)) {
+                CsvReader csvReader = new CsvReader(filePath.getValue());
                 logger.log(Level.INFO, "Starts reading .csv file");
                 ArrayList<Interviewer> interviewers = csvReader.readInterviewers();
                 logger.log(Level.INFO, "Finished reading .csv file");
@@ -61,8 +62,8 @@ public class ImportCommand extends Command {
                     model.addInterviewer(interviewer);
                 }
                 return new CommandResult(SUCCESS_MESSAGE, false, false);
-            } else if (this.type.equals("interviewee")) {
-                CsvReader csvReader = new CsvReader(filePath);
+            } else if (type.getRole().equals(RoleType.INTERVIEWEE)) {
+                CsvReader csvReader = new CsvReader(filePath.getValue());
                 logger.log(Level.INFO, "Starts reading .csv file");
                 ArrayList<Interviewee> interviewees = csvReader.readInterviewees();
                 logger.log(Level.INFO, "Finished reading .csv file");

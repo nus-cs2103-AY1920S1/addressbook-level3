@@ -27,11 +27,6 @@
     -fx-font-size: 15px;
 }
 
-//Style of each column in the tableView
-.table-view .table-column {
-    -fx-alignment:left;
-}
-
  //Style of each table cell
 .table-view .table-cell {
     -fx-font-weight:bold;

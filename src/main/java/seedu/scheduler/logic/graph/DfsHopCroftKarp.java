@@ -13,8 +13,8 @@ import java.util.stream.IntStream;
  */
 public class DfsHopCroftKarp {
     private BipartiteGraph graph;
-    private List<InterviewSlotVertex> lastLayer;
-    private List<InterviewSlotVertex> intervieweePredecessor;
+    private List<InterviewerSlotVertex> lastLayer;
+    private List<InterviewerSlotVertex> intervieweePredecessor;
     private List<List<IntervieweeVertex>> interviewSlotPredecessors;
     private boolean[] isUsedInterviewee;
     private boolean[] isUsedSlot;
@@ -29,9 +29,9 @@ public class DfsHopCroftKarp {
      *
      * @param lastLayer last layer of the layered graph.
      */
-    public void execute(List<InterviewSlotVertex> lastLayer, List<InterviewSlotVertex> intervieweePredecessors,
-            List<List<IntervieweeVertex>> interviewSlotPredecessors,
-            boolean[] isUsedInterviewee, boolean[] isUsedSlot) {
+    public void execute(List<InterviewerSlotVertex> lastLayer, List<InterviewerSlotVertex> intervieweePredecessors,
+                        List<List<IntervieweeVertex>> interviewSlotPredecessors,
+                        boolean[] isUsedInterviewee, boolean[] isUsedSlot) {
         this.lastLayer = lastLayer;
         this.intervieweePredecessor = intervieweePredecessors;
         this.interviewSlotPredecessors = interviewSlotPredecessors;
@@ -60,7 +60,7 @@ public class DfsHopCroftKarp {
         }
 
         if (u instanceof IntervieweeVertex) {
-            InterviewSlotVertex predecessor = intervieweePredecessor.get(u.getIndex());
+            InterviewerSlotVertex predecessor = intervieweePredecessor.get(u.getIndex());
             if (isUsedSlot[predecessor.getIndex()]) {
                 return;
             }
@@ -90,7 +90,7 @@ public class DfsHopCroftKarp {
      */
     private boolean hasPredecessor(Vertex u) {
         if (u instanceof IntervieweeVertex) {
-            InterviewSlotVertex predecessor = intervieweePredecessor.get(u.getIndex());
+            InterviewerSlotVertex predecessor = intervieweePredecessor.get(u.getIndex());
             return predecessor != null;
         } else {
             List<IntervieweeVertex> predecessors = interviewSlotPredecessors.get(u.getIndex());

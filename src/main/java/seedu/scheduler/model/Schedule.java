@@ -2,11 +2,14 @@ package seedu.scheduler.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.scheduler.commons.exceptions.ScheduleException;
+import seedu.scheduler.model.person.Interviewee;
+import seedu.scheduler.model.person.IntervieweeSlot;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Slot;
 
@@ -16,6 +19,7 @@ import seedu.scheduler.model.person.Slot;
  * Subsequent rows are time slots, with the first cell of each row as the timing of all the time slots in the row.
  */
 public class Schedule {
+    private static String columnTitleFormat = "%s - %s";
     private String date;
     private ObservableList<String> titles;
     private ObservableList<ObservableList<String>> data; // EXCLUDE the first row which is the column titles
@@ -27,17 +31,13 @@ public class Schedule {
         if (table.isEmpty()) {
             this.titles = FXCollections.observableList(new LinkedList<>());
         } else {
-            this.titles = table.remove(0);
+            this.titles = table.remove(0); // separate the first row out which is the column titles.
         }
 
         this.data = table;
     }
 
     private Schedule() {
-    }
-
-    public String getDate() {
-        return date;
     }
 
     public ObservableList<String> getTitles() {
@@ -77,6 +77,96 @@ public class Schedule {
     }
 
     /**
+     * Clears all the interviewees in the schedule.
+     */
+    public void clearAllocatedInterviewees() {
+        for (ObservableList<String> row : data) {
+            if (row.size() < 2) {
+                break;
+            }
+
+            int size = row.size();
+            ListIterator<String> iterator = row.listIterator();
+            iterator.next();
+            for (int i = 1; i < size; i++) {
+                String value = iterator.next();
+                if (!value.equals("0") && !value.equals("1")) {
+                    iterator.set("1");
+                }
+            }
+        }
+    }
+
+    /**
+     * Adds all the interviewees that the interviewer will be interviewing into the schedule. An interviewee will only
+     * be added if the date and timing that it will be interviewed falls in this schedule, as well as the interviewer.
+     * The slot that the interviewee to be added into must be available too, i.e. must be "1" and not "0", else a
+     * ScheduleException will be thrown.
+     */
+    public void addAllocatedInterviewees(Interviewer interviewer, List<IntervieweeSlot> slots)
+            throws ScheduleException {
+        for (IntervieweeSlot intervieweeSlot : slots) {
+            addAllocatedInterviewee(interviewer, intervieweeSlot.getInterviewee(), intervieweeSlot.getSlot());
+        }
+    }
+
+    /**
+     * Adds the given interviewee into the schedule, refer the description of @code{allAllocatedInterviewees} for more
+     * details.
+     */
+    private void addAllocatedInterviewee(Interviewer interviewer, Interviewee interviewee, Slot slot)
+            throws ScheduleException {
+        if (!slot.date.equals(this.date)) {
+            return;
+        }
+
+        // Locate interviewer and slot
+        int columnIndex = locateInterviewer(interviewer);
+        int rowIndex = locateSlot(slot);
+
+        // If interviewer or slot is not present in the schedule
+        if (columnIndex == -1 || rowIndex == -1) {
+            return;
+        }
+
+        ObservableList<String> row = data.get(rowIndex);
+        if (!row.get(columnIndex).equals("1")) {
+            throw new ScheduleException("Slot where an interviewer is to be added is not labelled as 1,"
+                    + " i.e. not available!");
+        }
+        row.set(columnIndex, interviewee.getName().toString());
+    }
+
+    /**
+     * Returns the index of the column at which the interviewer is located if the interviewer is present in
+     * the schedule, otherwise returns -1.
+     */
+    private int locateInterviewer(Interviewer interviewer) {
+        String columnTitle = generateColumnTitle(interviewer);
+        return titles.indexOf(columnTitle);
+    }
+
+    /**
+     * Returns the index of the row where the slot is located based on its timing if the slot is present in the schedule
+     * , otherwise returns -1.
+     */
+    private int locateSlot(Slot slot) {
+        int rowIndex = -1;
+        int size = data.size();
+
+        // Search through the date of all the rows
+        for (int i = 0; i < size; i++) {
+            String currTime = data.get(i).get(0);
+            if (currTime.equals(slot.getTiming())) {
+                rowIndex = i;
+                break;
+            }
+        }
+
+        return rowIndex;
+    }
+
+    /**
      * Returns true if an interviewer exists in the Schedule.
      */
     public boolean hasInterviewer(Interviewer interviewer) {
@@ -97,83 +187,8 @@ public class Schedule {
      * Returns the corresponding column title of the given interviewer.
      */
     public String generateColumnTitle(Interviewer interviewer) {
-        return String.format("%s - %s", interviewer.getDepartment().toString(),
+        return String.format(columnTitleFormat, interviewer.getDepartment().toString(),
             interviewer.getName().toString());
-    }
-
-    /**
-     * Adds the interviewer and his availabilities into this table.
-     * The interviewer will not be added if none of the his availabilities fall in the table.
-     */
-    public boolean addInterviewer(Interviewer interviewer) {
-        String columnTitle = generateColumnTitle(interviewer);
-        List<String> availabilities = interviewer.getAvailabilities()
-                    .stream()
-                    .map(Slot::toString)
-                    .collect(Collectors.toList());
-
-        boolean added = false;
-        int currRowIndex = 0;
-        for (String availability : availabilities) {
-            if (currRowIndex > data.size()) {
-                break;
-            }
-
-            List<String> dateAndTime = getDateAndTime(availability);
-            String date = dateAndTime.get(0);
-            String time = dateAndTime.get(1);
-
-            if (!this.date.equals(date)) {
-                continue;
-            }
-
-            // Iterate through the table rows
-            int i;
-            int tableSize = data.size();
-            for (i = currRowIndex; i < tableSize; i++) {
-                ObservableList<String> currRow = data.get(i);
-                String currRowTime = currRow.get(0);
-
-                if (!currRowTime.equals(time)) {
-                    continue;
-                } else {
-                    currRow.add("1");
-                    added = true;
-                    break;
-                }
-            }
-            currRowIndex = i;
-        }
-
-        if (added) {
-            int initialRowSize = titles.size();
-            titles.add(columnTitle);
-
-            // Add 0 to other rows to ensure that the table rows size are correct
-            for (int i = 0; i < data.size(); i++) {
-                ObservableList<String> currRow = data.get(i);
-                if (currRow.size() == initialRowSize) {
-                    currRow.add("0");
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // DD/MM/YYYY HH:MM - HH:MM (No trailing whitespace!)
-    // e.g. 9/10/2019 18:00 - 18:30
-    private List<String> getDateAndTime(String dateTimeString) {
-        String date = dateTimeString.split(" ")[0];
-        int firstWhiteSpaceIndex = dateTimeString.indexOf(" ");
-        String time = dateTimeString.substring(firstWhiteSpaceIndex + 1).trim();
-
-        List<String> dateAndTime = new LinkedList<>();
-        dateAndTime.add(date);
-        dateAndTime.add(time);
-
-        return dateAndTime;
     }
 
     @Override
