@@ -2,6 +2,7 @@ package seedu.planner.logic.commands.autocomplete;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
@@ -24,11 +25,19 @@ public class CommandInformation {
                 optionalPrefixWithDescriptionSingleTime,
                 optionalPrefixWithDescriptionMultipleTime);
         this.command = command;
-        this.preamble = preamble;
-        this.requiredPrefixWithDescriptionSingleTime = requiredPrefixWithDescriptionSingleTime;
-        this.requiredPrefixWithDescriptionMultipleTime = requiredPrefixWithDescriptionMultipleTime;
-        this.optionalPrefixWithDescriptionSingleTime = optionalPrefixWithDescriptionSingleTime;
-        this.optionalPrefixWithDescriptionMultipleTime = optionalPrefixWithDescriptionMultipleTime;
+        if (preamble == null) {
+            this.preamble = null;
+        } else {
+            this.preamble = " " + preamble;
+        }
+        this.requiredPrefixWithDescriptionSingleTime =
+                addSpaceAtStartOfEveryElement(requiredPrefixWithDescriptionSingleTime);
+        this.requiredPrefixWithDescriptionMultipleTime =
+                addSpaceAtStartOfEveryElement(requiredPrefixWithDescriptionMultipleTime);
+        this.optionalPrefixWithDescriptionSingleTime =
+                addSpaceAtStartOfEveryElement(optionalPrefixWithDescriptionSingleTime);
+        this.optionalPrefixWithDescriptionMultipleTime =
+                addSpaceAtStartOfEveryElement(optionalPrefixWithDescriptionMultipleTime);
     }
 
     public CommandInformation(String command,
@@ -96,5 +105,15 @@ public class CommandInformation {
 
     public boolean thereIsOptionalPrefixWithDescriptionMultipleTime() {
         return optionalPrefixWithDescriptionMultipleTime.size() > 0;
+    }
+
+    private List<String> addSpaceAtStartOfEveryElement(List<String> ls) {
+        List<String> copiedList = new ArrayList<>(ls);
+        ListIterator<String> iterator = copiedList.listIterator();
+        while (iterator.hasNext()) {
+            String curr = iterator.next();
+            iterator.set(" " + curr);
+        }
+        return copiedList;
     }
 }

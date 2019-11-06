@@ -3,7 +3,9 @@ package seedu.planner.logic.commands.autocomplete;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -48,8 +50,7 @@ public class AutoCompleteTextField extends TextField {
                 if (input.length() == 0) {
                     entriesPopup.hide();
                 } else {
-                    LinkedList<String> searchResult = new LinkedList<>();
-                    searchResult.addAll(entries.subSet(input, input + Character.MAX_VALUE));
+                    LinkedList<String> searchResult = new LinkedList<>(entries);
                     if (entries.size() > 0) {
                         populatePopup(searchResult);
                         if (!entriesPopup.isShowing()) {
@@ -77,6 +78,10 @@ public class AutoCompleteTextField extends TextField {
      * @return The existing autocomplete entries.
      */
     public SortedSet<String> getEntries(String input) {
+        if (input.contains("<") || input.contains(">")) {
+            return new TreeSet<>();
+        }
+
         String command;
         boolean preambleIsPresent;
         List<Prefix> listOfPrefixPresent;
@@ -84,12 +89,17 @@ public class AutoCompleteTextField extends TextField {
             command = autoCompleteParser.parseCommandWord(input);
         } catch (CommandWordNotFoundException e) {
             return new TreeSet<>(
-                    autoCompleteSuggester.getPossibilities(null, false, new ArrayList<>())
+                    autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>())
             );
         }
+
+        if (input.charAt(input.length() - 1) != ' ') {
+            return new TreeSet<>();
+        }
+
         try {
             String preamble = autoCompleteParser.parsePreamble(input, command);
-            if (preamble == "") {
+            if (preamble.equals("")) {
                 preambleIsPresent = false;
             } else {
                 preambleIsPresent = true;
@@ -102,15 +112,6 @@ public class AutoCompleteTextField extends TextField {
             autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
         );
     }
-
-//    /**
-//     * Get the existing set of autocomplete entries.
-//     *
-//     * @return The existing autocomplete entries.
-//     */
-//    public SortedSet<String> getEntries() {
-//        return entries;
-//    }
 
     /**
      * Populate the entry set with the given search results.  Display is limited to 5 entries, for performance.

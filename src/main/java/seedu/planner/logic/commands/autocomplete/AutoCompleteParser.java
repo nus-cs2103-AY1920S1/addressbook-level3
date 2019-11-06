@@ -61,11 +61,13 @@ public class AutoCompleteParser {
         throw new CommandWordNotFoundException();
     }
 
-    public String parsePreamble(String input, String commandWord) throws PreambleNotFoundException {
-        try {
-            return getWord(input, commandWord.length() + 1);
-        } catch (WordNotFoundException e) {
+    public String parsePreamble(String input, String commandWord) {
+        String afterCommand = input.substring(commandWord.length() + 1);
+        String[] splitAfterCommand = afterCommand.split(" ");
+        if (splitAfterCommand[0].contains("/")) {
             throw new PreambleNotFoundException();
+        } else {
+            return splitAfterCommand[0];
         }
     }
 
@@ -80,7 +82,7 @@ public class AutoCompleteParser {
     }
 
     private boolean containsPrefix(String input, Prefix p) {
-        return Pattern.matches("\\b" + p.toString(), input);
+        return Pattern.compile("\\b" + p.toString()).matcher(input).find();
     }
 
     private String getWord(String input, int from) throws WordNotFoundException {

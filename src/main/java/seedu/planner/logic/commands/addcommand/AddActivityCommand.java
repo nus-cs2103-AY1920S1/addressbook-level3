@@ -50,11 +50,10 @@ public class AddActivityCommand extends AddCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "<INDEX>",
+            Arrays.asList(PREFIX_NAME.toString(), PREFIX_ADDRESS.toString(), PREFIX_DURATION.toString()),
             new ArrayList<>(),
-            Arrays.asList(PREFIX_NAME + "<NAME>", PREFIX_ADDRESS + "<ADDRESS>", PREFIX_DURATION + "<DURATION>"),
-            Arrays.asList(PREFIX_PHONE + "<PHONE>", PREFIX_COST + "<COST>", PREFIX_PRIORITY + "<PRIORITY>"),
-            Arrays.asList(PREFIX_TAG + "<TAG>")
+            Arrays.asList(PREFIX_PHONE.toString(), PREFIX_COST.toString(), PREFIX_PRIORITY.toString()),
+            Arrays.asList(PREFIX_TAG.toString())
     );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";

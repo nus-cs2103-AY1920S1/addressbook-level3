@@ -7,6 +7,11 @@ import seedu.planner.logic.commands.autocomplete.exceptions.CommandNotFoundExcep
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
+
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 public class AutoCompleteSuggester {
     private CommandInformation[] allCommandInformation = new CommandInformation[] {
@@ -15,28 +20,29 @@ public class AutoCompleteSuggester {
 
     private List<String> allCommandWords;
 
-    public List<String> getPossibilities(String command, boolean preamblePresent, List<Prefix> prefixesPresent) {
-        if (command == null) {
-            return getAllCommandWord();
-        } else {
-            List<String> possibilities = new ArrayList<>();
-            CommandInformation commandInformation;
-            try {
-                commandInformation = findMatchingCommandInformation(command);
-            } catch (CommandNotFoundException e) {
-                return new ArrayList<>();
-            }
+    public AutoCompleteSuggester() {
+        this.allCommandWords = getAllCommandWord();
+    }
 
-            if (!preamblePresent && commandInformation.thereIsPreamble()) {
-                possibilities.add(commandInformation.getPreamble().get());
-                return possibilities;
-            }
-            possibilities.addAll(getPossibleRequiredPrefixSingle(commandInformation, prefixesPresent));
-            possibilities.addAll(getPossibleRequiredPrefixMultiple(commandInformation));
-            possibilities.addAll(getPossibleOptionalPrefixSingle(commandInformation, prefixesPresent));
-            possibilities.addAll(getPossibleOptionalPrefixMultiple(commandInformation));
+    public List<String> getPossibilities(String command, boolean preamblePresent, List<Prefix> prefixesPresent) {
+        requireAllNonNull(command, preamblePresent, preamblePresent);
+        List<String> possibilities = new ArrayList<>();
+        CommandInformation commandInformation;
+        try {
+            commandInformation = findMatchingCommandInformation(command);
+        } catch (CommandNotFoundException e) {
+            return closestMatchingCommand(command);
+        }
+
+        if (!preamblePresent && commandInformation.thereIsPreamble()) {
+            possibilities.add(commandInformation.getPreamble().get());
             return possibilities;
         }
+        possibilities.addAll(getPossibleRequiredPrefixSingle(commandInformation, prefixesPresent));
+        possibilities.addAll(getPossibleRequiredPrefixMultiple(commandInformation));
+        possibilities.addAll(getPossibleOptionalPrefixSingle(commandInformation, prefixesPresent));
+        possibilities.addAll(getPossibleOptionalPrefixMultiple(commandInformation));
+        return possibilities;
     }
 
 
@@ -88,14 +94,7 @@ public class AutoCompleteSuggester {
     }
 
     private boolean checkIfPrefixMatchesString(String stringToTest, Prefix prefix) {
-        String stringPrefix = prefix.toString();
-        if (stringPrefix.length() >= stringToTest.length()) {
-            return false;
-        } else if (stringToTest.substring(0, stringPrefix.length()).equals(stringPrefix)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Pattern.compile("\\b" + prefix.toString()).matcher(stringToTest).find();
     }
 
     private CommandInformation findMatchingCommandInformation(String command) {
@@ -112,16 +111,17 @@ public class AutoCompleteSuggester {
         return matchingCommandInformation;
     }
 
+    private List<String> closestMatchingCommand(String command) {
+        SortedSet<String> matchingCommands = new TreeSet<>(allCommandWords)
+                .subSet(command, command + Character.MAX_VALUE);
+        return new ArrayList<>(matchingCommands);
+    }
+
     private List<String> getAllCommandWord() {
-        if (!(allCommandWords == null)) {
-            return allCommandWords;
-        } else {
-            List<String> possibilities = new ArrayList<>();
-            for (CommandInformation commandInformation : allCommandInformation) {
-                possibilities.add(commandInformation.getCommand());
-            }
-            allCommandWords = possibilities;
-            return allCommandWords;
+        List<String> commandWords = new ArrayList<>();
+        for (CommandInformation commandInformation : allCommandInformation) {
+            commandWords.add(commandInformation.getCommand());
         }
+        return commandWords;
     }
 }
