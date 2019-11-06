@@ -349,7 +349,7 @@ OR
 * it is an existing transaction and has been successfully edited.
 
 WARNING: All rules will be executed from the bottom of the list upwards.
-Typically, this is order in which the rules were added.
+Typically, this is the order in which the rules were added.
 Rules with conflicting actions will therefore be allowed.
 
 ==== Add a new rule: `rule add`

@@ -24,7 +24,7 @@ public class RuleSwapCommandParser implements CommandParser<RuleSwapCommand> {
      */
     @Override
     public RuleSwapCommand parse(String args) throws ParseException {
-        String[] indexPair = args.trim().split("\\s+", 2);
+        String[] indexPair = args.trim().split("\\s+");
         if (indexPair.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleSwapCommand.MESSAGE_USAGE));
         }

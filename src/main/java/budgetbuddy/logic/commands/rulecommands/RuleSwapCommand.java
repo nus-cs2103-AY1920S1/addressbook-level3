@@ -62,6 +62,8 @@ public class RuleSwapCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RuleSwapCommand);
+                || (other instanceof RuleSwapCommand)
+                && firstIndex.equals(((RuleSwapCommand) other).firstIndex)
+                && secondIndex.equals(((RuleSwapCommand) other).secondIndex);
     }
 }
