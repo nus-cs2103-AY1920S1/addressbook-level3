@@ -165,12 +165,12 @@ public class RuleEngine {
         requireAllNonNull(typeName, value);
         switch (typeName) {
         case TYPE_CATEGORY:
-            if (value.toString().isEmpty()) {
+            if (value.toString().isBlank()) {
                 throw new ParseException(MESSAGE_INVALID_VALUE);
             }
             return CommandParserUtil.parseCategory(value.toString());
         case TYPE_DESC:
-            if (value.toString().isEmpty()) {
+            if (value.toString().isBlank()) {
                 throw new ParseException(MESSAGE_INVALID_VALUE);
             }
             return CommandParserUtil.parseDescription(value.toString());
