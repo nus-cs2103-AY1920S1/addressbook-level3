@@ -20,7 +20,5 @@ src/test/data/sandbox/
 # MacOS custom attributes files created by Finder
 .DS_Store
 
-# ignore report pdf files
-Report (ALL BODIES).pdf
-Report B00000001.pdf
-Report Summary.pdf
+# Ignore all pdf files
+*.pdf

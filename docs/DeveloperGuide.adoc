@@ -511,47 +511,81 @@ a|* If the status of the `Body` is changed before the 10 second window.
 
 // tag::genpdf[]
 === Generate PDF Feature
+This feature allows manager to automatically generate different kinds of reports with three commands: `genReport`, `genReports` and `genReportSummary`.
+
 ==== Implementation
 
-The generate PDF feature is facilitated by `ReportGenerator`.
-It extends `Mortago` with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
+The generate PDF feature is facilitated by `[subheader]#ReportGenerator#` class.
+It extends Mortago with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
 Additionally, it implements the following operations:
 
-* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
-* `ReportGenerator#generateAll()` -- Creates reports in a PDF file for all bodies registered in Mortago.
-* `ReportGenerator#generateSummary()` -- Creates a tabular summary report in a PDF file for all bodies registered in Mortago.
+* `[subheader]#ReportGenerator#generate(body, sign)#` -- Creates report containing sign name of manager in a PDF file for the specific body.
+* `[subheader]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registered in Mortago.
+* `[subheader]#ReportGenerator#generateSummary(sign)#` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
 
-The following sequence diagram shows how the execute operation works:
+The following sequence diagram (Figure 4.4.1.a) shows how the generate operation works:
 
 image::GenReportSequenceDiagram.png[]
+Figure 4.4.1.a. Sequence diagram when `genReport 1 John Doe` is executed by manager.
 
-NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `[subheader]#GenReportCommandParser#` and `[subheader]#ReportGenerator#` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `genReport <BODY_ID> /name NAME` command calls `ReportGenerator#execute()`, which creates the document.
+The `genReport <BODY_ID> (sign)` command calls `[subheader]#ReportGenerator#generate(body, sign)#`, which creates the document.
 
-The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID> /name NAME` command:
+The following activity diagram (Figure 4.4.1.b) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
 
 image::GenReportActivityDiagram.png[]
+Figure 4.4.1.b. Activity diagram when `genReport 1 John Doe` is executed by manager.
+
+The following code snippet from `[subheader]#GenReportCommand.java#` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
+
+        if (bodyToGenReport == null) {
+            throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
+        boolean generated = reportGenerator.generate(bodyToGenReport, sign);
+        if (!generated) {
+            throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
+        }
+
+The following class diagram (Figure 4.4.1.c) models the relationships and dependencies among classes in this feature:
+
+image::ReportGeneratorClassDiagram.png[]
+Figure 4.4.1.c. Class diagram for generate PDF feature.
 
 ==== Design Considerations
 
 ===== Aspect: How generate report executes
 
-* **Alternative 1 (current choice):** Creates a PDF file.
+* **Alternative 1 (current choice):** Create a PDF file.
 ** Pros: Implementation is easy.
 ** Cons: Implementation must ensure that each individual body attribute is correct.
-* **Alternative 2:** Creates a Word Document file.
-** Pros: Implementation allows user to edit the contents of the report.
+* **Alternative 2:** Create a Word Document file.
+** Pros: Implementation allows manager to edit the contents of the report.
 ** Cons: Implementation defeats the purpose of being automated.
+
+Alternative 1 is the current choice because this will prevent manager from making accidental changes to the report when report is formatted in PDF.
+
+===== Aspect: What library to utilise for generating PDF in Java
+
+* **Alternative 1 (current choice):** Use iText to implement this feature.
+** Pros: Implementation is simple because using iText would allow an API-driven approach.
+** Cons: Implementation is unable to use the latest version (iText 7) because it is not compatible, only version 5.5.13 is compatible.
+* **Alternative 2:** Use Apache PDFBox to implement this feature.
+** Pros: Implementation is easy because PDFBox is widely used and help is more accessible.
+** Cons: Implementation is limited because PDFBox can only create simple PDFs based on text files, supports few of the features iText does.
+
+Alternative 1 is the current choice because this implementation does not require the enhancements provided by iText 7 but still requires more advanced library to create tables in a PDF document.
 
 ===== Aspect: How report is formatted
 
-* **Alternative 1 (current choice):** Uses tables to organise related details in the report.
-** Pros: Implementation allows report to be organised, increases readability for user.
+* **Alternative 1 (current choice):** Use tables to organise related details in the report.
+** Pros: Implementation allows report to be organised, increases readability for manager.
 ** Cons: Implementation is tedious.
-* **Alternative 2:** Lists all attributes in the report without any formatting.
+* **Alternative 2:** List all attributes in the report without any formatting.
 ** Pros: Implementation is easy.
-** Cons: Implementation decreases readability for user.
+** Cons: Implementation decreases readability for manager.
+
+Alternative 1 is the current choice because manager will be able to save time and reduce work-related stress when manager is able to view an organised report.
 // end::genpdf[]
 
 === Logging
@@ -816,8 +850,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1023,16 +1055,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 bodies without a noticeable sluggishness in performance for typical usage.
 .  A mortuary manager with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1094,21 +1122,31 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a Body
 
 . Deleting a body while all bodies are listed
-
+_
 .. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
 .. Test case: `delete -b 1` +
    Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete -b 0` +
    Expected: No body is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete -b`, `delete -b x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete -b`, `delete -b x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Generating a Report
+
+. Generating a report for a specific body while all bodies are listed
+
+.. Prerequisites: List all bodies using the `list -b` command. At least one body in the list. Ensure all existing PDF reports are closed.
+.. Test case: `genReport 1 John Doe` +
+   Expected: Generate report success message shown in the status message. Report for body ID number 1 is generated in the folder containing the jar file. Details of the body shown in the report. Signature of John Doe shown in the report.
+.. Test case: `genReport 1` +
+   Expected: Generate report success message shown in the status message. Report for body ID number 1 is generated in the folder containing the jar file. Details of the body shown in the report. No signature shown in the report.
+.. Test case: `genReport 0` +
+   Expected: No report is generated. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect generate report commands to try: `genReport`, `genReport x` (where x is larger than the list size) +
+   Expected: Similar to previous.
 
 === Saving Data
 

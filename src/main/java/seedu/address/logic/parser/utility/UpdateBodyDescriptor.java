@@ -60,6 +60,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         setNextOfKin(toCopy.nextOfKin);
         setRelationship(toCopy.relationship);
         setKinPhoneNumber(toCopy.kinPhoneNumber);
+        setDetails(toCopy.details);
     }
 
     /**

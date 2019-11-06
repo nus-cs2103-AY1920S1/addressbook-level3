@@ -86,16 +86,9 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         IdentificationNumber identificationNumber;
         UpdateEntityDescriptor updateEntityDescriptor;
 
-        if (idNum == null || idNum.isEmpty() || idNum.chars().anyMatch(Character::isLetter)
-                || Integer.parseInt(idNum) <= 0) {
-            throw new ParseException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
-                    + "positive non-zero number.");
-        }
-
         boolean arePrefixesPresent;
         switch (flag) {
         case "b":
-            identificationNumber = IdentificationNumber.customGenerateId("B", Integer.parseInt(idNum));
             arePrefixesPresent = arePrefixesPresent(argMultimap,
                     PREFIX_NAME,
                     PREFIX_SEX,
@@ -113,7 +106,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     PREFIX_BODY_DETAILS);
             break;
         case "w":
-            identificationNumber = IdentificationNumber.customGenerateId("W", Integer.parseInt(idNum));
             arePrefixesPresent = arePrefixesPresent(argMultimap,
                 PREFIX_PHONE_NUMBER,
                     PREFIX_SEX,
@@ -128,16 +120,24 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         }
 
-        if (!arePrefixesPresent || identificationNumber == null || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        if (idNum == null || idNum.isEmpty() || idNum.chars().anyMatch(Character::isLetter)
+                || Integer.parseInt(idNum) <= 0) {
+            throw new ParseException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
+                    + "positive non-zero number.");
         }
 
         // Get input fields from arguments.
         switch(flag) {
         case "b":
+            identificationNumber = IdentificationNumber.customGenerateId("B", Integer.parseInt(idNum));
             updateEntityDescriptor = parseBodyFields(new UpdateBodyDescriptor(), argMultimap);
             return new UpdateCommand(identificationNumber, updateEntityDescriptor);
         case "w":
+            identificationNumber = IdentificationNumber.customGenerateId("W", Integer.parseInt(idNum));
             updateEntityDescriptor = parseWorkerFields(new UpdateWorkerDescriptor(), argMultimap);
             return new UpdateCommand(identificationNumber, updateEntityDescriptor);
         case "f":
