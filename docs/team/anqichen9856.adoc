@@ -78,6 +78,9 @@ in the feature so that a reader can make a more accurate judgement of how much e
 ** Tools:
 *** Set up Netlify to the team repo, which helps preview changes to documentation files,
 if the PR contains updates to documentation.
+** Refactor:
+*** Refactor all traces of "address book" to "moolah" in the code base.
+*** Arrange commands and their parsers to different packages according to features.
 
 == Contributions to the User Guide
 
