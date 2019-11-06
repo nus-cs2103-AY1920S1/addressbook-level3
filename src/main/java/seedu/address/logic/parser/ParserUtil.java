@@ -228,25 +228,26 @@ public class ParserUtil {
         if (startTiming == null) {
             throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
         }
+        DateTime endTiming = null;
+
         if (end != null) {
-            DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
+            endTiming = DateTime.tryParseSimpleDateFormat(end);
+
             if (endTiming == null) {
                 throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
             }
-            if (!Timing.isValidTimingFromCurrentTime(startTiming, endTiming)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_NOW,
-                        AddAppCommand.MESSAGE_USAGE));
-            }
 
             if (!Timing.isValidTiming(startTiming, endTiming)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_END,
-                        AddAppCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_TIMING_COMPARE_END);
             }
-            return new Timing(startTiming, endTiming);
         }
-        return new Timing(startTiming);
-    }
 
+        if (!Timing.isValidTimingFromCurrentTime(startTiming)) {
+            throw new ParseException(MESSAGE_INVALID_TIMING_COMPARE_NOW);
+        }
+
+        return (endTiming == null) ? new Timing(startTiming) : new Timing(startTiming, endTiming);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

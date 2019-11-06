@@ -7,8 +7,8 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_TIMING_COMPARE_NOW = "Timing should be after current time \n%1$s";
-    public static final String MESSAGE_INVALID_TIMING_COMPARE_END = "The endTiming should be after startTiming \n%1$s";
+    public static final String MESSAGE_INVALID_TIMING_COMPARE_NOW = "Timing should be after current time.";
+    public static final String MESSAGE_INVALID_TIMING_COMPARE_END = "The endTiming should be after startTiming.";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_FOUND = "The person '%1$s' is not registered";
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
@@ -26,7 +26,7 @@ public class Messages {
 
     public static final String MESSAGE_NOT_STAFFLIST =
             "Safety check: Duty shift(s) displayed must belong to the same staff doctor. \n"
-                    + "Please first display the doctor's duty shift listing by using <shift> <REFERENCE_ID>";
+                    + "Please first display the doctor's duty shift listing by using <shifts> <REFERENCE_ID>";
 
 
     public static final String MESSAGE_NOTHING_SETTLE = "No missed appointment needs to settle";

@@ -30,9 +30,7 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/12/19 1000 "
             + PREFIX_END + "01/12/19 1040";
 
-    public static final String MESSAGE_SUCCESS = "this appointment's details has been changed to\n%1$s";
-    //public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the appointment book.";
+    public static final String MESSAGE_SUCCESS = "The appointment's timing has been changed to\n%1$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -50,10 +48,6 @@ public class ChangeAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasExactAppointment(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
-        }
 
         try {
             model.setAppointment(eventToEdit, editedEvent);
