@@ -24,4 +24,6 @@ public interface WordBankStatisticsListStorage {
      * @throws IOException if there was any problem writing to the file.
      */
     void saveWordBankStatistics(WordBankStatistics statistics, Path filePath) throws IOException;
+
+    void removeWordBankStatistics(String name);
 }
