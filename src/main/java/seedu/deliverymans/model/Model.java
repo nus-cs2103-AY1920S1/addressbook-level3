@@ -380,4 +380,5 @@ public interface Model {
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
 
+    Order getUnassignedOrder();
 }

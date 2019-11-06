@@ -5,8 +5,10 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -440,6 +442,19 @@ public class ModelManager implements Model {
             }
         }
         customer.deleteOrder(restaurant.getTags());
+    }
+
+    @Override
+    public Order getUnassignedOrder() {
+        LinkedList<Order> sortedList = getFilteredOrderList().stream().sorted((o1, o2)
+                -> o1.getOrderName().fullName.compareToIgnoreCase(o2.getOrderName().fullName))
+                .collect(Collectors.toCollection(LinkedList::new));
+        for (Order order : sortedList) {
+            if (order.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
+                return order;
+            }
+        }
+        return null;
     }
 
     //=========== Undo ================================================================================
