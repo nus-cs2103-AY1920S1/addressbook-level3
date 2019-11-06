@@ -9,6 +9,8 @@ import seedu.address.address.logic.AddressBookLogicManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
+import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.storage.Storage;
@@ -23,6 +25,8 @@ public class LogicManager implements Logic {
     private AchievementsLogic achievementsLogic;
     private UserPrefsModel userPrefsModel;
     private DiaryBookLogic diaryLogic;
+    private FinancialTrackerLogic financialTrackerLogic;
+    private ItineraryLogic itineraryLogic;
     private Storage storage;
 
     public LogicManager(Model model, Storage storage) {
@@ -32,6 +36,9 @@ public class LogicManager implements Logic {
         this.addressBookLogic = new AddressBookLogicManager(userPrefsModel, model.getAddressBookModel(), storage);
         this.achievementsLogic = new AchievementsLogicManager(userPrefsModel, model.statisticsModelSupplier());
         this.diaryLogic = new DiaryBookLogic();
+        this.financialTrackerLogic = new FinancialTrackerLogic();
+        this.itineraryLogic = new ItineraryLogic();
+      
         this.storage = storage;
     }
 
@@ -49,6 +56,15 @@ public class LogicManager implements Logic {
 
     public DiaryBookLogic getDiaryLogic() {
         return this.diaryLogic;
+    }
+
+    public FinancialTrackerLogic getFinancialTrackerLogic() {
+        return this.financialTrackerLogic;
+    }
+
+    @Override
+    public ItineraryLogic getItineraryLogic() {
+        return this.itineraryLogic;
     }
 
     @Override

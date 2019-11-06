@@ -476,6 +476,13 @@ Lastly, the location and description are additional details of the event. Exampl
 hiking Mt. Everest, visiting Tokyo Disneyland, or even doing CS2103T user guide! Be amazed with how much you can actually
 do within the 24 hours you are given everyday. Let's stop skiving and dive right into productivity.
 
+=== Interface
+
+Upon navigating to the itinerary page, this is how the itinerary page looks like:
+
+.Itinerary Interface
+image::/images/ItineraryInterface.png[]
+
 === Parameter
 
 Let's start off with understanding how each parameter work first!
@@ -516,7 +523,7 @@ a venue. For example:
 available. The default priority tagging is set to *Priority: None*. There is no prefix for the tagging field and you're
 not allowed to edit it :(
 
-=== HelpCommand
+=== Viewing help: ``help``
 
 Unsure on how to navigate your way through the TravEzy Itinerary feature? Don't worry we got your back!
 
@@ -532,7 +539,7 @@ Example:
 
 ``help``
 
-=== AddCommand
+=== Adding an event: ``add``
 
 Plan to go Disneyland tomorrow? Add some rides that you plan to take then!
 
@@ -549,7 +556,7 @@ Example:
 
 ``add title/awesome title date/30102019 time/2359 l/Singapore d/I love TravEzy!``
 
-=== DeleteCommand
+=== Deleting a person: ``delete``
 
 Added a wrong event? Don't worry you can always remove it from the list. Awesome Possum!
 
@@ -566,7 +573,7 @@ Example: Delete the first event you saw on your event list.
 
 ``delete 1``
 
-=== EditCommand
+=== Editing a person: ``edit``
 
 Had a change in plans? Let's us edit our previous event then!
 
@@ -583,7 +590,7 @@ Example: Edit the 3rd event you plan to do in your event list.
 
 ``edit 3``
 
-=== DoneCommand
+=== Checking a command as done: ``done``
 
 Impressive! You have completed the event you have planned for the day. Let us check it for you!
 
@@ -600,7 +607,7 @@ Example: Check the 100th event that you have accomplished today.
 
 ``done 100``
 
-=== ListCommand
+=== Listing all events: ``list``
 
 Awesome! You have planned your schedule, now we give you a way to list out all your events that you have planned out
 in a single list.
@@ -619,7 +626,7 @@ Example: Listing all the events that you planned
 
 ``list``
 
-=== Clear
+=== Clearing all entries: ``clear``
 
 Want a quick an easy way to wipe off all your events from the face of this Earth? Use the clear command to do so!
 
@@ -640,7 +647,7 @@ Example: Clear all the events that you have planned in the event list.
 
 ``clear``
 
-===  GreetCommand
+===  Greet TravEzy itinerary: ``greet``
 
 🌚🌚🌚 Greetings fellow traveller! 🌚🌚🌚
 
@@ -657,7 +664,7 @@ Example: Greeting TravEzy for your daily event list
 
 ``greet``
 
-=== HistoryCommand
+=== Showing past commands: ``history``
 
 Curious on what inputs you have entered to the Itinerary page? We also help you keep track of that too in the Itinerary
 page!
@@ -678,7 +685,7 @@ Example: Let's say you are curious on what are the previous commands that you ha
 
 ``history``
 
-=== SearchCommand
+=== Searching for an event: ``search``
 
 Is your event list too cluttered up with events? Use the search command to zoom in to specific events that you are
 looking for.
@@ -701,7 +708,7 @@ Example: If you want to search for events that are dated 10/10/2010 (Wedding the
 
 
 
-=== SortCommand
+=== Sorting the events: ``sort``
 
 TravEzy Itinerary will help you sort out your life!
 
@@ -719,13 +726,13 @@ of labour.
 
 ``sort by/completion``
 
-=== UndoCommand
+=== Undoing the previous command
 *-> Coming up in v2.0*
 
-=== RedoCommand
+=== Redoing the previous undo
 *-> Coming up in v2.0*
 
-=== WishCommand
+=== Wishing for the perfect event
 *-> Coming up in v2.0*
 
 
@@ -1002,12 +1009,12 @@ image::/images/FinancialTrackerHelp3.png[]
 === Sort out your expense list: ``sort``
 Sort your expenses according your needs!
 
-The _Command Word_ is ``sort`` with parameters "date", "time", "amount" or "default". +
+The _Command Word_ is ``sort`` with parameters "date", "time", "amount", "type" or "default". +
 "default": Sort by default, which is sorting by dates followed by time.
 
 This command sort your current expense list according to the stated specification in decensing order.
 
-Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort default``
+Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
 
 Example: to sort by amount
 

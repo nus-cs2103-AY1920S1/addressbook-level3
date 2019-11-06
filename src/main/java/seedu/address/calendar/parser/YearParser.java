@@ -8,8 +8,6 @@ import java.util.Optional;
 class YearParser {
     private static final String MESSAGE_NON_INT_YEAR_ERROR = "Invalid year. Year should be represented numerically.";
     private static final String YEAR_EXTRA_ARG = "after year";
-    private static final int YEAR_BOUND_LOWER = 1980;
-    private static final int YEAR_BOUND_UPPER = 2200;
 
     Year parse(int year) throws ParseException {
         try {

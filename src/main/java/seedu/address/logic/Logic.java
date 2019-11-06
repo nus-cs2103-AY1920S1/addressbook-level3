@@ -4,6 +4,8 @@ import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
+import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.storage.Storage;
 
 /**
@@ -12,13 +14,17 @@ import seedu.address.storage.Storage;
 
 public interface Logic {
 
-    public Storage getStorage();
+    Storage getStorage();
 
-    public AddressBookLogic getAddressBookLogic();
+    AddressBookLogic getAddressBookLogic();
 
-    public AchievementsLogic getAchievementsLogic();
+    AchievementsLogic getAchievementsLogic();
 
-    public DiaryBookLogic getDiaryLogic();
+    DiaryBookLogic getDiaryLogic();
+
+    ItineraryLogic getItineraryLogic();
+
+    FinancialTrackerLogic getFinancialTrackerLogic();
 
     /**
      * Returns the user prefs' GUI settings.

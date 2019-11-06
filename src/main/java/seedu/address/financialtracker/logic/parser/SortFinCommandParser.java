@@ -19,10 +19,11 @@ public class SortFinCommandParser implements Parser<SortFinCommand> {
         requireNonNull(args);
         String comparingType = args.toUpperCase().trim();
         if (comparingType.equals("TIME") || comparingType.equals("DATE") || comparingType.equals("AMOUNT")
-            || comparingType.equals("DEFAULT")) {
+            || comparingType.equals("TYPE") || comparingType.equals("DEFAULT")) {
             return new SortFinCommand(comparingType);
         } else {
-            throw new ParseException("Incorrect argument! only 'time', 'date, 'amount' and 'default' are allowed!");
+            throw new ParseException("Incorrect argument! only 'time', 'date, 'amount',"
+                    + " 'type or 'default' are allowed!");
         }
     }
 }

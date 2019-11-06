@@ -25,7 +25,7 @@
          </items>
       </Menu>
     </MenuBar>
-   <HBox fx:id="header1" prefHeight="10.0" prefWidth="440.0" />
+   <HBox fx:id="header1" minHeight="-Infinity" prefHeight="5.0" prefWidth="440.0" />
    <HBox id="header" alignment="CENTER" prefHeight="62.0" prefWidth="460.0">
       <children>
          <VBox alignment="CENTER">
@@ -37,7 +37,7 @@
          </VBox>
       </children>
    </HBox>
-   <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0" VBox.vgrow="NEVER" />
+   <HBox id="border" fx:id="header" minHeight="-Infinity" prefHeight="5.0" prefWidth="440.0" VBox.vgrow="NEVER" />
 
     <VBox fx:id="expenseList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
         <padding>
@@ -45,6 +45,7 @@
         </padding>
         <StackPane fx:id="expensePlaceholder" VBox.vgrow="ALWAYS" />
     </VBox>
+   <HBox id="border" fx:id="header2" minHeight="-Infinity" prefHeight="5.0" prefWidth="440.0" />
 
     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
         <padding>

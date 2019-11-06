@@ -51,6 +51,13 @@ public class Date {
 
             } else {
 
+                if (month.equals("02")) {
+                    int numDay = Integer.parseInt(day);
+                    if (numDay > 28) {
+                        return false;
+                    }
+                }
+
                 return true;
 
             }

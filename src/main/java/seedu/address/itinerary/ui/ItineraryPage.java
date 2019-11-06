@@ -58,11 +58,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     private ItineraryParser itineraryParser;
 
-    private Model model;
-
     private TagDropdown tagDropdown;
-
-    private Stage primaryStage;
 
     private HelpWindow helpWindow;
 
@@ -104,15 +100,12 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         "search", "search title/ date/ time/ l/ d/ tag/"
     };
 
-    public ItineraryPage(Stage primaryStage) {
+    public ItineraryPage(ItineraryLogic itineraryLogic) {
         super(fxmlWindow);
         this.itineraryScene = new Scene(itineraryPane);
-        this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
-        this.model = new Model();
-        this.itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
 
-        this.itineraryLogic = new ItineraryLogic(model, itineraryStorage);
+        this.itineraryLogic = itineraryLogic;
 
         fillInnerParts();
     }
@@ -122,13 +115,14 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     private void fillInnerParts() {
 
-        eventPanel = new EventPanel(model.getSortedEventList());
+        eventPanel = new EventPanel(itineraryLogic.getSortedEventList());
         eventPlaceHolder.getChildren().add(eventPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList(), possibleSuggestions);
+        CommandBox commandBox = new CommandBox(this::executeCommand, itineraryLogic.getActionList(),
+                possibleSuggestions);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         tagDropdown = new TagDropdown();
@@ -174,7 +168,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private void handleExit() {
         helpWindow.hide();
-        primaryStage.hide();
+        itineraryScene.getWindow().hide();
     }
 
     @Override
@@ -201,17 +195,9 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
             //update tagging dropDown menu
             tagDropdown.updateDropdownText();
-            Command command = itineraryParser.parseCommand(commandText);
-            model.addAction(commandText);
-            CommandResult commandResult = command.execute(model);
+            CommandResult commandResult = itineraryLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            try {
-                itineraryStorage.saveItinerary(model.getItinerary());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
 
             if (commandResult.isExit()) {
                 PageManager.closeWindows();
