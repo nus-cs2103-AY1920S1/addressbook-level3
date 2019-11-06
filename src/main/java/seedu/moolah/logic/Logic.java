@@ -74,7 +74,7 @@ public interface Logic {
 
     void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
 
-    void addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
+    CommandResult addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
 
 
 }

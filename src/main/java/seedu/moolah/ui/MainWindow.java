@@ -410,7 +410,8 @@ public class MainWindow extends UiPart<Stage> {
      * @param panelName The Panel Name of assigned to the Panel.
      * @throws UnmappedPanelException if there is no Panel assigned to the specified Panel Name.
      */
-    private void changePanel(PanelName panelName) throws UnmappedPanelException {
+    void changePanel(PanelName panelName) throws UnmappedPanelException {
+        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
         configureGenericCommands(panelName);
 
         if (panelName.equals(StatsPanel.PANEL_NAME)) {
@@ -662,7 +663,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleTranspiredEvents() {
         List<Event> transpiredEvents = timekeeper.getTranspiredEvents();
         for (Event event : transpiredEvents) {
-            TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic);
+            TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic, this);
             eventWindow.show(event);
         }
     }

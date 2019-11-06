@@ -1,9 +1,26 @@
 {
   "expenses": [ {
-    "description": "Valid Expense",
-    "price": "9482424"
+    "description" : "Alices Birthday",
+    "price" : "20",
+    "category" : "Entertainment",
+    "timestamp" : "2019-12-01T12:00",
+    "budgetName" : "Default Budget",
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   }, {
-    "description": "Expense With Invalid Price Field",
-    "price": "948asdf2424"
+    "description" : "Invalid price field",
+    "price" : ",20,",
+    "category" : "Entertainment",
+    "timestamp" : "2019-12-01T12:00",
+    "budgetName" : "Default Budget",
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
+  } ],
+  "events" : [],
+  "budgets": [ {
+    "description" : "Default Budget",
+    "amount" : "999999999999999999999",
+    "startDate" : "1 Jan 2000, 12:00:00 AM",
+    "endDate" : "31 Dec 2099, 11:59:59 PM",
+    "period" : "infinity",
+    "expenseIds" : [ ]
   } ]
 }

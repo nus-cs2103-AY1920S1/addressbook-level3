@@ -1,10 +1,13 @@
 {
-  "expenses": [ {
-    "description": "Expense with invalid description field: Ha!ns Mu@ster",
-    "price": "9482424"
+  "expenses": [],
+  "events" : [ {
+    "description": "^Birthday^",
+    "price": "5.555",
+    "category" : "Entertainment",
+    "timestamp" : "2020-01-01T12:00",
+    "budgetName" : "Default Budget"
   } ],
-  "events" : [],
-  "budgets": [ {
+  "budgets" : [ {
     "description" : "Default Budget",
     "amount" : "999999999999999999999",
     "startDate" : "1 Jan 2000, 12:00:00 AM",

@@ -39,9 +39,9 @@ public class TypicalMooLah {
     public static final Budget SCHOOL = new BudgetBuilder()
             .withDescription("School related expenses")
             .withAmount("300")
-            .withStartDate("15-11-2019 noon")
+            .withStartDate("15-10-2019 noon")
             .withPeriod("month")
-            .withEndDate("14-12-2019 noon")
+            .withEndDate("14-11-2019 noon")
             .withIsPrimary(true)
             .build();
 
@@ -58,7 +58,7 @@ public class TypicalMooLah {
             .withDescription("Chicken Rice extra Chicken")
             .withPrice("3.50")
             .withCategory("Food")
-            .withTimestamp("03-11-2019 noon")
+            .withTimestamp("23-10-2019 noon")
             .withBudgetName("School related expenses")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
             .build();
@@ -66,7 +66,7 @@ public class TypicalMooLah {
             .withDescription("Whiskey and Coke")
             .withPrice("50")
             .withCategory("Food")
-            .withTimestamp("04-11 noon")
+            .withTimestamp("24-10 noon")
             .withBudgetName("School related expenses")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
             .build();
@@ -279,7 +279,7 @@ public class TypicalMooLah {
             .withDescription("Alices Birthday")
             .withPrice("20")
             .withCategory("Entertainment")
-            .withTimestamp("01-12-2019 noon")
+            .withTimestamp("21-10-2019 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
             .build();
@@ -288,7 +288,7 @@ public class TypicalMooLah {
             .withDescription("Busan Trip")
             .withPrice("1300")
             .withCategory("Transport")
-            .withTimestamp("02-12 noon")
+            .withTimestamp("22-10 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000002")
             .build();
@@ -297,7 +297,7 @@ public class TypicalMooLah {
             .withDescription("Marvel Movie Marathon")
             .withPrice("75")
             .withCategory("Entertainment")
-            .withTimestamp("05-12 noon")
+            .withTimestamp("25-10 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000005")
             .build();
@@ -305,7 +305,7 @@ public class TypicalMooLah {
             .withDescription("Clothes for the New Year")
             .withPrice("88.88")
             .withCategory("Shopping")
-            .withTimestamp("06-12 noon")
+            .withTimestamp("26-10 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000006")
             .build();
@@ -313,7 +313,7 @@ public class TypicalMooLah {
             .withDescription("Groceries for September meal preps")
             .withPrice("125.35")
             .withCategory("Utilities")
-            .withTimestamp("07-12 noon")
+            .withTimestamp("27-10 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000007")
             .build();
@@ -323,6 +323,7 @@ public class TypicalMooLah {
             .withDescription("HalloweenHorrorNight")
             .withPrice("60")
             .withCategory("Entertainment")
+            .withTimestamp("08-10 noon")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000008").build();
     public static final Expense INVESTMENT = new ExpenseBuilder()
             .withDescription("Property investment")
@@ -397,7 +398,7 @@ public class TypicalMooLah {
     private TypicalMooLah() {} // prevents instantiation
 
     /**
-     * Returns an {@code MooLah} with all the typical expenses and events.
+     * Returns an {@code MooLah} with all the typical expenses, events and budgets..
      */
     public static MooLah getTypicalMooLah() {
         MooLah ab = new MooLah();
@@ -412,6 +413,22 @@ public class TypicalMooLah {
                 }
             }
         }
+        for (Event event : getTypicalEvents()) {
+            ab.addEvent(event);
+        }
+        return ab;
+    }
+
+    public static MooLah getTypicalExpensesOnlyMooLah() {
+        MooLah ab = new MooLah();
+        for (Expense expense : getTypicalExpenses()) {
+            ab.addExpense(expense);
+        }
+        return ab;
+    }
+
+    public static MooLah getTypicalEventsOnlyMooLah() {
+        MooLah ab = new MooLah();
         for (Event event : getTypicalEvents()) {
             ab.addEvent(event);
         }

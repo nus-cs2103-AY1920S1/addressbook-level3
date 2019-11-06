@@ -98,7 +98,33 @@ public class Timestamp implements Comparable<Timestamp> {
      * @return An Optional Timestamp that will contain a Timestamp
      * if the date given is of the valid format.
      */
-    public static Optional<Timestamp> createTimestampFromStorage(String rawTimestamp) {
+    public static Optional<Timestamp> createPastTimestampFromStorage(String rawTimestamp) {
+        try {
+            Parser parser = new Parser();
+            List<DateGroup> groups = parser.parse(rawTimestamp);
+            DateGroup group = groups.get(0);
+            Date datetime = group.getDates().get(0);
+            LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
+            LocalDateTime currentTimestamp = getCurrentTimestamp().getFullTimestamp();
+            if (fullTimestamp.isAfter(currentTimestamp)) {
+                return Optional.empty();
+            }
+
+            return Optional.of(new Timestamp(fullTimestamp));
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Constructs a Timestamp from a raw date String,
+     * only if the date conforms to the format of dd-MM[-yyyy].
+     *
+     * @param rawTimestamp A String inputted by the user in the date field.
+     * @return An Optional Timestamp that will contain a Timestamp
+     * if the date given is of the valid format.
+     */
+    public static Optional<Timestamp> createGeneralTimestampFromStorage(String rawTimestamp) {
         try {
             Parser parser = new Parser();
             List<DateGroup> groups = parser.parse(rawTimestamp);

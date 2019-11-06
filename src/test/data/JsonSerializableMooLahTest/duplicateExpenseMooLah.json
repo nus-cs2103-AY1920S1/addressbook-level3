@@ -15,5 +15,12 @@
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   } ],
   "events" : [],
-  "budgets" : []
+  "budgets" : [ {
+    "description" : "Default Budget",
+    "amount" : "999999999999999999999",
+    "startDate" : "1 Jan 2000, 12:00:00 AM",
+    "endDate" : "31 Dec 2099, 11:59:59 PM",
+    "period" : "infinity",
+    "expenseIds" : [ ]
+  } ]
 }

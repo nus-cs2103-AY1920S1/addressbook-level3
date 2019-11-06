@@ -106,7 +106,7 @@ class JsonAdaptedExpense {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
 
-        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampFromStorage(rawTimestamp);
+        Optional<Timestamp> potentialTimestamp = Timestamp.createPastTimestampFromStorage(rawTimestamp);
         if (potentialTimestamp.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
