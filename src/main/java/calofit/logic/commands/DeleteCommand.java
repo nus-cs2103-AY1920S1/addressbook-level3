@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the dish identified by the index number used in the displayed dish list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX(S) (must be a positive integer that is in the meal list)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEAL_SUCCESS = "Deleted Meal: %1$s";
@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
                 throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEAL_INDEX, lastIndex + 1));
             }
             Meal mealToDelete = lastShownList.get(lastIndex);
-            model.getMealLog().removeMeal(mealToDelete);
+            model.removeMeal(mealToDelete);
 
             listOfMealToDeleteToString = listOfMealToDeleteToString + "\n"
                     + indexCounter + ". " + mealToDelete.getDish();
