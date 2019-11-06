@@ -211,6 +211,7 @@ Deletes the 2nd bookmark in the bookmark manager.
 `*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
+// tag::goto-command[]
 === Opening a bookmark: *`goto`*
 
 Opens the specified the bookmark from the bookmark manager.
@@ -228,7 +229,9 @@ Examples:
 * `*list*` +
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
+// end::goto-command[]
 
+// tag::favorite-command[]
 === Adding a bookmark to Favorites: *`favorite|fav`*
 
 Adds a Favorite tag to the specified bookmark.
@@ -249,7 +252,7 @@ Adds a Favorite tag to the first bookmark in the bookmark manager.
 
 * `*fav* 2` +
 Adds a Favorite tag to the second bookmark in the bookmark manager.
-
+// end::favorite-command[]
 
 === Clearing all entries: *`clear`*
 
@@ -257,6 +260,7 @@ Clears all entries from the bookmark manager.
 
 Format: `*clear*`
 
+// tag::undo-redo-command[]
 === Undoing previous commands: *`undo`*
 
 Restores the list to the state before the given number of previous undoable commands were
@@ -292,6 +296,7 @@ Examples:
 
 * `*redo*` +
 Reverses the most recent `*undo*` command.
+// end::undo-redo-command[]
 
 === Exiting the program: *`exit`*
 

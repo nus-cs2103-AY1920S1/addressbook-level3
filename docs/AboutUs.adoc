@@ -29,7 +29,7 @@ Responsibilities: Storage
 
 === Na Nazhou
 image::na-nazhou.png[width="150", align="left"]
-{empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Na-Nazhou[github]] [<<na-nazhou#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Logic
