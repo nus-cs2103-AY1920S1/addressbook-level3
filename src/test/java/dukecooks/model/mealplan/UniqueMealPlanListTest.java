@@ -21,7 +21,6 @@ import dukecooks.model.mealplan.exceptions.DuplicateMealPlanException;
 import dukecooks.model.mealplan.exceptions.MealPlanNotFoundException;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
-import dukecooks.testutil.mealplan.MealPlanUtil;
 
 public class UniqueMealPlanListTest {
 

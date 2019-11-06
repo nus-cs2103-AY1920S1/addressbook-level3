@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.ModelStub;
@@ -50,6 +51,17 @@ public class AddMealPlanCommandTest {
 
         Assert.assertThrows(CommandException.class, AddMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN, ()
             -> addMealPlanCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_nonExistentRecipe_throwsCommandException() {
+        MealPlan invalidRecipeMealPlan = new MealPlanBuilder().build();
+        AddMealPlanCommand addMealPlanCommand = new AddMealPlanCommand(invalidRecipeMealPlan);
+        ModelStub modelStub = new ModelStubAcceptingMealPlanAdded();
+
+        Assert.assertThrows(CommandException.class,
+                String.format(Messages.MESSAGE_RECIPE_DOES_NOT_EXIST,
+                        invalidRecipeMealPlan.getDay1().get(0).fullName), () -> addMealPlanCommand.execute(modelStub));
     }
 
     @Test
