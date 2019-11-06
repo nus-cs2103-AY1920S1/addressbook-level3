@@ -547,17 +547,20 @@ The `AppManager` provides information regarding the duration in which the `GameT
 .Screenshot of the automatic `Hints` feature in action.
 image::HintDGScreenshot.png[width=790]
 
-.Activity diagram of an instance of `GameTimer` when `Hints` are enabled
+.Activity diagram of the `run()` method of an instance of `GameTimerManager` when `Hints` are enabled.
 image::TimerActivityDiagramWithHints.png[]
 
-The behavior of `Timer` when `Hints` are enabled is largely still the same. +
+The behavior of `Timer` when `Hints` are enabled is *largely still the same.* +
  +
  When `Hints` are enabled,
 `AppManager` initializes a `HintTimingQueue` in the `GameTimer` for each _Card_. `HintTimingQueue` is a class that
-contains a `java.util.Queue` of timestamps (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
-these polled timestamps to update the `Hints` provided periodically. +
+contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
+these polled _timestamps_ to update the `Hints` provided periodically. +
  +
-The described activity is visualized via the activity diagram as *shown above*.
+The described activity is visualized via the activity diagram as *shown above*. The internal `Timer` is started when
+`GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
+every millisecond until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
+to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 1ms.
 
 ==== Design Considerations
 
@@ -1155,9 +1158,10 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Users can export and import their <<word-bank,word banks>> or statistics.
+.  Compatible any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  User has above average typing speed for regular English text (i.e. not code, not system admin commands); able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users can export and import their <<wordbank,wordbanks>> or _Statistics_.
+.  Feedback shown to user must be fast (< 0.2s) especially during a _Game_.
 
 _{More to be added}_
 
@@ -1165,13 +1169,30 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X, Ubuntu and _etc_.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[wordbank]] WordBank::
+Data structure that contains a list of several _Cards_.
 
-[[word-bank]] Word Bank::
-A list of word-description pair that either the user can create himself or import from.
+[[card]] Card::
+Analogue to a physical Flashcard- contains a _Word_ and a _Meaning_.
+
+[[word]] Word::
+The component of a _Card_ that is to be guessed by the user during a _Game_.
+
+[[meaning]] Meaning::
+The meaning represented by the _Word_ of a _Card_; is shown to the user during a _Game_.
+
+[[game]] Game::
+A game session that runs on a specific _WordBank_ of _Cards_.
+
+[[callback]] Callback::
+A piece of executable code that is passed as an argument to other another
+code that is expected to _callback_ (execute) the argument at a given time.
+(Adapted from https://en.wikipedia.org/wiki/Callback_(computer_programming)[Wikipedia])
+
+
+[[callback]]
 
 [appendix]
 == Product Survey
