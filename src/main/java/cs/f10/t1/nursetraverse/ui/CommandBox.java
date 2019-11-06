@@ -98,16 +98,16 @@ public class CommandBox extends UiPart<Region> {
                 }
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;
-            case RIGHT:
+            case SHIFT:
                 try {
                     String textToDisplay = receiveFromSender()[0];
                     commandTextField.setText(textToDisplay);
                     // Notify observers to update based on textToBeDisplayed
                     notifyObserversKeyPressed(event.getCode());
-                    notifyObserversToChange(KeyCode.RIGHT, textToDisplay);
+                    notifyObserversToChange(KeyCode.SHIFT, textToDisplay);
                     commandTextField.positionCaret(commandTextField.getText().length());
                 } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus right key does not work");
+                    logger.info("Nothing is selected thus shift key does not work");
                 }
                 break;
             case ENTER:
