@@ -332,6 +332,8 @@ public interface Model {
 
     StatisticsRecordCard getDeliverymenStatusStats();
 
+    void signalNewAvailableDeliveryman();
+
     // =========== Order Methods =============================================================
 
     /**
