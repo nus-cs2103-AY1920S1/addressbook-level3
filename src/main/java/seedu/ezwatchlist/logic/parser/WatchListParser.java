@@ -41,6 +41,7 @@ public class WatchListParser {
 
     public Command parseCommand(String userInput, String currentTab) throws ParseException, OnlineConnectionException {
         if (shortCutKey(userInput)) {
+            System.err.println("HERE");
             return new GoToParser().parse(userInput, currentTab);
         }
 
@@ -96,7 +97,12 @@ public class WatchListParser {
             boolean isShortCutKey = shortCutKey == 1 || shortCutKey == 2 || shortCutKey == 3 || shortCutKey == 4;
             return isShortCutKey;
         } catch (NumberFormatException e) {
-            return false;
+            String userInputLowerCase = userInput.toLowerCase();
+            boolean stringShortCutKey = userInputLowerCase.equals("watchlist") ||
+                    userInputLowerCase.equals("watched") ||
+                    userInputLowerCase.equals("search") ||
+                    userInputLowerCase.equals("statistics");
+            return stringShortCutKey;
         }
     }
 
