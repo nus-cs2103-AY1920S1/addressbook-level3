@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
  */
 public class Amount implements Comparable<Amount> {
 
-    public static final int UNSIGNED_INT_LIMIT = 100000000;
+    public static final int UNSIGNED_INT_LIMIT = 1000000000;
 
     public static final String MESSAGE_CONSTRAINTS =
         "Amounts should only be in integer or double, and it should not be blank";
@@ -24,6 +24,9 @@ public class Amount implements Comparable<Amount> {
 
     public static final String SHARE_CONSTRAINTS =
         "Shares cannot be negative";
+
+    public static final String DIVIDE_CONSTRAINTS =
+            "You cannot divide by $0";
 
     public static final DecimalFormat AMOUNT_DOUBLE_FORMAT = new DecimalFormat("#.00");
 
@@ -112,6 +115,18 @@ public class Amount implements Comparable<Amount> {
     public Amount subtractAmount(Amount amount) {
         final int newAmount = this.amount - amount.amount;
         return new Amount(newAmount);
+    }
+
+    /**
+     * divides this.amount by amount.
+     *
+     * @param amount Amount to be divided. It cannot be of ZERO value.
+     * @return double after division.
+     */
+    public double divideAmount(Amount amount) {
+        checkArgument(amount.amount != 0.00, DIVIDE_CONSTRAINTS);
+        final double newAmount = (double) this.amount / amount.amount;
+        return newAmount;
     }
 
     /**

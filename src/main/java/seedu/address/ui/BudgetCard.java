@@ -28,15 +28,16 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private FlowPane categories;
     @FXML
-    private FlowPane between;
+    private FlowPane budgetDetails;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
         this.budget = budget;
         id.setText(displayedIndex + ". ");
-        amount.setText(budget.getBudget().toString());
+        amount.setText(budget.displayBudget());
         date.setText(budget.getDeadline().toString());
-        categories.getChildren().add(new Label(budget.getBetween()));
+        budgetDetails.getChildren().add(new Label(budget.getBetween()));
+        budgetDetails.getChildren().add(new Label(budget.displayPercentage()));
         budget.getCategories().stream()
             .sorted(Comparator.comparing(category -> category.categoryName))
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));

@@ -142,6 +142,22 @@ public class UpdateCommand extends Command {
         }
     }
 
+    /**
+     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
+     * edited with {@code editTransactionDescriptor}.
+     */
+    private static Budget createUpdatedBudget(Budget budgetToEdit,
+                                              UpdateTransactionDescriptor updateTransactionDescriptor) {
+        assert budgetToEdit != null;
+
+        Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
+        Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
+        Set<Category> updatedCategories = updateTransactionDescriptor
+                .getCategories().orElse(budgetToEdit.getCategories());
+
+        return new Budget(updatedAmount, updatedDate, updatedCategories);
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -158,22 +174,6 @@ public class UpdateCommand extends Command {
         UpdateCommand u = (UpdateCommand) other;
         return targetIndex.equals(u.targetIndex)
             && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
-    }
-
-    /**
-     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
-     * edited with {@code editTransactionDescriptor}.
-     */
-    private static Budget createUpdatedBudget(Budget budgetToEdit,
-                                              UpdateTransactionDescriptor updateTransactionDescriptor) {
-        assert budgetToEdit != null;
-
-        Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
-        Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
-        Set<Category> updatedCategories = updateTransactionDescriptor
-            .getCategories().orElse(budgetToEdit.getCategories());
-
-        return new Budget(updatedAmount, updatedDate, updatedCategories);
     }
 
     /**

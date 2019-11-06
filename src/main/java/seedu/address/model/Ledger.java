@@ -65,6 +65,14 @@ public class Ledger implements ReadOnlyLedger {
         people.setPersons(filtered);
     }
 
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void remove(LedgerOperation key) {
+        ledgerHistory.remove(key);
+    }
+
     @Override
     public ObservableList<LedgerOperation> getLedgerHistory() {
         return ledgerHistory.asUnmodifiableObservableList();

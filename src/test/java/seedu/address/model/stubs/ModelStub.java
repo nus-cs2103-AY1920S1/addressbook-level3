@@ -166,6 +166,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteLedger(LedgerOperation target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Budget> getFilteredBudgetList() {
         throw new AssertionError("This method should not be called.");
     }
