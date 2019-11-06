@@ -15,6 +15,7 @@ import io.xpire.logic.parser.Parser;
 import io.xpire.logic.parser.ReplenishParser;
 import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.history.CommandHistory;
@@ -89,14 +90,16 @@ public class LogicManager implements Logic {
         return this.model.getCurrentFilteredItemList();
     }
 
+    // @author xiaoyu
     @Override
-    public ObservableList<XpireItem> getXpireItemList() {
-        return this.model.getFilteredXpireItemList();
+    public ObservableList<? extends Item> getXpireItemList() {
+        return this.model.getItemList(ListType.XPIRE);
     }
 
+    // @author xiaoyu
     @Override
-    public ObservableList<Item> getReplenishItemList() {
-        return this.model.getFilteredReplenishItemList();
+    public ObservableList<? extends Item> getReplenishItemList() {
+        return this.model.getItemList(ListType.REPLENISH);
     }
 
     @Override

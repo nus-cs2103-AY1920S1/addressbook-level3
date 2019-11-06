@@ -6,6 +6,7 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
@@ -39,10 +40,10 @@ public interface Logic {
     FilteredList<? extends Item> getCurrentFilteredItemList();
 
     /** Returns an unmodifiable view of the current list of tracked items */
-    ObservableList<XpireItem> getXpireItemList();
+    ObservableList<? extends Item> getXpireItemList();
 
     /** Returns an unmodifiable view of the current list of to-buy items */
-    ObservableList<Item> getReplenishItemList();
+    ObservableList<? extends Item> getReplenishItemList();
 
     /**
      * Returns the user prefs' xpire file path.
