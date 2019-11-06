@@ -12,12 +12,14 @@ import java.util.Optional;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand.EditCcaDescriptor;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 
 /**
  * Parses input arguments and creates a new EditCcaCommand object
@@ -51,8 +53,12 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
             editCcaDescriptor.setCcaType(CcaParserUtil.parseCcaType(argMultimap.getValue(PREFIX_CCA_TYPE).get()));
         }
 
-        parseEquipmentListForEdit(argMultimap.getAllValues(PREFIX_EQUIPMENT_NAME))
-                .ifPresent(editCcaDescriptor::setEquipmentList);
+        try{
+            parseEquipmentListForEdit(argMultimap.getAllValues(PREFIX_EQUIPMENT_NAME))
+                    .ifPresent(editCcaDescriptor::setEquipmentList);
+        } catch (DuplicateEquipmentException e) {
+            throw new ParseException(EditCcaCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        }
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCcaCommand.MESSAGE_NOT_EDITED);
@@ -66,7 +72,8 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
      * If {@code equipments} contain only one element which is an empty string, it will be parsed into a
      * {@code EquipmentList} containing zero equipment.
      */
-    private Optional<EquipmentList> parseEquipmentListForEdit(Collection<String> equipments) throws ParseException {
+    private Optional<EquipmentList> parseEquipmentListForEdit(Collection<String> equipments) throws ParseException,
+            DuplicateEquipmentException {
         assert equipments != null;
 
         if (equipments.isEmpty()) {

@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.util.StringUtil;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
@@ -13,6 +14,7 @@ import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
+import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 
 /**
  * Contains utility methods used for parsing strings in the Cca classes.
@@ -82,7 +84,8 @@ public class CcaParserUtil {
     /**
      * Parses {@code Collection<String> equipments} into a {@code EquipmentList}.
      */
-    public static EquipmentList parseEquipments(Collection<String> equipments) throws ParseException {
+    public static EquipmentList parseEquipments(Collection<String> equipments) throws ParseException,
+            DuplicateEquipmentException {
         requireNonNull(equipments);
         final EquipmentList equipmentList = new EquipmentList();
         for (String equipmentName : equipments) {

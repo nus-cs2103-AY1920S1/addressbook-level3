@@ -22,6 +22,7 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -47,6 +48,8 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_EDIT_CCA_SUCCESS = "Edited Cca: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CCA = "This Cca already exists in the CcaTracker.";
+    public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicate equipment found.";
+
 
     public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
 
@@ -164,12 +167,15 @@ public class EditCcaCommand extends Command {
         }
 
         originalCca = model.getCca(targetIndex);
-        Cca createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
+        Cca createdEditedCca;
+
+        createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
 
         // checks if edited cca does not conflict with another existing cca that is not the original cca.
         if (!originalCca.isSameCca(createdEditedCca) && model.containsCca(createdEditedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
+
         editedCca = createdEditedCca;
 
         model.updateCca(originalCca, createdEditedCca);
