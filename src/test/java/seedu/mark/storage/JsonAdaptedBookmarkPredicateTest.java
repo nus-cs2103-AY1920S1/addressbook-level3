@@ -41,7 +41,7 @@ class JsonAdaptedBookmarkPredicateTest {
     // TODO: test invalid input?
 
     @Test
-    void toModelType_validKeywords_success() {
+    public void toModelType_validKeywords_success() {
         BookmarkPredicate bookmarkPredicate = new JsonAdaptedBookmarkPredicate(
                 KEYWORD_LIST_MULTIPLE, KEYWORD_LIST_SINGLE,
                 KEYWORD_LIST_MULTIPLE, KEYWORD_LIST_SINGLE,
