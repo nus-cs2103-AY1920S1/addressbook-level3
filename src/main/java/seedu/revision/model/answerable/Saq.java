@@ -11,7 +11,8 @@ import seedu.revision.model.category.Category;
  */
 public class Saq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "SAQs should have at least one correct answer"
+            + " and no wrong answers.";
 
     /**
      * Every field must be present and not null.
@@ -23,8 +24,7 @@ public class Saq extends Answerable {
 
     @Override
     public boolean isCorrect(Answer selectedAnswer) {
-        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(),
-                getCorrectAnswerList().get(0).toString());
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), getCorrectAnswerList());
         return answerIsCorrect;
     }
 
