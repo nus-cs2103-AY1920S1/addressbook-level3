@@ -162,6 +162,7 @@ public class UpdateCommand extends UndoableCommand {
                 //@@author
 
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
+                        && updateBodyDescriptor.getBodyStatus().isPresent()
                         && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE)))
                         || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                         && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
@@ -185,16 +186,13 @@ public class UpdateCommand extends UndoableCommand {
                 }
 
                 // add notif when a user manually sets the bodyStatus to CONTACT_POLICE
+                // Also adds notifs when automatically updated.
                 if (updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && !doesNotifExist(model)) {
                     Notif notif = new Notif((Body) entity);
-                    Platform.runLater(() -> {
-                            if (!model.hasNotif(notif)) {
-                                model.addNotif(notif);
-                            }
-                        }
-                    );
+                    Platform.runLater(() -> model.addNotif(notif));
                 }
+
             }
             //@@author
 
