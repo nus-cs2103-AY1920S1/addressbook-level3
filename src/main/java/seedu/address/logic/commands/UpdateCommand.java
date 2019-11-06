@@ -54,7 +54,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Account: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.\n" + UPDATE_PARAMS;
-    public static final String MESSAGE_DUPLICATE_PERSON = "This account already exists in the incident manager.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This username is already taken.";
     public static final String MESSAGE_ADMIN_REVOKE = "You cannot remove yourself as an admin.\n"
             + "Please include t/admin in your update.";
 

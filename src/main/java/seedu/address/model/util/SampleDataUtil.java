@@ -30,10 +30,17 @@ import seedu.address.model.vehicle.VehicleType;
  * Contains utility methods for populating {@code IncidentManager} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
+    private static Person admin =
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("Admin", "Team-1"), new Username("Agent01"), new Password("password")),
+            getTagSet("Admin", "Team-1"), new Username("Agent01"), new Password("password"));
+
+    public static Person getAdmin() {
+        return admin;
+    }
+
+    private static Person[] getSamplePersons() {
+        return new Person[] {
+            admin,
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 getTagSet("Team-1"), new Username("Agent02"), new Password("password")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
@@ -45,11 +52,11 @@ public class SampleDataUtil {
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 getTagSet("Team-3", "Admin"), new Username("Operator03"), new Password("password")),
             new Person(new Name("Alex Lim"), new Phone("98984545"), new Email("alexlim@example.com"),
-                    getTagSet("Team-4", "Admin"), new Username("Operator04"), new Password("password")),
+                getTagSet("Team-4", "Admin"), new Username("Operator04"), new Password("password")),
         };
     }
 
-    public static Incident[] getSampleIncidents() {
+    private static Incident[] getSampleIncidents() {
         Person[] samplePersons = getSamplePersons();
         IncidentDateTime[] sampleIncidentDateTimes = getSampleIncidentDateTimes();
         Vehicle[] sampleVehicles = getSampleVehicles();
