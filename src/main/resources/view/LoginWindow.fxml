@@ -9,7 +9,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.VBox?>
-<fx:root maximized="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
+<fx:root maximized="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/login_icon.png"/>
