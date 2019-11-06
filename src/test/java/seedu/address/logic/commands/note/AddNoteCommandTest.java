@@ -137,12 +137,12 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getStudyBuddyProFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setStudyBuddyProFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

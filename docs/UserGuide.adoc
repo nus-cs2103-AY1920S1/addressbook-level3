@@ -349,7 +349,7 @@ The user will be prompted once to confirm their deletion.
 	    Title: BinaryQn
 	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
 	    Tags: [cs2100]
-        Hit enter again to confirm your deletion.
+        Please use `delete 6` again to confirm your deletion..
 
 Upon hitting enter, the flashcard will be deleted.
 
@@ -521,7 +521,7 @@ Are you sure you would like to delete the following note?
     Title: About Notes
     Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
     Tags: [about]
-Hit enter again to confirm your deletion.
+    Please use `delete 3` again to confirm your deletion.
 ```
 
 Upon hitting enter, the note will be deleted.
@@ -750,7 +750,7 @@ The user will be prompted once to confirm their deletion.
         Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
-        Hit enter again to confirm your deletion.
+        Please use `delete 8` again to confirm your deletion.
 
 Upon hitting enter, the specified cheatsheet will be deleted.
 
