@@ -25,7 +25,9 @@ public class FindLocationState extends State {
 
         Optional<String> location = newArgs.getValue(PREFIX_LOCATION);
         performGuardChecks(newArgs, location);
-        collateArguments(this, newArgs, PREFIX_LOCATION);
+        if (location.isPresent()) {
+            collateArguments(this, newArgs, PREFIX_LOCATION);
+        }
 
         return new FindAttendeesState(soFar);
     }

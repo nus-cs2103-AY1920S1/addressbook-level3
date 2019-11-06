@@ -25,7 +25,9 @@ public class FindPriorityState extends State {
 
         Optional<String> priority = newArgs.getValue(PREFIX_PRIORITY);
         performGuardChecks(newArgs, priority);
-        collateArguments(this, newArgs, PREFIX_PRIORITY);
+        if (priority.isPresent()) {
+            collateArguments(this, newArgs, PREFIX_PRIORITY);
+        }
 
         return new FindEndState(soFar);
     }

@@ -26,7 +26,9 @@ public class FindDescriptionState extends State {
 
         Optional<String> description = newArgs.getValue(PREFIX_DESCRIPTION);
         performGuardChecks(newArgs, description);
-        collateArguments(this, newArgs, PREFIX_DESCRIPTION);
+        if (description.isPresent()) {
+            collateArguments(this, newArgs, PREFIX_DESCRIPTION);
+        }
 
         return new FindLocationState(soFar);
     }

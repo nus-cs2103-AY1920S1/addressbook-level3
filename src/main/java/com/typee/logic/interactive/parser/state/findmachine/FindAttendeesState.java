@@ -26,7 +26,9 @@ public class FindAttendeesState extends State {
 
         Optional<String> attendees = newArgs.getValue(PREFIX_ATTENDEES);
         performGuardChecks(newArgs, attendees);
-        collateArguments(this, newArgs, PREFIX_ATTENDEES);
+        if (attendees.isPresent()) {
+            collateArguments(this, newArgs, PREFIX_ATTENDEES);
+        }
 
         return new FindPriorityState(soFar);
     }
