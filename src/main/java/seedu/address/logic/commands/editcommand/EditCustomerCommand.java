@@ -80,7 +80,7 @@ public class EditCustomerCommand extends UndoableCommand {
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
 
-        if (!customerToEdit.isSameAs(editedCustomer) && model.hasCustomer(editedCustomer)) {
+        if (model.hasCustomer(editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 

@@ -94,7 +94,7 @@ public class EditPhoneCommand extends UndoableCommand {
         Phone phoneToEdit = lastShownList.get(index.getZeroBased());
         Phone editedPhone = createEditedPhone(phoneToEdit, editPhoneDescriptor);
 
-        if (!phoneToEdit.isSameAs(editedPhone) && model.hasPhone(editedPhone)) {
+        if (model.hasPhone(editedPhone)) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 
