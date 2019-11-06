@@ -26,8 +26,8 @@ import seedu.address.logic.commands.global.ClearCommand;
 import seedu.address.logic.commands.global.ExitCommand;
 import seedu.address.logic.commands.global.FilterAllByTagCommand;
 import seedu.address.logic.commands.global.HelpCommand;
+import seedu.address.logic.commands.global.ListAllTagsCommand;
 import seedu.address.logic.commands.global.ListCommand;
-import seedu.address.logic.commands.global.ListTagCommand;
 import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
@@ -55,7 +55,7 @@ import seedu.address.logic.parser.note.ViewRawNoteCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class StudyBuddyProParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -82,8 +82,8 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
 
-        case ListTagCommand.COMMAND_WORD:
-            return new ListTagCommand();
+        case ListAllTagsCommand.COMMAND_WORD:
+            return new ListAllTagsCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

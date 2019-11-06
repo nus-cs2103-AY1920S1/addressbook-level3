@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final StudyBuddyPro studyBuddyPro;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Flashcard> filteredFlashcards;
@@ -38,23 +38,23 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyStudyBuddyPro studyBuddyPro, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(studyBuddyPro, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with StudyBuddyPro : " + studyBuddyPro + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.studyBuddyPro = new StudyBuddyPro(studyBuddyPro);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
-        filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
-        filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
-        filteredTags = new FilteredList<>(this.addressBook.getTagList());
+        filteredPersons = new FilteredList<>(this.studyBuddyPro.getPersonList());
+        filteredFlashcards = new FilteredList<>(this.studyBuddyPro.getFlashcardList());
+        filteredNotes = new FilteredList<>(this.studyBuddyPro.getNoteList());
+        filteredCheatSheets = new FilteredList<>(this.studyBuddyPro.getCheatSheetList());
+        filteredTags = new FilteredList<>(this.studyBuddyPro.getTagList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new StudyBuddyPro(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -95,30 +95,30 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) {
+        this.studyBuddyPro.resetData(studyBuddyPro);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
+        return studyBuddyPro;
     }
 
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return studyBuddyPro.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        studyBuddyPro.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        studyBuddyPro.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -126,18 +126,18 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        studyBuddyPro.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean hasFlashcard(Flashcard flashcard) {
         requireNonNull(flashcard);
-        return addressBook.hasFlashcard(flashcard);
+        return studyBuddyPro.hasFlashcard(flashcard);
     }
 
     @Override
     public void addFlashcard(Flashcard flashcard) {
-        addressBook.addFlashcard(flashcard);
+        studyBuddyPro.addFlashcard(flashcard);
         updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
@@ -145,23 +145,23 @@ public class ModelManager implements Model {
     public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireAllNonNull(target, editedFlashcard);
 
-        addressBook.setFlashcard(target, editedFlashcard);
+        studyBuddyPro.setFlashcard(target, editedFlashcard);
     }
 
     @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
-        return addressBook.hasNote(note);
+        return studyBuddyPro.hasNote(note);
     }
 
     @Override
     public void deleteNote(Note target) {
-        addressBook.removeNote(target);
+        studyBuddyPro.removeNote(target);
     }
 
     @Override
     public void addNote(Note note) {
-        addressBook.addNote(note);
+        studyBuddyPro.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
 
@@ -169,7 +169,7 @@ public class ModelManager implements Model {
     public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
 
-        addressBook.setNote(target, editedNote);
+        studyBuddyPro.setNote(target, editedNote);
     }
 
     //=========== Filtered Tag List Accessors =============================================================
@@ -248,7 +248,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return studyBuddyPro.equals(other.studyBuddyPro)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredNotes.equals(other.filteredNotes);
@@ -256,7 +256,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFlashcard(Flashcard target) {
-        addressBook.removeFlashcard(target);
+        studyBuddyPro.removeFlashcard(target);
     }
 
     /**
@@ -319,26 +319,26 @@ public class ModelManager implements Model {
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {
-        addressBook.addCheatSheet(cheatSheet);
+        studyBuddyPro.addCheatSheet(cheatSheet);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public boolean hasCheatSheet(CheatSheet cheatSheet) {
         requireNonNull(cheatSheet);
-        return addressBook.hasCheatSheet(cheatSheet);
+        return studyBuddyPro.hasCheatSheet(cheatSheet);
     }
 
     @Override
     public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
         requireAllNonNull(target, editedCheatSheet);
 
-        addressBook.setCheatSheet(target, editedCheatSheet);
+        studyBuddyPro.setCheatSheet(target, editedCheatSheet);
     }
 
     @Override
     public void deleteCheatSheet(CheatSheet cheatSheet) {
-        addressBook.deleteCheatSheet(cheatSheet);
+        studyBuddyPro.deleteCheatSheet(cheatSheet);
     }
 
     //=========== Filtered CheatSheet List Accessors =============================================================
@@ -361,90 +361,36 @@ public class ModelManager implements Model {
     //========================COLLECT TAGGED ITEMS TO DISPLAY======================================
     @Override
     public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int flashcardIndex = 0;
-        int cheatSheetIndex = 0;
-        int noteIndex = 0;
-        int noteFragmentIndex = 0;
-        for (Flashcard fc : addressBook.getFlashcardList()) {
-            flashcardIndex++;
-            if (predicate.test(fc)) {
-                taggedItems.add("Flashcard: " + flashcardIndex + ". " + fc.toString());
-            }
-        }
-        for (CheatSheet cs : addressBook.getCheatSheetList()) {
-            cheatSheetIndex++;
-            if (predicate.test(cs)) {
-                taggedItems.add("CheatSheet: " + cheatSheetIndex + ". " + cs.toString());
-            }
-        }
-        for (Note n : addressBook.getNoteList()) {
-            noteIndex++;
-            if (predicate.test(n)) {
-                taggedItems.add("Note: " + noteIndex + ". " + n.toString());
-            }
-            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
-                noteFragmentIndex++;
-                taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
-            }
-            noteFragmentIndex = 0;
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedItems(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int cheatSheetIndex = 0;
-        for (CheatSheet cs : addressBook.getCheatSheetList()) {
-            cheatSheetIndex++;
-            if (predicate.test(cs)) {
-                taggedItems.add(cheatSheetIndex + ". " + cs.toString());
-            }
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedCheatSheets(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int flashcardIndex = 0;
-        for (Flashcard fc : addressBook.getFlashcardList()) {
-            flashcardIndex++;
-            if (predicate.test(fc)) {
-                taggedItems.add(flashcardIndex + ". " + fc.toString());
-            }
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedFlashcards(predicate);
     }
 
     @Override
     public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
-        ArrayList<Flashcard> taggedFlashcards = new ArrayList<>();
-        for (Flashcard fc : addressBook.getFlashcardList()) {
-            if (predicate.test(fc)) {
-                taggedFlashcards.add(fc);
-            }
-        }
-        return taggedFlashcards;
+        return studyBuddyPro.getTaggedFlashcards(predicate);
     }
 
     @Override
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
-        ArrayList<String> taggedItems = new ArrayList<>();
-        int noteIndex = 0;
-        int noteFragmentIndex = 0;
-        for (Note n : addressBook.getNoteList()) {
-            noteIndex++;
-            if (predicate.test(n)) {
-                taggedItems.add(noteIndex + ". " + n.toString());
-            }
-            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
-                noteFragmentIndex++;
-                taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
-            }
-            noteFragmentIndex = 0;
-        }
-        return taggedItems;
+        return studyBuddyPro.collectTaggedNotes(predicate);
+    }
+
+    @Override
+    public ArrayList<String> getListOfTags() {
+        return studyBuddyPro.getListOfTags();
+    }
+
+    @Override
+    public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
+        return studyBuddyPro.getStatistics(tagList);
     }
 }

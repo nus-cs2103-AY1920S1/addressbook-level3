@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 
 /**
@@ -49,8 +49,8 @@ public class TypicalCheatSheets {
     /**
      * Returns an {@code AddressBook} with all the typical cheatsheets.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static StudyBuddyPro getTypicalAddressBook() {
+        StudyBuddyPro ab = new StudyBuddyPro();
         for (CheatSheet cheatSheet : getTypicalCheatSheets()) {
             ab.addCheatSheet(cheatSheet);
         }

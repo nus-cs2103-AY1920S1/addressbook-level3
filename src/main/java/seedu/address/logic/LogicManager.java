@@ -11,10 +11,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.StudyBuddyProParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -32,12 +32,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final StudyBuddyProParser studyBuddyProParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        studyBuddyProParser = new StudyBuddyProParser();
     }
 
     @Override
@@ -45,12 +45,12 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = studyBuddyProParser.parseCommand(commandText);
         commandResult = command.execute(model);
         commandHistory.addCommand(command);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getStudyBuddyPro());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,8 +59,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyStudyBuddyPro getAddressBook() {
+        return model.getStudyBuddyPro();
     }
 
     @Override

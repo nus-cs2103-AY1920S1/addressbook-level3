@@ -20,11 +20,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyCounter;
 import seedu.address.model.StudyBuddyItem;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -128,12 +129,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setStudyBuddyPro(ReadOnlyStudyBuddyPro newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,6 +171,12 @@ public class AddCommandTest {
 
         @Override
         public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=============Person stuff===============================================
+        @Override
+        public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -294,6 +301,9 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public ArrayList<String> getListOfTags() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -333,8 +343,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
+            return new StudyBuddyPro();
         }
     }
 }

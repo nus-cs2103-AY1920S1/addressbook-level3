@@ -18,8 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.person.EditCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.TitleContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
@@ -39,9 +39,11 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
             + "symbol?";
     public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";
+    public static final String VALID_TITLE_ONE = "IntelliJ Question 1";
     public static final String VALID_QUESTION_TWO = "What is the IntelliJ keyboard shortcut to highlight all "
             + "occurrences of the selected fragment in the current file?";
     public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
+    public static final String VALID_TITLE_TWO = "IntelliJ Question 2";
     public static final String VALID_TAG_INTELLIJ = "IntelliJ";
     public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
     public static final String VALID_TAG_CHEATSHEET = "cheatsheet";
@@ -174,11 +176,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        StudyBuddyPro expectedStudyBuddyPro = new StudyBuddyPro(actualModel.getStudyBuddyPro());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedStudyBuddyPro, actualModel.getStudyBuddyPro());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 

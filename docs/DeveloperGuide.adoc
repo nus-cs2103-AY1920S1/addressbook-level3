@@ -28,7 +28,8 @@ StudyBuddyPro aims to lessen target users' revision time consumption without com
 
 This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddyPro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to
+https://ay1920s1-cs2103t-w13-3.github.io/main/ContactUs.html[contact us]!
 
 === Callouts Signs
 
@@ -291,7 +292,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 ** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 ** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
 
-image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
+image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
 
 ==== Design Considerations
 
@@ -301,8 +302,15 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 
 ===== Aspect: How tag predicates are implemented
 
+image::kaibindiagrams/tagPredicateClassDiagram.png[]
+_Diagram 6: Class Diagram of how StudyBuddyItemContainsTagPredicate is implemented_
+
+* The above class diagram shows how tag predicates are being implemented.
+
+* The set of tags that is stored in `StudyBuddyItemContainsTagPredicate` refers to the tags specified by the user.
+
 image::kaibindiagrams/tagPredicateCodeSnippet.png[]
-Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
+_Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`_
 
 * The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
 * As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
@@ -351,8 +359,6 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 *** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
 *** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
-** Supporting statistics for Tags
-*** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
 tag::cheatsheetAutomation[]
 
@@ -478,15 +484,26 @@ The following commands assume that the user is in the _flashcard_ mode.
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
 
-image:: To be added
+The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
+
+image::jrImages/TimeTrialClassDiagram.png[]
+
+The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
+
+image::jrImages/TimeTrialActivityDiagram.png[]
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
-c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
-d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
-e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
-1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
-2.	A KeyFrame to call the FlashcardTabWindowController#showFlashcardAns method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
-3.	A KeyFrame is then added to the timeline to call the FlashcardTabWindowController#resetViews method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
+d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
+e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
+2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+
+
+The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed.
+
+image::jrImages/TimeTrialSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
@@ -495,7 +512,7 @@ e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#
 object.
 ** Pros: Tidier and easier to understand.
 ** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
-* **Alternative 2:** Looping Thread.sleep() to set the timer
+* **Alternative 2:** Looping `Thread.sleep()` to set the timer
 ** Pros: Easier to implement
 ** Cons: Code will be messier and harder to read
 
