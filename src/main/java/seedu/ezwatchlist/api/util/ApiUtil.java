@@ -218,7 +218,7 @@ public class ApiUtil {
      */
     private static void setGenres(List<Genre> genres, Show tvShowToAdd) {
         ArrayList<seedu.ezwatchlist.model.show.Genre> genreList = new ArrayList<>();
-        genres.forEach(x -> genreList.add(new seedu.ezwatchlist.model.show.Genre(x.getName())));
+        genres.forEach(genre -> genreList.add(new seedu.ezwatchlist.model.show.Genre(genre.getName())));
         Set<seedu.ezwatchlist.model.show.Genre> genreSet = new HashSet<>(genreList);
         tvShowToAdd.addGenres(genreSet);
     }
