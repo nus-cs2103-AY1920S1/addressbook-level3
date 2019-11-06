@@ -86,43 +86,7 @@ public class TutorAidParser {
      * Used to map basic commands to {@code TreeMap} when the TutorAidParser object is initialised.
      */
     private void initialiseBasicCommands() {
-        TutorAidParser.commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(AddEarningsCommand.COMMAND_WORD, AddEarningsCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteCustomCommand.COMMAND_WORD, DeleteCustomCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(AddTaskCommand.COMMAND_WORD, AddTaskCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteEarningsCommand.COMMAND_WORD, DeleteEarningsCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(UpdateEarningsCommand.COMMAND_WORD, UpdateEarningsCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
-                ListTasksBasedOnDateCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
-        TutorAidParser.commandList.put(ClaimEarningsCommand.COMMAND_WORD, ClaimEarningsCommand.COMMAND_WORD);
+        ParserUtil.fillBasicCommands(TutorAidParser.commandList);
     }
 
     /**

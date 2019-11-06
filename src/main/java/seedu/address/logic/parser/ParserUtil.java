@@ -8,6 +8,41 @@ import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.AssignClassCommand;
+import seedu.address.logic.commands.ChangeTabCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCustomCommand;
+import seedu.address.logic.commands.DeleteEarningsCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindEarningsCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListClassCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.MarkAttendanceCommand;
+import seedu.address.logic.commands.MarkParticipationCommand;
+import seedu.address.logic.commands.SetPictureCommand;
+import seedu.address.logic.commands.TotalEarningsCommand;
+import seedu.address.logic.commands.UpdateEarningsCommand;
+import seedu.address.logic.commands.calendar.AddTaskCommand;
+import seedu.address.logic.commands.calendar.DeleteTaskCommand;
+import seedu.address.logic.commands.calendar.EditTaskCommand;
+import seedu.address.logic.commands.calendar.FindTaskCommand;
+import seedu.address.logic.commands.calendar.ListTasksBasedOnDateCommand;
+import seedu.address.logic.commands.calendar.ListTasksCommand;
+import seedu.address.logic.commands.note.AddNotesCommand;
+import seedu.address.logic.commands.note.DeleteNotesCommand;
+import seedu.address.logic.commands.note.EditNotesCommand;
+import seedu.address.logic.commands.note.FindNotesCommand;
+import seedu.address.logic.commands.note.ListNotesCommand;
+import seedu.address.logic.commands.reminder.AddReminderCommand;
+import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
 import seedu.address.model.account.Username;
@@ -345,6 +380,7 @@ public class ParserUtil {
     }
 
     /**
+
      * Parses a {@code String claim} into an {@code Claim}.
      * @param claim String of claim.
      * @return Claim.
@@ -357,5 +393,48 @@ public class ParserUtil {
             throw new ParseException(Claim.MESSAGE_CONSTRAINTS);
         }
         return new Claim(trimmedClaim);
+    }
+
+     * Helps fill command list with all the basic in built commands.
+     * @param commandList A {@code TreeMap} that is used to store all commands and their actions.
+     */
+    public static void fillBasicCommands(TreeMap<String, String> commandList) {
+        commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
+        commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
+        commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
+        commandList.put(DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD);
+        commandList.put(ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD);
+        commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
+        commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
+        commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
+        commandList.put(AddEarningsCommand.COMMAND_WORD, AddEarningsCommand.COMMAND_WORD);
+        commandList.put(DeleteCustomCommand.COMMAND_WORD, DeleteCustomCommand.COMMAND_WORD);
+        commandList.put(AddTaskCommand.COMMAND_WORD, AddTaskCommand.COMMAND_WORD);
+        commandList.put(DeleteEarningsCommand.COMMAND_WORD, DeleteEarningsCommand.COMMAND_WORD);
+        commandList.put(UpdateEarningsCommand.COMMAND_WORD, UpdateEarningsCommand.COMMAND_WORD);
+        commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
+        commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
+        commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
+        commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
+        commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
+        commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
+        commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
+                ListTasksBasedOnDateCommand.COMMAND_WORD);
+        commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
+        commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
+        commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
+        commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
+        commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
+        commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
+        commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
+        commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
+        commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
+        commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
+        commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
+        commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
+        commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
+        commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
+        commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
+        commandList.put(ClaimEarningsCommand.COMMAND_WORD, ClaimEarningsCommand.COMMAND_WORD);
     }
 }

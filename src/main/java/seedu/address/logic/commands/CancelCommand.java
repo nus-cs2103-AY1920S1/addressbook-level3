@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.Model;
 
 /**
@@ -14,6 +16,7 @@ public class CancelCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        requireNonNull(model);
         return new CommandResult(SHOWING_CANCEL_MESSAGE,
                 false, false, false, false,
                 false, false, false, false);
