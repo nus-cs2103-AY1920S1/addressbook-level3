@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ADMIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_BOB;
+import static seedu.address.testutil.IncidentBuilder.DEFAULT_VEHICLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +67,10 @@ public class TypicalEntities {
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84821315")
             .withEmail("hans@example.com").withUsername("Opr9").withPassword("password")
             .withTags(VALID_TAG_ADMIN).build();
+    public static final Person NOT_ADMIN = new PersonBuilder().withName("Not Admin").withPhone("91234567")
+            .withEmail("notadmin@example.com").withUsername("Opr10").withPassword("password")
+            .withTags("person").build();
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -80,6 +85,9 @@ public class TypicalEntities {
 
     private static final IncidentDateTime validDateTime = new IncidentDateTime("2016-12-02T14:30:40");
     private static final IncidentId commonIncidentId = new IncidentId("1220160001");
+    private static final Incident COMMON_INCIDENT = new Incident(ALICE, new District(2), validDateTime,
+            commonIncidentId, new CallerNumber("91234567"), new Description("test"),
+            Incident.Status.SUBMITTED_REPORT, DEFAULT_VEHICLE);
     private TypicalEntities() {} // prevents instantiation
 
     /**
@@ -92,6 +100,7 @@ public class TypicalEntities {
             im.addPerson(person);
         }
 
+        //add incidents
         Incident firstIncident = new Incident(ALICE, new District(2), validDateTime,
                 commonIncidentId,
                 new CallerNumber("84738293"),
@@ -101,18 +110,24 @@ public class TypicalEntities {
                         new District(9), new Availability("BUSY")));
         im.addIncident(firstIncident);
 
-        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
-                new District(16), new Availability("BUSY")));
-
         Incident secondIncident = new Incident(ALICE, new District(3), validDateTime,
                 commonIncidentId,
                 new CallerNumber("90878965"),
-                new Description("Pickpocket spotted at the pasar malam in District 3"),
+                new Description("Thief spotted"),
                 Incident.Status.SUBMITTED_REPORT,
                 new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GBC1434D"),
                         new District(4), new Availability("BUSY")));
 
         im.addIncident(secondIncident);
+
+        //add vehicles
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
+                new District(16), new Availability("BUSY")));
+
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
+                new District(4), new Availability("AVAILABLE")));
+
+
 
         return im;
     }

@@ -2,12 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -23,6 +28,8 @@ import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.vehicle.VNumKeywordsPredicate;
+import seedu.address.model.vehicle.Vehicle;
 import seedu.address.testutil.UpdatePersonDescriptorBuilder;
 
 /**
@@ -42,6 +49,13 @@ public class CommandTestUtil {
     public static final String VALID_PASSWORD_BOB = "pa5sword";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_ADMIN = "admin";
+    public static final String VALID_DISTRICT = "21";
+    public static final String VALID_CALLER = "91234567";
+    public static final String VALID_DESCRIPTION = "This is a valid description.";
+    public static final String VALID_VNUM = "SFD1234Z";
+
+    public static final String VALID_VTYPE = "Ambulance";
+    public static final String VALID_AVAILABILITY = "Available";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -56,12 +70,25 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_ADMIN;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String DISTRICT_DESC = " " + PREFIX_DISTRICT + VALID_DISTRICT;
+    public static final String CALLER_DESC = " " + PREFIX_PHONE + VALID_CALLER;
+    public static final String DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
+
+    public static final String VNUM_DESC = " " + PREFIX_VNUM + VALID_VNUM;
+    public static final String VTYPE_DESC = " " + PREFIX_VTYPE + VALID_VTYPE;
+    public static final String AVAIL_DESC = " " + PREFIX_AVAIL + VALID_AVAILABILITY;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + " "; // empty string not allowed
     public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + " "; // empty string not allowed
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_DISTRICT_DESC = " " + PREFIX_DISTRICT + "30"; //district only from 1-28
+    public static final String INVALID_VTYPE_DESC = " " + PREFIX_VTYPE + "Limousine";
+    public static final String INVALID_AVAIL_DESC = " " + PREFIX_AVAIL + "Standby";
+    public static final String INVALID_VNUM_DESC = " " + PREFIX_VNUM + "s333";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -92,6 +119,7 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
+            //System.out.println(ce.toString());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -147,7 +175,18 @@ public class CommandTestUtil {
         String[] descriptionArr = incident.getDesc().toString().split(" ", 2);
         final Description description = new Description(descriptionArr[0]);
         model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(Arrays.asList(descriptionArr)));
+        assertEquals(1, model.getFilteredIncidentList().size());
+    }
 
-        assertEquals(2, model.getFilteredIncidentList().size());
+    /**
+     * Updates {@code model}'s filtered list to show only the vehicle at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showVehicleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredIncidentList().size());
+
+        Vehicle vehicle = model.getFilteredVehicleList().get(targetIndex.getZeroBased());
+        model.updateFilteredVehicleList(new VNumKeywordsPredicate(vehicle.getVehicleNumber()));
+        assertEquals(1, model.getFilteredVehicleList().size());
     }
 }

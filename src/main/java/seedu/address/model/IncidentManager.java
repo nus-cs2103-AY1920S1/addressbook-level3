@@ -231,6 +231,7 @@ public class IncidentManager implements ReadOnlyIncidentManager {
                 && persons.equals(((IncidentManager) other).persons)
                 && incidents.equals(((IncidentManager) other).incidents)
                 && vehicles.equals(((IncidentManager) other).vehicles));
+
     }
 
     @Override
