@@ -2,9 +2,8 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_CCA_PROGRESS_NOT_YET_SET;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
@@ -21,8 +20,8 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaCurrentProgress;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
-import seedu.jarvis.model.cca.exceptions.DuplicateEquipmentException;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -40,7 +39,9 @@ public class EditCcaCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CCA_NAME + "CCA NAME] "
             + "[" + PREFIX_CCA_TYPE + "CCA TYPE] "
-            + "[" + PREFIX_EQUIPMENT_NAME + "EQUIPMENT]...\n"
+            + "[" + PREFIX_EQUIPMENT_NAME + "EQUIPMENT] "
+            + "[" + PREFIX_PROGRESS_LEVEL + "LEVEL] "
+            + "[" + PREFIX_PROGRESS_LEVEL_NAMES + "MILESTONE NAME]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CCA_TYPE + "sport "
             + PREFIX_EQUIPMENT_NAME + "tennis racket";
@@ -231,13 +232,23 @@ public class EditCcaCommand extends Command {
      * Creates and returns a {@code Cca} with the details of {@code ccaToEdit}
      * edited with {@code editCcaDescriptor}.
      */
-    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) {
+    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) throws CommandException {
         assert ccaToEdit != null;
 
         CcaName updatedName = editCcaDescriptor.getCcaName().orElse(ccaToEdit.getName());
         CcaType updatedCcaType = editCcaDescriptor.getCcaType().orElse(ccaToEdit.getCcaType());
         EquipmentList updatedEquipmentList = editCcaDescriptor.getEquipmentList().orElse(ccaToEdit.getEquipmentList());
         CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress().orElse(ccaToEdit.getCcaProgress());
+
+        // check for 1. if cca progress is already set,
+        // 2. else if cca current progress is more than the max progress.
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() && updatedCcaProgress.ccaMilestoneListIsEmpty()) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        }
+
+//        if (updatedCcaProgress.get)
+
+        updatedCcaProgress.setCcaCurrentProgress(editCcaDescriptor.getCcaCurrentProgress().get());
 
         return new Cca(updatedName, updatedCcaType, updatedEquipmentList, updatedCcaProgress);
     }
@@ -269,6 +280,7 @@ public class EditCcaCommand extends Command {
         private CcaType ccaType;
         private EquipmentList equipmentList;
         private CcaProgress ccaProgress;
+        private CcaCurrentProgress ccaCurrentProgress;
 
         public EditCcaDescriptor() {}
 
@@ -280,13 +292,14 @@ public class EditCcaCommand extends Command {
             setCcaType(toCopy.ccaType);
             setEquipmentList(toCopy.equipmentList);
             setCcaProgress(toCopy.ccaProgress);
+            setCcaCurrentProgress(toCopy.ccaCurrentProgress);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList);
+            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaCurrentProgress);
         }
 
         public void setCcaName(CcaName ccaName) {
@@ -321,6 +334,15 @@ public class EditCcaCommand extends Command {
             return Optional.ofNullable(ccaProgress);
         }
 
+        public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress){
+            this.ccaCurrentProgress = ccaCurrentProgress;
+        }
+
+        public Optional<CcaCurrentProgress> getCcaCurrentProgress() {
+            return Optional.ofNullable(ccaCurrentProgress);
+        }
+
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -339,7 +361,8 @@ public class EditCcaCommand extends Command {
             return getCcaName().equals(e.getCcaName())
                     && getCcaType().equals(e.getCcaType())
                     && getEquipmentList().equals(e.getEquipmentList())
-                    && getCcaProgress().equals(e.getCcaProgress());
+                    && getCcaProgress().equals(e.getCcaProgress())
+                    && getCcaCurrentProgress().equals(e.getCcaCurrentProgress());
         }
     }
 }

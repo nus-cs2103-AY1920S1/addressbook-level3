@@ -2,9 +2,7 @@ package seedu.jarvis.logic.parser.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.*;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,7 +10,6 @@ import java.util.Optional;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand.EditCcaDescriptor;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
@@ -34,7 +31,8 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
     public EditCcaCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_CCA_TYPE, PREFIX_EQUIPMENT_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_CCA_TYPE, PREFIX_EQUIPMENT_NAME,
+                        PREFIX_PROGRESS_LEVEL, PREFIX_PROGRESS_LEVEL_NAMES);
 
         Index index;
 
@@ -53,12 +51,19 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
             editCcaDescriptor.setCcaType(CcaParserUtil.parseCcaType(argMultimap.getValue(PREFIX_CCA_TYPE).get()));
         }
 
-        try{
+        try {
             parseEquipmentListForEdit(argMultimap.getAllValues(PREFIX_EQUIPMENT_NAME))
                     .ifPresent(editCcaDescriptor::setEquipmentList);
         } catch (DuplicateEquipmentException e) {
             throw new ParseException(EditCcaCommand.MESSAGE_DUPLICATE_EQUIPMENT);
         }
+
+        if (argMultimap.getValue(PREFIX_PROGRESS_LEVEL).isPresent()) {
+            editCcaDescriptor.setCcaCurrentProgress(CcaParserUtil.parseCcaCurrentProgress(argMultimap.
+                    getValue(PREFIX_PROGRESS_LEVEL).get()));
+        }
+
+
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCcaCommand.MESSAGE_NOT_EDITED);

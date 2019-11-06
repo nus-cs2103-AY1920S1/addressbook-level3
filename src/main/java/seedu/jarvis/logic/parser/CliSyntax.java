@@ -50,5 +50,6 @@ public class CliSyntax {
         public static final Prefix PREFIX_CCA_TYPE = new Prefix("t/");
         public static final Prefix PREFIX_EQUIPMENT_NAME = new Prefix("e/");
         public static final Prefix PREFIX_PROGRESS_LEVEL_NAMES = new Prefix("p/");
+        public static final Prefix PREFIX_PROGRESS_LEVEL = new Prefix("l/") ;
     }
 }

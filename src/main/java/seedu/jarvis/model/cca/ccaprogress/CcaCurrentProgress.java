@@ -21,6 +21,13 @@ public class CcaCurrentProgress {
 
     }
 
+    /**
+     * Constructor with currentProgress already set.
+     */
+    public CcaCurrentProgress(int currentProgress) {
+        this.currentProgress = currentProgress;
+    }
+
     public void setCurrentProgress(int currentProgress) {
         checkArgument(numberIsLargerThanZero(currentProgress), MESSAGE_CONSTRAINTS);
         this.currentProgress = currentProgress;
