@@ -1,5 +1,7 @@
 package seedu.ifridge.model.waste;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,9 @@ public class WasteStatistic {
     private float totalQuantity;
 
     public WasteStatistic(float totalWeight, float totalVolume, float totalQuantity) {
+        requireNonNull(totalWeight);
+        requireNonNull(totalVolume);
+        requireNonNull(totalQuantity);
         this.totalWeight = totalWeight;
         this.totalVolume = totalVolume;
         this.totalQuantity = totalQuantity;
