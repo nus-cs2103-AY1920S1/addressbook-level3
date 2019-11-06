@@ -1,6 +1,7 @@
 package seedu.planner.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_DURATION;
@@ -62,15 +63,22 @@ public class EditActivityCommand extends EditCommand {
 
     private final Index index;
     private final EditActivityDescriptor editActivityDescriptor;
-
+    private final boolean isUndo;
     /**
      * @param index of the activity in the filtered activity list to edit
      */
     public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editActivityDescriptor);
+        requireAllNonNull(index, editActivityDescriptor);
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
+        isUndo = false;
+    }
+
+    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, boolean isUndo) {
+        requireAllNonNull(index, editActivityDescriptor, isUndo);
+        this.index = index;
+        this.editActivityDescriptor = editActivityDescriptor;
+        this.isUndo = isUndo;
     }
 
     public Index getIndex() {
@@ -97,7 +105,7 @@ public class EditActivityCommand extends EditCommand {
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
-        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor, isUndo);
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
@@ -134,17 +142,18 @@ public class EditActivityCommand extends EditCommand {
      * edited with {@code editActivityDescriptor}.
      */
     private static Activity createEditedActivity(Activity activityToEdit,
-                                                 EditActivityDescriptor editActivityDescriptor) {
+                                                 EditActivityDescriptor editActivityDescriptor, boolean isUndo) {
         assert activityToEdit != null;
 
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
-        Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null,
-                new HashSet<>())
+        Contact updatedContact = !editActivityDescriptor.getPhone().isPresent() && isUndo
+                ? null
+                : editActivityDescriptor.getPhone().isPresent()
+                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
                 : activityToEdit.getContact().isPresent()
-                    ? activityToEdit.getContact().get()
-                    : null;
+                ? activityToEdit.getContact().get()
+                : null;
         Cost updatedCost = editActivityDescriptor.getCost().isPresent()
                 ? editActivityDescriptor.getCost().get()
                 : null;

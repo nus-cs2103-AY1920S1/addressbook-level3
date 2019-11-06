@@ -49,33 +49,20 @@ public class EditEventFactory {
                     String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
             );
         }
-
-        /*
-        case(EditDayCommand.SECOND_COMMAND_WORD):
-            EditDayCommand tempCommand4 = (EditDayCommand)command;
-            generateEditDayEvent(tempCommand4.getToEdit());
-        }
-        */
     }
 
     public static EditAccommodationEvent generateEditAccommodationEvent(
-            Index index, EditAccommodationDescriptor editInfo, Model model) {
+            Index index, EditAccommodationDescriptor editInfo, Model model) throws EventException {
         return new EditAccommodationEvent(index, editInfo, model);
     }
 
     public static EditActivityEvent generateEditActivityEvent(
-            Index index, EditActivityDescriptor editInfo, Model model) {
+            Index index, EditActivityDescriptor editInfo, Model model) throws EventException {
         return new EditActivityEvent(index, editInfo, model);
     }
 
     public static EditContactEvent generateEditContactEvent(
-            Index index, EditContactDescriptor editInfo, Model model) {
+            Index index, EditContactDescriptor editInfo, Model model) throws EventException {
         return new EditContactEvent(index, editInfo, model);
     }
-
-    /*
-    public static EditDayEvent generateEditDayEvent(int daysEdited) {
-        return new EditDayEvent(daysEdited);
-    }
-    */
 }

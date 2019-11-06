@@ -305,6 +305,10 @@ public class ModelManager implements Model {
                 activityContactMap.put(newAct, oldContact);
             }
         } else if (newAct.getContact().isPresent()) {
+            Contact newContact = newAct.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAct.getContact().get());
             addActivityMapping(newAct);
         }
@@ -332,6 +336,10 @@ public class ModelManager implements Model {
                 contactAccommodationMap.put(oldContact, oldList);
             }
         } else if (newAcc.getContact().isPresent()) {
+            Contact newContact = newAcc.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAcc.getContact().get());
             addAccommodationMapping(newAcc);
         }

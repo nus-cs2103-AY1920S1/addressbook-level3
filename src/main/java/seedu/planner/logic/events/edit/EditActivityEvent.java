@@ -2,11 +2,13 @@ package seedu.planner.logic.events.edit;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.editcommand.EditActivityCommand;
 import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivityDescriptor;
 import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 
@@ -18,14 +20,14 @@ public class EditActivityEvent implements Event {
     private final EditActivityDescriptor editInfo;
     private final EditActivityDescriptor reverseEditInfo;
 
-    public EditActivityEvent(Index index, EditActivityDescriptor editInfo, Model model) {
+    public EditActivityEvent(Index index, EditActivityDescriptor editInfo, Model model) throws EventException {
         this.index = index;
         this.editInfo = editInfo;
         this.reverseEditInfo = generateReverseEditInfo(model);
     }
 
     public UndoableCommand undo() {
-        return new EditActivityCommand(index, reverseEditInfo);
+        return new EditActivityCommand(index, reverseEditInfo, true);
     }
 
     public UndoableCommand redo() {
@@ -37,11 +39,14 @@ public class EditActivityEvent implements Event {
      * @param model Current model in the application.
      * @return the EditActivityDescriptor containing information of the original Activity to be edited.
      */
-    private EditActivityDescriptor generateReverseEditInfo(Model model) {
+    private EditActivityDescriptor generateReverseEditInfo(Model model) throws EventException {
         EditActivityDescriptor result = new EditActivityDescriptor();
 
         List<Activity> lastShownList = model.getFilteredActivityList();
-        assert(index.getZeroBased() < lastShownList.size());
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new EventException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+        }
 
         Activity originalActivity = lastShownList.get(index.getZeroBased());
 
