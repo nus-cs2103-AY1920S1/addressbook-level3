@@ -378,7 +378,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Carries out operations to close the current popup
+     * Carries out operations to close the current popup.
      * @param cr to carry out
      * @return result of executing this command
      */
