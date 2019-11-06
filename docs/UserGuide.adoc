@@ -321,9 +321,13 @@ Suppose your friend has kindly exported some of his FlashCards for you to use. Y
 now your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
 
 . Type the example command given above into the command box (`import p>C:\Downloads\cs2105.json`), as shown below.
++
+image::ImportDemo1.png[width="600"]
 
 . Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
 Furthermore, the category panel on the left will now display the category of the newly-imported FlashCards!
++
+image::ImportDemo2.png[width="600"]
 
 NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
 
