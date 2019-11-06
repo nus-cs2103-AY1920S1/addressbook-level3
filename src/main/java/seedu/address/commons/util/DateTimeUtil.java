@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class DateTimeUtil {
 
-    public static final String DEFAULT_INPUT_FORMAT = "dd/MM/yyyy kk:mm";
+    public static final String DEFAULT_INPUT_FORMAT = "dd/MM/yyyy hh:mm";
     public static final String DISPLAY_FORMAT_TWENTY_FOUR_HOUR = "EEEE, MMM dd, yyyy HH:mm";
     public static final String DISPLAY_FORMAT_TWELVE_HOUR = "EEEE, MMM dd, yyyy hh:mm a";
 

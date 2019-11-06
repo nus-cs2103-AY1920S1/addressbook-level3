@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditMemberCommand extends Command {
     public static final String COMMAND_WORD = "edit-member";
-    public static final String PREFIX_USAGE = "mn/ mi/ mt/";
+    public static final String PREFIX_USAGE = PREFIX_MEMBER_ID +  " " + PREFIX_MEMBER_NAME + " " + PREFIX_MEMBER_TAG;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the member identified "
             + "by the id used in the displayed member list. "

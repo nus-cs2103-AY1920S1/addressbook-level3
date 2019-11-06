@@ -31,7 +31,7 @@ import seedu.address.model.task.TaskStatus;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-task";
-    public static final String PREFIX_USAGE = "ti/ tn/ t/ s/";
+    public static final String PREFIX_USAGE = PREFIX_TASK_INDEX + " " + PREFIX_TASK_NAME + " " + PREFIX_TASK_TAG + " " + PREFIX_TASK_STATUS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "

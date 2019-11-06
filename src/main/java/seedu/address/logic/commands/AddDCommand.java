@@ -13,6 +13,7 @@ import seedu.address.model.member.MemberId;
 
 public class AddDCommand extends Command {
     public static final String COMMAND_WORD = "add-d";
+    public static final String PREFIX_USAGE = PREFIX_DEADLINE + " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds deadline & member to task. "
             + "Parameters: "
