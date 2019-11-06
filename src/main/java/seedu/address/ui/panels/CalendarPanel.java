@@ -65,12 +65,15 @@ public class CalendarPanel extends UiPart<Region> {
                     break;
                 }
             }
-            agenda.appointments().addAll(
-                    new Agenda.AppointmentImplLocal()
-                            .withStartLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()))
-                            .withEndLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()).plusHours(1))
-                            .withSummary(String.format("Order %d: %s", orderIndex, schedule.getVenue().toString()))
-            );
+            // additional check to ensure only schedules that are valid (in orders) are shown.
+            if (orderIndex != 0) {
+                agenda.appointments().addAll(
+                        new Agenda.AppointmentImplLocal()
+                                .withStartLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()))
+                                .withEndLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()).plusHours(1))
+                                .withSummary(String.format("Order %d: %s", orderIndex, schedule.getVenue().toString()))
+                );
+            }
         }
     }
 

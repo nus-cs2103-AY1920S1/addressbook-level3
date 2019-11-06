@@ -29,39 +29,9 @@ import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating all {@code DataBook} with sample data.
  */
 public class SampleDataUtil {
-    /*public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
-        };
-    }
-
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
-        }
-        return sampleAb;
-    }*/
 
     public static Customer[] getSampleCustomers() {
         return new Customer[] {
@@ -179,7 +149,7 @@ public class SampleDataUtil {
                         new Email("lidavid@example.com"), getTagSet("family")),
                   new Phone(new IdentityNumber("352039075644270"),
                         new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$540"),
+                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$541"),
                         getTagSet("New")),
                   new Price("$1200"),
                     Status.SCHEDULED,
@@ -192,7 +162,7 @@ public class SampleDataUtil {
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$581"),
                                 getTagSet("New")),
                         new Price("$1200"),
-                        Status.SCHEDULED,
+                        Status.COMPLETED,
                         Optional.of(sampleSchedule2()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                         new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
@@ -202,9 +172,29 @@ public class SampleDataUtil {
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$95"),
                                 getTagSet("New")),
                         new Price("$1200"),
-                        Status.SCHEDULED,
-                        Optional.of(sampleSchedule3()), getTagSet("New"))
-
+                        Status.CANCELLED,
+                        Optional.of(sampleSchedule3()), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("Tao Nan"), new ContactNumber("12345678"),
+                                new Email("TaoNan@example.com"), getTagSet("bigCustomer")),
+                        new Phone(new IdentityNumber("352039475644270"),
+                                new SerialNumber("2ncs89ma"), new PhoneName("Galaxy apollo 20"), new Brand("NotApple"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$900.02"),
+                                getTagSet("New")),
+                        new Price("$1911.32"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule4(01, 23)), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("Tao tan"), new ContactNumber("01234323"),
+                                new Email("Taotan@example.com"), getTagSet("smallCustomer")),
+                        new Phone(new IdentityNumber("182043475644270"),
+                                new SerialNumber("2ncs90ma"), new PhoneName("Galaxy apollo 19"), new Brand("NotApple"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$800.10"),
+                                getTagSet("New")),
+                        new Price("$2900.32"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule4(04,
+                                15)), getTagSet("New"))
         };
     }
 
@@ -239,6 +229,19 @@ public class SampleDataUtil {
                 new Venue("test venue"),
                 getTagSet("New"));
     }
+
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule4(int month, int day) {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, month, day).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+
+
 
 
 

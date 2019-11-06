@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
@@ -19,15 +19,10 @@ Class Email
 Class ContactNumber
 Package Predicates <<Rectangle>> {
 
-Class CustomerNameContainsKeywordsPredicate
-Class EmailContainsKeywordsPredicate
-Class ContactNumberContainsKeywordsPredicate
-Class CustomerTagContainsKeywordsPredicate
+Class CustomerContainsKeywordsPredicate
 
 
-CustomerNameContainsKeywordsPredicate .up.|> Predicate
-EmailContainsKeywordsPredicate .up.|> Predicate
-ContactNumberContainsKeywordsPredicate .up.|> Predicate
+CustomerContainsKeywordsPredicate .right.|> Predicate
 }
 
 Customer *-down-> CustomerName

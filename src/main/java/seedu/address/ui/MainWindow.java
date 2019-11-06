@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
 
-    //private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
@@ -63,9 +63,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    /*@FXML
-    private StackPane personListPanelPlaceholder;*/
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -147,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Paths.get("data"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic);
@@ -200,7 +197,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleStats(StatsPayload statsPayload) {
+
         if (statsPayload.isDefaultQuery()) {
+            logger.info("handling default statistics query of type " + statsPayload.getStatisticType());
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
                 String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
@@ -221,21 +220,26 @@ public class MainWindow extends UiPart<Stage> {
                 throw new EnumNotPresentException("Enum not present in stat command");
             }
         } else {
+            logger.info("handling statistics query of type "
+                    + statsPayload.getStatisticType());
             //calculate stats with input to logic manager
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
                 XYChart.Series<String, Number> profitResult = this.logic.calculateTotalProfitGraph(statsPayload);
                 this.statsWindow = new StatisticsWindow("Total Profit", profitResult);
+                logger.info("displaying chart");
                 this.statsWindow.show();
                 break;
             case REVENUE:
                 XYChart.Series<String, Number> revenueResult = this.logic.calculateTotalRevenueGraph(statsPayload);
                 this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult);
+                logger.info("displaying chart");
                 this.statsWindow.show();
                 break;
             case COST:
                 XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
                 this.statsWindow = new StatisticsWindow("Total Cost", costResult);
+                logger.info("displaying chart");
                 this.statsWindow.show();
                 break;
             default:
@@ -270,6 +274,7 @@ public class MainWindow extends UiPart<Stage> {
     private void performUiChanges(CommandResult input) {
         List<UiChange> listOfUiChange = input.getUiChange();
         for (UiChange type : listOfUiChange) {
+            logger.info("executing Ui Change " + input.getUiChange().toString());
             switch (type) {
             case ARCHIVED_ORDER:
                 this.showArchivedOrderPanel();

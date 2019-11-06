@@ -18,7 +18,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListPhoneCommand.
  */
 public class ListPhoneCommandTest {
 

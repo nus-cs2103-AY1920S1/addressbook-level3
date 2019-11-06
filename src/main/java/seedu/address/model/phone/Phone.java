@@ -151,8 +151,8 @@ public class Phone implements Identifiable<Phone> {
         }
 
         return other != null
-                && other.getIdentityNumber().equals(getIdentityNumber())
-                && other.getSerialNumber().equals(getSerialNumber());
+                && (other.getIdentityNumber().equals(getIdentityNumber())
+                || other.getSerialNumber().equals(getSerialNumber()));
     }
 
 }

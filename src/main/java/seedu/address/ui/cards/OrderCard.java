@@ -58,6 +58,10 @@ public class OrderCard extends UiPart<Region> {
     private Label orderStatus;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane scheduleTags;
+    @FXML
+    private FlowPane customerTags;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
@@ -79,15 +83,42 @@ public class OrderCard extends UiPart<Region> {
         orderPrice.setText(order.getPrice().value);
 
         if (order.getStatus().equals(Status.SCHEDULED)) {
-            orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
+            assert(order.getSchedule().isPresent());
+            orderStatus.setText(String.format("%s : %s | Venue: %s ", order.getStatus().toString(),
                     order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
         } else {
             orderStatus.setText(order.getStatus().toString());
         }
 
+        if (order.getSchedule().isPresent()) {
+            order.getSchedule().get().getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> scheduleTags.getChildren().add(new Label(tag.tagName)));
+        }
+
+        if (order.getCustomer() != null) {
+            order.getCustomer().getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> customerTags.getChildren().add(new Label(tag.tagName)));
+        }
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        customerName.setWrapText(true);
+        customerContactNumber.setWrapText(true);
+        customerEmail.setWrapText(true);
+
+        phoneIdentityNumber.setWrapText(true);
+        phoneSerialNumber.setWrapText(true);
+        phoneName.setWrapText(true);
+        phoneColour.setWrapText(true);
+        phoneCapacity.setWrapText(true);
+        phoneCost.setWrapText(true);
+
+        orderId.setWrapText(true);
+        orderPrice.setWrapText(true);
+        orderStatus.setWrapText(true);
+
     }
 
     @Override
