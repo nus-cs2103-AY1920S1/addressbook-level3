@@ -48,6 +48,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_CLOTHING_CLOTHES = "clothes";
     public static final String VALID_TAG_CLOTHING_WANT = "want";
 
+    public static final String VALID_DESC_SALARY_INCOME = "october salary";
+    public static final String VALID_AMOUNT_SALARY_INCOME = "3000";
+    public static final String VALID_CATEGORY_SALARY_INCOME = "Salary";
+    public static final String VALID_DATE_SALARY_INCOME = "2019 10 28";
+    public static final String VALID_TAG_MONEY = "money";
+
     public static final String NAME_DESC_FOOD_EXPENSE = " " + PREFIX_DESC + VALID_DESC_FOOD_EXPENSE;
     public static final String NAME_DESC_CLOTHING_EXPENSE = " " + PREFIX_DESC + VALID_DESC_CLOTHING_EXPENSE;
     public static final String AMOUNT_FOOD_EXPENSE = " " + PREFIX_AMOUNT + VALID_AMOUNT_FOOD_EXPENSE;

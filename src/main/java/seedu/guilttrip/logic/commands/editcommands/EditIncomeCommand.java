@@ -93,7 +93,7 @@ public class EditIncomeCommand extends Command {
         assert incomeToEdit != null;
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(incomeToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(incomeToEdit.getDesc());
-        Date updatedTime = editEntryDescriptor.getTime().orElse(incomeToEdit.getDate());
+        Date updatedTime = editEntryDescriptor.getDate().orElse(incomeToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(incomeToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(incomeToEdit.getTags());
         return new Income(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
@@ -137,7 +137,7 @@ public class EditIncomeCommand extends Command {
         public EditIncomeDescriptor(EditIncomeDescriptor toCopy) {
             setCategory(toCopy.category);
             setDesc(toCopy.desc);
-            setTime(toCopy.date);
+            setDate(toCopy.date);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -165,11 +165,11 @@ public class EditIncomeCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Date time) {
-            this.date = time;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Date> getTime() {
+        public Optional<Date> getDate() {
             return Optional.ofNullable(date);
         }
 
@@ -216,7 +216,7 @@ public class EditIncomeCommand extends Command {
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
-                    && getTime().equals(e.getTime())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }
