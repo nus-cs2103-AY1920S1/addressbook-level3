@@ -72,8 +72,8 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_PROGRESS_LEVEL).isPresent()) {
-            editCcaDescriptor.setCcaCurrentProgress(CcaParserUtil.parseCcaCurrentProgress(argMultimap.
-                    getValue(PREFIX_PROGRESS_LEVEL).get()));
+            editCcaDescriptor.setCcaCurrentProgress(CcaParserUtil.parseCcaCurrentProgress(argMultimap
+                    .getValue(PREFIX_PROGRESS_LEVEL).get()));
         }
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {

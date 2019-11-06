@@ -256,9 +256,9 @@ public class EditCcaCommand extends Command {
             throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
         }
 
-        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() &&
-                editCcaDescriptor.getCcaCurrentProgress().get().getCurrentProgress() >
-                        updatedCcaProgress.getMilestoneList().size()) {
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent()
+                && editCcaDescriptor.getCcaCurrentProgress().get().getCurrentProgress()
+                > updatedCcaProgress.getMilestoneList().size()) {
             throw new CommandException(MESSAGE_INCREMENT_AT_MAX);
         }
 
