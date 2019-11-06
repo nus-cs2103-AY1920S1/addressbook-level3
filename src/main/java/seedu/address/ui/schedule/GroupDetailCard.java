@@ -1,4 +1,4 @@
-package seedu.address.ui.util;
+package seedu.address.ui.schedule;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
