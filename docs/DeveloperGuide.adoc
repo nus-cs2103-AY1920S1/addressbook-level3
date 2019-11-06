@@ -400,6 +400,8 @@ Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
+// tag::find[]
+
 === Find Customer/Phone/Order feature
 The find feature allows the user to find the customer/phone/order with matching keywords.
 We wanted to implement an AND search and so long as the customer/phone/order contained the keyword
@@ -449,6 +451,8 @@ as one would need to understand the parsing.
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
 
+// end::find[]
+
 === Export feature
 ==== Implementation
 
@@ -480,6 +484,8 @@ At the end, the strings are appended to get the full CSV file containing the var
 
 // end::export[]
 
+
+// tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
@@ -537,7 +543,7 @@ UndoCommand will check whether if there is any command to be undone by calling t
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+//image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -555,18 +561,18 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire mdodel.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use 2 stacks to store the history of the Models.
 ** Pros: Easy to implement.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a command is undone, we must remember to save the previous model state to the command.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

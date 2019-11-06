@@ -55,6 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+// tag::overview[]
 === Overview
 
 ==== Clutter-free
@@ -82,6 +83,10 @@ SML generates real-time sales charts for you:
 * Total Revenue (monthly)
 * Total Profit (monthly)
 * Total Cost (monthly)
+
+// end::overview[]
+
+// tag::glossary[]
 
 === Glossary
 
@@ -153,9 +158,9 @@ Inverse of undo.
 . *Copy* +
 Action of copying an entry into clipboard.
 
+// end::glossary[]
 
-
-
+// tag::tabpanels[]
 [[TabPanels]]
 == Tab Panels
 
@@ -171,6 +176,9 @@ we have divided the user interface into 5 partitions
 Use our <<Switch>> commands to toggle between the tab panels!
 The cool thing about our commands is that it will automatically
 toggle to the Tab Panel that it belongs to.
+
+// end::tabpanels[]
+
 [[Commands]]
 == Commands
 
@@ -187,7 +195,7 @@ toggle to the Tab Panel that it belongs to.
 Lists out the commands you need to navigate SML. +
 Format: `help`
 
-
+// tag::customer[]
 === Customer Commands
 Commands that work on customers in SML.
 
@@ -326,9 +334,9 @@ Copies a customer in SML to clipboard +
 . `copy-c 1`
 
 
+// end::customer[]
 
-
-
+// tag::phone[]
 === Phone Commands
 Commands that work on phones that you have in SML.
 
@@ -470,6 +478,7 @@ Copies a phone in SML to clipboard +
 Adds a photo to a phone in the database using the system's user interface dialog.
 
 
+// end::phone[]
 
 === Order Commands
 Commands that work on orders that you have.
@@ -826,6 +835,8 @@ Export any of the data in SML to PDF format.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SML folder.
 
+
+// tag::summary[]
 == Command Summary
 
 === Customer Commands
@@ -908,4 +919,5 @@ Export any of the data in SML to PDF format.
 |`exit`| Quits the application.
 |=======================================================================
 
+// end::summary[]
 
