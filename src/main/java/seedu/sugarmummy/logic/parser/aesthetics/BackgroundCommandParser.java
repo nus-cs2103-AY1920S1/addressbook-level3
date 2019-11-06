@@ -98,6 +98,10 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         background.setBgSize(bgSizeToString);
         background.setBgRepeat(bgRepeatToString);
 
+        assert background.getBgRepeat() != null;
+        assert background.getBgSize() != null;
+        assert background.getDominantColour() != null;
+
         return fontColourCommand == null
                 ? new BackgroundCommand(background)
                 : new BackgroundCommand(background, fontColourCommand);

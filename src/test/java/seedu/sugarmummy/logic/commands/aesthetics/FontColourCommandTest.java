@@ -4,17 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static seedu.sugarmummy.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.sugarmummy.logic.commands.aesthetics.FontColourCommand.MESSAGE_CURRENT_FONT_COLOUR;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_BACKGROUND;
-import static seedu.sugarmummy.model.AestheticsModelStub.VALID_FONT_COLOUR;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_BACKGROUND;
+import static seedu.sugarmummy.model.aesthetics.AestheticsModelStub.VALID_FONT_COLOUR;
 import static seedu.sugarmummy.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
-import seedu.sugarmummy.model.AestheticsModelStub;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForBackground;
-import seedu.sugarmummy.model.AestheticsModelStub.ModelStubForFontColour;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForBackground;
+import seedu.sugarmummy.model.aesthetics.AestheticsModelStub.ModelStubForFontColour;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
@@ -115,8 +115,6 @@ class FontColourCommandTest {
 
         CommandResult expectedCommandResult =
                 new CommandResult(FontColourCommand.MESSAGE_SUCCESS + " " + updateMessage);
-        System.out.println(background.getDominantColour());
-        System.out.println(fontColour);
         assertCommandSuccess(new FontColourCommand(fontColour, backgroundCommand), model,
                 expectedCommandResult, expectedModel);
     }

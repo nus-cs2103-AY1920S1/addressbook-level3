@@ -11,12 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.sugarmummy.logic.Logic;
 import seedu.sugarmummy.model.achievements.Achievement;
-import seedu.sugarmummy.model.bio.User;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.biography.User;
+import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
-import seedu.sugarmummy.recmfood.ui.FoodFlowPanel;
-import seedu.sugarmummy.ui.bio.BioPane;
+import seedu.sugarmummy.ui.achievements.AchievementsPane;
+import seedu.sugarmummy.ui.biography.BioPane;
+import seedu.sugarmummy.ui.calendar.CalendarMonthScrollPanel;
+import seedu.sugarmummy.ui.foodrecommendations.FoodFlowPanel;
+import seedu.sugarmummy.ui.records.RecordListPanel;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
 
 /**
@@ -91,6 +94,7 @@ public class MainDisplayPane {
             return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
                     logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
+            assert false : "DisplayPaneType is not recognised inside MainDisplayPane class.";
             return null;
         }
     }
@@ -108,11 +112,11 @@ public class MainDisplayPane {
     /**
      * Returns a UiPart to be displayed to the user, after adding it to the map of display panes, if not yet added.
      *
-     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneSupplier      A Supplier object containing the UiPart to be returned if a mapping for it does not
-     *                             exist yet, unless new pane is given to be created regardless.
+     * @param displayPaneType   An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param newPaneSupplier   A Supplier object containing the UiPart to be returned if a mapping for it does not
+     *                          exist yet, unless new pane is given to be created regardless.
      * @param isToCreateNewPane Boolean indicating whether a new pane is to be created, regardless of whether a pane
-     *                             of the same type already exists.
+     *                          of the same type already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,

@@ -135,6 +135,7 @@ public class FontColourCommand extends Command {
 
                 assert this.fontColour != null;
                 assert this.backgroundCommand != null;
+
                 return this.fontColour.equals(((FontColourCommand) other).fontColour)
                         && this.backgroundCommand.equals(((FontColourCommand) other).backgroundCommand);
             } else {

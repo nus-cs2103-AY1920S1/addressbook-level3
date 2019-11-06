@@ -34,6 +34,9 @@ running of the program.
 
 ** Project management:
 *** Refined release of `v1.3.2` and `v1.3.3` on GitHub.
+*** Wrote additional tests for existing features to increase line coverage by 21%. (Pull requests
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/173[#173], https://github.com/AY1920S1-CS2103-T16-1/main/pull/176[#176],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/181[#181])
 ** Enhancements to existing features:
 *** Abstracted code in MainApp to reduce code redundancies.
 (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/88/commits/07279dd4494f1cd3916b4ee083de1b6fca2d1d1a[#88])
