@@ -17,5 +17,5 @@ public class Messages {
     public static final String MESSAGE_ALREADY_IN_CONTEXT = "Already in %1$d context!";
     public static final String MESSAGE_INVALID_QUANTITY =
             "The quantity provided is invalid! Please enter a valid integer greater than 0!";
-    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid!";
+    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_NAME = "The order name provided is invalid!";
 }

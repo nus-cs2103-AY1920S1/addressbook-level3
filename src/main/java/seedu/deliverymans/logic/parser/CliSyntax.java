@@ -19,6 +19,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_BOOLEAN_COMPLETED = new Prefix("completed/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_ORDERNAME = new Prefix("o/");
     // Prefix for universal commands
 
 

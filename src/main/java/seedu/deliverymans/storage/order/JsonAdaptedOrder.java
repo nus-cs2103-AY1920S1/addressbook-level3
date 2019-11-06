@@ -21,6 +21,7 @@ public class JsonAdaptedOrder {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
     // private final String order;
+    private final String orderName;
     private final String customer;
     private final String restaurant;
     private final String deliveryman;
@@ -31,12 +32,13 @@ public class JsonAdaptedOrder {
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("customer") String customer,
+    public JsonAdaptedOrder(@JsonProperty("orderName") String orderName,
+                            @JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
                             @JsonProperty("deliveryman") String deliveryman,
                             @JsonProperty("foodList") List<JsonAdaptedFoodOrder> foodList,
                             @JsonProperty("status") String isCompleted) {
-        // this.order = order;
+        this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
@@ -50,7 +52,7 @@ public class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
-        // order = source.getOrderName().fullName;
+        orderName = source.getOrderName().fullName;
         customer = source.getCustomer().fullName;
         restaurant = source.getRestaurant().fullName;
         deliveryman = source.getDeliveryman().fullName;
@@ -86,15 +88,14 @@ public class JsonAdaptedOrder {
         //    modelFoodMap.put(new Name(tempFood), Integer.parseInt(tempQuantity));
         //}
 
-        /*
-        if (order == null) {
+
+        if (orderName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(order)) {
+        if (!Name.isValidName(orderName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name orderName = new Name(order);
-         */
+        final Name modelOrderName = new Name(orderName);
 
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -102,7 +103,7 @@ public class JsonAdaptedOrder {
         if (!Name.isValidName(customer)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name customerName = new Name(customer);
+        final Name modelCustomer = new Name(customer);
 
         if (restaurant == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -110,22 +111,23 @@ public class JsonAdaptedOrder {
         if (!Name.isValidName(restaurant)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name restaurantName = new Name(restaurant);
+        final Name modelRestaurant = new Name(restaurant);
         if (deliveryman == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(deliveryman)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name deliveryName = new Name(deliveryman);
+        final Name modelDeliveryman = new Name(deliveryman);
 
         final Boolean bool = Boolean.valueOf(isCompleted);
         if (bool == null) {
             throw new IllegalValueException("Invalid boolean detected for completion status of Order object");
         }
 
-        Order order = new Order.OrderBuilder().setCustomer(customerName).setRestaurant(restaurantName)
-                .setDeliveryman(deliveryName).setFood(modelFoodMap).setCompleted(bool).completeOrder();
+        Order order = new Order.OrderBuilder().setOrderName(modelOrderName).setCustomer(modelCustomer).
+                setRestaurant(modelRestaurant).setDeliveryman(modelDeliveryman).setFood(modelFoodMap).
+                setCompleted(bool).completeOrder();
         return order;
     }
 }

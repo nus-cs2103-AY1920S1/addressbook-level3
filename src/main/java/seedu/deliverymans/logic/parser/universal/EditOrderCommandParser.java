@@ -5,7 +5,7 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.deliverymans.logic.commands.universal.EditOrderCommand.MESSAGE_INVALID_FOOD_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
@@ -37,15 +37,15 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
      */
     public EditOrderCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_CUSTOMER,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CUSTOMER,
                 PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY);
 
-        Index index;
+        Name name;
 
         try {
-            if (argMultimap.getValue(PREFIX_INDEX).isPresent()
-                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_INDEX, PREFIX_CUSTOMER, PREFIX_RESTAURANT)) {
-                index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            if (argMultimap.getValue(PREFIX_NAME).isPresent()
+                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_RESTAURANT)) {
+                name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             } else {
                 throw new ParseException("");
             }
@@ -67,7 +67,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
             throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditOrderCommand(index, editOrderDescriptor);
+        return new EditOrderCommand(name, editOrderDescriptor);
     }
 
     /**
