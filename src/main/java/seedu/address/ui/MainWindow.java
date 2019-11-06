@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.GuiSettings.DARK_THEME_CSS_PATH;
 import static seedu.address.commons.core.GuiSettings.LIBERRY_THEME_CSS_PATH;
 
@@ -66,13 +67,12 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         guiSettings = logic.getGuiSettings();
+        helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
 
         // Configure the UI
         setWindowDefaultSize(guiSettings);
         setTheme(guiSettings);
-
-        helpWindow = new HelpWindow();
-        infoWindow = new InfoWindow();
 
         if (logic.isServeMode()) {
             mode.setText(SERVE_MODE);
@@ -82,10 +82,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setTheme(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
+        assert infoWindow != null : "infoWindow not initialized!";
+        assert helpWindow != null : "helpWindow not initialized!";
+
         if (guiSettings.isDarkTheme()) {
+            infoWindow.getRoot().getScene().getStylesheets().clear();
+            infoWindow.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
             this.getRoot().getScene().getStylesheets().clear();
             this.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
         } else {
+            infoWindow.getRoot().getScene().getStylesheets().clear();
+            infoWindow.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
             this.getRoot().getScene().getStylesheets().clear();
             this.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
         }
