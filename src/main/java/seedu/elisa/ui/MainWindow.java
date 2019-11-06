@@ -217,11 +217,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             private void createReminders(Change<? extends Item> c) {
-                for (Item newItem : c.getAddedSubList()) {
-                    Platform.runLater(() -> {
-                        //Populate resultDisplay with reminder textbox
-                        resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
-                    });
+                if (c.getAddedSize() > 0) {
+                    //Plays sound
+                    reminderAlarm.play(30);
+                    for (Item newItem : c.getAddedSubList()) {
+                        Platform.runLater(() -> {
+                            //Populate resultDisplay with reminder textbox
+                            resultDisplay.setReminderToUser(newItem.getReminderMessage());
+                        });
+                    }
                 }
             }
         };
