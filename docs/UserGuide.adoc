@@ -169,21 +169,30 @@ Displays all items in the replenish list.
 // end::view[]
 
 // tag::search[]
-==== Searching for item(s) by their name and/or tag: `search`
+==== Searching for item(s) by name and/or tag: `search`
 
-.Items matching #fruit or #chicken shown
+.Items matching #fruit or chicken shown
 image::search.png[width="790"]
 
-Searches for items whose names or tag(s) contain any of the given keywords. +
+Having a hard time looking for an item in Xpire? Not to worry, Xpire provides a search functionality to aid you in finding your items with ease.
+
+With `search`, you can simply input any words or phrases and Xpire will display all items whose names or tag(s) contain any of the given keywords.
+
+
 Format: `search|<keyword>[|<other keywords>]...`
 
-****
+[NOTE]
+`search` is designed to work only on the current view list. In other words, `search` will only display matching items which exists in the current view list.
+
+[TIP]
+You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name, by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g. `red fuji apple`, `red strawberry` and `green apple`, the above commands will display only `red fuji apple`.
+
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
 * The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
 * Only the name and tag fields, if any, are searched.
 * For name search, partial words can be matched e.g. `Papa` will match `Papayas`.
 * For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
-* Items matching at least one keyword will be returned (an `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
+* Items matching at least one keyword will be returned (an OR search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 * If no items are found, any closely related keywords, if any, will be displayed.
 ****
 
