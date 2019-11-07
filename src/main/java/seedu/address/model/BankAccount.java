@@ -74,7 +74,8 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireNonNull(transactionEdit);
-
+        this.balance = this.balance.subtractAmount(transactionTarget.getAmount());
+        this.balance = this.balance.addAmount(transactionEdit.getAmount());
         transactions.setTransaction(transactionTarget, transactionEdit);
     }
 
