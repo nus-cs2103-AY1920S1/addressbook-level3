@@ -17,6 +17,7 @@ import seedu.address.ui.tab.Tab;
 public class InCommand extends Command {
 
     public static final String COMMAND_WORD = "in";
+    public static final String MESSAGE_DUPLICATE = "This transaction already exists: $1%s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the bank account.\n"
         + "Parameters: "

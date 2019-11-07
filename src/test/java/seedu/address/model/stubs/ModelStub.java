@@ -178,12 +178,10 @@ public class ModelStub implements Model {
 
     @Override
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
-
     }
 
     @Override
     public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
-
     }
 
     @Override

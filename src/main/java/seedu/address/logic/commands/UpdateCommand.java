@@ -103,7 +103,6 @@ public class UpdateCommand extends Command {
             Budget budgetToReplace = lastShownList.get(targetIndex.getZeroBased());
             Budget updatedBudget = createUpdatedOperation(budgetToReplace,
                     updateTransactionDescriptor);
-
             model.set(budgetToReplace, updatedBudget);
             model.getFilteredProjectionsList().forEach(x -> {
                 if (x.getBudgets().isPresent()) {
