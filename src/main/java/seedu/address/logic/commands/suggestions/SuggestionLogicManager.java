@@ -1,12 +1,13 @@
 package seedu.address.logic.commands.suggestions;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -25,7 +26,7 @@ import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 public class SuggestionLogicManager implements SuggestionLogic {
     private static final ObservableList<String> EMPTY_LIST = FXCollections.emptyObservableList();
 
-    private final FilteredList<String> commandSuggestions;
+    private final List<String> commandSuggestions;
     private final Model model;
 
     public SuggestionLogicManager(final Model model) {
@@ -35,15 +36,7 @@ public class SuggestionLogicManager implements SuggestionLogic {
     public SuggestionLogicManager(final Model model, final List<String> commandWords) {
         this.model = Objects.requireNonNull(model);
         Objects.requireNonNull(commandWords);
-
-        final ObservableList<String> observableListCommandWords;
-        if (commandWords instanceof ObservableList) {
-            observableListCommandWords = (ObservableList<String>) commandWords;
-        } else {
-            observableListCommandWords = FXCollections.observableList(commandWords);
-        }
-
-        this.commandSuggestions = new FilteredList<>(observableListCommandWords);
+        this.commandSuggestions = Collections.unmodifiableList(commandWords);
     }
 
     private static boolean isCaretWithinCommandWordSection(final CommandTokens commandTokens, final int caretPosition) {
@@ -63,8 +56,22 @@ public class SuggestionLogicManager implements SuggestionLogic {
 
         if (commandTokens.arguments.isBlank() || isCaretWithinCommandWordSection(commandTokens, caretPosition)) {
             final Predicate<String> fuzzyMatcher = SuggestingCommandUtil.createFuzzyMatcher(commandTokens.commandWord);
-            commandSuggestions.setPredicate(fuzzyMatcher);
-            return commandSuggestions;
+            final List<String> suggestions = commandSuggestions.stream()
+                    .filter(fuzzyMatcher)
+                    .sorted((left, right) -> {
+                        final boolean isLeftStartWithCommandWord = left.startsWith(commandTokens.commandWord);
+                        final boolean isRightStartWithCommandWord = right.startsWith(commandTokens.commandWord);
+
+                        if (isLeftStartWithCommandWord != isRightStartWithCommandWord) {
+                            return -1 * Boolean.compare(isLeftStartWithCommandWord, isRightStartWithCommandWord);
+                        } else if (isLeftStartWithCommandWord && isRightStartWithCommandWord) {
+                            return left.compareTo(right);
+                        } else {
+                            return 0;
+                        }
+                    }).collect(Collectors.toUnmodifiableList());
+
+            return CollectionUtil.createUnmodifiableObservableList(suggestions);
         }
 
         final List<Prefix> prefixList = Suggester.getCommandPrefixes(commandTokens.commandWord);
