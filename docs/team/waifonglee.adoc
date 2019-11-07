@@ -43,7 +43,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 ** *Highlights*: This enhancement works with existing as well as future commands. An in-depth analysis of design alternatives was necessary since there are many ways to implement this enhancement, each with its own pros and cons in terms of efficiency or space allocation in the application.
 The current design is used to ensure there is a balance between space allocation and efficiency of the application.
 
-* *Code Contributed*: [https://tinyurl.com/y4qp9alm[Functional code]] [https://github.com[Test code]]
+* *Code Contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f12-4&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=waifonglee&tabRepo=AY1920S1-CS2103T-F12-4%2Fmain%5Bmaster%5D[RepoSense]
 
 * *Other Contributions*:
 ** *Enhancements to existing features*:
