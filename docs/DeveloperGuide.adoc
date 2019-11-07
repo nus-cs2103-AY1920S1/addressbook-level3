@@ -896,7 +896,7 @@ methods and eliminate any chances of uncoordinated data in the data files.
 
 === Overview Tab
 
-This tab displays summary statistics for the data within treasurerPro. There are four main statistics shown:
+This tab displays various summary statistics for the data within treasurerPro. There are four main statistics shown:
 
 . Expense Summary: Pie chart of expenditure by category.
 . Inventory Summary: Pie chart of inventory by category.
@@ -905,25 +905,121 @@ This tab displays summary statistics for the data within treasurerPro. There are
 
 The above summaries are automatically updated whenever new data is entered from any of the other tabs.
 
-The class diagram for this package is shown as follows:
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
+to set percentage thresholds for notifications.
 
-==== Set command
-For each summary statistic, the user may set targets that they plan to achieve/abide by.
+==== Set Command Feature
+This feature allows the user to set a goal for their budget, expense or sales targets.
+
+The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+.Sequence Diagram of Checkout Command (cashier package)
+
+image::SetCommandSD.png[]
+
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file.
+
+==== Notify Command Feature
+This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
+particular financial goal, the user will automatically be notified of it with a message from Leo.
+
+The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+
+.Sequence Diagram of Checkout Command (cashier package)
+
+image::NotifyCommandSD.png[]
+
+After execution of the command, the `Logicmanager` also instructs the `StorageManager` to save the new information to
+the data file.
+
+==== Design Considerations
+In order to display the summary statistics shown to the user within the Overview tab, they must first be calculated.
+Several design considerations were made as to how these calculations would be made, as shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
+
+|The summary statistics are calculated by retrieving the transaction and item lists. Each transaction or item is then
+read individually and their totals added up.
+
+*Pros*: This is a much simpler, straightforward implementation.
+
+*Cons*: It is difficult to filter the list by a given criteria, which is required for certain summary statistics.
+
+|The Java Streams library is used to calculate the summary statistics, by retrieving the transaction list and item list
+as streams instead.
+
+*Pros*: It is much easier to filter the list from a given criteria with the built in `.filter()` method, and additional
+criteria can easily be added simply by adding additional `.filter()` methods.
+
+*Cons*: Java Streams run slower than their iterative counterparts when the list is small, and are more complex to
+implement.
+
+|Alternative 2 is selected as the performance difference is negligible for smaller lists, and will benefit the user in
+the long run as their lists of transactions and items become larger and larger.
+
+Additionally, it allows for future extensibility of summary statistics, as new statistics can be created simply by
+modifying or adding on new criteria.
+
+|A new class is created to act as a notifier, and is called after the execution of every command to check if any
+notifications need to be displayed to the user.
+
+*Pros*: All tabs can utilize this notifications feature and display messages to the user when needed.
+
+*Cons*: Extra program resources are needed to create such a class.
+
+|A method within the Overview tab's `Logic` is called to check if any of the notifications thresholds have been met.
+
+*Pros*: Easy to implement with minimal new resources required.
+
+*Cons*: It will be difficult to extend this functionality to other tabs if needed.
+
+|Alternative 2 was implemented after a discussion held with the team revealed that this functionality was and would not
+be needed for any of the other tabs.
+
+Thus, it made more sense to stick with the simpler, less resource intensive
+implementation of this function,
+
+|===
+
+The following are code snippets of each of the chosen implementations above:
+
+.Code snippet of calculation of summary statistics.
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+            .filter(transaction -> !transaction.getCategory().equals("Sales"))
+            .filter(transaction -> transaction.isNegative())
+            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+            .sum() * -1;
+    }
+
+.Code snippet of notifications implementation.
+    private void checkIfNotify() {
+        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+        for (OverallCommandResult notif: notifications) {
+            lion.setResponse(notif.getFeedbackToUser());
+        }
+    }
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
+It extends each tab with an undo/redo history, stored internally as a `TabStateList` and `TabStatePointer`.
+Additionally, it implements the following operations in each tab's `ModelManager`:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `TabModelManager#commit()` -- Saves the current tab's state in its history.
+* `TabModelManager#undo()` -- Restores the previous tab's state from its history.
+* `TabModelManager#redo()` -- Restores a previously undone tab's state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface of the tab as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
