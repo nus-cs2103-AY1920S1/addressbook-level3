@@ -43,7 +43,7 @@ import seedu.ifridge.testutil.ShoppingListBuilder;
 
 public class UndoShoppingCommandTest {
     @Test
-    public void execute_shoppingListUndone_undoSuccessful() throws Exception {
+    public void execute_shoppingListCanUndo_undoSuccessful() throws Exception {
         ShoppingItem validShoppingItem = new ShoppingItemBuilder().build();
         ShoppingList validShoppingList = new ShoppingListBuilder().withShoppingItem(validShoppingItem).build();
         GroceryItem validGroceryItem = new GroceryItemBuilder().build();
