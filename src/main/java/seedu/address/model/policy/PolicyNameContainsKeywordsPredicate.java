@@ -18,7 +18,7 @@ public class PolicyNameContainsKeywordsPredicate implements Predicate<Policy> {
     @Override
     public boolean test(Policy policy) {
         return keywords.stream()
-                .anyMatch(keyword -> policy.getName().toString().toLowerCase().contains(keyword));
+                .anyMatch(keyword -> policy.getName().toString().toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override
