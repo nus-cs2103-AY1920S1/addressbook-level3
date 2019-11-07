@@ -156,15 +156,18 @@ image:BetterModelClassDiagramNew.png[]
 [[Design-Storage]]
 === Storage component
 
+The Storage component serves the following purposes.
+
+** It can save UserPref objects in json format and read it back.
+** It can save the +Work data in json format and read it back.
+** It can also save the user settings in json format and read it back.
+
+
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
-
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -221,7 +224,7 @@ may not help as much.
 May introduce complexity into storage and dependencies among components.
 
 
-=== Settings feature
+_**=== Settings feature
 ==== Proposed Implementation
 
 This feature was implemented to allow users to customise their experience when using +Work.
@@ -319,7 +322,7 @@ The commands introduced by this statistics feature includes: `get-task-stats` an
 * `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
 * `Statistics#getPortionMembersByItems()` -- Retrieves statistics of all the members and number of items purchased by the each individual member.
 * `Statistics#getPortionTasksByStatus()` -- Retrieves statistics of all existing tasks and number of tasks of each status.
-
+**_
 These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
 
 [NOTE]
@@ -439,6 +442,90 @@ image::SetImageActivityDiagram.png[]
 ** Cons: Decreases the ease of comparison between tasks and members
 
 // end::member[]
+
+=== Inventory feature
+==== Proposed Implementation
+
+This feature was implemented to allow users to add inventories when using +Work.
+
+The commands introduced by this feature include; `add-inv`, `delete-inv`, `edit-inv`, `list-inv`.
+The commands are facilitated by UniqueInventoryList class which resides in Model.
+The UniqueInventoryList class implements the following operations:
+
+
+* `UniqueInventoryList #add(Inventory toAdd)` — This command adds the Inventory toAdd to the inventory list of +Work.
+* `UniqueInventoryList #remove(Inventory toAdd)` —  This command removes the Inventory toAdd from the inventory list of +Work.
+* `UniqueInventoryList #setInventory (Inventory target, Inventory editedInventory)` — This command replaces the target Inventory with the new editedInventory.
+
+These operations are exposed in the Model interface as
+`Model#addInventory(Inventory inventory)`,
+`Model#deleteInventory(Inventory target)`,
+`Model#setInventory(Inventory target, Inventory editedInventory)`
+respectively.
+
+
+The activity diagram below summarises the process of executing an `add-inv` command.
+
+.Activity diagram of `add-inv` command execution.
+image::AddInvActivityDiagram.png[]
+
+
+Given below is an example usage scenario and how add-inv command behaves at each step:
+
+Step 1. The user launches the application. The inventories will be initiated by Model based on the inventories previously saved.
+
+Step 2. The user executes `add-inv` command.
+
+Step 3. `Logic#execute()` calls `Model#addInventory(Inventory inventory)`, which calls `UniqueInventoryList #add(Inventory toAdd)`. This adds the inventory to UniqueInventoryList.
+
+Step 4. The UI will be updated to reflect the changes. This can be viewed using the `list-inv` command.
+
+Step 5. The settings have been updated and stored in projectdashboard.json.
+
+The following sequence diagram shows how the add-inv command works.
+
+
+.Operational flow of `AddInventoryCommand`
+image::AddInvSequenceDiagram.png[]
+
+==== Design Considerations
+
+This section explores how the design can affect the inventory features in +Work.
+
+===== Aspect: Storage of an inventory
+
+Within a specific setting, each option has data that helps yield a specific behaviour. Currently the available settings are
+represented as enumerations.
+
+* **Alternative 1 (current choice)** : Each inventory only stores the inventory name and price. The task and member attached to each inventory is stored in UniqueMappingManager.
+
+** Pros: Better design as it is more modular. If task or member is deleted, it only needs to be changed in UniqueMappingManager for the expected behaviour to be achieved.
+
+** Cons: Retrieving of the mappings (task and member attached) is more difficult and may result in bugs if not implemented accurately.
+
+* **Alternative 2**: Each inventory also contains the attribute for task attached and member attached.
+
+** Pros: Retrieving the mappings is easier and faster.
+
+** Cons: When a task or member is deleted, all the inventories need to be checked and updated. This would be a very slow method.
+
+
+===== Aspect: Display of inventories list
+
+* **Alternative 1 (current choice)**: The inventories are listed without any classification and is not sorted  by any attributes.
+
+** Pros: This would be easier to implement and maintain UI components.
+
+** Cons: User must use the pdf method to see any statistics, making for a less user-friendly experience.
+
+* **Alternative 2**: More statistics, classifications and sorting methods available to customize the inventories list.
+
+** Pros: The inventories list is more user-friendly and more provides more details.
+
+** Cons: Implementation is harder, and we have to ensure minimal errors or bugs.
+
+// end::settings[]
+
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
