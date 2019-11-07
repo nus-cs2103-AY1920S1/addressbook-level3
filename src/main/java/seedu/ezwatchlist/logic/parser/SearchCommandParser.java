@@ -59,9 +59,10 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         String[] keywordsArray = args.split(" ");
         int length = keywordsArray.length;
         for (int i = 1; i < length; i++) {
-            String s = keywordsArray[i];
-            if (!s.isEmpty() && (s.substring(0, 1) != "n" || s.substring(0, 1) != "a" || s.substring(0, 1) != "g"
-                    || s.substring(0, 1) != "t" || s.substring(0, 1) != "w" || s.substring(0, 1) != "o")) {
+            String s = keywordsArray[i].trim();
+            if (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
+                    && !s.substring(0, 2).equals("g/") && !s.substring(0, 2).equals("t/")
+                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/"))) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }

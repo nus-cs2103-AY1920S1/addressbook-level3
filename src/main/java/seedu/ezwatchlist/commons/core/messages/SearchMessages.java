@@ -12,8 +12,11 @@ public class SearchMessages {
             + "- by actor (from watchlist): search a/ACTOR_NAME… [n/SHOW_NAME]… [g/GENRE]… [t/TYPE] [w/HAS_WATCHED]\n"
             + "Enter 'help' command for more detailed examples.";
 
-    public static final String MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW = "%1$d shows listed!"
-            + "Offline: Search from watchlist and watched list only.\n";
+    public static final String MESSAGE_SHOWS_FOUND_OVERVIEW = "%1$d shows found!";
+
+    public static final String MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW = "You are offline. "
+            + "Shows are searched from watchlist and watched list only, even if you requested to search from online.\n"
+            + MESSAGE_SHOWS_FOUND_OVERVIEW;
 
     public static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
             "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";

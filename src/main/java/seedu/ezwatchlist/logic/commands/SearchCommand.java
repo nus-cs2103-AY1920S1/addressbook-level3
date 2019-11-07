@@ -68,13 +68,11 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (emptySearchKeyword()) { // User only input search
-                throw new CommandException("Make sure keyword(s) is not empty.\n" + SearchMessages.MESSAGE_USAGE);
-            }
             if (emptyCompulsoryKeyword()) {
                 throw new CommandException("Make sure keyword(s) for n/, a/ or g/ is not empty.\n"
                         + SearchMessages.MESSAGE_USAGE);
             }
+
             if (!nameList.isEmpty()) {
                 searchByName(model);
             }
@@ -85,25 +83,21 @@ public class SearchCommand extends Command {
                 searchByGenre(model);
             }
 
-
-            if (searchResult.isEmpty()) {
-                return new CommandResult("Search result is empty.\n" + SearchMessages.MESSAGE_USAGE);
-            }
-
             List<Show> result = searchResult.stream().distinct().collect(Collectors.toList());
             model.updateSearchResultList(result);
+
             if (isOffline) {
-                return new CommandResult("You are offline. "
-                        + "Shows are searched from watchlist and watched list only.\n"
-                        + String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
+                return new CommandResult(String.format(
+                        SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW, model.getSearchResultList().size()));
+            } else {
+                return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
+                        model.getSearchResultList().size()));
             }
-            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
-                    model.getSearchResultList().size()));
         } catch (OnlineConnectionException e) {
             for (String showName : nameList) {
                 addShowFromWatchListIfSameNameAs(showName, model);
             }
-            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
+            return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
                     model.getSearchResultList().size()));
         }
     }
@@ -115,28 +109,22 @@ public class SearchCommand extends Command {
      * @throws OnlineConnectionException If online exception occurred.
      */
     private void searchByName(Model model) throws CommandException, OnlineConnectionException {
-        try {
-            if (requestedSearchFromInternal()) {
-                for (String showName : nameList) {
-                    addShowFromWatchListIfSameNameAs(showName, model);
-                }
-            } else if (requestedSearchFromOnline()) {
-                for (String showName : nameList) {
-                    addShowFromOnlineIfSameNameAs(showName);
-                }
-            } else if (requestedFromOnline()) {
-                throw new CommandException(SearchMessages.MESSAGE_INVALID_IS_INTERNAL_COMMAND);
-            } else { // there's no restriction on where to search from
-                for (String showName : nameList) {
-                    addShowFromWatchListIfSameNameAs(showName, model);
-                    addShowFromOnlineIfSameNameAs(showName);
-                }
-            }
-        } catch (OnlineConnectionException e) {
+        if (requestedSearchFromInternal()) {
             for (String showName : nameList) {
                 addShowFromWatchListIfSameNameAs(showName, model);
             }
-        }
+        } else if (requestedSearchFromOnline()) {
+            for (String showName : nameList) {
+                addShowFromOnlineIfSameNameAs(showName);
+            }
+        } else if (requestedFromOnline()) {
+            throw new CommandException(SearchMessages.MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+        } else { // there's no restriction on where to search from
+            for (String showName : nameList) {
+                addShowFromWatchListIfSameNameAs(showName, model);
+                addShowFromOnlineIfSameNameAs(showName);
+            }
+         }
     }
 
     /**
@@ -307,10 +295,6 @@ public class SearchCommand extends Command {
                 searchResult.add(movie);
             }
         }
-    }
-
-    private boolean emptySearchKeyword() {
-        return emptyCompulsoryKeyword() && typeList.isEmpty() && isWatchedList.isEmpty() && fromOnlineList.isEmpty();
     }
 
     /**
