@@ -9,12 +9,16 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
 Class SpendingListPanel
 Class SpendingCard
 Class StatusBarFooter
 Class CommandBox
+Class BudgetPanel
+Class ReminderListPanel
+Class ReminderCard
+Class GraphPanel
+Class StatsPanel
 }
 
 package Model <<Rectangle>> {
@@ -30,12 +34,16 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> SpendingListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> ReminderListPanel
+MainWindow *-down-> GraphPanel
+MainWindow *-down-> StatsPanel
+MainWindow *-down-> BudgetPanel
 
+ReminderListPanel -down-> ReminderCard
 SpendingListPanel -down-> SpendingCard
 
 MainWindow -left-|> UiPart
@@ -43,16 +51,20 @@ MainWindow -left-|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 SpendingListPanel --|> UiPart
+ReminderListPanel --|> UiPart
 SpendingCard --|> UiPart
+ReminderCard --|> UiPart
+BudgetPanel --|> UiPart
+GraphPanel --|> UiPart
+StatsPanel --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
 
+BudgetPanel ..> Model
+ReminderCard ..> Model
 SpendingCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-SpendingListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 

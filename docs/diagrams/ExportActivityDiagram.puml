@@ -1,0 +1,9 @@
+@startuml
+start
+:User input an export command;
+if () then (valid folder path)
+:export all spending;
+else (invalid folder path)
+endif
+stop
+@enduml

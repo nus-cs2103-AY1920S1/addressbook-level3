@@ -4,11 +4,8 @@ start
 if () then (valid csv)
 :parse the rows in the file;
 :create a valid Spending list;
-repeat
   :read a Spending from list;
-  :add Spending to Model;
-repeat while () is (more valid spending)
-->no more valid spending;
+  :add Spending list to Model;
 else (invalid csv)
 endif
 stop

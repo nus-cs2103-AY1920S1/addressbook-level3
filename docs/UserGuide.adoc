@@ -543,7 +543,7 @@ Imports data from a CSV file specified by file path. Existing spending entries a
 
 [.text-center]
 .A Valid `.csv` File.
-image::ExampleValidCsv.png[]
+image::ExampleValidCsv.png[width=75%]
 
 `.csv` file must have a header row with the following values:
 
