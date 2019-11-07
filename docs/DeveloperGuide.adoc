@@ -256,12 +256,9 @@ The paper gives an overview of that problem and why it is NP-complete (subset-su
 The amounts each person owes to another is represented by a graph in an adjacency matrix.
 The algorithm represents the payments to be made as a matrix.
 There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.
-Also note that the matrices are necesarrily skew-symmetric: for example if A owes B $10, then B owes A $-10.
 
 To rephrase our gurantee in this context will be: we want to minimize weights.
-We do not care about the number of edges.
-Certainly we do not mean each person repeatedly pays out $1, $1, $1!
-Our idea of "minimum weights" refer to the total amount someone has to handle.
+That is, the total amount of money someone will have to touch is minimized.
 
 The lower bound for the amount someone has to handle is the balance.
 We create a balance sheeet for the users which is expanded as people enter the activity.
