@@ -305,20 +305,20 @@ public class MainWindow extends UiPart<Stage> {
             throws CommandException, ParseException, OnlineConnectionException {
         try {
             switch (currentTab) {
-                case (MAIN_TAB):
-                    logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
-                    break;
-                case (WATCHED_TAB):
-                    logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
-                    break;
-                case (SEARCH_TAB):
-                    logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
-                    break;
-                case (STATISTICS_TAB):
-                    logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
-                    break;
-                default:
-                    break;
+            case (MAIN_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
+                break;
+            case (WATCHED_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
+                break;
+            case (SEARCH_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            case (STATISTICS_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            default:
+                break;
             }
             if (commandText.split(" ")[0].toLowerCase().equals("search")) {
                 isSearchLoading = true;
