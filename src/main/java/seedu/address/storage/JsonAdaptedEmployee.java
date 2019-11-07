@@ -46,7 +46,7 @@ class JsonAdaptedEmployee {
     @JsonCreator
     public JsonAdaptedEmployee(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
-                               @JsonProperty("id") String id, @JsonProperty("Pay") String pay,
+                               @JsonProperty("id") String id, @JsonProperty("PayCommand") String pay,
                                @JsonProperty("paid") String salaryPaid,
                                @JsonProperty("gender") String gender,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {

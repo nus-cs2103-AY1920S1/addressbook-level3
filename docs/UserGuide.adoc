@@ -552,24 +552,43 @@ Clears all the date-time mapping from the 2nd Event on the Event list.
 
 === Finance Management
 
-==== Generate Employee Payslip: `pay [coming in v2.0]`
+==== Generate Payment To Employee: `pay`
 
-Generates the payslip for an employee for a stated time period
+Generates the payment for an employee
 
-Format: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY`
+Format: `pay EMPLOYEE_INDEX s/VALUE
 
 ****
-* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+* EMPLOYEE_INDEX is the number of the employee on the displayed list.
 It must be a valid number.
-* f/ and t/ represents "from" and "to", both DateTime periods.
-* If the employee did not work during the time period stated, the payslip would not be generated.
+* VALUE is the amount of payment pay for the employee.
+* If the VALUE is larger than the money pending to pay, the payment would not be generated.
 ****
 
 Examples:
 
 * `list_em` +
-`pay 2 f/20082019 t/20102019` +
-Generates the payslip of employee 2 from the 20th August - 20th October.
+`pay 2 s/100` +
+Generates the payment of employee with $100.
+
+==== Undo Payment To Employee: `undo_pay`
+
+Undo the payment for an employee
+
+Format: `undo_pay EMPLOYEE_INDEX s/VALUE
+
+****
+* EMPLOYEE_INDEX is the number of the employee on the displayed list.
+It must be a valid number.
+* VALUE is the amount of undo payment.
+* If the VALUE is larger than the money paid to the employee, the payment would not be undo.
+****
+
+Examples:
+
+* `list_em` +
+`undo_pay 2 s/100` +
+Undo the payment of employee with $100.
 
 
 
