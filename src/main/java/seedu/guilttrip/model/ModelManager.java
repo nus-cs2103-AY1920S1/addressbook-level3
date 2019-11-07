@@ -617,7 +617,6 @@ public class ModelManager implements Model {
         if (!(obj instanceof ModelManager)) {
             return false;
         }
-
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook) && userPrefs.equals(other.userPrefs)
