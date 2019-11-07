@@ -30,26 +30,43 @@ import seedu.address.model.vehicle.VehicleType;
  * Contains utility methods for populating {@code IncidentManager} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
+    private static Person admin =
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("Admin", "Team-1"), new Username("Agent01"), new Password("password")),
+            getTagSet("Admin", "Team-1", "OC"), new Username("Agent01"), new Password("password"));
+
+    public static Person getAdmin() {
+        return admin;
+    }
+
+    private static Person[] getSamplePersons() {
+        return new Person[] {
+            admin,
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 getTagSet("Team-1"), new Username("Agent02"), new Password("password")),
+            new Person(new Name("Ahmed Bahajjaj"), new Phone("92334716"), new Email("ahmed@example.com"),
+                    getTagSet("Team-1"), new Username("Agent-11"), new Password("password")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 getTagSet("Team-2"), new Username("Operator01"), new Password("password")),
+            new Person(new Name("Vivien Lim"), new Phone("93120238"), new Email("vivien@example.com"),
+                    getTagSet("Team-2", "OC"), new Username("Operator-12"), new Password("password")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 getTagSet("Team-2"), new Username("Operator02"), new Password("password")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 getTagSet("Team-3"), new Username("Agent03"), new Password("password")),
+            new Person(new Name("Ahmad Ibrahim"), new Phone("93647591"), new Email("ahmad@example.com"),
+                    getTagSet("Team-3", "OC"), new Username("Agent-13"), new Password("password")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 getTagSet("Team-3", "Admin"), new Username("Operator03"), new Password("password")),
             new Person(new Name("Alex Lim"), new Phone("98984545"), new Email("alexlim@example.com"),
-                    getTagSet("Team-4", "Admin"), new Username("Operator04"), new Password("password")),
+                getTagSet("Team-4"), new Username("Operator04"), new Password("password")),
+            new Person(new Name("John Doe"), new Phone("87654321"), new Email("john@example.com"),
+                    getTagSet("Team-4", "Intern"), new Username("Operator-14"), new Password("password")),
+            new Person(new Name("Jane Tan"), new Phone("97856342"), new Email("alexlim@example.com"),
+                    getTagSet("Team-4", "OC"), new Username("Operator04"), new Password("password")),
         };
     }
 
-    public static Incident[] getSampleIncidents() {
+    private static Incident[] getSampleIncidents() {
         Person[] samplePersons = getSamplePersons();
         IncidentDateTime[] sampleIncidentDateTimes = getSampleIncidentDateTimes();
         Vehicle[] sampleVehicles = getSampleVehicles();
@@ -123,7 +140,29 @@ public class SampleDataUtil {
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKH1221P"),
                 new District(20), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
-                new District(8), new Availability("AVAILABLE"))
+                new District(8), new Availability("AVAILABLE")),
+
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SFD3204W"),
+                    new District(1), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SDG4044R"),
+                    new District(2), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FEG5249J"),
+                    new District(3), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GJE3294K"),
+                    new District(4), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GJN8923L"),
+                    new District(5), new Availability("AVAILABLE")),
+
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SFD3264V"),
+                    new District(6), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SDF2344R"),
+                    new District(7), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FEP6249J"),
+                    new District(8), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GRB3994K"),
+                    new District(9), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GJR8123L"),
+                    new District(10), new Availability("AVAILABLE"))
 
         };
     }

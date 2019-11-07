@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_AVAILABLE_VEHICLE;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_ASSIGNMENT_PROMPT;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_OOB;
@@ -36,7 +38,7 @@ public class VehicleAssignmentCommandTest {
     private VehicleAssignmentCommand c5 = new VehicleAssignmentCommand(draft2, false, 1);
     private VehicleAssignmentCommand c6 = new VehicleAssignmentCommand(draft1, false, 10);
 
-    /* @Test
+    @Test
     public void equals() {
         // same object -> returns true
         assertTrue(c1.equals(c1));
@@ -49,7 +51,7 @@ public class VehicleAssignmentCommandTest {
 
         // same district but different draft -> return false
         assertFalse(c1.equals(c3));
-    }*/
+    }
 
     @Test
     public void autoAssign_vehicleNotAvailable_exceptionThrown() {
