@@ -224,11 +224,12 @@ NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but du
 // end::undoredo[]
 
 === Quiz Mode
+==== How the quiz works
 After the user has `start` ed the quiz, the application enters quiz mode. The following is the flow of events after a quiz
 session has started.
 
 .Activity Diagram of a Quiz Session in `NormalMode`
-image::QuizSessionActivityDiagram.png[]
+image::QuizSessionActivityDiagram.png[width=790]
 
 . After the user has started either a normal / custom mode quiz. He/she will be prompted to key in their answer.
 . If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
@@ -242,12 +243,14 @@ move on to the next question.
 [NOTE]
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 
-=== Quiz Commands
+==== Parsing a Quiz Command
 During a quiz session the `QuizCommandParser` instead of `RevisionToolParser` is used.
 
-.Interactions Inside the Logic Component during a quiz session
-image::QuizSequenceDiagram.png[]
+.Class Diagram of ParserManager to display how parsers are created in both modes.
+image::ParserClassDiagram.png[width=500]
 
+.Interactions Inside the Logic Component during a quiz session
+image::QuizSequenceDiagram.png[width=790]
 
 Sequence of steps after a user keys in their input.
 

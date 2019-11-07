@@ -1,31 +1,22 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor LOGIC_COLOR
-skinparam classBackgroundColor LOGIC_COLOR
+skinparam arrowColor LOGIC_COLOR_T3
+skinparam classBackgroundColor LOGIC_COLOR_T3
 
+Interface QuizParser <<Interface>>
+Interface Parser <<Interface>>
 
-Interface QuizCommandParser
-Interface Parser
+Class ParserManager
+Class ABCParser
+Class XYZParser
 
-Class QuizCommandParserManager
-Class QuizCommandParserManager
+note bottom of ABCParser : parses commands\nwhich are used\nin configuration\nmode.
+note bottom of XYZParser : parses commands\nwhich are used\nin quiz mode.
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+ABCParser .up.|> Parser
+XYZParser .up.|> QuizParser
+ParserManager -right-> ABCParser : creates >
+ParserManager -left-> XYZParser : creates >
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
-
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
-
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
 @enduml
