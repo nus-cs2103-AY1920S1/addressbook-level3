@@ -31,10 +31,10 @@ import seedu.address.ui.util.ToolTipFormatter;
  * Class that creates the schedule view for the user to see combined schedules.
  */
 public class ScheduleView extends UiPart<Region> {
-    protected static final double ONE_HOUR_LENGTH = 60;
+    public static final int START_TIME = 8;
+    public static final int END_TIME = 20;
+    public static final double ONE_HOUR_LENGTH = 60;
     protected static final int HALF_HOUR = 30;
-    protected static final int START_TIME = 8;
-    protected static final int END_TIME = 20;
     protected static final int BLOCK_WIDTH = 140;
     private static final String FXML = "ScheduleView.fxml";
 
@@ -207,6 +207,7 @@ public class ScheduleView extends UiPart<Region> {
             if (!originalTimeStamp.equals(startTime)) {
                 int timeUntilBusy = TimeUtil.getTimeDifference(originalTimeStamp, startTime);
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyBlock();
+                freeTimeslot.setId("emptyBlock");
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
             Region busyTimeslot = new Block(TimeUtil.getTimeDifference(startTime, endTime))
@@ -293,7 +294,7 @@ public class ScheduleView extends UiPart<Region> {
             colouredBlock.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
             colouredBlock.setStyle("-fx-background-color: " + getLinearGradient(color)
                     + "-fx-background-radius: " + (BLOCK_WIDTH / (28.0 * schedulesShown.size())) + ";");
-            colouredBlock.setId("colouredTimeslot");
+            colouredBlock.setId("colouredBlock");
             return colouredBlock;
         }
 
@@ -307,12 +308,10 @@ public class ScheduleView extends UiPart<Region> {
          */
         private StackPane makeColouredBlockWithText(String color, String text, String tooltipMessage) {
             //Ensure that the block must be greater than 10px in height otherwise block will become distorted.
-            assert heightOfTimeslot > 10;
-
+            //assert heightOfTimeslot > 10;
             StackPane container = new StackPane();
             Region colouredBlock = makeColouredBlock(color);
-            Label textLabel = new Label(text);
-            container.getChildren().addAll(colouredBlock, textLabel);
+            container.getChildren().addAll(colouredBlock, createLabel(text));
             Tooltip tooltip = new Tooltip(tooltipMessage);
             Tooltip.install(container, tooltip);
             container.setId("colouredBlockWithText");
@@ -325,6 +324,15 @@ public class ScheduleView extends UiPart<Region> {
             String linearGradient = "linear-gradient(" + lighterToneHex + " 0%, " + color + " 20%, "
                     + color + " 80%, " + lighterToneHex + " 100%);";
             return linearGradient;
+        }
+
+        private Label createLabel(String text) {
+            Label textLabel = new Label(text);
+            if (heightOfTimeslot < 30) {
+                double fontSize = heightOfTimeslot / 2;
+                textLabel.setStyle("-fx-font-size: " + fontSize + ";");
+            }
+            return textLabel;
         }
 
         /**
@@ -344,20 +352,14 @@ public class ScheduleView extends UiPart<Region> {
          */
         private StackPane makeFreeBlock(String text) {
             //Assert that each height is greater than 10px;
-            assert heightOfTimeslot > 10;
+            //assert heightOfTimeslot > 10;
 
             StackPane freeTimeslot = new StackPane();
-            Label label = new Label(text);
-            label.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
+            Label label = createLabel(text);
             Region region = makeColouredBlock("lightgreen");
             region.setId("freeTimeslotBlock");
             freeTimeslot.setId("freeTimeslot");
             freeTimeslot.getChildren().addAll(label, region);
-            //Need to handle cases when timeslot height is less than 15px otherwise
-            //the result block size will be inaccurate.
-            if (heightOfTimeslot < 15) {
-                label.setStyle("-fx-font-size: " + (heightOfTimeslot - 5) + ";");
-            }
             return freeTimeslot;
         }
     }
