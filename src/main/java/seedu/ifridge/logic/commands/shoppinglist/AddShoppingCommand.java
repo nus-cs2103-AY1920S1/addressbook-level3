@@ -9,6 +9,7 @@ import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.ShoppingItem;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
@@ -48,6 +49,10 @@ public class AddShoppingCommand extends Command {
 
         if (model.hasShoppingItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
+        }
+
+        if (Amount.isEmptyAmount(toAdd.getAmount())) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
         }
 
         UnitDictionary unitDictionary = model.getUnitDictionary();
