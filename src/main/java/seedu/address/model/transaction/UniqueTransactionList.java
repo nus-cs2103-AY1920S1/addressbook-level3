@@ -39,15 +39,10 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
     /**
      * Adds a transaction to the list.
-     * The transaction must not already exist in the list.
      *
      * @param toAdd
      */
     public void add(BankAccountOperation toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTransactionException();
-        }
         internalList.add(toAdd);
     }
 
@@ -63,10 +58,6 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
         int index = internalList.indexOf(transactionTarget);
         if (index == -1) {
             throw new TransactionNotFoundException();
-        }
-
-        if (!transactionTarget.equals(transactionEdit) && contains(transactionEdit)) {
-            throw new DuplicateTransactionException();
         }
 
         internalList.set(index, transactionEdit);
@@ -85,14 +76,9 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
     /**
      * Replaces the contents of this list with {@code transactions}.
-     * {@code transaction} must not contain duplicate transactions.
      */
     public void setTransactions(List<BankAccountOperation> transactions) {
         requireAllNonNull(transactions);
-        if (!transactionsAreUnique(transactions)) {
-            throw new DuplicateTransactionException();
-        }
-
         internalList.setAll(transactions);
     }
 

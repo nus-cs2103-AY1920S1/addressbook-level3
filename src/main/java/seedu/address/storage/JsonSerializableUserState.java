@@ -78,9 +78,6 @@ class JsonSerializableUserState {
         UserState userState = new UserState();
         for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {
             BankAccountOperation txn = jsonAdaptedBankOperations.toModelType();
-            if (userState.has(txn)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
-            }
             userState.add(txn);
         }
 
