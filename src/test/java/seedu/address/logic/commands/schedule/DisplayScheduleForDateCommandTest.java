@@ -32,9 +32,9 @@ public class DisplayScheduleForDateCommandTest {
     @Test
     public void equals() throws ParseException {
         EventContainsKeyDatePredicate firstPredicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("10/12/2019"));
+                new EventContainsKeyDatePredicate(ParserUtil.parseEventDate("10/12/2019"));
         EventContainsKeyDatePredicate secondPredicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("12/12/2019"));
+                new EventContainsKeyDatePredicate(ParserUtil.parseEventDate("12/12/2019"));
 
         DisplayScheduleForDateCommand displayFirstCommand = new DisplayScheduleForDateCommand(firstPredicate);
         DisplayScheduleForDateCommand displaySecondCommand = new DisplayScheduleForDateCommand(secondPredicate);
@@ -81,6 +81,6 @@ public class DisplayScheduleForDateCommandTest {
      * Parses {@code userInput} into a {@code EventContainsKeyDatePredicate}.
      */
     private EventContainsKeyDatePredicate preparePredicate(String userInput) throws ParseException {
-        return new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate(userInput));
+        return new EventContainsKeyDatePredicate(ParserUtil.parseEventDate(userInput));
     }
 }

@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the number of manpower needed for an Event.
  */
 public class EventManpowerNeeded {
-    public static final String MESSAGE_CONSTRAINTS = "Manpower Needed should be an positive integer between 1 to 999";
+    public static final String MESSAGE_CONSTRAINTS = "Manpower Needed should be an positive integer between 1 to 100";
     public final int value;
 
     /**
@@ -23,11 +23,11 @@ public class EventManpowerNeeded {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid {@code EventManpowerNeeded}
      */
     public static boolean isValidEventManpowerNeeded(String test) {
         try {
-            return (Integer.parseInt(test) < 1000) && (Integer.parseInt(test) > 0);
+            return (Integer.parseInt(test) <= 100) && (Integer.parseInt(test) > 0);
         } catch (NumberFormatException e) {
             return false;
         }
