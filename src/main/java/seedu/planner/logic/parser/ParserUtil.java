@@ -329,7 +329,7 @@ public class ParserUtil {
         requireNonNull(priorityValue);
         try {
             Integer trimmedPriorityValue = Integer.parseInt(priorityValue.trim());
-            if (trimmedPriorityValue <= 0) {
+            if (trimmedPriorityValue < 1 || trimmedPriorityValue > 7) {
                 throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
             }
             return new Priority(trimmedPriorityValue);

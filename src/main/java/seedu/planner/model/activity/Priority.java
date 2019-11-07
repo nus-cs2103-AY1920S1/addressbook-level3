@@ -12,8 +12,8 @@ import static seedu.planner.commons.util.AppUtil.checkArgument;
 public class Priority {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Value of priority should be a non-zero positive integer";
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+            "Value should be range from 1 to 7  (1 indicates highest priority, 7 indicates the lowest priority) ";
+    public static final String VALIDATION_REGEX = "^[0-7]$";
 
     public final Integer priorityValue;
 
