@@ -59,10 +59,7 @@ public class ReminderListPanel extends UiPart<Region> {
                 reminderList.getChildren().setAll(reminderItems);
             }
         });
-        title.setStyle("-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;");
         title.setMinWidth(Region.USE_PREF_SIZE);
-        scrollPane.setStyle("-fx-border-color: #383838 -fx-cyan-line-color #07847A #383838; "
-                + "-fx-background-color: #1d1d1d;");
         reminderList.getChildren().addAll(reminderItems);
 
     }
