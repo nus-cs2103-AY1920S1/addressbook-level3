@@ -16,7 +16,7 @@ import com.typee.logic.commands.exceptions.DeleteDocumentException;
 
 class PdfUtilTest {
     public static final String DOC_TEST_NAME = "/Jason_Gihun_07-11-19_08-49_UNIT.pdf";
-    public static final LocalDateTime start = LocalDateTime.of(2019, Month.NOVEMBER,
+    public static final LocalDateTime START = LocalDateTime.of(2019, Month.NOVEMBER,
             7, 8, 49);
 
     @TempDir
@@ -36,12 +36,12 @@ class PdfUtilTest {
     @Test
     @Order(1)
     void checkIfDocumentExists() {
-        assertTrue(PdfUtil.checkIfDocumentExists(tempDir.toPath(), "Jason", "Gihun", start, "UNIT"));
+        assertTrue(PdfUtil.checkIfDocumentExists(tempDir.toPath(), "Jason", "Gihun", START, "UNIT"));
     }
 
     @Test
     @Order(2)
     void deleteDocument() throws DeleteDocumentException {
-        PdfUtil.deleteDocument(tempDir.toPath(), "Jason", "Gihun", start, "UNIT");
+        PdfUtil.deleteDocument(tempDir.toPath(), "Jason", "Gihun", START, "UNIT");
     }
 }
