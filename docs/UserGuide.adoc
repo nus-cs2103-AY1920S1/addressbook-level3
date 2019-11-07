@@ -171,7 +171,6 @@ relevant calorie information.
 
 image::FindCommandFindApplePieSuccess.png[]
 
-
 === Suggesting Meal options: `suggest`
 
 Suggest possible meals based on user calorie intake budget. +

@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_CALORIES + "CALORIES] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "OR \n"
-            + "INDEX in suggested meal list \n"
+            + "INDEX (must be a positive integer between 1 and 2 billion that is in the suggested meal list) \n"
             + "Example: \n" + COMMAND_WORD + " "
             + PREFIX_NAME + "Carbonara "
             + PREFIX_CALORIES + "300 "
@@ -90,7 +90,7 @@ public class AddCommand extends Command {
             for (int i = 0; i < dishIntList.size(); i++) {
                 int dishInt = dishIntList.get(i);
                 if (dishInt <= 0 || dishInt > model.getFilteredDishList().size()) {
-                    throw new CommandException(Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
+                    throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEAL_INDEX, dishInt));
                 } else {
                     Dish wantToAdd = model.getFilteredDishList().get(dishInt - 1);
                     Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
