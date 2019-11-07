@@ -5,6 +5,8 @@ import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,9 +39,8 @@ public class XpireParserTest {
 
     @Test
     public void parse_add() throws Exception {
-        XpireItem xpireItem = new XpireItemBuilder().build();
-        AddCommand command = (AddCommand) parser.parse(ItemUtil.getAddCommand(xpireItem));
-        assertEquals(new AddCommand(xpireItem), command);
+        assertTrue(parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI
+                + "|" + VALID_EXPIRY_DATE_KIWI) instanceof AddCommand);
     }
 
     @Test
