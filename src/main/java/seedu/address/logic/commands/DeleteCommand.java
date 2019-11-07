@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.ContextType.VIEW_ACTIVITY;
 
 import java.util.List;
 
@@ -35,6 +34,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_SOFT_DELETE_SUCCESS = "Soft deleted the specified expense.";
 
     public static final String MESSAGE_PERSON_INVOLVED_ACTIVITY = "%s is still involved in an activity!";
+
+    public static final String MESSAGE_EXPENSE_ALREADY_DELETED = "Expense has already been soft-deleted.";
 
     private final Index targetIndex;
 
@@ -91,6 +92,9 @@ public class DeleteCommand extends Command {
             }
 
             Expense expense = activity.getExpenses().get(targetIndex.getZeroBased()); // soft deletes the expense
+            if (expense.isDeleted()) {
+                throw new CommandException(MESSAGE_EXPENSE_ALREADY_DELETED);
+            }
             expense.delete();
             Context thisActivity = new Context(activity);
             model.setContext(thisActivity);
