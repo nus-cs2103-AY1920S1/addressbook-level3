@@ -7,7 +7,7 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([input file exists])
-    :Clear file;
+    :Clears file;
 else ([else])
     :Create new file;
 endif
@@ -15,7 +15,11 @@ endif
 :Get schedules from model;
 
 if () then ([data != null])
-    :Write to file;
+    if () then ([model.isScheduled])
+        : Writes to specified file;
+    else ([else])
+    endif
+
 else ([else])
 endif
 stop

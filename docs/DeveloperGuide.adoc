@@ -303,15 +303,15 @@ As seen in the above sequence diagram, the execution of the import feature consi
 * Step 1: `LogicManager` will start executing the command by parsing it over to `AddressBookParser`.
 * Step 2: `AddressBookParser` will then look and initialise an `ImportCommand` instance and return it to `LogicManager`.
 * Step 3: `LogicManager` will then call execute() on the returned `ImportCommand`  object.
-* Step 4: During the execute() method, the method will initialise a `CsvReader` object to `read()` data from the the given .csv file.
-* Step 5: The read data will then be stored as either `scheduleList` or `intervieweeList` in the model.
+* Step 4: During the execute() method, the method will initialise a `CsvReader` object to `readInterviewers()` from the the given .csv file.
+* Step 5: Each `Interviewer` object returned from Step 4 will then be added into model's `interviewerList`.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::ImportActivityDiagram.png[]
 
 
-=== [Coming soon in v1.4] Export
+=== Export
 ==== Implementation [Proposed]
 The Export command gets the scheduled time slots from the Model and writes them in the specified .csv file.
 CsvWriter facilitates the writing to the specified file.
