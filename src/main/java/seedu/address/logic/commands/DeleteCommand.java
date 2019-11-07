@@ -99,7 +99,7 @@ public class DeleteCommand extends Command {
             Context thisActivity = new Context(activity);
             model.setContext(thisActivity);
 
-            return new CommandResult(String.format(MESSAGE_SOFT_DELETE_SUCCESS,targetIndex.getOneBased()),
+            return new CommandResult(String.format(MESSAGE_SOFT_DELETE_SUCCESS, targetIndex.getOneBased()),
                     thisActivity);
 
         default:
