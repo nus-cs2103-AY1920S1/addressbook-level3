@@ -25,7 +25,7 @@ public class ResultDisplay extends UiPart<Region> {
     private static final String FXML = "ResultDisplay.fxml";
 
     private static final String K = "";
-    private static final String WEBVIEW_WRAPPER = "<html style=\"background: #212121;\">%s</html>";
+    private static final String WEBVIEW_WRAPPER = "<html style=\"background: #424242;\">%s</html>";
     private static final String MAPS_WRAPPER = "<iframe width=\"100%%\" height=\"330\" frameborder=\"0\" "
             + "style=\"border:0\" src=\"https://www.google.com/maps/embed/v1/search?q=%s&key=%s\" "
             + "allowfullscreen></iframe>";
@@ -67,7 +67,8 @@ public class ResultDisplay extends UiPart<Region> {
 
         if (eateryToShow != null) {
             // Basic info
-            eateryName.setText(eateryToShow.getName().fullName);
+            eateryName.setText(eateryToShow.getIsOpen()
+                    ? eateryToShow.getName().fullName : String.format("%s [closed]", eateryToShow.getName().fullName));
             eateryCategory.setText(eateryToShow.getCategory().getName());
             eateryAddress.setText(eateryToShow.getAddress().value);
 
@@ -99,11 +100,14 @@ public class ResultDisplay extends UiPart<Region> {
      */
     private void reset() {
         commandFeedback.setText("");
+
         eateryName.setText("");
         eateryCategory.setText("");
         eateryAddress.setText("");
         eateryTags.getChildren().clear();
+
         eateryMap.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, ""));
+
         reviewHeader.setText("");
         reviewListPanelPlaceholder.getChildren().clear();
     }

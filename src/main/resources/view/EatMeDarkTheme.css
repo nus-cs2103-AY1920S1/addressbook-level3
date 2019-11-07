@@ -1,28 +1,29 @@
 // Background
 .root, .list-cell, .text-field, .list-view {
-    -fx-background-color: #212121;
+    -fx-background-color: #424242;
 }
 
 .list-cell:selected {
-    -fx-background-color: #484848;
+    -fx-background-color: derive(#424242, 20%);
 }
 
 FlowPane > Label {
-    -fx-background-color: orange;
+    -fx-background-color: #ffca28;
+    -fx-background-radius: 10;
 }
 
 // === Type ===
 Label, TextField {
-    -fx-text-fill: #f5f5f5;
+    -fx-text-fill: #fafafa;
     -fx-font: normal 13 sans-serif;
 }
 
 .h1 {
-    -fx-font: bold 17 sans-serif;
+    -fx-font: bold 19 sans-serif;
 }
 
 .h2 {
-    -fx-font: bold 15 sans-serif;
+    -fx-font: bold 16 sans-serif;
 }
 
 .hyperlink {
@@ -35,8 +36,12 @@ Label, TextField {
     -fx-underline: false;
 }
 
+FlowPane > Label {
+    -fx-text-fill: #424242;
+}
+
 .rating-active {
-    -fx-text-fill: orange;
+    -fx-text-fill: #ffca28;
 }
 
 // === Borders ===
@@ -45,7 +50,7 @@ VBox {
 }
 
 VBox, .text-field, .list-view, .list-item {
-    -fx-border-color: #484848;
+    -fx-border-color: derive(#424242, 20%);
 }
 
 .left {

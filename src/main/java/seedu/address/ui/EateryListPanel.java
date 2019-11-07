@@ -39,6 +39,10 @@ public class EateryListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new EateryCard(eatery, getIndex() + 1).getRoot());
+
+                if (!eatery.getIsOpen()) {
+                    setStyle("-fx-background-color: rgba(218, 88, 65, 0.25);");
+                }
             }
         }
     }
