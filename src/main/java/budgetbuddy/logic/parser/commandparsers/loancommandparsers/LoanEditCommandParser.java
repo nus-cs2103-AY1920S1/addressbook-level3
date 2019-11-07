@@ -41,7 +41,7 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanEditCommand.MESSAGE_USAGE));
         }
 
-        if (argMultiMap.getPreamble().isEmpty()) {
+        if (argMultiMap.getPreamble().isBlank() || argMultiMap.getPreamble().split("\\s+").length != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanEditCommand.MESSAGE_USAGE));
         }
         Index loanIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
@@ -65,6 +65,10 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
         if (argMultiMap.getValue(PREFIX_DATE).isPresent()) {
             loanEditDescriptor.setDate(
                     CommandParserUtil.parseDate(argMultiMap.getValue(PREFIX_DATE).get()));
+        }
+
+        if (!loanEditDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(LoanEditCommand.MESSAGE_UNEDITED);
         }
 
         return new LoanEditCommand(loanIndex, loanEditDescriptor);

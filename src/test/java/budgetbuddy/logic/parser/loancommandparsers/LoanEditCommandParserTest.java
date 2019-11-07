@@ -40,9 +40,6 @@ public class LoanEditCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryFields_failure() {
-        // no index specified
-        assertParseFailure(parser, JOHN_PERSON, MESSAGE_INVALID_FORMAT);
-
         // no field specified
         assertParseFailure(parser, "1", LoanEditCommand.MESSAGE_UNEDITED);
 
