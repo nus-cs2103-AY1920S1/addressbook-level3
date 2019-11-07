@@ -39,13 +39,4 @@ public class JsonSerializableUserStateTest {
             JsonSerializableUserState.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
-
-    @Test
-    public void toModelType_duplicateTransactions_throwsIllegalValueException() throws Exception {
-        JsonSerializableUserState dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TRANSACTION_FILE,
-            JsonSerializableUserState.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableUserState.MESSAGE_DUPLICATE_TRANSACTION,
-            dataFromFile::toModelType);
-    }
-
 }

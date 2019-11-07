@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
@@ -43,6 +42,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
      * @param toAdd
      */
     public void add(BankAccountOperation toAdd) {
+        requireNonNull(toAdd);
         internalList.add(toAdd);
     }
 
