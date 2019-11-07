@@ -1,6 +1,7 @@
 = EzWatchlist - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -64,7 +65,7 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 **Characteristics of the watchlist page:**
 
 * Movie/TV show poster
-* Name of show (and year in brackets?)
+* Name of show
 * Genres
 * Actors
 * Description of the show
@@ -168,9 +169,9 @@ Examples:
 Clear the WatchList +
 Format: `clear`
 
-==== Mark as watched : `watch`
+==== Mark/Unmark as watched : `watch`
 
-Marks an unwatched show in the watchlist as watched. Also marks a watched show as unwatched. +
+Marks an unwatched show in the watchlist as watched. Also un-marks a watched show as watched. +
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 ****
@@ -189,9 +190,9 @@ Marks/un-marks the first show of the list as watched.
 * `watch 2 e/20` +
 Marks the first 20 episodes of the second show of the list as watched.
 * `watch 2 s/5` +
-Marks all episodes of the first 5 seasons of the second show to be watched.
+Marks all episodes of the first 5 seasons of the second show as watched.
 * `watch 3 s/5 e/2` +
-Marks all episodes including the second episode of the fifth season of the third show in the list as watched.
+Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
 
 ==== Editing a show's details : `edit`
 
@@ -208,8 +209,8 @@ Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIM
 
 Examples:
 
-* `edit 1 n/Batman a/Joaquin Phoenix` +
-Edits the name and actor name of the 1st show in the list to be `Titanic` and `Joaquin Phoenix` respectively.
+* `edit 1 n/Joker a/Joaquin Phoenix` +
+Edits the name and actor name of the 1st show in the list to be `Joker` and `Joaquin Phoenix` respectively.
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
@@ -285,6 +286,7 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::advancedfeatures[]
 === Advanced Features
 
 ==== Parsing of Movie and Tv Show Information
@@ -311,6 +313,7 @@ your Ezwatchlist usage. Ezwatchlist will create your own personalized recommenda
 Excited? Enter your statistics page to get started on your recommendations. You might
 just find your next favourite!
 ****
+// end::advancedfeatures[]
 
 ==== Auto-Correct (Coming in v2.0)
 Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically

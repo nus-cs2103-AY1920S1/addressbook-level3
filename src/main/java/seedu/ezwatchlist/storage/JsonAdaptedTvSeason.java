@@ -1,9 +1,7 @@
 package seedu.ezwatchlist.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -65,7 +63,7 @@ class JsonAdaptedTvSeason {
      * @throws IllegalValueException if there were any data constraints violated in the adapted TvSeason.
      */
     public TvSeason toModelType() throws IllegalValueException {
-        final List<Episode> seasonEpisodes = new ArrayList<>();
+        final ArrayList<Episode> seasonEpisodes = new ArrayList<>();
         for (JsonAdaptedEpisode episode : episodes) {
             seasonEpisodes.add(episode.toModelType());
         }
@@ -75,8 +73,7 @@ class JsonAdaptedTvSeason {
         if (!TvSeason.isValidTotalNumOfEpisodes(totalNumOfEpisodes)) {
             throw new IllegalValueException(TvSeason.MESSAGE_CONSTRAINTS_TOTAL_EPISODES);
         }
-        final Set<Episode> modelActors = new HashSet<>(seasonEpisodes);
-        return new TvSeason(seasonNumber, totalNumOfEpisodes, (ArrayList<Episode>) seasonEpisodes);
+        return new TvSeason(seasonNumber, totalNumOfEpisodes, seasonEpisodes);
     }
 
 }

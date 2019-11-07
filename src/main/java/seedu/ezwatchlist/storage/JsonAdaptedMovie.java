@@ -128,10 +128,6 @@ public class JsonAdaptedMovie {
         }
         final Description modelDescription = new Description(description);
 
-
-        if (runningTime < 0) {
-            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
-        }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }

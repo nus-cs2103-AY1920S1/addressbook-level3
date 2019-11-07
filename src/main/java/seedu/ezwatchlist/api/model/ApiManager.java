@@ -23,7 +23,6 @@ public class ApiManager implements ApiInterface {
     private static final String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private static final String CONNECTION_ERROR_MESSAGE = "Looks like you're not connected to the internet";
     private TmdbApi apiCall;
-    private boolean isConnected = false;
 
     /**
      * Constructor for ApiMain object used to interact with the API.
@@ -33,7 +32,6 @@ public class ApiManager implements ApiInterface {
     public ApiManager() throws OnlineConnectionException {
         try {
             apiCall = new TmdbApi(API_KEY);
-            isConnected = true;
         } catch (MovieDbException e) {
             //when not connected to the internet
             notConnected();
@@ -45,15 +43,13 @@ public class ApiManager implements ApiInterface {
      *
      * @return true if connected to the API.
      */
-    public boolean isConnected() {
+    public static boolean isConnected() {
         try {
-            apiCall = new TmdbApi(API_KEY);
-            isConnected = true;
+            new TmdbApi(API_KEY);
         } catch (MovieDbException e) {
-            isConnected = false;
-        } finally {
-            return isConnected;
+            return false;
         }
+        return true;
     }
 
     /**
@@ -95,7 +91,7 @@ public class ApiManager implements ApiInterface {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
             MovieResultsPage page = apiCall.getSearch().searchMovie(name,
-                    null, null, true, 1);
+                    null, null, false, 1);
 
 
             ApiUtil.extractMovies(movies, page, apiCall);
@@ -176,7 +172,9 @@ public class ApiManager implements ApiInterface {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreID = genreApi.getId();
-                        tvResultsPage tvPage = apiCall.getDiscover().getDiscover(new Discover().withGenres()).
+                        Discover discover = new Discover();
+                        discover.includeAdult(false).withGenres(genreID);
+                        MovieResultsPage tvPage = apiCall.getDiscover().getDiscover(discover);
                         ApiUtil.extractTvShows(tvShows, tvPage, apiCall);
                     }
                 }
@@ -186,7 +184,9 @@ public class ApiManager implements ApiInterface {
             notConnected();
             return tvShows;
         }
-    }*/
+    }
+
+    */
 
     /**
      * Returns a list of movies from the API search method.
@@ -197,16 +197,19 @@ public class ApiManager implements ApiInterface {
     public List<Movie> getMovieByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
+
             List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
             for (Genre genreSearched : genreSet) {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreId = genreApi.getId();
-                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1, true);
+                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1,
+                                true);
                         ApiUtil.extractMovies(movies, moviePage, apiCall);
                     }
                 }
             }
+
             return movies;
         } catch (MovieDbException e) {
             notConnected();

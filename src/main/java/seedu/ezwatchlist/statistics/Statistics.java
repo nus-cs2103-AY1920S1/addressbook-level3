@@ -32,6 +32,7 @@ public class Statistics {
         try {
             apiManager = new ApiManager();
         } catch (OnlineConnectionException e) {
+            //have to handle
             e.printStackTrace();
         }
     }

@@ -17,7 +17,6 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
 
-
 /**
  * Adds a show to the watchlist.
  */
@@ -28,7 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a show to the watchlist. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_TYPE + "TYPE "
+            + PREFIX_TYPE + "TYPE ('movie' or 'tv') "
             + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
             + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
             + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
@@ -55,6 +54,7 @@ public class AddCommand extends Command {
     private final Show toAdd;
     private final Index index;
     private final boolean isFromSearch;
+
     /**
      * Creates an AddCommand to add the specified {@code Show}
      */
