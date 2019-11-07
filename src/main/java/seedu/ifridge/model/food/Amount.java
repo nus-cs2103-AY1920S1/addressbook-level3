@@ -87,8 +87,8 @@ public class Amount {
         if (floatValue == Math.round(floatValue)) {
             fullAmt = Math.round(floatValue) + trimmedUnit;
         } else {
-            float formattedValue = Float.parseFloat(String.format("%.2f", floatValue));
-            fullAmt = formattedValue + trimmedUnit;
+            //float formattedValue = Float.parseFloat(String.format("%.2f", floatValue));
+            fullAmt = trimmedValue + trimmedUnit;
         }
     }
 
