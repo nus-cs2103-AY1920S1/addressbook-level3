@@ -24,14 +24,14 @@ public interface InteractiveParser {
      * Fetches the result of executing the user input. Returns the message in
      * a {@code CommandResult} object.
      *
-     * @return Result of Execution.
+     * @return result of execution.
      */
     CommandResult fetchResult();
 
     /**
      * Returns true if the parser has parsed all the necessary arguments of the {@code Command} being built.
      *
-     * @return True if the command can be built.
+     * @return true if the command can be built.
      */
     boolean hasParsedCommand();
 

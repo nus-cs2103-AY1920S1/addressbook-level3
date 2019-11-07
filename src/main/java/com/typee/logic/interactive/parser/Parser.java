@@ -39,6 +39,17 @@ import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 import com.typee.logic.parser.exceptions.ParseException;
 
+/**
+ * Represents an implementation of {@code InteractiveParser} that keeps track of the state machine currently in
+ * execution.
+ *
+ * The commands that are parsable are further partitioned into dynamic and static commands. Dynamic commands can
+ * be executed at any point of parsing, while static commands must be parsed to fruition before another static
+ * command is initiated.
+ *
+ * This partition, however, is only a {@code Parser} level implementation to handle the execution of two state
+ * machines concurrently.
+ */
 public class Parser implements InteractiveParser {
 
     private static final String BUFFER_TEXT = " ";
@@ -52,16 +63,26 @@ public class Parser implements InteractiveParser {
     private static final String MESSAGE_BLANK = "The command entered cannot be blank!";
 
 
+    /** The state of the finite state machine currently being parsed. */
     private State currentState;
+    /** Backup state to handle parsing of dynamic commands. */
     private State temporaryState;
     private final InputProcessor inputProcessor;
 
+    /**
+     * Constructs an interactive parser.
+     */
     public Parser() {
         this.currentState = null;
         this.temporaryState = null;
         this.inputProcessor = new InputProcessor();
     }
 
+    /**
+     * Returns true if a state machine is actively being parsed.
+     *
+     * @return true if a command is being parsed.
+     */
     private boolean isActive() {
         return currentState != null;
     }
@@ -85,6 +106,12 @@ public class Parser implements InteractiveParser {
         parseStaticCommand(commandText, wasActivatedNow, arrayOfPrefixes);
     }
 
+    /**
+     * Returns true if the command text is a dynamic command with no parameters, like "Exit" and "Help".
+     *
+     * @param commandText User entered text.
+     * @return true if the text corresponds to a dynamic stateless command.
+     */
     private boolean isDynamicStatelessCommand(String commandText) {
         return isClearArgumentsCommand(commandText)
                 || isExitCommand(commandText)
@@ -92,6 +119,13 @@ public class Parser implements InteractiveParser {
                 || isCurrentCommand(commandText);
     }
 
+    /**
+     * Parses a dynamic, stateless command, i.e. a command with no parameters.
+     * Initializes the state machine to that of the command.
+     *
+     * @param commandText User entered command text.
+     * @throws ParseException If the command isn't a dynamic, stateless command.
+     */
     private void parseDynamicStatelessCommand(String commandText) throws ParseException {
         String trimmedNormalizedText = commandText.trim().toLowerCase();
         switch (trimmedNormalizedText) {
@@ -117,11 +151,23 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    /**
+     * Returns true if the command text is a dynamic, stateful command, i.e. a dynamic command with parameters.
+     *
+     * @param commandText User entered command text.
+     * @return true if the text corresponds to a dynamic, stateful command.
+     */
     private boolean isDynamicStatefulCommand(String commandText) {
         return isTabCommand(commandText);
         // Further extensible.
     }
 
+    /**
+     * Parses a dynamic, stateful command.
+     * Initializes the corresponding state machine.
+     *
+     * @param commandText User entered text that represents a dynamic, stateful command.
+     */
     private void parseDynamicStatefulCommand(String commandText) {
         if (isTabCommand(commandText)) {
             initializeTab();
@@ -129,6 +175,14 @@ public class Parser implements InteractiveParser {
         // Room for further extensions.
     }
 
+    /**
+     * Activates the state machine to that of the command text.
+     * Returns true if no state machine was in execution previously.
+     *
+     * @param commandText User entered command text.
+     * @return true if a new state machine's parsing is initiated.
+     * @throws ParseException If the command text doesn't match any command.
+     */
     private boolean activateStateMachineIfInactive(String commandText) throws ParseException {
         boolean activatedNow = false;
         if (!isActive()) {
@@ -138,6 +192,13 @@ public class Parser implements InteractiveParser {
         return activatedNow;
     }
 
+    /**
+     * Instantiates a new state machine corresponding to the user entered command text.
+     * This method should be called only when no other state machine is in execution.
+     *
+     * @param commandText User entered input.
+     * @throws ParseException If the user input doesn't match any command.
+     */
     private void instantiateStateMachine(String commandText) throws ParseException {
         String commandWord = inputProcessor.getCommandWord(commandText);
         switch (commandWord) {
@@ -191,6 +252,14 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    /**
+     * Parses a static command entered by the user.
+     *
+     * @param commandText User entered input.
+     * @param wasActivatedNow Flag that indicates if a state machine was just instantiated.
+     * @param prefixes List of prefixes contained in the user input.
+     * @throws ParseException If the input is invalid.
+     */
     private void parseStaticCommand(String commandText, boolean wasActivatedNow, Prefix... prefixes)
             throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
@@ -210,6 +279,12 @@ public class Parser implements InteractiveParser {
 
     //=========== Dynamic Command Checkers =================================================================
 
+    /**
+     * Returns true if the user entered text is the current command's text.
+     *
+     * @param commandText User entered input.
+     * @return true if the input corresponds to a {@code CurrentCommand}.
+     */
     private boolean isCurrentCommand(String commandText) {
         return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
     }
@@ -227,7 +302,7 @@ public class Parser implements InteractiveParser {
         if (tokens.length == 2) {
             boolean endsWithArgument = tokens[1].matches("b/[a-z]+");
             return startsWithTab && endsWithArgument;
-        } else if (tokens.length > 2){
+        } else if (tokens.length > 2) {
             return false;
         }
         return startsWithTab;
