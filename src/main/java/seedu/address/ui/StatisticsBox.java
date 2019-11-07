@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class StatisticsBox extends Tabs<AnchorPane> {
 
     public StatisticsBox(ObservableList<Event> eventList, Logic logic, MainWindow mainWindow) {
         super(FXML, mainWindow, logic);
+
         ObservableList<Event> filterEventNeedingManpower = eventList
                 .filtered(event -> !event.isPastEvent())
                 .filtered(event -> event.getCurrentManpowerCount() < event.getManpowerNeeded().value)
