@@ -21,8 +21,8 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.RegexUtil;
-import javafx.scene.layout.AnchorPane;
 import dream.fcard.util.stats.StatsDisplayUtil;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * The enums are composed of three properties:
