@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.index.Index;
-import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
@@ -157,7 +156,7 @@ public class ClashCommand extends Command {
         for (Module currentModule : currentModules) {
             if (!moduleToCheck.getModuleCode().equalsIgnoreCase(currentModule.getModuleCode())
                     && getClashCase(currentModule, moduleToCheck).isPresent()) {
-                clashCases.add(getClashCase(currentModule, moduleToCheck).get());
+                clashCases.add(getClashCase(moduleToCheck, currentModule).get());
             }
         }
     }
@@ -376,9 +375,9 @@ public class ClashCommand extends Command {
             return moduleCodes.get(1);
         }
 
-        public boolean isPresent() {
+        /*public boolean isPresent() {
             return CollectionUtil.isAnyNonNull(appealIndex, moduleIndices, studentIndex, moduleCodes);
-        }
+        }*/
 
         @Override
         public boolean equals(Object other) {
