@@ -197,7 +197,7 @@ public class EditTemplateItemCommand extends Command {
      */
     public boolean equals(EditTemplateItemCommand other) {
         return other == this
-                || ( other instanceof EditTemplateItemCommand
+                || (other instanceof EditTemplateItemCommand
                 && other.targetTemplateIndex.equals(this.targetTemplateIndex)
                 && other.targetItemIndex.equals(this.targetItemIndex)
                 && other.editTemplateItemDescriptor.equals(this.editTemplateItemDescriptor));
