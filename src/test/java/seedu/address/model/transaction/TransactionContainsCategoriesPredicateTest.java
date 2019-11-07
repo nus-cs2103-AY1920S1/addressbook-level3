@@ -2,6 +2,7 @@ package seedu.address.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,6 +104,22 @@ public class TransactionContainsCategoriesPredicateTest {
             Optional.empty(), Optional.empty(), Optional.empty());
         assertFalse(predicate.test(new BankOperationBuilder().withCategories("Alice").withAmount("12345")
             .withDate("19112019").build()));
+    }
+
+    @Test
+    public void test_noCategory_returnsFalse() {
+        TransactionContainsCategoriesPredicate predicate =
+            new TransactionContainsCategoriesPredicate(Optional.empty(),
+                Optional.empty(), Optional.of(1), Optional.empty());
+        assertFalse(predicate.test(new BankOperationBuilder().withCategories("Alice").build()));
+    }
+
+    @Test
+    public void test_null_throwsNullPointerException() {
+        TransactionContainsCategoriesPredicate predicate =
+            new TransactionContainsCategoriesPredicate(Optional.empty(),
+                Optional.empty(), Optional.of(1), Optional.empty());
+        assertThrows(NullPointerException.class, () -> predicate.test(null));
     }
 
 }

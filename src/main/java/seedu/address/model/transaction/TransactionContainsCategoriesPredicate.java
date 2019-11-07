@@ -1,5 +1,8 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +26,7 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
                                                   Optional<Integer> month,
                                                   Optional<Integer> year,
                                                   Optional<Description> description) {
+        requireAllNonNull(keyCategories, month, year, description);
         if (keyCategories.isPresent()) {
             this.keyCategories = Optional.of(new ArrayList<>(keyCategories.get()));
         } else {
@@ -36,6 +40,7 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
 
     @Override
     public boolean test(BankAccountOperation transaction) {
+        requireNonNull(transaction);
         return testForCategories(transaction)
             && testForMonth(transaction)
             && testForYear(transaction)
