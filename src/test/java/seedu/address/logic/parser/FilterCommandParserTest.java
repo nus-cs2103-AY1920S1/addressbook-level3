@@ -33,10 +33,10 @@ public class FilterCommandParserTest {
         FilterCommand expectedFilterCommand =
             new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
                 Optional.empty(), Optional.empty(), Optional.empty()));
-        assertParseSuccess(parser, "Alice Bob", expectedFilterCommand);
+        assertParseSuccess(parser, " c/Alice c/Bob", expectedFilterCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFilterCommand);
+        assertParseSuccess(parser, " \n c/Alice \n \t c/Bob  \t", expectedFilterCommand);
     }
 
 }

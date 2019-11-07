@@ -94,13 +94,14 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " food") instanceof FilterCommand);
+        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " c/food") instanceof FilterCommand);
 
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         Optional<Set<Category>> categories = Optional.of(new HashSet<>(Arrays.asList(
             new Category("foo"), new Category("bar"), new Category("baz"))));
         FilterCommand command = (FilterCommand) parser.parseCommand(
-            FilterCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FilterCommand.COMMAND_WORD + " "
+                + keywords.stream().map(cat -> "c/" + cat).collect(Collectors.joining(" ")));
         assertEquals(new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
             Optional.empty(), Optional.empty(), Optional.empty())), command);
     }
