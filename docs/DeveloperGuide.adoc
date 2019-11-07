@@ -212,7 +212,7 @@ The guard statement throws a command exception and informs the user of the avail
 
 Activity Diagram for illustration:
 
-image::AccessActivityDiagram.png[width="400"]
+image::AccessActivityDiagram.png[width="600"]
 
 ===== Identity Verification
 
@@ -223,7 +223,7 @@ Session details are displayed on the status bar in the GUI to reflect whether a 
 
 Class Diagram for illustration:
 
-image::SessionClassDiagram.png[width="400"]
+image::SessionClassDiagram.png[width="600"]
 
 Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
@@ -249,7 +249,7 @@ The checks described above all function in the command execution stage. The `Reg
 
 Simplified Sequence Diagram for illustration:
 
-image::AccessSequenceDiagram.png[width="600"]
+image::AccessSequenceDiagram.png[width="800"]
 
 NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
