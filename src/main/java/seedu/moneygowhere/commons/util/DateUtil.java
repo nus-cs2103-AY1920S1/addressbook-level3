@@ -288,10 +288,24 @@ public class DateUtil {
         }
     }
 
+    //@@author austinsantosoo
+    /**
+     * Returns today's date as a LocalDate.
+     *
+     * @return The LocalDate which represents today.
+     */
     public static LocalDate getTodayDate() {
         return LocalDate.now();
     }
 
+    //@@author minpyaemoe
+    /**
+     * Returns the number of days between two localDate objects in long.
+     *
+     * @param d1 first LocalDate
+     * @param d2 second LocalDate
+     * @return The number of days between first localDate and second
+     */
     public static long getDaysBetween(LocalDate d1, LocalDate d2) {
         return ChronoUnit.DAYS.between(d1, d2);
     }
