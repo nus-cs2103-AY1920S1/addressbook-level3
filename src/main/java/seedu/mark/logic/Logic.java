@@ -107,7 +107,7 @@ public interface Logic {
 
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
-        /**
+    /**
      * Delete expired reminders.
      */
     public void closeMarkTimer();

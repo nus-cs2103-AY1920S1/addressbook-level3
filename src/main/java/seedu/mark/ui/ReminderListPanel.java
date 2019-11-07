@@ -18,6 +18,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.JsonMarkStorage;
@@ -58,11 +59,10 @@ public class ReminderListPanel extends UiPart<Region> {
                 reminderList.getChildren().setAll(reminderItems);
             }
         });
-        title.setStyle("-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"
-                );
+        title.setStyle("-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;");
         title.setMinWidth(Region.USE_PREF_SIZE);
-        scrollPane.setStyle("-fx-border-color: #383838 -fx-cyan-line-color #07847A #383838; " +
-                "-fx-background-color: #1d1d1d;");
+        scrollPane.setStyle("-fx-border-color: #383838 -fx-cyan-line-color #07847A #383838; "
+                + "-fx-background-color: #1d1d1d;");
         reminderList.getChildren().addAll(reminderItems);
 
     }
