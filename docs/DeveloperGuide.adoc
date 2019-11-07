@@ -1,4 +1,4 @@
-= Test Bank - Developer Guide
+= CS2103/T Revision Tool - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -238,6 +238,9 @@ the commands accepted.
 move on to the next question.
 . Once a level has ended, the user will be given the choice to move on to the next level or exit the quiz.
 . Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
+
+[NOTE]
+For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 
 === Quiz Commands
 During a quiz session the `QuizCommandParser` instead of `RevisionToolParser` is used.
