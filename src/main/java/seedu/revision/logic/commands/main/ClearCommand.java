@@ -3,8 +3,8 @@ package seedu.revision.logic.commands.main;
 import static java.util.Objects.requireNonNull;
 
 import seedu.revision.logic.commands.Command;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
+import seedu.revision.model.RevisionTool;
 
 /**
  * Clears the revision tool.

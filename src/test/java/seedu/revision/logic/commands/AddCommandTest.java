@@ -18,10 +18,10 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.McqBuilder;
 

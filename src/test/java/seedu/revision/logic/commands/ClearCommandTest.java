@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.ClearCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 
 public class ClearCommandTest {

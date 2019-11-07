@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.revision.commons.exceptions.DataConversionException;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 
 public class JsonRevisionToolStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRevisionToolStorageTest");
