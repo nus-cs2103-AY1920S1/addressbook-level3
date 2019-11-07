@@ -257,13 +257,14 @@ Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `tag/` without specifying any tags after it.
+* Note: `TAG` cannot have white space in the argument.
 ****
 
 Examples:
 
 * `editperson ed/John Doe p/91234567 em/johndoe@example.com` +
 Edits the phone number and email address of the person with name 'John Doe' to be `91234567` and `johndoe@example.com` respectively.
-* `edit ed/Betsy n/Betsy Crower tag/` +
+* `editperson ed/Betsy n/Betsy Crower tag/` +
 Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
 [[edit-user-command]]
@@ -342,14 +343,41 @@ You may see this person's schedule up to 4 weeks in advance.
 
 ==== Add Event to Schedule: `addevent`
 
+*Description*
+
 Adds an event into the schedule of a person in the TimeBook.
 Only schedules without clashes between time slots can be added to the TimeBook.
 Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
-Format:
+
+*Format:*
 
 * `addevent e/EVENT_NAME t/DATETIME...` +
 * `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
 
+*Parameters*
+
+. `NAME`
+.. *Description:* The name of the person you want to add the event to. If the parameter is empty, the event
+will be added to your own schedule.
+.. *Prefix:* `n/`
+.. *Requirements:* Optional
+.. *Data Type:* String
+. `EVENT_NAME`
+.. *Description:* The name of the event you want to add to your schedule
+.. *Prefix:* `e/`
+.. *Requirements:* Required
+.. *Data Type:* String
+. `DATETIME`
+.. *Description:* The date, time and location of the event. You can specify multiple `DATETIME` if you want the
+event to repeat in different `DATETIME`. Note that the location of the event cannot contain `e/`, `n/` or `t/`.
+.. *Prefix:* `t/`
+.. *Requirements:* Require at least one `DATETIME` per event. In the `DATETIME` parameter it is optional for you to
+specify the `LOCATION`
+.. *Data Type:* String
+.. *Format: * `e/DATE - START_TIME - END_TIME - [LOCATION]
+... `DATE` : ddMMyyyy
+... `TIME` : HHmm(24H)
+... `LOCATION`: String without `e/`, `n/`, `t/` (Optional)
 *****
 image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
 *****
@@ -532,7 +560,8 @@ image:./icons/lightbulb.png[] You can use the command `nw` to help you show next
 
 ==== Add Person to Group: `addtogroup`
 
-Adds a person specified by `NAME` with a role specified by `ROLE` into a group specified by `GROUP_NAME` in the TimeBook.
+Adds a person specified by `NAME` with a role specified by `ROLE` into a group specified by `GROUP_NAME` in the
+TimeBook.
 
 Format:
 
@@ -588,31 +617,11 @@ Format:
 
 * `export-vr` +
 
-//=== Export ICS: `export-ics`
-//
-//Output the free time for a certain group as an ics file. This ics file could be imported into google calendar. +
-//Format:
-//
-//* `export-ics OUTPUT_FILENAME` +
-//
-//Examples:
-//
-//* `Export-ics -n CS3230T`
-
-//=== Import ICS: `import-ics`
-//
-//Import the ics file of an individual. +
-//Format:
-//
-//* `import-ics NAME FILEPATH` +
-//
-//Examples:
-//
-//* `Import-ics -t individual -n Catherine -p /data/timetable.ics`
-
 === Closest Common Location
 
-TimeBook will also help you to decide where to meet for your project meetings by suggesting to you where is the closest location for everyone to meet in NUS based on their schedule.
+TimeBook will also help you to decide where to meet for your project meetings by suggesting to you which
+location is the center for everyone. The center location is the closest location for everyone to meet in NUS based
+on their schedule. In time book we define the center location for everyone as the _closest common location_.
 
 *Steps*
 
@@ -639,6 +648,10 @@ The full list of the supported locations is below.
 
 command: `popup g/ GROUP_NAME i/ID`
 
+Examples:
+
+* `popup g/CS2103T i/2`
+
 image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
 
 [#img-SuccessfulPopup]
@@ -646,7 +659,8 @@ image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
 
 _Description_
 
-When the command is executed a popup will appear that shows the all the information of the closest common location for a particular free time slot in a group.
+When the command is executed a popup will appear that shows the all the information of the closest common location
+for a particular free time slot in a group.
 
 _Parameters_
 
@@ -665,26 +679,55 @@ _Success Response_
 
 If you follow the steps above, a popup will appear as seen in the Figure above.
 
-There are two main information that you will see in the popup when you execute the command.
+There are two main information that you will see in the popup when you execute ththe command.
 
-. The full details of the first, second and third closest common location will be shown on the right side of the popup.
+. The summary of the results will be displayed on the top of the popup.
+.. *Your best location to meet up is:* The first choice location to meet(closest for everyone).
+.. *Everyone's locations:* List of locations that the group members will be at before the free time slot.
+.. *Out of all these locations, the valid locations are:* List of TimeBook supported locations that the group members
+will be at before the free time slot that.
+... Subset of the *Everyone's locations:* list
+.. *Locations that cannot be found in NUS:* List of locations that the group members will be at before the free time
+slot but not supported by TimeBook.
+... Subset of the *Everyone's locations:* list
+... If all the locations are valid, this attribute will be empty as seen in the Figure above
+. The full details of the first, second and third closest common location will be shown on the bottom of the popup.
 .. First choice represents the first closest and so on and so forth.
 .. The average distance(m) to reach the various location will be displayed below the respective choices.
-.. A list of voided location that TimeBook does not support will be shown at the bottom of the popup.
-. The picture of the closest common location on google maps will be shown on the left of the popup.
-Where the marker represent the exact location of the first closest common location.
+.. The picture of the location of the venue on Google Maps will be displayed below each choice.
+... For locations that are not supported on Google Maps, a picture of the center of NUS will be displayed.
+
 
 _Failure Response_
 
-. `Error` when all the source locations are not recognised by TimeBook, a popup will not appear.
-.. Feedback box will show: `We could not find a common location because all places cannot be found in NUS. The locations are:`
-. `Error` when all the group members are not in school before the free time slot, a popup will not appear.
-.. Feedback box will show: `Everyone has not started their schedule yet. Feel free to meet up any time.`
-Format:
+-  `Error` when all the source locations are not recognised by TimeBook, a popup will not appear.
 
-Examples:
+Feedback box will show:
+```
+ We could not find a common location because all places cannot be found in NUS. The locations are:
+```
 
-* `popup g/CS2103T i/2`
+- `Error` when all the group members are not in school before the free time slot, a popup will not appear.
+
+Feedback box will show:
+```
+We could not find a common location because:
+Everyone has not started their schedule yet. Feel free to meet up any time.
+```
+
+- `Error` when invalid free time slot `ID` entered.
+
+Feedback box will show:
+```
+Invalid time slot ID: 0. Please enter a valid id as shown in the GUI.
+```
+
+- `Error` when invalid `GROUP_NAME` entered.
+
+Feedback box will show:
+```
+Cannot recognise GROUP_NAME. Make sure you entered the correct value.
+```
 
 ==== Close popup `esc`
 
@@ -693,12 +736,7 @@ and return to the main screen.
 
 Format: kbd:[esc] button on keyboard.
 
-==== Clearing all entries: `clear`
-
-Clears all entries from the TimeBook. +
-Format: `clear`
-
-==== Upcoming schedule list.
+=== Upcoming schedule list.
 
 Unsure of what is your next event for the day?
 TimeBook's home page has a list that keeps track of your upcoming events for the day and would automatically tick off events that have past!
@@ -725,6 +763,15 @@ To personalize TimeBook and make it yours, rename `Alice` by entering the comman
 {nbsp} +
 How do I transfer my data to another Computer?::
  Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TimeBook folder.
++
+{nbsp} +
+Why can I enter irrelevant arguments?::
+We understand that users occasionally make error while typing and it is frustrating for the application to fail because
+of it. Thus for all commands that do not require any arguments(ie `help`, `home` and `exit`), TimeBook allows you to
+enter any value after the command word. For example `help 1` will execute `help` command eventhough `1` is irrelevant to
+the command. We hope with this feature you will have a seamless and pleasant experience with TimeBook.
++
+{nbsp} +
 
 == Command Summary
 
