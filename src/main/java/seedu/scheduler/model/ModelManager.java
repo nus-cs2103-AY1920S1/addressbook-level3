@@ -323,10 +323,15 @@ public class ModelManager implements Model {
         //         .map(Slot::toString)
         //         .reduce((x, y) -> x + ", " + y)
         //         .get();
-        String slots = "01/11/2019 12:00-14:00";
+        Optional<Slot> allocatedSlot = this.getAllocatedSlot(interviewee.getName().toString());
+        String slot = "";
+
+        if (allocatedSlot.isPresent()) {
+            slot = allocatedSlot.get().toString();
+        }
 
         return String.format(EMAIL_MESSAGE_BODY, interviewee.getName(), this.userPrefs.getOrganisation(),
-                slots, this.userPrefs.getInterviewLocation(), this.userPrefs.getEmailAdditionalInformation());
+                slot, this.userPrefs.getInterviewLocation(), this.userPrefs.getEmailAdditionalInformation());
     }
 
     // ================================== Refresh Listener ======================================
