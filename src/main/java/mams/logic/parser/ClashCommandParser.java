@@ -38,6 +38,7 @@ public class ClashCommandParser implements Parser<ClashCommand> {
 
             if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
                 List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
+
                 if (isModuleCode(modules)) {
                     parameters.setModuleCodes(modules.get(0), modules.get(1));
                 } else {
@@ -92,10 +93,13 @@ public class ClashCommandParser implements Parser<ClashCommand> {
      * @throws ParseException when the number of parameters is not correct.
      */
     private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException {
+
         if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) != 2) {
             throw new ParseException(ClashCommand.MESSAGE_NEED_TWO_MODULES);
         }
-        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) != 1)
+
+        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent()
+                && argMultimap.getValueSize(PREFIX_APPEAL) != 1)
                 || (argMultimap.getValue(PREFIX_STUDENT).isPresent()
                 && argMultimap.getValueSize(PREFIX_STUDENT) != 1)) {
             throw new ParseException(ClashCommand.MESSAGE_ONLY_ONE_ITEM_ALLOWED);

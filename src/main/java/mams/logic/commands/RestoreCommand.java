@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
@@ -19,7 +20,7 @@ public class RestoreCommand extends StoreCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         JsonMamsStorage target = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.getTag() + ".json"));
         ReadOnlyMams mamsToReplace;
         try {

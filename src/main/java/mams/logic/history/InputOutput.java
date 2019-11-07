@@ -3,6 +3,7 @@ package mams.logic.history;
 import static mams.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import mams.commons.core.time.TimeStamp;
 
@@ -11,6 +12,11 @@ import mams.commons.core.time.TimeStamp;
  * shown in {@code ResultBox}) of a single command.
  */
 public class InputOutput {
+    public static final Predicate<InputOutput> PREDICATE_SHOW_ALL = unused -> true;
+    public static final Predicate<InputOutput> PREDICATE_SHOW_ONLY_SUCCESSFUL = InputOutput::checkSuccessful;
+    public static final Predicate<InputOutput> PREDICATE_SHOW_ONLY_UNSUCCESSFUL =
+        inputOutput -> !inputOutput.checkSuccessful();
+
     private final String input;
     private final String output;
     private final boolean isExecutionSuccessful;
@@ -80,7 +86,7 @@ public class InputOutput {
         return timeStamp.toString() + "\n"
                 + ((checkSuccessful())
                 ? "SUCCESSFUL"
-                : "UNSUCCESSFUL")
+                : "UNSUCCESSFUL") + "\n"
                 + input + "\n" + output;
     }
 }

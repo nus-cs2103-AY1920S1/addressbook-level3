@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Celina Conyers  ",
-    "credits" : "20",
+    "credits" : "24",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
     "tagged" : [ "CS1020", "CS1231", "CS2100", "CS2030", "C000000", "CS2040" ]
@@ -400,8 +400,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000001",
@@ -409,11 +409,11 @@
     "studentId" : "A0180001",
     "academicYear" : "AY2019",
     "studentWorkload" : 0,
-    "appealDescription" : "I don't think I can cope with the workload",
+    "appealDescription" : "I have timetable clash between cs2106 and cs1231",
     "previousModule" : "",
     "newModule" : "",
     "moduleToAdd" : "",
-    "moduleToDrop" : "CS2105",
+    "moduleToDrop" : "CS2106",
     "resolved" : false,
     "result" : "",
     "remark" : ""

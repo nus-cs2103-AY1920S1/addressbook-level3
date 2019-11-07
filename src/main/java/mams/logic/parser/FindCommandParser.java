@@ -41,22 +41,31 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
 
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && !argMultimap.getValue(PREFIX_STUDENT).get().isEmpty()) {
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()
+                && !argMultimap.getValue(PREFIX_STUDENT).get().isEmpty()) {
+
             StudentContainsKeywordsPredicate studentPred = new StudentContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_STUDENT).get().split("\\s+")));
             predicates.add(studentPred);
+
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && !argMultimap.getValue(PREFIX_MODULE).get().isEmpty()) {
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()
+                && !argMultimap.getValue(PREFIX_MODULE).get().isEmpty()) {
+
             ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_MODULE).get().split("\\s+")));
             predicates.add(modulePred);
+
         }
 
-        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && !argMultimap.getValue(PREFIX_APPEAL).get().isEmpty()) {
+        if (argMultimap.getValue(PREFIX_APPEAL).isPresent()
+                && !argMultimap.getValue(PREFIX_APPEAL).get().isEmpty()) {
+
             AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
                     Arrays.asList(argMultimap.getValue(PREFIX_APPEAL).get().split("\\s+")));
             predicates.add(appealPred);
+
         }
 
         if (!predicates.isEmpty()) {

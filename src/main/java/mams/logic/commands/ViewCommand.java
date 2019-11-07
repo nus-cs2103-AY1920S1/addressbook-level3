@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -33,9 +34,9 @@ public class ViewCommand extends Command {
             + "based on their indexes on the displayed lists. Specify up to three items "
             + "(one from each type) in a single " + COMMAND_WORD + " command.\n"
             + "Parameters: KEYWORD "
-            + " [" + PREFIX_APPEAL + "INDEX" + "] "
-            + " [" + PREFIX_MODULE + "INDEX" + "] "
-            + " [" + PREFIX_STUDENT + "INDEX" + "]\n"
+            + "[" + PREFIX_APPEAL + "INDEX" + "] "
+            + "[" + PREFIX_MODULE + "INDEX" + "] "
+            + "[" + PREFIX_STUDENT + "INDEX" + "]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_APPEAL + "1 "
             + PREFIX_MODULE + "11 "
@@ -75,7 +76,7 @@ public class ViewCommand extends Command {
      * longer valid, and old command is hence no longer reusable)
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
         // Defensive check: ViewCommandParser should have ensured at least one parameter is present
         if (!params.isAtLeastOneParameterPresent()) {
