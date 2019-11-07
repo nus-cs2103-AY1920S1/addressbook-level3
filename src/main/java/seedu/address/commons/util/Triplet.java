@@ -4,10 +4,10 @@ package seedu.address.commons.util;
  * A triplet of 3 values.
  */
 public class Triplet<U, V, W> {
-    U u;
-    V v;
-    W w;
-    
+    private U u;
+    private V v;
+    private W w;
+
     /**
      * Creates a triplet of 3 values.
      */

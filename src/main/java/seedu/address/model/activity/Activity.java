@@ -12,8 +12,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
-import seedu.address.model.person.Person;
 import seedu.address.commons.util.Triplet;
+import seedu.address.model.person.Person;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
@@ -375,7 +375,6 @@ public class Activity {
                 return;
             } else if (amount > debt || amount == 0) {
                 splitAmount = debt;
-                System.out.println("ASD");
             } else {
                 splitAmount = amount;
             }
