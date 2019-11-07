@@ -205,6 +205,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchTab(Tab tab) {
+        ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+        statusBarFooter.setBalance(transactionList);
+
         switch (tab) {
         case TRANSACTION:
             showTransactionTab();
@@ -240,7 +243,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
+            logger.info("Command result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -255,10 +258,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchTab(commandResult.getTab());
             }
 
-            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
-            statusBarFooter.setBalance(transactionList);
-
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
