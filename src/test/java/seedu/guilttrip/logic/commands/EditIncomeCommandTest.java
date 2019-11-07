@@ -71,7 +71,7 @@ public class EditIncomeCommandTest {
         assertCommandSuccess(editIncomeCommand, model, expectedMessage, expectedModel, commandHistory);
     }
 
-   /* @Test
+    /* @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditIncomeCommand editIncomeCommand = new EditIncomeCommand(INDEX_FIRST_ENTRY, new EditIncomeDescriptor());
         Income editedIncome = model.getFilteredIncomes().get(INDEX_FIRST_ENTRY.getZeroBased());

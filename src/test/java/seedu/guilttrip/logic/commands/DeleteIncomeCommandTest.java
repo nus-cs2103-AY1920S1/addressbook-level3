@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.showIncomeAtIndex;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
@@ -19,7 +19,7 @@ import seedu.guilttrip.logic.commands.deletecommands.DeleteIncomeCommand;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.UserPrefs;
-import seedu.guilttrip.model.entry.Income;
+//import seedu.guilttrip.model.entry.Income;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
