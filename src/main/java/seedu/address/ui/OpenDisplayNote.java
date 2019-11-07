@@ -111,7 +111,7 @@ public class OpenDisplayNote extends UiPart<Region> {
             DictionaryException { //TODO:Dictionary Exception unneeded?
         System.out.println("noteTitle:" + noteTitle.getText());
 
-        logic.execute("edit " + index.getOneBased() + " c/"
+        mainWindow.executeCommand("edit " + index.getOneBased() + " c/"
                 + noteContent.getText()
                 + " d/" + noteDescription.getText() + " ti/" + noteTitle.getText()
         );

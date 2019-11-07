@@ -84,7 +84,7 @@ public class EditNoteCommand extends Command {
         model.commitNote(command);
         model.setNote(noteToEdit, editedNote);
         model.sortNoteBook();
-        return CommandResult.builder(String.format("Note opened on the right panel.", editedNote))
+        return CommandResult.builder(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote))
                 .build();
     }
 
