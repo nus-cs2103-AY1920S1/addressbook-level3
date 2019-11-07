@@ -13,8 +13,9 @@ import seedu.guilttrip.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Listed all expenses and incomes";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists all entries in the guiltTrip to the user.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
+    public static final String MESSAGE_SUCCESS = "Listed all entries";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

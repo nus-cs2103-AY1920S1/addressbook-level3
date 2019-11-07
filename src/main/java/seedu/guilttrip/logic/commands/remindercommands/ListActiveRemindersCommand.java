@@ -14,6 +14,7 @@ import seedu.guilttrip.model.Model;
 public class ListActiveRemindersCommand extends Command {
 
     public static final String COMMAND_WORD = "listActiveReminders";
+    public static final String ONE_LINER_DESC = COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed active reminders";
 

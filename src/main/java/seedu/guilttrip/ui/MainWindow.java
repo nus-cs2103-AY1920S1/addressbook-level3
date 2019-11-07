@@ -20,6 +20,7 @@ import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.commands.CommandResult;
+import seedu.guilttrip.logic.commands.GuiltTripCommandSuggester;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
@@ -192,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getGuiltTripFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         this.wishListPanel = new WishListPanel(logic.getFilteredWishList());
@@ -611,5 +612,14 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Parse the user input and display the suggestions in ResultDisplay.
+     *
+     * @param userInput text input from CommandBox
+     */
+    private void suggestCommand(String userInput) {
+        resultDisplay.setFeedbackToUser(GuiltTripCommandSuggester.getSuggestionString(userInput));
     }
 }

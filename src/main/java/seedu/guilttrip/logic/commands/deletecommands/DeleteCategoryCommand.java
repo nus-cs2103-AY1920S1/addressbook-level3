@@ -18,8 +18,9 @@ public class DeleteCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCategory";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the category from guilttrip"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Deletes the category from guilttrip";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY TYPE "
             + PREFIX_DESC + "DESCRIPTION "

@@ -21,8 +21,8 @@ import seedu.guilttrip.model.entry.AutoExpense;
 public class AddAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "addAutoExp";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a auto expense to the finance tracker.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a auto expense to the finance tracker.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Example: "
             + COMMAND_WORD + " "
             + PREFIX_DESC + "Mala "
@@ -65,6 +65,6 @@ public class AddAutoExpenseCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAutoExpenseCommand // instanceof handles nulls
-                        && toAdd.equals(((AddAutoExpenseCommand) other).toAdd));
+                && toAdd.equals(((AddAutoExpenseCommand) other).toAdd));
     }
 }

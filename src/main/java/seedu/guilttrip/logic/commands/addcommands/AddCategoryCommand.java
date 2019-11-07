@@ -19,7 +19,8 @@ public class AddCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "addCategory";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a category to the finance tracker. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a category to the finance tracker. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY TYPE "
             + PREFIX_DESC + "DESCRIPTION "

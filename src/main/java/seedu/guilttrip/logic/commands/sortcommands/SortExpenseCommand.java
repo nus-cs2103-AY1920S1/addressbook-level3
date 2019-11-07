@@ -17,7 +17,8 @@ import seedu.guilttrip.model.entry.SortType;
 public class SortExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "sortExpense";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the list of expenses in guiltTrip(). \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sorts the list of expenses in guiltTrip(). \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_SEQUENCE + "SEQUENCE "

@@ -15,7 +15,8 @@ import seedu.guilttrip.model.entry.Category;
 public class ListCategoriesCommand extends Command {
 
     public static final String COMMAND_WORD = "listCategories";
-
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists the available Categories in guilttrip.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
     public static final String MESSAGE_SUCCESS = "Listed all categories \n Income: %1$s \n Expense: %2$s";
 
     @Override
