@@ -23,6 +23,11 @@ public interface Model {
     Predicate<BankAccountOperation> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
     Predicate<LedgerOperation> PREDICATE_SHOW_ALL_LEDGER_OPERATIONS = unused -> true;
 
+    String LEDGER_TYPE = "l";
+    String BUDGET_TYPE = "b";
+    String TRANSACTION_TYPE = "t";
+    String PROJECTION_TYPE = "p";
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

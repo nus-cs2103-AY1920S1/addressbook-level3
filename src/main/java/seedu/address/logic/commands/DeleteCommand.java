@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Ledger;
 import seedu.address.model.Model;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -22,8 +23,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
-            + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
+            + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', \n"
             + "Budget entries preceded by 'b' \n"
+            + "Ledger entries preceded by 'l' \n"
+            + "Projection entries preceded by 'p' \n"
             + "Example: " + COMMAND_WORD + " t1\n"
             + COMMAND_WORD + " b1";
 
@@ -44,7 +47,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (this.type.equals("t")) {
+        if (this.type.equals(Model.TRANSACTION_TYPE)) {
             ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -57,7 +60,7 @@ public class DeleteCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete),
                     false, false, Tab.TRANSACTION);
-        } else if (this.type.equals("b")) {
+        } else if (this.type.equals(Model.BUDGET_TYPE)) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -76,7 +79,7 @@ public class DeleteCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, budgetToDelete),
                     false, false, Tab.BUDGET);
-        } else if (this.type.equals("p")) {
+        } else if (this.type.equals(Model.PROJECTION_TYPE)) {
             ObservableList<Projection> lastShownList = model.getFilteredProjectionsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -89,7 +92,7 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
             // delete command for Split
-        } else if (this.type.equals("l")) {
+        } else if (this.type.equals(Model.LEDGER_TYPE)) {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {

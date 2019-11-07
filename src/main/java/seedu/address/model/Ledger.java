@@ -17,6 +17,8 @@ import seedu.address.model.transaction.UniqueLedgerOperationList;
  * Separate field in BankAccount to store transactions related to split
  */
 public class Ledger implements ReadOnlyLedger {
+
+
     private Amount pot;
     private UniquePersonList people;
     private UniqueLedgerOperationList ledgerHistory;

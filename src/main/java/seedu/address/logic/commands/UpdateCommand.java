@@ -16,6 +16,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Ledger;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.UniquePersonList;
@@ -42,8 +43,9 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
         + "by the index number used in the displayed person list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
-        + "Budget entries preced by 'b' \n"
+        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', \n"
+        + "Budget entries preceded by 'b' \n"
+        + "Ledger entries preceded by 'l' \n"
         + "[" + PREFIX_AMOUNT + "AMOUNT] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
@@ -53,8 +55,6 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_UPDATE_ENTRY_SUCCESS = "Updated: %1$s";
-
-    private static final String LEDGER_TYPE = "l";
 
     private final String type;
     private final Index targetIndex;
@@ -73,7 +73,7 @@ public class UpdateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (this.type.equals("t")) {
+        if (this.type.equals(Model.TRANSACTION_TYPE)) {
             ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -90,7 +90,7 @@ public class UpdateCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
                 false, false, Tab.TRANSACTION);
-        } else if (this.type.equals("b")) {
+        } else if (this.type.equals(Model.BUDGET_TYPE)) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -123,7 +123,7 @@ public class UpdateCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);
-        } else if (this.type.equals(LEDGER_TYPE)) {
+        } else if (this.type.equals(Model.LEDGER_TYPE)) {
             ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
