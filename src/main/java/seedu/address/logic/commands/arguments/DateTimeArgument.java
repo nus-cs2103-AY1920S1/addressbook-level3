@@ -20,6 +20,6 @@ public class DateTimeArgument extends Argument<DateTime> {
 
     @Override
     DateTime parse(String userInput) throws ParseException {
-        return DateTime.fromDateTimeString(userInput);
+        return DateTime.fromUserString(userInput);
     }
 }

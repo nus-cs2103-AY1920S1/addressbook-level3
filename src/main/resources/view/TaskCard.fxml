@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -14,7 +13,7 @@
                     <children>
                         <Label fx:id="taskName" text="taskName" wrapText="true">
                             <StackPane.margin>
-                                <Insets left="15.0" />
+                                <Insets left="15.0" right="25.0" />
                             </StackPane.margin></Label>
                   <Label fx:id="taskIndex" alignment="TOP_RIGHT" text="taskIndex" wrapText="true" StackPane.alignment="TOP_RIGHT">
                      <StackPane.margin>
@@ -39,11 +38,11 @@
                 </StackPane>
             <StackPane fx:id="taskTagsBase" alignment="TOP_LEFT">
                <children>
-                  <HBox fx:id="taskTags" spacing="5.0" StackPane.alignment="CENTER_LEFT">
+                  <VBox fx:id="taskTagList" spacing="4.0">
                      <StackPane.margin>
-                        <Insets left="12.0" />
+                        <Insets left="15.0" right="15.0" />
                      </StackPane.margin>
-                  </HBox>
+                  </VBox>
                </children>
             </StackPane>
             </children>

@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandBuilder;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.logic.parser.CommandKeywordParser;
 import seedu.address.logic.parser.CommandParser;
@@ -53,8 +52,13 @@ public class CommandManager implements CommandInputListener {
             Command command = this.commandParser.parse(input);
             UserOutput output = command.execute();
             userOutputListeners.forEach(l -> l.onUserOutput(output, ColorTheme.SUCCESS));
-        } catch (CommandException | ParseException e) {
+        } catch (ParseException e) {
             logger.info("Invalid command: " + input);
+            logger.info(e.getMessage());
+            userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage()), ColorTheme.FAILURE));
+        } catch (Exception e) {
+            logger.info("Command entered: " + input);
+            logger.info(e.getMessage());
             userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage()), ColorTheme.FAILURE));
         }
     }

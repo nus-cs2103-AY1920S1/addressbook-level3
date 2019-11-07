@@ -41,6 +41,9 @@ public class TaskCard extends Card {
     private HBox taskTags;
 
     @FXML
+    private VBox taskTagList;
+
+    @FXML
     private Label taskIndex;
 
     @FXML
@@ -60,19 +63,6 @@ public class TaskCard extends Card {
     }
 
     /**
-     * Constructor for the TaskCard, which displays the information of a particular task.
-     * This is used for CalendarPanel.
-     *
-     * @param task The given task.
-     */
-    public TaskCard(TaskSource task) {
-        super(FXML);
-        taskName.setText(task.getDescription());
-        taskIndexBase.getChildren().remove(taskIndex);
-        addOptions(task);
-    }
-
-    /**
      * Removes the non-existant options from the task card of the given task.
      *
      * @param task The given task.
@@ -80,23 +70,14 @@ public class TaskCard extends Card {
     private void addOptions(TaskSource task) {
         // Due Date
         if (task.getDueDate() != null) {
-            taskDueDate.setText(task.getDueDate().toEnglishDateTime());
+            taskDueDate.setText(task.getDueDate().toString());
         } else {
             taskDetails.getChildren().remove(taskDueDateBase);
         }
 
         // Tags
         if (task.getTags() != null) {
-            Set<String> tags = task.getTags();
-            for (String tag : tags) {
-                CardTag cardTag = new CardTag(tag);
-                if (task.isDone()) {
-                    cardTag.changeColor("-taskDoneTagColor");
-                } else {
-                    cardTag.changeColor("-taskTagColor");
-                }
-                taskTags.getChildren().add(cardTag.getRoot());
-            }
+            addTags(task);
         } else {
             taskDetails.getChildren().remove(taskTagsBase);
         }
@@ -108,5 +89,37 @@ public class TaskCard extends Card {
 
         taskName.setMinHeight(Region.USE_PREF_SIZE);
 
+    }
+
+    /**
+     * Adds CardTagline to the TaskCard with the given tags.
+     *
+     * @param task The given task.
+     * @see CardTagline
+     */
+    private void addTags(TaskSource task) {
+        Set<String> tags = task.getTags();
+        CardTagline cardTagline = new CardTagline();
+        for (String tag : tags) {
+            CardTag cardTag = new CardTag(tag);
+            if (task.isDone()) {
+                cardTag.changeColor("-taskDoneTagColor");
+            } else {
+                cardTag.changeColor("-taskTagColor");
+            }
+            if (cardTag.getWidth() >= CardTagline.MAX_WIDTH) {
+                CardTagline cardTagline1 = new CardTagline();
+                cardTagline1.addSingleTag(cardTag);
+                taskTagList.getChildren().add(cardTagline1.getRoot());
+                continue;
+            }
+            boolean isAdded = cardTagline.isTagAdded(cardTag);
+            if (!isAdded) {
+                taskTagList.getChildren().add(cardTagline.getRoot());
+                cardTagline = new CardTagline();
+                cardTagline.isTagAdded(cardTag);
+            }
+        }
+        taskTagList.getChildren().add(cardTagline.getRoot());
     }
 }
