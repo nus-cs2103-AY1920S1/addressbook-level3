@@ -12,11 +12,9 @@ import seedu.revision.model.quiz.Mode;
  */
 public class CommandResult {
 
-    //Compulsory parameter
     /** Feedback that will be shown to the user**/
     private final String feedbackToUser;
 
-    //Optional Parameters
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -34,6 +32,9 @@ public class CommandResult {
 
     /** The stats window will open. */
     private final boolean showStats;
+
+    /** The answer is correct. */
+    private final boolean isCorrect;
 
     /** The mode of the quiz in session **/
     private final Mode mode;
@@ -54,6 +55,7 @@ public class CommandResult {
         this.showRestore = builder.isShowRestore();
         this.showHistory = builder.isShowHistory();
         this.showStats = builder.isShowStats();
+        this.isCorrect = builder.isCorrect();
         this.mode = builder.getMode();
         this.model = builder.getModel();
     }
@@ -84,6 +86,10 @@ public class CommandResult {
 
     public boolean isShowStats() {
         return showStats;
+    }
+
+    public boolean isCorrect() {
+        return this.isCorrect;
     }
 
     public Model getModel() {

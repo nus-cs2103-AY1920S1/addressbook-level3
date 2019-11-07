@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 
 /**
@@ -78,6 +80,21 @@ public abstract class Answerable {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public static Answerable create(String questionType, Question question, ArrayList<Answer> correctAnswerList,
+            ArrayList<Answer> wrongAnswerList, Difficulty difficulty, Set<Category> categories)  throws
+            ParseException {
+        switch (questionType) {
+        case "mcq":
+            return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+        case "saq":
+            return new Saq(question, correctAnswerList, difficulty, categories);
+        case "tf":
+            return new TrueFalse(question, correctAnswerList, difficulty, categories);
+        default:
+            throw new ParseException("Invalid answerable");
+        }
     }
 
     /**

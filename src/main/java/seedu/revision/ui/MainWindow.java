@@ -33,6 +33,11 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Initialises the GUI when App is started.
+     * @param primaryStage the stage where scenes can be added to.
+     * @param logic the logic that will be used to drive the app.
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage, logic);
     }
@@ -114,26 +119,10 @@ public class MainWindow extends Window {
      */
     @FXML
     public void handleRestore(Model passedModel) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning!");
-        alert.setHeaderText(null);
-        alert.setGraphic(null);
-        alert.setContentText("Are you sure? This cannot be undone.");
+        AlertDialog restoreAlert = AlertDialog.getRestoreAlert();
+        Optional<ButtonType> result = restoreAlert.showAndWait();
 
-        ButtonType confirmRestore = new ButtonType(
-                "Yes",
-                ButtonBar.ButtonData.OK_DONE
-        );
-
-        ButtonType declineRestore = new ButtonType(
-                "No",
-                ButtonBar.ButtonData.CANCEL_CLOSE
-        );
-        alert.getButtonTypes().setAll(confirmRestore, declineRestore);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == confirmRestore) {
+        if (result.get() != restoreAlert.getNoButton()) {
             ReadOnlyRevisionTool sampleData;
             sampleData = SampleDataUtil.getSampleRevisionTool();
             passedModel.setRevisionTool(new RevisionTool(sampleData));

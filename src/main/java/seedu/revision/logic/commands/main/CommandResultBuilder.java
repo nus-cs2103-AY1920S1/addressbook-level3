@@ -10,6 +10,7 @@ import seedu.revision.model.quiz.NormalMode;
  */
 public class CommandResultBuilder {
 
+    /** Feedback that will be shown to the user**/
     private String feedbackToUser = "";
 
     /** Help information should be shown to the user. */
@@ -30,6 +31,9 @@ public class CommandResultBuilder {
     /** The stats window will open. */
     private boolean showStats = false;
 
+    /** The answer is correct. */
+    private boolean isCorrect = false;
+
     /** The mode of the quiz in session **/
     private Mode mode;
 
@@ -41,7 +45,6 @@ public class CommandResultBuilder {
      * and other fields set to their default value.
      */
     public CommandResultBuilder() {
-        this.feedbackToUser = "";
         this.mode = new NormalMode();
         this.model = new ModelManager();
     }
@@ -127,6 +130,16 @@ public class CommandResultBuilder {
     }
 
     /**
+     * Adds a boolean to the {@code CommandResult} to indicate whether the answer is correct
+     * @param isCorrect input boolean to determine whether answer is correct.
+     * @return {@code CommandResult} with the withCorrect boolean updated according to the input.
+     */
+    public CommandResultBuilder withCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
+        return this;
+    }
+
+    /**
      * Adds a {@code Mode} to the {@code CommandResult} to be used in the restore command.
      * @param model current model that is being used.
      * @return {@code CommandResult} with the updated model.
@@ -170,6 +183,10 @@ public class CommandResultBuilder {
 
     public boolean isShowStats() {
         return showStats;
+    }
+
+    public boolean isCorrect() {
+        return this.isCorrect;
     }
 
     public Model getModel() {

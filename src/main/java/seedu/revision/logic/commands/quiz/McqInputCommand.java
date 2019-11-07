@@ -32,7 +32,6 @@ public class McqInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
-        String result;
 
         switch (mcqInput.toLowerCase()) {
         case "a":
@@ -48,16 +47,15 @@ public class McqInputCommand extends Command {
             selectedAnswer = currentAnswerable.getCombinedAnswerList().get(3);
             break;
         case "n":
-            result = "wrong";
-            return new CommandResultBuilder().withFeedBack(result).build();
+            return new CommandResultBuilder().withCorrect(false).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        boolean result = currentAnswerable.isCorrect(selectedAnswer);
 
-        return new CommandResultBuilder().withFeedBack(result).build();
+        return new CommandResultBuilder().withCorrect(result).build();
     }
 
     @Override

@@ -2,7 +2,6 @@ package seedu.revision.ui;
 
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
@@ -41,8 +39,6 @@ public class StartQuizWindow extends Window {
 
     @FXML
     protected StackPane levelPlaceholder;
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private MainWindow mainWindow;
     private ObservableList<Answerable> quizList;
@@ -82,11 +78,18 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
+    /**
+     * Initialises the GUI when Quiz Mode is started.
+     * @param primaryStage the stage where scenes can be added to.
+     * @param logic the logic that will be used to drive the quiz.
+     * @param mode the mode of the quiz
+     */
     public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
         super(FXML, primaryStage, logic);
         this.mode = mode;
     }
 
+    /** gets the current progess of the user **/
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
@@ -151,7 +154,7 @@ public class StartQuizWindow extends Window {
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
-            if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
+            if (commandResult.isCorrect()) {
                 totalScore++;
                 score++;
             }
@@ -163,8 +166,7 @@ public class StartQuizWindow extends Window {
                 return new CommandResultBuilder().build();
             }
 
-            if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
-                    && mode.value.equals(Modes.ARCADE.toString())) {
+            if (!commandResult.isCorrect()) {
                 handleEnd(currentAnswerable);
                 return new CommandResultBuilder().build();
             }
@@ -233,7 +235,7 @@ public class StartQuizWindow extends Window {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.get() == nextLevelDialog.getEndButton()) {
+            if (result.get() == nextLevelDialog.getNoButton()) {
                 handleExit();
             } else {
                 //Reset UI in the window
@@ -277,7 +279,7 @@ public class StartQuizWindow extends Window {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = endAlert.showAndWait();
-            if (result.get() == endAlert.getEndButton()) {
+            if (result.get() == endAlert.getNoButton()) {
                 handleExit();
             } else {
                 restartQuiz();
