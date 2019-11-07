@@ -50,14 +50,21 @@ public class PersonToGroupMapping {
 
     /**
      * Checks if the mapping is equivalent to another mapping.
-     * @param mapping to be compared
+     * @param other to be compared
      * @return true if they are equivalent, false otherwise
      */
-    public boolean equals(PersonToGroupMapping mapping) {
-        if (mapping.getPersonId().equals(personId) && mapping.getGroupId().equals(groupId)) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         } else {
-            return false;
+            PersonToGroupMapping mapping = null;
+            if (other instanceof PersonToGroupMapping) {
+                mapping = (PersonToGroupMapping) other;
+            }
+            if (mapping != null) {
+                return mapping.getPersonId().equals(personId) && mapping.getGroupId().equals(groupId);
+            }
         }
+        return false;
     }
 }

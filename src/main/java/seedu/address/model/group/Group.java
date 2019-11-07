@@ -80,16 +80,19 @@ public class Group {
      * @param other group to be compared
      * @return boolean
      */
-    public boolean equals(Group other) {
-        if (other == null) {
-            return false;
-        } else if (!other.getGroupId().equals(this.groupId)) {
-            return false;
-        } else if (!this.isSameGroup(other)) {
-            return false;
-        } else {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
+        } else {
+            Group otherGroup = null;
+            if (other instanceof Group) {
+                otherGroup = (Group) other;
+            }
+            if (otherGroup != null) {
+                return otherGroup.getGroupId().equals(this.groupId) || this.isSameGroup(otherGroup);
+            }
         }
+        return false;
     }
 
     public GroupName getGroupName() {

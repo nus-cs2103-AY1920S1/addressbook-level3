@@ -85,11 +85,10 @@ public class TimeBook {
     }
     @Override
     public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof TimeBook // instanceof handles nulls
-//                && personList.equals(((TimeBook) other).personList))
-//                && groupList.equals(((TimeBook) other).groupList)
-//                && personToGroupMappingList.equals(((TimeBook) other).personToGroupMappingList);
-        return true;
+        return other == this // short circuit if same object
+                || (other instanceof TimeBook // instanceof handles nulls
+                && personList.equals(((TimeBook) other).personList))
+                && groupList.equals(((TimeBook) other).groupList)
+                && personToGroupMappingList.equals(((TimeBook) other).personToGroupMappingList);
     }
 }
