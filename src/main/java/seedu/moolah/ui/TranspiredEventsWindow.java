@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import seedu.moolah.commons.core.LogsCenter;
 import seedu.moolah.logic.Logic;
@@ -50,6 +51,7 @@ public class TranspiredEventsWindow extends UiPart<Stage> {
         super(FXML, root);
         this.logic = logic;
         this.mainWindow = mainWindow;
+        root.initStyle(StageStyle.TRANSPARENT);
         root.sizeToScene();
     }
 
