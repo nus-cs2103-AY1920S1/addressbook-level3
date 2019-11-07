@@ -65,16 +65,10 @@ public class DeleteCommand extends Command {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
             }
-
             //TODO: updateProjectionsAfterDelete(Budget budget)
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.delete(budgetToDelete);
-            model.getFilteredProjectionsList().forEach(x -> {
-                if (x.getBudgets().isPresent() && x.getBudgets().equals(budgetToDelete)) {
-                    model.delete(x);
-                    model.add(new Projection(x.getTransactionHistory(), x.getDate()));
-                }
-            });
+            model.updateProjectionsAfterDelete(budgetToDelete);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, budgetToDelete),
                     false, false, Tab.BUDGET);
