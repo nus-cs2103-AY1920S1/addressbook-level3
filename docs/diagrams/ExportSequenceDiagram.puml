@@ -2,15 +2,13 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":ExportCommand" as ExportCommand LOGIC_COLOR
+participant ":ExportCommand" as ExportCommand LOGIC_COLOR_T4
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-end box
-
-box Commons COMMONS_COLOR_T1
-participant "<<class>>\n:ExportUtil" as ExportUtil COMMONS_COLOR
+participant ":DocumentPath" as DocumentPath MODEL_COLOR_T3
+participant "<<class>>\n:DocumentExportUtil" as DocumentExportUtil MODEL_COLOR_T4
 end box
 
 box org.apache.poi.xwpf.usermodel EXTERNAL_LIBRARY_COLOR_T1
@@ -30,33 +28,47 @@ activate Model
 ExportCommand <-- Model : list
 deactivate Model
 
-ExportCommand -> ExportUtil : exportFlashCards(list, documentPath)
-activate ExportUtil
+ExportCommand -> ExportCommand : wipeTransientData(list)
+activate ExportCommand
+ExportCommand <-- ExportCommand : list
+deactivate ExportCommand
+
+ExportCommand -> DocumentPath : export(list)
+activate DocumentPath
+
+DocumentPath -> DocumentExportUtil : exportFlashCardsToDocument(list, documentPath)
+activate DocumentExportUtil
 
 create XWPFDocument
-ExportUtil -> XWPFDocument : XWPFDocument()
+DocumentExportUtil -> XWPFDocument : XWPFDocument()
 activate XWPFDocument
 
-ExportUtil <-- XWPFDocument : document
+DocumentExportUtil <-- XWPFDocument : document
 deactivate XWPFDocument
 
 loop while there are still FlashCards to write
-    ExportUtil -> XWPFDocument : createParagraph()
+    DocumentExportUtil -> XWPFDocument : createParagraph()
     activate XWPFDocument
 
-    ExportUtil <-- XWPFDocument
+    DocumentExportUtil <-- XWPFDocument
     deactivate XWPFDocument
 end
 
-ExportUtil -> ExportUtil : writeDocumentToFile(document, documentPath)
-activate ExportUtil
+DocumentExportUtil -> DocumentExportUtil : writeDocumentToFile(document, documentPath)
+activate DocumentExportUtil
 
-ExportUtil <-- ExportUtil
-deactivate ExportUtil
+DocumentExportUtil <-- DocumentExportUtil
+deactivate DocumentExportUtil
 
-ExportCommand <-- ExportUtil
-deactivate ExportUtil
+DocumentPath <-- DocumentExportUtil
+deactivate DocumentExportUtil
+destroy XWPFDocument
 
-[<--ExportCommand
+ExportCommand <-- DocumentPath
+deactivate DocumentPath
+
+[<-- ExportCommand : commandResult
 deactivate ExportCommand
+destroy DocumentPath
+
 @enduml
