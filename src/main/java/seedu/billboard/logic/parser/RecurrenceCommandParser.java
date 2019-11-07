@@ -7,13 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.billboard.logic.commands.AddRecurrenceCommand;
-import seedu.billboard.logic.commands.AddTagCommand;
-import seedu.billboard.logic.commands.FilterTagCommand;
-import seedu.billboard.logic.commands.HelpCommand;
-import seedu.billboard.logic.commands.ListTagCommand;
+import seedu.billboard.logic.commands.ListRecurrenceCommand;
 import seedu.billboard.logic.commands.RecurrenceCommand;
-import seedu.billboard.logic.commands.RemoveTagCommand;
-import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
 /**
@@ -36,18 +31,23 @@ public class RecurrenceCommandParser implements Parser<RecurrenceCommand> {
     public RecurrenceCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecurrenceCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        /*case AddRecurrenceCommand.COMMAND_WORD:
+            return new AddRecurrenceCommandParser().parse(arguments);
+        case RemoveOccurenceCommand.COMMAND_WORD:
+            return new RemoveTagCommandParser().parse(arguments);*/
+
+        case ListRecurrenceCommand.COMMAND_WORD:
+            return new ListRecurrenceCommand();
+
         case AddRecurrenceCommand.COMMAND_WORD:
             return new AddRecurrenceCommandParser().parse(arguments);
-        //case RemoveOccurenceCommand.COMMAND_WORD:
-          //  return new RemoveTagCommandParser().parse(arguments);
-        //case ListOccurenceCommand.COMMAND_WORD:
-          //  return new ListTagCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

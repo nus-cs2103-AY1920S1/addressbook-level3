@@ -16,7 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.date.DateInterval;
-import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;

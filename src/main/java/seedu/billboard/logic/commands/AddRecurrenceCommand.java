@@ -1,6 +1,7 @@
 package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -9,14 +10,11 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Objects;
-import java.util.stream.IntStream;
-
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.ExpenseList;
+import seedu.billboard.model.recurrence.Recurrence;
 
 /**
  * Adds an expense to the address book.
@@ -42,50 +40,48 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
             + PREFIX_END_DATE + "25/4/2019 1200 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_INTERVAL + "weekly";
+            + PREFIX_INTERVAL + "week";
 
     public static final String MESSAGE_SUCCESS = "New recurring expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This recurrence already exists in the billboard";
 
-    private final Expense toAdd;
-    private final Period period;
-    private final int repeat;
-
+    private Recurrence recurrence;
 
     /**
      * Creates an AddCommand to add the specified {@code Expense}
      */
-    public AddRecurrenceCommand(Expense expense, Period period, int repeat) {
-        requireNonNull(expense);
-        toAdd = expense;
-        this.period = period;
-        this.repeat = repeat;
+    public AddRecurrenceCommand(Recurrence recurrence) {
+        requireAllNonNull(recurrence);
+        this.recurrence = recurrence;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        IntStream.range(0, repeat).forEachOrdered(n -> {
-            if (model.hasExpense(toAdd)) {
+        ExpenseList expenses = recurrence.getExpenses();
+        if (model.hasRecurrence(recurrence)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
+        requireNonNull(model);
+        for (Expense expense : expenses) {
+            if (model.hasExpense(expense)) {
+                continue;
+            }
+            model.addExpense(expense);
+        }
+        model.addRecurrence(recurrence);
 
-            model.addExpense(toAdd);
-        });
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toString()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddRecurrenceCommand // instanceof handles nulls
-                && toAdd.equals(((AddRecurrenceCommand) other).toAdd)
-                && period.equals(((AddRecurrenceCommand) other).period));
+                && recurrence.equals(((AddRecurrenceCommand) other).recurrence));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(toAdd, period);
+        return recurrence.hashCode();
     }
 }

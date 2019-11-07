@@ -2,6 +2,7 @@ package seedu.billboard.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.billboard.commons.core.Messages;
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -166,5 +169,37 @@ public class ParserUtil {
             throw new ParseException(Messages.MESSAGE_INVALID_ARCHIVE_NAME);
         }
         return trimmedArchive;
+    }
+
+    /**
+     * Parses a {@code String dateInterval} into an {@code DateInterval}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateInterval} is invalid.
+     */
+    public static DateInterval parseInterval(String interval) throws ParseException {
+        requireNonNull(interval);
+        String trimmedInterval = interval.trim().toUpperCase();
+        if (!DateInterval.isValidDateInterval(trimmedInterval)) {
+            throw new ParseException(DateInterval.MESSAGE_CONSTRAINTS);
+        }
+
+        return DateInterval.valueOf(trimmedInterval);
+    }
+
+    /**
+     * Parses a {@code DateRange} and a {@code DateInterval} into an integer indicating number of iterations.
+     *
+     */
+    public static int parseIterations(DateRange dateRange, DateInterval dateInterval) {
+        LocalDate startDate = dateRange.getStartDate();
+        LocalDate endDate = dateRange.getEndDateInclusive();
+        int iteration = 0;
+
+        while (!startDate.isAfter(endDate)) {
+            startDate = startDate.plus(dateInterval.getPeriod());
+            iteration++;
+        }
+        return iteration;
     }
 }

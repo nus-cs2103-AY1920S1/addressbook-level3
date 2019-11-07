@@ -171,27 +171,50 @@ public class Billboard implements ReadOnlyBillboard {
         return recurrences;
     }
 
+    /**
+     * Returns true if a recurrence with the same identity as {@code expense} exists in the billboard.
+     */
     public boolean hasRecurrence(Recurrence recurrence) {
         requireNonNull(recurrence);
         return recurrences.contains(recurrence);
     }
 
-    public void setRecurrence(Recurrence target, Recurrence recurrence) {
-        requireNonNull(recurrence);
-        recurrences.setRecurrence(target, recurrence);
+    /**
+     * Replaces the given recurrence {@code target} in the list with {@code editedRecurrence}.
+     * {@code target} must exist in the billboard.
+     * The expense identity of {@code editedReccurence} must not be the same as another
+     * existing recurrence in the billboard.
+     */
+    public void setRecurrence(Recurrence target, Recurrence editedRecurrence) {
+        requireNonNull(editedRecurrence);
+        recurrences.setRecurrence(target, editedRecurrence);
     }
 
+    /**
+     * Adds an recurrence to the billboard.
+     * The recurrence must not already exist in the billboard.
+     */
     public void addRecurrence(Recurrence recurrence) {
         recurrences.add(recurrence);
     }
 
-    public void removeRecurrence(Recurrence recurrence) {
-        requireNonNull(recurrence);
-        recurrences.remove(recurrence);
+    /**
+     * Removes {@code key} from this {@code Billboard}.
+     * {@code key} must exist in the billboard.
+     */
+    public void removeRecurrence(Recurrence key) {
+        requireNonNull(key);
+
+        recurrences.remove(key);
     }
 
+    /**
+     * Removes recurrence at {@code index} from this {@code Billboard}.
+     * Recurrence at {@code index} must exist in the billboard.
+     */
     public Recurrence removeRecurrence(int index) {
         requireNonNull(index);
+
         return recurrences.remove(index);
     }
 

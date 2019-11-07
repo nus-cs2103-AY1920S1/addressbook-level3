@@ -37,4 +37,8 @@ public class Description {
     public int hashCode() {
         return description.hashCode();
     }
+
+    public Description getClone() {
+        return new Description(description);
+    }
 }

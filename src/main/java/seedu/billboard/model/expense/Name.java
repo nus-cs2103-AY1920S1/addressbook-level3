@@ -56,4 +56,7 @@ public class Name {
         return name.hashCode();
     }
 
+    public Name getClone() {
+        return new Name(name);
+    }
 }

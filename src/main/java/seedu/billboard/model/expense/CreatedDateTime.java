@@ -10,6 +10,10 @@ import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.recurrence.Recurrence;
+
 /**
  * Represents a Expense's created dateTime in the Billboard.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -89,5 +93,38 @@ public class CreatedDateTime {
     @Override
     public String toString() {
         return dateTime.format(outputFormat);
+    }
+
+    public CreatedDateTime getClone() {
+        return new CreatedDateTime(dateTime);
+    }
+
+    /**
+     * Creates and returns a CreatedDateTime of date that is {@code i} iterations of {@code interval} later.
+     * @param interval A date interval
+     * @param i Iteration of intervals
+     * @return CreatedDateTime that is {@code i} iterations of {@code interval} later
+     * @throws ParseException When a unsupported interval is input into the function.
+     */
+    public CreatedDateTime plus(DateInterval interval, int i) throws ParseException {
+        requireNonNull(interval);
+        requireNonNull(i);
+
+        switch (interval) {
+        case DAY:
+            return new CreatedDateTime(dateTime.plusDays(i));
+
+        case WEEK:
+            return new CreatedDateTime(dateTime.plusWeeks(i));
+
+        case MONTH:
+            return new CreatedDateTime(dateTime.plusMonths(i));
+
+        case YEAR:
+            return new CreatedDateTime(dateTime.plusYears(i));
+
+        default:
+            throw new ParseException(Recurrence.MESSAGE_DATE_INTERVAL_CONSTRAINTS);
+        }
     }
 }

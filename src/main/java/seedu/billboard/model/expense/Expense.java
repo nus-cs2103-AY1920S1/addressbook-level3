@@ -133,4 +133,13 @@ public class Expense {
                 + " Tags: "
                 + getTags();
     }
+
+    public Expense getClone() {
+        return new Expense(
+                name.getClone(),
+                description.getClone(),
+                amount.getClone(),
+                created.getClone(),
+                new HashSet<>(tags));
+    }
 }

@@ -12,11 +12,16 @@ import seedu.billboard.model.recurrence.exceptions.DuplicateRecurrenceException;
 import seedu.billboard.model.recurrence.exceptions.RecurrenceNotFoundException;
 
 /**
- * A list of recurrences. The recurrences are unique as specified by the {@code equals} method of the {@code Expense} class
+ * A list of recurrences. The recurrences are unique as specified by the {@code equals} method of the
+ * {@code Expense} class
  * Supports a minimal set of list operations.
  *
  */
 public class RecurrenceList implements Iterable<Recurrence> {
+
+    public static final String MESSAGE_NO_RECURRENCES = "There are no existing recurrences";
+
+    public static final String MESSAGE_EXISTING_RECURRENCES = "Here are the existing recurrence(s):\n";
 
     private final List<Recurrence> internalList = new ArrayList<>();
 
@@ -26,6 +31,15 @@ public class RecurrenceList implements Iterable<Recurrence> {
     public boolean contains(Recurrence toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Returns number of recurrences.
+     *
+     * @return number of recurrences
+     */
+    public int size() {
+        return internalList.size();
     }
 
     /**
@@ -65,7 +79,7 @@ public class RecurrenceList implements Iterable<Recurrence> {
     }
 
     /**
-     * Removes the equivalent record from the list.
+     * Removes the equivalent recurrence from the list.
      * The record must exist in the list.
      */
     public void remove(Recurrence toRemove) {
@@ -75,6 +89,10 @@ public class RecurrenceList implements Iterable<Recurrence> {
         }
     }
 
+    /**
+     * Removes the equivalent recurrence at index from the list.
+     * The index must be valid.
+     */
     public Recurrence remove(int index) {
         requireNonNull(index);
         try {
@@ -148,5 +166,23 @@ public class RecurrenceList implements Iterable<Recurrence> {
             clonedList.add(e);
         }
         return clonedList;
+    }
+
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        String output = internalList.isEmpty() ? MESSAGE_NO_RECURRENCES : MESSAGE_EXISTING_RECURRENCES;
+
+        for (int i = 0; i < internalList.size(); i++) {
+            output += (i + 1) + ". [" + internalList.get(i) + "]";
+            if (i != internalList.size() - 1) {
+                output += ",\n";
+            }
+        }
+
+        return output;
     }
 }

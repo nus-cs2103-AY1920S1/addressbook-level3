@@ -136,4 +136,8 @@ public class ExpenseList implements Iterable<Expense> {
         }
         return clonedList;
     }
+
+    public Expense get(int i) {
+        return internalList.get(0);
+    }
 }
