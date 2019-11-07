@@ -204,14 +204,16 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     private void updateBudgets(BankAccountOperation transactionTarget,
                                BankAccountOperation transactionEdit) {
+        boolean isSameTransactionCategory = transactionTarget.getCategories()
+                .equals(transactionEdit.getCategories());
         if (transactionTarget instanceof OutTransaction
                 && transactionEdit instanceof OutTransaction) {
             Amount amountToReplace = transactionTarget.getAmount();
             Amount amountReplacement = transactionEdit.getAmount();
-            Set<Category> outCategories = transactionTarget.getCategories();
+            Set<Category> outCategories = transactionEdit.getCategories();
             for (Budget bd : budgets) {
                 Budget newBd = bd.updateBudget(amountToReplace,
-                        amountReplacement, outCategories);
+                        amountReplacement, outCategories, isSameTransactionCategory);
                 setBudget(bd, newBd);
             }
         }
