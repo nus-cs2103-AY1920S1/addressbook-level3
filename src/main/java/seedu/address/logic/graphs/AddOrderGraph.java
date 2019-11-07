@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.Edge;
-import seedu.address.logic.GraphWithoutPreamble;
+import seedu.address.logic.GraphWithStartNode;
 import seedu.address.logic.Node;
 import seedu.address.logic.nodes.order.OrderCustomerIndexNode;
 import seedu.address.logic.nodes.order.OrderPhoneIndexNode;
@@ -18,7 +18,7 @@ import seedu.address.logic.nodes.order.OrderTagNode;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
-public class AddOrderGraph extends GraphWithoutPreamble {
+public class AddOrderGraph extends GraphWithStartNode {
 
     public AddOrderGraph(Model model) {
         super(model);

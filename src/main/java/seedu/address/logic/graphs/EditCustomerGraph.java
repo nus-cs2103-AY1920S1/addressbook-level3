@@ -5,32 +5,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.AutoCompleteResult;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.logic.Edge;
-import seedu.address.logic.Graph;
+import seedu.address.logic.GraphWithStartNodeAndPreamble;
 import seedu.address.logic.Node;
 import seedu.address.logic.nodes.customer.CustomerContactNumberNode;
 import seedu.address.logic.nodes.customer.CustomerEmailNode;
 import seedu.address.logic.nodes.customer.CustomerNameNode;
 import seedu.address.logic.nodes.customer.CustomerTagNode;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class EditCustomerGraph extends Graph {
-
-    private Node<?> startingNode;
-    private List<Customer> customerList;
+public class EditCustomerGraph extends GraphWithStartNodeAndPreamble {
 
     public EditCustomerGraph(Model model) {
         super(model);
@@ -38,13 +26,14 @@ public class EditCustomerGraph extends Graph {
 
     @Override
     protected void build(Model model) {
-        customerList = model.getFilteredCustomerList();
+        List<Customer> customerList = model.getFilteredCustomerList();
+        setDataList(customerList);
+        Node<?> editCustomerStartNode = Node.emptyNode();
+        setStartingNode(editCustomerStartNode);
         Node<Customer> customerContactNumberNode = new CustomerContactNumberNode(customerList);
         Node<Customer> customerEmailNode = new CustomerEmailNode(customerList);
         Node<Customer> customerNameNode = new CustomerNameNode(customerList);
         Node<Customer> customerTagNode = new CustomerTagNode(customerList);
-        Node<?> editCustomerStartNode = Node.emptyNode();
-        this.startingNode = editCustomerStartNode;
         edges.addAll(Arrays.asList(
                 new Edge(PREFIX_CONTACT, editCustomerStartNode, customerContactNumberNode),
                 new Edge(PREFIX_EMAIL, editCustomerStartNode, customerEmailNode),
@@ -67,69 +56,6 @@ public class EditCustomerGraph extends Graph {
                 new Edge(PREFIX_NAME, customerTagNode, customerNameNode),
                 new Edge(PREFIX_TAG, customerTagNode, customerTagNode)
         ));
-    }
-
-    @Override
-    protected AutoCompleteResult process(String input) {
-        SortedSet<String> values = new TreeSet<>();
-        String stringToCompare;
-
-        if (input.isBlank()) { // empty, all whitespaces, or null
-            // suggest indexes
-            int minIndex = 1;
-            int maxIndex = customerList.size();
-            values.add(String.valueOf(minIndex));
-            values.add(String.valueOf(maxIndex));
-            stringToCompare = "";
-        } else {
-            int secondSpace = input.stripLeading().indexOf(" ");
-            if (secondSpace == -1) {
-                // user is entering preamble
-                // suggest indexes
-                int minIndex = 1;
-                int maxIndex = customerList.size();
-                values.add(String.valueOf(minIndex));
-                values.add(String.valueOf(maxIndex));
-                stringToCompare = input.stripLeading();
-            } else {
-                String preamble = input.stripLeading().substring(0, secondSpace);
-                try {
-                    // Parse to ensure it is a valid index, even though the index is used
-                    ParserUtil.parseIndex(preamble);
-
-                    String argString = input.substring(preamble.length() + 1);
-                    stringToCompare = argString;
-                    Pattern prefixPattern = Pattern.compile(" .{1,2}/");
-                    Node<?> currentNode = startingNode;
-                    Matcher matcher = prefixPattern.matcher(argString);
-                    while (matcher.find()) {
-                        Prefix prefix = new Prefix(matcher.group().trim());
-                        Optional<Node<?>> nextNode = traverse(currentNode, prefix);
-                        if (nextNode.isPresent()) {
-                            currentNode = nextNode.get();
-                        }
-                        stringToCompare = argString.substring(matcher.end());
-                    }
-                    if (input.endsWith("/")) { // fill with possible arguments
-                        values.addAll(currentNode.getValues());
-                    } else { // fill with possible prefixes
-                        List<Prefix> prefixes = getPrefixes(currentNode);
-                        prefixes.forEach(prefix -> values.add(prefix.toString()));
-                        stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
-                    }
-                    return new AutoCompleteResult(values, stringToCompare);
-                } catch (ParseException e) {
-                    // preamble is not an integer
-                    // suggest indexes
-                    int minIndex = 1;
-                    int maxIndex = customerList.size();
-                    values.add(String.valueOf(minIndex));
-                    values.add(String.valueOf(maxIndex));
-                    stringToCompare = "";
-                }
-            }
-        }
-        return new AutoCompleteResult(values, stringToCompare);
     }
 
 }

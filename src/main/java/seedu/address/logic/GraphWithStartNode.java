@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 
-public abstract class GraphWithoutPreamble extends Graph {
+public abstract class GraphWithStartNode extends Graph {
 
     private Node<?> startingNode;
 
-    public GraphWithoutPreamble(Model model) {
+    public GraphWithStartNode(Model model) {
         super(model);
     }
 

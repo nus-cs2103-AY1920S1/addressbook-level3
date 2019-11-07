@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.Edge;
-import seedu.address.logic.GraphWithoutPreamble;
+import seedu.address.logic.GraphWithStartNode;
 import seedu.address.logic.Node;
 import seedu.address.logic.nodes.schedule.ScheduleDateNode;
 import seedu.address.logic.nodes.schedule.ScheduleTagNode;
@@ -18,7 +18,7 @@ import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
-public class AddScheduleGraph extends GraphWithoutPreamble {
+public class AddScheduleGraph extends GraphWithStartNode {
 
     public AddScheduleGraph(Model model) {
         super(model);

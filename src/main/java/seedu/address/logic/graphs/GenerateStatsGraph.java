@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.Edge;
-import seedu.address.logic.GraphWithoutPreamble;
+import seedu.address.logic.GraphWithStartNode;
 import seedu.address.logic.Node;
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.nodes.schedule.ScheduleDateNode;
@@ -16,7 +16,7 @@ import seedu.address.logic.nodes.stats.StatsTypeNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
-public class GenerateStatsGraph extends GraphWithoutPreamble {
+public class GenerateStatsGraph extends GraphWithStartNode {
 
     public GenerateStatsGraph(Model model) {
         super(model);

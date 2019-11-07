@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.Edge;
-import seedu.address.logic.GraphWithoutPreamble;
+import seedu.address.logic.GraphWithStartNode;
 import seedu.address.logic.Node;
 import seedu.address.logic.nodes.phone.PhoneBrandNode;
 import seedu.address.logic.nodes.phone.PhoneCapacityNode;
@@ -26,7 +26,7 @@ import seedu.address.logic.nodes.phone.PhoneTagNode;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
 
-public class AddPhoneGraph extends GraphWithoutPreamble {
+public class AddPhoneGraph extends GraphWithStartNode {
 
     public AddPhoneGraph(Model model) {
         super(model);
