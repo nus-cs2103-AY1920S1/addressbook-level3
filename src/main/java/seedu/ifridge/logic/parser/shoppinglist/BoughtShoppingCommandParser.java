@@ -31,16 +31,17 @@ public class BoughtShoppingCommandParser implements Parser<BoughtShoppingCommand
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_EXPIRY_DATE);
 
         Index index;
+
+        if (!(argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()
+                && argMultimap.getValue(PREFIX_AMOUNT).isPresent())) {
+            throw new ParseException(BoughtShoppingCommand.MESSAGE_NOT_PROPER);
+        }
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     BoughtShoppingCommand.MESSAGE_USAGE), pe);
-        }
-
-        if (!(argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()
-                && argMultimap.getValue(PREFIX_AMOUNT).isPresent())) {
-            throw new ParseException(BoughtShoppingCommand.MESSAGE_NOT_PROPER);
         }
 
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());

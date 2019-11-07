@@ -48,8 +48,8 @@ import seedu.ifridge.storage.StorageManager;
 import seedu.ifridge.storage.TemplateListStorage;
 import seedu.ifridge.storage.UserPrefsStorage;
 import seedu.ifridge.storage.shoppinglist.BoughtListStorage;
-import seedu.ifridge.storage.shoppinglist.JsonBoughtItemStorage;
-import seedu.ifridge.storage.shoppinglist.JsonShoppingItemStorage;
+import seedu.ifridge.storage.shoppinglist.JsonBoughtListStorage;
+import seedu.ifridge.storage.shoppinglist.JsonShoppingListStorage;
 import seedu.ifridge.storage.shoppinglist.ShoppingListStorage;
 import seedu.ifridge.storage.unitdictionary.JsonUnitDictionaryStorage;
 import seedu.ifridge.storage.unitdictionary.UnitDictionaryStorage;
@@ -92,8 +92,8 @@ public class MainApp extends Application {
         GroceryListStorage groceryListStorage = new JsonGroceryListStorage(userPrefs.getGroceryListFilePath());
         TemplateListStorage templateListStorage = new JsonTemplateListStorage(userPrefs.getTemplateListFilePath());
         WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteArchiveFilePath());
-        ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
-        BoughtListStorage boughtListStorage = new JsonBoughtItemStorage(userPrefs.getBoughtListFilePath());
+        ShoppingListStorage shoppingListStorage = new JsonShoppingListStorage(userPrefs.getShoppingListFilePath());
+        BoughtListStorage boughtListStorage = new JsonBoughtListStorage(userPrefs.getBoughtListFilePath());
         UnitDictionaryStorage unitDictionaryStorage = new JsonUnitDictionaryStorage(
                 userPrefs.getUnitDictionaryFilePath());
         storage = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage, wasteListStorage,

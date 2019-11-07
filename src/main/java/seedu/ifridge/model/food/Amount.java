@@ -444,6 +444,13 @@ public class Amount {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Amount // instanceof handles nulls
+                && fullAmt.equals(((Amount) other).fullAmt)); // state check
+    }
+
+    @Override
     public int hashCode() {
         return fullAmt.hashCode();
     }

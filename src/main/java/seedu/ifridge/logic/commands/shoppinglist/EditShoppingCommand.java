@@ -15,7 +15,9 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ReadOnlyShoppingList;
 import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 
@@ -39,6 +41,8 @@ public class EditShoppingCommand extends Command {
 
     public static final String MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS = "Edited shopping item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "The shopping list already has another item with"
+            + " this name";
 
     private final Index index;
     private final EditShoppingItemDescriptor editShoppingItemDescriptor;
@@ -59,6 +63,7 @@ public class EditShoppingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<ShoppingItem> lastShownList = model.getFilteredShoppingList();
+        ReadOnlyShoppingList readOnlyShoppingList = model.getShoppingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
@@ -67,6 +72,10 @@ public class EditShoppingCommand extends Command {
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
+        if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
+                && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
+        }
         if (!shoppingItemToEdit.isBought()) {
             model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
             model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
@@ -78,6 +87,19 @@ public class EditShoppingCommand extends Command {
                 new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
         commandResult.setShoppingListCommand();
         return commandResult;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof EditShoppingCommand)) {
+            return false;
+        } else {
+            System.out.println(this.editShoppingItemDescriptor.getName());
+            return this.index.equals(((EditShoppingCommand) o).index)
+                    && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
+        }
     }
 
     /**
@@ -116,6 +138,18 @@ public class EditShoppingCommand extends Command {
         }
 
         /**
+         * Indicates if the name of the shopping item is changed by edit command on shopping list.
+         * @param shoppingItemToEdit
+         * @return true if the name is edited, false otherwise
+         */
+        public boolean isNameEdited(ShoppingItem shoppingItemToEdit) {
+            if (CollectionUtil.isAnyNonNull(name)) {
+                return !shoppingItemToEdit.isSameName(new Food(name, shoppingItemToEdit.getAmount()));
+            }
+            return false;
+        }
+
+        /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
@@ -136,6 +170,27 @@ public class EditShoppingCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            } else if (!(o instanceof EditShoppingItemDescriptor)) {
+                return false;
+            } else {
+                if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()
+                    && this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
+                    return this.name.equals(((EditShoppingItemDescriptor) o).name)
+                            && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                } else if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()) {
+                    return this.name.equals(((EditShoppingItemDescriptor) o).name);
+                } else if (this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
+                    return this.amount.equals(((EditShoppingItemDescriptor) o).amount);
+                } else {
+                    return false;
+                }
+            }
         }
 
     }

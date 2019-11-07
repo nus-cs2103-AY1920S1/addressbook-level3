@@ -44,9 +44,17 @@ public class TemplateItem extends Food implements Comparable<TemplateItem> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof TemplateItem
+                        && this.getName().equals(((TemplateItem) other).getName())
+                        && this.getAmount().equals(((TemplateItem) other).getAmount()));
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount);
+        return Objects.hash(this.getName(), this.getAmount());
     }
 
     @Override

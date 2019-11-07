@@ -3,6 +3,7 @@ package seedu.ifridge.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.ifridge.testutil.Assert.assertThrows;
@@ -27,7 +28,7 @@ import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_NUTS = "Peauts";
+    public static final String VALID_NAME_NUTS = "Peanuts";
     public static final String VALID_NAME_ORANGES = "Oranges";
     public static final String VALID_NAME_CHEESE = "Cheddar Cheese";
     public static final String VALID_NAME_TOMATO_JUICE = "Tomato Juice";
@@ -49,12 +50,15 @@ public class CommandTestUtil {
     public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_ORANGES;
     public static final String AMOUNT_DESC_CHEESE = " " + PREFIX_AMOUNT + VALID_AMOUNT_CHEESE;
     public static final String AMOUNT_DESC_TOMATO_JUICE = " " + PREFIX_AMOUNT + VALID_NAME_TOMATO_JUICE;
+    public static final String EXPIRY_DATE_DESC_ORANGES = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_ORANGES;
+    public static final String EXPIRY_DATE_DESC_NUTS = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_NUTS;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_VEGETABLE;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_CARBS;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Mango&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "snack*"; // '*' not allowed in tags
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300D"; // 'D' is not a valid unit
+    public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "274/11/200";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

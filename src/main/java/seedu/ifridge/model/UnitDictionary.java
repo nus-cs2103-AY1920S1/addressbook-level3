@@ -15,6 +15,10 @@ public class UnitDictionary {
 
     private HashMap<String, String> unitDictionary;
 
+    public UnitDictionary(UnitDictionary unitDictionary) {
+        this.unitDictionary = unitDictionary.getUnitDictionary();
+    }
+
     public UnitDictionary(HashMap<String, String> unitDictionary) {
         this.unitDictionary = unitDictionary;
     }
@@ -81,6 +85,28 @@ public class UnitDictionary {
 
     public HashMap<String, String> getUnitDictionary() {
         return this.unitDictionary;
+    }
+
+    public HashMap<String, String> setUnitDictionary(Food foodItem) {
+        Name inputName = foodItem.getName();
+        //For case-insensitive referencing
+        String savedName = inputName.toString().toUpperCase();
+        Amount inputAmt = foodItem.getAmount();
+        String inputUnitType = inputAmt.getUnitType(inputAmt);
+
+        unitDictionary.put(savedName, inputUnitType);
+
+        return this.unitDictionary;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this || (other instanceof UnitDictionary
+                && this.getUnitDictionary().keySet().equals(((UnitDictionary) other).getUnitDictionary().keySet()));
+
+        /**return other == this // short circuit if same object
+         || (other instanceof UniqueTemplateList // instanceof handles nulls
+         && internalList.equals(((UniqueTemplateList) other).internalList));**/
     }
 
 }

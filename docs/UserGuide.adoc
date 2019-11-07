@@ -462,7 +462,7 @@ Examples:
 
 * `tlist template edit 1 i/1 n/Low-Fat Milk`
 Edits the name of the first food item in the first template to  `Low-Fat Milk`
-* `tlist template edit 1 i/1 a/2l`
+* `tlist template edit 1 i/1 a/2L`
 Edits the amount of the first food item in the first template to 2 litres.
 
 ==== Delete food item: `tlist template delete`
@@ -508,19 +508,23 @@ Redoing a template item list will display which template is redone.
 ==== Add new item to shopping list: `slist add`
 
 Adds a new item to the shopping list. +
-Format: 'slist add f/FOOD_ITEM a/AMOUNT'
+Format: `slist add f/FOOD_ITEM a/AMOUNT`
 
+****
+* Cannot add item with duplicate name.
+* Cannot add item with unit that does not match with some other pre-existing item with same name.
+****
 Examples:
 
-* `slist add n/apple a/2`
-* `slist add n/milk a/1l`
-* `slist add n/banana a/3`
+* `slist add n/apple a/2units`
+* `slist add n/milk a/1L`
+* `slist add n/banana a/3units`
 
 
 ==== Add items in template into shopping list: `slist addTemp`
 
 Adds all template items that are not currently found in the grocery list into the shopping list. +
-Format: 'slist addTemp INDEX'
+Format: `slist addTemp INDEX`
 
 Examples:
 
@@ -542,7 +546,7 @@ Examples:
 
 * `slist edit 3 f/pomegranate`
 Edits the name of the third food item in the shopping list to  `pomegranate`
-* `slist edit 2 a/2l`
+* `slist edit 2 a/2kg`
 Edits the amount of the second food item in the shopping list to 2 litres.
 
 ==== Delete item in shopping list: `slist delete`
@@ -579,13 +583,16 @@ Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
 * Marks the shopping item at the specified `INDEX` as bought. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
 * Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` must match with that of the item in the shopping list.
 * There is flexibility in the amount of items that are bought. You can indicate more or less quantity of items bought than the number indicated in the shopping list.
+* When an item is completely bought, it is moved to the bottom of the list with a 'Fully Bought' tag.
+* Once an item is completely bought, it loses its 'urgent!' status if it has one.
+* If an item is partially bought, it gets a 'Partially Bought' tag.
 ****
 Examples:
 
-* `slist bought 1 e/3 Dec 2019 a/3`
-Marks the item at index 1 as bought and sets its expiry date as 3rd December, 2019 and amount as 3.
-* `slist bought 2 e/3 Nov 2019 a/2l`
-Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 2 litres.
+* `slist bought 1 e/03/12/2019 a/3units`
+Marks the item at index 1 as bought and sets its expiry date as 3rd December, 2019 and amount as 3 units.
+* `slist bought 2 e/03/11/2019 a/1kg`
+Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 1 kilograms.
 
 ==== Add bought items: `slist mergebought`
 
@@ -600,7 +607,7 @@ Format: `slist mergebought`
 ** Then, when marking the item as bought, you indicate the amount of 'Orange' that is bought is 1unit.
 ** If now you call `slist mergebought`, shopping list will still have 'NAME: Orange, AMOUNT: 1units', i.e., the amount in shopping list is subtracted to reflect the remaining amount to be bought.
 ****
-This command cannot be undone/redone.
+**_Important Note_**: This command cannot be undone/redone.
 
 ==== Mark shopping item as Urgent: `slist urgent`
 
@@ -612,11 +619,12 @@ Format: `slist urgent 1`
 
 ****
 * Marks the shopping item at the specified `INDEX` as urgent. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+* Does not allow a completely bought shopping item to be marked as urgent.
 ****
 Examples:
 
 * `slist urgent 1`
-Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and -moves to the top of the shopping list.
+Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and moves to the top of the shopping list.
 
 ==== Generate shopping list: `slist addTemp`
 
@@ -711,8 +719,8 @@ are expired and automatically moves them into the waste list.
 |`slist delete INDEX` | Delete specified item from shopping list
 |`slist urgent INDEX` | Marks the specified shopping item as 'urgent!'
 |`slist list` | Lists out all items in the shopping list with bought items first
-|`slist bought INDEX e/EXPIRYDATE a/AMOUNT` | Marks an item as bought and assigns the expiry date and amount to that item
-|`slist merge bought` | Adds all items marked as ‘bought’ to the grocery list
+|`slist bought INDEX e/EXPIRYDATE a/AMOUNT` | Marks an item as bought and assigns a bought status to the ShoppingItem and expiry date and amount to corresponding BoughtItem
+|`slist mergebought` | Adds all items marked as ‘bought’ to the grocery list
 |`slist addTemp TEMPLATEINDEX`| Generates a shopping list from all missing grocery items in the template
 |`remDefault r/NUMBER_OF_DAYS` | Display list with all food expiring within n days
 |`exit`| Exits the program

@@ -76,6 +76,16 @@ public class JsonAdaptedGroceryItem {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        if (expiryDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ExpiryDate.class.getSimpleName()));
+        }
         final Name modelName = new Name(name);
         final Amount modelAmount = new Amount(amount);
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
