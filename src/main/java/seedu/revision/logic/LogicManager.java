@@ -12,8 +12,7 @@ import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.main.MainParser;
-import seedu.revision.logic.parser.quiz.QuizCommandParser;
+import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
@@ -28,12 +27,12 @@ public class LogicManager implements Logic {
 
     protected final Model model;
     private final Storage storage;
-    private final MainParser mainParser;
+    private final ParserManager parserManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        mainParser = new MainParser();
+        parserManager = new ParserManager();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = mainParser.parseCommand(commandText);
+        Command command = parserManager.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
 
@@ -62,7 +61,7 @@ public class LogicManager implements Logic {
             throws ParseException, CommandException {
 
         //Parse user input from String to a Command
-        Command command = QuizCommandParser.parseCommand(commandText, currentAnswerable);
+        Command command = parserManager.parseCommand(commandText, currentAnswerable);
         CommandResult commandResult = command.execute(model);
 
         if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {

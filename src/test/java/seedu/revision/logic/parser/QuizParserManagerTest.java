@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.quiz.McqInputCommand;
-import seedu.revision.logic.parser.quiz.QuizCommandParser;
+import seedu.revision.logic.parser.quiz.QuizParserManager;
 
-public class QuizCommandParserTest {
+public class QuizParserManagerTest {
     private static final String VALID_MCQ_ANSWER = "A";
     private static final String VALID_EXIT = "exit";
-    private QuizCommandParser parser = new QuizCommandParser();
+    private QuizParserManager parser = new QuizParserManager();
 
     @Test
     public void parseCommand_validInput_success() {

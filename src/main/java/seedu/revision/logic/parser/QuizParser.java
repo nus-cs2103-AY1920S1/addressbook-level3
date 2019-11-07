@@ -5,7 +5,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 
 /**
- * Represents a QuizParser that is able to parse user input into a {@code Command} of type {@code T}.
+ * Represents a QuizParserManager that is able to parse user input into a {@code Command} of type {@code T}.
  */
 public interface QuizParser<T extends Command> {
 

@@ -24,16 +24,16 @@ import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.main.MainParser;
+import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.AnswerableUtil;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.McqBuilder;
 
-public class MainParserTest {
+public class ParserManagerTest {
 
-    private final MainParser parser = new MainParser();
+    private final ParserManager parser = new ParserManager();
 
     @Test
     public void parseCommand_add() throws Exception {

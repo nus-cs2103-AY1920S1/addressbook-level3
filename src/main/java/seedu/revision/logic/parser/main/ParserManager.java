@@ -18,11 +18,18 @@ import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.quiz.McqInputCommandParser;
+import seedu.revision.logic.parser.quiz.SaqInputCommandParser;
+import seedu.revision.logic.parser.quiz.TfInputCommandParser;
+import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
 
 /**
  * Parses user input.
  */
-public class MainParser {
+public class ParserManager {
 
     /**
      * Used for initial separation of command word and args.
@@ -80,5 +87,40 @@ public class MainParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+
+    /**
+     * Checks if user input during quiz is valid.
+     * It should be either an exit command, help command, or an answer to the current question.
+     * @param userInput user response or command
+     * @param currentAnswerable the current question
+     * @return exit command or help command or MCQ input command parser
+     * @throws ParseException
+     */
+    public static Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
+        final String commandWord = matcher.group("commandWord");
+
+        switch (commandWord) {
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        default:
+            break;
+        }
+
+        if (currentAnswerable instanceof Mcq) {
+            return new McqInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            return new TfInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof Saq) {
+            return new SaqInputCommandParser().parse(userInput, currentAnswerable);
+        } else {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
 
 }
