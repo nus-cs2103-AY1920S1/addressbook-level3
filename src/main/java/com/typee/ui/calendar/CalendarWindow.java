@@ -163,6 +163,7 @@ public class CalendarWindow extends UiPart<Region> {
      */
     @FXML
     public void populateCalendarWithNextMonth() {
+        closeAllDisplayedEngagementWindows();
         currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
         populateCalendar();
     }
@@ -172,6 +173,7 @@ public class CalendarWindow extends UiPart<Region> {
      */
     @FXML
     public void populateCalendarWithPreviousMonth() {
+        closeAllDisplayedEngagementWindows();
         currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
         populateCalendar();
     }
@@ -181,6 +183,10 @@ public class CalendarWindow extends UiPart<Region> {
      * @param date The specified date.
      */
     public void openSingleDayEngagementsDisplayWindow(LocalDate date) {
+        if (!(date.getYear() == currentDisplayedYearMonth.getYear()
+                && date.getMonthValue() == currentDisplayedYearMonth.getMonthValue())) {
+            closeAllDisplayedEngagementWindows();
+        }
         currentDisplayedYearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
         populateCalendar();
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
@@ -191,10 +197,17 @@ public class CalendarWindow extends UiPart<Region> {
     }
 
     /**
-     * Closes all displayed daily engagement lists, if any.
+     * Handles the exit process for this calendar window.
      */
     @Override
     public void handleExit() {
+        closeAllDisplayedEngagementWindows();
+    }
+
+    /**
+     * Closes all displayed engagement windows.
+     */
+    private void closeAllDisplayedEngagementWindows() {
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             calendarDateCell.closeDisplayedEngagements();
         }
