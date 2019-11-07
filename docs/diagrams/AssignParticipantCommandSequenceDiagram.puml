@@ -1,0 +1,112 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+box AlfredParser PARSER_COLOR_T1
+participant ":AlfredParser" as AlfredParser PARSER_COLOR
+end box
+
+box AssignCommandAllocator ALLOCATOR_COLOR_T1
+participant ":AssignCommandAllocator" as AssignCommandAllocator ALLOCATOR_COLOR
+participant ":AssignParticipantCommandParser" as AssignParticipantCommandParser ALLOCATOR_COLOR
+end box
+
+box AssignParticipantCommandCommand COMMAND_COLOR_T1
+participant "command:AssignParticipantCommand" as AssignParticipantCommand COMMAND_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> MainWindow : user enters 'assign participant P-100 T-2'
+activate LogicManager
+
+MainWindow -> CommandBox : handleCommandEntered()
+activate CommandBox
+
+CommandBox -> Logic : execute("assign participant P-100 T-2")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("assign participant P-100 T-2")
+activate AlfredParser
+
+create AssignCommandAllocator
+AlfredParser -> AssignCommandAllocator
+activate AssignCommandAllocator
+
+AssignCommandAllocator --> AlfredParser
+deactivate AssignCommandAllocator
+
+AlfredParser -> AssignCommandAllocator : allocate("participant P-100 T-2")
+activate AssignCommandAllocator
+
+create AssignParticipantCommandParser
+AssignCommandAllocator -> AssignParticipantCommandParser
+activate AssignParticipantCommandParser
+
+AssignParticipantCommandParser --> AssignCommandAllocator
+deactivate AssignParticipantCommandParser
+
+AssignCommandAllocator -> AssignParticipantCommandParser : parse("P-100 T-2")
+activate AssignParticipantCommandParser
+
+create AssignParticipantCommand
+AssignParticipantCommandParser -> AssignParticipantCommand
+activate AssignParticipantCommand
+
+AssignParticipantCommand --> AssignParticipantCommandParser : command
+deactivate AssignParticipantCommand
+
+AssignParticipantCommandParser --> AssignCommandAllocator : command
+deactivate AssignParticipantCommandParser
+
+AssignCommandAllocator --> AlfredParser : command
+deactivate AssignCommandAllocator
+
+AlfredParser --> Logic : command
+deactivate AlfredParser
+
+
+Logic -> AssignParticipantCommand : execute()
+activate AssignParticipantCommand
+
+AssignParticipantCommand -> Model
+activate Model
+
+
+Model --> AssignParticipantCommand
+deactivate Model
+
+AssignParticipantCommand --> Logic : commandResult
+deactivate AssignCommand
+
+Logic --> CommandBox : commandResult
+deactivate Logic
+
+CommandBox --> MainWindow
+deactivate CommandBox
+
+MainWindow -> ResultDisplay : setFeedBackToUser(CommandResult)
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+
+
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

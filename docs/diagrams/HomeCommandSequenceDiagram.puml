@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+box AlfredParser PARSER_COLOR_T1
+participant ":AlfredParser" as AlfredParser PARSER_COLOR
+end box
+
+box HomeCommand COMMAND_COLOR_T1
+participant ":HomeCommand" as HomeCommand COMMAND_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> MainWindow : user enters 'home' command
+activate LogicManager
+
+MainWindow -> CommandBox : handleCommandEntered()
+activate CommandBox
+
+CommandBox -> Logic : execute("home")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("home")
+activate AlfredParser
+
+create HomeCommand
+AlfredParser -> HomeCommand
+activate HomeCommand
+
+HomeCommand --> AlfredParser
+deactivate HomeCommand
+
+AlfredParser --> Logic
+deactivate AlfredParser
+
+
+Logic -> HomeCommand : execute()
+activate HomeCommand
+
+HomeCommand -> Model
+activate Model
+
+
+Model --> HomeCommand
+deactivate Model
+
+
+HomeCommand -> Logic : commandResult
+deactivate HomeCommand
+
+Logic --> CommandBox : commandResult
+deactivate Logic
+
+CommandBox --> MainWindow
+deactivate CommandBox
+
+MainWindow -> ResultDisplay : setFeedBackToUser(CommandResult)
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+
+
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

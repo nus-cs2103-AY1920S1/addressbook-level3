@@ -1,0 +1,112 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+box AlfredParser PARSER_COLOR_T1
+participant ":AlfredParser" as AlfredParser PARSER_COLOR
+end box
+
+box RemoveCommandAllocator ALLOCATOR_COLOR_T1
+participant ":RemoveCommandAllocator" as RemoveCommandAllocator ALLOCATOR_COLOR
+participant ":RemoveParticipantCommandParser" as RemoveParticipantCommandParser ALLOCATOR_COLOR
+end box
+
+box RemoveParticipantCommandCommand COMMAND_COLOR_T1
+participant "command:RemoveParticipantCommand" as RemoveParticipantCommand COMMAND_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> MainWindow : user enters 'remove participant P-100 T-2'
+activate LogicManager
+
+MainWindow -> CommandBox : handleCommandEntered()
+activate CommandBox
+
+CommandBox -> Logic : execute("remove participant P-100 T-2")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("remove participant P-100 T-2")
+activate AlfredParser
+
+create RemoveCommandAllocator
+AlfredParser -> RemoveCommandAllocator
+activate RemoveCommandAllocator
+
+RemoveCommandAllocator --> AlfredParser
+deactivate RemoveCommandAllocator
+
+AlfredParser -> RemoveCommandAllocator : allocate("participant P-100 T-2")
+activate RemoveCommandAllocator
+
+create RemoveParticipantCommandParser
+RemoveCommandAllocator -> RemoveParticipantCommandParser
+activate RemoveParticipantCommandParser
+
+RemoveParticipantCommandParser --> RemoveCommandAllocator
+deactivate RemoveParticipantCommandParser
+
+RemoveCommandAllocator -> RemoveParticipantCommandParser : parse("P-100 T-2")
+activate RemoveParticipantCommandParser
+
+create RemoveParticipantCommand
+RemoveParticipantCommandParser -> RemoveParticipantCommand
+activate RemoveParticipantCommand
+
+RemoveParticipantCommand --> RemoveParticipantCommandParser : command
+deactivate RemoveParticipantCommand
+
+RemoveParticipantCommandParser --> RemoveCommandAllocator : command
+deactivate RemoveParticipantCommandParser
+
+RemoveCommandAllocator --> AlfredParser : command
+deactivate RemoveCommandAllocator
+
+AlfredParser --> Logic : command
+deactivate AlfredParser
+
+
+Logic -> RemoveParticipantCommand : execute()
+activate RemoveParticipantCommand
+
+RemoveParticipantCommand -> Model
+activate Model
+
+
+Model --> RemoveParticipantCommand
+deactivate Model
+
+RemoveParticipantCommand --> Logic : commandResult
+deactivate AssignCommand
+
+Logic --> CommandBox : commandResult
+deactivate Logic
+
+CommandBox --> MainWindow
+deactivate CommandBox
+
+MainWindow -> ResultDisplay : setFeedBackToUser(CommandResult)
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+
+
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

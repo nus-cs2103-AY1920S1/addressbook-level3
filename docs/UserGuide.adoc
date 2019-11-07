@@ -64,7 +64,8 @@ text that you enter into Alfred. The command text that you should enter at the c
 .  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar` or replace `alfred.jar` with the name of the jar file downloaded.
 on terminal in the jar file's directory to open and start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.Layout of the application
+image::Ui.png
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -290,6 +291,7 @@ Example for multiple fields:
 * `find participant n/Damith e/damith.com` finds all participants whose name contains the string "Damith" (this is case
 sensitive) and whose emails contain "damith.com"
 
+//tag::assign[]
 === Assigning a Entity to a Team: `assign {mentor/participant} ID TEAM_ID ...`
 
 Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID. +
@@ -302,18 +304,16 @@ Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID
 
 Examples:
 
-* `assign mentor M-18 T-8` will assign Mentor with ID M-18 to Team with ID T-8. The mentor will be shown under the list of teams, under 'Team' section of GUI.
+* `assign mentor M-18 T-2` will assign Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
+image::AssignCommandExample1.png[width="790"]
 
-image::AssignCommandOutputExample1.png[width="790"]
+* `assign participant P-100 T-2` will assign Participant with ID P-100 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-* `assign participant P-91 T-8` will assign Participant with ID P-91 to Team with ID T-8. The participant will be shown under the list of teams, , under 'Team' section of GUI.
+image::AssignCommandExample2.png[width="790"]
+//end::assign[]
 
-Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
-
-image::AssignCommandOutputExample2.png[width="790"]
-
+//tag::remove[]
 === Removing an Entity from a Team: `remove {mentor/participant} ID TEAM_ID ...`
 
 Removes Mentor or Participant Entity by their ID from a team identified by TEAM_ID. +
@@ -326,14 +326,14 @@ Removes Mentor or Participant Entity by their ID from a team identified by TEAM_
 
 Examples:
 
-* `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. The text 'Mentor not assigned' will be shown under the list of teams, under 'Team' section of GUI.
+* `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. Running the command will show you the text 'Mentor not assigned' in the respective team. The following will be shown in the 'Team' section of the GUI:
 
-image::RemoveCommandOutputExample2.png[width="790"]
+image::RemoveCommandExample1.png[width="790"]
 
-* `remove participant P-91 T-8` will remove Participant with ID P-91 from Team with ID T-8. The updated list of members will be shown under the specific team panel in the list of teams, under 'Team' section of GUI.
-Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
+* `remove participant P-100 T-2` will remove Participant with ID P-100 from Team with ID T-2.Running the command will show you the following output in the 'Team' section of the GUI
 
-image::RemoveCommandOutputExample1.png[width="790"]
+image::RemoveCommandExample2.png[width="790"]
+//end::remove[]
 
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
@@ -642,6 +642,55 @@ The help command will list all the commands you need to use this
 application properly!
 
 Simply run `help`.
+
+//tag::home[]
+=== Home command: `home`
+This command allows you to navigate to the homepage where the system statistics are updated in real time. The homepage statistics are also available when you start-up the application.
+
+Example:
+Suppose you want to check the distribution of teams by subjects, in order to gauge the demand for mentors for each subject.
+
+Instead of manually sieving through all the teams by the subject that their project is on, you can easily view the distribution of teams and mentors by subject via the home command.
+
+To navigate to home:
+
+1.	Type home into the command box, and press ```Enter``` to execute it.
+
+2.	The result box will display the message “Showing homepage” in the result box. You can see the statistics and the ‘Home’ section of sidebar being highlighted.
+    Below is the layout of  the homepage:
+
+.Output of `home` command
+image::HomeCommandExample.png[width="790"]
+
+//end::home[]
+
+//tag:command-suggestion[]
+=== Command Suggestion Prompt
+As you type, there will be a popup box predicting the type of commands you are going to type. You can navigate through these suggestions and choose the template that suits you.
+
+Example:
+Let us suppose that you want to type the command `add mentor` and you forgot the fields that are required in the command.
+
+Instead of going through the user guide to look for the command, a popup box will appear as you type. The content in this box will change as you type, such that the commands suggested will start with the words or letters that you have already entered.
+
+As you type:
+1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear if you choose the command.
+
+image::CommandSuggestionStep1.png[width="790"]
+
+2.	Press the ```up`` or ```down``` arrow keys to navigate up and down the popup box.
+
+image::CommandSuggestionStep2.png[width="790"]
+
+3.	Press ```Enter``` to choose the command of your choice. The command will then appear on the user input box.
+
+image::CommandSuggestionStep3.png[width="790"]
+
+4.	Press ‘left’ or ‘right’ keys to navigate the cursor and fill in the respective fields. Press Enter to execute the command.
+
+image::CommandSuggestionStep4.png[width="790"]
+
+//end::command-suggestion[]
 
 === Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
 Find where a particular participant or team is seated.

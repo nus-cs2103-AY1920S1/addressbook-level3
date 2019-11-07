@@ -215,6 +215,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+
     /**
      * Displays the list of Participants in Model and Storage on Graphical User
      * Interface.
@@ -375,6 +376,10 @@ public class MainWindow extends UiPart<Stage> {
             case L:
                 this.fireButton(leaderboardButton);
                 lastFired = leaderboardButton;
+                break;
+            case HM:
+                this.fireButton(homeButton);
+                lastFired = homeButton;
                 break;
             default:
                 logger.info("The command does not edit any of the list of Entity");

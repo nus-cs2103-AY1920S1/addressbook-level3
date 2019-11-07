@@ -1,53 +1,97 @@
-= Joanna Yap - Project Portfolio
+= Yap Jia Aun - Project Portfolio for Alfred
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== About the project
+My team and I were tasked with enhancing an desktop application, which is command line interface addressbook application. After careful consideration, we have morphed the application into a Hackathon personnel management system called Alfred. With the target user of Human Resource Managers of small to medium sized enterprise and start-ups in mind, we created this application help streamline the management of Hackathon. This improved application enables users to manage different parties of participants, teams and mentors. Additionally, it automatically establishes relationship between these parties, delegating the tedious task of maintaining complex relationships to the system itself.
 
----
+This is what our project looks like:
 
-== Overview
+.The graphical user interface for the homepage of Alfred.
+image::Ui.png[]
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My main role was to design and write the code for the Graphical User Interface(GUI) to ensure that information about each party(participant, team and mentor alike) is displayed in an organised and readable manner. Additionally, as part of my duty, I have also implemented the command prompt box and homepage statistics. This ensures that users do not need to type out complex commands and that they are well informed of the statistics of different parties in the system. I have also implemented assign and remove commands to assign participants or mentors to a team. The following sections illustrate these enhancements in further detail, including the relevant documentation I have included in the user and developer guide with reference to these features.
+
+*Note the following terms used in this document*:
+
+*Entity*: The term entity refers to different parties that could be stored in the system. This includes participants, teams and mentors that are involved in the Hackathon competition.
+
+*Note the following symbols and formatting used in this document*:
+[NOTE]
+ This symbol indicates important information.
+
+`remove mentor`  A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the
+application.
+
+link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] An underlined text with grey highlight indicates a component, class or object in
+the architecture of the application. Clicking these text will redirect user to the implementation or interface of the component, class or object.
+
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+|===
+|_This section shows a summary of my coding, documentation, and other contributions to the project._
+|===
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Enhancement added*: I have improved on the design of the GUI
 
-* *Other contributions*:
+*	What it does: There are two main features of the GUI. The first feature is the sidebar. The sidebar consist of different sections. When commands are entered, the result will be shown, with respective sections of the sidebar highlighted for reference. Secondly, I have also implemented the parsing and display of information returned by the backend into cards.
+*	Justification: Upon entering commands into the application, the result of these commands will return the details of different entities. Parsing and displaying these information into a more visual manner will allow users to be able to digest such information easily and intuitively. Furthermore, being able to view the section of the sidebar that is highlighted will give the user a clearer idea of the type of entity they are looking at.
+*	Credits: Two third party libraries are used. They are Jfeonix and FontAwesomeFx Library.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
 
-_{you can add/remove categories in the list above}_
+*Enhancement added*: I added the ability to view statistics on the homepage of the application
+
+* What it does: The home command allows the user to navigate to the homepage of the application. The homepage displays statistics that informs users on the number of entities ( by their entity type), as well as the distribution of entity by subjects.
+* Justification: Hackathon competitions may be a measurably large event with large volumes of entities stored in the system. Hence, the overall view of the total number of each entity is needed to keep the maximum capacity of the competition in check. Additionally, the distribution graph of entities by subjects will allow optimal allocation of participants into teams or mentors to teams (according to their subject of choice).
+* Highlights: The implementation of the distribution graph requires sieving through entities of the same type by subjects. Therefore, the Stream data structure was used to create a more elegant solution.
+* Credits: JavaFX library was used.
+
+*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
+
+*Enhancement added*: I added the ability to choose from different suggested command templates as a user types into the user input box
+
+* What it does: This feature predicts the command that a user is going to enter as they are typing, and provides suggestions. The user can then navigate and choose from these suggestions. Doing so will provide a command template for the user to work it.
+* Justification: Managing different entities in the system requires a variety of commands(in which some are more complex in nature). Thus, this feature allows users to conveniently summon commands. Furthermore, it takes the memory work of remembering numerous commands out of the equation.
+* Highlights: This enhancement works with existing as well as future commands. Addition of new commands would only require minimal changes to the code base of this feature. The fulfilment of this feature was more demanding as it requires a deeper understanding on the working of the third party library JavaFX. On top of that, its implementation was constantly met with errors, before vital concepts regarding the Node components of JavaFX came into light.
+* Credits: This was inspired by the command suggestion box in Telegram bots. The inspiration of how it can be implemented comes from the following webpage: https://stackoverflow.com/questions/50495430/how-to-customize-auto-complete-text-field-suggestion-in-javafx
+
+*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
+
+*Enhancement added*: I added the ability to assign participants or a mentor to a team
+
+* What it does: The assign participant and assign mentor command assigns a participant or mentor to a team. The remove participant or remove mentor command removes said entity from the team.
+* Justification: Hackathons involves teaming participants up and allocating a mentor to guide teams. This feature helps to establish this relation.
+
+*Code contributed*: Please click these links to see a sample of my code: [Functional code] [Test code] {give links to collated code files}
+
+*Other contributions*:
+
+* Project management:
+•	There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions 1.2.1 on GitHub.
+* Enhancements to existing features:
+** Wrote additional tests for existing features to increase coverage (Pull requests #36, #38)
+** Enhanced delete command to enable the deletion of all entities or more than one entiy (Pull requests #36, #38)
+** Added and modified constraints of different fields in the commands(Pull requests #36, #38)
+** Implemented dark mode for readability and aesthetic purposes (Pull requests #36)
+* Documentation:
+** Added user stories and use cases to Developer Guide(Pull requests #36)
+* Community:
+** Reviewed Pull Requests (with non-trivial review comments): #12, #32, #19, #42
+** Reported bugs and offered suggestions for other teams in the class (examples: 1, 2, 3)
+*	Tools:
+**	Integrated a third party library (FontAwesomeFX and JFeonix) to the project (#42)
+
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_We had to amend the Addressbook User Guide with instructions on how to utilise the enhancement we added. Below is an excerpt of the Alfred User Guide, showcasing the homepage statistics, command suggestion prompt and assign command features I have added._
 |===
 
 include::../UserGuide.adoc[tag=delete]
@@ -57,7 +101,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following sections shows my contribution to the Alfred Developer Guide for the homepage statistics feature, command suggestion and assign feature._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
@@ -65,8 +109,73 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
 
----
+== Design Considerations
+|===
+|When designing the GUI, homepage statistics, command suggestion and assign/remove functions, careful deliberation was needed on optimum data structure to use and design principle to employ to implement these features. Below is a brief summary of the thought process I put in before coming to a decision. _
+|===
 
-_{Optionally, you may include other projects in your portfolio.}_
+
+|=======================================================================
+|Aspect |Alternative 1 |Alternative 2
+|Ways to update different entity list
+| The system collects information form Model after each command, to display the entity list as the command result.
+
+ *Pros*: Easy to implement with existing Model interface
+
+ *Cons*: High degree of dependency between UI components and Model components(high coupling).
+
+ *Cons*: Updating of the data is not automatic.
+
+ |The system uses and Observable interface that observes for changes in the three types of list, namely ParticipantList, TeamList and MentorList.
+
+ *Pros*: Low degree of dependency between UI and Model components(low coupling).
+
+	*Pros*: The data in GUI is automatically updated.
+
+	*Cons*: Harder to implement.
+
+
+I have decided to go with this alternative because low dependency will ensure testability and maintainability of the system.
+
+|Finding the distribution of Teams and Mentors by subjects | Implementing methods to keep track of number of mentors or participant under the respective TeamList or ParticipantList class.
+
+*Pros*: Each of TeamList or  Participant list will have their individual responsibilities in keeping track of the distribution of its teams or mentors.
+
+*Cons*: Clutters up the Model and ModelManger interface.
+
+*Cons*: Does not make use of existing methods under Model.
+
+|Getting TeamList or ParticipantList from Model and implementing operation to find the distribution separately.
+
+*Pros*: Makes use of existing Model methods of getting TeamList and ParticipantList
+
+*Pros*: Does not clutter up Model and ModelManager with different methods
+
+*Pros*: Greater flexibility in implementing methods to find the distribution of teams or mentors.
+
+*Cons*: Clutters up the Model and ModelManger interface.
+
+*Cons*: Does not make use of existing methods under Model.
+
+I decided to proceed with this option because it makes use of existing methods under Model and provides greater flexibility on how I can find the distribution number by subject from the TeamList or ParticipantList.
+
+|How to generate EntityCard and ListPanel to display different entities
+
+| Implement different classes that inherits EntityCard, like TeamCard, ParticipantCard and MentorCard respectively. Additionaly, implement different classes that extents ListPanel, like TeamListPanel and more.
+
+*Pros*: Easy to implement and style respective cards and list panels.
+
+*Cons*: Logic is duplicated many times, one for each type of entity. For example, ParticipantCard and Mentorcard are similar for most fields, except the extra field of Organisation and Specialisation.
+
+*Cons*:  Clutters the system with extra classes.
+
+|Implement a EntityCard class with a skeleton structure. Then dynamically add and morph the fields in Entity card according to the entity type.
+
+*Pros*: No duplication of the same logic and implementation, as abstraction was used
+
+*Pros*: Lesser class files required.
+
+*Cons*: Harder to implement.
+
+I have decided to proceed with this option because this alternative employs that theory of abstraction in programming, and it there is less redundant code in this implementation.
