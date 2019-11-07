@@ -38,7 +38,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
-        expectedModel.deleteTransaction(transactionToDelete);
+        expectedModel.delete(transactionToDelete);
         expectedModel.commitUserState();
         assertCommandSuccess(deleteCommand, model,
             new CommandResult(expectedMessage, false, false, Tab.TRANSACTION), expectedModel);
@@ -64,7 +64,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete);
 
         Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
-        expectedModel.deleteTransaction(transactionToDelete);
+        expectedModel.delete(transactionToDelete);
         showNoTransaction(expectedModel);
         expectedModel.commitUserState();
         assertCommandSuccess(deleteCommand, model,

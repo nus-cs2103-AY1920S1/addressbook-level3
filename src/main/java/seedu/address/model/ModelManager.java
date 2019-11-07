@@ -131,22 +131,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTransaction(BankAccountOperation transaction) {
+    public void delete(BankAccountOperation transaction) {
         versionedUserState.remove(transaction);
     }
 
     @Override
-    public void deleteBudget(Budget budget) {
+    public void delete(Budget budget) {
         versionedUserState.remove(budget);
     }
 
     @Override
-    public void deleteProjection(Projection projectionToDelete) {
+    public void delete(Projection projectionToDelete) {
         versionedUserState.remove(projectionToDelete);
     }
 
     @Override
-    public void deleteLedger(LedgerOperation ledgerToDelete) {
+    public void delete(LedgerOperation ledgerToDelete) {
         versionedUserState.remove(ledgerToDelete);
     }
 
@@ -262,7 +262,7 @@ public class ModelManager implements Model {
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
         this.getFilteredProjectionsList().forEach(x -> {
             if (deleted.getCategories().isEmpty() && x.getCategory() == null) {
-                this.deleteProjection(x);
+                this.delete(x);
                 if (x.getBudgets().isPresent()) {
                     this.add(new Projection(this.getFilteredTransactionList()
                             .filtered(t -> t.getCategories().isEmpty()), x.getDate(), x.getBudgets().get()));
@@ -293,7 +293,7 @@ public class ModelManager implements Model {
     public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
         this.getFilteredProjectionsList().forEach(x -> {
             if (added.isGeneral() && x.getCategory() == null) {
-                this.deleteProjection(x);
+                this.delete(x);
                 ObservableList<BankAccountOperation> newTransactions =
                         this.getFilteredTransactionList().filtered(t -> t.getCategories().isEmpty());
                 if (newTransactions.size() >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS

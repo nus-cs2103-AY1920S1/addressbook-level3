@@ -207,8 +207,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchTab(Tab tab) {
-        ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
-        statusBarFooter.setBalance(transactionList);
 
         switch (tab) {
         case TRANSACTION:
@@ -247,6 +245,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Command result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // update bank balance display
+            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+            statusBarFooter.setBalance(transactionList);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -131,7 +131,7 @@ public interface Model {
      *
      * @param transaction
      */
-    void deleteTransaction(BankAccountOperation transaction);
+    void delete(BankAccountOperation transaction);
 
     /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
@@ -212,19 +212,19 @@ public interface Model {
      * Deletes the given budget.
      * The budget must exist in the bank account.
      */
-    void deleteBudget(Budget budgetToDelete);
+    void delete(Budget budgetToDelete);
 
     /**
      * Deletes the given projection.
      * The projection must exist in the bank account.
      */
-    void deleteProjection(Projection projectionToDelete);
+    void delete(Projection projectionToDelete);
 
     /**
      * Deletes the given ledger.
      * The ledger must exist in the bank account.
      */
-    void deleteLedger(LedgerOperation ledgerToDelete);
+    void delete(LedgerOperation ledgerToDelete);
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
     ObservableList<Projection> getFilteredProjectionsList();

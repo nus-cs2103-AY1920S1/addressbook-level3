@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
             }
 
             BankAccountOperation transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteTransaction(transactionToDelete);
+            model.delete(transactionToDelete);
             model.updateProjectionsAfterDelete(transactionToDelete);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, transactionToDelete),
@@ -66,10 +66,10 @@ public class DeleteCommand extends Command {
 
             //TODO: updateProjectionsAfterDelete(Budget budget)
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteBudget(budgetToDelete);
+            model.delete(budgetToDelete);
             model.getFilteredProjectionsList().forEach(x -> {
                 if (x.getBudgets().isPresent() && x.getBudgets().equals(budgetToDelete)) {
-                    model.deleteProjection(x);
+                    model.delete(x);
                     model.add(new Projection(x.getTransactionHistory(), x.getDate()));
                 }
             });
@@ -84,7 +84,7 @@ public class DeleteCommand extends Command {
             }
 
             Projection projectionToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteProjection(projectionToDelete);
+            model.delete(projectionToDelete);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, projectionToDelete),
                     false, false, Tab.PROJECTION);
@@ -97,7 +97,7 @@ public class DeleteCommand extends Command {
             }
 
             LedgerOperation ledgerToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteLedger(ledgerToDelete);
+            model.delete(ledgerToDelete);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, ledgerToDelete),
                     false, false, Tab.LEDGER);

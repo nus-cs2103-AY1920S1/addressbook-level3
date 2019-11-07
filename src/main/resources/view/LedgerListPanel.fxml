@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" HBox.hgrow="ALWAYS">
-    <ListView fx:id="operationListView" VBox.vgrow="ALWAYS"/>
-    <ListView fx:id="peopleListView" VBox.vgrow="ALWAYS"/>
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
+    <ListView fx:id="operationListView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+    <ListView fx:id="peopleListView" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
 </HBox>
