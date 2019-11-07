@@ -15,7 +15,7 @@
 
 <ScrollPane id="mainPanel" fitToHeight="true" fitToWidth="true" hvalue="1.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <content>
-        <VBox id="mainPanel" styleClass="background">
+        <VBox id="mainPanel" fx:id="moduleViewVBox" styleClass="background">
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
@@ -30,7 +30,7 @@
            <panes>
              <TitledPane fx:id="moduleDetailsPane" expanded="false" text="Module Details">
                   <content>
-                     <VBox styleClass="background">
+                     <VBox maxHeight="-Infinity" minHeight="-Infinity" styleClass="background">
                         <children>
                            <Label styleClass="label-bright" text="Description" underline="true" />
                            <TextFlow styleClass="text-bright" textAlignment="JUSTIFY">
@@ -71,21 +71,44 @@
                </TitledPane>
            </panes>
          </Accordion>
-         <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="NEVER">
-            <children>
-               <Label fx:id="deadline" styleClass="label-bright" text="\$deadline" />
-            </children>
-         </HBox>
-         <VBox alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
-            <children>
-                <Label styleClass="label-bright" text="Links: " />
-                <HBox alignment="BOTTOM_LEFT" VBox.vgrow="NEVER">
-                    <children>
-                        <FlowPane fx:id="links" alignment="BOTTOM_LEFT" />
-                    </children>
-                </HBox>
-            </children>
-         </VBox>
+         <Accordion fx:id="deadlinesAccordion" styleClass="accordian">
+           <panes>
+             <TitledPane fx:id="deadlinesAccordionPane" text="Deadlines">
+               <content>
+                     <HBox alignment="CENTER_LEFT" spacing="5" styleClass="background">
+                        <children>
+                           <Label fx:id="deadline" maxHeight="-Infinity" minHeight="-Infinity" styleClass="label-bright" text="\$deadline" />
+                        </children>
+                     </HBox>
+               </content>
+                  <styleClass>
+                     <String fx:value="titled_pane" />
+                     <String fx:value="accordian" />
+                  </styleClass>
+             </TitledPane>
+           </panes>
+         </Accordion>
+         <Accordion fx:id="linksAccordion" styleClass="accordian">
+            <panes>
+               <TitledPane fx:id="linksAccordionPane" text="Links">
+                  <styleClass>
+                     <String fx:value="titled_pane" />
+                     <String fx:value="accordian" />
+                  </styleClass>
+                  <content>
+                     <VBox alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" styleClass="background">
+                        <children>
+                            <HBox alignment="BOTTOM_LEFT" VBox.vgrow="NEVER">
+                                <children>
+                                    <FlowPane fx:id="links" alignment="BOTTOM_LEFT" />
+                                </children>
+                            </HBox>
+                        </children>
+                     </VBox>
+                  </content>
+               </TitledPane>
+            </panes>
+         </Accordion>
         </VBox>
   </content>
 </ScrollPane>
