@@ -3,12 +3,16 @@ package seedu.moolah.ui.textfield;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,6 +30,13 @@ class AutofillSuggestionMenuTest extends ApplicationTest {
         textArea.setContextMenu(menuWithNoSupportedCommands);
         menuWithNoSupportedCommands = new AutofillSuggestionMenu(textArea, commandPropertyStub);
         stage.show();
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        FxToolkit.hideStage();
+        release(new KeyCode[]{});
+        release(new MouseButton[]{});
     }
 
     @Test

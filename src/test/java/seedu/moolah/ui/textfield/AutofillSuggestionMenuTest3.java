@@ -5,13 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moolah.logic.parser.Prefix;
@@ -38,6 +42,13 @@ class AutofillSuggestionMenuTest3 extends ApplicationTest {
         menuWithCommandToBeRemoved = new AutofillSuggestionMenu(stubToRemove, commandPropertyStub);
         menuWithCommandToBeRemoved.addCommand(COMMAND, REQUIRED, OPTIONAL);
         stage.show();
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        FxToolkit.hideStage();
+        release(new KeyCode[]{});
+        release(new MouseButton[]{});
     }
 
     @Test

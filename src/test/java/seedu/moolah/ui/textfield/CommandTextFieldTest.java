@@ -19,7 +19,6 @@ import java.util.List;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -51,8 +50,6 @@ class CommandTextFieldTest extends ApplicationTest {
 
     /**
      * Helper method to fire a press and release KeyEvent with a specified KeyCode at the specified EventTarget
-     * @param target
-     * @param keyCode
      */
     static void pushKeyNoType(EventTarget target, KeyCode keyCode) {
         KeyEvent.fireEvent(
@@ -80,16 +77,12 @@ class CommandTextFieldTest extends ApplicationTest {
         };
     }
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @AfterEach
     void tearDown() throws Exception {
+        Platform.runLater(resetTextfield);
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
-        Platform.runLater(resetTextfield);
     }
 
     @Test

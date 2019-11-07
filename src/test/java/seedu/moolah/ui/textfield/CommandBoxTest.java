@@ -11,12 +11,14 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 class CommandBoxTest extends ApplicationTest {
@@ -53,10 +55,13 @@ class CommandBoxTest extends ApplicationTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws Exception {
         Platform.runLater(() -> {
             resetSut.run();
         });
+        FxToolkit.hideStage();
+        release(new KeyCode[]{});
+        release(new MouseButton[]{});
     }
 
     @Test

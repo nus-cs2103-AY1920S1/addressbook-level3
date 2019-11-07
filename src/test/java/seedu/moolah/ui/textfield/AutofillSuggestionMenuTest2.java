@@ -11,12 +11,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moolah.logic.parser.Prefix;
@@ -54,8 +57,11 @@ class AutofillSuggestionMenuTest2 extends ApplicationTest {
     }
 
     @AfterEach
-    void cleanUp() {
+    void cleanUp() throws Exception {
         Platform.runLater(() -> stubToAdd.clear());
+        FxToolkit.hideStage();
+        release(new KeyCode[]{});
+        release(new MouseButton[]{});
     }
 
     @Test

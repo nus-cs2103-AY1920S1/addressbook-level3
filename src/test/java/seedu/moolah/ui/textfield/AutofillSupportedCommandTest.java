@@ -30,6 +30,7 @@ class AutofillSupportedCommandTest {
             return "ab/";
         }
     };
+
     private static final AutofillSupportedCommand SUT_1 =
             new AutofillSupportedCommand(
                     COMMAND_0,

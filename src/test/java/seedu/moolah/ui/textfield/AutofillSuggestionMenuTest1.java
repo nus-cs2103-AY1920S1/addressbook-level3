@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
@@ -20,6 +21,7 @@ import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moolah.logic.parser.Prefix;
@@ -79,7 +81,7 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws Exception {
         Platform.runLater(() -> {
             styleClassedTextArea.clear();
             commandPropertyStub.setValue("");
@@ -88,6 +90,9 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
         if (!sutWithOneCommand.enabledProperty().get()) {
             sutWithOneCommand.toggle();
         }
+        FxToolkit.hideStage();
+        release(new KeyCode[]{});
+        release(new MouseButton[]{});
     }
 
     @Test
