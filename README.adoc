@@ -3,10 +3,11 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T14-3/main[image:https://travis-ci.org/AY1920S1-CS2103-T14-3/main.svg?branch=master[Build Status]]
 
+
 ifndef::env-github[]
 image::images/Ui.png[width="1000"]
 endif::[]
-
+// tag::description[]
 * Need to cram for an upcoming test? Interested in learning a new language? FlashMind is here for you.
 This flashcard program helps you memorise more efficiently, reducing study time and increasing the amount of content you can learn
 * This application will help anyone looking to remember things faster and for longer, it can help users to:
@@ -20,6 +21,7 @@ intuitive than searching through multiple menus for a command.
 * Flexible: Easily create flashcard sets from any combination of your existing flashcards
 * Multiple modes: Normal flashcard mode for memorizing or a quiz mode to test yourself
 
+// end::description[]
 == Site Map
 
 * <<UserGuide#, User Guide>>
