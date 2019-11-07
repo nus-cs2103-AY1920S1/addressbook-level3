@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.EditTaskCommand.Builder.OPTION_DUE_DATE_DATE_TIME;
 import static seedu.address.logic.commands.EditTaskCommand.Builder.OPTION_DESCRIPTION;
+import static seedu.address.logic.commands.EditTaskCommand.Builder.OPTION_DUE_DATE_DATE_TIME;
 import static seedu.address.logic.commands.EditTaskCommand.Builder.OPTION_TAGS;
 
 import java.time.Duration;
