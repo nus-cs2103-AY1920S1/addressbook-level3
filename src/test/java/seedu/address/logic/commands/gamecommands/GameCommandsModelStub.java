@@ -94,6 +94,11 @@ class GameCommandsModelStub implements Model {
     }
 
     @Override
+    public void clearActiveWordBankStatistics() {
+
+    }
+
+    @Override
     public boolean hasCard(Card card) {
         return false;
     }

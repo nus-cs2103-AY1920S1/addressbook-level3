@@ -170,6 +170,12 @@ public class DifficultyCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        @Override
+        public void clearActiveWordBankStatistics() {
+
+        }
+
         @Override
         public Path getWordBankFilePath() {
             throw new AssertionError("This method should not be called.");

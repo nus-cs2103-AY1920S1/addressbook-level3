@@ -96,6 +96,9 @@ public class JsonWordBankStatisticsListStorage implements WordBankStatisticsList
      * Remove {@code wbStats} from storage.
      */
     private void removeWordBankStatistics(WordBankStatistics wbStats) {
+        if (wbStats == null) {
+            return;
+        }
         Path wbStatsFilePath = Paths.get(filePath.toString(), wbStats.getWordBankName() + ".json");
         File toDelete = wbStatsFilePath.toFile();
         if (toDelete.exists()) {

@@ -208,6 +208,11 @@ class SwitchToStartCommandTest {
         }
 
         @Override
+        public void clearActiveWordBankStatistics() {
+
+        }
+
+        @Override
         public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
             this.wordBank = currenWordBank;
         }

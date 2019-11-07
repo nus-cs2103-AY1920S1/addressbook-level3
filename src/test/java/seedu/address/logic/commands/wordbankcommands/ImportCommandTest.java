@@ -253,6 +253,11 @@ class ImportCommandTest {
         }
 
         @Override
+        public void clearActiveWordBankStatistics() {
+
+        }
+
+        @Override
         public ThemeEnum getDefaultTheme() {
             return null;
         }
