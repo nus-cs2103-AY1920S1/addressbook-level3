@@ -1,9 +1,9 @@
 package seedu.elisa.game;
 
-import javafx.scene.paint.Color;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import javafx.scene.paint.Color;
 
 /**
  * Main logic class. Stores game's current state.
@@ -116,25 +116,33 @@ public class Snake {
     }
 
     public void setUp() {
-        if (yVelocity == 1 && length > 1) return;
+        if (yVelocity == 1 && length > 1) {
+            return;
+        }
         xVelocity = 0;
         yVelocity = -1;
     }
 
     public void setDown() {
-        if (yVelocity == -1 && length > 1) return;
+        if (yVelocity == -1 && length > 1) {
+            return;
+        }
         xVelocity = 0;
         yVelocity = 1;
     }
 
     public void setLeft() {
-        if (xVelocity == 1 && length > 1) return;
+        if (xVelocity == 1 && length > 1) {
+            return;
+        }
         xVelocity = -1;
         yVelocity = 0;
     }
 
     public void setRight() {
-        if (xVelocity == -1 && length > 1) return;
+        if (xVelocity == -1 && length > 1) {
+            return;
+        }
         xVelocity = 1;
         yVelocity = 0;
     }

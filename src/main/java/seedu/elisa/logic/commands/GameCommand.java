@@ -1,9 +1,11 @@
 package seedu.elisa.logic.commands;
 
-import javafx.application.Application;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 
+/**
+ * Command class for Game.
+ */
 public class GameCommand extends Command {
 
     public static final String COMMAND_WORD = "game";

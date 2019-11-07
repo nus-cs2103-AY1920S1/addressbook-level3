@@ -59,6 +59,9 @@ import seedu.elisa.model.item.VisualizeList;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
+
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -69,6 +72,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+
+    // Elements for Game
+    private GameLoop loop;
+    private Grid grid;
+    private GraphicsContext context;
 
     // Independent Ui parts residing in this Ui container
     private EventListPanel eventListPanel;
@@ -536,13 +544,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
-
-    private GameLoop loop;
-    private Grid grid;
-    private GraphicsContext context;
-
+    /**
+     * Starts the snake game
+     * @param primaryStage
+     * @throws Exception
+     */
     public void startgame(Stage primaryStage) throws Exception {
         StackPane root = new StackPane();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
@@ -556,27 +562,29 @@ public class MainWindow extends UiPart<Stage> {
                 return;
             }
             switch (e.getCode()) {
-                case UP:
-                    snake.setUp();
-                    break;
-                case DOWN:
-                    snake.setDown();
-                    break;
-                case LEFT:
-                    snake.setLeft();
-                    break;
-                case RIGHT:
-                    snake.setRight();
-                    break;
-                case ENTER:
-                    if (loop.isPaused()) {
-                        resetgame();
-                        (new Thread(loop)).start();
-                    }
-                    break;
-                case ESCAPE:
-                    exitgame();
-                    break;
+            case UP:
+                snake.setUp();
+                break;
+            case DOWN:
+                snake.setDown();
+                break;
+            case LEFT:
+                snake.setLeft();
+                break;
+            case RIGHT:
+                snake.setRight();
+                break;
+            case ENTER:
+                if (loop.isPaused()) {
+                    resetgame();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            case ESCAPE:
+                exitgame();
+                break;
+            default:
             }
         });
 
@@ -587,14 +595,15 @@ public class MainWindow extends UiPart<Stage> {
         Scene gamescene = new Scene(root);
 
         primaryStage.setResizable(true);
-        primaryStage.setHeight(HEIGHT + 300);
-        primaryStage.setWidth(WIDTH + 300);
+        primaryStage.setHeight(HEIGHT + 100);
+        primaryStage.setWidth(WIDTH + 100);
         primaryStage.setTitle("Snake Game");
         primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.setScene(gamescene);
         primaryStage.show();
 
-        (new Thread(loop)).start();
+        Thread t = new Thread(loop);
+        t.start();
     }
 
     private void resetgame() {

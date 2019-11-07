@@ -1,6 +1,9 @@
 package seedu.elisa.game;
 
+import java.util.logging.Logger;
+
 import javafx.scene.canvas.GraphicsContext;
+import seedu.elisa.commons.core.LogsCenter;
 
 /**
  * The game loop class.
@@ -13,6 +16,8 @@ public class GameLoop implements Runnable {
     private boolean running;
     private boolean paused;
     private boolean keyIsPressed;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public GameLoop(final Grid grid, final GraphicsContext context) {
         this.grid = grid;
@@ -47,6 +52,7 @@ public class GameLoop implements Runnable {
                 try {
                     Thread.sleep((long) (interval - time));
                 } catch (InterruptedException ignore) {
+                    logger.warning("Error with adding listener to primary stage for popup");
                 }
             }
         }
