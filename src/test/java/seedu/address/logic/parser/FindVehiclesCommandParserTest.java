@@ -1,7 +1,8 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VEHICLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_VTYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindVehiclesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.vehicle.*;
+import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.DistrictKeywordsPredicate;
+import seedu.address.model.vehicle.VNumKeywordsPredicate;
+import seedu.address.model.vehicle.VTypeKeywordsPredicate;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 public class FindVehiclesCommandParserTest {
 
