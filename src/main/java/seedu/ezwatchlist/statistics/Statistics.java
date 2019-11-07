@@ -32,6 +32,8 @@ public class Statistics {
         try {
             apiManager = new ApiManager();
         } catch (OnlineConnectionException e) {
+            //have to handle
+            apiManager = null;
             e.printStackTrace();
         }
     }
@@ -79,34 +81,41 @@ public class Statistics {
         return favouriteGenres;
     }
 
-    public ObservableList<Movie> getMovieRecommendations() {
+    public ObservableList<Movie> getMovieRecommendations() throws OnlineConnectionException {
+        List<Movie> recommendations = null;
+        if (apiManager == null) {
+            apiManager = new ApiManager();
+        }
         List<Movie> movieList = ApiUtil.filterToMovieFromShow(model.getWatchList().getShowList());
         if (movieList.isEmpty()) {
             System.out.println("movie split is empty");
         }
-        List<Movie> recommendations = null;
         try {
             recommendations = apiManager.getMovieRecommendations(movieList, 3);
+            return FXCollections.observableArrayList(recommendations);
         } catch (OnlineConnectionException e) {
             e.printStackTrace();
-            return FXCollections.observableArrayList();
+            return null;
         } catch (NoRecommendationsException e) {
             e.printStackTrace();
-            return FXCollections.observableArrayList();
+            return null;
         }
-        return FXCollections.observableArrayList(recommendations);
     }
 
-    public ObservableList<TvShow> getTvShowRecommendations() {
+    public ObservableList<TvShow> getTvShowRecommendations() throws OnlineConnectionException {
+        if (apiManager == null) {
+            apiManager = new ApiManager();
+        }
         List<TvShow> tvList = ApiUtil.filterToTvShowsFromShow(model.getWatchList().getShowList());
         List<TvShow> recommendations = null;
+
         try {
             recommendations = apiManager.getTvShowRecommendations(tvList, 3);
+            return FXCollections.observableArrayList(recommendations);
         } catch (OnlineConnectionException e) {
-            return FXCollections.observableArrayList();
+            return null;
         } catch (NoRecommendationsException e) {
-            return FXCollections.observableArrayList();
+            return null;
         }
-        return FXCollections.observableArrayList(recommendations);
     }
 }

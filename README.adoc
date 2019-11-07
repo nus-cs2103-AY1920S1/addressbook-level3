@@ -5,9 +5,13 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-F13-4/main[image:https://travis-ci.org/AY1920S1-CS2103T-F13-4/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F13-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-4/main/badge.svg?branch=master[Coverage Status]]
 
-ifndef::env-github[]
-image::Ui.png[width="600"]
-endif::[]
+++++
+</p>
+<p align="center">
+<img src="https://github.com/AY1920S1-CS2103T-F13-4/main/raw/master/docs/images/Ui.png" alt="Ui.png" width="900">
+</p>
+
+++++
 
 * This is a desktop application for users who manage their movies and tv series watchlist.
 * EzWatchList is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
