@@ -244,7 +244,6 @@ This command does not work if the application is in another tab (view) or the sp
 image::calendar-open-display.png[width="450"]
 
 {empty} +
-
 Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
 for that date.
 
@@ -262,7 +261,6 @@ Format: `calendar nextmonth`
 image::calendar-next-month.png[width="450"]
 
 {empty} +
-
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month.
 
@@ -278,7 +276,6 @@ Format: `calendar previousmonth`
 image::calendar-previous-month.png[width="450"]
 
 {empty} +
-
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month.
 
