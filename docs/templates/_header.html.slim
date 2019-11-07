@@ -1,11 +1,10 @@
-/ NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect. 
+/ NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
 - if !(attr? 'no-site-header')
   #site-header
     nav.navbar.navbar-light.bg-light
-      .container
-        - if attr? 'site-name'
-            a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
+      a.navbar-brand href='https://ay1920s1-cs2103t-f13-4.github.io/main/'
             img src=(site_url 'images/applogo.png') alt= 'EZWATCHLIST'
+      .container
         ul.navbar-nav
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')

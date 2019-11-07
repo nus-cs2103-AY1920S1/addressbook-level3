@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
+import static java.util.Objects.isNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -36,8 +38,13 @@ public class Poster {
      * @param path the path of the image in the save location.
      */
     public Poster(String path) {
-        isPlaceholder = false;
-        imagePath = path;
+        if (isNull(path)) {
+            isPlaceholder = true;
+            imagePath = PLACEHOLDER_IMAGE;
+        } else {
+            isPlaceholder = false;
+            imagePath = path;
+        }
     }
 
     /**

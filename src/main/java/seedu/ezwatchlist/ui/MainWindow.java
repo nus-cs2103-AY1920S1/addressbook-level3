@@ -420,11 +420,18 @@ public class MainWindow extends UiPart<Stage> {
         try {
             contentPanelPlaceholder.getChildren().clear();
             contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+
             Task<Void> task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
-                            getMovieRecommendations(), getTvRecommendations());
+                    try {
+                        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
+                                statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
+                    } catch (OnlineConnectionException e) {
+                        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
+                                null, null);
+                        resultDisplay.setFeedbackToUser("Note: You are not connected to the internet!");
+                    }
                     return null;
                 }
             };
@@ -441,52 +448,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Get movie recommendations
-     * @return an ObservableList containing recommended movies.
-     */
-    private ObservableList<Movie> getMovieRecommendations() {
-        Callable<ObservableList<Movie>> movieRecommendationTask = () -> statistics.getMovieRecommendations();
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<ObservableList<Movie>> movieFuture = executor.submit(movieRecommendationTask);
-
-        ObservableList<Movie> movieRecommendation = null;
-
-        try {
-            movieRecommendation = movieFuture.get();
-        } catch (InterruptedException e) {
-            resultDisplay.setFeedbackToUser("OOPS!!! The process is interrupted!");
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            resultDisplay.setFeedbackToUser("OOPS!!! There is something wrong getting the recommendations!");
-            e.printStackTrace();
-        }
-        executor.shutdownNow();
-        return movieRecommendation;
-    }
-
-    /**
-     * Get tv show recommendations
-     * @return an ObservableList containing recommended tv shows.
-     */
-    private ObservableList<TvShow> getTvRecommendations() {
-        Callable<ObservableList<TvShow>> tvRecommendationTask = () -> statistics.getTvShowRecommendations();
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<ObservableList<TvShow>> tvFuture = executor.submit(tvRecommendationTask);
-        ObservableList<TvShow> tvRecommendation = null;
-        try {
-            tvRecommendation = tvFuture.get();
-        } catch (InterruptedException e) {
-            resultDisplay.setFeedbackToUser("OOPS!!! The process is interrupted!");
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            resultDisplay.setFeedbackToUser("OOPS!!! There is something wrong getting the recommendations!");
-            e.printStackTrace();
-        }
-        executor.shutdownNow();
-        return tvRecommendation;
-    }
     /**
      * Changes the style of the button when changing panels.
      * @param a the button representing the current panel
