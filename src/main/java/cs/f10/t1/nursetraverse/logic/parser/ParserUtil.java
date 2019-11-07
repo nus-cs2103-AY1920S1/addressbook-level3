@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
@@ -26,8 +27,8 @@ import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "The index provided is not a positive unsigned integer.";
+    public static final String MESSAGE_INVALID_FORMAT = "The index provided is not a number.";
     public static final String MESSAGE_INVALID_FILENAME = "%s is not a valid file name.\n"
             + "File names cannot be blank, and can only contain alphanumerics, hyphens and underscores.";
 
@@ -38,8 +39,12 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+        try {
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_FORMAT);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -242,6 +247,20 @@ public class ParserUtil {
         } else {
             String trimmedDescription = description.get().trim();
             return trimmedDescription;
+        }
+    }
+
+    /**
+     * Helper method to manage that ParseExceptions provide a proper error message
+     * when parsing a command that requires an index.
+     * This will always throw a ParseException.
+     */
+    public static void manageIndexParseException(ParseException pe, String messageUsage) throws ParseException {
+        if (MESSAGE_INVALID_INDEX.equals(pe.getMessage())) {
+            throw pe;
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage), pe);
         }
     }
 

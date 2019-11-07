@@ -11,6 +11,7 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MINUTE
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MONTHS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
+import static cs.f10.t1.nursetraverse.logic.parser.ParserUtil.manageIndexParseException;
 import static java.util.Objects.requireNonNull;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -47,6 +48,9 @@ public class EditAppointmentCommandParser {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
+            //This will always throw a ParseException
+            manageIndexParseException(pe, EditAppointmentCommand.MESSAGE_USAGE);
+            //This is included to ensure compiler complies
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditAppointmentCommand.MESSAGE_USAGE), pe);
         }

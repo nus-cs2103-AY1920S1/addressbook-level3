@@ -53,6 +53,11 @@ public class Index {
     }
 
     @Override
+    public String toString() {
+        return Integer.toString(getOneBased());
+    }
+
+    @Override
     public int hashCode() {
         return zeroBasedIndex;
     }
