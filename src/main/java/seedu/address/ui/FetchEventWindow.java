@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -137,8 +138,8 @@ public class FetchEventWindow extends UiPart<Stage> {
      */
     public ObservableList<Employee> getEmployeeListForEvent(Event event, ObservableList<Employee> employeeList) {
         ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
-                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().equals(x) ? y : new Employee()))
-                .filter(employee -> employee.getEmployeeName() != null)
+                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().equals(x) ? y : null))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         return list;
     }

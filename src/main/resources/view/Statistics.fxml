@@ -25,10 +25,10 @@
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.0" minWidth="47.0" prefWidth="318.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="0.0" prefWidth="88.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="193.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="40.0" prefWidth="40.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="0.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="185.0" minWidth="5.0" prefWidth="141.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="70.0" prefWidth="114.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="40.0" prefWidth="243.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="59.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.0" minWidth="5.0" prefWidth="328.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="45.0" prefWidth="45.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="30.0" minHeight="29.0" prefHeight="29.0" />
@@ -36,23 +36,23 @@
                               <RowConstraints minHeight="15.0" prefHeight="15.0" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="statisticsListLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="327.0" text="Upcoming Events Requiring Manpower" textAlignment="CENTER" textFill="WHITE" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label fx:id="statisticsListLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="327.0" text="Upcoming Events Requiring Manpower" textAlignment="CENTER" textFill="WHITE" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="22.0" />
                                  </font></Label>
-                              <Button fx:id="generateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateStatistics" text="Generate Statistics" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button fx:id="generateButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateDetailedStatistics" text="Generate Detailed Statistics" GridPane.columnIndex="2" />
+                              <Button fx:id="generateButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#generateStatistics" text="Generate Statistics" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button fx:id="generateButton1" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#generateDetailedStatistics" text="Generate Detailed Statistics" GridPane.columnIndex="5" />
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="statisticsListView" HBox.hgrow="ALWAYS" />
-                        <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" prefHeight="400.0" prefWidth="600.0" title="Event Tags" />
-                        <Label fx:id="eventLabel" text="Label" />
-                        <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" prefHeight="400.0" prefWidth="600.0" title="Employee Tags" />
-                        <Label fx:id="employeeLabel" text="Label" />
+                        <ListView fx:id="statisticsListView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
+                        <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Event Tags" />
+                        <Label fx:id="eventLabel" minHeight="-Infinity" minWidth="-Infinity" text="Label" />
+                        <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Employee Tags" />
+                        <Label fx:id="employeeLabel" minHeight="-Infinity" minWidth="-Infinity" text="Label" />
                      </children>
                   </HBox>
                </children>

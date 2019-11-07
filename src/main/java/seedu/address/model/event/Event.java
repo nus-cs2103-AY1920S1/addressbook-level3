@@ -193,6 +193,7 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName())
+                && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate());
     }

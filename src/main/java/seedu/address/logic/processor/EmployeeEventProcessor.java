@@ -1,6 +1,5 @@
 package seedu.address.logic.processor;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +34,4 @@ public class EmployeeEventProcessor {
                 .sum();
     }
 
-    /**
-     * Checks if an Employee JoinDate > EventStartDate.
-     */
-    public static boolean hasEmployeeJoined(Employee employee, Event event) {
-        LocalDate eventStartDate = event.getStartDate().getDate();
-        LocalDate employeeJoinDate = employee.getEmployeeJoinDate().getJoinDate();
-
-        return eventStartDate.isEqual(employeeJoinDate) || eventStartDate.isAfter(employeeJoinDate);
-    }
 }

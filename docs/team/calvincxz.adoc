@@ -62,12 +62,12 @@ various components (e.g. storage, logic, model).
 (Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
 ** Enhancements to existing features:
 *** Updated GUI to show both employee and event list
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/78[#78])
+(Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/78[#78])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide:
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/153[#153])
+(Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/153[#153])
 *** Updated class diagram for storage component in the Developer Guide:
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/126[#126])
+(Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/126[#126])
 ** Community:
 *** PRs reviewed (with review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79],
@@ -76,7 +76,12 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109], https://github.co
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/129[#129], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/132[#132],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/145[#145])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams (examples:  https://github.com/AY1920S1-CS2103T-F13-1/main/issues/222[1],
+https://github.com/AY1920S1-CS2103T-F13-1/main/issues/214[2],
+https://github.com/AY1920S1-CS2103T-F13-1/main/issues/215[3],
+https://github.com/AY1920S1-CS2103T-F13-1/main/issues/216[4],
+https://github.com/AY1920S1-CS2103T-F13-1/main/issues/217[5],
+https://github.com/AY1920S1-CS2103T-F13-1/main/issues/218[6])
 
 <<<
 <<<
@@ -89,14 +94,15 @@ include::../UserGuide.adoc[tag=calvin]
 
 == Contributions to the Developer Guide
 
-
 include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=calvin]
 
 == Conclusion
+Given the time constraints of only 6 weeks for this project, I feel that sufficient progress has been made to build a
+great app.
+However, the team has plans to turn *AddMin+* into a truly revolutionary app that changes the entire administrative
+process.
 
-== PROJECT: DUKE
-Visit https://calvincxz.github.io/duke/ for more details.
 
 ---
 
