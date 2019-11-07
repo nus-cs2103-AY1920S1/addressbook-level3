@@ -280,7 +280,7 @@ public class MainWindow extends UiPart<Stage> {
             if (usesRightPane(commandResult)) {
                 rightPanelCommandText = commandText;
             } else if (rightPanelCommandText != null) {
-                executeCommand(rightPanelCommandText, isSystemInput);
+                executeCommand(rightPanelCommandText, true);
             }
 
             return commandResult;
