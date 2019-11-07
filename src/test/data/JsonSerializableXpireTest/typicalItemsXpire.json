@@ -3,7 +3,7 @@
   "items" : [
     {
       "name": "Coriander",
-      "expiryDate": "31/12/9999",
+      "expiryDate": "31/12/2099",
       "quantity": "999",
       "reminderThreshold": "2",
       "tags": ["Fridge", "Herb"]

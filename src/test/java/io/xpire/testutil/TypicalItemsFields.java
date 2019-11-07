@@ -28,7 +28,7 @@ public class TypicalItemsFields {
 
     public static final String VALID_EXPIRY_DATE_APPLE = TODAY;
     public static final String VALID_EXPIRY_DATE_BANANA = IN_TWO_WEEKS;
-    public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/9999";
+    public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/2099";
     public static final String VALID_EXPIRY_DATE_DUCK = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_KIWI = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_JELLY = IN_A_MONTH;
@@ -66,8 +66,11 @@ public class TypicalItemsFields {
     public static final String INVALID_NAME = "@pple";
     public static final String INVALID_EXPIRY_DATE = "50505000";
     public static final String INVALID_EXPIRY_DATE_RANGE = "50/50/5000";
+    public static final String INVALID_EXPIRY_DATE_UPPER = "1/1/9999";
+    public static final String INVALID_EXPIRY_DATE_LOWER = "1/1/1000";
     public static final String INVALID_TAG = "$cold";
     public static final String INVALID_QUANTITY = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";
+    public static final String INVALID_REMINDER_THRESHOLD_RANGE = "30000";
 
 }
