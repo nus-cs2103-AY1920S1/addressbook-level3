@@ -296,7 +296,8 @@ public class ModelManager implements Model {
     @Override
     public Model getClone() {
         Billboard billboard = getCombinedBillboard();
-        return new ModelManager(billboard, userPrefs);
+        return new ModelManager(billboard.getClone(), userPrefs);
+        // use the clone of the combined billboard, not the original
     }
 
     /**
