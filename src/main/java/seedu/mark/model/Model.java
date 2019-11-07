@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.annotation.OfflineDocument;
@@ -107,6 +108,9 @@ public interface Model {
      * Returns an unmodifiable view of the filtered bookmark list
      */
     ObservableList<Bookmark> getFilteredBookmarkList();
+
+    /** Returns an unmodifiable view of the favorite bookmark list */
+    ObservableList<Bookmark> getFavoriteBookmarkList();
 
     /**
      * Updates the filter of the filtered bookmark list to filter by the given {@code predicate}.
@@ -258,8 +262,14 @@ public interface Model {
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
+
     /**
      * Closes mark's timer.
      */
     void closeTimer();
+
+    ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
+
+    void setOfflineDocNameCurrentlyShowing(String name);
+
 }

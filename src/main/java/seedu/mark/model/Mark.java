@@ -1,11 +1,14 @@
 package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.model.annotation.OfflineDocument.NAME_NO_DOCUMENT;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -42,7 +45,11 @@ public class Mark implements ReadOnlyMark {
 
     private final ObservableList<Paragraph> annotatedDocument;
 
+
     private Timer timer = new Timer();
+
+    private final SimpleStringProperty offlineDocCurrentlyShowing;
+
 
 
     public Mark() {
@@ -52,11 +59,15 @@ public class Mark implements ReadOnlyMark {
 
         reminders = reminderAssociation.getReminderList();
 
-        autotagController = new AutotagController(new ArrayList<>());
+        autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
 
+
         deleteExpiredReminder();
+
+        offlineDocCurrentlyShowing = new SimpleStringProperty(NAME_NO_DOCUMENT);
+
     }
 
     /**
@@ -92,7 +103,11 @@ public class Mark implements ReadOnlyMark {
 
         setAnnotatedDocument(newData.getAnnotatedDocument());
 
+
         setReminders();
+
+        setOfflineDocCurrentlyShowing(newData.getOfflineDocCurrentlyShowing().getValue());
+
     }
 
     //// bookmark-level operations
@@ -273,7 +288,7 @@ public class Mark implements ReadOnlyMark {
      * @param bookmark the bookmark to be added to the favorites
      */
     public void favoriteBookmark(Bookmark bookmark) {
-        BookmarkTagger favoriteTagger = new BookmarkTagger(new Tag("Favorite"));
+        BookmarkTagger favoriteTagger = new BookmarkTagger(Tag.FAVORITE);
         setBookmark(bookmark, favoriteTagger.applyTag(bookmark));
     }
 
@@ -311,8 +326,18 @@ public class Mark implements ReadOnlyMark {
     }
 
     @Override
+    public ObservableList<SelectiveBookmarkTagger> getAutotags() {
+        return autotagController.getTaggers();
+    }
+
+    @Override
     public ObservableList<Paragraph> getAnnotatedDocument() {
         return annotatedDocument;
+    }
+
+    @Override
+    public ObservableValue<String> getOfflineDocCurrentlyShowing() {
+        return offlineDocCurrentlyShowing;
     }
 
     public void setAnnotatedDocument(ObservableList<Paragraph> docParagraphs) {
@@ -324,6 +349,10 @@ public class Mark implements ReadOnlyMark {
             return pid1.compareTo(pid2);
         }
         ));
+    }
+
+    public void setOfflineDocCurrentlyShowing(String currentlyShowing) {
+        this.offlineDocCurrentlyShowing.set(currentlyShowing);
     }
 
     public boolean hasFolder(Folder folder) {

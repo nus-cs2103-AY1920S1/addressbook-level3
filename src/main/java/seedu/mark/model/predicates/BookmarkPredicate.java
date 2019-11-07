@@ -66,6 +66,14 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         return notUrlKeywords;
     }
 
+    public Set<String> getFolderNames() {
+        return folderNames;
+    }
+
+    public Set<String> getNotFolderNames() {
+        return notFolderNames;
+    }
+
     @Override
     public boolean test(Bookmark bookmark) {
         return predicate.test(bookmark);
@@ -209,13 +217,35 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
                 && nameKeywords.equals(((BookmarkPredicate) other).nameKeywords)
                 && notNameKeywords.equals(((BookmarkPredicate) other).notNameKeywords)
                 && urlKeywords.equals(((BookmarkPredicate) other).urlKeywords)
-                && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))); // state check
+                && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))
+                && folderNames.equals((((BookmarkPredicate) other).folderNames))
+                && notFolderNames.equals((((BookmarkPredicate) other).notFolderNames))); // state check
     }
 
     @Override
     public String toString() {
-        return "[name: " + nameKeywords + ", not name: " + notNameKeywords + ", url: "
-                + urlKeywords + ", not url: " + notUrlKeywords + "]";
-        // TODO: Improve toString()
+        StringBuilder stringBuilder = new StringBuilder("[");
+        if (!nameKeywords.isEmpty()) {
+            stringBuilder.append("Name: ").append(nameKeywords).append(",");
+        }
+        if (!notNameKeywords.isEmpty()) {
+            stringBuilder.append("Not name: ").append(notNameKeywords).append(",");
+        }
+        if (!urlKeywords.isEmpty()) {
+            stringBuilder.append("URL: ").append(urlKeywords).append(",");
+        }
+        if (!notUrlKeywords.isEmpty()) {
+            stringBuilder.append("Not URL: ").append(notUrlKeywords).append(",");
+        }
+        if (!folderNames.isEmpty()) {
+            stringBuilder.append("Folder: ").append(folderNames).append(",");
+        }
+        if (!notFolderNames.isEmpty()) {
+            stringBuilder.append("Not folder: ").append(notFolderNames).append(",");
+        }
+        if (stringBuilder.substring(stringBuilder.length() - 1).equals(",")) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+        return stringBuilder.append("]").toString();
     }
 }

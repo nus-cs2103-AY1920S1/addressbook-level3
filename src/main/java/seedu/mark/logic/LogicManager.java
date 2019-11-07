@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
@@ -17,6 +18,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -68,6 +70,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
+        return model.getFavoriteBookmarkList();
+    }
+
+    @Override
     public FolderStructure getFolderStructure() {
         return model.getMark().getFolderStructure();
     }
@@ -108,8 +115,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+        return model.getObservableOfflineDocNameCurrentlyShowing();
+    }
+
+    @Override
+    public void setOfflineDocNameCurrentlyShowing(String name) {
+        model.setOfflineDocNameCurrentlyShowing(name);
+    }
+
+    @Override
     public ObservableList<Reminder> getReminderList() {
         return model.getMark().getReminderList();
+    }
+
+    @Override
+    public ObservableList<SelectiveBookmarkTagger> getAutotags() {
+        return model.getMark().getAutotags();
     }
 
     @Override

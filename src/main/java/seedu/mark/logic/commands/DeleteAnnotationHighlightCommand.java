@@ -36,9 +36,10 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(model);
+        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
+
         OfflineDocument doc = docOriginal.copy();
+
         Paragraph p;
 
         try {
@@ -60,16 +61,10 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
             doc.addPhantom(an);
         }
 
-        model.updateDocument(doc);
+        String savedMsg = MESSAGE_SUCCESS;
+        Bookmark newBkmark = oldBkmark.copy();
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
-                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
-                oldBkmark.getTags(), oldBkmark.getCachedCopies());
-
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
-
-        model.saveMark(MESSAGE_SUCCESS);
-        return new OfflineCommandResult(MESSAGE_SUCCESS);
+        return new OfflineCommandResult(savedMsg);
     }
 }

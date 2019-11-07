@@ -3,6 +3,7 @@ package seedu.mark.logic;
 import java.nio.file.Path;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -12,6 +13,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -39,6 +41,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of bookmarks */
     ObservableList<Bookmark> getFilteredBookmarkList();
+
+    /** Returns an unmodifiable view of the list of favorite bookmarks */
+    ObservableList<Bookmark> getFavoriteBookmarkList();
 
     /** Returns an unmodifiable view of the folder structure */
     FolderStructure getFolderStructure();
@@ -89,7 +94,16 @@ public interface Logic {
      */
     void updateDocument(OfflineDocument doc);
 
+    ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
+
+    void setOfflineDocNameCurrentlyShowing(String name);
+
     ObservableList<Reminder> getReminderList();
+
+    /**
+     * Returns an unmodifiable view of the autotag list.
+     */
+    ObservableList<SelectiveBookmarkTagger> getAutotags();
 
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 

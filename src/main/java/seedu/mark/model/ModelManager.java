@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,6 +22,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Reminder;
+import seedu.mark.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -31,6 +33,7 @@ public class ModelManager implements Model {
     private final VersionedMark versionedMark;
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
+    private final FilteredList<Bookmark> favoriteBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
@@ -47,6 +50,8 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
+        favoriteBookmarks = new FilteredList<>(versionedMark.getBookmarkList(),
+            bookmark -> bookmark.containsTag(Tag.FAVORITE));
     }
 
     public ModelManager() {
@@ -191,6 +196,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
+        return favoriteBookmarks;
+    }
+
+    @Override
     public void updateFilteredBookmarkList(Predicate<Bookmark> predicate) {
         requireNonNull(predicate);
         filteredBookmarks.setPredicate(predicate);
@@ -262,6 +272,16 @@ public class ModelManager implements Model {
     @Override
     public void updateDocument(OfflineDocument doc) {
         versionedMark.setAnnotatedDocument(FXCollections.observableArrayList(doc.getCollection()));
+    }
+
+    @Override
+    public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+        return versionedMark.getOfflineDocCurrentlyShowing();
+    }
+
+    @Override
+    public void setOfflineDocNameCurrentlyShowing(String name) {
+        versionedMark.setOfflineDocCurrentlyShowing(name);
     }
 
 

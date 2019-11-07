@@ -30,9 +30,9 @@ public class JsonSerializableMark {
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmark list contains duplicate bookmark(s).";
     public static final String MESSAGE_DUPLICATE_FOLDER = "There are duplicate folder(s).";
     public static final String MESSAGE_NO_ROOT_FOLDER = "The root folder is missing.";
+    public static final String MESSAGE_NONEXISTENT_FOLDER = "Bookmarks contain nonexistent folders.";
     public static final String MESSAGE_DUPLICATE_OR_NOT_EXIST_REMINDER =
             "Cannot find the bookmark for reminder or bookmark has duplicate reminder.";
-
     private final List<JsonAdaptedBookmark> bookmarks = new ArrayList<>();
     private final JsonAdaptedFolderStructure folderStructure;
     private final List<JsonAdaptedReminder> reminders = new ArrayList<>();
@@ -93,6 +93,11 @@ public class JsonSerializableMark {
         }
         if (!FolderStructure.isValidFolderStructure(modelFolderStructure)) {
             throw new IllegalValueException(MESSAGE_DUPLICATE_FOLDER);
+        }
+
+        // all folders must exist in the folder strucuture
+        if (!mark.getBookmarkList().stream().map(Bookmark::getFolder).allMatch(modelFolderStructure::hasFolder)) {
+            throw new IllegalValueException(MESSAGE_NONEXISTENT_FOLDER);
         }
         mark.setFolderStructure(modelFolderStructure);
 

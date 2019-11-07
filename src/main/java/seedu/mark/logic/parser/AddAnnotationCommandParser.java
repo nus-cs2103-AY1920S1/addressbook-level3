@@ -1,6 +1,7 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.commands.AddAnnotationCommand.MESSAGE_GENERAL_MUST_HAVE_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_HIGHLIGHT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
@@ -27,43 +28,79 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PARAGRAPH, PREFIX_HIGHLIGHT, PREFIX_NOTE);
 
-        Index index;
+        Index index = parseIndex_handleException(argMultimap.getPreamble());
+        handleAbsentParagraph(argMultimap);
 
+        Highlight highlight = parseHighlight(argMultimap);
+        AnnotationNote note = parseAnnotationNote(argMultimap);
+
+        if (isAddGeneralNote(argMultimap.getValue(PREFIX_PARAGRAPH).get())) {
+            if (note == null) {
+                throw new ParseException(MESSAGE_GENERAL_MUST_HAVE_NOTE);
+            }
+            return new AddAnnotationCommand(index, highlight, note);
+        }
+
+        ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
+
+
+        return new AddAnnotationCommand(index, pid, note, highlight);
+    }
+
+    /**
+     * Parses an index from input arguments and handles any exceptions.
+     * @param preamble Input argument that is not flagged
+     * @return An index
+     * @throws ParseException if index argument is of an invalid format.
+     */
+    private Index parseIndex_handleException(String preamble) throws ParseException {
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            return ParserUtil.parseIndex(preamble);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE), pe);
         }
+    }
 
-
+    private void handleAbsentParagraph(ArgumentMultimap argMultimap) throws ParseException {
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE));
         }
-        //TODO this section
-        if (isAddGeneralNote(argMultimap.getValue(PREFIX_PARAGRAPH).get())) {
-            return new AddAnnotationCommand(index);
-        }
-        //TODO until here
+    }
 
-        ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
-
+    /**
+     * Parses a highlight from input arguments.
+     *
+     * @param argMultimap The argument map that stores all input arguments
+     * @return A highlight that is yellow or has the user-specified colour if any.
+     * @throws ParseException if highlight colour input is invalid.
+     */
+    private Highlight parseHighlight(ArgumentMultimap argMultimap) throws ParseException {
         Highlight highlight = Highlight.YELLOW;
         if (argMultimap.getValue(PREFIX_HIGHLIGHT).isPresent()) {
             highlight = Highlight.strToHighlight(argMultimap.getValue(PREFIX_HIGHLIGHT).get());
         }
+        return highlight;
+    }
 
-        AnnotationNote note = null;
-        if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
-            try {
-                note = AnnotationNote.makeNote(argMultimap.getValue(PREFIX_NOTE).get());
-            } catch (IllegalValueException e) {
-                throw new ParseException(e.getMessage());
-            }
+    /**
+     * Parses an annotation note from input arguments.
+     * @param argMultimap The argument map that stores all input arguments
+     * @return An annotation note if any
+     * @throws ParseException if note content is invalid.
+     */
+    private AnnotationNote parseAnnotationNote(ArgumentMultimap argMultimap) throws ParseException {
+        if (!argMultimap.getValue(PREFIX_NOTE).isPresent()) {
+            return null;
         }
 
-        return new AddAnnotationCommand(index, pid, note, highlight);
+        try {
+            return AnnotationNote.makeNote(argMultimap.getValue(PREFIX_NOTE).get());
+        } catch (IllegalValueException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
+
 
     private boolean isAddGeneralNote(String arg) {
         return arg.trim().equalsIgnoreCase("null");

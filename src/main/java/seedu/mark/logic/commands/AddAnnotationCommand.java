@@ -36,15 +36,18 @@ public class AddAnnotationCommand extends AnnotationCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PARAGRAPH + "p3 "
             + PREFIX_NOTE + "a note tagged to paragraph 3 highlighted orange "
-            + PREFIX_HIGHLIGHT + "orange";
+            + PREFIX_HIGHLIGHT + "orange"
+            + "\nTo add a general note, use p/NULL instead, e.g.\n"
+            + "annotate 1 p/NULL n/i can add a general note this way!\n";
 
-    public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM = "You cannot annotate phantom paragraphs.";
-    //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
+    public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE = "You cannot annotate phantom paragraphs "
+            + "with no note content.";
+    public static final String MESSAGE_GENERAL_MUST_HAVE_NOTE = "General notes must have a non-empty content.";
     public static final String MESSAGE_SUCCESS = "Annotation successfully added to paragraph %1$s:\n%2$s";
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
     private static final String MESSAGE_NOTE_ADDED = " with note \"%s\"";
 
-    private static final ParagraphIdentifier DUMMY_PID = ParagraphIdentifier.makeExistId(Index.fromOneBased(1));
+    private static final ParagraphIdentifier NULL_DUMMY_PID = new DummyParagraphIdentifier();
 
     private final AnnotationNote note;
     private final Highlight highlight;
@@ -61,11 +64,13 @@ public class AddAnnotationCommand extends AnnotationCommand {
         this.isAddGeneralNote = false;
     }
 
-    public AddAnnotationCommand(Index index) {
-        super(index, DUMMY_PID);
+    public AddAnnotationCommand(Index index, Highlight highlight, AnnotationNote note) {
+        super(index, NULL_DUMMY_PID);
+        requireNonNull(highlight); //dummy value that will come into existence when attached to true paragraph
+        requireNonNull(note);
 
-        this.note = null;
-        this.highlight = null;
+        this.note = note;
+        this.highlight = highlight;
         this.isAddGeneralNote = true;
     }
 
@@ -76,16 +81,11 @@ public class AddAnnotationCommand extends AnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(model);
+        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
+
         OfflineDocument doc = docOriginal.copy();
 
-        if (getPid().isStray()) {
-            throw new CommandException(MESSAGE_CANNOT_ANNOTATE_PHANTOM);
-        }
-
         String returnMsg;
-
         Annotation an;
         returnMsg = String.format(MESSAGE_HIGHLIGHT_ADDED, highlight.toString());
         if (note == null) {
@@ -95,23 +95,28 @@ public class AddAnnotationCommand extends AnnotationCommand {
             returnMsg = returnMsg + String.format(MESSAGE_NOTE_ADDED, note.toString());
         }
 
-        try {
-            doc.addAnnotation(getPid(), an);
-        } catch (IllegalValueException e) {
-            throw new CommandException(COMMAND_WORD + ": " + e.getMessage());
+        if (isAddGeneralNote) {
+            doc.addPhantom(an);
+        } else {
+
+            if (getPid().isStray() && note == null) {
+                throw new CommandException(MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE);
+            }
+
+            try {
+                doc.addAnnotation(getPid(), an);
+            } catch (IllegalValueException e) {
+                throw new CommandException(COMMAND_WORD + ": " + e.getMessage());
+            }
+
         }
 
-        model.updateDocument(doc);
+        String savedMsg = String.format(MESSAGE_SUCCESS, getPid(), returnMsg);
 
-        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
-                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
-                oldBkmark.getTags(), oldBkmark.getCachedCopies());
+        Bookmark newBkmark = oldBkmark.copy();
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
-
-        model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
-        return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
+        return new OfflineCommandResult(savedMsg);
     }
 
     @Override
@@ -121,8 +126,12 @@ public class AddAnnotationCommand extends AnnotationCommand {
                 && getBookmarkIndex().equals(((AddAnnotationCommand) other).getBookmarkIndex())
                 && getPid().equals(((AddAnnotationCommand) other).getPid())
                 && (this.note == ((AddAnnotationCommand) other).note
-                || note.equals(((AddAnnotationCommand) other).note))
+                || (note != null && ((AddAnnotationCommand) other).note != null
+                && note.equals(((AddAnnotationCommand) other).note)))
                 && highlight.equals(((AddAnnotationCommand) other).highlight)); // state check
     }
 
+
+
 }
+

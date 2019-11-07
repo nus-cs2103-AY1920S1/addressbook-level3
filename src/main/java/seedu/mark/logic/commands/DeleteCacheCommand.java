@@ -10,6 +10,7 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
+import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.Storage;
 
@@ -56,6 +57,10 @@ public class DeleteCacheCommand extends Command {
         Bookmark updatedBookmark = new Bookmark(bookmarkToDelete.getName(), bookmarkToDelete.getUrl(),
                 bookmarkToDelete.getRemark(), bookmarkToDelete.getFolder(), bookmarkToDelete.getTags(),
                 Collections.emptyList());
+        if (model.getObservableOfflineDocNameCurrentlyShowing().getValue().equals(updatedBookmark.getName().value)) {
+            model.updateDocument(new OfflineDocument(""));
+            model.setOfflineDocNameCurrentlyShowing(OfflineDocument.NAME_NO_DOCUMENT);
+        }
         model.setBookmark(bookmarkToDelete, updatedBookmark);
         model.saveMark(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS);

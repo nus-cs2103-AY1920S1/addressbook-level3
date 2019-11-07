@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
@@ -87,6 +88,11 @@ public class ModelStub implements Model {
 
     @Override
     public void addBookmarks(List<Bookmark> bookmarksToAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Bookmark> getFavoriteBookmarkList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -227,6 +233,16 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Paragraph> getObservableDocument() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setOfflineDocNameCurrentlyShowing(String name) {
         throw new AssertionError("This method should not be called.");
     }
 

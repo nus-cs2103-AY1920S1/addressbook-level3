@@ -11,16 +11,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Dorcas Tabitha Tan
 image::dorcastan.png[width="150", align="left"]
-{empty}[https://github.com/dorcastan[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/dorcastan[github]] [<<dorcastan#, portfolio>>]
 
-Role: Team lead & Scheduling and Tracking +
-Responsibilities: Model
+Role: Team lead, Scheduling & Tracking +
+Responsibilities: Model component, Autotag implementation
 
 '''
 
 === Daryl Tan
 image::openorclose.png[width="150", align="left"]
-{empty}[https://github.com/openorclose[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/openorclose[github]] [<<daryl-tan#, portfolio>>]
 
 Role: Testing & Code Quality +
 Responsibilities: Storage
@@ -29,7 +29,7 @@ Responsibilities: Storage
 
 === Na Nazhou
 image::na-nazhou.png[width="150", align="left"]
-{empty}[https://github.com/Na-Nazhou[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Na-Nazhou[github]] [<<na-nazhou#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Logic
@@ -47,7 +47,7 @@ Responsibilities: UI
 
 === TSAI, HSIAO-HAN
 image::tsai-hsiao-han.png[width="150", align="left"]
-{empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<Hsiao-Han#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Commons

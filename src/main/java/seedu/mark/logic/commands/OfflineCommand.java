@@ -63,6 +63,8 @@ public class OfflineCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_VERSION, version));
         }
         model.updateDocument(bookmarkToOpen.getCachedCopies().get(version).getAnnotations());
+        model.setOfflineDocNameCurrentlyShowing(bookmarkToOpen.getName().value);
+        model.saveMark(String.format(MESSAGE_SUCCESS, bookmarkToOpen));
 
         return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, bookmarkToOpen));
     }

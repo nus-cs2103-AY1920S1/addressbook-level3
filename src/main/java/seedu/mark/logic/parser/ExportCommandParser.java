@@ -1,6 +1,8 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.ParserUtil.MESSAGE_FILE_NAME_INCLUDES_EXTENSION;
+import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_FILE_NAME;
 
 import java.nio.file.Path;
 
@@ -20,12 +22,15 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
 
-        // args must contain exactly one word
         if (trimmedArgs.isEmpty() || trimmedArgs.split(" ").length != 1) {
+            // args must contain exactly one word
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        } else if (trimmedArgs.endsWith(".json")) {
+            throw new ParseException(MESSAGE_FILE_NAME_INCLUDES_EXTENSION);
+        } else if (!ParserUtil.isValidFilename(trimmedArgs)) {
+            throw new ParseException(MESSAGE_INVALID_FILE_NAME);
         }
-
         Path destinationFile = Path.of("data", "bookmarks", trimmedArgs + ".json");
 
         return new ExportCommand(destinationFile);

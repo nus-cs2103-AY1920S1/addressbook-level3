@@ -106,6 +106,11 @@ class DeleteAnnotationAllCommandTest {
         public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
             // phantom update just for testing
         }
+
+        @Override
+        public void setOfflineDocNameCurrentlyShowing(String name) {
+            // valid set doc title
+        }
     }
 
     private class CachedCopyStub extends CachedCopy {

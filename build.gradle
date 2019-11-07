@@ -107,6 +107,10 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+run {
+    enableAssertions = true
+}
+
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
