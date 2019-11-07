@@ -944,6 +944,7 @@ you can save any graphs and plots generated in a pdf file.
 
 //tag::recmf[]
 
+
 === Food Recommendation
 
 ==== Recommending food: `recmf`
