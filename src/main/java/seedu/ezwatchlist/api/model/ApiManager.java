@@ -23,7 +23,6 @@ public class ApiManager implements ApiInterface {
     private static final String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private static final String CONNECTION_ERROR_MESSAGE = "Looks like you're not connected to the internet";
     private TmdbApi apiCall;
-    private boolean isConnected = false;
 
     /**
      * Constructor for ApiMain object used to interact with the API.
@@ -33,7 +32,6 @@ public class ApiManager implements ApiInterface {
     public ApiManager() throws OnlineConnectionException {
         try {
             apiCall = new TmdbApi(API_KEY);
-            isConnected = true;
         } catch (MovieDbException e) {
             //when not connected to the internet
             notConnected();
@@ -45,15 +43,13 @@ public class ApiManager implements ApiInterface {
      *
      * @return true if connected to the API.
      */
-    public boolean isConnected() {
+    public static boolean isConnected() {
         try {
-            apiCall = new TmdbApi(API_KEY);
-            isConnected = true;
+            new TmdbApi(API_KEY);
         } catch (MovieDbException e) {
-            isConnected = false;
-        } finally {
-            return isConnected;
+            return false;
         }
+        return true;
     }
 
     /**

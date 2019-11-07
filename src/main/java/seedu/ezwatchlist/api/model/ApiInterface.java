@@ -82,5 +82,7 @@ public interface ApiInterface {
     /**
      * Checks if the api is connected to the internet.
      */
-    boolean isConnected();
+    static boolean isConnected() {
+        return false;
+    }
 }

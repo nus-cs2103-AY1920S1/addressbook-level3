@@ -300,4 +300,34 @@ public class ApiUtil {
         }
         return tvShows;
     }
+
+    /**
+     * Retrieves a Tv Show from it's ID
+     * @param tmdbApi
+     * @param tvId the ID of the Tv Show
+     * @return TvShow
+     */
+    public static TvShow getTvShow(TmdbApi tmdbApi, Integer tvId) {
+        try {
+            TvSeries tvSeries = tmdbApi.getTvSeries().getSeries(tvId, null, TmdbTV.TvMethod.values());
+            return extractTvShow(tmdbApi, tvSeries);
+        } catch (OnlineConnectionException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves a Movie from it's ID.
+     * @param tmdbApi
+     * @param movieId the ID of the Movie.
+     * @return Movie
+     */
+    public static Movie getMovie(TmdbApi tmdbApi, Integer movieId) {
+        try {
+            MovieDb movie = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.values());
+            return extractMovie(tmdbApi, movie);
+        } catch (OnlineConnectionException e) {
+            return null;
+        }
+    }
 }
