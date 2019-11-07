@@ -45,7 +45,8 @@ public class TypicalEntries {
             .build();
     public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
             .build();
-
+    public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
