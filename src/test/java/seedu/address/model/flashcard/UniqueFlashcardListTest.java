@@ -16,8 +16,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.flashcard.exceptions.DuplicateFlashcardException;
-//import seedu.address.model.flashcard.exceptions.DuplicateFlashcardQuestionException;
-//import seedu.address.model.flashcard.exceptions.DuplicateFlashcardTitleException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashcardQuestionException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashcardTitleException;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 import seedu.address.testutil.FlashcardBuilder;
 
@@ -39,7 +39,7 @@ public class UniqueFlashcardListTest {
         uniqueFlashcardList.add(MATH_ONE);
         assertTrue(uniqueFlashcardList.contains(MATH_ONE));
     }
-    //Issue?
+
     @Test
     public void contains_flashcardWithSameIdentityFieldsInList_returnsTrue() {
         uniqueFlashcardList.add(MATH_ONE);
@@ -54,11 +54,25 @@ public class UniqueFlashcardListTest {
     public void add_nullFlashcard_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueFlashcardList.add(null));
     }
-    //Add more here?
+
     @Test
     public void add_duplicateFlashcard_throwsDuplicateFlashcardException() {
         uniqueFlashcardList.add(MATH_ONE);
         assertThrows(DuplicateFlashcardException.class, () -> uniqueFlashcardList.add(MATH_ONE));
+    }
+
+    @Test
+    public void add_duplicateFlashcardTitle_throwsDuplicateFlashcardTitleException() {
+        uniqueFlashcardList.add(MATH_ONE);
+        assertThrows(DuplicateFlashcardTitleException.class, () -> uniqueFlashcardList.add(new FlashcardBuilder()
+                .withTitle(MATH_ONE.getTitle().toString()).build()));
+    }
+
+    @Test
+    public void add_duplicateFlashcardQuestion_throwsDuplicateFlashcardQuestionException() {
+        uniqueFlashcardList.add(MATH_ONE);
+        assertThrows(DuplicateFlashcardQuestionException.class, () -> uniqueFlashcardList.add(new FlashcardBuilder()
+                .withQuestion(MATH_ONE.getQuestion().toString()).build()));
     }
 
     @Test
@@ -114,6 +128,24 @@ public class UniqueFlashcardListTest {
         uniqueFlashcardList.add(MATH_ONE);
         uniqueFlashcardList.add(CS_ONE);
         assertThrows(DuplicateFlashcardException.class, () -> uniqueFlashcardList.setFlashcard(MATH_ONE, CS_ONE));
+    }
+
+    @Test
+    public void setFlashcard_editedFlashcardHasNonUniqueTitle_throwsDuplicateFlashcardTitleException() {
+        uniqueFlashcardList.add(MATH_ONE);
+        uniqueFlashcardList.add(CS_ONE);
+        assertThrows(DuplicateFlashcardTitleException.class, () -> uniqueFlashcardList.setFlashcard(MATH_ONE,
+                new FlashcardBuilder().withTitle(CS_ONE.getTitle().toString()).withQuestion("Changed"
+                + " question").build()));
+    }
+
+    @Test
+    public void setFlashcard_editedFlashcardHasNonUniqueQuestion_throwsDuplicateFlashcardQuestionException() {
+        uniqueFlashcardList.add(MATH_ONE);
+        uniqueFlashcardList.add(CS_ONE);
+        assertThrows(DuplicateFlashcardQuestionException.class, () -> uniqueFlashcardList.setFlashcard(MATH_ONE,
+                new FlashcardBuilder().withQuestion(CS_ONE.getQuestion().toString()).withTitle("Changed"
+                        + " question").build()));
     }
 
     @Test
