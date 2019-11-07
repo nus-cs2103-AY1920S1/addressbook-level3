@@ -3,6 +3,9 @@ package cs.f10.t1.nursetraverse.model.appointment;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
+/**
+ * Implements comparator and sorts appointments by which one is earliest.
+ */
 public class AppointmentSortedByDateTime implements Comparator<Appointment> {
     @Override
     public int compare(Appointment apptFirst, Appointment apptSecond) {

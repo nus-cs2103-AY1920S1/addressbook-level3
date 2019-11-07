@@ -53,8 +53,8 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("============================= [ Initializing PatientBook and AppointmentBook ] " +
-                "===========================");
+        logger.info("============================= [ Initializing PatientBook and AppointmentBook ] "
+                + "===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -103,13 +103,13 @@ public class MainApp extends Application {
                 initialDataAppointments = appointmentBookOptional.get();
             }
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty PatientBook " +
-                    "and AppointmentBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty PatientBook "
+                    + "and AppointmentBook");
             initialDataPatients = new PatientBook();
             initialDataAppointments = new AppointmentBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty PatientBook " +
-                    "and AppointmentBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty PatientBook "
+                    + "and AppointmentBook");
             initialDataPatients = new PatientBook();
             initialDataAppointments = new AppointmentBook();
         }
@@ -197,8 +197,8 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping PatientBook and AppointmentBook ] " +
-                "=============================");
+        logger.info("============================ [ Stopping PatientBook and AppointmentBook ] "
+                + "=============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

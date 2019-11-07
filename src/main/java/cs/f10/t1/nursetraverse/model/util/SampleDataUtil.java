@@ -118,10 +118,10 @@ public class SampleDataUtil {
     public static Appointment[] getSampleAppointments() {
         Long zero = Long.parseLong("0");
         Appointment[] resultAppointmentArr = new Appointment[] {
-             new Appointment(new StartDateTime("01-12-2019 1000"),
-                    new EndDateTime("01-12-2019 1200"),
-                    new RecurringDateTime(new Long[]{zero, zero, zero, zero, zero, zero}),
-                    Index.fromOneBased(1), "Dental checkup")
+            new Appointment(new StartDateTime("01-12-2019 1000"),
+                new EndDateTime("01-12-2019 1200"),
+                new RecurringDateTime(new Long[]{zero, zero, zero, zero, zero, zero}),
+                Index.fromOneBased(1), "Dental checkup")
         };
 
         return resultAppointmentArr;
