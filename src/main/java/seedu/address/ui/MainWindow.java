@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_WELCOME_STUDYBUDDYPRO;
+
 import java.util.logging.Logger;
 
 import javafx.animation.FadeTransition;
@@ -25,8 +27,6 @@ import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.UnknownCommandResultTypeException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_WELCOME_STUDYBUDDYPRO;
 
 /**
  * The Main Window. Provides the basic application layout containing
