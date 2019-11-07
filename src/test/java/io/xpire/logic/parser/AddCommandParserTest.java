@@ -14,6 +14,7 @@ import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_KIWI;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,30 +32,24 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
         XpireItem expectedXpireItem = new XpireItemBuilder(BANANA).build();
 
-        // whitespace only preamble
-        CommandParserTestUtil.assertEqualsParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_BANANA
-                + " | " + VALID_EXPIRY_DATE_BANANA + " |" + VALID_QUANTITY_BANANA,
-                new AddCommand(expectedXpireItem));
-
-        //no whitespace preamble
         CommandParserTestUtil.assertEqualsParseSuccess(parser, VALID_NAME_BANANA
                         + "|" + VALID_EXPIRY_DATE_BANANA + "|" + VALID_QUANTITY_BANANA,
-                new AddCommand(expectedXpireItem));
+                new AddCommand(new Name(VALID_NAME_BANANA), new ExpiryDate(VALID_EXPIRY_DATE_BANANA),
+                        new Quantity(VALID_QUANTITY_BANANA)));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // no quantity specified
-        XpireItem expectedXpireItem = new XpireItemBuilder(KIWI).withQuantity("1").withReminderThreshold("0").build();
-        String userInput = VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI + "|";
+        String userInput = VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI;
         CommandParserTestUtil.assertEqualsParseSuccess(parser, userInput,
-                new AddCommand(expectedXpireItem));
+                new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
+                        new Quantity("1")));
     }
 
     @Test
     public void parse_invalidInput_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-
         // missing bars
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + VALID_EXPIRY_DATE_APPLE,
                 expectedMessage);

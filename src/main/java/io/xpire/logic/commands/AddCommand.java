@@ -99,8 +99,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Search for the item in the list.
-     */
+     * Retrieves item that is the same as item inputted by user.
+     * @param item existing in the tracking list.
+     * @param list where item is retrieved from.
+     * @return exact item which is the same as input item.
+     **/
     private XpireItem retrieveXpireItem(XpireItem item, List<? extends Item> list) {
         requireNonNull(item);
         int index = -1;
@@ -113,7 +116,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Returns the item with added quantity.
+     * Increases the item quantity for any duplicate items.
+     * @param targetItem
+     * @param quantity
+     * @return
+     * @throws ParseException
      */
     private XpireItem increaseItemQuantity(XpireItem targetItem, Quantity quantity) throws ParseException {
         Quantity prevQuantity = targetItem.getQuantity();
