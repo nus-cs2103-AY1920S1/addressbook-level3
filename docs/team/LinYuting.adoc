@@ -107,3 +107,7 @@ include::../UserGuide.adoc[tag=UGyuting2]
 
 include::../DeveloperGuide.adoc[tag=registerBorrower]
 
+=== Use cases written for developer guide
+
+include::../DeveloperGuide.adoc[tag=yutingUseCase]
+
