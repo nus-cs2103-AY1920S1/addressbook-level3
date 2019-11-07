@@ -14,6 +14,7 @@ import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
+import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -42,6 +43,13 @@ public class FinancialTrackerLogic {
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty Financial Tracker");
         }
+    }
+
+    /**
+     * Link dependencies to Financial Tracker model.
+     */
+    public void addDependencies(CountriesDropdown countriesDropdown) {
+        this.financialTrackerModel.addDependencies(countriesDropdown);
     }
 
     /**

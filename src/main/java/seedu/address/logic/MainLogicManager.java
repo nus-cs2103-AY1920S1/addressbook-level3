@@ -7,10 +7,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.MainParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.logic.parser.MainParser;
 
 public class MainLogicManager implements MainLogic {
 
