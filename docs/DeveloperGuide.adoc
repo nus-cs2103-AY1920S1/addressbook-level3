@@ -914,9 +914,8 @@ This feature allows the user to set a goal for their budget, expense or sales ta
 The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
 found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-.Sequence Diagram of Checkout Command (cashier package)
-
-image::SetCommandSD.png[]
+.Sequence Diagram of Set Command in the Overview package.
+image::OverviewSetCommandSD.png[]
 
 After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
 the data file.
@@ -928,12 +927,14 @@ particular financial goal, the user will automatically be notified of it with a 
 The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
 diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
-.Sequence Diagram of Checkout Command (cashier package)
+.Sequence Diagram of Notify Command in the Overview Package
+image::OverviewNotifyCommandSD.png[]
 
-image::NotifyCommandSD.png[]
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file. The full execution of the command is shown in the activity diagram below:
 
-After execution of the command, the `Logicmanager` also instructs the `StorageManager` to save the new information to
-the data file.
+.Activity Diagram of Notify Command in the Overview Package
+image::OverviewNotifyActivityDiagram.png[]
 
 ==== Design Considerations
 In order to display the summary statistics shown to the user within the Overview tab, they must first be calculated.
@@ -1024,7 +1025,8 @@ These operations are exposed in the `Model` interface of the tab as `Model#commi
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Each package in `VersionedtreasuerPro` will be initialized with their initial default state, and the
+`currentStatePointer` of each package pointing to that state.
 
 image::UndoRedoState0.png[]
 
@@ -1103,13 +1105,6 @@ For example, when a new command is executed, we must remember to update both `Hi
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
 Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
