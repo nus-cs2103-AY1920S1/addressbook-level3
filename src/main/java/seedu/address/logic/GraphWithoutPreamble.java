@@ -1,0 +1,50 @@
+package seedu.address.logic;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.address.logic.parser.Prefix;
+import seedu.address.model.Model;
+
+public abstract class GraphWithoutPreamble extends Graph {
+
+    private Node<?> startingNode;
+
+    public GraphWithoutPreamble(Model model) {
+        super(model);
+    }
+
+    protected void setStartingNode(Node<?> startingNode) {
+        this.startingNode = startingNode;
+    }
+
+    @Override
+    protected AutoCompleteResult process(String input) {
+        Pattern prefixPattern = Pattern.compile(" .{1,2}/");
+        String stringToCompare = input;
+        Node<?> currentNode = startingNode;
+        SortedSet<String> values = new TreeSet<>();
+        Matcher matcher = prefixPattern.matcher(input);
+        while (matcher.find()) {
+            Prefix prefix = new Prefix(matcher.group().trim());
+            Optional<Node<?>> nextNode = traverse(currentNode, prefix);
+            if (nextNode.isPresent()) {
+                currentNode = nextNode.get();
+            }
+            stringToCompare = input.substring(matcher.end());
+        }
+        if (input.endsWith("/")) { // fill with possible arguments
+            values.addAll(currentNode.getValues());
+        } else { // fill with possible prefixes
+            List<Prefix> prefixes = getPrefixes(currentNode);
+            prefixes.forEach(prefix -> values.add(prefix.toString()));
+            stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
+        }
+        return new AutoCompleteResult(values, stringToCompare);
+    }
+
+}
