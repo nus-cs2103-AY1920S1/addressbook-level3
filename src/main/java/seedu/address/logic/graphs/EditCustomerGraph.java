@@ -93,7 +93,7 @@ public class EditCustomerGraph extends Graph {
                 int maxIndex = customerList.size();
                 values.add(String.valueOf(minIndex));
                 values.add(String.valueOf(maxIndex));
-                stringToCompare = "";
+                stringToCompare = input.stripLeading();
             } else {
                 String preamble = input.stripLeading().substring(0, secondSpace);
                 try {
