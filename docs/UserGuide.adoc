@@ -723,6 +723,7 @@ THRIFT supports the following currencies by default:
 * CAD
 * CHF
 * CNY
+* CZK
 * DKK
 * EUR
 * GBP

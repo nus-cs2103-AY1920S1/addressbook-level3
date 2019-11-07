@@ -159,7 +159,8 @@ public class ParserUtil {
             if (!currency.matches("[A-Za-z]+")) {
                 throw new ParseException(MESSAGE_INVALID_CURRENCY);
             }
-            if (!CurrencyUtil.getCurrencyMap().containsKey(currency.toUpperCase())) {
+            if (!CurrencyUtil.getCurrencyMap().containsKey(currency.toUpperCase())
+                    && !CurrencyUtil.getDefaultMap().containsKey(currency.toUpperCase())) {
                 throw new ParseException(MESSAGE_INVALID_CURRENCY);
             }
 
