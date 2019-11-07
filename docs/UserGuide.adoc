@@ -449,7 +449,7 @@ Format: `showNotifs`
 
 // end::notifs[]
 
-// tag::sortfilter[]
+// tag::sort[]
 
 ==== Sort all entries: `sort` `[coming in v2.0]`
 Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
@@ -471,6 +471,8 @@ Example:
 All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
+// end::sort[]
+// tag::filter[]
 
 ==== Filter all entries: `filter`
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
@@ -486,7 +488,7 @@ All female worker entries will be displayed.
 
 * `filter -b /cod Car Accident /sex male` +
 All body entries with car accident as the cause of death and those that are male will be displayed.
-// end::sortfilter[]
+// end::filter[]
 
 // tag::undoredo[]
 ==== Undoing a command: `undo`
