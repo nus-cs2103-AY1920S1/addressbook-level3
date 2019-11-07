@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -43,7 +45,7 @@ import com.typee.model.report.Report;
  */
 public class PdfUtil {
 
-    private static final String FOLDER_PATH = "reports/";
+    public static final String FOLDER_PATH = "reports/";
     private static Properties docProp;
     private static final Logger logger = LogsCenter.getLogger(PdfUtil.class);
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH-mm");
@@ -75,12 +77,13 @@ public class PdfUtil {
     /**
      * Checks if document is already being generated (not implemented yet).
      */
-    public static boolean checkIfDocumentExists(String to, String from, LocalDateTime start, String desc) {
+    public static boolean checkIfDocumentExists(Path dirPath, String to,
+                                                String from, LocalDateTime start, String desc) {
         String fileName = generateFileName(to, from, start, desc);
-        if (Files.notExists(Paths.get(FOLDER_PATH))) {
-            Paths.get(FOLDER_PATH).toFile().mkdir();
+        if (Files.notExists(dirPath)) {
+            dirPath.toFile().mkdir();
         }
-        File[] files = new File(FOLDER_PATH).listFiles();
+        File[] files = dirPath.toFile().listFiles();
 
         boolean isExisting = Stream.of(files)
                 .map(file -> file.getName())
@@ -94,16 +97,25 @@ public class PdfUtil {
     /**
      * Deletes the document of a give file name in the directory.
      */
-    public static boolean deleteDocument(String to, String from, LocalDateTime start, String desc)
+    public static boolean deleteDocument(Path dirPath, String to, String from, LocalDateTime start, String desc)
             throws DeleteDocumentException {
         String fileName = generateFileName(to, from, start, desc);
+        logger.info(fileName);
 
-        if (Files.notExists(Paths.get(FOLDER_PATH))) {
-            Paths.get(FOLDER_PATH).toFile().mkdir();
+        if (Files.notExists(dirPath)) {
+            dirPath.toFile().mkdir();
         }
-        File fileToDelete = new File(fileName);
-        if (fileToDelete.canWrite()) {
-            return fileToDelete.delete();
+
+        File[] files = dirPath.toFile().listFiles();
+        Optional<File> fileToDelete = Optional.empty();
+        for (File f: files) {
+            if (f.getName().equals(fileName)) {
+                fileToDelete = Optional.of(f);
+            }
+        }
+
+        if (!fileToDelete.isEmpty()) {
+            return fileToDelete.get().delete();
         }
         throw new DeleteDocumentException();
     }

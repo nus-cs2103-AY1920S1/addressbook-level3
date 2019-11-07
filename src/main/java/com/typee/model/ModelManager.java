@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -196,7 +197,8 @@ public class ModelManager implements Model {
 
     @Override
     public void saveReport(Report report) throws DocumentException, IOException, GenerateExistingReportException {
-        if (PdfUtil.checkIfDocumentExists(report.getTo().getName().fullName,
+        if (PdfUtil.checkIfDocumentExists(Paths.get(PdfUtil.FOLDER_PATH),
+                report.getTo().getName().fullName,
                 report.getFrom().getName().fullName,
                 report.getEngagement().getTimeSlot().getStartTime(),
                 report.getEngagement().getDescription())) {
@@ -213,9 +215,9 @@ public class ModelManager implements Model {
         LocalDateTime start = report.getEngagement().getTimeSlot().getStartTime();
         String desc = report.getEngagement().getDescription();
 
-        boolean isExisting = PdfUtil.checkIfDocumentExists(to, from, start, desc);
+        boolean isExisting = PdfUtil.checkIfDocumentExists(Paths.get(PdfUtil.FOLDER_PATH), to, from, start, desc);
         if (isExisting) {
-            return PdfUtil.deleteDocument(to, from, start, desc);
+            return PdfUtil.deleteDocument(Paths.get(PdfUtil.FOLDER_PATH), to, from, start, desc);
         }
         throw new DeleteDocumentException();
     }
