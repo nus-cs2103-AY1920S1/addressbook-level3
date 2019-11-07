@@ -15,7 +15,7 @@
           <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints prefHeight="1000.0" vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="2000.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <StackPane fx:id="eventListPlaceholder" prefHeight="150.0" prefWidth="200.0">

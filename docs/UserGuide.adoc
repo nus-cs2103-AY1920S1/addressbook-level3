@@ -28,6 +28,11 @@ By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 .  Download the latest `horo.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Horo.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  If double-clicking fails to start the app then do the following steps:
+*  Open up Command Prompt
+*  Change directory to your `horo.jar` location saved location.
+** It is prefable to change your `horo.jar` location to an empty folder.
+*  Type `java -jar horo.jar` and GUI should appear in a few seconds.
 +
 .Startup Screen Shot of Horo
 image::Ui.png[width="790"]
@@ -56,8 +61,8 @@ image::Ui.png[width="790"]
 - E.g. `*add_task* "Buy Groceries"`
 
 * Command parameters are prefixed by `--`, and they are optional.
-- E.g. `*--date* 17/09/2019`
-- E.g. `*calendar* *--date* 17/09/2019`
+- E.g. `*--date* 09/2019`
+- E.g. `*calendar* *--date* 09/2019`
 ====
 
 {empty} +
@@ -94,12 +99,12 @@ The following commands are related to Events and Tasks, which Horo recognises as
 
 * Event:
 - Will show up on the Calendar.
-- Cannot be marked as done.
+- Cannot be marked as done. **`[coming in v2.0]`**
 - Will be automatically removed from the Calendar past its due date, provided it is a non-recurring event.
 
 * Task
-- Will show up on the Calendar only if a due-date is specified.
-- Can be marked as done.
+- Will show up on the Calendar only if a due-date is specified. Otherwise it will be specified in the List.
+- Can be marked as done. **`[coming in v2.0]`**
 - If not accomplished by its due date, will be automatically archived into an undone list.
 
 {empty} +
@@ -138,9 +143,14 @@ Examples: +
 .Delete Event Command
 image::DeleteEventCommandScreenShot.png[]
 
+.Index found on the top right of the event.
+image::EventCardScreenShot.png[]
+
+
 {empty} +
 
-You may use the `delete_event` command to delete one or more events from the calendar.
+You may use the `delete_event` command to delete one or more events from the calendar. +
+Note that deletion is based of a zero-indexing that is found on the event's top right corner. +
 
 Command Format: +
 `*delete_event* INDEX...`
@@ -225,9 +235,13 @@ Examples: +
 .Delete Task from the task list.
 image::DeleteTaskCommandScreenShot.png[]
 
+.Index found on the top right of the task.
+image::TaskCardScreenShot.png[]
+
 {empty} +
 
-You may use the `delete_task` command to delete one or more tasks from the to-do list.
+You may use the `delete_task` command to delete one or more tasks from the to-do list. +
+Note that deletion is based of a zero-indexing that is found on the task's top right corner. +
 
 Command Format: +
 `*delete_task* INDEX...`
@@ -239,7 +253,7 @@ Remarks: +
 Tasks which match both `INDEX` and `TAG` will be deleted.
 
 Examples: +
-`*delete_task* 1` +
+`*delete_task* 0` +
 `*delete_task* 1 2 3` : Deletes tasks 1, 2 and 3. +
 `*delete_task* *--tag* Birthday` : Deletes tasks tagged as `Birthday`. +
 `*delete_task* *--tag* Birthday Rori` : Deletes tasks tagged as `Birthday` and `Rori`. +
@@ -402,6 +416,8 @@ Examples: +
 === UI
 The following commands are related to the changing the display of the UI.
 
+Take note that UI-related commands are not affected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
+
 ==== Changing Screen View to Calendar View
 
 .Calendar View Command for Calendar
@@ -419,14 +435,14 @@ Command Format: +
 `*calendar*` +
 
 Command Parameters: +
-`*--date* DATE`
+`*--date* MONTH_YEAR`
 
 Argument Format: +
-`DATE` : `DD/MM/YYYY`
+`MONTH_YEAR` : `MM/YYYY`
 
 Example: +
 `*calendar*` : Switch back to calendar view, without changing the date. +
-`*calendar* *--date* 11/10/2019`
+`*calendar* *--date* 10/2019`
 
 {empty} +
 
@@ -542,6 +558,8 @@ image::PopUpScreenShot.png[]
 
 {empty} +
 
+Take note that that following commands are UI-related commands, and are thus unaffected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
+
 ==== Switch notifications on
 The `notif_on` command switches notifications on. +
 
@@ -584,6 +602,16 @@ image::NotificationOffFeedbackScreenShot.png[]
 
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
+
+The below commands will only affect state-changing, and not UI-related commands. The commands that will be affected are as follows:
+
+* *add_event*
+* *delete_event*
+* *edit_event*
+* *add_task*
+* *delete_task*
+* *edit_task*
+
 
 ==== Undo
 

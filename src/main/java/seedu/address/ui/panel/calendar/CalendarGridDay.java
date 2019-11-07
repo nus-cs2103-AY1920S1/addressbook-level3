@@ -14,8 +14,8 @@ import seedu.address.ui.UiPart;
  */
 public class CalendarGridDay extends UiPart<Region> {
 
-    private static final float BASE_SATURATION = 0.25f;
-    private static final float MAX_SATURATION = 0.75f;
+    private static final float BASE_SATURATION = 0.10f;
+    private static final float MAX_SATURATION = 0.90f;
     private static final int MAX_EVENT = 10;
     private static final String FXML = "CalendarGridDay.fxml";
 
@@ -40,13 +40,21 @@ public class CalendarGridDay extends UiPart<Region> {
     }
 
     /**
-     * Increases the total number of Events and changes the color accordingly.
+     * Increases the total number of Events or Tasks and changes the color accordingly.
      */
-    public void addAnEvent() {
+    public void increaseIntensity() {
         this.totalEvents++;
         if (!CalendarDate.now().equals(calendarDate)) {
             colorChange();
         }
+    }
+
+    /**
+     * Resets the color of the day.
+     */
+    public void resetColor() {
+        this.totalEvents = 0;
+        colorChange();
     }
 
     public void setCurrentDate() {
@@ -71,6 +79,7 @@ public class CalendarGridDay extends UiPart<Region> {
         ColorAdjust colorAdjust = new ColorAdjust();
         if (this.totalEvents == 0) {
             calendarDayCircle.setStyle("-fx-opacity: " + 0);
+            colorAdjust.setSaturation(getSaturationValue(this.totalEvents));
             calendarDayCircle.setEffect(colorAdjust);
         } else {
             calendarDayCircle.setStyle("-fx-opacity: " + 0.5);
@@ -88,6 +97,5 @@ public class CalendarGridDay extends UiPart<Region> {
     private float getSaturationValue(float events) {
         return (events / MAX_EVENT) * (MAX_SATURATION - BASE_SATURATION) + BASE_SATURATION;
     }
-
 
 }

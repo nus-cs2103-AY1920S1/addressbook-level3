@@ -31,18 +31,18 @@ public class ImportIcsCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
             .addArgument(StringArgument.newBuilder(ARGUMENT_FILEPATH, o -> this.filepath = o));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return null;
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new ImportIcsCommand(this);
     }
 }
