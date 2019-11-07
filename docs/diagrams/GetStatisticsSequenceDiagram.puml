@@ -12,10 +12,10 @@ participant ":Statistics" as Statistics MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute(get-task-stats)
+[-> LogicManager : execute(task-stats)
 activate LogicManager
 
-LogicManager -> ProjectDashboardParser : parseCommand(get-task-stats)
+LogicManager -> ProjectDashboardParser : parseCommand(task-stats)
 activate ProjectDashboardParser
 
 create GetStatisticsCommand
