@@ -2,6 +2,7 @@
 package tagline.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import tagline.logic.parser.Prompt;
@@ -30,25 +31,32 @@ public class PromptHandler {
         return pendingCommand;
     }
 
+    /**
+     * Gets an unmodifiable view of the filled prompt list.
+     * Only called if all prompts have been filled.
+     */
     public List<Prompt> getFilledPromptList() {
-        return filledPromptList;
+        assert isComplete();
+        return Collections.unmodifiableList(filledPromptList);
     }
 
     /**
-     * Fills the next unfilled prompt in the list.
+     * Fills the next unfilled prompt in the list with the user response.
      */
-    public void fillNextPrompt(String commandText) {
+    public void fillNextPrompt(String userResponse) {
+        assert nextIndex >= 0 && nextIndex < promptList.size();
         Prompt currentPrompt = promptList.get(nextIndex);
-        currentPrompt.setPromptResponse(commandText);
+        currentPrompt.setPromptResponse(userResponse);
 
         nextIndex++;
         filledPromptList.add(currentPrompt);
     }
 
     /**
-     * Returns the next prompt in the list.
+     * Returns the question for the next prompt in the list.
      */
     public String getNextPrompt() {
+        assert nextIndex >= 0 && nextIndex < promptList.size();
         return promptList.get(nextIndex).getPromptQuestion();
     }
 

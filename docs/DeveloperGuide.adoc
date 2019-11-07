@@ -82,19 +82,19 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBarFooter`, `HelpWindow`, `ChatPane` and `ResultPane`. In particular,
+The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBarFooter`, `HelpWindow`, `ChatPane` and `ResultPane`. `MainWindow` may also have a `PromptHandler` which contains a list of `Prompt` objects (see <<User Prompting, here>> for more information). In particular,
 
-*  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback.
+*  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback. To handle auto-completion, `CommandBox` uses an `AutoCompleteNode` to provide suggestions. The class diagram for the sub-component is shown below.
 
 .Structure of the Chat Pane sub-component
 image::UiChatPaneClassDiagram.png[]
 
-*  The `ResultPane` displays a relevant `ResultView` based on the command entered.
+*  The `ResultPane` displays a relevant `ResultView` based on the command entered. The following class diagram shows a partial view of the component with only the `NoteListResultView` and `ContactListResultView`.
 
 .Structure of the Result Pane sub-component
 image::UiResultPaneClassDiagram.png[]
 
-All these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
+Most of  these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tagline/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -295,7 +295,7 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Chatbot prompting feature
+=== User Prompting
 
 ==== Description
 
@@ -305,18 +305,17 @@ At this point, the user may abort the command or provide the requested details. 
 
 ==== Proposed Implementation
 
-The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Logic` and `Ui` components. `Prompt` implements the following operations:
+===== Representing a prompt
 
-`Logic` side:
+The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Logic` and `Ui` components. `Prompt` contains the following fields:
 
-* `Prompt#setPrefix()` -- Sets the prefix of the queried data
-* `Prompt#setQuestion()` -- Sets the prompt to be displayed to the user
-* `Prompt#getResponse()` -- Gets the prompt response from the user
+- `prefix`: The prefix of the missing field (e.g. for a `contact create` command, the `name` field has prefix `--n`)
+- `question`: A question to ask the user for details regarding the missing information
+- `response`: The response from the user
 
-`Ui` side:
+These fields are accessible through getters and setters in the `Prompt` class.
 
-* `Prompt#getQuestion()` -- Gets the prompt to be displayed to the user
-* `Prompt#setResponse()` -- Sets the response from the user
+===== Passing the prompts
 
 Given below is an example scenario where the user command has missing compulsory fields.
 
@@ -324,7 +323,7 @@ Step 1: The `Ui` passes the user's command to `Logic`, which finds one or more m
 
 image::UserPromptSequenceDiagramStep1.png[]
 
-Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback.
+Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback using the mechanism <<Getting responses from the user, here>>.
 
 image::UserPromptSequenceDiagramStep2.png[]
 
@@ -332,7 +331,44 @@ Step 3: The `Ui` passes the original command, together with the processed `Promp
 
 image::UserPromptSequenceDiagramStep3.png[]
 
-The user can also abort the command by entering a special string. In this case, the `Ui` will discard the original command and continue to receive further user commands.
+The full sequence diagram is shown below:
+
+image::UserPromptSequenceDiagramFull.png[]
+
+The user can also abort the command by pressing the Escape button. In this case, the `Ui` will discard the original command and continue to receive further user commands.
+
+===== Getting prompts from the user
+
+To obtain responses to a list of prompts, the UI uses a `PromptHandler` to indicate the incomplete command that it is currently working on. `PromptHandler` uses the Iterator design pattern to fill a list of prompts. It implements the following operations:
+
+- `PromptHandler#getPendingCommand`: Returns the incomplete command
+- `PromptHandler#fillNextPrompt`: Fills the next unfilled prompt in the list
+- `PromptHandler#getNextPrompt`: Gets the question of the next unfilled prompt in the list
+- `PromptHandler#isComplete`: Returns true if all prompts have been filled
+- `PromptHandler#getFilledPromptList`: Gets the filled prompt list
+
+To allow the `Ui` to handle user prompts, the sequence of steps taken to handle user input has been modified. To illustrate the program flow, three possible scenarios of user input will be discussed.
+
+. The user enters some input with missing compulsory fields.
+    .. The input is passed to `Logic`, where a `PromptRequestException` is thrown.
+    .. `MainWindow` takes the list of prompts in the `PromptRequestException`, and creates a new `PromptHandler` in the private field `promptHandler`.
+    .. `MainWindow` gets the first prompt question from `promptHandler` and displays it.
+
+. The user is currently being prompted, and enters some input to answer a prompt. There are more prompts remaining.
+    .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
+    .. `MainWindow` checks that `promptHandler` is still incomplete.
+    .. `MainWindow` gets the next prompt question from `promptHandler` and displays it.
+
+. The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.
+    .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
+    .. `MainWindow` checks that `promptHandler` is now complete.
+    .. `MainWindow` calls `getPendingCommand` and `getNextPrompt` of `promptHandler`.
+    .. The incomplete command and the filled prompt list are passed to `Logic` to execute the command.
+
+The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.
+
+.Overall activity diagram for handling user input
+image::UserPromptActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -341,17 +377,19 @@ The user can also abort the command by entering a special string. In this case, 
 * **Alternative 1**: The `Ui` updates the command with the user's responses by adding the new data to the command string.
 ** Pros: No need to overload `Logic#execute()` and `Parser#parse()` methods
 ** Cons: Requires `Ui` to know where to insert preambles, and increases coupling between `Ui` and `Logic` components (as `Ui` now needs to know and follow the command format)
-* **Alternative 2** (chosen): The `LogicManager` updates the command with the user's responses by adding the new data to the command string.
+* **Alternative 2**: The `LogicManager` updates the command with the user's responses by adding the new data to the command string.
 ** Pros: No need to overload `Parser#parse()` method
-** Cons: Requires all commands to follow the same general format
-* **Alternative 3**: The `Parser` handles the `Prompt` objects when parsing the command
-** Pros: Easily handles preambles and allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands
-** Cons: Requires changing every `Parser` class, decreases maintainability in the long run
+** Cons: Requires `LogicManager` to know where to insert preambles, and reduces flexibility of prompting
+* **Alternative 3**: `TaglineParser` and the individual parser classes handles the `Prompt` objects when parsing the command
+** Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions
+** Cons: Requires changing multiple `Parser` classes, decreases maintainability in the long run
+
+**Alternative 3** is chosen as it allows the confirmation messages for the `clear` commands to be implemented easily.
 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation
 
-The grouping feature is facilitated by `GroupBook` an additional Model component in addition to the current `AddressBook`.
+The grouping feature is facilitated by `GroupBook`, an additional Model component in addition to the current `AddressBook`.
 It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
 identified by their `GroupName`. This allows users to form more natural associations of
 contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
@@ -563,94 +601,6 @@ The method will create a `TagId` from the user input and obtain the `Tag` throug
 
 .Sequence diagram of executing `ListNoteCommand` to update filtered note list by `Tag` in `Model`
 image::FilterTagSequenceDiagram.png[]
-
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
