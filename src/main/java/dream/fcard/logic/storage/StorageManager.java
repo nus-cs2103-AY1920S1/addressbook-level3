@@ -122,6 +122,19 @@ public class StorageManager {
     }
 
     /**
+     * Write multiple decks into decks storage.
+     *
+     * @param decks ArrayList of decks object to write
+     */
+    public static void writeDecks(ArrayList<Deck> decks) {
+        resolveRoot();
+        for (Deck deck : decks) {
+            String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getDeckName() + ".json");
+            FileReadWrite.write(path, deck.toJson().toString());
+        }
+    }
+
+    /**
      * Delete a deck.
      * @param deck the deck to remove.
      */

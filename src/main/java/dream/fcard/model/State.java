@@ -1,10 +1,13 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.model.exceptions.NoDeckHistoryException;
+import dream.fcard.model.exceptions.NoUndoHistoryException;
 
 /**
  * State stores data representing the state of the running program
@@ -12,6 +15,8 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
  */
 public class State {
     private ArrayList<Deck> decks;
+    private Stack<ArrayList<Deck>> deckHistory;
+    private Stack<ArrayList<Deck>> undoHistory;
     private StateEnum currState;
     private Deck currentDeck;
 
@@ -21,6 +26,8 @@ public class State {
     public State() {
         decks = StorageManager.loadDecks();
         currState = StateEnum.DEFAULT;
+        deckHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     /**
@@ -50,9 +57,19 @@ public class State {
      * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
+        /*
+        System.out.println("BEFORE ADDING");
+        printDecks();
+        printDeckHistory();*/
+
+        addCurrDecksToDeckHistory();
         Deck temp = new Deck(deckName);
         decks.add(temp);
         this.currentDeck = temp;
+
+        /*System.out.println("AFTER ADDING");
+        printDecks();
+        printDeckHistory();*/
     }
 
     /**
@@ -61,6 +78,7 @@ public class State {
      * @param deck deck object
      */
     public void addDeck(Deck deck) {
+        addCurrDecksToDeckHistory();
         decks.add(deck);
         this.currentDeck = deck;
     }
@@ -74,6 +92,7 @@ public class State {
         if (deckIndex == -1) {
             throw new DeckNotFoundException("Deck not found - " + name);
         }
+        addCurrDecksToDeckHistory();
         decks.remove(deckIndex);
     }
 
@@ -136,10 +155,112 @@ public class State {
      */
     public int hasDeckName(String name) {
         for (int i = 0; i < decks.size(); i++) {
-            if (decks.get(i).getDeckName() == name) {
+            if (decks.get(i).getDeckName().equals(name)) {
                 return i;
             }
         }
         return -1;
+    }
+
+    /**
+     * Adds the current deck to the deckHistory for Undo command
+     */
+    public void addCurrDecksToDeckHistory() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Deck> currDeck = (ArrayList<Deck>) this.decks.clone();
+
+        if (deckHistory.empty() || !currDeck.equals(deckHistory.peek())) {
+            deckHistory.push(currDeck);
+        }
+    }
+
+    /**
+     * Adds the current deck to the undoHistory for Redo command
+     */
+    public void addCurrDecksToUndoHistory() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Deck> currDeck = (ArrayList<Deck>) this.decks.clone();
+        if (undoHistory.empty() || !currDeck.equals(undoHistory.peek())) {
+            undoHistory.push(currDeck);
+        }
+    }
+
+    /**
+     * Used for debugging.
+     */
+    // For Debugging
+    public void printDeckHistory() {
+        System.out.println("DECK HISTORY SIZE: " + deckHistory.toArray().length);
+        System.out.println("TOP DECK");
+        if (!deckHistory.empty()) {
+            for (Deck d : deckHistory.peek()) {
+                System.out.println(d.getDeckName());
+            }
+        }
+        System.out.println("DECK HISTORY END");
+    }
+
+    /**
+     * Used for debugging.
+     */
+    // For Debugging
+    public void printDecks() {
+        System.out.println("DECKS SIZE: " + this.decks.toArray().length);
+        for (Deck d : this.decks) {
+            System.out.println(d.getDeckName());
+        }
+        System.out.println("DECKS END");
+    }
+
+    /**
+     * Undoes the latest changes to the current Deck.
+     *
+     * @throws NoDeckHistoryException
+     */
+    public void undoDeckChanges() throws NoDeckHistoryException {
+        if (deckHistory.empty()) {
+            throw new NoDeckHistoryException("There is no action to undo!");
+        }
+        System.out.println("Undo");
+        // Adds the current deck to the stack of undos
+        addCurrDecksToUndoHistory();
+
+        // Remove the last deck from history and makes it the curr list of Decks
+        System.out.println("this.decks");
+        for (Deck d : this.decks) {
+            System.out.println(d.getDeckName());
+        }
+        System.out.println("deckHistory");
+        for (Deck d : this.deckHistory.peek()) {
+            System.out.println(d.getDeckName());
+        }
+
+        ArrayList<Deck> newCurr = deckHistory.pop();
+        this.decks = newCurr;
+        for (Deck d : this.decks) {
+            System.out.println(d.getDeckName());
+        }
+    }
+
+    /**
+     * Redoes the latest changes to the current Deck.
+     *
+     * @throws NoUndoHistoryException
+     */
+    public void redoDeckChanges() throws NoUndoHistoryException {
+        if (undoHistory.empty()) {
+            throw new NoUndoHistoryException("An undo command must be done first!");
+        }
+
+        // Adds the current deck to the stack of deckHistory
+        ArrayList<Deck> curr = decks;
+        addCurrDecksToDeckHistory();
+
+        // Remove the last deck from history and makes it the curr list of Decks
+        ArrayList<Deck> newCurr = undoHistory.pop();
+        this.decks = newCurr;
+        for (Deck d : decks) {
+            System.out.println(d.getDeckName());
+        }
     }
 }

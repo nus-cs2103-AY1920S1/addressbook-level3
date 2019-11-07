@@ -16,6 +16,8 @@ import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.NoDeckHistoryException;
+import dream.fcard.model.exceptions.NoUndoHistoryException;
 import dream.fcard.util.RegexUtil;
 
 /**
@@ -52,7 +54,7 @@ public enum Responses {
                     }
 
                     if (!validCommand) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command! "
                                 + "Type 'help' for the UserGuide'.");
                     }
                     return true;
@@ -87,7 +89,7 @@ public enum Responses {
                     return true;
                 }
     ),
-    EXPORT (
+    EXPORT(
             RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
@@ -110,6 +112,7 @@ public enum Responses {
                 i -> {
                     String deckName = i.split("(?i)deck/\\s*")[1];
                     if (StateHolder.getState().hasDeckName(deckName) == -1) {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         StateHolder.getState().addDeck(deckName);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                         Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
@@ -117,7 +120,7 @@ public enum Responses {
                         try {
                             StorageManager.writeDeck(StateHolder.getState().getDeck(deckName));
                         } catch (DeckNotFoundException e) {
-                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try "
                                     + " again when you shut me down.");
                         }
 
@@ -152,6 +155,7 @@ public enum Responses {
                     }
 
                     try {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                     } catch (DuplicateInChoicesException dicExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
@@ -210,6 +214,7 @@ public enum Responses {
                         return true;
                     }
 
+                    StateHolder.getState().addCurrDecksToDeckHistory();
                     // Todo: Actual implementation below
                     return true;
                 }
@@ -360,6 +365,37 @@ public enum Responses {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to specify a deck.");
                     return true;
                 } //todo
+    ),
+    UNDO(
+            "^((?i)undo)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    try {
+                        StateHolder.getState().undoDeckChanges();
+                        StorageManager.writeDecks(StateHolder.getState().getDecks());
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        return true;
+                    } catch (NoDeckHistoryException ndhExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, ndhExc.getMessage());
+                        return true;
+                    }
+                }
+    ),
+    REDO(
+            "^((?i)redo)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    try {
+                        StateHolder.getState().redoDeckChanges();
+                        StorageManager.writeDecks(StateHolder.getState().getDecks());
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+
+                        return true;
+                    } catch (NoUndoHistoryException nuhExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, nuhExc.getMessage());
+                        return true;
+                    }
+                }
     ),
 
 
