@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.ui;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
@@ -54,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private String currentTab;
+    private Boolean isSearchLoading = false;
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
@@ -173,6 +174,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBox.setMainWindow(this);
 
         watchlistButton.getStyleClass().removeAll("button");
         watchlistButton.getStyleClass().add("button-current");
@@ -303,39 +305,66 @@ public class MainWindow extends UiPart<Stage> {
             throws CommandException, ParseException, OnlineConnectionException {
         try {
             switch (currentTab) {
-            case (MAIN_TAB):
-                logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
-                break;
-            case (WATCHED_TAB):
-                logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
-                break;
-            case (SEARCH_TAB):
-                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
-                break;
-            case (STATISTICS_TAB):
-                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
-                break;
-            default:
-                break;
+                case (MAIN_TAB):
+                    logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
+                    break;
+                case (WATCHED_TAB):
+                    logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
+                    break;
+                case (SEARCH_TAB):
+                    logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                    break;
+                case (STATISTICS_TAB):
+                    logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                    break;
+                default:
+                    break;
             }
+            if (commandText.split(" ")[0].toLowerCase().equals("search")) {
+                isSearchLoading = true;
+                contentPanelPlaceholder.getChildren().clear();
+                contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+                Task<CommandResult> task = new Task<CommandResult>() {
+                    @Override
+                    protected CommandResult call() throws Exception {
+                        return logic.execute(commandText);
+                    }
+                };
+                task.setOnSucceeded(evt -> {
+                    isSearchLoading = false;
+                    contentPanelPlaceholder.getChildren().clear();
+                    contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+                    currentTab = SEARCH_TAB;
+                    move(currentButton, searchButton);
+                    currentButton = searchButton;
+                    CommandResult commandResult = task.getValue();
+                    System.out.println(commandResult);
+                    logger.info("Result: " + commandResult.getFeedbackToUser());
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                });
+                new Thread(task).start();
+                return null;
+            } else {
+                CommandResult commandResult = logic.execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
 
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                return commandResult;
             }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            return commandResult;
-            //catch ParseException here to implement spellcheck
+        //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
             throw e;
         }
     }
@@ -371,8 +400,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToSearch() {
-        contentPanelPlaceholder.getChildren().clear();
-        contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        if (isSearchLoading) {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+        } else {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        }
         currentTab = SEARCH_TAB;
         move(currentButton, searchButton);
         currentButton = searchButton;
@@ -465,4 +499,7 @@ public class MainWindow extends UiPart<Stage> {
         b.getStyleClass().add("button-current");
     }
 
+    public String getCurrentTab() {
+        return currentTab;
+    }
 }
