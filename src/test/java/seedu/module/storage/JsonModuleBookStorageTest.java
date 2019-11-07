@@ -16,6 +16,7 @@ import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.util.SampleDataUtil;
 import seedu.module.testutil.ArchivedModuleBuilder;
 
 public class JsonModuleBookStorageTest {
@@ -47,8 +48,9 @@ public class JsonModuleBookStorageTest {
     }
 
     @Test
-    public void read_missingFile_returnNewModuleBook() {
-        assertEquals(readModuleBook("NonExistentFile.json"), new ModuleBook(ARCHIVED_MODULE_LIST));
+    public void read_missingFile_returnSampleModuleBook() {
+        assertEquals(readModuleBook("NonExistentFile.json"), SampleDataUtil.getSampleModuleBook(
+            ARCHIVED_MODULE_LIST));
     }
 
     @Test

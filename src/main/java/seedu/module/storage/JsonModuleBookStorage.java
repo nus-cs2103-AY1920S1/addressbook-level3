@@ -15,6 +15,7 @@ import seedu.module.commons.util.JsonUtil;
 import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.model.util.SampleDataUtil;
 
 /**
  * A class to access ModuleBook data stored as a json file on the hard disk.
@@ -54,8 +55,9 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
         try {
             Optional<JsonSerializableModuleBook> jsonModuleBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableModuleBook.class);
-            if (!jsonModuleBook.isPresent()) {
-                throw new Exception();
+            if (jsonModuleBook.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ModuleBook");
+                return SampleDataUtil.getSampleModuleBook(archivedModules);
             }
             moduleBook = jsonModuleBook.get().toModelType(archivedModules);
         } catch (DataConversionException e) {
@@ -63,10 +65,6 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
             moduleBook = new ModuleBook(archivedModules);
         } catch (IllegalValueException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ModuleBook");
-            moduleBook = new ModuleBook(archivedModules);
-        } catch (Exception e) {
-            //TODO Unique Exception
-            logger.warning("Data file not found. Will be starting with an empty ModuleBook");
             moduleBook = new ModuleBook(archivedModules);
         }
 
