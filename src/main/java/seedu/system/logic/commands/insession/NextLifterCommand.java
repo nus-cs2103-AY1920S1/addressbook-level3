@@ -42,7 +42,7 @@ public class NextLifterCommand extends Command {
         } catch (NoOngoingSessionException | IncompleteAttemptSubmissionException e) {
             return new CommandResult(e.getMessage());
         } catch (PreviousAttemptNotDoneException e) {
-            return new CommandResult(e.getMessage() + MESSAGE_NEXT_LIFTER + following.toString());
+            return new CommandResult(e.getMessage() + followingAttemptToString());
         } catch (CompetitionEndedException e) {
             return new CommandResult(e.getMessage());
         }
