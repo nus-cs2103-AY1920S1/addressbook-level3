@@ -600,6 +600,9 @@ Format: `genReportSummary (yourSignatureName)`
 // end::documentGeneration[]
 
 === Administrative
+
+// tag::stats[]
+
 ==== View admission statistics: `stats`
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
@@ -626,6 +629,8 @@ image::statsMonth.png[width="790"]
 The line chart will display statistics for the year specified. In this case is it 2019.
 
 image::statsYear.png[width="790"]
+
+// end::stats[]
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
