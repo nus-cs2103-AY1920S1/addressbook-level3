@@ -59,6 +59,7 @@ features' `list` commands.
 
 You can learn more about the individual GUIs and commands in the coming sections.
 
+{sp} +
 
 == Features
 
