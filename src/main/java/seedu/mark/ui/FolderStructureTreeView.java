@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
@@ -54,19 +55,22 @@ public class FolderStructureTreeView extends UiPart<Region> {
         });
         treeView.setRoot(root);
         treeView.setShowRoot(false);
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // Do nothing when selection is cleared
-            if (newValue == null) {
-                return;
-            }
-            if (!mapOfTreeItemToUrl.containsKey(newValue)) {
-                return;
-            }
-            logger.info("Selection in folder structure tree view changed to: " + newValue);
-            currentUrlChangeHandler.accept(mapOfTreeItemToUrl.get(newValue));
-        });
-    }
 
+        // Update current bookmark url when a bookmark is clicked
+        treeView.setOnMouseClicked(click -> {
+            if (click.getClickCount() == 2) {
+                setNewUrl(currentUrlChangeHandler);
+            }
+        });
+
+        // Update current bookmark url when a bookmark is clicked
+        treeView.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                setNewUrl(currentUrlChangeHandler);
+            }
+        });
+
+    }
 
     /**
      * Builds the tree.
@@ -184,5 +188,15 @@ public class FolderStructureTreeView extends UiPart<Region> {
             // if it's not expanded we got nothing to collapse.
             return 0;
         }
+    }
+
+    private void setNewUrl(Consumer<Url> currentUrlChangeHandler) {
+        TreeItem<String> treeItem = treeView.getSelectionModel().getSelectedItem();
+        // Do nothing when selection is cleared
+        if (treeItem == null || !mapOfTreeItemToUrl.containsKey(treeItem)) {
+            return;
+        }
+        logger.info("Selection in folder structure tree view changed to: " + treeItem);
+        currentUrlChangeHandler.accept(mapOfTreeItemToUrl.get(treeItem));
     }
 }
