@@ -62,13 +62,15 @@ public class DeleteFlashcardCommand extends Command {
                 + "\n" + flashcardToDelete
                 + "\n" + String.format(MESSAGE_CONFIRM_DELETE, this.targetIndex.getOneBased())));
 
-        if (CommandHistory.getLastCommand().get() instanceof DeleteFlashcardCommand) {
-            if (((DeleteFlashcardCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
-                    .equals(this.targetIndex)) {
-                // correct. allow delete
-                model.deleteFlashcard(flashcardToDelete);
-                commandResult = new FlashcardCommandResult(String.format
-                        (MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+        if (CommandHistory.getLastCommand().isPresent()) {
+            if (CommandHistory.getLastCommand().get() instanceof DeleteFlashcardCommand) {
+                if (((DeleteFlashcardCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
+                        .equals(this.targetIndex)) {
+                    // correct. allow delete
+                    model.deleteFlashcard(flashcardToDelete);
+                    commandResult = new FlashcardCommandResult(String.format
+                            (MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+                }
             }
         }
         return commandResult;

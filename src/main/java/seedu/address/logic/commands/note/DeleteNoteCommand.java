@@ -55,13 +55,15 @@ public class DeleteNoteCommand extends Command {
                 + "\n" + noteToDelete
                 + "\n" + String.format(MESSAGE_CONFIRM_DELETE, this.targetIndex.getOneBased())));
 
-        if (CommandHistory.getLastCommand().get() instanceof DeleteNoteCommand) {
-            if (((DeleteNoteCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
-                    .equals(this.targetIndex)) {
-                // correct. allow delete
-                model.deleteNote(noteToDelete);
-                commandResult = new NoteCommandResult(String.format
-                        (MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+        if (CommandHistory.getLastCommand().isPresent()) {
+            if (CommandHistory.getLastCommand().get() instanceof DeleteNoteCommand) {
+                if (((DeleteNoteCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
+                        .equals(this.targetIndex)) {
+                    // correct. allow delete
+                    model.deleteNote(noteToDelete);
+                    commandResult = new NoteCommandResult(String.format
+                            (MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+                }
             }
         }
         return commandResult;

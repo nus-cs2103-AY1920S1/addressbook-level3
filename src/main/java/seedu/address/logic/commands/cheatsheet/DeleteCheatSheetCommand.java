@@ -55,13 +55,15 @@ public class DeleteCheatSheetCommand extends Command {
                 + "\n" + cheatsheetToDelete
                 + "\n" + String.format(MESSAGE_CONFIRM_DELETE, this.targetIndex.getOneBased())));
 
-        if (CommandHistory.getLastCommand().get() instanceof DeleteCheatSheetCommand) {
-            if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
-                    .equals(this.targetIndex)) {
-                // correct. allow delete
-                model.deleteCheatSheet(cheatsheetToDelete);
-                commandResult = new CheatSheetCommandResult(String.format
-                        (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+        if (CommandHistory.getLastCommand().isPresent()) {
+            if (CommandHistory.getLastCommand().get() instanceof DeleteCheatSheetCommand) {
+                if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
+                        .equals(this.targetIndex)) {
+                    // correct. allow delete
+                    model.deleteCheatSheet(cheatsheetToDelete);
+                    commandResult = new CheatSheetCommandResult(String.format
+                            (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+                }
             }
         }
         return commandResult;
