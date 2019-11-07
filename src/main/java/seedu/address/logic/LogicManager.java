@@ -12,6 +12,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EventCommand;
+import seedu.address.logic.commands.PerformanceCommand;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AthletickParser;
@@ -51,6 +53,9 @@ public class LogicManager implements Logic {
         if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand
             || command instanceof EditCommand) {
             history.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        }
+        if (command instanceof EventCommand || command instanceof PerformanceCommand) {
+            history.getPerformances().push(model.getPerformanceDeepCopy());
         }
         history.getCommands().push(command);
         history.getAddressBooks().push(model.getAthletickDeepCopy());

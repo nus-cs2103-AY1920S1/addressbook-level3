@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Athletick;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
@@ -53,6 +54,10 @@ public class PerformanceCommand extends Command {
             + d.toString() + " with a timing of " + t.toString();
     }
 
+    public AthletickDate getDate() {
+        return this.date;
+    }
+    
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -82,7 +87,7 @@ public class PerformanceCommand extends Command {
 
     @Override
     public boolean isUndoable() {
-        return false;
+        return true;
     }
     @Override
     public String toString() {

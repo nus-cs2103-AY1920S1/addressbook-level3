@@ -19,6 +19,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EventCommand;
+import seedu.address.logic.commands.PerformanceCommand;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
@@ -147,6 +149,32 @@ public class ModelManager implements Model {
         return deepCopy;
     }
     @Override
+    public ReadOnlyPerformance getPerformanceDeepCopy() {
+        List<Event> originalEvents = this.performance.getPerformance();
+        List<Event> eventsCopy = getEventsDeepCopy(originalEvents);
+        Performance performanceCopy = new Performance();
+        performanceCopy.setEvents(eventsCopy);
+        return performanceCopy;
+    }
+    @Override
+    public List<Event> getEventsDeepCopy(List<Event> originalEvents) {
+        List<Event> eventsCopy = new ArrayList<>();
+        for (Event originalEvent: originalEvents) {
+            eventsCopy.add(getEventDeepCopy(originalEvent));
+        }
+        return eventsCopy;
+    }
+    @Override
+    public Event getEventDeepCopy(Event originalEvent) {
+        HashMap<Person, List<Record>> hashMapCopy = new HashMap<>();
+        for (Map.Entry<Person, List<Record>> entry: originalEvent.getRecords().entrySet()) {
+            hashMapCopy.put(entry.getKey(),
+                new ArrayList<Record>(entry.getValue()));
+        }
+        Event eventCopy = new Event(originalEvent.getName(), hashMapCopy);
+        return eventCopy;
+    }
+    @Override
     public Command undo() {
         Command undoneCommand = this.history.getCommands().pop();
         ReadOnlyAthletick undoneAthletick = this.history.getAddressBooks().pop();
@@ -168,13 +196,17 @@ public class ModelManager implements Model {
             List<Training> afterUndoneTrainingList =
                 this.getTrainingsDeepCopy(this.history.getTrainingLists().peek());
             attendance.resetTrainingList(afterUndoneTrainingList);
+        } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand) {
+            ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
+            this.history.getUndonePerformances().push(undonePerformance);
+            ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
+            this.performance.resetData(afterUndonePerformance);
         } else {
             ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
             athletick.resetData(afterUndoneState);
         }
         return undoneCommand;
     }
-
     @Override
     public Command redo() {
         Command redoneCommand = this.history.getUndoneCommands().pop();
@@ -190,6 +222,10 @@ public class ModelManager implements Model {
             this.history.getTrainingLists().push(redoneTrainingLists);
             attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
             athletick.resetData(redoneAthletick);
+        } else if (redoneCommand instanceof EventCommand || redoneCommand instanceof PerformanceCommand) {
+            ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
+            this.history.getPerformances().push(redonePerformance);
+            this.performance.resetData(redonePerformance);
         } else {
             athletick.resetData(redoneAthletick);
         }

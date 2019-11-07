@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Performance;
 import seedu.address.model.history.HistoryManager;
 
 /**
@@ -37,6 +38,9 @@ public class UndoCommand extends Command {
         } else if (undoneCommand instanceof DeleteTrainingCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!", ((DeleteTrainingCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof PerformanceCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((PerformanceCommand) undoneCommand).getDate(), model);
         } else {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!");

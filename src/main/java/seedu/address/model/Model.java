@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -69,11 +70,20 @@ public interface Model {
     /** Returns deep copy of Athletick */
     ReadOnlyAthletick getAthletickDeepCopy();
     
-    /** Returns deep copy of trainings */
+    /** Returns deep copy of Trainings under Attendance*/
     List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
     
-    /** Returns deep copy of hashmap */
+    /** Returns deep copy of HashMap under Training */
     HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    
+    /** Returns deep copy of Performance */
+    ReadOnlyPerformance getPerformanceDeepCopy();
+    
+    /** Returns deep copy of Events under Performance*/
+    List<Event> getEventsDeepCopy(List<Event> originalEvents);
+    
+    /** Returns deep copy of HashMap under Event */
+    Event getEventDeepCopy(Event originalEvent);
     
     /** Returns Command that is being undone*/
     Command undo();

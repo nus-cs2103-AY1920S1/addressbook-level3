@@ -7,6 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.model.Model;
 import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAthletick;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.training.Training;
 
 /**
@@ -19,13 +20,14 @@ public class HistoryManager {
     private Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
     private Stack<List<Training>> trainingLists = new Stack<>();
     private Stack<List<Training>> undoneTrainingLists = new Stack<>();
-    private Stack<Performance> performances = new Stack<>();
-    private Stack<Performance> undonePerformances = new Stack<>();
+    private Stack<ReadOnlyPerformance> performances = new Stack<>();
+    private Stack<ReadOnlyPerformance> undonePerformances = new Stack<>();
     
     public HistoryManager() {}
     public void init(Model model) {
         this.addressBooks.push(model.getAthletickDeepCopy());
         this.trainingLists.push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        this.performances.push(model.getPerformance());
     }
     public Command getLatestCommand() {
         return commands.peek();
@@ -54,10 +56,10 @@ public class HistoryManager {
     public boolean isRedoneEmpty() {
         return this.undoneCommands.empty();
     }
-    public Stack<Performance> getPerformances() {
+    public Stack<ReadOnlyPerformance> getPerformances() {
         return this.performances;
     }
-    public Stack<Performance> getUndonePerformances() {
+    public Stack<ReadOnlyPerformance> getUndonePerformances() {
         return this.undonePerformances;
     }
 }
