@@ -9,6 +9,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
+/**
+ * Represents a {@code Graph} that supports commands that accept a preamble only.
+ */
 public abstract class GraphWithPreamble extends Graph {
 
     private List<?> dataList;

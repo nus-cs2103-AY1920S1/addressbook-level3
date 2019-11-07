@@ -18,6 +18,9 @@ import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code AddScheduleCommand}.
+ */
 public class AddScheduleGraph extends GraphWithStartNode {
 
     public AddScheduleGraph(Model model) {

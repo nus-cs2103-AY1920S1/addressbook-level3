@@ -18,6 +18,9 @@ import seedu.address.logic.nodes.customer.CustomerTagNode;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code AddCustomerCommand}.
+ */
 public class AddCustomerGraph extends GraphWithStartNode {
 
     public AddCustomerGraph(Model model) {

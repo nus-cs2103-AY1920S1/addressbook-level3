@@ -18,6 +18,9 @@ import seedu.address.logic.nodes.order.OrderTagNode;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code AddOrderCommand}.
+ */
 public class AddOrderGraph extends GraphWithStartNode {
 
     public AddOrderGraph(Model model) {

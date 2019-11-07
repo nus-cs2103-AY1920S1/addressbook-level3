@@ -26,6 +26,9 @@ import seedu.address.logic.nodes.phone.PhoneTagNode;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code AddPhoneCommand}.
+ */
 public class AddPhoneGraph extends GraphWithStartNode {
 
     public AddPhoneGraph(Model model) {

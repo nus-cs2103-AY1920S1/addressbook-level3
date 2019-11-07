@@ -16,6 +16,9 @@ import seedu.address.logic.nodes.stats.StatsTypeNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code StatsCommand}.
+ */
 public class GenerateStatsGraph extends GraphWithStartNode {
 
     public GenerateStatsGraph(Model model) {

@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 
+/**
+ * Represents a {@code Graph} that supports commands that accept arguments only.
+ */
 public abstract class GraphWithStartNode extends Graph {
 
     private Node<?> startingNode;

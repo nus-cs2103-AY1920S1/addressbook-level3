@@ -1,5 +1,13 @@
 package seedu.address.logic.graphs;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
+
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.logic.Edge;
 import seedu.address.logic.GraphWithStartNodeAndPreamble;
 import seedu.address.logic.Node;
@@ -10,14 +18,9 @@ import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
-
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code EditScheduleCommand}.
+ */
 public class EditScheduleGraph extends GraphWithStartNodeAndPreamble {
 
     public EditScheduleGraph(Model model) {

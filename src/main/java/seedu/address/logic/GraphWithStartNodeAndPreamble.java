@@ -1,13 +1,16 @@
 package seedu.address.logic;
 
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+
+/**
+ * Represents a {@code Graph} that supports commands that accept both a preamble and arguments.
+ */
 public abstract class GraphWithStartNodeAndPreamble extends GraphWithStartNode {
 
     private List<?> dataList;

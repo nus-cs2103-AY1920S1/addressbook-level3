@@ -21,6 +21,9 @@ public abstract class Graph {
         build(model);
     }
 
+    /**
+     * Returns an empty {@code Graph}.
+     */
     public static Graph emptyGraph(Model model) {
         if (emptyGraph == null) {
             emptyGraph = new Graph(model) {
