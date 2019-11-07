@@ -51,7 +51,7 @@ public class OutCommandParser implements Parser<OutCommand> {
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         if (categoryList.isEmpty()) {
-            categoryList.add(new Category("Uncategorised"));
+            categoryList.add(Category.GENERAL);
         }
 
         BankAccountOperation transaction = new OutTransaction(amount, date, description, categoryList);
