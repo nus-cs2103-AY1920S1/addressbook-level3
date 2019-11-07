@@ -72,6 +72,32 @@ public class MainWindow extends Window {
     }
 
     /**
+     * Shows history of results as a line graph. Loads the window components for line graph.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleHistory() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("No past results were found.");
+        }
+    }
+
+    /**
+     * Shows results of latest quiz attempted as a pie chart. Loads the window components for pie chart.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleStats() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("You have not attempted any quiz yet.");
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -143,6 +169,14 @@ public class MainWindow extends Window {
 
             if (commandResult.isShowRestore()) {
                 handleRestore(commandResult.getModel());
+            }
+
+            if (commandResult.isShowHistory()) {
+                handleHistory();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats();
             }
 
             return commandResult;

@@ -1,5 +1,7 @@
 package seedu.revision.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -16,7 +18,9 @@ import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.logic.parser.quiz.QuizCommandParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 import seedu.revision.storage.Storage;
 
 /**
@@ -26,7 +30,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    protected final Model model;
+    private final Model model;
     private final Storage storage;
     private final MainParser mainParser;
 
@@ -49,6 +53,7 @@ public class LogicManager implements Logic {
             //We can deduce that the previous line of code modifies model in some way
             //since it's being stored here.
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveHistory(model.getHistory());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -80,11 +85,30 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyHistory getHistory() {
+        return model.getHistory();
+    }
+
+    /**
+     * Updates the history of quiz statistics.
+     * @param newResult model is updated with new quiz statistics.
+     */
+    @Override
+    public void updateHistory(Statistics newResult) {
+        requireNonNull(newResult);
+        model.addStatistics(newResult);
+    }
+
+    @Override
     public ObservableList<Answerable> getFilteredAnswerableList() {
         return model.getFilteredAnswerableList();
     }
 
     @Override
+    public ObservableList<Statistics> getStatisticsList() {
+        return model.getStatisticsList();
+    }
+
     public ObservableList<Answerable> getFilteredSortedAnswerableList() {
         return model.getFilteredAnswerableList().sorted(Comparator.comparing(a -> a.getDifficulty()));
     }
@@ -97,6 +121,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getHistoryFilePath() {
+        return model.getHistoryFilePath();
     }
 
     @Override
