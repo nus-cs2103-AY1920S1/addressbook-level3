@@ -10,9 +10,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_NAME = "The person name provided does not exist";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_CRITICAL_ERROR = "Internal Error!";
-    public static final String MESSAGE_INVALID_YEAR_OF_STUDY =
-            "The year of study must be a positive integer within the range [0, 2^31 - 1].\n"
+    public static final String MESSAGE_INVALID_YEAR_OF_STUDY = "Incorrect year of study format! "
+            + "The year of study must be a positive integer within the range [0, 2^31 - 1].\n"
             + "Examples:\n"
-            + "Correct: '2019'\n"
-            + "Incorrect: '-1'";
+            + "Correct: 2019\n"
+            + "Incorrect: -1";
 }

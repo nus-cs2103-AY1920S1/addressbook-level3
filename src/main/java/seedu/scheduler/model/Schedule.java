@@ -264,7 +264,7 @@ public class Schedule implements Comparable<Schedule> {
 
     @Override
     public int compareTo(Schedule other) {
-        SimpleDateFormat format = new SimpleDateFormat(Slot.DATE_PARSE_PATTERN);
+        SimpleDateFormat format = new SimpleDateFormat(Slot.DATETIME_PARSE_PATTERN);
 
         try {
             Date dateObject = format.parse(date);

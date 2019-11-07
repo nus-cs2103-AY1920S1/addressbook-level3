@@ -9,10 +9,10 @@ import static seedu.scheduler.commons.util.AppUtil.checkArgument;
 public class Department {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Departments can take any values, but should not be blank.\n"
+            "Incorrect department format! Departments can take any values, but should not be blank.\n"
             + "Examples:\n"
-            + "Correct: 'Logistics'\n"
-            + "Incorrect: ' '";
+            + "Correct: Logistics\n"
+            + "Incorrect: ' ' (blank input)";
     public static final String VALIDATION_REGEX = "[^\\s].*"; // " " will be wrong
     public final String department;
 

@@ -239,6 +239,8 @@ Constraints:
 * Timeslots must obey the allowed values that are specified in the <<User Preferences, User Preferences>>.
 * Duplicate entries of the same interviewee cannot be presented in the CSV file to be imported.
 
+// tag::add[]
+
 === Add interviewees/interviewers manually `add`
 Manually add a new entity to the database. The command format differs on the `r/ROLE` prefix supplied:
 
@@ -258,19 +260,26 @@ Example:
 ====
 Constraints:
 
+* A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
+* A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
+* A `f/FACULTY` can take any value in english, but should not be blank.
+* A `y/YEAR_OF_STUDY` must be a positive integer.
+* A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
+** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
+** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
+* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
 * The duration of a `s/SLOT` must follow these constraints:
 ** A duration must be in 24-hour format.
 ** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and only start at the start of a new hour or new half-hour
-(i.e 13:00 is a valid start duration, while 13:10 is not).
-** The time elapsed from the start duration to end duration must follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>>.
+** The start duration must be earlier than the end duration, and be in increments of `duration`.
+The time elapsed from the start duration to end duration must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
-
 
 ==== Adding a new interviewer
 Manually add a new interviewer to the database.
@@ -284,18 +293,28 @@ Example:
 ====
 Constraints:
 
+* A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
+* A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
+* A `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
+** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
+** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
+* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
 * The duration of a `s/SLOT` must follow these constraints:
 ** A duration must be in 24-hour format.
 ** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and only start at the start of a new hour or new half-hour
-(i.e 13:00 is a valid start duration, while 13:10 is not).
-** The time elapsed from the start duration to end duration must follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>>.
+** The start duration must be earlier than the end duration, and be in increments of `duration`.
+The time elapsed from the start duration to end duration must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
+
+// end::add[]
+
+// tag::edit[]
 
 === Edit interviewees/interviewers manually `edit`
 Manually edit an entity in the database. The command format depends on the `r/ROLE` prefix supplied:
@@ -326,16 +345,24 @@ Constraints:
 * `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
 * At least one optional argument must be supplied, i.e `edit NAME r/interviewee` is not valid input.
 
+* A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
+* A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
+* A `f/FACULTY` can take any value in english, but should not be blank.
+* A `y/YEAR_OF_STUDY` must be a positive integer.
+* A `ep/PERSONAL_EMAIL` or `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
+** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
+** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
+* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
 * The duration of a `s/SLOT` must follow these constraints:
 ** A duration must be in 24-hour format.
 ** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and only start at the start of a new hour or new half-hour
-(i.e 13:00 is a valid start duration, while 13:10 is not).
-** The time elapsed from the start duration to end duration must follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>>.
+** The start duration must be earlier than the end duration, and be in increments of `duration`.
+The time elapsed from the start duration to end duration must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
 
@@ -360,18 +387,28 @@ Constraints:
 * `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
 * At least one optional argument must be supplied, i.e `edit NAME r/interviewer` is not valid input.
 
+* A `n/NAME` must only contain alphanumeric characters and spaces, and should not be blank.
+* A `p/PHONE` must only contain numbers, and should be at least 3 digits long.
+* A `ew/NUS_WORK_EMAIL` must be of format local-part@domain.
+** The local-part must only contain alphanumeric characters and special characters ( !#$%&'*+/=?`{|}~^.- ), excluding the parenthesis.
+** The domain name must at least be 2 characters long, start and end with alphanumeric characters and consist of alphanumeric characters, with a period or a hyphen for the characters in-between, if any.
+* A `d/DEPARTMENT` can take any value in english, but should not be blank.
+* A `t/TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
 * The duration of a `s/SLOT` must follow these constraints:
 ** A duration must be in 24-hour format.
 ** The range of durations available for input must be within <<Working Hours, Working Hours>>.
-** The start duration must be earlier than the end duration, and only start at the start of a new hour or new half-hour
-(i.e 13:00 is a valid start duration, while 13:10 is not).
-** The time elapsed from the start duration to end duration must follow the number of minutes as specified
-by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>>.
+** The start duration must be earlier than the end duration, and be in increments of `duration`.
+The time elapsed from the start duration to end duration must also follow the number of minutes as specified
+by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
+
+// end::edit[]
+
+// tag::delete[]
 
 === Delete interviewees/interviewers manually `delete`
 Manually delete an entity from the database.
@@ -414,6 +451,8 @@ Constraints:
 * The interviewer with `NAME` must exist in the Scheduler.
 
 ====
+
+// end::delete[]
 
 === UI Display
 

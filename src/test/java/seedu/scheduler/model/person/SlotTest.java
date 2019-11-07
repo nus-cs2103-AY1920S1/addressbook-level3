@@ -37,7 +37,10 @@ class SlotTest {
         assertFalse(Slot.isValidSlot("16/10/2019 0000-0001")); // incorrect time format
         assertFalse(Slot.isValidSlot("16/10/2019 00:00 - 00:01")); // incorrect spacing
         assertFalse(Slot.isValidSlot("00/10/2019 00:00-00:01")); // incorrect date format
-        assertFalse(Slot.isValidSlot("01/10/2019 24:59-24:60")); // incorrect time format
+        assertFalse(Slot.isValidSlot("29/02/2019 00:00-00:01")); // incorrect date format
+        assertFalse(Slot.isValidSlot("30/02/2019 00:00-00:01")); // incorrect date format
+        assertFalse(Slot.isValidSlot("31/02/2019 00:00-00:01")); // incorrect date format
+        assertFalse(Slot.isValidSlot("01/10/2019 23:59-24:00")); // incorrect time format
 
         // valid slot
         assertTrue(Slot.isValidSlot(String.format(Slot.STRING_FORMAT, "16/10/2019", "00:00", "23:59")));

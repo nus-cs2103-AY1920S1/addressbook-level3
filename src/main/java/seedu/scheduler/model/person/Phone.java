@@ -10,8 +10,11 @@ import static seedu.scheduler.commons.util.AppUtil.checkArgument;
 public class Phone {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect phone format! "
+            + "Phone numbers should only contain numbers, and it should be at least 3 digits long.\n"
+            + "Examples:\n"
+            + "Correct: 90091234\n"
+            + "Incorrect: +65 90091234";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 

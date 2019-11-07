@@ -9,7 +9,12 @@ import static seedu.scheduler.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect tag format! Tag descriptions should be alphanumeric.\n"
+            + "Constraints:\n"
+            + "A tag should be one word only.\n"
+            + "Examples:\n"
+            + "Correct: catLover\n"
+            + "Incorrect: cat lover";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
