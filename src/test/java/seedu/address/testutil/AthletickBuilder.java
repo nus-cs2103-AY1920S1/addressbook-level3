@@ -4,9 +4,9 @@ import seedu.address.model.Athletick;
 import seedu.address.model.person.Person;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Athletick objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code Athletick a = new AthletickBuilder().withPerson("John", "Doe").build();}
  */
 public class AthletickBuilder {
 
@@ -16,8 +16,8 @@ public class AthletickBuilder {
         athletick = new Athletick();
     }
 
-    public AthletickBuilder(Athletick addressBook) {
-        this.athletick = addressBook;
+    public AthletickBuilder(Athletick athletick) {
+        this.athletick = athletick;
     }
 
     /**

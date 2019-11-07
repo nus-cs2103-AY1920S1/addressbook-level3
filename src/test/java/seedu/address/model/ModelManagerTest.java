@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAthletickFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setAthletickFilePath(Paths.get("athletick/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAthletickFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setAthletickFilePath(Paths.get("new/athletick/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 

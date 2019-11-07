@@ -77,7 +77,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Class constructor that constructs calendar for provided date.
+     * Class constructor that constructs calendar for provided {@code date}.
      * @param date Date
      * @param model Represents memory of Athletick
      */
@@ -105,7 +105,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates button ImageView in desired dimensions.
+     * Creates image for button in desired dimensions.
      * @param image Image to be used
      * @return ImageView in desired dimensions
      */
@@ -137,7 +137,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Assigns month and year using the provided date.
+     * Assigns month and year using the provided {@code date}.
      * @param date Date
      */
     private void retrieveProvidedDate(AthletickDate date) {
@@ -161,7 +161,9 @@ public class CalendarPanel extends UiPart<Region> {
 
     /**
      * Updates month and year variables based on the provided monthChange.
-     * @param monthChange
+     * @param monthChange Represents difference in month from current month. e.g. -1
+     *                    indicates previous month, 1 indicates the next month and 0 indicates
+     *                    the current month
      */
     private void updateDateVariables(int monthChange) {
         calendar.add(Calendar.MONTH, monthChange);
@@ -299,7 +301,9 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Constructs a calendar with the given month. Year will be updated as well if required.
      * @param currMonth Current month
-     * @param monthChange Difference between desired month and current month
+     * @param monthChange Represents difference in month from current month. e.g. -1
+     *                    indicates previous month, 1 indicates the next month and 0 indicates
+     *                    the current month
      * @return Calendar with desired month and year.
      */
     private Calendar calendarConstructor(int currMonth, int monthChange) {
@@ -421,8 +425,9 @@ public class CalendarPanel extends UiPart<Region> {
      * Checks if there is a performance entry on a particular AthletickDate constructed using the
      * visible calendar dates.
      * @param day Day
-     * @param monthChange Used for days shown from previous and next month that fill up the
-     *                    remaining tail and lead gaps
+     * @param monthChange Represents difference in month from current month. e.g. -1
+     *                    indicates previous month, 1 indicates the next month and 0 indicates
+     *                    the current month
      * @return boolean True if there is a performance entry on that date, false otherwise.
      */
     private boolean checkPerformanceEntryExists(String day, int monthChange) {
@@ -445,8 +450,9 @@ public class CalendarPanel extends UiPart<Region> {
      * Checks if there is a training entry on a particular AthletickDate constructed using the
      * visible calendar dates.
      * @param day Day
-     * @param monthChange Used for days shown from previous and next month that fill up the
-     *                    remaining tail and lead gaps
+     * @param monthChange Represents difference in month from current month. e.g. -1
+     *                    indicates previous month, 1 indicates the next month and 0 indicates
+     *                    the current month
      * @return boolean True if there is a training entry on that date, false otherwise.
      */
     private boolean checkTrainingEntryExists(String day, int monthChange) {
@@ -458,8 +464,9 @@ public class CalendarPanel extends UiPart<Region> {
      * Constructs AthletickDate using provided day and monthChange for methods
      * checkTrainingEntryExists() and checkPerformanceEntryExists().
      * @param day Day
-     * @param monthChange Different between current month and desired month. Used to account for
-     *                    days of previous and next month
+     * @param monthChange Represents difference in month from current month. e.g. -1
+     *                    indicates previous month, 1 indicates the next month and 0 indicates
+     *                    the current month
      * @return AthletickDate with desired day, month and year.
      */
     private AthletickDate dateConstructor(String day, int monthChange) {
@@ -528,7 +535,8 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates VBox with desired settings that will contain all items for each individual grid.
+     * Creates {@code VBox} with desired settings that will contain all items for each
+     * individual grid.
      * @return VBox with desired settings.
      */
     private VBox createGridContentHolder() {
@@ -543,7 +551,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     /**
      * Combines training and performance indicators together when a date has both training and
-     *  performance records.
+     * performance records.
      * @param items Dot indicators
      * @return HBox with indicators placed inside with appropriate margins between indicators.
      */
@@ -558,7 +566,8 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates a HBox with the desired settings to contain the 2 indicators beside each other.
+     * Creates a {@code HBox} with the desired settings to contain the 2 indicators beside each
+     * other.
      * @return HBox with desired settings
      */
     private HBox createCombineIndicatorHolder() {
@@ -571,7 +580,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates a VBox with the desired settings to contain a single indicator.
+     * Creates a {@VBox} with the desired settings to contain a single indicator.
      * @return VBox with desired settings
      */
     private VBox createIndicatorHolder() {
