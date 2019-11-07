@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
 import seedu.savenus.model.util.TimeStamp;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
@@ -39,15 +40,16 @@ public class WithdrawCommand extends Command {
         requireNonNull(model);
 
         try {
-            model.addToHistory(this.withdrawalAmount); // after this command, the value of withdrawals are negative.
-            model.withdrawFromSavings(this.withdrawalAmount);
+            model.withdrawFromSavings(this.withdrawalAmount); // after this command, money value is negative.
+            model.addToHistory(this.withdrawalAmount);
             RemainingBudget newRemaining = new RemainingBudget(model.getWallet()
                     .getRemainingBudget().getRemainingBudgetAmount()
-                    // Subtract a negative number to add the withdrawn amount into the wallet.
-                    .subtract(this.withdrawalAmount.getSavingsAmount().getAmount())
+                    .add(this.withdrawalAmount.getSavingsAmount().getAmount().abs())
                     .toString());
             model.getWallet().setRemainingBudget(newRemaining);
         } catch (BudgetAmountOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        } catch (InsufficientSavingsException e) {
             throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_WITHDRAW_SUCCESS,

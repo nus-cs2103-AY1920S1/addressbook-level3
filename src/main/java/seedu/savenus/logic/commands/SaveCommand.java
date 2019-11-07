@@ -45,7 +45,6 @@ public class SaveCommand extends Command {
         } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.
             throw new CommandException(e.getMessage());
         }
-
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));
     }
 }

@@ -69,13 +69,16 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
      */
     public void deductFromSavings(Savings savings) throws InsufficientSavingsException {
         // Check whether savings account has enough money.
+        if (savings.isWithdraw()) {
+            savings.makeWithdraw();
+        }
         Money toSubtract = savings.getSavingsAmount();
         Money currentSavingsMoney = this.currentSavings.getCurrentSavingsMoney();
-        Money newSavingsMoney = currentSavingsMoney.add(toSubtract);
-        if (newSavingsMoney.isNegativeValue()) {
+        // Check if current savings is sufficient for the withdrawal amount.
+        if (currentSavingsMoney.getAmount().compareTo(toSubtract.getAmount().abs()) < 0) {
             throw new InsufficientSavingsException();
         } else {
-            currentSavings.setCurrentSavings(newSavingsMoney);
+            currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
         }
     }
 
