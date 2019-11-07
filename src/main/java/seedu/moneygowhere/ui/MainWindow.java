@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
@@ -19,6 +20,7 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -26,7 +28,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindow2.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -63,7 +65,7 @@ public class MainWindow extends UiPart<Stage> {
     private TabPane tabPanePlaceholder;
 
     @FXML
-    private StackPane budgetPanelPlaceholder;
+    private VBox budgetPanelPlaceholder;
 
     @FXML
     private BudgetPanel budgetPanel;
@@ -146,12 +148,14 @@ public class MainWindow extends UiPart<Stage> {
         budgetPanel = bp;
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
 
+        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
+        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
+        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -178,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
     void show() {
         primaryStage.show();
         primaryStage.setMaximized(true);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
     }
 
     /**
@@ -218,24 +222,23 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
             if (commandResult.isShowGraph()) {
-                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser());
-                graphTab.setContent(graphPanel.getRoot());
+                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
             } else {
-                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
-                graphTab.setContent(graphPanel.getRoot());
+                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
             }
+            graphTab.setContent(graphPanel.getRoot());
 
             if (commandResult.isShowStats()) {
-                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser());
-                statsTab.setContent(statsPanel.getRoot());
+                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
             } else {
-                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
-                statsTab.setContent(statsPanel.getRoot());
+                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
             }
-
+            statsTab.setContent(statsPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

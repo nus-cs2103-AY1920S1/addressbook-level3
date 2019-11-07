@@ -13,7 +13,7 @@
         <Scene>
          <VBox>
             <children>
-               <Pane fx:id="paneView" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+               <Pane fx:id="paneView" VBox.vgrow="ALWAYS" />
             </children>
          </VBox>
         </Scene>

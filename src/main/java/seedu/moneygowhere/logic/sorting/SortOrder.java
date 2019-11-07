@@ -1,5 +1,6 @@
 package seedu.moneygowhere.logic.sorting;
 
+//@@author Nanosync
 /**
  * Specifies a sort order.
  */

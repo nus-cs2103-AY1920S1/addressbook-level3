@@ -2,6 +2,7 @@ package seedu.moneygowhere.logic.sorting;
 
 import java.util.Objects;
 
+//@@author Nanosync
 /**
  * Fields for sorting based on an attribute and order.
  */

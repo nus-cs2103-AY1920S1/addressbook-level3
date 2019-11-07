@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.moneygowhere.model.spending.Spending;
 
+//@@author Nanosync
 /**
  * Compares Spending objects.
  */
@@ -57,6 +58,7 @@ public class SpendingComparator implements Comparator<Spending> {
                 throw new IllegalArgumentException("Spending comparator field is unrecognised");
             }
 
+            // Invert the order if the sort order
             if (field.getOrder() == SortOrder.DESCENDING) {
                 rank = -rank;
             }

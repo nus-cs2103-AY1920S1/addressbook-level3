@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.moneygowhere.commons.core.index.Index;
 import seedu.moneygowhere.commons.util.DateUtil;
@@ -32,9 +34,11 @@ import seedu.moneygowhere.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String DATE_INVALID_TOO_FAR = "Date is 5 years too far from now.";
-    public static final String DEADLINE_INVALID_TOO_FAR = "Deadline must be within 5 years from now.";
-    public static final int DATE_TOO_FAR_RANGE = 5;
+    public static final String DATE_INVALID_TOO_FAR = "Date can only be until end of this month.";
+    public static final String DEADLINE_INVALID_FAR_BEHIND = "Deadline is 1 year behind from now";
+    public static final String DEADLINE_INVALID_TOO_FAR = "Deadline must be within 1 years from now.";
+    public static final int DATE_FAR_FORWARD_RANGE = 1;
+    public static final int DATE_FAR_BEHIND_RANGE = 1;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
@@ -111,7 +115,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String cost} delimited by a '-' into an {@code cost}.
+     * Parses {@code Collection<String> costs} delimited by a '-' without space into a {@code List<Cost> cost}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code cost} is invalid.
      */
@@ -132,6 +136,35 @@ public class ParserUtil {
         }
 
         return result;
+    }
+
+    /**
+     * Parses {@code String costs} in the format '1 - 2' into a {@code List<Cost> cost}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code costs} are invalid.
+     */
+    public static List<Cost> parseCostsRange(String costs) throws ParseException {
+        requireNonNull(costs);
+        String trimmedCost = costs.trim();
+
+        Pattern pattern = Pattern.compile("(.*) - (.*)");
+        Matcher matcher = pattern.matcher(trimmedCost);
+
+        List<Cost> costsList = new ArrayList<>();
+        if (!matcher.matches()) {
+            return costsList;
+        }
+
+        String startCost = matcher.group(1);
+        String endCost = matcher.group(2);
+        if (!Cost.isValidCost(startCost) || !Cost.isValidCost(endCost)) {
+            throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+        }
+
+        costsList.add(new Cost(startCost));
+        costsList.add(new Cost(endCost));
+
+        return costsList;
     }
 
     /**

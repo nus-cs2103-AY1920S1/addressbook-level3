@@ -35,6 +35,10 @@ public class Remark implements Comparable<Remark> {
 
     @Override
     public int compareTo(Remark o) {
-        return value.compareTo(o.value);
+        if (value.equalsIgnoreCase(o.value)) {
+            return value.compareTo(o.value);
+        }
+
+        return value.compareToIgnoreCase(o.value);
     }
 }

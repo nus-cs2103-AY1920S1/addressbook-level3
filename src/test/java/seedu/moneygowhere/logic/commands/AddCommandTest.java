@@ -40,7 +40,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validSpending).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, validSpending), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, validSpending),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSpending), modelStub.spendingsAdded);
     }
 
@@ -232,6 +233,7 @@ public class AddCommandTest {
 
     /**
      * A Model stub that always accept the Spending being added.
+     * Since a currency can be changed, it is also included in the stub.
      */
     private class ModelStubAcceptingSpendingAdded extends ModelStub {
         final ArrayList<Spending> spendingsAdded = new ArrayList<>();
@@ -246,6 +248,11 @@ public class AddCommandTest {
         public void addSpending(Spending spending) {
             requireNonNull(spending);
             spendingsAdded.add(spending);
+        }
+
+        @Override
+        public Currency getCurrencyInUse() {
+            return getSpendingBook().getCurrencyInUse();
         }
 
         @Override

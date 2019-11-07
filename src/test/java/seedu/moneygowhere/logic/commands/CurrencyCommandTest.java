@@ -15,7 +15,9 @@ import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@author Nanosync
 class CurrencyCommandTest {
+
     private Model model;
     private Model expectedModel;
 
@@ -39,7 +41,7 @@ class CurrencyCommandTest {
     public void execute_currencyChange_alreadyChanged() {
         CurrencyCommand currencyCommand = new CurrencyCommand("SGD");
 
-        String expectedMessage = "Currency already in SGD";
+        String expectedMessage = String.format(CurrencyCommand.MESSAGE_CURRENCY_ALREADY_CHANGED, "SGD");
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(currencyCommand, model, expectedCommandResult, expectedModel);
@@ -49,7 +51,7 @@ class CurrencyCommandTest {
     public void execute_currencyChange_success() {
         CurrencyCommand currencyCommand = new CurrencyCommand("MYR");
 
-        String expectedMessage = "Currency changed to MYR";
+        String expectedMessage = String.format(CurrencyCommand.MESSAGE_CURRENCY_CHANGE_SUCCESS, "MYR");
         Currency newCurrency = null;
         for (Currency currency : expectedModel.getCurrencies()) {
             if (currency.name.equalsIgnoreCase("MYR")) {
@@ -67,7 +69,7 @@ class CurrencyCommandTest {
     public void execute_currencyChange_invalidCurrency() {
         CurrencyCommand currencyCommand = new CurrencyCommand("LOL");
 
-        String expectedMessage = "Specified currency does not exist";
+        String expectedMessage = CurrencyCommand.MESSAGE_CURRENCY_NONEXISTENT;
 
         assertCommandFailure(currencyCommand, model, expectedMessage);
     }

@@ -13,59 +13,38 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="8.0" prefWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0" prefWidth="160.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="70.0" />
       <ColumnConstraints />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label">
+    <children>
+      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+        <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label" text="\$id">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <VBox prefHeight="0.0" prefWidth="100.0">
-          <children>
-            <Label fx:id="name" styleClass="cell_big_label" text="\$first">
-              <minWidth>
-                <!-- Ensures that the label text is never truncated -->
-                <Region fx:constant="USE_PREF_SIZE" />
-              </minWidth>
-            </Label>
-            <Label fx:id="date" styleClass="cell_small_label" text="\$date">
-              <minWidth>
-                <!-- Ensures that the label text is never truncated -->
-                <Region fx:constant="USE_PREF_SIZE" />
-              </minWidth>
-            </Label>
-            <Label fx:id="remark" styleClass="cell_small_label" text="\$remark">
-              <minWidth>
-                <!-- Ensures that the label text is never truncated -->
-                <Region fx:constant="USE_PREF_SIZE" />
-              </minWidth>
-            </Label>
-            <FlowPane fx:id="tags">
-              <minWidth>
-                <!-- Ensures that the label text is never truncated -->
-                <Region fx:constant="USE_PREF_SIZE" />
-              </minWidth>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-            </FlowPane>
-          </children>
-        </VBox>
-      </HBox>
-    </VBox>
-    <VBox alignment="CENTER_RIGHT" minHeight="105" GridPane.columnIndex="1">
-      <Label fx:id="cost" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_big_label" text="\$cost" />
-      <padding>
-        <Insets right="25.0" />
-      </padding>
-    </VBox>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" >
+        </Label>
+        <Label fx:id="date" styleClass="cell_small_label" text="\$date">
+        </Label>
+        <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" wrapText="true" >
+        </Label>
+        <FlowPane fx:id="tags">
+          <VBox.margin>
+            <Insets top="10.0" />
+          </VBox.margin>
+        </FlowPane>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="110" GridPane.columnIndex="2">
+        <Label fx:id="cost" alignment="CENTER" styleClass="cell_small_label" text="\$cost" wrapText="true">
+        </Label>
+      </VBox>
+    </children>
     <rowConstraints>
       <RowConstraints />
     </rowConstraints>

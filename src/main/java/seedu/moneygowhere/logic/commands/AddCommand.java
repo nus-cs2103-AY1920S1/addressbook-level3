@@ -9,6 +9,7 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
+import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -53,12 +54,22 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String feedbackToUser;
+        Spending tempSpending = toAdd;
+
+        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")) {
+            double updatedCost = Double.parseDouble(toAdd.getCost().value) / model.getCurrencyInUse().rate;
+            Cost cost = new Cost(String.format("%.2f", updatedCost));
+            tempSpending = new Spending(toAdd.getName(), toAdd.getDate(), toAdd.getRemark(), cost,
+                    toAdd.getTags());
+        }
+
         if (model.hasSpending(toAdd)) {
             feedbackToUser = MESSAGE_DUPLICATE_FOUND + "\n" + String.format(DUPLICATE_MESSAGE_SUCCESS, toAdd);
         } else {
             feedbackToUser = String.format(NO_DUPLICATE_MESSAGE_SUCCESS, toAdd);
         }
-        model.addSpending(toAdd);
+
+        model.addSpending(tempSpending);
         return new CommandResult(feedbackToUser);
     }
 
