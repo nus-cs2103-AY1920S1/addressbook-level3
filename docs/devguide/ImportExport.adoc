@@ -68,11 +68,11 @@ thus the provided file name cannot already exist in `/exports`.
 The following diagrams show how an export command works:
 
 .Export Sequence Diagram
-image::ExportSequenceDiagram.png[width="800"]
+image::ExportSequenceDiagram.png[width="1100"]
 .Reference: get patient list
-image::ExportSequenceDiagramRef.png[width="600"]
+image::ExportSequenceDiagramRef.png[width="700"]
 .Reference: write patients to csv file
-image::ExportSequenceDiagramRef2.png[width="600"]
+image::ExportSequenceDiagramRef2.png[width="700"]
 
 ===== ExportCommand Design Considerations
 
