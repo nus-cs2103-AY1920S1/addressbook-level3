@@ -320,22 +320,40 @@ public class Parser implements InteractiveParser {
         return startsWithTab;
     }
 
+    /**
+     * Returns true if the user entered command is an exit command.
+     *
+     * @param commandText User entered command.
+     * @return true if the user input corresponds to the {@code ExitCommand}.
+     */
     private boolean isExitCommand(String commandText) {
         return commandText.trim().equalsIgnoreCase(ExitCommand.COMMAND_WORD);
     }
 
 
+    /**
+     * Returns true if the user entered command is a {@code HelpCommand}.
+     *
+     * @param commandText User entered command.
+     * @return true if the user input corresponds to the {@code HelpCommand}.
+     */
     private boolean isHelpCommand(String commandText) {
         return commandText.trim().equalsIgnoreCase(HelpCommand.COMMAND_WORD);
     }
 
     //=========== Dynamic Command Handlers =================================================================
 
+    /**
+     * Initializes the {@code TabCommand}.
+     */
     private void initializeTab() {
         temporaryState = currentState;
         currentState = null;
     }
 
+    /**
+     * Initializes the {@code CurrentCommand}.
+     */
     private void initializeCurrent() {
         temporaryState = currentState;
         if (currentState == null) {
@@ -344,10 +362,16 @@ public class Parser implements InteractiveParser {
         currentState = new CurrentState(currentState.getStateConstraints());
     }
 
+    /**
+     * Initializes the {@code ExitCommand}.
+     */
     private void initializeExit() {
         currentState = new ExitState(new ArgumentMultimap());
     }
 
+    /**
+     * Initializes the {@code HelpCommand}.
+     */
     private void initializeHelp() {
         temporaryState = currentState;
         currentState = new HelpState(new ArgumentMultimap());
@@ -355,20 +379,39 @@ public class Parser implements InteractiveParser {
 
     //=========== Miscellaneous Parser Methods =============================================================
 
+    /**
+     * Reverts the parser's state to the previous command's last parsed state.
+     */
     private void revertToPreviousCommand() {
         currentState = temporaryState;
         temporaryState = null;
     }
 
+    /**
+     * Resets the current state machine.
+     */
     private void resetParser() {
         this.currentState = null;
     }
 
+    /**
+     * Returns true if the current state of the finite state machine in the parser
+     * can transition to the next state.
+     *
+     * @param argumentMultimap The arguments supplied along with their prefixes.
+     * @return true if a transition is possible.
+     */
     private boolean canTransition(ArgumentMultimap argumentMultimap) {
         return (!argumentMultimap.isEmpty() && !currentState.isEndState())
                 || isOptionalState(argumentMultimap);
     }
 
+    /**
+     * Disallows a user entering a command word if the parser is parsing an active state machine.
+     *
+     * @param argumentMultimap Arguments and their prefixes.
+     * @throws ParseException If the user inputs a static command midway through another static command.
+     */
     private void disallowCommandWordIfActivatedBefore(ArgumentMultimap argumentMultimap) throws ParseException {
         if (!argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
@@ -377,12 +420,25 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    /**
+     * Removes the command word from the {@code ArgumentMultimap} to allow the finite state machine to handle
+     * subsequent inputs.
+     *
+     * @param wasActivatedNow Boolean flag to indicate if the state machine was just activated.
+     * @param argumentMultimap Arguments and their prefixes.
+     */
     private void clearCommandWordIfActivatedNow(boolean wasActivatedNow, ArgumentMultimap argumentMultimap) {
         if (wasActivatedNow) {
             argumentMultimap.clearValues(new Prefix(""));
         }
     }
 
+    /**
+     * Returns true if the current state of the finite state machine allows for optional inputs.
+     *
+     * @param argumentMultimap Arguments and their prefixes.
+     * @return true if the current input is optional.
+     */
     private boolean isOptionalState(ArgumentMultimap argumentMultimap) {
         if (currentState instanceof OptionalState) {
             OptionalState optionalState = (OptionalState) currentState;
@@ -393,6 +449,12 @@ public class Parser implements InteractiveParser {
         return false;
     }
 
+    /**
+     * Adds a white space as prefix to the input {@code String}.
+     *
+     * @param string {@code String} to add a buffer to.
+     * @return {@code String} with buffer added.
+     */
     private String addBufferTo(String string) {
         StringBuilder stringBuilder = new StringBuilder(BUFFER_TEXT);
         stringBuilder.append(string);
@@ -432,6 +494,11 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    /**
+     * Handles the state machine changes associated with building and executing a dynamic command.
+     *
+     * @param command Command to be executed.
+     */
     private void handleStateChange(Command command) {
         if (isDynamicCommand(command)) {
             revertToPreviousCommand();
@@ -440,6 +507,12 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    /**
+     * Returns true if the {@code Command} is a dynamic {@code Command}.
+     *
+     * @param command Command to check.
+     * @return true if the {@code Command} is dynamic.
+     */
     private boolean isDynamicCommand(Command command) {
         return command instanceof HelpCommand
                 || command instanceof TabCommand
