@@ -30,7 +30,7 @@ class BudgetCommandTest {
         try {
             CommandResult result = budgetCommand.execute(model);
             assertEquals(new CommandResult(expectedMessage), result);
-            assertEquals(expectedModel.getBudget().getValue(), model.getBudget().getValue());
+            assertEquals(expectedModel.getBudget().getAmount(), model.getBudget().getAmount());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
 
@@ -39,8 +39,7 @@ class BudgetCommandTest {
 
     @Test
     public void execute_invalidBudgetAmount_fail() {
-        Budget budget = new Budget(0);
-        budget.setValue(-1);
+        Budget budget = new Budget(1000000001);
         BudgetCommand budgetCommand = new BudgetCommand(budget);
 
         String expectedMessage = Messages.MESSAGE_INVALID_BUDGET_AMOUNT;

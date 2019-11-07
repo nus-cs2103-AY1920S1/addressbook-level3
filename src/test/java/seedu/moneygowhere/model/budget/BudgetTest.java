@@ -73,13 +73,13 @@ class BudgetTest {
     public void initialize_validInput_success() {
         Budget temp = new Budget(100, "01/2010");
         temp.initialize(newDate, getTypicalSpendingBook().getSpendingList());
-        assertEquals(100, temp.getValue());
+        assertEquals(100, temp.getAmount());
         assertEquals((new BudgetMonth(newDate)).toString(), temp.getMonthString());
         assertEquals(0, temp.getSum());
 
         temp = new Budget(1000, "01/2010");
         temp.initialize(oldDate, getTypicalSpendingBook().getSpendingList());
-        assertEquals(1000, temp.getValue());
+        assertEquals(1000, temp.getAmount());
         assertEquals((new BudgetMonth(oldDate)).toString(), temp.getMonthString());
         assertEquals(getSpendingSum(), temp.getSum());
 
@@ -112,11 +112,11 @@ class BudgetTest {
     @Test
     public void deleteSpending_wrongDate_noAdd() {
         Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
-        double originalValue = newBudget.getValue();
+        double originalValue = newBudget.getAmount();
         double originalSum = newBudget.getSum();
 
         newBudget.deleteSpending(temp);
-        assertEquals(originalValue, newBudget.getValue());
+        assertEquals(originalValue, newBudget.getAmount());
         assertEquals(originalSum, newBudget.getSum());
     }
 

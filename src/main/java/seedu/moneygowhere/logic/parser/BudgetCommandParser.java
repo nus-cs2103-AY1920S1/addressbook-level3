@@ -1,6 +1,6 @@
 package seedu.moneygowhere.logic.parser;
 
-import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_BUDGET_AMOUNT;
 
 import seedu.moneygowhere.logic.commands.BudgetCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -21,8 +21,7 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
             Budget budget = ParserUtil.parseBudget(args);
             return new BudgetCommand(budget);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 
     }

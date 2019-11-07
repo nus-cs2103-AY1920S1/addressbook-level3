@@ -32,7 +32,7 @@ public class BudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (budget.getValue() < 0) {
+        if (budget.getAmount() < 0 || budget.getAmount() > 1000000000) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 
