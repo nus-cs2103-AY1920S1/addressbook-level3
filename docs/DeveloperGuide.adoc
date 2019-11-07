@@ -323,6 +323,12 @@ image::ExportActivityDiagram.png[width=320,height=480]
 
 _Figure 2: Activity diagram of when the user executes an export command_
 
+The following activity diagram summarizes what happens when a user executes an import command:
+
+image::ImportActivityDiagram.png[width=320,height=480]
+
+_Figure 3: Activity diagram of when the user executes an import command_
+
 ==== Design Considerations
 
 |===
