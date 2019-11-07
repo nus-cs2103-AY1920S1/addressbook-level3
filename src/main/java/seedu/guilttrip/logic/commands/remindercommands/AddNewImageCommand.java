@@ -16,7 +16,7 @@ import seedu.guilttrip.model.Model;
  * Option to save image in program.
  */
 public class AddNewImageCommand extends Command {
-    public static final String COMMAND_WORD = "addImage";
+    public static final String COMMAND_WORD = "addNewImage";
     public static final String IMAGE_ADDED_MESSAGE = "Image successfully added to popup";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds image to popup of reminderExamined.\n"
@@ -24,12 +24,12 @@ public class AddNewImageCommand extends Command {
             + PREFIX_DESC + "IMAGE NAME "
             + PREFIX_PARAM + "IMAGE PATH "
             + PREFIX_COORDINATES + "COORDINATES "
-            + PREFIX_BOOL + "SAVE PICTURE + \n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_DESC + " Potato"
-            + PREFIX_PARAM + "C:\\Users\\Hong\\Pictures\\potato.jpg"
-            + PREFIX_COORDINATES + " 1,2"
-            + PREFIX_BOOL + "True + \n";
+            + PREFIX_BOOL + "SAVE PICTURE \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DESC + "Potato "
+            + PREFIX_PARAM + "C:\\Users\\Hong\\Pictures\\potato.jpg "
+            + PREFIX_COORDINATES + "1,2 "
+            + PREFIX_BOOL + "True \n";
 
     public static final String REMINDER_POPUP_DISABLED = "Please enable pop up before viewing or editing.";
     public static final String MESSAGE_CONSTRAINTS = "Please enter a valid image path.\n"
@@ -63,7 +63,7 @@ public class AddNewImageCommand extends Command {
             }
             return new CommandResult(successMessage);
         } catch (java.io.IOException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(e.getMessage() + "filepath: " + imagePath);
         }
     }
     @Override

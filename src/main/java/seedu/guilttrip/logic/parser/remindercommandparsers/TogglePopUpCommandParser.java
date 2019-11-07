@@ -11,7 +11,7 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
 public class TogglePopUpCommandParser implements Parser<TogglePopUpCommand> {
     @Override
     public TogglePopUpCommand parse(String args) throws ParseException {
-        boolean willShowPopUp = ParserUtil.parseBool(args);
+        boolean willShowPopUp = ParserUtil.parseBool(args.trim());
         return new TogglePopUpCommand(willShowPopUp);
     }
 }

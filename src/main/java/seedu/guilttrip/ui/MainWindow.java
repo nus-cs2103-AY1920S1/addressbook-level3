@@ -9,12 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
@@ -22,6 +25,7 @@ import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
 import seedu.guilttrip.ui.stats.StatisticsPieChartHolder;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
@@ -467,6 +471,27 @@ public class MainWindow extends UiPart<Stage> {
         return entryListPanel;
     }
 
+
+    /**
+     * Display reminder popup.
+     * @param message
+     */
+    public void displayPopUp(Message message) {
+        Stage newStage = new Stage();
+
+        Scene stageScene = new Scene(message.render(), 300, 300);
+        newStage.setScene(stageScene);
+        newStage.show();
+
+        /*Stage newStage = new Stage();
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        Scene stageScene = new Scene(message.render(), 300, 300);
+        newStage.setScene(stageScene);
+        Popup pop = new Popup();
+        pop.getContent().add(message.render());
+        pop.show(this.getRoot());*/
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -553,6 +578,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isChangeTheme()) {
                 Theme themeToChangeTo = commandResult.getNewTheme();
                 switchThemeTo(themeToChangeTo);
+            }
+
+            if (commandResult.toDisplayPopUp()) {
+                displayPopUp(commandResult.getMessage());
             }
 
             return commandResult;

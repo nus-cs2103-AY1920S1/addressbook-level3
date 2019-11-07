@@ -18,7 +18,7 @@ public class AddQuotaConditionCommandParser implements Parser<AddQuotaConditionC
      */
     public AddQuotaConditionCommand parse(String args) throws ParseException {
         try {
-            double quota = ParserUtil.parseAmount(args).value;
+            double quota = ParserUtil.parseAmount(args.trim()).value;
             return new AddQuotaConditionCommand(quota);
         } catch (NumberFormatException e) {
             throw new ParseException(

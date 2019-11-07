@@ -3,6 +3,7 @@ package seedu.guilttrip.model.reminders;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 import java.time.Period;
 import java.util.List;
 import java.util.logging.Logger;
@@ -123,6 +124,7 @@ public class Reminder implements PropertyChangeListener {
                     beingAdded = entryExamined;
                 }
                 if (numberOfConditionsMet == numberOfConditions) {
+                    message.update(entryExamined);
                     support.firePropertyChange("status", status, Status.met);
                     status = Status.met;
                     logger.info("All condition met. Setting Reminder status to " + status.toString());
@@ -160,6 +162,9 @@ public class Reminder implements PropertyChangeListener {
 
     public void togglePopUpDisplay(boolean willDisplayPopup) {
         this.displayPopUp = willDisplayPopup;
+        if (displayPopUp && message == null) {
+            message = new Message(header.toString(),2,2);
+        }
     }
 
     public Message getMessage() {

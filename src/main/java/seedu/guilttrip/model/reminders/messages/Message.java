@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 import seedu.guilttrip.commons.core.LogsCenter;
@@ -19,9 +23,16 @@ import seedu.guilttrip.model.entry.Entry;
  */
 public class Message {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final String defaultbgiLink = "/images/page3.png";
+    private double hGap = 5;
+    private double vGap = 5;
+    private static final String defaultFont = "/fonts/Faraco_Hand.ttf";
+    private static final double defaultNoteFontSize = 10;
+    private static final double defaultHeaderFontSize = 20;
 
     private Entry entry;
     private HashMap<Pair<Integer, Integer>, Cell> messageMap = new HashMap<>();
+    private Background bgi;
 
     private Pair<Integer, Integer> headerCoordinates;
     private List<Pair<Integer, Integer>> imageCoordinates;
@@ -32,12 +43,19 @@ public class Message {
         Header header = new Header(headerString);
         messageMap.put(new Pair(x_coordinate, y_coordinate), header);
         this.headerCoordinates = new Pair(x_coordinate, y_coordinate);
+        try {
+            buildBackground(defaultbgiLink);
+        } catch (IOException e) {
+            this.bgi = null;
+        }
+
     }
 
     /**
      * Used for cloning
      */
     private Message() {};
+
 
     //===== getters and setters =====
 
@@ -152,19 +170,50 @@ public class Message {
         }
     }
 
-    /**
-     * Include stats details in message. Only applicable for budget reminders. Only one stats pannel.
-     * @return
-     */
-    public boolean placeStats(int x_coordinate, int y_coordinate) {
-        Pair<Integer, Integer> coordinates = new Pair(x_coordinate, y_coordinate);
-        update(this.entry);
-        if (!(messageMap.containsKey(coordinates))) {
-            this.statsCoordinates = coordinates;
-            return true;
-        } else {
+    public boolean setHeaderFont(String fontName, double fontSize) {
+        if (headerCoordinates == null) {
             return false;
+        } else {
+            Header header = (Header) messageMap.get(headerCoordinates);
+            header.setFont(fontName, fontSize);
+            return true;
         }
+    }
+
+    public boolean setNoteFont(String fontName, double fontSize) {
+        if (noteCoordinates == null) {
+            return false;
+        } else {
+            Note note = (Note) messageMap.get(noteCoordinates);
+            note.setFont(fontName, fontSize);
+            return true;
+        }
+    }
+
+    public void restoreDefaultFont() throws IOException {
+        Header header = (Header) messageMap.get(headerCoordinates);
+        header.setFont(defaultFont, defaultNoteFontSize);
+        Note note = (Note) messageMap.get(noteCoordinates);
+        note.setFont(defaultFont, defaultNoteFontSize);
+        buildBackground(defaultbgiLink);
+    }
+
+//=== Backgroung image ===//
+    public void buildBackground(String imageLink) throws IOException {
+        Image background =
+                new ReminderImage(
+                        "/images/page3.png", "DefaultBackground", false).getImage();
+        this.bgi = new Background(new BackgroundImage(
+                background, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,null));
+    }
+
+    public void setBGI(String imageLink) throws IOException {
+        buildBackground(imageLink);
+    }
+
+    public void setSpace(double hGap, double vGap) {
+        this.hGap = hGap;
+        this.vGap = vGap;
     }
 
     /**
@@ -239,6 +288,14 @@ public class Message {
         for (Node node : nodes) {
             message.getChildren().addAll(nodes);
         }
+        if (bgi != null) {
+            message.setBackground(bgi);
+            logger.info("bgi found");
+        } else {
+            logger.info("no bgi.");
+        }
+        message.setHgap(hGap);
+        message.setVgap(vGap);
         logger.info("Pop Up Rendered. Number of Nodes: " + nodes.size());
         return message;
     }

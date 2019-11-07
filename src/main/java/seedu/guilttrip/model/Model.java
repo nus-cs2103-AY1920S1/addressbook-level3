@@ -37,8 +37,10 @@ public interface Model {
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
     Predicate<Condition> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
-    Predicate<Reminder> PREDICATE_SHOW_ACTIVE_REMINDERS =
+    Predicate<Reminder> PREDICATE_SHOW_DISPLAYED_REMINDERS =
         x -> !x.getStatus().equals(Reminder.Status.unmet);
+    Predicate<Reminder> PREDICATE_SHOW_HIDDEN_REMINDERS =
+            x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
     DoubleProperty getTotalExpenseForPeriod();

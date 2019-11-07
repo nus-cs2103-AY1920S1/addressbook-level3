@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.remindercommands;
+package seedu.guilttrip.logic.commands.remindercommands;
 
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.Command;

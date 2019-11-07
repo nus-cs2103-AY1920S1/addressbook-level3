@@ -4,6 +4,7 @@ import java.time.Period;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
@@ -28,9 +29,14 @@ public class Note extends Cell {
     public static final String NUM_PUR_PH = "#xNum#";
     public static final String FREQ_PH = "#freq#";
     public static final String LT_PH = "#LT#";
+    private static final String defaultFont = "/fonts/Faraco_Hand.ttf";
+    private static final double defaultFontSize = 10;
     private Entry entry;
     private String noteTemplate;
     private String displayedNote;
+    private String fontName = defaultFont;
+    private double fontSize = defaultFontSize;
+    private Font font;
 
     public Note(String noteTemplate) {
         this.noteTemplate = noteTemplate;
@@ -94,6 +100,12 @@ public class Note extends Cell {
         return String.join(",", new ArrayList(entry.getTags()));
     }
 
+    public void setFont(String font, double size) {
+        this.fontName = font;
+        this.fontSize = size;
+        this.font = Font.font(fontName, fontSize);
+    }
+
     //=== Budget Specific Details ===
     private String getSpent() {
         assert (entry instanceof Budget);
@@ -139,6 +151,8 @@ public class Note extends Cell {
     }
 
     public Node getNode() {
-        return new Text(displayedNote);
+        Text text = new Text(displayedNote);
+        text.setFont(font);
+        return text;
     }
 }

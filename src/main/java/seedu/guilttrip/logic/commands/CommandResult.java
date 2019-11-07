@@ -209,7 +209,7 @@ public class CommandResult {
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
         this.listBudgets = false;
-        this.displayPopUp = false;
+        this.displayPopUp = true;
         this.message = message;
     }
 
@@ -279,6 +279,14 @@ public class CommandResult {
 
     public boolean isListBudgets() {
         return listBudgets;
+    }
+
+    public boolean toDisplayPopUp() {
+        return displayPopUp;
+    }
+
+    public Message getMessage() {
+        return this.message;
     }
 
     @Override

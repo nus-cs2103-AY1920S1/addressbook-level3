@@ -33,7 +33,7 @@ public class ReminderImage extends Cell {
     }
 
     private Image loadImage(String imageLink) throws FileNotFoundException {
-        FileInputStream inputStream = new FileInputStream(imageLink);
+        FileInputStream inputStream = new FileInputStream("/images/guiltTrip()_32.png");
         return new Image(inputStream);
     }
 

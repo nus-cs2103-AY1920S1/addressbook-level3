@@ -218,7 +218,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -228,14 +228,14 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeIncome(target);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteWish(Wish target) {
         versionedAddressBook.removeWish(target);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
         updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredWishes(sortByTime, sortByAsc);
@@ -246,7 +246,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeBudget(target);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -256,7 +256,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeAutoExpense(target);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -288,7 +288,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addIncome(income);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -297,7 +297,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addWish(wish);
         updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredWishes(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -306,7 +306,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addAutoExpense(autoExpense);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
@@ -317,7 +317,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
