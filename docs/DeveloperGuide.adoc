@@ -63,7 +63,7 @@ image::LogicComponentClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete|1`.
 
 .Component interactions for `delete|1` command
-//TODO: Update diagram
+
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -151,7 +151,11 @@ This section describes some noteworthy details on how certain features are imple
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
 When an item expires, the item is automatically tagged as `#Expired`.
-By searching for the `#Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
+
+.All expired items are automatically tagged with the `Expired` tag (circled in figure).
+image::expired_tags.png[]
+
+By searching for the `Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
 
 The sequence diagram below demonstrates how the auto-tagging mechanism occurs.
 
