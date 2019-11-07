@@ -186,6 +186,18 @@ public class State {
     }
 
     /**
+     * Adds the current deck to the deckHistory for Undo command
+     */
+    public void addDecksToDeckHistory(ArrayList<Deck> newDecks) {
+        @SuppressWarnings("unchecked")
+        ArrayList<Deck> currDeck = (ArrayList<Deck>) newDecks.clone();
+
+        if (deckHistory.empty() || !currDeck.equals(deckHistory.peek())) {
+            deckHistory.push(currDeck);
+        }
+    }
+
+    /**
      * Used for debugging.
      */
     // For Debugging
@@ -221,20 +233,11 @@ public class State {
         if (deckHistory.empty()) {
             throw new NoDeckHistoryException("There is no action to undo!");
         }
-        System.out.println("Undo");
+
         // Adds the current deck to the stack of undos
         addCurrDecksToUndoHistory();
 
         // Remove the last deck from history and makes it the curr list of Decks
-        System.out.println("this.decks");
-        for (Deck d : this.decks) {
-            System.out.println(d.getDeckName());
-        }
-        System.out.println("deckHistory");
-        for (Deck d : this.deckHistory.peek()) {
-            System.out.println(d.getDeckName());
-        }
-
         ArrayList<Deck> newCurr = deckHistory.pop();
         this.decks = newCurr;
         for (Deck d : this.decks) {
@@ -262,5 +265,26 @@ public class State {
         for (Deck d : decks) {
             System.out.println(d.getDeckName());
         }
+    }
+
+    /**
+     * Checks if the ArrayList of Decks are the same for two different ArrayList of Decks. Checks the equivalency of
+     * the ArrayList of Decks, then the equivalency of each individual deck.
+     *
+     * @param currDecks
+     * @return
+     */
+    public boolean completelyEquals(ArrayList<Deck> currDecks) {
+        boolean isEquals = true;
+
+        if (decks.equals(currDecks)) {
+            for (Deck d : decks) {
+                for (Deck cD : currDecks) {
+                    d.equals(cD);
+                }
+            }
+        }
+
+        return isEquals;
     }
 }

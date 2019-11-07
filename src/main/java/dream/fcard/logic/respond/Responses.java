@@ -19,9 +19,10 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.model.exceptions.InvalidInputException;
 import dream.fcard.model.exceptions.NoDeckHistoryException;
 import dream.fcard.model.exceptions.NoUndoHistoryException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 import javafx.scene.layout.AnchorPane;
@@ -54,9 +55,16 @@ public enum Responses {
 
                     boolean validCommand = false;
 
+                    if (res.get(0).size() != 1) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Only 1 command at a time!");
+                        return true;
+                    }
+
                     for (String curr : HelpCommand.getAllCommands()) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
-                        validCommand = true;
+                        if (HelpCommand.isCorrectMessage(res.get(0).get(0), curr)) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
+                            validCommand = true;
+                        }
                     }
 
                     if (!validCommand) {
@@ -188,7 +196,7 @@ public enum Responses {
 
                     // Checks if "deck/", "front/"  and "back/" are supplied.
                     boolean hasOnlyOneDeck = res.get(0).size() == 1;
-                    boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                    boolean hasAtMostOnePriority = res.get(1).size() < 2;
                     boolean hasOnlyOneFront = res.get(2).size() == 1;
                     boolean hasOnlyOneBack = res.get(3).size() == 1;
 
@@ -198,7 +206,7 @@ public enum Responses {
 
                     // Perform command validation
 
-                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
+                    if (!hasOnlyOneDeck || !hasAtMostOnePriority || !hasOnlyOneFront
                             || !hasOnlyOneBack || isInvalidCard) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
                         return true;
@@ -207,7 +215,9 @@ public enum Responses {
 
                     try {
                         StateHolder.getState().addCurrDecksToDeckHistory();
-                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                        CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                        return true;
                     } catch (DuplicateInChoicesException dicExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
                         return true;
@@ -215,6 +225,9 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
                     } catch (DeckNotFoundException dnfExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnfExc.getMessage());
+                        return true;
+                    } catch (InvalidInputException iiExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, iiExc.getMessage());
                         return true;
                     }
                     return true;
@@ -299,8 +312,8 @@ public enum Responses {
                                 + "Front Back card has no choices.");
                     }
 
-                    ArrayList<Deck> currDeck = StateHolder.getState().getDecks();
-                  
+                    ArrayList<Deck> currDecks = StateHolder.getState().getDecks();
+
                     boolean hasFront = res.get(3).size() == 1;
                     if (hasFront) {
                         String front = res.get(3).get(0);
@@ -335,9 +348,9 @@ public enum Responses {
                                 + "Choice index provided is invalid.'");
                         return true;
                     }
-                  
-                    if (!currDeck.equals(StateHolder.getState().getDecks())) {
-                        // TODO: create a method to add decks to deckHistory
+
+                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
+                        StateHolder.getState().addDecksToDeckHistory(currDecks);
                     }
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);

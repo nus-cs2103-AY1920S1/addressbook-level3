@@ -11,6 +11,7 @@ import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.InvalidInputException;
 
 /**
  * Represents a command that creates a new deck or card (?).
@@ -85,11 +86,12 @@ public class CreateCommand extends Command {
      *
      * @param command An ArrayList of the parsed user input.
      * @param state The State
-     * @return A Boolean which indicates if the creation of the card was successful.
      * @throws DuplicateInChoicesException
+     * @throws DeckNotFoundException
+     * @throws InvalidInputException
      */
-    public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
-        throws DuplicateInChoicesException, DeckNotFoundException {
+    public static void createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
+        throws DuplicateInChoicesException, DeckNotFoundException, InvalidInputException {
         // Checks if deckName matches any deck in the State.
         boolean deckExistsInState = false;
         Deck currDeck = null;
@@ -112,7 +114,7 @@ public class CreateCommand extends Command {
         // Checks if priority level matches high or low
         if (hasPriority && (!command.get(1).get(0).equalsIgnoreCase("high")
             && !command.get(1).get(0).equalsIgnoreCase("low"))) {
-            return false;
+            throw new InvalidInputException("Can only supply one Priority!");
         }
 
         // Checks if the card is an MCQ or FrontBack card
@@ -120,16 +122,14 @@ public class CreateCommand extends Command {
 
         // Checks if the MCQ has more than two choices
         if (isMcq && command.get(4).size() < 2) {
-            return false;
+            throw new InvalidInputException("MCQ has more than 2 choices!");
         }
 
         // Creates the card and adds to the State
         if (isMcq) {
             currDeck.addNewCard(CreateCommand.createMcq(command));
-            return true;
         } else {
             currDeck.addNewCard(CreateCommand.createFrontBack(command));
-            return true;
         }
     }
 
