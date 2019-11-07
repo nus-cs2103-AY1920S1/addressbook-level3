@@ -20,6 +20,9 @@ import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.model.exceptions.InvalidInputException;
+import dream.fcard.model.exceptions.NoDeckHistoryException;
+import dream.fcard.model.exceptions.NoUndoHistoryException;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 import javafx.scene.layout.AnchorPane;
@@ -52,14 +55,21 @@ public enum Responses {
 
                     boolean validCommand = false;
 
+                    if (res.get(0).size() != 1) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Only 1 command at a time!");
+                        return true;
+                    }
+
                     for (String curr : HelpCommand.getAllCommands()) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
-                        validCommand = true;
+                        if (HelpCommand.isCorrectMessage(res.get(0).get(0), curr)) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
+                            validCommand = true;
+                        }
                     }
 
                     if (!validCommand) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
-                            + "Type 'help' for the UserGuide'.");
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command! "
+                                + "Type 'help' for the UserGuide'.");
                     }
                     return true;
                 }
@@ -141,6 +151,7 @@ public enum Responses {
                     //@author
 
                     if (StateHolder.getState().hasDeckName(deckName) == -1) {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         StateHolder.getState().addDeck(deckName);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                         Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
@@ -148,7 +159,7 @@ public enum Responses {
                         try {
                             StorageManager.writeDeck(StateHolder.getState().getDeck(deckName));
                         } catch (DeckNotFoundException e) {
-                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try "
                                     + " again when you shut me down.");
                             return true;
                         }
@@ -185,7 +196,7 @@ public enum Responses {
 
                     // Checks if "deck/", "front/"  and "back/" are supplied.
                     boolean hasOnlyOneDeck = res.get(0).size() == 1;
-                    boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                    boolean hasAtMostOnePriority = res.get(1).size() < 2;
                     boolean hasOnlyOneFront = res.get(2).size() == 1;
                     boolean hasOnlyOneBack = res.get(3).size() == 1;
 
@@ -195,7 +206,7 @@ public enum Responses {
 
                     // Perform command validation
 
-                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
+                    if (!hasOnlyOneDeck || !hasAtMostOnePriority || !hasOnlyOneFront
                             || !hasOnlyOneBack || isInvalidCard) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
                         return true;
@@ -203,7 +214,10 @@ public enum Responses {
                     //@author
 
                     try {
-                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                        CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                        return true;
                     } catch (DuplicateInChoicesException dicExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
                         return true;
@@ -211,6 +225,9 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
                     } catch (DeckNotFoundException dnfExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnfExc.getMessage());
+                        return true;
+                    } catch (InvalidInputException iiExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, iiExc.getMessage());
                         return true;
                     }
                     return true;
@@ -295,6 +312,8 @@ public enum Responses {
                                 + "Front Back card has no choices.");
                     }
 
+                    ArrayList<Deck> currDecks = StateHolder.getState().getDecks();
+
                     boolean hasFront = res.get(3).size() == 1;
                     if (hasFront) {
                         String front = res.get(3).get(0);
@@ -328,6 +347,10 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
                                 + "Choice index provided is invalid.'");
                         return true;
+                    }
+
+                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
+                        StateHolder.getState().addDecksToDeckHistory(currDecks);
                     }
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
@@ -516,6 +539,37 @@ public enum Responses {
                     StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
                 } //todo
+    ),
+    UNDO(
+            "^((?i)undo)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    try {
+                        StateHolder.getState().undoDeckChanges();
+                        StorageManager.writeDecks(StateHolder.getState().getDecks());
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        return true;
+                    } catch (NoDeckHistoryException ndhExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, ndhExc.getMessage());
+                        return true;
+                    }
+                }
+    ),
+    REDO(
+            "^((?i)redo)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    try {
+                        StateHolder.getState().redoDeckChanges();
+                        StorageManager.writeDecks(StateHolder.getState().getDecks());
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+
+                        return true;
+                    } catch (NoUndoHistoryException nuhExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, nuhExc.getMessage());
+                        return true;
+                    }
+                }
     ),
 
 
