@@ -65,11 +65,14 @@ The `app-export` command MUST be provided with a desired file name for the .csv 
 file will be written to `/exports/filename.csv`. Existing files will NOT be overridden and
 thus the provided file name cannot already exist in `/exports`.
 
-The following diagram shows how an export command works:
+The following diagrams show how an export command works:
 
-image::ExportSequenceDiagram.png[]
-image::ExportSequenceDiagramRef.png[]
-image::ExportSequenceDiagramRef2.png[]
+.Export Sequence Diagram
+image::ExportSequenceDiagram.png[width="800"]
+.Reference: get patient list
+image::ExportSequenceDiagramRef.png[width="600"]
+.Reference: write patients to csv file
+image::ExportSequenceDiagramRef2.png[width="600"]
 
 ===== ExportCommand Design Considerations
 

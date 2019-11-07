@@ -1,7 +1,5 @@
 @startuml
 !include style.puml
-skinparam ParticipantPadding 1
-skinparam BoxPadding 1
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -21,10 +19,10 @@ participant ":CsvUtil" as CsvUtil MODEL_COLOR
 participant ":FileUtil" as FileUtil MODEL_COLOR
 end box
 
-[-> LogicManager : execute("app-export n/name i/1")
+[-> LogicManager : execute(...)
 activate LogicManager
 
-LogicManager -> AppParser : parseCommand("app-export n/name i/1")
+LogicManager -> AppParser : parseCommand(...)
 activate AppParser
 
 create ExportCommandParser

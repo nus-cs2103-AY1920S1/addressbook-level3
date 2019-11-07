@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-mainframe **sd** write patients to csv
+mainframe **sd** write patients to csv file
 
 box Logic LOGIC_COLOR_T1
 participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
