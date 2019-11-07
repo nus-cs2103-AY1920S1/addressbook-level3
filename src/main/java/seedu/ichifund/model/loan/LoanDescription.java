@@ -16,7 +16,7 @@ public class LoanDescription implements Comparable<LoanDescription> {
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\A\\pL+\\z]*";
 
     public final String loandescription;
 

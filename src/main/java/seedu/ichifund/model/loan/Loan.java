@@ -5,9 +5,7 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.ichifund.model.amount.Amount;
-
 import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.person.Name;
 
 
 /**
