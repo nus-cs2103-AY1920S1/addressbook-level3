@@ -3,17 +3,17 @@ package seedu.address.model.password.analyser.result;
 import java.util.List;
 
 import seedu.address.model.password.Password;
-import seedu.address.model.password.analyser.match.DictionaryMatch;
+import seedu.address.model.password.analyser.match.KeyboardMatch;
 import seedu.address.model.password.analyser.match.Match;
 
 /**
- * Represents a result produced from dictionary analyser.
+ * Represents a result produced from sequence analyser.
  */
-public class DictionaryResult extends Result {
-    private List<DictionaryMatch> matches;
+public class KeyboardResult extends Result {
 
+    private List<KeyboardMatch> matches;
 
-    public DictionaryResult(Password password, String description, List<DictionaryMatch> matches) {
+    public KeyboardResult(Password password, String description, List<KeyboardMatch> matches) {
         super(password, description);
         this.matches = matches;
     }
@@ -22,7 +22,7 @@ public class DictionaryResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained commonly used passwords\n");
+            report.append("No passwords were found to have contained common keyboard patterns\n");
             return report.toString();
         }
         for (Match m : matches) {

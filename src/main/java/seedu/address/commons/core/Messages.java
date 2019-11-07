@@ -21,7 +21,6 @@ public class Messages {
     public static final String MESSAGE_TOO_MANY_TAG_FIELDS = "Limit of the number of tags is 5";
     public static final String MESSAGE_EXCESS_CARD_FIELDS = "Too many fields provided! Please provide either "
                     + "index or description only";
-
     public static final String MESSAGE_PASSWORD_LISTED_OVERVIEW = "%1$d password listed!";
     public static final String MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX = "The password index provided is invalid";
 }

@@ -119,7 +119,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        //readListPanelPlaceholder.setVisible(false);
         readList.setVisible(false);
+        readList.setManaged(false);
         expiryDisplay = new ExpiryDisplay(logic.getExpiringCardList());
     }
 
@@ -223,11 +225,11 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(openDisplayNote.getRoot());
             openDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
-            readList.setMinWidth(600);
+            //readList.setMinWidth(600);
             readDisplayPasswordReport = new ReadDisplayPasswordReport();
             readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
             //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
-            readDisplayPasswordReport.setFeedbackToUser(object.toString());
+            readDisplayPasswordReport.setFeedbackToUser(object);
         } else if (object instanceof Card) {
             readDisplayCard = new ReadDisplayCard();
             readDisplayCard.setLogic(logic);
@@ -357,7 +359,8 @@ public class MainWindow extends UiPart<Stage> {
     CommandResult executeCommand(String commandText) throws CommandException,
             ParseException, DictionaryException {
         readList.setVisible(false);
-        readList.setMinWidth(0);
+        readList.setManaged(false);
+        //readList.setMinWidth(0);
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -375,9 +378,9 @@ public class MainWindow extends UiPart<Stage> {
             }
             if (commandResult.isRead()) {
                 readList.setVisible(true);
-
+                readList.setManaged(true);
                 readListPanelPlaceholder.getChildren().clear();
-                readList.setMinWidth(420);
+                //readList.setMinWidth(420);
                 fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }
             return commandResult;
