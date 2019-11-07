@@ -86,15 +86,14 @@ Redo the previous undone command. The state of the application will revert back 
 
 Format:  `redo`
 
-// tag::undoredo[] 
+// tag::undoredo[]
 
 ==== Error messages
 Displays a useful error message if the input is invalid. For example,
 it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
 
+// tag::addremovemod[]
 === Module
-
-// tag::addremovemod[] 
 
 ==== Assigning a module to a given semester: `addmod`
 Assigns the specified module to a given semester of the current study plan. +
