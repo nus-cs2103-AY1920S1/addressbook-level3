@@ -1,6 +1,10 @@
 package seedu.address.logic.graphs;
 
-import seedu.address.commons.core.index.Index;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import seedu.address.logic.AutoCompleteResult;
 import seedu.address.logic.Edge;
 import seedu.address.logic.Graph;
@@ -9,8 +13,6 @@ import seedu.address.logic.nodes.customer.CustomerContactNumberNode;
 import seedu.address.logic.nodes.customer.CustomerEmailNode;
 import seedu.address.logic.nodes.customer.CustomerNameNode;
 import seedu.address.logic.nodes.customer.CustomerTagNode;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,11 +27,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
 public class EditCustomerGraph extends Graph {
 
     private Node<?> startingNode;
@@ -41,7 +38,7 @@ public class EditCustomerGraph extends Graph {
 
     @Override
     protected void build(Model model) {
-        customerList = model.getCustomerBook().getList();
+        customerList = model.getFilteredCustomerList();
         Node<Customer> customerContactNumberNode = new CustomerContactNumberNode(customerList);
         Node<Customer> customerEmailNode = new CustomerEmailNode(customerList);
         Node<Customer> customerNameNode = new CustomerNameNode(customerList);
@@ -97,7 +94,9 @@ public class EditCustomerGraph extends Graph {
             } else {
                 String preamble = input.stripLeading().substring(0, secondSpace);
                 try {
-                    int index = Integer.parseInt(preamble);
+                    // Parse to ensure it is a valid index, even though the index is used
+                    ParserUtil.parseIndex(preamble);
+
                     String argString = input.substring(preamble.length() + 1);
                     stringToCompare = argString;
                     Pattern prefixPattern = Pattern.compile(" .{1,2}/");
@@ -119,7 +118,7 @@ public class EditCustomerGraph extends Graph {
                         stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
                     }
                     return new AutoCompleteResult(values, stringToCompare);
-                } catch (NumberFormatException e) {
+                } catch (ParseException e) {
                     // preamble is not an integer
                     // suggest indexes
                     int minIndex = 1;
