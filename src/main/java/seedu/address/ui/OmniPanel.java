@@ -2,7 +2,6 @@
 package seedu.address.ui;
 
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
-import seedu.address.commons.core.LogsCenter;
 
 /**
  * Generic OmniPanel.
@@ -20,7 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 public abstract class OmniPanel<T> extends UiPart<Region> {
 
     private static final String FXML = "OmniPanelListView.fxml";
-    private final Logger logger = LogsCenter.getLogger(OmniPanel.class);
     private int lastSelectedIndex = 0;
     private ObservableList<T> ols;
 

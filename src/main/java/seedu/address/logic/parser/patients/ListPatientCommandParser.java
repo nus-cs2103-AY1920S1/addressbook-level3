@@ -25,7 +25,7 @@ public class ListPatientCommandParser implements Parser<ListPatientCommand> {
             return new ListPatientCommand(PREDICATE_SHOW_ALL_PERSONS);
         }
 
-        return new ListPatientCommand(new ContainsKeywordsPredicate(args.trim().toUpperCase()));
+        return new ListPatientCommand(new ContainsKeywordsPredicate(trimmedArgs.toUpperCase()));
     }
 
 }
