@@ -93,12 +93,21 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
     /**
      * Adds a Spending to the MoneyGoWhere list.
-     * The Spending must not already exist in the MoneyGoWhere list.
      */
     public void addSpending(Spending p) {
         spendings.add(p);
         budget.addSpending(p);
     }
+
+    //@@author jonathantjendana
+    /**
+     * Adds multiple Spending to the MoneyGoWhere list.
+     */
+    public void addSpending(List<Spending> spendingList) {
+        spendings.add(spendingList);
+        budget.addSpending(spendingList);
+    }
+    //@@author
 
     /**
      * Replaces the given Spending {@code target} in the list with {@code editedPerson}.

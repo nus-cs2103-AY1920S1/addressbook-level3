@@ -74,7 +74,7 @@
                       <Insets bottom="5.0" />
                     </padding>
                   </Label>
-                  <StackPane fx:id="spendingListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  <StackPane fx:id="spendingListPanelPlaceholder" VBox.vgrow="ALWAYS"  />
                 </VBox>
                 <Separator minHeight="0.0" minWidth="2.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="2" GridPane.columnIndex="1" />
                 <VBox fx:id="mainPanel" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">

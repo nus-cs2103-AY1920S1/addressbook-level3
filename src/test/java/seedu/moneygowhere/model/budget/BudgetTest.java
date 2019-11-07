@@ -8,6 +8,9 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.getSpendingSum;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -107,6 +110,20 @@ class BudgetTest {
         Budget oldBudgetTemp = new Budget(100, "01/2010");
         oldBudgetTemp.addSpending(temp);
         assertEquals(10, oldBudgetTemp.getSum());
+    }
+
+    @Test
+    public void addSpending_multipleSpending_success() {
+        List<Spending> spendingList = new ArrayList<>(
+            Arrays.asList(
+                new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build(),
+                new SpendingBuilder().withName("name2").withCost("10").withDate("10/01/2010").build(),
+                new SpendingBuilder().withName("name3").withCost("10").withDate("10/01/2010").build()
+            )
+        );
+        Budget oldBudgetTemp = new Budget(100, "01/2010");
+        oldBudgetTemp.addSpending(spendingList);
+        assertEquals(30, oldBudgetTemp.getSum());
     }
 
     @Test

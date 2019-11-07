@@ -7,11 +7,17 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
+import static seedu.moneygowhere.testutil.TypicalSpendings.CATFOOD;
+import static seedu.moneygowhere.testutil.TypicalSpendings.DESSERT;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -73,6 +79,14 @@ public class SpendingBookTest {
     public void hasSpending_spendingInAddressBook_returnsTrue() {
         addressBook.addSpending(APPLE);
         assertTrue(addressBook.hasSpending(APPLE));
+
+        List<Spending> spendings = new ArrayList<>(Arrays.asList(BANANA, CATFOOD, DESSERT));
+        addressBook.addSpending(spendings);
+
+        assertTrue(addressBook.hasSpending(BANANA));
+        assertTrue(addressBook.hasSpending(CATFOOD));
+        assertTrue(addressBook.hasSpending(DESSERT));
+
     }
 
     @Test

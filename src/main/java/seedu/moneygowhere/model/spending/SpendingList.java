@@ -37,6 +37,14 @@ public class SpendingList implements Iterable<Spending> {
     }
 
     /**
+     * Adds bulk Spending to the list.
+     */
+    public void add(List<Spending> addList) {
+        requireAllNonNull(addList);
+        internalList.addAll(addList);
+    }
+
+    /**
      * Replaces the Spending {@code target} in the list with {@code editedSpending}.
      * {@code target} must exist in the list.
      */

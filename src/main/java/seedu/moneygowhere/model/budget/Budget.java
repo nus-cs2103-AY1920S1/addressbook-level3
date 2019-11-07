@@ -131,6 +131,18 @@ public class Budget {
         }
     }
 
+    //@@author jonathantjendana
+    /**
+     * Adds those spending cost if they are in the same month.
+     * @param spendingList The spending list to add.
+     */
+    public void addSpending(List<Spending> spendingList) {
+        sum += spendingList.parallelStream()
+                .filter(s -> inSameMonth(s))
+                .reduce(0.0, (x, y) -> x + Double.parseDouble(y.getCost().toString()), Double::sum);
+    }
+
+    //@@author austinsantoso
     /**
      * deletes the spending cost if it is in the same month.
      * @param s The spending to delete.

@@ -51,6 +51,8 @@ public class ImportCommand extends Command {
             + "\nname,date,remark,cost,tagged";
     public static final String MESSAGE_NO_CONTENT = "No content detected.";
 
+    public static final String MESSAGE_ERROR_ROW = "Row %s: %s\n";
+
     private final FilePath fullFilePath;
 
     public ImportCommand(FilePath filePath) {
@@ -97,10 +99,8 @@ public class ImportCommand extends Command {
             Pair<List<Spending>, List<String>> csvData = readSpendingFromCsv(fullFilePath.fullPath);
             List<Spending> spendings = csvData.getKey();
             errors = csvData.getValue();
-            for (int i = 0; i < spendings.size(); i++) {
-                Spending spending = spendings.get(i);
-                model.addSpending(spending);
-            }
+            model.addSpending(spendings);
+
             count = spendings.size();
         } catch (IOException ex) {
             throw new CommandException(ex.getMessage());
@@ -127,6 +127,7 @@ public class ImportCommand extends Command {
     private Pair<List<Spending>, List<String>> readSpendingFromCsv(String path) throws IOException {
         List<Spending> spendings = new ArrayList<>();
         List<String> errors = new ArrayList<>();
+
         int count = 0;
         File csvFile = new File(path);
         CsvMapper mapper = new CsvMapper();
@@ -150,7 +151,7 @@ public class ImportCommand extends Command {
                 Spending spending = createSpending(rowAsMap);
                 spendings.add(spending);
             } catch (ParseException p) {
-                errors.add("Row " + count + ": " + p.getMessage() + "\n");
+                errors.add(String.format(MESSAGE_ERROR_ROW, count, p.getMessage()));
             }
         }
 

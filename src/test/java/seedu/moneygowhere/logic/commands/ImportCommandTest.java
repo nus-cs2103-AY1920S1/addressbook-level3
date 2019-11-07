@@ -45,16 +45,18 @@ public class ImportCommandTest {
     public void execute_invalidDate_showMessage() throws DataConversionException, CommandException {
         FilePath path = new FilePath(read("invalidDateSpending.csv").toString());
         CommandResult commandResult = new ImportCommand(path).execute(model);
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS_WITH_ERRORS, 1, "Row 1: "
-                + Date.MESSAGE_CONSTRAINTS + "\n"), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS_WITH_ERRORS, 1,
+                String.format(ImportCommand.MESSAGE_ERROR_ROW, 1, Date.MESSAGE_CONSTRAINTS)),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_invalidName_throwCommandException() throws DataConversionException, CommandException {
         FilePath path = new FilePath(read("invalidNameSpending.csv").toString());
         CommandResult commandResult = new ImportCommand(path).execute(model);
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS_WITH_ERRORS, 1, "Row 1: "
-                + Name.MESSAGE_CONSTRAINTS + "\n"), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS_WITH_ERRORS, 1,
+                String.format(ImportCommand.MESSAGE_ERROR_ROW, 1, Name.MESSAGE_CONSTRAINTS)),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
