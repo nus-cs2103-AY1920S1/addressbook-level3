@@ -18,6 +18,7 @@ import seedu.address.model.util.GradientDescent;
  */
 public class ProjectionGraph extends StackPane {
 
+    private Projection projection;
     private GradientDescent gradientDescent;
     private List<Budget> budgets;
     private NumberAxis xAxis;
@@ -32,6 +33,7 @@ public class ProjectionGraph extends StackPane {
     private double yRange;
 
     ProjectionGraph(Projection projection) {
+        this.projection = projection;
         this.gradientDescent = projection.getProjector();
         this.budgets = projection.getBudgets();
 
@@ -121,8 +123,8 @@ public class ProjectionGraph extends StackPane {
     private XYChart.Series<Number, Number> defineProjectionSeries() {
         XYChart.Series<Number, Number> projectionSeries = new XYChart.Series<>();
         projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getVariable(), gradientDescent.getResult()));
-        projectionSeries.getData().add(
-                new XYChart.Data<>(gradientDescent.getInputData(0), gradientDescent.predict(gradientDescent.getInputData(0)) / 100));
+        projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getInputData(0),
+                gradientDescent.predict(gradientDescent.getInputData(0)) / 100));
         projectionSeries.setName("Projection Line");
         return projectionSeries;
     }
@@ -146,10 +148,14 @@ public class ProjectionGraph extends StackPane {
     private XYChart.Series<Number, Number> defineBudgetSeries(int idx) {
         XYChart.Series<Number, Number> budgetSeries = new XYChart.Series<>();
         budgetSeries.setName(this.budgets.get(idx).toString());
-        budgetSeries.getData().add(new XYChart.Data<>(this.xAxis.getLowerBound() - this.xUnit,
-                this.budgets.get(idx).getBudget().getActualValue()));
+        budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budgets.get(idx).getStart()),
+                projection.getBudgetStartValue(idx).getActualValue()));
+        budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budgets.get(idx).getStart()),
+                projection.getBudgetThreshold(idx).getActualValue()));
         budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budgets.get(idx).getDeadline()),
-                budgets.get(idx).getBudget().getActualValue()));
+                projection.getBudgetThreshold(idx).getActualValue()));
+        budgetSeries.getData().add(new XYChart.Data<>(Date.daysBetween(Date.now(), this.budgets.get(idx).getDeadline()),
+                projection.getBudgetThreshold(idx).addAmount(projection.getBudgetProjection(idx)).getActualValue()));
         return budgetSeries;
     }
 
@@ -181,13 +187,13 @@ public class ProjectionGraph extends StackPane {
         yAxis.setAutoRanging(false);
         this.yMin = Math.min(gradientDescent.getResult(), gradientDescent.getMinOutput());
         if (!this.budgets.isEmpty()) {
-            this.yMin = Math.min(yMin, this.budgets.stream()
-                    .mapToDouble(item -> item.getBudget().getActualValue()).min().getAsDouble());
+            this.yMin = Math.min(yMin, IntStream.range(0, this.budgets.size())
+                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx).getActualValue()).min().getAsDouble());
         }
         this.yMax = Math.max(gradientDescent.getResult(), gradientDescent.getMaxOutput());
         if (!this.budgets.isEmpty()) {
-            this.yMax = Math.max(yMax, this.budgets.stream()
-                    .mapToDouble(item -> item.getBudget().getActualValue()).max().getAsDouble());
+            this.yMax = Math.max(yMax, IntStream.range(0, this.budgets.size())
+                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx).getActualValue()).max().getAsDouble());
         }
         this.yRange = yMax - yMin;
         this.yUnit = Math.round(yRange / 10);

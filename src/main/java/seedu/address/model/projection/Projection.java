@@ -1,7 +1,6 @@
 package seedu.address.model.projection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -28,6 +27,8 @@ public class Projection {
     private final Date date;
     private List<Budget> budgets = new ArrayList<>();
     private List<Amount> budgetProjections = new ArrayList<>();
+    private List<Amount> budgetStartValues = new ArrayList<>();
+    private List<Amount> budgetThresholds = new ArrayList<>();
     private Amount projection;
     private Amount cumulativeBalance;
     private GradientDescent projector;
@@ -46,7 +47,6 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
         this.category = Category.GENERAL;
         this.project();
     }
@@ -56,7 +56,6 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
         this.category = category;
         this.project();
     }
@@ -77,9 +76,7 @@ public class Projection {
         this.budgets = budgets;
         this.budgetProjections = new ArrayList<>();
         this.category = category;
-        this.budgets.forEach(x -> {
-            this.budgetProjections.add(this.projection.subtractAmount(x.getBudget()));
-        });
+        this.project();
     }
 
 
@@ -89,18 +86,19 @@ public class Projection {
     private void project() {
         double [] balances = extractBalances();
         double [] dates = extractDates();
-        System.out.println(Arrays.toString(balances));
-        System.out.println(Arrays.toString(dates));
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
+        this.budgets.forEach(x -> {
+            int daysToBudgetStart = Date.daysBetween(Date.now(), x.getStart());
+            Amount budgetStartValue = new Amount((int) Math.round(this.projector.predict(daysToBudgetStart)));
+            Amount budgetThreshold = budgetStartValue.subtractAmount(x.getInitialBudget());
+            int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
+            this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
+                    .subtractAmount(budgetThreshold));
+            this.budgetStartValues.add(budgetStartValue);
+            this.budgetThresholds.add(budgetThreshold);
+        });
         this.projection = new Amount((int) Math.round(projector.predict(daysToProject)));
-        if (this.budgets != null) {
-            this.budgets.forEach(x -> {
-                int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
-                this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
-                        .subtractAmount(x.getBudget()));
-            });
-        }
     }
 
     GradientDescent getProjector() {
@@ -151,6 +149,14 @@ public class Projection {
         return this.budgetProjections.get(idx);
     }
 
+    public Amount getBudgetStartValue(int idx) {
+        return this.budgetStartValues.get(idx);
+    }
+
+    public Amount getBudgetThreshold(int idx) {
+        return this.budgetThresholds.get(idx);
+    }
+
     public String getAllBudgetForecastText() {
         StringBuilder text = new StringBuilder();
         IntStream.range(0, budgetProjections.size()).forEach(x -> {
@@ -186,7 +192,6 @@ public class Projection {
         double cumulativeBalance = 0;
         for (int i = 0; i < balances.length; i++) {
             cumulativeBalance += transactionHistory.get(i).getAmount().getIntegerValue();
-            System.out.println(Math.round(cumulativeBalance));
             balances[i] = cumulativeBalance;
         }
         return balances;

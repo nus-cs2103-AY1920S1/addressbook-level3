@@ -116,7 +116,6 @@ public final class GradientDescent {
      * @return A prediction on the dependent variable based on the final values of {@code theta0} and {@code theta1}
      */
     public double predict(double input) {
-
         this.variable = input;
         double scaledData = (input - dataMean) / dataRange;
         this.result = computeHypothesis(scaledData) * outputRange + outputMean;
