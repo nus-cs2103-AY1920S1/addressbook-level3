@@ -384,6 +384,10 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
 
+    /**
+     * schedules a lesson.
+     * @param lesson Lesson object.
+     */
     public void createSchedule(Lesson lesson) {
         Scheduler scheduler = new Scheduler(lesson);
         scheduler.scheduleLesson(new Runnable() {
