@@ -21,7 +21,7 @@ public class TypicalFlashcard {
         .withChoice("Xiongan Airport", "Daxing Airport", "Lixian Airport", "Zhuque Airport").buildMcqFlashcard();
     public static final Flashcard CHANGI_AIRPORT = new FlashcardBuilder()
         .withQuestion("How many runways does Changi Airport have?").withDefinition("The airport in Singapore")
-        .withAnswer("4").buildShortAnswerFlashcard();
+        .withTag("Civil Engineering").withAnswer("4").buildShortAnswerFlashcard();
     public static final Flashcard TOKYO_AIRPORT = new FlashcardBuilder()
         .withQuestion("How many airports are there in Tokyo?").withDefinition("More than 1")
         .withAnswer("2").buildShortAnswerFlashcard();

@@ -35,6 +35,7 @@ public class CommandTestUtil {
     public static final String VALID_DEFINITION_BANANA = "It is a curly sweet fruit, not so juicy";
     public static final String VALID_TAG_ROUND = "round";
     public static final String VALID_TAG_LONG = "long";
+    public static final String VALID_TAG_CIVIL_ENGINEERING = "Civil Engineering";
     public static final String VALID_ANSWER_APPLE = "Red";
     public static final String VALID_ANSWER_BANANA = "Yellow";
     public static final String VALID_CHOICE_RED = "Red";
@@ -107,6 +108,12 @@ public class CommandTestUtil {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
         assertEquals(expectedFlashcardList, actualModel.getFlashcardList());
         assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
+    }
+
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel, CommandHistory commandHistory) {
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
+        assertEquals(actualModel, expectedModel);
     }
 
     /**

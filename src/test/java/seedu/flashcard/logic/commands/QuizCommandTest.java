@@ -1,12 +1,9 @@
 package seedu.flashcard.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.flashcard.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.flashcard.logic.commands.CommandTestUtil.showFlashcardAtIndex;
 import static seedu.flashcard.testutil.TypicalFlashcard.getTypicalFlashcardList;
 import static seedu.flashcard.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
-import static seedu.flashcard.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,38 +43,6 @@ public class QuizCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        QuizCommand quizCommand = new QuizCommand(outOfBoundIndex);
-
-        assertCommandFailure(quizCommand, model, QuizCommand.MESSAGE_INVALID_FLASHCARD_INDEX, commandHistory);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-
-        Flashcard flashcardToQuiz = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        QuizCommand quizCommand = new QuizCommand(INDEX_FIRST_FLASHCARD);
-
-        String expectedFlashcard = flashcardToQuiz.toString();
-
-        Model expectedModel = new ModelManager(model.getFlashcardList(), new UserPrefs());
-        List<Flashcard> quizList = new ArrayList<>();
-        quizList.add(flashcardToQuiz);
-        expectedModel.setQuiz(quizList);
-
-        assertCommandSuccess(quizCommand, model,
-                new CommandResult(QuizCommand.MESSAGE_RESULT_SUCCESS, true, expectedFlashcard)
-                , expectedModel, commandHistory);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-
-        Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getFlashcardList().getFlashcardList().size());
-
         QuizCommand quizCommand = new QuizCommand(outOfBoundIndex);
 
         assertCommandFailure(quizCommand, model, QuizCommand.MESSAGE_INVALID_FLASHCARD_INDEX, commandHistory);
