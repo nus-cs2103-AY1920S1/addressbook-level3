@@ -90,7 +90,7 @@ public abstract class BudgetCard extends UiPart<Region> {
 
     private void setEndDate() {
         String date = Budget.toStringDate(budgetData.getEndDate());
-        startDate.setText("End: " + date);
+        endDate.setText("End: " + date);
     }
 
     abstract void setProgressBar();
