@@ -122,7 +122,7 @@ public class EditActivityCommand extends EditCommand {
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
-        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor, isUndo);
+        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor, model, isUndo);
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
@@ -159,7 +159,9 @@ public class EditActivityCommand extends EditCommand {
      * edited with {@code editActivityDescriptor}.
      */
     private static Activity createEditedActivity(Activity activityToEdit,
-                                                 EditActivityDescriptor editActivityDescriptor, boolean isUndo) {
+                                                 EditActivityDescriptor editActivityDescriptor,
+                                                 Model model,
+                                                 boolean isUndo) {
         assert activityToEdit != null;
 
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
@@ -167,8 +169,10 @@ public class EditActivityCommand extends EditCommand {
         Contact updatedContact = !editActivityDescriptor.getPhone().isPresent() && isUndo
                 ? null
                 : editActivityDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
-                : activityToEdit.getContact().isPresent()
+                    ? model.hasPhone(editActivityDescriptor.getPhone().get())
+                        ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
+                        : new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
+                    : activityToEdit.getContact().isPresent()
                 ? activityToEdit.getContact().get()
                 : null;
         Cost updatedCost = editActivityDescriptor.getCost().isPresent()

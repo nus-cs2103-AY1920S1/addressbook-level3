@@ -295,9 +295,14 @@ public class ModelManager implements Model {
             oldList.set(oldList.indexOf(oldAct), newAct);
             if (newAct.getContact().isPresent()) {
                 Contact newContact = newAct.getContact().get();
-                setContact(oldContact, newContact);
-                contactActivityMap.put(newContact, oldList);
-                activityContactMap.put(newAct, newContact);
+                if (hasContact(newContact)) {
+                    updateMapping(oldContact, newContact);
+                    deleteContact(oldContact);
+                } else {
+                    setContact(oldContact, newContact);
+                    contactActivityMap.put(newContact, oldList);
+                    activityContactMap.put(newAct, newContact);
+                }
             } else {
                 deleteContact(oldContact);
                 contactActivityMap.put(oldContact, oldList);
@@ -327,9 +332,14 @@ public class ModelManager implements Model {
             oldList.set(oldList.indexOf(oldAcc), newAcc);
             if (newAcc.getContact().isPresent()) {
                 Contact newContact = newAcc.getContact().get();
-                setContact(oldContact, newContact);
-                contactAccommodationMap.put(newContact, oldList);
-                accommodationContactMap.put(newAcc, newContact);
+                if (hasContact(newContact)) {
+                    updateMapping(oldContact, newContact);
+                    deleteContact(oldContact);
+                } else {
+                    setContact(oldContact, newContact);
+                    contactAccommodationMap.put(newContact, oldList);
+                    accommodationContactMap.put(newAcc, newContact);
+                }
             } else {
                 deleteContact(oldContact);
                 accommodationContactMap.put(newAcc, oldContact);
