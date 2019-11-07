@@ -21,12 +21,12 @@ public interface Storage extends GuiltTripStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getGuiltTripFilePath();
 
     @Override
-    Optional<ReadOnlyGuiltTrip> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyGuiltTrip> readGuiltTrip() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyGuiltTrip addressBook) throws IOException;
+    void saveGuiltTrip(ReadOnlyGuiltTrip guiltTrip) throws IOException;
 
 }

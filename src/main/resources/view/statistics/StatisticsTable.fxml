@@ -6,25 +6,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="464.0" prefWidth="450.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox alignment="CENTER" prefWidth="200.0">
-      <children>
-         <Label fx:id="totalLabel" text="Total">
-            <font>
-               <Font name="AvenirLTStd-Black" size="28.0" />
-            </font>
-         </Label>
-      </children>
-   </HBox>
-  <TableView fx:id="statsTable" prefWidth="800.0" VBox.vgrow="ALWAYS">
+<VBox alignment="CENTER" prefHeight="464.0" prefWidth="450.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER" prefWidth="200.0">
+        <Label fx:id="totalLabel" text="Total" styleClass="stats-graphic-title" />
+    </HBox>
+
+  <TableView fx:id="statsTable" prefWidth="800.0" VBox.vgrow="ALWAYS" >
     <columns>
-         <TableColumn fx:id="categoryName" prefWidth="336.7999939918518" text="Category Name" />
-         <TableColumn fx:id="amtSpent" text="Amount Spent" />
+         <TableColumn fx:id="categoryName" prefWidth="336.7999939918518" text="Category Name"/>
+         <TableColumn fx:id="amt" text="Amount ($)" />
     </columns>
-      <padding>
-          <Insets bottom="5" left="5" right="5" top="5" />
-      </padding>
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5" />
+    </padding>
   </TableView>
+
 </VBox>

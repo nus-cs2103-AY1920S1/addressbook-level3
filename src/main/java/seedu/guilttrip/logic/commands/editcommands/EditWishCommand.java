@@ -5,7 +5,7 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -84,8 +84,8 @@ public class EditWishCommand extends Command {
         }
 
         model.setWish(entryToEdit, editedEntry);
-        model.updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
-        model.commitAddressBook();
+        model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

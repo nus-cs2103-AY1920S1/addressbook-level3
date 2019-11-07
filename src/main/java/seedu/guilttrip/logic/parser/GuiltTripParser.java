@@ -27,6 +27,7 @@ import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddWishCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddDateConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
@@ -78,6 +79,7 @@ import seedu.guilttrip.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddIncomeCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddWishCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -162,6 +164,9 @@ public class GuiltTripParser {
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case AddWishCommand.COMMAND_WORD:
+            return new AddWishCommandParser().parse(arguments);
 
         case EditExpenseCommand.COMMAND_WORD:
             // Fallthrough

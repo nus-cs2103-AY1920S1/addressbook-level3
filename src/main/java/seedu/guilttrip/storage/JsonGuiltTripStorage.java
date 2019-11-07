@@ -27,22 +27,22 @@ public class JsonGuiltTripStorage implements GuiltTripStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getGuiltTripFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyGuiltTrip> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyGuiltTrip> readGuiltTrip() throws DataConversionException {
+        return readGuiltTrip(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readGuiltTrip()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyGuiltTrip> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyGuiltTrip> readGuiltTrip(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableGuiltTrip> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonGuiltTripStorage implements GuiltTripStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyGuiltTrip addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook) throws IOException {
+        saveGuiltTrip(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyGuiltTrip)}.
+     * Similar to {@link #saveGuiltTrip(ReadOnlyGuiltTrip)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
+    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

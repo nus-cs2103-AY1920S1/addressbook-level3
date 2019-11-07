@@ -28,7 +28,7 @@ public class StatisticsTable extends UiPart<Region> {
     private TableColumn<CategoryStatistics, String> categoryName;
 
     @FXML
-    private TableColumn<CategoryStatistics, Double> amtSpent;
+    private TableColumn<CategoryStatistics, Double> amt;
 
     @FXML
     private Label totalLabel;
@@ -53,6 +53,6 @@ public class StatisticsTable extends UiPart<Region> {
     public void updateStatisticsTable(ObservableList<CategoryStatistics> statsMap) {
         this.statsTable.setItems(statsMap);
         categoryName.setCellValueFactory(p -> p.getValue().getCategoryNameProperty());
-        amtSpent.setCellValueFactory(p -> p.getValue().getAmountCalculatedProperty().asObject());
+        amt.setCellValueFactory(p -> p.getValue().getAmountCalculatedProperty().asObject());
     }
 }

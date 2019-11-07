@@ -20,8 +20,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setAddressBook(new GuiltTrip(true));
-        model.commitAddressBook();
+        model.setGuiltTrip(new GuiltTrip(true));
+        model.commitGuiltTrip();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
