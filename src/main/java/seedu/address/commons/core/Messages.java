@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_CALENDAR_MONTH = "Invalid month, year or format!"
         + " Please enter in 'MM/YYYY' format.";
 
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer. Between [0, 2^31)";
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "Invalid index! Task with index '%s' does not exist.";
 
