@@ -16,14 +16,14 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  */
 public class RemoveTagFromModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "removemodtag";
+    public static final String COMMAND_WORD = "removetag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a tag from a module";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the specified tag from the specified module "
             + "Parameters: "
             + "MODULE_CODE "
             + "TAG_NAME \n"
             + "Example: "
-            + "removemodtag CS3230 exchange";
+            + "removetag CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s removed from %2$s";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";

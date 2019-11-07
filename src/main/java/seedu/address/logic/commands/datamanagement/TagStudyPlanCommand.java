@@ -16,7 +16,7 @@ import seedu.address.model.tag.PriorityTagType;
  */
 public class TagStudyPlanCommand extends Command {
 
-    public static final String COMMAND_WORD = "tagplan";
+    public static final String COMMAND_WORD = "setpriority";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a priority tag to a study plan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority "
@@ -26,10 +26,10 @@ public class TagStudyPlanCommand extends Command {
             + "PRIORITY_TYPE "
             + "STUDY_PLAN_INDEX \n"
             + "Example: "
-            + "tagplan high 1";
+            + "setpriority high 1";
 
-    public static final String MESSAGE_SUCCESS = "Tag %1$s has been attached to %2$s";
-    public static final String MESSAGE_TAG_ALREADY_EXISTS = "%1%s already has the tag %2$s";
+    public static final String MESSAGE_SUCCESS = "Priority tag %1$s has been attached to %2$s";
+    public static final String MESSAGE_TAG_ALREADY_EXISTS = "%1%s already has the priority tag %2$s";
     public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this index does not exists!";
 
     private String priorityLevel;

@@ -112,6 +112,7 @@ Examples:
 * `removemod y2s2 CS3244`
 
 // end::addremovemod[]
+//tag::dataclassificationandmanagement1[]
 
 ==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
@@ -121,6 +122,7 @@ Examples:
 
 * `findmod cs1101s`
 * `findmod cs2103`
+//end::dataclassificationandmanagement1[]
 
 ==== Viewing description of a module: `description`
 Shows the description of a particular module, including its prerequisites.
@@ -183,8 +185,12 @@ Example:
 
 * `validmods y2s1`
 
-//tag::dataclassificationandmanagement[]
+//tag::dataclassificationandmanagement2[]
 === Tagging
+
+[IMPORTANT]
+All tag names must be single words and cannot be more than 25 characters long.
+
 ==== Viewing default tags : `viewdefaulttags`
 Shows all default tag types. +
 Format: `viewdefaulttags`
@@ -277,7 +283,7 @@ Examples:
 Removes all user-created tags in the entire study plan. +
 Format: `removeallmodtags`
 
-//end::dataclassificationandmanagement[]
+//end::dataclassificationandmanagement2[]
 
 // tag::studyplan[]
 === Study Plan
@@ -345,6 +351,8 @@ Format: `default`
 
 // end::studyplan[]
 
+//tag::dataclassificationandmanagement3[]
+
 ==== Adding priority tags to a study plan : `setpriority`
 Attaches a priority tag to the study plan. +
 Format: `setpriority PRIORITY_LEVEL STUDY_PLAN_ID`
@@ -374,6 +382,7 @@ Examples
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +
 Format: `listbypriority`
+//end::dataclassificationandmanagement3[]
 
 ==== Checking a study plan's feasibility : `check`
 Shows details about what graduation requirements are left to be fulfilled,
@@ -523,6 +532,26 @@ Examples:
 
 * `movemod CS3243 y2s1 y2s2`
 
+
+=== Tagging
+//tag::dataclassificationandmanagement4[]
+==== Setting focus area tags to study plans: `[coming in v2.0]`
+A tag with the declared focus area will automatically appear when the user declares his/her focus area. +
+Refer to <<Declaring a focus area: `[coming in v2.0]`>>.
+
+==== Change colour theme of tags: `[coming in v2.0]`
+Changes the colour theme of all the tags in the study plan with the specified one.
+
+==== Change colour of specific tags: `[coming in v2.0]`
+Changes the colour of a specific tag.
+
+==== Get module codes from keywords: `[coming in v2.0]`
+Shows all module codes of modules with names containing the specified keywords.
+
+==== Tagging modules across all study plans: `[coming in v2.0]`
+Attaches a specified tag to a module across all study plans. For example, a tag `difficult` can be attached to a
+given module across all study plans instead of tagging them individually in every study plan.
+//end::dataclassificationandmanagement4[]
 === Study Plan
 
 ==== Declaring a focus area: `[coming in v2.0]`

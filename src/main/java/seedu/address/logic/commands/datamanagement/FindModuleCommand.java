@@ -2,13 +2,10 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.UniqueSemesterList;
@@ -29,7 +26,7 @@ public class FindModuleCommand extends Command {
             + "Example: "
             + "findmod cs3230";
 
-    public static final String MESSAGE_SUCCESS = "%1$s is currently located in the following locations";
+    public static final String MESSAGE_SUCCESS = "%1$s is currently located in the following semesters";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_MODULE_NOT_FOUND = "%1$s is not in the current study plan";
 
@@ -44,19 +41,17 @@ public class FindModuleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        HashMap<String, Module> moduleHashMap = model.getModulesFromActiveSp();
-
         if (!model.isValidModuleCode(this.moduleCode)) {
             throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
-        }
-
-        if (!moduleHashMap.containsKey(moduleCode)) {
-            throw new CommandException(String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode));
         }
 
         UniqueSemesterList semesterList = model.getSemestersFromActiveSp();
 
         UniqueSemesterList modLocation = findMod(semesterList);
+
+        if (modLocation.asUnmodifiableObservableList().size() == 0) {
+            throw new CommandException(String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode));
+        }
 
         return new CommandResult<Semester>(String.format(MESSAGE_SUCCESS, moduleCode), ResultViewType.SEMESTER,
                 modLocation.asUnmodifiableObservableList());

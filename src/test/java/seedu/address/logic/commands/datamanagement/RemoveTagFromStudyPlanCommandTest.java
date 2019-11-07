@@ -31,11 +31,6 @@ public class RemoveTagFromStudyPlanCommandTest {
     }
 
     @Test
-    public void constructor_nullPriorityLevel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new TagStudyPlanCommand(null, 1));
-    }
-
-    @Test
     public void execute_tagInStudyPlan_removeSuccessful() {
         // construct model containing study plan with the tag
         StudyPlan studyPlan = new StudyPlanBuilder().withStudyPlanTags(validTagOne).build();
@@ -52,7 +47,7 @@ public class RemoveTagFromStudyPlanCommandTest {
 
         // construct command to remove the tag
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("HIGH", 1);
+                new RemoveTagFromStudyPlanCommand(1);
         CommandResult expectedCommandResult = new CommandResult(
                 String.format(RemoveTagFromStudyPlanCommand.MESSAGE_SUCCESS, validTagOne, studyPlan),
                         true, false);
@@ -68,9 +63,9 @@ public class RemoveTagFromStudyPlanCommandTest {
 
         // construct command to remove the tag
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("HIGH", 1);
+                new RemoveTagFromStudyPlanCommand(1);
         assertThrows(CommandException.class, () -> removeTagFromStudyPlanCommand.execute(model),
-                RemoveTagFromStudyPlanCommand.MESSAGE_TAG_DOES_NOT_EXIST);
+                String.format(RemoveTagFromStudyPlanCommand.MESSAGE_TAG_DOES_NOT_EXIST, 1));
     }
 
     @Test
@@ -82,7 +77,7 @@ public class RemoveTagFromStudyPlanCommandTest {
 
         // construct command to add a priority tag to a non-existent study plan
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("HIGH", 3);
+                new RemoveTagFromStudyPlanCommand(3);
         assertThrows(CommandException.class, () -> removeTagFromStudyPlanCommand.execute(model),
                 RemoveTagFromStudyPlanCommand.MESSAGE_NO_SUCH_STUDYPLAN);
     }
@@ -90,18 +85,18 @@ public class RemoveTagFromStudyPlanCommandTest {
     @Test
     public void equals() {
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("HIGH", 1);
+                new RemoveTagFromStudyPlanCommand(1);
         RemoveTagFromStudyPlanCommand removeTagFromOtherStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("HIGH", 2);
+                new RemoveTagFromStudyPlanCommand(2);
         RemoveTagFromStudyPlanCommand removeOtherTagFromStudyPlanCommand =
-                new RemoveTagFromStudyPlanCommand("MEDIUM", 1);
+                new RemoveTagFromStudyPlanCommand(1);
 
         // same object -> returns true
         assertTrue(removeTagFromStudyPlanCommand.equals(removeTagFromStudyPlanCommand));
 
         // same values -> returns true
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommandCopy =
-                new RemoveTagFromStudyPlanCommand("HIGH", 1);
+                new RemoveTagFromStudyPlanCommand(1);
         assertTrue(removeTagFromStudyPlanCommand.equals(removeTagFromStudyPlanCommandCopy));
 
         // different types -> returns false
@@ -109,9 +104,6 @@ public class RemoveTagFromStudyPlanCommandTest {
 
         // null -> returns false
         assertFalse(removeTagFromStudyPlanCommand.equals(null));
-
-        // different priority tag -> returns false
-        assertFalse(removeTagFromStudyPlanCommand.equals(removeOtherTagFromStudyPlanCommand));
 
         // different study plan -> returns false
         assertFalse(removeTagFromStudyPlanCommand.equals(removeTagFromOtherStudyPlanCommand));

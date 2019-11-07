@@ -15,14 +15,14 @@ import seedu.address.model.tag.UserTag;
  */
 public class TagModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "tagmod";
+    public static final String COMMAND_WORD = "addtag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a tag to a module";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
             + "Parameters: "
             + "MODULE CODE "
             + "TAG_NAME \n"
             + "Example: "
-            + "tagmod CS3230 exchange";
+            + "addtag CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS_TAG_CREATED = "A new tag %1$s has been created and added to module %2$s";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";

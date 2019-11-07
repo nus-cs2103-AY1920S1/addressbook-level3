@@ -111,6 +111,45 @@ public class RenameTagCommandTest {
     }
 
     @Test
+    public void execute_newTagPresentInStudyPlanAndModules_renameSuccessful() {
+        // construct modules with user tags
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne, validTagTwo).build();
+        HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
+        moduleHashMap.put("CS1231S", cs1231s);
+        moduleHashMap.put("CS2100", cs2100);
+
+        // construct model containing study plan with one user tag
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
+                .withModules(moduleHashMap).build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        // construct two expected modules with renamed user tag
+        Module expectedCS1231S = new ModuleBuilder().withTags(validTagTwo).build();
+        Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100")
+                .withTags(validTagTwo).build();
+        HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
+        expectedModuleHashMap.put("CS2100", expectedCS2100);
+
+        // construct expected model containing study plan with renamed user tag
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagTwo)
+                .withModules(expectedModuleHashMap).build();
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
+        expectedModel.addToHistory();
+
+        // construct command to rename one of the user tags
+        RenameTagCommand renameTagCommand = new RenameTagCommand(validTagNameOne, validTagNameTwo);
+        assertCommandSuccess(renameTagCommand, model, String.format(RenameTagCommand.MESSAGE_SUCCESS, validTagNameOne,
+                validTagNameTwo), expectedModel);
+    }
+
+    @Test
     public void execute_renameDefaultTag_throwsCommandException() {
         String defaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 

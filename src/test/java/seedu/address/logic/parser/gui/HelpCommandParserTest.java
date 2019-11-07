@@ -16,7 +16,6 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
-import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -92,9 +91,6 @@ class HelpCommandParserTest {
 
         expectedHelpCommand = new HelpCommand(RemoveAllTagsCommand.COMMAND_WORD);
         assertEquals(new HelpCommandParser().parse(RemoveAllTagsCommand.COMMAND_WORD), expectedHelpCommand);
-
-        expectedHelpCommand = new HelpCommand(RemoveTagFromAllCommand.COMMAND_WORD);
-        assertEquals(new HelpCommandParser().parse(RemoveTagFromAllCommand.COMMAND_WORD), expectedHelpCommand);
 
         expectedHelpCommand = new HelpCommand(RemoveTagFromModuleCommand.COMMAND_WORD);
         assertEquals(new HelpCommandParser().parse(RemoveTagFromModuleCommand.COMMAND_WORD), expectedHelpCommand);

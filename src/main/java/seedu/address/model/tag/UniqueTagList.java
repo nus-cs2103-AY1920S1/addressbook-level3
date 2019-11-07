@@ -152,7 +152,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
             containsPriorityTag = false;
             priorityTag = null;
         }
-        mapTags.remove(toRemove.getTagName());
+        mapTags.remove(toRemove.getTagName().toUpperCase());
     }
 
     public void setTags(UniqueTagList replacement) {

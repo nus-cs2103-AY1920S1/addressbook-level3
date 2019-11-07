@@ -20,7 +20,6 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
-import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -62,7 +61,6 @@ import seedu.address.logic.parser.cli.SetCurrentSemesterParser;
 import seedu.address.logic.parser.cli.UnblockCurrentSemesterCommandParser;
 import seedu.address.logic.parser.datamanagement.DeleteTagCommandParser;
 import seedu.address.logic.parser.datamanagement.FindModuleCommandParser;
-import seedu.address.logic.parser.datamanagement.RemoveTagFromAllCommandParser;
 import seedu.address.logic.parser.datamanagement.RemoveTagFromModuleCommandParser;
 import seedu.address.logic.parser.datamanagement.RemoveTagFromStudyPlanCommandParser;
 import seedu.address.logic.parser.datamanagement.RenameTagCommandParser;
@@ -171,9 +169,6 @@ public class ModulePlannerParser {
 
         case DeleteTagCommand.COMMAND_WORD:
             return new DeleteTagCommandParser().parse(arguments);
-
-        case RemoveTagFromAllCommand.COMMAND_WORD:
-            return new RemoveTagFromAllCommandParser().parse(arguments);
 
         case EditTitleCommand.COMMAND_WORD:
             return new EditStudyPlanTitleParser().parse(arguments);

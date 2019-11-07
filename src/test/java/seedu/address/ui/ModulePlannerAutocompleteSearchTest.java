@@ -18,7 +18,6 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
-import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -148,7 +147,6 @@ class ModulePlannerAutocompleteSearchTest {
         checkOneCommand(DeleteTagCommand.COMMAND_WORD, autocompleteSearch);
         checkOneCommand(FindModuleCommand.COMMAND_WORD, autocompleteSearch);
         checkOneCommand(RemoveAllTagsCommand.COMMAND_WORD, autocompleteSearch);
-        checkOneCommand(RemoveTagFromAllCommand.COMMAND_WORD, autocompleteSearch);
         checkOneCommand(RemoveTagFromModuleCommand.COMMAND_WORD, autocompleteSearch);
         checkOneCommand(RemoveTagFromStudyPlanCommand.COMMAND_WORD, autocompleteSearch);
         checkOneCommand(RenameTagCommand.COMMAND_WORD, autocompleteSearch);
@@ -201,7 +199,6 @@ class ModulePlannerAutocompleteSearchTest {
         checkHelpCommand(DeleteTagCommand.COMMAND_WORD, autocompleteSearch);
         checkHelpCommand(FindModuleCommand.COMMAND_WORD, autocompleteSearch);
         checkHelpCommand(RemoveAllTagsCommand.COMMAND_WORD, autocompleteSearch);
-        checkHelpCommand(RemoveTagFromAllCommand.COMMAND_WORD, autocompleteSearch);
         checkHelpCommand(RemoveTagFromModuleCommand.COMMAND_WORD, autocompleteSearch);
         checkHelpCommand(RemoveTagFromStudyPlanCommand.COMMAND_WORD, autocompleteSearch);
         checkHelpCommand(RenameTagCommand.COMMAND_WORD, autocompleteSearch);
