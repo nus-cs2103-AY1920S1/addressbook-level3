@@ -183,6 +183,32 @@ public class ParserUtilTest {
         assertEquals(expectedCost, costs.get(0));
     }
 
+    //@@author Nanosync
+    @Test
+    public void parseCostsRange_validValue() throws Exception {
+        Cost expectedCost1 = new Cost("1");
+        Cost expectedCost2 = new Cost("2");
+
+        List<Cost> expectedCosts = List.of(expectedCost1, expectedCost2);
+
+        assertEquals(expectedCosts, ParserUtil.parseCostsRange("1 - 2"));
+        assertEquals(expectedCosts, ParserUtil.parseCostsRange("1.0 - 2.0"));
+        assertEquals(expectedCosts, ParserUtil.parseCostsRange("1.0 - 2"));
+        assertEquals(expectedCosts, ParserUtil.parseCostsRange("1 - 2.0"));
+    }
+
+    @Test
+    public void parseCostsRange_invalidValues_emptyList() throws Exception {
+        List<Cost> costs = new ArrayList<Cost>();
+        assertEquals(costs, ParserUtil.parseCostsRange(""));
+        assertEquals(costs, ParserUtil.parseCostsRange("1 - "));
+        assertEquals(costs, ParserUtil.parseCostsRange(" - 2"));
+        assertEquals(costs, ParserUtil.parseCostsRange(" - "));
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseCostsRange("+1 - +2"));
+    }
+
+    //@@author
     @Test
     public void parseRemark_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark((String) null));

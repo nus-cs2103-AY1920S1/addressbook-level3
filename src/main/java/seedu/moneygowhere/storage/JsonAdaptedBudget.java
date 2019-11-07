@@ -1,10 +1,13 @@
 package seedu.moneygowhere.storage;
 
+import static seedu.moneygowhere.model.budget.BudgetMonth.isValidBudgetMonth;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.budget.BudgetMonth;
 
 /**
  * Jackson-friendly version of {@link Budget}.
@@ -15,7 +18,6 @@ public class JsonAdaptedBudget {
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Budget's %s field is invalid!";
 
     private final String value;
-    private final String sum;
     private final String month;
 
     /**
@@ -23,9 +25,8 @@ public class JsonAdaptedBudget {
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("value") String value,
-            @JsonProperty("sum") String sum, @JsonProperty("month") String month) {
+            @JsonProperty("month") String month) {
         this.value = value;
-        this.sum = sum;
         this.month = month;
     }
 
@@ -34,7 +35,6 @@ public class JsonAdaptedBudget {
      */
     public JsonAdaptedBudget(Budget source) {
         value = source.getValueString();
-        sum = source.getSumString();
         month = source.getMonthString();
     }
 
@@ -46,7 +46,6 @@ public class JsonAdaptedBudget {
     public Budget toModelType() throws IllegalValueException {
 
         double realValue;
-        double realSum;
         String realMonth;
 
         if (value == null) {
@@ -59,21 +58,16 @@ public class JsonAdaptedBudget {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, "value"));
         }
 
-        if (sum == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "sum"));
-        }
-
-        try {
-            realSum = Double.parseDouble(sum);
-        } catch (Exception e) {
-            throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, "value"));
-        }
-
         if (month == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "month"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "BudgetMonth"));
         }
+
+        if (!isValidBudgetMonth(month)) {
+            throw new IllegalValueException(String.format(BudgetMonth.MESSAGE_CONSTRAINTS));
+        }
+
         realMonth = month;
 
-        return new Budget(realValue, realSum, realMonth);
+        return new Budget(realValue, realMonth);
     }
 }

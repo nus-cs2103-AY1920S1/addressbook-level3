@@ -44,7 +44,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         if (date.dateValue.isAfter(LocalDate.now())
-                && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_TOO_FAR_RANGE) {
+                && date.dateValue.getMonth() != LocalDate.now().getMonth()
+                && date.dateValue.getYear() != LocalDate.now().getYear()) {
             throw new ParseException(DATE_INVALID_TOO_FAR);
         }
 

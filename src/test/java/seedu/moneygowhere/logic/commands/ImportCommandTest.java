@@ -63,6 +63,28 @@ public class ImportCommandTest {
         assertThrows(CommandException.class, () -> new ImportCommand(path).execute(model));
     }
 
+    @Test
+    public void execute_invalidCsvHeaders_throwCommandException() throws DataConversionException {
+        FilePath path = new FilePath(read("invalidHeaders.csv").toString());
+        assertThrows(CommandException.class, () -> new ImportCommand(path).execute(model),
+                ImportCommand.MESSAGE_INVALID_CSV);
+    }
+
+    @Test
+    public void execute_invalidHeaderSize_throwCommandException() throws DataConversionException {
+        FilePath path = new FilePath(read("invalidHeadersSize.csv").toString());
+        assertThrows(CommandException.class, () -> new ImportCommand(path).execute(model),
+                ImportCommand.MESSAGE_INVALID_CSV);
+    }
+
+    @Test
+    public void execute_noContent_throwCommandException() throws DataConversionException {
+        FilePath path = new FilePath(read("noContent.csv").toString());
+        assertThrows(CommandException.class, () -> new ImportCommand(path).execute(model),
+                ImportCommand.MESSAGE_NO_CONTENT);
+    }
+
+
     private Path read(String configFileInTestDataFolder) throws DataConversionException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return configFilePath;

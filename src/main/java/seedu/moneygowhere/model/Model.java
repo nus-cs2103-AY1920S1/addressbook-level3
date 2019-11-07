@@ -97,6 +97,7 @@ public interface Model {
      */
     void updateFilteredSpendingList(Predicate<Spending> predicate);
 
+    //@@author Nanosync
     /**
      * Updates the comparator of the sorted Spending list to filter by the given {@code comparator}.
      *
@@ -104,6 +105,7 @@ public interface Model {
      */
     void updateSortedSpendingList(Comparator<Spending> comparator);
 
+    //@@author austinsantoso
     /**
      * Replaces the previous budget of MoneyGoWhere with the new budget.
      */
@@ -124,6 +126,7 @@ public interface Model {
      */
     void clearBudgetSum();
 
+    //@@author minpyaemoe
     /**
      * Adds the given Reminder.
      * {@code Reminder} must not NULL.
@@ -144,6 +147,7 @@ public interface Model {
     /** Returns an unmodifiable view of the sorted Reminder list */
     ObservableList<Reminder> getSortedReminderList();
 
+    //@@author choongyongxin
     /**
      * Returns an unmodifiable view of the filtered Spending list
      */
@@ -154,8 +158,9 @@ public interface Model {
      */
     void updateStatsPredicate(Predicate<Spending> statsPredicate);
 
+    //@@author Nanosync
     /**
-     * Gets the current currency in use.
+     * Gets the currency in use.
      */
     Currency getCurrencyInUse();
 

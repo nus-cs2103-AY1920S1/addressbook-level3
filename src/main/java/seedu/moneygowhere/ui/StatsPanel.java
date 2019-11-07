@@ -10,6 +10,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * Tab containing the pie chart.
@@ -20,20 +21,22 @@ public class StatsPanel extends UiPart<Region> {
     @FXML
     private StackPane panePlaceholder;
 
-    public StatsPanel(LinkedHashMap<String, Double> statsData, String commandResult) {
+    public StatsPanel(LinkedHashMap<String, Double> statsData, String commandResult, Currency currencyInUse) {
         super(FXML);
-        loadData(statsData, commandResult);
+        loadData(statsData, commandResult, currencyInUse);
     }
 
+    //@@author choongyx
     /**
      * Constructs the pie chart with the data.
      */
-    private void loadData(LinkedHashMap<String, Double> statsData, String commandResult) {
+    private void loadData(LinkedHashMap<String, Double> statsData, String commandResult, Currency currency) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         for (Map.Entry<String, Double> i : statsData.entrySet()) {
-            pieChartData.add(new PieChart.Data(i.getKey() + String.format(" ($%.2f)", i.getValue()),
-                    Math.round(i.getValue())));
+            double newCost = currency.rate * i.getValue();
+            pieChartData.add(new PieChart.Data(String.format("%s (%s%.2f)", i.getKey(), currency.symbol, newCost),
+                Math.round(i.getValue())));
         }
         PieChart pieChart = new PieChart(pieChartData);
         Text text = new Text();

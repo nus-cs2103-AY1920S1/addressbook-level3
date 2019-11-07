@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+//@author Nanosync
 public class CurrencyTest {
 
     @Test
@@ -57,12 +58,12 @@ public class CurrencyTest {
     }
 
     @Test
-    public void test_toString() {
+    public void toString_equals() {
         assertEquals("SGD ($): 1.000", new Currency("SGD", "$", 1.00).toString());
     }
 
     @Test
-    public void test_compareTo() {
+    public void compareTo_equals() {
         Currency one = new Currency("SGD", "$", 1.00);
         Currency two = new Currency("SGD", "@", 1.00);
 

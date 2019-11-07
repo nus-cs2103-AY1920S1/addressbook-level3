@@ -75,8 +75,16 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SPENDING_DISPLAYED_INDEX);
         }
 
+        EditSpendingDescriptor tempDescriptor = editSpendingDescriptor;
+        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")
+                && tempDescriptor.getCost().isPresent()) {
+            Cost cost = tempDescriptor.getCost().get();
+            double updatedCost = Double.parseDouble(cost.value) / model.getCurrencyInUse().rate;
+            tempDescriptor.setCost(new Cost(String.format("%.2f", updatedCost)));
+        }
+
         Spending spendingToEdit = lastShownList.get(index.getZeroBased());
-        Spending editedSpending = createEditedSpending(spendingToEdit, editSpendingDescriptor);
+        Spending editedSpending = createEditedSpending(spendingToEdit, tempDescriptor);
 
         model.setSpending(spendingToEdit, editedSpending);
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);

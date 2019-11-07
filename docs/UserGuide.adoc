@@ -51,7 +51,8 @@ These steps will guide you in installing MoneyGoWhere on your computer.
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
-.  Double-click the file to start the app. The GUI should appear in a few seconds as shown in `Figure 1`.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as seen in Figure 1.
+MoneyGoWhere comes preloaded with sample data to allow you to explore and familiarise with the application.
 
 +
 .User Interface of MoneyGoWhere
@@ -66,7 +67,10 @@ e.g. typing *`help`* will display the help information.
 * **`delete`**`3` : deletes the 3rd spending shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. When you are ready to get started on tracking your own finances, do type `clear` in the command box and press kbd:[Enter].
+This removes all the sample data from the application.
+. You can refer to <<Features>> for more details about each command.
+
 // end::introduction[]
 
 [[Features]]
@@ -111,7 +115,7 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** 26/2/2019
 * *Relaxed Dates*
 ** The 31st of April in the year 2008
-** Fri, 21 Nov 1997
+** 21 Nov 1997
 ** Jan 21,'97
 ** jan 1st
 ** february twenty-eight
@@ -130,12 +134,21 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** 2 fridays before/ 4 tuesdays after
 
 [TIP]
-You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received.
+You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received. However, if today is Wednesday and `wednesday` is entered, it will be considered next's week Wednesday.
 
 [NOTE]
 MoneyGoWhere will also automatically check whether a given date is valid.
-Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019. MoneyGoWhere may automatically try to correct dates *best possible date*.
 // end::flexibledateformats[]
+
+=== Going through your command history:
+Similar to a typical command line interface (CLI), the user may press the up and down key
+to go through the previous user input history, and display it in the command box. Pressing the up key would go back to the earlier user input command.
+Whereas pressing the down key would move towards the most recent user input key.
+
+[NOTE]
+If the user is at the most recent, or the earliest user inputted command, then press the up and down key respectively,
+no text will be displayed.
 
 === Adding a spending : `add`
 
@@ -144,14 +157,15 @@ Adds a spending to the list when the user incurs a new spending. Key information
 *Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to 5 years from now.
+A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to the end of this month. Also, if you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
+
 
 *Examples:*
 
 * `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
-* `add n/chicken breast c/1.80 t/meat` +
+* `add n/chicken breast c/1.80 d/today t/meat` +
 * `add n/coffee c/1.20 d/today` +
-* `add n/milo c/1.50 r/I love milo` +
+* `add n/milo c/1.50 d/tomorrow r/I love milo` +
 * `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
 *Expected Output:*
@@ -162,7 +176,7 @@ A new spending is added based on the specified input.
 
 Edits a spending at a specified index in the list. +
 
-*Format:* `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+*Format:* `edit INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
 * Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
@@ -171,7 +185,8 @@ Edits a spending at a specified index in the list. +
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
 * Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
-* If a spending date is in the future, it can only be up to 5 years from now.
+* If a spending date is in the future, it can only be up to end of this month.
+* If you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
 ****
 
 *Examples:*
@@ -275,6 +290,7 @@ Searches for spending based on given keywords, cost range, date range, remarks o
 
 ** `c/COST_MIN c/COST_MAX`
 ** `c/COST_MIN-COST_MAX`
+** `c/COST_MIN - COST_MAX`
 ****
 
 [NOTE]
@@ -311,7 +327,7 @@ Existing budget of current month is overwritten if budget has already been set.
 *Example:*
 
 * `budget 500000` +
-Sets a budget of `$500,000` for this month
+Sets a budget of $`500000` for this month
 
 *Expected Output:*
 
@@ -331,7 +347,7 @@ Sets the currency used to display spending entries. +
 *Format:* `currency [CURRENCYCODE]`
 
 ****
-* If CURRENCYCODE is not specified, the current currency used is displayed.
+* If CURRENCYCODE is not specified, the currency in use is displayed.
 * CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 ****
 
@@ -355,6 +371,7 @@ Displays current stored exchange rates. +
 * If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
 * CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 * Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
+* Due to network limitations, exchange rates are fixed and locally stored. Note that exchange rates may vary across different websites.
 ****
 
 *Example:*
@@ -400,6 +417,9 @@ Date range can be input in the following ways: +
 [TIP]
 The statistics panel will update every time the spending list displayed changes.
 For example, when a new spending with a tag is added, the statistics panel will update the pie chart to show the statistics for all spending, including the new spending.
+
+[TIP]
+The statistics panel will update with the currency set.
 
 *Examples:*
 
@@ -448,6 +468,9 @@ Hovering the mouse over a point displays the date and total amount of money spen
 The graph panel will update every time the spending list displayed changes.
 For example, when a new spending is added, the graph panel will update and generate a graph for all spending, including the new spending.
 
+[TIP]
+The graph panel will update with the currency set.
+
 *Examples:*
 
 * `graph`: Generates a graph for all spending.
@@ -467,12 +490,13 @@ A graph is shown.
 // end::graph[]
 
 === Adding a reminder: `reminder add`
-Adds a reminder to the reminder list when user enters a new reminder. This command records a reminder together with its message and deadline.
+
+Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
 [NOTE]
-The date of a deadline must be within 5 years from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
+The date of a deadline must be within 1 year from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
 
 *Examples:*
 
@@ -654,7 +678,7 @@ Listed below is a summary of all available commands.
 | *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-| *Edit* | `edit i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
+| *Edit* | `edit INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
@@ -663,6 +687,12 @@ e.g. `delete 123`
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
+| *Sort* | `sort [PREFIX/SORT_ORDER]...` +
+e.g. `sort d/DESC c/ASC`
+| *Currency* | `currency [CURRENCYCODE]` +
+e.g. `currency USD`
+| *Exchange rate* | `exchangerate [AMOUNT] [CURRENCYCODE]` +
+e.g. `exchangerate`, `exchangerate 5 USD`
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +

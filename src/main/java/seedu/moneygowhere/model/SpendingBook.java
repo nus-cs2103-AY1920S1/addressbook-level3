@@ -109,7 +109,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     public void setSpending(Spending target, Spending editedSpending) {
         requireNonNull(editedSpending);
         budget.deleteSpending(target);
-        budget.addSpending(target);
+        budget.addSpending(editedSpending);
         spendings.setSpending(target, editedSpending);
     }
 
@@ -155,7 +155,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     //// Currency-level operations
-
+    //@@author Nanosync
     /**
      * Replaces the contents of the Currency list with {@code currencies}.
      */
@@ -181,9 +181,9 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     //// Budget related operations
-
+    //@@author austinsantoso
     public void updateBudget() {
-        budget.update(DateUtil.getTodayDate());
+        budget.initialize(DateUtil.getTodayDate(), getSpendingList());
     }
 
     @Override
@@ -214,23 +214,26 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
 
     //// util methods
-
+    //@@author
     @Override
     public String toString() {
         return spendings.asUnmodifiableObservableList().size() + " spendings";
         // TODO: refine later
     }
 
+    //@@author Nanosync
     @Override
     public ObservableList<Spending> getSpendingList() {
         return spendings.asUnmodifiableObservableList();
     }
 
+    //@@author minpyaemoe
     @Override
     public ObservableList<Reminder> getReminderList() {
         return reminders.asUnmodifiableObservableList();
     }
 
+    //@@author Nanosync
     @Override
     public ObservableList<Currency> getCurrencies() {
         return currencies.asUnmodifiableObservableList();
@@ -251,6 +254,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         currencyInUse.addListener(currencyChangeListener);
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

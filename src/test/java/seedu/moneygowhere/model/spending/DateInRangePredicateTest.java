@@ -31,7 +31,7 @@ public class DateInRangePredicateTest {
     }
 
     @Test
-    public void test_dateInRange_returnsTrue() {
+    public void predicate_dateInRange_returnsTrue() {
         Date start = new Date("1/1/2019");
         Date end = new Date("3/1/2019");
 
@@ -43,7 +43,7 @@ public class DateInRangePredicateTest {
     }
 
     @Test
-    public void test_dateOutOfRange_returnsFalse() {
+    public void predicate_dateOutOfRange_returnsFalse() {
         Date start = new Date("1/1/2019");
         Date end = new Date("3/1/2019");
 

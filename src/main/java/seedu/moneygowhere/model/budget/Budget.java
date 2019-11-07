@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.moneygowhere.model.spending.Spending;
@@ -23,11 +24,11 @@ public class Budget {
     /**
      * Constructs a {@code Budget}.
      *
-     * @param budget A valid budget value.
+     * @param amount A valid budget value.
      */
-    public Budget(double budget) {
-        checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
-        this.value = budget;
+    public Budget(double amount) {
+        checkArgument(isValidBudget(amount), MESSAGE_CONSTRAINTS);
+        this.value = amount;
         this.sum = 0;
         this.month = BudgetMonth.now();
     }
@@ -36,12 +37,12 @@ public class Budget {
      * Constructs a {@code Budget}.
      *
      * @param budget A valid budget value.
-     * @param sum The current sum of all spending in the month.
+     * @param month The month where the budget is valid for.
      */
-    public Budget(double budget, double sum, String month) {
+    public Budget(double budget, String month) {
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
         this.value = budget;
-        this.sum = sum;
+        this.sum = 0;
         this.month = BudgetMonth.parse(month);
     }
 
@@ -73,15 +74,20 @@ public class Budget {
     }
 
     /**
-     * Updates month {@code Budget} if the given date is in a different month than the on currently stored.
+     * initializes the Budget.
+     * updates month {@code Budget} if the given date is in a different month than the on currently stored.
+     * also updates the value of sum to be the same as those currently available in the spendingList.
      *
      * @param date The current Date.
+     * @param spendings the spending list to initialize the budget with
      */
-    public void update(LocalDate date) {
+    public void initialize(LocalDate date, List<Spending> spendings) {
         BudgetMonth temp = new BudgetMonth(date);
-        if (!this.month.equals(temp) && this.month.isBehind(date)) {
-            this.month = temp;
-            this.sum = 0;
+        this.month = temp;
+
+        this.sum = 0;
+        for (Spending s : spendings) {
+            addSpending(s);
         }
     }
 
@@ -95,10 +101,6 @@ public class Budget {
 
     public String getValueString() {
         return String.format("%.2f", value);
-    }
-
-    public String getSumString() {
-        return String.format("%.2f", sum);
     }
 
     public String getMonthString() {
@@ -162,7 +164,6 @@ public class Budget {
         return other == this // short circuit if same object
                 || (other instanceof Budget // instanceof handles nulls
                 && value == ((Budget) other).value
-                && sum == ((Budget) other).sum // state check
                 && month.equals(((Budget) other).month)); // state check
     }
 

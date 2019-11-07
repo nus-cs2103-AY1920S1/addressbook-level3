@@ -9,8 +9,9 @@ import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@@author Nanosync
 /**
- * Represents the Currency command.
+ * Views or changes the currency in use.
  */
 public class CurrencyCommand extends Command {
 
@@ -18,6 +19,11 @@ public class CurrencyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the currency used in the application.\n"
             + "Example: " + COMMAND_WORD + " sgd";
+
+    public static final String MESSAGE_CURRENCY_DISPLAY_IN_USE = "The current currency in use is: %s";
+    public static final String MESSAGE_CURRENCY_NONEXISTENT = "Specified currency does not exist.";
+    public static final String MESSAGE_CURRENCY_ALREADY_CHANGED = "Currency already in: %s";
+    public static final String MESSAGE_CURRENCY_CHANGE_SUCCESS = "Currency changed to: %s";
 
     private String currency;
 
@@ -31,8 +37,7 @@ public class CurrencyCommand extends Command {
         requireNonNull(model);
 
         if (currency.isEmpty()) {
-            return new CommandResult("The current currency in use is: "
-                    + model.getCurrencyInUse().name);
+            return new CommandResult(String.format(MESSAGE_CURRENCY_DISPLAY_IN_USE, model.getCurrencyInUse().name));
         }
 
         List<Currency> currencies = model.getCurrencies()
@@ -41,18 +46,18 @@ public class CurrencyCommand extends Command {
                 .collect(Collectors.toList());
 
         if (currencies.isEmpty()) {
-            throw new CommandException("Specified currency does not exist");
+            throw new CommandException(MESSAGE_CURRENCY_NONEXISTENT);
         }
 
         Currency newCurrency = currencies.get(0);
 
         if (newCurrency.isSameCurrency(model.getCurrencyInUse())) {
-            return new CommandResult("Currency already in " + newCurrency.name);
+            return new CommandResult(String.format(MESSAGE_CURRENCY_ALREADY_CHANGED, newCurrency.name));
         }
 
         model.setCurrencyInUse(newCurrency);
 
-        return new CommandResult("Currency changed to " + newCurrency.name);
+        return new CommandResult(String.format(MESSAGE_CURRENCY_CHANGE_SUCCESS, newCurrency.name));
     }
 
     @Override

@@ -6,14 +6,15 @@ import seedu.moneygowhere.logic.commands.ExchangeRateCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@@author Nanosync
 /**
  * Parses input arguments and creates a new ExchangeRateCommand object.
  */
 public class ExchangeRateCommandParser implements Parser<ExchangeRateCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SortCommand
-     * and returns a SortCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ExchangeRateCommand
+     * and returns a ExchangeRateCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExchangeRateCommand parse(String args) throws ParseException {

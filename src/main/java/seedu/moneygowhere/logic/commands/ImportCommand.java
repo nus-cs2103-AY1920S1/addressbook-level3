@@ -46,6 +46,11 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS_WITH_ERRORS = "Imported %s spending. "
             + "\nThe following line has errors and were not imported:\n%s";
 
+    public static final String MESSAGE_INVALID_CSV = "Invalid headers detected. "
+            + "\nPlease ensure the csv file only has 5 columns and the first row contains only the following values:"
+            + "\nname,date,remark,cost,tagged";
+    public static final String MESSAGE_NO_CONTENT = "No content detected.";
+
     private final FilePath fullFilePath;
 
     public ImportCommand(FilePath filePath) {
@@ -72,7 +77,12 @@ public class ImportCommand extends Command {
         Date date = ParserUtil.parseDate(metaDate);
         Remark remark = ParserUtil.parseRemark(metaRemarks);
         Cost cost = ParserUtil.parseCost(metaCost);
-        Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(tags));
+        Set<Tag> tagList;
+        if (metaTags.isEmpty()) {
+            tagList = ParserUtil.parseTags(new ArrayList<>());
+        } else {
+            tagList = ParserUtil.parseTags(Arrays.asList(tags));
+        }
 
         return new Spending(name, date, remark, cost, tagList);
 
@@ -125,20 +135,39 @@ public class ImportCommand extends Command {
         MappingIterator<Map<String, String>> it = mapper.readerFor(Map.class)
                 .with(schema)
                 .readValues(csvFile);
+
+        if (!it.hasNext()) {
+            throw new IOException(MESSAGE_NO_CONTENT);
+        }
         while (it.hasNext()) {
             count++;
             Map<String, String> rowAsMap = it.next();
-            if (rowAsMap.size() == 5) {
-                try {
-                    Spending spending = createSpending(rowAsMap);
-                    spendings.add(spending);
-                } catch (ParseException p) {
-                    errors.add("Row " + count + ": " + p.getMessage() + "\n");
-                }
+
+            if (!isValidCsv(rowAsMap)) {
+                throw new IOException(MESSAGE_INVALID_CSV);
+            }
+            try {
+                Spending spending = createSpending(rowAsMap);
+                spendings.add(spending);
+            } catch (ParseException p) {
+                errors.add("Row " + count + ": " + p.getMessage() + "\n");
             }
         }
 
         return new Pair<>(spendings, errors);
+    }
+
+    /**
+     * Returns true if csv has the correct size and headers
+     * @param map A map representing a row of values from the csv file
+     */
+    public boolean isValidCsv(Map<String, String> map) {
+        if (map.size() != 5) {
+            return false;
+        } else {
+            String[] keys = "name|cost|date|remark|tagged".split("\\|");
+            return Arrays.stream(keys).allMatch(map::containsKey);
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.model.currency.Currency;
 
+//@@author Nanosync
 /**
  * Jackson-friendly version of {@link Currency}.
  */
@@ -18,7 +19,7 @@ class JsonAdaptedCurrency implements Comparable<JsonAdaptedCurrency> {
     private final double rate;
 
     /**
-     * Constructs a {@code JsonAdaptedSpending} with the given Spending details.
+     * Constructs a {@code JsonAdaptedSpending} with the given Currency details.
      */
     @JsonCreator
     public JsonAdaptedCurrency(@JsonProperty("name") String name, @JsonProperty("symbol") String symbol,
@@ -40,7 +41,7 @@ class JsonAdaptedCurrency implements Comparable<JsonAdaptedCurrency> {
     /**
      * Converts this Jackson-friendly adapted Spending object into the model's {@code Currency} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted Spending.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Currency.
      */
     public Currency toModelType() throws IllegalValueException {
         if (name == null) {

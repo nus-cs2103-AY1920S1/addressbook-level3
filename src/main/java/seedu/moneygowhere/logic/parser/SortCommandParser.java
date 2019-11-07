@@ -15,6 +15,7 @@ import seedu.moneygowhere.logic.sorting.SortAttribute;
 import seedu.moneygowhere.logic.sorting.SortField;
 import seedu.moneygowhere.logic.sorting.SortOrder;
 
+//@@author Nanosync
 /**
  * Parses input arguments and creates a new SortCommand object.
  */
@@ -29,6 +30,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         requireNonNull(args);
 
         String[] fieldWords = args.split("\\s+");
+        LinkedHashSet<SortAttribute> attributes = new LinkedHashSet<>();
         LinkedHashSet<SortField> fields = new LinkedHashSet<>();
 
         for (String field : fieldWords) {
@@ -36,28 +38,44 @@ public class SortCommandParser implements Parser<SortCommand> {
                 continue;
             }
 
+            String trimmedPrefix;
+            SortAttribute attribute;
             if (field.startsWith(PREFIX_DATE.getPrefix())) {
-                String trimmedPrefix = field.substring(PREFIX_DATE.getPrefix().length());
+                trimmedPrefix = field.substring(PREFIX_DATE.getPrefix().length());
                 SortOrder order = convert(trimmedPrefix);
-                fields.add(new SortField(SortAttribute.DATE, order));
+
+                attribute = SortAttribute.DATE;
+                fields.add(new SortField(attribute, order));
 
             } else if (field.startsWith(PREFIX_COST.getPrefix())) {
-                String trimmedPrefix = field.substring(PREFIX_COST.getPrefix().length());
+                trimmedPrefix = field.substring(PREFIX_COST.getPrefix().length());
                 SortOrder order = convert(trimmedPrefix);
-                fields.add(new SortField(SortAttribute.COST, order));
+
+                attribute = SortAttribute.COST;
+                fields.add(new SortField(attribute, order));
 
             } else if (field.startsWith(PREFIX_NAME.getPrefix())) {
-                String trimmedPrefix = field.substring(PREFIX_NAME.getPrefix().length());
+                trimmedPrefix = field.substring(PREFIX_NAME.getPrefix().length());
                 SortOrder order = convert(trimmedPrefix);
-                fields.add(new SortField(SortAttribute.NAME, order));
+
+                attribute = SortAttribute.NAME;
+                fields.add(new SortField(attribute, order));
 
             } else if (field.startsWith(PREFIX_REMARK.getPrefix())) {
-                String trimmedPrefix = field.substring(PREFIX_REMARK.getPrefix().length());
+                trimmedPrefix = field.substring(PREFIX_REMARK.getPrefix().length());
                 SortOrder order = convert(trimmedPrefix);
-                fields.add(new SortField(SortAttribute.REMARK, order));
+
+                attribute = SortAttribute.REMARK;
+                fields.add(new SortField(attribute, order));
 
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            }
+
+            if (attributes.contains(attribute)) {
+                throw new ParseException(SortCommand.MESSAGE_SORT_DUPLICATE_FIELD);
+            } else {
+                attributes.add(attribute);
             }
         }
 

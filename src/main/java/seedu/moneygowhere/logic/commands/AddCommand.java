@@ -9,6 +9,7 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
+import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -33,7 +34,11 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New Spending added: %1$s";
+    public static final String NO_DUPLICATE_MESSAGE_SUCCESS = "New Spending added: %1$s";
+
+    public static final String MESSAGE_DUPLICATE_FOUND = "The spending with the same attributes found";
+
+    public static final String DUPLICATE_MESSAGE_SUCCESS = "Duplicate spending added: %1$s";
 
     private final Spending toAdd;
 
@@ -48,8 +53,24 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.addSpending(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        String feedbackToUser;
+        Spending tempSpending = toAdd;
+
+        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")) {
+            double updatedCost = Double.parseDouble(toAdd.getCost().value) / model.getCurrencyInUse().rate;
+            Cost cost = new Cost(String.format("%.2f", updatedCost));
+            tempSpending = new Spending(toAdd.getName(), toAdd.getDate(), toAdd.getRemark(), cost,
+                    toAdd.getTags());
+        }
+
+        if (model.hasSpending(tempSpending)) {
+            feedbackToUser = MESSAGE_DUPLICATE_FOUND + "\n" + String.format(DUPLICATE_MESSAGE_SUCCESS, tempSpending);
+        } else {
+            feedbackToUser = String.format(NO_DUPLICATE_MESSAGE_SUCCESS, tempSpending);
+        }
+
+        model.addSpending(tempSpending);
+        return new CommandResult(feedbackToUser);
     }
 
     @Override
