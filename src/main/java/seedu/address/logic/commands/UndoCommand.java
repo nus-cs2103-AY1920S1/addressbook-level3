@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
         + " Commands that can be undone is as follows: add, delete, edit, clear and training.";
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        HistoryManager history = new HistoryManager();
+        HistoryManager history = model.getHistory();
         if (history.isUndoneEmpty()) {
             return new CommandResult(MESSAGE_FAILURE);
         }
@@ -23,8 +23,8 @@ public class UndoCommand extends Command {
             if (history.isUndoneEmpty()) {
                 return new CommandResult(MESSAGE_FAILURE);
             } else {
-                HistoryManager.getCommands().pop();
-                HistoryManager.getAddressBooks().pop();
+                history.getCommands().pop();
+                history.getAddressBooks().pop();
                 if (history.isUndoneEmpty()) {
                     return new CommandResult(MESSAGE_FAILURE);
                 }
@@ -37,6 +37,12 @@ public class UndoCommand extends Command {
         } else if (undoneCommand instanceof DeleteTrainingCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!", ((DeleteTrainingCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof PerformanceCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((PerformanceCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof DeleteRecordCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((DeleteRecordCommand) undoneCommand).getDate(), model);
         } else {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!");

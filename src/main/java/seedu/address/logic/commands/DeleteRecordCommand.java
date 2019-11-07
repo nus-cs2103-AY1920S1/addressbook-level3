@@ -46,6 +46,9 @@ public class DeleteRecordCommand extends DeleteCommand {
         this.date = date;
     }
 
+    public AthletickDate getDate() {
+        return this.date;
+    }
     /**
      * Checks if the event exists, and if there are any records to be deleted.
      */
@@ -92,5 +95,9 @@ public class DeleteRecordCommand extends DeleteCommand {
         return eventName.equals(d.eventName)
             && date.equals(d.date)
             && index.equals(d.index);
+    }
+    @Override
+    public String toString() {
+        return "'Delete Performance " + this.eventName + " " + this.date + "' Command";
     }
 }

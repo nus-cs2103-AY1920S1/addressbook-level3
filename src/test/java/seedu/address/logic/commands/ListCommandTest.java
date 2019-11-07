@@ -13,6 +13,7 @@ import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -25,9 +26,9 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-                new Attendance(), new UserPrefs());
+                new Attendance(), new UserPrefs(), new HistoryManager());
         expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs());
+                model.getAttendance(), new UserPrefs(), model.getHistory());
     }
 
     @Test

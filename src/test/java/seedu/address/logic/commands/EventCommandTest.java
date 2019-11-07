@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
@@ -186,7 +187,10 @@ public class EventCommandTest {
         public ReadOnlyAthletick getAthletick() {
             throw new AssertionError("This method should not be called.");
         }
-
+        @Override
+        public HistoryManager getHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -252,6 +256,26 @@ public class EventCommandTest {
         }
         @Override
         public HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ReadOnlyPerformance getPerformanceDeepCopy(ReadOnlyPerformance originalPerformance) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Event> getEventsDeepCopy(List<Event> originalEvents) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Event getEventDeepCopy(Event originalEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Record> getRecordsDeepCopy(List<Record> originalRecords) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Record getRecordDeepCopy(Record originalRecord) {
             throw new AssertionError("This method should not be called.");
         }
         @Override

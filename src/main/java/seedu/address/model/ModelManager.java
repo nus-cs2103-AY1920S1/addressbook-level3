@@ -17,8 +17,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteRecordCommand;
 import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EventCommand;
+import seedu.address.logic.commands.PerformanceCommand;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
@@ -41,6 +45,7 @@ public class ModelManager implements Model {
     private final Attendance attendance;
     private final Performance performance;
     private final FilteredList<Person> filteredPersons;
+    private final HistoryManager history;
     private ReadOnlyAthletick readOnlyAthletick;
     private Person selectedPerson;
 
@@ -49,7 +54,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAthletick athletick, ReadOnlyPerformance performance,
-                        Attendance attendance, ReadOnlyUserPrefs userPrefs) {
+                        Attendance attendance, ReadOnlyUserPrefs userPrefs, HistoryManager history) {
         super();
         requireAllNonNull(athletick, userPrefs);
 
@@ -60,10 +65,12 @@ public class ModelManager implements Model {
         this.performance = new Performance(performance);
         this.attendance = attendance;
         filteredPersons = new FilteredList<>(this.athletick.getPersonList());
+        this.history = history;
+        this.history.init(this);
     }
 
     public ModelManager() {
-        this(new Athletick(), new Performance(), new Attendance(), new UserPrefs());
+        this(new Athletick(), new Performance(), new Attendance(), new UserPrefs(), new HistoryManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -112,6 +119,10 @@ public class ModelManager implements Model {
     public ReadOnlyAthletick getAthletick() {
         return athletick;
     }
+    @Override
+    public HistoryManager getHistory() {
+        return this.history;
+    }
 
     @Override
     public ReadOnlyAthletick getAthletickDeepCopy() {
@@ -139,49 +150,97 @@ public class ModelManager implements Model {
         return deepCopy;
     }
     @Override
+    public ReadOnlyPerformance getPerformanceDeepCopy(ReadOnlyPerformance originalPerformance) {
+        List<Event> originalEvents = originalPerformance.getPerformance();
+        List<Event> eventsCopy = getEventsDeepCopy(originalEvents);
+        Performance performanceCopy = new Performance();
+        performanceCopy.setEvents(eventsCopy);
+        return performanceCopy;
+    }
+    @Override
+    public List<Event> getEventsDeepCopy(List<Event> originalEvents) {
+        List<Event> eventsCopy = new ArrayList<>();
+        for (Event originalEvent: originalEvents) {
+            eventsCopy.add(getEventDeepCopy(originalEvent));
+        }
+        return eventsCopy;
+    }
+    @Override
+    public Event getEventDeepCopy(Event originalEvent) {
+        HashMap<Person, List<Record>> hashMapCopy = new HashMap<>();
+        for (Map.Entry<Person, List<Record>> entry: originalEvent.getRecords().entrySet()) {
+            hashMapCopy.put(entry.getKey(),
+                getRecordsDeepCopy(entry.getValue()));
+        }
+        Event eventCopy = new Event(originalEvent.getName(), hashMapCopy);
+        return eventCopy;
+    }
+    @Override
+    public List<Record> getRecordsDeepCopy(List<Record> originalRecords) {
+        List<Record> recordsCopy = new ArrayList<>();
+        for (Record record: originalRecords) {
+            recordsCopy.add(getRecordDeepCopy(record));
+        }
+        return recordsCopy;
+    }
+    @Override
+    public Record getRecordDeepCopy(Record originalRecord) {
+        Record recordCopy = new Record(originalRecord.getDate(), originalRecord.getTiming());
+        return recordCopy;
+    }
+    @Override
     public Command undo() {
-        Command undoneCommand = HistoryManager.getCommands().pop();
-        ReadOnlyAthletick undoneAthletick = HistoryManager.getAddressBooks().pop();
-        HistoryManager.getUndoneCommands().push(undoneCommand);
-        HistoryManager.getUndoneAddressBooks().push(undoneAthletick);
-        //undo add/delete training command
+        Command undoneCommand = this.history.getCommands().pop();
+        ReadOnlyAthletick undoneAthletick = this.history.getAddressBooks().pop();
+        this.history.getUndoneCommands().push(undoneCommand);
+        this.history.getUndoneAddressBooks().push(undoneAthletick);
         if (undoneCommand instanceof TrainingCommand || undoneCommand instanceof DeleteTrainingCommand) {
-            List<Training> undoneTrainingList = this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().pop());
-            HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
-            List<Training> afterUndoneTrainingList =
-                this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
-            attendance.resetTrainingList(afterUndoneTrainingList);
-        //undo normla addressbook commands
+            List<Training> undoneTrainingList = this.history.getTrainingLists().pop();
+            this.history.getUndoneTrainingLists().push(undoneTrainingList);
+            List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
+            attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
         } else if (undoneCommand instanceof EditCommand) {
-            ReadOnlyAthletick afterUndoneState = HistoryManager.getAddressBooks().peek();
+            ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
             athletick.resetData(afterUndoneState);
-            List<Training> undoneTrainingList = this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().pop());
-            HistoryManager.getUndoneTrainingLists().push(undoneTrainingList);
-            List<Training> afterUndoneTrainingList =
-                this.getTrainingsDeepCopy(HistoryManager.getTrainingLists().peek());
-            attendance.resetTrainingList(afterUndoneTrainingList);
+            List<Training> undoneTrainingList = this.history.getTrainingLists().pop();
+            this.history.getUndoneTrainingLists().push(undoneTrainingList);
+            List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
+            attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
+        } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand
+            || undoneCommand instanceof DeleteEventCommand || undoneCommand instanceof DeleteRecordCommand) {
+            System.out.println("initial: " + this.history.getPerformances());
+            ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
+            System.out.println("popped: " + undonePerformance);
+            this.history.getUndonePerformances().push(undonePerformance);
+            ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
+            System.out.println("peek: " + afterUndonePerformance);
+            this.performance.resetData(this.getPerformanceDeepCopy(afterUndonePerformance));
         } else {
-            ReadOnlyAthletick afterUndoneState = HistoryManager.getAddressBooks().peek();
+            ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
             athletick.resetData(afterUndoneState);
         }
         return undoneCommand;
     }
-
     @Override
     public Command redo() {
-        Command redoneCommand = HistoryManager.getUndoneCommands().pop();
-        ReadOnlyAthletick redoneAthletick = HistoryManager.getUndoneAddressBooks().pop();
-        HistoryManager.getCommands().push(redoneCommand);
-        HistoryManager.getAddressBooks().push(redoneAthletick);
+        Command redoneCommand = this.history.getUndoneCommands().pop();
+        ReadOnlyAthletick redoneAthletick = this.history.getUndoneAddressBooks().pop();
+        this.history.getCommands().push(redoneCommand);
+        this.history.getAddressBooks().push(redoneAthletick);
         if (redoneCommand instanceof TrainingCommand || redoneCommand instanceof DeleteTrainingCommand) {
-            List<Training> redoneTrainingLists = getTrainingsDeepCopy(HistoryManager.getUndoneTrainingLists().pop());
-            HistoryManager.getTrainingLists().push(redoneTrainingLists);
+            List<Training> redoneTrainingLists = getTrainingsDeepCopy(this.history.getUndoneTrainingLists().pop());
+            this.history.getTrainingLists().push(redoneTrainingLists);
             attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
         } else if (redoneCommand instanceof EditCommand) {
-            List<Training> redoneTrainingLists = getTrainingsDeepCopy(HistoryManager.getUndoneTrainingLists().pop());
-            HistoryManager.getTrainingLists().push(redoneTrainingLists);
+            List<Training> redoneTrainingLists = getTrainingsDeepCopy(this.history.getUndoneTrainingLists().pop());
+            this.history.getTrainingLists().push(redoneTrainingLists);
             attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
             athletick.resetData(redoneAthletick);
+        } else if (redoneCommand instanceof EventCommand || redoneCommand instanceof PerformanceCommand
+            || redoneCommand instanceof DeleteEventCommand || redoneCommand instanceof DeleteRecordCommand) {
+            ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
+            this.history.getPerformances().push(redonePerformance);
+            this.performance.resetData(this.getPerformanceDeepCopy(redonePerformance));
         } else {
             athletick.resetData(redoneAthletick);
         }

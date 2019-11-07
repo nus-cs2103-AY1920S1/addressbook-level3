@@ -42,4 +42,8 @@ public class DeleteEventCommand extends DeleteCommand {
             || (other instanceof DeleteEventCommand // instanceof handles nulls
             && targetEvent.equals(((DeleteEventCommand) other).targetEvent)); // state check
     }
+    @Override
+    public String toString() {
+        return "'Delete " + targetEvent + "' Command";
+    }
 }

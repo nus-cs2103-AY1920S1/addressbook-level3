@@ -51,6 +51,6 @@ public class DeletePersonCommand extends DeleteCommand {
     }
     @Override
     public String toString() {
-        return "Delete '" + personToDelete + "' Command";
+        return "'Delete " + personToDelete + "' Command";
     }
 }

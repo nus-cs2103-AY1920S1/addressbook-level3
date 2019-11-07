@@ -41,9 +41,7 @@ public class Performance implements ReadOnlyPerformance {
         this();
         resetData(toBeCopied);
     }
-
     //// list overwrite operations
-
     /**
      * Replaces the contents of the events list with {@code events}.
      * {@code events} must not contain duplicate events.
@@ -51,7 +49,6 @@ public class Performance implements ReadOnlyPerformance {
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
     }
-
     /**
      * Resets the existing data of this {@code EventList} with {@code newData}.
      */
@@ -62,7 +59,6 @@ public class Performance implements ReadOnlyPerformance {
     }
 
     //// event-level operations
-
     /**
      * Retrieves Calendar-compatible records for all events.
      */

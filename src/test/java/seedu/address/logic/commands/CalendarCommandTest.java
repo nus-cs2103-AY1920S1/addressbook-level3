@@ -16,12 +16,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.testutil.AthletickDateBuilder;
 
 public class CalendarCommandTest {
 
     private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
-            new UserPrefs());
+            new UserPrefs(), new HistoryManager());
 
     @Test
     public void constructor_nullDate_throwsNullPointerException() {

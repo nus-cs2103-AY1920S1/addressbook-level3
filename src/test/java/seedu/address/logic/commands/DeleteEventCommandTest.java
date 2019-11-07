@@ -15,6 +15,7 @@ import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
 
 public class DeleteEventCommandTest {
@@ -23,7 +24,7 @@ public class DeleteEventCommandTest {
     private static final String INVALID_EVENT_NAME = "hopscotch";
 
     private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-        new Attendance(), new UserPrefs());
+        new Attendance(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_validEvent_success() {
@@ -33,7 +34,7 @@ public class DeleteEventCommandTest {
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, VALID_EVENT_NAME);
 
         ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-            model.getAttendance(), new UserPrefs());
+            model.getAttendance(), new UserPrefs(), model.getHistory());
 
         expectedModel.deleteEvent(eventToDelete);
 

@@ -4,45 +4,65 @@ import java.util.List;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAthletick;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.training.Training;
 
 /**
  * Represents the history of commands and states of address books.
  */
 public class HistoryManager {
-    private static Stack<Command> commands = new Stack<>();
-    private static Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
-    private static Stack<Command> undoneCommands = new Stack<>();
-    private static Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
-    private static Stack<List<Training>> trainingLists = new Stack<>();
-    private static Stack<List<Training>> undoneTrainingLists = new Stack<>();
+    private Stack<Command> commands = new Stack<>();
+    private Stack<ReadOnlyAthletick> addressBooks = new Stack<>();
+    private Stack<Command> undoneCommands = new Stack<>();
+    private Stack<ReadOnlyAthletick> undoneAddressBooks = new Stack<>();
+    private Stack<List<Training>> trainingLists = new Stack<>();
+    private Stack<List<Training>> undoneTrainingLists = new Stack<>();
+    private Stack<ReadOnlyPerformance> performances = new Stack<>();
+    private Stack<ReadOnlyPerformance> undonePerformances = new Stack<>();
     public HistoryManager() {}
+    /**
+     * This initialises the HistoryManager, populating the stacks with the initial states
+     * when the application starts.
+     * @param model model class of the application
+     */
+    public void init(Model model) {
+        this.addressBooks.push(model.getAthletickDeepCopy());
+        this.trainingLists.push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        this.performances.push(model.getPerformanceDeepCopy(model.getPerformance()));
+    }
     public Command getLatestCommand() {
         return commands.peek();
     }
-    public static Stack<Command> getCommands() {
-        return commands;
+    public Stack<Command> getCommands() {
+        return this.commands;
     }
-    public static Stack<ReadOnlyAthletick> getAddressBooks() {
-        return addressBooks;
+    public Stack<ReadOnlyAthletick> getAddressBooks() {
+        return this.addressBooks;
     }
-    public static Stack<Command> getUndoneCommands() {
-        return undoneCommands;
+    public Stack<Command> getUndoneCommands() {
+        return this.undoneCommands;
     }
-    public static Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
-        return undoneAddressBooks;
+    public Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
+        return this.undoneAddressBooks;
     }
-    public static Stack<List<Training>> getTrainingLists() {
-        return trainingLists;
+    public Stack<List<Training>> getTrainingLists() {
+        return this.trainingLists;
     }
-    public static Stack<List<Training>> getUndoneTrainingLists() {
-        return undoneTrainingLists;
+    public Stack<List<Training>> getUndoneTrainingLists() {
+        return this.undoneTrainingLists;
     }
     public boolean isUndoneEmpty() {
-        return commands.empty();
+        return this.commands.empty();
     }
     public boolean isRedoneEmpty() {
-        return undoneCommands.empty();
+        return this.undoneCommands.empty();
+    }
+    public Stack<ReadOnlyPerformance> getPerformances() {
+        return this.performances;
+    }
+    public Stack<ReadOnlyPerformance> getUndonePerformances() {
+        return this.undonePerformances;
     }
 }
