@@ -62,13 +62,12 @@ public class StudentCard extends UiPart<Region> {
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        /*
+
         String imgFilePath = student.getDisplayPictureFilePath();
+        /*
         String pathForTest = imgFilePath.substring(6);
-        File loadFileTest = new File(pathForTest);
         Image displayImg = new Image(student.getDefaultDisplayPicture());
-        boolean fileExists = loadFileTest.exists();
-        if (fileExists) {
+        if(Files.exists(Paths.get(pathForTest))) {
             displayImg = new Image(student.getDisplayPictureFilePath());
         }
          */
