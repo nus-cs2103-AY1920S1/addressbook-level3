@@ -16,7 +16,8 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
-    public static final String MESSAGE_TAG_COMMANDS = "Invalid command format! \nSupported commands:\n"
+    public static final String MESSAGE_TAG_COMMANDS = "Invalid command format! \n"
+            + "Command format: tag (tag command) (parameters)" + "\nSupported tag commands:\n"
             + "add \nrm \nlist \nfilter\nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
 
     /**
