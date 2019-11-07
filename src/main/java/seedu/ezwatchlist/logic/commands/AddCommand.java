@@ -11,8 +11,8 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
 
-import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;

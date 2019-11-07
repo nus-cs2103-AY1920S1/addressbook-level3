@@ -1,13 +1,7 @@
 package seedu.ezwatchlist.ui;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +25,6 @@ import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.statistics.Statistics;
 
 /**

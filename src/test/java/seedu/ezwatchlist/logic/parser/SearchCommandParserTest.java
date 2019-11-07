@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.logic.parser;
 
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 public class SearchCommandParserTest {
@@ -18,16 +19,16 @@ public class SearchCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "    ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        HashMap<String, List<String>> searchHash = new HashMap<>();
+        HashMap<SearchKey, List<String>> searchHash = new HashMap<>();
         ArrayList<String> nameList = new ArrayList<>();
         nameList.add("Alice");
-        searchHash.put("name", nameList);
+        searchHash.put(SearchKey.KEY_NAME, nameList);
         SearchCommand expectedSearchCommand =
                 new SearchCommand(searchHash);
         assertParseSuccess(parser, "Alice", expectedSearchCommand);

@@ -1,7 +1,7 @@
 package seedu.ezwatchlist.logic.parser;
 
-import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
