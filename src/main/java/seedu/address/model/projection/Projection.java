@@ -27,7 +27,10 @@ public class Projection {
     private final Date date;
     private List<Budget> budgets = new ArrayList<>();
     private List<Amount> budgetProjections = new ArrayList<>();
+    private List<Amount> budgetStartValues = new ArrayList<>();
+    private List<Amount> budgetThresholds = new ArrayList<>();
     private Amount projection;
+    private Amount cumulativeBalance;
     private GradientDescent projector;
     private Category category;
 
@@ -44,7 +47,6 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
         this.category = Category.GENERAL;
         this.project();
     }
@@ -54,7 +56,6 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
         this.category = category;
         this.project();
     }
@@ -75,9 +76,7 @@ public class Projection {
         this.budgets = budgets;
         this.budgetProjections = new ArrayList<>();
         this.category = category;
-        this.budgets.forEach(x -> {
-            this.budgetProjections.add(this.projection.subtractAmount(x.getBudget()));
-        });
+        this.project();
     }
 
 
@@ -89,14 +88,17 @@ public class Projection {
         double [] dates = extractDates();
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
+        this.budgets.forEach(x -> {
+            int daysToBudgetStart = Date.daysBetween(Date.now(), x.getStart());
+            Amount budgetStartValue = new Amount((int) Math.round(this.projector.predict(daysToBudgetStart)));
+            Amount budgetThreshold = budgetStartValue.subtractAmount(x.getInitialBudget());
+            int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
+            this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
+                    .subtractAmount(budgetThreshold));
+            this.budgetStartValues.add(budgetStartValue);
+            this.budgetThresholds.add(budgetThreshold);
+        });
         this.projection = new Amount((int) Math.round(projector.predict(daysToProject)));
-        if (this.budgets != null) {
-            this.budgets.forEach(x -> {
-                int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
-                this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
-                        .subtractAmount(x.getBudget()));
-            });
-        }
     }
 
     GradientDescent getProjector() {
@@ -143,19 +145,16 @@ public class Projection {
         return this.projection.toString();
     }
 
-    public String getBudgetForecastText(int idx) {
-        if (this.getBudgets().isEmpty()) {
-            return "";
-        }
-        return this.budgetProjections.get(idx).getIntegerValue() > 0
-                ? String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString())
-                : String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString());
-    }
-
     public Amount getBudgetProjection(int idx) {
         return this.budgetProjections.get(idx);
+    }
+
+    public Amount getBudgetStartValue(int idx) {
+        return this.budgetStartValues.get(idx);
+    }
+
+    public Amount getBudgetThreshold(int idx) {
+        return this.budgetThresholds.get(idx);
     }
 
     public String getAllBudgetForecastText() {
@@ -172,6 +171,9 @@ public class Projection {
         return text.toString();
     }
 
+    /**
+     * @return an abbreviated description on the projected status of a budget
+     */
     public String getBudgetForecastAbbreviatedText(int idx) {
         if (this.budgets == null || this.budgets.get(idx) == null) {
             return "";

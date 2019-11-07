@@ -17,6 +17,7 @@ import seedu.address.model.util.Date;
 public class Budget {
     private Amount initialAmount;
     private Amount amount;
+    private Date start = Date.now();
     private Date deadline;
     private boolean valid;
     private int between;
@@ -65,6 +66,10 @@ public class Budget {
         this.categories.add(Category.GENERAL);
         this.valid = true;
         this.between = calculateRemaining();
+    }
+
+    public Date getStart() {
+        return this.start;
     }
 
     public void setInitialAmount(Amount amount) {
@@ -203,5 +208,9 @@ public class Budget {
     @Override
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+    }
+
+    public String toLabelText() {
+        return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
     }
 }
