@@ -240,6 +240,10 @@ Examples:
 Creates a recipe with name "Chicken Rice", ingredients "Chicken" and "Rice", with nutritional information of
 666kcal, 55g carbs, 44g fats, and 30g protein.
 
+.Adding a recipe
+[caption="Figure 3.3.1: "]
+image::ug_recipe_addRecipe.png[width="790"]
+
 ==== Editing a recipe: `edit recipe`
 Edit a recipe according to a specified index. +
 Format: `edit recipe <index> [parameters]`
@@ -261,6 +265,10 @@ Updates the first listed recipe to have the name "Chicken Noodle" and edit it to
 
 * `edit recipe 2 i/Noodle i-/Rice` +
 Removes the ingredient "Rice" from the first listed recipe, and adds the ingredient "Noodle".
+
+.Editing a recipe
+[caption="Figure 3.3.2: "]
+image::ug_recipe_EditRecipe.png[width="790"]
 
 ==== Listing your recipes: `list recipe`
 Lists all recipes. +

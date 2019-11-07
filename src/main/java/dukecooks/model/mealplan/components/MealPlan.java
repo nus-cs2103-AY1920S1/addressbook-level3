@@ -77,7 +77,7 @@ public class MealPlan {
         allRecipes.addAll(day6);
         allRecipes.addAll(day7);
 
-        return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
+        return allRecipes.toString().replace("[", "").replace("]", "");
     }
 
     /**
