@@ -1,9 +1,9 @@
 package seedu.address.model.flashcard;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Flashcard's statistics in the StudyBuddy app.
