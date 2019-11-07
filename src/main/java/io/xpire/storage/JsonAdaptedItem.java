@@ -17,7 +17,7 @@ import io.xpire.model.tag.TagComparator;
 /**
  * Jackson-friendly version of {@link Item}.
  */
-class JsonAdaptedItem {
+class JsonAdaptedItem implements JsonAdapted {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Item's %s field is missing!";
 
@@ -56,6 +56,7 @@ class JsonAdaptedItem {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted item.
      */
+    @Override
     public Item toModelType() throws IllegalValueException {
 
         if (this.name == null) {
