@@ -1,16 +1,16 @@
 [ {
   "description" : "a",
   "tags" : [ ],
-  "due" : null,
-  "done" : false
+  "done" : false,
+  "due" : null
 }, {
   "description" : "b",
   "tags" : [ ],
-  "due" : null,
-  "done" : false
+  "done" : false,
+  "due" : null
 }, {
   "description" : "c",
   "tags" : [ ],
-  "due" : null,
-  "done" : false
+  "done" : false,
+  "due" : null
 } ]

@@ -4,22 +4,22 @@
   "start" : {
     "epoch" : -27080311740
   },
-  "end" : null,
-  "remind" : null
+  "remind" : null,
+  "end" : null
 }, {
   "description" : "b",
   "tags" : [ ],
   "start" : {
     "epoch" : -27080311740
   },
-  "end" : null,
-  "remind" : null
+  "remind" : null,
+  "end" : null
 }, {
   "description" : "c",
   "tags" : [ ],
   "start" : {
     "epoch" : -27080311740
   },
-  "end" : null,
-  "remind" : null
+  "remind" : null,
+  "end" : null
 } ]
