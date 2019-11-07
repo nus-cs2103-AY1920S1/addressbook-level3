@@ -326,13 +326,13 @@ NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend be
 
 The following activity diagram summarizes what happens when a user executes an export command:
 
-image::ExportActivityDiagram.png[width=320,height=480]
+image::ExportActivityDiagram.png[width=500,height=540]
 
 _Figure 3: Activity diagram of when the user executes an export command_
 
 The following activity diagram summarizes what happens when a user executes an import command:
 
-image::ImportActivityDiagram.png[width=320,height=480]
+image::ImportActivityDiagram.png[width=500,height=580]
 
 _Figure 4: Activity diagram of when the user executes an import command_
 
