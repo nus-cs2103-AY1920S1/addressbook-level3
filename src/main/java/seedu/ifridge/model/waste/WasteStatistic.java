@@ -1,5 +1,7 @@
 package seedu.ifridge.model.waste;
 
+import static seedu.ifridge.commons.util.AppUtil.checkArgument;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,9 @@ import seedu.ifridge.model.food.UniqueWasteList;
  */
 public class WasteStatistic {
 
+    public static final String MESSAGE_CONSTRAINTS = "All values (weight in kg, volume in litres, quantity in units) "
+            + "must be non-negative.";
+
     private static final float[] WEIGHTS_FOUR_MONTHS = {0.5f, 0.3f, 0.15f, 0.05f};
     private static final float[] WEIGHTS_THREE_MONTHS = {0.6f, 0.35f, 0.15f};
     private static final float[] WEIGHTS_TWO_MONTHS = {0.8f, 0.2f};
@@ -23,6 +28,7 @@ public class WasteStatistic {
     private float totalQuantity;
 
     public WasteStatistic(float totalWeight, float totalVolume, float totalQuantity) {
+        checkArgument(isValidStatistic(totalWeight, totalVolume, totalQuantity), MESSAGE_CONSTRAINTS);
         this.totalWeight = totalWeight;
         this.totalVolume = totalVolume;
         this.totalQuantity = totalQuantity;
@@ -71,7 +77,7 @@ public class WasteStatistic {
      * Predicts the food wastage using 2 months' worth of data.
      * @param wasteStatistics The list of WasteStatistics of the 2 months
      */
-    private static WasteStatistic predictUsingTwoMonths(List<WasteStatistic> wasteStatistics) {
+    public static WasteStatistic predictUsingTwoMonths(List<WasteStatistic> wasteStatistics) {
         float weightedWeight = 0.0f;
         float weightedVolume = 0.0f;
         float weightedQuantity = 0.0f;
@@ -87,7 +93,7 @@ public class WasteStatistic {
      * Predicts the food wastage using 3 months' worth of data.
      * @param wasteStatistics The list of WasteStatistics of the 3 months
      */
-    private static WasteStatistic predictUsingThreeMonths(List<WasteStatistic> wasteStatistics) {
+    public static WasteStatistic predictUsingThreeMonths(List<WasteStatistic> wasteStatistics) {
         float weightedWeight = 0.0f;
         float weightedVolume = 0.0f;
         float weightedQuantity = 0.0f;
@@ -103,7 +109,7 @@ public class WasteStatistic {
      * Predicts the food wastage using 4 months' worth of data.
      * @param wasteStatistics The list of WasteStatistics of the 4 months
      */
-    private static WasteStatistic predictUsingFourMonths(List<WasteStatistic> wasteStatistics) {
+    public static WasteStatistic predictUsingFourMonths(List<WasteStatistic> wasteStatistics) {
         float weightedWeight = 0.0f;
         float weightedVolume = 0.0f;
         float weightedQuantity = 0.0f;
@@ -118,7 +124,7 @@ public class WasteStatistic {
     /**
      * Interpolates the current month's waste statistic by scaling.
      */
-    private static WasteStatistic interpolateCurrentWasteStatistic(WasteStatistic thisMonthStatistics) {
+    public static WasteStatistic interpolateCurrentWasteStatistic(WasteStatistic thisMonthStatistics) {
         float weight = thisMonthStatistics.getTotalWeight();
         float volume = thisMonthStatistics.getTotalVolume();
         float quantity = thisMonthStatistics.getTotalQuantity();
@@ -128,9 +134,8 @@ public class WasteStatistic {
         float daysInMonth = (float) today.lengthOfMonth();
         float scalingFactor = daysInMonth / daysPassed;
 
-        WasteStatistic interpolatedStatistic = new WasteStatistic(weight * scalingFactor,
+        return new WasteStatistic(weight * scalingFactor,
                 volume * scalingFactor, quantity * scalingFactor);
-        return interpolatedStatistic;
     }
 
     public float getTotalWeight() {
@@ -145,10 +150,24 @@ public class WasteStatistic {
         return totalQuantity;
     }
 
+    public static boolean isValidStatistic(float totalWeight, float totalVolume, float totalQuantity) {
+        return totalWeight >= 0 && totalVolume >= 0 && totalQuantity >= 0;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof WasteStatistic)) {
+            return false;
+        }
+        WasteStatistic otherWasteStatistic = (WasteStatistic) other;
+        return otherWasteStatistic.getTotalWeight() == this.getTotalWeight()
+                && otherWasteStatistic.getTotalVolume() == this.getTotalVolume()
+                && otherWasteStatistic.getTotalQuantity() == this.getTotalQuantity();
+    }
+
     @Override
     public String toString() {
-        return "Weight = " + getTotalWeight()
-                + ", Volume = " + getTotalVolume()
-                + ", Quantity = " + getTotalQuantity();
+        String displayFormat = "Weight = %.3f kg, Volume = %.3f litres, Quantity = %.3f unit(s)";
+        return String.format(displayFormat, getTotalWeight(), getTotalVolume(), getTotalQuantity());
     }
 }

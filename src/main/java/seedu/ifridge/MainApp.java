@@ -513,7 +513,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Grocery List ] =============================");
+        logger.info("============================ [ Stopping iFridge ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

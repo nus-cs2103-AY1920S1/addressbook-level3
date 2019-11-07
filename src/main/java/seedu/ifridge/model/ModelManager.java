@@ -443,6 +443,13 @@ public class ModelManager implements Model {
 
     @Override
     public void addWasteItem(GroceryItem food) {
+        WasteMonth currentWasteMonth = new WasteMonth(LocalDate.now());
+        boolean isNewWasteMonth = !currentWasteMonth.equals(wasteList.getWasteMonth());
+        if (isNewWasteMonth) {
+            WasteList newMonthWasteList = new WasteList(currentWasteMonth);
+            this.wasteList = newMonthWasteList;
+            WasteList.addWastelistToArchive(currentWasteMonth, newMonthWasteList);
+        }
         wasteList.addWasteItem(food);
         updateFilteredWasteItemList(WasteMonth.getCurrentWasteMonth());
     }
