@@ -72,6 +72,7 @@ public class MainApp extends Application {
      * or an empty guilttrip book will be used instead if errors occur when reading {@code storage}'s guilttrip book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        TimeUtil.startTimer();
         Optional<ReadOnlyGuiltTrip> addressBookOptional;
         ReadOnlyGuiltTrip initialData;
         try {
@@ -171,7 +172,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting GuiltTrip " + MainApp.VERSION);
         ui.start(primaryStage);
-        TimeUtil.startTimer();
     }
 
     @Override

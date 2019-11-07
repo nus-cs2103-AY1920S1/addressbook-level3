@@ -25,7 +25,6 @@ public class SortType {
     /**
      * Constructs a {@code Name}.
      *
-     * @param desc A valid name.
      */
     public SortType(String fullType) throws IllegalArgumentException {
         requireNonNull(fullType);

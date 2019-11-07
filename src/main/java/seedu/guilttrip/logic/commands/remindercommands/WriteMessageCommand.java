@@ -47,10 +47,10 @@ public class WriteMessageCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!model.getReminderEditor().getReminderInspected().willShowMessage()) {
+        if (!model.getReminderSelected().willDisplayPopUp()) {
             throw new CommandException(REMINDER_POPUP_DISABLED);
         }
-        model.getReminderEditor().setNotes(message, xCoordinate, yCoordinate);
+        model.getReminderSelected().getMessage().placeNote(message, xCoordinate, yCoordinate);
         return new CommandResult(IMAGE_ADDED_MESSAGE);
     }
 

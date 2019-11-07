@@ -28,7 +28,7 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
     public EditReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_INDEX, PREFIX_TRACKER_TYPE, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_INDEX, PREFIX_AMOUNT);
 
         Index index;
 
@@ -55,10 +55,6 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
                     ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX)));
         }
 
-        if (argMultimap.getValue(PREFIX_TRACKER_TYPE).isPresent()) {
-            editReminderDescriptor.setTrackerType(
-                    Reminder.TrackerType.parse(argMultimap.getValue(PREFIX_TRACKER_TYPE).get()));
-        }
 
         if (!editReminderDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditReminderCommand.MESSAGE_NOT_EDITED);

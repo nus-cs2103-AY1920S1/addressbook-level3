@@ -46,6 +46,7 @@ public class CommandResult {
     private final boolean listBudgets;
 
     /** For dsiplaying reminder pop up */
+    private final boolean displayPopUp;
     private final Message reminderMessage;
 
     /**
@@ -68,6 +69,7 @@ public class CommandResult {
         this.changeTheme = false;
         this.newTheme = null;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
     /**
@@ -95,6 +97,7 @@ public class CommandResult {
         this.changeTheme = false;
         this.newTheme = null;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
 
@@ -118,6 +121,7 @@ public class CommandResult {
         this.newTheme = null;
         this.listBudgets = listBudgets;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
     /**
@@ -140,6 +144,7 @@ public class CommandResult {
         this.changeTheme = false;
         this.newTheme = null;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
     /**
@@ -162,6 +167,7 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.listBudgets = false;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
     /**
@@ -184,14 +190,18 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.listBudgets = false;
         this.reminderMessage = null;
+        this.displayPopUp = false;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
     public CommandResult(String feedbackToUser, Message reminderMessage) {
-        this.reminderMessage = reminderMessage;;
+        this.displayPopUp = true;
+        this.reminderMessage = reminderMessage;
         this.feedbackToUser = feedbackToUser;
+        this.changeTheme = false;
+        this.newTheme = null;
         this.showHelp = false;
         this.exit = false;
         this.panelName = null;

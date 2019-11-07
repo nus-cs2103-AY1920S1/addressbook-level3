@@ -334,4 +334,17 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses boolean value
+     */
+    public static boolean parseBool(String bool) throws ParseException{
+        switch (bool.trim().toLowerCase()) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException("Please enter a correct boolean value");
+        }
+    }
 }

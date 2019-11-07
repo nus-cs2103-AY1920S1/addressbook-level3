@@ -21,8 +21,8 @@ public class DisplayPopupCommand extends Command {
         } else if (!model.getReminderSelected().willDisplayPopUp()) {
             throw new CommandException(REMINDER_POPUP_DISABLED);
         }
-        CommandResult commandResult = new CommandResult(MESSAGE_DISPLAY_SUCCESS);
-        commandResult.showReminderMessage((model.getReminderSelected().getMessage()));
+        CommandResult commandResult =
+                new CommandResult(MESSAGE_DISPLAY_SUCCESS, model.getReminderSelected().getMessage());
         return commandResult;
     }
     @Override

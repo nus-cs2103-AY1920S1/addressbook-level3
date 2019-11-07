@@ -96,7 +96,6 @@ public class EditReminderCommand extends Command {
                                                  List<Condition> allConditions) throws CommandException {
         assert reminderToEdit != null;
         Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getHeader());
-        Double updatedAmount = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
         List<Condition> updatedCondition;
         if (editReminderDescriptor.getConditionIndices().isPresent()) {
             if (editReminderDescriptor.getConditionIndices().get().size() == 0) {
@@ -108,24 +107,9 @@ public class EditReminderCommand extends Command {
         } else {
             updatedCondition = reminderToEdit.getConditions();
         }
-        if (reminderToEdit.getTrackerType().equals(Reminder.TrackerType.none)) {
-            if ((editReminderDescriptor.getTrackerType().isEmpty()
-                    && reminderToEdit.getTrackerType().equals(Reminder.TrackerType.none))
-                    || editReminderDescriptor.getTrackerType().get().equals(Reminder.TrackerType.none)) {
-                if (editReminderDescriptor.getQuota().isPresent()) {
-                    throw new CommandException(NO_QUOTA_WITHOUT_TRACKER + editReminderDescriptor.getQuota().get());
-                }
-            }
-        }
         Reminder editedReminder = new Reminder(updatedMessage, updatedCondition);
         for (Condition condition : editedReminder.getConditions()) {
             condition.getSupport().removePropertyChangeListener(reminderToEdit);
-        }
-        Reminder.TrackerType updatedTracker = editReminderDescriptor
-                .getTrackerType().orElse(reminderToEdit.getTrackerType());
-        if (!(updatedTracker.equals(Reminder.TrackerType.none))) {
-            Double updatedQuota = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
-            editedReminder.setTracker(updatedTracker, reminderToEdit.getCurrSum(), updatedQuota);
         }
         return editedReminder;
     }
@@ -173,7 +157,7 @@ public class EditReminderCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, quota, conditionIndices, trackerType);
+            return CollectionUtil.isAnyNonNull(desc, quota, conditionIndices);
         }
 
         public void setDesc(Description desc) {

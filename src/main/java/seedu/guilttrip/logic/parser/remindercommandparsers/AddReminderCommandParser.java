@@ -33,7 +33,7 @@ public class AddReminderCommandParser implements Parser<AddGeneralReminderComman
     public AddGeneralReminderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_DESC, PREFIX_INDEX, PREFIX_TRACKER_TYPE, PREFIX_AMOUNT);
+                        args, PREFIX_DESC, PREFIX_INDEX, PREFIX_AMOUNT);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -42,16 +42,8 @@ public class AddReminderCommandParser implements Parser<AddGeneralReminderComman
 
         Description message = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         List<Index> conditionIndexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
-        if (argMultimap.getValue(PREFIX_TRACKER_TYPE).isPresent()) {
-            Reminder.TrackerType trackerType = ParserUtil.parseTrackerType(
-                    argMultimap.getValue(PREFIX_TRACKER_TYPE).get());
-            Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-            Amount quota = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-            return new AddGeneralReminderCommand(message, conditionIndexes, trackerType, quota);
-        } else {
-            return new AddGeneralReminderCommand(message, conditionIndexes);
+        return new AddGeneralReminderCommand(message, conditionIndexes);
         }
-    }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

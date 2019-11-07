@@ -32,6 +32,9 @@ public class AddNewImageCommand extends Command {
             + PREFIX_BOOL + "True + \n";
 
     public static final String REMINDER_POPUP_DISABLED = "Please enable pop up before viewing or editing.";
+    public static final String MESSAGE_CONSTRAINTS = "Please enter a valid image path.\n"
+            + "Image name should only contain alpha-numerical characters"
+            + "Please enter either true or false for boolean value.";
 
     public final String imageName;
     public final String imagePath;

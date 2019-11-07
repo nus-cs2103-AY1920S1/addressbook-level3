@@ -19,23 +19,14 @@ import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 public class JsonAdaptedReminder {
     private final String message;
     private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
-    private final String trackerType;
-    private final double currSum;
-    private final double quota;
     private final String status;
 
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("message") String message,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
-                               @JsonProperty("tkrtyp") String trackerType,
-                               @JsonProperty("currSum") double currSum,
-                               @JsonProperty("tkrQuota") double quota,
                                @JsonProperty("status") String status) {
         this.message = message;
         this.conditions.addAll(conditions);
-        this.trackerType = trackerType;
-        this.currSum = currSum;
-        this.quota = quota;
         this.status = status;
     }
 
@@ -47,9 +38,6 @@ public class JsonAdaptedReminder {
         conditions.addAll(source.getConditions().stream()
                 .map(JsonAdaptedCondition::new)
                 .collect(Collectors.toList()));
-        this.trackerType = source.getTrackerType().toString();
-        this.currSum = source.getCurrSum();
-        this.quota = source.getTrackerQuota();
         this.status = source.getStatus().toString();
     }
 
@@ -68,9 +56,6 @@ public class JsonAdaptedReminder {
         }
         final Description modelMessage = new Description(message);
         Reminder modelReminder = new Reminder(modelMessage, conditionList);
-        if (!trackerType.toLowerCase().equals("none")) {
-            modelReminder.setTracker(Reminder.TrackerType.parse(trackerType), currSum, quota);
-        }
         modelReminder.setStatus(this.status);
         return modelReminder;
     }

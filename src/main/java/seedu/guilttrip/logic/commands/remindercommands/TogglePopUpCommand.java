@@ -20,7 +20,7 @@ public class TogglePopUpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        model.getReminderEditor().togglePopUp(willShowPopUp);
+        model.getReminderSelected().togglePopUpDisplay(willShowPopUp);
         if (willShowPopUp) {
             return new CommandResult("Reminder will show pop up message");
         } else {
