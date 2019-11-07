@@ -44,7 +44,7 @@ public class AutoCompleteTextField extends TextField {
      */
     public void populatePopup(List<String> searchResults, String searchWord) {
         List<CustomMenuItem> menuItems = new ArrayList<>();
-        int maxEntries = 7;
+        int maxEntries = 8;
         int count = Math.min(searchResults.size(), maxEntries);
 
         for (int i = 0; i < count; i++) {

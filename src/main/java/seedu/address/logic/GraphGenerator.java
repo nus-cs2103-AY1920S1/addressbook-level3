@@ -15,6 +15,7 @@ import seedu.address.logic.graphs.AddScheduleGraph;
 import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
+import seedu.address.logic.graphs.EditScheduleGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.model.Model;
 
@@ -73,7 +74,7 @@ class GraphGenerator {
         graphs.put("schedule", Graph.emptyGraph(model));
         graphs.put("add-s", new AddScheduleGraph(model));
         graphs.put("delete-s", Graph.emptyGraph(model));
-        graphs.put("edit-s", Graph.emptyGraph(model));
+        graphs.put("edit-s", new EditScheduleGraph(model));
 
         // Archived order commands
         graphs.put("switch-a", Graph.emptyGraph(model));
