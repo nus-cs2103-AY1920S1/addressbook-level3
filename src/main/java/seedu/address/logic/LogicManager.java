@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
             history.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
         if (command instanceof EventCommand || command instanceof PerformanceCommand) {
-            history.getPerformances().push(model.getPerformanceDeepCopy());
+            history.getPerformances().push(model.getPerformanceDeepCopy(model.getPerformance()));
         }
         history.getCommands().push(command);
         history.getAddressBooks().push(model.getAthletickDeepCopy());

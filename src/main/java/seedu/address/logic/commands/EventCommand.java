@@ -54,6 +54,6 @@ public class EventCommand extends Command {
     }
     @Override
     public String toString() {
-        return "Add Event Command";
+        return "'Add Event " + toAdd + "' Command";
     }
 }
