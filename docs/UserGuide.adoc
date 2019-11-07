@@ -67,7 +67,7 @@ out of this user guide:
 === Command Format
 
 * Words in `UPPER CASE` are parameters supplied by the user, while those
-in `lower case` are **commands** used `Jarvis`.
+in `lower case` are **commands** used in `Jarvis`.
 +
 For example:
 +
@@ -558,7 +558,7 @@ will return the original list of purchases.
 
 Format: `list-finances`
 
-==== Export to File: `export` - coming to you in v2.0!
+==== Exporting to File: `export` [v2.0]
 Conveniently export your expenditures to either a txt, csv, or xlsx file..
 
 Format: `export {csv | txt | xlsx} f/FILENAME`
@@ -571,7 +571,7 @@ export txt f/MyFile
 
 NOTE: Jarvis will export the file containing all expenditures to its current directory.
 
-==== Adding owed amounts: `owe` & `debt` - coming to you in v2.0!
+==== Adding owed amounts: `owe` & `debt` [v2.0]
 A night out with friends usually ends in someone paying first and subsequently, splitting the tab with the rest of the
 group. If you need an easy way of remembered who owes whom, let `Jarvis` take care of your debts.
 
@@ -593,7 +593,7 @@ add-owe n/Jamie a/5.50
 add-debt n/Sean a/10
 ----
 
-==== Splitting a Tab: `add-tab` - coming to you in v2.0!
+==== Splitting a Tab: `add-tab` [v2.0]
 You settled the bill first this time? Let `Jarvis` do the math!
 
 Format: `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
@@ -610,7 +610,7 @@ NOTE: The above example is equivalent to adding these commands separately: +
 `add-debt n/Charlie a/5`
 
 
-==== Mark a debt/owe as paid: `paid-debt` - coming to you in v2.0!
+==== Mark a debt/owe as paid: `paid-debt` - [v2.0]
 Updating settled debts can be easily done through `paid-debt`. Soon `Jarvis` will be able to mark your debts or owed
 amounts as done.
 
