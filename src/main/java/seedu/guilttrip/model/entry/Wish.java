@@ -16,7 +16,7 @@ public class Wish extends Entry {
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
+        return ENTRY_TYPE;
     }
 
 
