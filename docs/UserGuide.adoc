@@ -319,6 +319,7 @@ Format: `listnote`
 
 // end::delete[]
 
+// tag::studentProfile[]
 === Student List
 
 ==== Add a student: 'add'
@@ -354,6 +355,9 @@ Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATIO
 
 [NOTE]
 User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
+
+[NOTE]
+Result of a student can be assigned using this command. e.g. `edit 1 r/79`
 
 Examples:
 
@@ -456,6 +460,15 @@ Format: `upload_pic INDEX`
 Examples:
 
 * `upload_pic 1`
+
+==== Learn wrong commands
+
+Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
+command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
+[NOTE]
+You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
+
+// end::studentProfile[]
 
 === Clearing all entries : `clear`
 
