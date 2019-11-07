@@ -1,5 +1,7 @@
 package seedu.jarvis.logic.commands.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
@@ -86,6 +88,10 @@ public class RedoCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        assert numberOfTimes > 0 : "numberOfTimes should not be less than 1";
+
         if (!model.canCommit()) {
             throw new CommandException(MESSAGE_NOTHING_TO_REDO);
         }
@@ -112,6 +118,8 @@ public class RedoCommand extends Command {
      * @return The number of successful commits made.
      */
     private int commitCommands(Model model) {
+        requireNonNull(model);
+
         int numberOfCommits = 0;
         while (numberOfCommits < numberOfTimes && model.commit()) {
             ++numberOfCommits;
