@@ -46,7 +46,7 @@ public class Spending {
     }
 
     public LocalDate getDateValue() {
-        return date.getDateValue();
+        return date.dateValue;
     }
 
     public Remark getRemark() {

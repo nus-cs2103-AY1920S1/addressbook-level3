@@ -1,6 +1,6 @@
 package seedu.moneygowhere.logic.parser;
 
-import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_BUDGET_AMOUNT;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -21,15 +21,15 @@ class BudgetCommandParserTest {
         assertParseSuccess(parser, "12", new BudgetCommand(validBudget2));
         Budget validBudget3 = new Budget(0.1);
         assertParseSuccess(parser, "0.1", new BudgetCommand(validBudget3));
+        Budget validBudget4 = new Budget(1000000000);
+        assertParseSuccess(parser, "1000000000", new BudgetCommand(validBudget4));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                BudgetCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "-1.23", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                BudgetCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                BudgetCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-1", MESSAGE_INVALID_BUDGET_AMOUNT);
+        assertParseFailure(parser, "-1.23", MESSAGE_INVALID_BUDGET_AMOUNT);
+        assertParseFailure(parser, "", MESSAGE_INVALID_BUDGET_AMOUNT);
+        assertParseFailure(parser, "abcdef", MESSAGE_INVALID_BUDGET_AMOUNT);
     }
 }

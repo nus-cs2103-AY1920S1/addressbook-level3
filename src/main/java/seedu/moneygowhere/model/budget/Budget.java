@@ -11,13 +11,14 @@ import seedu.moneygowhere.model.spending.Spending;
 
 /**
  * Represents the budget in the MoneyGoWhere list.
+ * A budget cannot have a negative value.
  */
 public class Budget {
 
     public static final String MESSAGE_CONSTRAINTS = "Budget values should be positive number";
-    public static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
+    private static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
 
-    private double value;
+    private double amount;
     private double sum;
     private BudgetMonth month;
 
@@ -28,7 +29,7 @@ public class Budget {
      */
     public Budget(double amount) {
         checkArgument(isValidBudget(amount), MESSAGE_CONSTRAINTS);
-        this.value = amount;
+        this.amount = amount;
         this.sum = 0;
         this.month = BudgetMonth.now();
     }
@@ -41,7 +42,7 @@ public class Budget {
      */
     public Budget(double budget, String month) {
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
-        this.value = budget;
+        this.amount = budget;
         this.sum = 0;
         this.month = BudgetMonth.parse(month);
     }
@@ -54,7 +55,7 @@ public class Budget {
     public Budget(String budget) {
         requireNonNull(budget);
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
-        this.value = Double.parseDouble(budget);
+        this.amount = Double.parseDouble(budget);
         this.sum = 0;
         this.month = BudgetMonth.now();
     }
@@ -82,8 +83,7 @@ public class Budget {
      * @param spendings the spending list to initialize the budget with
      */
     public void initialize(LocalDate date, List<Spending> spendings) {
-        BudgetMonth temp = new BudgetMonth(date);
-        this.month = temp;
+        this.month = new BudgetMonth(date);
 
         this.sum = 0;
         for (Spending s : spendings) {
@@ -91,8 +91,8 @@ public class Budget {
         }
     }
 
-    public double getValue() {
-        return value;
+    public double getAmount() {
+        return amount;
     }
 
     public double getSum() {
@@ -100,15 +100,11 @@ public class Budget {
     }
 
     public String getValueString() {
-        return String.format("%.2f", value);
+        return String.format("%.2f", amount);
     }
 
     public String getMonthString() {
         return month.toString();
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     public void clearBudgetSum() {
@@ -145,16 +141,16 @@ public class Budget {
         }
     }
 
-    public double getRemainingBudget() {
-        return value - sum;
+    private double getRemainingBudget() {
+        return amount - sum;
     }
 
     public void setBudgetAmount(Budget budget) {
-        this.value = budget.value;
+        this.amount = budget.amount;
     }
 
     public void setBudget(Budget budget) {
-        this.value = budget.value;
+        this.amount = budget.amount;
         this.sum = budget.sum;
         this.month = budget.month;
     }
@@ -163,13 +159,13 @@ public class Budget {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Budget // instanceof handles nulls
-                && value == ((Budget) other).value
+                && amount == ((Budget) other).amount
                 && month.equals(((Budget) other).month)); // state check
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, sum);
+        return Objects.hash(amount, sum);
     }
 
     /**
@@ -178,7 +174,7 @@ public class Budget {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("$%.2f", value));
+        sb.append(String.format("$%.2f", amount));
         return sb.toString();
     }
 

@@ -32,7 +32,7 @@ public class BudgetPanel extends UiPart<Region> {
     public BudgetPanel(Budget budget) {
         super(FXML);
 
-        this.amount = budget.getValue();
+        this.amount = budget.getAmount();
         this.sum = budget.getSum();
 
         update();
@@ -53,8 +53,8 @@ public class BudgetPanel extends UiPart<Region> {
      * @param budget the budget to get data to update.
      */
     public void update(Budget budget) {
-        if (this.amount != budget.getValue() || this.sum != budget.getSum()) {
-            this.amount = budget.getValue();
+        if (this.amount != budget.getAmount() || this.sum != budget.getSum()) {
+            this.amount = budget.getAmount();
             this.sum = budget.getSum();
             update();
         }
