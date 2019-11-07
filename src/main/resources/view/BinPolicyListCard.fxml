@@ -26,17 +26,17 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                <Label fx:id="name" style="-fx-wrap-text: true;" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="tags" />
             <FlowPane fx:id="criteria" />
-            <Label fx:id="dateDeleted" styleClass="cell_small_label" text="\$dateDeleted"/>
-            <Label fx:id="expiryDate" styleClass="cell_small_label" text="\$expiryDate"/>
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            <Label fx:id="coverage" styleClass="cell_small_label" text="\$coverage" />
-            <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
-            <Label fx:id="startAge" styleClass="cell_small_label" text="\$startAge" />
-            <Label fx:id="endAge" styleClass="cell_small_label" text="\$endAge" />
+            <Label fx:id="dateDeleted" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$dateDeleted" />
+            <Label fx:id="expiryDate" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$expiryDate" />
+            <Label fx:id="description" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="coverage" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$coverage" />
+            <Label fx:id="price" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$price" />
+            <Label fx:id="startAge" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$startAge" />
+            <Label fx:id="endAge" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$endAge" />
         </VBox>
         <rowConstraints>
             <RowConstraints />

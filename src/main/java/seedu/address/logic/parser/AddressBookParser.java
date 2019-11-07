@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NULL_ARGUMENTS_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_MERGE_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ARGUMENTS;
@@ -16,6 +17,7 @@ import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.BinItemExpiryCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -84,6 +86,12 @@ public class AddressBookParser {
     }
 
     public AddressBookParser() {
+    }
+
+    private void handleTrailingArguments(String arguments, String commandWord) throws ParseException {
+        if (!arguments.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_NULL_ARGUMENTS_COMMAND, commandWord));
+        }
     }
 
     /**
@@ -180,6 +188,7 @@ public class AddressBookParser {
             return new DeleteCriteriaCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, ClearCommand.COMMAND_WORD);
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
@@ -198,30 +207,38 @@ public class AddressBookParser {
             return new FindTagPolicyCommandParser().parse(arguments);
 
         case ListPeopleCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, ListPeopleCommand.COMMAND_WORD);
             return new ListPeopleCommand();
 
         case ListPolicyCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, ListPolicyCommand.COMMAND_WORD);
             return new ListPolicyCommand();
 
         case ListBinCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, ListBinCommand.COMMAND_WORD);
             return new ListBinCommand();
 
         case UndoCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, UndoCommand.COMMAND_WORD);
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, RedoCommand.COMMAND_WORD);
             return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, HistoryCommand.COMMAND_WORD);
             return new HistoryCommand();
 
         case RestoreCommand.COMMAND_WORD:
             return new RestoreCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, ExitCommand.COMMAND_WORD);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            handleTrailingArguments(arguments, HelpCommand.COMMAND_WORD);
             return new HelpCommand();
 
         case MergePersonCommand.COMMAND_WORD:
@@ -278,6 +295,9 @@ public class AddressBookParser {
                 this.suggestionOn = false;
             }
             return command;
+
+        case BinItemExpiryCommand.COMMAND_WORD:
+            return new BinItemExpiryCommandParser().parse(arguments);
 
         default:
             if (commandWord.length() == 0) {
