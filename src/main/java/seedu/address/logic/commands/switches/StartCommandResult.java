@@ -24,4 +24,9 @@ public class StartCommandResult extends CommandResult {
     public String getTitle() {
         return title;
     }
+
+    @Override
+    public boolean isStartCommandResult() {
+        return true;
+    }
 }

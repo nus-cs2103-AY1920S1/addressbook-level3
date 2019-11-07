@@ -478,6 +478,18 @@ be reported.*)
 
 // end::yida-game[]
 
+
+// tag::jasonstatscommand[]
+
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+(Available in Open mode)
+
+==== Clear the statistics of the open _WordBank_.
+
+Format: clear
+
+// end::jasonstatscommand[]
+
 // tag::paulsettings[]
 
 === Settings Commands image:settings_mode_icon.png[width="27"]
@@ -612,6 +624,8 @@ The _WordBank_ statistics is shown on open mode and contains all information of 
 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
+
+NOTE: The high score and fastest clear of a word bank will not be reset on adding/deleting cards.
 
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
