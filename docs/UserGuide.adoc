@@ -334,19 +334,35 @@ Do keep in mind that only the user Account in our current version is only compat
 Signs in to the your email account. +
 Format: `signIn ac/ACCOUNT_EMAIL_ADDRESS pa/PASSWORD`
 
+Example:
+
+* `signIn ac/example@gmail.com pa/12345678`
+
 ==== 2. Log out from your account: `logOut`
 Logs out from your email account. +
 Format: `logOut`
+
+Example:
+
+* `logOut`
 
 ==== 3. Send an email: `sendMail`
 Sends an email to the specified person in your contacts. +
 Format: `sendMail r/RECIPIENT_OF_EMAIL su/SUBJECT me/MESSAGE_BODY`
 
+Example:
+
+* `sendMail r/example@gmail.com su/Test me/HelloWorld!`
+
 ==== 4. Broadcast an email: `broadcastMail`
 Sends an email to all members in the current working project. +
 Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
 
-==== 2. Send reminder: `sendReminder`
+Example:
+
+* `broadcastMail su/CS2103T me/added new Task`
+
+==== 5. Send reminder: `sendReminder`
 
 Sends a reminder to all members of the upcoming Meeting and Task that is due from the current working project. +
 Format: `sendReminder`d/DURATION
