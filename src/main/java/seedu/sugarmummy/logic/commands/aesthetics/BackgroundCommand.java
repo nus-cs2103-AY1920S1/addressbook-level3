@@ -47,6 +47,13 @@ public class BackgroundCommand extends Command {
             + "Example: bg white fontcolour/black\n"
             + "Example: bg /Users/bob/black.png s/cover fontcolor/white";
 
+    public static final String MESSAGE_BACKGROUND_REPEAT_AND_COVER_REQUIREMENT = "Oops! The background you have keyed"
+            + " in has a dominant colour that is too dark for the attribute combination whereby the repeat is "
+            + "not set to \"repeat\", and the size is not set to \"cover\". It may get difficult to see the "
+            + "fontcolour once the background is clipped off.";
+
+    public static final Colour TRANSPARENT_BG_COLOUR = new Colour("#F4F4F4");
+
     private Background background;
     private FontColourCommand fontColourCommand;
 
@@ -126,6 +133,13 @@ public class BackgroundCommand extends Command {
             }
         }
 
+        if (!newBackground.isBackgroundColour()
+                && !newBackground.getDominantColour().isCloseTo(TRANSPARENT_BG_COLOUR)
+                && (!newBackground.getBgRepeat().equals("repeat")
+                && !newBackground.getBgSize().equals("cover"))) {
+            throw new CommandException(MESSAGE_BACKGROUND_REPEAT_AND_COVER_REQUIREMENT);
+        }
+
         model.setBackground(newBackground);
 
         if (!newBackground.isBackgroundColour() && !previousBackground.isBackgroundColour()) {
@@ -146,8 +160,6 @@ public class BackgroundCommand extends Command {
             updateMessage.append("- Background has been changed from ").append(previousBackground)
                     .append(" to ").append(newBackground).append(".\n");
         }
-
-
 
         if (fontColourCommand != null) {
             if (!fontColourCommand.getFontColour().equals(model.getFontColour())) {
