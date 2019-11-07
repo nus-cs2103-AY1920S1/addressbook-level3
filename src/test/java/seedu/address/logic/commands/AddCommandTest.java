@@ -323,19 +323,20 @@ public class AddCommandTest {
         public void setNoteBookFilePath(Path noteBookFilePath) {
 
         }
+
         @Override
-        public void commitNote() {
+        public void commitNote(String command) {
 
         }
 
         @Override
-        public void undoNote() {
-
+        public String undoNote() {
+            return null;
         }
 
         @Override
-        public void redoNote() {
-
+        public String redoNote() {
+            return null;
         }
 
         @Override

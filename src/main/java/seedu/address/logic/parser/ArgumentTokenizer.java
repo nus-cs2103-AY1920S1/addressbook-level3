@@ -3,11 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import seedu.address.logic.commands.exceptions.DuplicatePrefixException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -19,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * in the above example.<br>
  */
 public class ArgumentTokenizer {
+    public static final String DUPLICATE_PREFIX_MESSAGE = "Duplicated prefix: %1$s found.";
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
@@ -75,7 +73,7 @@ public class ArgumentTokenizer {
             prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition);
         }
         if (positions.size() > 1 && !prefix.equals(PREFIX_TAG)) {
-            throw new ParseException("Duplicate prefixes " + prefix.toString() + " found");
+            throw new ParseException(String.format(DUPLICATE_PREFIX_MESSAGE, prefix.getPrefix()));
         }
         return positions;
     }

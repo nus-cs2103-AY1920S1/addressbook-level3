@@ -1,9 +1,7 @@
 package seedu.address.model;
 
-import java.util.ListIterator;
 import java.util.Stack;
 
-import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.note.exceptions.InvalidRedoException;
 import seedu.address.model.note.exceptions.InvalidUndoException;
@@ -94,6 +92,9 @@ public class VersionedNoteBook extends NoteBook {
         }
     }
 
+    /**
+     * Couples the undoable command with the Notebook state.
+     */
     private class NoteBookWithCommand {
         private ReadOnlyNoteBook notebook;
         private String command;

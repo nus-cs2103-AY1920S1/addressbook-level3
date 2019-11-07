@@ -62,7 +62,7 @@ public class EditNoteCommand extends Command {
 
         this.index = index;
         this.editNoteDescriptor = new EditNoteDescriptor(editPersonDescriptor);
-        this.command = COMMAND_WORD + " " +  index.getOneBased();
+        this.command = COMMAND_WORD + " " + index.getOneBased();
     }
 
     @Override
