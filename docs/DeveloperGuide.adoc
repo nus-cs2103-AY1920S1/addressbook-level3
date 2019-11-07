@@ -253,34 +253,53 @@ prefixes like `t>` and `d>`
 === Exporting of FlashCards
 ==== Implementation
 
+Our application currently supports the exporting of `FlashCards` to two file formats: `.docx` and `.json`. This mechanism is primarily facilitated by the following classes:
 
-The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
-
-* `ExportUtil` -- Handles the actual exporting of `FlashCards`
 * `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
+* `ExportPath` -- Represents the path to a specific file - either absolute or relative to the application directory
+* `ExportPathFactory` -- Parses the user-provided file path and creates instances of `ExportPath`
 
-The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
+`ExportPath` is an abstract class that follows the factory pattern. Each subclass of `ExportPath` represents the path to a specific file of a
+specific extension (e.g. an instance of `DocumentPath` represents the path to a specific document). Instances of these subclasses are created by
+`ExportPathFactory#getExportPath(String)`, which determines the appropriate subclass to create based on the extension of the provided file path String.
+Once created, an `ExportPath` will expose the following relevant methods:
 
-* `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
-* `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
-* `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
+* `getPath()` -- Returns a Java `Path` object that represents this `ExportPath`
+* `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
 
-Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
-Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
-document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
-`org.apache.poi.xwpf.usermodel`).
+Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
+dealing with exactly. Each `ExportPath` subclass will implement its own `export` method, which, when called, will perform the required export
+without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle the exporting directly.
+Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
 
-The following sequence diagram shows how the export operation works:
+TIP: The exporting functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
+
+NOTE: All export-relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand` and `ExportCommandParser`, which can be found in the `seedu.address.logic` package.
+
+The following table shows the classes and methods that you may have to deal with when exporting to each format:
+
+|====
+|**File format**                    |`.docx`                                                        |`.json`
+|**`ExportPath` subclass**          |`DocumentPath`                                                 |`JsonExportPath`
+|**Export utility class**           |`DocumentExportUtil`                                           |`JsonExportUtil`
+|**Export utility static method**   |`exportFlashCardsToDocument(List<FlashCard>, DocumentPath)`    |`exportFlashCardsToJson(List<FlashCard>, JsonExportPath)`
+|**External library used**          |Apache POI                                                     |Jackson
+|====
+
+The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
 
 image::ExportSequenceDiagram.png[]
+
+_Figure 1: Sequence diagram showing the process of exporting to a document file_
 
 NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
 
 The following activity diagram summarizes what happens when a user executes an export command:
 
 image::ExportActivityDiagram.png[width=320,height=480]
+
+_Figure 2: Activity diagram of when the user executes an export command_
 
 ==== Design Considerations
 
