@@ -24,7 +24,7 @@ of their favourite travel-related applications. This would give them easy access
 
 So how did my team and I achieve the above goal with _TravEzy_?
 
-== TravEzy's Main Features
+== _TravEzy_'s Main Features
 
 _TravEzy_ brings together essential features of popular travel-related applications: it is a one-stop solution 
 that makes it easier for travellers to *plan their trips*, *manage their expenses* and *record their memorable moments*. 
