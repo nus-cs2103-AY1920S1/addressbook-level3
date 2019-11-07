@@ -25,7 +25,7 @@ Here are some explanations of the icons and formatting used in this portfolio.
 ****
 * A highlighted `monospace` implies that this is a command that can be inputted and executed by the application.
 * _Italics_ implies a component, class or object in the architecture of the application.
-* The pull requests and issues are represented by a # and its number (e.g. [#1])
+* The pull requests and issues are represented by a # and its number (e.g. #1)
 ****
 
 == Summary of contributions
