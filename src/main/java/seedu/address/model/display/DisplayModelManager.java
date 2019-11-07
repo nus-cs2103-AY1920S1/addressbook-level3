@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.GmapsModelManager;
@@ -40,6 +41,7 @@ import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
+import seedu.address.ui.util.ColorGenerator;
 
 /**
  * Handler for all display models.
@@ -247,15 +249,15 @@ public class DisplayModelManager {
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
-        WeekSchedule weekZeroSchedule = new WeekSchedule(getWeekScheduleOf(now, person));
-        WeekSchedule weekOneSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(7), person));
-        WeekSchedule weekTwoSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(14), person));
-        WeekSchedule weekThreeSchedule = new WeekSchedule(getWeekScheduleOf(now.plusDays(21), person));
+        WeekSchedule weekZeroSchedule = getWeekScheduleOf(now, person);
+        WeekSchedule weekOneSchedule = getWeekScheduleOf(now.plusDays(7), person);
+        WeekSchedule weekTwoSchedule = getWeekScheduleOf(now.plusDays(14), person);
+        WeekSchedule weekThreeSchedule = getWeekScheduleOf(now.plusDays(21), person);
         return new PersonSchedule(scheduleName, new PersonDisplay(person, role), new MonthSchedule(weekZeroSchedule,
                 weekOneSchedule, weekTwoSchedule, weekThreeSchedule));
     }
 
-    private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> getWeekScheduleOf(LocalDateTime date, Person person) {
+    private WeekSchedule getWeekScheduleOf(LocalDateTime date, Person person) {
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay = new HashMap<>();
 
         Schedule personSchedule = person.getSchedule();
@@ -268,6 +270,8 @@ public class DisplayModelManager {
         for (int e = 0; e < events.size(); e++) {
             Event currentEvent = events.get(e);
             String eventName = currentEvent.getEventName();
+
+            String color = ColorGenerator.generateColor(e);
 
             ArrayList<Timeslot> timeslots = currentEvent.getTimeslots();
             for (int t = 0; t < timeslots.size(); t++) {
@@ -285,11 +289,18 @@ public class DisplayModelManager {
                         || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
                         && endTime.isAfter(currentStartTime.toLocalTime())) {
 
+                    ArrayList<String> arr = new ArrayList<>();
+                    arr.add(currentVenue.getVenue());
+
                     PersonTimeslot timeslot = new PersonTimeslot(
                             eventName,
+                            currentStartTime.toLocalDate(),
                             currentStartTime.toLocalTime(),
                             currentEndTime.toLocalTime().isAfter(endTime) ? endTime : currentEndTime.toLocalTime(),
-                            currentVenue
+                            currentVenue,
+                            color,
+                            gmapsModelManager.closestLocationData(
+                                    new ArrayList<>(List.of(currentVenue.getVenue())))
                     );
 
                     scheduleDisplay.get(currentStartTime.getDayOfWeek()).add(timeslot);
@@ -299,7 +310,8 @@ public class DisplayModelManager {
                 }
             }
         }
-        return scheduleDisplay;
+
+        return new WeekSchedule(scheduleDisplay);
     }
 
     /**

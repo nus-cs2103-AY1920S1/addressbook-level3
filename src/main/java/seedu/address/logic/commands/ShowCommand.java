@@ -28,7 +28,6 @@ public class ShowCommand<T> extends Command {
     private final T name;
 
     public ShowCommand(T name) {
-        requireNonNull(name);
         this.name = name;
     }
 
@@ -62,7 +61,7 @@ public class ShowCommand<T> extends Command {
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
                     false, false);
-        } else {
+        } else if (name instanceof GroupName) {
             ObservableList<Group> groupList = model.getObservableGroupList();
             Optional<Group> group = Optional.empty();
             for (Group g : groupList) {
@@ -79,6 +78,10 @@ public class ShowCommand<T> extends Command {
             model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
                     false, false);
+        } else {
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "Your schedule",
+                    false, false));
         }
     }
 

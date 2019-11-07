@@ -1,5 +1,6 @@
 package seedu.address.model.display.detailwindow;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import seedu.address.model.person.schedule.Venue;
@@ -9,19 +10,32 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class PersonTimeslot {
 
+    private Integer id;
+    private String color;
     private String eventName;
 
+    private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
     private Venue venue;
 
+    private ClosestCommonLocationData locationData;
 
-    public PersonTimeslot(String eventName, LocalTime startTime, LocalTime endTime, Venue venue) {
+    public PersonTimeslot(String eventName,
+                          LocalDate date,
+                          LocalTime startTime,
+                          LocalTime endTime,
+                          Venue venue,
+                          String color,
+                          ClosestCommonLocationData locationData) {
+        this.id = 0;
         this.eventName = eventName;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.venue = venue;
-
+        this.color = color;
+        this.locationData = locationData;
     }
 
     public String getEventName() {
@@ -38,6 +52,26 @@ public class PersonTimeslot {
 
     public Venue getVenue() {
         return venue;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public ClosestCommonLocationData getLocationData() {
+        return locationData;
     }
 
     /**
@@ -58,6 +92,7 @@ public class PersonTimeslot {
     public String toString() {
         String output = "";
         output += eventName + " "
+                + "ID: " + id.toString() + " "
                 + startTime.toString() + " "
                 + endTime.toString() + " "
                 + venue.toString();

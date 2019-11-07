@@ -43,7 +43,8 @@ public class FindPersonCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    model.getScheduleWindowDisplay().personScheduleToString()));
 
         } catch (PersonNotFoundException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, name.toString()));

@@ -9,19 +9,19 @@
 <?import javafx.geometry.Insets?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:id="locationsViewContainer" vgap="25" hgap="25">
+          alignment="CENTER"
+          fx:id="timeslotViewContainer" vgap="25" hgap="25">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
 
-    <VBox >
-        <Label fx:id="eventNameLabel"/>
-        <Label fx:id="startTimeLabel"/>
-        <Label fx:id="endTimeLabel"/>
-        <Label fx:id="locationLabel"/>
-    </VBox>
+    <StackPane fx:id="timeslotOverview"
+               GridPane.rowIndex="0" GridPane.columnIndex="0"
+               GridPane.halignment="CENTER"
+               GridPane.valignment="CENTER"
+    />
 
-
+    <StackPane fx:id="timeslotLocationCard" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
 </GridPane>
 
