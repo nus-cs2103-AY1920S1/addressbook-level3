@@ -92,7 +92,8 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "doctor ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in ORGANice";
+    public static final String MESSAGE_DUPLICATE_PERSON = "A person with the same NRIC already exists in ORGANice.\n"
+            + "Please change your NRIC input.";
     public static final String MESSAGE_DOCTOR_NOT_FOUND = "The doctor in charge specified is not found in ORGANice";
 
     private final Person toAdd;
