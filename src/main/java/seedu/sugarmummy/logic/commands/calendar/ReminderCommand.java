@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALENDAR_REPETITION;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.sugarmummy.model.calendar.CalendarEntry.listToString;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
@@ -74,10 +74,6 @@ public class ReminderCommand extends Command {
         model.addCalendarEntry(toAdd);
         model.schedule();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
-    }
-
-    private String listToString(List<CalendarEntry> calendarEntries) {
-        return calendarEntries.stream().map(CalendarEntry::toString).collect(Collectors.joining(", "));
     }
 
     @Override

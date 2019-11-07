@@ -49,9 +49,9 @@ Responsibilities: Weekly summary and data analysis
 
 === Zhang Xiaoyu
 image::zhanghuafan.png[width="150", align="left"]
-{empty}[https://github.com/ZhangHuafan[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ZhangHuafan[github]] [<<zhanghuafan#, portfolio>>]
 
-Role: Developer +
+Role: Developer +;'[p\\]
 Responsibilities: Education and quiz
 
 '''

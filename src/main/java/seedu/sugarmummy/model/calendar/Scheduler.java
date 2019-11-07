@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.sugarmummy.model.time.DateTime;
+import seedu.sugarmummy.model.time.Today;
 
 /**
  * A class representing a scheduler.
@@ -27,11 +28,13 @@ public class Scheduler {
     private LocalDateTime currentDeadline;
     private LocalDateTime currentStartingDateTime;
     private Queue<ScheduledFuture> scheduledFutures;
+    private Today today;
 
     public Scheduler() {
         currentDeadline = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59));
         currentStartingDateTime = LocalDateTime.now();
         scheduledFutures = new LinkedList<>();
+        today = new Today();
     }
 
     /**
@@ -51,6 +54,13 @@ public class Scheduler {
                 scheduledFuture.cancel(true);
             }
         }
+    }
+
+    /**
+     * Returns a Today Object representing the date of today.
+     */
+    public Today getToday() {
+        return today;
     }
 
     /**
@@ -131,6 +141,7 @@ public class Scheduler {
         public void run() {
             currentDeadline = currentDeadline.plusDays(1);
             schedule(calendar);
+            today.refresh();
         }
     }
 }
