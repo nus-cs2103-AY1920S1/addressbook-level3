@@ -334,27 +334,27 @@ Step 1. The user launches the application for the first time. The 'Statistics' o
 
 Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
 
-Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
+Step 2. The user executes `task-stats` command to retrieve statistics related to the tasks in the application.
 
-The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+The `task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram shows how the 'get-member-stats' operation works.
+The following sequence diagram shows how the 'task-stats' operation works.
 
 image::GetStatisticsSequenceDiagram.png[]
 Figure 10. Operational flow of 'GetStatisticsCommand'
 
 [NOTE]
-The 'get-member-stats' operation is similar to the one shown in figure 10.
+The `member-stats` operation is similar to the one shown in figure 10.
 
-Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `get-task-stats` command is called,
+Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
 `TaskStatisticsView` class is also called to display the task stats.
 
-The following sequence diagram shows how calling the 'get-member-stats' operation leads to the comprehensive UI display of task statistics.
+The following sequence diagram shows how calling the 'task-stats' operation leads to the comprehensive UI display of task statistics.
 
 image::GetStatisticsUISequenceDiagram.png[]
-Figure 10. Operational flow of GUI when 'GetStatisticsCommand' is called
+Figure 11. Operational flow of GUI when 'GetStatisticsCommand' is called
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user the `task-stats` command:
 
 image::GetStatisticsActivityDiagram.png[]
 
@@ -390,8 +390,8 @@ image::MemberClassDiagram.png[]
 Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.
 To accommodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
 
-* `Member#getImageUrl()` -- Retrieves the URL of the image stored in the user's computer
-* `Member#getImage()` -- Retrieves the member's image using the image url
+* `Member#getImagePath()` -- Retrieves the file path of the image stored in the user's computer
+* `Member#getImage()` -- Retrieves the member's image using the image file path
 
 
 Given below is an example usage scenario and how the set-image mechanism behaves at each step.
@@ -421,7 +421,6 @@ Figure 10. Operational flow of displaying a member with image.
 [NOTE]
 The sequence diagram only shows how Member's Image is called up and displayed for a member. It doesn't show how the Member's
 name and tags are displayed, since this is very similar to how AB3 originally displays its Person name and tags.
-
 
 The following activity diagram summarizes what happens when a user executes a new command:
 

@@ -5,13 +5,13 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ProjectDashboardParser" as ProjectDashboardParser LOGIC_COLOR
 participant ":SetImageCommandParser" as SetImageCommandParser LOGIC_COLOR
-participant "SetImageCommand" as SetImageCommand LOGIC_COLOR
-participant "ParserUtil" as ParserUtil LOGIC_COLOR
-participant "CommandResult" as CommandResult LOGIC_COLOR
+participant " setImageCommand:SetImageCommand" as SetImageCommand LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Member" as Member MODEL_COLOR
+participant "editedMember:Member" as Member MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
@@ -36,20 +36,20 @@ create SetImageCommand
 SetImageCommandParser -> SetImageCommand : SetImageCommand(memberId. memberImagePath)
 activate SetImageCommand
 
-SetImageCommand --> SetImageCommandParser
+SetImageCommand --> SetImageCommandParser : setImageCommand
 deactivate SetImageCommand
 
-SetImageCommandParser --> ProjectDashboardParser
+SetImageCommandParser --> ProjectDashboardParser : setImageCommand
 deactivate SetImageCommandParser
 
-ProjectDashboardParser --> LogicManager
+ProjectDashboardParser --> LogicManager : setImageCommand
 deactivate ProjectDashboardParser
 
 LogicManager -> SetImageCommand : execute(model)
 activate SetImageCommand
 
 create Member
-SetImageCommand -> Member : Member(...)
+SetImageCommand -> Member
 activate Member
 
 Member -> SetImageCommand : editedMember
@@ -60,22 +60,19 @@ activate Model
 Model --> SetImageCommand
 deactivate Model
 
+create CommandResult
+SetImageCommand -> CommandResult : CommandResult(MESSAGE_SUCCESS, editedMember)
+activate CommandResult
 
-GetStatisticsCommand -> Statistics : s.doCalculations()
-deactivate Statistics
+CommandResult --> SetImageCommand : result
+deactivate CommandResult
 
-GetStatisticsCommand -> Model : setStatistics(s)
-activate Model
+SetImageCommand --> LogicManager : result
+deactivate SetImageCommand
 
-Model --> GetStatisticsCommand
-deactivate Model
+SetImageCommand -[hidden]-> LogicManager : result
+destroy SetImageCommand
 
-GetStatisticsCommand --> LogicManager : result
-deactivate GetStatisticsCommand
-
-GetStatisticsCommand -[hidden]-> LogicManager : result
-destroy GetStatisticsCommand
-
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml
