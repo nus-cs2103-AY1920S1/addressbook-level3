@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
@@ -55,6 +56,9 @@ public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
             break;
         case DateOfBirth.DATA_TYPE:
             editPersonDescriptor.setDateOfBirth(inputPerson.getDateOfBirth());
+            break;
+        case Gender.DATA_TYPE:
+            editPersonDescriptor.setGender(inputPerson.getGender());
             break;
         default:
             break;
