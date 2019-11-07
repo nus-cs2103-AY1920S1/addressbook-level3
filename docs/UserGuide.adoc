@@ -165,17 +165,32 @@ To set a new budget: +
 // tag::view[]
 === Displaying View : `view`
 
-Want to switch tabs without using your mouse? You can switch to another tab with the `view` command. +
+Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
+
+==== Command Syntax
+
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4.
+* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4. It is case-insensitive.
 ****
 
-Examples:
+==== Example Usage:
 
-* `view transaction`
-* `view budget`
+You do not have to use your mouse in PalPay to switch tabs anymore.
+
+. By default, you are in the `transaction` tab.
++
+image::view1.png[]
++
+. Simply type *view budget* in the command box and press kbd:[Enter].
++
+image::view2.png[]
++
+. You can now view your budgets. Easy!
++
+image::view3.png[]
+
 // end::view[]
 
 // tag::delete[]
