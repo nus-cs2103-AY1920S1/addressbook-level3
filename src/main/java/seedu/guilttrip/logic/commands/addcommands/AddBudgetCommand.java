@@ -26,7 +26,8 @@ public class AddBudgetCommand extends Command {
 
     public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a budget entry to the finance tracker. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a budget entry to the finance tracker. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DESC + "DESCRIPTION "

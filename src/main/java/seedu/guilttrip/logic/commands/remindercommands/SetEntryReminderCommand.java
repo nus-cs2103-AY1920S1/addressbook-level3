@@ -30,7 +30,8 @@ public class SetEntryReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "setReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a reminder for a specific entry to \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sets a reminder for a specific entry ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "to trigger before/ on the date of the event. \n"
             + "Parameters: "
             + PREFIX_DESC + "DESC"

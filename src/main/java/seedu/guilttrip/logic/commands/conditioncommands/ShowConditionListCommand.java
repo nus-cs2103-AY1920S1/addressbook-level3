@@ -12,6 +12,7 @@ import seedu.guilttrip.model.Model;
  */
 public class ShowConditionListCommand extends Command {
     public static final String COMMAND_WORD = "listConditions";
+    public static final String ONE_LINER_DESC = COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "List all conditions";
 

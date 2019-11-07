@@ -18,7 +18,8 @@ public class AddClassConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "addClassCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Class Condition to the conditions list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a Class Condition to the conditions list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: CLASS_TYPE (must be expense, income, wish, autoExpense or budget, case-insensitive.)"
             + "CLASS_TYPE"
             + "Example: " + COMMAND_WORD + " "

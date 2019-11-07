@@ -16,8 +16,9 @@ public class AddQuotaConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "addQuotaCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a QuotaCondition to the conditions list. \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Adds a QuotaCondition to the conditions list. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + "QUOTA (In Dollars)\n"
             + "Example: "

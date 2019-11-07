@@ -20,8 +20,9 @@ public class DeleteBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteBudget";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the budget identified by the index number used in the displayed budget list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Deletes the budget identified by the index number used in the displayed budget list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

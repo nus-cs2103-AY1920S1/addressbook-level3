@@ -17,15 +17,20 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final CommandSuggester commandSuggester;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, CommandSuggester commandSuggester) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.commandSuggester = commandSuggester;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
+            setStyleToDefault();
+            suggestCommands();
+        });
     }
 
     /**
@@ -39,6 +44,11 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             setStyleToIndicateCommandFailure();
         }
+    }
+
+    @FXML
+    private void suggestCommands() {
+        commandSuggester.suggest(commandTextField.getText());
     }
 
     /**
@@ -74,4 +84,14 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
+    /**
+     * Represents a function that can suggest commands.
+     */
+    @FunctionalInterface
+    public interface CommandSuggester {
+        /**
+         * Parses the command and displays the suggestions.
+         */
+        void suggest(String commandText);
+    }
 }
