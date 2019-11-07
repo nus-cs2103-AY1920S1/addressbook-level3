@@ -2,18 +2,16 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
-class UserDateTimeParserTest {
+class IcsDateTimeParserTest {
 
-    private static final UserDateTimeParser PARSER = new UserDateTimeParser();
+    private static final IcsDateTimeParser PARSER = new IcsDateTimeParser();
 
     @Test
     void parse_invalidDateTime_failure() {
-        String[] tests = { "", " ", "29/02/2019 00:00" };
+        String[] tests = { "", " ", "29022019T000000Z" };
         for (String test : tests) {
             assertThrows(ParseException.class, () -> PARSER.parse(test));
         }
@@ -21,7 +19,7 @@ class UserDateTimeParserTest {
 
     @Test
     void parse_validDateTime_success() {
-        String[] tests = { "01/01/0001 00:00", "31/12/9999 23:59" };
+        String[] tests = { "00010101T000000Z", "99991231T235900Z" };
         for (String test : tests) {
             assertDoesNotThrow(() -> PARSER.parse(test));
         }

@@ -13,6 +13,8 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date or format!"
         + " Please enter in 'DD/MM/YYYY hh:mm' format.";
+    public static final String MESSAGE_INVALID_ICS_DATE_TIME = "Invalid date or format!"
+        + " Please enter in 'YYYYMMDDThhmmssZ' format.";
     public static final String MESSAGE_INVALID_CALENDAR_DAY = "Invalid date or format!"
         + " Please enter in 'DD/MM/YYYY' format.";
     public static final String MESSAGE_INVALID_CALENDAR_MONTH = "Invalid month, year or format!"
