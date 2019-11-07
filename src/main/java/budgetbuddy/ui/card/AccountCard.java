@@ -1,11 +1,9 @@
 package budgetbuddy.ui.card;
 
 import budgetbuddy.model.account.Account;
-
 import budgetbuddy.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
@@ -17,8 +15,6 @@ public class AccountCard extends UiPart<Region> {
 
     public final Account account;
 
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label name;
     @FXML

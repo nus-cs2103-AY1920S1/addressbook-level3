@@ -2,10 +2,8 @@ package budgetbuddy.ui.card;
 
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.ui.UiPart;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
@@ -17,8 +15,6 @@ public class LoanCard extends UiPart<Region> {
 
     public final Loan loan;
 
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label id;
     @FXML

@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class TransactionTab extends PanelTab {
 
     public TransactionTab(ObservableList<Transaction> transactionList) {
-        super(new TransactionListPanel(transactionList), "/images/transactionTab.png");
+        super(new TransactionListPanel(transactionList), "Transaction");
     }
 }

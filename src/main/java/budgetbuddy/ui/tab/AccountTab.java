@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class AccountTab extends PanelTab {
 
     public AccountTab(ObservableList<Account> accountList) {
-        super(new AccountListPanel(accountList), "/images/accountTab.png");
+        super(new AccountListPanel(accountList), "Account");
     }
 }

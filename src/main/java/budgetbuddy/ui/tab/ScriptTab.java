@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class ScriptTab extends PanelTab {
 
     public ScriptTab(ObservableList<Script> scriptList) {
-        super(new ScriptListPanel(scriptList), "/images/scriptTab.png");
+        super(new ScriptListPanel(scriptList), "Script");
     }
 }

@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class RuleTab extends PanelTab {
 
     public RuleTab(ObservableList<Rule> ruleList) {
-        super(new RulePanel(ruleList), "/images/ruleTab.png");
+        super(new RulePanel(ruleList), "Rule");
     }
 }

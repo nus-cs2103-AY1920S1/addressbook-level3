@@ -10,7 +10,6 @@ import budgetbuddy.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
@@ -22,8 +21,6 @@ public class TransactionCard extends UiPart<Region> {
 
     public final Transaction transaction;
 
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label id;
     @FXML
@@ -46,10 +43,7 @@ public class TransactionCard extends UiPart<Region> {
         description.setText(transaction.getDescription().toString());
         amount.setText(transaction.getAmount().toString());
         direction.setText(transaction.getDirection().toString());
-        List<Category> toSort = new ArrayList<>();
-        for (Category category : transaction.getCategories()) {
-            toSort.add(category);
-        }
+        List<Category> toSort = new ArrayList<>(transaction.getCategories());
         toSort.sort(Comparator.comparing(Category::getCategory));
         for (Category category : toSort) {
             categories.getChildren().add(new Label(category.getCategory()));

@@ -2,11 +2,15 @@ package budgetbuddy.ui.tab;
 
 import static java.util.Objects.requireNonNull;
 
-import budgetbuddy.commons.util.AppUtil;
 import budgetbuddy.ui.panel.DisplayPanel;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Represents an abstract tab component that displays its corresponding panel when selected.
@@ -17,11 +21,11 @@ public abstract class PanelTab extends Tab {
     private DisplayPanel secondaryPanel;
     private boolean isPrimaryPanelSelected;
 
-    public PanelTab(DisplayPanel panel, String imageFileName) {
-        this(panel, null, imageFileName);
+    public PanelTab(DisplayPanel panel, String tabName) {
+        this(panel, null, tabName);
     }
 
-    public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
+    public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String tabName) {
         this.primaryPanel = primaryPanel;
         this.secondaryPanel = secondaryPanel;
         this.isPrimaryPanelSelected = true;
@@ -29,19 +33,25 @@ public abstract class PanelTab extends Tab {
         setClosable(false);
         setContent(primaryPanel.getRoot());
 
-        // Create image
-        ImageView currImage = new ImageView(AppUtil.getImage(imageFileName));
-        ColorAdjust desaturateEffect = new ColorAdjust(0, -1, 0, 0);
-        ColorAdjust saturateEffect = new ColorAdjust(0, 0, 0, 0);
-        currImage.setEffect(desaturateEffect);
-        setGraphic(currImage);
+        // Create tab
+        Stop[] stops = new Stop[] { new Stop(0, Color.web("#3f556f")), new Stop(1, Color.web("#2c3b4d"))};
+        LinearGradient lg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
+        Rectangle rectangle = new Rectangle(145, 55, lg);
+        rectangle.setArcHeight(5);
+        rectangle.setArcWidth(5);
+        rectangle.setVisible(false);
+
+        Label label = new Label(tabName);
+
+        StackPane tab = new StackPane(rectangle, label);
+        setGraphic(tab);
 
         // Change effect depending on state
         setOnSelectionChanged(event -> {
             if (isSelected()) {
-                currImage.setEffect(saturateEffect);
+                rectangle.setVisible(true);
             } else {
-                currImage.setEffect(desaturateEffect);
+                rectangle.setVisible(false);
             }
         });
     }
