@@ -219,6 +219,16 @@ public class Mark implements ReadOnlyMark {
         }
     }
 
+    /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return reminderAssociation.getBookmarkFromReminder(reminder);
+    }
+
     //// autotag controller operations
 
     /**

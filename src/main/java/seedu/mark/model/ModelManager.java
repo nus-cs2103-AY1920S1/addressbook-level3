@@ -343,6 +343,16 @@ public class ModelManager implements Model {
         versionedMark.setReminders();
     }
 
+    /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return versionedMark.getBookmarkFromReminder(reminder);
+    }
+
     //=========== Cache =================================================================================
     @Override
     public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {

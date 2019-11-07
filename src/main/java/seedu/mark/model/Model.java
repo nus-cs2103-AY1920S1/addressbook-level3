@@ -221,6 +221,14 @@ public interface Model {
     void editReminder(Reminder targetReminder, Reminder editedReminder);
 
     /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder);
+
+    /**
      * Checks if the bookmark already has reminder.
      *
      * @param bookmark the bookmark to check.
