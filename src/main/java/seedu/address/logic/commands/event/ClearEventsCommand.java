@@ -8,7 +8,7 @@ import seedu.address.model.EventBook;
 import seedu.address.model.Model;
 
 /**
- * Clears all entries in the EventsBook.
+ * Clears all entries in the EventBook.
  */
 public class ClearEventsCommand extends Command {
 

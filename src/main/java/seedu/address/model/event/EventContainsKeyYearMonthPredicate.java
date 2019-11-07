@@ -41,4 +41,3 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
     }
 
 }
-

@@ -2,6 +2,8 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_BIG_RANGE;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
+import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_DUPLICATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -34,7 +36,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
- * Edits the details of an existing event in the event book.
+ * Edits the details of an existing {@code Event} in the EventBook.
  */
 public class EditEventCommand extends Command {
 
@@ -55,8 +57,6 @@ public class EditEventCommand extends Command {
             + PREFIX_EVENT_VENUE + "Utown Student Plaza";
 
     private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
-    private static final String MESSAGE_IDENTICAL_EVENT = "There is an identical event in the event book.";
-    private static final String MESSAGE_INVALID_DATES = "Invalid start/end dates! Start Date must be before End Date.";
     private static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid Manpower Needed input."
             + " You may not state a number that is below the current number of allocated employees. \n"
             + "Free some employees before executing this command again!";
@@ -92,7 +92,7 @@ public class EditEventCommand extends Command {
         EventDate editedEndDate = editedEvent.getEndDate();
 
         //Event has Manpower Allocated, EventDate is edited, prompts user to deallocate before Editing Dates.
-        if (!eventToEdit.isEventEmpty()
+        if (!eventToEdit.isManpowerAllocatedEmpty()
                 && !(eventToEdit.getStartDate().equals(editedStartDate)
                 && eventToEdit.getEndDate().equals(editedEndDate))) {
             throw new CommandException(MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER);
@@ -100,7 +100,7 @@ public class EditEventCommand extends Command {
 
         //start date not before end date
         if (editedStartDate.compareTo(editedEndDate) > 0) {
-            throw new CommandException(MESSAGE_INVALID_DATES);
+            throw new CommandException(MESSAGE_DATE_START_AFTER_END);
         }
 
         if (editedEvent.getManpowerNeeded().value < editedEvent.getCurrentManpowerCount()) {
@@ -108,7 +108,7 @@ public class EditEventCommand extends Command {
         }
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
-            throw new CommandException(MESSAGE_IDENTICAL_EVENT);
+            throw new CommandException(MESSAGE_EVENTS_DUPLICATE);
         }
 
         long dateDifference = editedStartDate.dateDifference(editedEndDate);

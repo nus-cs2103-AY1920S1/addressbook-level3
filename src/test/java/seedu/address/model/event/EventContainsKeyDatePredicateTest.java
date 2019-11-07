@@ -1,78 +1,88 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDate;
+import static seedu.address.testutil.TypicalEventDates.OCT_09_2021;
+import static seedu.address.testutil.TypicalEventDates.OCT_10_2021;
+import static seedu.address.testutil.TypicalEventDates.OCT_13_2021;
+import static seedu.address.testutil.TypicalEventDates.OCT_15_2021;
+import static seedu.address.testutil.TypicalEventDates.OCT_16_2021;
+import static seedu.address.testutil.TypicalEventDates.OCT_20_2019;
+import static seedu.address.testutil.TypicalEventDates.OCT_21_2019;
+import static seedu.address.testutil.TypicalEvents.MUSICAL;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.testutil.EventBuilder;
-
-public class EventContainsKeyDatePredicateTest {
+class EventContainsKeyDatePredicateTest {
 
     @Test
-    public void equals() throws ParseException {
-        LocalDate firstPredicateKeyDate = ParserUtil.parseAnyDate("20/12/2019");
-        LocalDate secondPredicateKeyDate = ParserUtil.parseAnyDate("21/12/2019");
+    void testEventContainsDatePredicateTrue() {
+        EventDate eventDate;
+        EventContainsKeyDatePredicate predicate;
 
-        EventContainsKeyDatePredicate firstPredicate = new EventContainsKeyDatePredicate(firstPredicateKeyDate);
-        EventContainsKeyDatePredicate secondPredicate = new EventContainsKeyDatePredicate(secondPredicateKeyDate);
+        //On Start Date
+        eventDate = OCT_10_2021;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
+        assertTrue(predicate.test(MUSICAL));
 
-        // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
+        //On End Date
+        eventDate = OCT_15_2021;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
+        assertTrue(predicate.test(MUSICAL));
 
-        // same value / predicate -> returns true
-        EventContainsKeyDatePredicate firstPredicateCopy = new EventContainsKeyDatePredicate(firstPredicateKeyDate);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+        //Within Start-End Date
 
-        // different types -> returns false
-        assertFalse(firstPredicate.equals(1));
-
-        // null -> returns false
-        assertFalse(firstPredicate.equals(null));
-
-        // different predicate -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        eventDate = OCT_13_2021;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
+        assertTrue(predicate.test(MUSICAL));
     }
 
     @Test
-    public void test_eventContainsKeyDate_returnsTrue() throws ParseException {
-        // Event that starts on the same predicate date
-        EventContainsKeyDatePredicate predicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("20/12/2019"));
-        assertTrue(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("20/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("22/12/2019")).build()));
+    void testEventContainsDatePredicateFalse() {
+        EventDate eventDate;
+        EventContainsKeyDatePredicate predicate;
 
-        // Event that ends on the same predicate date
-        predicate = new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("21/12/2019"));
-        assertTrue(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("19/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("21/12/2019")).build()));
+        //Before Start Date
+        eventDate = OCT_09_2021;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
+        assertFalse(predicate.test(MUSICAL));
 
-        // Event that is multiple days long with one of the event date being the predicate
-        predicate = new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("22/12/2019"));
-        assertTrue(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("20/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("25/12/2019")).build()));
+        //After End Date
+        eventDate = OCT_16_2021;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
+        assertFalse(predicate.test(MUSICAL));
     }
 
     @Test
-    public void test_eventDoesNotContainsKeyDate_returnsFalse() throws ParseException {
-        // Event start date is after predicate date
-        EventContainsKeyDatePredicate predicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("20/12/2019"));
-        assertFalse(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("25/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("26/12/2019")).build()));
+    void equals() {
+        EventDate eventDate;
+        EventContainsKeyDatePredicate predicate;
 
-        // Event end date is before predicate date
-        predicate = new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("20/12/2019"));
-        assertFalse(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("18/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("19/12/2019")).build()));
+        eventDate = OCT_20_2019;
+        predicate = new EventContainsKeyDatePredicate(eventDate);
 
-        // Multiple Day event that does not span through predicate date
-        predicate = new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("20/12/2019"));
-        assertFalse(predicate.test(new EventBuilder().withStartDate(ParserUtil.parseAnyDate("21/12/2019"))
-                .withEndDate(ParserUtil.parseAnyDate("26/12/2019")).build()));
+        //same object --> Returns true
+        assertTrue(predicate.equals(predicate));
+
+        //same values --> Returns true
+        EventContainsKeyDatePredicate predicateSame = new EventContainsKeyDatePredicate(eventDate);
+        assertTrue(predicate.equals(predicateSame));
+
+        //different types --> Returns false
+        assertFalse(predicate.equals("20/10/2019"));
+
+        //null --> Returns false
+        assertFalse(predicate.equals(null));
+
+        //different predicate with different values --> Returns false
+        EventDate eventDateDiff = OCT_21_2019;
+        EventContainsKeyDatePredicate predicateDiff = new EventContainsKeyDatePredicate(eventDateDiff);
+        assertFalse(predicateDiff.equals(predicate));
+
+
     }
 }

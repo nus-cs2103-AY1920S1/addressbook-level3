@@ -5,30 +5,41 @@ import static seedu.address.logic.parser.ParserUtil.parseTimePeriod;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a HashMap of the EventDate to EventDayTime.
- * Used to represent the time period that the event is hosted for throughout a single day.
+ * Represents a TreeMap of the EventDate to EventDayTime.
+ * Used to represent the schedule of an Event on all valid, mapped dates.
  */
 public class EventDateTimeMap {
     public static final String MESSAGE_CONSTRAINTS =
             "EventDateTimeMap is of the format DDMMYYYY:HHMM-HHMM, delimited by commas";
-    private final Map<EventDate, EventDayTime> dateTimeMap = new HashMap<>();
+    private static final String DELIMITER = ",";
+    private final Map<EventDate, EventDayTime> dateTimeMap;
 
-
+    /**
+     * Default Constructor, initializes a new TreeMap.
+     */
     public EventDateTimeMap() {
+        dateTimeMap = new TreeMap<>();
     }
 
     public EventDateTimeMap(Map<EventDate, EventDayTime> map) {
+        this();
         dateTimeMap.putAll(map);
     }
 
+    /**
+     * Used when constructing EventDateTimeMap object from JsonStorage.
+     *
+     * @param stringMap Stored String in JSON.
+     * @throws IllegalArgumentException Error in Parsing.
+     */
     public EventDateTimeMap(String stringMap) throws IllegalArgumentException {
         this();
         if (stringMap.isEmpty()) {
@@ -36,7 +47,7 @@ public class EventDateTimeMap {
         }
 
         try {
-            String[] eachDateTime = stringMap.split(",");
+            String[] eachDateTime = stringMap.split(DELIMITER); //delimiter
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
                 this.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
@@ -51,8 +62,8 @@ public class EventDateTimeMap {
     /**
      * Returns true if the given string represents a valid DateTime Mapping.
      *
-     * @param test
-     * @return
+     * @param test String to be parsed
+     * @return boolean to indicate if the parse is successful
      */
     public static boolean isValidEventDateTimeMap(String test) {
         if (test.isEmpty()) {
@@ -71,7 +82,7 @@ public class EventDateTimeMap {
     }
 
     /**
-     * Returns a List of EventDates that are currently mapped
+     * Returns a Sorted List of EventDates that are currently mapped
      */
     public List<EventDate> getDateMappedList() {
         List<EventDate> uniqueEventDates = new ArrayList<>(dateTimeMap.keySet());
@@ -80,28 +91,34 @@ public class EventDateTimeMap {
     }
 
     /**
-     * Add/Update the Key-Value pair of an EventDate to a EventDayTime
+     * Add/Update the Key-Value pair of an EventDate to a EventDayTime.
      *
      * @param date    EventDate object representing a Date of an Event
-     * @param dayTime EventDayTime object representing the time period in a day that the event is hosted
+     * @param dayTime EventDayTime object representing the time period on a date in the Event's Schedule.
      */
     public void mapDateTime(EventDate date, EventDayTime dayTime) {
         dateTimeMap.put(date, dayTime);
     }
 
-
+    /**
+     * Clears the entire DateTime Mapping from an Event.
+     */
     public void clearMapping() {
         dateTimeMap.clear();
     }
 
+    /**
+     * Boolean that checks whether an EventDate is within
+     *
+     * @param date A valid {@code EventDate} object
+     */
     public boolean containsDateKey(EventDate date) {
         return dateTimeMap.containsKey(date);
     }
 
     /**
-     * Gives the total number of hours (double value).
-     *
-     * @return
+     * Calculates the Event's total number of hours based on the sum
+     * of the duration of the mapped {@EventDayTime}.
      */
     public double totalHours() {
         double totalMinutes = 0;
@@ -122,9 +139,9 @@ public class EventDateTimeMap {
     }
 
     /**
-     * Called when the Event's Start/End Date has changed. EventDateTime will flush EventDate keys
+     * Called when the Event's Start/End Date has changed. EventDateTime will flush {@code EventDate} keys
      * from the Mapping which falls out of the new range.
-     * Then, insert default DateTime mapping for the start and end dates if not found
+     * Then, the default DateTime values will be inserted for the start and end dates keys if not found
      */
     public void flushEventDates(EventDate newStartDate, EventDate newEndDate) {
         dateTimeMap.entrySet().removeIf(event -> {
@@ -156,7 +173,7 @@ public class EventDateTimeMap {
         StringBuilder sb = new StringBuilder();
         for (EventDate keyEventDate : dateTimeMap.keySet()) {
             if (sb.length() > 0) {
-                sb.append(","); //delimiter
+                sb.append(DELIMITER);
             }
             sb.append(keyEventDate.toString()); //Event Date
             sb.append(":");
@@ -171,7 +188,6 @@ public class EventDateTimeMap {
     public String toStringWithNewLine() {
         StringBuilder sb = new StringBuilder();
         for (EventDate keyEventDate : dateTimeMap.keySet()) {
-
             sb.append(keyEventDate.toString()); //Event Date
             sb.append(" : ");
             sb.append(dateTimeMap.get(keyEventDate).toString() + "\n");
