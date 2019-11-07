@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":UiManager" as UiManager LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CalendarPanel" as CalendarPanel UI_COLOR
+participant "ListPanel" as ListPanel UI_COLOR
+participant "LogPanel" as LogPanel UI_COLOR
+end box
+
+box JavaFX UI_COLOR_T2
+participant ":Region" as Region UI_COLOR
+end box
+
+'==== UiManager ===='
+[-> UiManager : viewCalendar(calendarDate)
+activate UiManager
+
+'==== MainWindow ====
+
+alt calendarDate == null
+    UiManager -> MainWindow : viewCalendar()
+    activate MainWindow
+
+    '==== CalendarPanel ====
+    MainWindow -> CalendarPanel : getRoot()
+    activate CalendarPanel
+    CalendarPanel -> MainWindow : calendarRegion
+    deactivate CalendarPanel
+
+    MainWindow -> Region : calendarRegion.setVisible(true)
+    activate Region
+        Region --> MainWindow
+    deactivate Region
+
+    '==== ListPanel ====
+    MainWindow -> ListPanel : getRoot()
+    activate ListPanel
+    ListPanel -> MainWindow : listRegion
+    deactivate ListPanel
+
+    MainWindow -> Region : listRegion.setVisible(false)
+    activate Region
+        Region --> MainWindow
+    deactivate Region
+
+    '==== LogPanel ====
+    MainWindow -> LogPanel : getRoot()
+    activate LogPanel
+    LogPanel -> MainWindow : logRegion
+    deactivate LogPanel
+
+    MainWindow -> Region : logRegion.setVisible(false)
+    activate Region
+        Region --> MainWindow
+    deactivate Region
+
+else calendarDate != null
+    UiManager -> MainWindow : changeCalendarScreenDate(calendarDate)
+    MainWindow -> CalendarPanel : changeCalendarScreenDate(calendarDate)
+    activate CalendarPanel
+    CalendarPanel --> MainWindow
+    deactivate CalendarPanel
+    MainWindow -> MainWindow : viewCalendar()
+end
+
+MainWindow --> UiManager
+deactivate MainWindow
+UiManager -->[
+deactivate UiManager
+UiManager -[hidden]--> UiManager
+@enduml
