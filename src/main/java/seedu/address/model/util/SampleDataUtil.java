@@ -130,7 +130,29 @@ public class SampleDataUtil {
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKH1221P"),
                 new District(20), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
-                new District(8), new Availability("AVAILABLE"))
+                new District(8), new Availability("AVAILABLE")),
+
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SFD3204W"),
+                    new District(1), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SDG4044R"),
+                    new District(2), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FEG5249J"),
+                    new District(3), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GJE3294K"),
+                    new District(4), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GJN8923L"),
+                    new District(5), new Availability("AVAILABLE")),
+
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SFD3264V"),
+                    new District(6), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SDF2344R"),
+                    new District(7), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FEP6249J"),
+                    new District(8), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GRB3994K"),
+                    new District(9), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GJR8123L"),
+                    new District(10), new Availability("AVAILABLE"))
 
         };
     }
