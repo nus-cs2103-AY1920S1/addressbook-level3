@@ -260,7 +260,7 @@ the index shown in the table or by the person's name. Inputting the person's nam
 that person to be deleted.
 The following activity diagram shows the steps needed to delete a new transaction:
 
-[caption = "Figure 16. "]
+[caption = "Figure 17. "]
 .Activity Diagram of Delete Command in Home Tab (transaction package)
 image::HomeTabActivityDiagramDeleteCommand.png[width = "500"]
 
@@ -268,24 +268,35 @@ The above activity diagram assumes the index to be within the bounds of the tabl
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
 when a successful deletion is done.
 
-The following sequence diagram shows how the delete by name command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+For the implementation, the `DeleteCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>> as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand` object according to the user input.
+The following sequence diagram shows how the `DeleteNameCommand` is created with the definition of `CheckAndGetPersonByNameOnlyModel#getPersonByName` defined in
+<<getPersonByName, 3.1.1 Add Command Feature>>:
 
-[caption = "Figure 17. "]
+[caption = "Figure 18. "]
+.Sequence Diagram of the parser for the Delete Command to Delete by the Person's Name
+image::DeleteCommandParser.png[]
+
+The following sequence diagram shows how the delete by name command works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+[caption = "Figure 19. "]
 .Sequence Diagram of Delete Command in Home Tab (transaction package)
 image::HomeDeleteNameCommand.png[width = "300"]
 
-In addition, the `ModelManager#resetPredicate()` method is not called in the `DeleteNameCommand`. If the prior input is a
+In addition, the `ModelManager#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
 Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords, the table in the UI will continue to show the filtered list at the end of the current Delete Command.
+a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
 To view the full transaction list, the user would be required to enter the
-Back Command where `BackCommand` calls `ModelManager#resetPredicate()` which sets the predicate to evaluate all `Transaction` objects to the boolean true. The sequence diagram for the `BackCommand` is shown in the
+Back Command where `BackCommand` calls `ModelManager#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
 and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
 respectively.
-The delete by index implementation would be similar but does not require interaction with the `Model` from the
-`AddressBook` in the person package.
+
+The delete by index implementation would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
+`AddressBook` in the person package inside its branch in `DeleteCommandParser`. In `DeleteIndexCommand`, it also calls the
+`Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according
+to its position in the filtered transaction list.
 
 [big red]*3.1.3 Back Command Feature*
 
@@ -296,7 +307,7 @@ The `BackCommand` is not initialised by a specific command parser as shown in as
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
-[caption = "Figure 18. "]
+[caption = "Figure 20. "]
 .Sequence Diagram of Back Command in Home Tab (transaction package)
 image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 
@@ -308,7 +319,7 @@ alphabetical order, by amount (from least to most) and by date (from oldest to m
 
 The following sequence diagram shows how the sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-[caption = "Figure 19. "]
+[caption = "Figure 21. "]
 .Sequence Diagram of Sort Command in Home Tab (transaction package)
 
 image::HomeTabSortSD.png[width = "300"]
@@ -338,7 +349,7 @@ of `ModelManager`.
 |A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
 `Logic`.
 |Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`. The interface implemented is `GetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 21>>.
+to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 21>>.
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
@@ -352,7 +363,7 @@ image::homeDG/2lists.png[width = "450"]
 
 [[facade]]
 [caption = "Figure 21. "]
-.Code Snippet of `GetPersonByNameOnly` facade class for `ModelManager` from Members Tab
+.Code Snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
 image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 
 {End of Extract}
