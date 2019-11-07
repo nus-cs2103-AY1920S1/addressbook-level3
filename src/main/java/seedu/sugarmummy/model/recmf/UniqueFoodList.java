@@ -5,6 +5,7 @@ import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -51,12 +52,16 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
     }
 
     /**
-     * Removes the equivalent food from the list. The food must exist in the list.
+     * Removes the food with specified food name from the list.
      */
-    public void remove(Food toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+    public void delete(FoodName foodName) {
+        requireNonNull(foodName);
+        Optional<Food> targetFood = internalList.stream().filter(food -> food.getFoodName().equals(foodName)).findAny();
+        if (targetFood.isEmpty()) {
             throw new FoodNotFoundException();
+        } else {
+            assert internalList.contains(targetFood.get());
+            internalList.remove(targetFood.get());
         }
     }
 
@@ -104,9 +109,13 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
         List<Food> mixedFoods = Stream.of(FoodType.values())
                 .map(type -> internalUnmodifiableList.stream().filter(f -> f.getFoodType().equals(type))
                         .toArray(Food[]::new))
+                .filter(arr -> arr.length > 0)
                 .map(foodArr -> getRandomFood(foodArr))
                 .collect(Collectors.toList());
 
+        if (mixedFoods.size() == 0) {
+            return FXCollections.observableArrayList();
+        }
         FoodCalculator foodCalculator = new FoodCalculator(mixedFoods);
         Food summaryFood = new Food(new FoodName("Summary"), foodCalculator.getCalorieSum(),
                 foodCalculator.getGiAverage(), foodCalculator.getSugarSum(), foodCalculator.getFatSum(), FoodType.MEAL);
@@ -129,7 +138,7 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof UniqueFoodList
-                        && internalList.equals(((UniqueFoodList) other).internalList));
+                && internalList.equals(((UniqueFoodList) other).internalList));
     }
 
     @Override

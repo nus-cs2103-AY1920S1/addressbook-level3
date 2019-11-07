@@ -30,8 +30,8 @@ public class AddFoodCommand extends Command {
             + "nsv: non-starchy vegetables; sv: starchy vegetables; f: fruit; p: protein; s: snack; m: meal\n"
             + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers.\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FOOD_NAME + "Cherry " + PREFIX_FOOD_TYPE + "f "
-            + PREFIX_CALORIE + "63 " + PREFIX_GI + "20 " + PREFIX_SUGAR + "12 " + PREFIX_FAT + "0\n";
+            + PREFIX_FOOD_NAME + "Cucumber " + PREFIX_FOOD_TYPE + "nsv "
+            + PREFIX_CALORIE + "15 " + PREFIX_GI + "15 " + PREFIX_SUGAR + "1.7 " + PREFIX_FAT + "0\n";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists";
@@ -61,7 +61,7 @@ public class AddFoodCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.ADD_FOOD;
+        return DisplayPaneType.CHANGE_FOOD;
     }
 
     @Override
