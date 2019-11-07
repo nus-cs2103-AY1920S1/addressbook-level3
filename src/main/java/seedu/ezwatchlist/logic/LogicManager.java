@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
@@ -45,12 +46,13 @@ public class LogicManager implements Logic {
             throws CommandException, ParseException, OnlineConnectionException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
+        final CommandResult[] commandResult = new CommandResult[1];
         Command command = watchListParser.parseCommand(commandText);
 
         if (command instanceof SearchCommand) {
             mainWindow.setIsSearchLoading();
-            System.err.println("HERE");
+            mainWindow.goToSearch();
+            System.err.println("HERE");/*
             Runnable task = new RunnableCommand((SearchCommand) command, model);
             Thread worker = new Thread(task);
             worker.start();
@@ -60,10 +62,23 @@ public class LogicManager implements Logic {
                 commandResult = ((RunnableCommand) task).getCommandResult();
             }
             //worker.sleep(1000);
-            mainWindow.setIsSearchLoading();
+            */
+            Task<CommandResult> task = new Task<CommandResult>() {
+                @Override
+                protected CommandResult call() throws Exception {
+                    return command.execute(model);
+                }
+            };
+            task.setOnSucceeded(event -> {
+                mainWindow.setIsSearchLoading();
+                mainWindow.goToSearch();
+                commandResult[0] = task.getValue();
+            });
+            new Thread(task).start();
+            return null;
         }
         else {
-            commandResult = command.execute(model);
+            commandResult[0] = command.execute(model);
         }
         try {
             storage.saveWatchList(model.getWatchList());
@@ -71,7 +86,7 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        return commandResult;
+        return commandResult[0];
     }
 
     @Override

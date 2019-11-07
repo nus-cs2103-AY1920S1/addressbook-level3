@@ -56,6 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private String currentTab;
     private Boolean isSearchLoading = false;
     public void setIsSearchLoading() {
+        /*
         if (!isSearchLoading) {
             isSearchLoading = true;
             contentPanelPlaceholder.getChildren().clear();
@@ -68,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
             move(currentButton, searchButton);
             currentButton = searchButton;
         }
+         */
+        isSearchLoading = !isSearchLoading;
     }
     private Statistics statistics;
 
@@ -362,6 +365,7 @@ public class MainWindow extends UiPart<Stage> {
              */
             //} else {
                 CommandResult commandResult = logic.execute(commandText, this);
+
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 if (commandResult.isShowHelp()) {
@@ -375,14 +379,14 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             //}
         //catch ParseException here to implement spellcheck
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            throw e;
-        }catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException e) {
 
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
