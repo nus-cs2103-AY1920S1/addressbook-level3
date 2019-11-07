@@ -4,21 +4,23 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface HistoryManagerStorage <<Interface>>
-Interface CcaTrackerStorage <<Interface>>
-Interface CoursePlannerStorage <<Interface>>
-Interface FinanceTrackerStorage <<Interface>>
-Interface PlannerStorage <<Interface>>
+Package Storage <<Rectangle>> {
+    Interface Storage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+    Interface HistoryManagerStorage <<Interface>>
+    Interface CcaTrackerStorage <<Interface>>
+    Interface CoursePlannerStorage <<Interface>>
+    Interface FinanceTrackerStorage <<Interface>>
+    Interface PlannerStorage <<Interface>>
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonHistoryManagerStorage
-Class JsonCcaTrackerStorage
-Class JsonCoursePlannerStorage
-Class JsonFinanceTrackerStorage
-Class JsonPlannerStorage
+    Class StorageManager
+    Class JsonUserPrefsStorage
+    Class JsonHistoryManagerStorage
+    Class JsonCcaTrackerStorage
+    Class JsonCoursePlannerStorage
+    Class JsonFinanceTrackerStorage
+    Class JsonPlannerStorage
+}
 
 StorageManager .up.|> Storage
 
