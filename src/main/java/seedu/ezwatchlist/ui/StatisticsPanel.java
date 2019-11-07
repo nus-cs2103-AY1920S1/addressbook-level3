@@ -56,20 +56,19 @@ public class StatisticsPanel extends UiPart<Region> {
         Collections.sort(favouriteKeys, (key1, key2) -> favourite.get(key2) - favourite.get(key1));
         favouriteKeys.stream().forEach(genre -> favouriteGenres.getChildren()
                 .add(new Label(genre + " (" + favourite.get(genre) + " entries) ")));
-        //movie recommendations
-        if (movieRecommendations.size() > 0) {
-            movieRecommendationView.setItems(movieRecommendations);
-            movieRecommendationView.setCellFactory(listView -> new MovieRecommendationViewCell());
-        }
-        //tv recommendations
-        if (tvRecommendations.size() > 0) {
-            tvRecommendationView.setItems(tvRecommendations);
-            tvRecommendationView.setCellFactory(listView -> new TvRecommendationViewCell());
-        }
-        if (movieRecommendations.size() == 0 && tvRecommendations.size() == 0) {
-            recommendationPlaceHolder.getChildren().add(new Label("You currently do not have any recommendation!"));
-        }
 
+        if (movieRecommendations == null && tvRecommendations == null) {
+            recommendationPlaceHolder.getChildren().add(new Label("You currently do not have any recommendation!"));
+        } else {
+            if (movieRecommendations.size() > 0) {
+                movieRecommendationView.setItems(movieRecommendations);
+                movieRecommendationView.setCellFactory(listView -> new MovieRecommendationViewCell());
+            }
+            if (tvRecommendations.size() > 0) {
+                tvRecommendationView.setItems(tvRecommendations);
+                tvRecommendationView.setCellFactory(listView -> new TvRecommendationViewCell());
+            }
+        }
     }
 
     /**
