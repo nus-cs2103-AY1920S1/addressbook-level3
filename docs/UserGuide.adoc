@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == Tutorial
 
-Insurelytics is a Command Line Interface (CLI) application for you to manage your contacts and policies. Here is a quick tutorial to help you get started using the application!
+Insurelytics is a Command Line Interface (CLI) application for insurance agents like yourself to manage your contacts and policies. Here is a quick tutorial to help you get started using the application!
 
 You can use Insurelytics to manage two different kinds of data: *contacts* and *policies*. The formats in which these types of data are stored are as follows:
 ====
