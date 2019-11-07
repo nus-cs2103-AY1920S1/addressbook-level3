@@ -165,17 +165,32 @@ To set a new budget: +
 // tag::view[]
 === Displaying View : `view`
 
-Want to switch tabs without using your mouse? You can switch to another tab with the `view` command. +
+Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
+
+==== Command Syntax
+
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4.
+* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4. It is case-insensitive.
 ****
 
-Examples:
+==== Example Usage:
 
-* `view transaction`
-* `view budget`
+You do not have to use your mouse in PalPay to switch tabs anymore.
+
+. By default, you are in the `transaction` tab.
++
+image::view1.png[]
++
+. Simply type *view budget* in the command box and press kbd:[Enter].
++
+image::view2.png[]
++
+. You can now view your budgets. Easy!
++
+image::view3.png[]
+
 // end::view[]
 
 // tag::delete[]
@@ -229,17 +244,35 @@ Examples:
 Have you ever wonder which is the most expensive transaction you ever made?
 Or wondered which is the latest transaction you made? Fret not!
 You can now `sort` your transactions according to `date` or `amount`. +
-Format: `sort PREDICATE`
+
+
+==== Command Syntax
+
+Format: `sort PREDICATE/ORDER`
 
 ****
-* You are only able to `sort` by `date` and `amount` in v1.4.
-* Transactions will be sorted in ascending order.
+* `PREDICATE` accepts only `date` or `amount`. It is case-insensitive.
+* `ORDER` accepts only `a` or `d` which represents ascending and descending, respectively.
 ****
 
-Examples:
+==== Example Usage:
 
-* `sort amount`
-* `sort date`
+Do you want to know what is the latest transaction you made? No need to scroll all the way down anymore. PalPay
+has made it simple for you.
+
+. By default, your transactions are sorted from the earliest
+transaction you entered to the latest transaction you entered.
++
+image::sort1.png[]
++
+. Simply type *sort date/d* in the command box and press kbd:[Enter].
++
+image::sort2.png[]
++
+. Great! You can now see the latest transactions you made.
++
+image::sort3.png[]
+
 // end::sort[]
 
 // tag::filter[]
@@ -254,16 +287,16 @@ PalPay gives you the power to filter your transactions to solve that problem. +
 Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 
 ****
-* `YEAR` only accepts integers from 1900 to 9999.
-* `MONTH` only accepts integers from 1 to 12.
+* `YEAR` accepts only integers from 1900 to 9999.
+* `MONTH` accepts only integers from 1 to 12.
 * All transactions with at least one `CATEGORY` in the `[c/CATEGORY]...` input will be displayed.
 * Example: `filter c/transport c/allowance y/2019` will display transactions with `transport`, `allowance`, or
 `transport` and `allowance` that occurred in 2019.
 ****
 
-==== Example usage:
+==== Example Usage:
 
-Imagine that you wanted to find out what you spent while shopping in October 2019.
+Imagine that you wanted to find out what you spent on shopping in October 2019.
 
 . By default, PalPay shows your all your transactions you have made.
 +
