@@ -111,47 +111,47 @@ public class EditCommand extends Command {
             // Check if both name tags and calorie tags are used.
             updatedName = editDishDescriptor.getName().get();
             updatedCalories = editDishDescriptor.getCalories().get();
-            if (model.hasDish(new Dish(updatedName, updatedCalories))) {
-                updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
-                isDishUpdated = true;
-            }
+            //if (model.hasDish(new Dish(updatedName, updatedCalories))) {
+            //    updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
+            //    isDishUpdated = true;
+            //}
         } else if (editDishDescriptor.getName().isPresent()) {
             // Check if only name tag is used
             updatedName = editDishDescriptor.getName().get();
             // Check if name is present in the dishDB
             // If not present, do not do anything
-            if (model.hasDishName(updatedName)) {
-                updatedDish = model.getDishByName(updatedName);
-                updatedTags = new HashSet<Tag>();
-                updatedTags.addAll(updatedDish.getTags());
-                if (isTagsEmpty) {
-                    updatedTags = new HashSet<Tag>();
-                } else if (editDishDescriptor.getTags().isPresent()) {
-                    updatedTags.addAll(editDishDescriptor.getTags().get());
-                }
-                updatedCalories = updatedDish.getCalories();
-                updatedName = updatedDish.getName();
-                updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
-                isDishUpdated = true;
-            }
+            //if (model.hasDishName(updatedName)) {
+            //    updatedDish = model.getDishByName(updatedName);
+            //    updatedTags = new HashSet<Tag>();
+            //    updatedTags.addAll(updatedDish.getTags());
+            //    if (isTagsEmpty) {
+            //        updatedTags = new HashSet<Tag>();
+            //    } else if (editDishDescriptor.getTags().isPresent()) {
+            //        updatedTags.addAll(editDishDescriptor.getTags().get());
+            //    }
+            //    updatedCalories = updatedDish.getCalories();
+            //    updatedName = updatedDish.getName();
+            //    updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
+            //    isDishUpdated = true;
+            //}
 
         } else if (editDishDescriptor.getCalories().isPresent()) {
             // Check if only calorie tag is used
             updatedCalories = editDishDescriptor.getCalories().get();
-            if (model.hasDish(new Dish(updatedName, updatedCalories))) {
-                updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
-                updatedTags = new HashSet<Tag>();
-                updatedTags.addAll(updatedDish.getTags());
-                if (isTagsEmpty) {
-                    updatedTags = new HashSet<Tag>();
-                } else if (editDishDescriptor.getTags().isPresent()) {
-                    updatedTags.addAll(editDishDescriptor.getTags().get());
-                }
-                updatedCalories = updatedDish.getCalories();
-                updatedName = updatedDish.getName();
-                updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
-                isDishUpdated = true;
-            }
+            //if (model.hasDish(new Dish(updatedName, updatedCalories))) {
+            //    updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
+            //    updatedTags = new HashSet<Tag>();
+            //    updatedTags.addAll(updatedDish.getTags());
+            //    if (isTagsEmpty) {
+            //        updatedTags = new HashSet<Tag>();
+            //    } else if (editDishDescriptor.getTags().isPresent()) {
+            //        updatedTags.addAll(editDishDescriptor.getTags().get());
+            //    }
+            //    updatedCalories = updatedDish.getCalories();
+            //    updatedName = updatedDish.getName();
+            //    updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
+            //    isDishUpdated = true;
+            //}
         }
 
         Dish editedDish;
