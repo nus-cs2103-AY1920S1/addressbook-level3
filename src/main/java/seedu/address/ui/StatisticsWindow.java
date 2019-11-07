@@ -30,7 +30,10 @@ public class StatisticsWindow extends UiPart<Stage> {
     private Label startingDateLabel;
     @FXML
     private Label endingDateLabel;
-
+    @FXML
+    private Label summaryLabel;
+    @FXML
+    private Label summaryValue;
 
     /**
      * Create a new Statistic window
@@ -49,14 +52,16 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statsLabel the title of the stats
      * @param axisSeries  graph data from logic
      */
-    public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+    public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries,
+                            String revenueResultValue) {
         this(new Stage(), Optional.of(axisSeries));
         this.testChart.setTitle(statsLabel);
-        setMiscStatsLabel(statsLabel, axisSeries);
+        setMiscStatsLabel(statsLabel, axisSeries, revenueResultValue);
 
     }
 
-    private void setMiscStatsLabel(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+    private void setMiscStatsLabel(String statsLabel, XYChart.Series<String, Number> axisSeries,
+                                   String revenueResultValue) {
         this.valueLabel.setText("Displaying monthly view of " + statsLabel);
         ObservableList<XYChart.Data<String, Number>> axisSeriesData = axisSeries.getData();
         XYChart.Data<String, Number> firstData = axisSeriesData
@@ -75,6 +80,8 @@ public class StatisticsWindow extends UiPart<Stage> {
                         + " ending on " + lastData.getXValue()
         );
         this.endingDateLabel.setWrapText(true);
+        this.summaryLabel.setText(statsLabel + " for this period: ");
+        this.summaryValue.setText(revenueResultValue);
     }
 
     /**
