@@ -77,7 +77,13 @@ team project.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+{start of extract 1: stats command}
 include::../UserGuide.adoc[tag=stats]
+{end of extract 1}
+
+{start of extract 2: filter command}
+include::../UserGuide.adoc[tag=filter]
+{end of extract 2}
 
 == Contributions to the Developer Guide
 
