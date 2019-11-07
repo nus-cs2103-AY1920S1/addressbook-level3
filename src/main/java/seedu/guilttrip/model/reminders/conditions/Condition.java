@@ -73,31 +73,31 @@ public abstract class Condition {
     public boolean equals(Object other) {
         if (this instanceof ClassCondition) {
             if (other instanceof ClassCondition) {
-                return ((ClassCondition) this).equals((ClassCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof DateCondition) {
             if (other instanceof DateCondition) {
-                return ((DateCondition) this).equals((DateCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof KeyWordsCondition) {
             if (other instanceof KeyWordsCondition) {
-                return ((KeyWordsCondition) this).equals((KeyWordsCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof QuotaCondition) {
             if (other instanceof QuotaCondition) {
-                return ((QuotaCondition) this).equals((QuotaCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof TagsCondition) {
             if (other instanceof TagsCondition) {
-                return ((TagsCondition) this).equals((TagsCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }

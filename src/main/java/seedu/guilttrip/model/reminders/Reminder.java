@@ -332,5 +332,5 @@ public class Reminder implements PropertyChangeListener {
                     && this.conditions.stream()
                     .allMatch(condition -> otherReminder.getConditions().contains(condition));
         }
-    };
+    }
 }

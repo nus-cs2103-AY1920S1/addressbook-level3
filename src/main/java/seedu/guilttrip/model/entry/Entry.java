@@ -121,13 +121,13 @@ public class Entry {
             return false;
         } else {
             if (this instanceof Expense) {
-                return ((Expense) this).equals((Expense) other);
+                return this.equals(other);
             } else if (this instanceof Income) {
-                return ((Income) this).equals((Income) other);
+                return this.equals(other);
             } else if (this instanceof Wish) {
-                return ((Wish) this).equals((Wish) other);
+                return this.equals(other);
             } else if (this instanceof Budget) {
-                return ((Budget) this).equals((Budget) other);
+                return this.equals(other);
             } else {
                 return false;
             }
