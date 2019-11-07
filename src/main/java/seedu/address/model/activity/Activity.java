@@ -201,10 +201,8 @@ public class Activity {
      * relationship of "owes[i] needs to pay amountOwed[i] to owed[i]".
      * @return A Triplet of owes, owed, amountOwed, which are lists of Int, Int, Double respectively.
      */
-    public Triplet<List<Integer>, List<Integer>, List<Double>> getSolution() {
-        List<Integer> owes = new ArrayList<>();
-        List<Integer> owed = new ArrayList<>();
-        List<Double> amountOwed = new ArrayList<>();
+    public List<Triplet<Integer, Integer, Double>> getSolution() {
+        List<Triplet<Integer, Integer, Double>> sol = new ArrayList<>();
 
         for (int i : idDict.keySet()) {
             for (int j : idDict.keySet()) {
@@ -220,18 +218,14 @@ public class Activity {
 
                 // j owes i instead.
                 if (debtEntry < 0) {
-                    owes.add(i);
-                    owed.add(j);
-                    amountOwed.add(-debtEntry);
+                    sol.add(new Triplet<>(j, j, -debtEntry));
                 } else {
-                    owes.add(j);
-                    owed.add(i);
-                    amountOwed.add(debtEntry);
+                    sol.add(new Triplet<>(i, j, debtEntry));
                 }
             }
         }
 
-        return new Triplet<>(owes, owed, amountOwed);
+        return sol;
     }
 
     /**
