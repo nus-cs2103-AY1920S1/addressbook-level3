@@ -7,7 +7,8 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_A
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_B;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_COST_HUNDRED;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_DURATION_A;
-import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TWENTY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SEVEN;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SIX;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.testutil.Assert.assertThrows;
 import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
@@ -44,17 +45,17 @@ public class ActivityTest {
         // same name, different attributes -> returns false
         editedActivity = new ActivityBuilder(ACTIVITYONE).withAddress(VALID_ACTIVITY_ADDRESS_A)
                 .withContact(new ContactBuilder().build()).withCost(VALID_COST_HUNDRED)
-                .withPriority(VALID_PRIORITY_TWENTY).withTags(VALID_TAG_HIKING).build();
+                .withPriority(VALID_PRIORITY_SEVEN).withTags(VALID_TAG_HIKING).build();
         assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
 
         //same address, different attributes -> returns false
         editedActivity = new ActivityBuilder(ACTIVITYONE).withName(VALID_ACTIVITY_NAME_B)
                 .withContact(new ContactBuilder().build()).withCost(VALID_COST_HUNDRED)
-                .withPriority(VALID_PRIORITY_TWENTY).withTags(VALID_TAG_HIKING).build();
+                .withPriority(VALID_PRIORITY_SIX).withTags(VALID_TAG_HIKING).build();
         assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
 
         // same name, same address, different attributes -> returns true
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_TWENTY)
+        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_SEVEN)
                 .withCost(VALID_COST_HUNDRED).withContact(new ContactBuilder().build())
                 .withTags(VALID_TAG_HIKING).build();
         assertTrue(ACTIVITYONE.isSameActivity(editedActivity));
@@ -103,7 +104,7 @@ public class ActivityTest {
         assertFalse(ACTIVITYONE.equals(editedActivity));
 
         // different priorities -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_TWENTY).build();
+        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_SEVEN).build();
         assertFalse(ACTIVITYONE.equals(editedActivity));
     }
 
