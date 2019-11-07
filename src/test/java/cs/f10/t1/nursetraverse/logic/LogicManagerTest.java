@@ -78,7 +78,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonAppointmentBookStorage appointmentBookStorage =
-                new JsonAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAppointmentBook.json"));
+                new JsonAppointmentBookIoExceptionThrowingStub(temporaryFolder
+                                                               .resolve("ioExceptionAppointmentBook.json"));
         StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage, appointmentBookStorage);
         logic = new LogicManager(model, storage);
 

@@ -1,7 +1,5 @@
 package cs.f10.t1.nursetraverse.testutil;
 
-import java.util.List;
-
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
@@ -14,14 +12,12 @@ import cs.f10.t1.nursetraverse.model.patient.Patient;
  */
 public class AppointmentBuilder {
 
-    public static List<Patient> typicalPatients = TypicalPatients.getTypicalPatients();
-    public static Long zero = Long.parseLong("0");
-
     public static final String DEFAULT_START_DATE_TIME = "01-12-2019 1000";
     public static final String DEFAULT_END_DATE_TIME = "01-12-2019 1200";
-    public static final Long[] DEFAULT_FREQUENCY = new Long[]{zero, zero, zero, zero, zero, zero};
+    public static final Long[] DEFAULT_FREQUENCY = new Long[]{getZero(), getZero(), getZero(), getZero(), getZero(),
+                                                              getZero()};
     public static final int DEFAULT_PATIENT_INDEX = 1;
-    public static final Patient DEFAULT_PATIENT = typicalPatients.get(DEFAULT_PATIENT_INDEX - 1);
+    public static final Patient DEFAULT_PATIENT = TypicalPatients.getTypicalPatients().get(DEFAULT_PATIENT_INDEX - 1);
     public static final String DEFAULT_DESCRIPTION = "Dental checkup";
 
     private StartDateTime startDateTime;
@@ -50,6 +46,11 @@ public class AppointmentBuilder {
         patientIndex = appointmentToCopy.getPatientIndex();
         patient = appointmentToCopy.getPatient();
         description = appointmentToCopy.getDescription();
+    }
+
+    private static Long getZero() {
+        Long zero = Long.parseLong("0");
+        return zero;
     }
 
     /**
