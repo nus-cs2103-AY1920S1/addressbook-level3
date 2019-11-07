@@ -11,12 +11,12 @@ Class ParserManager
 Class ABCParser
 Class XYZParser
 
-note bottom of ABCParser : parses commands\nwhich are used\nin configuration\nmode.
-note bottom of XYZParser : parses commands\nwhich are used\nin quiz mode.
+note bottom of ABCParser : parses commands\nwhich are used\nin Configuration\nMode.
+note bottom of XYZParser : parses commands\nwhich are used\nin Quiz Mode.
 
 ABCParser .up.|> Parser
 XYZParser .up.|> QuizParser
-ParserManager -right-> ABCParser : creates >
-ParserManager -left-> XYZParser : creates >
+ParserManager -left-> ABCParser : creates >
+ParserManager -right-> XYZParser : creates >
 
 @enduml

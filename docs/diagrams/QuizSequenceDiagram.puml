@@ -31,7 +31,7 @@ QuizCommandParser -> McqInputCommandParser : parse("c", answerable)
 activate McqInputCommandParser
 
 create McqInputCommand
-McqInputCommandParser -> McqInputCommand : McqInputCommand(mcqInput, answerable)
+McqInputCommandParser -> McqInputCommand : McqInputCommand("c", answerable)
 activate McqInputCommand
 
 McqInputCommand --> McqInputCommandParser : m

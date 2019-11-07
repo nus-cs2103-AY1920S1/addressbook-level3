@@ -71,6 +71,8 @@ which can be used as `add type/mcq q/What the recommended user story format?`.
 
 Format: `help`
 
+//tag::wilfred[]
+//tag::wilfred-start[]
 === Starting the quiz: `start`.
 
 User can start by choosing the mode of the quiz. (normal / arcade / custom). See <<Quiz Mode>> for in-quiz commands.
@@ -85,6 +87,7 @@ Examples:
 
 * `start mode/normal`
 * `start mode/custom cat/uml /diff/1 timer/20`
+//end::wilfred-start[]
 
 === Check your progress: `status` [Coming in v1.4]
 
@@ -124,6 +127,7 @@ Examples:
 image::autocomplete.png[width="790"]
 
 
+//tag::wilfred-add[]
 === Adding a question: `add`
 
 Adds a question to the test bank
@@ -144,7 +148,9 @@ Examples:
 x/Greenfield x/Brownfield y/None of the others x/Padifield`
 * `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
 * `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+//end::wilfred-add[]
 
+//tag::wilfred-edit[]
 === Editing a question : `edit`
 
 Edits an existing question in the test bank.
@@ -164,6 +170,7 @@ Examples:
 
 * `edit 1 q/According the the textbook, is greenfield or brownfield tougher?` +
 Edits the the first question to "According the the textbook, is greenfield or brownfield tougher?"
+//end::wilfred-edit[]
 
 === Deleting a question : `delete`
 
@@ -246,30 +253,34 @@ _{explain how the user can import / export test banks}_
 Exits the application. +
 Format: `exit`
 
+//tag::wilfred-quiz[]
 == Quiz Mode
 
 === Normal Mode
 Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
+The user is given 30 seconds to answer each question.
 
 === Arcade Mode
 Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
+The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 10 seconds to answer each question.
 
 === Custom Mode
-Category, Difficulty and Timer (must be above 1 second) can be customised by the user.
+Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
+difficulty.
 
 === Answering Questions
-==== MCQ
-Answers can only be A, B, C, or D (Case insensitive)
-
-==== True and False
-Answers can only be True (T) / False (F) (Case insensitive)
-
-==== SAQ
-Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+* MCQ
+** Answers can only be A, B, C, or D (Case insensitive)
+* True and False
+** Answers can only be True (T) / False (F) (Case insensitive)
+* SAQ
+** Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+//end::wilfred-quiz[]
 
 === Exiting the quiz
 
-User can end the quiz and go back into configuration mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `status`
+User can end the quiz and go back into Configuration Mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `status`
 .
 
 Format: `exit`
@@ -279,6 +290,7 @@ Format: `exit`
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Test Bank folder.
 
+//tag::wilfred-summary[]
 == Command Summary
 
 * *Help* : `help`
@@ -309,6 +321,8 @@ e.g. `find user story`
 * *Clear* : `clear`
 
 * *Restore* : `restore`
+//end::wilfred-summary[]
+//end::wilfred[]
 
 [TIP]
 *AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
