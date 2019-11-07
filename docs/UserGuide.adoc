@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * `list t/exercise` : gets all the exercises ExerHealth is tracking.
-* `add t/exercise n/Push ups d/1/10/2019 c/123 q/100 u/reps` : adds a exercise named `Push ups` to ExerHealth.
+* `add t/exercise n/Push ups d/01/10/2019 c/123 q/100 u/reps` : adds a exercise named `Push ups` to ExerHealth.
 * `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.

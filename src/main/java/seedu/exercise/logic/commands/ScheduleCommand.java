@@ -1,5 +1,6 @@
 package seedu.exercise.logic.commands;
 
+import static seedu.exercise.commons.core.Messages.MESSAGE_TAB;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -12,15 +13,16 @@ public abstract class ScheduleCommand extends Command implements UndoableCommand
 
     public static final String COMMAND_WORD = "schedule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + " usage 1: Schedules a regime at a specific date. Parameters: "
-            + PREFIX_NAME + "REGIME NAME "
-            + PREFIX_DATE + "DATE \n"
+    public static final String MESSAGE_USAGE = MESSAGE_TAB + COMMAND_WORD
+            + " command usage:\n"
+            + "Usage 1: Schedules a regime at a specific date." + MESSAGE_TAB + "Parameters: "
+            + PREFIX_NAME + "REGIME_NAME "
+            + PREFIX_DATE + "DATE" + MESSAGE_TAB
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "cardio "
-            + PREFIX_DATE + "19/12/2019\n"
-            + COMMAND_WORD + " usage 2: Completes a schedule and adds to exercise tracker. Parameters: "
-            + PREFIX_INDEX + "INDEX OF SCHEDULE\n"
+            + PREFIX_DATE + "12/12/2019\n"
+            + "Usage 2: Completes a schedule and adds to exercise tracker." + MESSAGE_TAB + "Parameters: "
+            + PREFIX_INDEX + "INDEX_OF_SCHEDULE" + MESSAGE_TAB
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1";
 

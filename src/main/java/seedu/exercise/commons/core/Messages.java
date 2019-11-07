@@ -14,5 +14,7 @@ public class Messages {
     public static final String MESSAGE_EXERCISES_LISTED_OVERVIEW = "%1$d exercises listed!";
     public static final String MESSAGE_INVALID_CONTEXT = "Unable to issue %1$s here";
     public static final String MESSAGE_INVALID_TYPE = "%1$s can only be \'%2$s\' or \'%3$s\'";
+    //For some reason, javafx refuses to display \t characters in some situations.
+    public static final String MESSAGE_TAB = "    ";
 
 }

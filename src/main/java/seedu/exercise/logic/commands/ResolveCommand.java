@@ -2,6 +2,7 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_CONTEXT;
+import static seedu.exercise.commons.core.Messages.MESSAGE_TAB;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_CONFLICT;
@@ -37,23 +38,22 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
 
     public static final String COMMAND_WORD = "resolve";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Resolves a scheduling conflict. \n"
-            + "USAGE 1: Take one regime completely:\n"
-            + "Parameters: \n"
-            + PREFIX_NAME + "SCHEDULED_OR_CONFLICTING\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "n/scheduled\nUSAGE 2: Take some exercise from both schedule.\n"
-            + "Parameters: \n"
+    public static final String MESSAGE_USAGE = MESSAGE_TAB + COMMAND_WORD
+            + " command usage:\n"
+            + "Usage 1: Take one regime completely. " + MESSAGE_TAB
+            + "Parameters: "
+            + PREFIX_NAME + "SCHEDULED_OR_CONFLICTING"
+            + MESSAGE_TAB + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "scheduled\nUsage 2: Take some exercise from both schedule." + MESSAGE_TAB
+            + "Parameters: "
             + PREFIX_NAME + "NEW_REGIME_NAME "
-            + "[" + PREFIX_INDEX + "INDEX_OF_SCHEDULED_EXERCISES" + "]"
-            + "[" + PREFIX_CONFLICT_INDEX + "INDEX_OF_CONFLICTING_EXERCISES" + "]"
-            + "\nExample: " + COMMAND_WORD + " "
+            + "[" + PREFIX_INDEX + "INDEX_OF_SCHEDULED" + "]"
+            + "[" + PREFIX_CONFLICT_INDEX + "INDEX_OF_CONFLICTING" + "]"
+            + MESSAGE_TAB + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "cardio new "
             + PREFIX_INDEX + "1 "
             + PREFIX_INDEX + "3 "
-            + PREFIX_CONFLICT_INDEX + "1 "
-            + PREFIX_CONFLICT_INDEX + "4 ";
+            + PREFIX_CONFLICT_INDEX + "2 ";
 
     public static final String TAKE_FROM_SCHEDULED = "scheduled";
     public static final String TAKE_FROM_CONFLICTING = "conflicting";
