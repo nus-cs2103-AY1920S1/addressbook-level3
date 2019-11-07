@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.category.Category;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 public class FilterCommandParserTest {
@@ -30,13 +31,16 @@ public class FilterCommandParserTest {
         // no leading and trailing whitespaces
         Optional<Set<Category>> categories = Optional.of(new HashSet<>(Arrays.asList(
             new Category("Alice"), new Category("Bob"))));
+        Optional<Integer> month = Optional.of(11);
+        Optional<Integer> year = Optional.of(2019);
+        Optional<Description> description = Optional.of(new Description("KFC"));
         FilterCommand expectedFilterCommand =
             new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
-                Optional.empty(), Optional.empty(), Optional.empty()));
-        assertParseSuccess(parser, " c/Alice c/Bob", expectedFilterCommand);
+                month, year, description));
+        assertParseSuccess(parser, " c/Alice c/Bob m/11 y/2019 n/KFC", expectedFilterCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n c/Alice \n \t c/Bob  \t", expectedFilterCommand);
+        assertParseSuccess(parser, " \n c/Alice m/11 y/2019 n/KFC \n \t c/Bob  \t", expectedFilterCommand);
     }
 
 }

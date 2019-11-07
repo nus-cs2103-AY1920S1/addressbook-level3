@@ -107,6 +107,9 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof TransactionContainsCategoriesPredicate // instanceof handles nulls
-            && keyCategories.equals(((TransactionContainsCategoriesPredicate) other).keyCategories)); // state check
+            && keyCategories.equals(((TransactionContainsCategoriesPredicate) other).keyCategories))
+            && month.equals(((TransactionContainsCategoriesPredicate) other).month)
+            && year.equals(((TransactionContainsCategoriesPredicate) other).year)
+            && description.equals(((TransactionContainsCategoriesPredicate) other).description); // state check
     }
 }
