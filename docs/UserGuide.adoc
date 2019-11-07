@@ -75,7 +75,7 @@ This generates a list of commands and tips for you.
 
 Format: `-help`
 
-** Example: `-help`
+Example: `-help`
 
 
 {nbsp} +
@@ -436,16 +436,10 @@ This command adds a restaurant to the restaurant database.
 
 Format: `add n/NAME l/LOCATION [t/TAG]...`
 
-* `LOCATION` can only be one of the following locations: Jurong, Tuas, Woodlands, Bishan, City, Marina, Changi, Punggol.
+* `LOCATION` can only be one of the following locations: Jurong, Tuas, Woodlands, Bishan, City,
+Marina, Changi, Punggol.
 
 Example: `add n/KFC l/Jurong t/FastFood`
-
-[NOTE]
-====
-
-.Requirements
-* add requirements here
-====
 
 {nbsp} +
 
@@ -460,9 +454,9 @@ Example: `delete 1`
 
 [NOTE]
 ====
+.Note:
 
-.Requirements
-* add requirements here
+* Deleting a restaurant will delete all its existing orders from the order database as well.
 ====
 
 {nbsp} +
@@ -473,31 +467,36 @@ Displays the restaurant's details, menu and current orders.
 Unlocks commands for editing details, adding and removing of food items
 in the menu, and adding of rating.
 
-image::userguide\EditMode.png[width="790"]
-
 Format: `edit INDEX`
 
-Example: `edit 1`
+* `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
+
+Example: `edit 3`
+
+image::userguide\EditMode.png[width="790"]
 
 {nbsp} +
 
 ==== Editing restaurant's details (under EditMode): `editdetails`
 This command edits the details of the restaurant under EditMode.
 
-image::userguide\EditDetails.png[width="790"]
-
 Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 
-Example: `editdetails n/New KFC l/Tuas`
-
-[NOTE]
-====
-
-.Requirements
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
 * You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
+
+Example: `editdetails n/New KFC l/Tuas`
+
+image::userguide\EditDetails.png[width="790"]
+
+[NOTE]
+====
+.Note:
+
+* Editing a restaurant's name will edit the restaurant name in all its existing orders as well.
+
 ====
 
 {nbsp} +
@@ -507,16 +506,9 @@ This command adds a food item to the menu of the restaurant under EditMode.
 
 Format: `add n/NAME a/PRICE [t/TAG]...`
 
-* You can only tag a food item as "Recommended"
+* You can only tag a food item as "Recommended".
 
 Example: `add n/Chicken a/7.90 t/Recommended`
-
-[NOTE]
-====
-
-.Requirements
-* add requirements here
-====
 
 {nbsp} +
 
@@ -531,9 +523,9 @@ Example: `delete 1`
 
 [NOTE]
 ====
-
-.Requirements
-* add requirements here
+.Note:
+* Deleting a food item from a restaurant will NOT delete the food item in the restaurant's orders as
+the order was already made when the food item still existed.
 ====
 
 {nbsp} +
@@ -542,18 +534,14 @@ Example: `delete 1`
 This command adds a rating to the restaurant under EditMode and updates the new average rating of all the ratings
 added to date.
 
-image::userguide\AddRating.png[width="790"]
-
 Format: `rate RATING`
+
+* `RATING` must be a non-negative integer from 0 to 5.
 
 Example: `rate 4`
 
-[NOTE]
-====
+image::userguide\AddRating.png[width="790"]
 
-.Requirements
-* `RATING` must be a non-negative integer from 0 to 5.
-====
 
 {nbsp} +
 
@@ -566,7 +554,13 @@ Format: `exitedit`
 
 ==== Auto-tagging of food item as "Popular"
 Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
-will be auto-tagged as "Popular". Food items quantity ordered will only be updated upon completion of an order.
+will be auto-tagged as "Popular".
+
+[NOTE]
+====
+.Note:
+* Food items' quantity ordered will only be updated upon completion of an order.
+====
 
 {nbsp} +
 
@@ -730,11 +724,11 @@ Example: `enter 1`
 - Add a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
 - Delete a restaurant: `delete INDEX`
 - Enter EditMode: `edit INDEX`
-- Edit a restaurant's details: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
-- Add a food item: `add n/NAME a/PRICE [t/TAG]...`
-- Delete a food item: `delete INDEX`
-- Add a rating: `rate RATING`
-- Exit EditMode: `exitedit`
+- Edit a restaurant's details (under EditMode) : `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
+- Add a food item (under EditMode) : `add n/NAME a/PRICE [t/TAG]...`
+- Delete a food item (under EditMode) : `delete INDEX`
+- Add a rating (under EditMode) : `rate RATING`
+- Exit EditMode (under EditMode) : `exitedit`
 
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`

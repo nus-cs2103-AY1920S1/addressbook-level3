@@ -47,16 +47,19 @@ class TrieManager {
     private final Trie customerTrie;
     private final Trie deliverymanTrie;
     private final Trie restaurantTrie;
+    private final Trie editingTrie;
 
     TrieManager() {
         universalTrie = new Trie();
         customerTrie = new Trie();
         deliverymanTrie = new Trie();
         restaurantTrie = new Trie();
+        editingTrie = new Trie();
         addUniversalCommands();
         addCustomerCommands();
         addDeliverymanCommands();
         addRestaurantCommands();
+        addEditingCommands();
     }
 
     /**
@@ -88,14 +91,20 @@ class TrieManager {
      * TO fill
      */
     private void addRestaurantCommands() {
-        restaurantTrie.insertCommand(AddFoodCommand.COMMAND_WORD);
-        restaurantTrie.insertCommand(AddRatingCommand.COMMAND_WORD);
         restaurantTrie.insertCommand(AddRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insertCommand(DeleteFoodCommand.COMMAND_WORD);
         restaurantTrie.insertCommand(DeleteRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insertCommand(EditDetailsCommand.COMMAND_WORD);
         restaurantTrie.insertCommand(EditModeCommand.COMMAND_WORD);
-        restaurantTrie.insertCommand(ExitEditCommand.COMMAND_WORD);
+    }
+
+    /**
+     * TO fill
+     */
+    private void addEditingCommands() {
+        editingTrie.insertCommand(AddFoodCommand.COMMAND_WORD);
+        editingTrie.insertCommand(AddRatingCommand.COMMAND_WORD);
+        editingTrie.insertCommand(DeleteFoodCommand.COMMAND_WORD);
+        editingTrie.insertCommand(EditDetailsCommand.COMMAND_WORD);
+        editingTrie.insertCommand(ExitEditCommand.COMMAND_WORD);
     }
 
     /**
@@ -125,6 +134,7 @@ class TrieManager {
         customerTrie.insertCommand(command);
         deliverymanTrie.insertCommand(command);
         restaurantTrie.insertCommand(command);
+        editingTrie.insertCommand(command);
     }
 
     /**
@@ -135,22 +145,13 @@ class TrieManager {
         customerTrie.insertCommand(command, prefixes);
         deliverymanTrie.insertCommand(command, prefixes);
         restaurantTrie.insertCommand(command, prefixes);
+        editingTrie.insertCommand(command, prefixes);
     }
 
     /**
      * TO fill
      */
     LinkedList<String> getAutoCompleteResults(String input, Context context) {
-        /*
-        int firstSpace = input.indexOf(" ");
-        if (firstSpace == -1) { // no space present - user is still typing in the command word
-        }
-        // user is typing in prefixes
-        String commandWord = input.substring(0, firstSpace);
-        int lastSpace = input.lastIndexOf(" ");
-        String prefixes = input.substring(lastSpace + 1);
-        return autoCompletePrefix(commandWord, prefixes, context);
-         */
         return autoCompleteCommandWord(input, context);
     }
 
@@ -165,6 +166,8 @@ class TrieManager {
             return deliverymanTrie.autoCompleteCommandWord(input);
         case RESTAURANT:
             return restaurantTrie.autoCompleteCommandWord(input);
+        case EDITING:
+            return editingTrie.autoCompleteCommandWord(input);
         default:
             return universalTrie.autoCompleteCommandWord(input);
         }
