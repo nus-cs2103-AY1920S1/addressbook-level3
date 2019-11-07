@@ -198,8 +198,8 @@ public class SampleDataUtil {
                             new Answer("Regression Testing"), new Answer("Acceptance Testing"))),
                     new Difficulty("2"), getCategorySet("Software Testing")),
 
-            new Saq(new Question("One of your teammates is proposing to use a recently-released “cool” UI framework "
-                    + "for your class project. Name one disadvantage of this idea."),
+            new Saq(new Question("One of your teammates is proposing to use a recently-released “cool” UI "
+                    + "framework for your class project. Name one disadvantage of this idea."),
                     new ArrayList<>(Arrays.asList(new Answer("Learning curve may be steep"),
                             new Answer("May not be stable"),
                             new Answer("Performance penalties"),
@@ -218,11 +218,10 @@ public class SampleDataUtil {
                     new Difficulty("2"), getCategorySet("Equivalence Partition", "Test Cases",
                     "Boundary Value Analysis")),
 
-            new Saq(new Question("An application accepts integer values between -9999 to 9999. " +
-                    "How many equivalence partition are there?"),
+            new Saq(new Question("An application accepts integer values between -9999 to 9999. "
+                    + "How many equivalence partition are there?"),
                     new ArrayList<>(Arrays.asList(new Answer("Three"))),
                     new Difficulty("1"), getCategorySet("Equivalence Partition", "Test Cases")),
-                
         };
     }
 
