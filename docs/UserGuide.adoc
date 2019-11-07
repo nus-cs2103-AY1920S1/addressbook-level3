@@ -132,7 +132,7 @@ Usage:
  tag add [INDEX] t/[TAG] t/[TAG…]
 
 Example: +
-Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense at index 2 which is "_USS_". +
+Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense "_USS_" at index 2. +
 {nbsp} +
 To add the tags: +
 1. Type `tag add 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
@@ -150,7 +150,7 @@ image:tagging/AddTagThreeCropped.png[] +
 [NOTE]
 You are not able to add *existing* tags. +
 If you input *existing* and *non-existing* tags, Billboard adds the *non-existing* tags only. +
-If you input *duplicate* tags, Billboard adds them *once*. i.e Billboard does *not* allow Duplicate tags in an expense. +
+If you input *duplicate* tags, Billboard adds them *once*. i.e Billboard does *not* allow duplicate tags in an expense. +
 Example: `tag add t/holiday t/holiday`
 
 ==== Removing a tag: `tag rm` +
@@ -161,7 +161,7 @@ Usage:
  tag rm [INDEX] t/[TAG] t/[TAG…]
 
 Example: +
-Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense at index `2` which is "_USS_". +
+Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense "_USS_" at index 2. +
 To remove the tags: +
 1. Type `tag rm 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
 {nbsp} +
