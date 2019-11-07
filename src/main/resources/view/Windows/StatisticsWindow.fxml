@@ -8,12 +8,12 @@
 <fx:root fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="600.0" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="600.0" prefWidth="600.0" styleClass="main-content-window">
-         <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
+         <Label fx:id="windowTitle" styleClass="window-title" text="My statistics" />
          <Label fx:id="totalSessions" text="Total login sessions: 0 sessions" />
          <Label fx:id="sessionsThisWeek" text="Total login sessions this week: 0 sessions" />
          <Label fx:id="totalDuration" text="Total login duration: 0 hours 0 minutes 0 seconds" />
          <Label fx:id="averageDuration" text="Average duration per login: 0 hours 0 minutes 0 seconds" />
-         <Label styleClass="window-subtitle" text="My Login Sessions" />
+         <Label styleClass="window-subtitle" text="My login sessions" />
          <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
                <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
@@ -22,7 +22,7 @@
             </content>
          </ScrollPane>
          <Label styleClass="helper-text" text="To view statistics for individual decks, type &quot;stats deck/[deckname]&quot;" />
-         <Label styleClass="window-subtitle" text="My Statistics by Deck" />
+         <Label styleClass="window-subtitle" text="My statistics by deck" />
          <ScrollPane fx:id="deckTableScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
                <TableView fx:id="decKTableView" fixedCellSize="24.0">

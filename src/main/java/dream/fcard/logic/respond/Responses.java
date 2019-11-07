@@ -22,6 +22,7 @@ import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.RegexUtil;
 import javafx.scene.layout.AnchorPane;
+import dream.fcard.util.stats.StatsDisplayUtil;
 
 /**
  * The enums are composed of three properties:
@@ -39,15 +40,15 @@ import javafx.scene.layout.AnchorPane;
  */
 public enum Responses {
     HELP_WITH_COMMAND(
-            RegexUtil.commandFormatRegex("", new String[]{"command/"}),
+            RegexUtil.commandFormatRegex("help", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
-
+                    //@author
 
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
-                            new String[]{"command/"},
-                            i);
+                        new String[]{"command/"}, i);
 
                     boolean validCommand = false;
 
@@ -58,7 +59,7 @@ public enum Responses {
 
                     if (!validCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
-                                + "Type 'help' for the UserGuide'.");
+                            + "Type 'help' for the UserGuide'.");
                     }
                     return true;
                 }
@@ -68,17 +69,22 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
 
+                    //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
+                    //@author
 
 
                     //TODO open a window to UserGuide.html (by Taha)
                     return true;
                 }
     ),
-    IMPORT (
+    IMPORT(
             RegexUtil.commandFormatRegex("import", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT");
+                    //@author
 
                     return true; //if valid
                     //return false; //if not valid
@@ -88,14 +94,20 @@ public enum Responses {
             "^((?i)import).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
+                    //@author
 
                     return true;
                 }
     ),
-    EXPORT (
+    EXPORT(
             RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
+                    //@author
 
                     return true; //if valid
                     //return false; //if not valid
@@ -110,10 +122,24 @@ public enum Responses {
                 }
     ),
     CREATE_NEW_DECK_WITH_NAME(
-            "^((?i)create)\\s+((?i)deck/)\\s*\\S.*",
+            RegexUtil.commandFormatRegex("create", new String[]{"deck"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    String deckName = i.split("(?i)deck/\\s*")[1];
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("create",
+                            new String[]{"deck/"}, i);
+
+
+                    //String deckName = i.split("(?i)deck/\\s*")[1];
+
+                    //@@author huiminlim
+                    boolean isOnlyOneDeck = res.get(0).size() == 1;
+                    if (!isOnlyOneDeck) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Create Command: invalid format");
+                        return true;
+                    }
+                    String deckName = res.get(0).get(0);
+                    //@author
+
                     if (StateHolder.getState().hasDeckName(deckName) == -1) {
                         StateHolder.getState().addDeck(deckName);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
@@ -124,18 +150,21 @@ public enum Responses {
                         } catch (DeckNotFoundException e) {
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "I could not save your deck. I'll try"
                                     + " again when you shut me down.");
+                            return true;
                         }
 
                     } else {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "That name is in use.");
+                        return true;
                     }
                     return true;
                 } //done
     ),
-    CREATE_ERROR(
+    CREATE_DECK_ERROR(
             "^((?i)create).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: CREATE_DECK_ERROR");
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
                     return true;
                 } //done
@@ -145,31 +174,51 @@ public enum Responses {
     // Note that back for MCQ cards will be used for identifying the correct CHOICE
     ADD_CARD(
             RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
                             new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
                             i);
 
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
+
                     // Checks if "deck/", "front/"  and "back/" are supplied.
-                    if (res.get(0).size() == 0 || res.get(2).size() == 0 || res.get(3).size() == 0) {
-                        return false;
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    boolean hasOnlyOnePriority = res.get(1).size() == 1;
+                    boolean hasOnlyOneFront = res.get(2).size() == 1;
+                    boolean hasOnlyOneBack = res.get(3).size() == 1;
+
+                    //boolean isFrontBack = res.get(4).size() == 0;
+                    //boolean isMCQ = res.get(4).size() > 1;
+                    boolean isInvalidCard = res.get(4).size() == 1;
+
+                    // Perform command validation
+
+                    if (!hasOnlyOneDeck || !hasOnlyOnePriority || !hasOnlyOneFront
+                            || !hasOnlyOneBack || isInvalidCard) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect Format for create card!");
+                        return true;
                     }
+                    //@author
 
                     try {
                         return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                     } catch (DuplicateInChoicesException dicExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
                         return true;
+                    } catch (NumberFormatException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer provided is not valid");
                     } catch (DeckNotFoundException dnfExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnfExc.getMessage());
                         return true;
                     }
+                    return true;
                 }
     ),
     ADD_CARD_ERROR(
-            "^((?i)(add).*)",
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            "^((?i)(add)).*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
                             + "format of the Add command, type 'help command/add'");
@@ -184,7 +233,7 @@ public enum Responses {
                 "back/",
                 "choiceIndex/",
                 "choice/"}),
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
                             new String[]{
@@ -195,33 +244,102 @@ public enum Responses {
                                 "choiceIndex/",
                                 "choice/"},
                             i);
+
+                    //@@author huiminlim
+                    boolean hasDeckName = res.get(0).size() == 1;
+                    boolean hasIndex = res.get(1).size() == 1;
+
                     // Checks if "deck/" and "index" are supplied.
-                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
-                        return false;
-                    }
-
-                    // Checks if choiceIndex and choice are both given or both not given.
-                    if ((res.get(4).size() == 0 && res.get(5).size() != 0)
-                            || (res.get(4).size() != 0 && res.get(5).size() == 0)) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Choice and ChoiceIndex must be supplied"
-                                + "together or not supplied at all!");
+                    if (!hasDeckName || !hasIndex) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                                + "format of the Edit command, type 'help command/Edit'");
                         return true;
                     }
 
-                    // Checks if nothing is being edited
-                    if (res.get(2).size() == 0 && res.get(3).size() == 0 && res.get(4).size() == 0
-                            && res.get(5).size() == 0) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No field is supplied to be edited!");
+                    // Obtain deck
+                    String deckName = res.get(0).get(0);
+                    Deck deck = null;
+                    try {
+                        deck = StateHolder.getState().getDeck(deckName);
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, d.getMessage());
+                        return true;
+                    }
+                    assert deck != null;
+
+                    ArrayList<FlashCard> cards = deck.getCards();
+                    int index = -1;
+                    try {
+                        index = Integer.parseInt(res.get(1).get(0));
+                    } catch (NumberFormatException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
+                        return true;
+                    }
+                    assert index != -1;
+                    boolean isIndexValid = index > 0 && index <= cards.size();
+                    if (!isIndexValid) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
+                        return true;
+                    }
+                    FlashCard card = cards.get(index - 1);
+
+
+                    // Must check for validity of command before executing change
+                    boolean hasChoiceIndex = res.get(4).size() == 1;
+                    boolean hasChoice = res.get(5).size() == 1;
+
+                    boolean isFrontBackCardButHasChoice = (hasChoice || hasChoiceIndex)
+                            && card instanceof FrontBackCard;
+                    if (isFrontBackCardButHasChoice) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Front Back card has no choices.");
+                    }
+
+                    boolean hasFront = res.get(3).size() == 1;
+                    if (hasFront) {
+                        String front = res.get(3).get(0);
+                        card.setFront(front);
+                    }
+
+                    boolean hasBack = res.get(3).size() == 1;
+                    if (hasBack) {
+                        String back = res.get(3).get(0);
+                        card.setBack(back);
+                    }
+
+                    boolean hasNoChoiceChange = !hasChoice && !hasChoiceIndex;
+                    if (hasNoChoiceChange) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
+                        return true;
+                    }
+                    boolean isInvalidChoiceCommand = (hasChoice && !hasChoiceIndex) || (!hasChoice && hasChoiceIndex);
+                    if (isInvalidChoiceCommand) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
+                                + "Please check your choices");
+                    }
+                    assert card instanceof MultipleChoiceCard;
+                    MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
+                    String newChoice = res.get(5).get(0);
+
+                    try {
+                        int choiceIndex = Integer.parseInt(res.get(4).get(0));
+                        mcqCard.editChoice(choiceIndex, newChoice);
+                    } catch (NumberFormatException | IndexNotFoundException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
+                                + "Choice index provided is invalid.'");
                         return true;
                     }
 
-                    // Todo: Actual implementation below
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+                    //@author
+
                     return true;
                 }
     ),
     EDIT_CARD_ERROR(
-            "^((?i)(edit).*)",
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            "^((?i)(edit)).*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
                             + "format of the Edit command, type 'help command/edit'");
@@ -236,15 +354,47 @@ public enum Responses {
                             new String[]{"deck/", "index/"},
                             i);
 
+                    //@@author huiminlim
                     // Checks if "deck/" and "index/" are supplied.
-                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
+                    boolean hasDeck = res.get(0).size() == 1;
+                    boolean hasIndex = res.get(1).size() == 1;
+
+                    if (!hasDeck || !hasIndex) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
 
+                    String deckName = res.get(0).get(0);
+                    assert deckName != null;
+                    try {
+                        Deck deck = StateHolder.getState().getDeck(deckName);
+                        int index = Integer.parseInt(res.get(1).get(0));
+
+                        /*
+                        boolean isIndexValid = index > 0 && index <= deck.getSize();
+                        if (!isIndexValid) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                    + "Index is invalid");
+                        }
+
+                         */
+
+                        deck.removeCard(index);
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                + "No deck with name exists");
+                    } catch (IndexNotFoundException n) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                + "Index is invalid");
+                    }
+
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
+                    //@author
+
                     return true; //if valid
-                    //return false; //if not valid
                 }
     ),
     SEE_SPECIFIC_DECK(
@@ -307,17 +457,12 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // Todo: Show Stats for Deck @nattanyz
+                        // todo: @PhireHandy where should I get the name of the deck?
+                        //StatsDisplayUtil.openDeckStatisticsWindow(deck);
                         return true;
                     } else {
                         // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
-                        //try {
-                        //    // show stats for the application
-                        //    StatisticsWindow statisticsWindow = new StatisticsWindow();
-                        //    Consumers.doTask(ConsumerSchema.OPEN_WINDOW, statisticsWindow);
-                        //} catch (Exception e) {
-                        //    e.printStackTrace();
-                        //}
+                        StatsDisplayUtil.openStatisticsWindow();
                         return true;
                     }
                 }

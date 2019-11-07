@@ -14,10 +14,10 @@ import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
+import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -25,7 +25,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -85,15 +84,6 @@ public class MainWindow extends VBox {
         System.exit(0);
     };
 
-    private Consumer<Pane> openWindow = p -> {
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(p);
-        stage.setScene(scene);
-        //stage.setTitle("My Statistics");
-        stage.show();
-    };
-
     private CreateDeckDisplay tempCreateDeckDisplay;
 
     /**
@@ -115,7 +105,7 @@ public class MainWindow extends VBox {
         });
         javaEditorMenuItem.setOnAction(e -> openEditor(true));
         jsEditorMenuItem.setOnAction(e -> openEditor(false));
-        statisticsMenuItem.setOnAction(e -> openStatistics());
+        statisticsMenuItem.setOnAction(e -> StatsDisplayUtil.openStatisticsWindow());
         render();
     }
 
@@ -214,7 +204,7 @@ public class MainWindow extends VBox {
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
-        Consumers.addConsumer(ConsumerSchema.OPEN_WINDOW, openWindow);
+        //Consumers.addConsumer(ConsumerSchema.OPEN_WINDOW, openWindow);
     }
 
     /**
@@ -231,20 +221,5 @@ public class MainWindow extends VBox {
             app.start(stage);
         }
 
-    }
-
-    /**
-     * Opens a new window to show the user's statistics.
-     */
-    @FXML
-    public static void openStatistics() {
-        // when Logger is implemented, log "Opening Statistics window..."
-
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new StatisticsWindow());
-        stage.setScene(scene);
-        stage.setTitle("My Statistics");
-        stage.show();
     }
 }
