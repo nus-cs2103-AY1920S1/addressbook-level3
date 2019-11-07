@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a TaskTag in the address book.
+ * Represents a TaskTag in the calendar.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class TaskTag {
