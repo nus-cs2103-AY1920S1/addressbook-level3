@@ -133,7 +133,7 @@ public class RunWorkoutWindow extends UiPart<Stage> {
             exercisesRan.add(new ExerciseRun(exerciseStartTime, currentTime,
                     new Sets(setsCompleted), new Sets(setsCompleted),
                     generateExerciseSetAttempts(setsCompleted, exerciseSetAttempts
-                            .get(exercisesDone))));
+                            .get(exercisesDone)), workoutToRun.getName()));
             workoutProgress.setProgress(((double) exercisesDone + 1) / workoutSize);
             exercisesDone++;
             if (checkAndHandleExit()) {

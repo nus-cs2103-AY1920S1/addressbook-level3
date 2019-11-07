@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Homepage-Banner-Image-cropped.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="name" text="\\$name" />
+      <Label fx:id="intensity" text="\\$intensity" />
+      <Label fx:id="noTimesRan" text="\\$noTimesRan" />
+      <Label fx:id="averageRunTime" text="\\$averageRunTime" />
+      <FlowPane fx:id="musclesTrained" />
+      <ListView fx:id="exerciseDetails" prefHeight="245.0" prefWidth="400.0" />
+      <ListView fx:id="runs" prefHeight="175.0" prefWidth="400.0" />
+   </children>
+</VBox>

@@ -17,7 +17,6 @@ public class WorkoutRun {
     private final ArrayList<ExerciseRun> exercisesRan;
     private final Duration totalTimeTaken;
 
-
     public WorkoutRun(LocalDateTime timeStarted, LocalDateTime timeEnded,
                       int totalExercisesCompleted, ArrayList<ExerciseRun> exercisesRan) {
         this.timeStarted = timeStarted;
@@ -45,6 +44,20 @@ public class WorkoutRun {
 
     public Duration getTotalTimeTaken() {
         return totalTimeTaken;
+    }
+
+    /**
+     * Returns duration in a more readable format.
+     */
+    public String getTotalTimeTakenString() {
+        long seconds = totalTimeTaken.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600, (
+                        absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
     @Override

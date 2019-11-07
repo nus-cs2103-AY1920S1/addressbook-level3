@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.workout.WorkoutName;
 import dukecooks.model.workout.exercise.ExerciseSetAttempt;
 import dukecooks.model.workout.exercise.details.Sets;
 import dukecooks.model.workout.history.ExerciseRun;
@@ -19,6 +20,7 @@ import dukecooks.model.workout.history.ExerciseRun;
  */
 public class JsonAdaptedExerciseRun {
 
+    private final String workoutName;
     private final LocalDateTime timeStarted;
     private final LocalDateTime timeEnded;
     private final JsonAdaptedSets setsAttempted;
@@ -30,7 +32,8 @@ public class JsonAdaptedExerciseRun {
      * Constructs a {@code JsonAdaptedExerciseRun} with the given parameters.
      */
     @JsonCreator
-    public JsonAdaptedExerciseRun(@JsonProperty("timeStarted") LocalDateTime timeStarted,
+    public JsonAdaptedExerciseRun(@JsonProperty("workoutName") String workoutName,
+                                  @JsonProperty("timeStarted") LocalDateTime timeStarted,
                                   @JsonProperty("timeEnded") LocalDateTime timeEnded,
                                   @JsonProperty("setAttempted") JsonAdaptedSets setsAttempted,
                                   @JsonProperty("setsCompleted") JsonAdaptedSets setsCompleted,
@@ -43,6 +46,7 @@ public class JsonAdaptedExerciseRun {
         this.setsCompleted = setsCompleted;
         this.exerciseSetAttempts = exerciseSetAttempts;
         this.totalTimeTaken = totalTimeTaken;
+        this.workoutName = workoutName;
     }
 
     /**
@@ -56,6 +60,7 @@ public class JsonAdaptedExerciseRun {
         this.totalTimeTaken = source.getTotalTimeTaken();
         this.exerciseSetAttempts = source.getExerciseSetAttempts().stream().map(attempt ->
                 new JsonAdaptedExerciseSetAttempt(attempt)).collect(Collectors.toList());
+        this.workoutName = source.getWorkoutName().workoutName;
     }
 
     /**
@@ -71,6 +76,6 @@ public class JsonAdaptedExerciseRun {
             modelExerciseSetAttempts.add(jsonAttempt.toModelType());
         }
         return new ExerciseRun(timeStarted, timeEnded, modelSetsAttempted, modelSetsCompleted,
-                modelExerciseSetAttempts);
+                modelExerciseSetAttempts, new WorkoutName(workoutName));
     }
 }

@@ -15,7 +15,6 @@ public class ExerciseSetAttemptCard extends UiPart<Region> {
 
     private final ExerciseSetAttempt attempt;
 
-
     @FXML
     private Label id;
     @FXML

@@ -8,8 +8,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class Timing<Duration> extends ExerciseDetail {
 
+    private String toString;
+
     public Timing(Duration time) {
         requireNonNull(time);
+        toString = time.toString();
         super.magnitude = time;
     }
 
@@ -19,7 +22,7 @@ public class Timing<Duration> extends ExerciseDetail {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("[Timing: ")
-                .append(getMagnitude().toString().replace("PT", "").replace("H", " hours ")
+                .append(toString.replace("PT", "").replace("H", " hours ")
                         .replace("M", " minutes ").replace("S", " seconds"))
                 .append("]");
         return builder.toString();

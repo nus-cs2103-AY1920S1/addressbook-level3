@@ -13,7 +13,7 @@ import dukecooks.model.Model;
 import dukecooks.model.workout.exercise.components.Exercise;
 
 /**
- * Deletes a person identified using it's displayed index from Duke Cooks.
+ * Deletes an exercise identified using it's displayed index from Duke Cooks.
  */
 public class DeleteExerciseCommand extends DeleteCommand {
 

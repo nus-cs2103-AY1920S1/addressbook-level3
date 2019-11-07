@@ -11,7 +11,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
-
 /**
  * Panel containing the list of workouts.
  */
@@ -24,6 +23,7 @@ public class WorkoutListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Workout> workoutListView;
+
 
     public WorkoutListPanel(ObservableList<Workout> workoutList, ObservableList<Exercise> exerciseList) {
         super(FXML);
@@ -43,7 +43,7 @@ public class WorkoutListPanel extends UiPart<Region> {
             showPanels(true, true);
             break;
         default:
-            throw new AssertionError("Something's Wrong! Invalid Diary Records page type!");
+            throw new AssertionError("Something's Wrong! Invalid Workout Records page type!");
         }
     }
 

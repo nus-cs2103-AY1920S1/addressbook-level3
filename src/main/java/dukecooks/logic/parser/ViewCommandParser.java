@@ -7,10 +7,14 @@ import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.diary.ViewDiaryCommand;
+import dukecooks.logic.commands.exercise.ViewExerciseCommand;
 import dukecooks.logic.commands.mealplan.ViewMealPlanCommand;
+import dukecooks.logic.commands.workout.ViewWorkoutCommand;
 import dukecooks.logic.parser.diary.ViewDiaryCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.ViewExerciseCommandParser;
 import dukecooks.logic.parser.mealplan.ViewMealPlanCommandParser;
+import dukecooks.logic.parser.workout.ViewWorkoutCommandParser;
 
 /**
  * Parses input arguments and creates a new ViewCommand object
@@ -43,6 +47,12 @@ public class ViewCommandParser implements Parser<ViewCommand> {
 
         case ViewMealPlanCommand.VARIANT_WORD:
             return new ViewMealPlanCommandParser().parse(arguments);
+
+        case ViewWorkoutCommand.VARIANT_WORD:
+            return new ViewWorkoutCommandParser().parse(arguments);
+
+        case ViewExerciseCommand.VARIANT_WORD:
+            return new ViewExerciseCommandParser().parse(arguments);
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
