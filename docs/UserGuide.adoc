@@ -86,7 +86,7 @@ Redo the previous undone command. The state of the application will revert back 
 
 Format:  `redo`
 
-// tag::undoredo[]
+//end::undoredo[]
 
 ==== Error messages
 Displays a useful error message if the input is invalid. For example,
