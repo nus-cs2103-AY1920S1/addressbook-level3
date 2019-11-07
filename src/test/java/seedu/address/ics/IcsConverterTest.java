@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.events.EventSourceBuilder;
 
 public class IcsConverterTest {
 
@@ -22,6 +23,7 @@ public class IcsConverterTest {
         assertDoesNotThrow(() -> DateTime.fromUserString(start));
         DateTime startDateTime = DateTime.fromUserString(start);
         EventSource eventSource = EventSource.newBuilder(description, startDateTime).build();
+
         String icsString = IcsConverter.convertEvent(eventSource);
 
         String[] icsStringArr = icsString.split("\\r?\\n");
@@ -53,4 +55,58 @@ public class IcsConverterTest {
         // validate end of ICS VEVENT object line
         assertEquals("END:VEVENT", icsStringArr[5]);
     }
+
+    @Test
+    public void toString_eventWithEndTime_icsConversion() throws ParseException {
+        String description = "Test Description";
+        String start = "11/11/1111 11:00";
+        assertDoesNotThrow(() -> DateTime.fromUserString(start));
+        DateTime startDateTime = DateTime.fromUserString(start);
+
+        String end = "11/11/1111 12:00";
+        assertDoesNotThrow(() -> DateTime.fromUserString(end));
+        DateTime endDateTime = DateTime.fromUserString(end);
+
+        EventSourceBuilder eventSourceBuilder = EventSource.newBuilder(description, startDateTime);
+        eventSourceBuilder.setEnd(endDateTime);
+        EventSource eventSource = eventSourceBuilder.build();
+
+        String icsString = IcsConverter.convertEvent(eventSource);
+
+        String[] icsStringArr = icsString.split("\\r?\\n");
+
+        // validate start of ICS VEVENT object field.
+        assertEquals("BEGIN:VEVENT", icsStringArr[0]);
+
+        // validate UID.
+        String uidString = icsStringArr[1];
+        assertTrue(uidString.startsWith("UID:") && uidString.endsWith("@Horo"));
+        uidString = uidString.replaceFirst("UID:", "");
+        String instant = uidString.replaceFirst("@Horo", "");
+        assertDoesNotThrow(() -> Instant.parse(instant));
+
+        // validate DTSTAMP field.
+        String dtStampString = icsStringArr[2];
+        assertTrue(dtStampString.startsWith("DTSTAMP:"));
+        String dtStamp = dtStampString.replaceFirst("DTSTAMP:", "");
+        assertDoesNotThrow(() -> DateTime.fromIcsString(dtStamp));
+
+        // validate DTSTART field.
+        String dtStartString = icsStringArr[3];
+        assertTrue(dtStartString.startsWith("DTSTART:"));
+        assertEquals("DTSTART:11111111T030000Z", dtStartString);
+
+        // validate SUMMARY field.
+        assertEquals("SUMMARY:Test Description", icsStringArr[4]);
+
+        // validate DTEND field.
+        String dtEndString = icsStringArr[5];
+        assertTrue(dtEndString.startsWith("DTEND:"));
+        assertEquals("DTEND:11111111T040000Z", dtEndString);
+
+        // validate end of ICS VEVENT object line
+        assertEquals("END:VEVENT", icsStringArr[6]);
+    }
+
+
 }
