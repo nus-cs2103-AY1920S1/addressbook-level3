@@ -10,7 +10,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Expense {
     private final int personId;
     private int[] involvedIds;
-    private Amount amount;
+    private final Amount amount;
     private final String description;
     private boolean isSettlement;
     private boolean isDeleted;
@@ -57,10 +57,6 @@ public class Expense {
 
     public Amount getAmount() {
         return amount;
-    }
-
-    public void setAmount(Amount amount) {
-        this.amount = amount;
     }
 
     public int getPersonId() {
