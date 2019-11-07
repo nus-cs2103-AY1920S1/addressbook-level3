@@ -5,9 +5,12 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.Module;
@@ -22,7 +25,8 @@ import seedu.tarence.storage.Storage;
 public class SetSemStartCommand extends Command {
 
     public static final String DATE_FORMAT = "dd-MM-yyyy";
-    public static final String MESSAGE_SET_SEM_START_SUCCESS = "Start of semester is: %s";
+    public static final String MESSAGE_SET_SEM_START_SUCCESS = "Start of semester is now: %s";
+    public static final String MESSAGE_PREVIOUS_SEM_START_HAS_BEEN_CHANGED = "Previous semester start was: %s";
     public static final String COMMAND_WORD = "setSemStart";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "setstart", "setst", "setsem"};
 
@@ -58,17 +62,51 @@ public class SetSemStartCommand extends Command {
             }
         }
 
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        String previousDateMessage = "";
+
+        if (Module.hasSemesterStartBeenSet()) {
+
+            if (isSameDate()) {
+                throw new CommandException(String.format(
+                        Messages.MESSAGE_INVALID_SEMESTER_START_DATE, dateFormat.format(Module.getSemStart())));
+            }
+
+            Date previousSemesterStart = Module.getSemStart();
+            previousDateMessage = String.format(MESSAGE_PREVIOUS_SEM_START_HAS_BEEN_CHANGED + "\n",
+                    dateFormat.format(previousSemesterStart));
+        }
+
+
         Module.setSemStart(semStart);
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        return new CommandResult(
-                String.format(MESSAGE_SET_SEM_START_SUCCESS + "\n",
-                dateFormat.format(semStart)));
+        String successMessage = String.format(MESSAGE_SET_SEM_START_SUCCESS + "\n",
+                dateFormat.format(semStart));
+        String outputMessage = previousDateMessage + successMessage;
+
+        return new CommandResult(outputMessage);
     }
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         return execute(model);
+    }
+
+    /**
+     * Compares if the day, month and year of the new semester start date and old semester start date are the same.
+     *
+     * @return Boolean
+     */
+    public Boolean isSameDate() {
+        Date currentDate = Module.getSemStart();
+        LocalDate localCurrentDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        Date newDate = semStart;
+        LocalDate localNewDate = newDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return (localCurrentDate.getYear() == localNewDate.getYear())
+                && (localCurrentDate.getMonth() == localNewDate.getMonth())
+                && (localCurrentDate.getDayOfMonth() == localNewDate.getDayOfMonth());
     }
 
     /**

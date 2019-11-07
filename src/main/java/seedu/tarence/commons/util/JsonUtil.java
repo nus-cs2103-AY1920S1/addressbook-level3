@@ -574,9 +574,8 @@ public class JsonUtil {
                     .get(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST), weeks);
 
             // Constructing Assignment(s) from String
-            String tutorialAssignmentString = tutorialMap.get(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST);
             Map<Assignment, Map<Student, Integer>> listOfAssignments =
-                    tutorialAssignmentStringToAssignment(tutorialAssignmentString);
+                    tutorialAssignmentStringToAssignment(tutorialMap.get(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST));
 
             // With assignment construction
             Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,

@@ -7,7 +7,8 @@
 
 == PROJECT: T.A.rence
 
-Hi there, I'm _Hatziq_. I am currently pursuing a major in Industrial & Systems Engineering, with minors
+
+Hello there, I'm _Hatziq_. I am currently pursuing a major in Industrial & Systems Engineering, with minors
 in Computer Science and Statistics.
 at National University of Singapore (NUS). +
 
@@ -46,10 +47,10 @@ their previous commands.
 
 * Highlights:
 ** This enhancement affects existing commands and commands to be added in the future. +
-Given the storage is dependant on the underlying structure of the model,
-+ Collaboration with other components of the application was highly needed.
-In-depth analysis of display formats and design alternatives were
-considered in the process.
+Given the storage is dependant on the underlying structure of the model, +
+collaboration with other components of the application was highly needed.
+
+
 ** The implementation too was challenging as it required to work with a variety of data structures, so as to maintain the efficiency and effectiveness of data processing.
 ** Given the many layers of information contained within T.A.rence, information had to carefully extracted without compromising other related systems.
 
@@ -78,6 +79,35 @@ from the saved json state file.
 of the json file.
 
 === *Minor Enhancement*: added commands for "addModule" and "addTutorial".
+
+** Added the basic skeleton functionality for TArence.
+
+=== *Other contributions*
+
+** Project management:
+*** Used Github for milestone, bug and issue tracking
+*** Assisted to review peer code before merging
+
+** Documentation:
+*** Edited User Guide: link:{prURL}/27[#27]
+*** Edited Developer Guide: link:{prURL}/27[#27], link:{prURL}/93[#93]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::https://github.com/AhmadHatziq/main/blob/master/docs/UserGuide.adoc#undo-previously-entered-commands-undo[undo]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::https://github.com/AhmadHatziq/main/blob/master/docs/DeveloperGuide.adoc#storage-component[storage]
+=======
 
 
 * *Code contributed*:

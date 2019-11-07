@@ -1,6 +1,7 @@
 package seedu.tarence.storage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Assignment;
+import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -35,6 +37,7 @@ public class JsonAdaptedModule {
     public static final String TUTORIAL_STUDENT_LIST = "tutorialStudentList";
     public static final String TUTORIAL_ATTENDANCE_LIST = "tutorialAttendanceList";
     public static final String TUTORIAL_ASSIGNMENT_LIST = "tutorialAssignmentList";
+    public static final String TUTORIAL_EVENT_LIST = "tutorialEventList";
 
     public static final String STUDENT_NAME = "studentName";
     public static final String STUDENT_EMAIL = "studentEmail";
@@ -62,6 +65,7 @@ public class JsonAdaptedModule {
     // Implemented LinkedHashMap to preserve ordering.
     private LinkedHashMap<String, LinkedHashMap<String, String>> tutorialMap;
     private String moduleCode;
+    private Date semesterStart;
 
 
     /**
@@ -86,6 +90,9 @@ public class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModCode().toString();
         tutorialMap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
+        semesterStart = source.getSemesterStart();
+
+        //System.out.println("Semester start of module " + moduleCode + " is " + semesterStart);
 
         for (Tutorial t : source.getTutorials()) {
             LinkedHashMap<String, String> singleTutorialMap = new LinkedHashMap<String, String>();
@@ -113,12 +120,25 @@ public class JsonAdaptedModule {
 
             // Saving of assignment
             String tutorialAssignmentString = assignmentListToString(t.getAssignmentsForSaving());
-            //System.out.println(tutorialAssignmentString);
             singleTutorialMap.put(TUTORIAL_ASSIGNMENT_LIST, tutorialAssignmentString);
+
+            // Saving of event(s)
+            String tutorialEventString = eventListToString(t.getEventLog());
 
             tutorialMap.put(tutorialName, singleTutorialMap);
 
         }
+    }
+
+    /**
+     * Converts a tutorial's eventList ot a String
+     *
+     * @param eventLog
+     * @return
+     */
+    public String eventListToString(List<Event> eventLog) {
+        //System.out.println(eventLog.toString());
+        return "";
     }
 
     /**

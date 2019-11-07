@@ -33,4 +33,6 @@ public class Messages {
             + "from the following:\n";
     public static final String MESSAGE_INVALID_TAB = "No such tab exists!";
     public static final String MESSAGE_INVALID_DISPLAY_FORMAT = "No such format to display!";
+    public static final String MESSAGE_INVALID_SEMESTER_START_DATE = "Entered start date is the same as the previous "
+            + "date %s";
 }

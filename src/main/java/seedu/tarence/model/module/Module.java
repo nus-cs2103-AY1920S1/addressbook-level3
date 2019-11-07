@@ -31,7 +31,18 @@ public class Module {
         this.tutorials = tutorials;
     }
 
+    //============================ Semester start operations ===========================================================
+
     public static Date getSemStart() {
+        return semStart;
+    }
+
+    /**
+     * Non-static getter function for semester start.
+     *
+     * @return Date semester start.
+     */
+    public Date getSemesterStart() {
         return semStart;
     }
 
@@ -42,9 +53,11 @@ public class Module {
         Module.semStart = semStart;
     }
 
-    public ModCode getModCode() {
-        return modCode;
+    public static Boolean hasSemesterStartBeenSet() {
+        return semStart != null;
     }
+
+    //============================ Tutorial operations =================================================================
 
     public List<Tutorial> getTutorials() {
         return tutorials;
@@ -58,17 +71,6 @@ public class Module {
     }
 
     /**
-     * Deletes the given student from the module
-     */
-    public void deleteStudent(Student student) {
-        for (Tutorial tutorial : tutorials) {
-            if (tutorial.getTutName().equals(student.getTutName())) {
-                tutorial.deleteStudent(student);
-            }
-        }
-    }
-
-    /**
      * Adds tutorial to module. Throws an error if tutorial does not belong to module
      */
     public void addTutorial(Tutorial tutorial) throws InvalidTutorialModCodeException {
@@ -76,6 +78,17 @@ public class Module {
             tutorials.add(tutorial);
         } else {
             throw new InvalidTutorialModCodeException();
+        }
+    }
+
+    /**
+     * Deletes the given student from the module
+     */
+    public void deleteStudent(Student student) {
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(student.getTutName())) {
+                tutorial.deleteStudent(student);
+            }
         }
     }
 
@@ -126,6 +139,10 @@ public class Module {
         }
         return otherModule != null
                 && otherModule.getModCode().equals(getModCode());
+    }
+
+    public ModCode getModCode() {
+        return modCode;
     }
 
 }
