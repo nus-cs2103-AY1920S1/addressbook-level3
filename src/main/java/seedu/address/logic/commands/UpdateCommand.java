@@ -27,9 +27,9 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
-import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.transaction.Split;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.ui.tab.Tab;
 
@@ -86,7 +86,7 @@ public class UpdateCommand extends Command {
             BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
             BankAccountOperation updatedTransaction = createUpdatedOperation(transactionToReplace,
                 updateTransactionDescriptor);
-            model.setTransaction(transactionToReplace, updatedTransaction);
+            model.set(transactionToReplace, updatedTransaction);
             model.updateProjectionsAfterDelete(transactionToReplace);
             model.updateProjectionsAfterAdd(updatedTransaction);
             model.commitUserState();
@@ -120,7 +120,6 @@ public class UpdateCommand extends Command {
                     }
                 }
             });
-            model.setBudget(budgetToReplace, updatedBudget);
 
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),

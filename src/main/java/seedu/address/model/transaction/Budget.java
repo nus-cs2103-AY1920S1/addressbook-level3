@@ -90,7 +90,7 @@ public class Budget {
     public boolean isGeneral() {
         return this.categories.contains(Category.GENERAL);
     }
-  
+
     public int getBetweenRaw() {
         return this.between;
     }
