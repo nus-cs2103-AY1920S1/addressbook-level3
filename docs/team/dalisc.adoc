@@ -16,8 +16,9 @@ MORTAGO, a desktop application, is a comprehensive mortuary management system. M
 
 The interface is responsive to suit different screen sizes. However, due to its detailed interface, it is recommended for larger screen sizes such as desktop monitors. MORTAGO has a GUI created with JavaFX. It is written in Java, and has about __ kLoC. MORTAGO maintains a local storage.
 
-The screenshot below shows where the users can type the commands and where the details are displayed:
-image:: Ui.png[]
+The image below shows where the users can type the commands and where the details are displayed:
+
+image:: Ui.png[width="500", align="center"]
 _Figure 1: MORTAGO's dashboard._
 
 === About the Team
