@@ -9,7 +9,6 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.ichifund.logic.commands.AddCommand;
-import seedu.ichifund.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.tag.Tag;
 
