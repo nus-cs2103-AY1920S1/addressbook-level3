@@ -59,6 +59,6 @@ public class TypicalBoughtList {
     }
 
     public static List<GroceryItem> getTypicalBoughtItems() {
-        return new ArrayList<>(Arrays.asList(BANANA, APPLE, RICE_WINE, EGG, SPAGHETTI));
+        return new ArrayList<>(Arrays.asList(BANANA, SPAGHETTI, OLIVE_OIL, BROCCOLI, APPLE, GREEN_TEA_LATTE, EGG));
     }
 }
