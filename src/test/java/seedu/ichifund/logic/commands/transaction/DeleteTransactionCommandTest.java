@@ -16,7 +16,6 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ModelManager;
 import seedu.ichifund.model.UserPrefs;
 import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -27,7 +26,7 @@ public class DeleteTransactionCommandTest {
     private Model model = new ModelManager(getTypicalFundBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndex_success() {
         Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST.getZeroBased());
         DeleteTransactionCommand deleteTransactionCommand = new DeleteTransactionCommand(INDEX_FIRST);
 
@@ -41,7 +40,7 @@ public class DeleteTransactionCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         DeleteTransactionCommand deleteTransactionCommand = new DeleteTransactionCommand(outOfBoundIndex);
 
