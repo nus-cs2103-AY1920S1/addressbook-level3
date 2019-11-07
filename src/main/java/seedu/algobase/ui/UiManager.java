@@ -11,6 +11,7 @@ import seedu.algobase.MainApp;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.Logic;
+import seedu.algobase.ui.action.UiLogic;
 
 /**
  * The manager of the UI component.
@@ -23,11 +24,13 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/algobase.png";
 
     private Logic logic;
+    private UiLogic uiLogic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, UiLogic uiLogic) {
         super();
         this.logic = logic;
+        this.uiLogic = uiLogic;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class UiManager implements Ui {
         primaryStage.setMaximized(true);
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, uiLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

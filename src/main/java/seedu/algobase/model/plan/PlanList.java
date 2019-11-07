@@ -101,6 +101,17 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Removes the equivalent Plan from the list.
+     * The Plan must exist in the list.
+     */
+    public void clear() {
+        currentPlan.set("");
+        solvedCount.set(0);
+        unsolvedCount.set(0);
+        internalTaskList.setAll();
+    }
+
+    /**
      * Replaces the contents of this list with {@code replacement}.
      */
     public void setPlans(PlanList replacement) {

@@ -1,5 +1,7 @@
 package seedu.algobase.ui.display;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
@@ -7,10 +9,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.model.gui.TabManager;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
-import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.model.gui.ReadOnlyTabManager;
 import seedu.algobase.ui.UiPart;
+import seedu.algobase.ui.action.UiActionDetails;
+import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
+
 
 /**
  * Pane containing the different tabs.
@@ -18,18 +22,21 @@ import seedu.algobase.ui.UiPart;
 public class DisplayTabPane extends UiPart<Region> {
 
     private static final String FXML = "DisplayTabPane.fxml";
+    private final UiActionExecutor uiActionExecutor;
 
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DisplayTabPane(TabManager tabManager, SaveStorageRunnable saveStorageRunnable, DisplayTab... displayTabs) {
+    public DisplayTabPane(ReadOnlyTabManager tabManager, UiActionExecutor uiActionExecutor, DisplayTab... displayTabs) {
         super(FXML);
+        requireNonNull(uiActionExecutor);
+
+        this.uiActionExecutor = uiActionExecutor;
 
         addTabsToTabPane(displayTabs);
         selectTab(tabManager.getDisplayTabPaneIndex().getValue().intValue());
 
         addListenerForIndexChange(tabManager.getDisplayTabPaneIndex());
-        addListenerToTabPaneIndexChange(tabManager, saveStorageRunnable);
     }
 
     /**
@@ -56,16 +63,15 @@ public class DisplayTabPane extends UiPart<Region> {
 
     /**
      * Adds an index change listener to the tab pane.
-     *
-     * @param tabManager A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPaneIndexChange(
-        WriteOnlyTabManager tabManager, SaveStorageRunnable saveStorageRunnable) {
+    private void addListenerToTabPaneIndexChange() {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                tabManager.switchDisplayTab(Index.fromZeroBased(newValue.intValue()));
-                saveStorageRunnable.save();
+                uiActionExecutor.execute(new UiActionDetails(
+                    UiActionType.SWITCH_DISPLAY_TAB,
+                    Index.fromZeroBased(newValue.intValue())
+                ));
             }
         });
     }

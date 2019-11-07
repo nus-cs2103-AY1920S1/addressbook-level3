@@ -163,7 +163,7 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         this.tabsData.remove(tabData);
 
         // If there are no tab data
-        if (this.tabsData.size() == 0) {
+        if (this.tabsData.size() == 0 || detailsTabPaneIndexValue == 0) {
             // Do nothing
         } else if (detailsTabPaneIndexValue >= tabIndex.getZeroBased()) {
             // decrement the details tab pane index

@@ -8,9 +8,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
-import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.ui.action.UiActionExecutor;
 
 /**
  * Panel containing the list of problems.
@@ -19,22 +18,16 @@ public class ProblemListPanel extends UiPart<Region> {
     private static final String FXML = "ProblemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ProblemListPanel.class);
 
-    private final WriteOnlyTabManager writeOnlyTabManager;
-    private final SaveStorageRunnable saveStorageRunnable;
-
     @FXML
     private ListView<Problem> problemListView;
+    private final UiActionExecutor uiActionExecutor;
 
-    public ProblemListPanel(
-        ObservableList<Problem> problemList,
-        WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
-    ) {
+    public ProblemListPanel(ObservableList<Problem> problemList, UiActionExecutor uiActionExecutor) {
         super(FXML);
+
+        this.uiActionExecutor = uiActionExecutor;
         problemListView.setItems(problemList);
         problemListView.setCellFactory(listView -> new ProblemListViewCell());
-        this.writeOnlyTabManager = writeOnlyTabManager;
-        this.saveStorageRunnable = saveStorageRunnable;
     }
 
     /**
@@ -52,8 +45,7 @@ public class ProblemListPanel extends UiPart<Region> {
                 setGraphic(new ProblemCard(
                     problem,
                     getIndex() + 1,
-                    writeOnlyTabManager,
-                    saveStorageRunnable
+                    uiActionExecutor
                 ).getRoot());
             }
         }
