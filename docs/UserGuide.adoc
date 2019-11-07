@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `glist add n/NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]` can be used as `n/apple e/23/10/2019 a/3units t/fruit` or as `n/apple e/23/10/2019 a/3units`.
 * Items with … after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/fruit`, `t/fruit t/healthy` etc.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
+* If multiple arguments of the same type are provided, the last argument for that field will be taken as the input. Eg: `glist add n/FirstName n/Apple a/5units e/28/11/2019` will create a GroceryItem with the name 'Apple'.
 ====
 
 ====
