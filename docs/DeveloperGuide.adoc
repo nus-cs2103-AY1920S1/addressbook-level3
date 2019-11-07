@@ -264,7 +264,7 @@ file format (`.json`). These mechanisms are primarily facilitated by the followi
 * `ExportPathFactory` -- Parses the user-provided file path and creates instances of `ExportPath`
 
 NOTE: The "export" in `ExportPath` is to be taken as a noun, not a verb. An `ExportPath`, therefore, is not the path that we export to, but the
-path of an export. As such, `ExportPaths` are used in both exporting and importing of files.
+path of an export. `ExportPaths` are used in both exporting and importing of files.
 
 `ExportPath` is an abstract class that follows the factory pattern. Each subclass of `ExportPath` represents the path to a specific file of a
 specific extension (e.g. an instance of `DocumentPath` represents the path to a specific document). Instances of these subclasses are created by
@@ -309,7 +309,7 @@ a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 |**External library used**              |Apache POI         |Jackson
 |====
 
-The number of classes that support the import/export feature is a rather large one. The following class diagram will help to clarify the associations
+The number of classes supporting the import/export feature is rather large. The following class diagram will help to clarify the associations
 between these classes:
 
 image::ExportClassDiagram.png[height=700]
