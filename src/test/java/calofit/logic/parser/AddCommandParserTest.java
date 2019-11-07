@@ -26,12 +26,6 @@ public class AddCommandParserTest {
                 + CommandTestUtil.CALORIE_DESC_1000
                 + CommandTestUtil.TAG_DESC_EXPENSIVE, new AddCommand(expectedDish));
 
-        // multiple names - last name accepted
-        CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_DUCK_RICE
-                + CommandTestUtil.NAME_DESC_MACARONI
-                + CommandTestUtil.CALORIE_DESC_1000
-                + CommandTestUtil.TAG_DESC_EXPENSIVE, new AddCommand(expectedDish));
-
         // multiple tags - all accepted
         Dish expectedDishMultipleTags = new DishBuilder(TypicalDishes.MACARONI)
                 .withTags(CommandTestUtil.VALID_TAG_EXPENSIVE, CommandTestUtil.VALID_TAG_SALTY)
@@ -54,9 +48,8 @@ public class AddCommandParserTest {
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-
         // missing name prefix
-        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.VALID_NAME_MACARONI,
+        CommandParserTestUtil.assertParseFailure(parser, " macaroni",
                 expectedMessage);
     }
 
