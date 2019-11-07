@@ -1,5 +1,7 @@
 package seedu.address.model.vehicle;
 
+import java.util.Arrays;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -9,16 +11,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class VehicleType {
 
+    public static final String[] VEHICLE_TYPES = new String[] {"Ambulance", "Patrol Car"};
+
     public static final String MESSAGE_CONSTRAINTS =
-            "VehicleTypes should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Current VehicleTypes only include: "
+            + Arrays.toString(VEHICLE_TYPES)
+            + ".\nIt should also only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    public static final String[] VEHICLE_TYPES = new String[] {"Ambulance", "Patrol Car"};
 
     private final String vehicleType;
 
