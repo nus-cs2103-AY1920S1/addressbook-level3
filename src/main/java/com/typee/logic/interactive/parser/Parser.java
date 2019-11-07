@@ -72,6 +72,8 @@ public class Parser implements InteractiveParser {
         return currentState != null;
     }
 
+    //=========== Core Parser Methods ======================================================================
+    
     @Override
     public void parseInput(String commandText) throws ParseException {
 
@@ -206,14 +208,11 @@ public class Parser implements InteractiveParser {
         try {
             Command command = endState.buildCommand();
             if (command instanceof HelpCommand) {
-                currentState = temporaryState;
-                temporaryState = null;
+                revertToPreviousCommand();
             } else if (command instanceof CurrentCommand) {
-                currentState = temporaryState;
-                temporaryState = null;
+                revertToPreviousCommand();
             } else if (command instanceof TabCommand) {
-                currentState = temporaryState;
-                temporaryState = null;
+                revertToPreviousCommand();
             } else {
                 resetParser();
             }
@@ -221,6 +220,11 @@ public class Parser implements InteractiveParser {
         } catch (CommandException e) {
             throw new ParseException(e.getMessage());
         }
+    }
+
+    private void revertToPreviousCommand() {
+        currentState = temporaryState;
+        temporaryState = null;
     }
 
     private void resetParser() {
