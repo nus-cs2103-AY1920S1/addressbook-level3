@@ -9,27 +9,31 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
-import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.loan.LoanIdGenerator;
 
 class SampleDataUtilTest {
 
     @Test
     public void getSampleCatalog_containsSampleBooks() {
-        Catalog sampleAb = new Catalog();
-        Arrays.stream(SampleDataUtil.getSampleBooks()).forEach(book -> sampleAb.addBook(book));
-        ReadOnlyCatalog b = SampleDataUtil.getSampleCatalog();
-        assertEquals(sampleAb, SampleDataUtil.getSampleCatalog());
+        Catalog catalog = new Catalog();
+        Arrays.stream(SampleDataUtil.getSampleBooks()).forEach(catalog::addBook);
+        assertEquals(catalog, SampleDataUtil.getSampleCatalog(SampleDataUtil.getSampleLoanRecords()));
     }
 
     @Test
     public void getSampleLoanRecords_returnLoanRecords() {
-        // update when we have sample loan records
-        assertEquals(SampleDataUtil.getSampleLoanRecords(), new LoanRecords());
+        LoanRecords loanRecords = new LoanRecords();
+        LoanIdGenerator.setLoanRecords(loanRecords);
+        SampleDataUtil.getSampleLoans().forEach(
+            loanMaker -> loanRecords.addLoan(loanMaker.apply(LoanIdGenerator.generateLoanId())));
+        assertEquals(loanRecords, SampleDataUtil.getSampleLoanRecords());
     }
 
     @Test
     public void getSampleBorrowerRecords_returnBorrowerRecords() {
-        // update when we have sample loan records
-        assertEquals(SampleDataUtil.getSampleBorrowerRecords(), new BorrowerRecords());
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        Arrays.stream(SampleDataUtil.getSampleBorrowers()).forEach(borrowerRecords::addBorrower);
+        assertEquals(borrowerRecords,
+                SampleDataUtil.getSampleBorrowerRecords(SampleDataUtil.getSampleLoanRecords()));
     }
 }
