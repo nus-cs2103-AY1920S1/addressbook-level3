@@ -57,7 +57,7 @@ Jarvis' <<link-main-features, four main features>> have been split into four dis
 toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
 features' `list` commands.
 
-You can learn more about the individual GUIs and commands in the coming sections.
+You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
 
 {sp} +
 
