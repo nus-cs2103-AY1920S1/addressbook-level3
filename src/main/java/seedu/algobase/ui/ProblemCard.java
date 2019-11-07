@@ -1,6 +1,5 @@
 package seedu.algobase.ui;
 
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
