@@ -28,6 +28,7 @@ public class EditBorrowerCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower.\n"
             + "Existing values will be overwritten by the input values.\n"
+            + "Invalid parameters will be ignored.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
