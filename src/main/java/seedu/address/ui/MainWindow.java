@@ -294,7 +294,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        logic.getFilteredLessonList().removeListener(listener);
+        //logic.getFilteredLessonList().removeListener(listener);
     }
 
     public StudentListPanel getStudentListPanel() {
