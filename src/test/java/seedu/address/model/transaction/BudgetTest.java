@@ -47,6 +47,19 @@ public class BudgetTest {
     }
 
     @Test
+    public void getInitialBudget_success() {
+        assertEquals(ONE, new Budget(ONE, new Date(VALID_DATE)).getInitialBudget());
+        assertEquals(new Amount(10000), new Budget(new Amount(10000), new Date(VALID_DATE)).getInitialBudget());
+        assertEquals(ONE, new Budget(ONE, ONE, new Date(VALID_DATE), CATEGORIES).getInitialBudget());
+    }
+
+    @Test
+    public void getInitialBudget_fail() {
+        assertNotEquals(ONE, new Budget(new Amount(10000), new Date(VALID_DATE)).getInitialBudget());
+    }
+
+
+    @Test
     public void getDeadline_success() {
         assertEquals(new Date(VALID_DATE), new Budget(ONE, new Date(VALID_DATE)).getDeadline());
         assertEquals(new Date("31122020"), new Budget(new Amount(10000), new Date("31122020")).getDeadline());

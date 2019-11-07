@@ -95,12 +95,8 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    /**
-     * TODO: implement keyboard shortcuts
-     */
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        // setAccelerator(transactionMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**

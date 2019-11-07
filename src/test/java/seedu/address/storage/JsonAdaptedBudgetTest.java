@@ -29,13 +29,19 @@ public class JsonAdaptedBudgetTest {
 
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
-        JsonAdaptedBudget budget = new JsonAdaptedBudget(null, VALID_DATE, VALID_CATEGORIES);
-        assertThrows(IllegalValueException.class, budget::toModelType);
+        JsonAdaptedBudget budgetOne = new JsonAdaptedBudget(VALID_AMOUNT, null, VALID_DATE, VALID_CATEGORIES);
+        assertThrows(IllegalValueException.class, budgetOne::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullInitialAmount_throwsIllegalValueException() {
+        JsonAdaptedBudget budgetOne = new JsonAdaptedBudget(null, VALID_AMOUNT, VALID_DATE, VALID_CATEGORIES);
+        assertThrows(IllegalValueException.class, budgetOne::toModelType);
     }
 
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
-        JsonAdaptedBudget budget = new JsonAdaptedBudget(VALID_AMOUNT, null, VALID_CATEGORIES);
+        JsonAdaptedBudget budget = new JsonAdaptedBudget(VALID_AMOUNT, VALID_AMOUNT, null, VALID_CATEGORIES);
         assertThrows(IllegalValueException.class, budget::toModelType);
     }
 
@@ -44,7 +50,7 @@ public class JsonAdaptedBudgetTest {
         List<JsonAdaptedCategory> invalidTags = new ArrayList<>(VALID_CATEGORIES);
         invalidTags.add(new JsonAdaptedCategory(INVALID_CATEGORY));
         JsonAdaptedBudget budget =
-                new JsonAdaptedBudget(VALID_AMOUNT, VALID_DATE, invalidTags);
+                new JsonAdaptedBudget(VALID_AMOUNT, VALID_AMOUNT, VALID_DATE, invalidTags);
         assertThrows(IllegalValueException.class, budget::toModelType);
     }
 }

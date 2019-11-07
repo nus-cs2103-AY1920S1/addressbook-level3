@@ -32,7 +32,7 @@ public class InCommandTest {
     }
 
     @Test
-    public void executeTransactionAcceptedByModeladdSuccessful() throws Exception {
+    public void executeTransactionAcceptedByModelAddSuccessful() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         BankAccountOperation validTransaction = new BankOperationBuilder().build();
 

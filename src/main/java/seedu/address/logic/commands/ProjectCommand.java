@@ -3,14 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
+import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -26,7 +26,7 @@ public class ProjectCommand extends Command {
     public static final String COMMAND_WORD = "project";
     public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
     public static final String MESSAGE_VOID_TRANSACTION_HISTORY =
-            "Transaction history is currently empty. It is impossible to cast a projection.";
+            "There are no transactions in %s. It is impossible to cast a projection.";
     public static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
             "There are too few transactions. It is impossible to cast a projection.";
     public static final String SMALL_SAMPLE_SIZE =
@@ -43,12 +43,13 @@ public class ProjectCommand extends Command {
     public static final String MESSAGE_BUDGET_CAUTION =
             "You are likely to exceed your budget of %s, with a deficit of %s!\n";
 
-    private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
-    private static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
+    public static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
+    public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
     private static final String MESSAGE_DUPLICATE = "A projection to %s already exists.";
 
     public final Date date;
-    private Index budgetIdx;
+    private Category category;
+    private ObservableList<Budget> budgets;
     private Projection projection;
 
     public ProjectCommand(Date date) {
@@ -56,9 +57,9 @@ public class ProjectCommand extends Command {
         this.date = date;
     }
 
-    public ProjectCommand(Date date, Index budgetIdx) {
+    public ProjectCommand(Date date, Category category) {
         this(date);
-        this.budgetIdx = budgetIdx;
+        this.category = category;
     }
 
     @Override
@@ -68,22 +69,13 @@ public class ProjectCommand extends Command {
         ObservableList<BankAccountOperation> transactionHistory =
                 model.getBankAccount().getSortedTransactionHistory(new DateComparator());
 
-        if (transactionHistory.isEmpty()) {
-            throw new CommandException(MESSAGE_VOID_TRANSACTION_HISTORY);
-        }
-
-        if (transactionHistory.size() < REQUIRED_MINIMUM_TRANSACTIONS) {
-            throw new CommandException(MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY);
-        }
-
-        if (this.getBudgetIdx().isPresent()) {
-            try {
-                Budget budget = model.getFilteredBudgetList().get(this.budgetIdx.getZeroBased());
-                this.projection = new Projection(transactionHistory, date, budget);
-            } catch (IndexOutOfBoundsException e) {
-                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
-            }
+        if (this.category != null) {
+            transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
+            this.budgets = model.getFilteredBudgetList().filtered(x -> x.getCategories().contains(this.category));
+            ensureMinimumTransactions(transactionHistory);
+            this.projection = new Projection(transactionHistory, date, this.budgets, this.category);
         } else {
+            ensureMinimumTransactions(transactionHistory);
             this.projection = new Projection(transactionHistory, date);
         }
 
@@ -96,13 +88,27 @@ public class ProjectCommand extends Command {
 
         return transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS
                 ? new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
-                        projection.getBudgetForecastText()),
-                        String.format(MESSAGE_WARNING, SMALL_SAMPLE_SIZE))
+                projection.getAllBudgetForecastText()),
+                String.format(MESSAGE_WARNING, SMALL_SAMPLE_SIZE))
                 : new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
-                        projection.getBudgetForecastText()));
+                projection.getAllBudgetForecastText()));
     }
 
-    Optional<Index> getBudgetIdx() {
-        return this.budgetIdx == null ? Optional.empty() : Optional.of(this.budgetIdx);
+    Optional<Category> getCategory() {
+        return this.category == null ? Optional.empty() : Optional.of(this.category);
+    }
+
+    /**
+     * Ensures there are enough transactions to meaningfully execute the {@code ProjectCommand}
+     */
+    private void ensureMinimumTransactions(List<BankAccountOperation> transactionHistory) throws CommandException {
+        if (transactionHistory.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_VOID_TRANSACTION_HISTORY,
+                    this.category == null ? "your transaction history" : this.category.toString()));
+        }
+
+        if (transactionHistory.size() < REQUIRED_MINIMUM_TRANSACTIONS) {
+            throw new CommandException(MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY);
+        }
     }
 }

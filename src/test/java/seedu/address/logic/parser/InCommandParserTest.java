@@ -54,15 +54,14 @@ public class InCommandParserTest {
         assertParseSuccess(parser, " n/milk c/food $/100 d/10112019", new InCommand(expectedTransaction));
     }
 
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
-                .withCategories("Uncategorised").build();
-
-        assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
-                + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
-
-    }
+    //@Test
+    //public void parse_optionalFieldsMissing_success() {
+    //    BankAccountOperation expectedTransaction2 = new TransactionBuilder(ALICE)
+    //            .withCategories("Uncategorised").build();
+    //
+    //    assertParseSuccess(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE
+    //            + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
+    //}
 
     @Test void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE);
