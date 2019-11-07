@@ -7,6 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.IncidentManagerParser.ACCESS_CONTROL_MESSAGE;
 import static seedu.address.logic.parser.IncidentManagerParser.GUI_SWAP_MESSAGE;
+import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 
@@ -21,11 +23,13 @@ import seedu.address.logic.commands.DeleteCommand;
 // import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.EditIncidentCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FillCommand;
 import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
 import seedu.address.logic.commands.ListPersonsCommand;
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -35,6 +39,7 @@ import seedu.address.testutil.EditIncidentBuilder;
 import seedu.address.testutil.IncidentUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TypicalIncidents;
 import seedu.address.testutil.UpdatePersonDescriptorBuilder;
 
 public class IncidentManagerParserTest {
@@ -146,5 +151,42 @@ public class IncidentManagerParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    //@@author atharvjoshi
+    @Test
+    public void parseCommand_fillNoParams() throws Exception {
+        parser.setPersonView(false);
+        ListIncidentsCommand command = (ListIncidentsCommand) parser.parseCommand(
+                FillCommand.COMMAND_WORD);
+        assertEquals(new ListIncidentsCommand(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS), command);
+
+    }
+
+    @Test
+    public void parseCommand_fillWithParams() throws Exception {
+        parser.setPersonView(false);
+        FillCommand command = (FillCommand) parser.parseCommand(
+                FillCommand.COMMAND_WORD + " " + INDEX_FIRST_ENTITY.getOneBased()
+                + " " + CliSyntax.PREFIX_PHONE + TypicalIncidents.getTypicalCallerNumbers().get(0).toString()
+                + " " + CliSyntax.PREFIX_DESCRIPTION + TypicalIncidents.getTypicalDescriptions().get(0).toString());
+        assertEquals(new FillCommand(INDEX_FIRST_ENTITY, TypicalIncidents.getTypicalCallerNumbers().get(0),
+                TypicalIncidents.getTypicalDescriptions().get(0)), command);
+    }
+
+    @Test
+    public void parseCommand_submitNoParams() throws Exception {
+        parser.setPersonView(false);
+        ListIncidentsCommand command = (ListIncidentsCommand) parser.parseCommand(
+                SubmitCommand.COMMAND_WORD);
+        assertEquals(new ListIncidentsCommand(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS), command);
+    }
+
+    @Test
+    public void parseCommand_submitWithParams() throws Exception {
+        parser.setPersonView(false);
+        SubmitCommand command = (SubmitCommand) parser.parseCommand(
+                SubmitCommand.COMMAND_WORD + " " + INDEX_FIRST_ENTITY.getOneBased());
+        assertEquals(new SubmitCommand(INDEX_FIRST_ENTITY), command);
     }
 }

@@ -57,7 +57,7 @@ class JsonAdaptedIncident {
     public JsonAdaptedIncident(Incident source) {
         operator = new JsonAdaptedPerson(source.getOperator());
         districtNum = source.getDistrict().getDistrictNum();
-        dateTime = source.getDateTime().toString();
+        dateTime = source.getIncidentDateTime().toString();
         incidentId = source.getIncidentId().getId();
         status = source.getStatus().name(); // do not use toString() because it has been overridden
 
