@@ -63,8 +63,8 @@ public class MemeText {
         return style;
     }
 
-    public int getSize() {
-        return size.getSize();
+    public int getSize(int imageHeight) {
+        return size.getSize(imageHeight);
     }
 
     public MemeTextSize getMemeTextSize() {
