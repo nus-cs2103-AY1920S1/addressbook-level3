@@ -20,31 +20,32 @@ import seedu.moolah.logic.parser.Prefix;
 
 class AutofillSuggestionMenuTest3 extends ApplicationTest {
 
-    private AutofillSuggestionMenu sutWithOneCommandToBeRemoved;
+    private AutofillSuggestionMenu menuWithCommandToBeRemoved;
 
-    private static final String command = "COMMAND";
-    private static final List<Prefix> required = new ArrayList<>();
-    private static final List<Prefix> optional = new ArrayList<>();
+    private static final String COMMAND = "COMMAND";
+    private static final List<Prefix> REQUIRED = new ArrayList<>();
+    private static final List<Prefix> OPTIONAL = new ArrayList<>();
 
-    private StyleClassedTextArea stubToRemove;
+    private CommandTextField stubToRemove;
 
     @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
-        stubToRemove = new StyleClassedTextArea();
+        stubToRemove = new CommandTextField(string -> {});
         stage.setScene(new Scene(new VBox(stubToRemove)));
-        stubToRemove.setContextMenu(sutWithOneCommandToBeRemoved);
+        stubToRemove.setContextMenu(menuWithCommandToBeRemoved);
         SimpleStringProperty commandPropertyStub = new SimpleStringProperty("");
-        sutWithOneCommandToBeRemoved = new AutofillSuggestionMenu(stubToRemove, commandPropertyStub);
-        sutWithOneCommandToBeRemoved.addCommand(command, required, optional);
+        menuWithCommandToBeRemoved = new AutofillSuggestionMenu(stubToRemove, commandPropertyStub);
+        menuWithCommandToBeRemoved.addCommand(COMMAND, REQUIRED, OPTIONAL);
         stage.show();
     }
 
     @Test
     void removeCommand_doesNotShowAfterRemoving() {
-        sutWithOneCommandToBeRemoved.removeCommand(command);
-        new FxRobot().write(command);
-        Platform.runLater(() -> assertFalse(sutWithOneCommandToBeRemoved.isShowing()));
+        menuWithCommandToBeRemoved.toggle();
+        menuWithCommandToBeRemoved.removeCommand(COMMAND);
+        new FxRobot().write(COMMAND);
+        Platform.runLater(() -> assertFalse(menuWithCommandToBeRemoved.isShowing()));
     }
 
 }

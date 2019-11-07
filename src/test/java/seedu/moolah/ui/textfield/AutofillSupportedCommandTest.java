@@ -14,11 +14,22 @@ import seedu.moolah.logic.parser.Prefix;
 
 class AutofillSupportedCommandTest {
 
-    private static String COMMAND_0 = "command0";
-    private static String COMMAND_1 = "command1";
+    private static final String COMMAND_0 = "command0";
+    private static final String COMMAND_1 = "command1";
 
-    private static Prefix prefixStub0 = new Prefix("a/", "");
-    private static Prefix prefixStub1 = new Prefix("ab/", "");
+    private static Prefix prefixStub0 = new Prefix("", "") {
+        @Override
+        public String getPrefix() {
+            return "a/";
+        }
+    };
+
+    private static Prefix prefixStub1 = new Prefix("", "") {
+        @Override
+        public String getPrefix() {
+            return "ab/";
+        }
+    };
 
     private static final AutofillSupportedCommand SUT_1 =
             new AutofillSupportedCommand(

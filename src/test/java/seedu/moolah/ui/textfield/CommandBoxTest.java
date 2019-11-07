@@ -1,90 +1,113 @@
 package seedu.moolah.ui.textfield;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
+import static seedu.moolah.ui.textfield.CommandTextField.COMMAND_WORD_STYLE;
+import static seedu.moolah.ui.textfield.CommandTextField.SYNTAX_HIGHLIGHTING_CSS_FILE_PATH;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.function.Consumer;
 
 import org.fxmisc.richtext.model.StyleSpansBuilder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import seedu.moolah.logic.commands.exceptions.CommandException;
-import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.ui.panel.PanelName;
-import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 
-class CommandBoxThrowingExceptionTest extends ApplicationTest {
+class CommandBoxTest extends ApplicationTest {
 
-    Consumer<Stage> setCommandBoxToThrowCommandException;
-    Consumer<Stage> setCommandBoxToThrowParseException;
-    Consumer<Stage> setCommandBoxToThrowUnmappedPanelException;
+    private CommandBox commandBox;
+    private FxRobot robot;
+    private CommandBox.CommandExecutor commandExecutorStub;
+    private Runnable resetSUT;
 
-    CommandBox commandBox;
-    FxRobot robot;
-    Stage stage;
+    private static String COMMAND = "command";
+
+    void pushKey(KeyCode keyCode) {
+        KeyEvent.fireEvent(commandBox.commandTextField,
+                new KeyEvent(KeyEvent.KEY_PRESSED, null, null, keyCode, false, false, false, false));
+        KeyEvent.fireEvent(commandBox.commandTextField,
+                new KeyEvent(KeyEvent.KEY_RELEASED, null, null, keyCode, false, false, false, false));
+    }
 
     public void start(Stage stage) throws Exception {
         super.start(stage);
-        this.stage = stage;
-        setCommandBoxToThrowCommandException = stage1 -> {
-            commandBox = new CommandBox(ignored -> {
-                throw new CommandException("");
-            });
-            stage1.setScene(new Scene(commandBox.getRoot()));
-            commandBox.importSyntaxStyleSheet(stage1.getScene());
-        };
-
-        setCommandBoxToThrowParseException = stage1 -> {
-            commandBox = new CommandBox(ignored -> {
-                throw new ParseException("");
-            });
-            stage1.setScene(new Scene(commandBox.getRoot()));
-            commandBox.importSyntaxStyleSheet(stage1.getScene());
-        };
-
-        setCommandBoxToThrowUnmappedPanelException = stage1 -> {
-            commandBox = new CommandBox(ignored -> {
-                throw new UnmappedPanelException(new PanelName(""));
-            });
-            stage1.setScene(new Scene(commandBox.getRoot()));
-            commandBox.importSyntaxStyleSheet(stage1.getScene());
-
-        };
-
+        commandExecutorStub = commandText -> null;
+        commandBox = new CommandBox(commandExecutorStub);
+        stage.setScene(new Scene(commandBox.getRoot()));
         robot = new FxRobot();
+        resetSUT = () -> {
+            commandBox = new CommandBox(commandExecutorStub);
+            stage.setScene(new Scene(commandBox.getRoot()));
+            stage.getScene().getStylesheets().clear();
+        };
+        stage.show();
     }
 
+    @AfterEach
+    void tearDown() {
+        Platform.runLater(() -> {
+            resetSUT.run();
+        });
+    }
 
     @Test
-    void tmep() {
-        StyleSpansBuilder<Collection<String>> styleSpansBuilder = new StyleSpansBuilder<>();
-        styleSpansBuilder.add(Collections.singleton(ERROR_STYLE_CLASS), 3);
-
+    void pressEnter_commandTextDoesNotCauseException_textIsStoredInHistory() {
         Platform.runLater(() -> {
-            setCommandBoxToThrowParseException.accept(stage);
-            stage.show();
-            robot.write("asd");
+            robot.write("some input");
             robot.interact(() -> {
-                KeyEvent.fireEvent(commandBox.getRoot(),
-                        new KeyEvent(KeyEvent.KEY_PRESSED, null, null, KeyCode.ENTER, false, false, false, false));
-                KeyEvent.fireEvent(commandBox.getRoot(),
-                        new KeyEvent(KeyEvent.KEY_RELEASED, null, null, KeyCode.ENTER, false, false, false, false));
-                assertEquals(
-                        styleSpansBuilder.create(),
-                        commandBox.commandTextField.getStyleSpan());
+                pushKey(KeyCode.ENTER);
+                pushKey(KeyCode.UP);
+                assertEquals("some input", commandBox.commandTextField.getText());
             });
         });
+    }
 
+    @Test
+    void importSyntaxStyleSheet() {
+        commandBox.importSyntaxStyleSheet(commandBox.getRoot().getScene());
+        assertEquals(
+                CommandBoxTest.class.getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm(),
+                commandBox.getRoot().getScene().getStylesheets().get(0));
+    }
 
+    @Test
+    void enableSuggestionAndSyntaxHighlightingFor_inputMatches_highlightsAfterDelay() {
+        String space = " ";
+        StyleSpansBuilder<Collection<String>> expected = new StyleSpansBuilder<>();
+        expected.add(Collections.singleton(COMMAND_WORD_STYLE), COMMAND.length());
+        expected.add(Collections.emptyList(), space.length());
+        commandBox.getRoot().getScene().getStylesheets().add(
+                CommandBoxTest.class.getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm());
+        commandBox.enableSyntaxHighlighting();
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(COMMAND, Collections.emptyList(), Collections.emptyList());
+
+        robot.write(COMMAND + space);
+        robot.sleep(400);
+
+        robot.interact(() -> {
+                assertEquals(expected.create(), commandBox.commandTextField.getStyleSpan());
+        });
+    }
+
+    @Test
+    void disableSuggestionsAndSyntaxHighlightingFor_inputWouldMatchIfEnabled_noHighlighting() {
+        String space = " ";
+        StyleSpansBuilder<Collection<String>> expected = new StyleSpansBuilder<>();
+        expected.add(Collections.emptyList(), COMMAND.length() + space.length());
+        commandBox.getRoot().getScene().getStylesheets().add(
+                CommandBoxTest.class.getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm());
+        commandBox.enableSyntaxHighlighting();
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(COMMAND, Collections.emptyList(), Collections.emptyList());
+        commandBox.disableSuggestionsAndSyntaxHighlightingFor(COMMAND);
+
+        robot.write(COMMAND + space);
+        robot.sleep(400);
+        Platform.runLater(() -> assertEquals(expected.create(), commandBox.commandTextField.getStyleSpan()));
     }
 }
