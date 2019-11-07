@@ -15,21 +15,21 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Athletick;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Performance;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.AthletickStorage;
 import seedu.address.storage.AttendanceStorage;
 import seedu.address.storage.ImageStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAthletickStorage;
 import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -45,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 1, true);
+    public static final Version VERSION = new Version(3, 1, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -54,7 +54,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -65,11 +64,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getEventListFilePath());
+        AthletickStorage athletickStorage = new JsonAthletickStorage(userPrefs.getAthletickFilePath());
+        PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getPerformanceFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
         ImageStorage imageStorage = new ImageStorage(userPrefs.getImageFilePath());
-        storage = new StorageManager(addressBookStorage, performanceStorage, attendanceStorage, userPrefsStorage);
+        storage = new StorageManager(athletickStorage, performanceStorage, attendanceStorage, userPrefsStorage);
 
         imageStorage.createImageFile();
 
@@ -80,39 +79,36 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, model);
-        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
-
-
+        HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
+        HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address
+     * book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if
+     * {@code storage}'s address book is not found, or an empty address book will be
+     * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressBook;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyAthletick> athletickOptional;
+        ReadOnlyAthletick initialAthletick;
+        ReadOnlyAthletick initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file for Athletick not found. Will be starting with a sample "
-                        + "team list");
+            athletickOptional = storage.readAthletick();
+            if (!athletickOptional.isPresent()) {
+                logger.info("Data file for Athletick not found. Will be starting with a sample " + "team list");
             }
-            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAthletick = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
+            initialData = athletickOptional.orElseGet(SampleDataUtil::getSampleAthletick);
 
         } catch (DataConversionException e) {
             logger.warning(
-                    "Data file for Athletick not in the correct format. Will be starting with an "
-                            + "empty team list");
-            initialAddressBook = new AddressBook();
+                    "Data file for Athletick not in the correct format. Will be starting with an " + "empty team list");
+            initialAthletick = new Athletick();
         } catch (IOException e) {
-            logger.warning(
-                    "Problem while reading from Athletick file. Will be starting with an empty "
-                            + "team list");
-            initialAddressBook = new AddressBook();
+            logger.warning("Problem while reading from Athletick file. Will be starting with an empty " + "team list");
+            initialAthletick = new Athletick();
         }
 
         Optional<ReadOnlyPerformance> performanceOptional;
@@ -124,8 +120,7 @@ public class MainApp extends Application {
             }
             initialEventsList = performanceOptional.orElseGet(SampleDataUtil::getSamplePerformance);
         } catch (DataConversionException e) {
-            logger.warning(
-                    "Data file for EventList not in the correct format. Will be starting with empty EventList");
+            logger.warning("Data file for EventList not in the correct format. Will be starting with empty EventList");
             initialEventsList = new Performance();
         } catch (IOException e) {
             logger.warning("Problem while reading from EventList file. Will be starting with an empty EventList");
@@ -147,7 +142,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
             initialAttendance = new Attendance();
         }
-        return new ModelManager(initialAddressBook, initialEventsList, initialAttendance, userPrefs);
+        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -181,7 +176,8 @@ public class MainApp extends Application {
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -191,9 +187,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs
+     * file path, or a new {@code UserPrefs} with default configuration if errors
+     * occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -212,7 +208,8 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {

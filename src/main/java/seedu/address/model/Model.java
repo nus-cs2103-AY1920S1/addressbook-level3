@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
@@ -46,26 +47,29 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAthletickFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAthletickFilePath(Path athletickFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAthletick(ReadOnlyAthletick athletick);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-    ReadOnlyAddressBook getAddressBookDeepCopy();
-    void undo();
-    void redo();
+
+    /** Returns Athletick */
+    ReadOnlyAthletick getAthletick();
+    ReadOnlyAthletick getAthletickDeepCopy();
+    List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    Command undo();
+    Command redo();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in athletick.
      */
     boolean hasPerson(Person person);
 
@@ -77,7 +81,7 @@ public interface Model {
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in Athletick.
      */
     void addPerson(Person person);
 
@@ -87,15 +91,16 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in Athletick.
+     * The person identity of {@code editedPerson} must not be the same as another existing
+     * person in Athletick.
      */
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Reorders the address book in alphabetical order according to person's name.
+     * Reorders Athletick in alphabetical order according to person's name.
      */
-    void sortAddressBookByName();
+    void sortAthletickByName();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -119,7 +124,7 @@ public interface Model {
     /**
      * Removes training on {@code date}
      */
-    void deleteTrainingOnDate(AthletickDate date);
+    Training deleteTrainingOnDate(AthletickDate date);
 
     /**
      * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.
@@ -158,6 +163,8 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+    Event getEvent(String eventName);
+
     /**
      * Deletes the given event.
      * The event must exist in performance.
@@ -167,6 +174,8 @@ public interface Model {
     ReadOnlyPerformance getPerformance();
 
     void addRecord(String eventName, Person person, Record record);
+
+    void deleteRecord(String eventName, Person person, AthletickDate date);
 
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 

@@ -23,4 +23,8 @@ public class ListCommand extends Command {
     public boolean isUndoable() {
         return false;
     }
+    @Override
+    public String toString() {
+        return "List Command";
+    }
 }

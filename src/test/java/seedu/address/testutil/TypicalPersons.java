@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.Athletick;
 import seedu.address.model.person.Person;
 
 /**
@@ -78,8 +78,8 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Athletick getTypicalAthletick() {
+        Athletick ab = new Athletick();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

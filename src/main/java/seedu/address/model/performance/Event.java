@@ -17,6 +17,7 @@ public class Event {
     public static final String MESSAGE_NO_SUCH_EVENT = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
     public static final String MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
+    public static final String MESSAGE_RECORD_EXISTS = "%1$s already has a record on %2$s for %3$s event.";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -57,6 +58,23 @@ public class Event {
     }
 
     /**
+     * Checks if the athlete already has a record on the given day for this event.
+     * This prevents an athlete from having 2 records on the same day, under the same event.
+     */
+    public boolean doesAthleteHavePerformanceOn(AthletickDate athletickDate, Person athlete) {
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        if (athleteRecords == null) {
+            return false;
+        }
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(athletickDate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
@@ -72,9 +90,9 @@ public class Event {
     }
 
     /**
-     * Adds a player's performance to this event.
+     * Adds a player's record to this event.
      */
-    public void addPerformance(Person athlete, Record record) {
+    public void addRecord(Person athlete, Record record) {
         if (!records.containsKey(athlete)) {
             ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
             initialisedPerformanceEntries.add(record);
@@ -90,7 +108,29 @@ public class Event {
     }
 
     /**
-     * Sorts records based on AthletickDate
+     * Removes a player's record from this event.
+     * Since there can only be one record per day, only the date needs to be specified.
+     */
+    public void deleteRecord(Person athlete, AthletickDate date) {
+        assert(doesAthleteHavePerformanceOn(date, athlete));
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        int i = 0;
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(date)) {
+                break;
+            }
+            i++;
+        }
+        athleteRecords.remove(i);
+
+        // delete athlete from HashMap if they have no records
+        if (athleteRecords.isEmpty()) {
+            records.remove(athlete);
+        }
+    }
+
+    /**
+     * Sorts records based on AthletickDate.
      */
     private void sortAthleteRecords(Person athlete) {
         List<Record> athleteRecords = getAthleteRecords(athlete);

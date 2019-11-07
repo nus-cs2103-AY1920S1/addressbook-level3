@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
-import seedu.address.model.feature.Feature;
 import seedu.address.model.person.Person;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Represents the result of a command execution.
@@ -19,6 +19,7 @@ public class CommandResult {
     private Person person;
     private AthletickDate date;
     private Model model;
+    private String eventName;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -82,6 +83,18 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code
+     * featureToDisplay}, {@code model}, {@code eventName}, and other fields set to their default value.
+     * For use in viewing records command.
+     */
+    public CommandResult(String feedbackToUser, Feature featureToDisplay, Model model, String eventName) {
+        this(feedbackToUser, false, false, false);
+        this.feature = featureToDisplay;
+        this.model = model;
+        this.eventName = eventName;
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code
      * selectedPerson}, and other fields set to their default value.
      */
@@ -103,6 +116,13 @@ public class CommandResult {
         this.model = model;
     }
 
+    public CommandResult(String feedbackToUser, AthletickDate date, Model model, String eventName) {
+        this(feedbackToUser, false, false, false);
+        this.date = date;
+        this.model = model;
+        this.eventName = eventName;
+    }
+
     public Feature getFeature() {
         return feature;
     }
@@ -117,6 +137,10 @@ public class CommandResult {
 
     public Model getModel() {
         return model;
+    }
+
+    public String getEventName() {
+        return eventName;
     }
 
     public String getFeedbackToUser() {

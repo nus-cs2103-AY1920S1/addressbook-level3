@@ -180,36 +180,88 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
-=== Training & Attendance feature
+=== Training feature
 
-To facilitate management of training sessions, the `Model` stores the `Attendance` of training sessions.
+Athletick allows users to record training information like date and an athlete's attendance. With this information
+recorded, Athletick allows users to get important information like the team's overall attendance rate and an overview
+of all training sessions in a month.
 
-image::attendance_class_diagram.png[]
+==== Implementation
+To facilitate this, the `Model` has a `TrainingManager` that stores all `Training`
+sessions in Athletick. The class diagram below shows how the different components interact with each other.
 
-==== Attendance
+image::training_class_diagram.png[]
 
-The attendance of players is managed using an `Attendance` class.
-`Attendance` contains a list of training sessions as it is used to calculate the attendance rate of an individual by looking at all trainings.
-Whenever a training is added, the model adds this training to the `Attendance` using a `TrainingCommand`.
+The `Training` class contains a date and a hash map.
+The date in the training class represents the date of training session and the hash map is used to check the
+attendance of a Person. We used a `AthletickDate` class to  represent a date of training. This class is shared across
+both the `Ui` and backend, allowing training information to be shown in the `view calendar` function.
+The hash map uses `Person` objects as keys and a boolean as it’s value. This is used to check whether a `Person` has
+attended a training session, indicated by the boolean value attached to  a `Person` key. If a `Person` attended a
+training session on that day, the value associated with the key will be  true, and false if he did not attend.
 
-==== Training
+A `TrainingManager` is used to store and manage all `Training` sessions in Athletick. It has a list
+containing `Training` sessions. A `Training` is added to this list whenever a user records a `Training` session
+using a `TrainingCommand`. The sequence diagram below shows how `TrainingManager` stores and manages training records.
 
-The Training class contains a date, as well as a HashMap.
-The date in the training class represents the date of training session and the HashMap is used to check the attendance of a Person.
+image::add_training.png[]
 
-We used a `DateTime` class to represent a date of training.
-This class is shared across both the `Ui` and backend, allowing us to port training data into the `view calendar` function.
+image::delete_training.png[]
 
-The HashMap uses `Person` objects as keys and a boolean as it’s value.
-This is used to check whether a `Person` has attended a training session, indicated by the boolean value attached to a `Person` key.
-If a `Person` attended a training session on that day, the value associated with the key will be true, and false if he did not attend.
-There were a few design considerations we had in mind for checking attendance of a `Person` but we ultimately decided that using a HashMap was the best solution due to the following requirements:
+`TrainingManager` provides functions for users to calculate the attendance rate of one individual, or the entire
+team. The sequence diagram below shows a use case of how `TrainingManager` gets attendance rate.
 
-* Our application allows us to check for the attendance rate of a `Person`. As such, we needed to track both trainings attended and trainings missed.
-* As an athlete could be added into the team after some trainings have taken place,
-using trainings attended / total trainings would not give an accurate reflection of a `Person` 's training attendance.
+image::to_add.png[]
 
-Also, our `select` function shows attendance rate of a `Person` and a HashMap provides the fastest access time to check whether a `Person` attended a training session.
+`TrainingManager` also allows users to view `Training` information on a specified date. The sequence diagram below
+shows a use case of how `TrainingManager` gets `Training` information.
+
+image::to_add.png[]
+
+==== Design Considerations
+Aspect: Where to store attendance information of an individual.
+
+* Alternative 1: Extend on the `AddressBook` by storing and tagging each person with number of
+trainings attended and total number of trainings.
+
+** Pros: Easy to implement.
+
+** Cons: Violates Single Responsibility Principle (SRP) and not useful when we want more detailed information
+(attendance on specific date) about a training session.
+
+* Alternative 2 (current choice): Create a separate class to manage Training information.
+
+** Pros: Allows storing of specific training information without depending on the `AddressBook`.
+
+** Cons: Harder to code and introduces more dependencies to Model.
+
+
+Aspect: Which data structure to store training attendance.
+* Alternative 1: Use a linked list to store training attendance.
+
+** Pros: Easy to maintain.
+
+** Cons: Accessing training information requires more time (e.g. accessing attendance rate of one person).
+
+* Alternative 2 (current choice): Use a hash map to store training attendance.
+
+** Pros: Makes obtaining information much quicker.
+
+** Cons: Requires more effort to maintain.
+
+Aspect: How to edit training information
+
+* Alternative 1 (current choice): Edit by replacing with new training on the same date
+
+** Pros: Users no need to type lengthy edit commands.
+
+** Cons: Unable to support multiple trainings on same date.
+
+** Alternative 2: Create a command to support editing of training.
+
+** Pros: More intuitive to a user who wants to edit.
+
+** Cons: Lengthy commands. Users have the option to edit date, attendance and even add a person.
 
 === Performance feature
 
@@ -374,85 +426,70 @@ other functions such as `DeleteCommand` or `FindCommand` which also uses index. 
 the full name of the selected athlete.
 
 === Undo / Redo feature
-==== Proposed Implementation
+The undo command enables users to undo their previous commands while the redo feature enables users to redo their undone commands.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Undo Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The undo feature is facilitated by the `HistoryManager`. The `commands` stack and the `addressBooks` stack in the `HistoryManager` class are used to govern the undo feature.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The static `commands` stack keeps track of all the commands that have been executed by the user while the static `addressBooks` stack keeps track of the corresponding state of the address book following the executed command.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `HistoryManager` will be initialised with the
+initial address book state pushed to the `addressBooks` stack.
 
-image::UndoRedoState0.png[]
+image::initialStack.png[width=450]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes the delete 3 command to delete the 3rd person in the Athletick list. The delete command will be pushed into the `commands` stack in and the new state of the address book (after executing the delete command) will be pushed to the `addressBooks` stack as well.
 
-image::UndoRedoState1.png[]
+image::afterUndoStack.png[width=450]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action by executing the `undo` command. The `undo` command calls the undo method in the `ModelManager` which pops the latest Command from the `commands` stack and
+the latest Address Book from the `addressBooks` stack. This removes the latest action caused by the command that wants to be undone. It then continues to peek at the `addressBooks` stack to retrieve the Address Book state before the undone Command was executed.
 
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+image::initialStack.png[width=450]
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSQ.png[width=450]
+Figure 1. Sequence diagram for undo feature
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+==== Redo Implementation
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo feature is also facilitated by the `HistoryManager`. The `undoneCommands` stack and the `undoneAddressBooks` stack in the `HistoryManager` class are used to govern the redo feature.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The `undoneCommands` stack keeps track of commands that have been undone by the user while the `undoneAddressBooks` stack keeps track of the corresponding state of the address book following the undone command.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+How the redo feature works is very similar to how the undo feature works. The difference is that redo utilises the
+`undoneCommands` stack and the `undoneAddressBooks` stack. As such, you can also refer to the diagrams in the
+link:https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-feature[Undo
+Implementation.]
 
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
+This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+* **Alternative 1 (current choice):** Saves a deep copy of the entire address book after each command into a stack.
+** Pros:  Easy to implement, and easy for developers to understand.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+====== Reason why we chose alternative 1:
+Even though the memory usage of Alternative 2 is lesser, we do not feel this benefit of lesser memory usage
+outweighs the tedious cost of implementing the alternative.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+Furthermore, as we realise that each time the application starts, the memory of the address books states
+are cleared.
+This means that the cost of having alternative 1 is significantly lesser, as the memory of the address
+book states does not accumulate. As such, we
+decided to
+go with the first alternative.
+
 
 === Adding/editing photo feature
 ==== Implementation

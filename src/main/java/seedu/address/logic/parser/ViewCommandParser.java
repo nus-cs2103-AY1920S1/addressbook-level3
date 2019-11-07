@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.feature.Feature;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Parses input arguments and creates a new ViewCommand object
@@ -23,9 +23,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
-
         Feature feature = ParserUtil.parseFeature(trimmedArgs);
-
         return new ViewCommand(feature);
     }
 }

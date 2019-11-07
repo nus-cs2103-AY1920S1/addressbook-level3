@@ -15,7 +15,7 @@ public interface AttendanceStorage {
     /**
      * Returns the file path of the Attendance data file.
      */
-    Path getAddressBookFilePath();
+    Path getAthletickFilePath();
 
     Optional<Attendance> readAttendance() throws DataConversionException, IOException;
 

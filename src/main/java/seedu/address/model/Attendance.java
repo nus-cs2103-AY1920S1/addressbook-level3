@@ -17,7 +17,7 @@ public class Attendance {
     private List<Training> trainings;
 
     public Attendance() {
-        this.trainings = new ArrayList<>();
+        trainings = new ArrayList<>();
     }
 
     public Attendance(List<Training> trainings) {
@@ -88,7 +88,7 @@ public class Attendance {
      * Removes a training on the specified date.
      * @param date Training that occurred on this date will be removed.
      */
-    public void deleteTrainingOnDate(AthletickDate date) {
+    public Training deleteTrainingOnDate(AthletickDate date) {
         assert(hasTrainingOnDate(date));
         int index = 0;
         while (index < trainings.size()) {
@@ -98,11 +98,12 @@ public class Attendance {
             }
             index++;
         }
-        trainings.remove(index);
+        Training trainingToBeDeleted = trainings.remove(index);
+        return trainingToBeDeleted;
     }
 
     public List<Training> getTrainings() {
-        return trainings;
+        return this.trainings;
     }
 
     public int getPersonAttendedTrainings(Person person) {
@@ -165,5 +166,17 @@ public class Attendance {
             }
         }
         return null; // With assertion, code should not reach here.
+    }
+    public Training getTrainingOnDate(AthletickDate date) {
+        assert (this.hasTrainingOnDate(date));
+        for (Training training : trainings) {
+            if (date.equals(training.getDate())) {
+                return training;
+            }
+        }
+        return null; // With assertion, code should not reach here.
+    }
+    public void resetTrainingList(List<Training> newTrainingList) {
+        this.trainings = newTrainingList;
     }
 }

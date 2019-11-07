@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPerformance.EVENT_ONE;
 import static seedu.address.testutil.TypicalPerformance.EVENT_TWO;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class DeleteEventCommandTest {
     private static final String VALID_EVENT_NAME = "freestyle 50m";
     private static final String INVALID_EVENT_NAME = "hopscotch";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
         new Attendance(), new UserPrefs());
 
     @Test
@@ -32,7 +32,7 @@ public class DeleteEventCommandTest {
 
         String expectedMessage = String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, VALID_EVENT_NAME);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
             model.getAttendance(), new UserPrefs());
 
         expectedModel.deleteEvent(eventToDelete);
