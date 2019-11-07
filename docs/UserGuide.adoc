@@ -595,6 +595,9 @@ Shows all possible commands.
 * `help addprob`
 Shows command usage for `addprob` command.
 
+[NOTE]
+`help` command only searches commands' full command word. (i.e. aliases is not supported by `help`)
+
 ==== Clearing all entries : `clear`
 
 Clears all entries from AlgoBase. +
