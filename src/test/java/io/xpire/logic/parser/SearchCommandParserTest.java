@@ -3,6 +3,7 @@ package io.xpire.logic.parser;
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static io.xpire.model.ListType.XPIRE;
 
 import java.util.Arrays;
 
@@ -13,7 +14,7 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
 
-    private SearchCommandParser parser = new SearchCommandParser();
+    private SearchCommandParser parser = new SearchCommandParser(XPIRE);
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
@@ -29,7 +30,7 @@ public class SearchCommandParserTest {
     @Test
     public void parse_validArgs_returnsSearchCommand() {
         SearchCommand expectedSearchCommand =
-                new SearchCommand(new ContainsKeywordsPredicate(Arrays.asList("apple", "#Food", "#Fruit", "orange")));
+                new SearchCommand(XPIRE, new ContainsKeywordsPredicate(Arrays.asList("apple", "#Food", "#Fruit", "orange")));
 
         // no leading and trailing whitespaces
         assertEqualsParseSuccess(parser, "Apple|#Food|#Fruit|Orange", expectedSearchCommand);
