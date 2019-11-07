@@ -56,7 +56,7 @@ MoneyGoWhere comes preloaded with sample data to allow you to explore and famili
 
 +
 .User Interface of MoneyGoWhere
-image::Ui.png[width="800"]
+image::ui_annotate.png[width="1000"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* will display the help information.
