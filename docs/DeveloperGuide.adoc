@@ -462,8 +462,9 @@ a|Changing the original unit of item to the one input by user.
 |===
 
 === WasteList Feature
+//tag::editTemplateItemfeature[]
 
-=== Edit Template Item feature
+=== Edit Template Item Feature
 The edit template item mechanism is facilitated by `UniqueTemplateItems`, `TemplateList` and `TemplateToBeShown`.
 
 The `TemplateList` is an observable list of `UniqueTemplateItems` while the UniqueTemplateItems contains an observable list
@@ -532,6 +533,7 @@ Aspect: How edit command is parsed
 
 
 The following sequence diagram shows how the edit template item operation works for the logic component:
+//end::editTemplateItemfeature[]
 
 === MergeBought Feature
 
