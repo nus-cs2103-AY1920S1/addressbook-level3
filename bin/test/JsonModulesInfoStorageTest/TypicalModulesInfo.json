@@ -1,0 +1,33 @@
+{
+  "modulesInfo": [
+    {
+      "code": "CS2040S",
+      "name": "Data Structures and Algorithms",
+      "mc": 4,
+      "su": false,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "CS2040S description",
+      "prereqTreeString": "(AND CS1231S CS1101S)"
+    },
+    {
+      "code": "CS4248",
+      "name": "Natural Language Processing",
+      "mc": 4,
+      "su": false,
+      "isCore": false,
+      "focusPrimaries": [
+        "AI",
+        "MIR"
+      ],
+      "focusElectives": [
+      ],
+      "description": "CS4248 description",
+      "prereqTreeString": "(AND (OR CS3243 CS3245) ST2334)"
+    }
+  ]
+}
+

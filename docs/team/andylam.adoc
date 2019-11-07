@@ -7,19 +7,19 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifdef::env-github[]
-image::../docs/images/title.png[width="600"]
+image::title.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::../images/title.png[width="600"]
+image::title.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
-image::../docs/images/Ui.png[width="600"]
+image::Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::../images/Ui.png[width="600"]
+image::Ui.png[width="600"]
 endif::[]
 == Overview
 
@@ -71,7 +71,8 @@ CS ModBuddy is for those who prefer to use a desktop app for planning their modu
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=cli]
+include::../UserGuide.adoc[tag=addremovemod]
+include::../UserGuide.adoc[tag=undoredo]
 
 
 == Contributions to the Developer Guide
@@ -79,6 +80,7 @@ include::../UserGuide.adoc[tag=cli]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
 include::../DeveloperGuide.adoc[tag=logic]
 include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=userprofile]

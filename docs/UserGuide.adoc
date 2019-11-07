@@ -71,19 +71,30 @@ If there is only one possible completion, it will be filled immediately.
 If there is more than one possible completion, a menu of possible autocompletions
 is drawn that can be selected with the up and down buttons.
 
+// tag::undoredo[]
+
 ==== Undo-ing the previous command: `undo`
 Undo the previous command. The state of the application will revert back to that before the previous command. This command cannot undo itself. +
+
+[NOTE]
+The commands that make changes to the storage file, such as `commit`, cannot be undone.
+
 Format: `undo`
 
 ==== Redo-ing the previous undone command: `redo`
 Redo the previous undone command. The state of the application will revert back to that before the undo. This command cannot redo itself. +
+
 Format:  `redo`
+
+// tag::undoredo[] 
 
 ==== Error messages
 Displays a useful error message if the input is invalid. For example,
 it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
 
 === Module
+
+// tag::addremovemod[] 
 
 ==== Assigning a module to a given semester: `addmod`
 Assigns the specified module to a given semester of the current study plan. +
@@ -92,8 +103,6 @@ Examples:
 
 * `addmod y1s1 CS1101s`
 * `addmod y2s2 CS3244 CS3245 CS3233`
-* `addmod y1s1 ue`
-* `addmod y1s2 ue:GER1000`
 
 ==== Removing a module from a given semester. `removemod`
 Removes the specified module to a given semester of the current study plan. +
@@ -102,6 +111,8 @@ Examples:
 
 * `removemod y1s1 CS1101S`
 * `removemod y2s2 CS3244`
+
+// end::addremovemod[]
 
 ==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
@@ -511,3 +522,9 @@ Format: `declarefocusarea FOCUS_AREA`
 
 ==== Displays for an invalid study plan
 `[coming in v2.0]` The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
+
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Download the jar file in the other computer and overwrite the empty data folder it creates with the previous data folder containing the moduleplanner.json.
