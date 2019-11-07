@@ -202,7 +202,9 @@ public class LogicManager implements Logic {
     @Override
     public void setUserSettings() {
         boolean suggestionOn = addressBookParser.isSuggestionOn();
-        UserSettings userSettings = new UserSettings(suggestionOn);
+        UserSettings userSettings = new UserSettings(suggestionOn,
+            model.getUserSettings().getTimeToLiveAmount(),
+            model.getUserSettings().getTimeToLiveUnit());
         model.setUserSettings(userSettings);
     }
 

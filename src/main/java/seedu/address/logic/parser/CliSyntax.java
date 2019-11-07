@@ -6,6 +6,7 @@ import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.BinItemExpiryCommand;
 import seedu.address.logic.commands.DeleteCriteriaCommand;
 import seedu.address.logic.commands.DeletePolicyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
@@ -51,11 +52,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_COVERAGE = new Prefix("c/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_DAYS = new Prefix("days/", AddPolicyCommand.COMMAND_WORD,
-            EditPolicyCommand.COMMAND_WORD);
+            EditPolicyCommand.COMMAND_WORD, BinItemExpiryCommand.COMMAND_WORD);
     public static final Prefix PREFIX_MONTHS = new Prefix("months/", AddPolicyCommand.COMMAND_WORD,
-            EditPolicyCommand.COMMAND_WORD);
+            EditPolicyCommand.COMMAND_WORD, BinItemExpiryCommand.COMMAND_WORD);
     public static final Prefix PREFIX_YEARS = new Prefix("years/", AddPolicyCommand.COMMAND_WORD,
-            EditPolicyCommand.COMMAND_WORD);
+            EditPolicyCommand.COMMAND_WORD, BinItemExpiryCommand.COMMAND_WORD);
     public static final Prefix PREFIX_PRICE = new Prefix ("pr/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_START_AGE = new Prefix ("sa/", AddPolicyCommand.COMMAND_WORD,
@@ -72,6 +73,11 @@ public class CliSyntax {
     // To be used by user to switch suggestions on and off
     public static final Prefix PREFIX_ON = new Prefix("ON/", SuggestionSwitchCommand.COMMAND_WORD);
     public static final Prefix PREFIX_OFF = new Prefix("OFF/", SuggestionSwitchCommand.COMMAND_WORD);
+
+    // To be used for setting bin item expiry
+    public static final Prefix PREFIX_SECONDS = new Prefix("s/", BinItemExpiryCommand.COMMAND_WORD);
+    public static final Prefix PREFIX_MINUTES = new Prefix("mins/", BinItemExpiryCommand.COMMAND_WORD);
+    public static final Prefix PREFIX_HOURS = new Prefix("hrs/", BinItemExpiryCommand.COMMAND_WORD);
 
     // TODO: Add in alternative commands
 
