@@ -370,16 +370,6 @@ public class FinanceTracker {
         return remainingAmount;
     }
 
-    /**
-     * Lists all purchases and payments from this month.
-     */
-    public void listSpending() {
-        totalSpending = purchaseList.getTotalSpending() + installmentList.getTotalMoneySpentOnInstallments();
-        System.out.println("Here are your expenditures this month! Your current expenses are at: $" + totalSpending);
-        installmentList.toString();
-        purchaseList.toString();
-    }
-
     //=========== Common Methods ==================================================================================
 
     @Override

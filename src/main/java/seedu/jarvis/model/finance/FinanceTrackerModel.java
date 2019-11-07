@@ -165,12 +165,6 @@ public interface FinanceTrackerModel {
     Optional<MonthlyLimit> getMonthlyLimit();
 
     /**
-     * Lists all purchases and payments from this month.
-     *
-     */
-    void listSpending();
-
-    /**
      * Calculates total expenditure by user for this month.
      */
     double calculateTotalSpending();
