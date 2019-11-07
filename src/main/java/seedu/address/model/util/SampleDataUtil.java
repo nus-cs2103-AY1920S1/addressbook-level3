@@ -7,11 +7,6 @@ import java.util.stream.Collectors;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserState;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Description;
@@ -19,7 +14,7 @@ import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 
 /**
- * Contains utility methods for populating {@code BankAccount} with sample data.
+ * Contains utility methods for populating {@code UserState} with sample data.
  */
 public class SampleDataUtil {
     public static BankAccountOperation[] getSampleTransactions() {
@@ -33,7 +28,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a sample BankAccount containing sample transactions.
+     * Returns a sample UserState containing sample transactions.
      */
     public static ReadOnlyUserState getSampleAccount() {
         UserState sampleUserState = new UserState();
