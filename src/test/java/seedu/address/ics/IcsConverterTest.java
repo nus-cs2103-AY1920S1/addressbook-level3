@@ -109,7 +109,7 @@ public class IcsConverterTest {
         // validate end of ICS VEVENT object field.
         assertEquals("END:VEVENT", icsStringArr[6]);
     }
-    
+
     @Test
     public void toString_normalTask_icsConversion() {
         String description = "Test Description";
