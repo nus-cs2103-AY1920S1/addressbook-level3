@@ -52,16 +52,7 @@ public class WishList implements Iterable<Wish> {
      */
     public void setWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
-
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedWish) && contains(editedWish)) {
-            throw new DuplicateEntryException();
-        }
-
         internalList.set(index, editedWish);
     }
 

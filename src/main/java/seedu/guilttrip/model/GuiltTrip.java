@@ -478,6 +478,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         indicateModified();
     }
 
+
     /**
      * Replaces the given reminder {@code target} in the list with {@code editedTracker}.
      * {@code target} must exist in the guilttrip book.

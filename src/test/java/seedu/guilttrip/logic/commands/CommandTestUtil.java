@@ -5,6 +5,7 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.guilttrip.logic.CommandHistory;
@@ -57,6 +58,10 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NAME_EXPENSE_FOOD = "food";
     public static final String VALID_CATEGORY_NAME_EXPENSE_SHOPPING = "shopping";
     public static final String VALID_CATEGORY_NAME_INCOME = "Business";
+    //For Edit
+    public static final String VALID_NEW_CATEGORY_NAME = "learning";
+    public static final String VALID_OLD_CATEGORY_NAME = "food";
+
 
     //Category related Test Utils.
 
@@ -66,9 +71,15 @@ public class CommandTestUtil {
     public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
     public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
             + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+    //For Edit
+    public static final String CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_NEW_CATEGORY_NAME;
+    public static final String CATEGORY_NAME_FOR_EDIT_OLD = " " + PREFIX_OLD_NAME + VALID_OLD_CATEGORY_NAME;
+    public static final String INVALID_CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_OLD_CATEGORY_NAME;
+
 
     public static final String INVALID_CATEGORY_TYPE_BUDGET = " " + PREFIX_CATEGORY + "Budget";
     public static final String INVALID_CATEGORY_NAME = " " + PREFIX_DESC + "Alcohol";
+    public static final String INVALID_CATEGORY_NAME_FOR_EDIT = " " + PREFIX_OLD_NAME + "Alcohol";
 
     //Find related TestUtils.
     public static final String DESCRIPTION = "pgp cotton";

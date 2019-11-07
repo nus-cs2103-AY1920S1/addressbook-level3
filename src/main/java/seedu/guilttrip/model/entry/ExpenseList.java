@@ -56,13 +56,6 @@ public class ExpenseList implements Iterable<Expense> {
         requireAllNonNull(target, editedExpense);
 
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedExpense) && contains(editedExpense)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.set(index, editedExpense);
     }

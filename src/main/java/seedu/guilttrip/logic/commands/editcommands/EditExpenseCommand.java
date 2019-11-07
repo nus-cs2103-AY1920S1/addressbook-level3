@@ -51,7 +51,7 @@ public class EditExpenseCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This expense already exists in guiltTrip.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "There is no change in the entry that you are editing.";
 
     private final Index index;
     private final EditExpenseDescriptor editEntryDescriptor;
@@ -80,10 +80,9 @@ public class EditExpenseCommand extends Command {
         Expense entryToEdit = lastShownList.get(index.getZeroBased());
         Expense editedEntry = createEditedExpense(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasExpense(editedEntry)) {
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasExpense(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
-        System.out.println(editedEntry.toString());
         model.setExpense(entryToEdit, editedEntry);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();

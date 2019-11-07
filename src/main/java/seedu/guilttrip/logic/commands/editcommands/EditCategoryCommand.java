@@ -3,6 +3,7 @@ package seedu.guilttrip.logic.commands.editcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import javafx.collections.ObservableList;
@@ -24,12 +25,12 @@ public class EditCategoryCommand extends Command {
             + "by the name of the Category as well as the type of category whether it is expense or income. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE OF CATEGORY "
-            + PREFIX_CATEGORY + "CATEGORY NAME "
+            + PREFIX_CATEGORY + "TYPE OF CATEGORY "
+            + PREFIX_OLD_NAME + "CATEGORY OLD NAME "
             + PREFIX_DESC + "NEW NAME FOR CATEGORY "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "Expense "
-            + PREFIX_CATEGORY + "Food "
+            + PREFIX_CATEGORY + "Expense "
+            + PREFIX_OLD_NAME + "Food "
             + PREFIX_DESC + "Food And Drink ";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Category: %1$s";
@@ -158,9 +159,8 @@ public class EditCategoryCommand extends Command {
 
             // state check
             EditCategoryDescriptor e = (EditCategoryDescriptor) other;
-
             return getCategoryName().equals(e.getCategoryName())
-                    && getCategoryType().equals(e.getCategoryType());
+                    && getCategoryType().equalsIgnoreCase(e.getCategoryType());
         }
     }
 }

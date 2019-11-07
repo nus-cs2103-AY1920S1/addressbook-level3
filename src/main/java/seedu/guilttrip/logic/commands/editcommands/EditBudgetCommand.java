@@ -51,7 +51,8 @@ public class EditBudgetCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Budget: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guilttrip book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "There is no change in the entry that you are editing." +
+            "";
 
     private final Index index;
     private final EditBudgetDescriptor editEntryDescriptor;
