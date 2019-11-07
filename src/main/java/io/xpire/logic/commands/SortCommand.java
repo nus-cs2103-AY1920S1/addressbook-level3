@@ -35,8 +35,8 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         stateManager.saveState(new FilteredState(model));
-        model.sortItemList(this.method);
-        model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        model.sortXpire(this.method);
+        //model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
         setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS + " by " + method);
     }

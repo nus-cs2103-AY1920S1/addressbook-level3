@@ -1,13 +1,14 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
-import io.xpire.model.ReplenishList;
-import io.xpire.model.Xpire;
+import io.xpire.model.item.Item;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Clears all items in the list.
@@ -17,32 +18,23 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String COMMAND_SHORTHAND = "cl";
 
-    public static final String MESSAGE_SUCCESS = "Item list has been cleared!";
-    private String list;
+    public static final String MESSAGE_SUCCESS = "Current list has been cleared!";
 
-    public ClearCommand(String list) {
-        this.list = list;
+    private final ListType listType;
+
+    public ClearCommand(ListType listType) {
+        this.listType = listType;
     }
 
-    //@@author febee99
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new ModifiedState(model));
-        switch (list) {
-        case "main" :
-            model.setXpire(new Xpire());
-            model.setFilteredXpireItems(new FilteredList<>(model.getXpire().getItemList()));
-            model.setCurrentFilteredItemList(model.getFilteredXpireItemList());
-            break;
-        case "replenish":
-            model.setReplenishList(new ReplenishList());
-            model.setFilteredReplenishItems(new FilteredList<>(model.getReplenishList().getItemList()));
-            model.setCurrentFilteredItemList(model.getFilteredReplenishItemList());
-            break;
-        default:
-            break;
-        }
+
+        //remove list dependency on xpire/replenish internal list
+        ObservableList<? extends Item> currentList = FXCollections.observableArrayList(model.getCurrentList());
+        currentList.forEach(item -> model.deleteItem(this.listType, item));
+
         setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -50,9 +42,5 @@ public class ClearCommand extends Command {
     @Override
     public String toString() {
         return "Clear command";
-    }
-
-    public String getList() {
-        return this.list;
     }
 }

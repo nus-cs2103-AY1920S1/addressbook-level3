@@ -2,6 +2,7 @@ package io.xpire.logic;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
@@ -64,7 +65,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ViewCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, String.format(ViewCommand.MESSAGE_SUCCESS, "the"), model);
+        assertCommandSuccess(listCommand, String.format(ViewCommand.MESSAGE_SUCCESS, "main"), model);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class LogicManagerTest {
                 + "| " + VALID_QUANTITY_BANANA;
         XpireItem expectedXpireItem = new XpireItemBuilder(BANANA).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addItem(expectedXpireItem);
+        expectedModel.addItem(XPIRE, expectedXpireItem);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

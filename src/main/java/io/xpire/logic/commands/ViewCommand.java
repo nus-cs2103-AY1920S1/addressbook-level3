@@ -1,9 +1,9 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
-import io.xpire.model.item.ListToView;
 import io.xpire.model.state.FilteredState;
 import io.xpire.model.state.StateManager;
 
@@ -23,31 +23,21 @@ public class ViewCommand extends Command {
             + "Format: view|<key> (where key is 'main' or 'replenish')\n"
             + "Example: " + COMMAND_WORD + "|main";
 
-    private ListToView list = null;
+    private final ListType listType;
 
-    public ViewCommand() {
-    }
-
-    public ViewCommand(ListToView list) {
-        this.list = list;
+    public ViewCommand(ListType listType) {
+        this.listType = listType;
     }
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-        String output = String.format(MESSAGE_SUCCESS, "the");
-        if (list != null) {
-            output = String.format(MESSAGE_SUCCESS, list);
-            model.setCurrentFilteredItemList(list);
-        }
-        model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        setShowInHistory(true);
-        return new CommandResult(output);
-    }
 
-    public ListToView getList() {
-        return this.list;
+        model.setCurrentList(this.listType);
+
+        setShowInHistory(true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listType.toString()));
     }
 
     @Override

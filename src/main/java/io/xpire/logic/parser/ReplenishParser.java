@@ -3,6 +3,7 @@ package io.xpire.logic.parser;
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.commons.core.Messages.MESSAGE_XPIRE_COMMAND_ONLY;
+import static io.xpire.model.ListType.REPLENISH;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -62,17 +63,17 @@ public class ReplenishParser implements Parser {
         case ClearCommand.COMMAND_WORD:
             //fallthrough
         case ClearCommand.COMMAND_SHORTHAND:
-            return new ClearCommand("replenish");
+            return new ClearCommand(REPLENISH);
 
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser(REPLENISH).parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough
         case ViewCommand.COMMAND_SHORTHAND:
-            return new ViewCommandParser().parse(arguments);
+            return new ViewCommandParser(REPLENISH).parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             //fallthrough

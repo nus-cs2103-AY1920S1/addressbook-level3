@@ -1,38 +1,27 @@
 package io.xpire.model.state;
 
-import io.xpire.model.CloneModel;
+import java.util.logging.Logger;
+
+import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.Model;
-import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.ModelManager;
 
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. ModifiedState denotes
  * a state in which all the lists have been modified.
  */
-public class ModifiedState implements State {
+public class ModifiedState extends State {
 
-    private XpireMethodOfSorting method;
-    private CloneModel cloneModel;
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     public ModifiedState(Model model) {
-        this.method = model.getXpire().getMethodOfSorting();
-        this.cloneModel = clone(model, this.method);
-    }
-
-    /**
-     * Clones a complete copy of model.
-     */
-    public CloneModel clone(Model model, XpireMethodOfSorting method) {
-        return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
-                model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getListToView(), method);
-    }
-
-    public CloneModel getCloneModel() {
-        return this.cloneModel;
-    }
-
-    public XpireMethodOfSorting getMethod() {
-        return this.method;
+        try {
+            build(model);
+        } catch (ClassCastException e) {
+            logger.warning("Predicate Type mismatch in ModifiedState");
+        }
+        this.stateType = StateType.MODIFIED;
+        this.cloneModel = clone(model, this.stateType);
     }
 
     @Override

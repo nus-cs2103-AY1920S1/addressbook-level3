@@ -60,7 +60,7 @@ public class SetReminderCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredXpireItemList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
         ReminderThreshold validThreshold = new ReminderThreshold("2");
         SetReminderCommand setReminderCommand = new SetReminderCommand(outOfBoundIndex, validThreshold);
 

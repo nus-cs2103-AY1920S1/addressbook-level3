@@ -27,13 +27,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         XpireItem xpireItem;
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
+        Quantity quantity;
         if (hasQuantity(arguments)) {
-            Quantity quantity = ParserUtil.parseQuantity(arguments[2]);
-            xpireItem = new XpireItem(name, expiryDate, quantity);
+            quantity = ParserUtil.parseQuantity(arguments[2]);
         } else {
-            xpireItem = new XpireItem(name, expiryDate);
+            quantity = new Quantity("1");
         }
-        return new AddCommand(xpireItem);
+        return new AddCommand(name, expiryDate, quantity);
     }
 
     private static boolean areArgumentsPresent(String...arguments) {
