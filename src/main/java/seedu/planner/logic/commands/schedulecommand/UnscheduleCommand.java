@@ -39,7 +39,7 @@ public class UnscheduleCommand extends UndoableCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
-            "INDEX",
+            "<INDEX>",
             Arrays.asList(PREFIX_DAY.toString()),
             new ArrayList<>(),
             new ArrayList<>(),

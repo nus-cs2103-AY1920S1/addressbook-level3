@@ -58,6 +58,7 @@ import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 import seedu.planner.ui.cards.AccommodationCardFull;
 import seedu.planner.ui.cards.ActivityCardFull;
+import seedu.planner.ui.cards.ActivityWithTimeCardFull;
 import seedu.planner.ui.cards.ContactCardFull;
 import seedu.planner.ui.cards.HelpCard;
 import seedu.planner.ui.panels.AccommodationListPanel;
@@ -273,6 +274,9 @@ public class CentralDisplay extends UiPart<Region> {
             i.getContact().ifPresent(contact ->
                     addContactInfo(contact, i.getIndex(), i.getDescription().orElse(""))
             );
+            i.getActivityWithTime().ifPresent(activityWithTime ->
+                    addActivityWithTimeInfo(activityWithTime, i.getIndex())
+            );
         }
     }
 
@@ -289,6 +293,11 @@ public class CentralDisplay extends UiPart<Region> {
     private void addActivityInfo(Activity activity, Index displayedIndex, String description) {
         infoList.getItems().add(
                 new ActivityCardFull(activity, displayedIndex.getOneBased(), description).getRoot());
+    }
+
+    private void addActivityWithTimeInfo(ActivityWithTime activityWithTime, Index displayedIndex) {
+        infoList.getItems().add(
+                new ActivityWithTimeCardFull(activityWithTime, displayedIndex.getOneBased()).getRoot());
     }
 
     /**

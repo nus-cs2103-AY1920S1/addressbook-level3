@@ -50,7 +50,7 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
-            "INDEX",
+            "<INDEX>",
             Arrays.asList(PREFIX_START_TIME.toString(), PREFIX_DAY.toString()),
             new ArrayList<>(),
             new ArrayList<>(),
