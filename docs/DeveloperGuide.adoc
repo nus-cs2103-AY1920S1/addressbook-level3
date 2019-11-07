@@ -276,6 +276,8 @@ The following sequence diagram shows how the export operation works:
 
 image::ExportSequenceDiagram.png[]
 
+NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
+
 The following activity diagram summarizes what happens when a user executes an export command:
 
 image::ExportActivityDiagram.png[width=320,height=480]
