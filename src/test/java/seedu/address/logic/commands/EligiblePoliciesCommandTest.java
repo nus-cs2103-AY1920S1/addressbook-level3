@@ -10,6 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPolicy.HEALTH_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
 
 import java.util.Arrays;
@@ -80,21 +82,21 @@ public class EligiblePoliciesCommandTest {
     @Test
     public void execute_validIndex_noPolicyFound() {
         String expectedMessage = String.format(MESSAGE_POLICIES_LISTED_OVERVIEW, 0);
-        EligiblePoliciesCommand command = new EligiblePoliciesCommand(INDEX_SECOND_PERSON);
-        Person person = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        EligiblePoliciesCommand command = new EligiblePoliciesCommand(INDEX_THIRD_PERSON);
+        Person person = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
         PolicyEligibleForPersonPredicate predicate = new PolicyEligibleForPersonPredicate(person);
         expectedModel.updateFilteredPolicyList(predicate);
         assertListPolicyCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_validIndex_singlePolicyFound() {
-        String expectedMessage = String.format(MESSAGE_POLICIES_LISTED_OVERVIEW, 1);
+    public void execute_validIndex_multiplePoliciesFound() {
+        String expectedMessage = String.format(MESSAGE_POLICIES_LISTED_OVERVIEW, 2);
         EligiblePoliciesCommand command = new EligiblePoliciesCommand(INDEX_FIRST_PERSON);
         Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PolicyEligibleForPersonPredicate predicate = new PolicyEligibleForPersonPredicate(person);
         expectedModel.updateFilteredPolicyList(predicate);
         assertListPolicyCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(LIFE_INSURANCE), model.getFilteredPolicyList());
+        assertEquals(Arrays.asList(HEALTH_INSURANCE, LIFE_INSURANCE), model.getFilteredPolicyList());
     }
 }
