@@ -8,6 +8,8 @@ import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_TYPE_INCOM
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_TYPE_BUDGET;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_NAME_EXPENSE_FOOD;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_TYPE_EXPENSE;
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.guilttrip.testutil.TypicalEntries.CATEGORY_BUSINESS;
@@ -33,6 +35,21 @@ public class AddCategoryCommandParserTest {
         // whitespace only preamble, Income
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + CATEGORY_TYPE_INCOME + CATEGORY_NAME_INCOME,
                 new AddCategoryCommand(expectedCategoryIncome));
+    }
+
+    @Test
+    public void parse_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT , AddCategoryCommand.MESSAGE_USAGE);
+
+        // missing category prefix
+        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + CATEGORY_NAME_EXPENSE, expectedMessage);
+
+        // missing Category name prefix
+        assertParseFailure(parser, CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD, expectedMessage);
+
+        // all prefixes missing
+        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD,
+                expectedMessage);
     }
 
     @Test

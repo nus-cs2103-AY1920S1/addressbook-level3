@@ -42,7 +42,6 @@ public class FindExpenseCommandParser implements Parser<FindExpenseCommand> {
     public FindExpenseCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
-
         List<Predicate<Entry>> predicateList = new ArrayList<Predicate<Entry>>();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();

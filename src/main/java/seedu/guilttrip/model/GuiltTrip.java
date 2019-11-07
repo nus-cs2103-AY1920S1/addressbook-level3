@@ -95,7 +95,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * contain duplicate entries.
      */
     public void setCategories(List<Category> expenseCategories, List<Category> incomeCategories) {
-        this.categoryList.setEntries(expenseCategories, incomeCategories);
+        this.categoryList.setCategories(expenseCategories, incomeCategories);
         indicateModified();
     }
 

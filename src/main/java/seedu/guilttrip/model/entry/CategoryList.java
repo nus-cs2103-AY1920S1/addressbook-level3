@@ -31,8 +31,10 @@ public class CategoryList {
      */
     private final ObservableList<Category> internalListForIncome = FXCollections.observableArrayList();
     private final ObservableList<Category> internalListForOtherEntries = FXCollections.observableArrayList();
-
-
+    private final ObservableList<Category> internalUnmodifiableListForIncome =
+            FXCollections.unmodifiableObservableList(internalListForIncome);
+    private final ObservableList<Category> internalUnmodifiableListForOtherEntries =
+            FXCollections.unmodifiableObservableList(internalListForOtherEntries);
     /**
      * Determines whether the category belongs to the expense list or the income category list.
      */
@@ -63,19 +65,21 @@ public class CategoryList {
         return typeOfCategory.stream().anyMatch(toCheck::equals);
     }
 
-    public void setEntries(List<Category> replacementExpenseList, List<Category> replacementIncomeList) {
+    public void setCategories(List<Category> replacementExpenseList, List<Category> replacementIncomeList) {
         requireNonNull(replacementExpenseList);
         requireNonNull(replacementIncomeList);
-        internalListForOtherEntries.setAll(replacementExpenseList);
-        internalListForIncome.setAll(replacementIncomeList);
+        this.internalListForOtherEntries.clear();
+        this.internalListForIncome.clear();
+        replacementExpenseList.stream().forEach(t -> add(t));
+        replacementIncomeList.stream().forEach(t -> add(t));
     }
 
     public ObservableList<Category> getInternalListForIncome() {
-        return internalListForIncome;
+        return internalUnmodifiableListForIncome;
     }
 
     public ObservableList<Category> getInternalListForOtherEntries() {
-        return internalListForOtherEntries;
+        return internalUnmodifiableListForOtherEntries;
     }
 
     /**
@@ -91,7 +95,7 @@ public class CategoryList {
             throw new CategoryNotFoundException();
         }
 
-        if (!target.equals(editedCategory) && contains(editedCategory)) {
+        if (target.equals(editedCategory) && contains(editedCategory)) {
             throw new DuplicateCategoryException();
         }
 
@@ -131,17 +135,16 @@ public class CategoryList {
         }
     }
 
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean categoriesAreUnique(List<Category> categoryToCheck) {
-        for (int i = 0; i < categoryToCheck.size() - 1; i++) {
-            for (int j = i + 1; j < categoryToCheck.size(); j++) {
-                if (categoryToCheck.get(i).isSameCategory(categoryToCheck.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CategoryList // instanceof handles nulls
+                && ((CategoryList) other).getInternalListForIncome().equals(internalListForIncome) // state check
+                && ((CategoryList) other).getInternalListForOtherEntries().equals(internalListForOtherEntries));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalListForIncome.hashCode() + internalListForOtherEntries.hashCode();
     }
 }
