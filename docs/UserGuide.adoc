@@ -75,17 +75,46 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
+// TBC: might remove this if we can't update it on time
+|======
+|Parameter |Constraints
+|`FILENAME` |`FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
+|`FOLDER_NAME` |`FOLDER_NAME` must be alphanumeric
+|`URL` |`URL` should have the format: `scheme://authority[/path][?query][\#fragment][/]` and adhere to the following
+constraints: +
+1. The scheme should be either 'http', 'https', 'ftp', or 'file', followed by '://'. +
+2. The authority should only contain alphanumeric characters and any of the characters `(.-_~!$&'*+,;=:@)`. +
+3. This can be followed by zero or more path segments. Each path segment begins with a '/' followed by zero or more
+alphanumeric or special characters. +
+4. Next, a URL may contain a query string, which begins with a '?'. +
+5. It may also contain a fragment after the query string (if present), which begins with a '#'. +
+6. Finally, a URL can end with an optional slash '/'.
+|======
+
 === Viewing help: *`help`*
 Shows the list of commands in the bookmark manager.
 
 Format: *`help`*
 
-=== Adding a bookmark: *`add`*
+=== Adding a bookmark: *add*
 
-Adds a bookmark to the bookmark manager.
+// Context: When to use this command?
+If you're browsing the web and want to bookmark a website, you can do so using the `add` command.
 
 Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* Type the name and URL of the bookmark to be added. `add u/this n/Homepage`
++
+image::AddCommandUi1.png[]
+// online tab, showing mark User Guide
+* The bookmark is added and can be viewed in the bookmark list.
++
+image::AddCommandUi2.png[]
+
+// More details about command constraints
 ****
 * A bookmark can have any number of tags (including 0).
 * `FOLDER` must be an existing folder (see <<folder>>).
@@ -93,19 +122,16 @@ Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
 e.g. `*add* u/this n/Homepage`
 ****
 
-Examples:
+Other examples:
 
-* `*add* u/this n/Homepage` +
-Bookmarks the current page and names it `Homepage`. The new bookmark contains
-a default remark of "-" and is added to the root folder since they are not
-specified.
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
-f/CS2103T r/Contains textbook & important deadlines` +
-Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
-The new bookmark's remark is `Contains textbook & important deadlines`.
+f/CS2103T r/Contains textbook & important deadlines`
++
+image::AddCommandExample1.png[]
+
 * `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
-Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
-`video` and `watchLater`.
++
+image::AddCommandExample2.png[]
 
 [[folder]]
 === Adding a new folder: *`folder`*
