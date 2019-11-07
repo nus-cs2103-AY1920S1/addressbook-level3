@@ -37,7 +37,7 @@ Denotes useful tips.
 
 // tag::quickStart[]
 == Quick Start
-Dive into LiBerry with our simple set-up guide a quick tour of our user interface and features!
+Dive into LiBerry with our simple set-up guide for a quick tour of our user interface and features!
 // need to elaborate here, add more egs
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -67,8 +67,8 @@ The following table shows the format used to describe each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find t/TITLE`, `BOOK_TITLE` is a parameter which can be used as `find t/Harry Potter`.
-* Items in square brackets are optional e.g. `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find t/TITLE`, `TITLE` is a parameter which can be used as `find t/Harry Potter`.
+* Items in square brackets are optional. E.g. `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
 * Curly brackets indicate that at least 1 of the optional parameters have to be given, e.g. `{ [t/TITLE] [a/AUTHOR] }` can be used as `t/Harry Potter`
 * Items with `...`​ after them can be used multiple times including zero times, e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
 * Parameters can be in any order e.g. if the command specifies `t/TITLE a/AUTHOR`, `a/AUTHOR t/TITLE` is also acceptable.
@@ -77,7 +77,7 @@ The following table shows the format used to describe each command.
 
 === Using Normal Mode
 
-The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use LiBerry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
+Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. Normal Mode also provides some utility commands to help the librarian use LiBerry. However, it is important to note that commands specific to Serve Mode cannot be used while in Normal Mode.
 
 ==== Viewing help : `help`
 
@@ -94,22 +94,21 @@ Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdu
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
-// * Only full words will be matched e.g. `Har` will not match `Harry`
-* Partial words will also be matched e.g. `Har` will match `Harry`
+* When searching by book titles and authors, partial words will also be matched e.g. `Har` will match `Harry`, `J` will match `J K Rowling` and `Jin Yong`
 * Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
-* `[NUMBER]` will list this `NUMBER` of books instead
+* `[NUMBER]` will limit the search to `NUMBER` books
 * `[t/TITLE]` will be used to search through book titles
 * `[a/AUTHOR]` will be used to search through or filter by authors
 * `[g/GENRE]` will be used to search through or filter by genre
 * `[sn/BOOK_SN]` will be used to search through book serial numbers
 * Only 1 of the following 3 flags can be used
-* `[-overdue]` will only show overdue books
-* `[-loaned]` will only show loaned books
-* `[-available]` will only show available books
+** `[-overdue]` will only show overdue books
+** `[-loaned]` will only show loaned books
+** `[-available]` will only show available books
 * Adding one of the following will sort the books such that:
-* `[-rated]` will list the top 10 highly rated books ** - Coming in v2.0**
-* `[-popular]` will list the top 10 most borrowed books ** - Coming in v2.0**
-* `[-new]` will list the 10 newest books ** - Coming in v2.0**
+** `[-rated]` will list the top 10 highly rated books ** - Coming in v2.0**
+** `[-popular]` will list the top 10 most borrowed books ** - Coming in v2.0**
+** `[-new]` will list the 10 newest books ** - Coming in v2.0**
 ****
 
 Examples:
@@ -123,7 +122,7 @@ Searches for children mystery books that are not on loan and show the first 3 en
 
 ==== Viewing a book: `info`
 
-Views more information about a book in the results list. +
+Views more information about a book in the displayed list. +
 Format: `info INDEX`
 
 ==== Clearing all entries : `clear`
