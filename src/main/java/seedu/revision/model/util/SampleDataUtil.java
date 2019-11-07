@@ -5,10 +5,15 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.builder.Diff;
 import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.RevisionTool;
-import seedu.revision.model.answerable.*;
+import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
 /**
