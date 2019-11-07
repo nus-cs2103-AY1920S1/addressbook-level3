@@ -446,7 +446,7 @@ Examples:
 ==== Edit item name: `tlist template edit`
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
-Format: `tlist n/TEMPLATENAME edit INDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
+Format: `tlist template edit INDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 
 ****
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
