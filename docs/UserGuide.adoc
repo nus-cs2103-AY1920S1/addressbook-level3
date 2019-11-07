@@ -45,10 +45,11 @@ This section contains the features and their respective commands
 * Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
+* Currently, our application does not support emoji.
 ====
 
 // tag::flashcard[]
-=== Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
+=== Add new flashcard: `add q>QUESTION a>ANSWER [c>CATEGORY]...`
 
 This command allows to you to add a new flashcard with question and answer. +
 `add q>What is CS2103T a>Software engineering`
@@ -70,7 +71,7 @@ image::AddStep2.png[width="600"]
 +
 image::AddStep3.png[width="600"]
 
-=== Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
+=== Edit an existing flashcard: `edit INDEX {fields wanted to edit}...`
 
 This command allows you to edit the flashcard with index corresponding to the
 display list with 1 or multiple fields +
@@ -92,7 +93,7 @@ image::EditStep2.png[width="600"]
 +
 image::EditStep3.png[width="600"]
 
-=== Delete flashcard: `delete [INDEX]`
+=== Delete flashcard: `delete INDEX`
 
 This command allows you the delete a
 particular flashcard with the index
@@ -114,7 +115,6 @@ image::DeleteStep2.png[width="600"]
 image::DeleteStep3.png[width="600"]
 
 === Clear all the flashcard: `clear`
-
 This command allows you to delete all the flashcard in the storage.
 
 To clear:
@@ -131,8 +131,9 @@ image::ClearStep2.png[width="600"]
 === Search for flashcards: `search`
 
 The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
+Current search function does not support fuzzy search, so remove punctuations when adding the flashcards or include the punctuations for searching
 
-==== Either the question or the answer matches the keyword(s): "search [keyword(s)]
+==== Either the question or the answer matches the keyword(s): "search KEYWORD(S)"
 
 This command allows you to search for flashcards with the question or answer matching the keyword(s).
 Multiple keywords are separated by a single space.
@@ -147,7 +148,7 @@ image::SearchStep1.png[width="600"]
 +
 image::SearchStep2.png[width="600"]
 
-==== Question matching the keyword(s) only: `searchqn [keyword(s)]`
+==== Question matching the keyword(s) only: `searchqn KEYWORD(S)`
 
 This command allows you to search for flashcards with the question matching the keyword(s).
 Multiple keywords are separated by a single space.
@@ -162,7 +163,7 @@ image::SearchqStep1.png[width="600"]
 +
 image::SearchqStep2.png[width="600"]
 
-==== Answer matching the keyword(s) only: `searchans [keyword(s)]`
+==== Answer matching the keyword(s) only: `searchans KEYWORD(S)`
 
 This command allows you to search for flashcards with the answer matching the keyword(s).
 Multiple keywords are separated by a single space.
@@ -196,7 +197,7 @@ to the flashcard list and scroll up and down to view the flashcards.
 +
 image::ListAllStep3.png[width="600"]
 
-=== List of category : `list [category]`
+=== List of category : `list CATEGORY`
 
 This command allows you to list all flashcards under one or multiple categories.
 Multiple keywords are separated by a single space.
@@ -217,7 +218,7 @@ image::ListcatStep3.png[width="600"]
 
 //end::flashcard[]
 
-=== Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>TASK d>DUE DATE`
 
 This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
@@ -237,7 +238,7 @@ image::deadline-entered.png[width="600"]
 
 `remind Math 04/11 1030`
 
-=== Remove deadline from list: `remove [index]`
+=== Remove deadline from list: `remove index`
 
 Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
 
@@ -276,20 +277,49 @@ This command rates the flashcard, depending on how well you answered the questio
 ==== End test
 You can stop the test any time simply by typing `end`.
 
+//@@author LeowWB
+=== Export flashcards to a file: `export c>CATEGORY p>FILE_PATH`
 
-=== Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
+You can use this command to export all your FlashCards in a particular category, to an external file.
+This may be useful if you wish to publish your FlashCards somewhere, print them out, or share them with a friend.
+The file will be located at the file path that you specify, and the format of the file will be inferred from the
+extension. We currently support exporting to JSON (.json) and document (.docx) file formats. +
+Example: `export c>CS2105 p>C:\Documents\cs2105.json`
 
-Exports all flashcards in the supplied category to an external document (`.docx`) file.
-Each flashcard will be represented as a question-and-answer pair.
-The document file will be created at the supplied file path.
+Suppose you have a category named `CS2105`, and you wanted to export the FlashCards in that category to an external file
+(so you can share them with your friend). Here's how you would go about this:
+
+. Type the example command given above into the command box (`export c>CS2105 p>C:\Documents\cs2105.json`), as shown below.
+
+. Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
+
+. Navigate to the directory that you specified in the command (in this case, it would be 'C:\Documents'). Sure enough, your exported file is there!
+
+NOTE: Only the questions and answers of FlashCards will be exported.
+
+CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
+It must also end in either `.json` or `.docx`.
+
+CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
 
 TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
 self-learning.
 
-WARNING: The given file path is required to end with `.docx` - this is because we currently only support
-exporting to document files.
+=== Import flashcards from a JSON file: `import p>FILE_PATH`
 
-`export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
+You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
+We currently only support importing from JSON (.json) files. +
+Example: `import p>C:\Downloads\cs2105.json`
+
+Suppose your friend has kindly exported some of his FlashCards for you to use. You've download the `.json` file that he sent you;
+now your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
+
+. Type the example command given above into the command box (`import p>C:\Downloads\cs2105.json`), as shown below.
+
+. Press **Enter** to execute the command. The results box will display a success message similar to the one shown in the screenshot below.
+Furthermore, the category panel on the left will now display the category of the newly-imported FlashCards!
+
+NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
 
 === Get the full list of commands: `help`
 
@@ -411,35 +441,38 @@ To exit:
 
 == Command Summary
 
-* Add new flashcard - `add [q>QUESTION] [a>ANSWER] [c>CATEGORY]…​` +
+* Add new flashcard - `add q>QUESTION a>ANSWER [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
-* Set a flashcard as bad - `bad [INDEX]` +
+* Set a flashcard as bad - `bad INDEX` +
 e.g.  `bad 2`
 * Show Calendar of Deadlines - `calendar`
 * Clear all the flashcard - `clear` +
 e.g. `clear`
-* Edit an existing flashcard - `edit [INDEX] {fields wanted to edit}…​` +
+* Edit an existing flashcard - `edit INDEX {fields wanted to edit}…​` +
 e.g.  `edit 2 c>CS2103`
-* Add a new Deadline - `deadline t>[TASK] d>[DUE DATE]` +
+* Add a new Deadline - `deadline t>TASK d>DUE DATE` +
 e.g.  `deadline t>Math Test d>01/10/2019`
-* Delete an existing flashcard - `delete [INDEX]` +
+* Delete an existing flashcard - `delete INDEX` +
 e.g.  `delete 10`
 * Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
+* Import flashcards from a JSON file - `import p>FILE_PATH` +
+e.g.  `import p>C:\Users\User\Documents\flashcards.json`
+* List all flashcards - list
 * List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
 * List all flashcards - 'listall'
-* Set user preference for reminders - `remind [category] DD/MM HHmm` +
+* Set user preference for reminders - `remind CATEGORY DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
-* Remove Deadline from list - `remove [INDEX]` +
+* Remove Deadline from list - `remove INDEX` +
 e.g.  `remove 2`
 * Search of flashcards - `search`
-** `search` [keyword(s)]  e.g `search c`
-** `searchqn` [keyword(s)]  e.g `searchqn pointer`
-** `searchans` [keyword(s)]  e.g `searchans name`
-* Start a certain topic of flashcards - `start [keyword]` +
+** `search` KEYWORD(S)  e.g `search c`
+** `searchqn` KEYWORD(S)  e.g `searchqn pointer`
+** `searchans` KEYWORD(S)  e.g `searchans name`
+* Start a certain topic of flashcards - `start KEYWORD` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
 * Change theme - `theme dark`

@@ -20,6 +20,7 @@ public class DocumentPathTest {
             "cheatsheetdotdocx",
             "cheat|sheet.docx",
             "*cheatsheet*.docx",
+            "cheatsheet.json",
             ""
         };
 
@@ -41,7 +42,6 @@ public class DocumentPathTest {
             "directory/cheatsheet.docx",
             "ChEAtShEAT.doCx",
             "../cheatsheet.docx",
-            "C:/Users/User/Desktop/[CS2105] Midterm Cheat Sheet (v2).docx",
             "~/Desktop/[CS2105] Midterm Cheat Sheet (v3).docx"
         };
 

@@ -67,13 +67,13 @@ public class StartCommand extends Command {
         if (tagName.isEmpty()) {
             return new LinkedList<>(model.getFlashCardList());
         }
-        CategoryContainsAnyKeywordsPredicate predicate = processSearchTerm();
+        CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
         model.updateFilteredFlashCardList(predicate);
         return new LinkedList<>(model.getFilteredFlashCardList());
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */
-    private CategoryContainsAnyKeywordsPredicate processSearchTerm() {
+    private CategoryContainsAnyKeywordsPredicate getSearchTermPredicate() {
         String[] tagList = tagName.split("\\s+");
         return new CategoryContainsAnyKeywordsPredicate(Arrays.asList(tagList));
     }

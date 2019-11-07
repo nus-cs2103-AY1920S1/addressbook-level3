@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -55,27 +57,6 @@ public class JsonExportPath extends ExportPath {
     }
 
     /**
-     * Helper method to get the directory path from a given String.
-     *
-     * @param jsonExportPathString String representing the full path of a JSON export file
-     * @return DirectoryPath representing the path of the most nested directory within the given String
-     */
-    private static DirectoryPath extractDirectoryPath(String jsonExportPathString) {
-        Path fullPath = Paths.get(jsonExportPathString);
-        int nameCount = fullPath.getNameCount();
-
-        if (nameCount == 1) {
-            return new DirectoryPath("./");
-        }
-
-        return new DirectoryPath(
-                fullPath
-                .subpath(0, nameCount - 1)
-                .toString()
-        );
-    }
-
-    /**
      * Helper method to get the JSON export file path from a given String.
      *
      * @param jsonExportPathString String representing the full path of a JSON export file
@@ -109,26 +90,18 @@ public class JsonExportPath extends ExportPath {
     @Override
     public void export(List<FlashCard> list) throws IOException {
         try {
-            JsonExportUtil.exportFlashCardsToJson(
-                    list, this
-            );
+            directoryPath.createIfNotPresent();
+            JsonExportUtil.exportFlashCardsToJson(list, this);
         } catch (IOException e) {
             throw e;
         }
     }
 
-    /**
-     * Converts this JsonExportPath into a String representing its absolute path
-     *
-     * @return String representing the absolute path of this JsonExportPath
-     */
     @Override
-    public String toAbsolutePathString() {
-        return this
-                .getPath()
-                .toAbsolutePath()
-                .normalize()
-                .toString();
+    public Optional<List<FlashCard>> importFrom() throws DataConversionException {
+        return JsonImportUtil.importFlashCardsFromJson(
+                this
+        );
     }
 
     @Override

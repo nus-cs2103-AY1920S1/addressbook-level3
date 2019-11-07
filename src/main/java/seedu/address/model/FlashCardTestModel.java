@@ -24,7 +24,6 @@ public class FlashCardTestModel {
     }
 
     public String getQuestion() {
-
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
         return currentFlashCard.getQuestion().toString();

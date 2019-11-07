@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Leow Wen Bin
 image::leowwb.png[width="150", align="left"]
-{empty}[] [https://github.com/leowwb[github]] [<<leowwb#, portfolio>>]
+{empty}[https://github.com/leowwb[github]] [<<leowwb#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Integration, Git
@@ -42,7 +42,7 @@ Responsibilities: Logic
 image::dalsontws.png[width="150", align="left"]
 {empty}[http://github.com/dalsontws[github]] [<<dalsontws#, portfolio>>]
 
-Role: Scheduler +
+Role: Project Management Lead +
 Responsibilities: Deliverables & Deadlines
 
 '''

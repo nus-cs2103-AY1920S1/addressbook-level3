@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.flashcard.FlashCard;
 
@@ -55,27 +56,6 @@ public class DocumentPath extends ExportPath {
     }
 
     /**
-     * Helper method to get the directory path from a given String.
-     *
-     * @param documentPathString String representing the full path of a document
-     * @return DirectoryPath representing the path of the most nested directory within the given String
-     */
-    private static DirectoryPath extractDirectoryPath(String documentPathString) {
-        Path fullPath = Paths.get(documentPathString);
-        int nameCount = fullPath.getNameCount();
-
-        if (nameCount == 1) {
-            return new DirectoryPath("./");
-        }
-
-        return new DirectoryPath(
-                fullPath
-                .subpath(0, nameCount - 1)
-                .toString()
-        );
-    }
-
-    /**
      * Helper method to get the document file path from a given String.
      *
      * @param documentFilePathString String representing the full path of a document
@@ -108,26 +88,11 @@ public class DocumentPath extends ExportPath {
     @Override
     public void export(List<FlashCard> list) throws IOException {
         try {
-            DocumentExportUtil.exportFlashCardsToDocument(
-                    list, this
-            );
+            directoryPath.createIfNotPresent();
+            DocumentExportUtil.exportFlashCardsToDocument(list, this);
         } catch (IOException e) {
             throw e;
         }
-    }
-
-    /**
-     * Converts this DocumentPath into a String representing its absolute path
-     *
-     * @return String representing the absolute path of this DocumentPath
-     */
-    @Override
-    public String toAbsolutePathString() {
-        return this
-                .getPath()
-                .toAbsolutePath()
-                .normalize()
-                .toString();
     }
 
     @Override
@@ -143,4 +108,10 @@ public class DocumentPath extends ExportPath {
         return directoryPath.hashCode() + documentFilePath.hashCode();
     }
 
+    @Override
+    public Optional<List<FlashCard>> importFrom() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException(
+                "Importing from document file is not supported."
+        );
+    }
 }
