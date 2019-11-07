@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-title Sequence Diagram for Delete Activity Command
+title Sequence Diagram for 'delete activity' command
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -8,6 +8,7 @@ participant ":PlannerParser" as PlannerParser LOGIC_COLOR
 participant "<<class>>\n:EventFactory" as EventFactory LOGIC_COLOR
 participant "<<class>>\n:CommandHistory" as CommandHistory LOGIC_COLOR
 participant ":DeleteActivityCommand" as DeleteActivityCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -26,10 +27,10 @@ deactivate PlannerParser
 LogicManager -> EventFactory : parse(command, model)
 activate EventFactory
 
-EventFactory --> LogicManager : undoableEvent
+EventFactory --> LogicManager : Event
 deactivate EventFactory
 
-LogicManager -> CommandHistory : addToUndoStack(undoableEvent)
+LogicManager -> CommandHistory : addToUndoStack(Event)
 activate CommandHistory
 CommandHistory --> LogicManager
 deactivate CommandHistory
@@ -46,6 +47,12 @@ DeleteActivityCommand -> ModelManager : deleteActivity(activityToDelete)
 activate ModelManager
 ModelManager --> DeleteActivityCommand
 deactivate ModelManager
+
+DeleteActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteActivityCommand : commandResult
+deactivate CommandResult
 
 DeleteActivityCommand --> LogicManager : commandResult
 deactivate DeleteActivityCommand

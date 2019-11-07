@@ -90,4 +90,5 @@ include::../UserGuide.adoc[tag=undoredocommand]
 |===
 
 include::../DeveloperGuide.adoc[tag=storageuml]
+include::../DeveloperGuide.adoc[tag=undoredo]
 
