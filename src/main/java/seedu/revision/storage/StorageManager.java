@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.commons.exceptions.DataConversionException;
-import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyHistory;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.UserPrefs;
 

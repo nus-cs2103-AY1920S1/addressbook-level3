@@ -49,7 +49,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs(), new History());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()),
+                new UserPrefs(), new History());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -71,7 +72,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs(), new History());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()),
+                new UserPrefs(), new History());
         expectedModel.setAnswerable(lastAnswerable, editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -84,7 +86,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs(), new History());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()),
+                new UserPrefs(), new History());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -102,7 +105,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()), new UserPrefs(), new History());
+        Model expectedModel = new ModelManager(new RevisionTool(model.getRevisionTool()),
+                new UserPrefs(), new History());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

@@ -8,8 +8,8 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyHistory;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.quiz.Statistics;
 
