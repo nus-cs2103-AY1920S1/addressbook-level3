@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+import io.xpire.model.ListType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,12 +42,12 @@ public class SortCommandTest {
         String expectedMessage = SortCommand.MESSAGE_SUCCESS + " by name";
         XpireMethodOfSorting xpireMethodOfSorting = new XpireMethodOfSorting("name");
         SortCommand command = new SortCommand(xpireMethodOfSorting);
-        expectedModel.sortItemList(xpireMethodOfSorting);
-        expectedModel.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        expectedModel.sortXpire(xpireMethodOfSorting);
+        expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
                 Arrays.asList(EXPIRED_APPLE, BANANA, DUCK, EXPIRING_FISH, JELLY, EXPIRED_MILK, EXPIRED_ORANGE),
-                model.getFilteredXpireItemList()
+                model.getCurrentList()
         );
     }
 
@@ -55,12 +56,12 @@ public class SortCommandTest {
         String expectedMessage = SortCommand.MESSAGE_SUCCESS + " by date";
         XpireMethodOfSorting xpireMethodOfSorting = new XpireMethodOfSorting("date");
         SortCommand command = new SortCommand(xpireMethodOfSorting);
-        expectedModel.sortItemList(xpireMethodOfSorting);
-        expectedModel.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        expectedModel.sortXpire(xpireMethodOfSorting);
+        expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
                 Arrays.asList(EXPIRED_MILK, EXPIRED_ORANGE, EXPIRED_APPLE, EXPIRING_FISH, BANANA, DUCK, JELLY),
-                model.getFilteredXpireItemList()
+                model.getCurrentList()
         );
     }
 }
