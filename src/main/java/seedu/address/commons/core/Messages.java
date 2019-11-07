@@ -34,6 +34,11 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_BORROWER = "Phone/Email is already in used! ";
     public static final String MESSAGE_NO_SUCH_BORROWER_ID = "No such borrower ID!";
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
+    public static final String MESSAGE_CANNOT_UNREGISTER_WHILE_SERVING =
+            "Cannot unregister currently served borrower!\nPlease exit serve mode before unregistering %1$s.";
+    public static final String MESSAGE_CANNOT_UNREGISTER_WITH_BOOKS_ON_LOAN =
+            "Cannot unregister %1$s!\n"
+            + "Please return books currently on loan or delete those books before unregistering.";
 
     // Loan messages
     public static final String MESSAGE_BOOK_ON_LOAN = "%1$s is already on loan!";
