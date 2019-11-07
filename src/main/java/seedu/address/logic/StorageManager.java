@@ -76,7 +76,7 @@ public class StorageManager implements ModelDataListener {
 
             this.model.setModelData(new ModelData(events, tasks));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageIoException();
         }
     }
 

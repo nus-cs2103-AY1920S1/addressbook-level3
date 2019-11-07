@@ -32,7 +32,7 @@ class CommandParserTest {
     private static CommandParser commandParser;
 
     @BeforeAll
-    static void setUp() {
+    static void beforeAll() {
         CommandKeywordParser keywordParser = new CommandKeywordParser();
         keywordParser.addCommand(COMMAND_KEYWORD, CommandStub::newBuilder);
         keywordParser.addCommand(ONE_ARGUMENT_COMMAND_KEYWORD, OneArgumentCommandStub::newBuilder);
