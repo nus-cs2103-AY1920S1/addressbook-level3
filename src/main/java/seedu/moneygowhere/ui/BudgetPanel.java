@@ -82,6 +82,10 @@ public class BudgetPanel extends UiPart<Region> {
         return defaultOutput;
     }
 
+    /**
+     * Sets the colour of the titleText to red.
+     * If user has exceeded the budget.
+     */
     private void updateTitleText() {
         if (amount - sum < 0) {
             titleText.setTextFill(Color.web("#FF0000"));
