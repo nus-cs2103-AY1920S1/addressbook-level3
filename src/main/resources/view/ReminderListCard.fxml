@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.Pane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -22,43 +22,37 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" prefWidth="407.0" spacing="5">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Pane fx:id="priorityPane" maxHeight="30.0" maxWidth="40.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="40.0">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                    <children>
-                        <Label fx:id="priorityLabel" minWidth="-Infinity" styleClass="cell_priority" textAlignment="CENTER" />
-                    </children>
-                </Pane>
-                <Label fx:id="description" styleClass="cell_big_label" text="\$first">
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin></Label>
-                <ImageView fx:id="statusIcon" pickOnBounds="true" preserveRatio="true">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                </ImageView>
-                <AnchorPane>
-                    <children>
-                        <ImageView fx:id="eventIcon" layoutY="8.800000190734863" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.799999809265138" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.8" AnchorPane.topAnchor="8.800000190734863" />
-                        <Label fx:id="date" styleClass="event_label" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="4.8" AnchorPane.topAnchor="5.0">
-                            <font>
-                                <Font name="Titan One" size="10.0" />
-                            </font></Label>
-                    </children>
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                </AnchorPane>
-            </HBox>
+            <AnchorPane>
+                <children>
+                    <Label fx:id="id" styleClass="cell_big_label" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <minWidth>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE" />
+                        </minWidth>
+                    </Label>
+                    <Pane fx:id="priorityPane" layoutY="17.600000381469727" maxHeight="30.0" maxWidth="40.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="25.0">
+                        <children>
+                            <Label fx:id="priorityLabel" minWidth="-Infinity" styleClass="cell_priority" textAlignment="CENTER" />
+                        </children>
+                    </Pane>
+                    <Label fx:id="description" layoutY="48.00000190734863" styleClass="cell_big_label" text="\$first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="23.60000000000001" AnchorPane.topAnchor="0.0">
+                        <padding>
+                            <Insets right="10.0" />
+                        </padding>
+                    </Label>
+                    <ImageView fx:id="statusIcon" layoutY="65.60000038146973" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
+                    <AnchorPane layoutY="65.60000038146973" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                            <ImageView fx:id="eventIcon" layoutY="8.800000190734863" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.799999809265138" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.8" AnchorPane.topAnchor="8.800000190734863" />
+                            <Label fx:id="date" styleClass="event_label" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="4.8" AnchorPane.topAnchor="5.0">
+                                <font>
+                                    <Font name="Titan One" size="10.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </AnchorPane>
         </VBox>
         <rowConstraints>
             <RowConstraints />
