@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_SENIOR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_LIFE_INSURANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LIFE_INSURANCE;

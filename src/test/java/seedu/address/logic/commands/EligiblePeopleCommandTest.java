@@ -9,10 +9,15 @@ import static seedu.address.logic.commands.CommandTestUtil.assertListPeopleComma
 import static seedu.address.logic.commands.CommandTestUtil.showPolicyAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_POLICY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_POLICY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_POLICY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_POLICY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_POLICY;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ASYRAF;
+import static seedu.address.testutil.TypicalPersons.KEITH;
+import static seedu.address.testutil.TypicalPersons.RACHEL;
+import static seedu.address.testutil.TypicalPersons.ROBIN;
+import static seedu.address.testutil.TypicalPersons.TAYYANG;
 
 import java.util.Arrays;
 
