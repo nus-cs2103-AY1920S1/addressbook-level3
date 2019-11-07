@@ -62,6 +62,12 @@ public class Money implements Comparable<Money> {
         return this.value.compareTo(ZERO_VALUE) < 0;
     }
 
+    /**
+     * Negate only for withdrawals
+     */
+    public void negate() {
+        this.value = this.value.negate();
+    }
 
     /**
      * Add 2 money value together.
@@ -74,15 +80,15 @@ public class Money implements Comparable<Money> {
         return new Money(this.value);
     }
 
-    //    /**
-    //     * Subtract a sum of money from this sum of money.
-    //     * @return a new Money object with the updated value
-    //     * @param other the money to be subtracted from this money.
-    //     */
-    //    public Money subtract(Money other) {
-    //        this.value = this.value.subtract(other.value);
-    //        return new Money(this.value);
-    //    }
+    /**
+     * Subtract a sum of money from this sum of money.
+     * @param other the money to be subtracted from this money.
+     * @return a new Money object with the updated value
+     */
+    public Money subtract(Money other) {
+        this.value = this.value.subtract(other.value);
+        return new Money(this.value);
+    }
 
     @Override
     public String toString() {

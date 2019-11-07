@@ -19,10 +19,15 @@ public class SavingsHistoryList implements Iterable<Savings> {
             FXCollections.unmodifiableObservableList(internalSavingsHistoryList);
 
     /**
-     * Adds a saving into the SavingsHistory.
-     */
-    public void add(Savings toAdd) {
+    * Adds a saving into the SavingsHistory.
+    * Where savings are checked for whether they are withdrawals, if they are, they will be negated only here.
+    * Before the saving is added into the savings history.
+    */
+    void add(Savings toAdd) {
         requireNonNull(toAdd);
+        if (toAdd.isWithdraw()) {
+            toAdd.makeWithdraw();
+        }
         internalSavingsHistoryList.add(toAdd);
     }
 
@@ -39,7 +44,6 @@ public class SavingsHistoryList implements Iterable<Savings> {
         return internalSavingsHistoryList.iterator();
     }
 
-    // For Tests
     @Override
     public boolean equals(Object other) {
         return other == this

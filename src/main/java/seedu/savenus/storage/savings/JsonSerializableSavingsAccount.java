@@ -5,57 +5,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
-import seedu.savenus.model.savings.CurrentSavings;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.SavingsAccount;
-import seedu.savenus.model.util.Money;
 
 /**
- * Immutable Savings Account that is serializable to JSON format.
+ * An Immutable Savings Account that is serializable to JSON format.
  */
 @JsonRootName(value = "savings-account")
 public class JsonSerializableSavingsAccount {
 
-    public static final String MESSAGE_MISSING_FIELD = "Missing current savings field";
-
-    private final String currentSaving;
+    private JsonAdaptedSavingsAccount savingsAccount;
 
     /**
-     * Constructs a {@code JsonSerializableSavingsAccount} with a current savings input.
+     * Construct a {@code JsonSerializableSavingsAccount} with the given savingsHistory.
      */
     @JsonCreator
-    public JsonSerializableSavingsAccount(@JsonProperty("current savings") String currSaving) {
-        this.currentSaving = currSaving;
+    public JsonSerializableSavingsAccount(@JsonProperty("savingsAccount") JsonAdaptedSavingsAccount savingsAccount) {
+        this.savingsAccount = savingsAccount;
     }
 
     /**
-     * Converts a given {@code ReadOnlySavingsAccount} into this class for Jackson use.
-     */
-    public JsonSerializableSavingsAccount(ReadOnlySavingsAccount source) {
-        this.currentSaving = source.getCurrentSavings().get().toString();
-    }
-
-    /**
-     * Converts this savings account into the model's {@code SavingsAccount} object.
+     * Converts a given {@code SavingsAccount} into this class for Jackson use.
      *
-     * @throws IllegalValueException if there are any data violations.
+     * @param savingsAccount future changes will not affect the created {@code JsonSerializableSavingsAccount}.
+     */
+    public JsonSerializableSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
+        this.savingsAccount = new JsonAdaptedSavingsAccount(savingsAccount);
+    }
+
+    /**
+     * Converts this savingsAccount into the model's {@code SavingsAccount} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
      */
     public SavingsAccount toModelType() throws IllegalValueException {
-
-        SavingsAccount savingsAccount = new SavingsAccount();
-
-        if (this.currentSaving == null) {
-            throw new IllegalValueException((String.format(MESSAGE_MISSING_FIELD,
-                    CurrentSavings.class.getSimpleName())));
-        }
-
-        if (CurrentSavings.isValidCurrentSaving(this.currentSaving)) {
-            throw new IllegalValueException((String.format(CurrentSavings.MESSAGE_CONSTRAINTS)));
-        }
-        if (new Money(this.currentSaving).isOutOfBounds()) {
-            throw new IllegalValueException(String.format(CurrentSavings.FLOATING_POINT_CONSTRAINTS));
-        }
-
-        return new SavingsAccount(new CurrentSavings(new Money(this.currentSaving)));
+        return this.savingsAccount.toModelType();
     }
 }

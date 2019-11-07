@@ -47,6 +47,16 @@ public class Savings {
         return this.isWithdraw;
     }
 
+    /**
+     * Labels a Saving as a withdrawal instead of a deposit
+     */
+    void makeWithdraw() {
+        // Sanity check again to ensure only a withdrawal can call this.
+        if (isWithdraw) {
+            this.savingsAmount.negate();
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("%.02f", savingsAmount.getAmount());

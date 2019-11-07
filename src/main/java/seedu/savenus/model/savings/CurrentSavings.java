@@ -12,7 +12,7 @@ import seedu.savenus.model.util.Money;
  */
 public class CurrentSavings {
     public static final String MESSAGE_CONSTRAINTS =
-            "Current Savings can only have 0 or 2 decimal places!";
+            "Current Savings can only have 0 or 2 decimal places! toh toh toh";
     public static final String FLOATING_POINT_CONSTRAINTS =
             "Due to limitations of Floating Point, we are unable to allow your savings to exceed $1,000,000";
 
