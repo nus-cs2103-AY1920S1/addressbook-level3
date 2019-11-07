@@ -26,7 +26,7 @@ import seedu.sugarmummy.model.recmf.predicates.FoodNameContainsKeywordsPredicate
 import seedu.sugarmummy.model.recmf.predicates.FoodTypeIsWantedPredicate;
 
 /**
- * Parses input arguments and creates a new RecmFoodCommand object
+ * Parses input arguments and creates a new RecmFoodCommand object.
  */
 public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
 

@@ -21,6 +21,7 @@ import seedu.sugarmummy.logic.commands.calendar.CalendarCommand;
 import seedu.sugarmummy.logic.commands.calendar.EventCommand;
 import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
 import seedu.sugarmummy.logic.commands.recmf.AddFoodCommand;
+import seedu.sugarmummy.logic.commands.recmf.DeleteFoodCommand;
 import seedu.sugarmummy.logic.commands.recmf.RecmFoodCommand;
 import seedu.sugarmummy.logic.commands.recmf.RecmMixedFoodCommand;
 import seedu.sugarmummy.logic.commands.recmf.ResetFoodDataCommand;
@@ -37,6 +38,7 @@ import seedu.sugarmummy.logic.parser.calendar.EventCommandParser;
 import seedu.sugarmummy.logic.parser.calendar.ReminderCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.logic.parser.recmf.AddFoodCommandParser;
+import seedu.sugarmummy.logic.parser.recmf.DeleteFoodCommandParser;
 import seedu.sugarmummy.logic.parser.recmf.RecmFoodCommandParser;
 import seedu.sugarmummy.logic.parser.records.AddCommandParser;
 import seedu.sugarmummy.logic.parser.records.DeleteCommandParser;
@@ -105,6 +107,9 @@ public class SugarMummyParser {
 
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);
+
+        case DeleteFoodCommand.COMMAND_WORD:
+            return new DeleteFoodCommandParser().parse(arguments);
 
         case ResetFoodDataCommand.COMMAND_WORD:
             return new ResetFoodDataCommand();
