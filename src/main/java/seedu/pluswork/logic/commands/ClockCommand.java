@@ -2,9 +2,9 @@ package seedu.pluswork.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.settings.ClockFormat;
+import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.settings.ClockFormat;
 
 /**
  * Allows user to set the clock format of +Work.
