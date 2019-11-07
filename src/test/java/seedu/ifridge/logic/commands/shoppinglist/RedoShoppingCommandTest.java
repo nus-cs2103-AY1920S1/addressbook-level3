@@ -17,6 +17,4 @@ public class RedoShoppingCommandTest {
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
             new UnitDictionary(new HashMap<String, String>()));
-
-
 }
