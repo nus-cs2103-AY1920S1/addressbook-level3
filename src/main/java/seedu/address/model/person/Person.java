@@ -81,7 +81,7 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && balance.equals(otherPerson.balance);
+            && balance.equals(otherPerson.balance);
     }
 
     @Override
