@@ -93,9 +93,9 @@ class SpendingComparatorTest {
                 Arrays.asList(builder4.build(), builder1.build(), builder3.build(), builder2.build()));
         spendingList.sort(spendingComparator);
 
-        // Apple, apple, applea, Banana
+        // Apple, Banana, apple, applea
         List<Spending> expectedSpendingList = new ArrayList<>(
-                Arrays.asList(builder1.build(), builder2.build(), builder3.build(), builder4.build()));
+                Arrays.asList(builder1.build(), builder4.build(), builder2.build(), builder3.build()));
 
         assertEquals(expectedSpendingList, spendingList);
     }
