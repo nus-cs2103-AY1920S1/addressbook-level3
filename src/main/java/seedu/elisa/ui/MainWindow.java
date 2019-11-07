@@ -316,9 +316,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.scrollUp();
             break;
         case "tabPane":
-            eventListPanel.scrollUp();
-            taskListPanel.scrollUp();
-            reminderListPanel.scrollUp();
+            if (logic.getVisualList() instanceof TaskList) {
+                taskListPanel.scrollUp();
+            } else if (logic.getVisualList() instanceof EventList) {
+                eventListPanel.scrollUp();
+            } else if (logic.getVisualList() instanceof ReminderList) {
+                reminderListPanel.scrollUp();
+            }
             break;
         default:
         }
@@ -335,9 +339,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.scrollDown();
             break;
         case "tabPane":
-            eventListPanel.scrollDown();
-            taskListPanel.scrollDown();
-            reminderListPanel.scrollDown();
+            if (logic.getVisualList() instanceof TaskList) {
+                taskListPanel.scrollDown();
+            } else if (logic.getVisualList() instanceof EventList) {
+                eventListPanel.scrollDown();
+            } else if (logic.getVisualList() instanceof ReminderList) {
+                reminderListPanel.scrollDown();
+            }
             break;
         default:
         }
