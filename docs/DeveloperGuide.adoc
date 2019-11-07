@@ -1,4 +1,4 @@
-= LiBerry- Developer Guide
+= LiBerry - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -725,9 +725,10 @@ image::FindSequenceDiagram.png[width="840]
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-.Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
 image:BookPredicateEmptyObjectDiagram.png[height="300"]
 image:BookPredicateFilledObjectDiagram.png[height="300"]
+
+.Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
 
 The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
 showing up to 5 books only. Notice that the rest of the fields in the object are null.

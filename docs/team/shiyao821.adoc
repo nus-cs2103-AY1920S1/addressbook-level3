@@ -103,8 +103,10 @@ include::../UserGuide.adoc[tag=UGshiyao3]
 
 include::../UserGuide.adoc[tag=UGshiyao1]
 
-*Purpose of Command*: +
-This command allows users to search through the entire catalog.
+|===
+| *Purpose of Command*: +
+This command allows users to search through the entire catalog._
+|===
 
 include::../UserGuide.adoc[tag=UGshiyao2]
 
@@ -115,7 +117,7 @@ include::../UserGuide.adoc[tag=UGshiyao2]
 |_Given below are sections I have contributed to in the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Book Finding is the main feature that I have implemented in LiBerry. The following is an extract from the Developer Guide
+Book Finding is the main feature that I have implemented in LiBerry. The following is an extract from the Developer Guide that describes and explains the feature.
 
----
+'''
 include::../DeveloperGuide.adoc[tag=bookFinding]
