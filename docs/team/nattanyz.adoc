@@ -4,9 +4,6 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: FlashCard Pro
-
----
-
 == Overview
 
 FlashCard Pro is an application designed for students who prefer to use a desktop app for managing flashcards. It is optimised for users who are comfortable with Command Line Interface-based interaction. 
@@ -31,8 +28,15 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 * *Major enhancement*: contributions to the GUI of the app.
 ** What I've done:
+*** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern. 
+// todo: attach screenshot here
+*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before focusing on integrating the GUI and CLI, and making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since. 
 ** Justification:
 ** Planned future enhancements:
+** Highlights:
+*** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library. 
+*** I can now build a JavaFX GUI (albeit a simpler one) programmatically, without using SceneBuilder, as I have done in the earlier stages of the project.
+*** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -40,23 +44,17 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 ** Project management:
 *** Wrote issues upon discovering bugs and assigned them to respective team members. 
 ** Documentation:
-*** I was quite involved in the conceptualisation of the project in its initial stages and was thus responsible for the first draft of the Introduction section of the User Guide. 
-*** Subsequently, I abstracted out the What is a flashcard? and Interacting with flashcards sections, making non-trivial improvements to the clarity of the writing in the process.
-*** I helped to clean up various sections of the User Guide, especially in the first draft, and made sure they abided by a consistent format.
+*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project. 
+*** Subsequently, I made non-trivial improvements to the clarity of the writing throughout the User Guide. In particular, I abstracted out the What is a flashcard? and Interacting with flashcards sections from the Introduction.
+*** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they abided by a consistent format.
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have 
 |===
