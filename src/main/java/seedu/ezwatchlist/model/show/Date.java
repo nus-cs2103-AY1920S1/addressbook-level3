@@ -7,13 +7,8 @@ import static java.util.Objects.isNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
-    // For now the date will be a string, since that is what the API returns it as.
     public static final String MESSAGE_CONSTRAINTS = "Dates can take any values, and it should not be blank";
     public static final String DEFAULT_VALUE = "?";
-    /*
-     * The first character of the date must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;

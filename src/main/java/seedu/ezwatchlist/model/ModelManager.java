@@ -46,7 +46,9 @@ public class ModelManager implements Model {
 
         this.watchList = new WatchList(watchList);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredShows = new FilteredList<>(this.watchList.getShowList());
+
         unWatchedList = new FilteredList<>(this.watchList.getShowList());
         updateUnWatchedShowList();
         watchedList = new FilteredList<>(this.watchList.getShowList());

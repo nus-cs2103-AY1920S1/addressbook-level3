@@ -8,7 +8,7 @@ import static java.util.Objects.isNull;
  */
 public class Actor {
     public static final String MESSAGE_CONSTRAINTS =
-            "Actor names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Actor names should only contain characters and spaces, and it should not be blank";
 
     /*
      * The first character of the actor name must not be a whitespace,

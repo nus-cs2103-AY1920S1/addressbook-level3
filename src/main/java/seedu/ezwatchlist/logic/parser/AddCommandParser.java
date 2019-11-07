@@ -17,7 +17,6 @@ import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.AddCommand;
 
-import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
@@ -45,6 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (ParseException e) {
             System.out.println(e);
         }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
                         PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME, PREFIX_ACTOR);
@@ -57,7 +57,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
-        EditCommand.EditShowDescriptor editShowDescriptor = new EditCommand.EditShowDescriptor();
         Date dateOfRelease;
         IsWatched isWatched;
         Description description;
@@ -67,7 +66,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
             dateOfRelease = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get());
         } else {
-            dateOfRelease = new Date(null);
+            dateOfRelease = new Date();
         }
 
         if (argMultimap.getValue(PREFIX_IS_WATCHED).isPresent()) {
@@ -96,12 +95,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (type.equals("movie")) {
             Movie movie = new Movie(name, description, isWatched, dateOfRelease, runningTime, actorList);
             return new AddCommand(movie);
-        } else if (type.equals("tv")) {
+        } else { // show type is "tv"
             TvShow tvShow = new TvShow(name, description, isWatched, dateOfRelease, runningTime, actorList,
                     0, 0, new ArrayList<>());
             return new AddCommand(tvShow);
         }
-        throw new ParseException("Type can only be 'movie' or 'tv'.");
     }
 
     /**

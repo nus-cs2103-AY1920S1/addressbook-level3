@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.WatchList;
 
-
 /**
  * Clears the watchlist.
  */
