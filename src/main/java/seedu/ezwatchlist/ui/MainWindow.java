@@ -332,6 +332,9 @@ public class MainWindow extends UiPart<Stage> {
                 if (commandResult.isExit()) {
                     handleExit();
                 }
+                if (commandResult.isShortCutKey()) {
+                    handleShortCutKey(commandResult.getFeedbackToUser());
+                }
                 return commandResult;
             }
             return commandResult;
