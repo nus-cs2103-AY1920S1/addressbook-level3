@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.util.CollectionUtil;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -103,7 +102,7 @@ public class EditDetailsCommand extends Command {
         Location updatedLocation = editRestaurantDescriptor.getLocation().orElse(restaurantToEdit.getLocation());
         Rating originalRating = restaurantToEdit.getRating();
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
-        ObservableList<Food> originalMenu = restaurantToEdit.getMenu();
+        List<Food> originalMenu = restaurantToEdit.getMenu();
         int originalQuantityOrdered = restaurantToEdit.getQuantityOrdered();
 
         return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu,

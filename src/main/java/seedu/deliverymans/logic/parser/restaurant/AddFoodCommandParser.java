@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
@@ -46,10 +44,7 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
         BigDecimal price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        ObservableList<Tag> foodTags = FXCollections.observableArrayList();
-        foodTags.addAll(tagList);
-
-        Food food = new Food(name, price, foodTags);
+        Food food = new Food(name, price, tagList);
 
         return new AddFoodCommand(food);
     }

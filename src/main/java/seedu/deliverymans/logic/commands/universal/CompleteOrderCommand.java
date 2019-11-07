@@ -70,7 +70,7 @@ public class CompleteOrderCommand extends Command {
         List<Restaurant> restaurants = model.getFilteredRestaurantList();
         for (Restaurant r : restaurants) {
             if (r.getName().equals(orderToComplete.getRestaurant())) {
-                r.updateQuantity(orderToComplete);
+                model.setRestaurant(r, r.updateQuantity(orderToComplete));
             }
         }
 

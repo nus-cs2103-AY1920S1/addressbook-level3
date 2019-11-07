@@ -40,7 +40,6 @@ public class DeleteFoodCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
         Food foodToDelete = restaurant.getMenu().get(targetIndex.getZeroBased());
-        restaurant.removeFood(foodToDelete);
 
         /*
         List<Order> orders = model.getFilteredOrderList().stream()
@@ -60,7 +59,9 @@ public class DeleteFoodCommand extends Command {
             model.setOrder(order, newOrder);
         }
          */
-        restaurant.updateQuantity(foodToDelete.getQuantityOrdered() * -1);
+        model.setRestaurant(restaurant, restaurant
+                .removeFood(foodToDelete)
+                .updateQuantity(foodToDelete.getQuantityOrdered() * -1));
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, foodToDelete));
     }
 

@@ -2,6 +2,7 @@ package seedu.deliverymans.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -221,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
 
-            foodListPanel = new FoodListPanel(editing.getMenu());
+            foodListPanel = new FoodListPanel(FXCollections.observableArrayList(editing.getMenu()));
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
             orderListPanel = new OrderListPanel(editing.getOrders(logic));
