@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.EditNotesCommand;
@@ -22,7 +22,7 @@ public class EditNotesCommandParser implements Parser<EditNotesCommand> {
     public EditNotesCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_CONTENT);
+                ArgumentTokenizer.tokenize(args, PREFIX_CLASSID, PREFIX_CONTENT);
 
         Index index;
 
@@ -33,9 +33,9 @@ public class EditNotesCommandParser implements Parser<EditNotesCommand> {
         }
 
         EditNotesDescriptor editNotesDescriptor = new EditNotesDescriptor();
-        if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_CLASSID).isPresent()) {
             editNotesDescriptor
-                    .setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get()));
+                    .setModuleCode(ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
             editNotesDescriptor.setContent(ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()));

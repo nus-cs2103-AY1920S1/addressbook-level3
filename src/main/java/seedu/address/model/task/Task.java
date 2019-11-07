@@ -38,7 +38,6 @@ public class Task {
         return marking;
     }
 
-
     /**
      * Returns true if both tasks has the same description.
      * This defines a weaker notion of equality between two tasks.

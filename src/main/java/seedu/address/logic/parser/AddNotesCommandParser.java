@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.note.AddNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
 
 /**
@@ -23,14 +23,14 @@ public class AddNotesCommandParser implements Parser<AddNotesCommand> {
      */
     public AddNotesCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_CONTENT);
+                ArgumentTokenizer.tokenize(args, PREFIX_CLASSID, PREFIX_CONTENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_CONTENT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSID, PREFIX_CONTENT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNotesCommand.MESSAGE_USAGE));
         }
 
-        ModuleCode module = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        ClassId module = ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
 
         Notes note = new Notes(module, content);
