@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,14 +10,12 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeGender;
 import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePhone;
@@ -41,7 +38,6 @@ class JsonAdaptedEmployee {
     private final String pay;
     private final String salaryPaid;
     private final String gender;
-    private final String joindate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -52,14 +48,13 @@ class JsonAdaptedEmployee {
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
                                @JsonProperty("id") String id, @JsonProperty("PayCommand") String pay,
                                @JsonProperty("paid") String salaryPaid,
-                               @JsonProperty("gender") String gender, @JsonProperty("joindate") String joindate,
+                               @JsonProperty("gender") String gender,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.id = id;
-        this.joindate = joindate;
         this.gender = gender;
         this.pay = pay;
         this.salaryPaid = salaryPaid;
@@ -80,7 +75,6 @@ class JsonAdaptedEmployee {
         pay = source.getEmployeePay().toString();
         salaryPaid = source.getEmployeeSalaryPaid().toString();
         gender = source.getEmployeeGender().gender;
-        joindate = source.getEmployeeJoinDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -126,15 +120,6 @@ class JsonAdaptedEmployee {
         }
         final EmployeeGender modelEmployeeGender = new EmployeeGender(gender);
 
-        if (joindate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EmployeeJoinDate.class.getSimpleName()));
-        }
-        if (!EmployeeJoinDate.isValidJoinDate(joindate)) {
-            throw new IllegalValueException(String.format(Messages.MESSAGE_DATE_INVALID, joindate));
-        }
-        LocalDate newJoinDate = LocalDate.parse(joindate, FORMATTER);
-        final EmployeeJoinDate modelEmployeeJoinDate = new EmployeeJoinDate(newJoinDate);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -184,7 +169,7 @@ class JsonAdaptedEmployee {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender,
                 modelEmployeePay, modelEmployeeSalaryPaid, modelEmployeePhone,
-                modelEmployeeEmail, modelEmployeeAddress, modelEmployeeJoinDate, modelTags);
+                modelEmployeeEmail, modelEmployeeAddress, modelTags);
     }
 
 }

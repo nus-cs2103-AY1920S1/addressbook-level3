@@ -54,12 +54,14 @@ public class EditEventCommand extends Command {
             + PREFIX_EVENT_NAME + "Drawing Competition "
             + PREFIX_EVENT_VENUE + "Utown Student Plaza";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event book.";
-    public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
-    public static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid manpower count needed. Free some"
-            + " employees before executing this command again!";
+    private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
+    private static final String MESSAGE_IDENTICAL_EVENT = "There is an identical event in the event book.";
+    private static final String MESSAGE_INVALID_DATES = "Invalid start/end dates! Start Date must be before End Date.";
+    private static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid Manpower Needed input."
+            + " You may not state a number that is below the current number of allocated employees. \n"
+            + "Free some employees before executing this command again!";
+    private static final String MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER =
+            "Free all allocated manpower before editing Event Date";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
@@ -79,20 +81,25 @@ public class EditEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList;
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            lastShownList = model.getFilteredEventList();
-        } else {
-            lastShownList = model.getFilteredScheduledEventList();
-        }
+        List<Event> lastShownList = MainWindow.getCurrentEventList(model);
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
         Event eventToEdit = lastShownList.get(index.getZeroBased());
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+        EventDate editedStartDate = editedEvent.getStartDate();
+        EventDate editedEndDate = editedEvent.getEndDate();
 
-        if (editedEvent.getStartDate().compareTo(editedEvent.getEndDate()) > 0) {
+        //Event has Manpower Allocated, EventDate is edited, prompts user to deallocate before Editing Dates.
+        if (!eventToEdit.isEventEmpty()
+                && !(eventToEdit.getStartDate().equals(editedStartDate)
+                && eventToEdit.getEndDate().equals(editedEndDate))) {
+            throw new CommandException(MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER);
+        }
+
+        //start date not before end date
+        if (editedStartDate.compareTo(editedEndDate) > 0) {
             throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
@@ -101,14 +108,14 @@ public class EditEventCommand extends Command {
         }
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+            throw new CommandException(MESSAGE_IDENTICAL_EVENT);
         }
 
-        long dateDifference = editedEvent.getStartDate().dateDifference(editedEvent.getEndDate());
+        long dateDifference = editedStartDate.dateDifference(editedEndDate);
 
         if (dateDifference > 90) {
             throw new CommandException(String.format(
-                    MESSAGE_DATE_BIG_RANGE, editedEvent.getStartDate(), editedEvent.getEndDate(), dateDifference));
+                    MESSAGE_DATE_BIG_RANGE, editedStartDate, editedEndDate, dateDifference));
         }
 
         model.setEvent(eventToEdit, editedEvent);
@@ -134,14 +141,12 @@ public class EditEventCommand extends Command {
         EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
         EventManpowerAllocatedList updatedManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
-        EventDateTimeMap updatedDateTimeMap = eventToEdit.getEventDateTimeMap();
-
+        EventDateTimeMap updatedDateTimeMap =
+                new EventDateTimeMap(eventToEdit.getEventDateTimeMap().getDateTimeMap());
 
         if (updatedStartDate != eventToEdit.getStartDate()
                 || updatedEndDate != eventToEdit.getEndDate()) {
             updatedDateTimeMap.flushEventDates(updatedStartDate, updatedEndDate);
-        } else { //Editing name, venue, tags will keep the ManpowerList & the DateTimeMap
-
         }
 
         return new Event(updatedEventName, updatedEventVenue,
@@ -179,7 +184,6 @@ public class EditEventCommand extends Command {
         private EventManpowerNeeded manpowerNeeded;
         private EventDate startDate;
         private EventDate endDate;
-        private EventManpowerAllocatedList manpowerAllocatedList;
         private Set<Tag> tags;
 
         public EditEventDescriptor() {

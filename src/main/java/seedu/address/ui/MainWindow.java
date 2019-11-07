@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +22,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,9 +46,13 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEventWindow fetchEventWindow;
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
-    private SummaryWindow summaryWindow;
+    private StatisticsWindow statisticsWindow;
     private ScheduleBox scheduleBox;
+    private StatisticsBox statisticsBox;
     private Finance finance;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     @FXML
     private StackPane financePlaceholder;
@@ -139,6 +148,9 @@ public class MainWindow extends UiPart<Stage> {
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
 
+        statisticsBox = new StatisticsBox(logic.getFullEventList(), logic, this);
+        statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
+
         finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
         financePlaceholder.getChildren().add(finance.getRoot());
 
@@ -164,6 +176,37 @@ public class MainWindow extends UiPart<Stage> {
     public static int getCurrentTabIndex() {
 
         return selectionModel == null ? 0 : selectionModel.getSelectedIndex();
+    }
+
+    /**
+     * Returns the current eventList that the user is referring to according to
+     * what tab he is on.
+     * @param model takes in a model to extract the eventList from
+     * @return an eventList that the user is referring to
+     */
+    public static List<Event> getCurrentEventList(Model model) {
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            return model.getFilteredEventList();
+        } else {
+            return model.getFilteredScheduledEventList();
+        }
+    }
+
+    /**
+     * Returns the updated version of the Current eventList that the user is referring
+     * to according to what tab he is on.
+     * @param model takes in a model to extract the eventList from
+     * @param predicate that updates the filtered eventList
+     * @return an updated eventList based on the predicate that the user is referring to
+     */
+    public static ObservableList<Event> getUpdatedCurrentEventList(Model model, Predicate predicate) {
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            model.updateFilteredEventList(predicate);
+            return model.getFilteredEventList();
+        } else {
+            model.updateFilteredScheduledEventList(predicate);
+            return model.getFilteredScheduledEventList();
+        }
     }
 
     /**
@@ -231,19 +274,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the date window or focuses on it if it's already opened.
+     * Opens the statistics window or focuses on it if it's already opened.
      */
     @FXML
-    public void generateSummary() {
-        if (summaryWindow != null) {
-            summaryWindow.hide();
+    public void generateDetail(String text) {
+        if (statisticsWindow != null) {
+            statisticsWindow.hide();
         }
-        summaryWindow = new SummaryWindow(logic);
-        summaryWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
-        if (!summaryWindow.isShowing()) {
-            summaryWindow.show();
+        statisticsWindow = new StatisticsWindow(logic);
+        statisticsWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        statisticsWindow.setLabelText(text);
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show();
         } else {
-            summaryWindow.focus();
+            statisticsWindow.focus();
         }
     }
 
@@ -303,12 +347,14 @@ public class MainWindow extends UiPart<Stage> {
                 generateDate();
             }
 
-            if (commandResult.getType().equals("Summary")) {
-                generateSummary();
-            }
-
             if (commandResult.getType().equals("Statistics")) {
                 selectionModel.select(3);
+                statisticsBox.generatePieChart();
+            }
+
+            if (commandResult.getType().equals("Detail")) {
+                selectionModel.select(3);
+                generateDetail(commandResult.getUiChange());
             }
 
             if (commandResult.getType().equals("Schedule_Update")) {
@@ -334,19 +380,6 @@ public class MainWindow extends UiPart<Stage> {
                 finance.updateCards();
             }
 
-            if (!commandResult.getType().equals("Finance")) {
-                selectionModel.select(0);
-            }
-
-
-            /*if (commandResult.isFetch()) {
-                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
-                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
-                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
-            } else {
-                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
-                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
-            }*/
             if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }

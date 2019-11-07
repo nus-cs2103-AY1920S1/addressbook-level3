@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
- * Frees employees associated with an event.
+ * Free employees associated with an event.
  */
 public class DeallocateCommand extends Command {
 

@@ -119,6 +119,13 @@ public class Event {
     }
 
     /**
+     * Checks if there are no manpower allocated to this Event.
+     */
+    public boolean isEventEmpty() {
+        return manpowerAllocatedList.isAnyManpowerAllocated();
+    }
+
+    /**
      * Assigns the EventDate-EventDayTime mapping to the EventDateTimeMap object.
      *
      * @param eventDate       Target Date to be assigned.
@@ -179,6 +186,7 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName())
+                && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate());
     }

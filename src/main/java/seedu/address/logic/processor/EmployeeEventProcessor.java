@@ -7,7 +7,7 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
 /**
- * Utility Methods that requires the processing of both Emplyoees and Events
+ * Utility Methods that requires the processing of both Employees and Events
  */
 public class EmployeeEventProcessor {
 
@@ -33,4 +33,5 @@ public class EmployeeEventProcessor {
                 .mapToDouble(event -> event.getEventTotalHours())
                 .sum();
     }
+
 }

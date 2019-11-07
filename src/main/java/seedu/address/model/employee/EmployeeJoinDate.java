@@ -13,7 +13,7 @@ public class EmployeeJoinDate {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public final LocalDate joinDate;
+    private final LocalDate joinDate;
 
     /**
      * Constructs a {@code EmployeeJoinDate}.
@@ -22,6 +22,10 @@ public class EmployeeJoinDate {
      */
     public EmployeeJoinDate(LocalDate joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public LocalDate getJoinDate() {
+        return joinDate;
     }
 
     /**

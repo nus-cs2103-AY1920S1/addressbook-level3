@@ -62,7 +62,7 @@ public class DisplayScheduleForYearMonthCommandTest {
     }
 
     @Test
-    public void execute_validYearMonthKeywords_noEventFound() {
+    public void execute_validYearMonthKeywordInput_noEventFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyYearMonthPredicate predicate = preparePredicate("01/2019");
         DisplayScheduleForYearMonthCommand command = new DisplayScheduleForYearMonthCommand(predicate);
@@ -72,7 +72,7 @@ public class DisplayScheduleForYearMonthCommandTest {
     }
 
     @Test
-    public void execute_validYearMonthKeywords_multipleEventFound() {
+    public void execute_validYearMonthKeywordInput_multipleEventFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyYearMonthPredicate predicate = preparePredicate("10/2019");
         DisplayScheduleForYearMonthCommand command = new DisplayScheduleForYearMonthCommand(predicate);
