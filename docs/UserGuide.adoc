@@ -76,9 +76,9 @@ Adds a person to the list of people +
 Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH g/GENDER`
 
 ****
-* `DATE_OF_BIRTH` are in the form `DD.MM.YYYY`.
-* `NAME` can take any values and should not be blank.
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank.
 * `ADDRESS` can take any values and should not be blank.
+* `DATE_OF_BIRTH` are in the form `DD.MM.YYYY`.
 * `GENDER` must either be `Male` or `Female`.
 * Exact input validations for `NRIC`, `PHONE_NUMBER`, `EMAIL` are specified in sections <<Incorrect NRIC Alert>>,
 <<Incorrect Contact Number Alert>>, and <<Incorrect Email Address Alert>> respectively.
@@ -94,18 +94,30 @@ New person added: John Doe NRIC: S0000001J Phone: 98765432 Email: johnd@example.
 ```
 // end::addperson[]
 
+// tag::addpolicy[]
 === Adding a policy: `addpolicy`
 
 Adds a policy to the list of policies +
 Format: `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] pr/PRICE [sa/START_AGE] [ea/END_AGE]`
 
 ****
-* Coverage time period is specified in days, years and months, in the format days/D months/M years/Y (e.g. 20 days, 11 months, 5 years is represented by days/20 months/11 years/5)
-* Price is specified in dollar ($) units.
+* `NAME` should only contain alphanumeric characters and spaces, and should not be blank.
+* `DESCRIPTION` should only contain alphanumeric characters, punctuation or whitespace, and should not be blank.
+The first character should be a alphanumeric character.
+* `COVERAGE` should contain valid day, month or year numbers. At least one of the optional fields of coverage (day, month or year)
+must be provided.
+* `PRICE` should start off with "$" and contain only numbers, and should not be blank
+* `START_AGE` and `END_AGE` should contain only numbers, and should not be blank. `START_AGE` must not exceed `END_AGE`.
 ****
 Examples:
 
 * `addpolicy n/SeniorCare d/Care for seniors c/days/20 months/11 years/5 pr/$50000 sa/50 ea/75`
+
+Expected Output:
+```
+New policy added: Seniorcare Description: Care for seniors Coverage: days/20 months/11 years/5 Price: $50000 Start Age: 50 End Age: 75
+```
+// end::addpolicy[]
 
 === Listing all persons : `listpeople`
 
@@ -126,6 +138,39 @@ Format: `listbin`
 
 Shows a list of all previously entered (valid) commands. +
 Format: `history`
+
+=== Expanding a profile: `expandperson`
+Expands the person details on the right panel.
+
+****
+* Expands the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Format:
+`expandperson INDEX`
+
+Displays details of person at index 1 on the right panel.
+
+Examples:
+
+`expandperson 1`
+
+=== Expanding a policy: `expandpolicy`
+Expands the policy details on the right panel.
+****
+* Expands the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Format:
+`expandpolicy INDEX`
+
+Examples:
+
+`expandpolicy 1`
+
+Displays details of policy at index 1 on the right panel.
 
 === Editing a person : `edit`
 
@@ -595,7 +640,7 @@ For each different attribute, there will be a prompt to suggest a change from th
 
 Examples:
 
-`add n/John Doe ic/S9999999J p/ e/ a/ age/30 g/Male`
+`add n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 dob/12.12.1992 g/Male`
 
 Expected Output:
 ```
@@ -622,26 +667,6 @@ Please press enter or 'yes' to proceed or 'no' to skip.
 ```
 
 // end::inputvalidation[]
-
-=== Expanding a profile: `expandperson`
-Expands the profile details on the right panel.
-
-Format:
-`expandperson INDEX`
-
-Examples:
-
-`expandperson 1`
-
-=== Expanding a policy: `expandpolicy`
-Expands the policy details on the right panel.
-
-Format:
-`expandpolicy INDEX`
-
-Examples:
-
-`expandpolicy 1`
 
 // tag::display[]
 === Display Indicator: `display`

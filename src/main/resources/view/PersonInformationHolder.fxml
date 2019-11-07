@@ -17,5 +17,6 @@
       <Label fx:id="address" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$email" />
       <Label fx:id="dateOfBirth" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$dob" />
+      <Label fx:id="gender" style="-fx-wrap-text: true;" styleClass="cell_small_label" text="\$gender" />
    </children>
 </VBox>

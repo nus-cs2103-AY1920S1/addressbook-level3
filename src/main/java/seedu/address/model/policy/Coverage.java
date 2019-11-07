@@ -19,10 +19,8 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 public class Coverage {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Coverage should only contain alphanumeric characters and spaces, and it should not be blank. "
-            + "All numbers have to be positive.\n"
-            + "Number of days can be at most 31.\n"
-            + "Number of months can be at most 12.\n";
+        "Coverage should contain valid day, month or year numbers, and should not be blank.";
+
     public static final String DATA_TYPE = "COVERAGE";
 
     /*
@@ -53,13 +51,6 @@ public class Coverage {
         this.coverage = coverage;
     }
 
-    public Period getPeriod(String days, String months, String years) {
-        int numberOfDays = Integer.parseInt(days);
-        int numberOfMonths = Integer.parseInt(months);
-        int numberOfYears = Integer.parseInt(years);
-        return Period.of(numberOfYears, numberOfMonths, numberOfDays);
-    }
-
     /**
      * Returns true if a given string is a valid coverage declaration.
      */
@@ -71,7 +62,7 @@ public class Coverage {
         String years = coverageBreakDown.get(yearIndex);
         boolean emptyOrMissingAllPrefixes = days.equals("0") && months.equals("0") && years.equals("0");
         boolean matchesRegex = days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX)
-                && years.matches(VALIDATION_REGEX);
+            && years.matches(VALIDATION_REGEX);
         if (!emptyOrMissingAllPrefixes && matchesRegex) {
             boolean isValidDay = Integer.parseInt(days) >= 0 && Integer.parseInt(days) <= 31;
             boolean isValidMonth = Integer.parseInt(months) >= 0 && Integer.parseInt(months) <= 12;
@@ -85,18 +76,24 @@ public class Coverage {
     private static ArrayList<String> getCoverageBreakDown(String coverage) {
         ArrayList<String> coverageBreakDown = new ArrayList<>();
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(" " + coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
+            ArgumentTokenizer.tokenize(" " + coverage, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS);
         String days = (argMultimap.getValue(PREFIX_DAYS).isPresent() ? argMultimap.getValue(PREFIX_DAYS).get() : "0");
         String months = (argMultimap.getValue(PREFIX_MONTHS).isPresent()
-                ? argMultimap.getValue(PREFIX_MONTHS).get() : "0");
+            ? argMultimap.getValue(PREFIX_MONTHS).get() : "0");
         String years = (argMultimap.getValue(PREFIX_YEARS).isPresent()
-                ? argMultimap.getValue(PREFIX_YEARS).get() : "0");
+            ? argMultimap.getValue(PREFIX_YEARS).get() : "0");
         coverageBreakDown.add(days);
         coverageBreakDown.add(months);
         coverageBreakDown.add(years);
         return coverageBreakDown;
     }
 
+    public Period getPeriod(String days, String months, String years) {
+        int numberOfDays = Integer.parseInt(days);
+        int numberOfMonths = Integer.parseInt(months);
+        int numberOfYears = Integer.parseInt(years);
+        return Period.of(numberOfYears, numberOfMonths, numberOfDays);
+    }
 
     @Override
     public String toString() {
@@ -117,8 +114,8 @@ public class Coverage {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Coverage // instanceof handles nulls
-                && coverage.equals(((Coverage) other).coverage)); // state check
+            || (other instanceof Coverage // instanceof handles nulls
+            && coverage.equals(((Coverage) other).coverage)); // state check
     }
 
     @Override

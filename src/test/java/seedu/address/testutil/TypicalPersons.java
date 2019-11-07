@@ -24,6 +24,7 @@ import static seedu.address.model.person.Gender.MALE;
 import static seedu.address.testutil.TypicalPolicy.FIRE_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.HEALTH_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
+import static seedu.address.testutil.TypicalPolicy.SENIOR_INSURANCE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,29 +40,62 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
+    // TODO: Change tag of alice and bension to meet policy req
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
         .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-        .withPhone("94351253").withDateOfBirth("12.12.1982").withGender("Female")
-        .withPolicies(HEALTH_INSURANCE).withTags("diabetic", "high blood pressure").build();
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Female")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("diabetic", "high blood pressure").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
         .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
-        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1942").withGender("Male")
-        .withPolicies(LIFE_INSURANCE).withTags("smoker", "disabled", "high blood pressure").build();
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922").withGender("Male")
+        .withPolicies(LIFE_INSURANCE).withTags("smoker", "disabled").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S0000003J")
         .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
-        .withDateOfBirth("6.6.1996").withGender("Male").withTags("asthmatic").build();
+        .withDateOfBirth("6.6.1996").withGender("Male").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withNric("S0000004J")
         .withPhone("87652533").withEmail("cornelia@example.com").withAddress("10th street")
-        .withDateOfBirth("14.2.2019").withGender("Male").withTags("tuberculosis").build();
+        .withDateOfBirth("14.2.2019").withGender("Male").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S0000005J")
         .withPhone("94822247").withEmail("werner@example.com").withAddress("michegan ave")
-        .withDateOfBirth("17.5.2000").withGender("Male").withTags("myopic").build();
+        .withDateOfBirth("17.5.2000").withGender("Male").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withNric("S0000006J")
         .withPhone("94824279").withEmail("lydia@example.com").withAddress("little tokyo")
-        .withDateOfBirth("15.8.2008").withGender("Female").withTags("pregnant").build();
+        .withDateOfBirth("15.8.2008").withGender("Female").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S0000007J")
         .withPhone("94824425").withEmail("anna@example.com").withAddress("4th street")
-        .withDateOfBirth("5.5.2015").withGender("Male").withTags("glaucoma").build();
+        .withDateOfBirth("5.5.2015").withGender("Male").build();
+    public static final Person ASYRAF = new PersonBuilder().withName("Asyraf")
+        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("smoker", "diabetic", "public housing").build();
+    public static final Person KEITH = new PersonBuilder().withName("Keith Tan")
+        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("smoker", "diabetic", "public housing").build();
+    public static final Person ROBIN = new PersonBuilder().withName("Robin")
+        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("smoker", "diabetic", "public housing").build();
+    public static final Person TAYYANG = new PersonBuilder().withName("Tay Yang")
+        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("smoker", "diabetic", "public housing").build();
+    public static final Person CHLOE = new PersonBuilder().withName("Chloe")
+        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
+        .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
+    public static final Person VICTORIA = new PersonBuilder().withName("Victoria")
+        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
+        .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
+    public static final Person NATASHA = new PersonBuilder().withName("Natasha")
+        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
+        .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
+    public static final Person RACHEL = new PersonBuilder().withName("Rachel")
+        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1932").withGender("Female")
+        .withPolicies(SENIOR_INSURANCE).withTags("high blood pressure", "diabetic").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withNric("S0123456H")
@@ -88,7 +122,8 @@ public class TypicalPersons {
     } // prevents instantiation
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL,
+            ELLE, FIONA, GEORGE, ASYRAF, KEITH, ROBIN, TAYYANG, CHLOE, VICTORIA, NATASHA, RACHEL));
     }
 
     public static Person getSinglePerson() {
@@ -97,24 +132,34 @@ public class TypicalPersons {
 
     public static ObservableMap<String, Integer> getTypicalPolicyPopularityBreakdown() {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
-        result.put(HEALTH_INSURANCE.getName().toString(), 1);
-        result.put(LIFE_INSURANCE.getName().toString(), 1);
-        result.put(FIRE_INSURANCE.getName().toString(), 0);
+        int totalTypicalHealthInsurance = 5;
+        int totalTypicalLifeInsurance = 4;
+        int totalTypicalFireInsurance = 5;
+        int totalTypicalSeniorInsurance = 1;
+        result.put(HEALTH_INSURANCE.getName().toString(), totalTypicalHealthInsurance);
+        result.put(LIFE_INSURANCE.getName().toString(), totalTypicalLifeInsurance);
+        result.put(FIRE_INSURANCE.getName().toString(), totalTypicalFireInsurance);
+        result.put(SENIOR_INSURANCE.getName().toString(), totalTypicalSeniorInsurance);
         return result;
     }
 
-    public static ObservableMap<String, Integer> getAgeGroupBreakdown() {
+    public static ObservableMap<String, Integer> getTypicalAgeGroupBreakdown() {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
-        result.put(BELOW_TWENTY, 4);
-        result.put(TWENTY_TO_SIXTYFOUR, 2);
-        result.put(ABOVE_SIXTYFIVE, 1);
+        int totalTypicalBelowTwenty = 4;
+        int totalTypicalTwentyToSixtyFive = 6;
+        int totalTypicalAboveSixtyFive = 5;
+        result.put(BELOW_TWENTY, totalTypicalBelowTwenty);
+        result.put(TWENTY_TO_SIXTYFOUR, totalTypicalTwentyToSixtyFive);
+        result.put(ABOVE_SIXTYFIVE, totalTypicalAboveSixtyFive);
         return result;
     }
 
-    public static ObservableMap<String, Integer> getGenderBreakdown() {
+    public static ObservableMap<String, Integer> getTypicalGenderBreakdown() {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
-        result.put(MALE, 5);
-        result.put(FEMALE, 2);
+        int totalTypicalMale = 9;
+        int totalTypicalFemale = 6;
+        result.put(MALE, totalTypicalMale);
+        result.put(FEMALE, totalTypicalFemale);
         return result;
     }
 }

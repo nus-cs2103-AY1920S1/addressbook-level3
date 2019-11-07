@@ -103,8 +103,8 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
 
-        addCommandToHistory(command, commandText);
         commandResult = command.execute(model);
+        addCommandToHistory(command, commandText);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
@@ -122,8 +122,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, isSystemInput);
 
-        addCommandToHistory(command, commandText);
         commandResult = command.execute(model);
+        if (!isSystemInput) {
+            addCommandToHistory(command, commandText);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

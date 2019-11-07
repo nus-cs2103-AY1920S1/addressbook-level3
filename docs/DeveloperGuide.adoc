@@ -225,7 +225,7 @@ image::MergeActivityDiagram.png[]
 === Display Feature
 ==== Implementation
 
-The `display` mechanism follows the Model-View-Controller framework. The model is facilitated by the `AddressBook`
+The `display` mechanism follows the Model-View-Controller design pattern. The model is facilitated by the `AddressBook`
 instance, which provides the data the controller needs.
 The controller is facilitated by an abstract class `DisplayController`, which extends `UIPart<Region>`.
 Every supported format controller extends this abstract class.
