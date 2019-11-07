@@ -29,7 +29,7 @@ So how did my team and I achieve the above goal with _TravEzy_?
 _TravEzy_ brings together essential features of popular travel-related applications: it is a one-stop solution 
 that makes it easier for travellers to *plan their trips*, *manage their expenses* and *record their memorable moments*. 
 
-The main features of our application are the calendar, itinerary, address book, financial tracker and diary.
+The main features of our application are the *calendar*, *itinerary*, *address book*, *financial tracker* and *diary*.
 
 = Reading This Document
 
