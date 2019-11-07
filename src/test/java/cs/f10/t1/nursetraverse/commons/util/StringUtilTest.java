@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
@@ -17,12 +18,12 @@ public class StringUtilTest {
     public void isNonZeroUnsignedInteger() {
 
         // EP: empty strings
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("  "));
+        assertThrows(NumberFormatException.class, () -> StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
+        assertThrows(NumberFormatException.class, () -> StringUtil.isNonZeroUnsignedInteger("  "));
 
         // EP: not a number
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("a"));
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("aaa"));
+        assertThrows(NumberFormatException.class, () -> StringUtil.isNonZeroUnsignedInteger("a"));
+        assertThrows(NumberFormatException.class, () -> StringUtil.isNonZeroUnsignedInteger("aaa"));
 
         // EP: zero
         assertFalse(StringUtil.isNonZeroUnsignedInteger("0"));
@@ -35,8 +36,9 @@ public class StringUtilTest {
         assertFalse(StringUtil.isNonZeroUnsignedInteger("+1"));
 
         // EP: numbers with white space
-        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 10 ")); // Leading/trailing spaces
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0")); // Spaces in the middle
+        // Leading/trailing spaces
+        assertTrue(StringUtil.isNonZeroUnsignedInteger(" 10 "));
+        assertThrows(NumberFormatException.class, () -> StringUtil.isNonZeroUnsignedInteger("1 0"));
 
         // EP: number larger than Integer.MAX_VALUE
         assertFalse(StringUtil.isNonZeroUnsignedInteger(Long.toString(Integer.MAX_VALUE + 1)));

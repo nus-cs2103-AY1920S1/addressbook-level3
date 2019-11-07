@@ -3,15 +3,15 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AppParser" as AppParser LOGIC_COLOR
 participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
 participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":AddressBook" as AddressBook MODEL_COLOR
-participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":PatientBook" as PatientBook MODEL_COLOR
+participant ":UniquePatientList" as UniquePatientList MODEL_COLOR
 end box
 
 box Util
@@ -19,14 +19,14 @@ participant ":CsvUtil" as CsvUtil MODEL_COLOR
 participant ":FileUtil" as FileUtil MODEL_COLOR
 end box
 
-[-> LogicManager : execute("export n/name i/1")
+[-> LogicManager : execute(...)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("export n/name i/1")
-activate AddressBookParser
+LogicManager -> AppParser : parseCommand(...)
+activate AppParser
 
 create ExportCommandParser
-AddressBookParser -> ExportCommandParser
+AppParser -> ExportCommandParser
 activate ExportCommandParser
 
 create ExportCommand
@@ -36,56 +36,31 @@ activate ExportCommand
 ExportCommand --> ExportCommandParser : e
 deactivate ExportCommand
 
-ExportCommandParser --> AddressBookParser : e
+ExportCommandParser --> AppParser : e
 deactivate ExportCommandParser
+ExportCommandParser -[hidden]-> AppParser : e
+destroy ExportCommandParser
 
-AddressBookParser --> LogicManager : e
-deactivate AddressBookParser
+AppParser --> LogicManager : e
+deactivate AppParser
 
 LogicManager -> ExportCommand : execute()
 activate ExportCommand
 
-ExportCommand -> Model : getStagedPersonList()
-activate Model
-
-Model --> ExportCommand : personList
-deactivate Model
-
-opt indexes provided
-    ExportCommand -> Model : getPersonsByIndexes(indexes)
-    activate Model
-    Model -> AddressBook : getPersonsByIndexes(indexes)
-    activate AddressBook
-    loop for each index
-        AddressBook -> UniquePersonList : getByIndex(index)
-        activate UniquePersonList
-        UniquePersonList --> AddressBook : person
-        deactivate UniquePersonList
-    end
-    AddressBook --> Model : personList
-    deactivate AddressBook
-    Model --> ExportCommand : personList
-    deactivate Model
+ref over ExportCommand, Model, PatientBook, UniquePatientList
+    get patient list
 end
 
-ExportCommand -> CsvUtil : writePersonsToCsv(personList, name)
-activate CsvUtil
-
-CsvUtil -> CsvUtil : getCsvStringsFromPersons(personList)
-CsvUtil -> FileUtil : createFile(name)
-activate FileUtil
-FileUtil --> CsvUtil
-deactivate FileUtil
-CsvUtil --> FileUtil : writeToFile(name, csvString)
-activate FileUtil
-FileUtil --> CsvUtil
-deactivate FileUtil
-
-CsvUtil --> ExportCommand
-deactivate CsvUtil
+ref over ExportCommand, CsvUtil, FileUtil
+    write patients to csv file
+end
 
 ExportCommand --> LogicManager : result
 deactivate ExportCommand
+ExportCommand -[hidden]-> LogicManager : result
+destroy ExportCommand
+
+[<-- LogicManager
 
 deactivate LogicManager
 

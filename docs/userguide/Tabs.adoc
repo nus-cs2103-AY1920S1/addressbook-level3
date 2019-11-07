@@ -1,0 +1,10 @@
+
+== Tabs
+
+This application uses 3 tabs to display its main information: "Patients", "Current Visit" and "Appointments".
+****
+* Click each tab to navigate to that tab.
+* Running a relevant command while on another tab e.g. (`pat-list` while on the "Current Visit" tab) will not trigger a change in tabs. This feature will only be available in v2.0.
+****
+
+

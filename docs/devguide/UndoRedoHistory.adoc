@@ -124,7 +124,17 @@ after) calling `Model#commit()`.
 
 ==== Logic
 
+In addition to `MutatorCommand` which was described earlier, the following logical classes are added:
 
+1. `UndoCommand` - Undoes a designated command in the history, or the previous one if no argument is specified. The
+`COMMAND_WORD` for this command is `app-undo`.
+2. `UndoCommandParser` - Parses input arguments and creates a new UndoCommand object.
+3. `RedoCommand` - Redoes the previous command if it was an undo. The `COMMAND_WORD` for this command is `app-redo`.
+
+`HistoryManager` checks the classes of commands pushed to the history and does not record
+them if they are instances of `UndoCommand` or `RedoCommand`. This ensures that successive `UndoCommand` s do
+not undo themselves instead of the desired data-modifying commands, requiring `RedoCommand` for
+the special case of undo reversion.
 
 ==== UI
 
@@ -155,3 +165,9 @@ making it much easier to use the multiple undo function.
 *** User has to switch to the history tab to view it.
 *** Less intuitive UX as the other tabs in the `TabPane` all display actual data
 such as `Patient`, `Visit`, and `Appointment` info, whereas history is app metadata.
+
+==== Use case
+
+The following sequence diagram illustrates what happens when an `app-undo 3` command is executed:
+
+image::UndoSequenceDiagram.png[]
