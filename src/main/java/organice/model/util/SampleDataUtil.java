@@ -110,9 +110,12 @@ public class SampleDataUtil {
         // Create Donors
         ArrayList<Donor> donorList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
+        int minDateIncrement = 30;
+        int maxDateIncrement = 150;
         for (; iterator < numPersons; iterator++, nricBody += Math.random() * (nricIncrementMax + 1)) {
-            // Random date within +5days
-            calendar.add(Calendar.DATE, (int) Math.random() * 4 + 1);
+            // Random date within +[30, 150) days
+            calendar.add(Calendar.DATE,
+                    (int) (Math.random() * ((maxDateIncrement - minDateIncrement) + 1) + minDateIncrement));
             Donor newDonor = new Donor(
                     new Type("donor"),
                     new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
@@ -132,7 +135,7 @@ public class SampleDataUtil {
                                     + TISSUETYPE_VALUES[(iterator + 5) % TISSUETYPE_VALUES.length]
                     ),
                     new Organ("kidney"),
-                    new OrganExpiryDate(OrganExpiryDate.DATE_FORMAT.format(Calendar.getInstance().getTime())),
+                    new OrganExpiryDate(OrganExpiryDate.DATE_FORMAT.format(calendar.getTime())),
                     new Status(Status.STATUS_NOT_PROCESSING)
             );
             donorList.add(newDonor);
