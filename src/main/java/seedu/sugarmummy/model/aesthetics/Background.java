@@ -134,7 +134,7 @@ public class Background {
         setIsBackgroundColour();
         String colour = isBackgroundColour
                 ? backgroundColour
-                : ImageTester.getDominantColour(backgroundPicPath);
+                : ImageAnalyser.getDominantColour(backgroundPicPath);
         dominantColour = new Colour(colour);
     }
 

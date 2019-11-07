@@ -853,6 +853,10 @@ changes.
 ** An illustration of the logic for handling a `bg` command is shown as follows:
 
 image::BackgroundActivityDiagram.png[]
+
+** The `ImageAnalyser` class used to determine a background image's dominant colour is inspired, collectively, by
+Zaz Gmy's https://stackoverflow.com/questions/10530426/how-can-i-find-dominant-color-of-an-image[code example] and user
+_mhshams_'s https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string[code snippet].
 //end::personalisedUserExperienceDgAestheticsPppPart4[]
 
 * For both `fontcolour` and `bg` commands, the StyleManager class of `Ui` is used to set the user’s intention of

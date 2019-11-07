@@ -205,9 +205,6 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgMotivationPppPar
 
 //Design Considerations
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart1]
-
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart2]
 
 ...
