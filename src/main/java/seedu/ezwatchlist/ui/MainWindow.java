@@ -26,6 +26,7 @@ import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.Logic;
+import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -55,23 +56,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private String currentTab;
     private Boolean isSearchLoading = false;
-    public void setIsSearchLoading() {
-        /*
-        if (!isSearchLoading) {
-            isSearchLoading = true;
-            contentPanelPlaceholder.getChildren().clear();
-            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
-        } else {
-            isSearchLoading = false;
-            contentPanelPlaceholder.getChildren().clear();
-            contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
-            currentTab = SEARCH_TAB;
-            move(currentButton, searchButton);
-            currentButton = searchButton;
-        }
-         */
-        isSearchLoading = !isSearchLoading;
-    }
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
@@ -364,27 +348,26 @@ public class MainWindow extends UiPart<Stage> {
                 return null;
              */
             //} else {
-                CommandResult commandResult = logic.execute(commandText, this);
-
+            CommandResult commandResult = logic.execute(commandText, this);
+            if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 if (commandResult.isShowHelp()) {
                     handleHelp();
                 }
-
                 if (commandResult.isExit()) {
                     handleExit();
                 }
-
                 return commandResult;
+            }
+            return commandResult;
             //}
         //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
-
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }catch (NullPointerException e) {
+        }catch (NullPointerException | InterruptedException e) {
             e.printStackTrace();
             return null;
         }
@@ -514,4 +497,16 @@ public class MainWindow extends UiPart<Stage> {
     public String getCurrentTab() {
         return currentTab;
     }
+
+    public void searchResultLogger(CommandResult commandResult) {
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+    }
+
+    public void setIsSearchLoading() {
+        isSearchLoading = !isSearchLoading;
+    }
+
+
 }

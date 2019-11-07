@@ -60,6 +60,7 @@ public class SearchCommand extends Command {
 
     private List<Show> searchResult = new ArrayList<>();
 
+    public boolean error = false;
     public SearchCommand(HashMap<String, List<String>> searchShowsHashMap) {
         nameList = searchShowsHashMap.get(KEY_NAME);
         typeList = searchShowsHashMap.get(KEY_TYPE);
@@ -95,6 +96,7 @@ public class SearchCommand extends Command {
                 searchByGenre(model);
             }
             if (searchResult.isEmpty()) {
+                error = true;
                 throw new CommandException(MESSAGE_USAGE);
             }
             /*else { // if has no name and actor to be searched

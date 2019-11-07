@@ -52,17 +52,6 @@ public class LogicManager implements Logic {
         if (command instanceof SearchCommand) {
             mainWindow.setIsSearchLoading();
             mainWindow.goToSearch();
-            System.err.println("HERE");/*
-            Runnable task = new RunnableCommand((SearchCommand) command, model);
-            Thread worker = new Thread(task);
-            worker.start();
-            if(((RunnableCommand) task).getCommandException() != null) {
-                throw ((RunnableCommand) task).getCommandException();
-            } else {
-                commandResult = ((RunnableCommand) task).getCommandResult();
-            }
-            //worker.sleep(1000);
-            */
             Task<CommandResult> task = new Task<CommandResult>() {
                 @Override
                 protected CommandResult call() throws Exception {
@@ -73,10 +62,11 @@ public class LogicManager implements Logic {
                 mainWindow.setIsSearchLoading();
                 mainWindow.goToSearch();
                 commandResult[0] = task.getValue();
+                mainWindow.searchResultLogger(commandResult[0]);
             });
             new Thread(task).start();
             return null;
-        }
+            }
         else {
             commandResult[0] = command.execute(model);
         }
@@ -85,7 +75,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult[0];
     }
 
