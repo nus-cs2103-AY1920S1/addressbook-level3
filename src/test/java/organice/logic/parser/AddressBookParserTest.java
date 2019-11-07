@@ -61,14 +61,12 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
-        String searchParams = ExactFindCommand.COMMAND_WORD + " n/Alice ic/S1111111A t/doctor";
-        ExactFindCommand command = (ExactFindCommand) parser.parseCommand(
-                ExactFindCommand.COMMAND_WORD + " " + searchParams);
+    public void parseCommand_exactFind() throws Exception {
+        String searchParams = ExactFindCommand.COMMAND_WORD + " n/Alice ic/S9058768D t/doctor";
+        ExactFindCommand command = (ExactFindCommand) parser.parseCommand(searchParams);
         //TODO: Replace ArgumentTokenizer with stub
         assertEquals(new ExactFindCommand(new PersonContainsPrefixesPredicate(ArgumentTokenizer
-                .tokenize(ExactFindCommand.COMMAND_WORD
-                        + " n/Alice ic/S1111111A t/doctor", PREFIX_NAME, PREFIX_NRIC, PREFIX_TYPE))), command);
+                .tokenize(" n/Alice ic/S9058768D t/doctor", PREFIX_NAME, PREFIX_NRIC, PREFIX_TYPE))), command);
     }
 
     @Test

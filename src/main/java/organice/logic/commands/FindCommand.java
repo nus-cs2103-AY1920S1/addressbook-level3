@@ -5,7 +5,6 @@ import static organice.commons.util.StringUtil.calculateLevenshteinDistance;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
-import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +34,8 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose prefixes are similar to any of"
             + " the specified prefix-keywords pairs (case-insensitive) and displays them as a list with index numbers."
             + "\nList of Prefixes: n/, ic/, p/, a/, t/, pr/, b/, d/, tt/, exp/, o/"
-            + "Parameters: PREFIX/KEYWORD [MORE_PREFIX-KEYWORD_PAIRS]...\n"
-            + "Example: " + COMMAND_WORD + " n/alice t/doctor";
+            + "\nParameters: PREFIX/KEYWORD [MORE_PREFIX-KEYWORD_PAIRS]..."
+            + "\nExample: " + COMMAND_WORD + " n/alice t/doctor";
 
     // Maximum Levenshtein Distance tolerated for a fuzzy match
     private static final int FUZZY_THRESHOLD = 5;
@@ -53,29 +52,32 @@ public class FindCommand extends Command {
      */
     private List<Person> fuzzyMatch(ArgumentMultimap argMultimap, List<Person> inputList) {
         // Fuzzy Match by Levenshtein Distance is not implemented for following prefixes:
-        // Age, Priority, BloodType, TissueType
+        // Type, Age, Priority, BloodType, TissueType
         // Typos in these fields have a very small Levenshtein Distance (LD) as typical field length is very small
 
         List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
         List<String> nricKeywords = argMultimap.getAllValues(PREFIX_NRIC);
         List<String> phoneKeywords = argMultimap.getAllValues(PREFIX_PHONE);
-        List<String> typeKeywords = argMultimap.getAllValues(PREFIX_TYPE);
 
         // List containing combined Levenshtein Distance of persons in inputList
         ArrayList<Integer> distanceList = new ArrayList<>();
 
         for (int i = 0; i < inputList.size(); i++) {
-            Person currentPerson = inputList.get(i);
             int combinedLevenshteinDistance = 0;
-            combinedLevenshteinDistance += nameKeywords.isEmpty() ? 0
-                    : findMinLevenshteinDistance(nameKeywords, currentPerson.getName());
-            combinedLevenshteinDistance += nricKeywords.isEmpty() ? 0
-                    : findMinLevenshteinDistance(nricKeywords, currentPerson.getNric().toString());
-            combinedLevenshteinDistance += phoneKeywords.isEmpty() ? 0
-                    : findMinLevenshteinDistance(phoneKeywords, currentPerson.getPhone().toString());
-            combinedLevenshteinDistance += typeKeywords.isEmpty() ? 0
-                    : findMinLevenshteinDistance(typeKeywords, currentPerson.getType().toString());
+            Person currentPerson = inputList.get(i);
 
+            // If all 3 fuzzy search parameters are empty, set all non-exact matches to be beyond threshold
+            // i.e. none of them will appear
+            if (nameKeywords.isEmpty() && nricKeywords.isEmpty() && phoneKeywords.isEmpty()) {
+                combinedLevenshteinDistance = FUZZY_THRESHOLD + 1;
+            } else {
+                combinedLevenshteinDistance += nameKeywords.isEmpty() ? 0
+                        : findMinLevenshteinDistance(nameKeywords, currentPerson.getName());
+                combinedLevenshteinDistance += nricKeywords.isEmpty() ? 0
+                        : findMinLevenshteinDistance(nricKeywords, currentPerson.getNric().toString());
+                combinedLevenshteinDistance += phoneKeywords.isEmpty() ? 0
+                        : findMinLevenshteinDistance(phoneKeywords, currentPerson.getPhone().toString());
+            }
             distanceList.add(i, combinedLevenshteinDistance);
         }
 
