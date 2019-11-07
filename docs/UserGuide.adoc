@@ -385,36 +385,26 @@ This command would not work if there are no activities scheduled in the day.
 
 Undo by one action +
 Format: `undo` +
-List of Undoable commands:
 
-* add activity/accommodation/contact/day
-* delete activity/accommodation/contact/day
-* edit activity/accommodation/contact
-* schedule
-* unschedule
-* optimise
-* autoschedule
-* clear
+// tag::undoredolist[]
+*List of UndoableCommand:*
+|===
+| add activity/ accommodation/ contact/ days
+| delete activity/ accommodation/ contact/ day
+| edit activity/ accommodation/ contact
+| schedule
+| unschedule
+| autoschedule
+| optimise
+| clear
+|===
+// end::undoredolist[]
 
 === Redo: `redo`
 
 Redo by one action. Any undoable command is able to be redone. +
 Format: `redo`
 // end::undoredocommand[]
-
-=== Look up history of inputs: `history`[Work in progress]
-
-Lists the inputs that have been entered +
-Format: `history`
-
-=== Saving the data: `save`[Work in progress]
-
-Saves the state of the program. If provided with a schedule name, it will add a new file with the schedule name. Else, it will simply save it to the current save file +
-Format: `save [SCHEDULE_NAME]`
-
-Examples:
-
-* `save japan_trip`
 
 === Loading the data: `load`[Work in progress]
 
@@ -425,7 +415,12 @@ Examples:
 
 * `load beijing`
 
-=== Export schedule: `export`[Work in progress]
+=== Look up history of inputs: `history`[Coming in v2.0]
+
+Lists the inputs that have been entered +
+Format: `history`
+
+=== Export schedule: `export`[Coming in v2.0]
 
 Exports the schedule into a pdf +
 Format: `export`

@@ -231,17 +231,7 @@ the previous UndoableCommand. +
 previous UndoCommand executed. +
 |===
 
-*List of UndoableCommand:*
-|===
-| add activity/ accommodation/ contact/ days
-| delete activity/ accommodation/ contact/ day
-| edit activity/ accommodation/ contact
-| schedule
-| unschedule
-| autoschedule
-| optimise
-| clear
-|===
+include::UserGuide.adoc[tag=undoredolist]
 
 *Step 1.* When a user inputs a command, the application will parse the input using PlannerParser and generate the
 Command object.

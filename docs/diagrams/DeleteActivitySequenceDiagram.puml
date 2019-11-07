@@ -23,7 +23,7 @@ activate PlannerParser
 PlannerParser --> LogicManager : command
 deactivate PlannerParser
 
-LogicManager -> EventFactory : parse((UndoableCommand) command, model)
+LogicManager -> EventFactory : parse(command, model)
 activate EventFactory
 
 EventFactory --> LogicManager : undoableEvent
