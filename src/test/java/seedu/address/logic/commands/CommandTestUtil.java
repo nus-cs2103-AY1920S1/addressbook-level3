@@ -166,6 +166,9 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             logger.info("expectedCommandResult\n" + expectedCommandResult.getFeedbackToUser());
             logger.info("result\n" + result.getFeedbackToUser());
+            logger.info("Are the CommandResults equal: " + expectedCommandResult.equals(result));
+            logger.info("Are the CommandResult feedbacks equal: " + expectedCommandResult.getFeedbackToUser()
+                    .equals(result.getFeedbackToUser()));
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
