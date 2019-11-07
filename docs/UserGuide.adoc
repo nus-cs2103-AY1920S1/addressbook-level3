@@ -226,12 +226,12 @@ Format: `pull-task { t/TYPE | #TAG | p/PRIORITY-LEVEL | f/FREQUENCY-LEVEL | d/DA
 
 ===== Example
 ----
-`pull-task t/todo`
-`pull-task #cs2106`
+pull-task t/todo
+pull-task #cs2106
 ----
 
-NOTE: `pull-task` is different from `find-task` so as to be clear when looking for tasks by task description only,
-and when looking for tasks based on specific attributes.
+NOTE: `pull-task` is different from `find-task` so as to make a clear distinction between looking for tasks
+by task description only (`find-task`), and looking for tasks based on specific attributes (`pull-task`).
 
 
 ==== Listing all tasks: `list-task`
