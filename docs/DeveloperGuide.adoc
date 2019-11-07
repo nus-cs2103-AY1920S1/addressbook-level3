@@ -151,7 +151,7 @@ Key differences between parsing in Configuration Mode and Quiz Mode:
 . Lastly, the `Model` is accessed to update the user's score history.
 
 [NOTE]
-`CommandResult` is built using a factory design to allow flexibility of values returned to the `LogicManager`.
+`CommandResult` is built using a builder design to allow flexibility of values returned to the `LogicManager`.
 To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
 Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
 //end::wilfred-logic[]

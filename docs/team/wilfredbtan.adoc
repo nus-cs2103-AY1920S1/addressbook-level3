@@ -28,7 +28,7 @@ Our team of 5 consists of 2 Year 4 Engineering Science students, a Year 4 Indust
 
 === About the Project
 
-This 13-week project was started as part of NUS' Software Engineering (CS2103/T) module. The team was required to
+This 7-week project was started as part of NUS' Software Engineering (CS2103/T) module. The team was required to
 to either morph or enhance an existing application (link:{ab3Url}/[Address Book - Level 3]). Our team decided to morph the project
 into the CS2103/T Revision Tool (RT) a desktop quiz application which allows users to create customised question banks
 and attempt the quizzes in an interactive manner. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
@@ -68,7 +68,8 @@ of many of the other features.
 
 ** Enhancements to existing features:
 *** Updated the GUI colour scheme and added aesthetic artifacts such as level label (PR link:{pullUrl}/98[#98], link:{pullUrl}/148[#148])
-*** Created skeleton class for `AnswerableBuilder` using Java Generics and the factory class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
+*** Created skeleton class for `AnswerableBuilder` using Java Generics and the builder class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
+*** Adapted CommandResult to follow the builder design pattern .
 
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide link:{pullUrl}

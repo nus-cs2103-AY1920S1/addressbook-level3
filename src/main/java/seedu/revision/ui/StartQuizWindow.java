@@ -15,6 +15,7 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
@@ -159,18 +160,18 @@ public class StartQuizWindow extends Window {
 
             if (commandResult.isExit()) {
                 handleExit();
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
                     && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd(currentAnswerable);
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd(currentAnswerable);
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);

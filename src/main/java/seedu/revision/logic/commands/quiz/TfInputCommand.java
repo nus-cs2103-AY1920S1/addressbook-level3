@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -40,7 +41,7 @@ public class TfInputCommand extends Command {
             break;
         case "n":
             result = "wrong";
-            return new CommandResult().withFeedBack(result).build();
+            return new CommandResultBuilder().withFeedBack(result).build();
         default:
             selectedAnswer = null;
         }
@@ -48,7 +49,7 @@ public class TfInputCommand extends Command {
         requireNonNull(selectedAnswer);
         result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
-        return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
+        return new CommandResultBuilder().withFeedBack(result).build();
     }
 
 

@@ -32,9 +32,9 @@ public class HistoryCommand extends Command {
         requireNonNull(model);
         ObservableList<Statistics> history = model.getStatisticsList();
         if (history.isEmpty()) {
-            return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
+            return new CommandResultBuilder().withFeedBack("You have not attempted any quizzes yet!").build();
         }
-        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS + history + "\nYou have attempted "
+        return new CommandResultBuilder().withFeedBack(String.format(MESSAGE_SUCCESS + history + "\nYou have attempted "
                 + history.size() + " quizzes so far.")).withHistory(true).build();
     }
 }

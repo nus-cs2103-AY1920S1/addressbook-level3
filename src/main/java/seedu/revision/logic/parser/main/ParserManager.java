@@ -112,11 +112,8 @@ public class ParserManager {
 
         final String commandWord = matcher.group("commandWord");
 
-        switch (commandWord) {
-        case ExitCommand.COMMAND_WORD:
+        if (commandWord.equalsIgnoreCase(ExitCommand.COMMAND_WORD)) {
             return new ExitCommand();
-        default:
-            break;
         }
 
         if (currentAnswerable instanceof Mcq) {
