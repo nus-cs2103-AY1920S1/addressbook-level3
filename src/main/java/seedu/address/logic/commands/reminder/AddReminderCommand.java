@@ -42,6 +42,7 @@ public class AddReminderCommand extends Command {
         requireNonNull(model);
 
         model.addReminder(toAdd);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 false, false, false, false, false,
                 false, false, true);

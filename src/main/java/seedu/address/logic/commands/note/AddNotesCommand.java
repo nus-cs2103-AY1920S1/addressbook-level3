@@ -43,6 +43,7 @@ public class AddNotesCommand extends Command {
         }
 
         model.addNotes(toAdd);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 false, false, false, false, false,
                 false, true, false);

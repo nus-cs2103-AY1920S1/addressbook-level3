@@ -35,7 +35,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -58,6 +58,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getTutorAid(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
+        expectedModel.commitTutorAid();
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

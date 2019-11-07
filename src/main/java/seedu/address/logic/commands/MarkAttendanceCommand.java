@@ -61,6 +61,7 @@ public class MarkAttendanceCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_MARK_SUCCESS),
                 false, false, false, false, false,
                 true, false, false);

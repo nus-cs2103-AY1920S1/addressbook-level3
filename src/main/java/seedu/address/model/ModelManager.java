@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static boolean loggedIn = false;
 
-    private final TutorAid tutorAid;
+    private final VersionedTutorAid versionedTutorAid;
     private final UserPrefs userPrefs;
     private Account account;
     private final FilteredList<Person> filteredPersons;
@@ -40,24 +40,25 @@ public class ModelManager implements Model {
     private final FilteredList<Reminder> filteredReminder;
     private final FilteredList<Notes> filteredNotes;
 
+
     /**
-     * Initializes a ModelManager with the given tutorAid and userPrefs.
+     * Initializes a ModelManager with the given versionedTutorAid and userPrefs.
      */
-    public ModelManager(ReadOnlyTutorAid tutorAid, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTutorAid versionedTutorAid, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(tutorAid, userPrefs);
+        requireAllNonNull(versionedTutorAid, userPrefs);
 
-        logger.fine("Initializing with address book: " + tutorAid + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + versionedTutorAid + " and user prefs " + userPrefs);
 
-        this.tutorAid = new TutorAid(tutorAid);
+        this.versionedTutorAid = new VersionedTutorAid(versionedTutorAid);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.tutorAid.getPersonList());
-        filteredEarnings = new FilteredList<>(this.tutorAid.getEarningsList());
-        filteredCommands = new FilteredList<>(this.tutorAid.getCommandsList());
+        filteredPersons = new FilteredList<>(this.versionedTutorAid.getPersonList());
+        filteredEarnings = new FilteredList<>(this.versionedTutorAid.getEarningsList());
+        filteredCommands = new FilteredList<>(this.versionedTutorAid.getCommandsList());
         savedCommand = new Stack<String>();
-        filteredTasks = new FilteredList<>(this.tutorAid.getTaskList());
-        filteredReminder = new FilteredList<>(this.tutorAid.getReminderList());
-        filteredNotes = new FilteredList<>(this.tutorAid.getNotesList());
+        filteredTasks = new FilteredList<>(this.versionedTutorAid.getTaskList());
+        filteredReminder = new FilteredList<>(this.versionedTutorAid.getReminderList());
+        filteredNotes = new FilteredList<>(this.versionedTutorAid.getNotesList());
     }
 
     public ModelManager() {
@@ -69,8 +70,8 @@ public class ModelManager implements Model {
         this.account = acc;
     }*/
 
-    public ModelManager(ReadOnlyTutorAid tutorAid, ReadOnlyUserPrefs userPrefs, Account acc) {
-        this(tutorAid, userPrefs);
+    public ModelManager(ReadOnlyTutorAid versionedTutorAid, ReadOnlyUserPrefs userPrefs, Account acc) {
+        this(versionedTutorAid, userPrefs);
         this.account = acc;
         loggedIn = true;
     }
@@ -105,38 +106,38 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTutorAidFilePath(Path tutorAidFilePath) {
-        requireNonNull(tutorAidFilePath);
-        userPrefs.setTutorAidFilePath(tutorAidFilePath);
+    public void setTutorAidFilePath(Path versionedTutorAidFilePath) {
+        requireNonNull(versionedTutorAidFilePath);
+        userPrefs.setTutorAidFilePath(versionedTutorAidFilePath);
     }
 
     //=========== TutorAid ================================================================================
 
     @Override
-    public void setTutorAid(ReadOnlyTutorAid tutorAid) {
-        this.tutorAid.resetData(tutorAid);
+    public void setVersionedTutorAid(ReadOnlyTutorAid versionedTutorAid) {
+        this.versionedTutorAid.resetData(versionedTutorAid);
     }
 
     @Override
     public ReadOnlyTutorAid getTutorAid() {
-        return tutorAid;
+        return versionedTutorAid;
     }
 
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return tutorAid.hasPerson(person);
+        return versionedTutorAid.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        tutorAid.removePerson(target);
+        versionedTutorAid.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        tutorAid.addPerson(person);
+        versionedTutorAid.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -144,57 +145,54 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
-        tutorAid.setPerson(target, editedPerson);
+        versionedTutorAid.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean hasEarnings(Earnings earnings) {
         requireAllNonNull(earnings);
-        return tutorAid.hasEarnings(earnings);
+        return versionedTutorAid.hasEarnings(earnings);
     }
 
     @Override
     public void addEarnings(Earnings earnings) {
-        tutorAid.addEarnings(earnings);
+        versionedTutorAid.addEarnings(earnings);
         updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
     }
 
     @Override
     public void setEarnings(Earnings target, Earnings editedEarnings) {
         requireAllNonNull(target, editedEarnings);
-
-        tutorAid.setEarnings(target, editedEarnings);
+        versionedTutorAid.setEarnings(target, editedEarnings);
     }
 
     @Override
     public void deleteEarnings(Earnings target) {
-        tutorAid.removeEarnings(target);
+        versionedTutorAid.removeEarnings(target);
     }
 
 
     @Override
     public boolean hasCommand(CommandObject command) {
         requireAllNonNull(command);
-        return tutorAid.hasCommand(command);
+        return versionedTutorAid.hasCommand(command);
     }
 
     @Override
     public void deleteCommand(CommandObject target) {
-        tutorAid.removeCommand(target);
+        versionedTutorAid.removeCommand(target);
     }
 
     @Override
     public void addCommand(CommandObject command) {
-        tutorAid.addCommand(command);
+        versionedTutorAid.addCommand(command);
         updateFilteredCommandsList(PREDICATE_SHOW_ALL_COMMANDS);
     }
 
     @Override
     public void setCommands(CommandObject target, CommandObject editedCommands) {
         requireAllNonNull(target, editedCommands);
-
-        tutorAid.setCommands(target, editedCommands);
+        versionedTutorAid.setCommands(target, editedCommands);
     }
 
     @Override
@@ -212,17 +210,17 @@ public class ModelManager implements Model {
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return tutorAid.hasTask(task);
+        return versionedTutorAid.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        tutorAid.removeTask(target);
+        versionedTutorAid.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
-        tutorAid.addTask(task);
+        versionedTutorAid.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
@@ -230,7 +228,7 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        tutorAid.setTask(target, editedTask);
+        versionedTutorAid.setTask(target, editedTask);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -318,7 +316,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return (tutorAid.equals(other.tutorAid)
+        return (versionedTutorAid.equals(other.versionedTutorAid)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons));
     }
@@ -330,18 +328,18 @@ public class ModelManager implements Model {
      */
     public boolean hasReminder(Reminder reminder) {
         requireNonNull(reminder);
-        return tutorAid.hasReminder(reminder);
+        return versionedTutorAid.hasReminder(reminder);
     }
 
     @Override
     public void addReminder(Reminder reminder) {
-        tutorAid.addReminder(reminder);
+        versionedTutorAid.addReminder(reminder);
         updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteReminder(Reminder target) {
-        tutorAid.removeReminder(target);
+        versionedTutorAid.removeReminder(target);
     }
 
     @Override
@@ -354,7 +352,7 @@ public class ModelManager implements Model {
     @Override
     public void setReminder(Reminder reminder, Reminder editedReminder) {
         requireAllNonNull(reminder, editedReminder);
-        tutorAid.setReminder(reminder, editedReminder);
+        versionedTutorAid.setReminder(reminder, editedReminder);
     }
 
     public Account getAccount() {
@@ -377,25 +375,25 @@ public class ModelManager implements Model {
     @Override
     public boolean hasNotes(Notes note) {
         requireNonNull(note);
-        return tutorAid.hasNotes(note);
+        return versionedTutorAid.hasNotes(note);
     }
 
     @Override
     public void addNotes(Notes notes) {
-        tutorAid.addNotes(notes);
+        versionedTutorAid.addNotes(notes);
         updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
     public void deleteNotes(Notes target) {
-        tutorAid.removeNotes(target);
+        versionedTutorAid.removeNotes(target);
     }
 
     @Override
     public void setNotes(Notes target, Notes editedNote) {
         requireAllNonNull(target, editedNote);
 
-        tutorAid.setNotes(target, editedNote);
+        versionedTutorAid.setNotes(target, editedNote);
     }
 
     @Override
@@ -403,5 +401,31 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
         //UiManager.startNotes();
+    }
+
+    //Undo/Redo
+    @Override
+    public boolean canUndoTutorAid() {
+        return versionedTutorAid.canUndo();
+    }
+
+    @Override
+    public boolean canRedoTutorAid() {
+        return versionedTutorAid.canRedo();
+    }
+
+    @Override
+    public void undoTutorAid() {
+        versionedTutorAid.undo();
+    }
+
+    @Override
+    public void redoTutorAid() {
+        versionedTutorAid.redo();
+    }
+
+    @Override
+    public void commitTutorAid() {
+        versionedTutorAid.commit();
     }
 }
