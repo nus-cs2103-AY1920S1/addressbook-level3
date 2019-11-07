@@ -503,6 +503,7 @@ This command works in the opposite direction as `undo`, it will redo any command
 
 == Command Summary
 
+// tag::tablesummary[]
 === Table Summary
 
 The table below summarises the common commands available for use in both lists.
@@ -595,6 +596,7 @@ The table below summarises the commands only available for use in the main list.
 |`sort\|date`
 
 |===
+// end::tablesummary[]
 
 == Command Shorthands
 
