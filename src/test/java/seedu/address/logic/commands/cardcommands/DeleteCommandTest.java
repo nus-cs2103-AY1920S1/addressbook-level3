@@ -258,7 +258,7 @@ class DeleteCommandTest {
 
         @Override
         public void clearActiveWordBankStatistics() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

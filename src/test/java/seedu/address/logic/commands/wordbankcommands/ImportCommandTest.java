@@ -239,7 +239,7 @@ class ImportCommandTest {
 
         @Override
         public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -249,12 +249,12 @@ class ImportCommandTest {
 
         @Override
         public void setDefaultTheme(ThemeEnum themeEnum) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void clearActiveWordBankStatistics() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -264,7 +264,7 @@ class ImportCommandTest {
 
         @Override
         public void setHintsEnabled(boolean enabled) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -274,7 +274,7 @@ class ImportCommandTest {
 
         @Override
         public void setAvatarId(int avatarId) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
