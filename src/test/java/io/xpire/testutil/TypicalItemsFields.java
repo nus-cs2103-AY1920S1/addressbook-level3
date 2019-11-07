@@ -1,7 +1,5 @@
 package io.xpire.testutil;
 
-import static io.xpire.model.item.ExpiryDate.DATE_FORMAT;
-
 import java.time.LocalDate;
 
 import io.xpire.commons.util.DateUtil;
@@ -21,12 +19,12 @@ public class TypicalItemsFields {
     public static final String VALID_NAME_EXPIRED_MILK = "Milk";
     public static final String VALID_NAME_EXPIRED_ORANGE = "Orange";
 
-    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now(), DATE_FORMAT);
-    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7), DATE_FORMAT);
-    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14), DATE_FORMAT);
-    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30), DATE_FORMAT);
-    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1), DATE_FORMAT);
-    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7), DATE_FORMAT);
+    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now());
+    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7));
+    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14));
+    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30));
+    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1));
+    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7));
 
     public static final String VALID_EXPIRY_DATE_APPLE = TODAY;
     public static final String VALID_EXPIRY_DATE_BANANA = IN_TWO_WEEKS;
