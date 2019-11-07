@@ -1007,7 +1007,6 @@ NOTE::
 `SORT_ORDER_TYPE`.
 ** Only exactly one valid sort order type will be accepted after the sorting prefix.
 ** Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.
-**
 
 ***
 
