@@ -214,6 +214,8 @@ Example:
 ====
 Constraints:
 
+* A `TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
+
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
 * The date *dd/MM/yyyy* must strictly be a valid date, i.e 30/02/2019  cannot be supplied as a date.
@@ -237,6 +239,8 @@ Example:
 
 ====
 Constraints:
+
+* A `TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
@@ -281,6 +285,7 @@ Constraints:
 * The interviewee to be edited must exist in the Scheduler.
 * `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
 * At least one optional argument must be supplied, i.e `edit NAME r/interviewee` is not valid input.
+* A `TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
@@ -313,6 +318,7 @@ Constraints:
 * The interviewer to be edited must exist in the Scheduler.
 * `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
 * At least one optional argument must be supplied, i.e `edit NAME r/interviewer` is not valid input.
+* A `TAG` must only be alphanumeric and one word, i.e `t/catLover` is correct while `t/cat lover` is not.
 
 * `s/SLOT` must follow the format: `dd/MM/yyyy HH:mm-HH:mm`, where *dd/MM/yyyy* refers to a *date*, the leftmost *HH:mm* refers to the *start duration*
 and the rightmost *HH:mm* refers to the *end duration*.
