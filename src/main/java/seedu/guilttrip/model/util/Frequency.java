@@ -8,7 +8,7 @@ import java.time.temporal.TemporalAmount;
  */
 public enum Frequency {
     DAILY(Period.ofDays(1)), WEEKLY(Period.ofDays(7)), FORTNIGHTLY(Period.ofDays(14)), MONTHLY(Period.ofMonths(1)),
-    QUARTERLY(Period.ofMonths(3)), ANUALLY(Period.ofYears(1));
+    QUARTERLY(Period.ofMonths(3)), ANNUALLY(Period.ofYears(1));
 
     private final TemporalAmount period;
 
@@ -51,10 +51,10 @@ public enum Frequency {
         case "quarterly":
             return QUARTERLY;
         case "yearly":
-        case "anually":
+        case "annually":
         case "year":
         case "yr":
-            return ANUALLY;
+            return ANNUALLY;
         case "weekly":
         case "wk":
         case "every week":

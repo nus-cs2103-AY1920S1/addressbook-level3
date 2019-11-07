@@ -67,6 +67,7 @@ public class TimeUtil {
      */
     public static void addPropertyChangeListener(PropertyChangeListener pcl) {
         tracker.support.addPropertyChangeListener(pcl);
+        manualUpdate();
     }
     public static void removePropertyChangeListener(PropertyChangeListener pcl) {
         tracker.support.removePropertyChangeListener(pcl);

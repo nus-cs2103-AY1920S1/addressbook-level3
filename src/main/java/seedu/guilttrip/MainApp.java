@@ -172,6 +172,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting GuiltTrip " + MainApp.VERSION);
         ui.start(primaryStage);
+        TimeUtil.startTimer();
     }
 
     @Override

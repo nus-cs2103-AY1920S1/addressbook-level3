@@ -21,4 +21,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_FREQ = new Prefix("f/", "FREQUENCY");
     public static final Prefix PREFIX_COORDINATES = new Prefix("c/", "COORDINATES");
     public static final Prefix PREFIX_BOOL = new Prefix("b/", "COORDINATES");
+
 }

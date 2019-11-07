@@ -95,7 +95,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * contain duplicate entries.
      */
     public void setCategories(List<Category> expenseCategories, List<Category> incomeCategories) {
-        this.categoryList.setEntries(expenseCategories, incomeCategories);
+        this.categoryList.setCategories(expenseCategories, incomeCategories);
         indicateModified();
     }
 
@@ -179,7 +179,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public Reminder getReminderSelected() {
         return reminders.getReminderSelected();
     }
-
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
@@ -193,6 +192,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
      */
+
     public boolean hasIncome(Income income) {
         requireNonNull(income);
         return incomes.contains(income);

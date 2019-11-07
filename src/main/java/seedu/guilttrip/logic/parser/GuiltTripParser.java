@@ -49,6 +49,7 @@ import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListActiveRemindersCommand;

@@ -33,7 +33,12 @@ public class TypicalEntries {
             .withCatName("travel").build();
     public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
             .build();
+<<<<<<< HEAD
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+=======
+    public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
+            .build();
+>>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
 
     private TypicalEntries() {
     } // prevents instantiation

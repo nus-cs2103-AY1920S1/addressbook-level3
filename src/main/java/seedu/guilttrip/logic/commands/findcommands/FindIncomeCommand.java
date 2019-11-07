@@ -33,7 +33,8 @@ public class FindIncomeCommand extends Command {
             + "[" + PREFIX_DATE + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + PREFIX_AMOUNT + "5.60";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_AMOUNT + "5.60";
+
 
     public static final String EMPTY_PROPETIES = "Propeties cannot be empty.";
 

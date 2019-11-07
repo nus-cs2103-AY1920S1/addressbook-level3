@@ -501,7 +501,6 @@ public class ModelManager implements Model, PropertyChangeListener {
     public void selectReminder(Reminder reminder) {
         versionedAddressBook.selectReminder(reminder);
     }
-
     // =================== Sorting =============================================================
 
     @Override
@@ -519,7 +518,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         sortedBudgetList.setComparator(new EntryComparator(c, sequence));
     }
 
-    @Override
     public void sortFilteredWishes(SortType c, SortSequence sequence) {
         sortedWishList.setComparator(new EntryComparator(c, sequence));
     }
@@ -645,7 +643,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         if (!(obj instanceof ModelManager)) {
             return false;
         }
-
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook) && userPrefs.equals(other.userPrefs)

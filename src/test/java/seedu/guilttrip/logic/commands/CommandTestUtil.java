@@ -59,14 +59,35 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NAME_INCOME = "Business";
 
     //Category related Test Utils.
+<<<<<<< HEAD
     public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + "Expense";
     public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + "Income";
     public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + "food";
     public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + "business";
+=======
+
+    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
+    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_INCOME;
+    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
+    public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
+            + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+>>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
 
     public static final String INVALID_CATEGORY_TYPE_BUDGET = " " + PREFIX_CATEGORY + "Budget";
     public static final String INVALID_CATEGORY_NAME = " " + PREFIX_DESC + "Alcohol";
 
+<<<<<<< HEAD
+=======
+    //Find related TestUtils.
+    public static final String DESCRIPTION = "pgp cotton";
+    public static final double AMOUNT = 200.00;
+    public static final String AMOUNT_STRING = "200.00";
+
+    public static final String FIND_BY_DESCRIPTION = " " + PREFIX_DESC + DESCRIPTION;
+    public static final String FIND_BY_AMOUNT = " " + PREFIX_AMOUNT + AMOUNT;
+
+>>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

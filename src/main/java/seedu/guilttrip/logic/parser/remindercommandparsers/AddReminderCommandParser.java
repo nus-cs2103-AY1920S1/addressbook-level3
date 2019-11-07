@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -23,27 +23,27 @@ import seedu.guilttrip.model.reminders.Reminder;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddReminderCommandParser implements Parser<AddGeneralReminderCommand> {
+public class AddReminderCommandParser implements Parser<AddReminderCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddGeneralReminderCommand parse(String args) throws ParseException {
+    public AddReminderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_DESC, PREFIX_INDEX, PREFIX_AMOUNT);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddGeneralReminderCommand.MESSAGE_USAGE));
+                    AddReminderCommand.MESSAGE_USAGE));
         }
 
         Description message = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         List<Index> conditionIndexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
-        return new AddGeneralReminderCommand(message, conditionIndexes);
-        }
+            return new AddReminderCommand(message, conditionIndexes);
+    }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

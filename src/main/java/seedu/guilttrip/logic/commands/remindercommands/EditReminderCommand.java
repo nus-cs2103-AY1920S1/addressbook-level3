@@ -46,7 +46,7 @@ public class EditReminderCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guilttrip book.";
     public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
-    public static final String NO_QUOTA_WITHOUT_TRACKER = "Cannot set quota without an amount/ number tracker.\n";
+
 
     private final Index index;
     private final EditReminderDescriptor editReminderDescriptor;
