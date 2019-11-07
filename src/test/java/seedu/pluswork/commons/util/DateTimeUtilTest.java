@@ -12,21 +12,21 @@ import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 public class DateTimeUtilTest {
 
-    private static final String VALID_DATE_TIME_FORMAT = "10-10-2018 18:00";
-    private static final String INVALID_DATE_TIME_FORMAT_SLASH = "10/10/2018 18-00";
+    private static final String VALID_DATE_TIME_FORMAT = "10-10-2025 18:00";
+
+    private static final String INVALID_DATE_TIME_FORMAT_PAST = "10-10-2019 18:00";
+    private static final String INVALID_DATE_TIME_FORMAT_SLASH = "10/10/2025 18-00";
     private static final String INVALID_DATE_TIME_FORMAT_ZERO = "1-1-2019 18:00";
 
-    private static final String EXCEEDING_DAY_DATE_TIME_FORMAT = "32-10-2018 18:00";
-    private static final String EXCEEDING_TIME_DATE_TIME_FORMAT = "22-10-2018 25:00";
-    private static final String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22-15-2018 15:00";
+    private static final String EXCEEDING_DAY_DATE_TIME_FORMAT = "32-10-2025 18:00";
+    private static final String EXCEEDING_TIME_DATE_TIME_FORMAT = "22-10-2025 25:00";
+    private static final String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22-15-2025 15:00";
 
-    private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0-10-2018 18:00";
-    private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22-00-2018 15:00";
+    private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0-10-2025 18:00";
+    private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22-00-2025 15:00";
 
     private static final String VALID_LEAP_YEAR = "29-02-2020 20:00";
     private static final String INVALID_LEAP_YEAR = "29-02-2019 10:00";
-
-    private static final String DUE_SOON_DATE_TIME = "31/01/2020 10:00";
 
     @Test
     public void parseDateTime_null_throwsNullPointerException() {
@@ -43,6 +43,12 @@ public class DateTimeUtilTest {
     public void parseDateTime_validFormat_success() throws ParseException {
         assertEquals(LocalDateTime.parse(VALID_DATE_TIME_FORMAT, DateTimeUtil.getDefaultFormatter()),
                 DateTimeUtil.parseDateTime(VALID_DATE_TIME_FORMAT));
+    }
+
+    // EP deadline has passed
+    @Test
+    public void parseDateTime_passedDeadline_throwsParseException() {
+        assertThrows(ParseException.class, (() -> DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_PAST)));
     }
 
     // EP empty string
