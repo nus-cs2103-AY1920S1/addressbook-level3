@@ -26,6 +26,7 @@ import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.Logic;
+import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -299,7 +300,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see //Logic#execute(String)
      */
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
@@ -320,6 +321,7 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
+            /*
             if (commandText.split(" ")[0].toLowerCase().equals("search")) {
                 isSearchLoading = true;
                 contentPanelPlaceholder.getChildren().clear();
@@ -344,29 +346,30 @@ public class MainWindow extends UiPart<Stage> {
                 });
                 new Thread(task).start();
                 return null;
-            } else {
-                CommandResult commandResult = logic.execute(commandText);
+             */
+            //} else {
+            CommandResult commandResult = logic.execute(commandText, this);
+            if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 if (commandResult.isShowHelp()) {
                     handleHelp();
                 }
-
                 if (commandResult.isExit()) {
                     handleExit();
                 }
-
                 return commandResult;
             }
+            return commandResult;
+            //}
         //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
-
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        } catch (NullPointerException e) {
+        }catch (NullPointerException | InterruptedException e) {
             e.printStackTrace();
-            throw e;
+            return null;
         }
     }
 
@@ -494,4 +497,16 @@ public class MainWindow extends UiPart<Stage> {
     public String getCurrentTab() {
         return currentTab;
     }
+
+    public void searchResultLogger(CommandResult commandResult) {
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+    }
+
+    public void setIsSearchLoading() {
+        isSearchLoading = !isSearchLoading;
+    }
+
+
 }

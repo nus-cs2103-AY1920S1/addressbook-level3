@@ -5,19 +5,24 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.logic.task.RunnableCommand;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.storage.Storage;
+import seedu.ezwatchlist.ui.MainWindow;
 
 /**
  * The main LogicManager of the app.
@@ -37,21 +42,40 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText)
+    public CommandResult execute(String commandText, MainWindow mainWindow)
             throws CommandException, ParseException, OnlineConnectionException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
+        final CommandResult[] commandResult = new CommandResult[1];
         Command command = watchListParser.parseCommand(commandText);
-        commandResult = command.execute(model);
 
+        if (command instanceof SearchCommand) {
+            mainWindow.setIsSearchLoading();
+            mainWindow.goToSearch();
+            Task<CommandResult> task = new Task<CommandResult>() {
+                @Override
+                protected CommandResult call() throws Exception {
+                    return command.execute(model);
+                }
+            };
+            task.setOnSucceeded(event -> {
+                mainWindow.setIsSearchLoading();
+                mainWindow.goToSearch();
+                commandResult[0] = task.getValue();
+                mainWindow.searchResultLogger(commandResult[0]);
+            });
+            new Thread(task).start();
+            return null;
+            }
+        else {
+            commandResult[0] = command.execute(model);
+        }
         try {
             storage.saveWatchList(model.getWatchList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-        return commandResult;
+        return commandResult[0];
     }
 
     @Override

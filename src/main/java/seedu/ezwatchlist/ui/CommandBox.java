@@ -49,6 +49,8 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
         } catch (CommandException | ParseException | OnlineConnectionException | NoRecommendationsException e) {
             setStyleToIndicateCommandFailure();
+        } catch (NullPointerException e) {
+
         }
     }
 
