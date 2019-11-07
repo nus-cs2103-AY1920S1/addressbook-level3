@@ -67,11 +67,7 @@ https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Morph-Model Part 2] | htt
 
 === *Other Contributions*:
 ** Tools:
-*** Set up https://travis-ci.com/AY1920S1-CS2103T-T09-1/main[Travis CI] for team project
-*** Set up https://coveralls.io/github/AY1920S1-CS2103T-T09-1/main[Coveralls] for team project
-*** Set up https://ci.appveyor.com/project/OneArmyj/main[AppVeyor] for team project
-*** Set up https://ay1920s1-cs2103t-t09-1.netlify.com/[Netlify] for team project
-*** Set up https://app.codacy.com/manual/OneArmyj/main/dashboard[Codacy] for team project
+*** Set up build tools for maintaining and automation of team repository.
 ** Documentation:
 *** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 ** Community:
