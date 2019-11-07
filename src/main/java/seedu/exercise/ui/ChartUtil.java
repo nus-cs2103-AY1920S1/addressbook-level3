@@ -15,7 +15,7 @@ public class ChartUtil {
     /**
      * Install tooltip for bar chart and line chart.
      */
-    public static void installToolTipXyChart(ObservableList<XYChart.Data<String, Double>> data) {
+    public static void installToolTipXyChart(ObservableList<XYChart.Data<String, Integer>> data) {
         data.stream().forEach(d -> {
             Tooltip tooltip = new Tooltip();
             tooltip.setText(d.getXValue() + "\n" + d.getYValue());

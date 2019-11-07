@@ -10,8 +10,8 @@ public abstract class DeleteCommand extends Command implements UndoableCommand, 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the exercise identified by the index number used in the displayed exercise list.\n"
-            + "or Deletes the regimes/exercise in regime identified by name/index in the displayed regime list\n"
+            + ": Deletes the exercise identified by the index number used in the displayed exercise list "
+            + "OR Deletes the regimes/exercise in regime identified by name/index in the displayed regime list\n"
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
 

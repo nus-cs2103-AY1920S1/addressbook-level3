@@ -24,6 +24,7 @@ import seedu.exercise.testutil.builder.ExerciseBookBuilder;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
 import seedu.exercise.testutil.builder.StatisticBuilder;
 
+//@@author jietung
 public class StatsFactoryTest {
 
     private static final String START_DATE = "25/09/2019";
@@ -51,8 +52,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualCaloriesStatistic = caloriesStatsFactory.generateStatistic();
 
-        Double[] caloriesArr = new Double[]{0.0, 111.0, 300.0, 261.0, 0.0};
-        ArrayList<Double> expectedCaloriesValues = new ArrayList<>(Arrays.asList(caloriesArr));
+        Integer[] caloriesArr = new Integer[]{0, 111, 300, 261, 0};
+        ArrayList<Integer> expectedCaloriesValues = new ArrayList<>(Arrays.asList(caloriesArr));
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_LINE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
@@ -66,8 +67,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualExerciseStatistic = exerciseStatsFactory.generateStatistic();
 
-        Double[] valuesArr = new Double[]{0.0, 1.0, 1.0, 2.0, 0.0};
-        ArrayList<Double> expectedExerciseValues = new ArrayList<>(Arrays.asList(valuesArr));
+        Integer[] valuesArr = new Integer[]{0, 1, 1, 2, 0};
+        ArrayList<Integer> expectedExerciseValues = new ArrayList<>(Arrays.asList(valuesArr));
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_LINE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
@@ -87,8 +88,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualCaloriesStatistic = caloriesStatsFactory.generateStatistic();
 
-        Double[] caloriesArr = new Double[]{150.0, 222.0, 300.0};
-        ArrayList<Double> expectedCalories = new ArrayList<>(Arrays.asList(caloriesArr));
+        Integer[] caloriesArr = new Integer[]{150, 222, 300};
+        ArrayList<Integer> expectedCalories = new ArrayList<>(Arrays.asList(caloriesArr));
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_BAR_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
@@ -102,8 +103,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualExerciseStatistic = exerciseStatsFactory.generateStatistic();
 
-        Double[] valuesArr = new Double[]{1.0, 2.0, 1.0};
-        ArrayList<Double> expectedValues = new ArrayList<>(Arrays.asList(valuesArr));
+        Integer[] valuesArr = new Integer[]{1, 2, 1};
+        ArrayList<Integer> expectedValues = new ArrayList<>(Arrays.asList(valuesArr));
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_BAR_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
@@ -122,8 +123,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualCaloriesStatistic = caloriesStatsFactory.generateStatistic();
 
-        Double[] caloriesArr = new Double[]{150.0, 222.0, 300.0};
-        ArrayList<Double> expectedCalories = new ArrayList<>(Arrays.asList(caloriesArr));
+        Integer[] caloriesArr = new Integer[]{150, 222, 300};
+        ArrayList<Integer> expectedCalories = new ArrayList<>(Arrays.asList(caloriesArr));
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_PIE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
@@ -137,8 +138,8 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualExerciseStatistic = exerciseStatsFactory.generateStatistic();
 
-        Double[] valuesArr = new Double[]{1.0, 2.0, 1.0};
-        ArrayList<Double> expectedValues = new ArrayList<>(Arrays.asList(valuesArr));
+        Integer[] valuesArr = new Integer[]{1, 2, 1};
+        ArrayList<Integer> expectedValues = new ArrayList<>(Arrays.asList(valuesArr));
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_PIE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))

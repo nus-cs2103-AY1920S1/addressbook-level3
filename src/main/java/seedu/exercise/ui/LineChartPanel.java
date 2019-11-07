@@ -24,7 +24,7 @@ public class LineChartPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
     @FXML
-    private LineChart<String, Double> lineChart;
+    private LineChart<String, Integer> lineChart;
 
     public LineChartPanel(Statistic statistic) {
         super(FXML);
@@ -40,7 +40,7 @@ public class LineChartPanel extends UiPart<Region> {
         String startDate = statistic.getStartDate().toString();
         String endDate = statistic.getEndDate().toString();
         ArrayList<String> dates = statistic.getProperties();
-        ArrayList<Double> values = statistic.getValues();
+        ArrayList<Integer> values = statistic.getValues();
 
         lineChart.setAnimated(false);
         lineChart.layout();
@@ -48,7 +48,7 @@ public class LineChartPanel extends UiPart<Region> {
         xAxis.setLabel(DEFAULT_DATE);
         yAxis.setLabel(ChartUtil.labelFormatter(category));
 
-        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
         int size = dates.size();
         for (int i = 0; i < size; i++) {

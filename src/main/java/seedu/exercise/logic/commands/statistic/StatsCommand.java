@@ -6,6 +6,9 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CHART;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.logging.Logger;
+
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.model.Model;
@@ -13,6 +16,7 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author jietung
 /**
  * Generate statistic with given parameters.
  */
@@ -22,17 +26,19 @@ public class StatsCommand extends Command {
 
     public static final String MESSAGE_STATS_DISPLAY_SUCCESS = "Chart displayed.";
 
-    public static final String MESSAGE_USAGE = "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display statistic of completed exercises\n"
+        + "Parameters: "
         + PREFIX_CATEGORY + "CATEGORY "
         + PREFIX_CHART + "CHART TYPE "
         + PREFIX_START_DATE + "START DATE "
-        + PREFIX_END_DATE + "END DATE " + "\n"
+        + PREFIX_END_DATE + "END DATE " + "\t"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_CATEGORY + "calories "
         + PREFIX_CHART + "barchart "
         + PREFIX_START_DATE + "30/03/2019 "
         + PREFIX_END_DATE + "05/04/2019 ";
 
+    private static final Logger logger = LogsCenter.getLogger(StatsCommand.class);
     private final String chart;
     private final String category;
     private final Date startDate;
@@ -55,6 +61,7 @@ public class StatsCommand extends Command {
         StatsFactory statsFactory = new StatsFactory(exercises, chart, category, startDate, endDate);
         Statistic statistic = statsFactory.generateStatistic();
         model.setStatistic(statistic);
+        logger.info("Set statistic in model");
         return new CommandResult(MESSAGE_STATS_DISPLAY_SUCCESS);
     }
 

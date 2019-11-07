@@ -48,8 +48,8 @@ public class ExerciseListCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getName().fullName);
         date.setText(exercise.getDate().toString());
-        calories.setText(exercise.getCalories().value + " kcal");
-        quantityAndUnit.setText(exercise.getQuantity().value + " " + exercise.getUnit().unit);
+        calories.setText(exercise.getCalories().toString() + " kcal");
+        quantityAndUnit.setText(exercise.getQuantity().toString() + " " + exercise.getUnit().unit);
         exercise.getMuscles().stream()
             .sorted(Comparator.comparing(muscle -> muscle.muscleName))
             .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));

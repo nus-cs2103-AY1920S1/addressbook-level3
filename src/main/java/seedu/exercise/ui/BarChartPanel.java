@@ -23,7 +23,7 @@ public class BarChartPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
     @FXML
-    private BarChart<String, Double> barChart;
+    private BarChart<String, Integer> barChart;
 
     public BarChartPanel(Statistic statistic) {
         super(FXML);
@@ -39,7 +39,7 @@ public class BarChartPanel extends UiPart<Region> {
         String startDate = statistic.getStartDate().toString();
         String endDate = statistic.getEndDate().toString();
         ArrayList<String> properties = statistic.getProperties();
-        ArrayList<Double> values = statistic.getValues();
+        ArrayList<Integer> values = statistic.getValues();
 
         barChart.setAnimated(false);
         barChart.layout();
@@ -47,7 +47,7 @@ public class BarChartPanel extends UiPart<Region> {
         xAxis.setLabel(DEFAULT_EXERCISES);
         yAxis.setLabel(ChartUtil.labelFormatter(statistic.getCategory()));
 
-        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
         int size = properties.size();
         for (int i = 0; i < size; i++) {

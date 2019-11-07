@@ -5,45 +5,43 @@
 
 == PROJECT: ExerHealth
 
----
-
 == Overview
 
-ExerHealth is a desktop application used for tracking and scheduling the user's exercises.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 10 kLoC.
+My team of 5 computer science students were tasked with enhancing a basic command line interface desktop Addressbook3
+application for software engineering project. Our team decided to morph the application to ExerHealth. ExerHealth is
+a desktop application used for tracking and scheduling the user's exercises. The application has statistical analysis of
+exercises user have completed in the past. Additionally, it also acts as a personal trainer by suggesting different
+exercises which both beginners and advanced users can choose from to incorporate into their exercise regime. The user
+interacts with it using a command line interface, and it has a GUI created with JavaFX.
+
+Figure below is a screenshot of what our application looks like:
+
+image::Ui.png[]
+
+Figure 1. The graphical user interface for ExerHealth
+
+My role was to develop the add and delete regime feature and statistic feature. The following sections illustrates these
+enhancements in more details, as well as the relevant documentation I have added to the user and developer guides in
+relation to those enhancements.
 
 == Summary of contributions
+This section shows a summary of my coding, documentation and other helpful contributions to the team project.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added the ability to display statistic and charts which includes pie chart, line chart and bar chart.
+** What it does: The `stats` command will allow users to display chart and statistic of the exercise they have completed.
+** Justification: This feature will enable users to have an overview of number of exercise they have completed and calories they have burnt. This will help users understand their progress and improve planning of exercises in the future.
+** Highlights: This enhancement works well with existing commands and commands to be added in future. It required an in-depth analysis of design alternatives to ensure that future enhancements can be made.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement 1*: Added a `Unit` property to exercise.
+* *Minor enhancement 2*: Added add and delete regime command that allows the user to add and delete regime from regime list.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jietung&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Refactored Addressbook3 codebase to ExerHealth (Pull request https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81])
+*** Wrote additional tests for existing and new features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/125[#125], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/127[#127])
 
 == Contributions to the User Guide
 
@@ -52,9 +50,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=statistic]
 
 == Contributions to the Developer Guide
 
@@ -62,10 +58,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=statistic]
 
 == PROJECT: PowerPointLabs
 

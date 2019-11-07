@@ -20,7 +20,7 @@ public class StatisticBuilder {
     private Date startDate;
     private Date endDate;
     private ArrayList<String> properties;
-    private ArrayList<Double> values;
+    private ArrayList<Integer> values;
     private double total;
     private double average;
 
@@ -78,7 +78,7 @@ public class StatisticBuilder {
     /**
      * Sets the values of the {@code Statistic} that we are building.
      */
-    public StatisticBuilder withValues(ArrayList<Double> values) {
+    public StatisticBuilder withValues(ArrayList<Integer> values) {
         this.values = values;
         return this;
     }

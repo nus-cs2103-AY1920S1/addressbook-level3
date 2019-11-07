@@ -22,6 +22,7 @@ import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.commands.statistic.StatsCommand;
 import seedu.exercise.model.property.Date;
 
+//@@author jietung
 public class StatsCommandParserTest {
 
     private StatsCommandParser parser = new StatsCommandParser();

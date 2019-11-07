@@ -18,6 +18,7 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author jietung
 public class StatsCommandTest {
 
     private static final String CATEGORY = "calories";

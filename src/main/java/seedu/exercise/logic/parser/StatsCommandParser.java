@@ -10,6 +10,7 @@ import seedu.exercise.logic.commands.statistic.StatsCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.Date;
 
+//@@author jietung
 /**
  * Parses input arguments and creates a new StatsCommand object.
  */

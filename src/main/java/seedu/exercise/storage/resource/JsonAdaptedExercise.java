@@ -64,8 +64,8 @@ public class JsonAdaptedExercise extends JsonAdaptedResource<Exercise> {
     public JsonAdaptedExercise(Exercise source) {
         name = source.getName().fullName;
         date = source.getDate().toString();
-        calories = source.getCalories().value;
-        quantity = source.getQuantity().value;
+        calories = source.getCalories().toString();
+        quantity = source.getQuantity().toString();
         unit = source.getUnit().unit;
         muscles.addAll(source.getMuscles().stream()
             .map(JsonAdaptedMuscle::new)

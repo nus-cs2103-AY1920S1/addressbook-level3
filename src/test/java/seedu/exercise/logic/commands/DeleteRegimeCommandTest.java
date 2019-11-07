@@ -28,6 +28,7 @@ import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author jietung
 public class DeleteRegimeCommandTest {
 
     private Model model = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),

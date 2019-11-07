@@ -32,7 +32,7 @@ public class PieChartPanel extends UiPart<Region> {
         String startDate = statistic.getStartDate().toString();
         String endDate = statistic.getEndDate().toString();
         ArrayList<String> properties = statistic.getProperties();
-        ArrayList<Double> values = statistic.getValues();
+        ArrayList<Integer> values = statistic.getValues();
 
         int size = properties.size();
         if (size == 0) {

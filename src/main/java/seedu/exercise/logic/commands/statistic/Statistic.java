@@ -21,7 +21,7 @@ public class Statistic {
     private Date startDate;
     private Date endDate;
     private ArrayList<String> properties;
-    private ArrayList<Double> values;
+    private ArrayList<Integer> values;
     private double total;
     private double average;
 
@@ -29,7 +29,7 @@ public class Statistic {
      * Every field must be present and not null.
      */
     public Statistic(String category, String chart, Date startDate, Date endDate,
-                     ArrayList<String> properties, ArrayList<Double> values, double total, double average) {
+                     ArrayList<String> properties, ArrayList<Integer> values, double total, double average) {
         requireAllNonNull(category, chart, startDate, endDate, properties, values);
         this.category = category;
         this.chart = chart;
@@ -88,7 +88,7 @@ public class Statistic {
         this.properties = properties;
     }
 
-    private void setValues(ArrayList<Double> values) {
+    private void setValues(ArrayList<Integer> values) {
         requireNonNull(values);
         this.values = values;
     }
@@ -122,7 +122,7 @@ public class Statistic {
         return properties;
     }
 
-    public ArrayList<Double> getValues() {
+    public ArrayList<Integer> getValues() {
         return values;
     }
 

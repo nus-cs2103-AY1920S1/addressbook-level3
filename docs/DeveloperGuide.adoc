@@ -612,6 +612,7 @@ all in one place as it stores the tags, and creates the predicate and filters th
 *** Increases the complexity of the code as more classes are needed, also increasing the lines of code written.
 // end::suggest[]
 
+// tag::statistic[]
 === Statistics
 
 ==== Implementation
@@ -649,6 +650,8 @@ Shown below is the sequence diagram (Figure 26) when user enters a valid `stats`
 
 .Sequence diagram of a `stats` command
 image::StatisticSequenceDiagram.png[]
+
+// end::statistic[]
 
 === Logging
 

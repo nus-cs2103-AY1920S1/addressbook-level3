@@ -52,7 +52,7 @@ public class Regime extends Resource {
     public int getTotalCalorieCount() {
         int count = 0;
         for (Exercise e : regimeExercises) {
-            count += Integer.parseInt(e.getCalories().value);
+            count += Integer.parseInt(e.getCalories().toString());
         }
         return count;
     }

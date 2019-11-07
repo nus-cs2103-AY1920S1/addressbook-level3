@@ -1,7 +1,7 @@
 package seedu.exercise.model.property;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.ValidationRegex.ONLY_NUMBERS;
+import static seedu.exercise.commons.core.ValidationRegex.ONLY_INTEGER;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
 /**
@@ -10,9 +10,9 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
  */
 public class Calories {
     public static final String PROPERTY_CALORIES = "Calories";
-    public static final String MESSAGE_CONSTRAINTS = "Calories should only contain numbers and "
+    public static final String MESSAGE_CONSTRAINTS = "Calories should only contain non-negative integer and "
             + "should be less than or equal to 50,000";
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Calories}.
@@ -29,7 +29,7 @@ public class Calories {
      * Returns true if a given string is a valid calories burnt.
      */
     public static boolean isValidCalories(String test) {
-        return test.matches(ONLY_NUMBERS) && Double.parseDouble(test) <= 50000;
+        return test.matches(ONLY_INTEGER) && Integer.parseInt(test) <= 50000;
     }
 
     private String removeLeadingZeros(String calories) {
@@ -38,6 +38,9 @@ public class Calories {
 
     @Override
     public String toString() {
+        if (value.length() == 0) {
+            return "0";
+        }
         return value;
     }
 

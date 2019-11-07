@@ -40,6 +40,7 @@ import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.testutil.builder.StatisticBuilder;
 
+//@@author jietung
 public class AddRegimeCommandTest {
 
     @Test

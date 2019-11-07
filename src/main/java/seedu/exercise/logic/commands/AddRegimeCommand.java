@@ -26,6 +26,7 @@ import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author jietung
 /**
  * Adds a regime to the regime book.
  */
@@ -34,8 +35,8 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
     public static final String MESSAGE_USAGE_REGIME = "Parameters: "
         + PREFIX_CATEGORY + "CATEGORY "
         + PREFIX_NAME + "REGIME NAME "
-        + PREFIX_INDEX + "INDEX\n"
-        + "\t\tExample: " + COMMAND_WORD + " "
+        + PREFIX_INDEX + "INDEX"
+        + "\tExample: " + COMMAND_WORD + " "
         + PREFIX_CATEGORY + "regime "
         + PREFIX_NAME + "power set "
         + PREFIX_INDEX + "1 "

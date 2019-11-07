@@ -93,6 +93,7 @@ You can enter the following additional information for each exercise:
 Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...`
 
 ****
+* Calories entered have to be less than or equal to 50000.
 * Dates that are entered have to be of the form `dd/MM/yyyy`.
 * The day of each date must be between 01 and 31 inclusive.
 * The month of each date must be between 01 and 12 inclusive.
@@ -122,9 +123,21 @@ Example:
 
 Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
 
+Expected result:
+
+image::AddNewRegime.png[]
+
 * `add t/regime n/cardio i/4`
 
 Adds the 4th exercise in the list to the regime named `cardio`.
+
+Figure below shows regime list with regime named `cardio`:
+
+image::RegimeCardioBefore.png[]
+
+Expected result after `add t/regime n/cardio i/4` command executed:
+
+image::RegimeCardioAfter.png[]
 
 [[list]]
 === Listing information : `list`
@@ -228,7 +241,7 @@ image::deleteExerciseAfter.png[]
 
 Deletes exercises from a certain scheduling regime.
 
-Format: `delete t/exercise n/REGIME_NAME [i/INDEX]...`
+Format: `delete t/regime n/REGIME_NAME [i/INDEX]...`
 
 ****
 * Deletes the exercise at the specified `INDEX`.
@@ -241,17 +254,36 @@ Examples:
 
 * `delete t/regime n/cardio i/2` +
 Deletes the exercise indexed 2 in the cardio regime
+
+Figure below shows regime list with regime named `cardio` with 4 exercises:
+
+image::RegimeCardioAfter.png[]
+
+Expected result after `delete t/regime n/cardio i/2` command executed:
+
+image::DeleteExerciseFromRegime.png[]
+
 * `delete t/regime n/legs` +
 Deletes the entire regime named legs
+
+Figure below shows regime list with regime named `legs`:
+
+image::DeleteEntireRegimeBefore.png[]
+
+Expected result after `delete t/regime n/legs` command executed:
+
+image::DeleteEntireRegimeAfter.png[]
 
 === Clearing all entries : `clear`
 
 Clears all entries from the exercise tracker. +
 Format: `clear`
 
+// tag::statistic[]
+
 === Display statistics : `stats`
 
-Display the statistics of exercises.
+Display the statistics of exercises in completed exercise list.
 
 Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [e/END_DATE]`
 
@@ -264,19 +296,26 @@ Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [e/END_DATE]`
 * Only exercise with same name and unit will be counted as same exercise.
 * Exercise will appear as `NAME (UNIT)` in the charts. E.g `Running (km)`. If it is too long (more than 18 characters), it will be formatted to first 10 characters plus last 8 characters.
 ** For example, exercise `Strength Training (counts)` is more than 18 characters, it will be formatted to `Strength T...(counts)`.
-* It also includes total and average `CATEGORY` per day of exercises in the date range.
+* Total and average `CATEGORY` per day of exercises in the date range is shown below the chart.
 ****
 
-Figure below shows an example of pie chart. +
-
-image::PieChart.png[width="790"]
-NOTE: Due to space constraint, some labels may not appear. Labels can be seen when mouse cursor hovers over the pie chart.
+NOTE: Due to space constraint, some labels may not appear. Labels can be seen when mouse cursor hovers over the chart.
 
 Example:
 
 * `stats t/exercise h/piechart`
+
+image::PieChart.png[width="500"]
+
 * `stats t/calories h/linechart`
-* `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
+
+image::LineChart.png[width="500"]
+
+* `stats t/calories h/barchart s/31/10/2019 e/06/11/2019`
+
+image::BarChart.png[width="500"]
+
+// end::statistic[]
 
 === Undo previous command: `undo`
 

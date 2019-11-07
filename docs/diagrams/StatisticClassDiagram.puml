@@ -22,7 +22,7 @@ class Statistic {
     -Date startDate
     -Date endDate
     -ArrayList<String> properties
-    -ArrayList<Double> values
+    -ArrayList<Integer> values
     -double total
     -double average
     +resetData() : void
