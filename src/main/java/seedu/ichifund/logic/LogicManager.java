@@ -19,7 +19,6 @@ import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.storage.Storage;
@@ -84,11 +83,6 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyFundBook getFundBook() {
         return model.getFundBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
