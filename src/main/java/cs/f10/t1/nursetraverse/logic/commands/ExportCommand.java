@@ -12,6 +12,7 @@ import java.util.Set;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
+import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -29,8 +30,9 @@ public class ExportCommand extends Command {
             + ": Exports patients data into a .csv file in /exports.\n"
             + "Patients are exported selectively by index.\n"
             + "If indexes are not provided, all patients will be exported.\n"
+            + "File name cannot be blank and can only contain alphanumerics, underscores and hyphens.\n"
             + "File name must be new - overriding an existing file is not permitted.\n"
-            + "Parameters: [" + PREFIX_FILENAME + "FILENAME] "
+            + "Parameters: " + PREFIX_FILENAME + "FILENAME "
             + "[" + PREFIX_INDEXES + "INDEXES]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
             + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 " + PREFIX_INDEXES + "6";
@@ -78,9 +80,9 @@ public class ExportCommand extends Command {
             lastShownList = model.getPatientsByIndexes(targetIndexes.get());
         }
 
-        String pathString;
+        String pathString = ImportExportPaths.EXPORT_FOLDER + "/" + exportFileName + ".csv";
         try {
-            pathString = CsvUtil.writePatientsToCsv(lastShownList, exportFileName);
+            CsvUtil.writePatientsToCsv(lastShownList, pathString);
         } catch (ExportingException e) {
             throw new CommandException(MESSAGE_FILE_EXISTS, e);
         } catch (IOException e) {
@@ -100,5 +102,18 @@ public class ExportCommand extends Command {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ExportCommand)) {
+            return false;
+        }
+        ExportCommand otherCommand = (ExportCommand) other;
+        return this.exportFileName.equals(otherCommand.exportFileName)
+                && this.targetIndexes.equals(otherCommand.targetIndexes);
     }
 }
