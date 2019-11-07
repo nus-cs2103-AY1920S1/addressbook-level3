@@ -98,7 +98,11 @@ public class Notebook implements ReadOnlyNotebook {
 
     public Classroom getFirstClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
-        currentClassroom = classroomList.get(0);
+        if (classroomList.isEmpty()) {
+            currentClassroom = new Classroom();
+        } else {
+            currentClassroom = classroomList.get(0);
+        }
         return currentClassroom;
     }
 

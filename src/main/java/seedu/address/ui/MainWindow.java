@@ -31,6 +31,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Scheduler;
 
@@ -52,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StudentListPanel studentListPanel;
     private AssignmentListPanel assignmentListPanel;
     private ClassroomListPanel classroomListPanel;
+    private Classroom currentClassroom;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderListPanel monReminderListPanel;
@@ -110,6 +112,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane classroomListPanelPlaceholder;
+
+    @FXML
+    private StackPane currentClassroomListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -183,7 +188,8 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-        classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+        currentClassroom = logic.getNotebook().getCurrentClassroom();
+        classroomListPanel = new ClassroomListPanel(logic.getClassroomList(), currentClassroom);
         classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
         //reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
@@ -350,7 +356,8 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
 
-            classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+            currentClassroom = logic.getNotebook().getCurrentClassroom();
+            classroomListPanel = new ClassroomListPanel(logic.getClassroomList(), currentClassroom);
             classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
