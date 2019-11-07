@@ -14,7 +14,7 @@ import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 
 /**
- * Contains utility methods for populating {@code BankAccount} with sample data.
+ * Contains utility methods for populating {@code UserState} with sample data.
  */
 public class SampleDataUtil {
     public static BankAccountOperation[] getSampleTransactions() {
@@ -28,7 +28,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a sample BankAccount containing sample transactions.
+     * Returns a sample UserState containing sample transactions.
      */
     public static ReadOnlyUserState getSampleAccount() {
         UserState sampleUserState = new UserState();

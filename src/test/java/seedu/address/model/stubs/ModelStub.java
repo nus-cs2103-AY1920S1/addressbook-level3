@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -188,11 +187,21 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
+    public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
     }
 
     @Override
-    public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
+    public void updateProjectionsAfterDelete(Budget budget) {
+
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(BankAccountOperation added) {
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(Budget budget) {
+
     }
 
     @Override

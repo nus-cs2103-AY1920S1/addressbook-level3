@@ -32,14 +32,13 @@ public class Ledger implements ReadOnlyLedger {
     public Ledger(ReadOnlyLedger ledger) {
         this();
         requireNonNull(ledger);
-        pot = ledger.getBalance();
-        setLedgerHistory(ledger);
-        setPersonList(ledger);
+        resetData(ledger);
     }
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
         this.ledgerHistory.setLedgerOperations(ledger.getLedgerHistory());
+        recalculatePot();
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
@@ -145,5 +144,6 @@ public class Ledger implements ReadOnlyLedger {
 
     public void set(LedgerOperation target, LedgerOperation source) {
         ledgerHistory.set(target, source);
+        recalculatePot();
     }
 }
