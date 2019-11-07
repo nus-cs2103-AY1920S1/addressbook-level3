@@ -47,6 +47,7 @@ end box
 [-> LogicManager : import w/.. f/..
 activate LogicManager
 LogicManager -> ParserManager : parseCommand("...")
+note right: 1.
 
 activate ParserManager
 ParserManager --> LogicManager : ImportCommand
@@ -55,6 +56,7 @@ deactivate ParserManager
 LogicManager -> ModelManager : command.execute(model)
 activate ModelManager
 ModelManager -> WordBankList : hasWordBank(..)
+note right: 2.
 activate WordBankList
 
 WordBankList --> ModelManager : false
@@ -62,28 +64,34 @@ deactivate WordBankList
 
 ModelManager --> LogicManager : ImportCommandResult
 deactivate ModelManager
+note left: 3.
+
 
 LogicManager -> StorageManager : commandResult.updateStorage(..)
+note right: 4.
 activate StorageManager
-
 StorageManager -> JsonWordBankListStorage : importWordBank(..)
+note right: 5.
 activate JsonWordBankListStorage
 
-note right: Word bank is added through the,\n WordBankList method, so that \ndata is synchronised in Model.
 JsonWordBankListStorage -> JsonWordBankListStorage : addWordBank(WordBank)
+note right: 6.
+
 JsonWordBankListStorage -> JsonUtil : saveWordBank(WordBank)
 activate JsonUtil
 
+
 JsonUtil -> JsonUtil : saveJsonFile(..)
+note right: 7.
 JsonUtil --> JsonWordBankListStorage
 
 deactivate JsonUtil
-
 JsonWordBankListStorage --> StorageManager
 deactivate JsonWordBankListStorage
 
 StorageManager --> LogicManager
 deactivate StorageManager
+note left: 8.
 'ModelManager --> LogicManager
 'deactivate ModelManager
 

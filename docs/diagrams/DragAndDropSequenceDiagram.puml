@@ -25,17 +25,23 @@ activate ModularDisplay
 ModularDisplay -> LoadBankPanel : register callback:\n commandExecutor
 
 activate LoadBankPanel
+note right: 1.
 LoadBankPanel --> ModularDisplay :
+
 deactivate LoadBankPanel
 
 ModularDisplay --> MainWindow
 deactivate ModularDisplay
+[<--MainWindow
+
 deactivate MainWindow
+
 
 activate User
 User -> JavaFX : Dragged file in
 activate JavaFX
 JavaFX -> LoadBankPanel : handleDragDropped
+note left: 2.
 
 activate LoadBankPanel
 LoadBankPanel -> MainWindow : commandExecutor.execute("import w/.. f/..")
@@ -43,7 +49,7 @@ LoadBankPanel -> MainWindow : commandExecutor.execute("import w/.. f/..")
 
 activate MainWindow
 MainWindow --[hidden]> MainWindow
-note left: Import Command gets executed.\n Refer to my section: User Commands\n for more details
+note left: 3. Import Command gets executed.\n Refer to my section: User Commands\n for more details
 MainWindow --> LoadBankPanel
 deactivate MainWindow
 

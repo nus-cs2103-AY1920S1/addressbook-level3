@@ -769,15 +769,11 @@ To segregate cards according to their function, I distinguished the following:
 //For instance, `CreateCommand`: +
 
 ---
-I will now walk you through a Sequence Diagram to show how these commands utilise word bank's data structure and storage.
-
-// tag::chenhui-findCommandSequenceDiagram[]
-.Sequence diagram detailing a successful `CardCommand` through different components
-image::FindCommandSequenceDiagram.png[]
-// end::chenhui-findCommandSequenceDiagram[]
+I will now walk you through an `ImportCommand` using a Sequence Diagram. +
+The emphasis here is to show how these commands utilise word bank's data structure and storage.
 
 // tag::chenhui-importCommandSequenceDiagram[]
-.Sequence diagram detailing a successful `WordBankCommand` through different components
+.Sequence diagram detailing a successful `WordBankCommand` through different components.
 image::ImportCommandSeqDiagram.png[]
 // end::chenhui-importCommandSequenceDiagram[]
 
@@ -785,28 +781,32 @@ image::ImportCommandSeqDiagram.png[]
 NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams.
 
 We will see the case where an Import command is valid. +
-For example, "import w/bank1, f/~/downloads"
+For example, for the input: "import w/bank1, f/~/downloads"
 
-//1. Input gets parsed by the ParserManager. Depending on the input, a specific `Command` is returned.
-//In this case, a `ImportCommand` object is instantiated.
-//2. Depending on the type of Command object, execute() performs slightly different tasks.
-//In this case, the execute method of `CreateCommand` checks in `Model` to see if the `WordBank` currently already exist.
-//3. Relevant information is stored in `CreateCommandResult` and is returned back to `LogicManager`.
-//4. With the retrieved information and type of `CommandResult`, commandResult updates the storage through it's method.
-//5. The `Storage` abstracts away details and contains well-written methods, each to handle different cases of `CommandResult`.
-//In this case, createWordBank is called.
-//6. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
-//For a `CreateCommandResult`, addWordBank and saveWordBank is called.
-//7. In addWordBank method, it `WordBank` is added into the `ObservableList<WordBank>`, which is the same as that
-//contained within Model. It is to synchronise data with `Model` and `UI`.
-//8. In saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
-//This is performed through the common class: `JsonUtil`.
-//9. In addWordBank method, it simply adds to the only WordBankList in the entire app. This `WordBankList` is the
-//same instance as referenced by `Model`.
-//10. It returns void all the way back to `LogicManager`, and then success message is then passed back to `AppManager`,
-//then to the `UI` to notify the user.
+1. Depending on the input, a specific `Command` type is returned by `ParserManager`. i.e. `ImportCommand`.
 
-1.
+2. Each type of `Command` executes with slight variance. `ImportCommand` executes and checks in `Model` to check if
+`WordBankList` already contains `WordBank`.
+
+3. Relevant information is stored in a specific `CommandResult` and is returned back to `LogicManager`.
+i.e. `ImportCommandResult`.
+
+4. Each type of `CommandResult` updates the storage with slight variance. `ImportCommand` calls the importWordBank method.
+
+5. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
+For importWordBank method, addWordBank and saveWordBank private methods are called.
+
+6. Within addWordBank method, `WordBank` is added into the underlying UniqueWordBankList. +
+Two synchronisation happens here. +
+As `Model` contains the same `WordBankList`, the two list contains synchronised data. +
+Secondly, `WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
+`UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated word bank automatically.
+
+7. Within saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
+This is performed through the common class: `JsonUtil`.
+
+8. It returns back to `LogicManager`, and a success message is passed back to `AppManager`,
+then to the `UI` to notify the user.
 
 {nbsp}
 
@@ -822,13 +822,13 @@ Improves user experience by making it easy to share word banks with friends.
 NOTE: As mentioned previously, drag and drop will extend and utilise word bank's storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
 
-.Word bank file
+.Word bank file.
 image::DragAndDrop1.png[150, 150]
 
-.Dragging into Dukemon
+.Dragging into Dukemon.
 image::DragAndDrop2.png[150, 150]
 
-.Dukemon registers the bank
+.Dukemon registers the bank.
 image::DragAndDrop3.png[150, 150]
 
 From `HOME` mode, you can view your `WordBanks`.
@@ -841,13 +841,13 @@ your desktop, or chat applications. +
 image::DragAndDropSequenceDiagram.png[]
 // end::chenhui-dragAndDropSequenceDiagram[]
 
-`LoadBankPanel` is the corresponding class and fxml that displays the word banks for the user. +
-It only has access to an `ObserverableList` of `WordBank`, which gets updated within `Model` or `Storage`. +
+`LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
+It only has access to an `ObservableList<WordBank>`. +
 This means it has no way to perform commands, update model or update storage.
 
-To work around this, a functional callback is registered within LoadBankPanel.
-LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
-Afterwhich, the callback essentially performs an `ImportCommand`, to load the word bank.
+1. To work around this, a functional callback is registered within LoadBankPanel.
+2. LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
+3. Afterwhich, the callback essentially performs an `ImportCommand`, to load the word bank.
 
 {nbsp}
 
