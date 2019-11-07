@@ -472,10 +472,10 @@ Clears all the date-time mapping from the 2nd Event on the Event list.
 
 Generates the payment for an employee
 
-Format: `pay EMPLOYEE_NUMBER s/VALUE
+Format: `pay EMPLOYEE_INDEX s/VALUE
 
 ****
-* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+* EMPLOYEE_INDEX is the number of the employee on the displayed list.
 It must be a valid number.
 * VALUE is the amount of payment pay for the employee.
 * If the VALUE is larger than the money pending to pay, the payment would not be generated.
@@ -491,10 +491,10 @@ Generates the payment of employee with $100.
 
 Undo the payment for an employee
 
-Format: `undo_pay EMPLOYEE_NUMBER s/VALUE
+Format: `undo_pay EMPLOYEE_INDEX s/VALUE
 
 ****
-* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+* EMPLOYEE_INDEX is the number of the employee on the displayed list.
 It must be a valid number.
 * VALUE is the amount of undo payment.
 * If the VALUE is larger than the money paid to the employee, the payment would not be undo.
