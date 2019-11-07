@@ -7,6 +7,7 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_NAME;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PHONE;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_TAG;
+import static cs.f10.t1.nursetraverse.logic.parser.ParserUtil.manageIndexParseException;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
@@ -41,6 +42,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
+            //This will always throw a ParseException
+            manageIndexParseException(pe, EditCommand.MESSAGE_USAGE);
+            //This is included to ensure compiler complies
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE), pe);
         }
