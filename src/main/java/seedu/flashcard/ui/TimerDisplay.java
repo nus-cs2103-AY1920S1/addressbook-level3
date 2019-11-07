@@ -38,19 +38,18 @@ public class TimerDisplay extends UiPart<Region> {
     private Label totalQuestions;
 
 
-    public TimerDisplay(CommandExecutor commandExecutor, int size) {
+    public TimerDisplay(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
         timerLabel.textProperty().bind(timeSeconds.asString());
         currentQuestion.textProperty().bind(questionCount.asString());
-        totalQuestions.setText(String.valueOf(size));
-        initializeTimer();
     }
 
 
-    void initializeTimer (){
+    void initializeTimer (int size){
         questionNumber = 1;
+        totalQuestions.setText(String.valueOf(size));
         timeSeconds.set(STARTTIME);
         timeline = new Timeline();
         timeline.getKeyFrames().add(
@@ -63,12 +62,11 @@ public class TimerDisplay extends UiPart<Region> {
     private void timerExpire() {
         try {
             commandExecutor.execute("skip");
-            questionNumber++;
         } catch (CommandException | ParseException e) {
         }
     }
 
-    private void stopTimer(){
+    public void stopTimer(){
         timeline.stop();
     }
 

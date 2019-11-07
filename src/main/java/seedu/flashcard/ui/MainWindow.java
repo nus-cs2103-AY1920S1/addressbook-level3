@@ -78,6 +78,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statsDisplay = new StatsDisplay(logic.getStatistics());
+        timerDisplay = new TimerDisplay(this::executeCommand);
+
     }
 
     public Stage getPrimaryStage() {
@@ -194,11 +196,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handleTimer(){
-        if(timerDisplay == null) {
-            timerDisplay = new TimerDisplay(this::executeCommand, logic.getFilteredFlashcardList().size());
+        if(timerDisplayPlaceHolder.getChildren().isEmpty()) {
+            timerDisplay.initializeTimer(0);
             timerDisplayPlaceHolder.getChildren().add(timerDisplay.getRoot());
         }else{
-            timerDisplay.initializeTimer();
+            timerDisplay.initializeTimer(0);
         }
     }
 
@@ -231,8 +233,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isFlip()) {
                 flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
-                handleTimer();
             }
+
+            if (logic.isQuiz()) {
+                handleTimer();
+            }else {
+                timerDisplay.stopTimer();
+                timerDisplayPlaceHolder.getChildren().clear();
+                flashcardDisplay.setFeedbackToUser("no card selected view ");
+            }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.commands.Command;
@@ -99,4 +100,11 @@ public class LogicManager implements Logic {
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
+
+    @Override
+    public boolean isQuiz(){
+        return flashcardListParser.isQuizMode();
+    }
+
+
 }

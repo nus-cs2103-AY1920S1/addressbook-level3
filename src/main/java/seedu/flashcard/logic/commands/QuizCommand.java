@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 
@@ -29,9 +31,9 @@ public class QuizCommand extends Command {
     public static final String MESSAGE_INVALID_DURATION = "The duration you entered is invalid!";
     public static final String MESSAGE_RESULT_SUCCESS = "Please answer the flashcard below with the flip command.";
     private final Index targetIndex;
-    private final int duration;
+    private final Integer duration;
 
-    public QuizCommand(Index targetIndex, int duration) {
+    public QuizCommand(Index targetIndex, Integer duration) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
         this.duration = duration;
@@ -48,6 +50,7 @@ public class QuizCommand extends Command {
         requireNonNull(model);
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            FlashcardListParser.setQuizMode(false);
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
 
