@@ -235,12 +235,15 @@ will make use of the `linear regression` / `average` methods inside the library 
 Given that the number of orders in a seller database might be scaled to be very large in the future
 the main focus of this feature was to *calculate statistics only when needed*.
 
-One of the ways that was initially considered was actually to maintain a running statistic
-counter upon loading of the main app, update this counter when calculation is needed
-and then display this counter. This implementation would have been easy to implement within the existing AB3 code
+* Alternative design considered :
+** To implement statistics, maintain a few running statistic
+counter upon loading of the main app, update these counters/values when calculation is needed
+and then display it. This implementation would have been easy to implement within the existing AB3 code
 since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
-this value *However, we dropped this due to the consideration
-mentioned in the previous paragraph*
+this value.
+*** Pros: Easy to implement on top of AB3
+*** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere, since any change in the database / models will cause the values to change
+*** cons: Will bloat the UI since there will be extra details to be displayed
 
 ====== Design Decision 1:
 
@@ -976,3 +979,16 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+* *Other Major enhancement*:
+** My other contributions to the codebase is as follows:
+*** Complete overhaul of User Interface. This includes generating the FXML files, creating the controller files, importing and GUI tests.
+*** UI commands. This includes the command that is directly related to switching of UI e.g `switch-o` which allows the user to switch their their focused tab panel with a command
+
+* *Code contributed*:
+
+* contributed total almost 7k LOC:
+
+** 3k+ functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[functional code]
+** 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[test code]
