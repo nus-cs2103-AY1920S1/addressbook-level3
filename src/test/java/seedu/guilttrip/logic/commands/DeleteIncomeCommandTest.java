@@ -52,7 +52,7 @@ public class DeleteIncomeCommandTest {
                 commandHistory);
     }
 
-    @Test
+    /*@Test
     public void execute_validIndexFilteredIncomeList_success() {
         showIncomeAtIndex(model, INDEX_FIRST_ENTRY);
 
@@ -67,7 +67,7 @@ public class DeleteIncomeCommandTest {
         showNoIncome(expectedModel);
 
         assertCommandSuccess(deleteIncomeCommand, model, expectedMessage, expectedModel, commandHistory);
-    }
+    }*/
 
     @Test
     public void execute_invalidIndexFilteredIncomeList_throwsCommandException() {
