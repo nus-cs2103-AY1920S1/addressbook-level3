@@ -148,32 +148,39 @@ public class AddTransactionCommand extends Command {
         private Optional<Year> year;
         private Optional<TransactionType> transactionType;
 
-        public void setDescription(Description description) {
+        public AddTransactionCommandBuilder withDescription(Description description) {
             this.description = description;
+            return this;
         }
 
-        public void setAmount(Amount amount) {
+        public AddTransactionCommandBuilder withAmount(Amount amount) {
             this.amount = amount;
+            return this;
         }
 
-        public void setCategory(Optional<Category> category) {
+        public AddTransactionCommandBuilder withCategory(Optional<Category> category) {
             this.category = category;
+            return this;
         }
 
-        public void setDay(Optional<Day> day) {
+        public AddTransactionCommandBuilder withDay(Optional<Day> day) {
             this.day = day;
+            return this;
         }
 
-        public void setMonth(Optional<Month> month) {
+        public AddTransactionCommandBuilder withMonth(Optional<Month> month) {
             this.month = month;
+            return this;
         }
 
-        public void setYear(Optional<Year> year) {
+        public AddTransactionCommandBuilder withYear(Optional<Year> year) {
             this.year = year;
+            return this;
         }
 
-        public void setTransactionType(Optional<TransactionType> transactionType) {
+        public AddTransactionCommandBuilder withTransactionType(Optional<TransactionType> transactionType) {
             this.transactionType = transactionType;
+            return this;
         }
 
         /**
