@@ -10,7 +10,7 @@ image::docs/images/Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="800"]
+image::images/NurseTraverse.png[width="800"]
 endif::[]
 
 NurseTraverse is a desktop application meant for community nurses.
