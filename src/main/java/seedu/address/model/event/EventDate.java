@@ -87,7 +87,6 @@ public class EventDate implements Comparable<EventDate> {
      */
     public long dateDifference(EventDate other) {
         long daysBetween = DAYS.between(date, other.getDate());
-        System.out.println(daysBetween);
         return daysBetween;
     }
 
