@@ -4,15 +4,17 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Interface Model <<Interface>>
+Package Model <<Rectangle>> {
+    Interface Model <<Interface>>
 
-Class ModelManager
-Class UserPrefs
-Class HistoryManager
-Class CcaTracker
-Class CoursePlanner
-Class FinanceTracker
-Class Planner
+    Class ModelManager
+    Class UserPrefs
+    Class HistoryManager
+    Class CcaTracker
+    Class CoursePlanner
+    Class FinanceTracker
+    Class Planner
+}
 
 ModelManager .up.|> Model
 ModelManager o-left-> UserPrefs
