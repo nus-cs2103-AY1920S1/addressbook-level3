@@ -22,9 +22,7 @@ public interface Analyser {
     List<Result> analyse(List<Password> passwordList);
 
     /**
-     * Provides the header message for each type of analyser.
-     *
-     * @return
+     * Returns the header message for each type of analyser.
      */
     String getHeader();
 }

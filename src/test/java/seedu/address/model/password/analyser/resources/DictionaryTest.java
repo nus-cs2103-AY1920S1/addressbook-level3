@@ -8,13 +8,13 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.DictionaryException;
+import seedu.address.model.password.exceptions.DictionaryNotFoundException;
 
 class DictionaryTest {
 
     @Test
     void build_invalidDictionaryName_throwsDictionaryException() {
-        assertThrows(DictionaryException.class, () -> Dictionary.build("dummy.txt"));
+        assertThrows(DictionaryNotFoundException.class, () -> Dictionary.build("dummy.txt"));
     }
 
     @Test
@@ -31,7 +31,7 @@ class DictionaryTest {
                 Integer computed = Dictionary.build("passwords.txt").getDictionary().get(value);
                 assertEquals(expected, computed);
             }
-        } catch (DictionaryException e) {
+        } catch (DictionaryNotFoundException e) {
             System.out.println("Should not happen");
             e.printStackTrace();
         }

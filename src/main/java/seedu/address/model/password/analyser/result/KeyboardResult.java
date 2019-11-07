@@ -7,10 +7,12 @@ import seedu.address.model.password.analyser.match.KeyboardMatch;
 import seedu.address.model.password.analyser.match.Match;
 
 /**
- * Represents a result produced from sequence analyser.
+ * Represents a keyboard {@code Result} produced from {@code KeyboardAnalyser}.
  */
 public class KeyboardResult extends Result {
 
+    private static final String MESSAGE_NO_COMMON_KEYBOARD_PATTERN_FOUND =
+            "No passwords were found to have contained common keyboard patterns\n";
     private List<KeyboardMatch> matches;
 
     public KeyboardResult(Password password, String description, List<KeyboardMatch> matches) {
@@ -22,7 +24,7 @@ public class KeyboardResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common keyboard patterns\n");
+            report.append(MESSAGE_NO_COMMON_KEYBOARD_PATTERN_FOUND);
             return report.toString();
         }
         for (Match m : matches) {
