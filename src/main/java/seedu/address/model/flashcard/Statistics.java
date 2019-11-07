@@ -3,6 +3,8 @@ package seedu.address.model.flashcard;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a Flashcard's statistics in the StudyBuddy app.
  */
@@ -35,6 +37,8 @@ public class Statistics {
      * @param currentIncrement String of ScheduleIncrement
      */
     public Statistics(LocalDate lastViewed, LocalDate toViewNext, ScheduleIncrement currentIncrement) {
+        requireAllNonNull(lastViewed, toViewNext, currentIncrement);
+        assert(lastViewed.isBefore(toViewNext));
         this.lastViewed = lastViewed;
         this.toViewNext = toViewNext;
         this.currentIncrement = currentIncrement;
