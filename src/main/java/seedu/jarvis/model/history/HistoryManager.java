@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 
@@ -75,6 +76,9 @@ public class HistoryManager {
      * @return {@code ObservableList} of {@code Command} objects.
      */
     public ObservableList<Command> getExecutedCommandsList() {
+
+        assert executedCommands != null : "executedCommands should not be null";
+
         return FXCollections.observableList(executedCommands.getCommands());
     }
 
@@ -84,6 +88,9 @@ public class HistoryManager {
      * @return {@code ObservableList} of {@code Command} objects.
      */
     public ObservableList<Command> getInverselyExecutedCommandsList() {
+
+        assert inverselyExecutedCommands != null : "inverselyExecutedCommands should not be null";
+
         return FXCollections.observableList(inverselyExecutedCommands.getCommands());
     }
 
@@ -176,6 +183,11 @@ public class HistoryManager {
      * @return Whether the rollback was successful.
      */
     public boolean rollback(Model model) {
+
+        if (executedCommands.isEmpty()) {
+            throw new CommandNotFoundException();
+        }
+
         Command command = executedCommands.getLatestCommand();
         try {
             command.executeInverse(model);
@@ -194,6 +206,11 @@ public class HistoryManager {
      * @return Whether the commit was successful.
      */
     public boolean commit(Model model) {
+
+        if (inverselyExecutedCommands.isEmpty()) {
+            throw new CommandNotFoundException();
+        }
+
         Command command = inverselyExecutedCommands.getLatestCommand();
         try {
             command.execute(model);
