@@ -70,6 +70,10 @@ image::LoanSlip.png[width=350, align=center]
 {nbsp}
 In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
 
+=== Code Contributed
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test Code]
+
 === *Minor enhancement* - Book-related features
 On top of the feature to generate loan slips, I am also primarily involved the implementation of the basic book-related core features.
 
