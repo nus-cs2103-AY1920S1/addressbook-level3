@@ -380,6 +380,7 @@ Examples:
 This command would not work if there are no activities scheduled in the day.
 // end::optimise[]
 
+// tag::undoredocommand[]
 === Undo: `undo`
 
 Undo by one action +
@@ -399,6 +400,7 @@ List of Undoable commands:
 
 Redo by one action. Any undoable command is able to be redone. +
 Format: `redo`
+// end::undoredocommand[]
 
 === Look up history of inputs: `history`[Work in progress]
 
@@ -448,7 +450,7 @@ Format: `exit`
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it adds with the file that contains the data of your previous Plan^2^Travel folder.
 
-//tag::commandsummary[]
+// tag::commandsummary[]
 == Command Summary
 
 ** *Add* :
@@ -500,4 +502,4 @@ e.g. `autoschedule t/Dining 1000 t/Attraction 1200 n/Disneyland 1400 t/Dining a/
 * `view help`
 ** *Help* : `help`
 ** *Exit* : `exit`
-//end::commandsummary[]
+// end::commandsummary[]
