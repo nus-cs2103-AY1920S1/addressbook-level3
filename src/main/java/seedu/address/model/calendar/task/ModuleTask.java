@@ -6,7 +6,7 @@ import seedu.address.model.calendar.tag.TaskTag;
 
 
 /**
- * Represents a Task in the CalendarAddressbook.
+ * Represents a ModuleTask in the CalendarAddressbook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ModuleTask extends Task {

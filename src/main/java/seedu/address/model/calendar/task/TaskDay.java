@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's phone number in the address book.
+ * Represents a Task's day in the calendar.
  * Guarantees: immutable; is valid as declared in {@link #isValidDay(String)}
  */
 public class TaskDay {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "TaskDay should only contain name of day in lowercase (monday, tuesday, wednesday, ...)";
+            "TaskDay should only contain name of day (monday, tuesday, wednesday, ...) and it is not case-sensitive";
     public final String value;
 
     /**
