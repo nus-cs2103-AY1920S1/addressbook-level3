@@ -46,7 +46,7 @@ For future commands, this feature is easily extensible as it only requires the n
 * *Other contributions*:
 
 ** Project management:
-*** Handled releases `v1.1` - `v1.3.1` (4 releases) on GitHub
+*** Handled releases `v1.1` - `v1.3` (3 releases) on GitHub
 *** Setup Coveralls
 ** Enhancements to existing features:
 *** Wrote GUI tests to test new and old components of the UI, increasing coverage for the `tagline.ui` package to 65.6%
