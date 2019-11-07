@@ -8,13 +8,13 @@ import java.util.regex.Pattern;
 import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.diary.ViewDiaryCommand;
 import dukecooks.logic.commands.exercise.ViewExerciseCommand;
-import dukecooks.logic.commands.workout.ViewWorkoutCommand;
 import dukecooks.logic.commands.mealplan.ViewMealPlanCommand;
+import dukecooks.logic.commands.workout.ViewWorkoutCommand;
 import dukecooks.logic.parser.diary.ViewDiaryCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.ViewExerciseCommandParser;
-import dukecooks.logic.parser.workout.ViewWorkoutCommandParser;
 import dukecooks.logic.parser.mealplan.ViewMealPlanCommandParser;
+import dukecooks.logic.parser.workout.ViewWorkoutCommandParser;
 
 /**
  * Parses input arguments and creates a new ViewCommand object
