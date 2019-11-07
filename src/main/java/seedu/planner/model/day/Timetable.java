@@ -49,6 +49,10 @@ public class Timetable {
         }
     }
 
+    public Index getIndex(ActivityWithTime activity) {
+        return Index.fromZeroBased(timetable.indexOf(activity));
+    }
+
     /**
      * Find the next activity in the list such that there is no overlaps unless the activity is the last in the list.
      */

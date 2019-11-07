@@ -18,6 +18,7 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
+import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 
@@ -48,9 +49,9 @@ public class UnscheduleCommand extends UndoableCommand {
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
 
-    private final Index activityIndexToUnschedule;
+    private Index activityIndexToUnschedule;
     private final Index dayIndex;
-
+    private final ActivityWithTime activityToUnschedule;
     /**
      * @param activityIndex of the {@code ActivityWithTime} in the {@code Day} to edit
      * @param dayIndex      of the {@code Day} in the {@code Itinerary} to edit
@@ -59,6 +60,14 @@ public class UnscheduleCommand extends UndoableCommand {
         requireAllNonNull(activityIndex, dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
+        this.activityToUnschedule = null;
+    }
+
+    public UnscheduleCommand(ActivityWithTime activityToUnschedule, Index dayIndex) {
+        requireAllNonNull(activityToUnschedule, dayIndex);
+        this.activityToUnschedule = activityToUnschedule;
+        this.dayIndex = dayIndex;
+        this.activityIndexToUnschedule = null;
     }
 
     public Index getActivityIndexToUnschedule() {
@@ -77,9 +86,14 @@ public class UnscheduleCommand extends UndoableCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         List<ActivityWithTime> activitiesInDay = dayToEdit.getListOfActivityWithTime();
+
+        if (activityIndexToUnschedule == null) {
+            activityIndexToUnschedule = dayToEdit.getIndex(activityToUnschedule);
+        }
 
         if (activityIndexToUnschedule.getZeroBased() >= activitiesInDay.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
