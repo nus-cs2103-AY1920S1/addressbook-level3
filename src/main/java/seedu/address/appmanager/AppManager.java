@@ -148,9 +148,6 @@ public class AppManager {
                     gameCommandResult.getCard().get());
         }
     }
-    public String getSelectedWbName() {
-        return logic.getActiveWordBankStatistics().getWordBankName();
-    }
 
     public void setGuiSettings(GuiSettings guiSettings) {
         logic.setGuiSettings(guiSettings);
