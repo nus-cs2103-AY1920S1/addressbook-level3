@@ -48,7 +48,7 @@
           </padding>
         </StackPane>
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.5" VBox.vgrow="ALWAYS">
-          <VBox fx:id="reminderList" alignment="CENTER" maxWidth="480.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <VBox fx:id="reminderList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" minWidth="-Infinity" styleClass="cell_big_label" text="Lessons" textFill="#FFD300">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
@@ -94,7 +94,7 @@
                     </tabs>
                   </TabPane>
           </VBox>
-          <VBox fx:id="classroomList" alignment="CENTER" maxWidth="480.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <VBox fx:id="classroomList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Classrooms" textFill="#FFC300">
 
             <padding>
@@ -103,7 +103,7 @@
             </Label>
               <StackPane fx:id="classroomListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
-          <VBox fx:id="combinedList" alignment="CENTER" maxWidth="480.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <VBox fx:id="combinedList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students/Assignments" textFill="#FFD300">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
