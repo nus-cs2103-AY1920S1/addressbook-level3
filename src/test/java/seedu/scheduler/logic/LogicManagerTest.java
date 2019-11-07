@@ -24,7 +24,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.DeleteCommand;
-import seedu.scheduler.logic.commands.ListCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.Model;
@@ -72,14 +71,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
-
-    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonIntervieweeListStorage intervieweeListStorage =
                 new JsonIntervieweeListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionInterviewee.json"));
         JsonInterviewerListStorage interviewerListStorage =
