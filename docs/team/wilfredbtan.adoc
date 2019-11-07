@@ -32,7 +32,7 @@ This 13-week project was started as part of NUS' Software Engineering (CS2103/T)
 to either morph or enhance an existing application (link:{ab3Url}/[Address Book - Level 3]). Our team decided to morph the project
 into the CS2103/T Revision Tool (RT) a desktop quiz application which allows users to create customised question banks
 and attempt the quizzes in an interactive manner. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 13 kLoC.
+It is written in Java, and has about 14 kLoC.
 
 .UI of the Configuration Mode
 image:Ui.png[width="790"]

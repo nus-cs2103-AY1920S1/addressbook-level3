@@ -172,7 +172,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 //tag::wilfred-answerable[]
-==== Model of the `Answerable` Class
+==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
 image::AnswerableClassDiagram.png[]

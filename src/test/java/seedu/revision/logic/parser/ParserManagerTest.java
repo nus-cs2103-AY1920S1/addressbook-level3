@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.revision.testutil.Assert.assertThrows;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.answerable.Answerable;
@@ -94,6 +96,14 @@ public class ParserManagerTest {
     }
 
     @Test
+    public void parseCommand_mcqInput() throws Exception {
+        assertTrue(parser.parseCommand("A", MCQ_STUB) instanceof McqInputCommand);
+        assertTrue(parser.parseCommand("d", MCQ_STUB) instanceof McqInputCommand);
+    }
+
+    //TODO: Add TrueFalse and SAQ
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
@@ -101,6 +111,13 @@ public class ParserManagerTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () ->
+            parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_unknownQuizCommand_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            McqInputCommand.MESSAGE_USAGE), () -> parser.parseCommand("unknownCommand", MCQ_STUB));
     }
 }
