@@ -22,6 +22,7 @@ public class CoursePlannerView extends View<AnchorPane> {
 
     public CoursePlannerView(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
+        courseSplitPane.setDividerPositions(0.35f);
     }
 
     @Override
