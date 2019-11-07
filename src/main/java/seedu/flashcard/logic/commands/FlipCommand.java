@@ -10,6 +10,7 @@ import seedu.flashcard.model.Quiz;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
+import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 
 /**
  * Command to input an answer to the last viewed flashcard and see the correct answer.
@@ -37,8 +38,10 @@ public class FlipCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Flashcard quizCard = model.getQuiz().quizCard();
-        if (quizCard == null) {
+        Flashcard quizCard;
+        try {
+            quizCard = model.getQuiz().quizCard();
+        } catch (CardNotFoundException e) {
             throw new CommandException(MESSAGE_NULL_QUIZ_FLASHCARD);
         }
         try {
@@ -85,7 +88,7 @@ public class FlipCommand extends Command {
         final StringBuilder builder = new StringBuilder();
         builder.append("Your answer: ").append(updatedAnswer.toString());
         if (isCorrect) {
-            builder.append(" is correct.\n\n");
+            builder.append(" is correct.\n");
         } else {
             builder.append(" is incorrect.\n")
                     .append("The correct answer is: ").append(quizCard.getAnswer()).append("\n");

@@ -74,7 +74,7 @@ public class Quiz {
         if (!(other instanceof Quiz)) {
             return false;
         }
-       Quiz obj = (Quiz) other;
+        Quiz obj = (Quiz) other;
         return quizableFlashcards.equals(obj.quizableFlashcards);
     }
 
