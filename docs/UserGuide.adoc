@@ -57,6 +57,7 @@ image::UiStartPlan.png[]
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
+* If there are duplicate parameters, *AlgoBase* will only consider the last parameter and ignore previous parameters (with the same parameter name). e.g. `addprob n/nameA n/nameB` will add a problem with name `nameB`.
 ====
 
 === Problems
@@ -182,10 +183,10 @@ Words are separated by empty spaces. Thus if we have a sentence "Hello, world!",
 
 Examples:
 
-* `findprob n/Sequence` +
-Returns any problem with word `sequence` (case-insensitive) in its name.
+* `findprob n/Sequences` +
+Returns any problem with word `Sequences` (case-insensitive) in its name.
 * `findprob t/algorithm diff/2.0-4.0` +
-Returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
+Returns any problem with `algorithm` as one of its tags **AND** with a difficulty between 2.0 and 4.0 (inclusive).
 * `findprob a/Hentin Marz src/Kattis` +
 Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 
@@ -203,7 +204,7 @@ Alias: `afr`
 The feature of storing/applying a problem-finding rule is complementary to the plan and tag feature: both tag and plan requires you to categorize problems one by one manually. If you simply want to "keep a list of problems" that fulfills certain conditions, say "algorithm questions of medium difficulty" or "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
 
 [NOTE]
-The rules for constraints are the same as those described in `find` command.
+The rules for constraints are the same as those described in `findprob` command.
 
 Examples:
 
@@ -379,6 +380,7 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [
 ** is matched word by word.
 ** is considered a match only when there is a task whose name is exactly the same as the given task name.
 
+// tag::task[]
 === Task Management
 
 ==== Adding a new task to a plan: `addtask`
@@ -460,36 +462,77 @@ Format: `setplan PLAN_INDEX`
 Examples:
 
 * `setplan 10`
+// end::task[]
+
+=== Editing from GUI
+
+AlgoBase currently supports editing Problems and Plans from the GUI with an intuitive layout.
+
+==== Editing a Problem / Plan
+
+.Plan with name "Data Structures" is opened.
+image::gui/EditPlanUiAction0.png[width="70%"]
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.The name and start date of the plan are modified.
+image::gui/EditPlanUiAction1.png[width="70%"]
+
+Step 2: Make changes to the problem / plan by editing the fields directly.
+
+.The plan is successfully edited.
+image::gui/EditPlanUiAction2.png[width="70%"]
+
+Step 3: Save changes to the problem by clicking on the _"Edit Problem"_ / _"Edit Plan"_ button.
+
+
+==== Deleting a Problem / Plan
+
+.Problem with name "Sequences" is opened.
+image::gui/DeleteProblemUiAction0.png[width="70%"]
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Warning Dialog to confirm problem being deleted.
+image::gui/DeleteProblemUiAction1.png[width="70%"]
+
+Step 2: Click on the red _"Delete Problem"_ / _"Delete Plan"_ button at the bottom right.
+
+Step 3: For _Problems_, select whether you want the problem to be removed from all existing plans.
+
+.The problem is successfully deleted.
+image::gui/DeleteProblemUiAction2.png[width="70%"]
+
+Step 4: Click on _Confirm_.
 
 === Tabs
 
-image::gui/TabsOverview.png[width="70%"]
-_fig 3.7.0 – Types of Tabs highlighted in Orange_
+There are 2 types of tabs in AlgoBase: Display and Details tabs, as seen in the figure below.
 
-There are 2 types of tabs in AlgoBase: Display and Details tabs.
+.Types of tabs highlighted in Orange
+image::gui/TabsOverview.png[width="70%"]
+
 
 * **Display tabs** give a high level overview of the contents of a list of items
-(e.g. a list of `problems`/`tags`/`plans`).
+(e.g. a list of _problems_ / _tags_ / _plans_ / _findrules_).
 * **Details tabs** give a more detailed description of an item in a display tab.
 
-In the example in fig 3.7.0, there is a problem called "Sequences" in the current display tab.
-The details for this problem can be seen in the details tab where the orange arrow is pointing to.
-
 ==== Switching Tabs: `switchtab`
+
+.Demonstration of the `SwitchTab` command
 image::gui/SwitchTabCommand.png[width="70%"]
-_fig 3.7.1 – Demonstration of `SwitchTab` command_
 
 Switches between tabs in the GUI +
-Format: `switchtab tt/TAB_TYPE i/TAB_INDEX`
+Format: `switchtab tt/TAB_TYPE i/TAB_INDEX` +
 Format: `st tt/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
-** can be `display` or `details`
-** Alternatively, `display` and `details` can be replaced by `1` and `2` respectively
+** can be **display** or **details**
+** Alternatively, **display** and **details** can be replaced by **1** and **2** respectively
 
 Examples:
 
-* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. `plans` tab), as seen in fig 3.7.1
+* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. _plans_ tab).
 * `st tt/1 i/3` – Same effects as the previous command but in a shorter format.
 * `switchtab tt/details i/3` – Switches to the third **details** tab
 * `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
@@ -497,27 +540,28 @@ Examples:
 
 ==== Opening Tabs: `opentab`
 
+.Demonstration of the `OpenTab` command
 image::gui/OpenTabCommand.png[width="70%"]
 
 Opens a new **Details** tab in the GUI +
-Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
+Format: `opentab m/MODEL_TYPE i/MODEL_INDEX` +
 Format: `ot m/MODEL_TYPE i/MODEL_INDEX`
 
 
 * Model Type
-** can be `problem`, `tag`, `plan` and `findrule`
-** Alternatively, `problem`, `tag`, `plan` and `findrule` can be replaced by `1`, `2`, `3` and `4` respectively
+** can be _problem_, _tag_, _plan_ and _findrule_
+** Alternatively, _problem_, _tag_, _plan_ and _findrule_ can be replaced by _1_, _2_, _3_ and _4_ respectively
 
 Examples:
 
-* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems, as seen in fig 3.7.2
+* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems.
 * `ot m/1 i/2` – Same effects as the previous command but in a shorter format.
-* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans, as seen in fig 3.7.2
+* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans.
 * `ot m/3 i/3` – Same effects as the previous command but in a shorter format.
 
 ==== Closing Tabs: `closetab`
 Closes a **details** tab in the GUI +
-Format: `closetab i/DETAILS_TAB_INDEX`
+Format: `closetab i/DETAILS_TAB_INDEX` +
 Format: `ct i/DETAILS_TAB_INDEX`
 
 Examples:
@@ -562,6 +606,9 @@ Format: `help [COMMAND_WORD]`
 Shows all possible commands.
 * `help addprob`
 Shows command usage for `addprob` command.
+
+[NOTE]
+`help` command only searches commands' full command word. (i.e. aliases is not supported by `help`)
 
 ==== Clearing all entries : `clear`
 

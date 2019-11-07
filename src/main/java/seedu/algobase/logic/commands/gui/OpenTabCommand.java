@@ -18,7 +18,7 @@ import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 
 /**
- * Close tabs in the GUI.
+ * Opens a tab in the GUI.
  */
 public class OpenTabCommand extends Command {
 
