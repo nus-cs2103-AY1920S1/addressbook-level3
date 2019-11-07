@@ -314,7 +314,7 @@ We need to come up with a solution to give us "B00001" in the given example.
 * **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
 ** Pros: Will be efficient in generating the next valid serial number.
 ** Cons: Will incur additional memory to maintain the TreeMap.
-* **Alternative 2 (Current choice):** Use brute force to start iterating from "B00001" to obtain the first unused serial number.
+* **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
