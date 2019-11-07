@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Window;
+import javafx.util.Pair;
 import seedu.moolah.logic.parser.Prefix;
 
 /**
@@ -64,7 +65,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         currentCommandWord.addListener((observableValue, s, t1) -> {
             currentCommand.setValue(t1);
         });
-        currentMatchingText = new SimpleStringProperty();
+        currentMatchingText = new SimpleStringProperty("");
 
         supportedCommandWords = FXCollections.observableArrayList();
         autofillSupportedCommandList = FXCollections.observableArrayList();
@@ -143,9 +144,8 @@ public class AutofillSuggestionMenu extends ContextMenu {
         MenuItem menuItem = (MenuItem) event.getTarget();
 
         String completion = menuItem.getId();
-        for (Character c : completion.toCharArray()) {
-            textInputControl.insertText(textInputControl.getLength(), c.toString());
-        }
+        textInputControl.appendText(completion);
+        textInputControl.moveTo(textInputControl.getLength());
     }
 
     @Override
@@ -156,7 +156,6 @@ public class AutofillSuggestionMenu extends ContextMenu {
         populateList(this, autofillSupportedCommands, commandSuggestions, currentMatchingText.get());
         super.show(anchor, side, dx, dy);
     }
-
 
     // disable other show methods
     @Override
@@ -193,13 +192,13 @@ public class AutofillSuggestionMenu extends ContextMenu {
      * @param matchingSuggestions The list of suggestions.
      * @param match               The matching text.
      */
-    public void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
+     void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
                              FilteredList<String> commandSuggestion, String match) {
         m.getItems().clear();
         if (currentCommand.length().get() > 0) {
             AutofillSupportedCommand c = matchingSuggestions.get(0);
-            List<Prefix>[] missing = c.getMissingPrefixes(match);
-            for (Prefix p : missing[0]) {
+            Pair<List<Prefix>, List<Prefix>> missing = c.getMissingPrefixes(match);
+            for (Prefix p : missing.getKey()) {
                 TextFlow graphic = requiredPrefixGraphic(p);
                 MenuItem item = new MenuItem();
                 if (match.stripTrailing().length() < match.length()) {
@@ -211,17 +210,17 @@ public class AutofillSuggestionMenu extends ContextMenu {
                 item.setGraphic(graphic);
                 m.getItems().add(item);
             }
-            if (missing[0].size() > 0) {
-                String all = missing[0].stream().map(Object::toString).collect(Collectors.joining(" "));
+            if (missing.getKey().size() > 0) {
+                String all = missing.getKey().stream().map(Object::toString).collect(Collectors.joining(" "));
                 MenuItem allPre = new MenuItem();
                 allPre.setId(all);
-                allPre.setGraphic(requiredPrefixGraphic(missing[0]));
+                allPre.setGraphic(requiredPrefixGraphic(missing.getKey()));
                 m.getItems().add(allPre);
             }
-            if (missing[0].size() > 0 && missing[1].size() > 0) {
+            if (missing.getKey().size() > 0 && missing.getValue().size() > 0) {
                 m.getItems().add(new SeparatorMenuItem());
             }
-            for (Prefix p : missing[1]) {
+            for (Prefix p : missing.getValue()) {
                 TextFlow graphic = optionalPrefixGraphic(p);
                 MenuItem item = new MenuItem();
                 // if ends with space can add prefix
@@ -256,7 +255,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
      * @param after The text after the match.
      * @return The TextFlow used for the menu item's graphic.
      */
-    public TextFlow commandWordGraphic(String start, String match, String after) {
+    private TextFlow commandWordGraphic(String start, String match, String after) {
         Text completionTextBeforeMatch = new Text(start);
         completionTextBeforeMatch.setFill(COMPLETION_TEXT_COLOUR);
         Text matchingText = new Text(match);

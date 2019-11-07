@@ -36,21 +36,22 @@ import seedu.moolah.logic.parser.Prefix;
 public class CommandTextField extends Region {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String PREFIX_STYLE_PREFIX = "prefix";
-    private static final String ARGUMENT_STYLE_PREFIX = "arg";
-    private static final String COMMAND_WORD_STYLE = "command-word";
-    private static final String PLACEHOLDER_STYLE = "placeholder";
-    private static final String STRING_STYLE = "string";
-    private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
+    static final String PREFIX_STYLE_PREFIX = "prefix";
+    static final String ARGUMENT_STYLE_PREFIX = "arg";
+    static final String COMMAND_WORD_STYLE = "command-word";
+    static final String STRING_STYLE = "string";
+    static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
+
+    private static final double TEXTFIELD_HEIGHT = 25;
 
     StyleClassedTextArea textField;
     InputHistory inputHistory;
 
-    Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
+    private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
     AutofillSuggestionMenu autofillMenu;
-    StringProperty currentCommand;
+    private StringProperty currentCommand;
 
-    Subscription syntaxHighlightSubscription;
+    private Subscription syntaxHighlightSubscription;
 
     public CommandTextField(Consumer<String> textGetter) {
         super();
@@ -76,15 +77,15 @@ public class CommandTextField extends Region {
                 super.insertText(position, text.replaceAll("[\\n\\r]", ""));
             }
         };
+
         getChildren().addAll(textField);
 
         // ----- sizing ------
 
         // height to look like single line input
-        double h = 25;
-        textField.setPrefHeight(h);
-        textField.setMaxHeight(h);
-        textField.setMinHeight(h);
+        textField.setPrefHeight(TEXTFIELD_HEIGHT);
+        textField.setMaxHeight(TEXTFIELD_HEIGHT);
+        textField.setMinHeight(TEXTFIELD_HEIGHT);
 
         // update width so re-sizes properly
         widthProperty().addListener((unused1, unused2, width) -> {
@@ -126,9 +127,7 @@ public class CommandTextField extends Region {
         textField.textProperty().addListener((observableValue, s, t1) -> {
             String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
 
-            Matcher command =
-                    Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s+")
-                            .matcher(t1);
+            Matcher command = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s").matcher(t1);
 
             if (command.find()) {
                 String cmd = command.group("COMMAND");
@@ -164,6 +163,10 @@ public class CommandTextField extends Region {
         textField.clear();
     }
 
+    StyleSpans<Collection<String>> getStyleSpan() {
+        return textField.getStyleSpans(0);
+    }
+
     /**
      * Commits the text to history and clears the text field.
      */
@@ -180,9 +183,7 @@ public class CommandTextField extends Region {
     public void replaceWithPreviousInput() throws NoSuchElementException {
         String previous = inputHistory.getPreviousInput();
         clear();
-        for (Character character : previous.toCharArray()) {
-            textField.insertText(textField.getLength(), character.toString());
-        }
+        textField.replaceText(previous);
     }
 
     /**
@@ -192,9 +193,7 @@ public class CommandTextField extends Region {
     public void replaceWithNextInput() throws NoSuchElementException {
         String next = inputHistory.getNextInput();
         clear();
-        for (Character character : next.toCharArray()) {
-            textField.insertText(textField.getLength(), character.toString());
-        }
+        textField.replaceText(next);
     }
 
     /**
@@ -217,7 +216,7 @@ public class CommandTextField extends Region {
     public void enableSyntaxHighlighting() {
         syntaxHighlightSubscription =
                 textField.multiPlainChanges()
-                        .successionEnds(Duration.ofMillis(50))
+                        .successionEnds(Duration.ofMillis(300))
                         .subscribe(ignore -> {
                             textField.setStyleSpans(
                                     0, computeHighlighting(getText()));
@@ -284,7 +283,7 @@ public class CommandTextField extends Region {
      * @param text The text to be formatted.
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
-    private StyleSpans<Collection<String>> computeHighlighting(String text) {
+     StyleSpans<Collection<String>> computeHighlighting(String text) {
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
@@ -305,10 +304,10 @@ public class CommandTextField extends Region {
      *
      * @param text        The text to be formatted (guaranteed that the input's command word matches this pattern).
      * @param pattern     The pattern used to apply formatting.
-     * @param prefixcount The number of prefixes in the command.
+     * @param prefixCount The number of prefixes in the command.
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
-    private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern, int prefixcount) {
+    private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern, int prefixCount) {
         // pattern should match the command word
         Matcher matcher = pattern.matcher(text);
         int lastKwEnd = 0;
@@ -328,20 +327,10 @@ public class CommandTextField extends Region {
             // highlight command word
             String styleClass = null;
 
-            if (matcher.group(PLACEHOLDER_STYLE) != null) {
-                styleClass = PLACEHOLDER_STYLE;
-            }
-            if (styleClass != null) {
-                spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-                spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-                lastKwEnd = matcher.end();
-                continue;
-            }
-
             // styleclass for prefix
-            for (int groupNum = 1; groupNum <= prefixcount; groupNum++) {
+            for (int groupNum = 0; groupNum < prefixCount; groupNum++) {
                 if (matcher.group(PREFIX_STYLE_PREFIX + groupNum) != null) {
-                    int styleNumber = (groupNum % 4) + 1;
+                    int styleNumber = groupNum % 4;
                     lastPrefixStyle = PREFIX_STYLE_PREFIX + styleNumber;
                     styleClass = lastPrefixStyle;
                     break;
@@ -362,6 +351,7 @@ public class CommandTextField extends Region {
                     styleClass = STRING_STYLE;
                 }
             }
+
             if (styleClass != null) {
                 spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
                 spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());

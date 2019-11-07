@@ -100,6 +100,7 @@ import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
+import seedu.moolah.ui.textfield.CommandBox;
 
 /**
  * The Main Window. Provides the basic application layout containing

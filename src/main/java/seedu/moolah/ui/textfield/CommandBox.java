@@ -1,4 +1,4 @@
-package seedu.moolah.ui;
+package seedu.moolah.ui.textfield;
 
 import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
 
@@ -12,8 +12,8 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
+import seedu.moolah.ui.UiPart;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
-import seedu.moolah.ui.textfield.CommandTextField;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
