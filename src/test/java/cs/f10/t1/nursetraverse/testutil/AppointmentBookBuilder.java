@@ -1,7 +1,6 @@
 package cs.f10.t1.nursetraverse.testutil;
 
 import cs.f10.t1.nursetraverse.model.AppointmentBook;
-import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 
 /**
