@@ -4,6 +4,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddFromContactsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.List;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class AddFromContactsCommandParser implements Parser<AddFromContactsCommand> {
@@ -15,8 +17,8 @@ public class AddFromContactsCommandParser implements Parser<AddFromContactsComma
      */
     public AddFromContactsCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new AddFromContactsCommand(index);
+            List<Index> indexList = ParserUtil.parseMultipleIndex(args);
+            return new AddFromContactsCommand(indexList);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFromContactsCommand.MESSAGE_USAGE), pe);

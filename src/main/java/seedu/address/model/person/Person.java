@@ -24,11 +24,12 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final List<String> projects = new ArrayList<>();
     private final Timetable timeTable;
+    private final Performance performance;
 
     /**
      * Every field must be present and not null, except for timeTable which can be null.
      */
-    public Person(Name name, Phone phone, Email email, ProfilePicture profilePicture, Address address, Set<Tag> tags, Timetable timeTable) {
+    public Person(Name name, Phone phone, Email email, ProfilePicture profilePicture, Address address, Set<Tag> tags, Timetable timeTable, Performance performance) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -37,13 +38,14 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.timeTable = timeTable;
+        this.performance = performance;
     }
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ProfilePicture profilePicture, Address address, Set<Tag> tags) {
-        this(name, phone, email, profilePicture, address, tags, new Timetable(new ArrayList<>()));
+        this(name, phone, email, profilePicture, address, tags, new Timetable(new ArrayList<>()), new Performance());
     }
 
     public Name getName() {
@@ -80,6 +82,10 @@ public class Person {
 
     public Timetable getTimeTable() {
         return timeTable;
+    }
+
+    public Performance getPerformance() {
+        return performance;
     }
 
     /**
@@ -119,7 +125,8 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
                 && ((this.getTimeTable() == null && otherPerson.getTimeTable() == null)
-                    || otherPerson.getTimeTable().equals(getTimeTable()));
+                    || otherPerson.getTimeTable().equals(getTimeTable()))
+                && otherPerson.getPerformance().equals(getPerformance());
     }
 
     @Override

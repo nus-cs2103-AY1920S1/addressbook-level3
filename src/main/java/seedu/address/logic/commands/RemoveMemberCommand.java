@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -8,9 +9,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 public class RemoveMemberCommand extends Command {
     public static final String COMMAND_WORD = "removeMember";
@@ -22,12 +26,10 @@ public class RemoveMemberCommand extends Command {
 
     public static final String MESSAGE_REMOVE_MEMBER_SUCCESS = "Removed %1$s from %2$s";
 
-    private final String targetMember;
-    private final NameContainsKeywordsPredicate predicate;
+    private Index targetIndex;
 
-    public RemoveMemberCommand(String targetMember, NameContainsKeywordsPredicate predicate) {
-        this.targetMember = targetMember;
-        this.predicate = predicate;
+    public RemoveMemberCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
@@ -36,13 +38,17 @@ public class RemoveMemberCommand extends Command {
 
         Project projectToEdit = model.getWorkingProject().get();
 
+        if (targetIndex.getZeroBased() >= projectToEdit.getMemberNames().size()) {
+            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        String personToRemoveName = projectToEdit.getMemberNames().get(targetIndex.getZeroBased());
+        //Creates a predicate to find the person in the contacts
+        Predicate<Person> predicate = new NameContainsKeywordsPredicate(Arrays.asList(personToRemoveName.split("\\s+")));
         //Finding the person and removing the project from the person's list of projects
         model.updateFilteredPersonList(predicate);
         Person targetPerson = model.getFilteredPersonList().get(0);
-        List<String> memberProjectList = targetPerson.getProjects();
-        memberProjectList.remove(
-                memberProjectList.indexOf(
-                        projectToEdit.getTitle().toString()));
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         //Creating the new member list
         List<String> memberListToEdit = projectToEdit.getMemberNames();
@@ -54,10 +60,21 @@ public class RemoveMemberCommand extends Command {
                 editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
+        model.setPerson(targetPerson, removeFromPerson(projectToEdit, targetPerson));
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);
 
-        return new CommandResult(String.format(MESSAGE_REMOVE_MEMBER_SUCCESS, targetMember,
+        return new CommandResult(String.format(MESSAGE_REMOVE_MEMBER_SUCCESS, targetPerson.getName().fullName,
                 editedProject.getTitle().toString()), COMMAND_WORD);
+    }
+
+    private Person removeFromPerson(Project project, Person person) {
+        String projectTitle = project.getTitle().title;
+        person.getProjects().remove(projectTitle);
+        Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
+                person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+        editedPerson.getProjects().addAll(person.getProjects());
+
+        return editedPerson;
     }
 }

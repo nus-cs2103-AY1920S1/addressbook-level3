@@ -104,7 +104,7 @@ public class AddTimetableCommand extends Command {
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getProfilePicture(),
-                personToEdit.getAddress(), personToEdit.getTags(), timeTable);
+                personToEdit.getAddress(), personToEdit.getTags(), timeTable, personToEdit.getPerformance());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -16,10 +16,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.UiEvent;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.exceptions.CommandException;
-import static seedu.address.logic.commands.CheckoutCommand.MESSAGE_CHECKOUT_SUCCESS;
 
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import static seedu.address.logic.commands.CheckoutCommand.MESSAGE_CHECKOUT_SUCCESS;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private BudgetListPanel budgetListPanel;
     private ProjectListPanel projectListPanel;
     private ProjectOverview projectOverview;
+    private PerformanceOverviewCard performanceOverviewCard;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ShowTimetablePanel timetablePanel;
@@ -235,6 +237,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             String commandWord = commandResult.getCommandWord();
             // Only change Ui if certain command demands it
+            if (currentState.equals(State.PERFORMANCE_OVERVIEW) && !commandWord.equals(ShowPerformanceOverviewCommand.COMMAND_WORD)) {
+                UiEvent event = logic.getPreviousEvent();
+                changeUiDisplay(event.getState());
+            }
             if (commandResult.changeNeeded()) {
                 State nextState = stateOf(commandWord);
                 if (logic.getWorkingProject().isEmpty()) {
@@ -296,6 +302,11 @@ public class MainWindow extends UiPart<Stage> {
             currentState = nextState;
             break;
 
+        case PERFORMANCE_OVERVIEW:
+            performanceOverviewCard = new PerformanceOverviewCard(logic.getPerformanceOverview());
+            projectListPanelPlaceholder.getChildren().setAll(performanceOverviewCard.getRoot());
+            break;
+
         case SHOW_TIMETABLE:
             timetablePanel = new ShowTimetablePanel(logic.getWorkingProject().get().getGeneratedTimetable());
             projectListPanelPlaceholder.getChildren().setAll(timetablePanel.getRoot());
@@ -324,6 +335,10 @@ public class MainWindow extends UiPart<Stage> {
 
         case ListCommand.COMMAND_WORD:
             state = State.ADDRESS_BOOK;
+            break;
+
+        case ShowPerformanceOverviewCommand.COMMAND_WORD:
+            state = State.PERFORMANCE_OVERVIEW;
             break;
 
         case GenerateSlotCommand.COMMAND_WORD:

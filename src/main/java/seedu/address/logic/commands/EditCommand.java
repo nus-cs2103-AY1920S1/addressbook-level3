@@ -43,6 +43,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+    private static boolean isNameEdited;
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
@@ -74,6 +75,10 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        if (isNameEdited) {
+            model.editInAllProjects(personToEdit, editedPerson);
+        }
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), COMMAND_WORD);
@@ -86,15 +91,21 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
+        if (editPersonDescriptor.getName().isPresent()) {
+            isNameEdited = true;
+        }
+
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         ProfilePicture updatedProfilePicture = editPersonDescriptor.getProfilePicture().orElse(personToEdit.getProfilePicture());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Timetable timeTable = personToEdit.getTimeTable(); // Timetable is not affected by edit command. Just copy.
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedProfilePicture, updatedAddress, updatedTags, timeTable);
+        Timetable timeTable = personToEdit.getTimeTable(); // Timetable is not affected by edit command. Just copy.
+        Performance performance = personToEdit.getPerformance(); // Similar to timetable, performance is unaffected.
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedProfilePicture, updatedAddress, updatedTags, timeTable, performance);
     }
 
     @Override

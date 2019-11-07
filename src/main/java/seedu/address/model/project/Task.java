@@ -1,6 +1,8 @@
 package seedu.address.model.project;
 
 
+import java.util.Objects;
+
 /**
  * Represents a Project's task in the app.
  * Guarantees: immutable; is always valid
@@ -69,6 +71,11 @@ public class Task {
         return otherTask.getDescription().equals(getDescription())
                 && otherTask.getTime().equals(getTime())
                 && otherTask.isDone() == (isDone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, time, isDone);
     }
 }
 

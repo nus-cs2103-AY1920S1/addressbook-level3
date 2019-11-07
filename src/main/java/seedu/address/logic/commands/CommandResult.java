@@ -37,6 +37,7 @@ public class CommandResult {
                 ListCommand.COMMAND_WORD,
                 ListBudgetCommand.COMMAND_WORD,
                 AddProjectCommand.COMMAND_WORD,
+                ShowPerformanceOverviewCommand.COMMAND_WORD,
                 GenerateSlotCommand.COMMAND_WORD);
         if (list.contains(commandWord)) {
             this.changeInUi = true;

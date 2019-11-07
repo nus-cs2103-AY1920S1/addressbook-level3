@@ -1,5 +1,7 @@
 package seedu.address.model.project;
 
+import java.util.Objects;
+
 public class Description {
 
     /*
@@ -29,5 +31,10 @@ public class Description {
     @Override
     public String toString() {
         return this.description;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
     }
 }

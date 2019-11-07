@@ -4,8 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
 import seedu.address.model.util.SortingOrder;
 
 import java.nio.file.Path;
@@ -29,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final ProjectList projectList;
     private final FilteredList<Project> filteredProjects;
+    private Optional<PerformanceOverview> performanceOverview;
 
     // this is the current branch
     private Optional<Project> workingProject = Optional.empty();
@@ -101,6 +105,16 @@ public class ModelManager implements Model {
         });
         return members;
     }
+
+    @Override
+    public void setPerformanceOverview(PerformanceOverview overview) {
+        this.performanceOverview = Optional.of(overview);
+    }
+
+    @Override
+    public PerformanceOverview getPerformanceOverview() {
+        return performanceOverview.get();
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -171,6 +185,29 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+
+    @Override
+    public void editTaskInAllPersons(Task task, Task editedTask, Project currWorkingProject) {
+        addressBook.editTaskInAllPersons(task, editedTask, currWorkingProject);
+    }
+
+    @Override
+    public void deleteTaskInAllPersons(Task task, Project currWorkingProject) {
+        addressBook.deleteTaskInAllPersons(task, currWorkingProject);
+    }
+
+    @Override
+    public void deleteMeetingInAllPersons(Meeting meeting, Project currWorkingProject) {
+        addressBook.deleteMeetingInAllPersons(meeting, currWorkingProject);
+    }
+
+    @Override
+    public List<Person> getMembersOf(Project project) {
+        return addressBook.getMembersOf(project);
+    }
+
+
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -243,6 +280,12 @@ public class ModelManager implements Model {
         projectList.deleteMember(name);
         updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
     }
+
+    @Override
+    public void editInAllProjects(Person personToEdit, Person editedPerson) {
+        projectList.editInAllProjects(personToEdit, editedPerson);
+    }
+
 
     //=========== Email Account for Owner of application ======================================================
 

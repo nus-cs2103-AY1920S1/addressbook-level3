@@ -2,11 +2,14 @@ package seedu.address.model.project;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 import seedu.address.model.project.exceptions.DuplicateProjectException;
 import seedu.address.model.project.exceptions.ProjectNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -93,6 +96,35 @@ public class UniqueProjectList implements Iterable<Project> {
     public void deleteMember(String member) {
         for (Project project : internalList) {
             project.deleteMember(member);
+        }
+    }
+
+    public void editInAllProjects(Person personToEdit, Person editedPerson) {
+        String personToEditName = personToEdit.getName().fullName;
+        String editedPersonName = editedPerson.getName().fullName;
+        List<Project> projectsToEdit = new ArrayList<>();
+        List<Project> editedProjects = new ArrayList<>();
+
+        for (Project project : internalList) {
+            List<String> memberList = project.getMemberNames();
+
+            if (memberList.contains(personToEditName)) {
+                projectsToEdit.add(project);
+                memberList.set(memberList.indexOf(personToEditName), editedPersonName);
+                List<String> updatedMemberList = memberList;
+
+                Project updatedProject = new Project(project.getTitle(), project.getDescription(), updatedMemberList,
+                        project.getTasks(), project.getFinance(), project.getGeneratedTimetable());
+                updatedProject.setListOfMeeting(project.getListOfMeeting());
+                editedProjects.add(updatedProject);
+            }
+
+            ListIterator<Project> toEditIter = projectsToEdit.listIterator();
+            ListIterator<Project> editedIter = editedProjects.listIterator();
+
+            while (toEditIter.hasNext() && editedIter.hasNext()) {
+                setProject(toEditIter.next(), editedIter.next());
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import seedu.address.model.UserPrefs;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Optional;
 
 /**
@@ -25,7 +26,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ProjectLi
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException, ParseException;
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;

@@ -1,10 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.Stack;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,11 +11,17 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyProjectList;
+import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 import seedu.address.storage.Storage;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.Stack;
+import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -124,6 +125,11 @@ public class LogicManager implements Logic {
     @Override
     public void setWorkingProject(Project project) {
         model.setWorkingProject(project);
+    }
+
+    @Override
+    public PerformanceOverview getPerformanceOverview() {
+        return model.getPerformanceOverview();
     }
 
     //======== GUI =======================================================================

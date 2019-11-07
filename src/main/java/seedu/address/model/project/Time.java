@@ -1,10 +1,11 @@
 package seedu.address.model.project;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Time {
 
@@ -37,5 +38,10 @@ public class Time {
     @Override
     public String toString() {
         return this.time;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, date);
     }
 }

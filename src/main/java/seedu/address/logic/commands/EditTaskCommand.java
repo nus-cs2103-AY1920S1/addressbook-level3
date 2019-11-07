@@ -1,12 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
-import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
-
-import java.util.*;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -17,6 +10,16 @@ import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 import seedu.address.model.project.Time;
 import seedu.address.model.util.SortingOrder;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -73,10 +76,13 @@ public class EditTaskCommand extends Command {
 
         Task taskToEdit = taskList.remove(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+        model.editTaskInAllPersons(taskToEdit, editedTask, projectToEdit);
         taskList.add(index.getZeroBased(), editedTask);
         Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
 
+
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getMemberNames(), taskList, projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
+        editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);

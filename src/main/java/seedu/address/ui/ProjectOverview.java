@@ -66,20 +66,26 @@ public class ProjectOverview extends UiPart<Region> {
         super(FXML);
         this.projects = projects;
         this.project = projects.filtered(x -> x.getTitle() == project.getTitle()).get(0);
-        int count = 0;
+        int memberCount = 0;
+        int taskCount = 0;
+        int meetingCount = 0;
 
         cardPane.setFitToWidth(true);
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
 
-        memberTitle.setText("Members:");
+        memberTitle.setText("Members: ");
         members.setOrientation(Orientation.VERTICAL);
         members.setPrefWrapLength(100);
-        project.getMemberNames().forEach(member -> members.getChildren().add(new Label(member)));
+
+        for (String member : project.getMemberNames()) {
+            members.getChildren().add(new Label("    " + ++memberCount + ". " + member));
+        }
 
         for (Task task : project.getTasks()) {
-            tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString()));
+            tasks.getChildren().add(new Label("    " + ++taskCount + ". " + task.toString()));
         }
+
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);
         tasks.setPrefWrapLength(100);
@@ -90,8 +96,9 @@ public class ProjectOverview extends UiPart<Region> {
         //Defining the x axis
         CategoryAxis xAxis = new CategoryAxis();
 
-        xAxis.setCategories(FXCollections.observableArrayList(project.getFinance().getBudgetObservableList().stream().map(x -> x.getName()).collect(Collectors.toList())));
-        xAxis.setLabel("budgets");
+        xAxis.setCategories(FXCollections.observableArrayList(project.getFinance().getBudgetObservableList().stream()
+                .map(x -> x.getName()).collect(Collectors.toList())));
+        xAxis.setLabel("Budgets");
 
         //Defining the y axis
         NumberAxis yAxis = new NumberAxis();
@@ -126,7 +133,7 @@ public class ProjectOverview extends UiPart<Region> {
         int meetingCount = 1;
         listOfMeetings.sort(Comparator.comparing(m -> m.getTime().getDate()));
         for (Meeting meeting: listOfMeetings) {
-            meetings.getChildren().add(new Label("    " + meetingCount++ + ". " + meeting.getDescription().description + " " + meeting.getTime().time));
+            meetings.getChildren().add(new Label("    " + meetingCount++ + ". " + meeting.getDescription().description + " on " + meeting.getTime().time));
         }
     }
 

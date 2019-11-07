@@ -24,24 +24,28 @@ public class AddFromContactsCommand extends Command {
 
     public static final String MESSAGE_ADD_EXISTING_SUCCESS = "Added %1$s to %2$s";
 
-    private final Index targetIndex;
+    private final List<Index> targetIndexList;
 
-    public AddFromContactsCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public AddFromContactsCommand(List<Index> targetIndexList) {
+        this.targetIndexList = targetIndexList;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> personsToAdd = new ArrayList<>();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        for (Index targetIndex : targetIndexList) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            personsToAdd.add(lastShownList.get(targetIndex.getZeroBased()));
         }
 
         //Finds the person in the address book, and gets the name as a string
-        Person personToAdd = lastShownList.get(targetIndex.getZeroBased());
-        String personToAddName = personToAdd.getName().toString();
+        List<String> namesToAdd = getNames(personsToAdd);
 
         //Find the project to edit, and the title of the project as a string
         Project projectToEdit = model.getWorkingProject().get();
@@ -50,18 +54,46 @@ public class AddFromContactsCommand extends Command {
         List<String> memberListToEdit = projectToEdit.getMemberNames();
         List<String> editedMemberList = new ArrayList<>();
         editedMemberList.addAll(memberListToEdit);
-        editedMemberList.add(personToAddName);
+        editedMemberList.addAll(namesToAdd);
 
         Project editedProject = new Project(projectToEdit.getTitle(),
                 projectToEdit.getDescription(), editedMemberList, projectToEdit.getTasks(),
                 new Finance(projectToEdit.getFinance().getBudgets()), projectToEdit.getGeneratedTimetable());
 
+        editedProject.getListOfMeeting().addAll(projectToEdit.getListOfMeeting());
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);
 
-        personToAdd.getProjects().add(projectToEditTitle);
+        List<Person> editedPersons = addProjToPersons(personsToAdd, editedProject);
+        setPersons(personsToAdd, editedPersons, model);
 
-        return new CommandResult(String.format(MESSAGE_ADD_EXISTING_SUCCESS, personToAddName, projectToEditTitle), COMMAND_WORD);
+        String names = getAsString(personsToAdd);
+
+        return new CommandResult(String.format(MESSAGE_ADD_EXISTING_SUCCESS, names, projectToEditTitle), COMMAND_WORD);
 
     }
+
+    private List<String> getNames(List<Person> personsToAdd) {
+        List<String> namesToAdd = new ArrayList<>();
+
+        for (Person person : personsToAdd) {
+            namesToAdd.add(person.getName().fullName);
+        }
+
+        return namesToAdd;
+    }
+
+    private List<Person> addProjToPersons(List<Person> personsToAdd, Project projectToAdd) {
+        List<Person> editedPersons = new ArrayList<>();
+        for (Person person : personsToAdd) {
+            List<String> projectList = person.getProjects();
+            projectList.add(projectToAdd.getTitle().title);
+            Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
+                    person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+            editedPerson.getProjects().addAll(projectList);
+            editedPersons.add(editedPerson);
+        }
+        return editedPersons;
+    }
+
 }

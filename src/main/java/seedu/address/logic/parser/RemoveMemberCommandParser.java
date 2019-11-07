@@ -1,11 +1,8 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemoveMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import java.util.Arrays;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -16,15 +13,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
  */
 public class RemoveMemberCommandParser implements Parser<RemoveMemberCommand> {
     public RemoveMemberCommand parse(String args) throws ParseException {
-        String memberName = ParserUtil.parseName(args).toString();
-
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new RemoveMemberCommand(index);
+        } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveMemberCommand.MESSAGE_USAGE), pe);
         }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        return new RemoveMemberCommand(memberName, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
+
 }

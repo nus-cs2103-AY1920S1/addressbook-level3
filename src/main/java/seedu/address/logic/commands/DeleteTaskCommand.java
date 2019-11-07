@@ -47,7 +47,6 @@ public class DeleteTaskCommand extends Command {
         }
 
         Project projectToEdit = model.getWorkingProject().get();
-        List<String> members = projectToEdit.getMemberNames();
         List<Task> taskToEdit = projectToEdit.getTasks();
 
         if (index.getZeroBased() >= taskToEdit.size()) {
@@ -57,6 +56,7 @@ public class DeleteTaskCommand extends Command {
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.addAll(taskToEdit);
         Task task = taskList.remove(index.getZeroBased());
+        model.deleteTaskInAllPersons(task, projectToEdit);
         Finance finance = projectToEdit.getFinance();
         Timetable timetable = projectToEdit.getGeneratedTimetable();
 

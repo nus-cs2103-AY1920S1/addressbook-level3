@@ -78,10 +78,6 @@ public class Project {
         return this.members;
     }
 
-    private void setMembers(List<String> members) {
-        this.members.addAll(members);
-    }
-
     public void deleteMember(String member) {
         int index = members.indexOf(member);
         if (index != -1) {

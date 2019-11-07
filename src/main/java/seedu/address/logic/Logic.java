@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -10,10 +8,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyProjectList;
+import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
 
 /**
  * API of the Logic component
@@ -76,6 +77,8 @@ public interface Logic {
      * Sets the working project.
      */
     void setWorkingProject(Project project);
+
+    PerformanceOverview getPerformanceOverview();
 
     //======== GUI =======================================================================
 

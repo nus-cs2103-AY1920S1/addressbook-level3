@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.UniqueProjectList;
 
@@ -95,6 +96,10 @@ public class ProjectList implements ReadOnlyProjectList {
 
     public void deleteMember(String member) {
         projects.deleteMember(member);
+    }
+
+    public void editInAllProjects(Person personToEdit, Person editedPerson) {
+        projects.editInAllProjects(personToEdit, editedPerson);
     }
 
     //// util methods

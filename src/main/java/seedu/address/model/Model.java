@@ -2,8 +2,11 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.performanceoverview.PerformanceOverview;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -63,6 +66,14 @@ public interface Model {
      */
     List<Person> getMembers();
 
+    /**
+     * Sets the current Performance overview to the current working project's
+     * performance overview.
+     */
+    void setPerformanceOverview(PerformanceOverview overview);
+
+    PerformanceOverview getPerformanceOverview();
+
     //=========== AddressBook ================================================================================
     /**
      * Returns the user prefs' address book file path.
@@ -105,6 +116,14 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    void editTaskInAllPersons(Task taskToEdit, Task editedTask, Project currWorkingProject);
+
+    void deleteTaskInAllPersons(Task task, Project currWorkingProject);
+
+    void deleteMeetingInAllPersons(Meeting meeting, Project currWorkingProject);
+
+    List<Person> getMembersOf(Project project);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -185,6 +204,8 @@ public interface Model {
      * The member must exist in at least one project.
      */
     void deleteMember(String name);
+
+    void editInAllProjects(Person personToEdit, Person editedPerson);
 
     //=========== Filtered Project List Accessors =============================================================
 

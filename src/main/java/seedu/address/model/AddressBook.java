@@ -1,12 +1,15 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.project.Meeting;
+import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
@@ -91,6 +94,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    public void editTaskInAllPersons(Task task, Task editedTask, Project currWorkingProject) {
+        persons.editTaskInAllPersons(task, editedTask, currWorkingProject);
+    }
+
+    public void deleteTaskInAllPersons(Task task, Project currWorkingProject) {
+        persons.deleteTaskInAllPersons(task, currWorkingProject);
+    }
+
+    public void deleteMeetingInAllPersons(Meeting meeting, Project currWorkingProject) {
+        persons.deleteMeetingInAllPersons(meeting, currWorkingProject);
+    }
+
+    public List<Person> getMembersOf(Project project) {
+        return persons.getMembersOf(project);
     }
 
     //// util methods

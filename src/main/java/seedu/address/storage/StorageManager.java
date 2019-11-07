@@ -12,6 +12,7 @@ import seedu.address.model.UserPrefs;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -61,12 +62,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException, ParseException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException, ParseException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }

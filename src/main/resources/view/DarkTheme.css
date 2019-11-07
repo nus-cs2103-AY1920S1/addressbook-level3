@@ -355,6 +355,20 @@
     -fx-font-size: 11;
 }
 
+#memberTitle {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#memberTitle .label {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 20;
+}
+
 #members {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -440,3 +454,58 @@
     -fx-tick-length: 20;
     -fx-minor-tick-length: 10;
 }
+
+#performance-overview .label {
+    -fx-text-fill: white;
+}
+
+#performance-overview {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#chartWrapper {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#numTaskTitle {
+    -fx-background-color: #714a0f;
+    -fx-font-size: 15;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#taskDoneRateTitle {
+    -fx-background-color: #123871;
+    -fx-font-size: 15;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#attendanceTitle {
+    -fx-background-color: #647117;
+    -fx-font-size: 15;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#attendanceRateTitle {
+    -fx-background-color: #9cc366;
+    -fx-font-size: 15;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#performance-overview-title {
+    -fx-font-size: 35;
+}
+
+#charts .label {
+    -fx-font-size: 20;
+    -fx-wrap-text: false;
+}
+
+#yAxis-title .label {
+    -fx-font-size: 15;
+}
+
+

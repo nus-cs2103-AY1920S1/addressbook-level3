@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,12 +14,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Meeting;
+import seedu.address.model.project.Task;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -58,6 +63,14 @@ public class PersonCard extends UiPart<Region> {
     private Label projectHeader;
     @FXML
     private FlowPane projects;
+    @FXML
+    private Label taskHeader;
+    @FXML
+    private FlowPane tasksAssigned;
+    @FXML
+    private Label meetingHeader;
+    @FXML
+    private FlowPane meetingsAttended;
 
     public PersonCard(Person person, int displayedIndex, Logic logic) {
         super(FXML);
@@ -81,9 +94,58 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
         person.getProjects().stream()
                 .forEach(project -> projects.getChildren().add(new Label(project)));
+        Logger.getGlobal().warning("isRun");
         projectHeader.setText("Projects:");
+        projects.setOrientation(Orientation.VERTICAL);
+        projects.setPrefWrapLength(100);
+
+        setTasks();
+        setMeetings();
+    }
+
+    private void setTasks() {
+        int taskCount = 0;
+        taskHeader.setText("Tasks assigned: ");
+        for (String projectTitle : person.getProjects()) {
+
+            if (!person.getPerformance().getTaskAssignment().containsKey(projectTitle)) {
+                continue;
+            }
+
+            List<Task> taskList = person.getPerformance().getTaskAssignment().get(projectTitle);
+            for (Task task : taskList) {
+                tasksAssigned.getChildren().add(new Label("    " + ++taskCount + ". " + projectTitle + ": " + task.toString()));
+            }
+        }
+        tasksAssigned.setOrientation(Orientation.VERTICAL);
+        tasksAssigned.setPrefWrapLength(100);
+    }
+
+    private void setMeetings() {
+        int meetingCount = 0;
+        meetingHeader.setText("Meetings attended:");
+        for (String projectTitle : person.getProjects()) {
+
+            if (!person.getPerformance().getMeetingsAttended().containsKey(projectTitle)) {
+                continue;
+            }
+
+            List<Meeting> meetingList = person.getPerformance().getMeetingsAttended().get(projectTitle);
+            List<Meeting> sortedMeetings = meetingList.stream().sorted(Comparator.comparing(m -> m.getTime().getDate())).collect(Collectors.toList());
+
+            for (Meeting meeting : sortedMeetings) {
+                meetingsAttended.getChildren().add(new Label("    "
+                        + ++meetingCount + ". "
+                        + projectTitle + ": "
+                        + meeting.getDescription().toString() + " on " + meeting.getTime().toString()));
+            }
+        }
+
+        meetingsAttended.setOrientation(Orientation.VERTICAL);
+        meetingsAttended.setPrefWrapLength(100);
     }
 
     @FXML

@@ -49,7 +49,7 @@ public class AddProfilePictureCommand extends Command {
         ProfilePicture profilePicture = new ProfilePicture(filePath);
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                profilePicture, personToEdit.getAddress(), personToEdit.getTags());
+                profilePicture, personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getTimeTable(), personToEdit.getPerformance());
 
         model.setPerson(personToEdit, editedPerson);
 
