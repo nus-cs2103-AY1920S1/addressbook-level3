@@ -108,6 +108,7 @@ public class CreateCommand extends Command {
         }
 
         boolean hasPriority = command.get(1).size() > 0;
+
         // Checks if priority level matches high or low
         if (hasPriority && (!command.get(1).get(0).equalsIgnoreCase("high")
             && !command.get(1).get(0).equalsIgnoreCase("low"))) {
