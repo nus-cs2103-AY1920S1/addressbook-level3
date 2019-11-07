@@ -7,6 +7,7 @@ import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -30,7 +31,7 @@ public class ClearCommand extends Command {
         requireAllNonNull(model, stateManager);
         stateManager.saveState(new ModifiedState(model));
 
-        ObservableList<? extends Item> currentList = model.getCurrentList();
+        ObservableList<? extends Item> currentList = FXCollections.observableArrayList(model.getCurrentList());
         currentList.forEach(item -> model.deleteItem(this.listType, item));
 
         setShowInHistory(true);

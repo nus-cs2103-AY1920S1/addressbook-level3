@@ -175,7 +175,9 @@ public class ModelManager implements Model {
         switch(listType) {
         case XPIRE:
             try {
+                System.out.println(this.currentList);
                 this.xpire.removeItem((XpireItem) item);
+                System.out.println(this.currentList);
             } catch (ClassCastException e) {
                 logger.warning("Wrong item type for Xpire");
             }
@@ -186,6 +188,7 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
+            return;
         }
     }
 
@@ -207,7 +210,9 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
+            return;
         }
+        //this.setCurrentList(this.currentView);
     }
 
     @Override
@@ -228,6 +233,7 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
+            return;
         }
     }
 
@@ -260,7 +266,9 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
+            return;
         }
+        this.currentView = listType;
     }
 
     @Override
@@ -288,25 +296,24 @@ public class ModelManager implements Model {
         }
     }
 
-    private void refreshCurrentList(ListType listType) {
-        requireNonNull(listType);
-
-        FilteredList<? extends Item> newCurrentList;
-        switch (listType) {
+    private void refreshCurrentList() {
+        try {
+        switch (this.currentView) {
         case XPIRE:
-            newCurrentList = new FilteredList<>(this.xpire.getItemList());
+            FilteredList<XpireItem> xpireTemp = new FilteredList<>(this.xpire.getItemList());
+            xpireTemp.setPredicate((Predicate<XpireItem>) this.currentList.getPredicate());
+            this.currentList = xpireTemp;
             break;
         case REPLENISH:
-            newCurrentList = new FilteredList<>(this.replenishList.getItemList());
+            FilteredList<Item> replenishTemp = new FilteredList<>(this.replenishList.getItemList());
+            replenishTemp.setPredicate((Predicate<Item>) this.currentList.getPredicate());
+            this.currentList = replenishTemp;
             break;
         default:
             logger.warning("Unknown list type");
             assert false;
             return;
         }
-        try {
-            newCurrentList.setPredicate((Predicate<Item>) this.currentList.getPredicate());
-            this.currentList = newCurrentList;
         } catch (ClassCastException e) {
             logger.warning("Refresh failed");
         }
