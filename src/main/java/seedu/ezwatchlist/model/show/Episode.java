@@ -6,7 +6,7 @@ package seedu.ezwatchlist.model.show;
  */
 public class Episode {
     public static final String MESSAGE_CONSTRAINTS_EPISODE_NAME =
-            "Episode names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Episode names should only contain characters and spaces, and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_EPISODE_NUMBER =
             "Episode numbers should only be integers greater than 0, and it should not be blank";
 

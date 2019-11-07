@@ -1,7 +1,7 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 
 import seedu.ezwatchlist.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

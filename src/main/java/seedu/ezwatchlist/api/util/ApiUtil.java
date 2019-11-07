@@ -73,7 +73,7 @@ public class ApiUtil {
         RunningTime runtime = new RunningTime(movie.getRuntime());
         Description overview = new Description(movie.getOverview());
         Date releaseDate = new Date(movie.getReleaseDate());
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Set<Actor> actors = getActors(movie.getCast());
@@ -153,7 +153,7 @@ public class ApiUtil {
         Date date = new Date(series.getFirstAirDate()); //date of release
         int totalNumOfEpisodes = getTotalNumOfEpisodes(seasonsList);
         Description description = new Description(tv.getOverview()); //description
-        IsWatched isWatched = new IsWatched(false);
+        IsWatched isWatched = new IsWatched("false");
 
         //actors
         Credits credits = apiCallTvSeries.getCredits(tvId, null);
@@ -218,7 +218,7 @@ public class ApiUtil {
      */
     private static void setGenres(List<Genre> genres, Show tvShowToAdd) {
         ArrayList<seedu.ezwatchlist.model.show.Genre> genreList = new ArrayList<>();
-        genres.forEach(x -> genreList.add(new seedu.ezwatchlist.model.show.Genre(x.getName())));
+        genres.forEach(genre -> genreList.add(new seedu.ezwatchlist.model.show.Genre(genre.getName())));
         Set<seedu.ezwatchlist.model.show.Genre> genreSet = new HashSet<>(genreList);
         tvShowToAdd.addGenres(genreSet);
     }

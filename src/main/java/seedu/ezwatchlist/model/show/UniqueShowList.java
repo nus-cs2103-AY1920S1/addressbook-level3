@@ -29,6 +29,9 @@ import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
  */
 public class UniqueShowList implements Iterable<Show> {
 
+    public static final String MESSAGE_SHOW_NOT_FOUND =
+            "The indicated show is not part of your watchlist, please add it first.";
+
     private final ObservableList<Show> internalList = FXCollections.observableArrayList();
     private final ObservableList<Show> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -50,9 +53,9 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public boolean hasShowName(Name showName) {
         requireNonNull(showName);
-        Show movie = new Movie(showName, new Description(), new IsWatched(false), new Date(),
+        Show movie = new Movie(showName, new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        Show tvShow = new TvShow(showName, new Description(), new IsWatched(false), new Date(),
+        Show tvShow = new TvShow(showName, new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()),
                 0, 0, new ArrayList<>());
         return internalList.stream().anyMatch(movie::isSameName) && internalList.stream().anyMatch(tvShow::isSameName);
@@ -96,9 +99,9 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
-        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), actorSet);
-        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), actorSet,
                 0, 0, new ArrayList<>());
         return internalList.stream().filter(show -> show.hasActorWithName(currentMovie)
@@ -112,10 +115,10 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
         requireNonNull(genreSet);
-        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
         currentMovie.addGenres(genreSet);
-        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched(false), new Date(),
+        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched("false"), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()),
                 0, 0, new ArrayList<>());
         currentTvShow.addGenres(genreSet);
@@ -146,7 +149,7 @@ public class UniqueShowList implements Iterable<Show> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new ShowNotFoundException();
+            throw new ShowNotFoundException(MESSAGE_SHOW_NOT_FOUND);
         }
 
         if (!target.isSameShow(editedShow) && contains(editedShow)) {
@@ -163,7 +166,7 @@ public class UniqueShowList implements Iterable<Show> {
     public void remove(Show toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new ShowNotFoundException();
+            throw new ShowNotFoundException(MESSAGE_SHOW_NOT_FOUND);
         }
     }
 

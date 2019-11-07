@@ -194,7 +194,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Show> getUnWatchedShowList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Show> getWatchedShowList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateUnWatchedShowList() {
             throw new AssertionError("This method should not be called.");
         }
 

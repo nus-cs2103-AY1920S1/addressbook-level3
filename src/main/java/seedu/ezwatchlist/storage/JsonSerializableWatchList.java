@@ -20,7 +20,6 @@ import seedu.ezwatchlist.model.show.Show;
 class JsonSerializableWatchList {
 
     public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
-    public static final String MESSAGE_INVALID_SHOW_TYPE = "Show list contains shows of unacceptable type.";
 
     private JsonAdaptedShows shows;
 

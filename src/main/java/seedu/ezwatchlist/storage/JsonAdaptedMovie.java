@@ -31,7 +31,7 @@ public class JsonAdaptedMovie {
     private final String name;
     private final String type;
     private final String dateOfRelease;
-    private final boolean isWatched;
+    private final String isWatched;
     private final String description;
     private final int runningTime;
     private final String poster;
@@ -45,7 +45,7 @@ public class JsonAdaptedMovie {
     public JsonAdaptedMovie(@JsonProperty("name") String name,
                              @JsonProperty("type") String type,
                              @JsonProperty("dateOfRelease") String dateOfRelease,
-                             @JsonProperty("watched") boolean isWatched,
+                             @JsonProperty("watched") String isWatched,
                              @JsonProperty("description") String description,
                              @JsonProperty("runningTime") int runningTime,
                              @JsonProperty("actors") List<JsonAdaptedActor> actors,
@@ -73,7 +73,7 @@ public class JsonAdaptedMovie {
         name = source.getName().showName;
         type = source.getType();
         dateOfRelease = source.getDateOfRelease().value;
-        isWatched = source.isWatched().value;
+        isWatched = Boolean.toString(source.isWatched().value);
         description = source.getDescription().fullDescription;
         runningTime = source.getRunningTime().value;
         actors.addAll(source.getActors().stream()
@@ -128,10 +128,6 @@ public class JsonAdaptedMovie {
         }
         final Description modelDescription = new Description(description);
 
-
-        if (runningTime < 0) {
-            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
-        }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }

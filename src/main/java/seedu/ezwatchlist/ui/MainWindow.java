@@ -1,7 +1,14 @@
 package seedu.ezwatchlist.ui;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -23,6 +30,8 @@ import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.statistics.Statistics;
 
 /**
@@ -45,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private String currentTab;
+    private Boolean isSearchLoading = false;
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
@@ -52,6 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     private WatchedPanel watchedPanel;
     private SearchPanel searchPanel;
     private StatisticsPanel statisticsPanel;
+    private LoadingPanel loadingPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     @FXML
@@ -148,12 +159,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of main window.
      */
     void fillInnerParts() {
-        showListPanel = new ShowListPanel(logic.getFilteredShowList());
+        showListPanel = new ShowListPanel(logic.getUnWatchedList());
         showListPanel.setMainWindow(this);
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         watchedPanel.setMainWindow(this);
         searchPanel = new SearchPanel(logic.getSearchResultList());
         searchPanel.setMainWindow(this);
+        loadingPanel = new LoadingPanel();
 
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
@@ -162,6 +174,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBox.setMainWindow(this);
 
         watchlistButton.getStyleClass().removeAll("button");
         watchlistButton.getStyleClass().add("button-current");
@@ -291,28 +304,67 @@ public class MainWindow extends UiPart<Stage> {
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
-            if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
-                logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+            switch (currentTab) {
+            case (MAIN_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
+                break;
+            case (WATCHED_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
+                break;
+            case (SEARCH_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            case (STATISTICS_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            default:
+                break;
             }
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            //somehow use this code to display list of search results???
-            //showListPanel = new ShowListPanel(logic.getSearchResultList());
-            //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
+            if (commandText.split(" ")[0].toLowerCase().equals("search")) {
+                isSearchLoading = true;
+                contentPanelPlaceholder.getChildren().clear();
+                contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+                Task<CommandResult> task = new Task<CommandResult>() {
+                    @Override
+                    protected CommandResult call() throws Exception {
+                        return logic.execute(commandText);
+                    }
+                };
+                task.setOnSucceeded(evt -> {
+                    isSearchLoading = false;
+                    contentPanelPlaceholder.getChildren().clear();
+                    contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+                    currentTab = SEARCH_TAB;
+                    move(currentButton, searchButton);
+                    currentButton = searchButton;
+                    CommandResult commandResult = task.getValue();
+                    System.out.println(commandResult);
+                    logger.info("Result: " + commandResult.getFeedbackToUser());
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                });
+                new Thread(task).start();
+                return null;
+            } else {
+                CommandResult commandResult = logic.execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
 
-            return commandResult;
-            //catch ParseException here to implement spellcheck
+                return commandResult;
+            }
+        //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
             throw e;
         }
     }
@@ -324,7 +376,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-        logic.getModel().updateFilteredShowList(Model.PREDICATE_SHOW_ALL_SHOWS);
+        logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
         currentTab = MAIN_TAB;
         move(currentButton, watchlistButton);
         currentButton = watchlistButton;
@@ -337,7 +389,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
-        logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+        logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
         currentTab = WATCHED_TAB;
         move(currentButton, watchedButton);
         currentButton = watchedButton;
@@ -348,8 +400,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToSearch() {
-        contentPanelPlaceholder.getChildren().clear();
-        contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        if (isSearchLoading) {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+        } else {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        }
         currentTab = SEARCH_TAB;
         move(currentButton, searchButton);
         currentButton = searchButton;
@@ -360,15 +417,76 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToStatistics() throws NoRecommendationsException, OnlineConnectionException {
-        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
-                statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
-        contentPanelPlaceholder.getChildren().clear();
-        contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
-        currentTab = STATISTICS_TAB;
-        move(currentButton, statisticsButton);
-        currentButton = statisticsButton;
+        try {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
+                            getMovieRecommendations(), getTvRecommendations());
+                    return null;
+                }
+            };
+            task.setOnSucceeded(evt -> {
+                contentPanelPlaceholder.getChildren().clear();
+                contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+                currentTab = STATISTICS_TAB;
+                move(currentButton, statisticsButton);
+                currentButton = statisticsButton;
+            });
+            new Thread(task).start();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Get movie recommendations
+     * @return an ObservableList containing recommended movies.
+     */
+    private ObservableList<Movie> getMovieRecommendations() {
+        Callable<ObservableList<Movie>> movieRecommendationTask = () -> statistics.getMovieRecommendations();
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Future<ObservableList<Movie>> movieFuture = executor.submit(movieRecommendationTask);
+
+        ObservableList<Movie> movieRecommendation = null;
+
+        try {
+            movieRecommendation = movieFuture.get();
+        } catch (InterruptedException e) {
+            resultDisplay.setFeedbackToUser("OOPS!!! The process is interrupted!");
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            resultDisplay.setFeedbackToUser("OOPS!!! There is something wrong getting the recommendations!");
+            e.printStackTrace();
+        }
+        executor.shutdownNow();
+        return movieRecommendation;
+    }
+
+    /**
+     * Get tv show recommendations
+     * @return an ObservableList containing recommended tv shows.
+     */
+    private ObservableList<TvShow> getTvRecommendations() {
+        Callable<ObservableList<TvShow>> tvRecommendationTask = () -> statistics.getTvShowRecommendations();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Future<ObservableList<TvShow>> tvFuture = executor.submit(tvRecommendationTask);
+        ObservableList<TvShow> tvRecommendation = null;
+        try {
+            tvRecommendation = tvFuture.get();
+        } catch (InterruptedException e) {
+            resultDisplay.setFeedbackToUser("OOPS!!! The process is interrupted!");
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            resultDisplay.setFeedbackToUser("OOPS!!! There is something wrong getting the recommendations!");
+            e.printStackTrace();
+        }
+        executor.shutdownNow();
+        return tvRecommendation;
+    }
     /**
      * Changes the style of the button when changing panels.
      * @param a the button representing the current panel
@@ -381,4 +499,7 @@ public class MainWindow extends UiPart<Stage> {
         b.getStyleClass().add("button-current");
     }
 
+    public String getCurrentTab() {
+        return currentTab;
+    }
 }

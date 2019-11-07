@@ -78,7 +78,7 @@ public class WatchShowDescriptorBuilder {
     /**
      * Sets the {@code IsWatched} of the {@code WatchShowDescriptor} that we are building.
      */
-    public WatchShowDescriptorBuilder withIsWatched(boolean isWatched) {
+    public WatchShowDescriptorBuilder withIsWatched(String isWatched) {
         descriptor.setIsWatched(new IsWatched(isWatched));
         return this;
     }

@@ -21,6 +21,7 @@ import seedu.ezwatchlist.model.show.RunningTime;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_TYPE = "Type can only be 'movie' or 'tv'.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
@@ -61,12 +62,11 @@ public class ParserUtil {
      */
     public static String parseType(String type) throws ParseException {
         requireNonNull(type);
-        String trimmedType = type.trim();
-        /*
-        if (!type.isValidType(trimmedType)) {
-            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
-        }*/
-        return type;
+        String trimmedType = type.trim().toLowerCase();
+        if (!trimmedType.equals("movie") && !trimmedType.equals("tv")) {
+            throw new ParseException(MESSAGE_INVALID_TYPE);
+        }
+        return trimmedType;
     }
 
     /**
@@ -93,10 +93,10 @@ public class ParserUtil {
     public static IsWatched parseIsWatched(String isWatched) throws ParseException {
         requireNonNull(isWatched);
         String trimmedIsWatched = isWatched.trim().toLowerCase();
-        if (!IsWatched.isValidIsWatched(Boolean.parseBoolean(trimmedIsWatched))) {
+        if (!IsWatched.isValidIsWatched(trimmedIsWatched)) {
             throw new ParseException(IsWatched.MESSAGE_CONSTRAINTS);
         }
-        return new IsWatched(Boolean.parseBoolean(trimmedIsWatched));
+        return new IsWatched(trimmedIsWatched);
     }
 
     /**
