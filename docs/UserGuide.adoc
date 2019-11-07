@@ -600,7 +600,7 @@ This section covers the statistics shown to the user.
 
 === Game Result
 The game result is shown to the user every time they finish a game. It contains information of the finished game and
-some information of the _WordBank_.
+some information of the `WordBank`.
 
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
@@ -608,10 +608,12 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 image::annotated_game_results_ui.png[]
 
 === WordBank Statistics
-The _WordBank_ statistics is shown on open mode and contains all information of the _WordBank_.
+The `WordBank` statistics is shown on open mode and contains all information of the `WordBank`.
 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
+
+NOTE: The high score and fastest clear of a word bank will not be reset on adding/deleting cards.
 
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
