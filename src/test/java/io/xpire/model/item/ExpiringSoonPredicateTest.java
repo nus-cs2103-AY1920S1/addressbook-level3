@@ -47,11 +47,11 @@ public class ExpiringSoonPredicateTest {
         ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(10);
 
         // Within the days
-        String expiryDate1 = DateUtil.convertDateToString(currentDate.plusDays(5), DATE_FORMAT);
+        String expiryDate1 = DateUtil.convertDateToString(currentDate.plusDays(5));
         assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate1).build()));
 
         // On the day
-        String expiryDate2 = DateUtil.convertDateToString(currentDate.plusDays(10), DATE_FORMAT);
+        String expiryDate2 = DateUtil.convertDateToString(currentDate.plusDays(10));
         assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate2).build()));
 
     }
@@ -63,7 +63,7 @@ public class ExpiringSoonPredicateTest {
         ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(10);
 
         // Not within the days
-        String expiryDate = DateUtil.convertDateToString(currentDate.plusDays(20), DATE_FORMAT);
+        String expiryDate = DateUtil.convertDateToString(currentDate.plusDays(20));
         assertFalse(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate).build()));
     }
 }

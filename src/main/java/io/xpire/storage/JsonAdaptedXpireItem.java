@@ -107,7 +107,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
          */
         ExpiryDate expiryDate = new ExpiryDate(this.expiryDate);
 
-        String newDate = DateUtil.convertDateToString(expiryDate.getDate().plusYears(100), "d/M/yyyy");
+        String newDate = DateUtil.convertDateToString(expiryDate.getDate().plusYears(100));
         if (!ExpiryDate.isValidLowerRangeExpiryDate(newDate)) {
             throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS_OUTDATED);
         }
