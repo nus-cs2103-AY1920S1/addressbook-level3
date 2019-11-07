@@ -37,8 +37,6 @@ import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 
-//import com.sun.scenario.effect.Identity;
-
 /**
  * Edits the details of an existing phone in SML.
  */
@@ -94,8 +92,28 @@ public class EditPhoneCommand extends UndoableCommand {
         Phone phoneToEdit = lastShownList.get(index.getZeroBased());
         Phone editedPhone = createEditedPhone(phoneToEdit, editPhoneDescriptor);
 
+        // If both identity and serial number not edited, proceed to next check
+        // If both identity and serial number edited, check if same as any existing
         if (!phoneToEdit.isSameAs(editedPhone) && model.hasPhone(editedPhone)) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+        }
+
+        // Only identity number is edited, check if identity number already in
+        if (!phoneToEdit.getIdentityNumber().equals(editedPhone.getIdentityNumber())) {
+            boolean clash = model.getPhoneBook().getList().stream()
+                    .anyMatch(phone -> phone.getIdentityNumber().equals(editedPhone.getIdentityNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
+        }
+
+        // Only serial number is edited, check if serial number already in
+        if (!phoneToEdit.getSerialNumber().equals(editedPhone.getSerialNumber())) {
+            boolean clash = model.getPhoneBook().getList().stream()
+                    .anyMatch(phone -> phone.getSerialNumber().equals(editedPhone.getSerialNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+            }
         }
 
         model.setPhone(phoneToEdit, editedPhone);
