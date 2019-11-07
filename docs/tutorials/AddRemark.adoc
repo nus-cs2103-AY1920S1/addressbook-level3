@@ -38,7 +38,7 @@ We accomplish that by returning a `CommandResult` with an accompanying message.
 ----
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
+import Model;
 
 /**
  * Changes the visitList of an existing person in the address book.
@@ -110,7 +110,7 @@ While this is not a replacement for tests, it is an obvious way to tell if our c
 
 [source, java]
 ----
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static CollectionUtil.requireAllNonNull;
 //...
 public class RemarkCommand extends Command {
     //...
@@ -273,7 +273,7 @@ Simply add
 private Label visitList;
 ```
 
-to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`seedu.address.ui.PersonCard`].
+to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/2758455583f0101ed918a318fc75679270843a0d#diff-0c6b6abcfac8c205e075294f25e851fe[`PersonCard`].
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML.
 It might sound like Greek to you right now, don't worry -- we will get back to it later.
 
