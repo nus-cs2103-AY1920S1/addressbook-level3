@@ -46,10 +46,24 @@ public class CustomisedCurrency {
             return true;
         } else {
             return otherCurrency != null
-                    && otherCurrency.getName().equals(getName())
-                    && otherCurrency.getSymbol().equals(getSymbol())
-                    && otherCurrency.getRate().equals(getRate());
+                    && otherCurrency.getName().equals(getName());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CustomisedCurrency)) {
+            return false;
+        }
+
+        CustomisedCurrency otherCustomisedCurrency = (CustomisedCurrency) other;
+        return otherCustomisedCurrency.getName().equals(getName())
+                && otherCustomisedCurrency.getSymbol().equals(getSymbol())
+                && otherCustomisedCurrency.getRate().equals(getRate());
     }
 
     @Override
