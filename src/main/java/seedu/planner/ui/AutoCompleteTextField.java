@@ -1,4 +1,4 @@
-package seedu.planner.logic.autocomplete;
+package seedu.planner.ui;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,6 +13,8 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import seedu.planner.logic.autocomplete.AutoCompleteParser;
+import seedu.planner.logic.autocomplete.AutoCompleteSuggester;
 import seedu.planner.logic.autocomplete.exceptions.CommandWordNotFoundException;
 import seedu.planner.logic.autocomplete.exceptions.PreambleNotFoundException;
 import seedu.planner.logic.parser.Prefix;
