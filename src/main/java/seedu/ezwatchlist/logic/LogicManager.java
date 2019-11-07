@@ -18,6 +18,7 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.storage.Storage;
+import seedu.ezwatchlist.ui.MainWindow;
 
 /**
  * The main LogicManager of the app.
@@ -37,12 +38,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText)
+    public CommandResult execute(String commandText, MainWindow mainWindow)
             throws CommandException, ParseException, OnlineConnectionException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = watchListParser.parseCommand(commandText);
+        
+
+
         commandResult = command.execute(model);
 
         try {

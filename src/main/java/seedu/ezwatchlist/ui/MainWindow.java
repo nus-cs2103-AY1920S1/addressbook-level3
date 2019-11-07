@@ -55,6 +55,20 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private String currentTab;
     private Boolean isSearchLoading = false;
+    public void setIsSearchLoading() {
+        if (!isSearchLoading) {
+            isSearchLoading = true;
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+        } else {
+            isSearchLoading = false;
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+            currentTab = SEARCH_TAB;
+            move(currentButton, searchButton);
+            currentButton = searchButton;
+        }
+    }
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
@@ -299,7 +313,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see //Logic#execute(String)
      */
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
@@ -320,6 +334,7 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
+            /*
             if (commandText.split(" ")[0].toLowerCase().equals("search")) {
                 isSearchLoading = true;
                 contentPanelPlaceholder.getChildren().clear();
@@ -344,8 +359,9 @@ public class MainWindow extends UiPart<Stage> {
                 });
                 new Thread(task).start();
                 return null;
-            } else {
-                CommandResult commandResult = logic.execute(commandText);
+             */
+            //} else {
+                CommandResult commandResult = logic.execute(commandText, this);
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 if (commandResult.isShowHelp()) {
@@ -357,7 +373,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
                 return commandResult;
-            }
+            //}
         //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
 
