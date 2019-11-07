@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import io.xpire.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -23,6 +22,10 @@ import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.Model;
+import io.xpire.model.ModelManager;
+import io.xpire.model.ReadOnlyListView;
+import io.xpire.model.UserPrefs;
 import io.xpire.model.item.XpireItem;
 import io.xpire.storage.JsonListStorage;
 import io.xpire.storage.JsonUserPrefsStorage;

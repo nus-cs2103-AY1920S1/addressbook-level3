@@ -15,6 +15,7 @@ import io.xpire.model.item.Name;
 import io.xpire.model.state.FilteredState;
 import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -45,18 +46,17 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         stateManager.saveState(new FilteredState(model));
-
+        ObservableList<? extends Item> prevList = FXCollections.observableArrayList(model.getCurrentList());
         model.filterCurrentList(this.listType, this.predicate);
         ObservableList<? extends Item> currentList = model.getCurrentList();
-
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, currentList.size()));
-
-        if (currentList.size() == 0) {
-            Set<Tag> allTags = currentList
+        model.filterCurrentList(this.listType, this.predicate);
+        if (model.getCurrentList().size() == 0) {
+            Set<Tag> allTags = prevList
                     .stream()
                     .flatMap(item -> item.getTags().stream())
                     .collect(Collectors.toSet());
-            Set<Name> allItemNames = currentList
+            Set<Name> allItemNames = prevList
                     .stream()
                     .map(Item::getName)
                     .collect(Collectors.toSet());
@@ -65,7 +65,6 @@ public class SearchCommand extends Command {
                     ? StringUtil.findSimilarItemTags(s, allTags)
                     : StringUtil.findSimilarItemNames(s, allItemNames)));
         }
-
         setShowInHistory(true);
         return new CommandResult(sb.toString());
     }

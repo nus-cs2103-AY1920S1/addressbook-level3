@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.xpire.model.ListType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +31,6 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
-import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.tag.Tag;
 import io.xpire.testutil.XpireItemBuilder;
@@ -53,7 +51,8 @@ public class TagCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
+        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIRST_ITEM,
+                new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_APPLE)
@@ -76,7 +75,8 @@ public class TagCommandTest {
     public void execute_validIndexFilteredList_success() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
+        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIRST_ITEM,
+                new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_APPLE)
