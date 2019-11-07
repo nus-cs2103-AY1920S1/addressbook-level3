@@ -35,7 +35,7 @@ public class Budget {
         this.initialAmount = amount;
         this.amount = amount;
         this.deadline = date;
-        this.categories.add(new Category("Uncategorised"));
+        this.categories.add(Category.GENERAL);
         this.valid = true;
         this.between = calculateRemaining();
     }
@@ -53,6 +53,7 @@ public class Budget {
         this.initialAmount = amount;
         this.amount = amount;
         this.deadline = calculateDeadline(duration);
+        this.categories.add(Category.GENERAL);
         this.valid = true;
         this.between = calculateRemaining();
     }
@@ -71,6 +72,10 @@ public class Budget {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public boolean isGeneral() {
+        return this.categories.contains(Category.GENERAL);
     }
 
     public String getBetween() {

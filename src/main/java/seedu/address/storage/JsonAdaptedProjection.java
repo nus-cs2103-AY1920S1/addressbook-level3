@@ -12,6 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
 import seedu.address.model.util.Date;
 
@@ -25,7 +26,8 @@ class JsonAdaptedProjection {
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final String amount;
     private final String date;
-    private JsonAdaptedBudget budget;
+    private List<JsonAdaptedBudget> budgets = new ArrayList<>();
+    private JsonAdaptedCategory category;
 
     /**
      * Constructs a {@code JsonAdaptedProjection} with the given projection details.
@@ -33,11 +35,17 @@ class JsonAdaptedProjection {
     @JsonCreator
     public JsonAdaptedProjection(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
                                  @JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                                 @JsonProperty("budget") JsonAdaptedBudget budget) {
+                                 @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
+                                 @JsonProperty("category") JsonAdaptedCategory category) {
         this.transactions.addAll(transactions);
         this.amount = amount;
         this.date = date;
-        this.budget = budget;
+        if (!budgets.isEmpty()) {
+            this.budgets.addAll(budgets);
+        }
+        if (category != null) {
+            this.category = category;
+        }
     }
 
     /**
@@ -49,8 +57,12 @@ class JsonAdaptedProjection {
                 .collect(Collectors.toList()));
         amount = source.getProjection().toString();
         date = source.getDate().toString();
-        if (source.getBudget().isPresent()) {
-            budget = new JsonAdaptedBudget(source.getBudget().get());
+        if (source.getBudgets().isPresent()) {
+            this.budgets.addAll(source.getBudgets().get().stream()
+                    .map(JsonAdaptedBudget::new).collect(Collectors.toList()));
+        }
+        if (source.getCategory() != null) {
+            this.category = new JsonAdaptedCategory(source.getCategory());
         }
     }
 
@@ -81,13 +93,20 @@ class JsonAdaptedProjection {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
-        if (this.budget == null) {
+        if (this.budgets == null || this.budgets.isEmpty()) {
             return new Projection(txns.asUnmodifiableObservableList(),
                     new Amount(Double.parseDouble(amount)), new Date(date));
         }
-
+        UniqueBudgetList bgts = new UniqueBudgetList();
+        for (JsonAdaptedBudget budget : this.budgets) {
+            bgts.add(budget.toModelType());
+        }
+        if (this.category == null) {
+            return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)),
+                    new Date(date), bgts.asUnmodifiableObservableList());
+        }
         return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)),
-                new Date(date), this.budget.toModelType());
+                new Date(date), bgts.asUnmodifiableObservableList(), this.category.toModelType());
     }
 
 }

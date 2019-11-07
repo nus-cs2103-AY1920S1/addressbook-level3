@@ -29,6 +29,7 @@ import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.transaction.Split;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.ui.tab.Tab;
 
@@ -87,14 +88,8 @@ public class UpdateCommand extends Command {
                 updateTransactionDescriptor);
 
             model.set(transactionToReplace, updatedTransaction);
-            model.getFilteredProjectionsList().forEach(x -> {
-                model.deleteProjection(x);
-                if (x.getBudget().isPresent()) {
-                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate(), x.getBudget().get()));
-                } else {
-                    model.add(new Projection(model.getFilteredTransactionList(), x.getDate()));
-                }
-            });
+            model.updateProjectionsAfterDelete(transactionToReplace);
+            model.updateProjectionsAfterAdd(updatedTransaction);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
                 false, false, Tab.TRANSACTION);
@@ -111,11 +106,24 @@ public class UpdateCommand extends Command {
 
             model.set(budgetToReplace, updatedBudget);
             model.getFilteredProjectionsList().forEach(x -> {
-                if (x.getBudget().isPresent() && x.getBudget().get().equals(budgetToReplace)) {
-                    model.deleteProjection(x);
-                    model.add(new Projection(x.getTransactionHistory(), x.getDate(), updatedBudget));
+                if (x.getBudgets().isPresent()) {
+                    if (x.getBudgets().get().stream().anyMatch(b -> b.equals(budgetToReplace))) {
+                        UniqueBudgetList newBudgets = new UniqueBudgetList();
+                        model.deleteProjection(x);
+                        newBudgets.setBudgets(x.getBudgets().get());
+                        newBudgets.setBudget(budgetToReplace, updatedBudget);
+                        if (x.getCategory() != null) {
+                            model.add(new Projection(x.getTransactionHistory(), x.getDate(),
+                                    newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                        } else {
+                            model.add(new Projection(x.getTransactionHistory(), x.getDate(),
+                                    newBudgets.asUnmodifiableObservableList()));
+                        }
+                    }
                 }
             });
+            model.set(budgetToReplace, updatedBudget);
+
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);
