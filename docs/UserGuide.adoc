@@ -895,18 +895,25 @@ Deletes the event with index 1
 ==== Taking screenshot of schedule
 
 Takes a screen shot of the calendar as PNG file +
-Format: `event screenshot directory/[DIRECTORY]`
+Format: `event screenshot`
 
-The options supported by this feature includes:
-
-. `[DIRECTORY]` - The target directory to save the screenshot to
 [NOTE]
 Scroll to which portion of the calendar is to be taken, and the application will then open a separate
 full screen window to maximise the content captured of the screenshot.
 
+[NOTE]
+The event schedule screenshot is stored in the same place as where the JAR file is installed.
+The screenshot can be found under a newly created printable directory.
+If the directory exists beforehand, no new directory is created.
+See <<Feature-Statistics, statistics print feature>>
 
-* `event screenshot directory/Users/John/Desktop` +
-Takes a screenshot of the current calendar and saves it to John's desktop.
+[NOTE]
+The screenshot will be saved based on the current settings of your event schedule.
+For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
+
+
+* `event screenshot` +
+Takes a screenshot of the current calendar and saves it into Printable folder.
 
 ==== Viewing all events
 
@@ -929,17 +936,22 @@ Opens the calendar view in weekly mode with the target date 23 November 2019.
 ==== Export all events
 
 Exports stored events into a .ics file. This file type can easily be imported into Google Calendar and other
-mainstream calendar applications +
-Format: `event export directory/...`
+mainstream calendar applications. +
+Format: `event export`
 
-The options supported by this feature includes:
+[NOTE]
+The file will be exported into the exports folder with the file name nJoy_Schedule.ics. If the file already exists
+it will replace it, so you know the .ics file will be your most updated version of your schedule.
 
-. `[directory]` - The full path of where you want the .ics file to be saved to.
+[NOTE]
+The file will be exported into the same directory as quiz and group exports. See <<Feature-Quiz-Export, quiz export>>,
+ <<Feature-Group-Export-Export, group export>>
+
 
 Example:
 
-* `event export directory/Users/John/Desktop` +
-Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.ics`
+* `event export` +
+Exports your events into the exports directory with file name nJoy_Schedule.ics
 
 === Notes - `notes`
 
@@ -1041,6 +1053,7 @@ Example:
 * `note sort` +
 Sorts the notes by priority.
 
+[[Feature-Statistics]]
 === Statistics - `statistics`
 
 ==== Generating a Statistics report
@@ -1162,8 +1175,8 @@ _-This command does not require any additional options-_
 * *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
 * *Deleting an Event* : `event delete [INDEX]`
 * *Viewing all Event* : `event view scheduleMode/... targetDate/...`
-* *Exporting Events* : `event export directory/...`
-* *Screenshot Calendar* : `event screenshot directory/...`
+* *Exporting Events* : `event export`
+* *Screenshot Calendar* : `event screenshot`
 * *Creating a Note* : `note note/... desc/...`
 * *Creating a Note with Priority* : `note note/... desc/... priority/...`
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`

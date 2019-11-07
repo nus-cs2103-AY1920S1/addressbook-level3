@@ -255,8 +255,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public String exportEvent(String targetDirectory, ReadOnlyVEvents eventRecord) throws IOException {
-        return eventExport.exportEvent(targetDirectory, eventRecord);
+    public String exportEvent(ReadOnlyVEvents eventRecord) throws IOException {
+        return eventExport.exportEvent(eventRecord);
     }
     //endRegion
 

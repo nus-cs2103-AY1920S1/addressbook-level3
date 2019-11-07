@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
+
+import org.apache.commons.math3.util.Pair;
 
 import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventScheduleViewMode;
@@ -18,15 +19,20 @@ import seedu.address.model.event.RecurrenceType;
  * EventUtil contains methods for manipulation of Event and VEvents
  */
 public class EventUtil {
-    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
-    private static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
-    private static final DateTimeFormatter dateOnlyFormatter = new DateTimeFormatterBuilder()
+    public static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
+    public static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    public static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd[ HH:mm:ss]")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                 .toFormatter();
+
+    public static final String BAD_DATE_FORMAT = "Invalid DateTime Format. "
+            + "Please follow the format: yyyy-MM-ddTHH:mm, "
+            + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
+    public static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
 
     /**
      * Maps a event to VEvent
@@ -81,24 +87,6 @@ public class EventUtil {
     }
 
     /**
-     * Converts a recurrenceString to a RecurrenceRule object.
-     * @param recurrenceString
-     * @return returns a RecurrenceRule object which is used to configure VEVents
-     * @throws IllegalValueException for invalid recurrenceString.
-     */
-    public static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
-        if (recurrenceString.equalsIgnoreCase("weekly")) {
-            return RecurrenceRule.parse(WEEKLY_RECUR_RULE_STRING);
-        } else if (recurrenceString.equalsIgnoreCase("daily")) {
-            return RecurrenceRule.parse(DAILY_RECUR_RULE_STRING);
-        } else if (recurrenceString.equalsIgnoreCase("none")) {
-            return RecurrenceRule.parse(NONE_RECUR_RULE_STRING);
-        } else {
-            throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
-        }
-    }
-
-    /**
      * Generates a unique identifier for VEvents using current dateTime and the following parameters
      * @param eventName name of event
      * @param startDateTime startDateTime string representation of event
@@ -119,20 +107,11 @@ public class EventUtil {
     }
 
     /**
-     * Converts a string number to format that ICalendarAgenda accepts.
-     * @param number String representation of number
-     * @return String representation of colorNumber as required by ICalendarAgenda
-     */
-    public static String convertNumberToColorNumber(String number) throws NumberFormatException {
-        return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
-    }
-
-    /**
      * Custom method to convert a date to localDateTime object with default time values
      * @param date date to be converted in the form of yyyy-mm-dd
      */
     public static LocalDateTime dateToLocalDateTimeFormatter(String date) {
-        return LocalDateTime.parse(date, dateOnlyFormatter);
+        return LocalDateTime.parse(date, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -149,74 +128,6 @@ public class EventUtil {
         } else {
             throw new IllegalValueException("view mode string type is not valid. value passed: " + viewMode);
         }
-    }
-
-    /**
-     * Validates if a color number string is valid, must be a integer from 0 -23.
-     * @param colorNumberString numberString to be checked
-     * @return true if colorNumberString is valid
-     * @throws NumberFormatException when colorNumberString cannot be cast to Integer,
-     * representing invalid string format
-     */
-    public static boolean validateColorNumberString(String colorNumberString) {
-        //validate number is in range
-        try {
-            Integer colorNumberInteger = Integer.parseInt(colorNumberString);
-            boolean result = numberInRange(colorNumberInteger, 0, 23);
-            return result;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-    }
-
-    /**
-     * Method to check if an Integer is in range specified. Includes start and end range as valid values
-     * @param number Integer to be checked
-     * @param startRange smallest number allowed
-     * @param endRange largest number allowed
-     * @return true if number is within specified range
-     */
-    private static boolean numberInRange(Integer number, Integer startRange, Integer endRange) {
-        if (number > endRange || number < startRange) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Validates if recurTypeString is valid based on RecurrenceType enumeration
-     * @param recurTypeString String to be evaluated
-     * @return true if recurTypeString is valid
-     */
-    public static boolean validateRecurTypeString(String recurTypeString) {
-        if (recurTypeString.equalsIgnoreCase(RecurrenceType.WEEKLY.name())) {
-            return true;
-        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.DAILY.name())) {
-            return true;
-        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * validates and converts a colorNumberString into an ArrayList of Categories
-     * to be set into VEvents categories attribute.s
-     * @param colorNumberString input to be converted
-     * @return an array list of categories.
-     */
-    public static ArrayList<Categories> convertNumberToColorCategoryList(String colorNumberString)
-            throws IllegalValueException {
-        if (!validateColorNumberString(colorNumberString)) {
-            throw new IllegalValueException("invalid color string passed.");
-        }
-        String colorCategoryString = convertNumberToColorNumber(colorNumberString);
-        Categories colorCategory = new Categories(colorCategoryString);
-        ArrayList<Categories> colorCategoryList = new ArrayList<>();
-        colorCategoryList.add(colorCategory);
-        return colorCategoryList;
     }
 
     /**
@@ -237,6 +148,33 @@ public class EventUtil {
     public static String vEventToString(VEvent vEvent) {
         return String.format("event name: %s || start datetime: %s || end datetime: %s\n",
                 vEvent.getSummary().getValue(),
+                vEvent.getDateTimeStart().getValue().toString(),
+                vEvent.getDateTimeEnd().getValue().toString());
+    }
+
+    /**
+     * Compares between 2 vEvents to see whether they are the same. Attributes used to determine this include
+     * event name, start and end date time
+     * @param vEvent1 first event to be compared
+     * @param vEvent2 second event to be compared
+     * @return true if both vEvents are the same
+     */
+    public static boolean isSameVEvent(VEvent vEvent1, VEvent vEvent2) {
+        return vEvent1.getSummary().equals(vEvent2.getSummary())
+                && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
+                && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
+    }
+
+    /**
+     * Formats a Index, VEvent pair to a presentable form
+     *
+     * @param indexVEventPair the index, vEvent pair that is to be shown to the user
+     */
+    public static String formatIndexVEventPair(Pair<Index, VEvent> indexVEventPair) {
+        Index vEventIndex = indexVEventPair.getKey();
+        VEvent vEvent = indexVEventPair.getValue();
+        return String.format("Index: %d || event name: %s || start datetime: %s || end datetime: %s\n",
+                vEventIndex.getOneBased(), vEvent.getSummary().getValue(),
                 vEvent.getDateTimeStart().getValue().toString(),
                 vEvent.getDateTimeEnd().getValue().toString());
     }
