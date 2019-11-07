@@ -43,6 +43,7 @@ public class CommandMasterList {
         commandHashSet.add(GetStudentGradesCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(GetUnsubmittedAssignmentsCommand.COMMAND_WORD);
         commandHashSet.add(UploadPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
+        commandHashSet.add(ResetDisplayPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(ListAssignmentCommand.COMMAND_WORD);
         commandHashSet.add(ListStudentCommand.COMMAND_WORD);
         commandHashSet.add(ListLessonCommand.COMMAND_WORD);
