@@ -626,12 +626,22 @@ Example: +
 `rfind dt/01/11/2019` - This command gives you all tasks on 1 November 2019. +
 `rfind tm/1200` - This command gives you all tasks at 12:00 (12pm), regardless of date.
 
+NOTE: The priority of the fields are `h/` > `dt/` > `tm/`. When multiple prefixes (fields) are provided for search, only
+the field with the highest priority will be considered. The rest will be ignored.
+
 NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
 the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
 or "hello world blablabla..." will all appear in the GUI. Our rationale is to provide you with as many matching tasks as
 possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
 the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
 no task will be retrieved because "he" and "word" are not complete words contained in the headings.
+
+[width="70%",cols="50%,<50%",options="header",]
+|=======================================================================
+|Input|Task shown|
+
+|rfind h/hello
+|=======================================================================
 
 ==== Clear current revision plan: `rclear`
 You can remove all revision tasks with this command. +
