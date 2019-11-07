@@ -279,6 +279,10 @@ Examples:
 * `list recipe` +
 Lists all recipes saved in the recipe book.
 
+.Listing all recipes
+[caption="Figure 3.3.3: "]
+image::ug_recipe_listRecipe.png[width="790"]
+
 ==== Finding a recipe: `find recipe`
 Finds recipes with names containing a specified keyword. +
 Format: `find recipe <keyword>`
@@ -287,6 +291,10 @@ Examples:
 
 * `find recipe Chicken` +
 Lists all recipes containing "Chicken" in their name.
+
+.Finding a recipe
+[caption="Figure 3.3.4: "]
+image::ug_recipe_findRecipe.png[width="790"]
 
 ==== Deleting a recipe: `delete recipe`
 Deletes recipe according to a specified index. +
@@ -343,6 +351,10 @@ Creates an empty meal plan with the name "Empty".
 * `add mealplan n/Keto day1/KFC day2/4 Fingers day3/Texas Chicken day4/Arnolds day5/Popeyes day6/Nene day7/Wing Stop` +
 Creates a meal plan with the name "Keto" and the listed meals under each indicated day.
 
+.Adding a meal plan
+[caption="Figure 3.4.1: "]
+image::ug_mealplan_addMealPlan.png[width="790"]
+
 ==== Editing a meal plan: `edit mealplan`
 Edit a meal plan according to a specified index. +
 Format: `edit mealplan <index> [parameters]`
@@ -370,6 +382,10 @@ Examples:
 * `edit mealplan 1 n/Bulking day-1/Salad day4/Mashed Potatoes` +
 Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and add the recipe "Mashed Potatoes" to Day 4.
 
+.Editing a meal plan
+[caption="Figure 3.4.2: "]
+image::ug_mealplan_editMealPlan.png[width="790"]
+
 ==== Listing your meal plans: `list mealplan`
 Lists all meal plans. +
 Format: `list mealplan`
@@ -378,6 +394,10 @@ Examples:
 
 * `list mealplan` +
 Lists all meal plans saved in the meal plan book.
+
+.Listing all mealplans
+[caption="Figure 3.4.3: "]
+image::ug_mealplan_listMealPlan.png[width="790"]
 
 ==== Finding a meal plan: `find mealplan`
 Finds meal plans with names containing a specified keyword. +
@@ -388,6 +408,10 @@ Examples:
 * `find mealplan Chicken` +
 Lists all meal plans containing "Chicken" in their name.
 
+.Finding a meal plan
+[caption="Figure 3.4.4: "]
+image::ug_mealplan_findMealPlan.png[width="790"]
+
 ==== Finding a meal plan containing a certain recipe: `find mealplanwith`
 Finds meal plans with a specified recipe name. +
 Format: `find mealplanwith <recipe name keyword>`
@@ -396,6 +420,10 @@ Examples:
 
 * `find mealplanwith Chicken Rice` +
 Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
+
+.Finding meal plans containing a certain recipe.
+[caption="Figure 3.4.5: "]
+image::ug_mealplan_findWithMealPlan.png[width="790"]
 
 ==== Delete a meal plan: `delete mealplan`
 Deletes meal plan according to a specified index. +
@@ -416,6 +444,7 @@ This action cannot be undone
 ====
 
 Examples:
+
 * `clear mealplan` +
 Deletes all meal plans within the meal plan book.
 
