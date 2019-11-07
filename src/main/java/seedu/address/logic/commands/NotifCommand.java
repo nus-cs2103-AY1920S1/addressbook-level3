@@ -5,6 +5,7 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -137,9 +138,20 @@ public class NotifCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NotifCommand
-                && notif.equals(((NotifCommand) other).notif));
+        if (other instanceof NotifCommand) {
+            NotifCommand otherNotifCmd = (NotifCommand) other;
+            return other == this // short circuit if same object
+                    || (notif.equals(otherNotifCmd.notif))
+                    && period == otherNotifCmd.period
+                    && timeUnit.equals(otherNotifCmd.timeUnit);
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(notif, period, timeUnit);
     }
 
     public ScheduledExecutorService getSes() {
