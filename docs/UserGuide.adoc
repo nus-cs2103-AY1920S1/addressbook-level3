@@ -18,16 +18,16 @@ By: `Team AY1920S1-CS2103-F10-1`      Since: `Sep 2019`      Licence: `MIT`
 
 = Introduction
 
-NurseTraverse is designed for community nurses who make home visits to their patients. It is a laptop app that will allow nurses to keep track of their patients' data, appointments and visits. ComNurse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NurseTraverse is designed for community nurses who make home visits to their patients. It is a computer app that will allow nurses to keep track of their patients' data, appointments and visits. NurseTraverse is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 = Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `comnurse.jar` link:{repoURL}/releases[here].
+.  Download the latest `nurvetraverse.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your NurseTraverse app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::NurseTraverse.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -36,7 +36,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`pat-list`* : lists all patients
 * **`pat-add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to NurseTraverse.
 * **`pat-delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`app-exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -48,9 +48,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Parameters are additional pieces of information required/used when running a command.
-* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Diabetic` or as `n/John Doe`.
 * Items that are not in square brackets are required e.g. `n/NAME` from the `pat-add` command.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Diabetic`, `t/Diabetic t/Fever` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Due to the number of commands, each command will follow the syntax of `*ENTITY ACTION [PARAMETERS]*`. For example, if you wanted to delete a patient, you would do something like `pat-delete 3`.
 ====
