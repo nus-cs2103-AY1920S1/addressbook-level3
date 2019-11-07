@@ -40,7 +40,7 @@ public class AddTaskCommand extends Command {
             .build();
     }
 
-    public static CommandBuilder newBuilder(ModelManager model) {
+    public static CommandBuilder newBuilder(ModelManager model)    {
         return new Builder(model).init();
     }
 

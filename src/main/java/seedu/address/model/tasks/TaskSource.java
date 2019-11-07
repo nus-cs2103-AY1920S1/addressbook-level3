@@ -1,5 +1,6 @@
 package seedu.address.model.tasks;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +26,11 @@ public class TaskSource {
         this.description = taskSourceBuilder.getDescription();
         this.isDone = taskSourceBuilder.isDone();
         this.due = taskSourceBuilder.getDueDate();
-        this.tags = taskSourceBuilder.getTags();
+        if (taskSourceBuilder.getTags() == null) {
+            this.tags = new HashSet<>();
+        } else {
+            this.tags = taskSourceBuilder.getTags();
+        }
     }
 
     /**
