@@ -20,7 +20,7 @@ public class ListWasteCommand extends Command {
             + ": Lists out your current food waste for a given month. "
             + "If no month is specified, the food waste for the current month is displayed.\n"
             + "Optional Parameters: " + PREFIX_MONTH + "MONTH_OF_YEAR"
-            + "Example: wlist " + COMMAND_WORD + " " + PREFIX_MONTH + "Sep 2019";
+            + "Example: wlist " + COMMAND_WORD + " " + PREFIX_MONTH + "Sep 2019\n";
 
     private static final String MESSAGE_MONTH_RESTRICTION = "The given month must not"
             + " be after the current month";
@@ -59,5 +59,12 @@ public class ListWasteCommand extends Command {
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, this.wasteMonth));
         commandResult.setWasteListCommand();
         return commandResult;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListWasteCommand // instanceof handles nulls
+                && wasteMonth.equals(((ListWasteCommand) other).wasteMonth));
     }
 }
