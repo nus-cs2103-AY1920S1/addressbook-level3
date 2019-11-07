@@ -29,7 +29,7 @@ import seedu.moneygowhere.model.currency.Currency;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow2.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
