@@ -268,7 +268,7 @@ Removes the ingredient "Rice" from the first listed recipe, and adds the ingredi
 
 .Editing a recipe
 [caption="Figure 3.3.2: "]
-image::ug_recipe_EditRecipe.png[width="790"]
+image::ug_recipe_editRecipe.png[width="790"]
 
 ==== Listing your recipes: `list recipe`
 Lists all recipes. +
