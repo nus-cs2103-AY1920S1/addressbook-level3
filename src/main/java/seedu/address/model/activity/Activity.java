@@ -357,20 +357,13 @@ public class Activity {
 
     /**
      * Soft deletes an expense within this activity.
-     * @param positions The 0-indexed expense number to delete
+     * @param position The 0-indexed expense number to delete
      */
-    public void deleteExpense(int ... positions) {
-        for (int i = 0; i < positions.length; i++) {
-            Expense expense;
-            if (positions[i] < 0 && positions[i] > expenses.size()) {
-                return;
-                // TODO: beyond range?
-            }
+    public void deleteExpense(int position) {
+        Expense expense = expenses.get(position);
+        expense.delete();
+        deleteExpense(expense);
 
-            expense = expenses.get(positions[i] - 1);
-            expense.delete();
-            deleteExpense(expense);
-        }
     }
 
     /**

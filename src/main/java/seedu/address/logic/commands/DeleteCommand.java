@@ -31,11 +31,11 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETION_SUCCESS = "Successfully deleted %s.";
 
-    public static final String MESSAGE_SOFT_DELETE_SUCCESS = "Soft deleted the specified expense.";
+    public static final String MESSAGE_SOFT_DELETE_SUCCESS = "Soft deleted the specified expense at index: %s.";
 
     public static final String MESSAGE_PERSON_INVOLVED_ACTIVITY = "%s is still involved in an activity!";
 
-    public static final String MESSAGE_EXPENSE_ALREADY_DELETED = "Expense has already been soft-deleted.";
+    public static final String MESSAGE_EXPENSE_ALREADY_DELETED = "Expense at index: %s has already been soft-deleted.";
 
     private final Index targetIndex;
 
@@ -93,13 +93,14 @@ public class DeleteCommand extends Command {
 
             Expense expense = activity.getExpenses().get(targetIndex.getZeroBased()); // soft deletes the expense
             if (expense.isDeleted()) {
-                throw new CommandException(MESSAGE_EXPENSE_ALREADY_DELETED);
+                throw new CommandException(String.format(MESSAGE_EXPENSE_ALREADY_DELETED, targetIndex.getOneBased()));
             }
-            expense.delete();
+            activity.deleteExpense(targetIndex.getZeroBased());
             Context thisActivity = new Context(activity);
             model.setContext(thisActivity);
 
-            return new CommandResult(MESSAGE_SOFT_DELETE_SUCCESS, thisActivity);
+            return new CommandResult(String.format(MESSAGE_SOFT_DELETE_SUCCESS,targetIndex.getOneBased()),
+                    thisActivity);
 
         default:
             throw new CommandException(MESSAGE_IN_THE_WRONG_CONTEXT);
