@@ -94,7 +94,6 @@ public class BudgetWindow {
         default:
             normalized = anchor;
         }
-
         startDate = new Timestamp(normalized);
         endDate = calculateEndDate();
     }

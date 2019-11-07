@@ -120,10 +120,22 @@ public class Budget {
      *
      * @param anchor The timestamp to anchor the period.
      */
-    public void normalize(Timestamp anchor) {
+    public Budget normalize(Timestamp anchor) {
         requireNonNull(anchor);
-        if (!this.isDefaultBudget()) { // default budget has "infinity" period, no need to normalize
-            this.window.normalize(anchor);
+        if (this.isDefaultBudget()) {
+            return this; // default budget has "infinity" period, no need to normalize
+        }
+        Budget copy = this.deepCopy();
+        copy.window.normalize(anchor);
+        return copy;
+    }
+
+    /**
+     * Refreshes the budget window according to the current time.
+     */
+    public void refresh() {
+        if (!this.isDefaultBudget()) {
+            this.window.normalize(Timestamp.getCurrentTimestamp());
         }
     }
 

@@ -41,8 +41,7 @@ public class BudgetTest {
     @Test
     public void testNormalize() {
         Timestamp refreshDate = Timestamp.createTimestampIfValid("17-12-2019").get();
-        Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
-        schoolCopy.normalize(refreshDate);
+        Budget schoolCopy = new BudgetBuilder(SCHOOL).build().normalize(refreshDate);
         assertEquals(Timestamp.createTimestampIfValid("15-12-2019 noon").get().getDate(),
                 schoolCopy.getWindowStartDate().getDate());
         assertEquals(Timestamp.createTimestampIfValid("14-01-2020 noon").get().getDate(),
