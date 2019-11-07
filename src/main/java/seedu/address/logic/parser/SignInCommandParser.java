@@ -1,15 +1,16 @@
 package seedu.address.logic.parser;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.SignInCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.OwnerAccount;
 import seedu.address.model.person.Email;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ACCOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 public class SignInCommandParser implements Parser<SignInCommand> {
 
@@ -21,10 +22,23 @@ public class SignInCommandParser implements Parser<SignInCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SignInCommand.MESSAGE_USAGE));
         }
 
-        String account = argMultimap.getValue(PREFIX_ACCOUNT).get();
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_ACCOUNT).get());
+        String emailName = email.value.split("@")[1];
+        String emailProvider = emailName.split("\\.")[0];
+        int len = emailName.split("\\.").length;
+
+        final Logger logger = LogsCenter.getLogger(SignInCommandParser.class);
+
+        if (!emailProvider.equals("gmail")) {
+            throw new ParseException("Please use a gmail account to sign in. Our application only supports a gmail account for email-ing purposes");
+        }
+        if (len < 2) {
+            throw new ParseException("Please use a valid gmail account to sign in. Our application only supports a gmail account for email-ing purposes");
+        }
+
         String password = argMultimap.getValue(PREFIX_PASSWORD).get();
 
-        OwnerAccount ownerAccount = new OwnerAccount(new Email(account), password);
+        OwnerAccount ownerAccount = new OwnerAccount(email, password);
         return new SignInCommand(ownerAccount);
     }
 
