@@ -142,7 +142,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategories_collectionWithInvalidCategories_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(
+            Arrays.asList(VALID_CATEGORY_1, INVALID_TAG)));
     }
 
     @Test
