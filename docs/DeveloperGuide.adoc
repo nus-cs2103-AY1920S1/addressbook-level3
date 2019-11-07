@@ -229,18 +229,18 @@ include::UserGuide.adoc[tag=undoredolist]
 
 *Step 1.* The user executes an `UndoableCommand`.
 
-*Step 2.* `EventFactory` will parse the UndoableCommand to generate an Event. +
+*Step 2.* `EventFactory` will parse the `UndoableCommand` to generate an Event. +
 (eg. DeleteActivityCommand will result in DeleteActivityEvent generated)
 
 [NOTE]
-EventFactory is a static class that will parse an UndoableCommand and generate the corresponding Event.
+EventFactory is a `static class` that will parse an UndoableCommand and generate the corresponding Event.
 
 *Step 3.* `Event` is added to `undoEventStack` stored in CommandHistory. The `redoEventStack` in
 CommandHistory is also `cleared` upon generating a new Event.
 
 *Step 4.* The `UndoableCommand` is executed, generating the `CommandResult`.
 
-*Step 5.* To `undo` the previous UndoableCommand, the user executes `undo` command. An `UndoCommand` is generated.
+*Step 5.* To undo the previous UndoableCommand, the user executes `undo` command. An `UndoCommand` is generated.
 
 *Step 6.* `UndoCommand is not an UndoableCommand`. Executing the UndoCommand calls the undo method of `Event`
 stored in the undoEventStack of CommandHistory.

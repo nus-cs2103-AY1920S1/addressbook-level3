@@ -404,6 +404,31 @@ Format: `undo` +
 
 Redo by one action. Any undoable command is able to be redone. +
 Format: `redo`
+
+Examples: Undo/Redo optimise budget command
+
+* Before optimise
+
+.Day 2 has lots of overlapping activities
+image::BeforeOptimise.png[]
+
+* After optimise 2
+
+.Day 2 has been optimised, no overlaps.
+image::AfterOptimise.png[]
+
+* After undo
+
+.Optimise command successfully undone
+image::AfterUndo.png[]
+
+* After redo
+
+.Optimise command successfully redone, no overlaps.
+image::AfterOptimise.png[]
+
+
+
 // end::undoredocommand[]
 
 === Loading the data: `load`[Work in progress]
