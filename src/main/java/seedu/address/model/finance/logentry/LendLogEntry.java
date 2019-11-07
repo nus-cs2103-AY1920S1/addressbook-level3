@@ -18,8 +18,8 @@ public class LendLogEntry extends LogEntry {
 
     // Meta data
     public static final String LOG_ENTRY_TYPE = "lend";
-    private static boolean isRepaid; // whether person who borrowed money has returned to user
-    private static RepaidDate repaidDate; // date when person repaid money
+    private boolean isRepaid; // whether person who borrowed money has returned to user
+    private RepaidDate repaidDate; // date when person repaid money
 
     // Fields
     private final Person to; // person lent to
@@ -45,7 +45,7 @@ public class LendLogEntry extends LogEntry {
     }
 
     public boolean isRepaid() {
-        return isRepaid;
+        return this.isRepaid;
     }
 
     /**

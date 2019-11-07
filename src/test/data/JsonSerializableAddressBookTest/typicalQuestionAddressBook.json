@@ -1,0 +1,31 @@
+{
+  "questions" : [ {
+    "name" : "In which year did NUS founded?",
+    "comment" : null,
+    "answer" : "123",
+    "category" : "Baby",
+    "type" : "low",
+    "tagged" : [ "general", "trivia" ]
+  }, {
+    "name" : "What is it that goes up, but never comes down?",
+    "comment" : "The explanation is on lecture 20",
+    "answer" : "Age",
+    "category" : "Random",
+    "type" : "high",
+    "tagged" : [ "trivia" ]
+  }, {
+    "name" : "What is always coming, but never arrives?",
+    "comment" : null,
+    "answer" : "Tomorrow",
+    "category" : "CS2131",
+    "type" : "low",
+    "tagged" : [ ]
+  }, {
+    "name" : "What is always coming, but never arrives?",
+    "comment" : null,
+    "answer" : "Tomorrow",
+    "category" : "cs2131",
+    "type" : "high",
+    "tagged" : [ ]
+  } ]
+}

@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram for a feature
 image::ArchitectureDiagram.png[]
 
 
@@ -57,11 +57,17 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
+==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
+
+The features in _Modulo_ are quite distinct, and essentially do not share the commands and dalexibility of implementing each feature. The same command word `add` is now able to be executete the features to form _Modulo_ with less overlaps when coding. Each time the user switches tover the previous feature's classes.
+
+
+[discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` when in the feature _Module_.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 1` command in _Cap_ feature
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -69,7 +75,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component for each feature
 image::UiClassDiagram.png[]
 
 *API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/calendar/Ui.java[`Ui.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/cap/Ui.java[`Ui.java` (cap)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/quiz/Ui.java[`Ui.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/finance/Ui.java[`Ui.java` (finance)]
@@ -114,7 +120,7 @@ NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) 
 [[Design-Model]]
 === Model component
 
-.Structure of the Cap Model Component
+.Structure of the Model Component for the feature Cap
 image::CapModelClassDiagram.png[]
 
 .Structure of the Model Component for the feature Finance
@@ -199,19 +205,29 @@ corresponding week number or is an instance of `ModuleTask`.
 To use this feature, the user will need to switch to the quiz mode and add the question they want with
 several requirements on the syntax stated in the UserGuide.
 
+Below are the quiz model class diagram:
+
+image::ModelQuizClassDiagram.png[]
+
+In quiz feature, a `Question` has 6 attributes namely: `Name`, `Answer`, `Category`, `Type`, `Comment`, `Tag`, with
+the first two attributes differentiate one `Question` from the others. When the users first time launch the app or the are no data yet,
+Modulo will automatically populate the four questions from `SampleDataUtil`. The users are able to use the `clear` command
+if they want to delete the given data entirely. UI will then pull and updates the data from the `ModelQuizManager` which
+represents the in-memory model of the `AddressQuizBook` data, and show them to the users.
+
 Given below is an example usage scenario on how to add a question properly and the mechanism that behaves at each step.
 
-Step 1. The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
+*Step 1.* The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
 
-Step 2. The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
+*Step 2.* The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
 command to add a question with the question name: _What is always coming, but never arrives?_, answer: _Tomorrow_, category: CS2131 and type: _high_ in the quiz book.
 The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
 
-Step 3. If the user realized that they have typed the wrong answer for a particular question, then the user can executes
-`*edit CS2131, 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given category and index prepend behind. The `edit` command calls `Model#setQuestion()`,
+*Step 3.* If the user realized that they have typed the wrong answer for a particular question, then the user can executes
+`*edit 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given index prepend behind. The `edit` command calls `Model#setQuestion()`,
 causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and updated in the UI.
 
-Step 4. [Addtional] The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
+*Step 4.* _[Addtional]_ The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
 The `comment` command calls `Model#setQuestion()` to parse in an additional parameter of comment into the entity of the question. It will then be saved in the
 `quizBookStateList` and shown in the UI.
 
@@ -299,7 +315,7 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of quiz book states.
 ** Pros: Easy for new developers to understand.
-** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`.)
+** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`).
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -329,7 +345,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage modules and tasks with more flexibility than a typical mouse/GUI driven app
+*Value proposition*: manage modules, tasks, learning (through quizzes) and finances in a single application and with more flexibility than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -354,6 +370,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
 
 |`* * *` |competitive student |add some questions and answers that I have learnt today |read again and attempt them before exam
+
+|`* * *` |student with basic finance literacy | keep a record of my finances | understand my spending habits
+
+|`* * *` | cash-strapped student | set a budget for the month | limit my spending
 
 |`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
 
@@ -382,6 +402,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
 
 |`*` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
+
+|`*` |student who often lends money to people | keep track of the people who have not returned my money | chase after them for their unpaid debt or refuse to lend to people who consistently borrow but don't return
+
+|`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
+
 |=======================================================================
 
 

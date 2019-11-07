@@ -14,6 +14,7 @@ public class Config {
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
+    private Path quizUserPrefsFilePath = Paths.get("preferenceQuiz.json");
     private Path calendarUserPrefsFilePath = Paths.get("calendarpreferences.json");
     private Path financeUserPrefsFilePath = Paths.get("financepreferences.json");
     private Path capUserPrefsFilePath = Paths.get("capmodulelog.json");
@@ -24,6 +25,10 @@ public class Config {
 
     public void setLogLevel(Level logLevel) {
         this.logLevel = logLevel;
+    }
+
+    public Path getQuizUserPrefsFilePath() {
+        return quizUserPrefsFilePath;
     }
 
     public Path getCalendarUserPrefsFilePath() {

@@ -29,7 +29,7 @@ public class Answer {
      * Returns true if a given string is a valid answer number.
      */
     public static boolean isValidAnswer(String test) {
-        return !test.contains("[ans]");
+        return !test.contains("<ans>");
     }
 
     @Override

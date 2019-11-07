@@ -3,6 +3,7 @@ package seedu.address.logic.finance.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -158,24 +159,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String conditionalAmounts} into list of conditional amounts.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code conditionalAmounts} is invalid.
-     */
-    public static String[] parseConditionalAmount(String conditionalAmounts) throws ParseException {
-        // TODO
-        requireNonNull(conditionalAmounts);
-        boolean check = true;
-        if (!check) {
-            throw new ParseException("Conditionals should be in the form [SIGN]AMOUNT. \n"
-                    + "Where SIGN can be \"=\", \"<\" or \">\". \n"
-                    + "Example: > 800");
-        }
-        return null;
-    }
-
-    /**
      * Parses {@code String attr} into a {@code GroupByAttr}
      */
     public static GroupByAttr parseGroupByAttr(String attr) throws ParseException {
@@ -204,29 +187,87 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String[] dates} into a {@code GroupByAttr}.
-     * Only first 2 valid dates will be parsed.
+     * Parses a {@code String date} into a {@code date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date[] parseBetweenDates(String[] dates) throws ParseException {
-        requireNonNull(dates);
-        int numDatesGiven = dates.length;
-        if (numDatesGiven != 2) {
-            throw new ParseException("There should be 2 dates.");
-        }
-        assert numDatesGiven == 2;
-        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
-        Date[] betweenDates = new Date[2];
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
         try {
-            Date date1 = validFormat.parse(dates[0]);
-            Date date2 = validFormat.parse(dates[1]);
-            betweenDates[0] = date1;
-            betweenDates[1] = date2;
-            if (date1.after(date2)) {
-                throw new ParseException("First date should be before second date.");
-            }
+            Date parsedDate = validFormat.parse(trimmedDate);
+            return parsedDate;
         } catch (java.text.ParseException e) {
-            throw new ParseException("Date should be of format DD-MM-YYY.");
+            throw new ParseException("Date should be in the form DD-MM-YYYY.");
         }
-        return betweenDates;
+    }
+
+    /**
+     * Parses a {@code String dur} of days and converts to milli-seconds
+     *
+     * @throws ParseException if the given {@code dur} is invalid.
+     */
+    public static long parseDur(String dur) throws ParseException {
+        requireNonNull(dur);
+        String trimmedDur = dur.trim();
+        long numMilliSecondsInADay = 1000 * 60 * 60 * 24;
+        try {
+            int numDays = Integer.parseInt(trimmedDur);
+            if (numDays <= 0) {
+                throw new NumberFormatException();
+            }
+            return numMilliSecondsInADay * numDays;
+        } catch (NumberFormatException e) {
+            throw new ParseException("Duration should be positive integers.");
+        }
+    }
+
+    /**
+     * Parses a {@code String date} and returns first day of month.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseMonthStart(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        SimpleDateFormat validFormat = new SimpleDateFormat("MM-yyyy");
+        try {
+            Date parsedDate = validFormat.parse(trimmedDate);
+            return parsedDate;
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Month should be in the form MM-YYYY.");
+        }
+    }
+
+    /**
+     * Parses a {@code String date} and returns last day of month.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseMonthEnd(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        SimpleDateFormat validFormat = new SimpleDateFormat("MM-yyyy");
+        String monthYearRegex = "^((0?[1-9])|10|11|12)-[\\d]{4}$";
+        try {
+            if (!trimmedDate.matches(monthYearRegex)) {
+                throw new NumberFormatException();
+            }
+            Date parsedDate = validFormat.parse(trimmedDate);
+            return getLastDayOfMonth(parsedDate);
+        } catch (java.text.ParseException | NumberFormatException e) {
+            throw new ParseException("Month should be in the form MM-YYYY.");
+        }
+    }
+
+    private static Date getLastDayOfMonth(Date date) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(date);
+        int lastDay = endDate.getActualMaximum(Calendar.DAY_OF_MONTH);
+        endDate.set(Calendar.DAY_OF_MONTH, lastDay);
+        return endDate.getTime();
     }
 }

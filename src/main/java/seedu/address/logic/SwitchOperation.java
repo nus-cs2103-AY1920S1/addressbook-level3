@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import javafx.stage.Stage;
@@ -39,15 +38,16 @@ import seedu.address.storage.cap.JsonCapUserPrefsStorage;
 import seedu.address.storage.finance.FinanceStorageManager;
 import seedu.address.storage.finance.JsonFinanceStorage;
 import seedu.address.storage.finance.JsonFinanceUserPrefsStorage;
-import seedu.address.storage.quiz.AddressBookStorage;
 import seedu.address.storage.quiz.JsonQuizAddressBookStorage;
 import seedu.address.storage.quiz.JsonQuizUserPrefsStorage;
+import seedu.address.storage.quiz.QuizBookStorage;
 import seedu.address.storage.quiz.StorageQuizManager;
 import seedu.address.storage.quiz.UserPrefsStorage;
 import seedu.address.ui.calendar.UiManager;
 import seedu.address.ui.cap.UiCapManager;
 import seedu.address.ui.finance.UiFinanceManager;
 import seedu.address.ui.quiz.UiQuizManager;
+
 
 /**
  * Switches the Application to a new component (Calendar, Module, Quiz, or Finance)
@@ -89,10 +89,10 @@ public class SwitchOperation {
 
         if (args.equals("quiz")) {
             Config config = MainApp.getConfig();
-            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(Paths.get("preferencesQuiz.json"));
+            UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(config.getQuizUserPrefsFilePath());
             userPrefs = initPrefs(userPrefsStorage);
-            AddressBookStorage addressBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
-            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(addressBookStorage,
+            QuizBookStorage quizBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
+            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(quizBookStorage,
                     userPrefsStorage);
 
             quizModel = initModelManager(quizStorage, userPrefs);
@@ -146,8 +146,6 @@ public class SwitchOperation {
             capUi = new UiCapManager(capLogic);
             Stage stages = MainApp.getPrimary();
             capUi.start(stages);
-        } else {
-
         }
     }
 
@@ -286,8 +284,8 @@ public class SwitchOperation {
      */
     private seedu.address.model.quiz.Model initModelManager(seedu.address.storage.quiz.Storage storage,
                                                             seedu.address.model.quiz.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.quiz.ReadOnlyAddressBook> addressBookOptional;
-        seedu.address.model.quiz.ReadOnlyAddressBook initialData;
+        Optional<seedu.address.model.quiz.ReadOnlyQuizBook> addressBookOptional;
+        seedu.address.model.quiz.ReadOnlyQuizBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {

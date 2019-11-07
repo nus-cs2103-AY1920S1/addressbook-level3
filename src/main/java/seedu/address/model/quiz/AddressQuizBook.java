@@ -12,7 +12,7 @@ import seedu.address.model.quiz.person.UniqueQuestionList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressQuizBook implements ReadOnlyAddressBook {
+public class AddressQuizBook implements ReadOnlyQuizBook {
 
     private final UniqueQuestionList questions;
     private UniqueQuestionList showQuestion;
@@ -34,7 +34,7 @@ public class AddressQuizBook implements ReadOnlyAddressBook {
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressQuizBook(ReadOnlyAddressBook toBeCopied) {
+    public AddressQuizBook(ReadOnlyQuizBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,7 +52,7 @@ public class AddressQuizBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyQuizBook newData) {
         requireNonNull(newData);
 
         setQuestions(newData.getQuestionList());
