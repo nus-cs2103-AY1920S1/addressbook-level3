@@ -1,7 +1,6 @@
 package seedu.flashcard.logic.parser;
 
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashcard.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.flashcard.logic.commands.CommandTestUtil.VALID_TAG_LONG;
 import static seedu.flashcard.logic.commands.CommandTestUtil.VALID_TAG_ROUND;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;

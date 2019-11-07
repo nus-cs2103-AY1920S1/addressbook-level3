@@ -7,7 +7,6 @@ import static seedu.flashcard.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.flashcard.testutil.TypicalIndexes.INDEX_THIRD_FLASHCARD;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +28,7 @@ public class FlipCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_flashcardsToQuizPresent_correctAnswer_success() {
+    public void execute_flashcardsToQuizPresentCorrectAnswer_success() {
         Flashcard flashcardToQuiz = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
         ArrayList<Flashcard> quizList = new ArrayList<>();
         quizList.add(flashcardToQuiz);
@@ -46,7 +45,7 @@ public class FlipCommandTest {
     }
 
     @Test
-    public void execute_flashcardsToQuizPresent_wrongAnswer_success() {
+    public void execute_flashcardsToQuizPresentWrongAnswer_success() {
         Flashcard flashcardToQuiz = model.getFilteredFlashcardList().get(INDEX_THIRD_FLASHCARD.getZeroBased());
         ArrayList<Flashcard> quizList = new ArrayList<>();
         quizList.add(flashcardToQuiz);

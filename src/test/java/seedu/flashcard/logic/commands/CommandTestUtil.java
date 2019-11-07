@@ -17,7 +17,6 @@ import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
-import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.VersionedFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -110,6 +109,13 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
     }
 
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the flashcard list, filtered flashcard list and selected flashcard in
+     * {@code actualModel} matches {@code expectedModel}
+     */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel, CommandHistory commandHistory) {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));

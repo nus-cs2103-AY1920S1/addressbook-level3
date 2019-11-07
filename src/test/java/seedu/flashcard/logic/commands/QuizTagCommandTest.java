@@ -1,6 +1,5 @@
 package seedu.flashcard.logic.commands;
 
-import static seedu.flashcard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.flashcard.logic.commands.CommandTestUtil.VALID_TAG_CIVIL_ENGINEERING;
 import static seedu.flashcard.logic.commands.CommandTestUtil.VALID_TAG_LONG;
 import static seedu.flashcard.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -9,12 +8,10 @@ import static seedu.flashcard.testutil.TypicalFlashcard.CHANGI_AIRPORT;
 import static seedu.flashcard.testutil.TypicalFlashcard.DAXING_AIRPORT;
 import static seedu.flashcard.testutil.TypicalFlashcard.MOUNT_BLANC;
 import static seedu.flashcard.testutil.TypicalFlashcard.getTypicalFlashcardList;
-import static seedu.flashcard.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
