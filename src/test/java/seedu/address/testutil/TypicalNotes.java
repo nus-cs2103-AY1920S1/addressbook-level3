@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_FRAGMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CS2100;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MIDTERMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_FRAGMENT;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +25,8 @@ public class TypicalNotes {
                     + "simultaneously.").withTags("CS2100", "Midterms").build();
     public static final Note POTATO =
             new NoteBuilder().withTitle("Potatoes").withContent("I really like potatoes.").build();
+    public static final Note FRAGMENT = new NoteBuilder().withTitle(VALID_TITLE_FRAGMENT)
+            .withContent(VALID_CONTENT_FRAGMENT).withTags(VALID_TAG_CS2100, VALID_TAG_MIDTERMS).build();
 
     /*
     // Manually added
@@ -50,6 +57,6 @@ public class TypicalNotes {
     }
 
     public static List<Note> getTypicalNotes() {
-        return new ArrayList<>(Arrays.asList(SAMPLE, PIPELINE, POTATO));
+        return new ArrayList<>(Arrays.asList(SAMPLE, PIPELINE, FRAGMENT));
     }
 }
