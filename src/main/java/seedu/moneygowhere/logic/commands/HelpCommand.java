@@ -24,8 +24,6 @@ public class HelpCommand extends Command {
         + "graph \t\t\t- to show the spending in the form of a graph\n"
         + "import \t\t\t- to import data from a CSV file\n"
         + "export \t\t\t- to export data to a CSV file\n"
-        + "undo \t\t\t- to restores the list of spending to the state before the previous undoable command\n"
-        + "redo \t\t\t- to reverse the most recent undo command\n"
         + "clear \t\t\t- to clear all entries from the application\n"
         + "reminder add \t\t- to add a reminder\n"
         + "reminder delete \t- to delete a reminder\n"

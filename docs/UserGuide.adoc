@@ -490,6 +490,7 @@ A graph is shown.
 // end::graph[]
 
 === Adding a reminder: `reminder add`
+
 Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`

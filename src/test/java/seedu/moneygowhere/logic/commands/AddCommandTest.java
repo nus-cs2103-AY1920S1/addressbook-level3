@@ -40,7 +40,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validSpending).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validSpending), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, validSpending),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSpending), modelStub.spendingsAdded);
     }
 

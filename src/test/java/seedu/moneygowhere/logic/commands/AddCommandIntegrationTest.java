@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
         expectedModel.addSpending(validSpending);
 
         assertCommandSuccess(new AddCommand(validSpending), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validSpending), expectedModel);
+                String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, validSpending), expectedModel);
     }
 
     @Test
@@ -61,6 +61,6 @@ public class AddCommandIntegrationTest {
         model.setCurrencyInUse(usdCurrency);
 
         assertCommandSuccess(new AddCommand(validSpending), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, convertedSpending), expectedModel);
+                String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, convertedSpending), expectedModel);
     }
 }
