@@ -12,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
+import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.tasks.TaskSourceBuilder;
 
 public class IcsConverterTest {
 
@@ -104,9 +106,80 @@ public class IcsConverterTest {
         assertTrue(dtEndString.startsWith("DTEND:"));
         assertEquals("DTEND:11111111T040000Z", dtEndString);
 
-        // validate end of ICS VEVENT object line
+        // validate end of ICS VEVENT object field.
         assertEquals("END:VEVENT", icsStringArr[6]);
     }
+    
+    @Test
+    public void toString_normalTask_icsConversion() {
+        String description = "Test Description";
+        TaskSource taskSource = TaskSource.newBuilder(description).build();
 
+        String icsString = IcsConverter.convertTask(taskSource);
+        String[] icsStringArr = icsString.split("\\r?\\n");
+
+        // validate start of ICS VTODO object field.
+        assertEquals("BEGIN:VTODO", icsStringArr[0]);
+
+        // validate UID.
+        String uidString = icsStringArr[1];
+        assertTrue(uidString.startsWith("UID:") && uidString.endsWith("@Horo"));
+        uidString = uidString.replaceFirst("UID:", "");
+        String instant = uidString.replaceFirst("@Horo", "");
+        assertDoesNotThrow(() -> Instant.parse(instant));
+
+        // validate DTSTAMP field.
+        String dtStampString = icsStringArr[2];
+        assertTrue(dtStampString.startsWith("DTSTAMP:"));
+        String dtStamp = dtStampString.replaceFirst("DTSTAMP:", "");
+        assertDoesNotThrow(() -> DateTime.fromIcsString(dtStamp));
+
+        // validate SUMMARY field.
+        assertEquals("SUMMARY:Test Description", icsStringArr[3]);
+
+        // validate end of ICS VTODO object field.
+        assertEquals("END:VTODO", icsStringArr[4]);
+    }
+
+    @Test
+    public void toString_taskWithDueDate_icsConversion() throws ParseException {
+        String description = "Test Description";
+        TaskSourceBuilder taskSourceBuilder = TaskSource.newBuilder(description);
+
+        String due = "11/11/1111 12:00";
+        assertDoesNotThrow(() -> DateTime.fromUserString(due));
+        DateTime dueDateTime = DateTime.fromUserString(due);
+
+        taskSourceBuilder.setDueDate(dueDateTime);
+        TaskSource taskSource = taskSourceBuilder.build();
+
+        String icsString = IcsConverter.convertTask(taskSource);
+        String[] icsStringArr = icsString.split("\\r?\\n");
+
+        // validate start of ICS VTODO object field.
+        assertEquals("BEGIN:VTODO", icsStringArr[0]);
+
+        // validate UID.
+        String uidString = icsStringArr[1];
+        assertTrue(uidString.startsWith("UID:") && uidString.endsWith("@Horo"));
+        uidString = uidString.replaceFirst("UID:", "");
+        String instant = uidString.replaceFirst("@Horo", "");
+        assertDoesNotThrow(() -> Instant.parse(instant));
+
+        // validate DTSTAMP field.
+        String dtStampString = icsStringArr[2];
+        assertTrue(dtStampString.startsWith("DTSTAMP:"));
+        String dtStamp = dtStampString.replaceFirst("DTSTAMP:", "");
+        assertDoesNotThrow(() -> DateTime.fromIcsString(dtStamp));
+
+        // validate SUMMARY field.
+        assertEquals("SUMMARY:Test Description", icsStringArr[3]);
+
+        // validate DUE field.
+        assertEquals("DUE:11111111T040000Z", icsStringArr[4]);
+
+        // validate end of ICS VTODO object field.
+        assertEquals("END:VTODO", icsStringArr[5]);
+    }
 
 }
