@@ -10,23 +10,22 @@
 == Overview
 
 SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
-and it has a GUI created with JavaFx. It is written in Java and has about 24 kLOC.
+and it has a GUI created with JavaFx. It is written in Java and has about 29 kLOC.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability for the application to provide a personalised user experience for the
-user through a user biography and achievements.*
-** What it does: Allows the user to view, add, edit and clear his / her biography of important personal information, as well as attain different levels of achievements upon meeting predefined requirements.
-** Justification: These features improve the product significantly because a user would want to add a user profile with useful information especially in times of emergency and acquire a sense of achievement at different milestones.
-** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography as well as achievement could be easily defined in further developments. Implementation of the `Achievements` sub-feature in
-particular was challenging as it required careful interaction with other features such as the `average` feature and
+user.*
+** What it does: Allows the user to:
+. View, add, edit and clear his / her biography.
+. Attain different levels of achievements upon meeting predefined requirements.
+. Customise font and background to _any_ hexadecimal-value colour (or image for background).
+** Justification: These features improve the product significantly because a user would want to add a user  profile with useful information especially in times of emergency, acquire a sense of achievement at different milestones, and enjoy a substantial degree of flexibility in aesthetic customisation, representing his / her preferences, that enhances his / her overall quality of comfort in using the app.
+** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography, achievements and aesthetic preferences could be easily defined in further developments via inheritance and polymorphism. Implementation of the `Achievements` sub-feature was particularly challenging as it required careful interaction with other features such as the `average` feature and
 `record` instances, and maintaining balance between abstraction and minimising coupling.
 
 * *Minor enhancements*:
-** Added the ability for users to change font and background to any hexadecimal-value colour or image for background,
-with support to set predefined background image sizes and repeat patterns.
-** Added over 600+ motivational quotes to be selected at random and shown to the user for each session of the
-running of the program.
+** Added over 600+ motivational quotes from various sources to be selected at random and shown to the user for each session of the main application's execution.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=whneo97[View RepoSense]]
 
@@ -37,8 +36,9 @@ running of the program.
 *** Wrote additional tests for existing features to increase line coverage by 21%. (Pull requests
 https://github.com/AY1920S1-CS2103-T16-1/main/pull/173[#173], https://github.com/AY1920S1-CS2103-T16-1/main/pull/176[#176],
 https://github.com/AY1920S1-CS2103-T16-1/main/pull/181[#181])
+*** Standardised project structure for `v1.4` release. (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/183[#183])
 ** Enhancements to existing features:
-*** Abstracted code in MainApp to reduce code redundancies.
+*** Abstracted code in MainApp to significantly reduce code redundancies and improve code readability.
 (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/88/commits/07279dd4494f1cd3916b4ee083de1b6fca2d1d1a[#88])
 *** Modified user feedback display to wrap text and scroll vertically for increased ease of viewing feedback.
 (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/71[#71],
@@ -52,8 +52,8 @@ https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163])
 *** Implemented seamless switching of panes from one feature to another with caching abilities for optimised performance
 through a helper class with `Supplier` methods for other features' use as well.
 (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/62[#62])
-*** Implemented `StyleSheetManager` to add universal aesthetic support for all features. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/92[#92],
-https://github.com/AY1920S1-CS2103-T16-1/main/pull/94[#94])
+*** Implemented `StyleSheetManager` to add universal aesthetic support for all features, along with common scrollpanes. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/94[#94], https://github.com/AY1920S1-CS2103-T16-1/main/pull/194[#194])
 
 == Contributions to the User Guide
 |===
