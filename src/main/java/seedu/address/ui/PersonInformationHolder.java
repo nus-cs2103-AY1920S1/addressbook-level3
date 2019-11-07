@@ -29,6 +29,8 @@ public class PersonInformationHolder extends UiPart<Region> {
     @FXML
     private Label dateOfBirth;
     @FXML
+    private Label gender;
+    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
@@ -41,6 +43,7 @@ public class PersonInformationHolder extends UiPart<Region> {
     private String addressHeader = "Address: ";
     private String emailHeader = "Email: ";
     private String dateOfBirthHeader = "Date of birth: ";
+    private String genderHeader = "Gender: ";
 
     public PersonInformationHolder(Person person) {
         super(FXML);
@@ -51,6 +54,7 @@ public class PersonInformationHolder extends UiPart<Region> {
         address.setText(addressHeader + person.getAddress().value);
         email.setText(emailHeader + person.getEmail().value);
         dateOfBirth.setText(dateOfBirthHeader + person.getDateOfBirth().value);
+        gender.setText(genderHeader + person.getGender().gender);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
