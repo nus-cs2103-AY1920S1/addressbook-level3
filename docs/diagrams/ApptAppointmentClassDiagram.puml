@@ -6,10 +6,10 @@ skinparam classBackgroundColor UI_COLOR
 
 show members
 
-  namespace seedu.address {
+  namespace unrealunity.visit {
     namespace model {
       namespace appointment {
-        class Appointment {
+        class unrealunity.visit.model.appointment.Appointment {
             - days : int
             - description : String
             + Appointment()
