@@ -15,14 +15,14 @@ import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
-import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelDataListener;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.model.tasks.TaskSourceBuilder;
 
 /**
  * Manages saving and loading (to local storage) of the Model in Horo.
  */
-public class StorageManager implements ModelListListener {
+public class StorageManager implements ModelDataListener {
 
     private final ObjectMapper mapper;
     private final ModelManager model;
@@ -81,17 +81,17 @@ public class StorageManager implements ModelListListener {
     }
 
     @Override
-    public void onModelListChange(ModelData lists) {
+    public void onModelDataChange(ModelData modelData) {
         try {
             Files.createDirectories(this.eventsFile.getParent());
             Files.createDirectories(this.tasksFile.getParent());
 
             if (this.eventsFile != null) {
-                this.mapper.writeValue(this.eventsFile.toFile(), lists.getEvents());
+                this.mapper.writeValue(this.eventsFile.toFile(), modelData.getEvents());
             }
 
             if (this.tasksFile != null) {
-                this.mapper.writeValue(this.tasksFile.toFile(), lists.getTasks());
+                this.mapper.writeValue(this.tasksFile.toFile(), modelData.getTasks());
             }
         } catch (IOException e) {
             throw new StorageIoException();

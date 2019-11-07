@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
@@ -67,5 +68,15 @@ public class ModelData {
             result.add(new TaskSource(task));
         }
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ModelData) {
+            ModelData m = (ModelData) o;
+            return Objects.equals(this.events, m.events)
+                && Objects.equals(this.tasks, m.tasks);
+        }
+        return false;
     }
 }
