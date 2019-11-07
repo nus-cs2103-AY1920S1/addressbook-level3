@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -66,6 +67,7 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+        loadFonts();
     }
 
     /**
@@ -165,6 +167,12 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+    private void loadFonts() {
+        Font.loadFont(Main.class.getResource("/font/WorkSans-Light.ttf").toExternalForm(), 14);
+        Font.loadFont(Main.class.getResource("/font/WorkSans-Regular.ttf").toExternalForm(), 14);
+        Font.loadFont(Main.class.getResource("/font/WorkSans-Bold.ttf").toExternalForm(), 14);
     }
 
     @Override

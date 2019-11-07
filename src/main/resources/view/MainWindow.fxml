@@ -18,7 +18,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@Insurelytics.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -34,7 +34,7 @@
           <children>
             <VBox fx:id="resultList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
               <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets left="10" right="10" />
               </padding>
               <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
@@ -43,16 +43,10 @@
         </GridPane>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
         </StackPane>
 
         <StackPane fx:id="resultDisplayPlaceholder" maxHeight="160" minHeight="160" prefHeight="160"
                    styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
         </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
