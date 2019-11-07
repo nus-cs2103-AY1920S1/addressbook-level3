@@ -42,7 +42,7 @@ image::dalisc.png[width="150", align="left"]
 {empty}[http://github.com/dalisc[github]] [<<dalisc#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Sort
+Responsibilities: Stats,  Filter
 
 '''
 
