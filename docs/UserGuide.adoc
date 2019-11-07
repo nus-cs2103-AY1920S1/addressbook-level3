@@ -186,6 +186,7 @@ Edits a spending at a specified index in the list. +
 * Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 * If a spending date is in the future, it can only be up to end of this month.
+* Spending entries that are added using a different currency will have output displayed in SGD.
 * If you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
 ****
 
