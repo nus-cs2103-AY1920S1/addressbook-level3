@@ -45,7 +45,7 @@ This section provides an overview of my contributions to this project. As I was 
 
 === Design
 
-To enable users to visualise their schedule for the month and plan their trips accordingly, I designed the calendar user interface as follows. 
+To enable users to visualise their schedule for the month and plan their trips accordingly, I designed the calendar user interface as follows:
 
 .Calendar interface
 image::../images/calendarScreenshots/calendarInterface.png[Calendar interface]
@@ -68,7 +68,7 @@ Instead of having to switch to the relevant month view to determine their availa
 
 == Other Highlights
 
-These are the enhancements I made to a few basic functionalities: 
+In addition to the above, I enhanced a few basic functionalities as follows:
 
 .Summary of enhancements 
 image::../images/calendarScreenshots/otherContributions.png[Other functionalities and their enhancements]
