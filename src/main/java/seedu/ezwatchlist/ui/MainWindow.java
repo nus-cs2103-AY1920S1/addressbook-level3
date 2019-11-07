@@ -321,33 +321,7 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
-            /*
-            if (commandText.split(" ")[0].toLowerCase().equals("search")) {
-                isSearchLoading = true;
-                contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
-                Task<CommandResult> task = new Task<CommandResult>() {
-                    @Override
-                    protected CommandResult call() throws Exception {
-                        return logic.execute(commandText);
-                    }
-                };
-                task.setOnSucceeded(evt -> {
-                    isSearchLoading = false;
-                    contentPanelPlaceholder.getChildren().clear();
-                    contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
-                    currentTab = SEARCH_TAB;
-                    move(currentButton, searchButton);
-                    currentButton = searchButton;
-                    CommandResult commandResult = task.getValue();
-                    System.out.println(commandResult);
-                    logger.info("Result: " + commandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                });
-                new Thread(task).start();
-                return null;
-             */
-            //} else {
+
             CommandResult commandResult = logic.execute(commandText, this);
             if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -361,7 +335,7 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
             return commandResult;
-            //}
+
         //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
             logger.info("Invalid command: " + commandText);

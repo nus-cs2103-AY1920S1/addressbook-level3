@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
@@ -17,7 +16,6 @@ import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.logic.task.RunnableCommand;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.Show;
@@ -52,6 +50,7 @@ public class LogicManager implements Logic {
         if (command instanceof SearchCommand) {
             mainWindow.setIsSearchLoading();
             mainWindow.goToSearch();
+            mainWindow.getResultDisplay().setFeedbackToUser("Loading...");
             Task<CommandResult> task = new Task<CommandResult>() {
                 @Override
                 protected CommandResult call() throws Exception {
