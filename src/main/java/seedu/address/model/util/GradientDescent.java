@@ -116,7 +116,6 @@ public final class GradientDescent {
      * @return A prediction on the dependent variable based on the final values of {@code theta0} and {@code theta1}
      */
     public double predict(double input) {
-
         this.variable = input;
         double scaledData = (input - dataMean) / dataRange;
         this.result = computeHypothesis(scaledData) * outputRange + outputMean;
@@ -143,12 +142,17 @@ public final class GradientDescent {
         return maxData;
     }
 
+
     public double getMinOutput() {
-        return minOutput / OUTPUT_SCALE_FACTOR;
+        return (minOutput / OUTPUT_SCALE_FACTOR);
     }
 
     public double getMaxOutput() {
-        return maxOutput / OUTPUT_SCALE_FACTOR;
+        return (maxOutput / OUTPUT_SCALE_FACTOR);
+    }
+
+    public double getOutput(int idx) {
+        return this.actualValues[idx];
     }
 
     public double getDataRange() {
@@ -164,6 +168,6 @@ public final class GradientDescent {
     }
 
     public double getResult() {
-        return result / OUTPUT_SCALE_FACTOR;
+        return (result / OUTPUT_SCALE_FACTOR);
     }
 }

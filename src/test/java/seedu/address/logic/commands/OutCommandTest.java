@@ -42,16 +42,6 @@ public class OutCommandTest {
         assertEquals(String.format(OutCommand.MESSAGE_SUCCESS, validTransaction), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
     }
-    /*
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        BankAccountOperation validTransaction = new BankOperationBuilder().build();
-        InCommand addCommand = new InCommand(validTransaction);
-        ModelStub modelStub = new ModelStubWithTransaction(validTransaction);
-
-        assertThrows(CommandException.class, InCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-    }
-    */
 
     @Test
     public void equals() {
