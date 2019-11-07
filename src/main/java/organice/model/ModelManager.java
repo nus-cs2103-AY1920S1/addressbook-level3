@@ -24,6 +24,7 @@ import organice.model.comparator.NameComparator;
 import organice.model.comparator.NumOfMatchesComparator;
 import organice.model.comparator.PriorityComparator;
 import organice.model.comparator.SuccessRateComparator;
+import organice.model.person.Doctor;
 import organice.model.person.Donor;
 import organice.model.person.MatchedDonor;
 import organice.model.person.MatchedPatient;
@@ -200,6 +201,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getFullPersonList() {
+        Predicate predicate = filteredPersons.getPredicate();
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
+        ObservableList<Person> fullPersonList = FXCollections.observableList(
+                Arrays.asList(filteredPersons.toArray(Person[]::new)));
+        filteredPersons.setPredicate(predicate);
+        return fullPersonList;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
@@ -260,6 +271,25 @@ public class ModelManager implements Model {
         }
 
         return listOfDonors;
+    }
+
+    /**
+     * Returns a list of {@code Doctor} in ORGANice.
+     */
+    @Override
+    public ArrayList<Doctor> getListOfDoctors() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        ArrayList<Doctor> listOfDoctors = new ArrayList<>();
+
+        for (Person person : filteredPersons) {
+            if (!(person instanceof Doctor)) {
+                continue;
+            }
+
+            listOfDoctors.add((Doctor) person);
+        }
+
+        return listOfDoctors;
     }
 
 

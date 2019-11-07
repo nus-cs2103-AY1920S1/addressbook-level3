@@ -317,55 +317,52 @@ Edits the phone number of the specified patient to be `91234567`.
 * `edit S8732457G n/Betsy Crower p/91234567` +
 Edits the name and phone number of the specified donor to be `Betsy Crower` and `91234567` respectively.
 
-// tag::find[]
 === Finding persons by attributes: `find`
 
-You can use the `find` command to search for persons whose attributes match your input keywords. Matching persons will
-be displayed in a list. +
+You can use the `find` command to search for persons whose attributes match your input keywords. A list of matching
+persons along with the number of exact and possible matches will be displayed. +
 
-Format: `find __PREFIX__/__KEYWORD__`
+Format: `find __PREFIX__/__KEYWORD__ (__PREFIX__/__KEYWORD__...)`
 
-Optional parameters: Multiple `keywords` per `prefix`, multiple `prefixes` in the same find command.
+Optional parameters: Multiple __keyword__s per __prefix__, multiple __prefixe__s in the same find command.
 
-The find command performs case insensitive `OR` matching within a prefix and `AND` matching between prefixes. The
-following example illustrates this concept:
+[TIP]
+You may wish to reference <<List of Attributes>>, to view the list of available prefixes to search by.
+
+The find command is **case insensitive** and performs **OR** matching within a prefix and **AND** matching between
+prefixes. It also matches similar looking words to account for possible typos in your keywords. The following example illustrates
+these concepts:
 
 .Find command with multiple prefixes and multiple keywords per prefix.
 image::findByPrefix.png[width="790"]
 
-As seen from Figure 12, `find n/Duncan n/Lionel n/Helen t/patient t/donor` displays 'Duncan Chua', `Lionel Doe` and
-`Helen Davidson`. This is due to the fact that Duncan's name matches either of 'Duncan' `OR` 'Lionel' `OR` 'Helen' `AND`
-he is also either a 'doctor' `OR` 'donor'. The same is true for Lionel and Helen. You should note that the only
-exception to this rule is tissue type matching, which uses `AND` matching within the prefix.
+In Figure 12, you can see that `find n/Duncan n/Loinel n/Helen t/patient t/donor` shows a list of 44 matches. The two
+exact matches are listed at the top; those below are possible matches, sorted according to how closely they match your
+keywords. 'Duncan Chua' and 'Helen Davidson' are among the matched persons due to the fact that Duncan's name matches
+either of 'Duncan' **OR** 'Loinel' **OR** 'Helen' **AND** he is also either a 'patient' **OR** 'donor'. The same is true
+for Helen. 'Lionel Lim' also appears in the search results as his name is similar to 'Loinel'. Hey, good thing we
+picked up on that typo or we'd have missed Lionel!
 
-You may wish to reference the following section: <<List of Attributes>>, to view the list of available prefixes to
-search by.
+NOTE: The only exception to this rule is tissue type matching, which uses `AND` matching within the prefix.
 
-Here are some examples and pointers showcasing the use of `find`:
-
-__Use case with single prefix and keyword__ +
-* `find n/Alice` +
-Displays all persons whose name contains 'Alice'
-
-__Use case demonstrating keyword case insensitivity__ +
-* `find n/aLiCe` +
-Displays the same result as the preceding example.
+Lets take a look at some examples and pointers showcasing the use of `find`:
 
 __Use case with multiple keywords per prefix__ +
-* `find n/Alice n/Benson b/A b/B b/O` +
-Displays all persons whose name contains either 'Alice' or 'Benson' and whose blood type is either 'A', 'B' or 'O'.
+* `find n/Laura n/Marisha Ray b/A b/B b/O` +
+Displays all persons whose name contains either 'Laura' or 'Marisha Ray' and whose blood type is either 'A', 'B' or 'O'.
 
 __Use case demonstrating prefix order insensitivity__ +
-* `find b/A n/Benson b/O n/Alice b/B` +
+* `find b/A n/Benson Carter b/O n/Alice b/B` +
 Displays the same result as the preceding example.
-
-__Use case demonstrating full name capture__ +
-* `find n/Laura Bailey n/Marisha Ray` +
-Displays all persons whose name contains 'Laura Bailey' or 'Marisha Ray'.
 
 __Use case demonstrating tissue type finding__ +
 * `find tt/4,1,2,3` +
 Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order.
+
+[TIP]
+Looking for exact matches? No problem! Just replace `find` with `exactFind`!
+
+That's it for this section. Congratulations, you now know how to use the `find` command!
 
 === Detecting matches: `match`
 

@@ -98,7 +98,7 @@ public class PersonContainsPrefixesPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonContainsPrefixesPredicate // instanceof handles nulls
-                && argMultimap.equals(((PersonContainsPrefixesPredicate) other).argMultimap)); // state matchAny
+                && argMultimap.equals(((PersonContainsPrefixesPredicate) other).argMultimap)); // state check
     }
 
 }

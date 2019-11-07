@@ -2,6 +2,7 @@ package organice.model.person;
 
 import static organice.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -21,6 +22,7 @@ public class Donor extends Person {
     private HashMap<Nric, Double> successRateMap;
     private String successRate;
     private Nric patientNric;
+    private ArrayList<Nric> patientsMatchedBefore;
 
     /**
      * Every field must be present and not null.
@@ -39,6 +41,7 @@ public class Donor extends Person {
         this.processingTodoList = processingTodoList;
         this.status = status;
         successRateMap = new HashMap<>();
+        patientsMatchedBefore = new ArrayList<>();
     }
 
     public Age getAge() {
@@ -140,6 +143,36 @@ public class Donor extends Person {
         TaskList updatedTaskList = getProcessingList(patientNric);
         updatedTaskList.get(taskNumber - 1).markAsDone(updatedTaskList.get(taskNumber - 1));
         this.processingTodoList = updatedTaskList;
+    }
+
+    /**
+     * Get the ArrayList containing all the Nrics of the patients who have done a matching with this donor
+     * before but failed in the end.
+     * @return ArrayList of Nrics
+     */
+    public ArrayList getPatientMatchedBefore() {
+        return new ArrayList<>(patientsMatchedBefore);
+    }
+
+    public void setPatientsMatchedBefore(String newList) {
+        newList = newList.replaceAll("\\[", "").replaceAll("\\]", "");
+        ArrayList<Nric> updatedList = new ArrayList<>();
+        if (newList == null || newList.equals("") || newList.equals("[]")) {
+            this.patientsMatchedBefore = updatedList;
+        } else if (newList.lastIndexOf(",") == -1) {
+            //newList = newList.substring(1,newList.length() - 1);
+            updatedList.add(new Nric(newList));
+            this.patientsMatchedBefore = updatedList;
+        } else {
+            String[] patientNricString = newList.split(",");
+            for (int i = 0; i < patientNricString.length; i++) {
+                String currentPatientNric = patientNricString[i];
+                if (!currentPatientNric.trim().isEmpty()) {
+                    updatedList.add(new Nric(currentPatientNric.trim()));
+                }
+                this.patientsMatchedBefore = updatedList;
+            }
+        }
     }
 
     /**

@@ -33,9 +33,9 @@ import organice.model.UserPrefs;
 import organice.model.person.PersonContainsPrefixesPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ExactFindCommand}.
  */
-public class FindCommandTest {
+public class ExactFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -43,19 +43,18 @@ public class FindCommandTest {
     public void equals() {
         PersonContainsPrefixesPredicate firstPredicate =
                 new PersonContainsPrefixesPredicate(
-                        ArgumentTokenizer.tokenize(FindCommand.COMMAND_WORD + " n/Alice", PREFIX_NAME));
+                        ArgumentTokenizer.tokenize(ExactFindCommand.COMMAND_WORD + " n/Alice", PREFIX_NAME));
         PersonContainsPrefixesPredicate secondPredicate =
                 new PersonContainsPrefixesPredicate(
-                        ArgumentTokenizer.tokenize(FindCommand.COMMAND_WORD + " n/Benson", PREFIX_NAME));
-
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+                        ArgumentTokenizer.tokenize(ExactFindCommand.COMMAND_WORD + " n/Benson", PREFIX_NAME));
+        ExactFindCommand findFirstCommand = new ExactFindCommand(firstPredicate);
+        ExactFindCommand findSecondCommand = new ExactFindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        ExactFindCommand findFirstCommandCopy = new ExactFindCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -71,8 +70,8 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        PersonContainsPrefixesPredicate predicate = preparePredicate(FindCommand.COMMAND_WORD + " ");
-        FindCommand command = new FindCommand(predicate);
+        PersonContainsPrefixesPredicate predicate = preparePredicate(ExactFindCommand.COMMAND_WORD + " ");
+        ExactFindCommand command = new ExactFindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -82,8 +81,8 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonContainsPrefixesPredicate predicate =
-                preparePredicate(FindCommand.COMMAND_WORD + " n/Kurz n/Elle n/Kunz");
-        FindCommand command = new FindCommand(predicate);
+                preparePredicate(ExactFindCommand.COMMAND_WORD + " n/Kurz n/Elle n/Kunz");
+        ExactFindCommand command = new ExactFindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(PATIENT_CARL, DONOR_ELLE, DONOR_FIONA), model.getFilteredPersonList());

@@ -17,4 +17,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TISSUE_TYPE = new Prefix("tt/");
     public static final Prefix PREFIX_ORGAN_EXPIRY_DATE = new Prefix("exp/");
     public static final Prefix PREFIX_ORGAN = new Prefix("o/");
+    public static final Prefix PREFIX_RESULT = new Prefix("res/");
 }

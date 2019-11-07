@@ -17,7 +17,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import organice.commons.core.GuiSettings;
-import organice.logic.commands.FindCommand;
+import organice.logic.commands.ExactFindCommand;
 import organice.logic.parser.ArgumentMultimap;
 import organice.logic.parser.ArgumentTokenizer;
 import organice.model.person.MatchedDonor;
@@ -200,7 +200,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         ArgumentMultimap searchParams = ArgumentTokenizer
-                .tokenize(FindCommand.COMMAND_WORD + " n/" + DOCTOR_ALICE.getName().fullName, PREFIX_NAME);
+                .tokenize(ExactFindCommand.COMMAND_WORD + " n/" + DOCTOR_ALICE.getName().fullName, PREFIX_NAME);
         modelManager.updateFilteredPersonList(new PersonContainsPrefixesPredicate(searchParams));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

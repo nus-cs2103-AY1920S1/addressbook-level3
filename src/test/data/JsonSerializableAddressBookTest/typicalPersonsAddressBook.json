@@ -54,7 +54,9 @@
       "tissueType": "10,5,3,1,6,8",
       "organ": "kidney",
       "organExpiryDate": "10-May-2020",
-      "status": "not processing"
+      "status": "not processing",
+      "processingTaskList" : "",
+      "patientsMatchedBeforeList" : ""
     }, {
       "type": "donor",
       "nric": "F9183156L",
@@ -65,7 +67,9 @@
       "tissueType": "7,2,3,9,6,8",
       "organ": "kidney",
       "organExpiryDate": "10-Jun-2020",
-      "status": "not processing"
+      "status": "not processing",
+      "processingTaskList" : "",
+      "patientsMatchedBeforeList" : ""
     }, {
     "type": "donor",
     "nric": "S1234567A",
@@ -76,7 +80,9 @@
     "tissueType": "9,4,1,6,8,2",
     "organ": "kidney",
     "organExpiryDate": "10-Dec-2030",
-    "status": "not processing"
+    "status": "not processing",
+      "processingTaskList" : "",
+      "patientsMatchedBeforeList" : ""
   }, {
       "type": "donor",
       "nric": "S9876543G",
@@ -87,7 +93,9 @@
       "tissueType": "1,4,7,10,11,12",
       "organ": "kidney",
       "organExpiryDate": "20-Jan-2020",
-      "status": "not processing"
+      "status": "not processing",
+      "processingTaskList" : "",
+      "patientsMatchedBeforeList" : ""
   }, {
       "type": "donor",
       "nric": "T1312123P",
@@ -98,6 +106,8 @@
       "tissueType": "1,2,3,4,5,6",
       "organ": "kidney",
       "organExpiryDate": "20-Jan-2020",
-      "status": "not processing"
+      "status": "not processing",
+      "processingTaskList" : "",
+      "patientsMatchedBeforeList" : ""
   } ]
 }

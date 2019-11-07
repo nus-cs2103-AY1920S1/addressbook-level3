@@ -1,44 +1,154 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static organice.commons.util.StringUtil.calculateLevenshteinDistance;
+import static organice.logic.parser.CliSyntax.PREFIX_NAME;
+import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
+import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
+import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import organice.commons.core.Messages;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.BiFunction;
+
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+
+import organice.logic.parser.ArgumentMultimap;
 import organice.model.Model;
+import organice.model.person.Name;
+import organice.model.person.Person;
 import organice.model.person.PersonContainsPrefixesPredicate;
+
 
 /**
  * Finds and lists all persons in address book whose prefixes match any of the argument prefix-keyword pairs.
+ * Performs fuzzy searching based on Levenshtein Distance.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose prefixes match any of "
-            + "the specified prefix-keywords pairs (case-insensitive) and displays them as a list with index numbers.\n"
-            + "List of Prefixes: n/, ic/, p/, a/, t/, pr/, b/, d/, tt/, exp/, o/"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose prefixes are similar to any of"
+            + " the specified prefix-keywords pairs (case-insensitive) and displays them as a list with index numbers."
+            + "\nList of Prefixes: n/, ic/, p/, a/, t/, pr/, b/, d/, tt/, exp/, o/"
             + "Parameters: PREFIX/KEYWORD [MORE_PREFIX-KEYWORD_PAIRS]...\n"
             + "Example: " + COMMAND_WORD + " n/alice t/doctor";
 
-    private final PersonContainsPrefixesPredicate predicate;
+    // Maximum Levenshtein Distance tolerated for a fuzzy match
+    private static final int FUZZY_THRESHOLD = 5;
 
-    public FindCommand(PersonContainsPrefixesPredicate predicate) {
-        requireNonNull(predicate);
-        this.predicate = predicate;
+    private final ArgumentMultimap argMultimap;
+
+    public FindCommand(ArgumentMultimap argMultimap) {
+        this.argMultimap = argMultimap;
+    }
+
+    /**
+     * Returns a copy of the {@code inputList} which is filtered according to maximum tolerable Levenshtein Distance
+     * (edit distance) then sorted according to ascending level of distance.
+     */
+    private List<Person> fuzzyMatch(ArgumentMultimap argMultimap, List<Person> inputList) {
+        // Fuzzy Match by Levenshtein Distance is not implemented for following prefixes:
+        // Age, Priority, BloodType, TissueType
+        // Typos in these fields have a very small Levenshtein Distance (LD) as typical field length is very small
+
+        List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
+        List<String> nricKeywords = argMultimap.getAllValues(PREFIX_NRIC);
+        List<String> phoneKeywords = argMultimap.getAllValues(PREFIX_PHONE);
+        List<String> typeKeywords = argMultimap.getAllValues(PREFIX_TYPE);
+
+        // List containing combined Levenshtein Distance of persons in inputList
+        ArrayList<Integer> distanceList = new ArrayList<>();
+
+        for (int i = 0; i < inputList.size(); i++) {
+            Person currentPerson = inputList.get(i);
+            int combinedLevenshteinDistance = 0;
+            combinedLevenshteinDistance += nameKeywords.isEmpty() ? 0
+                    : findMinLevenshteinDistance(nameKeywords, currentPerson.getName());
+            combinedLevenshteinDistance += nricKeywords.isEmpty() ? 0
+                    : findMinLevenshteinDistance(nricKeywords, currentPerson.getNric().toString());
+            combinedLevenshteinDistance += phoneKeywords.isEmpty() ? 0
+                    : findMinLevenshteinDistance(phoneKeywords, currentPerson.getPhone().toString());
+            combinedLevenshteinDistance += typeKeywords.isEmpty() ? 0
+                    : findMinLevenshteinDistance(typeKeywords, currentPerson.getType().toString());
+
+            distanceList.add(i, combinedLevenshteinDistance);
+        }
+
+        // Keep Persons whose Levenshtein Distance is within tolerable range
+        ArrayList<Integer> distancesOfTolerablePersons = new ArrayList<>();
+        ArrayList<Person> tolerablePersons = new ArrayList<>(inputList.size());
+        for (int i = 0; i < inputList.size(); i++) {
+            int levenshteinDistance = distanceList.get(i);
+            if (levenshteinDistance <= FUZZY_THRESHOLD) {
+                distancesOfTolerablePersons.add(levenshteinDistance);
+                tolerablePersons.add(inputList.get(i));
+            }
+        }
+
+        ArrayList<Person> sortedPersons = new ArrayList<>(tolerablePersons);
+        sortedPersons.sort(Comparator.comparingInt(left ->
+                distancesOfTolerablePersons.get(tolerablePersons.indexOf(left))));
+
+        return sortedPersons;
+    }
+
+    private int findMinLevenshteinDistance(List<String> prefixKeywords, String personAttribute) {
+        return prefixKeywords.stream().reduce(Integer.MAX_VALUE, (minDistance, nextKeyword) -> Integer.min(
+                minDistance, calculateLevenshteinDistance(nextKeyword.toLowerCase(), personAttribute.toLowerCase())),
+                Integer::min);
+    }
+
+    /**
+     * Returns the minimum Levenshtein Distance of every {@code prefixKeyword} and {@code personName} pair. If
+     * {@code prefixKeyword} is a single-word string, {@code personName} is split according to spaces (if possible) and
+     * the minimum distance is calculated between every possible pair.
+     */
+    private int findMinLevenshteinDistance(List<String> prefixKeywords, Name personName) {
+        // If keyword is one word long, split the personName and find minLD.
+        // Else just do as we are normally doing in original finalMinLD
+
+        BiFunction<String, String, Integer> findDistanceSplitIfMultiWord = (prefixKeyword, pName) ->
+                prefixKeyword.split(" ").length == 1 ? Arrays.stream(pName.split(" "))
+                        .reduce(Integer.MAX_VALUE, (minDistance, nextNameWord) -> Integer.min(minDistance,
+                                calculateLevenshteinDistance(prefixKeyword.toLowerCase(), nextNameWord.toLowerCase())),
+                                Integer::min)
+                : calculateLevenshteinDistance(prefixKeyword.toLowerCase(), pName.toLowerCase());
+
+        return prefixKeywords.stream().reduce(Integer.MAX_VALUE, (minDistance, nextKeyword) ->
+                Integer.min(minDistance, findDistanceSplitIfMultiWord.apply(nextKeyword, personName.toString())),
+                Integer::min);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+
+        List<Person> allPersons = Arrays.asList(model.getFullPersonList().toArray(Person[]::new));
+
+        FilteredList<Person> exactMatches = new FilteredList<>(FXCollections.observableList(allPersons));
+        exactMatches.setPredicate(new PersonContainsPrefixesPredicate(argMultimap));
+
+        List<Person> allExceptExactMatches = new ArrayList<>(allPersons);
+        allExceptExactMatches.removeAll(Arrays.asList(exactMatches.toArray(Person[]::new)));
+        allExceptExactMatches = fuzzyMatch(argMultimap, allExceptExactMatches);
+
+        ArrayList<Person> finalArrayList = new ArrayList<>(exactMatches);
+        finalArrayList.addAll(allExceptExactMatches);
+
+        model.setDisplayedPersonList(finalArrayList);
+        return new CommandResult("Found " + exactMatches.size() + " exact matches and "
+                + allExceptExactMatches.size() + " possible matches!");
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && argMultimap.equals(((FindCommand) other).argMultimap)); // state check
     }
 }

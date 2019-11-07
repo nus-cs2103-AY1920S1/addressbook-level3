@@ -1,6 +1,7 @@
 package organice.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -9,6 +10,7 @@ import organice.commons.core.GuiSettings;
 
 import organice.logic.commands.exceptions.CommandException;
 
+import organice.model.person.Doctor;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
@@ -123,6 +125,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the full person list */
+    ObservableList<Person> getFullPersonList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -140,6 +145,11 @@ public interface Model {
      * @throws PersonNotFoundException if the {@code Donor} with the {@code Nric} cannot be found.
      */
     Donor getDonor(Nric donorNric) throws PersonNotFoundException;
+
+    /**
+     * Returns list of doctors in ORGANice
+     */
+    ArrayList<Doctor> getListOfDoctors();
 
     /**
      * Matches all Patients to all Donors in ORGANice.

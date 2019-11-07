@@ -13,32 +13,33 @@ import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import organice.logic.commands.FindCommand;
+import organice.logic.commands.ExactFindCommand;
 import organice.logic.parser.exceptions.ParseException;
+import organice.model.person.PersonContainsPrefixesPredicate;
 
 /**
  * Parses input arguments and creates a new ExactFindCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class ExactFindCommandParser implements Parser<ExactFindCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ExactFindCommand
      * and returns a ExactFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public ExactFindCommand parse(String args) throws ParseException {
         args = args.replaceAll("\n", " ").replaceAll("\\s+", " ");
         String trimmedArgs = args.trim();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE,
                 PREFIX_TYPE, PREFIX_AGE, PREFIX_PRIORITY, PREFIX_BLOOD_TYPE, PREFIX_DOCTOR_IN_CHARGE,
                 PREFIX_TISSUE_TYPE, PREFIX_ORGAN_EXPIRY_DATE, PREFIX_ORGAN);
 
-        // Preamble length > 7 indicates initial command is not `fuzfind PREFIX/KEYWORD`
-        if (trimmedArgs.isEmpty() || argMultimap.getPreamble().length() > 7) {
+        // Preamble length > 4 indicates initial command is not `ExactFindCommand.COMMAND_WORD PREFIX/KEYWORD`
+        if (trimmedArgs.isEmpty() || argMultimap.getPreamble().length() > ExactFindCommand.COMMAND_WORD.length()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExactFindCommand.MESSAGE_USAGE));
         }
-        return new FindCommand(argMultimap);
+        return new ExactFindCommand(new PersonContainsPrefixesPredicate(argMultimap));
     }
 
 }

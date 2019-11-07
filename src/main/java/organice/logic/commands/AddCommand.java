@@ -14,8 +14,11 @@ import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.ArrayList;
+
 import organice.logic.commands.exceptions.CommandException;
 import organice.model.Model;
+import organice.model.person.Doctor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
@@ -47,7 +50,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "21 "
             + PREFIX_PRIORITY + "high "
-            + PREFIX_BLOOD_TYPE + "A "
+            + PREFIX_BLOOD_TYPE + "A+ "
             + PREFIX_TISSUE_TYPE + "1,2,3,4,5,6 "
             + PREFIX_ORGAN + "kidney "
             + PREFIX_DOCTOR_IN_CHARGE + "S1111111A\n"
@@ -68,7 +71,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "21 "
             + PREFIX_PRIORITY + "high "
-            + PREFIX_BLOOD_TYPE + "A "
+            + PREFIX_BLOOD_TYPE + "A+ "
             + PREFIX_TISSUE_TYPE + "1,2,3,4,5,6 "
             + PREFIX_ORGAN + "kidney "
             + PREFIX_ORGAN_EXPIRY_DATE + "23-Oct-2019\n"
@@ -123,7 +126,13 @@ public class AddCommand extends Command {
         if (toAdd.getType().toString().equals("patient")) {
             Nric doctorInCharge = new Nric(((Patient) toAdd).getDoctorInCharge().toString());
             if (!model.hasDoctor(doctorInCharge)) {
-                throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
+                ArrayList<Doctor> listOfDoctors = model.getListOfDoctors();
+                String errorMsg = "\nCurrent available doctors are: ";
+                for (Doctor doctor : listOfDoctors) {
+                    errorMsg += "[NAME: " + doctor.getName() + " NRIC: " + doctor.getNric() + "], ";
+                }
+                errorMsg = errorMsg.substring(0, errorMsg.length() - 2); //Remove extra space and comma
+                throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND + errorMsg);
             }
         }
 
