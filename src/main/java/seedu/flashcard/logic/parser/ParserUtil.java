@@ -108,7 +108,6 @@ public class ParserUtil {
      */
     public static Answer parseAnswer(String answer) throws ParseException {
         String trimmedAnswer = answer.trim();
-        if (answer.)
         if (!Answer.isValidAnswer(trimmedAnswer)) {
             throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
         }

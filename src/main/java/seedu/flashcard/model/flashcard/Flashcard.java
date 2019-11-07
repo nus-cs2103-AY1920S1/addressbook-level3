@@ -137,6 +137,10 @@ public abstract class Flashcard {
         }
     }
 
+    public void skipAnswer(){
+        score.incrementWrongAnswer();
+    }
+
     /**
      * Checks whether the card is a MCQ Flashcard.
      * @return Returns true if the card is a McqFlashcard.

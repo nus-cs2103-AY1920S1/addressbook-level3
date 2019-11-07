@@ -13,7 +13,7 @@ import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 public class Quiz {
 
     private List<Flashcard> quizableFlashcards = new ArrayList<>();
-    private IntegerProperty duration;
+    private int duration ;
 
     public Quiz() {
 
@@ -49,7 +49,7 @@ public class Quiz {
     }
 
     public void setDuration(int duration) {
-        this.duration.set(duration);
+        this.duration = duration;
     }
 
     /**

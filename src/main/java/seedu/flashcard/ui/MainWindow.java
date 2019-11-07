@@ -195,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleTimer(){
         if(timerDisplay == null) {
-            timerDisplay = new TimerDisplay(this::executeCommand);
+            timerDisplay = new TimerDisplay(this::executeCommand, logic.getFilteredFlashcardList().size());
             timerDisplayPlaceHolder.getChildren().add(timerDisplay.getRoot());
         }else{
             timerDisplay.initializeTimer();

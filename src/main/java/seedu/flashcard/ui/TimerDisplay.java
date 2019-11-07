@@ -5,8 +5,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -20,25 +18,39 @@ public class TimerDisplay extends UiPart<Region> {
 
     private static final String FXML = "TimerDisplay.fxml";
     private static final Integer STARTTIME = 15;
+    private int questionNumber;
 
     private Timeline timeline;
     private IntegerProperty timeSeconds =
             new SimpleIntegerProperty(STARTTIME);
+
+    private IntegerProperty questionCount = new SimpleIntegerProperty(questionNumber);
 
     private final CommandExecutor commandExecutor;
 
     @FXML
     private Label timerLabel;
 
+    @FXML
+    private Label currentQuestion;
 
-    public TimerDisplay(CommandExecutor commandExecutor) {
+    @FXML
+    private Label totalQuestions;
+
+
+    public TimerDisplay(CommandExecutor commandExecutor, int size) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+
         timerLabel.textProperty().bind(timeSeconds.asString());
+        currentQuestion.textProperty().bind(questionCount.asString());
+        totalQuestions.setText(String.valueOf(size));
         initializeTimer();
     }
 
+
     void initializeTimer (){
+        questionNumber = 1;
         timeSeconds.set(STARTTIME);
         timeline = new Timeline();
         timeline.getKeyFrames().add(
@@ -50,9 +62,14 @@ public class TimerDisplay extends UiPart<Region> {
 
     private void timerExpire() {
         try {
-            commandExecutor.execute("flip 1");
+            commandExecutor.execute("skip");
+            questionNumber++;
         } catch (CommandException | ParseException e) {
         }
+    }
+
+    private void stopTimer(){
+        timeline.stop();
     }
 
     /**
