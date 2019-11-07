@@ -69,7 +69,7 @@ public class LogicManager implements Logic {
         Command command = parserManager.parseCommand(commandText, currentAnswerable);
         CommandResult commandResult = command.execute(model);
 
-        if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
+        if (commandResult.isCorrect()) {
             logger.info("Correct answer selected");
         } else {
             logger.info("Wrong answer selected");

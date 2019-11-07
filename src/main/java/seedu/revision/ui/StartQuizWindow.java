@@ -153,20 +153,20 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            timer.resetTimer();
+
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.isCorrect()) {
                 totalScore++;
                 score++;
             }
 
-            timer.resetTimer();
-
             if (commandResult.isExit()) {
                 handleExit();
                 return new CommandResultBuilder().build();
             }
 
-            if (!commandResult.isCorrect()) {
+            if (!commandResult.isCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd(currentAnswerable);
                 return new CommandResultBuilder().build();
             }
