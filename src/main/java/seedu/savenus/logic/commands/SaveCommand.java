@@ -15,7 +15,7 @@ import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
  */
 public class SaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "deposit";
+    public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set User's savings\n"
