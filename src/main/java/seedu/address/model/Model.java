@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -130,7 +131,7 @@ public interface Model {
      *
      * @param transaction
      */
-    void deleteTransaction(BankAccountOperation transaction);
+    void delete(BankAccountOperation transaction);
 
     /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
@@ -211,20 +212,22 @@ public interface Model {
      * Deletes the given budget.
      * The budget must exist in the bank account.
      */
-    void deleteBudget(Budget budgetToDelete);
+    void delete(Budget budgetToDelete);
 
     /**
      * Deletes the given projection.
      * The projection must exist in the bank account.
      */
-    void deleteProjection(Projection projectionToDelete);
+    void delete(Projection projectionToDelete);
 
     /**
      * Deletes the given ledger.
      * The ledger must exist in the bank account.
      */
-    void deleteLedger(LedgerOperation ledgerToDelete);
+    void delete(LedgerOperation ledgerToDelete);
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
     ObservableList<Projection> getFilteredProjectionsList();
+
+    ObservableList<Person> getPeopleInLedger();
 }

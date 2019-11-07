@@ -137,7 +137,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteTransaction(BankAccountOperation target) {
+    public void delete(BankAccountOperation target) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -172,7 +172,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteLedger(LedgerOperation target) {
+    public void delete(LedgerOperation target) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -190,12 +190,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteBudget(Budget budgetToDelete) {
+    public void delete(Budget budgetToDelete) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteProjection(Projection projectionToDelete) {
+    public void delete(Projection projectionToDelete) {
 
     }
 
