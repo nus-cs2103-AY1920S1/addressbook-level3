@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ICS_DATE_TIME;
 import static seedu.address.model.DateTime.ICS_DATE_TIME_PATTERN;
 
