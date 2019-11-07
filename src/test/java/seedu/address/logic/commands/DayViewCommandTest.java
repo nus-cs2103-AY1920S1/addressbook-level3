@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.stub.UiManagerStub;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.exceptions.ArgumentException;
+import seedu.address.ui.stub.UiManagerStub;
 
 class DayViewCommandTest {
 

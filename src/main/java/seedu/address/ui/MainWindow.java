@@ -332,9 +332,9 @@ public class MainWindow extends UiPart<Stage> {
                                   List<TaskSource> tasks,
                                   HashMap<EventSource, Integer> eventHash,
                                   HashMap<TaskSource, Integer> taskHash) {
+        this.calendarPanel.onModelListChange(events, tasks, eventHash, taskHash);
         this.listPanel.onEventListChange(events, eventHash);
         this.listPanel.onTaskListChange(tasks, taskHash);
-        this.calendarPanel.onModelListChange(events, tasks, eventHash, taskHash);
     }
 
     /**

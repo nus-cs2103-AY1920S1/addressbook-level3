@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.stub.UiManagerStub;
+import seedu.address.ui.stub.UiManagerStub;
 
 class LogViewCommandTest {
 
