@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.commands.stubs;
 
 import java.util.Map;
 
@@ -8,11 +8,13 @@ import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.ui.UserOutput;
 
-/** CommandStub */
+/**
+ * Command with no arguments or parameters.
+ */
 public class CommandStub extends Command {
 
-    static CommandBuilder newBuilder() {
-        return new CommandBuilderStub().init();
+    public static CommandBuilder newBuilder() {
+        return new Builder().init();
     }
 
     @Override
@@ -21,7 +23,7 @@ public class CommandStub extends Command {
     }
 
     /** CommandStub */
-    private static class CommandBuilderStub extends CommandBuilder {
+    private static class Builder extends CommandBuilder {
 
         @Override
         protected CommandBuilder init() {
