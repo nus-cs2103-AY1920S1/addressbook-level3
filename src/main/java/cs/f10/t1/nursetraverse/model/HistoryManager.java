@@ -134,7 +134,8 @@ public class HistoryManager {
             return Optional.empty();
         }
         HistoryRecord redoRecord = redoStack.pop();
-        pushToHistory(redoRecord.getCommand(), currentPatientBook, currentAppointmentBook); // Save state before redone command
+        // Save state before redone command
+        pushToHistory(redoRecord.getCommand(), currentPatientBook, currentAppointmentBook);
         return Optional.of(redoRecord);
     }
 

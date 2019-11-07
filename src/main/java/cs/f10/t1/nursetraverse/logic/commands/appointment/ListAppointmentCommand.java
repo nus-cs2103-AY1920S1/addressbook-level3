@@ -6,6 +6,9 @@ import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.model.Model;
 
+/**
+ * Lists all appointments in the appointment book.
+ */
 public class ListAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "appt-list";

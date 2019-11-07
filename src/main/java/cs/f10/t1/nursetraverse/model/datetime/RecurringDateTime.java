@@ -2,17 +2,10 @@ package cs.f10.t1.nursetraverse.model.datetime;
 
 import static cs.f10.t1.nursetraverse.model.datetime.DateTime.DATE_DISPLAY_FORMATTER;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
-import cs.f10.t1.nursetraverse.model.appointment.Appointment;
-
 
 /**
  * Represents the frequency of a recurring appointment
@@ -121,6 +114,10 @@ public class RecurringDateTime {
         return Long.parseLong(freq);
     }
 
+    /**
+     * Converts recurring date time to a string to be displayed in the staged appointments.
+     * @return String
+     */
     public String toUiString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))

@@ -3,11 +3,9 @@ package cs.f10.t1.nursetraverse.ui;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 

@@ -338,6 +338,11 @@ public class ModelManager implements Model {
         return historyManager.asUnmodifiableObservableList();
     }
 
+    /**
+     * Changes base patient book and appointment book to {@code patientBook} and {@code appointmentBook} respectively.
+     * @param patientBook
+     * @param appointmentBook
+     */
     private void changeBaseTo(PatientBook patientBook, AppointmentBook appointmentBook) {
         basePatientBook = patientBook;
         stagedPatientBook = basePatientBook.deepCopy();

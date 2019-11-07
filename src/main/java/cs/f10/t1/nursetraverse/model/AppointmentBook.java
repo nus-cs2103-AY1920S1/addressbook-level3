@@ -69,8 +69,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         if (appointments.isEmpty()) {
             List<Appointment> empty = new ArrayList<>();
             this.finishedAppointments.setAppointments(empty);
-        }
-        else {
+        } else {
             this.finishedAppointments.setAppointments(appointments);
         }
     }
@@ -84,12 +83,15 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         List<Appointment> newAppointmentList = newData.getAppointmentList();
 
         Predicate<Appointment> toKeep = appt -> StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
-        Predicate<Appointment> finished = appt -> !StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
+        Predicate<Appointment> finished = appt -> !StartDateTime.isAfterSystemDateTime(appt.getStartDateTime()
+                                                                                            .toString());
 
-        List<Appointment> toSetAppointmentList = newAppointmentList.stream().filter(toKeep).collect(Collectors.toList());
+        List<Appointment> toSetAppointmentList = newAppointmentList.stream().filter(toKeep)
+                                                 .collect(Collectors.toList());
         setAppointments(toSetAppointmentList);
 
-        List<Appointment> toSetFinishedAppointmentList = newAppointmentList.stream().filter(finished).collect(Collectors.toList());
+        List<Appointment> toSetFinishedAppointmentList = newAppointmentList.stream().filter(finished)
+                                                         .collect(Collectors.toList());
         setFinishedAppointments(toSetFinishedAppointmentList);
     }
 
@@ -187,6 +189,10 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         setAppointments(keepAppointments);
     }
 
+    /**
+     * Adds same appointment with the next date time if previous one was deleted and was recurring.
+     * @param key
+     */
     public void addRecurringAppointment(Appointment key) {
         RecurringDateTime frequency = key.getFrequency();
         StartDateTime nextStartDateTime = new StartDateTime(frequency
