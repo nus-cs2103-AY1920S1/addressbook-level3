@@ -44,6 +44,7 @@ import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.ui.Tab;
 
 public class Parser implements InteractiveParser {
 
@@ -344,19 +345,26 @@ public class Parser implements InteractiveParser {
         EndState endState = (EndState) currentState;
         try {
             Command command = endState.buildCommand();
-            if (command instanceof HelpCommand) {
-                revertToPreviousCommand();
-            } else if (command instanceof CurrentCommand) {
-                revertToPreviousCommand();
-            } else if (command instanceof TabCommand) {
-                revertToPreviousCommand();
-            } else {
-                resetParser();
-            }
+            handleStateChange(command);
             return command;
         } catch (CommandException e) {
             throw new ParseException(e.getMessage());
         }
+    }
+
+    private void handleStateChange(Command command) {
+        if (isDynamicCommand(command)) {
+            revertToPreviousCommand();
+        } else {
+            resetParser();
+        }
+    }
+
+    private boolean isDynamicCommand(Command command) {
+        return command instanceof HelpCommand
+                || command instanceof TabCommand
+                || command instanceof CurrentCommand
+                || command instanceof ExitCommand;
     }
 
 }
