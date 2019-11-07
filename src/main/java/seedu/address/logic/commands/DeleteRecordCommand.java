@@ -24,7 +24,7 @@ public class DeleteRecordCommand extends DeleteCommand {
         + ": Deletes the performance record of a certain event, on a certain day for the person identified by the "
         + "index number used in the displayed person list.\n"
         + "INDEX must be a positive integer.\n"
-        + "Parameters: INDEX " + PREFIX_EVENT + "EVENT_NAME " + PREFIX_DATE + "DDMMYYYY"
+        + "Parameters: INDEX " + PREFIX_EVENT + "EVENT_NAME " + PREFIX_DATE + "DDMMYYYY\n"
         + "Example: " + COMMAND_WORD + " " + FLAG_RECORD + " 1 "
         + PREFIX_EVENT + "freestyle 50m " + PREFIX_DATE + "02102019";
     public static final String MESSAGE_NO_RECORDS_ON_DAY = "%1$s has no records on %2$s.\n"
