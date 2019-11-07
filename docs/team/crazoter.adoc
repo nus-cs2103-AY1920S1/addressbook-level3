@@ -19,37 +19,51 @@ NurseTraverse is a desktop application meant for community nurse to help manage 
 ** Highlights: This enhancement adds a new feature for the user. From a design perspective, it was challenging as there was a need to make the use cases and commands usable and efficient while keeping the workload manageable. The implementation too was challenging as it is a rather big feature involving changes to existing commands and the creation of new commands.
 ** Credits: No code or ideas were referenced to outside of this application (beyond code that already exists within _Address Book 3_).
 
-* *Code contributed*: Code contributed can be found via references in issues: (v1.2: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/62[#62], v1.3: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
+* *Code contributed*: Code contributed can be found via references in the following issues:
+(v1.2: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/62[#62],
+v1.3: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53],
+Bug Hunting: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/182[#182])
 
 * *Other contributions*:
 ** Project management:
 *** Setup initial https://github.com/AY1920S1-CS2103-F10-1/main/projects/1[Project Management Board]
+*** Setup https://github.com/AY1920S1-CS2103-F10-1/main/pull/94[v1.2.1 release], v1.4 Issues for team (See issues #182-#186)
+*** Helped coordinate team and help teammates debug code (offline, no documentation)
 ** Enhancements to existing features:
 *** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69]) which was required for this feature and some other features e.g. Appointment Management
 *** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
-*** Added tabs to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]) which was required for this feature and some other features e.g. Appointment Management
+*** Added tabbing system to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]) which was required for this feature and some other features e.g. Appointment Management
 ** Documentation:
 *** Setup initial User Guide to guide direction of project: (Pull Requests https://github.com/AY1920S1-CS2103-F10-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103-F10-1/main/pull/37[#37])
 ** Community:
-*** Pull Requests reviewed with non-trivial review comments or reviewed to approve: https://github.com/AY1920S1-CS2103-F10-1/main/pull/66[#66], https://github.com/AY1920S1-CS2103-F10-1/main/pull/67[#67],
+*** Pull Requests reviewed with non-trivial review comments or reviewed to approve:
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/66[#66],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/67[#67],
 https://github.com/AY1920S1-CS2103-F10-1/main/pull/71[#71],
 https://github.com/AY1920S1-CS2103-F10-1/main/pull/72[#72],
-https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73]
-*** Contributed to discussions (in Pull Request(s) https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42] and offline/Telegram discussions)
-*** Contributed to discussions within my own Pull Requests: https://github.com/AY1920S1-CS2103-F10-1/main/pull/68[#68], https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69], https://github.com/AY1920S1-CS2103-F10-1/main/pull/75[#75], https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/87[#87],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/91[#91],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/105[#105],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/197[#197],
+*** Contributed to discussions (in Pull Request(s)
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42]
+and offline/Telegram discussions)
 *** Setup example Milestone issue format (https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
 ** Tools:
 *** Helped in setting up team repo
 *** Helped in integrating Travis
 *** Integrated Netlify, Coveralls and Codacy to the team repo
 
+The full list of PRs by me (which includes all the PRs for https://github.com/AY1920S1-CS2103-F10-1/main/pull/104[refactoring], updating documentation, impromptu bug fixes and more) can be found https://github.com/AY1920S1-CS2103-F10-1/main/pulls?q=is%3Apr+author%3Acrazoter[here], and the full list of issues by me can be found https://github.com/AY1920S1-CS2103-F10-1/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Acrazoter+[here].
+
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide (aside from the team based components). They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../userguide/Patient.adoc[]
 
 include::../userguide/Visit.adoc[]
 
@@ -60,9 +74,7 @@ include::../userguide/Security.adoc[]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide (aside from the team based components). They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../devguide/VisitsManagement.adoc[]
