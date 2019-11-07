@@ -29,7 +29,12 @@ public class Statistics {
 
     public Statistics (Model model) throws OnlineConnectionException {
         this.model = model;
-        apiManager = new ApiManager();
+        try {
+            apiManager = new ApiManager();
+        } catch (OnlineConnectionException e) {
+            //have to handle
+            e.printStackTrace();
+        }
     }
 
     /**
