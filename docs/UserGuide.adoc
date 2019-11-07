@@ -384,7 +384,7 @@ a more reliable prediction.
 As with any other application, our prediction algorithm will be more accurate with more frequent usage.
 
 //end::wastelistfeatures[]
-
+//tag::templatelistfeatures[]
 === Templates List Management
 
 ==== Add new template: `tlist add`
@@ -457,13 +457,14 @@ Examples:
 ==== Edit item name: `tlist template edit`
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
-Format: `tlist n/TEMPLATENAME edit INDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
+Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 
 ****
-* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the food item at the specified `ITEMINDEX` in template at specified TEMPLATEINDEX. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Units in the amount field must match that of the item specified
+* Amount must have units.
+* Units in the amount field must match that of the item specified.
 ****
 
 Examples:
@@ -479,13 +480,13 @@ Deletes the specified item from the specified template. +
 Format: `tlist template delete TEMPLATEINDEX i/ITEMINDEX`
 
 ****
-* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the food item at the specified `ITEMINDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `tlist template delete 1 i/1`
-Deletes the first food item in the first template
+Deletes the first food item in the first template.
 
 ==== Shows template: `tlist template list`
 
@@ -511,6 +512,7 @@ Format: `tlist redo`
 
 Redoing a template list will only display template list.
 Redoing a template item list will display which template is redone.
+//end::templatelistfeatures[]
 
 //end::tlistundoredo[]
 === Shopping List Management
@@ -635,7 +637,7 @@ Examples:
 
 * `slist urgent 1`
 Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and moves to the top of the shopping list.
-
+//tag::addTempfeature[]
 ==== Generate shopping list: `slist addTemp`
 
 Generates a shopping list from all missing grocery items in the template.
@@ -652,6 +654,7 @@ Examples:
 * `slist addTemp l/Weekly Necessities l/Birthday Cake`
 All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
 
+//end::addTempfeature[]
 //tag::slistundoredo[]
 ==== Undo Shopping List: `slist undo`
 Undo the shopping list. +
