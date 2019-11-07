@@ -27,6 +27,7 @@ public class SplitCommand extends Command {
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "600 "
+        + PREFIX_DESC + "haidilao "
         + PREFIX_NAME + "John Doe "
         + PREFIX_NAME + "John Soe "
         + PREFIX_NAME + "John Moe "

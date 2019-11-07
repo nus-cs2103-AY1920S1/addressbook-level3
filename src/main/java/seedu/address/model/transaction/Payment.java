@@ -40,6 +40,7 @@ public abstract class Payment extends Transaction implements LedgerOperation {
         if (peopleInLedger.contains(person)) {
             personInvolved = peopleInLedger.get(person).get();
         } else {
+            person.resetBalance();
             peopleInLedger.add(person);
         }
         return personInvolved;
@@ -56,5 +57,10 @@ public abstract class Payment extends Transaction implements LedgerOperation {
     @Override
     public List<Integer> getShares() {
         return IntStream.of(1).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Amount> getAmounts() {
+        return List.of(amount);
     }
 }

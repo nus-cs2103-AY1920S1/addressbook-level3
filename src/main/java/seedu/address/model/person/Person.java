@@ -99,4 +99,7 @@ public class Person {
         return builder.toString();
     }
 
+    public void resetBalance() {
+        balance = Amount.zero();
+    }
 }
