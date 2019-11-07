@@ -139,6 +139,9 @@ public class ModelManagerTest {
         // different patientBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentPatientBook, userPrefs, appointmentBook)));
 
+        // different appointmentBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(patientBook, userPrefs, differentAppointmentBook)));
+
         // different filteredList -> returns false
         String[] keywords = TypicalPatients.ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPatientList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));

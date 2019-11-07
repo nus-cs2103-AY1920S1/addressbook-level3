@@ -106,7 +106,7 @@ public class DateTime {
         String month = dateTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
         String year = String.format("%02d", dateTime.getYear());
 
-        return date + suffix + " of " + month + " " + year + ", " + hours + ":" + minutes;
+        return day + ", " + date + suffix + " of " + month + " " + year + ", " + hours + ":" + minutes;
     }
 
     @Override
