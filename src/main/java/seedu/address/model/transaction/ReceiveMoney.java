@@ -18,7 +18,7 @@ public class ReceiveMoney extends Payment {
 
     @Override
     public Amount getAmount() {
-        return amount;
+        return amount.makePositive();
     }
 
     @Override
@@ -41,6 +41,7 @@ public class ReceiveMoney extends Payment {
             ReceiveMoney payment = (ReceiveMoney) obj;
             return this.amount.equals(payment.amount)
                 && this.date.equals(payment.date)
+                && this.description.equals(payment.description)
                 && this.person.equals(payment.person);
         } else {
             return false;

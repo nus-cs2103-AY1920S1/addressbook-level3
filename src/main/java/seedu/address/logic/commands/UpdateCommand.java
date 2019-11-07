@@ -103,21 +103,6 @@ public class UpdateCommand extends Command {
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);
-        } else if (this.type.equals(Model.LEDGER_TYPE)) {
-            ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_INDEX);
-            }
-
-            LedgerOperation toReplace = lastShownList.get(targetIndex.getZeroBased());
-            LedgerOperation updatedLedgerOp = createUpdatedOperation(toReplace, updateTransactionDescriptor);
-
-            model.set(toReplace, updatedLedgerOp);
-
-            model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedLedgerOp),
-                    false, false, Tab.LEDGER);
         } else {
             throw new CommandException("Unknown command error");
         }
@@ -164,6 +149,7 @@ public class UpdateCommand extends Command {
     }
 
     /**
+     * [WIP DO NOT USE]
      * Creates and returns a new {@code LedgerOperation} with the details of {@code ToEdit}
      * based on fields from {@code descriptor}.
      */

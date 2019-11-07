@@ -114,7 +114,7 @@ public class JsonAdaptedLedgerOperations {
         final List<Integer> modelShares = shares.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
 
 
-        if (peopleInvolved.size() == 1) {
+        if (shares.size() == 1) {
             return modelAmount.isNegative()
                 ? new LendMoney(people.get(0).toModelType(), modelAmount.makePositive(), modelDate, modelDescription)
                 : new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription);

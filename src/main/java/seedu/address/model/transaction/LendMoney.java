@@ -36,6 +36,7 @@ public class LendMoney extends Payment {
             LendMoney payment = (LendMoney) obj;
             return this.amount.equals(payment.amount)
                 && this.date.equals(payment.date)
+                && this.description.equals(payment.description)
                 && this.person.equals(payment.person);
         } else {
             return false;
