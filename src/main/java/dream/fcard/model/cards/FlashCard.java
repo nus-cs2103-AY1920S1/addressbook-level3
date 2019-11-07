@@ -86,4 +86,14 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
 
     public abstract void updateScore(Boolean isCorrect);
 
+    public abstract int getCardResult();
+
+    public void setFront(String front) {
+        this.front = front;
+    };
+
+    public void setBack(String back) {
+        this.back = back;
+    };
+
 }

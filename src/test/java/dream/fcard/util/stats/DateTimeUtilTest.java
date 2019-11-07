@@ -166,7 +166,7 @@ public class DateTimeUtilTest {
         sessionList.addSession(sessionTwo);
 
         Duration calculatedDuration = DateTimeUtil.getAverageDuration(sessionList);
-        Duration expectedDuration = Duration.ofHours(5);
+        Duration expectedDuration = Duration.ofHours(5); // expected: 5 hours
         assertEquals(expectedDuration, calculatedDuration);
     }
 
@@ -190,5 +190,23 @@ public class DateTimeUtilTest {
             .plus(Duration.ofSeconds(30));
         // expected: 19.5 hours + 36.5 min = 20 hours 6 min 30 sec
         assertEquals(expectedDuration, calculatedDuration);
+    }
+
+    @Test
+    void getLastWeekCutoffDate_testOne() {
+        LocalDateTime time = LocalDateTime.of(2019, 11, 6, 9, 23);
+
+        LocalDateTime calculatedDateTime = DateTimeUtil.getLastWeekCutoffDate(time);
+        LocalDateTime expectedDateTime = LocalDateTime.of(2019, 10, 30, 0, 0);
+        assertEquals(expectedDateTime, calculatedDateTime);
+    }
+
+    @Test
+    void getLastWeekCutoffDate_testTwo() {
+        LocalDateTime time = LocalDateTime.of(2019, 11, 5, 0, 19);
+
+        LocalDateTime calculatedDateTime = DateTimeUtil.getLastWeekCutoffDate(time);
+        LocalDateTime expectedDateTime = LocalDateTime.of(2019, 10, 29, 0, 0);
+        assertEquals(expectedDateTime, calculatedDateTime);
     }
 }

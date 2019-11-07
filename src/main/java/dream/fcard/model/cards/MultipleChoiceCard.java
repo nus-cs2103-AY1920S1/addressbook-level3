@@ -55,6 +55,7 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
 
         priority = LOW_PRIORITY;
+        cardResult = -1;
 
         //boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
 
@@ -93,7 +94,7 @@ public class MultipleChoiceCard extends FrontBackCard {
                     "Multiple Choice Card creation failed - Choice provided is invalid - " + answerIndex);
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
-
+        cardResult = -1;
         priority = priorityLevel;
 
         boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
@@ -409,5 +410,10 @@ public class MultipleChoiceCard extends FrontBackCard {
         String backText = back;
         ArrayList<String> choiceDuplicate = generateCopyOfChoices();
         return new MultipleChoiceCard(frontText, backText, choiceDuplicate);
+    }
+
+    @Override
+    public int getCardResult() {
+        return this.cardResult;
     }
 }

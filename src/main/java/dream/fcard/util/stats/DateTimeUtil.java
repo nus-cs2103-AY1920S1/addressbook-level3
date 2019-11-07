@@ -1,6 +1,8 @@
 //@@author nattanyz
 package dream.fcard.util.stats;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -115,4 +117,9 @@ public class DateTimeUtil {
         return averageDuration;
     }
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
+
+    public static LocalDateTime getLastWeekCutoffDate(LocalDateTime from) {
+        LocalDateTime lastWeek = from.minusWeeks(1).truncatedTo(DAYS);
+        return lastWeek;
+    }
 }
