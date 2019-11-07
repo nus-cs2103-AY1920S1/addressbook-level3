@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
 
-        statisticsBox = new StatisticsBox(logic.getFilteredScheduledEventList(), logic, this);
+        statisticsBox = new StatisticsBox(logic.getFullEventList(), logic, this);
         statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
 
         finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
@@ -349,6 +349,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Statistics")) {
                 selectionModel.select(3);
+                statisticsBox.generatePieChart();
             }
 
             if (commandResult.getType().equals("Detail")) {
