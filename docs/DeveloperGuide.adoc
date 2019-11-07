@@ -708,7 +708,8 @@ The parsing of the command string to create the required `BookPredicate` object 
 then extracts all the values from the `ArgumentMultimap` prefix by prefix and building the predicate through functions
 such as `setTitle()`, `setGenres()` `setLoanStatus` etc.
 
-The diagram below shows a simplifed execution sequence of a 'find t/Animal Farm a/George' command string.
+The diagram below shows a simplified command generation sequence of a 'find t/Animal Farm a/George' command,
+starting from the CatalogParser
 
 .Sequence Diagram showing the execution of a Find Command input
 image::FindSequenceDiagram.png[width="840]
