@@ -23,16 +23,24 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  */
 public interface Model {
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Deliveryman> PREDICATE_SHOW_ALL_DELIVERYMEN = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
@@ -56,6 +64,7 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     //=========== Customer Database / Filepath methods =============================================================
+
     /**
      * Returns the user prefs' customer database file path.
      */
@@ -71,7 +80,9 @@ public interface Model {
      */
     void setCustomerDatabase(ReadOnlyCustomerDatabase customerDatabase);
 
-    /** Returns the CustomerDatabase */
+    /**
+     * Returns the CustomerDatabase
+     */
     ReadOnlyCustomerDatabase getCustomerDatabase();
 
     //=========== Deliverymen Database / Filepath methods =============================================================
@@ -91,7 +102,9 @@ public interface Model {
      */
     void setDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase);
 
-    /** Returns the DeliverymenDatabase */
+    /**
+     * Returns the DeliverymenDatabase
+     */
     ReadOnlyDeliverymenDatabase getDeliverymenDatabase();
 
     //=========== Restaurant Database / Filepath methods =============================================================
@@ -111,7 +124,9 @@ public interface Model {
      */
     void setRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase);
 
-    /** Returns the RestaurantDatabase */
+    /**
+     * Returns the RestaurantDatabase
+     */
     ReadOnlyRestaurantDatabase getRestaurantDatabase();
 
     //=========== Order Database / Filepath methods =============================================================
@@ -131,24 +146,36 @@ public interface Model {
      */
     void setOrderDatabase(ReadOnlyOrderDatabase orderDatabase);
 
-    /** Returns the OrderBook */
+    /**
+     * Returns the OrderBook
+     */
     ReadOnlyOrderDatabase getOrderDatabase();
 
     //=========== Undo/Redo methods =============================================================
 
-    /** Tells the model that a command was run and the text of the command */
+    /**
+     * Tells the model that a command was run and the text of the command
+     */
     void notifyChange(String commandText);
 
-    /** Returns whether there are actions to undo */
+    /**
+     * Returns whether there are actions to undo
+     */
     boolean hasUndo();
 
-    /** Returns whether there are actions to redo */
+    /**
+     * Returns whether there are actions to redo
+     */
     boolean hasRedo();
 
-    /** Undoes an action */
+    /**
+     * Undoes an action
+     */
     String undo();
 
-    /** Redoes an action */
+    /**
+     * Redoes an action
+     */
     String redo();
 
     //=========== Customer methods =============================================================
@@ -161,7 +188,11 @@ public interface Model {
     /**
      * Deletes the given customer.
      * The customer must exist in the address book.
+     *
+     * Checks for the {@code Order} to be deleted when {@code Customer} is deleted and setting {@code Deliveryman}
+     * to available for deleted {@code Orders}.
      */
+
     void deleteCustomer(Customer target);
 
     /**
@@ -180,13 +211,16 @@ public interface Model {
 
     void setCustomerOrders(Customer customer);
 
-    /** Returns an unmodifiable view of the filtered customer list */
+    /**
+     * Returns an unmodifiable view of the filtered customer list
+     */
     ObservableList<Customer> getFilteredCustomerList();
 
-    Customer getCustomerOrders();
+    ObservableList<Order> getCustomerOrders();
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
@@ -220,14 +254,19 @@ public interface Model {
 
     void setEditingRestaurant(Restaurant editingRestaurant);
 
-    /** Returns an unmodifiable view of the filtered restaurant list */
+    /**
+     * Returns an unmodifiable view of the filtered restaurant list
+     */
     ObservableList<Restaurant> getFilteredRestaurantList();
 
-    /** Returns an unmodifiable view of the editing restaurant list */
+    /**
+     * Returns an unmodifiable view of the editing restaurant list
+     */
     ObservableList<Restaurant> getEditingRestaurantList();
 
     /**
      * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
@@ -236,7 +275,9 @@ public interface Model {
 
     // =========== Deliveryman Methods =============================================================
 
-    /** Returns an unmodifiable view of the filtered deliverymen list */
+    /**
+     * Returns an unmodifiable view of the filtered deliverymen list
+     */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
 
     /**
@@ -266,6 +307,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered order list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDeliverymenList(Predicate<Deliveryman> predicate);
@@ -289,6 +331,8 @@ public interface Model {
     void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
 
     StatisticsRecordCard getDeliverymenStatusStats();
+
+    void signalNewAvailableDeliveryman();
 
     // =========== Order Methods =============================================================
 
@@ -324,13 +368,17 @@ public interface Model {
 
     void deleteOrderInCustomer(Order order);
 
-    /** Returns an unmodifiable view of the filtered order list */
+    /**
+     * Returns an unmodifiable view of the filtered order list
+     */
     ObservableList<Order> getFilteredOrderList();
 
     /**
      * Updates the filter of the filtered order list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
 
+    void assignUnassignedOrder();
 }

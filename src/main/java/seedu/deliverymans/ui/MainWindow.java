@@ -2,6 +2,7 @@ package seedu.deliverymans.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -21,7 +22,6 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -222,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
 
-            foodListPanel = new FoodListPanel(editing.getMenu());
+            foodListPanel = new FoodListPanel(FXCollections.observableArrayList(editing.getMenu()));
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
             orderListPanel = new OrderListPanel(editing.getOrders(logic));
@@ -246,8 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         System.out.println(commandName.getSimpleName());
         switch(commandName.getSimpleName()) {
         case "CustomerHistoryCommand":
-            Customer customer = logic.getCustomerOrders();
-            orderListPanel = new OrderListPanel(customer.getOrders());
+            orderListPanel = new OrderListPanel(logic.getCustomerOrders());;
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             break;
         case "DeliverymanStatusSwitchCommand":

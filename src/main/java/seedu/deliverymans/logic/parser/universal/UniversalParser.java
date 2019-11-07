@@ -64,6 +64,9 @@ public class UniversalParser {
         case CompleteOrderCommand.COMMAND_WORD:
             return new CompleteOrderCommandParser().parse(arguments);
 
+        case DeleteOrderCommand.COMMAND_WORD:
+            return new DeleteOrderCommandParser().parse(arguments);
+
         case EditOrderCommand.COMMAND_WORD:
             return new EditOrderCommandParser().parse(arguments);
 
@@ -72,9 +75,6 @@ public class UniversalParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
-        case DeleteOrderCommand.COMMAND_WORD:
-            return new DeleteOrderCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(arguments);

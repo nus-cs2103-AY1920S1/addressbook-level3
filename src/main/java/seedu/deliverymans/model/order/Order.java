@@ -40,7 +40,7 @@ public class Order {
      */
     private Order(Name orderName, Name customer, Name restaurant, Name deliveryman,
                   Map<Name, Integer> foodList, boolean isCompleted) {
-        requireAllNonNull(customer, restaurant, deliveryman, foodList);
+        requireAllNonNull(orderName, customer, restaurant, deliveryman, foodList);
         this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
@@ -137,8 +137,8 @@ public class Order {
                 .append(getDeliveryman())
                 .append(" Food: ");
 
-        getFoodList().forEach((key, value) -> builder.append(String.format("%s x%d", key, value)));
-        builder.append(" Delivery status: ").append(isCompleted());
+        getFoodList().forEach((key, value) -> builder.append(String.format("%s x%d ", key, value)));
+        builder.append(" Completed delivery: ").append(isCompleted());
         return builder.toString();
     }
 

@@ -2,20 +2,13 @@ package seedu.deliverymans.logic.commands.restaurant;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.food.Food;
-import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -47,8 +40,8 @@ public class DeleteFoodCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
         Food foodToDelete = restaurant.getMenu().get(targetIndex.getZeroBased());
-        restaurant.removeFood(foodToDelete);
 
+        /*
         List<Order> orders = model.getFilteredOrderList().stream()
                 .filter(order -> order.getRestaurant().equals(restaurant.getName()))
                 .filter(order -> order.isCompleted() == false)
@@ -65,8 +58,10 @@ public class DeleteFoodCommand extends Command {
                     .completeOrder();
             model.setOrder(order, newOrder);
         }
-
-        restaurant.updateQuantity(foodToDelete.getQuantityOrdered() * -1);
+         */
+        model.setRestaurant(restaurant, restaurant
+                .removeFood(foodToDelete)
+                .updateQuantity(foodToDelete.getQuantityOrdered() * -1));
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, foodToDelete));
     }
 

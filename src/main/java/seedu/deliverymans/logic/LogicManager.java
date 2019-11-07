@@ -108,6 +108,10 @@ public class LogicManager implements Logic {
         int lastSpace = input.lastIndexOf(" ");
         String prefix = input.substring(lastSpace + 1);
         switch (prefix) {
+        case "n/":
+            return getFilteredOrderList().stream().map(x -> x.getOrderName().fullName)
+                    .sorted(String::compareToIgnoreCase)
+                    .collect(Collectors.toCollection(LinkedList::new));
         case "c/":
             if (hasDuplicatePrefix(input, prefix)) {
                 return new LinkedList<>();
@@ -177,7 +181,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Customer getCustomerOrders() {
+    public ObservableList<Order> getCustomerOrders() {
         return model.getCustomerOrders();
     }
 

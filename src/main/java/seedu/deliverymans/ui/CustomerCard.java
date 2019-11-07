@@ -44,7 +44,7 @@ public class CustomerCard extends UiPart<Region> {
         name.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
         address.setText(customer.getAddress().value);
-        orderSize.setText("No. of Orders: " + String.valueOf(customer.getOrderSize()));
+        orderSize.setText("No. of Orders: " + String.valueOf(customer.getNoOfOrders()));
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

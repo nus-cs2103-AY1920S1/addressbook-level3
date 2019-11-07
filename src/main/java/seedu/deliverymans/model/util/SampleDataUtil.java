@@ -1,9 +1,7 @@
 package seedu.deliverymans.model.util;
 
 import java.math.BigDecimal;
-import java.util.AbstractMap;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,19 +37,19 @@ public class SampleDataUtil {
         return new Customer[]{
             new Customer(new Name("AlexYeoh"), new Name("Alex Yeoh"), new Phone("87438807"),
                     new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("FastFood", "Western")),
+                    getTagSet("FastFood", "Western"), 1),
             new Customer(new Name("BerniceYu"), new Name("Bernice Yu"), new Phone("99272758"),
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("Indian")),
+                    getTagSet("Indian"), 1),
             new Customer(new Name("CharlotteOliveiro"), new Name("Charlotte Oliveiro"), new Phone("93210283"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("Bar")),
+                    getTagSet("Bar"), 1),
             new Customer(new Name("DavidLi"), new Name("David Li"), new Phone("91031282"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("Japanese")),
+                    getTagSet("Japanese"), 1),
             new Customer(new Name("IfranIbrahim"), new Name("Ifran Ibrahim"), new Phone("92492021"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("Barbeque"))
+                    getTagSet("Barbeque"), 1)
         };
     }
 
@@ -59,82 +57,82 @@ public class SampleDataUtil {
         return new Restaurant[]{
             new Restaurant(new Name("KFC"), LocationMap.getLocation("Jurong").get(),
                         getTagSet("FastFood", "Western"),
-                        getMenu(new Food(new Name("Ginger Burger"), new BigDecimal(6.5),
-                                        getFoodTags("Recommended")),
-                                new Food(new Name("Shrooms Burger"), new BigDecimal(5), getFoodTags()),
-                                new Food(new Name("Fish Fillet Burger"), new BigDecimal(5.5), getFoodTags()),
-                                new Food(new Name("2 Piece Chicken"), new BigDecimal(7.95), getFoodTags()),
-                                new Food(new Name("3 Piece Chicken"), new BigDecimal(10.95),
-                                        getFoodTags("Recommended")),
-                                new Food(new Name("Chicken Nuggets"), new BigDecimal(3), getFoodTags()))),
+                        getMenu(new Food(new Name("Ginger Burger"), new BigDecimal("6.5"),
+                                        getTagSet("Recommended")),
+                                new Food(new Name("Shrooms Burger"), new BigDecimal("5"), getTagSet()),
+                                new Food(new Name("Fish Fillet Burger"), new BigDecimal("5.5"), getTagSet()),
+                                new Food(new Name("2 Piece Chicken"), new BigDecimal("7.95"), getTagSet()),
+                                new Food(new Name("3 Piece Chicken"), new BigDecimal("10.95"),
+                                        getTagSet("Recommended")),
+                                new Food(new Name("Chicken Nuggets"), new BigDecimal("3"), getTagSet()))),
 
             new Restaurant(new Name("Prata House"), LocationMap.getLocation("Bishan").get(),
                         getTagSet("Indian"),
-                        getMenu(new Food(new Name("Plain Prata"), new BigDecimal(0.7), getFoodTags()),
-                                new Food(new Name("Egg Prata"), new BigDecimal(1), getFoodTags()),
-                                new Food(new Name("Cheese Prata"), new BigDecimal(1.2), getFoodTags()),
-                                new Food(new Name("Prata Bomb"), new BigDecimal(2),
-                                        getFoodTags("Recommended")),
-                                new Food(new Name("Curry Fountain"), new BigDecimal(2), getFoodTags()),
-                                new Food(new Name("Curry Waterfall"), new BigDecimal(3),
-                                        getFoodTags("Recommended")))),
+                        getMenu(new Food(new Name("Plain Prata"), new BigDecimal("0.7"), getTagSet()),
+                                new Food(new Name("Egg Prata"), new BigDecimal("1"), getTagSet()),
+                                new Food(new Name("Cheese Prata"), new BigDecimal("1.2"), getTagSet()),
+                                new Food(new Name("Prata Bomb"), new BigDecimal("2"),
+                                        getTagSet("Recommended")),
+                                new Food(new Name("Curry Fountain"), new BigDecimal("2"), getTagSet()),
+                                new Food(new Name("Curry Waterfall"), new BigDecimal("3"),
+                                        getTagSet("Recommended")))),
 
             new Restaurant(new Name("SkyBar Bar and Restaurant"), LocationMap.getLocation("Marina").get(),
                         getTagSet("Bar"),
-                        getMenu(new Food(new Name("Duck Confit"), new BigDecimal(10), getFoodTags()),
-                                new Food(new Name("Foie gras"), new BigDecimal(15),
-                                        getFoodTags("Recommended")),
-                                new Food(new Name("Buffalo Wings"), new BigDecimal(15), getFoodTags()),
-                                new Food(new Name("Rhinoceros Pizza"), new BigDecimal(25),
-                                        getFoodTags("Recommended")),
-                                new Food(new Name("Hippo Teeth"), new BigDecimal(30.5), getFoodTags()),
-                                new Food(new Name("Rat with Caviar"), new BigDecimal(49.9),
-                                        getFoodTags("Recommended")))),
+                        getMenu(new Food(new Name("Duck Confit"), new BigDecimal("10"), getTagSet()),
+                                new Food(new Name("Foie gras"), new BigDecimal("15"),
+                                        getTagSet("Recommended")),
+                                new Food(new Name("Buffalo Wings"), new BigDecimal("15"), getTagSet()),
+                                new Food(new Name("Rhinoceros Pizza"), new BigDecimal("25"),
+                                        getTagSet("Recommended")),
+                                new Food(new Name("Hippo Teeth"), new BigDecimal("30.5"), getTagSet()),
+                                new Food(new Name("Rat with Caviar"), new BigDecimal("49.9"),
+                                        getTagSet("Recommended")))),
 
             new Restaurant(new Name("IchiNiSan Ramen"), LocationMap.getLocation("City").get(),
                         getTagSet("Japanese"),
-                        getMenu(new Food(new Name("Ramen A"), new BigDecimal(10), getFoodTags()),
-                                new Food(new Name("Ramen B"), new BigDecimal(10), getFoodTags()),
-                                new Food(new Name("Ramen C"), new BigDecimal(10), getFoodTags()),
-                                new Food(new Name("Ramen D"), new BigDecimal(15), getFoodTags()),
-                                new Food(new Name("Ramen E"), new BigDecimal(15), getFoodTags()),
-                                new Food(new Name("Ramen F"), new BigDecimal(15), getFoodTags()))),
+                        getMenu(new Food(new Name("Ramen A"), new BigDecimal("10"), getTagSet()),
+                                new Food(new Name("Ramen B"), new BigDecimal("10"), getTagSet()),
+                                new Food(new Name("Ramen C"), new BigDecimal("10"), getTagSet()),
+                                new Food(new Name("Ramen D"), new BigDecimal("15"), getTagSet()),
+                                new Food(new Name("Ramen E"), new BigDecimal("15"), getTagSet()),
+                                new Food(new Name("Ramen F"), new BigDecimal("15"), getTagSet()))),
 
             new Restaurant(new Name("Piggys Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
                         getTagSet("Barbeque"),
-                        getMenu(new Food(new Name("BBQ Head"), new BigDecimal(10), getFoodTags()),
-                                new Food(new Name("BBQ Shank"), new BigDecimal(15), getFoodTags()),
-                                new Food(new Name("BBQ Trotter"), new BigDecimal(15), getFoodTags()),
-                                new Food(new Name("BBQ Nails"), new BigDecimal(25), getFoodTags()),
-                                new Food(new Name("BBQ Butt"), new BigDecimal(30.5), getFoodTags()),
-                                new Food(new Name("BBQ Tail"), new BigDecimal(49.9), getFoodTags())))
+                        getMenu(new Food(new Name("BBQ Head"), new BigDecimal("10"), getTagSet()),
+                                new Food(new Name("BBQ Shank"), new BigDecimal("15"), getTagSet()),
+                                new Food(new Name("BBQ Trotter"), new BigDecimal("15"), getTagSet()),
+                                new Food(new Name("BBQ Nails"), new BigDecimal("25"), getTagSet()),
+                                new Food(new Name("BBQ Butt"), new BigDecimal("30.5"), getTagSet()),
+                                new Food(new Name("BBQ Tail"), new BigDecimal("49.9"), getTagSet())))
         };
     }
 
     public static Order[] getSampleOrders() {
         return new Order[]{
             new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh"))
-                    .setRestaurant(new Name("KFC"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1)))
+                    .setRestaurant(new Name("KFC")).setDeliveryman(new Name("Damith"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("3 Piece Chicken"), 1)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 2")).setCustomer(new Name("BerniceYu"))
-                    .setRestaurant(new Name("Prata House"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1)))
+                    .setRestaurant(new Name("Prata House")).setDeliveryman(new Name("Donald Trump"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Curry Fountain"), 1)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 3")).setCustomer(new Name("CharlotteOliveiro"))
-                    .setRestaurant(new Name("SkyBar Bar and Restaurant"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5)))
+                    .setRestaurant(new Name("SkyBar Bar and Restaurant")).setDeliveryman(new Name("Charlie Choong"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Buffalo Wings"), 5)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 4")).setCustomer(new Name("DavidLi"))
-                    .setRestaurant(new Name("IchiNiSan Ramen"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1),
-                            new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen E"), 3)))
+                    .setRestaurant(new Name("IchiNiSan Ramen")).setDeliveryman(new Name("Low Ee Ter"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Ramen C"), 1),
+                            Map.entry(new Name("Ramen E"), 3)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 5")).setCustomer(new Name("IrfanIbrahim"))
-                    .setRestaurant(new Name("Piggys Self Barbeque"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
-                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
-                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Tail"), 7)))
+                    .setRestaurant(new Name("Piggys Self Barbeque")).setDeliveryman(new Name("Yuen Jun Rong"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("BBQ Trotter"), 7),
+                                Map.entry(new Name("BBQ Shank"), 7),
+                                Map.entry(new Name("BBQ Tail"), 7)))
                     .completeOrder()
         };
     }
@@ -142,14 +140,16 @@ public class SampleDataUtil {
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
             new Deliveryman(new Name("Damith"), new Phone("83412321"),
-                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
+                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
-                    new StatusTag("AVAILABLE")),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
-                getTagSet("active", "AisEnough")),
-            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive")),
-            new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive")),
+                getTagSet("active", "AisEnough"), new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
+                    new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive"),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Jynn Shen "), new Phone("82632181"), getTagSet("veryactive"),
                 new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Gloria Tan"), new Phone("83123111"), getTagSet()),
@@ -162,12 +162,6 @@ public class SampleDataUtil {
     public static ReadOnlyCustomerDatabase getSampleCustomerDatabase() {
         CustomerDatabase sampleCd = new CustomerDatabase();
         Customer[] sampleCustomerArray = getSampleCustomers();
-        Order[] sampleOrderArray = getSampleOrders();
-        sampleCustomerArray[0].addOrder(sampleOrderArray[0]);
-        sampleCustomerArray[1].addOrder(sampleOrderArray[1]);
-        sampleCustomerArray[2].addOrder(sampleOrderArray[2]);
-        sampleCustomerArray[3].addOrder(sampleOrderArray[3]);
-        sampleCustomerArray[4].addOrder(sampleOrderArray[4]);
         for (Customer sampleCustomer : sampleCustomerArray) {
             sampleCd.addCustomer(sampleCustomer);
         }
@@ -205,22 +199,6 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
-    }
-
-    public static ObservableList<Tag> getFoodTags(String... strings) {
-        ObservableList<Tag> tags = FXCollections.observableArrayList();
-        tags.addAll(Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toList()));
-        return tags;
-    }
-
-    public static Map<Name, Integer> getFoodMap(Map.Entry<Name, Integer>... strings) {
-        HashMap<Name, Integer> toReturn = new HashMap<>();
-        for (Map.Entry<Name, Integer> keyValuePair : strings) {
-            toReturn.put(keyValuePair.getKey(), keyValuePair.getValue());
-        }
-        return toReturn;
     }
 
     /**
