@@ -1,12 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.pluswork.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.SettingsCommand.SHOWING_SETTINGS_MESSAGE;
+import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.pluswork.logic.commands.SettingsCommand.SHOWING_SETTINGS_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ModelManager;
 
 class SettingsCommandTest {
     private Model model = new ModelManager();

@@ -1,15 +1,15 @@
-package seedu.address.logic.commands;
+package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ThemeCommand.SHOWING_THEME_MESSAGE;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.pluswork.logic.commands.ThemeCommand.SHOWING_THEME_MESSAGE;
+import static seedu.pluswork.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.settings.Theme;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ModelManager;
+import seedu.pluswork.model.settings.Theme;
 
 class ThemeCommandTest {
     private Model model = new ModelManager();

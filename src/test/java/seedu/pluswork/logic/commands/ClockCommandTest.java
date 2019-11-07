@@ -1,19 +1,16 @@
-package seedu.address.logic.commands;
+package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.ClockCommand.SHOWING_CLOCK_MESSAGE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
+import static seedu.pluswork.logic.commands.ClockCommand.SHOWING_CLOCK_MESSAGE;
+import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.pluswork.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.util.DateTimeUtil;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.UserSettings;
-import seedu.address.model.settings.ClockFormat;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ModelManager;
+import seedu.pluswork.model.settings.ClockFormat;
 
 class ClockCommandTest {
     private Model model = new ModelManager();
