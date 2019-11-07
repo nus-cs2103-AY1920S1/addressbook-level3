@@ -121,7 +121,6 @@ public interface Model {
 
     /**
      * Returns true if a projection with the same date as {@code projection} exists in the bank account.
-     *
      */
     boolean has(Projection projection);
 
@@ -132,6 +131,24 @@ public interface Model {
      * @param transaction
      */
     void delete(BankAccountOperation transaction);
+
+    /**
+     * Deletes the given budget.
+     * The budget must exist in the bank account.
+     */
+    void delete(Budget budgetToDelete);
+
+    /**
+     * Deletes the given projection.
+     * The projection must exist in the bank account.
+     */
+    void delete(Projection projectionToDelete);
+
+    /**
+     * Deletes the given ledger.
+     * The ledger must exist in the bank account.
+     */
+    void delete(LedgerOperation ledgerToDelete);
 
     /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
@@ -208,25 +225,9 @@ public interface Model {
      */
     ObservableList<Budget> getFilteredBudgetList();
 
-    /**
-     * Deletes the given budget.
-     * The budget must exist in the bank account.
-     */
-    void delete(Budget budgetToDelete);
-
-    /**
-     * Deletes the given projection.
-     * The projection must exist in the bank account.
-     */
-    void delete(Projection projectionToDelete);
-
-    /**
-     * Deletes the given ledger.
-     * The ledger must exist in the bank account.
-     */
-    void delete(LedgerOperation ledgerToDelete);
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
+
     ObservableList<Projection> getFilteredProjectionsList();
 
     ObservableList<Person> getPeopleInLedger();
