@@ -121,10 +121,8 @@ _(end of extract from User Guide)_
 |_The following are sections that I have written for the Developer Guide. They showcase my ability to write technical documentation targeting developers, as well as the technical depth of my contributions to the project._
 |===
 
-_(start of extract from User Guide)_
+_(start of extract from Developer Guide)_
 
-include::../DeveloperGuide.adoc[tag=flashcardexport]
+include::../DeveloperGuide.adoc[tag=flashcardexportimport]
 
-include::../DeveloperGuide.adoc[tag=flashcardimport]
-
-_(end of extract from User Guide)_
+_(end of extract from Developer Guide)_
