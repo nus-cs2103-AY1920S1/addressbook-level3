@@ -1,6 +1,7 @@
 = EatMe User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -265,24 +266,6 @@ Format: `changeaddress [id] \a [new address]`
 Examples:
 
 * `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
-
-==== Marking an eatery as closed: `close`
-
-Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
-Format: `close [id]`
-
-Examples:
-
-* `close 2`
-
-==== Reopening a closed eatery: `reopen`
-
-Reopens a previously closed eatery. +
-Format: `reopen [id]`
-
-Examples:
-
-* `reopen 2`
 
 ==== Tagging an eatery: `addtag`
 
