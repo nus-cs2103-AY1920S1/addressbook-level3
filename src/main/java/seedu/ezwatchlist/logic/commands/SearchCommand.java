@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.api.model.ApiManager;
-import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.SearchKey;
@@ -124,7 +123,7 @@ public class SearchCommand extends Command {
                 addShowFromWatchListIfSameNameAs(showName, model);
                 addShowFromOnlineIfSameNameAs(showName);
             }
-         }
+        }
     }
 
     /**
