@@ -11,6 +11,8 @@ public class LoanFilters {
 
     public static final Predicate<Loan> FILTER_ALL = loan -> true;
 
+    private LoanFilters() {} // prevent instantiation
+
     /**
      * Returns a predicate that checks if a loan's direction is equal to the given direction.
      */

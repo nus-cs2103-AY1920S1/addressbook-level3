@@ -13,4 +13,7 @@ public class LoanSorters {
             Comparator.comparing(loan -> loan.getPerson().getName().toString());
     public static final Comparator<Loan> AMOUNT_ASC =
             Comparator.comparingLong(loan -> loan.getAmount().toLong());
+
+    private LoanSorters() {} // prevent instantiation
+
 }
