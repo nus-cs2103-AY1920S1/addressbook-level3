@@ -9,16 +9,16 @@ import com.typee.model.Model;
 /**
  * Displays the engagements list for a particular date in the calendar window.
  */
-public class CalendarDateDisplayEngagementsCommand extends CalendarCommand {
+public class CalendarOpenDisplayCommand extends CalendarCommand {
 
     public static final String COMMAND_WORD = "opendisplay";
     public static final String MESSAGE_SUCCESS = "Displaying engagements for ";
-    public static final String INVALID_COMMAND_FORMAT = "Invalid calendar display command format.\n"
+    public static final String INVALID_COMMAND_FORMAT = "Invalid calendar open display command format.\n"
             + "Usage: calendar opendisplay DD/MM/YYYY\n";
 
     private LocalDate date;
 
-    public CalendarDateDisplayEngagementsCommand(LocalDate date) {
+    public CalendarOpenDisplayCommand(LocalDate date) {
         requireNonNull(date);
         this.date = date;
     }
@@ -36,12 +36,12 @@ public class CalendarDateDisplayEngagementsCommand extends CalendarCommand {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof CalendarDateDisplayEngagementsCommand)) {
+        } else if (!(other instanceof CalendarOpenDisplayCommand)) {
             return false;
         } else {
-            CalendarDateDisplayEngagementsCommand otherCalendarDateDisplayEngagementsCommand =
-                    (CalendarDateDisplayEngagementsCommand) other;
-            return this.date.equals(otherCalendarDateDisplayEngagementsCommand.date);
+            CalendarOpenDisplayCommand otherCalendarOpenDisplayCommand =
+                    (CalendarOpenDisplayCommand) other;
+            return this.date.equals(otherCalendarOpenDisplayCommand.date);
         }
     }
 
