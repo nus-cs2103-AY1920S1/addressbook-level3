@@ -22,7 +22,7 @@ _Figure 1: MORTAGO's dashboard._
 
 === About the Team
 
-This project was undertaken by a team of four Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the following contraints:
+This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the following contraints:
 
 * The product has to be a command line interface (CLI).
 * The target user base is narrow.
@@ -60,7 +60,7 @@ team project.
 * *Minor enhancement*: I added the ability to find workers or bodies by their name.
 ** Justification: Although the previous command can serve the same purpose, the `find` command is useful for when the user has a specific entry in mind that they want to view as it is a shorter and more efficient command.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chan%20dalis&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dalisc&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D&groupSelect=groupByRepos[via RepoSense]]
 
 * *Other contributions*:
 
