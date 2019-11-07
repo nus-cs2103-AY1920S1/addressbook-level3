@@ -57,7 +57,9 @@ public class StatisticsBox extends Tabs<AnchorPane> {
 
     public StatisticsBox(ObservableList<Event> eventList, Logic logic, MainWindow mainWindow) {
         super(FXML, mainWindow, logic);
+
         ObservableList<Event> filterEventNeedingManpower = eventList
+                .filtered(event -> !event.isPastEvent())
                 .filtered(event -> event.getCurrentManpowerCount() < event.getManpowerNeeded().value)
                 .sorted(Comparator.comparing(Event::getStartDate));
         statisticsListView.setItems(filterEventNeedingManpower);
@@ -86,11 +88,15 @@ public class StatisticsBox extends Tabs<AnchorPane> {
     /**
      * Generate custom Pie Charts to display {@code Event} and {@code Employee} {@code Tag} data.
      */
-    private void generatePieChart() {
+    public void generatePieChart() {
         ObservableList<PieChart.Data> pieChartEmployeeTagData = FXCollections.observableArrayList();
         ObservableList<PieChart.Data> pieChartEventTagData = FXCollections.observableArrayList();
         List<Employee> employeeList = logic.getFullEmployeeList();
-        List<Event> eventList = logic.getFullEventList();
+        ObservableList<Event> filteredEventList = logic.getFullEventList();
+        ObservableList<Event> eventList = filteredEventList
+                .filtered(event -> !event.isPastEvent())
+                .filtered(event -> event.getCurrentManpowerCount() < event.getManpowerNeeded().value)
+                .sorted(Comparator.comparing(Event::getStartDate));
         Map<String, Integer> employeeTagMap = new TreeMap<>();
         Map<String, Integer> eventTagMap = new TreeMap<>();
         Set<Tag> tempSet;
@@ -144,6 +150,8 @@ public class StatisticsBox extends Tabs<AnchorPane> {
     private void generateStatistics() throws ParseException, CommandException {
         mainWindow.executeCommand(GenerateStatisticsCommand.COMMAND_WORD);
         generatePieChart();
+        employeeLabel.setText("# employees");
+        eventLabel.setText("# events");
     }
 
     /**

@@ -252,10 +252,9 @@ Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED
 ****
 * Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
 * Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
-* An events's identity is uniquely identified by its `EVENT_NAME`, `START_DATE`, and `END_DATE`. You cannot edit an event to become one that is identical to another existing event inside the Event List.
-* If there is manpower currently allocated to the event, the updated `MANPOWER_NEEDED` cannot be lesser than the current number of employees allocated.
-* An attempt to modify the `START_DATE` and/or `END_DATE` requires the deallocation of all manpower first before edit.
-* If the `START_DATE` and/or `END_DATE` is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
+* An events's identity is uniquely identified by its name, start date, and end date. You cannot edit an event which is identical to another event already inside the Event List.
+* This command will flush the current manpower allocated list and replace it with a new allocation list.
+* The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
 ****
 
 [TIP]
@@ -709,13 +708,52 @@ Examples:
 * Note that specified start date must be before the specified end date, else an error will be displayed.
 ****
 
-=== Miscellaneous
-
-==== Generate Statistics: `stats_g [coming in v2.0]`
+//tag::Statistics[]
+=== Statistics
+==== Generate Statistics: `generate_stats`
 
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `stats_g`
+Format: `generate_stats`
+
+**Example: To generate list and pie chart statistics on demand.**
+
+**Step 1**.  Either type `generate_stats` into the command box or navigate to the statistics tab and
+click the 'Generate Statistics' button.
+
+image::StatsUiPart1.png[]
+
+**Step 2**.  Statistics will be displayed in 2 different types of views: list and pie chart. The list will display the upcoming events that require manpower sorted from the nearest date to the furthest date. The pie charts represent the events and employees tags respectively. For example, a music event will have a 'music' tag and an employee who plays the guitar will have a 'musician' tag. The pie charts will reflect that there is one event under the 'music' tag and one employee under the 'musician' tag.
+
+image::StatsUiPart2.png[]
+
+**Step 3**.  To allocate an employee to an upcoming event, double-click the event on the list and it will display the allocate function covered earlier in the User Guide. The segments on the pie charts can also be clicked to display the number of events or employees associated with that specific tag on the top right corner of each of the pie charts.
+
+image::StatsUiPart3.png[]
+
+**Step 4**.  Generate statistics when any change in data occurs to keep the statistics up to date and relevant.
+
+image::StatsUiPart4.png[]
+
+==== Generate Detailed Statistics: `generate_stats_detail`
+
+Displays a set of statistics, Number of events, Number of employee etc
+
+Format: `generate_stats_detail`
+
+**Example: To generate detailed statistics in plain text format on demand.**
+
+**Step 1**.  Either type `generate_stats_detail` into the command box or navigate to the statistics tab and click the 'Generate Detailed Statistics' button.
+
+image::StatsUiPart5.png[]
+
+**Step 2**.  A pop-up window with the header "StatisticsWindow" will appear displaying statistics for both employees and events.
+
+image::StatsUiPart6.png[]
+
+//end::Statistics[]
+
+=== Miscellaneous
 
 ==== Clearing all entries : `clear`
 
