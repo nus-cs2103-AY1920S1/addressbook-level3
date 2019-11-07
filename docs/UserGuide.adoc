@@ -781,6 +781,13 @@ blank. A user may only set the background to *EITHER* a background or an image; 
 be possible. At any point of time, generic or not, the user will have exactly one `background` and `fontcolour`
 (or `fontcolor`) field set for the application.
 
+A user will not be allowed to set the background image in circumstances whereby the background image is not close to
+the "transparent colour", and the background has attributes such that the background size is not `cover` and the
+background repeat is not `repeat`. This is because in such circumstances the text could get difficult to see once
+clipping of the image occurs and the image is surrounded by the light transparent background colour. This of course does
+not apply to backgrounds that are colours as colours will naturally cover the entire screen even as the background size
+and background repeat, which are irrelevant for colours, are naturally empty `String` values.
+
 For each successful command, feedback will be displayed to the user on the change in background, be it from a
 background image to a colour, vice versa or other combinations. If a command such as `bg s/cover` changes only a
 particular attribute of the background, only the changes made will be reported. As for colours, automatic conversion is
