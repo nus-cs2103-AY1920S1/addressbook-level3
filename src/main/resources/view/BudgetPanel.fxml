@@ -20,7 +20,7 @@
 
     <VBox alignment="CENTER">
       <children>
-        <Label id="budgetRemark" fx:id="budgetRemark" styleClass="cell_big_label" text="\$remark" textAlignment="CENTER" textOverrun="CLIP" />
+        <Label id="titleText" fx:id="titleText" styleClass="cell_big_label" text="Remaining:" textAlignment="CENTER" textOverrun="CLIP" />
         <Label id="remainingBudget" fx:id="remainingBudget" styleClass="cell_big_label" text="\$remaining" />
         <Label id="budgetAmount" fx:id="budgetAmount" styleClass="cell_big_label" text="\$amount" textAlignment="CENTER">
 
