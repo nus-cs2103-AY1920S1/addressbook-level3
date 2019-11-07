@@ -26,7 +26,6 @@
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
-        <URL value="@textBkgrd.css" />
       </stylesheets>
 
       <VBox>
