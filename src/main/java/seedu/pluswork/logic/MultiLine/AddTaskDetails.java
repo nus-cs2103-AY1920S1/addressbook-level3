@@ -25,7 +25,7 @@ public class AddTaskDetails {
             case "continue":
                 commands.add(command);
                 return new CommandResult("Please add the the deadline and member in the following format: " +
-                        "\n" + "add-d at/[DEADLINE] mi/[MEMBER ID]");
+                        "\n" + "add-d at/[dd-mm-yyyy hh:mm] mi/[MEMBER ID]");
             case "final2":
                 if (!commands.get(commands.size() - 1).equals(new YesCommand())) {
                     throw new CommandException("Invalid Command for this situation");
