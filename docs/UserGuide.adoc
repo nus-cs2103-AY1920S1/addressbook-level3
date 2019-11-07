@@ -106,6 +106,7 @@ This command cannot be undone/redone.
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
 
+//tag::grocerylistfeatures[]
 === Grocery List Management
 
 ==== Adding a food item: `glist add`
@@ -223,6 +224,8 @@ Examples:
 Returns `Fuji apple` and `Apple loaf cake` and other items tagged as `apple`
 * `glist find milo doughnut roasted` +
 Returns any grocery item which contains any of the word `milo`, `doughnut`, or `roasted` as either name or tag or both
+
+//end::grocerylistfeatures[]
 
 //tag::reminderfeature[]
 ==== Checking reminders on expiry dates: `glist rem`
