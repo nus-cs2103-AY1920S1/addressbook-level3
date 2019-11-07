@@ -25,6 +25,7 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
+        cardResult = -1;
     }
 
     /**
@@ -39,6 +40,7 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = priorityLevel;
+        cardResult = -1;
     }
     //@author
 
@@ -127,5 +129,10 @@ public class JavascriptCard extends FlashCard {
         } else {
             this.cardResult = 0;
         }
+    }
+
+    @Override
+    public int getCardResult() {
+        return this.cardResult;
     }
 }
