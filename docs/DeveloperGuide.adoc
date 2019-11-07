@@ -79,6 +79,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 
 [[Design-Model]]
+
 === Model component
 
 .Structure of the Model Component
@@ -133,6 +134,7 @@ image::PriorityFlashCardTestSetSequenceDiagram.png[]
 * Step 11: `Deck` returns the test set to `ExamRunner`.
 
 ==== Design Considerations
+
 ===== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
 * **Alternative 1:** Use a priority queue to store the cards
 ** Pros: Allows the user to test the cards according to `HIGH_PRIORITY` cards first, effectively choosing only `HIGH_PRIORITY` cards first, then `LOW_PRIORITY` cards.
