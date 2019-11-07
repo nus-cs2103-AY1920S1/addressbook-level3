@@ -20,6 +20,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
+    private MainWindow mainWindow;
     @FXML
     private TextField commandTextField;
 
@@ -30,6 +31,13 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    /**
+     * Sets the main window of the command box.
+     * @param mainWindow
+     */
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
     /**
      * Handles the Enter button pressed event.
      */
