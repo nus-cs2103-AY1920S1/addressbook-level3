@@ -288,10 +288,10 @@ Feature by
 {sp} +
 
 === Course Planner
-As an all-encompassing application, we thought it natural to incorporate NUSMods into `Jarvis`. `Jarvis` is a student
-life organiser for NUS students by NUS students. We understand how big a role NUSMods plays in all our lives. Through
-the Course Planner section of `Jarvis`, you will be able to consolidate all the courses you have taken in NUS to date,
-as well as figure out what courses you could take in the future.
+NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
+map out academic routes and learn more about the variety of courses NUS has to offer.
+As the Course Planner section of `Jarvis` is thoroughly integrated with NUSMods, you will be able to consolidate all
+the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
 
 ==== Adding a course: `add-course`
 To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
@@ -754,6 +754,7 @@ starting from the latest command that was undone.
 If you have entered new commands after undoing previous commands, you will not be able to redo the old
 commands.
 
+{sp} +
 
 == FAQ
 
@@ -775,11 +776,11 @@ Planner, as long as it is available on NUSMods as well.
 
 '''
 
+{sp} +
+
 == Command Summary
 
 A convenient summary of all the commands you can use in `Jarvis`.
-
-{sp} +
 
 === Task Planner
 
