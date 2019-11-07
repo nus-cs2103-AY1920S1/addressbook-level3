@@ -19,7 +19,7 @@ import seedu.address.model.employee.Employee;
 /**
  * Command to undo payment made to the Employee and record it
  */
-public class Undopay extends Command {
+public class UndoPayCommand extends Command {
 
     public static final String COMMAND_WORD = "undo_pay";
 
@@ -39,7 +39,7 @@ public class Undopay extends Command {
      * @param index        of the employee in the filtered employee list to edit
      * @param salaryToUndo Total Paid Salary to the Employee
      */
-    public Undopay(Index index, double salaryToUndo) {
+    public UndoPayCommand(Index index, double salaryToUndo) {
         requireNonNull(index);
         this.index = index;
         this.salaryToUndo = salaryToUndo;
@@ -78,12 +78,12 @@ public class Undopay extends Command {
             return true;
         }
 
-        if (!(other instanceof Pay)) { // instanceof handles nulls
+        if (!(other instanceof PayCommand)) { // instanceof handles nulls
             return false;
         }
 
         // state check
-        Undopay e = (Undopay) other;
+        UndoPayCommand e = (UndoPayCommand) other;
         return index.equals(e.index) && salaryToUndo == e.salaryToUndo;
     }
 
