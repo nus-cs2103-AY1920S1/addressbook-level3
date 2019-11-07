@@ -210,14 +210,11 @@ Below is a class diagram involving the `Model` interface, which inherits
 from the feature specific model interfaces.
 
 .Model Interface
-image::
-
-.Structure of the Model Component
-image::ModelDiagram.png[]
+image::model/ModelInterfaceClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
 * Stores the `HistoryManager` data
@@ -226,12 +223,16 @@ The `Model`,
 * Stores the `CoursePlanner` Data
 * Stores the `Planner` data
 
+
 [[Design-Storage]]
 === Storage component
 
 The `Storage` API is responsible for reading and writing data in
 json format. This allows the application is remember information in
 json format when the user closes the application.
+
+The `Storage` API acts as a facade that handles interaction regarding
+storage related components.
 
 Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.

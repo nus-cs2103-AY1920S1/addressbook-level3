@@ -17,8 +17,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": redo actions. "
-            + "Parameters: " + "REDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
-            + "invalid numbers will set REDO to default value of 1) "
+            + "Parameters: " + "REDO_NUMBER (Must be a Positive Number, "
             + "Example: " + COMMAND_WORD
             + ", " + COMMAND_WORD + " " + "5";
 

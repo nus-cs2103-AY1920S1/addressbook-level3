@@ -17,8 +17,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": undo actions. "
-            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
-            + "invalid numbers will set UNDO to default value of 1) "
+            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number, "
             + "Example: " + COMMAND_WORD
             + ", " + COMMAND_WORD + " " + "5";
 
