@@ -17,7 +17,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
@@ -34,6 +33,8 @@ public class OfflineDocument {
     public static final String MESSAGE_ASSERT_PHANTOM_HAS_NOTE = "Annotation given does not have a note; "
             + "phantom paragraphs must have a note to exist";
     public static final String MESSAGE_ASSERT_IS_PHANTOM = "Cannot delete a non phantom paragraph";
+
+    public static final String NAME_NO_DOCUMENT = "NOTHING";
 
     public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
 
