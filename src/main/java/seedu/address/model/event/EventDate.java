@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Single Date of an Event. Events can span a time period of multiple days (dates).
+ * Valid with Constraints.
  */
 public class EventDate implements Comparable<EventDate> {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format dd/MM/yyyy";

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.schedule;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_START;
@@ -37,11 +38,16 @@ public class DisplayScheduleBetweenParser implements Parser<DisplayScheduleBetwe
                     DisplayScheduleBetweenCommand.MESSAGE_USAGE));
         }
 
-        EventDate start = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_START).get());
-        EventDate end = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_END).get());
+        EventDate startDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_START).get());
+        EventDate endDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_SCHEDULE_END).get());
+
+        if (startDate.isAfter(endDate)) {
+            throw new ParseException(
+                    String.format(MESSAGE_DATE_START_AFTER_END, startDate, endDate));
+        }
 
         return new DisplayScheduleBetweenCommand(
-                new EventContainsKeyDateRangePredicate(start.getDate(), end.getDate()));
+                new EventContainsKeyDateRangePredicate(startDate, endDate));
     }
 
     /**

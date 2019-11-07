@@ -32,6 +32,8 @@ public class Messages {
     public static final String MESSAGE_DATE_BIG_RANGE =
             "The maximum acceptable range between the Start and End Dates is 90 days. \n"
             + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
+    public static final String MESSAGE_DATE_START_AFTER_END =
+            "Your stated Start Date [%s] is after your End Date [%s]!";
     public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
             + "allocated to the event!";
     public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"

@@ -76,7 +76,7 @@ public class AssignDateCommand extends Command {
 
         if (targetEventDate.isPresent()) {
             EventContainsKeyDatePredicate dateCheck =
-                    new EventContainsKeyDatePredicate(targetEventDate.get().getDate());
+                    new EventContainsKeyDatePredicate(targetEventDate.get());
             if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
                 throw new CommandException(EVENT_DATE_INVALID);
             }
