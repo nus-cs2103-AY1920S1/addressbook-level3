@@ -33,6 +33,7 @@ import seedu.ezwatchlist.model.show.TvShow;
 public class RecommendationEngine {
     private List<Movie> userMovies;
     private List<TvShow> userTvShows;
+    private List<Integer> userMoviesId, userTvShowsId;
     private TmdbApi tmdbApi;
     private HashMap<Integer, Integer> movieRecommendationOccurrences;
     private HashMap<Integer, Integer> tvRecommendationOccurrences;
@@ -48,6 +49,8 @@ public class RecommendationEngine {
     public RecommendationEngine(@Nullable List<Movie> movies, @Nullable List<TvShow> tvShows, TmdbApi tmdbApi) {
         userMovies = movies;
         userTvShows = tvShows;
+        userMoviesId = new LinkedList<>();
+        userTvShowsId = new LinkedList<>();
         this.tmdbApi = tmdbApi;
         movieRecommendationOccurrences = new HashMap<>();
         tvRecommendationOccurrences = new HashMap<>();
@@ -69,12 +72,28 @@ public class RecommendationEngine {
             validForRecommendations(userMovies.isEmpty(), "No movies from the user to");
 
             parseUserMovies();
+            filterRecommendations(true);
             sortMovieRecommendations(noOfRecommendations);
 
             validForRecommendations(movieRecommendationOccurrences.isEmpty(), "Unable to");
         }
 
         return movieRecommendations;
+    }
+
+    /**
+     * Filters the recommendations by removing all of the user's movies and tv shows if present in the list.
+     * This is to prevent recommending something the user already has.
+     * @param isMovie to filter the movie list or tv show list.
+     */
+    private void filterRecommendations(boolean isMovie) {
+        List<Integer> idList = isMovie? userMoviesId: userTvShowsId;
+        HashMap<Integer, Integer> recommendationOccurences = isMovie? movieRecommendationOccurrences:
+                tvRecommendationOccurrences;
+
+        for (Integer id : idList) {
+            recommendationOccurences.remove(id);
+        }
     }
 
     /**
@@ -104,6 +123,7 @@ public class RecommendationEngine {
             validForRecommendations(userTvShows.isEmpty(), "No TvShows from the user to");
 
             parseUserTvShows();
+            filterRecommendations(false);
             sortTvShowRecommendations(noOfRecommendations);
 
             validForRecommendations(tvRecommendationOccurrences.isEmpty(), "Unable to");
@@ -150,6 +170,7 @@ public class RecommendationEngine {
 
                 TvResultsPage tvDbs = tmdbApi.getSearch().searchTv(tvShowName, null, 1);
                 int tvId = tvDbs.getResults().get(0).getId(); //retrieves the first Tv Show that matches the name.
+                userTvShowsId.add(tvId); //adds the tv show id to a list so that a final filter can take place
 
                 TvSeries series = tmdbApi.getTvSeries().getSeries(tvId, null, TmdbTV.TvMethod.recommendations);
                 ResultsPage<TvSeries> recommendations = series.getRecommendations();
@@ -159,15 +180,6 @@ public class RecommendationEngine {
         } catch (MovieDbException e) {
             ApiManager.notConnected();
         }
-    }
-
-    /**
-     * Checks if the name is invalid.
-     * @param showName the Name to be checked.
-     * @return true if invalid.
-     */
-    private boolean isInvalidName(String showName) {
-        return showName.equals(Name.DEFAULT_NAME);
     }
 
     /**
@@ -187,16 +199,26 @@ public class RecommendationEngine {
                 MovieResultsPage movieDbs = tmdbApi.getSearch()
                         .searchMovie(movieName, null, null, true, 1);
                 int movieId = movieDbs.getResults().get(0).getId(); //retrieves the first Movie that matches the name.
+                userMoviesId.add(movieId); //adds the movie id to a list so that a final filter can take place
 
                 MovieDb movieDb = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.recommendations);
                 List<MovieDb> similarMovies = movieDb.getRecommendations();
                 if (!isNull(similarMovies)) {
-                    similarMovies.forEach((movie) -> addToRecommendations(movie.getId(), true));
+                    similarMovies.forEach((movie) -> addToRecommendations(movie.getId(),true));
                 }
             }
         } catch (MovieDbException e) {
             ApiManager.notConnected();
         }
+    }
+
+    /**
+     * Checks if the name is invalid.
+     * @param showName the Name to be checked.
+     * @return true if invalid.
+     */
+    private boolean isInvalidName(String showName) {
+        return showName.equals(Name.DEFAULT_NAME);
     }
 
     /**
@@ -207,7 +229,6 @@ public class RecommendationEngine {
     private void addToRecommendations(int id, boolean isMovie) {
         HashMap<Integer, Integer> showOccurrences =
                 isMovie ? movieRecommendationOccurrences : tvRecommendationOccurrences;
-
         if (showOccurrences.containsKey(id)) {
             Integer numberOfOccurrences = showOccurrences.remove(id);
             showOccurrences.put(id, numberOfOccurrences + 1);
