@@ -309,10 +309,10 @@ a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 |**External library used**              |Apache POI         |Jackson
 |====
 
-The number of classes that support the import/export feature is a rather large one. The following class diagram should help to clarify the associations
+The number of classes that support the import/export feature is a rather large one. The following class diagram will help to clarify the associations
 between these classes:
 
-image::ExportClassDiagram.png[]
+image::ExportClassDiagram.png[height=700]
 
 _Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
 
