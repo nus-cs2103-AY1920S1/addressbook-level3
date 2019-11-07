@@ -64,15 +64,21 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        // Safeguard added to prevent unusable application when corrupt data
+        if (model.getFilteredPersonList().size() == 0) {
+            model.addPerson(SampleDataUtil.getAdmin());
+        }
+
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s incident manager and {@code userPrefs}. <br>
+     * The data from the sample incident manager will be used instead if {@code storage}'s incident manager is not
+     * found, or an empty incident manager will be used instead if errors occur when reading {@code storage}'s
+     * incident manager.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyIncidentManager> incidentManagerOptional;
