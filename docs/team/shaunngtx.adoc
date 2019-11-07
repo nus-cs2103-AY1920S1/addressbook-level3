@@ -1,0 +1,87 @@
+= Shaun Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: RevisionTools - V1.4
+
+---
+
+== Overview
+
+RevisionTool is a Desktop application used as a personal tool for revisions and self-quizzes.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and
+has about 14 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the Restore Command function*
+** What it does: allows the user to restore their current Question Bank to the default question bank.
+** Justification: This feature improves the product rather significantly as users tend to over-add questions and this would allow them to revert their Question Bank to the default bank
+as a form of "Restart", as most of our default questions are taken from the weekly lecture quiz questions.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was
+challenging as it required changes to existing commands and models.
+
+* *Major enhancement*: added *the Auto Complete function*
+** What it does: shows the user a list of possible AutoCompleted commands while they are typing in which they select in order to simplify things for the user.
+** Justification: This feature improves the product significantly because for a CLI, users have to do a lot of typing and this greatly eases the amount of work they have to do, and
+reap the maximum benefits from the application.
+** Highlights: This enhancement required in-depth analysis of design alternatives as the implementation required changes to the commandBox which was used in almost every file which
+had a textBox in it. A significant amount of thought was placed into the implementation as well as I had to formulate what sort of AutoComplete would be most intuitive and value-add to users.
+** Credits: _Took references and suggestions from 2 different sources:_
+ [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java[JavaFX AutoComplete]]
+ [https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions[Stackoverflow JavaFX Auto-Suggestions]]
+
+
+* *Minor enhancement*: added the startCommand that users use to start the quiz.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java[Restore Command]]
+ [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java[AutoComplete]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
