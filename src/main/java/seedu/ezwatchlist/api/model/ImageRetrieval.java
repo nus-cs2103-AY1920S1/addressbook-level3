@@ -1,23 +1,29 @@
 package seedu.ezwatchlist.api.model;
 
+import static java.util.Objects.isNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.config.TmdbConfiguration;
 import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.commons.core.LogsCenter;
 
 /**
  * A class to retrieve images from the internet to store in the user's cache.
  */
 public class ImageRetrieval {
-    private static final String DEFAULT_FILE_SIZE = "w500";
+    private static final Logger logger = LogsCenter.getLogger(ImageRetrieval.class);
+    private static final String DEFAULT_FILE_SIZE = "w300";
     private static final String ROOT = defaultDirectory();
     public static final String IMAGE_CACHE_LOCATION = ROOT + File.separator
             + "Ezwatchlist" + File.separator + "posters";
@@ -32,11 +38,17 @@ public class ImageRetrieval {
      * @param fileName the name of the show
      * @throws OnlineConnectionException when not connected to the internet
      */
-    public ImageRetrieval(TmdbApi tmdbApi, String filePath, String fileName) throws OnlineConnectionException {
+    public ImageRetrieval(TmdbApi tmdbApi, String filePath, String fileName)
+            throws OnlineConnectionException, IllegalArgumentException {
         try {
-            TmdbConfiguration configuration = tmdbApi.getConfiguration();
-            imageUrl = configuration.getBaseUrl() + DEFAULT_FILE_SIZE + filePath;
-            formattedFileName = fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "_");
+            if (!isNull(filePath)) {
+                TmdbConfiguration configuration = tmdbApi.getConfiguration();
+                imageUrl = configuration.getBaseUrl() + DEFAULT_FILE_SIZE + filePath;
+                String filterString = fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "_");
+                formattedFileName = filterString + filePath.hashCode();
+            } else {
+                throw new IllegalArgumentException("Missing filepath");
+            }
         } catch (MovieDbException e) {
             throw new OnlineConnectionException("Internet Connection failed at Image Retrieval");
         }
@@ -97,12 +109,19 @@ public class ImageRetrieval {
                 parent.mkdirs();
             }
 
-            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + File.separator
-                    + formattedFileName + ".png"));
+            Path filepath = Paths.get(IMAGE_CACHE_LOCATION + File.separator
+                    + formattedFileName + ".png");
+
+            if (filepath.toFile().exists()) {
+                throw new FileAlreadyExistsException("Duplicate image");
+            }
+
+            Files.copy(in, filepath);
+
         } catch (FileAlreadyExistsException f) {
-            System.err.println("Duplicate image");
+            logger.info(f.getMessage());
         } catch (IOException e) {
-            System.err.println(e + " in ImageRetrieval line 104");
+            logger.info(e.getMessage());
             throw new OnlineConnectionException("No internet connection at downloading image");
         }
     }

@@ -100,9 +100,13 @@ public class ApiUtil {
      */
     private static void addImage(String posterPath, Name name, Show toAdd, TmdbApi apiCall)
             throws OnlineConnectionException {
-        ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath, name.showName);
-        String imagePath = instance.retrieveImage();
-        toAdd.setPoster(new Poster(imagePath));
+        try {
+            ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath, name.showName);
+            String imagePath = instance.retrieveImage();
+            toAdd.setPoster(new Poster(imagePath));
+        } catch (IllegalArgumentException e) {
+            toAdd.setPoster(new Poster());
+        }
     }
 
     /**
@@ -179,7 +183,7 @@ public class ApiUtil {
                                        ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList) {
         for (int seasonNo = 1; seasonNo <= numberOfSeasons; seasonNo++) {
             TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo,
-                    null, TmdbTvSeasons.SeasonMethod.values());
+                    null);
 
             seedu.ezwatchlist.model.show.TvSeason season = extractEpisodes(tvSeason);
 
@@ -214,7 +218,7 @@ public class ApiUtil {
      */
     private static void setGenres(List<Genre> genres, Show tvShowToAdd) {
         ArrayList<seedu.ezwatchlist.model.show.Genre> genreList = new ArrayList<>();
-        genres.forEach(x -> genreList.add(new seedu.ezwatchlist.model.show.Genre(x.getName())));
+        genres.forEach(genre -> genreList.add(new seedu.ezwatchlist.model.show.Genre(genre.getName())));
         Set<seedu.ezwatchlist.model.show.Genre> genreSet = new HashSet<>(genreList);
         tvShowToAdd.addGenres(genreSet);
     }
@@ -295,5 +299,35 @@ public class ApiUtil {
             }
         }
         return tvShows;
+    }
+
+    /**
+     * Retrieves a Tv Show from it's ID
+     * @param tmdbApi
+     * @param tvId the ID of the Tv Show
+     * @return TvShow
+     */
+    public static TvShow getTvShow(TmdbApi tmdbApi, Integer tvId) {
+        try {
+            TvSeries tvSeries = tmdbApi.getTvSeries().getSeries(tvId, null, TmdbTV.TvMethod.values());
+            return extractTvShow(tmdbApi, tvSeries);
+        } catch (OnlineConnectionException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves a Movie from it's ID.
+     * @param tmdbApi
+     * @param movieId the ID of the Movie.
+     * @return Movie
+     */
+    public static Movie getMovie(TmdbApi tmdbApi, Integer movieId) {
+        try {
+            MovieDb movie = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.values());
+            return extractMovie(tmdbApi, movie);
+        } catch (OnlineConnectionException e) {
+            return null;
+        }
     }
 }

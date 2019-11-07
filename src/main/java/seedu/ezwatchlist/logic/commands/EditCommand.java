@@ -255,18 +255,9 @@ public class EditCommand extends Command {
             this.numOfEpisodesWatched = numOfEpisodesWatched;
         }
 
-        public int getNumOfEpisodesWatched() {
-            return numOfEpisodesWatched;
-        }
-
         public void setTotalNumOfEpisodes(int totalNumOfEpisodes) {
             this.totalNumOfEpisodes = totalNumOfEpisodes;
         }
-
-        public int getTotalNumOfEpisodes() {
-            return totalNumOfEpisodes;
-        }
-
 
         /**
          * Sets {@code actors} to this object's {@code actors}.
