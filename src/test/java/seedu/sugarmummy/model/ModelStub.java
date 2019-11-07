@@ -25,6 +25,7 @@ import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
+import seedu.sugarmummy.model.time.Today;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -192,6 +193,11 @@ public class ModelStub implements Model {
 
     @Override
     public void stopAllReminders() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Today getToday() {
         throw new AssertionError("This method should not be called.");
     }
 

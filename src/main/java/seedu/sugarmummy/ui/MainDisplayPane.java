@@ -98,6 +98,8 @@ public class MainDisplayPane {
         case AVERAGE:
             return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
                     logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
+        case NONE:
+            return null;
         default:
             assert false : "DisplayPaneType is not recognised inside MainDisplayPane class.";
             return null;
