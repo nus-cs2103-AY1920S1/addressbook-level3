@@ -34,8 +34,13 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    public void setFocusTextField() {
+        this.commandTextField.requestFocus();
+    }
+
     /**
      * Sets the text to be displayed in the TextField {@code commandTextField}.
+     *
      * @param text
      */
     public void setTextField(String text) {

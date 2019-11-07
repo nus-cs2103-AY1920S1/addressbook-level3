@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -137,6 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -153,8 +155,17 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand);
+
+        commandBox.getRoot().requestFocus();
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         setCommandNavigationHandler();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                commandBox.setFocusTextField();
+            }
+        });
     }
 
     /**

@@ -6,6 +6,10 @@ import static seedu.address.ui.SuggestionLabels.ADD_PARTICIPANT;
 import static seedu.address.ui.SuggestionLabels.ADD_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.ADD_TEAM;
 import static seedu.address.ui.SuggestionLabels.ADD_TEAM_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.ASSIGN_MENTOR;
+import static seedu.address.ui.SuggestionLabels.ASSIGN_MENTOR_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.ASSIGN_PARTICIPANT;
+import static seedu.address.ui.SuggestionLabels.ASSIGN_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.DELETE_MENTOR;
 import static seedu.address.ui.SuggestionLabels.DELETE_MENTOR_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.DELETE_PARTICIPANT;
@@ -18,6 +22,8 @@ import static seedu.address.ui.SuggestionLabels.EDIT_PARTICIPANT;
 import static seedu.address.ui.SuggestionLabels.EDIT_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.EDIT_TEAM;
 import static seedu.address.ui.SuggestionLabels.EDIT_TEAM_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.EXIT;
+import static seedu.address.ui.SuggestionLabels.EXIT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.EXPORT;
 import static seedu.address.ui.SuggestionLabels.EXPORT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.FIND_MENTOR;
@@ -37,12 +43,17 @@ import static seedu.address.ui.SuggestionLabels.IMPORT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.LEADERBOARD;
 import static seedu.address.ui.SuggestionLabels.LEADERBOARD_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.LIST_MENTOR;
+import static seedu.address.ui.SuggestionLabels.LIST_MENTOR_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.LIST_PARTICIPANT;
 import static seedu.address.ui.SuggestionLabels.LIST_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.LIST_TEAM;
 import static seedu.address.ui.SuggestionLabels.LIST_TEAM_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.REDO;
 import static seedu.address.ui.SuggestionLabels.REDO_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.REMOVE_MENTOR;
+import static seedu.address.ui.SuggestionLabels.REMOVE_MENTOR_INSTRUCTION;
+import static seedu.address.ui.SuggestionLabels.REMOVE_PARTICIPANT;
+import static seedu.address.ui.SuggestionLabels.REMOVE_PARTICIPANT_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.SCORE_ADD;
 import static seedu.address.ui.SuggestionLabels.SCORE_ADD_INSTRUCTION;
 import static seedu.address.ui.SuggestionLabels.SCORE_SET;
@@ -57,7 +68,6 @@ import java.util.stream.Collectors;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
 
 
 /**
@@ -99,12 +109,19 @@ public class SuggestionTemplates {
     public static final TextFlow LIST_PARTICIPANT_TEMPLATE;
     public static final TextFlow LIST_TEAM_TEMPLATE;
 
+    //ASSIGN/REMOVE Command
+    public static final TextFlow ASSIGN_PARTICIPANT_TEMPLATE;
+    public static final TextFlow ASSIGN_MENTOR_TEMPLATE;
+    public static final TextFlow REMOVE_PARTICIPANT_TEMPLATE;
+    public static final TextFlow REMOVE_MENTOR_TEMPLATE;
+
     //SCORE Commands
     public static final TextFlow SCORE_ADD_TEMPLATE;
     public static final TextFlow SCORE_SUB_TEMPLATE;
     public static final TextFlow SCORE_SET_TEMPLATE;
     public static final TextFlow LEADERBOARD_TEMPLATE;
     public static final TextFlow GET_TOP_TEMPLATE;
+    public static final TextFlow EXIT_TEMPLATE;
 
 
     static {
@@ -306,7 +323,7 @@ public class SuggestionTemplates {
         );
 
         LIST_MENTOR_TEMPLATE = new TextFlow(
-                LIST_MENTOR.getText(), LIST_TEAM_INSTRUCTION.getText()
+                LIST_MENTOR.getText(), LIST_MENTOR_INSTRUCTION.getText()
         );
 
         LIST_TEAM_TEMPLATE = new TextFlow(
@@ -352,7 +369,53 @@ public class SuggestionTemplates {
 
         number12.setFill(Color.GREY);
 
-        GET_TOP_TEMPLATE = new TextFlow(GET_TOP.getText(), GET_TOP_INSTRUCTION.getText());
+        GET_TOP_TEMPLATE = new TextFlow(GET_TOP.getText(), number12, GET_TOP_INSTRUCTION.getText());
+
+        EXIT_TEMPLATE = new TextFlow(EXIT.getText(), EXIT_INSTRUCTION.getText());
+
+        Text participantId13 = new Text("PARTICIPANT_ID");
+        Text teamId13 = new Text("TEAM_ID");
+
+        participantId13.setFill(Color.GREY);
+        teamId13.setFill(Color.GREY);
+
+        ASSIGN_PARTICIPANT_TEMPLATE = new TextFlow(
+                ASSIGN_PARTICIPANT.getText(), participantId13,
+                teamId13, ASSIGN_PARTICIPANT_INSTRUCTION.getText()
+        );
+
+        Text mentorId14 = new Text("MENTOR_ID");
+        Text teamId14 = new Text("TEAM_ID");
+
+        mentorId14.setFill(Color.GREY);
+        teamId14.setFill(Color.GREY);
+
+        ASSIGN_MENTOR_TEMPLATE = new TextFlow(
+                ASSIGN_MENTOR.getText(), mentorId14,
+                teamId14, ASSIGN_MENTOR_INSTRUCTION.getText()
+        );
+
+        Text participantId15 = new Text("PARTICIPANT_ID");
+        Text teamId15 = new Text("TEAM_ID");
+
+        participantId15.setFill(Color.GREY);
+        teamId15.setFill(Color.GREY);
+
+        REMOVE_PARTICIPANT_TEMPLATE = new TextFlow(
+                REMOVE_PARTICIPANT.getText(), participantId15,
+                teamId15, REMOVE_PARTICIPANT_INSTRUCTION.getText()
+        );
+
+        Text mentorId16 = new Text("MENTOR_ID");
+        Text teamId16 = new Text("TEAM_ID");
+
+        mentorId16.setFill(Color.GREY);
+        teamId16.setFill(Color.GREY);
+
+        REMOVE_MENTOR_TEMPLATE = new TextFlow(
+                REMOVE_MENTOR.getText(), mentorId16,
+                teamId16, REMOVE_MENTOR_INSTRUCTION.getText()
+        );
 
     }
 
