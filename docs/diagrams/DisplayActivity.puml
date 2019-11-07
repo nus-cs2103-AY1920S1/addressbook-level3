@@ -5,6 +5,9 @@ start
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
+'Beta syntax also does not support multiple alternate paths, hence multiple
+'diamond are used instead.
+
 
 if ()then ([arguments matches "interviewee"])
     :signal TabListener;
