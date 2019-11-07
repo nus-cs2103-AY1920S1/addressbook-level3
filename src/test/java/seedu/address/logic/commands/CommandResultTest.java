@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
+import static seedu.address.testutil.TypicalBooks.BOOK_2;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +46,12 @@ public class CommandResultTest {
 
         // different info value -> returns false
         assertFalse(commandResult.equals(CommandResult.commandResultInfo("feedback", BOOK_1)));
+
+        CommandResult commandResult1 = CommandResult.commandResultInfo("info", BOOK_1);
+        CommandResult commandResult2 = CommandResult.commandResultInfo("info", BOOK_2);
+
+        assertNotEquals(commandResult1, commandResult2);
+        assertNotEquals(commandResult, commandResult2);
     }
 
     @Test
@@ -82,6 +92,12 @@ public class CommandResultTest {
 
         CommandResult commandResult2 = CommandResult.commandResultHelp("feedback");
         assertTrue(commandResult2.isShowHelp());
+        assertFalse(commandResult1.isExit());
+        assertFalse(commandResult1.isServe());
+        assertFalse(commandResult1.isDone());
+        assertFalse(commandResult1.isInfo());
+
+        assertThrows(AssertionError.class, () -> commandResult2.getBook());
     }
 
     @Test
@@ -91,6 +107,12 @@ public class CommandResultTest {
 
         CommandResult commandResult2 = CommandResult.commandResultExit("feedback");
         assertTrue(commandResult2.isExit());
+        assertFalse(commandResult1.isShowHelp());
+        assertFalse(commandResult1.isServe());
+        assertFalse(commandResult1.isDone());
+        assertFalse(commandResult1.isInfo());
+
+        assertThrows(AssertionError.class, () -> commandResult2.getBook());
     }
 
     @Test
@@ -100,6 +122,12 @@ public class CommandResultTest {
 
         CommandResult commandResult2 = CommandResult.commandResultServe("feedback");
         assertTrue(commandResult2.isServe());
+        assertFalse(commandResult1.isShowHelp());
+        assertFalse(commandResult1.isExit());
+        assertFalse(commandResult1.isDone());
+        assertFalse(commandResult1.isInfo());
+
+        assertThrows(AssertionError.class, () -> commandResult2.getBook());
     }
 
     @Test
@@ -109,5 +137,27 @@ public class CommandResultTest {
 
         CommandResult commandResult2 = CommandResult.commandResultDone("feedback");
         assertTrue(commandResult2.isDone());
+        assertFalse(commandResult1.isShowHelp());
+        assertFalse(commandResult1.isExit());
+        assertFalse(commandResult1.isServe());
+        assertFalse(commandResult1.isInfo());
+
+        assertThrows(AssertionError.class, () -> commandResult2.getBook());
+    }
+
+    @Test
+    public void isInfo() {
+        CommandResult commandResult1 = new CommandResult("feedback");
+        assertFalse(commandResult1.isInfo());
+
+        CommandResult commandResult2 = CommandResult.commandResultInfo("feedback", BOOK_1);
+        assertTrue(commandResult2.isInfo());
+        assertFalse(commandResult1.isShowHelp());
+        assertFalse(commandResult1.isExit());
+        assertFalse(commandResult1.isServe());
+        assertFalse(commandResult1.isDone());
+
+        assertDoesNotThrow(() -> commandResult2.getBook());
+        assertEquals(BOOK_1, commandResult2.getBook());
     }
 }

@@ -19,17 +19,19 @@ public class CommandResult {
      */
     private final boolean showHelp;
 
-    /**
-     * The application should exit.
-     */
+    /** The application should exit */
     private final boolean exit;
 
+    /** The application is serving a borrower */
     private final boolean serve;
 
+    /** The application is done serving a borrower */
     private final boolean done;
 
+    /** The application should toggle its ui */
     private final boolean toggleUi;
 
+    /** The application is showing information about a book*/
     private final Optional<Book> info;
 
     /**

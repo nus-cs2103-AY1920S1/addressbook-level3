@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
                     logger.info("making new loan slip");
                     storage.storeNewLoanSlip();
                     LoanSlipUtil.openGeneratedLoanSlip();
-                    LoanSlipUtil.unmountLoans();
+                    LoanSlipUtil.clearSession();
                 }
             }
         } catch (IOException ioe) {

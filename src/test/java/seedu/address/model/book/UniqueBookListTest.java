@@ -167,4 +167,9 @@ public class UniqueBookListTest {
             -> uniqueBookList.asUnmodifiableObservableList().remove(0));
     }
 
+    @Test
+    public void iterator() {
+        uniqueBookList.forEach(book -> assertTrue(uniqueBookList.contains(book)));
+    }
+
 }

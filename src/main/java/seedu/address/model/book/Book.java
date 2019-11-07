@@ -175,8 +175,8 @@ public class Book implements Comparable<Book> {
      * @return a new {@code Book} with the added loan history.
      */
     public Book deleteFromLoanHistory(Loan loan) {
+        assert getLoanHistory().contains(loan) : "Loan history does not contain loan to be deleted.";
         LoanList newHistory = new LoanList();
-        assert newHistory.contains(loan);
         this.getLoanHistory().forEach(currentLoan -> {
             if (!currentLoan.equals(loan)) {
                 newHistory.add(currentLoan);
@@ -243,25 +243,6 @@ public class Book implements Comparable<Book> {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(title, serialNumber, author, genres);
-    }
-
-    /**
-     * Method to return the full string representation of the book, if required.
-     *
-     * @return Full string representation of book.
-     */
-    public String toFullString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
-                .append(", Serial Number: ")
-                .append(getSerialNumber())
-                .append(", Author: ")
-                .append(getAuthor());
-        if (!getGenres().isEmpty()) {
-            builder.append(", Genres: ");
-            getGenres().forEach(genre -> builder.append(genre + " "));
-        }
-        return builder.toString();
     }
 
     /**

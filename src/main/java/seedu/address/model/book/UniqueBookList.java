@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -150,13 +151,7 @@ public class UniqueBookList implements Iterable<Book> {
      * Returns true if {@code books} contains only unique books.
      */
     private boolean booksAreUnique(List<Book> books) {
-        for (int i = 0; i < books.size() - 1; i++) {
-            for (int j = i + 1; j < books.size(); j++) {
-                if (books.get(i).equals(books.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        HashSet<Book> bookSet = new HashSet<>(books);
+        return bookSet.size() == books.size();
     }
 }
