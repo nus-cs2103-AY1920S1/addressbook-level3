@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.commons.core.Messages.MESSAGE_HIT_ENTER_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
@@ -22,12 +21,9 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.CommandResult;
 //import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 //import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.flashcard.Flashcard;
 //import seedu.address.model.flashcard.Flashcard;
 
 /**
