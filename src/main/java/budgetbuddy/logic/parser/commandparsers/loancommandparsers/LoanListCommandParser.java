@@ -1,6 +1,7 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_IN;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_OUT;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_PAID;
@@ -17,6 +18,7 @@ import static budgetbuddy.model.loan.LoanFilters.getDirectionPredicate;
 import static budgetbuddy.model.loan.LoanFilters.getStatusPredicate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +46,8 @@ import budgetbuddy.model.person.Person;
  * Parses the <code>list</code> command.
  */
 public class LoanListCommandParser implements CommandParser<LoanListCommand> {
+
+    public static final String MESSAGE_DUPLICATE_FILTERS = "Each filter can only be used once.";
 
     private static final Pattern DIRECTION_STATUS_PATTERN = Pattern.compile("(out|in|paid|unpaid)");
 
@@ -78,19 +82,8 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             }
         }
 
-        // parse person, amount, date and description filters
-        for (String personStr : argMultimap.getAllValues(PREFIX_PERSON)) {
-            filters.add(new PersonMatchPredicate(new Person(CommandParserUtil.parseName(personStr))));
-        }
-        for (String amountStr : argMultimap.getAllValues(PREFIX_AMOUNT)) {
-            filters.add(new AmountMatchPredicate(CommandParserUtil.parseAmount(amountStr)));
-        }
-        for (String dateStr : argMultimap.getAllValues(PREFIX_DATE)) {
-            filters.add(new DateMatchPredicate(CommandParserUtil.parseDate(dateStr)));
-        }
-        for (String descriptionStr : argMultimap.getAllValues(PREFIX_DESCRIPTION)) {
-            filters.add(new DescriptionMatchPredicate(CommandParserUtil.parseDescription(descriptionStr)));
-        }
+        // parse person, amount, date, and description filters
+        filters.addAll(parseFiltersWithPrefixes(argMultimap));
 
         return new LoanListCommand(optionalSorter, filters);
     }
@@ -121,9 +114,14 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
      * Parses the preamble into predicates for filtering loans by direction and/or status.
      * @param preambleArr The preamble as a string array. Each element is one word.
      * @return The list of parsed predicates.
-     * @throws ParseException If the argument does not match any available direction or status filters.
+     * @throws ParseException If there are duplicate filters or
+     * if the argument does not match any available direction or status filters.
      */
     private List<Predicate<Loan>> parseDirectionStatusFilters(String[] preambleArr) throws ParseException {
+        if (hasDuplicates(Arrays.asList(preambleArr))) {
+            throw new ParseException(MESSAGE_DUPLICATE_FILTERS);
+        }
+
         List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
 
         Matcher directionStatusMatcher;
@@ -149,6 +147,37 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
             }
+        }
+
+        return filters;
+    }
+
+    /**
+     * Parses the filter arguments with prefixes into predicates for filtering loans.
+     * @return The list of parsed predicates.
+     * @throws ParseException If there are duplicate filters present, or if an error occurs while parsing.
+     */
+    private List<Predicate<Loan>> parseFiltersWithPrefixes(ArgumentMultimap argMultimap) throws ParseException {
+        // parse person, amount, date and description filters
+        if (hasDuplicates(argMultimap.getAllValues(PREFIX_PERSON))
+                || hasDuplicates(argMultimap.getAllValues(PREFIX_AMOUNT))
+                || hasDuplicates(argMultimap.getAllValues(PREFIX_DATE))
+                || hasDuplicates(argMultimap.getAllValues(PREFIX_DESCRIPTION))) {
+            throw new ParseException(MESSAGE_DUPLICATE_FILTERS);
+        }
+
+        List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
+        for (String personStr : argMultimap.getAllValues(PREFIX_PERSON)) {
+            filters.add(new PersonMatchPredicate(new Person(CommandParserUtil.parseName(personStr))));
+        }
+        for (String amountStr : argMultimap.getAllValues(PREFIX_AMOUNT)) {
+            filters.add(new AmountMatchPredicate(CommandParserUtil.parseAmount(amountStr)));
+        }
+        for (String dateStr : argMultimap.getAllValues(PREFIX_DATE)) {
+            filters.add(new DateMatchPredicate(CommandParserUtil.parseDate(dateStr)));
+        }
+        for (String descriptionStr : argMultimap.getAllValues(PREFIX_DESCRIPTION)) {
+            filters.add(new DescriptionMatchPredicate(CommandParserUtil.parseDescription(descriptionStr)));
         }
 
         return filters;
