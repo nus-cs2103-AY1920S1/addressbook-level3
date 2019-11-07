@@ -374,7 +374,7 @@ public class SuggestionTemplates {
         EXIT_TEMPLATE = new TextFlow(EXIT.getText(), EXIT_INSTRUCTION.getText());
 
         Text participantId13 = new Text("PARTICIPANT_ID");
-        Text teamId13 = new Text("TEAM_ID");
+        Text teamId13 = new Text("TEAM_ID ");
 
         participantId13.setFill(Color.GREY);
         teamId13.setFill(Color.GREY);
@@ -384,8 +384,8 @@ public class SuggestionTemplates {
                 teamId13, ASSIGN_PARTICIPANT_INSTRUCTION.getText()
         );
 
-        Text mentorId14 = new Text("MENTOR_ID");
-        Text teamId14 = new Text("TEAM_ID");
+        Text mentorId14 = new Text("MENTOR_ID ");
+        Text teamId14 = new Text("TEAM_ID ");
 
         mentorId14.setFill(Color.GREY);
         teamId14.setFill(Color.GREY);
@@ -395,8 +395,8 @@ public class SuggestionTemplates {
                 teamId14, ASSIGN_MENTOR_INSTRUCTION.getText()
         );
 
-        Text participantId15 = new Text("PARTICIPANT_ID");
-        Text teamId15 = new Text("TEAM_ID");
+        Text participantId15 = new Text("PARTICIPANT_ID ");
+        Text teamId15 = new Text("TEAM_ID ");
 
         participantId15.setFill(Color.GREY);
         teamId15.setFill(Color.GREY);
@@ -406,8 +406,8 @@ public class SuggestionTemplates {
                 teamId15, REMOVE_PARTICIPANT_INSTRUCTION.getText()
         );
 
-        Text mentorId16 = new Text("MENTOR_ID");
-        Text teamId16 = new Text("TEAM_ID");
+        Text mentorId16 = new Text("MENTOR_ID ");
+        Text teamId16 = new Text("TEAM_ID ");
 
         mentorId16.setFill(Color.GREY);
         teamId16.setFill(Color.GREY);
