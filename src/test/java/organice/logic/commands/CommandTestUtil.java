@@ -23,6 +23,7 @@ import organice.logic.commands.exceptions.CommandException;
 import organice.logic.parser.ArgumentMultimap;
 import organice.logic.parser.ArgumentTokenizer;
 import organice.logic.parser.MatchCommandParser;
+import organice.logic.parser.exceptions.ParseException;
 import organice.model.AddressBook;
 import organice.model.Model;
 import organice.model.person.Person;
@@ -183,7 +184,7 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(actualModel, expectedModel);
-        } catch (CommandException ce) {
+        } catch (CommandException | ParseException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

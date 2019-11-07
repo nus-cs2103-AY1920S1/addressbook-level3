@@ -2,6 +2,8 @@ package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import organice.logic.parser.MatchCommandParser;
 import organice.model.Model;
 import organice.model.person.BloodType;
@@ -51,6 +53,12 @@ public class MatchCommand extends Command {
      */
     public static boolean match(Person donor, Patient patient) {
         if (!(donor instanceof Donor)) {
+            return false;
+        }
+
+        ArrayList patientsNotForMatching = ((Donor) donor).getPatientMatchedBefore();
+
+        if (patientsNotForMatching.contains(patient.getNric())) {
             return false;
         }
 

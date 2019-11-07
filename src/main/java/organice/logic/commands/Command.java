@@ -1,6 +1,7 @@
 package organice.logic.commands;
 
 import organice.logic.commands.exceptions.CommandException;
+import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
 
 /**
@@ -15,6 +16,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model) throws CommandException, ParseException;
 
 }
