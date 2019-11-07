@@ -1,15 +1,33 @@
 package com.typee.model;
 
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT;
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT_DIFF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.itextpdf.text.DocumentException;
 import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 
 public class ModelManagerTest {
 
+    @TempDir
+    public File tempDir;
+
     private ModelManager modelManager = new ModelManager();
+
+    @BeforeEach
+    public void setUp() throws DocumentException, GenerateExistingReportException, IOException {
+        modelManager.saveReport(tempDir.toPath(), TYPICAL_REPORT);
+    }
 
     @Test
     public void constructor() {
@@ -21,6 +39,23 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+    }
+
+    @Test
+    public void saveReport_repeating() {
+        assertThrows(GenerateExistingReportException.class, () -> modelManager.saveReport(tempDir.toPath(),
+                TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport() throws DeleteDocumentException {
+        assertEquals(true, modelManager.deleteReport(tempDir.toPath(), TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport_invalid() {
+        assertThrows(DeleteDocumentException.class, () -> modelManager.deleteReport(tempDir.toPath(),
+                TYPICAL_REPORT_DIFF));
     }
 
     /*

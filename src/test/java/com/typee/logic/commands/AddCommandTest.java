@@ -316,7 +316,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean deleteReport(Report report) throws DeleteDocumentException {
+        public boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException {
             throw new AssertionError("This method should not be called.");
         }
     }
