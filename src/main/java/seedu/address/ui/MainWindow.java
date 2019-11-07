@@ -307,7 +307,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (usesRightPane(commandResult)) {
                 rightPanelCommandText = commandText;
-            } else if (rightPanelCommandText != null) {
+            } else if (!isNull(rightPanelCommandText)) {
                 renderRightPanel(rightPanelCommandText);
             }
 

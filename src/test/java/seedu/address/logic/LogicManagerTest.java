@@ -27,7 +27,6 @@ import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListPeopleCommand;
-import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CommandHistory;

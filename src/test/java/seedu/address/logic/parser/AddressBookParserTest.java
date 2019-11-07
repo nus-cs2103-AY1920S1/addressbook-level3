@@ -5,13 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_NULL_ARGUMENTS_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_OF_BIRTH_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFF;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +29,7 @@ import seedu.address.commons.util.PersonBuilder;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -27,6 +37,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
@@ -89,6 +100,17 @@ public class AddressBookParserTest {
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
+    // Unassign policy command test not needed since very similar
+    @Test
+    public void parseCommand_assignPolicy() throws Exception {
+        Policy policy = new PolicyBuilder().withTags().withCriteria().build();
+
+        String command = String.format("%s %d %s", AssignPolicyCommand.COMMAND_WORD,
+                INDEX_FIRST_PERSON.getOneBased(), PREFIX_POLICY + policy.getName().toString());
+
+        assertEquals(new AssignPolicyCommand(INDEX_FIRST_PERSON, policy.getName()), parser.parseCommand(command));
+    }
+
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
@@ -106,6 +128,28 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
             FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_undoWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+                UndoCommand.COMMAND_WORD), () -> parser.parseCommand(UndoCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_redoWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+                RedoCommand.COMMAND_WORD), () -> parser.parseCommand(RedoCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -142,6 +186,17 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_listHistory() throws Exception {
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+    }
+
+    @Test
+    public void parseCommand_listHistoryWithTrailingArguments_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
+                HistoryCommand.COMMAND_WORD), () -> parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
     public void parseCommand_listBin() throws Exception {
         assertTrue(parser.parseCommand(ListBinCommand.COMMAND_WORD) instanceof ListBinCommand);
     }
@@ -150,18 +205,6 @@ public class AddressBookParserTest {
     public void parseCommand_listBinWithTrailingArguments_throwsParseException() throws Exception {
         assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
             ListBinCommand.COMMAND_WORD), () -> parser.parseCommand(ListBinCommand.COMMAND_WORD + " 3"));
-    }
-
-    @Test
-    public void parseCommand_undoWithTrailingArguments_throwsParseException() throws Exception {
-        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
-            UndoCommand.COMMAND_WORD), () -> parser.parseCommand(UndoCommand.COMMAND_WORD + " 3"));
-    }
-
-    @Test
-    public void parseCommand_redoWithTrailingArguments_throwsParseException() throws Exception {
-        assertThrows(ParseException.class, String.format(MESSAGE_NULL_ARGUMENTS_COMMAND,
-            RedoCommand.COMMAND_WORD), () -> parser.parseCommand(RedoCommand.COMMAND_WORD + " 3"));
     }
 
     /**
@@ -250,5 +293,38 @@ public class AddressBookParserTest {
     @Test
     public void parseCommandWithSuggestions_unknownCommand_success() throws Exception {
         assertTrue(parser.parseCommand("unknownCommand") instanceof SuggestionCommand);
+    }
+
+    @Test
+    public void getCommandWord_whileMerging_emptyOptional() {
+        parser.setIsMerging(true);
+        Optional<String> commandWord = parser.getCommandWord(AddCommand.COMMAND_WORD);
+
+        assertEquals(commandWord, Optional.empty());
+    }
+
+    @Test
+    public void getCommandWord_emptyString_emptyOptional() {
+        parser.setIsMerging(false);
+        Optional<String> commandWord = parser.getCommandWord("");
+
+        assertEquals(commandWord, Optional.empty());
+    }
+
+    @Test
+    public void getCommandWord_validCommandWithArguments_success() {
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY + GENDER_DESC_AMY;
+        Optional<String> commandWord = parser.getCommandWord(addCommand);
+
+        assertEquals(commandWord, Optional.of(AddCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void getCommandWord_validCommandWithoutArguments_success() {
+        String undoCommand = UndoCommand.COMMAND_WORD;
+        Optional<String> commandWord = parser.getCommandWord(undoCommand);
+
+        assertEquals(commandWord, Optional.of(UndoCommand.COMMAND_WORD));
     }
 }

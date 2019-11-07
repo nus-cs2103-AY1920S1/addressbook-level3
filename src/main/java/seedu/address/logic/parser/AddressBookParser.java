@@ -99,9 +99,8 @@ public class AddressBookParser {
      *
      * @param userInput full user input string
      * @return the command work based on the user input
-     * @throws ParseException if the user input does not conform to the expected format
      */
-    public Optional<String> getCommandWord(String userInput) throws ParseException {
+    public Optional<String> getCommandWord(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (isMerging || !matcher.matches()) {
