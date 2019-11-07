@@ -295,7 +295,7 @@ public class ModelManager implements Model {
             this.logger.warning("List type and predicate type mismatch");
         }
     }
-
+/*
     private void refreshCurrentList() {
         try {
         switch (this.currentView) {
@@ -318,7 +318,7 @@ public class ModelManager implements Model {
             logger.warning("Refresh failed");
         }
     }
-
+*/
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
