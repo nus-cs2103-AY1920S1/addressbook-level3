@@ -1,12 +1,5 @@
 package io.xpire.logic.commands;
 
-import io.xpire.model.Model;
-import io.xpire.model.ModelManager;
-import io.xpire.model.UserPrefs;
-import io.xpire.model.item.ExpiryDate;
-import io.xpire.model.item.Quantity;
-import io.xpire.model.item.XpireItem;
-
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
@@ -23,7 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.xpire.model.Model;
+import io.xpire.model.ModelManager;
+import io.xpire.model.UserPrefs;
+import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
+import io.xpire.model.item.XpireItem;
 import io.xpire.testutil.XpireItemBuilder;
 
 public class AddCommandTest {
@@ -72,13 +71,14 @@ public class AddCommandTest {
         // same object -> returns true
         assertTrue(addKiwiCommand.equals(addKiwiCommand));
         // same values -> returns true
-        AddCommand addKiwiCommandCopy = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
+        AddCommand addKiwiCommandCopy = new AddCommand(new Name(VALID_NAME_KIWI),
+                new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
                 new Quantity(VALID_QUANTITY_KIWI));
         assertTrue(addKiwiCommand.equals(addKiwiCommandCopy));
         // different types -> returns false
         assertFalse(addKiwiCommand.equals(1));
         // null -> returns false
-        assertFalse(addKiwiCommand.equals(null));
+        assertFalse(addKiwiCommand == null);
         // different xpireItem -> returns false
         assertFalse(addKiwiCommand.equals(addBananaCommand));
     }

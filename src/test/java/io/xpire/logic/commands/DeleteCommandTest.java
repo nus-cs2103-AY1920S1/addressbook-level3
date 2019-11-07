@@ -224,7 +224,9 @@ public class DeleteCommandTest {
         Name itemName = xpireItemToDelete.getName();
         Set<Tag> itemTags = xpireItemToDelete.getTags();
         Item adaptedItem = new Item(itemName, itemTags);
-        String expectedMessage = String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, xpireItemToDelete.getName());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
+                quantityToDeduct.toString(), xpireItemToDelete) + "\n"
+                + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, xpireItemToDelete.getName());
         Model expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         expectedModel.deleteItem(XPIRE, xpireItemToDelete);
         expectedModel.addItem(REPLENISH, adaptedItem);

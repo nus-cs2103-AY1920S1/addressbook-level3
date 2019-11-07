@@ -30,7 +30,8 @@ public class SearchCommandParserTest {
     @Test
     public void parse_validArgs_returnsSearchCommand() {
         SearchCommand expectedSearchCommand =
-                new SearchCommand(XPIRE, new ContainsKeywordsPredicate(Arrays.asList("apple", "#Food", "#Fruit", "orange")));
+                new SearchCommand(XPIRE,
+                        new ContainsKeywordsPredicate(Arrays.asList("apple", "#Food", "#Fruit", "orange")));
 
         // no leading and trailing whitespaces
         assertEqualsParseSuccess(parser, "Apple|#Food|#Fruit|Orange", expectedSearchCommand);

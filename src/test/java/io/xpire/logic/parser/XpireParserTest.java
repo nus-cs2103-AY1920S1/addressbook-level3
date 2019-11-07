@@ -29,9 +29,6 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
-import io.xpire.model.item.XpireItem;
-import io.xpire.testutil.ItemUtil;
-import io.xpire.testutil.XpireItemBuilder;
 
 public class XpireParserTest {
 

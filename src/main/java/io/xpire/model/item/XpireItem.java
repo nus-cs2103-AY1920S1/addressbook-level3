@@ -19,7 +19,6 @@ import io.xpire.model.tag.TagComparator;
 public class XpireItem extends Item {
     // Identity fields
     private final ExpiryDate expiryDate;
-    private Set<Tag> tags = new TreeSet<>(new TagComparator());
 
     // Data fields
     private Quantity quantity = new Quantity(DEFAULT_QUANTITY);

@@ -17,12 +17,11 @@ import io.xpire.model.tag.TagComparator;
  */
 public class Item {
 
+    //data fields
+    protected Set<Tag> tags = new TreeSet<>(new TagComparator());
+
     //identity fields
     final Name name;
-
-    //data fields
-    private Set<Tag> tags = new TreeSet<>(new TagComparator());
-
 
     /**
      * Every field must be present and not null.

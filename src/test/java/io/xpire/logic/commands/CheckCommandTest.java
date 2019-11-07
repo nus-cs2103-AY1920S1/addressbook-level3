@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
-import io.xpire.model.ListType;
 import org.junit.jupiter.api.Test;
 
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;

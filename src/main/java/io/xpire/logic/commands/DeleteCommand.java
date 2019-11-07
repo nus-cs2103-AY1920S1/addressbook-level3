@@ -167,6 +167,9 @@ public class DeleteCommand extends Command {
         return targetXpireItem;
     }
 
+    /**
+     * Shifts Item to ReplenishList.
+     */
     private void shiftItemToReplenishList(Model model, XpireItem itemToShift) {
         Item remodelledItem = itemToShift.remodel();
         model.addItem(REPLENISH, remodelledItem);
