@@ -1,14 +1,17 @@
 package cs.f10.t1.nursetraverse.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
+import cs.f10.t1.nursetraverse.logic.Logic;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 
 /**
@@ -21,15 +24,16 @@ public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final CommandExecutor commandExecutor;
-    private final AutoCompletePanel autoCompletePanel;
+
+    private ArrayList<ObserverUi> observerUis = new ArrayList<>();
+    private DataSender dataSender;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, AutoCompletePanel autoCompletePanel) {
+    public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.autoCompletePanel = autoCompletePanel;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -84,26 +88,61 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setOnKeyPressed(event -> {
             switch (event.getCode()) {
             case UP:
-                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() - 1);
-                commandTextField.positionCaret(commandTextField.getText().length());
-                break;
             case DOWN:
-                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() + 1);
+                notifyObserversKeyPressed(event.getCode());
+                try {
+                    String textToPassWhenUpDownKeyPressed = receiveFromSender()[1];
+                    notifyObserversToChange(event.getCode(), textToPassWhenUpDownKeyPressed);
+                } catch (NullPointerException e) {
+                    logger.info("Suggested word list is empty, thus cannot receive anything from sender.");
+                }
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;
-            case RIGHT:
+            case SHIFT:
                 try {
-                    commandTextField.setText(autoCompletePanel.getStringAfterSelection());
+                    String textToDisplay = receiveFromSender()[0];
+                    commandTextField.setText(textToDisplay);
+                    // Notify observers to update based on textToBeDisplayed
+                    notifyObserversKeyPressed(event.getCode());
+                    notifyObserversToChange(KeyCode.SHIFT, textToDisplay);
                     commandTextField.positionCaret(commandTextField.getText().length());
-                    autoCompletePanel.updateListView(autoCompletePanel.getStringAfterSelection());
-
                 } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus right key does not work");
+                    logger.info("Nothing is selected thus shift key does not work");
                 }
                 break;
+            case ENTER:
+                //handleCommandEntered() will be executed first before this
+                notifyObserversKeyPressed(event.getCode());
+                notifyObserversToChange(KeyCode.ENTER, commandTextField.getText());
+                break;
             default:
-                autoCompletePanel.updateListView(commandTextField.getText() + event.getText());
+                notifyObserversKeyPressed(event.getCode());
+                notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
             }
         });
+    }
+
+    public void addObserver(ObserverUi observerUi) {
+        observerUis.add(observerUi);
+    }
+
+    public void setDataSender(DataSender dataSender) {
+        this.dataSender = dataSender;
+    }
+
+    private void notifyObserversKeyPressed(KeyCode keyCode) {
+        for (ObserverUi observerUi : observerUis) {
+            observerUi.update(keyCode);
+        }
+    }
+
+    private void notifyObserversToChange(KeyCode keyCode, String resultString) {
+        for (ObserverUi observerUi : observerUis) {
+            observerUi.update(keyCode, resultString);
+        }
+    }
+
+    private String[] receiveFromSender() {
+        return dataSender.sendData();
     }
 }

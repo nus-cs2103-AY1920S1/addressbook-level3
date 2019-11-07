@@ -5,7 +5,12 @@ package cs.f10.t1.nursetraverse.autocomplete;
  */
 public class IndexWord extends AutoCompleteWord {
 
-    public IndexWord(String suggestionWord) {
-        super(suggestionWord);
+    public IndexWord(String suggestedIndex, String description) {
+        super(suggestedIndex, description);
+    }
+
+    @Override
+    public String getConnectorChar() {
+        return " ";
     }
 }
