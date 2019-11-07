@@ -1,0 +1,56 @@
+package seedu.address.ics;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.Instant;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DateTime;
+import seedu.address.model.events.EventSource;
+
+public class IcsConverterTest {
+
+    @Test
+    public void toString_normalEventNoEndTime_icsConversion() throws ParseException {
+
+        String description = "Test Description";
+        String start = "11/11/1111 11:00";
+        assertDoesNotThrow(() -> DateTime.fromUserString(start));
+        DateTime startDateTime = DateTime.fromUserString(start);
+        EventSource eventSource = EventSource.newBuilder(description, startDateTime).build();
+        String icsString = IcsConverter.convertEvent(eventSource);
+
+        String[] icsStringArr = icsString.split("\\r?\\n");
+
+        // validate start of ICS VEVENT object field.
+        assertEquals("BEGIN:VEVENT", icsStringArr[0]);
+
+        // validate UID.
+        String uidString = icsStringArr[1];
+        assertTrue(uidString.startsWith("UID:") && uidString.endsWith("@Horo"));
+        uidString = uidString.replaceFirst("UID:", "");
+        String instant = uidString.replaceFirst("@Horo", "");
+        assertDoesNotThrow(() -> Instant.parse(instant));
+
+        // validate DTSTAMP field.
+        String dtStampString = icsStringArr[2];
+        assertTrue(dtStampString.startsWith("DTSTAMP:"));
+        String dtStamp = dtStampString.replaceFirst("DTSTAMP:", "");
+        assertDoesNotThrow(() -> DateTime.fromIcsString(dtStamp));
+
+        // validate DTSTART field.
+        String dtStartString = icsStringArr[3];
+        assertTrue(dtStartString.startsWith("DTSTART:"));
+        assertEquals("DTSTART:11111111T030000Z", dtStartString);
+
+        // validate SUMMARY field.
+        assertEquals("SUMMARY:Test Description", icsStringArr[4]);
+
+        // validate end of ICS VEVENT object line
+        assertEquals("END:VEVENT", icsStringArr[5]);
+    }
+}
