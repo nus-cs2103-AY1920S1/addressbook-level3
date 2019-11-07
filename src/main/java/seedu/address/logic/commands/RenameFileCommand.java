@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,10 +23,11 @@ public class RenameFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Rename the file identified by the index number from the displayed file list.\n"
             + "Parameters: INDEX NEW_FILENAME\n"
-            + "Example: " + COMMAND_WORD + " 1 Test.txt";
+            + "Example: " + COMMAND_WORD + " 1 Test";
 
     public static final String MESSAGE_RENAME_FILE_SUCCESS = "File renamed: %1$s";
-    public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot rename file.";
+    public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot rename file.\n"
+            + "Please make sure that the target file name is acceptable by your operating system.";
     public static final String MESSAGE_TARGET_FILE_EXISTS = "Cannot rename file. "
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DUPLICATE_FILE = "Target file is already in the list.";
@@ -41,16 +40,22 @@ public class RenameFileCommand extends Command {
         this.newFileName = newFileName;
     }
 
+    private void checkIfTargetFileExists(EncryptedFile newFile) throws CommandException {
+        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
+            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
+        }
+    }
+
+    private void checkIfTargetFileDuplicated(EncryptedFile newFile, Model model) throws CommandException {
+        if (model.hasFile(newFile)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FILE);
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<EncryptedFile> lastShownList = model.getFilteredFileList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
-        }
-
-        EncryptedFile fileToRename = lastShownList.get(targetIndex.getZeroBased());
+        EncryptedFile fileToRename = FileCommandUtil.getFileWithIndex(targetIndex, model);;
         FileCommandUtil.checkIfFileExists(fileToRename, model);
 
         EncryptedFile newFile = new EncryptedFile(
@@ -62,12 +67,8 @@ public class RenameFileCommand extends Command {
                 fileToRename.getEncryptedAt(),
                 fileToRename.getModifiedAt()
         );
-        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
-            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
-        }
-        if (model.hasFile(newFile)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FILE);
-        }
+        checkIfTargetFileExists(newFile);
+        checkIfTargetFileDuplicated(newFile, model);
         boolean success = new File(fileToRename.getEncryptedPath()).renameTo(
                 new File(newFile.getEncryptedPath()));
         if (!success) {
@@ -75,7 +76,7 @@ public class RenameFileCommand extends Command {
         }
         model.setFile(fileToRename, newFile);
 
-        return new CommandResult(String.format(MESSAGE_RENAME_FILE_SUCCESS, fileToRename));
+        return new CommandResult(String.format(MESSAGE_RENAME_FILE_SUCCESS, newFile));
     }
 
     @Override

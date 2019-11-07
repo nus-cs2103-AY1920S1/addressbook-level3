@@ -112,11 +112,7 @@ public class StringUtil {
      */
     public static String passwordToAsterix(String password) {
         int len = password.length();
-        if (len <= 3) {
-            return asterix(len);
-        } else {
-            return password.substring(0, 2) + asterix(len - 2);
-        }
+        return asterix(len);
     }
 
     /**

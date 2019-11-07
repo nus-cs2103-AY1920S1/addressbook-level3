@@ -21,7 +21,7 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Password>
     @Override
     public boolean test(Password password) {
         return keywords.stream().anyMatch(keyword ->
-                StringUtil.containsStringIgnoreCase(password.getDescription().value, keyword));
+                StringUtil.containsStringIgnoreCase(password.getPasswordDescription().value, keyword));
     }
 
     @Override

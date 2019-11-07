@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,7 +26,10 @@ public class AddPasswordCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]";
 
     public static final String MESSAGE_SUCCESS = "New password added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";
+    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book.\n"
+            + "Please ensure that your password adhere to the following constraints:\n"
+            + "1) Should not have the same description and username as those already existing in the password book\n"
+            + "2) Description and username are case-insensitive.";
 
     private final Password toAddPassword;
 
@@ -43,6 +47,7 @@ public class AddPasswordCommand extends Command {
         }
 
         model.addPassword(toAddPassword);
+        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddPassword));
     }
 

@@ -24,7 +24,7 @@ public class PasswordCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label description;
+    private Label passwordDescription;
     @FXML
     private Label username;
     @FXML
@@ -34,8 +34,8 @@ public class PasswordCard extends UiPart<Region> {
         super(FXML);
         this.password = password;
         id.setText(displayedIndex + ". ");
-        description.setText(password.getDescription().value);
-        username.setText(password.getUsername().value);
+        passwordDescription.setText(password.getPasswordDescription().value);
+        username.setText(password.getUsername().toString());
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

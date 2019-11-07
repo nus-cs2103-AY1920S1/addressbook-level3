@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_TAG_FIELDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddPasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand.EditPasswordDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,7 +40,7 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
     public EditPasswordCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME,
+                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_WEBSITE,
                         PREFIX_PASSWORDVALUE, PREFIX_TAG);
 
         Index index;
@@ -48,9 +52,20 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
                     EditPasswordCommand.MESSAGE_USAGE), pe);
         }
 
+        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
+                || argMultimap.getAllValues(PREFIX_USERNAME).size() > 1
+                || argMultimap.getAllValues(PREFIX_PASSWORDVALUE).size() > 1
+                || argMultimap.getAllValues(PREFIX_WEBSITE).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AddPasswordCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.getAllValues(PREFIX_TAG).size() > 5) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_TAG_FIELDS, EditPasswordCommand.MESSAGE_USAGE));
+        }
+
         EditPasswordDescriptor editPasswordDescriptor = new EditPasswordDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPasswordDescriptor.setDescription(
+            editPasswordDescriptor.setPasswordDescription(
                     ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_USERNAME).isPresent()) {
@@ -61,6 +76,12 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
             editPasswordDescriptor.setPasswordValue(
                     ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_WEBSITE).isPresent()) {
+            editPasswordDescriptor.setWebsite(
+                    ParserUtil.parseWebsite(argMultimap.getValue(PREFIX_WEBSITE).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPasswordDescriptor::setTags);
 
         if (!editPasswordDescriptor.isAnyFieldEdited()) {

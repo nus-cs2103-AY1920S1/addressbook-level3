@@ -10,8 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.DictionaryException;
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -26,7 +26,7 @@ class DictionaryAnalyserTest {
     void getAllMatches_passwordWithoutLeet() {
         try {
             Dictionary d = Dictionary.build("passwords.txt");
-            Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+            Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                     new PasswordValue("qwerty"), new PasswordModifiedAt(new Date()),
                     new Website("NIL"), getTagSet("SocialMedia"));
             DictionaryAnalyser a = new DictionaryAnalyser(d);
@@ -53,7 +53,7 @@ class DictionaryAnalyserTest {
     void getAllMatches_passwordWithLeet() {
         try {
             Dictionary d = Dictionary.build("passwords.txt");
-            Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+            Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                     new PasswordValue("qw3r+y"), new PasswordModifiedAt(new Date()),
                     new Website("NIL"), getTagSet("SocialMedia"));
             DictionaryAnalyser a = new DictionaryAnalyser(d);

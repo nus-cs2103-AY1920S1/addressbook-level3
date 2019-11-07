@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.index.Index;
@@ -20,6 +23,8 @@ import seedu.address.model.password.Password;
 public class ReadDisplayPassword extends UiPart<Region> {
     private static final String FXML = "ReadDisplayPassword.fxml";
     private Logic logic;
+    private Password password;
+    private boolean isViewable;
 
     @FXML
     private Label description;
@@ -37,13 +42,22 @@ public class ReadDisplayPassword extends UiPart<Region> {
     private Label status;
     @FXML
     private Label statusLabel;
+    @FXML
+    private ImageView imageViewer;
+    @FXML
+    private Button button1;
 
     public ReadDisplayPassword() {
         super(FXML);
+        isViewable = false;
     }
 
     public void setLogic(Logic logic) {
         this.logic = logic;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
     }
 
     /**
@@ -52,7 +66,8 @@ public class ReadDisplayPassword extends UiPart<Region> {
      */
     public void setFeedbackToUser(Password password, Index index) {
         requireNonNull(password);
-        description.setText(index.getOneBased() + ". " + password.getDescription().value);
+        setPassword(password);
+        description.setText(index.getOneBased() + ". " + password.getPasswordDescription().value);
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().toString());
         lastModified.setText(password.getPasswordModifiedAt().toString());
@@ -60,6 +75,9 @@ public class ReadDisplayPassword extends UiPart<Region> {
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        Image image = new Image(getClass().getResourceAsStream("/images/TogglePasswordIcon.png"));
+        imageViewer.setImage(image);
 
         ExpiryMode exp = password.getExpiryMode();
         switch (exp) {
@@ -76,6 +94,18 @@ public class ReadDisplayPassword extends UiPart<Region> {
         default:
             status.setText("Error");
         }
+    }
 
+    /**
+     * Toggles password value from encrypted to decrypted.
+     */
+    @FXML
+    private void togglePassword() {
+        if (!isViewable) {
+            passwordValue.setText(password.getNonEncryptedPasswordValue());
+        } else {
+            passwordValue.setText(password.getPasswordValue().toString());
+        }
+        isViewable = !isViewable;
     }
 }

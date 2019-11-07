@@ -25,7 +25,7 @@ public class SampleDataCardUtil {
             new Card(new Description("OCBC Debit"), new CardNumber("5140284759384729"), new Cvc("633"),
                     new ExpiryDate("03/23"), getTagSet("waterbills")),
             new Card(new Description("Maybank Credit"), new CardNumber("5348375928375918"), new Cvc("192"),
-                    new ExpiryDate("02/19"), getTagSet("electricitybills")),
+                    new ExpiryDate("11/18"), getTagSet("electricitybills")),
             new Card(new Description("HSBC Debit"), new CardNumber("5358285730295837"), new Cvc("923"),
                     new ExpiryDate("11/20"), getTagSet("rent")),
             new Card(new Description("HSBC Credit"), new CardNumber("4137281958374028"), new Cvc("294"),

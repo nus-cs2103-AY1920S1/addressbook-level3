@@ -28,7 +28,7 @@ public class EncryptFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Encrypts a file in user's file system using the specified file path.\n"
             + "Parameters: FILEPATH [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " /Desktop/Test.txt t/personal";
+            + "Example: " + COMMAND_WORD + " /Users/YOUR_USERNAME/Desktop/Test.txt t/personal";
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
     public static final String MESSAGE_FAILURE = "File encryption failed.";
@@ -40,7 +40,7 @@ public class EncryptFileCommand extends Command {
     public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
     public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
             + "Use add command to add encrypted files to the list.";
-    public static final String MESSAGE_TARGET_FILE_EXISTS = "File decryption failed. "
+    public static final String MESSAGE_TARGET_FILE_EXISTS = "File encryption failed. "
             + "Target file already exists.\nRename %1$s and try again.";
 
     private final EncryptedFile toAdd;

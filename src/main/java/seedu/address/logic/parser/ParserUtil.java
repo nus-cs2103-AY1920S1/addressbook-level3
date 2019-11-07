@@ -21,6 +21,7 @@ import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.Title;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.Website;
@@ -164,8 +165,11 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
         requireNonNull(expiryDate);
         String trimmedExpiryDate = expiryDate.trim();
-        if (!ExpiryDate.isValidExpiryDate(trimmedExpiryDate)) {
+        if (!ExpiryDate.isValidDate(trimmedExpiryDate)) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        if (!ExpiryDate.isValidExpiryDate(trimmedExpiryDate)) {
+            throw new ParseException(ExpiryDate.PAST_EXPIRY_ERROR);
         }
         return new ExpiryDate(trimmedExpiryDate);
     }
@@ -289,14 +293,15 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static seedu.address.model.password.Description parsePasswordDescription(String description)
+    public static PasswordDescription parsePasswordDescription(String description)
             throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        if (!PasswordDescription.isValidDescription(trimmedDescription)) {
+            throw new ParseException(
+            PasswordDescription.MESSAGE_CONSTRAINTS + PasswordDescription.ADDITIONAL_INFORMATION);
         }
-        return new seedu.address.model.password.Description(trimmedDescription);
+        return new PasswordDescription(trimmedDescription);
     }
 
     /**

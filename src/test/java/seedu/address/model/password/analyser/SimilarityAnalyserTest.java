@@ -11,8 +11,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -22,19 +22,19 @@ import seedu.address.model.password.analyser.match.SimilarityMatch;
 class SimilarityAnalyserTest {
     @Test
     void getAllMatches_withoutSimilarPasswords() {
-        Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("password"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p2 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p2 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("asd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p3 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p3 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("fgh"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p4 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p4 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("jkl"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
@@ -50,19 +50,19 @@ class SimilarityAnalyserTest {
 
     @Test
     void getAllMatches_withSimilarPasswords() {
-        Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("password"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p2 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p2 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("p@ssw0rd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p3 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p3 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("password123"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
-        Password p4 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p4 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("ppaassword"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 

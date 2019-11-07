@@ -1,5 +1,7 @@
 package seedu.address.model.password;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Date;
 
 import seedu.address.model.util.DateUtil;
@@ -17,6 +19,7 @@ public class PasswordExpireAt {
      * @param expireAt the date and time the password will expire at.
      */
     public PasswordExpireAt(Date expireAt) {
+        requireNonNull(expireAt);
         value = expireAt;
     }
 

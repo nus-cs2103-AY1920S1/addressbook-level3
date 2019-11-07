@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -46,7 +46,8 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
                 || argMultimap.getAllValues(PREFIX_WEBSITE).size() > 1) {
             throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AddPasswordCommand.MESSAGE_USAGE));
         }
-        Description description = ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        PasswordDescription passwordDescription =
+                ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         PasswordValue passwordValue = ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get());
         PasswordModifiedAt passwordModifiedAt = new PasswordModifiedAt(new Date());
@@ -57,7 +58,8 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
         }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Password password = new Password(description, username, passwordValue, passwordModifiedAt, website, tagList);
+        Password password =
+                new Password(passwordDescription, username, passwordValue, passwordModifiedAt, website, tagList);
         return new AddPasswordCommand(password);
     }
 

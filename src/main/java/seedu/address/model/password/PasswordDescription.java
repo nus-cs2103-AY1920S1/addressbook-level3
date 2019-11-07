@@ -6,21 +6,26 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Password's description in the password book.
  */
-public class Description {
+public class PasswordDescription {
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Descriptions should only contain alphabets, numbers and spaces"
+            + " and adhere to the following constrains: \n"
+            + "1) Be between 2 characters to 25 characters long\n";
+    public static final String ADDITIONAL_INFORMATION = "Description will automatically be changed to UPPER-CASE";
+
     /**
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    private static final String VALIDATION_REGEX = "^(?![ ])(?!.*[ ]{2})(([a-zA-Z0-9 ]){2,25})(?<![ ])$";
 
     public final String value;
 
-    public Description(String description) {
+    public PasswordDescription(String description) {
         requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
-        value = description;
+        checkArgument(isValidDescription(description), (
+                MESSAGE_CONSTRAINTS + ADDITIONAL_INFORMATION));
+        value = description.toUpperCase();
     }
 
     /**
@@ -38,8 +43,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && value.equals(((Description) other).value)); // state check
+                || (other instanceof PasswordDescription // instanceof handles nulls
+                && value.toUpperCase().equals(((PasswordDescription) other).value.toUpperCase())); // state check
     }
 
     @Override

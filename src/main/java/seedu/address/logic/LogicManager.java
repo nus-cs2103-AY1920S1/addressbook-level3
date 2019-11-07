@@ -177,7 +177,7 @@ public class LogicManager implements Logic {
         return model.getFilteredCardList()
                 .stream()
                 .map(ExpiringCard::of)
-                .filter(card -> card.getMonthToExp() > 0 && card.getMonthToExp() <= 2)
+                .filter(card -> card.getMonthToExp() >= 0 && card.getMonthToExp() <= 2)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
