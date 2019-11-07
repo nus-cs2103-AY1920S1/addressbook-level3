@@ -10,13 +10,14 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import calofit.commons.exceptions.IllegalValueException;
+import calofit.model.dish.Calorie;
 import calofit.model.dish.Name;
 import calofit.testutil.Assert;
 import calofit.testutil.TypicalDishes;
 
 public class JsonAdaptedDishTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_CALORIE = "-10";
+    private static final int INVALID_CALORIE = -10;
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = TypicalDishes.MUSHROOM_SOUP.getName().toString();
@@ -43,6 +44,14 @@ public class JsonAdaptedDishTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedDish dish = new JsonAdaptedDish(null, VALID_CALORIE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, dish::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidCalorie_throwsIllegalValueException() {
+        JsonAdaptedDish dish =
+                new JsonAdaptedDish(VALID_NAME, INVALID_CALORIE, VALID_TAGS);
+        String expectedMessage = Calorie.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, dish::toModelType);
     }
 
