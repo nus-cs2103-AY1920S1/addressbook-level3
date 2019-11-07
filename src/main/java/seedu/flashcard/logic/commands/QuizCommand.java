@@ -8,7 +8,6 @@ import java.util.List;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
-import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 
