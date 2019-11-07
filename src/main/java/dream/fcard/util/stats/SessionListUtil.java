@@ -72,19 +72,37 @@ public class SessionListUtil {
     }
 
     /**
-     * Given a Session, return the String representing the percentage of correct answers.
-     * If the Session is not a TestSession or does not have a score, return 0.
+     * Converts a double representing the percentage of correct answers to a String with "%" appended.
+     * @param score The score to be converted, as a double.
+     * @return The score as a String, representing the percentage of correct answers.
      */
-    public static String getScoreAsPercentageString(Session session) {
+    public static String convertScoreDoubleToString(double score) {
+        return score + ("%");
+    }
+
+    /**
+     * Given a Session, check if it is a TestSession, and whether it has a score.
+     * Returns false if the Session is not a TestSession, or if the Session is a TestSession but
+     * does not have a score.
+     */
+    public static boolean isTestSessionAndHasScore(Session session) {
         if (!session.isTestSession()) {
-            return "0";
+            return false;
         }
         TestSession testSession = (TestSession) session;
-        if (!testSession.hasScore()) {
-            return "0";
+        return testSession.hasScore();
+    }
+
+    /**
+     * Given a Session, return the String representing the percentage of correct answers.
+     * If the Session is not a TestSession or does not have a score, return 0.0.
+     */
+    public static double getScoreAsPercentageDouble(Session session) {
+        if (!SessionListUtil.isTestSessionAndHasScore(session)) {
+            return 0.0;
         }
-        String scoreAsPercentage = SessionListUtil.getScoreAsPercentageString(testSession.getScore());
-        return scoreAsPercentage;
+        String score = ((TestSession) session).getScore();
+        return SessionListUtil.getScoreAsPercentageDouble(score);
     }
 
     /**
@@ -98,15 +116,10 @@ public class SessionListUtil {
         double sumOfScores = 0.0;
         int numOfTestSessionsWithScore = 0;
         for (Session session : sessionArrayList) {
-            if (!session.isTestSession()) {
+            if (!SessionListUtil.isTestSessionAndHasScore(session)) {
                 continue;
             }
-            TestSession testSession = (TestSession) session;
-            if (!testSession.hasScore()) {
-                continue;
-            }
-            sumOfScores += Double.parseDouble(
-                SessionListUtil.getScoreAsPercentageString(testSession.getScore()));
+            sumOfScores += getScoreAsPercentageDouble(session);
             numOfTestSessionsWithScore++;
         }
 
@@ -115,7 +128,7 @@ public class SessionListUtil {
         }
 
         double averageScoreAsDouble = sumOfScores / numOfTestSessionsWithScore;
-        String averageScoreAsString = Double.toString(averageScoreAsDouble);
+        String averageScoreAsString = convertScoreDoubleToString(averageScoreAsDouble);
         return averageScoreAsString;
     }
 }

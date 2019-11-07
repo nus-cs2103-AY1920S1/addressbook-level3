@@ -2,6 +2,7 @@
 package dream.fcard.util.stats;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -114,6 +115,15 @@ public class SessionListUtilTest {
         String score = "17/23";
         String expectedString = "73.91%"; // 17/23 = 0.73913...
         String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    @Test
+    void convertScoreDoubleToString_testOne() {
+        double score = 73.91;
+        String expectedString = "73.91%";
+        String obtainedString = SessionListUtil.convertScoreDoubleToString(score);
 
         assertEquals(expectedString, obtainedString);
     }
