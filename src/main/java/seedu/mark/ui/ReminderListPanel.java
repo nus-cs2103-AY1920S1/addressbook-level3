@@ -10,12 +10,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.JsonMarkStorage;
@@ -30,6 +32,12 @@ public class ReminderListPanel extends UiPart<Region> {
 
     @FXML
     private VBox reminderList;
+    @FXML
+    private VBox panel;
+    @FXML
+    private Label title;
+    @FXML
+    private ScrollPane scrollPane;
     private ObservableList<Reminder> reminders;
     private ObservableList<Node> reminderItems;
 
@@ -50,16 +58,26 @@ public class ReminderListPanel extends UiPart<Region> {
                 reminderList.getChildren().setAll(reminderItems);
             }
         });
-
+        title.setStyle("-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"
+                );
+        title.setMinWidth(Region.USE_PREF_SIZE);
+        scrollPane.setStyle("-fx-border-color: #383838 -fx-cyan-line-color #07847A #383838; " +
+                "-fx-background-color: #1d1d1d;");
         reminderList.getChildren().addAll(reminderItems);
 
     }
+
+
 
     public void setReminderListItems() {
         reminderItems.clear();
 
         for (int i = 0; i < reminders.size(); i++) {
-            Label reminder = new Label(reminders.get(i).toString());
+            String index = String.format("%d. ", i + 1);
+            Label reminder = new Label(index + reminders.get(i).toString());
+            reminder.setStyle("-fx-text-fill: white; -fx-padding: 2px;");
+            reminder.setFont(new Font("Arial", 18));
+            reminder.setMinWidth(Region.USE_PREF_SIZE);
             reminderItems.add(reminder);
         }
         logger.info("run setting of reminderListItems");
