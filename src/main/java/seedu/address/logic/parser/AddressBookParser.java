@@ -134,7 +134,7 @@ public class AddressBookParser {
      */
     public Command parseCommand(String userInput, boolean isSystemInput) throws ParseException {
         if (isMerging) {
-            return parseMerge(userInput);
+            return parseMerge(userInput, isSystemInput);
         }
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -320,10 +320,44 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseMerge(String userInput) throws ParseException {
+    public Command parseMerge(String userInput, boolean isSystemInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         String commandWord = userInput.trim();
+        String arguments = "";
+        if (matcher.matches()) {
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+        }
         switch (commandWord) {
-
+        case (ExpandPersonCommand.COMMAND_WORD):
+            if (isSystemInput) {
+                assert (matcher.matches());
+                return new ExpandPersonCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+        case (ExpandPolicyCommand.COMMAND_WORD):
+            if (isSystemInput) {
+                assert (matcher.matches());
+                return new ExpandPolicyCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+        case (DisplayCommand.COMMAND_WORD):
+            if (isSystemInput) {
+                assert (matcher.matches());
+                return new DisplayCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+        case (HistoryCommand.COMMAND_WORD):
+            if (isSystemInput) {
+                assert (matcher.matches());
+                handleTrailingArguments(arguments, HistoryCommand.COMMAND_WORD);
+                return new HistoryCommand();
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         case (MergeConfirmedCommand.COMMAND_WORD):
         case (MergeConfirmedCommand.DEFAULT_COMMAND_WORD):
             if (mergeType.equals(MERGE_PERSON)) {
