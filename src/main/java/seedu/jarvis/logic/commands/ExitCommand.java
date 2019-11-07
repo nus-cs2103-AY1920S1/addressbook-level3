@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Jarvis as requested ...";
 
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone.";
 

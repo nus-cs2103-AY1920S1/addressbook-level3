@@ -87,10 +87,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s
-     * address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from the {@code storage} and
+     * {@code userPrefs}. <br>
+     * Sample data is used instead if {@code storage}'s data for each respective component is not
+     * found, or empty data will be used instead if errors occur when reading from {@code storage}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         HistoryManager historyManager = readHistoryManager(storage);
@@ -247,7 +247,8 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            // TODO check if this is a proper logger message
+            logger.warning("Problem while reading from the file. Will be starting with an empty Jarvis.");
             initializedPrefs = new UserPrefs();
         }
 
@@ -269,7 +270,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Jarvis ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
