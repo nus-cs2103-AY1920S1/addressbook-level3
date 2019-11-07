@@ -12,7 +12,6 @@ import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
-import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalCsv;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;

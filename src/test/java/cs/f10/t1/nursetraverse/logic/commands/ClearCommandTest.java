@@ -4,7 +4,6 @@ import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.assertComma
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;

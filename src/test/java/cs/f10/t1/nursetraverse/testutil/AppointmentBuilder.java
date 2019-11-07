@@ -1,35 +1,21 @@
 package cs.f10.t1.nursetraverse.testutil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
-import cs.f10.t1.nursetraverse.model.patient.Address;
-import cs.f10.t1.nursetraverse.model.patient.Email;
-import cs.f10.t1.nursetraverse.model.patient.Name;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
-import cs.f10.t1.nursetraverse.model.patient.Phone;
-import cs.f10.t1.nursetraverse.model.tag.Tag;
-import cs.f10.t1.nursetraverse.model.util.SampleDataUtil;
-import cs.f10.t1.nursetraverse.model.visit.Visit;
-import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
 
 /**
  * A utility class to help with building Appointment objects.
  */
 public class AppointmentBuilder {
 
-    private static List<Patient> typicalPatients = TypicalPatients.getTypicalPatients();
-    private static Long zero = Long.parseLong("0");
+    public static List<Patient> typicalPatients = TypicalPatients.getTypicalPatients();
+    public static Long zero = Long.parseLong("0");
 
     public static final String DEFAULT_START_DATE_TIME = "01-12-2019 1000";
     public static final String DEFAULT_END_DATE_TIME = "01-12-2019 1200";

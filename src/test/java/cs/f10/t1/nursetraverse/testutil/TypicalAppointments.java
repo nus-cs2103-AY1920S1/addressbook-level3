@@ -1,23 +1,10 @@
 package cs.f10.t1.nursetraverse.testutil;
 
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.VALID_VISIT_TODO;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cs.f10.t1.nursetraverse.model.AppointmentBook;
-import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
