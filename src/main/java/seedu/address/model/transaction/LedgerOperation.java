@@ -22,5 +22,5 @@ public interface LedgerOperation {
 
     Description getDescription();
 
-    Optional<List<Integer>> getShares();
+    List<Integer> getShares();
 }

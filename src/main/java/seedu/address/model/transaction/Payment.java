@@ -6,6 +6,10 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Abstracted class to encourage code reuse in concrete classes
  * {@see LendMoney}
@@ -47,5 +51,10 @@ public abstract class Payment extends Transaction implements LedgerOperation {
         UniquePersonList list = new UniquePersonList();
         list.add(person);
         return list;
+    }
+
+    @Override
+    public List<Integer> getShares() {
+        return IntStream.of(1).boxed().collect(Collectors.toList());
     }
 }

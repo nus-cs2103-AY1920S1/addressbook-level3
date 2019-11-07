@@ -101,7 +101,7 @@ public class Split extends Transaction implements LedgerOperation {
 
     @Override
     public Amount getAmount() {
-        return amount;
+        return amount.makeNegative();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Split extends Transaction implements LedgerOperation {
     }
 
     @Override
-    public Optional<List<Integer>> getShares() {
-        return Optional.of(shares);
+    public List<Integer> getShares() {
+        return shares;
     }
 }

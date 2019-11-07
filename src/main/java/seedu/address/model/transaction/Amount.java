@@ -155,6 +155,20 @@ public class Amount implements Comparable<Amount> {
         return new Amount(newAmount);
     }
 
+    /**
+     * Make amount positive.
+     *
+     * @param
+     * @return positive amount
+     */
+    public Amount makePositive() {
+        if (amount >= 0) {
+            return new Amount(this.amount);
+        }
+        final int newAmount = this.amount * -1;
+        return new Amount(newAmount);
+    }
+    
     public boolean isNegative() {
         return this.amount < 0;
     }

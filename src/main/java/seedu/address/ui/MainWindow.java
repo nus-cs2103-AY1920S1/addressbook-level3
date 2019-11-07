@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
     private LedgerListPanel ledgerListPanel;
+    private PersonListPanel peopleListPanel;
     private ProjectionListPanel projectionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -142,13 +143,16 @@ public class MainWindow extends UiPart<Stage> {
         budgetListPanel = new BudgetListPanel(budgetList);
 
         ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
+        ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
+
         ObservableList<Person> people = logic.getPeopleInLedger();
-        ledgerListPanel = new LedgerListPanel(ledgerOperationsList, people);
+        peopleListPanel = new PersonListPanel(people);
 
         ObservableList<Projection> projectionsList = logic.getProjectionList();
         projectionListPanel = new ProjectionListPanel(projectionsList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel);
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel,
+                peopleListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
