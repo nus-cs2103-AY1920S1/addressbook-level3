@@ -9,12 +9,11 @@ import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParser;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class DisplayEndState extends EndState {
 

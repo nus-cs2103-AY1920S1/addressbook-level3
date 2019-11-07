@@ -10,8 +10,7 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.interactive.parser.state.deletemachine.DeleteEndState;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.parser.exceptions.ParseException;
 
 public class PdfIndexState extends State {

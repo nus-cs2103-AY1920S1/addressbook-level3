@@ -1,6 +1,7 @@
 package com.typee.logic.interactive.parser.state;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
+import com.typee.logic.interactive.parser.state.exceptions.PenultimateStateTransitionException;
 
 public abstract class PenultimateState extends State {
 

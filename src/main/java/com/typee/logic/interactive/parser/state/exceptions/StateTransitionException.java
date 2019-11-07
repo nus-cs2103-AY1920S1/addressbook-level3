@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.exceptions;
 
 public class StateTransitionException extends Exception {
 

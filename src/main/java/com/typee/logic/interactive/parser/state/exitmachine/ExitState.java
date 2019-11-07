@@ -4,10 +4,9 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.EndState;
-import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.Prefix;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class ExitState extends EndState {
 

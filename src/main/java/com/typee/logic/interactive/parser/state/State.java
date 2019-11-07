@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public abstract class State {
 

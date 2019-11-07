@@ -1,10 +1,5 @@
 package com.typee.logic.interactive.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.CalendarCommand;
@@ -24,11 +19,10 @@ import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
-import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.OptionalState;
-import com.typee.logic.interactive.parser.state.PenultimateStateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.PenultimateStateTransitionException;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
 import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
@@ -44,7 +38,6 @@ import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.ui.Tab;
 
 public class Parser implements InteractiveParser {
 

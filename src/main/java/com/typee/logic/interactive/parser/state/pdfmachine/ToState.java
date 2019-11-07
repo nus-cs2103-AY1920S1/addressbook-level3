@@ -1,6 +1,5 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
-import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_FROM;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_TO;
 import static java.util.Objects.requireNonNull;
 
@@ -10,7 +9,7 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.person.Name;
 
 public class ToState extends PenultimateState {

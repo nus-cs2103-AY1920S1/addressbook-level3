@@ -9,7 +9,7 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.Location;
 
 public class FindLocationState extends State implements OptionalState {
