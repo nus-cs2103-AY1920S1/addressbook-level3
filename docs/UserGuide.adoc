@@ -204,7 +204,7 @@ Format: `end`
 ****
 * Used to end a quiz if the user wants to stop the quiz without answering the flashcard
 ****
-
+// tag::stat[]
 === Display current progress
 Shows the current progress of a set of flashcards. +
 Format: `stats [t/TAG]...`
@@ -218,6 +218,8 @@ Format: `stats [t/TAG]...`
 Examples:
 
 * `stats t/biology` : Displays the progress of a the flashcards tagged with Biology.
+
+// end::stat[]
 
 === Delete a flashcard
 Deletes the specified flashcard from the list of all flashcards. +
