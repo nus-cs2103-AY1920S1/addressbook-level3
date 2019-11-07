@@ -12,7 +12,7 @@ in particular the `dataformat`, `databind` and `datatype` modules. Technical kno
 
 However, understanding `Jackson` 's `annotations` will be needed in order to extend export and import
 functionality to cover new data fields or classes implemented in the future. They are explained
-link:https://github.com/FasterXML/jackson-annotations/wiki[here].
+link:http://fasterxml.github.io/jackson-annotations/javadoc/2.7/[here].
 
 ==== Csv Processing
 

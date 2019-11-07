@@ -9,6 +9,7 @@ import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
+import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -26,8 +27,10 @@ public class ImportMergeCommand extends MutatorCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports data from a .csv file in /imports.\n"
             + "All patients in the .csv will be imported and merged with existing data.\n"
+            + "Importing visit and appointment data is currently not supported.\n "
+            + "File name cannot be blank and can only contain alphanumerics, underscores and hyphens.\n"
             + "File name provided must exist and be in .csv format\n"
-            + "Parameters: [" + PREFIX_FILENAME + "FILENAME]\n"
+            + "Parameters: " + PREFIX_FILENAME + "FILENAME\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "new_patients_data";
 
     public static final String MESSAGE_SUCCESS = "Import success!";
@@ -49,12 +52,13 @@ public class ImportMergeCommand extends MutatorCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        String pathString = ImportExportPaths.IMPORT_FOLDER + "/" + importFileName + ".csv";
         List<Patient> importedPatients = new ArrayList<>();
 
         try {
-            importedPatients.addAll(CsvUtil.readPatientsFromCsv(importFileName));
+            importedPatients.addAll(CsvUtil.readPatientsFromCsv(pathString));
         } catch (ImportingException e) {
-            throw new CommandException(String.format(MESSAGE_FILE_DOES_NOT_EXIST, importFileName), e);
+            throw new CommandException(String.format(MESSAGE_FILE_DOES_NOT_EXIST, importFileName));
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
@@ -64,7 +68,7 @@ public class ImportMergeCommand extends MutatorCommand {
         }
 
         // Check that the operation will not cause duplicates
-        if (!CsvUtil.importsAreUnique(importedPatients)
+        if (CsvUtil.importsContainDupes(importedPatients)
             || model.hasAnyPatientInGivenList(importedPatients)) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS);
         }
@@ -77,5 +81,12 @@ public class ImportMergeCommand extends MutatorCommand {
         model.addPatients(importedPatients);
 
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        return this == that
+                || (that instanceof ImportMergeCommand
+                    && this.importFileName.equals(((ImportMergeCommand) that).importFileName));
     }
 }
