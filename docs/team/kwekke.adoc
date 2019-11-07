@@ -35,7 +35,7 @@ The implementation too was challenging as it required multiple new predicate and
 * *Minor enhancement 2*: Allowed the command box to be automatically focused on upon opening the application so that user does not need to click on the box to start typing.
 
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kwekke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
 
@@ -46,6 +46,8 @@ The implementation too was challenging as it required multiple new predicate and
 *** Refactored the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/121[#121]
 ** Community:
 *** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/114[#114]
+*** Reported bugs and suggestions for other projects (https://github.com/AY1920S1-CS2103T-F12-1/main/issues/199[#199], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/198[#198],
+ https://github.com/AY1920S1-CS2103T-F12-1/main/issues/196[#196], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/190[#190], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/185[#185])
 
 == Contributions to the User Guide
 
