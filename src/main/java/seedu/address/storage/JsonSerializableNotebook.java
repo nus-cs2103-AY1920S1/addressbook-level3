@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.classroom.Classroom;
@@ -75,11 +76,15 @@ class JsonSerializableNotebook {
             notebook.addClassroom(classroom);
         }
         for (JsonAdaptedLesson jsonAdaptedLesson : lessons) {
-            Lesson lesson = jsonAdaptedLesson.toModelType();
-            if (notebook.hasLesson(lesson)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_LESSON);
+            try {
+                Lesson lesson = jsonAdaptedLesson.toModelType();
+                if (notebook.hasLesson(lesson)) {
+                    throw new IllegalValueException(MESSAGE_DUPLICATE_LESSON);
+                }
+                notebook.addLesson(lesson);
+            } catch (ParseException pe) {
+                continue;
             }
-            notebook.addLesson(lesson);
         }
         return notebook;
     }

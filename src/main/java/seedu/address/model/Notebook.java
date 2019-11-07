@@ -70,6 +70,10 @@ public class Notebook implements ReadOnlyNotebook {
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
+        ObservableList<Lesson> newLessonList = newData.getLessonList();
+        for (int i = 0; i < newLessonList.size(); i++) {
+            lessons.add(newLessonList.get(i));
+        }
     }
 
     //=========== Notebook ================================================================================
@@ -225,7 +229,7 @@ public class Notebook implements ReadOnlyNotebook {
         int day = p.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.add(p);
-        //lessons.add(p);
+        lessons.add(p);
     }
 
     /**
@@ -246,6 +250,7 @@ public class Notebook implements ReadOnlyNotebook {
         int day = key.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.remove(key);
+        lessons.remove(key);
     }
 
 

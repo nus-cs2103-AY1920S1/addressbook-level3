@@ -131,6 +131,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        listenToLesson();
+
         helpWindow = new HelpWindow();
     }
 
@@ -341,7 +343,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             commandText = uploadCommandCheck(commandText);
-            listenToLesson();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -391,12 +392,31 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * schedules a lesson.
+     * @param lesson Lesson object.
+     */
+    public void createSchedule(Lesson lesson) {
+        Scheduler scheduler = new Scheduler(lesson);
+        scheduler.scheduleLesson(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("creating countdown");
+                countDownAlert("You have a lesson", lesson.toString());
+            }
+        });
+    }
+
+    /**
      * method to add a listener to lesson observable list.
      * whenever a lesson is added to the list, a scheduler is created.
      */
     public void listenToLesson() {
         logger.info("listening to lesson");
         ObservableList<Lesson> lessons = logic.getFilteredLessonList();
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = lessons.get(i);
+            createSchedule(lesson);
+        }
         lessons.addListener(new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
@@ -404,14 +424,7 @@ public class MainWindow extends UiPart<Stage> {
                     if (c.wasAdded()) {
                         for (Object addedItem : c.getAddedSubList()) {
                             logger.info("creating scheduler");
-                            Scheduler scheduler = new Scheduler((Lesson) addedItem);
-                            scheduler.scheduleLesson(new Runnable() {
-                                @Override
-                                public void run() {
-                                    logger.info("creating countdown");
-                                    countDownAlert("You have a lesson", addedItem.toString());
-                                }
-                            });
+                            createSchedule((Lesson) addedItem);
                         }
                     }
                 }
