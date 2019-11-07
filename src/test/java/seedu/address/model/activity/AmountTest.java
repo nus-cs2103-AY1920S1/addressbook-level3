@@ -16,8 +16,10 @@ public class AmountTest {
     @Test
     public void isValidAmount() {
         // invalid amounts
+        assertFalse(Amount.isValidAmount(0)); // Not positive
         assertFalse(Amount.isValidAmount(-1)); // Negative int
         assertFalse(Amount.isValidAmount(-0.01)); // Negative double
+        assertFalse(Amount.isValidAmount(0.0049)); // Rounds to 0
         assertFalse(Amount.isValidAmount(1000000.01)); // More than 1 mil
         assertFalse(Amount.isValidAmount(1000000.005)); // Rounds to more than 1 mil
 

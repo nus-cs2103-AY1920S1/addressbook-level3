@@ -34,7 +34,7 @@ public class Amount {
      */
     public static boolean isValidAmount(double test) {
         double d = Math.round(test * 100) / 100.0;
-        return d >= 0 && d <= MAX;
+        return d > 0 && d <= MAX;
     }
 
     @Override
