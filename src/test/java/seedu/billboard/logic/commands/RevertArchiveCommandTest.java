@@ -9,7 +9,10 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +24,9 @@ import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 public class RevertArchiveCommandTest {
     private Model model;
@@ -54,12 +59,16 @@ public class RevertArchiveCommandTest {
 
     @Test
     public void execute_validExpenseAndIndex_success() {
-        Model expectedModel = new ModelManager(new Billboard(model.getCombinedBillboard()), new UserPrefs());
+        Expense newLuxuryExpense = new ExpenseBuilder().withName("Airpod Pro").withArchiveName("luxury").build();
+        model.addArchiveExpense("luxury", newLuxuryExpense);
+        Model expectedModel = new ModelManager(getTypicalBillboardWithArchiveExpenses(), new UserPrefs());
+        expectedModel.addArchiveExpense("luxury", newLuxuryExpense);
         Expense expenseToUnarchive = expectedModel.getFilteredArchiveExpenses("luxury")
-                .get(INDEX_FIRST_EXPENSE.getZeroBased());
+                .get(INDEX_THIRD_EXPENSE.getZeroBased());
         expectedModel.deleteArchiveExpense("luxury", expenseToUnarchive);
         expectedModel.addExpense(expenseToUnarchive);
-        RevertArchiveCommand revertArchiveCommand = new RevertArchiveCommand("luxury", INDEX_FIRST_EXPENSE);
+        expenseToUnarchive.archiveTo("");
+        RevertArchiveCommand revertArchiveCommand = new RevertArchiveCommand("luxury", INDEX_THIRD_EXPENSE);
         String expectedMessage = String.format(RevertArchiveCommand.MESSAGE_SUCCESS,
                 expenseToUnarchive.getName(), "luxury");
 
@@ -68,23 +77,23 @@ public class RevertArchiveCommandTest {
 
     @Test
     public void execute_revertLastExpenseInArchive_success() {
-        // So that the "luxury" archive in model will have only one expense
-        Expense intialRemoveExpense = model.getFilteredArchiveExpenses("luxury")
-                .get(INDEX_FIRST_EXPENSE.getZeroBased());
-        model.deleteArchiveExpense("luxury", intialRemoveExpense);
+        // Adding an archive in model that has only one expense
+        Expense archiveTaxes = new ExpenseBuilder().withArchiveName(VALID_ARCHIVE_TAXES).build();
+        model.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>(Arrays.asList(archiveTaxes))));
 
         Model expectedModel = new ModelManager(new Billboard(model.getCombinedBillboard()), new UserPrefs());
-        Expense expenseToUnarchive = expectedModel.getFilteredArchiveExpenses("luxury")
+        Expense expenseToUnarchive = expectedModel.getFilteredArchiveExpenses(VALID_ARCHIVE_TAXES)
                 .get(INDEX_FIRST_EXPENSE.getZeroBased());
-        expectedModel.deleteArchiveExpense("luxury", expenseToUnarchive);
-        expectedModel.deleteArchive("luxury");
+        expectedModel.deleteArchiveExpense(VALID_ARCHIVE_TAXES, expenseToUnarchive);
+        expectedModel.deleteArchive(VALID_ARCHIVE_TAXES);
         expectedModel.addExpense(expenseToUnarchive);
+        expenseToUnarchive.archiveTo("");
 
-        RevertArchiveCommand revertArchiveCommand = new RevertArchiveCommand("luxury", INDEX_FIRST_EXPENSE);
+        RevertArchiveCommand revertArchiveCommand = new RevertArchiveCommand(VALID_ARCHIVE_TAXES, INDEX_FIRST_EXPENSE);
         String expectedMessage = String.format(RevertArchiveCommand.MESSAGE_SUCCESS,
-                expenseToUnarchive.getName(), "luxury");
+                expenseToUnarchive.getName(), VALID_ARCHIVE_TAXES);
         expectedMessage += "\n" + String.format(RevertArchiveCommand.MESSAGE_EMPTY_ARCHIVE_AFTER_REVERT_EXPENSE,
-                "luxury");
+                VALID_ARCHIVE_TAXES);
 
         assertCommandSuccess(revertArchiveCommand, model, expectedMessage, expectedModel);
     }
@@ -127,4 +136,5 @@ public class RevertArchiveCommandTest {
         // different tag names -> returns false
         assertFalse(standardCommand.equals(new RevertArchiveCommand("luxury", INDEX_FIRST_EXPENSE)));
     }
+
 }

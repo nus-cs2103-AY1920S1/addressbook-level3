@@ -62,6 +62,7 @@ public class RevertArchiveCommand extends ArchiveCommand {
         Expense expenseToUnarchive = archiveList.get(index.getZeroBased());
         model.deleteArchiveExpense(archiveName, expenseToUnarchive);
         model.addExpense(expenseToUnarchive);
+        expenseToUnarchive.archiveTo("");
 
         String feedback = String.format(MESSAGE_SUCCESS, expenseToUnarchive.getName(), archiveName);
 
