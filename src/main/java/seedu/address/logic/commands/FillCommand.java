@@ -31,7 +31,7 @@ public class FillCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION " + "to fill a given draft.\n"
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
-    private static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
+    public static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
 
     private final Index targetIndex;
     private final CallerNumber callerNumber;

@@ -90,9 +90,12 @@ public class TypicalIncidents {
      */
     public static IncidentManager getTypicalIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        for (Incident incident : getTypicalIncidents()) {
-            ab.addIncident(incident);
-        }
+        ab.addIncident(secondIncident);
+        ab.addIncident(thirdIncident);
+        ab.addIncident(fourthIncident);
+        ab.addIncident(fifthIncident);
+        ab.addIncident(sixthIncident);
+        ab.addIncident(seventhIncident);
         return ab;
     }
 
@@ -174,14 +177,14 @@ public class TypicalIncidents {
                 new IncidentId("0320160001")));
     }
 
-    private static List<Description> getTypicalDescriptions() {
+    public static List<Description> getTypicalDescriptions() {
         return new ArrayList<> (Arrays.asList(new Description("Pickpocket reported along the walkway in District 20"),
                 new Description("Fight reported at District intersection"),
                 new Description("PMD accident in District park"),
                 new Description("Tiger spotted in District courthouse.")));
     }
 
-    private static List<CallerNumber> getTypicalCallerNumbers() {
+    public static List<CallerNumber> getTypicalCallerNumbers() {
         return new ArrayList<> (Arrays.asList(new CallerNumber("84738293"),
                 new CallerNumber("87595849"),
                 new CallerNumber("98098765"),

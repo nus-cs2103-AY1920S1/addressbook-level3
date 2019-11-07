@@ -106,7 +106,7 @@ public class EditIncidentCommand extends Command {
         Person operator = model.getLoggedInPerson();
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
-        IncidentDateTime dateTime = incidentToEdit.getDateTime();
+        IncidentDateTime dateTime = incidentToEdit.getIncidentDateTime();
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
         IncidentId incidentId = incidentToEdit.getIncidentId();
         Status status = incidentToEdit.getStatus();
