@@ -10,10 +10,9 @@ import static seedu.address.logic.commands.CommandTestUtil.showPolicyAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_POLICY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_POLICY;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.CHLOE;
-import static seedu.address.testutil.TypicalPersons.NATASHA;
-import static seedu.address.testutil.TypicalPersons.VICTORIA;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_POLICY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_POLICY;
+import static seedu.address.testutil.TypicalPersons.*;
 
 import java.util.Arrays;
 
@@ -81,23 +80,24 @@ public class EligiblePeopleCommandTest {
     }
 
     @Test
-    public void execute_validIndex_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        EligiblePeopleCommand command = new EligiblePeopleCommand(INDEX_FIRST_POLICY);
-        Policy policy = model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
+    public void execute_validIndex_multiplePeopleFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
+        EligiblePeopleCommand command = new EligiblePeopleCommand(INDEX_THIRD_POLICY);
+        Policy policy = model.getFilteredPolicyList().get(INDEX_THIRD_POLICY.getZeroBased());
         PersonEligibleForPolicyPredicate predicate = new PersonEligibleForPolicyPredicate(policy);
         expectedModel.updateFilteredPersonList(predicate);
         assertListPeopleCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, ASYRAF, KEITH, ROBIN, TAYYANG), model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_validIndex_eligiblePeopleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
-        EligiblePeopleCommand command = new EligiblePeopleCommand(INDEX_SECOND_POLICY);
-        Policy policy = model.getFilteredPolicyList().get(INDEX_SECOND_POLICY.getZeroBased());
+    public void execute_validIndex_singlePersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        EligiblePeopleCommand command = new EligiblePeopleCommand(INDEX_FOURTH_POLICY);
+        Policy policy = model.getFilteredPolicyList().get(INDEX_FOURTH_POLICY.getZeroBased());
         PersonEligibleForPolicyPredicate predicate = new PersonEligibleForPolicyPredicate(policy);
         expectedModel.updateFilteredPersonList(predicate);
         assertListPeopleCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, CHLOE, VICTORIA, NATASHA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(RACHEL), model.getFilteredPersonList());
     }
 }

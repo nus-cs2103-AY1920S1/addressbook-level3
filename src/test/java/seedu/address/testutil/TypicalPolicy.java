@@ -66,8 +66,7 @@ public class TypicalPolicy {
     public static final Policy SENIOR_INSURANCE = new PolicyBuilder().withName(VALID_NAME_SENIOR_INSURANCE)
         .withDescription(VALID_DESCRIPTION_SENIOR_INSURANCE).withCoverage(VALID_COVERAGE_SENIOR_INSURANCE)
         .withStartAge(VALID_START_AGE_SENIOR_INSURANCE).withEndAge(VALID_END_AGE_SENIOR_INSURANCE)
-        .withPrice(VALID_PRICE_SENIOR_INSURANCE).withCriteria(VALID_CRITERIA_SENIOR_INSURANCE)
-        .withTags(VALID_TAG_SENIOR_INSURANCE).build();
+        .withPrice(VALID_PRICE_SENIOR_INSURANCE).withTags(VALID_TAG_SENIOR_INSURANCE).build();
 
     private TypicalPolicy() {
     } // prevents instantiation
