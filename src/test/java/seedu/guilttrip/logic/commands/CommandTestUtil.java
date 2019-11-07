@@ -6,7 +6,9 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
@@ -76,7 +78,6 @@ public class CommandTestUtil {
     public static final String CATEGORY_NAME_FOR_EDIT_OLD = " " + PREFIX_OLD_NAME + VALID_OLD_CATEGORY_NAME;
     public static final String INVALID_CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_OLD_CATEGORY_NAME;
 
-
     public static final String INVALID_CATEGORY_TYPE_BUDGET = " " + PREFIX_CATEGORY + "Budget";
     public static final String INVALID_CATEGORY_NAME = " " + PREFIX_DESC + "Alcohol";
     public static final String INVALID_CATEGORY_NAME_FOR_EDIT = " " + PREFIX_OLD_NAME + "Alcohol";
@@ -85,6 +86,12 @@ public class CommandTestUtil {
     public static final String DESCRIPTION = "pgp cotton";
     public static final double AMOUNT = 200.00;
     public static final String AMOUNT_STRING = "200.00";
+
+    //Sort related TestUtils.
+    public static final String VALID_SORT_TYPE = "time";
+    public static final String VALID_SORT_SEQUENCE = "ascending";
+    public static final String SORT_TYPE_TIME = " " + PREFIX_TYPE + VALID_SORT_TYPE;
+    public static final String SORT_TYPE_ASCENDING = " " + PREFIX_SEQUENCE + VALID_SORT_SEQUENCE;
 
     public static final String FIND_BY_DESCRIPTION = " " + PREFIX_DESC + DESCRIPTION;
     public static final String FIND_BY_AMOUNT = " " + PREFIX_AMOUNT + AMOUNT;
