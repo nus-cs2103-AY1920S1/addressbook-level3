@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -141,7 +142,8 @@ public class MainWindow extends UiPart<Stage> {
         budgetListPanel = new BudgetListPanel(budgetList);
 
         ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
-        ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
+        ObservableList<Person> people = logic.getPeopleInLedger();
+        ledgerListPanel = new LedgerListPanel(ledgerOperationsList, people);
 
         ObservableList<Projection> projectionsList = logic.getProjectionList();
         projectionListPanel = new ProjectionListPanel(projectionsList);

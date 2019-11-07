@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -69,4 +70,6 @@ public interface Logic {
     ObservableList<LedgerOperation> getLedgerOperationsList();
 
     ObservableList<Projection> getProjectionList();
+
+    ObservableList<Person> getPeopleInLedger();
 }

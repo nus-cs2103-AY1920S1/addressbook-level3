@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -208,6 +209,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Projection> getFilteredProjectionsList() {
         return filteredProjections;
+    }
+
+    @Override
+    public ObservableList<Person> getPeopleInLedger() {
+        return versionedUserState.getLedger().getPeople();
     }
 
     @Override

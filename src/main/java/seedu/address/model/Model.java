@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -227,4 +228,6 @@ public interface Model {
 
     ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
     ObservableList<Projection> getFilteredProjectionsList();
+
+    ObservableList<Person> getPeopleInLedger();
 }
