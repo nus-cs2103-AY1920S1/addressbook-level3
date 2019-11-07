@@ -478,6 +478,18 @@ be reported.*)
 
 // end::yida-game[]
 
+
+// tag::jasonstatscommand[]
+
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+(Available in Open mode)
+
+==== Clear the statistics of the open _WordBank_.
+
+Format: clear
+
+// end::jasonstatscommand[]
+
 // tag::paulsettings[]
 
 === Settings Commands image:settings_mode_icon.png[width="27"]
@@ -600,7 +612,7 @@ This section covers the statistics shown to the user.
 
 === Game Result
 The game result is shown to the user every time they finish a game. It contains information of the finished game and
-some information of the `WordBank`.
+some information of the _WordBank_.
 
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
@@ -608,7 +620,7 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 image::annotated_game_results_ui.png[]
 
 === WordBank Statistics
-The `WordBank` statistics is shown on open mode and contains all information of the `WordBank`.
+The _WordBank_ statistics is shown on open mode and contains all information of the _WordBank_.
 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
