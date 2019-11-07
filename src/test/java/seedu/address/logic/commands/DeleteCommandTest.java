@@ -200,6 +200,49 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_viewActivityContext_expenseAlreadyDeleted_throwsException() throws CommandException {
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPerson(ALICE);
+        expectedModel.addPerson(BENSON);
+        Amount amount1 = new Amount(10);
+        Expense expense1 = new Expense(BENSON.getPrimaryKey(), amount1, "lunch");
+        Activity activity = new ActivityBuilder()
+                .addPerson(ALICE)
+                .addPerson(BENSON)
+                .addExpense(expense1)
+                .build();
+
+        expectedModel.addActivity(activity);
+        expectedModel.setContext(new Context(activity));
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        deleteCommand.execute(expectedModel);
+
+        assertThrows(CommandException.class, () -> deleteCommand.execute(expectedModel));
+    }
+
+    @Test
+    public void execute_viewActivityContext_invalidIndexExpense_throwsException() throws CommandException {
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPerson(ALICE);
+        expectedModel.addPerson(BENSON);
+        Amount amount1 = new Amount(10);
+        Expense expense1 = new Expense(BENSON.getPrimaryKey(), amount1, "lunch");
+        Activity activity = new ActivityBuilder()
+                .addPerson(ALICE)
+                .addPerson(BENSON)
+                .addExpense(expense1)
+                .build();
+
+        expectedModel.addActivity(activity);
+        expectedModel.setContext(new Context(activity));
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND);
+
+        assertThrows(CommandException.class, () -> deleteCommand.execute(expectedModel));
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND);

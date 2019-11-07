@@ -416,7 +416,7 @@ The items that will be deleted can be contact/activity/expense depending on your
 
 Given below is an example usage scenario and how the delete mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+Step 1. The user launches the application for the first time.  `SplitWiser` will be initialized with the initial address book and activity book state.
 
 Step 2. The user executes `list c/` command to display list contacts screen.
 
