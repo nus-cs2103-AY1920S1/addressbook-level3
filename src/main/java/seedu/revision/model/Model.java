@@ -38,7 +38,7 @@ public interface Model {
     /**
      * Returns the user prefs' revision tool file path.
      */
-    Path getAddressBookFilePath();
+    Path getRevisionToolFilePath();
 
     /**
      * Returns the user prefs' quiz history file path.
@@ -48,7 +48,7 @@ public interface Model {
     /**
      * Sets the user prefs' revision tool file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setRevisionToolFilePath(Path addressBookFilePath);
 
     /**
      * Sets the user prefs' quiz history file path.
@@ -58,15 +58,14 @@ public interface Model {
     /**
      * Replaces revision tool data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setRevisionTool(ReadOnlyRevisionTool revisionTool);
 
+    /** Returns the RevisionTool */
+    ReadOnlyRevisionTool getRevisionTool();
     /**
      * Replaces quiz history data with the data in {@code history}.
      */
     void setHistory(ReadOnlyHistory history);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /** Returns the History */
     ReadOnlyHistory getHistory();

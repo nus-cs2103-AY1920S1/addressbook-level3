@@ -12,7 +12,7 @@ import seedu.revision.model.answerable.UniqueAnswerableList;
  * Wraps all data at the revision tool level
  * Duplicates are not allowed (by .isSameAnswerable comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class RevisionTool implements ReadOnlyRevisionTool {
 
     private final UniqueAnswerableList answerables;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         answerables = new UniqueAnswerableList();
     }
 
-    public AddressBook() {}
+    public RevisionTool() {}
 
     /**
-     * Creates an AddressBook using the Answerables in the {@code toBeCopied}
+     * Creates an RevisionTool using the Answerables in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public RevisionTool(ReadOnlyRevisionTool toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code RevisionTool} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyRevisionTool newData) {
         requireNonNull(newData);
 
         setAnswerables(newData.getAnswerableList());
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code RevisionTool}.
      * {@code key} must exist in the revision tool.
      */
     public void removeAnswerable(Answerable key) {
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && answerables.equals(((AddressBook) other).answerables));
+                || (other instanceof RevisionTool // instanceof handles nulls
+                && answerables.equals(((RevisionTool) other).answerables));
     }
 
     @Override
