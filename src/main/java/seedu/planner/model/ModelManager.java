@@ -111,8 +111,6 @@ public class ModelManager implements Model {
                 }
                 activityContactMap.put(act, contact);
             }
-            List<Day> days = getDays(act);
-            activityDayMap.put(act, days);
         }
     }
 
@@ -415,6 +413,32 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Clears all mappings related to {@code Accommodation} and re-populates the mappings.
+     */
+    private void redoAccommodationMapping(List<Accommodation> accommodations) {
+        accommodationContactMap.clear();
+        contactAccommodationMap.clear();
+        populateAccommodationMap(accommodations);
+    }
+
+    /**
+     * Clears all mappings related to {@code Activity} and re-populates the mappings.
+     */
+    private void redoActivityMapping(List<Activity> activities) {
+        activityContactMap.clear();
+        contactActivityMap.clear();
+        populateActivityMap(activities);
+    }
+
+    /**
+     * Clears all the mappings related to {@code Day} and re-populates the mappings.
+     */
+    private void redoDayMapping(List<Day> days) {
+        activityDayMap.clear();
+        populateDayMap(days);
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -498,6 +522,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAccommodations(ReadOnlyAccommodation accommodations) {
+        redoAccommodationMapping(accommodations.getAccommodationList());
         this.accommodations.resetDataAccommodation(accommodations);
     }
 
@@ -546,6 +571,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setActivities(ReadOnlyActivity activities) {
+        redoActivityMapping(activities.getActivityList());
         this.activities.resetDataActivity(activities);
     }
 
@@ -716,6 +742,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setDays(List<Day> itinerary) {
+        redoDayMapping(itinerary);
         this.itinerary.setDays(itinerary);
     }
 
