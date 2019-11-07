@@ -1,0 +1,26 @@
+@startuml
+(*) --> "Parser receives arguments" as first
+--> Parser creates a new empty ArrayList \n of "Comparator<Team>" objects \n called comparators
+
+---> if are tiebreak methods \n present? then
+--> [no] return new \nSimpleLeaderboardCommand \n with input parameter "comparators"
+----> (*)
+
+else
+--> [yes] select the first tiebreak \n method present
+--> "find the appropriate comparator \n for this tiebreak method" as loop
+--> add the comparator to the ArrayList \n "comparators"
+
+    --> if more tiebreak \n methods present? then
+    --> [no] Reverse the \n"comparators" ArrayList
+             if "random" specified as \na tiebreak method? then
+                --> [yes] return new \nLeaderboardWithRandomCommand \nwith input paramter "comparators"
+                --> (*)
+             else
+                --> [no] return new \nSimpleLeaderboardCommand \nwith input paramter "comparators"
+                --> (*)
+             Endif
+    else
+    --> [yes] Select next tiebreak method
+    --> loop
+@enduml

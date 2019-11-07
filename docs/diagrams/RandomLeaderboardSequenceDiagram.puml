@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":LeaderboardCommandParser" as LeaderboardCommandParser LOGIC_COLOR
+participant "l:LeaderboardWithRandomCommand" as LeaderboardWithRandomCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("leaderboard tb/moreParticipants random")
+activate LogicManager
+
+
+LogicManager -> AlfredParser : parseCommand("leaderboard tb/moreParticipants random")
+activate AlfredParser
+
+create LeaderboardCommandParser
+AlfredParser -> LeaderboardCommandParser
+activate LeaderboardCommandParser
+
+LeaderboardCommandParser --> AlfredParser
+deactivate LeaderboardCommandParser
+
+AlfredParser -> LeaderboardCommandParser : parse(" tb/moreParticipants random")
+activate LeaderboardCommandParser
+
+create LeaderboardWithRandomCommand
+LeaderboardCommandParser -> LeaderboardWithRandomCommand
+activate LeaderboardWithRandomCommand
+
+LeaderboardWithRandomCommand --> LeaderboardCommandParser : l
+deactivate LeaderboardWithRandomCommand
+
+LeaderboardCommandParser --> AlfredParser : l
+deactivate LeaderboardCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+LeaderboardCommandParser -[hidden]-> AlfredParser
+destroy LeaderboardCommandParser
+
+AlfredParser --> LogicManager : l
+deactivate AlfredParser
+
+LogicManager -> LeaderboardWithRandomCommand : execute()
+activate LeaderboardWithRandomCommand
+
+LeaderboardWithRandomCommand -> Model : setTopKRandom(teamListSize, comparators)
+activate Model
+
+Model -> Model : setSimpleLeaderboard(comparators)
+activate Model
+
+Model --> Model
+deactivate Model
+
+Model --> LeaderboardWithRandomCommand
+deactivate Model
+
+create CommandResult
+LeaderboardWithRandomCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LeaderboardWithRandomCommand
+deactivate CommandResult
+
+LeaderboardWithRandomCommand --> LogicManager : result
+deactivate LeaderboardWithRandomCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

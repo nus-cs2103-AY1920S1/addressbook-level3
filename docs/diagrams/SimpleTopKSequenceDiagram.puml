@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":TopTeamsCommandParser" as TopTeamsCommandParser LOGIC_COLOR
+participant "l:SimpleTopKCommand" as SimpleTopKCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("getTop 3 tb/moreParticipants")
+activate LogicManager
+
+
+LogicManager -> AlfredParser : parseCommand("getTop 3 tb/moreParticipants")
+activate AlfredParser
+
+create TopTeamsCommandParser
+AlfredParser -> TopTeamsCommandParser
+activate TopTeamsCommandParser
+
+TopTeamsCommandParser --> AlfredParser
+deactivate TopTeamsCommandParser
+
+AlfredParser -> TopTeamsCommandParser : parse(" 3 tb/moreParticipants")
+activate TopTeamsCommandParser
+
+create SimpleTopKCommand
+TopTeamsCommandParser -> SimpleTopKCommand
+activate SimpleTopKCommand
+
+SimpleTopKCommand --> TopTeamsCommandParser : l
+deactivate SimpleTopKCommand
+
+TopTeamsCommandParser --> AlfredParser : l
+deactivate TopTeamsCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TopTeamsCommandParser -[hidden]-> AlfredParser
+destroy TopTeamsCommandParser
+
+AlfredParser --> LogicManager : l
+deactivate AlfredParser
+
+LogicManager -> SimpleTopKCommand : execute()
+activate SimpleTopKCommand
+
+SimpleTopKCommand -> Model : setTopK(3, comparators)
+activate Model
+
+Model -> Model : setSimpleLeaderboard(comparators)
+activate Model
+
+Model --> Model
+deactivate Model
+
+Model --> SimpleTopKCommand
+deactivate Model
+
+create CommandResult
+SimpleTopKCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SimpleTopKCommand
+deactivate CommandResult
+
+SimpleTopKCommand --> LogicManager : result
+deactivate SimpleTopKCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

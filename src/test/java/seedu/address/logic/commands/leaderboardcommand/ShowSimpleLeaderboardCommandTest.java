@@ -17,7 +17,7 @@ import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.TypicalTeams;
 
 /**
- * Tests whether the {@link ShowSimpleLeaderboardCommand} works as expected with regards to
+ * Tests whether the {@link SimpleLeaderboardCommand} works as expected with regards to
  * different scenarios and is capable of handling errors appropriately.
  */
 class ShowSimpleLeaderboardCommandTest {
@@ -40,19 +40,19 @@ class ShowSimpleLeaderboardCommandTest {
     @Test
     void execute_nonEmptyTeamList_commandSuccess() {
         // Non-empty team list and no comparators.
-        assertCommandSuccess(new ShowSimpleLeaderboardCommand(comparators), model,
-                ShowSimpleLeaderboardCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new SimpleLeaderboardCommand(comparators), model,
+                SimpleLeaderboardCommand.MESSAGE_SUCCESS, expectedModel);
 
         // Non-empty team list with comparators.
         comparators.add(Comparators.rankByIdAscending());
         comparators.add(Comparators.rankByParticipantsDescending());
-        assertCommandSuccess(new ShowSimpleLeaderboardCommand(comparators), model,
-                ShowSimpleLeaderboardCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new SimpleLeaderboardCommand(comparators), model,
+                SimpleLeaderboardCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     void execute_emptyTeamList_commandFailure() {
-        assertCommandFailure(new ShowSimpleLeaderboardCommand(comparators), emptyModel,
+        assertCommandFailure(new SimpleLeaderboardCommand(comparators), emptyModel,
                 LeaderboardCommand.MESSAGE_NO_TEAM);
     }
 }

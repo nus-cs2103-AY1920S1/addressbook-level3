@@ -18,7 +18,7 @@ import seedu.address.model.entity.Team;
 /**
  * Parses input arguments and creates a new {@link TopTeamsCommand} object.
  */
-public class GetTopTeamsCommandParser implements Parser<TopTeamsCommand> {
+public class TopTeamsCommandParser implements Parser<TopTeamsCommand> {
 
     private static final String METHOD_SPLIT_REGEX = "\\s+";
     private final Logger logger = LogsCenter.getLogger(getClass());

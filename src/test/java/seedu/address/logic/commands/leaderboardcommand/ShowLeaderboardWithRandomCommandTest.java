@@ -17,7 +17,7 @@ import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.TypicalTeams;
 
 /**
- * Tests whether the {@link ShowLeaderboardWithRandomCommand} works as expected with regards to
+ * Tests whether the {@link LeaderboardWithRandomCommand} works as expected with regards to
  * different scenarios and is capable of handling errors appropriately.
  */
 class ShowLeaderboardWithRandomCommandTest {
@@ -40,19 +40,19 @@ class ShowLeaderboardWithRandomCommandTest {
     @Test
     void execute_nonEmptyTeamList_commandSuccess() {
         // Non-empty team list and no comparators.
-        assertCommandSuccess(new ShowLeaderboardWithRandomCommand(comparators), model,
-                ShowLeaderboardWithRandomCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new LeaderboardWithRandomCommand(comparators), model,
+                LeaderboardWithRandomCommand.MESSAGE_SUCCESS, expectedModel);
 
         // Non-empty team list with comparators.
         comparators.add(Comparators.rankByIdAscending());
         comparators.add(Comparators.rankByParticipantsDescending());
-        assertCommandSuccess(new ShowLeaderboardWithRandomCommand(comparators), model,
-                ShowLeaderboardWithRandomCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new LeaderboardWithRandomCommand(comparators), model,
+                LeaderboardWithRandomCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     void execute_emptyTeamList_commandFailure() {
-        assertCommandFailure(new ShowLeaderboardWithRandomCommand(comparators), emptyModel,
+        assertCommandFailure(new LeaderboardWithRandomCommand(comparators), emptyModel,
                 LeaderboardCommand.MESSAGE_NO_TEAM);
     }
 }

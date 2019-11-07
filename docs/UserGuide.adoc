@@ -439,6 +439,7 @@ where `METHOD_N` is one of the following currently available tie-break methods:
 
 ****
 * You may choose one or more methods from the above list to break the tie. You need to precede the tie-break methods with the prefix `tb/` and separate each method with a single space for Alfred to properly understand them.
+* Use the prefix "tb/" with discretion as Alfred will only select tiebreak methods followed by ZZthe last "tb/" prefix if more than one such prefix is specfied in the command.
 * Do note that the tie-break methods will be applied in the order in which you state them. That is, first METHOD_1 will be applied to break the ties, and only then will METHOD_2 be applied to break any remaining ties, if the command `leaderboard tb/METHOD_1 METHOD_2` is called.
 * The `getTop NUMBER` command may still display teams more than the value of `NUMBER` if Alfred was still unsuccessful in breaking certain ties despite applying the tie-break methods you stated.
 * When using the `random` method, it must be the last stated tie-break method if it is being used alongside other tie-break methods.

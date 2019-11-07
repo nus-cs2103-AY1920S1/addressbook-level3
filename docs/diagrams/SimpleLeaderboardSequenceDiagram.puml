@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":LeaderboardCommandParser" as LeaderboardCommandParser LOGIC_COLOR
+participant "l:SimpleLeaderboardCommand" as SimpleLeaderboardCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("leaderboard tb/moreParticipants")
+activate LogicManager
+
+
+LogicManager -> AlfredParser : parseCommand("leaderboard tb/moreParticipants")
+activate AlfredParser
+
+create LeaderboardCommandParser
+AlfredParser -> LeaderboardCommandParser
+activate LeaderboardCommandParser
+
+LeaderboardCommandParser --> AlfredParser
+deactivate LeaderboardCommandParser
+
+AlfredParser -> LeaderboardCommandParser : parse(" tb/moreParticipants")
+activate LeaderboardCommandParser
+
+create SimpleLeaderboardCommand
+LeaderboardCommandParser -> SimpleLeaderboardCommand
+activate SimpleLeaderboardCommand
+
+SimpleLeaderboardCommand --> LeaderboardCommandParser : l
+deactivate SimpleLeaderboardCommand
+
+LeaderboardCommandParser --> AlfredParser : l
+deactivate LeaderboardCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+LeaderboardCommandParser -[hidden]-> AlfredParser
+destroy LeaderboardCommandParser
+
+AlfredParser --> LogicManager : l
+deactivate AlfredParser
+
+LogicManager -> SimpleLeaderboardCommand : execute()
+activate SimpleLeaderboardCommand
+
+SimpleLeaderboardCommand -> Model : setSimpleLeaderboard(comparators)
+activate Model
+
+Model --> SimpleLeaderboardCommand
+deactivate Model
+
+create CommandResult
+SimpleLeaderboardCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SimpleLeaderboardCommand
+deactivate CommandResult
+
+SimpleLeaderboardCommand --> LogicManager : result
+deactivate SimpleLeaderboardCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

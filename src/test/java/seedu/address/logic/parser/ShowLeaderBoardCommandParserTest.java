@@ -15,13 +15,13 @@ import java.util.Comparator;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.leaderboardcommand.LeaderboardCommand;
-import seedu.address.logic.commands.leaderboardcommand.ShowLeaderboardWithRandomCommand;
-import seedu.address.logic.commands.leaderboardcommand.ShowSimpleLeaderboardCommand;
+import seedu.address.logic.commands.leaderboardcommand.LeaderboardWithRandomCommand;
+import seedu.address.logic.commands.leaderboardcommand.SimpleLeaderboardCommand;
 import seedu.address.model.entity.Team;
 
 class ShowLeaderBoardCommandParserTest {
 
-    private ShowLeaderBoardCommandParser parser = new ShowLeaderBoardCommandParser();
+    private LeaderboardCommandParser parser = new LeaderboardCommandParser();
 
 
     @Test
@@ -41,8 +41,8 @@ class ShowLeaderBoardCommandParserTest {
     @Test
     void parse_validfUserInput_success() {
         ArrayList<Comparator<Team>> comparators = new ArrayList<>();
-        assertParseSuccess(parser, "", new ShowSimpleLeaderboardCommand(comparators));
+        assertParseSuccess(parser, "", new SimpleLeaderboardCommand(comparators));
 
-        assertParseSuccess(parser, TIE_BREAK_DESC_RANDOM, new ShowLeaderboardWithRandomCommand(comparators));
+        assertParseSuccess(parser, TIE_BREAK_DESC_RANDOM, new LeaderboardWithRandomCommand(comparators));
     }
 }

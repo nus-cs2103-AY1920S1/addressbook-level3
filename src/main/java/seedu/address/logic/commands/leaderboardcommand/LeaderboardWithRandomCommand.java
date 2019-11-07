@@ -17,12 +17,12 @@ import seedu.address.model.entity.Team;
  * Shows the full leaderboard as it currently stands based
  * on the teams' scores, with ties broken on random selection.
  */
-public class ShowLeaderboardWithRandomCommand extends LeaderboardCommand {
+public class LeaderboardWithRandomCommand extends LeaderboardCommand {
 
     public static final String MESSAGE_SUCCESS = "Showing Leaderboard as it Stands with Random Winners.";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public ShowLeaderboardWithRandomCommand(ArrayList<Comparator<Team>> comparators) {
+    public LeaderboardWithRandomCommand(ArrayList<Comparator<Team>> comparators) {
         super(comparators);
     }
 
@@ -43,7 +43,7 @@ public class ShowLeaderboardWithRandomCommand extends LeaderboardCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof ShowLeaderboardWithRandomCommand
-                && comparators.equals(((ShowLeaderboardWithRandomCommand) other).comparators));
+                || (other instanceof LeaderboardWithRandomCommand
+                && comparators.equals(((LeaderboardWithRandomCommand) other).comparators));
     }
 }

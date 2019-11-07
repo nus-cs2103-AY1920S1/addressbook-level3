@@ -22,7 +22,7 @@ import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.historycommand.HistoryCommand;
 import seedu.address.logic.commands.historycommand.RedoCommand;
 import seedu.address.logic.commands.historycommand.UndoCommand;
-import seedu.address.logic.commands.leaderboardcommand.ShowSimpleLeaderboardCommand;
+import seedu.address.logic.commands.leaderboardcommand.SimpleLeaderboardCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.removecommand.RemoveCommand;
 import seedu.address.logic.commands.scorecommand.ScoreCommand;
@@ -98,13 +98,13 @@ public class AlfredParser {
             c = new ListCommandParser().parse(arguments);
             break;
 
-        case ShowSimpleLeaderboardCommand.COMMAND_WORD:
+        case SimpleLeaderboardCommand.COMMAND_WORD:
             logger.info("Executing leaderboard command...");
-            c = new ShowLeaderBoardCommandParser().parse(arguments);
+            c = new LeaderboardCommandParser().parse(arguments);
             break;
 
         case SimpleTopTeamsCommand.COMMAND_WORD:
-            c = new GetTopTeamsCommandParser().parse(arguments);
+            c = new TopTeamsCommandParser().parse(arguments);
             break;
 
         case ViewCommand.COMMAND_WORD:
