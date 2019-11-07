@@ -5,15 +5,18 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.logic.task.RunnableCommand;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.Show;
@@ -44,11 +47,24 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = watchListParser.parseCommand(commandText);
-        
 
-
-        commandResult = command.execute(model);
-
+        if (command instanceof SearchCommand) {
+            mainWindow.setIsSearchLoading();
+            System.err.println("HERE");
+            Runnable task = new RunnableCommand((SearchCommand) command, model);
+            Thread worker = new Thread(task);
+            worker.start();
+            if(((RunnableCommand) task).getCommandException() != null) {
+                throw ((RunnableCommand) task).getCommandException();
+            } else {
+                commandResult = ((RunnableCommand) task).getCommandResult();
+            }
+            //worker.sleep(1000);
+            mainWindow.setIsSearchLoading();
+        }
+        else {
+            commandResult = command.execute(model);
+        }
         try {
             storage.saveWatchList(model.getWatchList());
         } catch (IOException ioe) {

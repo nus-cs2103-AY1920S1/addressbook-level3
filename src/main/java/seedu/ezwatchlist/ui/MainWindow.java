@@ -375,13 +375,13 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             //}
         //catch ParseException here to implement spellcheck
-        } catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            throw e;
+        }catch (CommandException | ParseException | OnlineConnectionException e) {
 
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
-        } catch (NullPointerException e) {
-            e.printStackTrace();
             throw e;
         }
     }
