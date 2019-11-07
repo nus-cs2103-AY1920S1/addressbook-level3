@@ -4,18 +4,34 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+ModulePlanner *-right-> "1" UniqueStudyPlanList
+ModulePlanner *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniqueStudyPlanList
+UniqueTagList -[hidden]down- UniqueStudyPlanList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueStudyPlanList o-right-> StudyPlan
 
-Person o-up-> "*" Tag
+StudyPlan o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+StudyPlan *--> "1" UniqueSemesterList
+UniqueSemesterList o-down-> Semester
+StudyPlan *-up-> UniqueTagList
+StudyPlan *--> Title
+StudyPlan *--> SemesterName
+
+Semester *-right-> "1" UniqueModuleList
+UniqueModuleList o-right-> Module
+Module *-down-> ModuleCode
+Module *-up-> UniqueTagList
+Module *-down-> Name
+Module *-down-> Color
+Module *-down-> PrereqTree
+
+ModulePlanner *-right-> "1" VersionTrackingManager
+VersionTrackingManager *--> StudyPlanCommitManagerList
+StudyPlanCommitManagerList o--> "*" StudyPlanCommitManager
+StudyPlanCommitManager *--> CommitList
+CommitList o--> "*" Commit
+Commit *--> StudyPlan
 @enduml

@@ -18,7 +18,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class RemoveAllTagsCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeallmodtags";
+    public static final String COMMAND_WORD = "removealltags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes all user-created tags from all modules "
             + "Example: "

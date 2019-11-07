@@ -5,8 +5,8 @@ package seedu.address.model.tag;
  */
 public interface Tag {
 
-    String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    String VALIDATION_REGEX = "^\\S+$";
+    String MESSAGE_CONSTRAINTS = "Tag names should not be more than 25 characters long";
+    String VALIDATION_REGEX = "^(\\S){1,25}$";
 
     boolean isDefault();
 

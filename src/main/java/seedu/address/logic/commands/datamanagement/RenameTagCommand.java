@@ -10,14 +10,13 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
-import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Renames a tag
  */
 public class RenameTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "renamemodtag";
+    public static final String COMMAND_WORD = "renametag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Renaming an existing tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Renames the tag with the specified original name "
             + "with the specified new name. "
@@ -70,13 +69,9 @@ public class RenameTagCommand extends Command {
             }
             model.replaceTagInActiveSp(toRename, replacement);
         } else {
-            try {
-                toRename.rename(newTagName);
-                UniqueTagList modelTags = model.getModuleTagsFromActiveSp();
-                modelTags.updateTagMaps(originalTagName, newTagName);
-            } catch (InvalidTagNameException exception) {
-                throw new CommandException(MESSAGE_INVALID_TAG_NAME);
-            }
+            toRename.rename(newTagName);
+            UniqueTagList modelTags = model.getModuleTagsFromActiveSp();
+            modelTags.updateTagMaps(originalTagName, newTagName);
         }
         model.addToHistory();
 

@@ -655,9 +655,31 @@ public class StudyPlan implements Cloneable {
         }
 
         clone.moduleTags = (UniqueTagList) moduleTags.clone();
+
+        for (Module module : clone.modules.values()) {
+            UniqueTagList tagList = module.getTags();
+            UniqueTagList newTagList = changeTagPointers(tagList, clone.moduleTags);
+            module.setTags(newTagList);
+        }
+
         clone.studyPlanTags = (UniqueTagList) studyPlanTags.clone();
 
         return clone;
+    }
+
+    /**
+     * Changes the tags in module tag list to point to the actual tag object in study plan during activation.
+     */
+    private UniqueTagList changeTagPointers(UniqueTagList moduleTagList, UniqueTagList megaTagList) {
+        UniqueTagList newTagList = new UniqueTagList();
+        for (Tag tag : moduleTagList) {
+            for (Tag actualTag : megaTagList) {
+                if (tag.equals(actualTag)) {
+                    newTagList.addTag(actualTag);
+                }
+            }
+        }
+        return newTagList;
     }
 
     /**
@@ -798,7 +820,6 @@ public class StudyPlan implements Cloneable {
     public boolean equals(Object o) {
         if (o instanceof StudyPlan) {
             StudyPlan other = (StudyPlan) o;
-            System.out.println(this.modules.equals(other.modules));
             return this.index == other.index
                     && this.semesters.equals(other.semesters)
                     && this.title.equals(other.title)

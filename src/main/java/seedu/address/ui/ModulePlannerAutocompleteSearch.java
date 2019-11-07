@@ -20,7 +20,6 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
-import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -103,7 +102,6 @@ public class ModulePlannerAutocompleteSearch {
         commandKeywords.add(RemoveTagFromModuleCommand.COMMAND_WORD);
         commandKeywords.add(ViewModuleTagsCommand.COMMAND_WORD);
         commandKeywords.add(DeleteTagCommand.COMMAND_WORD);
-        commandKeywords.add(RemoveTagFromAllCommand.COMMAND_WORD);
         commandKeywords.add(RenameTagCommand.COMMAND_WORD);
         commandKeywords.add(ViewAllTagsCommand.COMMAND_WORD);
         commandKeywords.add(ViewDefaultTagsCommand.COMMAND_WORD);

@@ -10,8 +10,10 @@ import seedu.address.model.tag.exceptions.InvalidTagNameException;
  * Name is valid as declared in {@link #isValidTagName(String)}
  */
 public class UserTag implements Tag {
-    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric and not be default tag names";
-    public static final String VALIDATION_REGEX = "\\p{ASCII}+";
+
+    public static final String MESSAGE_CONSTRAINTS = "Tag names should not be more than 25 characters long"
+            + " and should not be default tag names";
+    public static final String VALIDATION_REGEX = "^(\\S){1,25}$";
 
     private String tagName;
 
