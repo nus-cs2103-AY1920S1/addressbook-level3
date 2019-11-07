@@ -66,7 +66,7 @@ Determining whether it is possible to travel at a specific period of time can be
 
 Instead of having to switch to the relevant month view to determine their availability, users simply need to use the command ``check``. This can be especially helpful when users are interested in multiple trips but are unsure of whether they will be available to go for them. 
 
-== Other Functionalities
+== Other Highlights
 
 These are the enhancements I made to a few basic functionalities: 
 
