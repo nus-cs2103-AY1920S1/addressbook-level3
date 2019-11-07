@@ -17,7 +17,7 @@ import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Liberry} with sample data.
  */
 public class SampleDataUtil {
     public static Book[] getSampleBooks() {
