@@ -262,13 +262,13 @@ image:archiveAddEnterCommand.png[]
 
 * 2a. *There is no existing archive called "_movies_"* +
 A new archive called "_movies_" is created before "_joker movie tickets_" is added to it. +
-The result will display the message to indicate the archive creation and transfer of the expense:
+The result box will display the message to indicate the archive creation and transfer of the expense:
 +
 image::archiveAddArchiveCreatedMessage.png[]
 
 * 2b. *There is an existing archive called "_movies_"* +
 "_joker movie tickets_" is simply added to the existing "_movies_" archive. +
-The result will display the message to indicate the transfer of the expense:
+The result box will display the message to indicate the transfer of the expense:
 +
 image::archiveAddExistentArchiveMessage.png[]
 
