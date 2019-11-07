@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.problem.FindCommand;
 import seedu.algobase.model.Model;
 
 /**
@@ -20,7 +21,7 @@ public class HelpCommand extends Command {
             + "Parameter:\n"
             + "COMMAND_NAME (can be empty if you want a list of possible commands)\n"
             + "Example:\n"
-            + COMMAND_WORD + " find";
+            + COMMAND_WORD + " " + FindCommand.COMMAND_WORD;
 
     private final boolean isListAllCommands;
     private final Class commandClass;
