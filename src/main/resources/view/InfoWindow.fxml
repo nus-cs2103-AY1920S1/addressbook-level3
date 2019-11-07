@@ -16,7 +16,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root alwaysOnTop="true" height="400.0" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0"
-         resizable="false" title="Info" type="javafx.stage.Stage" width="700.0" xmlns="http://javafx.com/javafx/11.0.1"
+         resizable="false" title="Info" type="javafx.stage.Stage" width="700.0" xmlns="http://javafx.com/javafx/11.0.0"
          xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/LiBerryLogo_square.png"/>

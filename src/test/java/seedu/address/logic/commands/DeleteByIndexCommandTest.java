@@ -136,7 +136,6 @@ public class DeleteByIndexCommandTest {
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
         Book loanedOutBook = target.loanOut(loan);
         assertTrue(loanedOutBook.isCurrentlyLoanedOut());
-        Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         try {
             LoanSlipUtil.clearSession();

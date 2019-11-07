@@ -6,4 +6,4 @@
 <TextArea fx:id="resultDisplay" editable="false"
           minHeight="150.0" prefHeight="150" maxHeight="150" styleClass="result-display"
           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+          xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" />
