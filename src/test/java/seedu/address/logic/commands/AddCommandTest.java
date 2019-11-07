@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
@@ -108,6 +109,11 @@ public class AddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void toggleGuiSettingsTheme() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -359,7 +365,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public CommandResult undoCommand() {
+        public Pair<CommandResult, CommandResult> undoCommand() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -375,6 +381,11 @@ public class AddCommandTest {
 
         @Override
         public boolean canRedoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }

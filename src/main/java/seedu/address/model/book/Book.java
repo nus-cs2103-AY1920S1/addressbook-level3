@@ -142,7 +142,7 @@ public class Book implements Comparable<Book> {
     public Book addToLoanHistory(Loan loan) {
         LoanList newHistory = new LoanList();
         newHistory.add(loan);
-        this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
+        this.getLoanHistory().forEach(newHistory::add);
         return new Book(
                 this.getTitle(),
                 this.getSerialNumber(),
@@ -153,14 +153,30 @@ public class Book implements Comparable<Book> {
     }
 
     /**
+     * Adds to the loan history of a book
+     *
+     * @param loanList {@code LoanList} to be added into the history
+     */
+    public Book addToLoanHistory(LoanList loanList) {
+        this.getLoanHistory().forEach(loanList::add);
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                this.getLoan().orElse(NULL_LOAN),
+                this.getGenres(),
+                loanList);
+    }
+
+    /**
      * Deletes from the loan history of a book.
      *
      * @param loan {@code Loan} to be added into the history.
      * @return a new {@code Book} with the added loan history.
      */
     public Book deleteFromLoanHistory(Loan loan) {
+        assert getLoanHistory().contains(loan) : "Loan history does not contain loan to be deleted.";
         LoanList newHistory = new LoanList();
-        assert newHistory.contains(loan);
         this.getLoanHistory().forEach(currentLoan -> {
             if (!currentLoan.equals(loan)) {
                 newHistory.add(currentLoan);
@@ -227,25 +243,6 @@ public class Book implements Comparable<Book> {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(title, serialNumber, author, genres);
-    }
-
-    /**
-     * Method to return the full string representation of the book, if required.
-     *
-     * @return Full string representation of book.
-     */
-    public String toFullString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
-                .append(", Serial Number: ")
-                .append(getSerialNumber())
-                .append(", Author: ")
-                .append(getAuthor());
-        if (!getGenres().isEmpty()) {
-            builder.append(", Genres: ");
-            getGenres().forEach(genre -> builder.append(genre + " "));
-        }
-        return builder.toString();
     }
 
     /**

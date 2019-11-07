@@ -19,7 +19,7 @@ public class InfoCommand extends Command {
     public static final String COMMAND_WORD = "info";
 
     public static final String MESSAGE_BOOK_INFO = "Displaying information for %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get information of a book\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get information of a book.\n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";
 

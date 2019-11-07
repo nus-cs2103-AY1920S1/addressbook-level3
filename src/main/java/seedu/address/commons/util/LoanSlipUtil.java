@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
@@ -35,8 +36,9 @@ public class LoanSlipUtil {
 
     private static final int FIRST_INDEX = 0;
 
-    private static ArrayList<Loan> currentLoans;
-    private static ArrayList<Book> currentBooks;
+    private static HashSet<Loan> loansInCurrentSession = new HashSet<>();
+    private static ArrayList<Loan> currentLoans = new ArrayList<>();
+    private static ArrayList<Book> currentBooks = new ArrayList<>();
     private static Borrower currentBorrower;
 
     private static File currentFile;
@@ -60,12 +62,9 @@ public class LoanSlipUtil {
         if (!loan.getBookSerialNumber().equals(book.getSerialNumber())) {
             throw new LoanSlipException("Book and Loan do not match!");
         }
-        if (!isMounted) {
-            currentLoans = new ArrayList<>();
-            currentBooks = new ArrayList<>();
-        }
         currentLoans.add(loan);
         currentBooks.add(book);
+        loansInCurrentSession.add(loan);
         if (currentBorrower != null) {
             assert currentBorrower.equals(borrower) : "Wrong borrower";
         } else {
@@ -78,15 +77,36 @@ public class LoanSlipUtil {
     /**
      * Unmounts a Loan slip after creating a pdf of it.
      */
-    public static void unmountLoans() {
+    private static void unmountLoans() {
         if (isMounted) {
-            currentLoans = null;
-            currentBooks = null;
+            currentLoans = new ArrayList<>();
+            currentBooks = new ArrayList<>();
             currentBorrower = null;
             currentFile = null;
             isMounted = false;
             isGenerated = false;
         }
+    }
+
+    /**
+     * Clears the current Serve Mode session.
+     */
+    public static void clearSession() {
+        if (isMounted) {
+            unmountLoans();
+        }
+        if (loansInCurrentSession != null) {
+            loansInCurrentSession.clear();
+        }
+    }
+
+    /**
+     * Returns true if loan is in current session.
+     * @param loan loan to check against
+     * @return true if loan is in current session.
+     */
+    public static boolean loanIsInSession(Loan loan) {
+        return loansInCurrentSession.contains(loan);
     }
 
     /**

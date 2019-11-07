@@ -37,10 +37,18 @@ My role was to:
 
 == Summary of Contributions
 
-* *Major enhancement*: added *the ability to unregister a borrower*
-** What it does: allows the user to unregister previously registered borrowers.
-** Justification: This feature improves the product significantly because a borrower can be no longer using the library and the app should unregister him or her from the library system.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to many data in the storage.
+=== Main enhancement - Loan-related features
+added features related to the registering, unregistering and serving borrowers in our library management app, LiBerry.
+
+==== What it does
+allow our users, librarians, to *register* a borrower, *serve* a borrower, *edit* a borrwer and be able to *unregister*
+a borrower from the library system.
+
+==== Justification
+This feature improves the product significantly because a borrower can be no longer using the library and the app should unregister him or her from the library system.
+
+==== Highlights
+This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to many data in the storage.
 
 * *Minor enhancement*: added a Borrower ID generator that auto generates a borrower's ID.
 

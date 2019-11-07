@@ -2,23 +2,37 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
+import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
+import static seedu.address.testutil.TypicalBorrowers.HOON;
+import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
+import static seedu.address.testutil.TypicalLoans.LOAN_1;
+import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
+import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.testutil.BookBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -27,18 +41,19 @@ import seedu.address.model.book.Book;
 public class DeleteByIndexCommandTest {
     // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
     private Model model = new ModelManager(
-            getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+            getTypicalCatalog(), new LoanRecords(), getTypicalBorrowerRecords(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Book bookToDelete = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
+        Book loanedBookToDelete = bookToDelete.loanOut(LOAN_1);
         DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(INDEX_FIRST_BOOK);
 
-        String expectedMessage = String.format(DeleteByIndexCommand.MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete);
+        String expectedMessage = String.format(DeleteByIndexCommand.MESSAGE_DELETE_BOOK_SUCCESS, loanedBookToDelete);
 
         ModelManager expectedModel = new ModelManager(
                 model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
-        expectedModel.deleteBook(bookToDelete);
+        expectedModel.deleteBook(loanedBookToDelete);
 
         assertCommandSuccess(deleteByIndexCommand, model, expectedMessage, expectedModel);
     }
@@ -101,6 +116,40 @@ public class DeleteByIndexCommandTest {
 
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
+
+    @Test
+    public void markBookAsReturned() {
+        SerialNumber toLoan = BOOK_1.getSerialNumber();
+        Book target = new BookBuilder(BOOK_1).build();
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        borrowerRecords.addBorrower(HOON);
+        BorrowerId servingBorrowerId = HOON.getBorrowerId();
+
+        model = new ModelManager(getTypicalCatalog(), new LoanRecords(),
+                borrowerRecords, new UserPrefs());
+        model.setServingBorrower(servingBorrowerId);
+
+        LoanCommand loanCommand = new LoanCommand(toLoan);
+
+        Loan loan = new Loan(new LoanId("L000001"), toLoan, servingBorrowerId,
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
+        Book loanedOutBook = target.loanOut(loan);
+        assertTrue(loanedOutBook.isCurrentlyLoanedOut());
+
+        try {
+            LoanSlipUtil.clearSession();
+            loanCommand.execute(model).getFeedbackToUser();
+        } catch (CommandException e) {
+            assert false : "Command should not fail here";
+        }
+
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(INDEX_FIRST_BOOK);
+
+        deleteByIndexCommand.returnBook(model, loanedOutBook);
+        Book result2 = model.getBook(target.getSerialNumber());
+        assertFalse(result2.isCurrentlyLoanedOut());
+
     }
 
     /**

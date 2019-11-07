@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.util.Pair;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -37,23 +38,25 @@ public class CommandHistory {
     }
 
     /**
-     * Undoes the latest command.
+     * Undoes the latest command and returns a pair of {@code CommandResult}, one to update
+     * the mode of the application, the other for feedback message of undo command.
      *
      * @param model which the command is executed on.
-     * @return {@code CommandResult} from the executed command.
+     * @return A pair of {@code CommandResult}.
      */
-    public CommandResult undo(Model model) throws CommandException {
+    public Pair<CommandResult, CommandResult> undo(Model model) throws CommandException {
         if (!canUndo()) {
             throw new NoUndoableCommandException();
         }
 
         ReversibleCommand commandToUndo = commandHistoryList.get(currentCommandPointer);
 
-        // Execute the reverse command.
-        commandToUndo.getUndoCommand().execute(model);
-
         currentCommandPointer--;
-        return commandToUndo.getCommandResult();
+
+        // Execute the reverse command.
+        CommandResult actualResult = commandToUndo.getUndoCommand().execute(model);
+        CommandResult resultForFeedback = commandToUndo.getCommandResult();
+        return new Pair<CommandResult, CommandResult>(actualResult, resultForFeedback);
     }
 
     /**
@@ -83,6 +86,14 @@ public class CommandHistory {
      */
     public boolean canRedo() {
         return currentCommandPointer < commandHistoryList.size() - 1;
+    }
+
+    /**
+     * Resets the entire command history.
+     */
+    public void reset() {
+        commandHistoryList.clear();
+        currentCommandPointer = -1;
     }
 
     @Override

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="borrowerPanel" prefHeight="200.0" prefWidth="500.0" minWidth="500" maxWidth="500"
+<VBox fx:id="borrowerPanel" prefHeight="200.0" prefWidth="500.0" minWidth="320"
       xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
     <VBox prefHeight="120.0">
         <Label fx:id="name" prefHeight="20.0" styleClass="borrower-particulars-bold" text="Borrower:">
@@ -23,7 +23,7 @@
                 <Insets left="20.0"/>
             </padding>
         </Label>
-        <Label fx:id="email" prefHeight="20.0" styleClass="borrower-particulars" text="EmaiL:">
+        <Label fx:id="email" prefHeight="20.0" styleClass="borrower-particulars" text="Email:">
             <padding>
                 <Insets left="20.0"/>
             </padding>

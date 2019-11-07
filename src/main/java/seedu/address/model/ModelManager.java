@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
@@ -112,6 +114,11 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void toggleGuiSettingsTheme() {
+        userPrefs.getGuiSettings().toggleTheme();
     }
 
     public Path getLoanRecordsFilePath() {
@@ -623,9 +630,9 @@ public class ModelManager implements Model {
 
     @Override
     public void unregisterBorrower(Borrower toUnregister) {
+        assert toUnregister.getCurrentLoanList().isEmpty() : "Books still on loan, cannot unregister";
         borrowerRecords.removeBorrower(toUnregister);
     }
-
 
     //=========== CommandHistory ===============================================================================
 
@@ -645,13 +652,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public CommandResult undoCommand() throws CommandException {
+    public Pair<CommandResult, CommandResult> undoCommand() throws CommandException {
         return commandHistory.undo(this);
     }
 
     @Override
     public CommandResult redoCommand() throws CommandException {
         return commandHistory.redo(this);
+    }
+
+    @Override
+    public void resetCommandHistory() {
+        commandHistory.reset();
     }
 
 }

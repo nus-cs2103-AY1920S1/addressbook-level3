@@ -24,6 +24,7 @@ import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.ToggleUiCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnregisterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -112,6 +113,9 @@ public class CatalogParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommandParser().parse(arguments);
+
+        case ToggleUiCommand.COMMAND_WORD:
+            return new ToggleUiCommand(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

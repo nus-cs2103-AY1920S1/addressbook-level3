@@ -54,7 +54,7 @@ class LoanSlipUtilTest {
 
     @Test
     public void mountLoanSlip_noLoanSlipMounted_success() {
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
         assertTrue(LoanSlipUtil.isMounted());
@@ -62,7 +62,7 @@ class LoanSlipUtilTest {
 
     @Test
     public void mountLoanSlip_inconsistentLoanAndFields_failure() {
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertThrows(LoanSlipException.class, () -> LoanSlipUtil.mountLoan(loan, BOOK_2, borrower));
         assertFalse(LoanSlipUtil.isMounted());
         assertThrows(LoanSlipException.class, () -> LoanSlipUtil.mountLoan(loan, book, BOB));
@@ -71,7 +71,7 @@ class LoanSlipUtilTest {
 
     @Test
     public void mountLoanSlip_loanSlipMountedDifferentBorrower_failure() {
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
@@ -82,7 +82,7 @@ class LoanSlipUtilTest {
 
     @Test
     public void mountLoanSlip_loanSlipMountedSameBorrower_success() {
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
@@ -109,7 +109,7 @@ class LoanSlipUtilTest {
 
     @Test
     public void openLoanSlip_loanSlipNotReady_failure() {
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertThrows(LoanSlipException.class, () -> LoanSlipUtil.openGeneratedLoanSlip());
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
         assertThrows(LoanSlipException.class, () -> LoanSlipUtil.openGeneratedLoanSlip());
@@ -118,14 +118,14 @@ class LoanSlipUtilTest {
     @Test
     public void unmountSpecificLoan_success() {
         // Unmount loan, loan not mounted, nothing happens
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
         assertDoesNotThrow(() -> LoanSlipUtil.unmountSpecificLoan(loan2, BOOK_2));
 
         // Unmount loan, only 1 loan mounted, entire LoanSlipUtil is unmounted
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
@@ -133,7 +133,7 @@ class LoanSlipUtilTest {
         assertFalse(LoanSlipUtil.isMounted());
 
         //Unmount loan, still have other loans mounted, LoanSlipUtil is still mounted
-        LoanSlipUtil.unmountLoans();
+        LoanSlipUtil.clearSession();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan two loans
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));

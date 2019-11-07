@@ -1,26 +1,25 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNUSED_ARGUMENT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Exits the serve mode.
+ * Toggles the Ui theme between LiBerry Theme and Dark Theme
  */
-public class DoneCommand extends Command {
-    public static final String COMMAND_WORD = "done";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to List Mode. \n"
+public class ToggleUiCommand extends Command {
+
+    public static final String COMMAND_WORD = "toggleui";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles between Light and Dark Themes \n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Exited from Serve Mode.\n"
-            + "Loan slip (if any) saved in folder 'loan_slips'.";
+    public static final String MESSAGE_SUCCESS = "UI Theme Changed";
 
     private String unusedArguments = null;
 
-    public DoneCommand() {}
+    public ToggleUiCommand() {}
 
-    public DoneCommand(String unusedArguments) {
+    public ToggleUiCommand(String unusedArguments) {
         if (!unusedArguments.equals("")) {
             this.unusedArguments = unusedArguments;
         }
@@ -36,23 +35,18 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (!model.isServeMode()) {
-            throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
-        }
-
-        model.resetCommandHistory();
-        model.exitsServeMode();
+        model.toggleGuiSettingsTheme();
 
         if (unusedArguments != null) {
-            return CommandResult.commandResultDone(String.format(MESSAGE_SUCCESS
+            return CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
+        } else {
+            return CommandResult.commandResultToggleUi(MESSAGE_SUCCESS);
         }
-
-        return CommandResult.commandResultDone(MESSAGE_SUCCESS);
     }
 
     @Override
     public boolean equals(Object other) {
-        return (other == this || other instanceof DoneCommand);
+        return (other == this || other instanceof ToggleUiCommand);
     }
 }
