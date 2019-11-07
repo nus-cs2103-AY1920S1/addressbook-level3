@@ -8,7 +8,6 @@ import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 
-import io.xpire.model.ListType;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.Messages;
