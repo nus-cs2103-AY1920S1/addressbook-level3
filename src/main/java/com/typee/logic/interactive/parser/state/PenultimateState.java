@@ -5,7 +5,7 @@ import com.typee.logic.interactive.parser.state.exceptions.PenultimateStateTrans
 
 public abstract class PenultimateState extends State {
 
-    private final String MESSAGE_EXCESSIVE_ARGUMENTS = "Excessive arguments supplied! Command cannot be executed."
+    private static final String MESSAGE_EXCESSIVE_ARGUMENTS = "Excessive arguments supplied! Command cannot be executed."
             + " Please enter \"// current\" to view the current state information.";
 
     protected PenultimateState(ArgumentMultimap soFar) {
