@@ -142,7 +142,7 @@ public class Book implements Comparable<Book> {
     public Book addToLoanHistory(Loan loan) {
         LoanList newHistory = new LoanList();
         newHistory.add(loan);
-        this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
+        this.getLoanHistory().forEach(newHistory::add);
         return new Book(
                 this.getTitle(),
                 this.getSerialNumber(),
@@ -150,6 +150,22 @@ public class Book implements Comparable<Book> {
                 this.getLoan().orElse(NULL_LOAN),
                 this.getGenres(),
                 newHistory);
+    }
+
+    /**
+     * Adds to the loan history of a book
+     *
+     * @param loanList {@code LoanList} to be added into the history
+     */
+    public Book addToLoanHistory(LoanList loanList) {
+        this.getLoanHistory().forEach(loanList::add);
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                this.getLoan().orElse(NULL_LOAN),
+                this.getGenres(),
+                loanList);
     }
 
     /**

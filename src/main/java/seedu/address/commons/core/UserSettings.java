@@ -8,10 +8,10 @@ import java.util.Objects;
  */
 public class UserSettings implements Serializable {
 
-    private static final int DEFAULT_LOAN_PERIOD = 14;
-    private static final int DEFAULT_RENEW_PERIOD = 14;
-    private static final int DEFAULT_FINE_INCREMENT = 10; // Fine increment in cents.
-    private static final int DEFAULT_MAX_RENEWS = 1;
+    public static final int DEFAULT_LOAN_PERIOD = 14;
+    public static final int DEFAULT_RENEW_PERIOD = 14;
+    public static final int DEFAULT_FINE_INCREMENT = 10; // Fine increment in cents.
+    public static final int DEFAULT_MAX_RENEWS = 1;
 
     private final int loanPeriod;
     private final int renewPeriod;

@@ -117,7 +117,7 @@ public class MainApp extends Application {
             if (!catalogOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Catalog");
             }
-            initialCatalog = catalogOptional.orElseGet(SampleDataUtil::getSampleCatalog);
+            initialCatalog = catalogOptional.orElse(SampleDataUtil.getSampleCatalog(initialLoanRecords));
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Catalog");
             initialCatalog = new Catalog();
@@ -131,7 +131,8 @@ public class MainApp extends Application {
             if (!borrowerRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
             }
-            initialBorrowerRecords = borrowerRecordsOptional.orElseGet(SampleDataUtil::getSampleBorrowerRecords);
+            initialBorrowerRecords = borrowerRecordsOptional.orElse(
+                    SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords));
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BorrowerRecords");
             initialBorrowerRecords = new BorrowerRecords();

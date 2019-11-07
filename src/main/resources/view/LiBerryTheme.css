@@ -39,7 +39,7 @@
 }
 
 #helpTable .column-header .label {
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: #010504;
     -fx-alignment: center-left;
