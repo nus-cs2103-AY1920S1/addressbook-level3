@@ -111,7 +111,6 @@ class TrieManager {
         insertCommandToAllTries(HelpCommand.COMMAND_WORD);
         insertCommandToAllTries(ListOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(RedoCommand.COMMAND_WORD);
-        // insertCommandToAllTries(SummaryCommand.COMMAND_WORD);
         insertCommandToAllTries(UndoCommand.COMMAND_WORD);
         insertCommandToAllTries(CustomerParser.COMMAND_WORD);
         insertCommandToAllTries(DeliverymanParser.COMMAND_WORD);
@@ -152,13 +151,13 @@ class TrieManager {
         String prefixes = input.substring(lastSpace + 1);
         return autoCompletePrefix(commandWord, prefixes, context);
          */
-        return autocompleteCommandWord(input, context);
+        return autoCompleteCommandWord(input, context);
     }
 
     /**
      * TO fill
      */
-    private LinkedList<String> autocompleteCommandWord(String input, Context context) {
+    private LinkedList<String> autoCompleteCommandWord(String input, Context context) {
         switch (context) {
         case CUSTOMER:
             return customerTrie.autoCompleteCommandWord(input);
@@ -170,21 +169,6 @@ class TrieManager {
             return universalTrie.autoCompleteCommandWord(input);
         }
     }
-
-    /*
-    private LinkedList<String> autoCompletePrefix(String commandWord, String prefixes, Context context) {
-        switch (context) {
-        case CUSTOMER:
-            return customerTrie.autoCompletePrefix(commandWord, prefixes);
-        case DELIVERYMEN:
-            return deliverymanTrie.autoCompletePrefix(commandWord, prefixes);
-        case RESTAURANT:
-            return restaurantTrie.autoCompletePrefix(commandWord, prefixes);
-        default:
-            return universalTrie.autoCompletePrefix(commandWord, prefixes);
-        }
-    }
-     */
 
     /**
      * TO fill
