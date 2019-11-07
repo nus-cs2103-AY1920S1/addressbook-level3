@@ -248,17 +248,23 @@ prefixes like `t>` and `d>`
 
 //@@author LeowWB
 
-// tag::flashcardexport[]
+// tag::flashcardexportimport[]
 
-=== Exporting of FlashCards
+=== Exporting/Importing of FlashCards
 ==== Implementation
 
-Our application currently supports the exporting of `FlashCards` to two file formats: `.docx` and `.json`. This mechanism is primarily facilitated by the following classes:
+Our application currently supports the exporting of `FlashCards` to two file formats (`.docx` and `.json`) and importing of `FlashCards` from one
+file format (`.json`). These mechanisms are primarily facilitated by the following classes:
 
 * `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
+* `ImportCommand` -- Embodies an `import` command by the user; carries information about where `FlashCards` are to be imported from
+* `ImportCommandParser` -- Parses user input and uses it to construct an `ImportCommand` instance
 * `ExportPath` -- Represents the path to a specific file - either absolute or relative to the application directory
 * `ExportPathFactory` -- Parses the user-provided file path and creates instances of `ExportPath`
+
+NOTE: The "export" in `ExportPath` is to be taken as a noun, not a verb. An `ExportPath`, therefore, is not the path that we export to, but the
+path of an export. As such, `ExportPaths` are used in both exporting and importing of files.
 
 `ExportPath` is an abstract class that follows the factory pattern. Each subclass of `ExportPath` represents the path to a specific file of a
 specific extension (e.g. an instance of `DocumentPath` represents the path to a specific document). Instances of these subclasses are created by
@@ -267,24 +273,40 @@ Once created, an `ExportPath` will expose the following relevant methods:
 
 * `getPath()` -- Returns a Java `Path` object that represents this `ExportPath`
 * `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
+* `importFrom()` -- Attempts to import `FlashCards` from the file path represented by this `ExportPath`
+
+CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not - this is because documents are
+relatively unstructured and impractical to import from, and there are other reasons for exporting to a document (e.g. to use as cheat sheet).
 
 Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
-dealing with exactly. Each `ExportPath` subclass will implement its own `export` method, which, when called, will perform the required export
-without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle the exporting directly.
+dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
+without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
 Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
 
-TIP: The exporting functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
+TIP: The exporting/importing functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
 
-NOTE: All export-relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand` and `ExportCommandParser`, which can be found in the `seedu.address.logic` package.
+NOTE: All relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
 
-The following table shows the classes and methods that you may have to deal with when exporting to each format:
+The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
 
+[width="59%",cols="20%,35%,35%",options="header",]
 |====
-|**File format**                    |`.docx`                                                        |`.json`
-|**`ExportPath` subclass**          |`DocumentPath`                                                 |`JsonExportPath`
-|**Export utility class**           |`DocumentExportUtil`                                           |`JsonExportUtil`
-|**Export utility static method**   |`exportFlashCardsToDocument(List<FlashCard>, DocumentPath)`    |`exportFlashCardsToJson(List<FlashCard>, JsonExportPath)`
-|**External library used**          |Apache POI                                                     |Jackson
+
+|**File format**                        |Document           |JSON
+
+|**File extension**                     |`.docx`            |`.json`
+
+|**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
+
+a|**Export utility class and method**
+a|`DocumentExportUtil#exportFlashCardsToDocument( List<FlashCard>, DocumentPath)`
+a|`JsonExportUtil#exportFlashCardsToJson( List<FlashCard>, JsonExportPath)`
+
+a|**Import utility class and method**
+a|_None - importing not supported_
+a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
+
+|**External library used**              |Apache POI         |Jackson
 |====
 
 The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
@@ -337,9 +359,9 @@ NOTE: The original AddressBook application, from which KeyboardFlashCards was mo
 * **Alternative 1:** Read file path as-is, using the existing AddressBook parser
 ** Pros: Does not require further code changes
 ** Cons: Means that errors may occur for certain file paths
-* **Alternative 2:** Disallow user from selecting file path - instead, always export to a specific directory
+* **Alternative 2:** Disallow user from selecting file path - instead, always export to and import from a specific directory
 ** Pros: Is somewhat easy to implement
-** Cons: Requires user to navigate to the specified directory to obtain the file; requires a means of finding alternatives if the default directory does not exist
+** Cons: Requires user to navigate to the specified directory; requires a means of finding alternatives if the default directory does not exist
 * **Alternative 3:** Ask user to replace slashes in file path with another character
 ** Pros: Is very easy to implement
 ** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
@@ -349,57 +371,7 @@ NOTE: The original AddressBook application, from which KeyboardFlashCards was mo
 
 NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
-// end::flashcardexport[]
-
-// tag::flashcardimport[]
-
-=== Importing of FlashCards
-==== Implementation
-
-The `FlashCard` importing mechanism is primarily facilitated by the following classes:
-
-* `ExportUtil` -- Handles the actual exporting of `FlashCards`
-* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
-* `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
-
-The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
-
-* `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
-* `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
-* `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
-
-Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
-Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
-document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
-`org.apache.poi.xwpf.usermodel`).
-
-The following sequence diagram shows how the export operation works:
-
-image::ImportSequenceDiagram.png[]
-
-The following activity diagram summarizes what happens when a user executes an export command:
-
-image::ImportActivityDiagram.png[width=320,height=480]
-
-==== Design Considerations
-
-|===
-|_This section describes some of the design considerations that went into the implementation of this feature._
-|===
-
-===== Aspect: Implementation of exporting functionality for different file formats
-
-* **Alternative 1 (current choice):** Have a single `export` command - leave file formats to be handled by underlying classes
-** Pros: Is easier for user to remember; can easily be extended to support additional file formats
-** Cons: Is harder to implement
-* **Alternative 2:** Have a separate command for exporting to each format (e.g. `exportdoc`, `exportjson`, etc.)
-** Pros: Is easier to implement
-** Cons: Results in user having more commands to remember; new commands must be added to support new file formats
-
-NOTE: **Alternative 1** was preferred for its ease of extensibility.
-
-// end::flashcardimport[]
+// end::flashcardexportimport[]
 
 //@@author keiteo
 // tag::dataencryption[]
