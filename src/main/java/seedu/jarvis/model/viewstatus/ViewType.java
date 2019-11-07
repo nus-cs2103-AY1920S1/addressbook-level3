@@ -17,7 +17,7 @@ public enum ViewType {
 
     public static ViewType getNextViewType(ViewType curr) {
         List<ViewType> list = List.of(LIST_PLANNER_SCHEDULE, LIST_PLANNER_FIND, LIST_PLANNER_PULL,
-                                        LIST_COURSE, LIST_CCA, LIST_FINANCE);
+                            LIST_FINANCE, LIST_CCA, LIST_COURSE);
         int index = list.indexOf(curr);
         index = (index == list.size() - 1)
             ? 0
