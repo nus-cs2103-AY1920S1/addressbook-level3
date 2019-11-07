@@ -959,7 +959,7 @@ image::UpdateSaveStatisticsSequenceDiagram.png[]
 The work done in step 4 and 5 is executed in `AppManager` and the checks to decide what to do are done in
 the same method `updateGameStatisticsBuilder(CommandResult)`.
 
-.Activity diagram of the method `updateGameStatisticsBuilder(CommandResult)`
+.Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
 image::GameStatisticsBuilderActivityDiagram.png[]
 
 ==== Design Considerations
