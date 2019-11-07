@@ -67,24 +67,25 @@ image::quickstart1.png[width="1000"]
 . Once the app is launched, you will immediately be greeted with the main User Interface of the app.
 
 +
-image::mainUi.png[width="1000"]
+image::homepage_annotated.png[width="1000"]
 +
+The User Interfaces that are important for now:
 
-1. *CommandBox*
+1. *Command Box*
 +
 This will be the field where you input all your commands. After you press the kbd:[Enter] button, your command will be executed.
 +
 e.g. typing *`showall`* and pressing kbd:[Enter] will display all the questions in the app.
 
-2. *ResultDisplayBox*
+2. *Result Box*
 +
 Once you have executed a command, a feedback will be displayed in this field.
 +
 e.g. after executing *`showall`* command, "List all questions..." will be displayed.
 
-3. *TabView*
+3. *Tab Panes*
 +
-Consists of 3 different tabs: _Home_, _Questions_ and _Workspace_
+Consists of 4 different tabs: _Home_, _Questions_, _Workspace_ and _Help_
 
 . After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
   into the *CommandBox* to start your DukeAcademy experience.
@@ -116,8 +117,8 @@ On the "Home" page, you can:
 === Questions
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
-You can use commands such as `browse` and `search` to filter through the list of questions in order to find what you
-are looking for. _(View <<Features>> for more details.)_
+You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
+are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles._(View <<Features>> for more details.)_
 
 . To quickly see all questions, enter `showall` into the *CommandBox*.
 . To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
@@ -177,6 +178,8 @@ Navigates back to the *HomePage*.
 
 image::home.png[width="1000"]
 
+//tag::showall[]
+
 === List all questions: `showall`
 
 Navigates to the *Questions* Tab and displays all available questions.
@@ -185,6 +188,7 @@ Navigates to the *Questions* Tab and displays all available questions.
 
 image::listallquestions.png[width="1000"]
 
+//end::showall[]
 === Adding bookmark: `bookmark`
 
 Bookmarks a question by its id.
@@ -209,6 +213,7 @@ Removes a bookmark from a question by its id.
 * The question with the bookmark removed will disappear from the list of bookmarked questions under the *Home* Tab.
 ****
 
+//tag::find[]
 === Find question by title : `find`
 
 Searches for question of which the title contains *strictly* the keywords entered.
@@ -254,6 +259,9 @@ e.g. Searching for `su` will not yield questions that do not strictly contain th
 * The category is case insensitive.
 +
 e.g `easy` will match `Easy`.
++
+* Typing `browse topic` would not list all topics. You can only browse by specific topics. The complete list of topics include: `ARRAY`, `LINKED_LIST`, `HASHTABLE`, `TREE`, `GRAPH`, `RECURSION`,
+`DIVIDE_AND_CONQUER`, `DYNAMIC_PROGRAMMING`, `SORTING`, `OTHERS`.
 ****
 
 *Examples:*
@@ -285,6 +293,7 @@ image::view.png[width="1000"]
 * `view 2` +
 Displays the question with the id "2" in the right side window of the GUI.
 
+//end::find[]
 
 === Attempting a question : `attempt`
 
@@ -313,7 +322,7 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 
 image::submit.png[width="1000"]
 
-
+//tag::load[]
 === Loading new questions: `loadquestions`
 
 Imports new questions into the application through a text file.
@@ -324,8 +333,7 @@ Imports new questions into the application through a text file.
 * Your text file should be located at the Desktop.
 * Your text file should follow the format specified at <<Custom-Questions>>.
 * The questions in the text file will only be loaded after entering this command.
-* Your text file will have to found in the home directory of DukeAcademy for it to be loaded.
-* Your questions will be loaded the next time you open DukeAcademy!
+* Your questions will be loaded immediately.
 ****
 
 image::loadquestions.png[width="1000"]
@@ -333,14 +341,15 @@ image::loadquestions.png[width="1000"]
 *Examples:*
 
 * `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located in the home directory of DukeAcademy.
-
+Loads the questions from the file "my_problem_set.txt" located on your desktop.
+//end::load[]
 === Exit the application: `exit`
 
 Exits the application
 
 *Format:* `exit`
 
+//tag::summary[]
 == FAQ
 
 *Q:* How do I transfer my own problem sets to another computer?
@@ -358,6 +367,7 @@ with the file that contains the data of your previous DukeAcademy folder.
 *A:* It should contain the following: problem statement, input and output files, difficulty
 level, solution, algorithm category. Check out ​ default_problem_set.txt​ for reference.
 
+
 == Command Summary
 
 * Home: `home`
@@ -371,6 +381,8 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
 * Exit: `exit`
+
+//end::summary[]
 
 == Question storage file format
 
@@ -387,6 +399,7 @@ image::samplequestions.png[width="920"]
 - result: the expected result for the test case
 ****
 
+//tag::customqn[]
 [[Custom-Questions]]
 == Load Your Custom Questions
 image::custom_questions.png[width="920"]
@@ -424,4 +437,5 @@ Output::
 
 * For sample questions, refer to the image above.
 
+//end::customqn[]
 
