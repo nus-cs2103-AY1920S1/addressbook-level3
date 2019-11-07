@@ -18,7 +18,6 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
-import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 

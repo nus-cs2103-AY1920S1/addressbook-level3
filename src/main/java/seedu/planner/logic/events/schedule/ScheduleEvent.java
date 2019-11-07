@@ -1,5 +1,7 @@
 package seedu.planner.logic.events.schedule;
 
+import static seedu.planner.logic.commands.schedulecommand.ScheduleCommand.MESSAGE_END_TIME_EXCEEDS_LAST_DAY;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -16,9 +18,6 @@ import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
-
-
-import static seedu.planner.logic.commands.schedulecommand.ScheduleCommand.MESSAGE_END_TIME_EXCEEDS_LAST_DAY;
 
 /**
  * An event representing a 'schedule' command.
@@ -44,6 +43,12 @@ public class ScheduleEvent implements Event {
         return new ScheduleCommand(activityIndex, startTime, dayIndex);
     }
 
+    /**
+     * A method to generate the ActivityWithTime that is scheduled to the day.
+     * @param model Current model of the application.
+     * @return The activity that is scheduled.
+     * @throws EventException
+     */
     private ActivityWithTime generateActivityScheduled(Model model) throws EventException {
         List<Day> lastShownDays = model.getFilteredItinerary();
         List<Activity> lastShownActivities = model.getFilteredActivityList();
@@ -63,8 +68,8 @@ public class ScheduleEvent implements Event {
             throw new EventException(MESSAGE_END_TIME_EXCEEDS_LAST_DAY);
         }
 
-        return new ActivityWithTime(activityToSchedule, startTime.atDate(model.getStartDate().
-                plusDays(dayIndex.getZeroBased())));
+        return new ActivityWithTime(activityToSchedule, startTime.atDate(model.getStartDate()
+                .plusDays(dayIndex.getZeroBased())));
 
     }
 }

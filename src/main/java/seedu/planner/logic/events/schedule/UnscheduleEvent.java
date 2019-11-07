@@ -57,6 +57,12 @@ public class UnscheduleEvent implements Event {
         return activityToUnschedule.getStartDateTime().toLocalTime();
     }
 
+    /**
+     * A method to generate the Index of the activity to be unscheduled base on the Activity list in model.
+     * @param model Current model of the application
+     * @return The index of the activity based on the Activity list in model.
+     * @throws EventException
+     */
     private Index generateActivityUnscheduledIndex(Model model) throws EventException {
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
