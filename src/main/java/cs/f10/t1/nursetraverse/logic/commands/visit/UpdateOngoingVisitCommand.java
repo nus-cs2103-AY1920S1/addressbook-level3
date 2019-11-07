@@ -28,7 +28,7 @@ public class UpdateOngoingVisitCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "visit-now-update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the current visit."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the current visit.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "New Visit Tasks cannot be added or removed from an ongoing visit.\n"
             + "Visit Tasks can only be updated but their descriptions cannot be modified.\n"
@@ -44,11 +44,11 @@ public class UpdateOngoingVisitCommand extends MutatorCommand {
             + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "2 140/90mmHg "
             + PREFIX_VISIT_REMARKS + "Patient may be allergic to bacitracin";
 
-    public static final String MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS = "Updated Visit: %1$s";
+    public static final String MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS = "Updated Visit: %1$s.";
     public static final String MESSAGE_NO_ONGOING_VISIT = "There is no ongoing visit to update.";
     public static final String MESSAGE_ONGOING_VISIT_NOT_MODIFIED = "No fields updated.";
     public static final String MESSAGE_INVALID_VISIT_TASK_INDEX =
-            "There are no visit tasks that have the index %1$s";
+            "There are no visit tasks that have the index %1$s.";
 
     private final UpdateOngoingVisitDescriptor updateOngoingVisitDescriptor;
 

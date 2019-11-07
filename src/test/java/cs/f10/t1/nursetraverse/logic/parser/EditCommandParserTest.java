@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cs.f10.t1.nursetraverse.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,12 +41,12 @@ public class EditCommandParserTest {
     public void parse_invalidPreamble_failure() {
         // negative index
         CommandParserTestUtil.assertParseFailure(parser, "-5"
-                + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+                + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
 
         // zero index
         CommandParserTestUtil.assertParseFailure(parser, "0"
 
-                + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+                + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
         CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);

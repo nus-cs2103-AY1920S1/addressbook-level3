@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+
+mainframe **sd** write patients to csv file
+
+box Logic LOGIC_COLOR_T1
+participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+end box
+
+box Util
+participant ":CsvUtil" as CsvUtil MODEL_COLOR
+participant ":FileUtil" as FileUtil MODEL_COLOR
+end box
+
+ExportCommand -> CsvUtil : writePatientsToCsv(patientList, name)
+activate CsvUtil
+
+CsvUtil -> CsvUtil : getCsvStringsFromPatients(patientList)
+CsvUtil -> FileUtil : createFile(name)
+activate FileUtil
+FileUtil --> CsvUtil
+deactivate FileUtil
+CsvUtil --> FileUtil : writeToFile(name, csvString)
+activate FileUtil
+FileUtil --> CsvUtil
+deactivate FileUtil
+
+CsvUtil --> ExportCommand
+deactivate CsvUtil
+
+@enduml

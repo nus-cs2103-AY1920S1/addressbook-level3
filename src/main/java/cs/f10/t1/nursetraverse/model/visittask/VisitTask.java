@@ -90,9 +90,9 @@ public class VisitTask {
                 .append(" Details: ")
                 .append(getDetail());
         if (isDone()) {
-            builder.append("Status: (done)");
+            builder.append(" Status: (done) ");
         } else {
-            builder.append("Status: (unfinished)");
+            builder.append(" Status: (unfinished) ");
         }
         return builder.toString();
     }
