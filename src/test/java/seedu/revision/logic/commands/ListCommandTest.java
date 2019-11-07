@@ -1,9 +1,10 @@
 package seedu.revision.logic.commands;
 
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -26,8 +27,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
+        expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs(), new History());
     }
 
     /*

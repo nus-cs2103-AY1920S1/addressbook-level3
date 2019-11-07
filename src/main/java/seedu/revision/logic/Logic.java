@@ -8,8 +8,10 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 
 /**
  * API of the Logic component
@@ -17,14 +19,27 @@ import seedu.revision.model.answerable.Answerable;
 public interface Logic {
 
     /**
-     * Returns the AddressBook.
+     * Returns the RevisionTool.
      *
-     * @see seedu.revision.model.Model#getAddressBook()
+     * @see seedu.revision.model.Model#getRevisionTool()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyRevisionTool getAddressBook();
+
+    /**
+     * Returns the History.
+     *
+     * @see seedu.revision.model.Model#getHistory()
+     */
+    ReadOnlyHistory getHistory();
+
+    /** Updates history of quiz statistics with the latest results */
+    void updateHistory(Statistics newResult);
 
     /** Returns an unmodifiable view of the filtered list of answerables */
     ObservableList<Answerable> getFilteredAnswerableList();
+
+    /** Returns an unmodifiable view of the list of statistics */
+    ObservableList<Statistics> getStatisticsList();
 
     /** Returns an unmodifiable view of the filtered and sorted list of answerables */
     ObservableList<Answerable> getFilteredSortedAnswerableList();
@@ -36,6 +51,11 @@ public interface Logic {
      * Returns the user prefs' revision tool file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' revision tool file path.
+     */
+    Path getHistoryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

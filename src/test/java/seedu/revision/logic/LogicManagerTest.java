@@ -23,12 +23,14 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.storage.JsonAddressBookStorage;
+import seedu.revision.storage.JsonHistoryStorage;
+import seedu.revision.storage.JsonRevisionToolStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.McqBuilder;
@@ -44,10 +46,11 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonRevisionToolStorage addressBookStorage =
+                new JsonRevisionToolStorage(temporaryFolder.resolve("revisionTool.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonHistoryStorage historyStorage = new JsonHistoryStorage(temporaryFolder.resolve("history.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -73,12 +76,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonRevisionToolIoExceptionThrowingStub
+        JsonRevisionToolStorage addressBookStorage =
+                new JsonRevisionToolIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonHistoryStorage historyStorage =
+                new JsonHistoryStorage((temporaryFolder.resolve("ioExceptionHistory.json")));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -132,7 +137,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs(), new History());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -152,13 +157,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonRevisionToolIoExceptionThrowingStub extends JsonRevisionToolStorage {
+        private JsonRevisionToolIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveRevisionTool(ReadOnlyRevisionTool revisionTool, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -15,17 +15,22 @@ import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.LogicManager;
-import seedu.revision.model.AddressBook;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Pipeline;
 import seedu.revision.model.util.SampleDataUtil;
-import seedu.revision.storage.AddressBookStorage;
-import seedu.revision.storage.JsonAddressBookStorage;
+import seedu.revision.model.util.SampleHistoryUtil;
+import seedu.revision.storage.HistoryStorage;
+import seedu.revision.storage.JsonHistoryStorage;
+import seedu.revision.storage.JsonRevisionToolStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
+import seedu.revision.storage.RevisionToolStorage;
 import seedu.revision.storage.Storage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.storage.UserPrefsStorage;
@@ -57,8 +62,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        RevisionToolStorage revisionToolStorage = new JsonRevisionToolStorage(userPrefs.getRevisionToolFilePath());
+        HistoryStorage historyStorage = new JsonHistoryStorage(userPrefs.getHistoryFilePath());
+        storage = new StorageManager(revisionToolStorage, userPrefsStorage, historyStorage);
 
         initLogging(config);
 
@@ -77,23 +83,41 @@ public class MainApp extends Application {
      * or an empty revision tool will be used instead if errors occur when reading {@code storage}'s revision tool.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+
+        Optional<ReadOnlyHistory> historyOptional;
+        ReadOnlyHistory initialHistory;
+        Optional<ReadOnlyRevisionTool> revisionToolOptional;
+        ReadOnlyRevisionTool initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            revisionToolOptional = storage.readRevisionTool();
+            if (!revisionToolOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample question bank");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = revisionToolOptional.orElseGet(SampleDataUtil::getSampleRevisionTool);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty question bank");
-            initialData = new AddressBook();
+            initialData = new RevisionTool();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty question bank");
-            initialData = new AddressBook();
+            initialData = new RevisionTool();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            historyOptional = storage.readHistory();
+            if (!historyOptional.isPresent()) {
+                logger.info("History file not found. Will be starting with a sample history");
+            }
+            initialHistory = historyOptional.orElseGet(SampleHistoryUtil::getSampleHistory);
+        } catch (DataConversionException e) {
+            logger.warning("History file not in the correct format. "
+                    + "Will be starting with an empty history");
+            initialHistory = new History();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty history");
+            initialHistory = new History();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialHistory);
     }
 
     private void initLogging(Config config) {
@@ -154,7 +178,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty RevisionTool");
             initializedPrefs = new UserPrefs();
         }
 
