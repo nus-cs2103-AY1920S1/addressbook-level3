@@ -51,10 +51,9 @@ public class AddCommandTest {
     public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
-        List<String> tagNames = validExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
 
         CommandResult commandResult = new AddCommand(validExpense.getName(), validExpense.getDescription(),
-                validExpense.getAmount(), validExpense.getCreated(), tagNames).execute(modelStub);
+                validExpense.getAmount(), validExpense.getCreated(), getTagNames(validExpense)).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Collections.singletonList(validExpense), modelStub.expensesAdded);
@@ -63,9 +62,8 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateExpense_throwsCommandException() {
         Expense validExpense = new ExpenseBuilder().build();
-        List<String> tagNames = validExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
         AddCommand addCommand = new AddCommand(validExpense.getName(), validExpense.getDescription(),
-                validExpense.getAmount(), validExpense.getCreated(), tagNames);
+                validExpense.getAmount(), validExpense.getCreated(), getTagNames(validExpense));
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
@@ -75,19 +73,17 @@ public class AddCommandTest {
     public void equals() {
         Expense alice = new ExpenseBuilder().withName("Alice").build();
         Expense bob = new ExpenseBuilder().withName("Bob").build();
-        List<String> aliceTags = alice.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
-        List<String> bobTags = alice.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
         AddCommand addAliceCommand = new AddCommand(alice.getName(), alice.getDescription(),
-                alice.getAmount(), alice.getCreated(), aliceTags);
+                alice.getAmount(), alice.getCreated(), getTagNames(alice));
         AddCommand addBobCommand = new AddCommand(bob.getName(), bob.getDescription(),
-                bob.getAmount(), bob.getCreated(), bobTags);
+                bob.getAmount(), bob.getCreated(), getTagNames(bob));
 
         // same object -> returns true
         assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
         AddCommand addAliceCommandCopy = new AddCommand(alice.getName(), alice.getDescription(),
-                alice.getAmount(), alice.getCreated(), aliceTags);
+                alice.getAmount(), alice.getCreated(), getTagNames(alice));
         assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
@@ -98,6 +94,10 @@ public class AddCommandTest {
 
         // different expense -> returns false
         assertNotEquals(addAliceCommand, addBobCommand);
+    }
+
+    private List<String> getTagNames(Expense expense) {
+        return expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
     }
 
     /**

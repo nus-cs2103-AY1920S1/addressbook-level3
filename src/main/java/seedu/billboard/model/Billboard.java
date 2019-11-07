@@ -221,21 +221,21 @@ public class Billboard implements ReadOnlyBillboard {
     //// Tag methods
 
     /**
-     * Retrieve tags to be added to an expense.
+     * Retrieves tags to be added to an expense.
      */
     public Set<Tag> retrieveTags(List<String> toRetrieve) {
         return tags.retrieveTags(toRetrieve);
     }
 
     /**
-     * Increment count of tags which will be added to an expense.
+     * Increments count of tags which will be added to an expense.
      */
     public void incrementCount(Set<Tag> toIncrement) {
         count.incrementAllCount(toIncrement);
     }
 
     /**
-     * Decrease count of tags removed from an expense.
+     * Decreases count of tags removed from an expense.
      * Also removes tags whose count is 0 from the unique tag list.
      */
     public void decreaseCount(Set<Tag> toDecrease) {

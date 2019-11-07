@@ -2,7 +2,6 @@ package seedu.billboard.logic.commands;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,11 +25,13 @@ public class AddTagCommand extends TagCommand {
             + ": Adds tag(s) to the expense identified "
             + "by the index number used in the last expense listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]\n"
+            + PREFIX_TAG + "[TAG] (1 or more)\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: \n%1$s";
+
+    public static final String MESSAGE_ADD_TAG_FAILURE = "No tag(s) to be added";
 
     private final Index index;
     private List<String> tagNames;
@@ -60,6 +61,11 @@ public class AddTagCommand extends TagCommand {
         Set<Tag> inputTags = model.retrieveTags(tagNames);
 
         Set<Tag> tagsToIncrementCount = getTagsToIncrement(existingTags, inputTags);
+
+        if (tagsToIncrementCount.isEmpty()) {
+            throw new CommandException(MESSAGE_ADD_TAG_FAILURE);
+        }
+
         Set<Tag> editedTags = getEditedTags(existingTags, tagsToIncrementCount);
 
         model.incrementCount(tagsToIncrementCount);
@@ -68,7 +74,6 @@ public class AddTagCommand extends TagCommand {
                 expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
 
         model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
 
         return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense));
     }
