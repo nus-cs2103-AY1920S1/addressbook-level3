@@ -39,4 +39,8 @@ public class StatusBarFooter extends UiPart<Region> {
         this.amount = amount;
         balance.setText("Balance: " + this.amount.toString());
     }
+
+    public void setBalance(Amount amount) {
+        balance.setText(amount.toString());
+    }
 }

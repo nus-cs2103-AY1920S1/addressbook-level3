@@ -218,6 +218,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LEDGER:
             showLedgerTab();
+            showLedgerBalance();
             break;
         case PROJECTION:
             showProjectionTab();
@@ -225,6 +226,10 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    private void showLedgerBalance() {
+        statusBarFooter.setBalance(logic.getUserState().getLedger().getBalance());
     }
 
     public TransactionListPanel getTransactionListPanel() {
