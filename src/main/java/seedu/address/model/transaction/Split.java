@@ -32,8 +32,8 @@ public class Split extends Transaction implements LedgerOperation {
         List<Amount> amounts = shares.stream()
             .map(share -> amount.byShare((double) share / denominator))
             .collect(Collectors.toList());
-        amounts.remove(0); // share to user no longer useful
-        splitAmounts = rebalanceAmounts(amount, amounts);
+        Amount userShare = amounts.remove(0); // share to user no longer useful
+        splitAmounts = rebalanceAmounts(amount.subtractAmount(userShare), amounts);
     }
 
     public static boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
