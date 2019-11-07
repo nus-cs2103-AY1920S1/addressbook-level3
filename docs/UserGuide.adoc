@@ -107,6 +107,7 @@ This command cannot be undone/redone.
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
 
+//tag::grocerylistfeatures[]
 === Grocery List Management
 
 ==== Adding a food item: `glist add`
@@ -224,6 +225,8 @@ Examples:
 Returns `Fuji apple` and `Apple loaf cake` and other items tagged as `apple`
 * `glist find milo doughnut roasted` +
 Returns any grocery item which contains any of the word `milo`, `doughnut`, or `roasted` as either name or tag or both
+
+//end::grocerylistfeatures[]
 
 //tag::reminderfeature[]
 ==== Checking reminders on expiry dates: `glist rem`
@@ -382,7 +385,7 @@ a more reliable prediction.
 As with any other application, our prediction algorithm will be more accurate with more frequent usage.
 
 //end::wastelistfeatures[]
-
+//tag::templatelistfeatures[]
 === Templates List Management
 
 ==== Add new template: `tlist add`
@@ -455,13 +458,14 @@ Examples:
 ==== Edit item name: `tlist template edit`
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
-Format: `tlist template edit INDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
+Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 
 ****
-* Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the food item at the specified `ITEMINDEX` in template at specified TEMPLATEINDEX. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Units in the amount field must match that of the item specified
+* Amount must have units.
+* Units in the amount field must match that of the item specified.
 ****
 
 Examples:
@@ -477,13 +481,13 @@ Deletes the specified item from the specified template. +
 Format: `tlist template delete TEMPLATEINDEX i/ITEMINDEX`
 
 ****
-* Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the food item at the specified `ITEMINDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
 * `tlist template delete 1 i/1`
-Deletes the first food item in the first template
+Deletes the first food item in the first template.
 
 ==== Shows template: `tlist template list`
 
@@ -509,6 +513,7 @@ Format: `tlist redo`
 
 Redoing a template list will only display template list.
 Redoing a template item list will display which template is redone.
+//end::templatelistfeatures[]
 
 //end::tlistundoredo[]
 === Shopping List Management
@@ -634,11 +639,31 @@ Examples:
 * `slist urgent 1`
 Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and moves to the top of the shopping list.
 
+//tag::addTempfeature[]
+==== Generate shopping list: `slist addTemp`
+
+Generates a shopping list from all missing grocery items in the template.
+Format: `slist addTemp [l/INDEX] ...`
+
+****
+* At least one template name must be provided.
+* In the case of multiple template lists, the amount of duplicate items will be summed up.
+* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
+****
+
+Examples:
+
+* `slist addTemp l/Weekly Necessities l/Birthday Cake`
+All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
+
+//end::addTempfeature[]
+//tag::slistundoredo[]
+
 ==== Undo Shopping List: `slist undo`
 Undo the shopping list. +
 Format: `slist undo`
 
-'slist merge bought' command cannot be undone.
+'slist mergebought' command cannot be undone.
 
 ==== Redo Shopping List: `slist redo`
 Redo the shopping list. +
