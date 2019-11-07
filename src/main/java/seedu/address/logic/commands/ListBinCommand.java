@@ -20,7 +20,7 @@ public class ListBinCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredBinItemList(PREDICATE_SHOW_ALL_BIN_ITEMS);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true,
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false,
             false, false, false, false, false, false, true);
     }
 
