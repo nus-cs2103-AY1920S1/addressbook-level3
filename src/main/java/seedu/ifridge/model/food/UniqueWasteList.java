@@ -12,6 +12,7 @@ public class UniqueWasteList extends UniqueGroceryList {
     private final WasteMonth wasteMonth;
 
     public UniqueWasteList(WasteMonth wasteMonth) {
+        super();
         requireNonNull(wasteMonth);
         this.wasteMonth = wasteMonth;
     }

@@ -13,6 +13,7 @@ import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.waste.WasteMonth;
+import seedu.ifridge.model.waste.exceptions.WasteMonthException;
 import seedu.ifridge.storage.JsonAdaptedGroceryItem;
 
 /**
@@ -50,7 +51,14 @@ public class JsonSerializableWasteList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public WasteList toModelType() throws IllegalValueException {
-        WasteMonth wasteMonth = new WasteMonth(this.wastemonth);
+
+        WasteMonth wasteMonth;
+        try {
+            wasteMonth = new WasteMonth(this.wastemonth);
+        } catch (WasteMonthException we) {
+            throw new IllegalValueException(we.getMessage());
+        }
+
         WasteList wasteList = new WasteList(wasteMonth);
         for (JsonAdaptedGroceryItem jsonAdaptedGroceryItem : this.wastelist) {
             GroceryItem food = jsonAdaptedGroceryItem.toModelType();

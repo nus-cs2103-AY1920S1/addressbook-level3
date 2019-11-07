@@ -48,7 +48,6 @@ public class FeedbackWasteCommand extends Command {
 
         List<ReadOnlyWasteList> pastWasteLists = new ArrayList<>();
         SortedSet<WasteMonth> pastWasteMonths = model.getDescendingWasteMonths();
-        pastWasteLists.remove(currentWasteMonth);
         int numWasteLists = 0;
         for (WasteMonth wm : pastWasteMonths) {
             pastWasteLists.add(model.getWasteListByMonth(wm));
@@ -71,5 +70,10 @@ public class FeedbackWasteCommand extends Command {
                 (int) Math.ceil(predictedWastage.getTotalQuantity()));
 
         return new CommandResult(currentWastageMessage + predictedWastageMessage);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof FeedbackWasteCommand;
     }
 }

@@ -58,8 +58,6 @@ public class ReportWasteCommand extends Command {
                               boolean startMonthGivenByUser, boolean endMonthGivenByUser) {
         requireNonNull(startWm);
         requireNonNull(endWm);
-        requireNonNull(startMonthGivenByUser);
-        requireNonNull(endMonthGivenByUser);
         this.startWasteMonth = startWm;
         this.endWasteMonth = endWm;
         this.startMonthGivenByUser = startMonthGivenByUser;
@@ -132,6 +130,16 @@ public class ReportWasteCommand extends Command {
         commandResult.setWasteReportCommand();
 
         return commandResult;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReportWasteCommand // instanceof handles nulls
+                && startWasteMonth.equals(((ReportWasteCommand) other).startWasteMonth)
+                && endWasteMonth.equals(((ReportWasteCommand) other).endWasteMonth)
+                && startMonthGivenByUser == ((ReportWasteCommand) other).startMonthGivenByUser
+                && endMonthGivenByUser == ((ReportWasteCommand) other).endMonthGivenByUser);
     }
 
 }

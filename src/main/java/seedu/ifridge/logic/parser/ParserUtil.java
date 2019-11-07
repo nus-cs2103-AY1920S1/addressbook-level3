@@ -121,6 +121,9 @@ public class ParserUtil {
         try {
             Parser dateParser = new Parser();
             DateGroup dateGroup = dateParser.parse(date).get(0);
+            if (!dateGroup.isTimeInferred() || dateGroup.isDateInferred()) {
+                throw new ParseException(WasteMonth.MESSAGE_CONSTRAINTS);
+            }
             Date dateInDateFormat = dateGroup.getDates().get(0);
             LocalDate dateInLocalDateFormat = dateInDateFormat.toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate();

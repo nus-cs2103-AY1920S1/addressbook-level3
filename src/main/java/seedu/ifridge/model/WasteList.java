@@ -112,29 +112,6 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteArchive;
     }
 
-    /**
-     * Adds a food item to the waste list archive for a given waste month.
-     *
-     * @param item the food item to be added
-     * @param wm the waste month in concern
-     */
-    public static void addFoodItemToArchive(GroceryItem item, WasteMonth wm) {
-        if (!wasteArchive.containsKey(wm)) {
-            createNewWasteMonth(wm);
-        }
-        WasteList archivedWasteList = wasteArchive.get(wm);
-        archivedWasteList.addWasteItem(item);
-    }
-
-    /**
-     * Creates a new waste month, unique food list key-value pair in wasteArchive.
-     *
-     * @param wm the waste month to be created
-     */
-    public static void createNewWasteMonth(WasteMonth wm) {
-        wasteArchive.put(wm, new WasteList(wm));
-    }
-
     public static void addWastelistToArchive(WasteMonth wm, WasteList wasteList) {
         wasteArchive.put(wm, wasteList);
     }
@@ -162,19 +139,11 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteArchive.get(wm);
     }
 
-    /*
-    public static WasteStatistic getCurrentMonthPredictedWasteStatistic() {
-        LocalDate today = LocalDate.now();
-        WasteStatistic currentMonthStatistic = getCurrentWasteList().getWasteStatistic();
-        WasteStatistic previousOneMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(1)))
-                .getWasteStatistic();
-        WasteStatistic previousTwoMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(2)))
-                .getWasteStatistic();
-        WasteStatistic previousThreeMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(3)))
-                .getWasteStatistic();
-        return WasteStatistic.getPredictedWasteStatistic(currentMonthStatistic,
-                previousOneMonth, previousTwoMonth, previousThreeMonth);
-    }
 
-     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof WasteList // instanceof handles nulls
+                && wasteList.equals(((WasteList) other).wasteList));
+    }
 }

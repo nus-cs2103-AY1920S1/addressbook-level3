@@ -1,5 +1,7 @@
 package seedu.ifridge.model.waste;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -15,15 +17,16 @@ import seedu.ifridge.model.waste.exceptions.WasteMonthException;
 public class WasteMonth implements Comparable<WasteMonth> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Month of year can be in any format permissible by the Natty library.";
+            "The month given is invalid. \nTo avoid ambiguity, we advice you to specify the month in a relaxed date "
+                    + "format, e.g. Sep 2019";
     public static final Pattern VALIDATION_REGEX = Pattern.compile("^(0[1-9]|1[012])-((19|2[0-9])[0-9]{2})$");
 
-    private int month;
-    private int year;
+    private final int month;
+    private final int year;
 
     public WasteMonth(int month, int year) {
         boolean isValidMonth = month > 0 && month < 13;
-        boolean isValidYear = year > 1900 && year < 3000;
+        boolean isValidYear = year > 1900 && year < 5000;
         if (!isValidMonth || !isValidYear) {
             String errorMessage = isValidMonth ? "Month is valid, " : "Month is not valid, ";
             errorMessage += isValidYear ? "Year is valid." : "Year is not valid.";
@@ -34,13 +37,15 @@ public class WasteMonth implements Comparable<WasteMonth> {
     }
 
     public WasteMonth(LocalDate date) {
+        requireNonNull(date);
         this.month = date.getMonthValue();
         this.year = date.getYear();
     }
 
     public WasteMonth(String wasteMonthString) {
+        requireNonNull(wasteMonthString);
         if (!VALIDATION_REGEX.matcher(wasteMonthString).matches()) {
-            throw new WasteMonthException("Invalid Format.");
+            throw new WasteMonthException("Invalid Format, storage waste month must be of format MM-yyyy");
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
         YearMonth ym = YearMonth.parse(wasteMonthString, formatter);
