@@ -15,7 +15,6 @@ import tagline.ui.CommandBox.CommandExecutor;
  * The UI component that stores the chat window.
  */
 public class ChatPane extends UiPart<GridPane> {
-
     private static final String FXML = "ChatPane.fxml";
     private static final String TAGLINE_RESPONSE_IMAGE = "/images/tagline_icon.png";
 
@@ -70,5 +69,12 @@ public class ChatPane extends UiPart<GridPane> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         dialogContainer.getChildren().add(DialogBox.getResponseDialog(feedbackToUser, image).getRoot());
+    }
+
+    /**
+     * Enables autocomplete for the command box.
+     */
+    public void enableAutocomplete() {
+        commandBox.setAutoCompleteEnabled(true);
     }
 }

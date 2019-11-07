@@ -105,8 +105,9 @@ public class MainWindow extends UiPart<Stage> {
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE && promptHandler != null
                         && !promptHandler.isAborted()) {
-                    logger.info("ESCAPE PRESSED");
+                    logger.info("Prompt aborted");
                     chatPane.setFeedbackToUser(ABORT_PROMPTING_STRING);
+                    chatPane.enableAutocomplete();
                     promptHandler.setAborted();
                 }
             }
@@ -245,8 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         try {
-            //Prompting in progress
-            if (promptHandler != null) {
+            if (promptHandler != null) { //Prompting in progress
                 return handlePromptResponse(commandText);
             } else {
                 return handleCommandString(commandText);
@@ -255,7 +255,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command, requesting prompt: " + commandText);
             chatPane.setFeedbackToUser(BEGIN_PROMPTING_STRING);
 
-            if (promptHandler != null) {
+            if (promptHandler != null) { //A previous prompt session existed
                 promptHandler = new PromptHandler(promptHandler.getPendingCommand(), e.getPrompts());
             } else {
                 promptHandler = new PromptHandler(commandText, e.getPrompts());
