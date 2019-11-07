@@ -63,7 +63,7 @@ You can learn more about the individual GUIs and commands in the coming sections
 == Features
 
 Before delving straight into each feature, here are some things to note - in order to get the most
-out of this user guide:
+out of this user guide.
 
 :sectnums!:
 === Command Format
@@ -99,11 +99,11 @@ For example:
 `[#TAG]...` is an optional parameter that can either not be used, used once,
 or used multiple times.
 +
-Without optional parameter:: `add-task t/todo des/assignment`
+Without an optional parameter:: `add-task t/todo des/assignment`
 +
 or
 +
-With optional parameter:: `add-task t/todo des/assignment #cs2103t #urgent`
+With an optional parameter:: `add-task t/todo des/assignment #cs2103t #urgent`
 
 * Jarvis can parse parameters to commands in *any order*.
 
@@ -135,6 +135,8 @@ Task Scheduler
 Feature by
 -> Anisha Nicole Joseph
 ////
+{sp} +
+
 :sectnums:
 === Task Planner
 
@@ -283,6 +285,8 @@ Feature by
 -> Ryan Tan Yu
 ////
 
+{sp} +
+
 === Course Planner
 As an all-encompassing application, we thought it natural to incorporate NUSMods into `Jarvis`. `Jarvis` is a student
 life organiser for NUS students by NUS students. We understand how big a role NUSMods plays in all our lives. Through
@@ -344,6 +348,7 @@ CCA tracker
 Feature by
 -> Tan Ye Kai
 ////
+{sp} +
 
 === CCA tracker
 The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on individual interest,
@@ -450,6 +455,7 @@ Finance Tracker Lookup
 Feature by
 -> Goh Si Ning
 ////
+{sp} +
 
 === Finance Tracker
 Introducing the Finance Tracker feature of Jarvis - responsible for keeping track of all your purchases,
@@ -643,6 +649,8 @@ Undo/Redo
 Feature by
 -> Marc Fong Yung Kit
 ////
+{sp} +
+
 === App History
 
 _"Oops! I have entered a command that has entered inaccurate information to the
@@ -770,6 +778,8 @@ Planner, as long as it is available on NUSMods as well.
 == Command Summary
 
 A convenient summary of all the commands you can use in `Jarvis`.
+
+{sp} +
 
 === Task Planner
 
