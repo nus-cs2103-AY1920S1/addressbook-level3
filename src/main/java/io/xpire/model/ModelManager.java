@@ -275,7 +275,7 @@ public class ModelManager implements Model {
                 assert false;
             }
         } catch (ClassCastException e) {
-            this.logger.warning("List type and predicate type mismatch");
+            logger.warning("List type and predicate type mismatch");
         }
     }
 
@@ -288,8 +288,10 @@ public class ModelManager implements Model {
         } else {
             ModelManager other = (ModelManager) obj;
             return this.xpire.equals(other.xpire)
+                    && this.replenishList.equals(other.replenishList)
                     && this.userPrefs.equals(other.userPrefs)
-                    && this.currentList.equals(other.currentList);
+                    && this.currentList.equals(other.currentList)
+                    && this.currentView == other.currentView;
         }
     }
 
