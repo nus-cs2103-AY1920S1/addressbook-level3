@@ -24,6 +24,7 @@ import seedu.moolah.logic.commands.event.DeleteEventCommand;
 import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.event.ListEventsCommand;
 import seedu.moolah.logic.commands.expense.AddExpenseCommand;
+import seedu.moolah.logic.commands.expense.AddMenuExpenseCommand;
 import seedu.moolah.logic.commands.expense.DeleteExpenseCommand;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
 import seedu.moolah.logic.commands.expense.FindExpenseCommand;
@@ -61,6 +62,7 @@ public class AliasMappings implements Serializable {
             EditEventCommand.COMMAND_WORD,
             //expense
             AddExpenseCommand.COMMAND_WORD,
+            AddMenuExpenseCommand.COMMAND_WORD,
             DeleteExpenseCommand.COMMAND_WORD,
             ListExpensesCommand.COMMAND_WORD,
             FindExpenseCommand.COMMAND_WORD,
