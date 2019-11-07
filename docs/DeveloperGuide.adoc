@@ -232,7 +232,7 @@ image::SortSequenceDiagram.png[]
 When sort is called, the method of sorting is redefined by the user.
 
 .Sequence Diagram : set method of sorting to date
-image::SortParserPartSequenceDiagram.png[]
+image::SortPartSequenceDiagram.png[]
 
 In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
 
