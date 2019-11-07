@@ -1,10 +1,8 @@
-= Chan Dalis - Project Portfolio
+= Chan Dalis - Project Portfolio for Mortago v1.4
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :sectnums:
-
-= Project: MORTAGO v1.4
 
 ---
 
@@ -12,24 +10,19 @@
 
 === About the Project
 
-MORTAGO, a desktop application, is a comprehensive mortuary management system. MORTAGO is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, MORTAGO aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
+Mortago, a desktop application, is a comprehensive mortuary management system. Mortago is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, Mortago aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
 
-The interface is responsive to suit different screen sizes. However, due to its detailed interface, it is recommended for larger screen sizes such as desktop monitors. MORTAGO has a GUI created with JavaFX. It is written in Java, and has about __ kLoC. MORTAGO maintains a local storage.
+The interface is responsive to suit different screen sizes. However, due to its detailed interface, it is recommended for larger screen sizes such as desktop monitors. Mortago has a graphical user interface (GUI) created with JavaFX. It is written in Java, and maintains a local storage.
 
 The image below shows where the users can type the commands and where the details are displayed:
 
 image::Ui.png[width="790", align="center"]
 
-_Figure 1: MORTAGO's dashboard._
+_Figure 1: Mortago's dashboard._
 
 === About the Team
 
-This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the following contraints:
-
-* The product has to be a command line interface (CLI).
-* The target user base is narrow.
-
-We have thus developed this software that is mostly CLI, save the option for clicking navigation menu and entries, and to be targeted for mortuary managers.
+This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the0 contraints that it must be CLI and targets a small user base.
 
 === About My Role
 
@@ -76,11 +69,11 @@ team project.
 *** I reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 == Contributions to the User Guide
+We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
+made for the `stats` and `fitler` features.
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+This section also contains an excerpt for the sorting feature that I have planned for the
+next version (v2.0) of Mortago.
 
 {start of extract 1: stats command}
 include::../UserGuide.adoc[tag=stats]
@@ -89,6 +82,10 @@ include::../UserGuide.adoc[tag=stats]
 {start of extract 2: filter command}
 include::../UserGuide.adoc[tag=filter]
 {end of extract 2}
+
+{start of extract 3: sort command (v2.0)}
+include::../UserGuide.adoc[tag=sort]
+{end of extract 3}
 
 == Contributions to the Developer Guide
 
