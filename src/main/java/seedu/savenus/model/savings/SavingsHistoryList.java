@@ -26,9 +26,7 @@ public class SavingsHistoryList implements Iterable<Savings> {
     void add(Savings toAdd) {
         requireNonNull(toAdd);
         if (toAdd.isWithdraw()) {
-            System.out.println(toAdd.getSavingsAmount().getAmount().toString());
             toAdd.makeWithdraw();
-            System.out.println(toAdd.getSavingsAmount().getAmount().toString());
         }
         internalSavingsHistoryList.add(toAdd);
     }
