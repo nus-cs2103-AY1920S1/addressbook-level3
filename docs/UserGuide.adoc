@@ -51,6 +51,7 @@ home folder for the application.
 .Jarvis' Graphical User Interface (GUI)
 image::StartUpGUI.png[]
 
+
 Jarvis' <<link-main-features, four main features>> have been split into four distinct tabs. You can
 toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
 features' `list` commands.
