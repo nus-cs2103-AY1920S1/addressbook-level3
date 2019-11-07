@@ -514,6 +514,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addCca(Index targetIndex, Cca deletedCca) {
+        requireAllNonNull(targetIndex, deletedCca);
+        ccaTracker.addCca(targetIndex, deletedCca);
+    }
+
+    @Override
     public void removeCca(Cca cca) {
         requireNonNull(cca);
         ccaTracker.removeCca(cca);

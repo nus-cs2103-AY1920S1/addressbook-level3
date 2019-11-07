@@ -28,7 +28,7 @@ public interface CcaTrackerModel {
     /**
      * Adds the given {@code Cca} at the given {@code targetIndex}.
      */
-    public void addCca(Index targetIndex, Cca deletedCca);
+    public void addCca(Index targetIndex, Cca cca);
 
     /**
      * Removes the given cca {@code cca} from the cca tracker.
