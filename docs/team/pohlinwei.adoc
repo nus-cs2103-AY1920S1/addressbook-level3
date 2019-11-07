@@ -12,7 +12,7 @@ This section explains how _TravEzy_ came to life and highlights the main feature
 _TravEzy_ is an application developed by my team of five during our software engineering module (CS2103T), 
 and is morphed from  https://github.com/nus-cs2103-AY1920S1/addressbook-level3[this address book application]. 
 
-.To fulfil the requirements for the module, we had to ensure that TravEzy ...
+.To fulfil the requirements of the module, we had to ensure that _TravEzy_ ...
 - uses https://www.defit.org/?s=desktop+application[command line interface (CLI)] as the primary mode of input 
 (this means that users of the application should be able to use most functionalities by typing in commands)
 - is a https://www.pcmag.com/encyclopedia/term/41158/desktop-application[desktop application] (this implies 
