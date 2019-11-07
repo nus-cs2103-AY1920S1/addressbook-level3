@@ -68,35 +68,25 @@ public class SetReminderCommand extends Command {
         }
 
         String daysLeft = xpireItemToSetReminder.getExpiryDate().getStatus();
-        ReminderThreshold finalThreshold = getValidThreshold(daysLeft);
-        xpireItemToSetReminder.setReminderThreshold(finalThreshold);
-        this.item = xpireItemToSetReminder;
-        model.setItem(targetItem, xpireItemToSetReminder);
-        model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        if (isThresholdExceeded(daysLeft)) {
-            setShowInHistory(true);
+
+        setShowInHistory(true);
+
+        if (!ReminderThreshold.isValidReminderThreshold(this.threshold.toString(), daysLeft)) {
+            ReminderThreshold newThreshold = new ReminderThreshold(daysLeft);
+            xpireItemToSetReminder.setReminderThreshold(newThreshold);
+            this.item = xpireItemToSetReminder;
+            model.setItem(targetItem, xpireItemToSetReminder);
+            model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
         } else {
-            setShowInHistory(true);
+            xpireItemToSetReminder.setReminderThreshold(this.threshold);
+            this.item = xpireItemToSetReminder;
+            model.setItem(targetItem, xpireItemToSetReminder);
+            model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
             return new CommandResult(this.threshold.getValue() > 0
                     ? String.format(MESSAGE_SUCCESS_SET, this.item.getName(), this.threshold)
                     : String.format(MESSAGE_SUCCESS_RESET, this.item.getName()));
         }
-    }
-
-    private boolean isThresholdExceeded(String daysLeft) {
-        int threshold = this.threshold.getValue();
-        long remainingDays = Long.parseLong(daysLeft);
-        return threshold >= remainingDays;
-    }
-
-    private ReminderThreshold getValidThreshold(String daysLeft) {
-        if (isThresholdExceeded(daysLeft)) {
-            return new ReminderThreshold(daysLeft);
-        } else {
-            return this.threshold;
-        }
-
     }
 
     @Override
