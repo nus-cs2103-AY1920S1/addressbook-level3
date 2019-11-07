@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fx:id="reminderListPanel" styleClass="autoColouredScrollBar" fitToWidth="true" hbarPolicy="NEVER" minWidth="200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<ScrollPane fx:id="reminderListPanel" styleClass="commonScrollPane" fitToWidth="true" hbarPolicy="NEVER" minWidth="200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
     <VBox fx:id="reminderListVBox" spacing="2">
         <ListView fx:id="reminderListView" VBox.vgrow="ALWAYS"/>
     </VBox>

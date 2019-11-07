@@ -524,7 +524,7 @@
 /*    -fx-padding: 8 1 8 1;*/
 /*}*/
 
-.autoColouredScrollBar {
+.commonScrollPane {
     -fx-background: transparent !important;
     -fx-background-color: transparent !important;
     -fx-border-color: rgb(255, 255, 255) !important;
@@ -532,34 +532,34 @@
     -fx-border-radius: 1 !important;
 }
 
-.autoColouredScrollBar .scroll-bar: horizontal ,
-.autoColouredScrollBar  .scroll-bar: vertical {
+.commonScrollPane .scroll-bar: horizontal ,
+.commonScrollPane  .scroll-bar: vertical {
     -fx-background-color: transparent !important;
     -fx-pref-width: 17 !important;
     -fx-pref-height: 17 !important;
     -fx-padding: 3 !important;
 }
 
-.autoColouredScrollBar .increment-button ,.autoColouredScrollBar .decrement-button {
+.commonScrollPane .increment-button ,.commonScrollPane .decrement-button {
     -fx-background-color: transparent !important;
 }
 
-.autoColouredScrollBar .scroll-bar: horizontal .track ,
-.autoColouredScrollBar .scroll-bar: vertical .track{
+.commonScrollPane .scroll-bar: horizontal .track ,
+.commonScrollPane .scroll-bar: vertical .track{
     -fx-background-color: transparent !important;
 }
 
-.autoColouredScrollBar .scroll-bar: horizontal .thumb,
-.autoColouredScrollBar .scroll-bar: vertical .thumb {
+.commonScrollPane .scroll-bar: horizontal .thumb,
+.commonScrollPane .scroll-bar: vertical .thumb {
     -fx-background-color: derive(black,50%) !important;
 
 }
 
-.autoColouredScrollBar .scroll-bar .thumb: hover {
+.commonScrollPane .scroll-bar .thumb: hover {
     -fx-background-color: derive(black,70%) !important;
 }
 
-.autoColouredScrollBar .scroll-bar .thumb: pressed{
+.commonScrollPane .scroll-bar .thumb: pressed{
     -fx-background-color: derive(black,85%) !important;
 }
 

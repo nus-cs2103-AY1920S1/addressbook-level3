@@ -7,7 +7,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsPlaceHolder" HBox.hgrow="ALWAYS"
       xmlns="http://javafx.com/javafx/8">
     <children>
-        <ScrollPane fx:id="achievementsScrollPane" fitToWidth="true" pannable="false" styleClass="autoColouredScrollBar"
+        <ScrollPane fx:id="achievementsScrollPane" fitToWidth="true" pannable="false" styleClass="commonScrollPane"
                     HBox.hgrow="ALWAYS">
             <content>
                 <VBox fx:id="achievementsListVBox" spacing="20"/>

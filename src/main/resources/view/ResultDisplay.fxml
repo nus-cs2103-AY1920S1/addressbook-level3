@@ -8,6 +8,6 @@
 
 
 <TextArea fx:id="resultDisplay" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" editable="false"
-          wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="autoColouredScrollBar"/>
+          wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="commonScrollPane"/>
 
 
