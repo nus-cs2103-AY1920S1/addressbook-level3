@@ -3,6 +3,8 @@ package io.xpire.logic.commands;
 import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
@@ -13,8 +15,6 @@ import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
-
-import java.util.List;
 
 /**
  * Adds an xpireItem to the list.
@@ -102,7 +102,7 @@ public class AddCommand extends Command {
      * @param item existing on the
      * @param list
      * @return
-     */
+     **/
     private XpireItem retrieveXpireItem(XpireItem item, List<? extends Item> list) {
         requireNonNull(item);
         int index = -1;
@@ -114,6 +114,9 @@ public class AddCommand extends Command {
         return (XpireItem) list.get(index);
     }
 
+    /**
+     * Returns the item with added quantity.
+     */
     private XpireItem increaseItemQuantity(XpireItem targetItem, Quantity quantity) throws ParseException {
         Quantity prevQuantity = targetItem.getQuantity();
         Quantity updatedQuantity = prevQuantity.increaseQuantity(quantity);

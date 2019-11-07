@@ -1,7 +1,6 @@
 package io.xpire.model;
 
 import io.xpire.model.item.Item;
-import io.xpire.model.item.ListToView;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 import javafx.collections.transformation.FilteredList;
@@ -33,18 +32,7 @@ public class CloneModel {
         this.userPrefs = userPrefs;
         this.currentList = new FilteredList<>(currentList);
     }
-/*
-    /**
-     * Checks the model's list to view
 
-    private FilteredList<? extends Item> checkListToView(ListToView listToView) {
-        if (listToView.equals(new ListToView("main"))) {
-            return filteredXpireItemList;
-        } else {
-            return filteredReplenishItemList;
-        }
-    }
-*/
     public ReadOnlyListView<XpireItem> getXpire() {
         return this.xpire;
     }
