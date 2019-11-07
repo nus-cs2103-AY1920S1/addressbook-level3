@@ -61,6 +61,7 @@ class JsonAdaptedModule {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "moduleCode"));
         }
 
+        //@@author geshuming
         Optional<ArchivedModule> archivedModule = archivedModules.asUnmodifiableObservableList()
             .parallelStream()
             .filter(a -> a.getModuleCode().equals(moduleCode))
@@ -71,6 +72,8 @@ class JsonAdaptedModule {
         }
 
         TrackedModule result = new TrackedModule(archivedModule.get());
+        //@@author
+
         for (JsonAdaptedDeadline deadline : deadlines) {
             result.getDeadlineList().add(deadline.toModelType());
         }

@@ -40,6 +40,8 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
         return readModuleBook(filePath);
     }
 
+
+    //@@author geshuming
     /**
      * Similar to {@link #readModuleBook()}.
      *
@@ -70,6 +72,7 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
 
         return moduleBook;
     }
+    //@@author
 
     @Override
     public void saveModuleBook(ReadOnlyModuleBook moduleBook) throws IOException {
