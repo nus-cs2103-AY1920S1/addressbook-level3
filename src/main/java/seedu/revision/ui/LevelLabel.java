@@ -2,7 +2,6 @@ package seedu.revision.ui;
 
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -37,27 +36,23 @@ public class LevelLabel extends UiPart<Region> {
      * @param nextLevel the next level in the quiz.
      */
     public void updateLevelLabel(int nextLevel) {
-        //Update UI on a Java application thread.
-        Platform.runLater(() -> {
-                switch (nextLevel) {
-                case 1:
-                    levelLabel.setText("Level 1");
-                    innerLevelPlaceholder.setStyle("-fx-background-color: #5D5D5A;");
-                    break;
-                case 2:
-                    levelLabel.setText("Level 2");
-                    innerLevelPlaceholder.setStyle("-fx-background-color: #ff8264;");
-                    break;
-                case 3:
-                    levelLabel.setText("Level 3");
-                    innerLevelPlaceholder.setStyle("-fx-background-color: #f73859;");
-                    break;
-                default:
-                    logger.warning("Invalid level selected.");
-                    break;
-                }
-            }
-        );
+        switch (nextLevel) {
+        case 1:
+            levelLabel.setText("Level 1");
+            innerLevelPlaceholder.setStyle("-fx-background-color: #5D5D5A;");
+            break;
+        case 2:
+            levelLabel.setText("Level 2");
+            innerLevelPlaceholder.setStyle("-fx-background-color: #ff8264;");
+            break;
+        case 3:
+            levelLabel.setText("Level 3");
+            innerLevelPlaceholder.setStyle("-fx-background-color: #f73859;");
+            break;
+        default:
+            logger.warning("Invalid level selected.");
+            break;
+        }
     }
 
     public Label getLevelLabel() {
