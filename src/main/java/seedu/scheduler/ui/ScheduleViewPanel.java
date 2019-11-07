@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -41,6 +42,9 @@ public class ScheduleViewPanel extends UiPart<Region> {
      * Fill the schedule view panel with schedule tables.
      */
     private void fillPanel() {
+        if (this.scheduleList.isEmpty() || this.titles.isEmpty()) {
+            scheduleListView.setPlaceholder(new Label("No schedule data."));
+        }
         for (int i = 0; i < this.scheduleList.size(); i++) {
             scheduleViewList.add(new ScheduleView(this.titles.get(i), this.scheduleList.get(i)));
         }
@@ -54,7 +58,7 @@ public class ScheduleViewPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code ScheduleView} using a {@code ScheduleViewCard}.
      */
-    class ScheduleListViewCell extends ListCell<ScheduleView> {
+    static class ScheduleListViewCell extends ListCell<ScheduleView> {
         @Override
         protected void updateItem(ScheduleView schedule, boolean empty) {
             super.updateItem(schedule, empty);
@@ -73,10 +77,13 @@ public class ScheduleViewPanel extends UiPart<Region> {
      * @param titles The new column titles.
      * @param newSchedules The new data consisting of different schedules.
      */
-    public void dataUpdated(List<List<String>> titles, List<ObservableList<ObservableList<String>>> newSchedules) {
+    void dataUpdated(List<List<String>> titles, List<ObservableList<ObservableList<String>>> newSchedules) {
         clearData();
         this.titles = titles;
         this.scheduleList = newSchedules;
+        if (this.scheduleList.isEmpty() || this.titles.isEmpty()) {
+            scheduleListView.setPlaceholder(new Label("No schedule data."));
+        }
         for (int i = 0; i < this.scheduleList.size(); i++) {
             scheduleViewList.add(new ScheduleView(this.titles.get(i), this.scheduleList.get(i)));
         }
@@ -90,7 +97,7 @@ public class ScheduleViewPanel extends UiPart<Region> {
     /**
      * Clear the data in UI.
      */
-    protected void clearData() {
+    private void clearData() {
         this.scheduleViewList.clear();
     }
 }

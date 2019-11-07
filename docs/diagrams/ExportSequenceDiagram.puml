@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
 participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result :CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -14,10 +14,10 @@ participant ":CsvWriter" as CsvWriter MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("export <<csv filepath>>")
+[-> LogicManager : execute("export fp/FILE_PATH")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("export <<csv filepath>>")
+LogicManager -> AddressBookParser : parseCommand("export fp/FILE_PATH")
 activate AddressBookParser
 
 create ExportCommandParser
@@ -27,7 +27,7 @@ activate ExportCommandParser
 ExportCommandParser --> AddressBookParser
 deactivate ExportCommandParser
 
-AddressBookParser -> ExportCommandParser : parse("<<csv filepath>>")
+AddressBookParser -> ExportCommandParser : parse("fp/FILE_PATH")
 activate ExportCommandParser
 
 create ExportCommand
@@ -50,7 +50,7 @@ LogicManager -> ExportCommand : execute()
 activate ExportCommand
 
 create CsvWriter
-ExportCommand -> CsvWriter
+ExportCommand -> CsvWriter : writeSchedulesToFile()
 activate CsvWriter
 
 CsvWriter -> Model : getSchedules()

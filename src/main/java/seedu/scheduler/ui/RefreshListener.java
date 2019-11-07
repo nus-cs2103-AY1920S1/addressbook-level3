@@ -10,13 +10,4 @@ public interface RefreshListener {
      */
     void scheduleDataUpdated();
 
-    /**
-     * Refresh the Ui when interviewee data is updated
-     */
-    void intervieweeListUpdated();
-
-    /**
-     * Refresh the Ui when interviewer data is updated
-     */
-    void interviewerListUpdated();
 }

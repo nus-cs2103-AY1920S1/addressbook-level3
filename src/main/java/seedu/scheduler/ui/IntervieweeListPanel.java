@@ -38,7 +38,11 @@ public class IntervieweeListPanel extends UiPart<Region> {
     private void initialise() {
         setTableColumn();
         this.intervieweeTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        this.intervieweeTableView.setItems(this.intervieweeList);
+        if (this.intervieweeList.isEmpty()) {
+            this.intervieweeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        } else {
+            this.intervieweeTableView.setItems(this.intervieweeList);
+        }
     }
 
     /**
@@ -75,13 +79,18 @@ public class IntervieweeListPanel extends UiPart<Region> {
         timeSlotTitle.setCellValueFactory(
                 new PropertyValueFactory<ObservableList<String>, String>("AvailableTimeslots"));
         editTableColumn(timeSlotTitle);
+        TableColumn<ObservableList<String>, String> allocatedTimeTitle =
+                new TableColumn<ObservableList<String>, String>("Allocated Slot");
+        allocatedTimeTitle.setCellValueFactory(
+                new PropertyValueFactory<ObservableList<String>, String>("allocatedSlot"));
+        editTableColumn(allocatedTimeTitle);
         TableColumn<ObservableList<String>, String> tagTitle =
                 new TableColumn<ObservableList<String>, String>("Tags");
         tagTitle.setCellValueFactory(new PropertyValueFactory<ObservableList<String>, String>("Tags"));
         editTableColumn(tagTitle);
 
         intervieweeTableView.getColumns().addAll(nameTitle, emailTitle, facultyTitle, yearTitle,
-                departmentTitle, timeSlotTitle, tagTitle);
+                departmentTitle, timeSlotTitle, allocatedTimeTitle, tagTitle);
     }
 
     /**
@@ -91,14 +100,5 @@ public class IntervieweeListPanel extends UiPart<Region> {
     private void editTableColumn(TableColumn tableColumn) {
         tableColumn.setReorderable(false);
         tableColumn.setMinWidth(80);
-    }
-
-    protected void listUpdated(ObservableList<Interviewee> newIntervieweeList) {
-        clearData();
-        this.intervieweeTableView.setItems(newIntervieweeList);
-    }
-
-    protected void clearData() {
-        this.intervieweeTableView.getItems().removeAll();
     }
 }

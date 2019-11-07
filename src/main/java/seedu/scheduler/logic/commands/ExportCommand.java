@@ -24,6 +24,7 @@ public class ExportCommand extends Command {
     public static final String NOT_SCHEDULED_ERROR = "Interview slots have not been scheduled. Please ensure that "
             + "data has been imported and 'schedule' command has been ran.";
     public static final String ERROR_MESSAGE = "Could not write to file.";
+    public static final String EMPTY_SCHEDULES_ERROR = "No data to export. Please import data before trying again.";
 
     private FilePath destinationFile;
 
@@ -38,6 +39,9 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
+            if (model.getSchedulesList().isEmpty()) {
+                throw new CommandException(EMPTY_SCHEDULES_ERROR);
+            }
             if (!model.isScheduled()) {
                 throw new CommandException(NOT_SCHEDULED_ERROR);
             }

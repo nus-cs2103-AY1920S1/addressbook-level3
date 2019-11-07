@@ -15,10 +15,10 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 
-[-> LogicManager : execute("import interviewer <<csv filepath>>")
+[-> LogicManager : execute("import interviewer fp/FILE_PATH")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("import interviewer <<csv filepath>>")
+LogicManager -> AddressBookParser : parseCommand("import interviewer fp/FILE_PATH")
 activate AddressBookParser
 
 create ImportCommandParser
@@ -28,7 +28,7 @@ activate ImportCommandParser
 ImportCommandParser --> AddressBookParser
 deactivate ImportCommandParser
 
-AddressBookParser -> ImportCommandParser : parse("interviewer <<csv filepath>>")
+AddressBookParser -> ImportCommandParser : parse("interviewer fp/FILE_PATH")
 activate ImportCommandParser
 
 create ImportCommand
@@ -51,17 +51,22 @@ LogicManager -> ImportCommand : execute()
 activate ImportCommand
 
 create CsvReader
-ImportCommand -> CsvReader : read()
+ImportCommand -> CsvReader : readInterviewers()
 activate CsvReader
 
-CsvReader --> ImportCommand : schedules
+CsvReader --> ImportCommand : interviewers
 deactivate CsvReader
 
-ImportCommand -> Model : setScheduleList(schedules)
-activate Model
+loop interviewer in interviewers
 
-Model --> ImportCommand
-deactivate Model
+    ImportCommand -> Model : addInterviewer(interviewer)
+    activate Model
+
+    Model --> ImportCommand
+    deactivate Model
+
+end
+
 
 create CommandResult
 ImportCommand -> CommandResult

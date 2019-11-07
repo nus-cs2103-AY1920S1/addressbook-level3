@@ -18,9 +18,14 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation) {
+    public StatusBarFooter(Path intervieweeSaveLocation, Path interviewerSaveLocation) {
         super(FXML);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Interviewees list: ");
+        sb.append(Paths.get(".").resolve(intervieweeSaveLocation));
+        sb.append(" | Interviewers list: ");
+        sb.append(Paths.get(".").resolve(interviewerSaveLocation));
+        saveLocationStatus.setText(sb.toString());
     }
 
 }

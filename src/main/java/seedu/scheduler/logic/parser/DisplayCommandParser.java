@@ -13,12 +13,12 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
 
     @Override
     public DisplayCommand parse(String args) throws ParseException {
-        args.trim();
-        if (args.isEmpty()) {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)
             );
         }
-        return new DisplayCommand(args);
+        return new DisplayCommand(trimmedArgs);
     }
 }

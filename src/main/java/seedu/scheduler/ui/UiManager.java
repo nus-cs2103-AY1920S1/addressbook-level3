@@ -20,7 +20,7 @@ public class UiManager implements Ui, TabListener, RefreshListener {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/scheduler.png";
 
     private Logic logic;
     private MainWindow mainWindow;
@@ -55,13 +55,6 @@ public class UiManager implements Ui, TabListener, RefreshListener {
         mainWindow.scheduleDataUpdated(logic.getTitlesLists(), logic.getObservableLists());
     }
 
-    /**
-     * Signals the main window that list of interviewee is updated.
-     */
-    public void intervieweeListUpdated() {
-        mainWindow.intervieweeListUpdated(logic.getFilteredIntervieweeList());
-    }
-
     public void changeTabSchedule() {
         mainWindow.changeTab(0);
     }
@@ -77,9 +70,6 @@ public class UiManager implements Ui, TabListener, RefreshListener {
     /**
      * Signals the main window that list of interviewer is updated.
      */
-    public void interviewerListUpdated() {
-        mainWindow.interviewerListUpdated(logic.getFilteredInterviewerList());
-    }
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
