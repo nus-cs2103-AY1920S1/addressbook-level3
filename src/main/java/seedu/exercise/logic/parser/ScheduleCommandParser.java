@@ -13,6 +13,7 @@ import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 
+//@@author t-cheepeng
 /**
  * Parses input arguments and creates a new ScheduleCommand object
  */

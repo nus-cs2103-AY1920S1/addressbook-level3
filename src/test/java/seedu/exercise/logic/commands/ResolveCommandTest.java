@@ -36,6 +36,7 @@ import seedu.exercise.testutil.typicalutil.TypicalRegime;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 /**
  * Contains integration tests (interaction with Model) and unit tests for
  * {@code ResolveCommand}.

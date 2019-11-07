@@ -22,6 +22,7 @@ import seedu.exercise.testutil.typicalutil.TypicalRegime;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 public class ScheduleRegimeCommandTest {
 
     private final ScheduleCommand scheduleRegimeCommandWithUnknownRegime =

@@ -13,6 +13,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 /**
  * Completes a schedule and removes it from the schedule list.
  */

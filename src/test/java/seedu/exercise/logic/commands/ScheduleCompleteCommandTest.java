@@ -18,6 +18,7 @@ import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 /**
  * Contains integration test for {@code ScheduleCompleteCommand}.
  */

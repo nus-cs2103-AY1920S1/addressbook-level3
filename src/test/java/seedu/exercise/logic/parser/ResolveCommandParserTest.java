@@ -28,6 +28,7 @@ import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 
+//@@author t-cheepeng
 public class ResolveCommandParserTest {
 
     private ResolveCommandParser parser = new ResolveCommandParser();

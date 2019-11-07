@@ -23,6 +23,7 @@ import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DateChangerUtil;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 /**
  * Schedules a regime at a specific date.
  */

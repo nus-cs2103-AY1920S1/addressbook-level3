@@ -29,6 +29,7 @@ import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author t-cheepeng
 /**
  * Represents a Resolve Command that resolves scheduling conflicts.
  */

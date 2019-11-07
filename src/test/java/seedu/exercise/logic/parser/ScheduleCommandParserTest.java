@@ -36,6 +36,7 @@ import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 
+//@@author t-cheepeng
 /**
  * Unit tests for parsing both {@code ScheduleRegimeCommand} and {@code ScheduleCompleteCommand}.
  */

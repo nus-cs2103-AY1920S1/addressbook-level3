@@ -12,6 +12,7 @@ import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.Name;
 
+//@@author t-cheepeng
 /**
  * Parses an input and returns a {@code ResolveCommand}
  */
