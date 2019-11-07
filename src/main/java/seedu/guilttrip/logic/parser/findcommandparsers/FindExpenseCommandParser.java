@@ -20,6 +20,7 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsCategoryPredicate;
@@ -41,7 +42,6 @@ public class FindExpenseCommandParser implements Parser<FindExpenseCommand> {
     public FindExpenseCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
-
         List<Predicate<Entry>> predicateList = new ArrayList<Predicate<Entry>>();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
             String trimmedArgs = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).fullDesc.trim();
@@ -61,7 +61,7 @@ public class FindExpenseCommandParser implements Parser<FindExpenseCommand> {
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(name));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

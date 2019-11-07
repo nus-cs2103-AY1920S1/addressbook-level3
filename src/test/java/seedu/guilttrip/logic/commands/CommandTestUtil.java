@@ -46,8 +46,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_WANT = " " + PREFIX_TAG + VALID_TAG_CLOTHING_WANT;
 
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + "deck mala&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + ""; // 'empty' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "food*"; // '*' not allowed in tags
+    public static final String INVALID_AMOUNT = " " + PREFIX_AMOUNT + "0.001"; // '3dp' not allowed in amount
+    public static final String INVALID_DATE = " " + PREFIX_DATE + "31-02-2019"; // 'non-existsnt date'
 
     //Category related Test Utils.
     public static final String VALID_CATEGORY_TYPE_EXPENSE = "Expense";
@@ -57,13 +59,24 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NAME_INCOME = "Business";
 
     //Category related Test Utils.
-    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + "Expense";
-    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + "Income";
-    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + "food";
-    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + "business";
+
+    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
+    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_INCOME;
+    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
+    public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
+            + VALID_CATEGORY_NAME_EXPENSE_FOOD;
 
     public static final String INVALID_CATEGORY_TYPE_BUDGET = " " + PREFIX_CATEGORY + "Budget";
     public static final String INVALID_CATEGORY_NAME = " " + PREFIX_DESC + "Alcohol";
+
+    //Find related TestUtils.
+    public static final String DESCRIPTION = "pgp cotton";
+    public static final double AMOUNT = 200.00;
+    public static final String AMOUNT_STRING = "200.00";
+
+    public static final String FIND_BY_DESCRIPTION = " " + PREFIX_DESC + DESCRIPTION;
+    public static final String FIND_BY_AMOUNT = " " + PREFIX_AMOUNT + AMOUNT;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

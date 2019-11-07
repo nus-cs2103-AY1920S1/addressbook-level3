@@ -2,27 +2,28 @@ package seedu.guilttrip.model.entry.predicates;
 
 import java.util.function.Predicate;
 
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
  * Tests that a {@code Entry}'s {@code Category} is larger than the given category.
  */
 public class EntryContainsCategoryPredicate implements Predicate<Entry> {
-    private final String categoryName;
+    private final Category category;
 
-    public EntryContainsCategoryPredicate(String categoryName) {
-        this.categoryName = categoryName;
+    public EntryContainsCategoryPredicate(Category category) {
+        this.category = category;
     }
 
     @Override
     public boolean test(Entry entry) {
-        return categoryName.equalsIgnoreCase(entry.getCategory().getCategoryName());
+        return category.equals(entry.getCategory());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EntryContainsCategoryPredicate // instanceof handles nulls
-                && categoryName == (((EntryContainsCategoryPredicate) other).categoryName)); // state check
+                && category.equals(((EntryContainsCategoryPredicate) other).category)); // state check
     }
 }

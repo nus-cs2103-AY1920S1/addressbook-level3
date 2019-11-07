@@ -27,9 +27,14 @@ public class TypicalEntries {
 
     public static final Category CATEGORY_FOOD = new CategoryBuilder().withCatType("Expense").withCatName("food")
             .build();
+    public static final Category CATEGORY_SHOPPING = new CategoryBuilder().withCatType("Expense")
+            .withCatName("shopping").build();
+    public static final Category CATEGORY_TRAVEL = new CategoryBuilder().withCatType("Expense")
+            .withCatName("travel").build();
     public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
             .build();
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
+            .build();
 
     private TypicalEntries() {
     } // prevents instantiation
@@ -39,20 +44,20 @@ public class TypicalEntries {
      */
     public static GuiltTrip getTypicalGuiltTrip() {
         GuiltTrip ab = new GuiltTrip(false);
-        for (Entry entry : getTypicalEntries()) {
-            ab.addEntry(entry);
-        }
         for (Category category : getTypicalCategories()) {
             ab.addCategory(category);
+        }
+        for (Entry entry : getTypicalEntries()) {
+            ab.addEntry(entry);
         }
         return ab;
     }
 
     public static List<Entry> getTypicalEntries() {
-        return new ArrayList<>(Arrays.asList(FOOD_EXPENSE, CLOTHING_EXPENSE));
+        return new ArrayList<>(Arrays.asList(FOOD_EXPENSE, CLOTHING_EXPENSE, TRAVEL_EXPENSE));
     }
 
     public static List<Category> getTypicalCategories() {
-        return new ArrayList<>(Arrays.asList(CATEGORY_FOOD, CATEGORY_BUSINESS));
+        return new ArrayList<>(Arrays.asList(CATEGORY_FOOD, CATEGORY_SHOPPING, CATEGORY_BUSINESS, CATEGORY_TRAVEL));
     }
 }

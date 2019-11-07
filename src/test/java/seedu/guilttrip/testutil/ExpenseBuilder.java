@@ -17,7 +17,7 @@ import seedu.guilttrip.model.util.SampleDataUtil;
 public class ExpenseBuilder {
 
     public static final String DEFAULT_CATEGORY = "Food";
-    public static final String DEFAULT_DESCRIPTION = "Char Siew Pau?";
+    public static final String DEFAULT_DESCRIPTION = "Char Siew Pau";
     public static final String DEFAULT_AMOUNT = "5.60";
     public static final String DEFAULT_TIME = "2019-10-09";
 
