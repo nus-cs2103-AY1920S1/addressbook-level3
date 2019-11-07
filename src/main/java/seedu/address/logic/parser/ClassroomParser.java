@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAssignmentCommand;
 import seedu.address.logic.commands.FindStudentCommand;
 import seedu.address.logic.commands.GetStudentGradesCommand;
+import seedu.address.logic.commands.GetUnsubmittedAssignmentsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListLessonCommand;
@@ -135,6 +136,9 @@ public class ClassroomParser {
 
         case GetStudentGradesCommand.COMMAND_WORD:
             return new GetStudentGradesCommandParser().parse(arguments);
+
+        case GetUnsubmittedAssignmentsCommand.COMMAND_WORD:
+            return new GetUnsubmittedAssignmentsCommand();
 
         case UploadPictureCommand.COMMAND_WORD:
             return new UploadPictureCommandParser().parse(arguments);

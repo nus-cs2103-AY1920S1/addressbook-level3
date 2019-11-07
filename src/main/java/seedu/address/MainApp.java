@@ -90,7 +90,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Notebook");
             initialData = new Notebook();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 

@@ -37,10 +37,11 @@ public class CommandMasterList {
         commandHashSet.add(FindAssignmentCommand.COMMAND_WORD + " ASSIGNMENT_NAME");
         commandHashSet.add(AddAssignmentCommand.COMMAND_WORD + " as/ASSIGNMENT d/DEADLINE:dd/MM/yy HHmm");
         commandHashSet.add(AddLessonCommand.COMMAND_WORD + " l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm");
-        commandHashSet.add(DeleteLessonCommand.COMMAND_WORD + " LESSON_INDEX");
+        commandHashSet.add(DeleteLessonCommand.COMMAND_WORD + " LESSON_INDEX day/DAY_INDEX");
         commandHashSet.add(EditLessonCommand.COMMAND_WORD + " LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] "
                 + "[st/START_TIME] [et/END_TIME]");
         commandHashSet.add(GetStudentGradesCommand.COMMAND_WORD + " STUDENT_INDEX");
+        commandHashSet.add(GetUnsubmittedAssignmentsCommand.COMMAND_WORD);
         commandHashSet.add(UploadPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(ResetDisplayPictureCommand.COMMAND_WORD + " STUDENT_INDEX");
         commandHashSet.add(ListAssignmentCommand.COMMAND_WORD);

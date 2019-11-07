@@ -31,6 +31,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Scheduler;
 
@@ -52,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StudentListPanel studentListPanel;
     private AssignmentListPanel assignmentListPanel;
     private ClassroomListPanel classroomListPanel;
+    private Classroom currentClassroom;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderListPanel monReminderListPanel;
@@ -112,6 +114,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane classroomListPanelPlaceholder;
 
     @FXML
+    private StackPane currentClassroomListPanelPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -125,6 +130,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        listenToLesson();
 
         helpWindow = new HelpWindow();
     }
@@ -181,7 +188,8 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-        classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+        currentClassroom = logic.getNotebook().getCurrentClassroom();
+        classroomListPanel = new ClassroomListPanel(logic.getClassroomList(), currentClassroom);
         classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
         //reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
@@ -335,7 +343,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             commandText = uploadCommandCheck(commandText);
-            listenToLesson();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -349,7 +356,8 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
 
-            classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+            currentClassroom = logic.getNotebook().getCurrentClassroom();
+            classroomListPanel = new ClassroomListPanel(logic.getClassroomList(), currentClassroom);
             classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
@@ -384,12 +392,31 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * schedules a lesson.
+     * @param lesson Lesson object.
+     */
+    public void createSchedule(Lesson lesson) {
+        Scheduler scheduler = new Scheduler(lesson);
+        scheduler.scheduleLesson(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("creating countdown");
+                countDownAlert("You have a lesson", lesson.toString());
+            }
+        });
+    }
+
+    /**
      * method to add a listener to lesson observable list.
      * whenever a lesson is added to the list, a scheduler is created.
      */
     public void listenToLesson() {
         logger.info("listening to lesson");
         ObservableList<Lesson> lessons = logic.getFilteredLessonList();
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = lessons.get(i);
+            createSchedule(lesson);
+        }
         lessons.addListener(new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
@@ -397,14 +424,7 @@ public class MainWindow extends UiPart<Stage> {
                     if (c.wasAdded()) {
                         for (Object addedItem : c.getAddedSubList()) {
                             logger.info("creating scheduler");
-                            Scheduler scheduler = new Scheduler((Lesson) addedItem);
-                            scheduler.scheduleLesson(new Runnable() {
-                                @Override
-                                public void run() {
-                                    logger.info("creating countdown");
-                                    countDownAlert("You have a lesson", addedItem.toString());
-                                }
-                            });
+                            createSchedule((Lesson) addedItem);
                         }
                     }
                 }

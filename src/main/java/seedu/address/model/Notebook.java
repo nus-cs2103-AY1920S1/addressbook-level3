@@ -70,6 +70,10 @@ public class Notebook implements ReadOnlyNotebook {
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
+        ObservableList<Lesson> newLessonList = newData.getLessonList();
+        for (int i = 0; i < newLessonList.size(); i++) {
+            lessons.add(newLessonList.get(i));
+        }
     }
 
     //=========== Notebook ================================================================================
@@ -94,7 +98,11 @@ public class Notebook implements ReadOnlyNotebook {
 
     public Classroom getFirstClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
-        currentClassroom = classroomList.get(0);
+        if (classroomList.isEmpty()) {
+            currentClassroom = new Classroom();
+        } else {
+            currentClassroom = classroomList.get(0);
+        }
         return currentClassroom;
     }
 
@@ -242,6 +250,7 @@ public class Notebook implements ReadOnlyNotebook {
         int day = key.getDayIndex();
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.remove(key);
+        lessons.remove(key);
     }
 
 

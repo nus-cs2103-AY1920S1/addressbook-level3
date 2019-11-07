@@ -16,13 +16,15 @@ import seedu.address.model.classroom.Classroom;
 public class ClassroomListPanel extends UiPart<Region> {
     private static final String FXML = "ClassroomListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ClassroomListPanel.class);
+    private Classroom currentClassroom;
 
     @FXML
     private ListView<Classroom> classroomListView;
 
-    public ClassroomListPanel(ObservableList<Classroom> classroomList) {
+    public ClassroomListPanel(ObservableList<Classroom> classroomList, Classroom currentClassroom) {
         super(FXML);
         classroomListView.setItems(classroomList);
+        this.currentClassroom = currentClassroom;
         classroomListView.setCellFactory(listView -> new ClassroomListViewCell());
     }
 
@@ -38,7 +40,11 @@ public class ClassroomListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ClassroomCard(classroom).getRoot());
+                if (classroom.getClassroomName() == currentClassroom.getClassroomName()) {
+                    setGraphic(new CurrentClassroomCard(classroom).getRoot());
+                } else {
+                    setGraphic(new ClassroomCard(classroom).getRoot());
+                }
             }
         }
     }

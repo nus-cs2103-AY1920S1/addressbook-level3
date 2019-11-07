@@ -57,6 +57,7 @@ public class EditStudentCommand extends Command {
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom.";
+    public static final String MESSAGE_SAME_PHONE_AND_PARENT_PHONE = "Phone and parent phone cannot be the same.";
 
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
@@ -87,6 +88,8 @@ public class EditStudentCommand extends Command {
 
         if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        } else if (editedStudent.getParentPhone().toString().equals(editedStudent.getPhone().toString())) {
+            throw new CommandException(MESSAGE_SAME_PHONE_AND_PARENT_PHONE);
         }
 
         model.setStudent(studentToEdit, editedStudent);
@@ -167,7 +170,7 @@ public class EditStudentCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, parentPhone, medicalCondition, email, address, tags);
         }
 
         public void setName(Name name) {

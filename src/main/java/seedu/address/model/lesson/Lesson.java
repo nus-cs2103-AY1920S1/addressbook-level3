@@ -35,6 +35,14 @@ public class Lesson {
         return isRepeat;
     }
 
+    public String getRepeatString() {
+        if (isRepeat) {
+            return "Repeated weekly";
+        } else {
+            return "Not repeated";
+        }
+    }
+
     public void setRepeat() {
         this.isRepeat = true;
     }
@@ -107,7 +115,7 @@ public class Lesson {
                 .append(getStartTime())
                 .append(" To: ")
                 .append(getEndTime())
-                .append(" " + getIsRepeat());
+                .append(" " + getRepeatString());
         return builder.toString();
     }
 }

@@ -163,6 +163,7 @@ Examples: +
 ==== Assignment list
 
 Shows a list of all assignments in the current class of the user. +
+Assignments are sorted by order of their deadline, from earliest to latest. +
 Format: listassignments +
 
 Examples: +
@@ -173,7 +174,7 @@ Examples: +
 //tag::reminder[]
 === Sending reminders to teachers
 
-Sends system notification to user at the time of the event (assumes user keeps program running continuously). +
+Sends system notification to user at the time of the lesson (assumes user keeps program running continuously). +
 Format: none, reminder should come automatically
 
 //end::reminder[]
@@ -214,8 +215,8 @@ Examples: +
 
 ==== Undone assignments
 
-Finds all the undone assignments in the current classroom. +
-Format: getgrades undone
+Finds all the unsubmitted assignments in the current classroom. +
+Format: getunsubmitted
 
 
 //end::get[]
@@ -239,12 +240,26 @@ Examples: +
 
 ==== Deleting lesson
 Deletes the lesson in the index from the current classroom.
-Format: deletelesson LESSON_INDEX
+Format: deletelesson LESSON_INDEX day/DAY_OF_THE_WEEK_INDEX
 
 Examples: +
 * deletelesson 3
 
 //end::delete[]
+
+//tag::undo_redo[]
+=== Undo Redo
+
+Calling undo will undo the previous command that changes the state of the notebook.
+Commands that do not change the notebook will not be undone (e.g. findstudent, listassignments etc.).
+Undo will only work if there is a previous command that is executed.
+
+Calling redo will redo any of the previous undo commands that were executed.
+Redo will only work if there is a previous undo command that is executed. +
+
+Format: undo / redo
+
+//end::undo_redo[]
 
 //tag::history[]
 === History
@@ -262,6 +277,14 @@ Format: none, saving data will be done automatically
 
 //end::save[]
 
+//tag::clear[]
+=== Clearing data
+
+Clears all the data in the notebook and start from a new notebook. +
+Format: clear
+
+//end::clear[]
+
 //tag::exit[]
 === Exiting the programme: exit
 
@@ -269,6 +292,26 @@ Exits the program. +
 Format: exit
 
 //end::exit[]
+
+== Additional Features Coming in V2.0
+
+//tag::reminders_for_assignments[]
+
+=== Reminders for Assignments [coming in v2.0]
+
+Assignments can be added to the reminders for the notebook, where users will be alerted when the deadline is up for assignments. +
+Once the deadline is over, the assignments will be removed from the reminder panel, but will remain in the assignment list for future reference.
+
+//end::reminders_for_assignments[]
+
+//tag::statistics[]
+
+=== Statistics for Assignments [coming in v2.0]
+
+Calculates the statistics for the chosen assignment for each class - Average, Median, 25th / 75th percentile etc. +
+Format: getstats ASSIGNMENT_INDEX
+
+//end::statistics[]
 
 == FAQ
 
@@ -300,13 +343,14 @@ e.g. liststudents +
 e.g. listassignments
 * Find: findstudent STUDENT_NAME +
 e.g. findstudent John Doe
-* Get: getgrades STUDENT_INDEX OR getgrades undone +
+* Get: getgrades STUDENT_INDEX OR getunsubmitted +
 e.g. getgrades 2 +
-e.g. getgrades undone
+e.g. getunsubmitted
 * Delete Student: deletestudent STUDENT_INDEX +
 e.g. deletestudent 3
 * Delete Assignment: deleteassignment ASSIGNMENT_INDEX +
 e.g. deleteassignment 4
 * Delete Lesson: deletelesson LESSON_INDEX +
 e.g. deletelesson 5
+* Undo / Redo: undo / redo
 * Exit: exit
