@@ -223,7 +223,7 @@ Session details are displayed on the status bar in the GUI to reflect whether a 
 
 Class Diagram for illustration:
 
-image::SessionClassDiagram.png[width="600"]
+image::SessionClassDiagram.png[width="500"]
 
 Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
