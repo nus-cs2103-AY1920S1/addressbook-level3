@@ -72,9 +72,7 @@ contribution to the modification of *NUStudy User Guide* for quiz feature.
 
 '''
 
-include::../UserGuide.adoc[tag=quizStart]
-
-include::../UserGuide.adoc[tag=quizQuit]
+include::../UserGuide.adoc[tag=quiz]
 
 === Coming in v2.0
 
