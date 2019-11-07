@@ -355,4 +355,12 @@ public class ModelManager implements Model {
                 ? other.currentUrl.getValue() == null
                 : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
+
+    @Override
+    /**
+     * Closes mark's timer.
+     */
+    public void closeTimer() {
+        versionedMark.closeTimer();
+    }
 }

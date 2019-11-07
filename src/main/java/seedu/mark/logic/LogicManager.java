@@ -116,4 +116,11 @@ public class LogicManager implements Logic {
     public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
         return model.getBookmarkDisplayingCacheProperty();
     }
+
+    /**
+     * Closes mark's timer.
+     */
+    public void closeMarkTimer() {
+        model.closeTimer();
+    }
 }

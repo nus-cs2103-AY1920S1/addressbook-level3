@@ -257,4 +257,9 @@ public interface Model {
      * @return the observable bookmark property
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
+
+    /**
+     * Closes mark's timer.
+     */
+    void closeTimer();
 }

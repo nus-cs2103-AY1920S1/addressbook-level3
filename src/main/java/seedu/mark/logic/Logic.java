@@ -93,4 +93,8 @@ public interface Logic {
 
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
+    /**
+     * Closes mark's timer.
+     */
+    void closeMarkTimer();
 }

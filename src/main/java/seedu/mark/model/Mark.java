@@ -2,9 +2,9 @@ package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +42,8 @@ public class Mark implements ReadOnlyMark {
 
     private final ObservableList<Paragraph> annotatedDocument;
 
+    private Timer timer = new Timer();
+
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
@@ -53,6 +55,8 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(new ArrayList<>());
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
+
+        deleteExpiredReminder();
     }
 
     /**
@@ -340,6 +344,49 @@ public class Mark implements ReadOnlyMark {
      */
     public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return reminderAssociation.isBookmarkHasReminder(bookmark);
+    }
+
+    /**
+     * Compares two time in hours.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in hour.
+     */
+    private long compareHour(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(before, after).toHours();
+    }
+
+    /**
+     * Deletes expired reminders.
+     */
+    private void deleteExpiredReminder() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                List<Reminder> expiredReminders = new ArrayList<>();
+                LocalDateTime now = LocalDateTime.now();
+
+                for (int i = 0; i < reminders.size(); i++) {
+                    Reminder reminder = reminders.get(i);
+                    LocalDateTime time = reminder.getRemindTime();
+                    if (compareHour(now, time) >= 1) {
+                        expiredReminders.add(reminder);
+                    }
+                }
+
+                for (int i = 0; i > expiredReminders.size(); i++) {
+                    Reminder expiredReminder = expiredReminders.get(i);
+                    removeReminder(expiredReminder);
+                }
+            }
+        };
+
+        timer.schedule(task, 0, 1 * 1000);
+    }
+
+    public void closeTimer() {
+        timer.cancel();
     }
 
     @Override

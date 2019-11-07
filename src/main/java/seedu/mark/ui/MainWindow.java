@@ -207,7 +207,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.closeMarkTimer();
         logic.setGuiSettings(guiSettings);
+
         helpWindow.hide();
         timer.cancel();
         primaryStage.hide();
@@ -325,7 +327,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Compare two time in hours.
+     * Compares two time in hours.
      *
      * @param before the time that is before.
      * @param after the time that is after.
@@ -336,7 +338,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Compare two time in minutes.
+     * Compares two time in minutes.
      *
      * @param before the time that is before.
      * @param after the time that is after.
@@ -364,7 +366,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Display the reminder notification.
+     * Displays the reminder notification.
      */
     private void displayReminderMessage() {
 
