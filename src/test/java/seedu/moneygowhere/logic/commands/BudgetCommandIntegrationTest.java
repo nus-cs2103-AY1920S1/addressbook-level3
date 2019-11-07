@@ -18,7 +18,7 @@ public class BudgetCommandIntegrationTest {
     private Model model;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
     }
 
