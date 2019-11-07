@@ -529,7 +529,7 @@ Constraints:
 
 WARNING: The exported data will erase and replace all pre-existing data in the specified file.
 
-
+// tag::email
 === Sending of email `email`
 ==== Sending of interview time slot to interviewee
 Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.
@@ -571,6 +571,7 @@ Format: `email ct/allresults`
 Note:
 
 * The email dialog will only appear if the interviewee's email is present in the database and the interview results has been updated.
+// end::email
 
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance

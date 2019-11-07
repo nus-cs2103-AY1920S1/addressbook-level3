@@ -329,7 +329,7 @@ The Activity Diagram below summarises the execution of the export command.
 
 image::ExportActivityDiagram.png[]
 
-
+// tag::email[]
 === [Coming soon in v1.4] Email
 ==== Implementation
 
@@ -356,6 +356,7 @@ Additional details that can be configured by the user (as user preferences) incl
 
 The message content can also be configured by the user. However, a default template will be used when no such configuration file exists or is provided.
 
+// end::email[]
 
 === Display
 ==== Implementation
