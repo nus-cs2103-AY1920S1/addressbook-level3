@@ -11,7 +11,7 @@ import calofit.commons.util.AppUtil;
 public class Calorie {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Calories should only be positive values between 0 an 2 billion";
+            "Calories should only be positive integers between 0 and 2 billion";
 
     public static final Calorie UNKNOWN_CALORIE = new Calorie(-1, true);
 
