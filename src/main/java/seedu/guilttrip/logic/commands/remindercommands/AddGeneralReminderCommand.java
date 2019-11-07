@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TRACKER_TYPE;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ import seedu.guilttrip.model.reminders.conditions.Condition;
 /**
  * Adds a entry to the guilttrip book.
  */
-public class AddReminderCommand extends Command {
+public class AddGeneralReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addReminder";
 
@@ -32,26 +31,23 @@ public class AddReminderCommand extends Command {
             + "Parameters: "
             + PREFIX_DESC + "REMINDER_MESSAGE"
             + "[" + PREFIX_INDEX + "CONDITION INDEX]..."
-            + PREFIX_TRACKER_TYPE + "(Optional) TRACKER TYPE"
             + PREFIX_AMOUNT + "(Optional) Quota"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "Don't be broke. "
             + PREFIX_INDEX + "1 "
-            + PREFIX_TRACKER_TYPE + "AMOUNT"
             + PREFIX_AMOUNT + "100 \n";
 
     public static final String MESSAGE_SUCCESS = "New Reminder added: %1$s";
 
     private Description message;
     private List<Index> conditionIndexes;
-    private Reminder.TrackerType trackerType = Reminder.TrackerType.none;
     private Amount quota;
     private Reminder reminder;
 
     /**
      * Creates an AddCommand to add the specified {@code Reminder} with no tracker.
      */
-    public AddReminderCommand(Description message, List<Index> conditionIndexes) {
+    public AddGeneralReminderCommand(Description message, List<Index> conditionIndexes) {
         this.message = message;
         this.conditionIndexes = conditionIndexes;
     }
@@ -59,12 +55,10 @@ public class AddReminderCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Reminder} with tracker.
      */
-    public AddReminderCommand(
-            Description message, List<Index> conditionIndexes,
-            Reminder.TrackerType trackerType, Amount quota) {
+    public AddGeneralReminderCommand(
+            Description message, List<Index> conditionIndexes, Amount quota) {
         this.message = message;
         this.conditionIndexes = conditionIndexes;
-        this.trackerType = trackerType;
         this.quota = quota;
     }
 
@@ -75,9 +69,7 @@ public class AddReminderCommand extends Command {
         List<Condition> usedConditions = conditionIndexes.stream()
                 .map(index -> allConditions.get(index.getZeroBased())).collect(Collectors.toList());
         reminder = new Reminder(message, usedConditions);
-        if (!(trackerType.equals(Reminder.TrackerType.none))) {
-            reminder.setTracker(trackerType, (long) quota.value);
-        }
+        reminder.setPostDisplay(Reminder.RESETWHENDISPLAYED);
         model.addReminder(reminder);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
@@ -86,7 +78,7 @@ public class AddReminderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddReminderCommand // instanceof handles nulls
-                && reminder.equals(((AddReminderCommand) other).reminder));
+                || (other instanceof AddGeneralReminderCommand // instanceof handles nulls
+                && reminder.equals(((AddGeneralReminderCommand) other).reminder));
     }
 }

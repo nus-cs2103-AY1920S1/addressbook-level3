@@ -172,6 +172,14 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     //// entry-level operations
+    public void selectReminder(Reminder reminder) {
+        reminders.setReminderSelected(reminder);
+    }
+
+    public Reminder getReminderSelected() {
+        return reminders.getReminderSelected();
+    }
+
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.

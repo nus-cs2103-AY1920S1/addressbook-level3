@@ -22,16 +22,13 @@ public class TimeUtil {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private Runnable getCurrDate = () -> {
         LocalDate newCurrDate = LocalDate.now();
-        support.firePropertyChange("currDate", currDate, newCurrDate);
+        support.firePropertyChange("currDate", null, newCurrDate);
         currDate = newCurrDate;
     };
 
-    public static TimeUtil getTracker() {
-        if (tracker == null) {
-            return new TimeUtil();
-        } else {
-            return tracker;
-        }
+
+    public static LocalDate getCurrDate() {
+        return currDate;
     }
 
     /**
@@ -70,7 +67,6 @@ public class TimeUtil {
      */
     public static void addPropertyChangeListener(PropertyChangeListener pcl) {
         tracker.support.addPropertyChangeListener(pcl);
-        manualUpdate();
     }
     public static void removePropertyChangeListener(PropertyChangeListener pcl) {
         tracker.support.removePropertyChangeListener(pcl);

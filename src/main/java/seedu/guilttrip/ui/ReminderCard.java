@@ -40,7 +40,7 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
         id.setText(displayedIndex + ". ");
 
         this.status = reminder.getStatus();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getMessage().fullDesc + "No. of conditions: "
+        String descWithStatus = "[" + status.toString() + "] " + reminder.getHeader().fullDesc + "No. of conditions: "
                 + reminder.getConditions().size();
         desc.setText(descWithStatus);
     }
@@ -48,7 +48,7 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.status = (Reminder.Status) evt.getNewValue();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getMessage().fullDesc + "No. of conditions: "
+        String descWithStatus = "[" + status.toString() + "] " + reminder.getHeader().fullDesc + "No. of conditions: "
                 + reminder.getConditions().size();
         //desc.setText(descWithStatus);
     }

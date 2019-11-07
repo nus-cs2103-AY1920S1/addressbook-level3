@@ -3,7 +3,10 @@ package seedu.guilttrip.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,6 +18,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.step.Step;
+import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
@@ -36,7 +40,7 @@ import seedu.guilttrip.model.util.EntryComparator;
 /**
  * Represents the in-memory model of the guilttrip book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, PropertyChangeListener {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private StatisticsManager stats;
     private final SortType sortByTime = new SortType("time");
@@ -57,6 +61,7 @@ public class ModelManager implements Model {
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
     private final VersionedGuiltTrip versionedAddressBook;
+    private LocalDate currDate;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -98,6 +103,8 @@ public class ModelManager implements Model {
         createExpensesfromAutoExpenses();
         this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
                 versionedAddressBook.getCategoryList());
+        TimeUtil.addPropertyChangeListener(this);
+        TimeUtil.manualUpdate();
     }
 
     public ModelManager() {
@@ -484,6 +491,17 @@ public class ModelManager implements Model {
         return filteredConditions;
     }
 
+    //===== Reminder Handler =====//
+    @Override
+    public Reminder getReminderSelected() {
+        return versionedAddressBook.getReminderSelected();
+    }
+
+    @Override
+    public void selectReminder(Reminder reminder) {
+        versionedAddressBook.selectReminder(reminder);
+    }
+
     // =================== Sorting =============================================================
 
     @Override
@@ -606,6 +624,16 @@ public class ModelManager implements Model {
     }
 
     // =========== TrackTime =============================================================
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equalsIgnoreCase("currDate")) {
+            if ((currDate == null) || !currDate.equals(evt.getNewValue())) {
+                createExpensesfromAutoExpenses();
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

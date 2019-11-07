@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TRACKER_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +36,10 @@ public class EditReminderCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DESC + "REMINDER_MESSAGE"
             + "[" + PREFIX_INDEX + "CONDITION INDEX]..."
-            + PREFIX_TRACKER_TYPE + "(Optional) TRACKER TYPE"
             + PREFIX_AMOUNT + "(Optional) Quota"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "Don't be broke. "
             + PREFIX_INDEX + "1 "
-            + PREFIX_TRACKER_TYPE + "AMOUNT"
             + PREFIX_AMOUNT + "100 \n";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Reminder: %1$s";
@@ -98,7 +95,7 @@ public class EditReminderCommand extends Command {
                                                  EditReminderDescriptor editReminderDescriptor,
                                                  List<Condition> allConditions) throws CommandException {
         assert reminderToEdit != null;
-        Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getMessage());
+        Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getHeader());
         Double updatedAmount = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
         List<Condition> updatedCondition;
         if (editReminderDescriptor.getConditionIndices().isPresent()) {
@@ -158,7 +155,6 @@ public class EditReminderCommand extends Command {
     public static class EditReminderDescriptor {
         private Description desc;
         private List<Index> conditionIndices;
-        private Reminder.TrackerType trackerType;
         private Double quota;
 
         public EditReminderDescriptor() {}
@@ -171,7 +167,6 @@ public class EditReminderCommand extends Command {
             setDesc(toCopy.desc);
             setQuota(toCopy.quota);
             setConditionIndices(toCopy.conditionIndices);
-            setTrackerType(toCopy.trackerType);
         }
 
         /**
@@ -221,14 +216,6 @@ public class EditReminderCommand extends Command {
         public Optional<List<Index>> getConditionIndices() {
             return (conditionIndices != null)
                     ? Optional.of(Collections.unmodifiableList(conditionIndices)) : Optional.empty();
-        }
-
-        public Optional<Reminder.TrackerType> getTrackerType() {
-            return Optional.ofNullable(trackerType);
-        }
-
-        public void setTrackerType(Reminder.TrackerType trackerType) {
-            this.trackerType = trackerType;
         }
 
         @Override

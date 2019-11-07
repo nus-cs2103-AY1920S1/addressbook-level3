@@ -230,6 +230,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered condition list */
     ObservableList<Condition> getFilteredConditions();
 
+    /**Return selected reminder for modification */
+    Reminder getReminderSelected();
+
+    /**Select a reminder for modification */
+    void selectReminder(Reminder reminder);
+
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.

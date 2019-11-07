@@ -5,7 +5,6 @@ import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TRACKER_TYPE;
 
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;

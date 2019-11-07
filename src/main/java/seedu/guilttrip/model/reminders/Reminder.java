@@ -12,88 +12,35 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
+import seedu.guilttrip.model.reminders.messages.Message;
 
 /**
  * Basic reminder class with minimal functionality.
  */
 public class Reminder implements PropertyChangeListener {
+    public static final String RESETWHENDISPLAYED = "RESETS";
+    public static final String ACTIVEUNTILEXCEEDED = "ACTIVE TILL EXCEEDED";
+    private String postDisplay;
+
     private boolean isEntrySpecific;
-    private Status status = Status.unmet;
-    private Description message;
+    private Description header;
+
+    private Entry beingAdded;
+
     private List<Condition> conditions;
     private long numberOfConditions;
     private long numberOfConditionsMet = 0;
-    private TrackerType trackerType = TrackerType.none;
-    private double currSum;
-    private double trackerQuota;
-    private Entry beingAdded;
-    private Entry beingRemoved;
+    private Status status = Status.unmet;
+
+    private boolean displayPopUp;
+    private seedu.guilttrip.model.reminders.messages.Message message;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    /**
-     * A tracker keeps track of the number/ total amount of entries meeting the predicate.
-     */
-    public enum TrackerType {
-        none,
-        num,
-        amount;
-
-        /**
-         * parses string to TrackerType
-         * @param trackerType
-         * @return
-         */
-        public static TrackerType parse(String trackerType) {
-            switch (trackerType.toLowerCase()) {
-            case "num":
-                return TrackerType.num;
-            case "amount":
-                return TrackerType.amount;
-            default:
-                return TrackerType.none;
-            }
-        }
-        @Override
-        public String toString() {
-            switch(this) {
-            case num:
-                return "num";
-            case amount:
-                return "amount";
-            default:
-                return "none";
-
-            }
-        }
-    }
-    /**
-     * Status of condition
-     */
-    public enum Status {
-        unmet,
-        met,
-        exceeded;
-
-        /**
-         * Converts string to status enum.
-         * @param status
-         * @return
-         */
-        public static Status parse (String status) {
-            switch (status.toLowerCase()) {
-            case "met":
-                return met;
-            case "exceeded":
-                return exceeded;
-            default:
-                return unmet;
-            }
-        }
-    }
-
-    public Reminder(Description message, List<Condition> conditions) {
-        this.message = message;
+    //===== Constructor =====//
+    public Reminder(Description header, List<Condition> conditions) {
+        this.header = header;
         this.conditions = conditions;
         for (Condition condition : conditions) {
             condition.addPropertyChangeListener(this);
@@ -101,6 +48,7 @@ public class Reminder implements PropertyChangeListener {
         numberOfConditions = conditions.size();
     }
 
+    //===== getters and setters =====//
     public boolean getEntrySpecificity() {
         return isEntrySpecific;
     }
@@ -117,14 +65,15 @@ public class Reminder implements PropertyChangeListener {
         this.status = Status.parse(status);
     }
 
-    public Description getMessage() {
-        return message;
+    public Description getHeader() {
+        return header;
     }
 
     public List<Condition> getConditions() {
         return conditions;
     }
 
+    //===== Condition handlers =====//
     /**
      * adds condition to condition list
      * @param condition
@@ -155,32 +104,7 @@ public class Reminder implements PropertyChangeListener {
         }
     }
 
-    public void setTracker(TrackerType trackerType, double quota) {
-        if (!trackerType.equals(TrackerType.none)) {
-            this.currSum = 0;
-            this.trackerQuota = quota;
-        } else {
-        }
-    }
-    public void setTracker(TrackerType trackerType, double currSum, double quota) {
-        this.trackerType = trackerType;
-        if (!trackerType.equals(TrackerType.none)) {
-            this.currSum = currSum;
-            this.trackerQuota = quota;
-        }
-    }
-    public TrackerType getTrackerType() {
-        return trackerType;
-    }
-
-    public double getCurrSum() {
-        return currSum;
-    }
-
-    public double getTrackerQuota() {
-        return trackerQuota;
-    }
-
+    // ===== Property Change Listener and Updating status =====//
     /**
      * This is what allows the reminder to be notified when conditions are metb
      * and be added removed from the active reminder list.
@@ -191,7 +115,7 @@ public class Reminder implements PropertyChangeListener {
         if (evt.getPropertyName().equals("beingAdded")) {
             logger.info("Condition met: Updating status");
             Entry entryExamined = (Entry) evt.getNewValue();
-            if (status.equals(Status.unmet) || !trackerType.equals(TrackerType.none)) {
+            if (status.equals(Status.unmet)) {
                 if (entryExamined == beingAdded) {
                     numberOfConditionsMet += 1;
                 } else {
@@ -199,33 +123,10 @@ public class Reminder implements PropertyChangeListener {
                     beingAdded = entryExamined;
                 }
                 if (numberOfConditionsMet == numberOfConditions) {
-                    if (trackerType.equals(TrackerType.none)) {
-                        support.firePropertyChange("status", status, Status.met);
-                        status = Status.met;
-                        logger.info("All condition met. Setting Reminder status to " + status.toString());
-                    } else {
-                        addToTracker(entryExamined);
-                    }
+                    support.firePropertyChange("status", status, Status.met);
+                    status = Status.met;
+                    logger.info("All condition met. Setting Reminder status to " + status.toString());
                 }
-            }
-        } else if (evt.getPropertyName().equals("beingRemoved")) {
-            Entry entryExamined = (Entry) evt.getNewValue();
-            if (entryExamined == beingRemoved) {
-                numberOfConditionsMet += 1;
-                if (numberOfConditionsMet == numberOfConditions) {
-                    if (trackerType.equals(TrackerType.none)) {
-                        if ((beingAdded == beingRemoved) && status.equals(Status.met)) {
-                            support.firePropertyChange("status", status, Status.unmet);
-                            status = Status.unmet;
-                            numberOfConditions = 0;
-                        }
-                    } else {
-                        removeFromTracker(entryExamined);
-                    }
-                }
-            } else {
-                numberOfConditionsMet = 1;
-                beingRemoved = entryExamined;
             }
         } else if (evt.getPropertyName().equals("timeBeforeDeadline")) {
             Period timeBeforeDeadline = (Period) evt.getNewValue();
@@ -241,70 +142,7 @@ public class Reminder implements PropertyChangeListener {
             }
         }
     }
-    /**
-     * Updates currSum when an entry fulfilling pred is added.
-     * @param entry
-     */
-    private void addToTracker(Entry entry) {
-        switch (trackerType) {
-        case num:
-            currSum += 1;
-            updateTrackerStatus();
-            break;
-        case amount:
-            currSum += entry.getAmount().value;
-            updateTrackerStatus();
-            break;
-        default:
-        }
-    }
 
-    /**
-     * Updates currSum when an entry fulfilling pred is removed.
-     * @param entry
-     */
-    private void removeFromTracker(Entry entry) {
-        switch (trackerType) {
-        case num:
-            currSum -= 1;
-            updateTrackerStatus();
-            break;
-        case amount:
-            currSum -= entry.getAmount().value;
-            updateTrackerStatus();
-            break;
-        default:
-        }
-    }
-    /**
-     * Uses currSum and Quota to get status.
-     */
-    private void updateTrackerStatus() {
-        if (currSum == trackerQuota) {
-            support.firePropertyChange("status", status, Status.met);
-            status = Status.met;
-        } else if (currSum > trackerQuota) {
-            support.firePropertyChange("status", status, Status.exceeded);
-            status = Status.exceeded;
-        } else {
-            support.firePropertyChange("status", status, Status.unmet);
-            status = Status.unmet;
-        }
-    }
-
-    /**
-     * Resets the reminder to the original state when it was created.
-     * Currently used for passing entrySpecificConditions from one entry to another entry when
-     * a type of set entry command is called.
-     */
-    public void reset() {
-        status = Status.unmet;
-        currSum = 0;
-        if (conditions.get(0) instanceof EntrySpecificCondition) {
-            EntrySpecificCondition thisCondition = (EntrySpecificCondition) conditions.get(0);
-            thisCondition.update();
-        }
-    }
     public PropertyChangeSupport getSupport() {
         return support;
     }
@@ -314,9 +152,49 @@ public class Reminder implements PropertyChangeListener {
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         support.removePropertyChangeListener(pcl);
     }
+    // ===== reminder display behavior =====//
+
+    public boolean willDisplayPopUp() {
+        return displayPopUp;
+    }
+
+    public void togglePopUpDisplay(boolean willDisplayPopup) {
+        this.displayPopUp = willDisplayPopup;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    //===== post-displayed behavior =====//
+
+
+    public String getPostDisplay() {
+        return postDisplay;
+    }
+
+    public void setPostDisplay(String postDisplay) {
+        this.postDisplay = postDisplay;
+    }
+
+    /**
+     * Resets the reminder to the original state when it was created.
+     * Currently used for passing entrySpecificConditions from one entry to another entry when
+     * a type of set entry command is called.
+     */
+    public void reset() {
+        status = Status.unmet;
+        if (conditions.get(0) instanceof EntrySpecificCondition) {
+            EntrySpecificCondition thisCondition = (EntrySpecificCondition) conditions.get(0);
+            thisCondition.update();
+        }
+    }
+
+    //===== standard methods =====//
+
     @Override
     public String toString() {
-        return "(" + status.toString() + ") " + message;
+        return "(" + status.toString() + ") " + header;
     }
 
     @Override
@@ -327,10 +205,39 @@ public class Reminder implements PropertyChangeListener {
             return false;
         } else {
             Reminder otherReminder = (Reminder) other;
-            return this.message.equals(otherReminder.getMessage())
+            return this.header.equals(otherReminder.getHeader())
                     //&& this.priority.equals(otherReminder.getPriority())
                     && this.conditions.stream()
                     .allMatch(condition -> otherReminder.getConditions().contains(condition));
         }
-    };
+    }
+
+    /**
+     * Status of condition
+     */
+    public enum Status {
+        unmet,
+        met,
+        active,
+        exceeded,
+        expired;
+
+        /**
+         * Converts string to status enum.
+         * @param status
+         * @return
+         */
+        public static Status parse (String status) {
+            switch (status.toLowerCase()) {
+            case "met":
+                return met;
+            case "exceeded":
+                return exceeded;
+            case "active":
+                return active;
+            default:
+                return unmet;
+            }
+        }
+    }
 }

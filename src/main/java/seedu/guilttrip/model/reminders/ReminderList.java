@@ -25,15 +25,14 @@ public class ReminderList implements Iterable<Reminder> {
             FXCollections.unmodifiableObservableList(internalList);
     private int displayListSize = 3;
 
-    /**
-     * Determines how many reminders to display in reminders panel.
-     */
-    public void setDisplayListSize(int size) {
-        this.displayListSize = size;
+    private Reminder reminderSelected;
+
+    public Reminder getReminderSelected() {
+        return reminderSelected;
     }
 
-    public int getDisplayListSize() {
-        return displayListSize;
+    public void setReminderSelected(Reminder reminderSelected) {
+        this.reminderSelected = reminderSelected;
     }
 
     /**
@@ -110,6 +109,23 @@ public class ReminderList implements Iterable<Reminder> {
             EntrySpecificCondition condition = entry.getTracker().get();
             for (PropertyChangeListener listener: condition.getSupport().getPropertyChangeListeners()) {
                 internalList.remove(listener);
+            }
+        }
+    }
+
+    /**
+     * Updates list before closing GuiltTrip App. Displayed Reminders are handled according to postDisplay.
+     */
+    public void update() {
+        for (Reminder reminder : internalList) {
+            if (!reminder.getStatus().equals(Reminder.Status.unmet)) {
+                if (reminder.getPostDisplay().equals(Reminder.RESETWHENDISPLAYED)) {
+                    reminder.reset();
+                } else if (reminder.getPostDisplay().equals(Reminder.ACTIVEUNTILEXCEEDED)) {
+                    if (reminder.getStatus().equals(Reminder.Status.exceeded)) {
+                        internalList.remove(reminder);
+                    }
+                }
             }
         }
     }

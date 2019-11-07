@@ -293,18 +293,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String trackerType} into {@code TrackerType}
-     *
-     * @param trackerType
-     * @return
-     * @throws ParseException
-     */
-    public static Reminder.TrackerType parseTrackerType(String trackerType) throws ParseException {
-        requireNonNull(trackerType);
-        return Reminder.TrackerType.parse(trackerType);
-    }
-
-    /**
      * Parses {@code String fontName} into a {@code FontName}.
      */
     public static FontName parseFontName(String fontName) throws ParseException {

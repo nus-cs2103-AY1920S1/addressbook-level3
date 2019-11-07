@@ -17,7 +17,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("tg/", "TAG");
     public static final Prefix PREFIX_PERIOD = new Prefix("p/", "PERIOD");
     public static final Prefix PREFIX_INDEX = new Prefix("i/", "INDEX");
-    public static final Prefix PREFIX_TRACKER_TYPE = new Prefix("tkr/", "TRACKER_TYPE");
     public static final Prefix PREFIX_PARAM = new Prefix("pa/", "PARAM");
     public static final Prefix PREFIX_FREQ = new Prefix("f/", "FREQUENCY");
+    public static final Prefix PREFIX_COORDINATES = new Prefix("c/", "COORDINATES");
+    public static final Prefix PREFIX_BOOL = new Prefix("b/", "COORDINATES");
 }

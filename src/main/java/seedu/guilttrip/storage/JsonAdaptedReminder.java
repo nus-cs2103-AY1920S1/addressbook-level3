@@ -43,7 +43,7 @@ public class JsonAdaptedReminder {
      * Converts a given {@code Reminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
-        this.message = source.getMessage().toString();
+        this.message = source.getHeader().toString();
         conditions.addAll(source.getConditions().stream()
                 .map(JsonAdaptedCondition::new)
                 .collect(Collectors.toList()));

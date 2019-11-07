@@ -4,13 +4,12 @@ import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TRACKER_TYPE;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -24,21 +23,21 @@ import seedu.guilttrip.model.reminders.Reminder;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddReminderCommandParser implements Parser<AddReminderCommand> {
+public class AddReminderCommandParser implements Parser<AddGeneralReminderCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddReminderCommand parse(String args) throws ParseException {
+    public AddGeneralReminderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_DESC, PREFIX_INDEX, PREFIX_TRACKER_TYPE, PREFIX_AMOUNT);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddReminderCommand.MESSAGE_USAGE));
+                    AddGeneralReminderCommand.MESSAGE_USAGE));
         }
 
         Description message = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
@@ -48,9 +47,9 @@ public class AddReminderCommandParser implements Parser<AddReminderCommand> {
                     argMultimap.getValue(PREFIX_TRACKER_TYPE).get());
             Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
             Amount quota = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-            return new AddReminderCommand(message, conditionIndexes, trackerType, quota);
+            return new AddGeneralReminderCommand(message, conditionIndexes, trackerType, quota);
         } else {
-            return new AddReminderCommand(message, conditionIndexes);
+            return new AddGeneralReminderCommand(message, conditionIndexes);
         }
     }
 
