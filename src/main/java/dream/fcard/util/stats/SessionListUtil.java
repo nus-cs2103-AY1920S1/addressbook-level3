@@ -119,7 +119,7 @@ public class SessionListUtil {
             if (!SessionListUtil.isTestSessionAndHasScore(session)) {
                 continue;
             }
-            sumOfScores += getScoreAsPercentageDouble(session);
+            sumOfScores += SessionListUtil.getScoreAsPercentageDouble(session);
             numOfTestSessionsWithScore++;
         }
 
