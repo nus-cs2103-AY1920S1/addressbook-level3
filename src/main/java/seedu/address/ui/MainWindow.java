@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
     private LedgerListPanel ledgerListPanel;
+    private PersonListPanel peopleListPanel;
     private ProjectionListPanel projectionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -143,10 +145,14 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
         ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
 
+        ObservableList<Person> people = logic.getPeopleInLedger();
+        peopleListPanel = new PersonListPanel(people);
+
         ObservableList<Projection> projectionsList = logic.getProjectionList();
         projectionListPanel = new ProjectionListPanel(projectionsList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel);
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel,
+                peopleListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -205,6 +211,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchTab(Tab tab) {
+
         switch (tab) {
         case TRANSACTION:
             showTransactionTab();
@@ -214,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LEDGER:
             showLedgerTab();
+            showLedgerBalance();
             break;
         case PROJECTION:
             showProjectionTab();
@@ -221,6 +229,10 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    private void showLedgerBalance() {
+        statusBarFooter.setBalance(logic.getUserState().getLedger().getBalance());
     }
 
     public TransactionListPanel getTransactionListPanel() {
@@ -235,8 +247,12 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
+            logger.info("Command result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // update bank balance display
+            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+            statusBarFooter.setBalance(transactionList);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -250,10 +266,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchTab(commandResult.getTab());
             }
 
-            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
-            statusBarFooter.setBalance(transactionList);
-
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

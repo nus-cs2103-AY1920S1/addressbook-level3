@@ -317,9 +317,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAmount_validNegativeValue_returnsAmount() throws Exception {
-        Amount expectedNegativeAmount = new Amount(-10.00);
-        assertEquals(expectedNegativeAmount, ParserUtil.parseAmount("-10.00"));
+    public void parseAmount_invalidNegativeValue_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("-10.00"));
     }
 
     @Test
@@ -341,5 +340,58 @@ public class ParserUtilTest {
     public void parseBudgetIndex_validPositiveValue_returnsBudgetIndex() throws Exception {
         Index index = Index.fromOneBased(1);
         assertEquals(index, ParserUtil.parseBudgetIndex("1"));
+    }
+
+    @Test
+    public void parseMonth_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMonth(null));
+    }
+
+    @Test
+    public void parseMonth_invalidZeroValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth("0"));
+    }
+
+    @Test
+    public void parseMonth_invalidNegativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth("-1"));
+    }
+
+    @Test
+    public void parseMonth_validMonthValue_returnsMonth() throws Exception {
+        assertEquals(1, ParserUtil.parseMonth("1"));
+    }
+
+    @Test
+    public void parseMonth_invalidMonthValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth("13"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth("abc"));
+    }
+
+    @Test
+    public void parseYear_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseYear(null));
+    }
+
+    @Test
+    public void parseYear_invalidZeroValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("0"));
+    }
+
+    @Test
+    public void parseYear_invalidNegativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("-1"));
+    }
+
+    @Test
+    public void parseYear_validYearValue_returnsMonth() throws Exception {
+        assertEquals(2019, ParserUtil.parseYear("2019"));
+    }
+
+    @Test
+    public void parseYear_invalidYearValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("1899"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("10000"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("abc"));
     }
 }

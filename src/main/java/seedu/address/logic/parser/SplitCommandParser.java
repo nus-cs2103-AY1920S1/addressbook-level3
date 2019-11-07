@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
@@ -29,9 +30,9 @@ public class SplitCommandParser implements Parser<SplitCommand> {
     @Override
     public SplitCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_SHARE,
-                PREFIX_DATE);
+                PREFIX_DATE, PREFIX_DESC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DESC)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SplitCommand.MESSAGE_USAGE));
         }
@@ -41,7 +42,7 @@ public class SplitCommandParser implements Parser<SplitCommand> {
         for (Name name : names) {
             people.add(new Person(name));
         }
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(Date.now().toString()));
         List<Integer> shares = ParserUtil.parseShares(argMultimap.getAllValues(PREFIX_SHARE));

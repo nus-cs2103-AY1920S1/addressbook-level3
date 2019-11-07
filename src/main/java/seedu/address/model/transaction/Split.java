@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
@@ -101,7 +100,7 @@ public class Split extends Transaction implements LedgerOperation {
 
     @Override
     public Amount getAmount() {
-        return amount;
+        return amount.makeNegative();
     }
 
     @Override
@@ -115,7 +114,7 @@ public class Split extends Transaction implements LedgerOperation {
     }
 
     @Override
-    public Optional<List<Integer>> getShares() {
-        return Optional.of(shares);
+    public List<Integer> getShares() {
+        return shares;
     }
 }

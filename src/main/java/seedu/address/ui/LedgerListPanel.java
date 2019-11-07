@@ -18,12 +18,12 @@ public class LedgerListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(LedgerListPanel.class);
 
     @FXML
-    private ListView<LedgerOperation> ledgerListView;
+    private ListView<LedgerOperation> operationListView;
 
     public LedgerListPanel(ObservableList<LedgerOperation> ledgerOperations) {
         super(FXML);
-        ledgerListView.setItems(ledgerOperations);
-        ledgerListView.setCellFactory(listView -> new LedgerListViewCell());
+        operationListView.setItems(ledgerOperations);
+        operationListView.setCellFactory(listView -> new LedgerListViewCell());
     }
 
     /**

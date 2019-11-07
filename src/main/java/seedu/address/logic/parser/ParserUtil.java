@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,6 +28,9 @@ import seedu.address.model.util.Date;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    public static final char NEGATIVE_AMOUNT_SIGN = '-';
+    public static final char ZERO_AMOUNT = '0';
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -226,7 +230,22 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
+        char first = s.toCharArray()[0];
+        if (first == NEGATIVE_AMOUNT_SIGN) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_NEGATIVE);
+        }
+
+        /* handles 0 value */
+        if (first == ZERO_AMOUNT && s.length() == 1) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_ZERO);
+        }
+
         try {
+            /* handles overflow value */
+            if (Double.parseDouble(s) >= 1000000) {
+                throw new ParseException(String.format(Messages.MESSAGE_AMOUNT_OVERFLOW));
+            }
+
             return new Amount(Double.parseDouble(s));
         } catch (NumberFormatException ex) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
@@ -249,5 +268,45 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code month} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified month is invalid.
+     */
+    public static Integer parseMonth(String monthString) throws ParseException {
+        requireNonNull(monthString);
+        String trimmedMonth = monthString.trim();
+        try {
+            if (Date.isValidMonth(trimmedMonth)) {
+                return Integer.parseInt(trimmedMonth);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
+    }
+
+    /**
+     * Parses {@code year} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified year is invalid.
+     */
+    public static Integer parseYear(String yearString) throws ParseException {
+        requireNonNull(yearString);
+        String trimmedYear = yearString.trim();
+        try {
+            if (Date.isValidYear(trimmedYear)) {
+                return Integer.parseInt(trimmedYear);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
     }
 }
