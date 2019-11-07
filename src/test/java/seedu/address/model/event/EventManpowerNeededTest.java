@@ -13,13 +13,13 @@ class EventManpowerNeededTest {
     void isValidEventManpowerNeeded() {
         // invalid Event Manpower Needed
         assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("50 people")); // Invalid input
-        assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("50000")); // exceed limit
-        assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("1000")); // exceed limit
+        assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("-5")); // Negative Integer
+        assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("101")); // exceed limit
 
         // valid Event Manpower Needed
         assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("005"));
         assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("035"));
-        assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("999"));
+        assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("99"));
     }
 
     @Test

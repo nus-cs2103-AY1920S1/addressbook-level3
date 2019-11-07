@@ -24,17 +24,17 @@ class EventDayTimeTest {
     @Test
     void isValidEventDayTime() {
         //null event time
-        assertThrows(NullPointerException.class, () -> EventDayTime.isValidTime(null));
+        assertThrows(NullPointerException.class, () -> EventDayTime.isValidEventDayTime(null));
 
         //invalid time format
-        assertFalse(EventDayTime.isValidTime("1020")); //single value
-        assertFalse(EventDayTime.isValidTime("10:20-12:30")); //no colons
-        assertFalse(EventDayTime.isValidTime("1020, 2030")); //not seperated by commas
-        assertFalse(EventDayTime.isValidTime("1020-2530")); //invalid time
+        assertFalse(EventDayTime.isValidEventDayTime("1020")); //single value
+        assertFalse(EventDayTime.isValidEventDayTime("10:20-12:30")); //no colons
+        assertFalse(EventDayTime.isValidEventDayTime("1020, 2030")); //not seperated by commas
+        assertFalse(EventDayTime.isValidEventDayTime("1020-2530")); //invalid time
 
         //valid time format
-        assertTrue(EventDayTime.isValidTime("1020-2030"));
-        assertTrue(EventDayTime.isValidTime("0020-0530"));
+        assertTrue(EventDayTime.isValidEventDayTime("1020-2030"));
+        assertTrue(EventDayTime.isValidEventDayTime("0020-0530"));
 
     }
 

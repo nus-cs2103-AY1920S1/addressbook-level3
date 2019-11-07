@@ -11,7 +11,9 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -277,6 +279,8 @@ public class ParserUtil {
     /**
      * Parses a {@code String date} into a {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
+     * <p>
+     * Constraints: In format dd/MM/yyyy, cannot be > 10 years ago
      *
      * @throws ParseException if the given {@code LocalDate} is invalid.
      */
@@ -326,9 +330,7 @@ public class ParserUtil {
     public static EventDayTime parseTimePeriod(String timePeriod) throws ParseException {
         requireNonNull(timePeriod);
         String trimmed = timePeriod.trim();
-        if (!EventDayTime.isValidTime(trimmed)) {
-            throw new ParseException(EventDayTime.MESSAGE_CONSTRAINTS);
-        }
+
         try {
             String[] timeSplit = trimmed.split("-");
             LocalTime startTime = LocalTime.parse(timeSplit[0], EventDayTime.FORMATTER);
@@ -337,7 +339,6 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException | DateTimeException e) {
             throw new ParseException(EventDayTime.MESSAGE_CONSTRAINTS);
         }
-
     }
 
     /**
@@ -362,24 +363,25 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code EventDateTimeMap} is invalid.
      */
-    public static EventDateTimeMap parseEventDateTimeMap(String eventDateTimeMap) throws ParseException {
-        EventDateTimeMap map = new EventDateTimeMap();
-        if (eventDateTimeMap.isEmpty()) {
-            return map;
+    public static EventDateTimeMap parseEventDateTimeMap(String eventDateTimeMapString) throws ParseException {
+        Map<EventDate, EventDayTime> dateTimeMap = new TreeMap<>();
+
+        if (eventDateTimeMapString.isEmpty()) {
+            return new EventDateTimeMap(dateTimeMap);
         }
 
-        String trimmed = eventDateTimeMap.trim();
+        String trimmed = eventDateTimeMapString.trim();
         try {
             String[] eachDateTime = trimmed.split(",");
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
-                map.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+                dateTimeMap.put(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(EventDateTimeMap.MESSAGE_CONSTRAINTS);
         }
 
-        return map;
+        return new EventDateTimeMap(dateTimeMap);
     }
 
     /**

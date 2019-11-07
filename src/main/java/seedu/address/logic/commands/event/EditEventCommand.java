@@ -97,7 +97,7 @@ public class EditEventCommand extends Command {
         EventDate editedEndDate = editedEvent.getEndDate();
 
         //Event has Manpower Allocated, EventDate is edited, prompts user to deallocate before Editing Dates.
-        if (!eventToEdit.isEventEmpty()
+        if (!eventToEdit.isManpowerAllocatedEmpty()
                 && !(eventToEdit.getStartDate().equals(editedStartDate)
                 && eventToEdit.getEndDate().equals(editedEndDate))) {
             throw new CommandException(MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER);
