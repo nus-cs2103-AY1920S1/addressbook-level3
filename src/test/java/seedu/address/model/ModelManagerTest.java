@@ -195,7 +195,7 @@ public class ModelManagerTest {
         modelManager.add(ALICE);
         assertTrue(modelManager.has(ALICE));
 
-        modelManager.deleteTransaction(ALICE);
+        modelManager.delete(ALICE);
         assertFalse(modelManager.has(ALICE));
     }
 
@@ -205,7 +205,7 @@ public class ModelManagerTest {
         modelManager.add(budget);
         assertTrue(modelManager.has(budget));
 
-        modelManager.deleteBudget(budget);
+        modelManager.delete(budget);
         assertFalse(modelManager.has(budget));
     }
 
@@ -217,7 +217,7 @@ public class ModelManagerTest {
         modelManager.add(projection);
         assertTrue(modelManager.has(projection));
 
-        modelManager.deleteProjection(projection);
+        modelManager.delete(projection);
         assertFalse(modelManager.has(projection));
     }
 

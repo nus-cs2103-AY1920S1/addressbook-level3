@@ -105,7 +105,7 @@ public class UpdateCommand extends Command {
                 if (x.getBudgets().isPresent()) {
                     if (x.getBudgets().get().stream().anyMatch(b -> b.equals(budgetToReplace))) {
                         UniqueBudgetList newBudgets = new UniqueBudgetList();
-                        model.deleteProjection(x);
+                        model.delete(x);
                         newBudgets.setBudgets(x.getBudgets().get());
                         newBudgets.setBudget(budgetToReplace, updatedBudget);
                         if (x.getCategory() != null) {

@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.LedgerOperation;
 
 /**
@@ -18,12 +19,18 @@ public class LedgerListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(LedgerListPanel.class);
 
     @FXML
-    private ListView<LedgerOperation> ledgerListView;
+    private ListView<LedgerOperation> operationListView;
 
-    public LedgerListPanel(ObservableList<LedgerOperation> ledgerOperations) {
+    @FXML
+    private ListView<Person> peopleListView;
+
+    public LedgerListPanel(ObservableList<LedgerOperation> ledgerOperations,
+                           ObservableList<Person> peopleInvolved) {
         super(FXML);
-        ledgerListView.setItems(ledgerOperations);
-        ledgerListView.setCellFactory(listView -> new LedgerListViewCell());
+        operationListView.setItems(ledgerOperations);
+        operationListView.setCellFactory(listView -> new LedgerListViewCell());
+        peopleListView.setItems(peopleInvolved);
+        peopleListView.setCellFactory(listView -> new PersonListPanel.PersonListViewCell());
     }
 
     /**

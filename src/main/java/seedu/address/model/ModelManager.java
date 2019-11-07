@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -130,22 +131,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTransaction(BankAccountOperation transaction) {
+    public void delete(BankAccountOperation transaction) {
         versionedUserState.remove(transaction);
     }
 
     @Override
-    public void deleteBudget(Budget budget) {
+    public void delete(Budget budget) {
         versionedUserState.remove(budget);
     }
 
     @Override
-    public void deleteProjection(Projection projectionToDelete) {
+    public void delete(Projection projectionToDelete) {
         versionedUserState.remove(projectionToDelete);
     }
 
     @Override
-    public void deleteLedger(LedgerOperation ledgerToDelete) {
+    public void delete(LedgerOperation ledgerToDelete) {
         versionedUserState.remove(ledgerToDelete);
     }
 
@@ -211,6 +212,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getPeopleInLedger() {
+        return versionedUserState.getLedger().getPeople();
+    }
+
+    @Override
     public boolean canUndoUserState() {
         return versionedUserState.canUndo();
     }
@@ -256,7 +262,7 @@ public class ModelManager implements Model {
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
         this.getFilteredProjectionsList().forEach(x -> {
             if (deleted.getCategories().isEmpty() && x.getCategory() == null) {
-                this.deleteProjection(x);
+                this.delete(x);
                 if (x.getBudgets().isPresent()) {
                     this.add(new Projection(this.getFilteredTransactionList()
                             .filtered(t -> t.getCategories().isEmpty()), x.getDate(), x.getBudgets().get()));
@@ -287,7 +293,7 @@ public class ModelManager implements Model {
     public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
         this.getFilteredProjectionsList().forEach(x -> {
             if (added.isGeneral() && x.getCategory() == null) {
-                this.deleteProjection(x);
+                this.delete(x);
                 ObservableList<BankAccountOperation> newTransactions =
                         this.getFilteredTransactionList().filtered(t -> t.getCategories().isEmpty());
                 if (newTransactions.size() >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS

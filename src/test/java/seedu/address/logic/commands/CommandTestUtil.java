@@ -165,7 +165,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstTransaction(Model model) {
         BankAccountOperation firstTransaction = model.getFilteredTransactionList().get(0);
-        model.deleteTransaction(firstTransaction);
+        model.delete(firstTransaction);
         model.commitUserState();
     }
 
