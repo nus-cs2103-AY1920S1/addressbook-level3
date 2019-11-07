@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_ADDRESS_A;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_COST_TWO_HUNDRED;
-import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TWENTY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SEVEN;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.testutil.Assert.assertThrows;
 import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
@@ -45,7 +45,7 @@ public class UniqueActivityListTest {
     public void contains_activityWithSameIdentityFieldsInList_returnsTrue() {
         uniqueActivityList.add(ACTIVITYONE);
         Activity editedActivity = new ActivityBuilder(ACTIVITYONE).withContact(new ContactBuilder().build())
-                .withCost(VALID_COST_TWO_HUNDRED).withPriority(VALID_PRIORITY_TWENTY)
+                .withCost(VALID_COST_TWO_HUNDRED).withPriority(VALID_PRIORITY_SEVEN)
                 .withTags(VALID_TAG_HIKING).build();
         assertTrue(uniqueActivityList.contains(editedActivity));
     }

@@ -16,8 +16,8 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TEN;
-import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_TWENTY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SEVEN;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SIX;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_SIGHTSEEING;
@@ -117,7 +117,7 @@ public class TypicalActivity {
                     "Jack@example.com",
                     "Doichi Ward, Shitamachi, 120-8222")
             .withDuration("270")
-            .withPriority("8")
+            .withPriority("4")
             .withCost("80").build();
     public static final Activity ACTIVITYNINE = new ActivityBuilder().withName("Watch Kabuki show")
             .withAddress("Osaka")
@@ -126,7 +126,7 @@ public class TypicalActivity {
                     "Gaara@example.com",
                     "Tennoji Ward, Osaka, 543-0017")
             .withDuration("300")
-            .withPriority("9")
+            .withPriority("5")
             .withCost("90").build();
 
     // Manually added - Activity's details found in {@code CommandTestUtil}
@@ -136,7 +136,7 @@ public class TypicalActivity {
                     VALID_EMAIL_AMY, VALID_ADDRESS_AMY, VALID_TAG_FRIEND)
             .withTags(VALID_TAG_SIGHTSEEING)
             .withDuration(VALID_DURATION_A)
-            .withPriority(VALID_PRIORITY_TEN)
+            .withPriority(VALID_PRIORITY_SIX)
             .withCost(VALID_COST_HUNDRED).build();
     public static final Activity ACTIVITY_B = new ActivityBuilder().withName(VALID_ACTIVITY_NAME_B)
             .withAddress(VALID_ACTIVITY_ADDRESS_B)
@@ -144,7 +144,7 @@ public class TypicalActivity {
                     VALID_EMAIL_BOB, VALID_ADDRESS_BOB, VALID_TAG_FRIEND)
             .withTags(VALID_TAG_HIKING)
             .withDuration(VALID_DURATION_B)
-            .withPriority(VALID_PRIORITY_TWENTY)
+            .withPriority(VALID_PRIORITY_SEVEN)
             .withCost(VALID_COST_TWO_HUNDRED)
             .build();
 
