@@ -309,11 +309,18 @@ a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 |**External library used**              |Apache POI         |Jackson
 |====
 
+The number of classes that support the import/export feature is a rather large one. The following class diagram should help to clarify the associations
+between these classes:
+
+image::ExportClassDiagram.png[]
+
+_Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
+
 The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
 
 image::ExportSequenceDiagram.png[]
 
-_Figure 1: Sequence diagram showing the process of exporting to a document file_
+_Figure 2: Sequence diagram showing the process of exporting to a document file_
 
 NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
 
@@ -321,13 +328,13 @@ The following activity diagram summarizes what happens when a user executes an e
 
 image::ExportActivityDiagram.png[width=320,height=480]
 
-_Figure 2: Activity diagram of when the user executes an export command_
+_Figure 3: Activity diagram of when the user executes an export command_
 
 The following activity diagram summarizes what happens when a user executes an import command:
 
 image::ImportActivityDiagram.png[width=320,height=480]
 
-_Figure 3: Activity diagram of when the user executes an import command_
+_Figure 4: Activity diagram of when the user executes an import command_
 
 ==== Design Considerations
 
