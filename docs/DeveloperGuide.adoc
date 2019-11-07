@@ -938,6 +938,14 @@ and attributes are presented to the user via the `MainDisplayPane` of the `MainW
 * If the `AchievementsList` happens to be unchanged since the last time the pane is loaded in the same session, the pane
 is not reload so as to optimise performance of the program and minimise unnecessary access and loading of images.
 
+//tag::personalisedUserExperienceDgAchievementsPppPart5[]
+* The full list of `Achievement` items, as well as corresponding `State` and `Level` possible to attain for each `RecordType` in the current version of the program are shown as follows:
+
+image::TableOfAchievements.png[]
+
+* Each `Achievement` `State` is represented by hand-drawn images, which were coloured digitally using Adobe Photoshop. If a developer intends to modify or extend the current list of `Achievement` items, he or she may also modify or add on to these images that are currently located in `/view/images/achievements/` of the project directory.
+//end::personalisedUserExperienceDgAchievementsPppPart5[]
+
 //tag::personalisedUserExperienceDgMotivationPppPart1[]
 ===== Motivation
 
@@ -964,14 +972,14 @@ Furthermore, our user stories appear to suggest the desire for a more personalis
 * In the strict case of single-user support that leaves the app less open to such modification, the alternative would be
 to simply implement and store the `User` in `ModelManager`, rather than the `UserList`.
 
+//tag::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 ===== Background Sub-Argument Values
 * The use of `enum` is a possibility to implement `static final background` sub-argument values (eg, `auto` of attribute
 `background` size). However considerations that eventually led against this idea included the possibility of values that
 are not in proper `String` format that may not be able to be directly enumerated (leading to the required use of
-additional lengthy switch cases). Additionally other `background` fields may be added by future developers  and it would
+additional lengthy `switch` cases). Additionally other `background` fields may be added by future developers  and it could
 be more concise to have them all in a single class rather than as separate enumerations.
 
-//tag::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 ===== Command Classification
 * It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. `addfontcolour`,
 `editfontcolour`, `showfontcolour`, `clrfontcolour`). However, this is likely unnecessary as this will not only require the
@@ -1046,15 +1054,15 @@ Upon termination of the program, the contents of the `HashMap` could be saved to
 ===== Displaying of cartoon avatar that represents the user: `[coming in v2.0]`
 
 This feature has yet to be implemented but could possibly be implemented using a class / method that interacts with the
-user's `RecordList`. A larger BMI of the user could be represented by a figure with a wider profile while a smaller BMI
+user's `RecordList`. A higher-value BMI of the user could be represented by a figure with a wider profile while a lower-value BMI
 could lead to the avatar being represented otherwise. Users could also have the option to enable and disable this feature.
-This dynamically changing avatar could be achieved by combining shapes that change according to the values in `ReordList`,
+This dynamically changing avatar could be achieved by combining shapes that change according to the values in `RecordList`,
 or by using an existing library that allows for this.
 
 //tag::personalisedUserExperienceDgFutureDevelopmentsPppPart4[]
 ===== Follow up on user's goals: `[coming in v2.0]`
 
-This feature has yet to be implemented but could possibly be implemented by first parsing inputs tat the user has
+This feature has yet to be implemented but could possibly be implemented by first parsing inputs that the user has
 entered for the `Goal` fields. If in a format that is recognised, the program would store the recognised
 parsed `Goal` and corresponding `LocalDate` in an `ArrayList` and `JsonStorage` file. The program would then check
 the user's progress over time by analysing data in the user's `RecordList`, and provide timely feedback by
@@ -1135,14 +1143,18 @@ appointments that I have to change often due to other commitments
 |`* * *` |patient who has recently been diagnosed of diabetes |be informed when I eat food with high sugar content |live
 better and reduce the chances of further health deterioration
 
+//tag::userStoriesSample3[]
 |`* * *` |lazy diabetic |have reminders for exercising |force myself to work out.
+//end::userStoriesSample3[]
 
 |`* * *` |busy diabetic |be reminded on when to refill / stock up on insulin|
 
-|`* * *` |diabetic |see graphic data summary |minimise the need to read long paragraphs
+//tag::userStoriesSample4[]
+|`* * *` |diabetic |see graphical data summary |minimise the need to read long paragraphs
 
 |`* * *` |diabetic patient who has just been recently diagnosed |have some motivation and reminders on my diet |reduce
 my struggles of cutting down on meals or even exercise that is really tough for me
+//end::userStoriesSample4[]
 
 |`* * *` |diabetic |automatically calculate my daily sugar/carb intake |eliminate the trouble to search for the levels
 of sugar content in the food I eat everyday.
@@ -1167,8 +1179,10 @@ of care
 |be able to be able to export all my records and activities at once |rule out the possibility of missing any information
 during the registration process at a new clinic/ hospital I am visiting
 
+//tag::userStoriesSample5[]
 |`* *` |family member of a diabetic |prioritize my tasks |be immediately contactable if my family member has an
 emergency situation that requires urgent medical attention
+//end::userStoriesSample5[]
 
 |`* *` |diabetic |have a customisable app with avatars and different backgrounds |enjoy a personalised experience
 

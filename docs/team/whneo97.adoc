@@ -65,72 +65,57 @@ https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#pe
 //Achievements
 include::../UserGuide.adoc[tag=personalisedUserExperienceAchvmPppPart1]
 
-...
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#show-a-list-of-all-achievements-the-user-has-attained-achvm[here] for more information on the `achvm` command from the User Guide.)_
 
 //Bio
 include::../UserGuide.adoc[tag=personalisedUserExperienceBioPppPart1]
 
-...
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#shows-a-page-displaying-the-user-profile-of-the-user-bio[here] for more information on the `bio` command from the User Guide.)_
 
 //AddBio
 include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart1]
 
-...
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart2]
-
-...
 
 include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart4]
 
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#adds-a-biography-for-the-user-using-specified-fields-addbio[here] for more information on the `addbio` command from the User Guide.)_
+
 //EditBio
 include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart1]
-
-...
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart2]
-
-...
 
 include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart3]
 
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#edits-a-biography-for-the-user-using-specified-fields-editbio[here] for more information on the `editbio` command from the User Guide.)_
 
 //ClearBio
 
 include::../UserGuide.adoc[tag=personalisedUserExperienceClearBioPppPart1]
 
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#clears-the-biography-of-the-user-using-clrbio[here] for more information on the `editbio` command from the User Guide.)_
+
 //FontColour
 include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart1]
 
-...
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart2]
-
-...
 
 include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart3]
 
-...
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart6]
 
-...
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#sets-the-font-color-of-the-text-fontcolour-or-fontcolor[here] for more information on the `editbio` command from the User Guide.)_
 
 //Background
 include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart1]
 
-...
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart2]
-
-...
 
 include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart4]
 
-
 include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart5]
 
-...
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#sets-the-background-picture-as-a-colour-or-using-a-specified-file-path-bg[here] for more information on the `editbio` command from the User Guide.)_
 
 == Contributions to the Developer Guide
 
@@ -158,8 +143,6 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart3]
 
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart4]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart5]
 
 ...
@@ -167,15 +150,9 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart5]
 //Aesthetics
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart1]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart2]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart3]
-
-...
 
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart4]
 
@@ -184,17 +161,13 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPar
 //Achievement
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart1]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart2]
-
-...
 
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart3]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart4]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart5]
 
 ...
 
@@ -211,21 +184,10 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderat
 
 //Future Developments
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart1]
-
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart2]
-
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart3]
 
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart4]
-
-...
-
 include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart5]
 
 ...
@@ -234,6 +196,8 @@ include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmen
 include::../DeveloperGuide.adoc[tag=userStoriesSample0]
 include::../DeveloperGuide.adoc[tag=userStoriesSample1]
 include::../DeveloperGuide.adoc[tag=userStoriesSample2]
+include::../DeveloperGuide.adoc[tag=userStoriesSample3]
+include::../DeveloperGuide.adoc[tag=userStoriesSample5]
 |=======================================================================
 
 ...
