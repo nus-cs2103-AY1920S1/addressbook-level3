@@ -41,10 +41,9 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException             if there was any problem when reading from the storage.
      */
     @Override
-    public Optional<UserSettings> readUserSettings() throws DataConversionException, IOException {
+    public Optional<UserSettings> readUserSettings() throws DataConversionException {
         return readUserSettings(filePath);
     }
 
@@ -81,6 +80,6 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
         requireAllNonNull(userSettings, filePath);
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(userSettings, filePath);
-
+        logger.info("-------------User settings saved successfully-----------------");
     }
 }
