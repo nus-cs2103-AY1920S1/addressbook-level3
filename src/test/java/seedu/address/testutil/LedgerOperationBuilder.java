@@ -47,6 +47,10 @@ public class LedgerOperationBuilder {
         amount = toCopy.getAmount();
         description = toCopy.getDescription();
         date = toCopy.getDate();
+        people = toCopy.getPeopleInvolved();
+        if (people.size() == 1) {
+            person = people.asUnmodifiableObservableList().get(0);
+        }
     }
 
     /**

@@ -18,7 +18,7 @@ public class ReceiveMoney extends Payment {
 
     @Override
     public Amount getAmount() {
-        return amount.makePositive();
+        return amount;
     }
 
     @Override
