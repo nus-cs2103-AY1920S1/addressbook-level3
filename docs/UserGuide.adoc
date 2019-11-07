@@ -23,7 +23,7 @@ bookmarks*. More importantly, it is *optimized for those who prefer to
 work with a Command Line Interface* (CLI) while still having the
 benefits of a Graphical User Interface (GUI). If you can type fast, Mark
 can get your bookmark organisation and note-taking done faster than
-traditional GUI apps. Interested? Jump to
+traditional GUI apps. Interested? Move on to
 <<Quick Start>> to get
 started. Enjoy!
 
@@ -41,7 +41,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 +
-Some example commands you can try:
+Here are some example commands that you can try:
 
 * *`list`* : lists all bookmarks
 * *`folder Tutorials`* : create a folder named `Tutorials`
@@ -51,6 +51,25 @@ named `Pro Git` to Mark.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+=== Navigating the GUI
+
+//TODO: include gui walkthru
+Upon startup, you will see this view on Mark's GUI:
+//include labelled img with these components demarcated:
+//command box
+//result/error box
+//tab buttons
+//bookmark list panel
+//dashboard: + the 4 sections
+
+As you can see, upon entering Mark you will be fetched to the Dashboard tab view. Mark also has an Online
+tab view and an Offline tab view. This is what the Online tab view looks like:
+//online tab; demarcate browser
+
+This is what an Offline tab view looks like:
+//demarcate paragraph list -- called document annotation area?
+
 
 [[Features]]
 == Features
@@ -477,8 +496,8 @@ Deletes the offline copy of the second bookmark.
 [[annotate]]
 === Making annotations on an offline copy: *`annotate`*
 
-If you want to add a new annotation on the offline copy of the given bookmarked
-website, you can do so using the `annotate` command.
+If you want to add a new annotation on the offline copy of a bookmark,
+you can do so using the `annotate` command.
 With this command, you can highlight a paragraph on the offline document and
 optionally attach a supplementary note to said paragraph. You can add notes
 to justify the highlight or as content-relevant notes to refer to in future.
@@ -504,13 +523,12 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 For example:
 
-* Provide the index of the bookmark, the paragraph identifier of the paragraph to annotate and any notes or highlight you want to add.
- `*annotate* 1 p/p2 n/summary of paragraph h/orange`
+* Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
 
 image::AddAnnotationCommandUi1.png[]
 // offline tab, showing result after   annotate 1 p/p2
 
-* Any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
+* Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
 image::AddAnnotationCommandUi2.png[]
 // offline tab, showing result.
@@ -554,7 +572,7 @@ offline copy of bookmark 1.
 [[annotatedelete]]
 === Deleting annotations on an offline copy: *`annotate-delete`*
 
-If you want to delete highlights or notes from an offline copy of a bookmark, you can do so using the `annotate-delete` command.
+If you want to delete highlights or notes from the offline copy of a bookmark, you can do so using the `annotate-delete` command.
 You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
 on the offline copy to revert it to a clean slate. You can also choose to remove a note from the
 <<stray-notes,_General notes section_>>.
@@ -568,7 +586,14 @@ Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIG
 
 For example:
 
-* Provide the index of the bookmark, the paragraph identifier of the paragraph to annotate and optionally whether
+* Input `*annotate-delete* 1 p/p2 n/true` into the command box.
+
+image::DeleteAnnotationCommandUi1.png[]
+// offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
+
+* Observe that the highlight of paragraph 2 if removed and the note is moved to the _General notes section_.
+
+image::DeleteAnnotationCommandUi2.png[]
 
 
 ****
@@ -586,31 +611,27 @@ the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
  If `KEEP_HIGHLIGHT`` is invalid, a warning message will be displayed.
 ****
 
-Examples:
+Other examples:
 
 * `*annotate-delete* 1 p/p2` +
 This removes both the note and highlight from paragraph 2 in the offline copy of bookmark 1.
 
-* `*annotate-delete* 1 p/p2 n/true` +
-This removes the highlight of paragraph 2 and moves the note to _General notes section_ in the offline copy of bookmark 1.
-
 * `*annotate-delete* 1 p/p2 h/true` +
 This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving the highlight untouched.
 
-* `*annotate-delete* 2 p/s1` +
-This deletes the general note from phantom paragraph `S1` in the offline copy of bookmark 2.
+* `*annotate-delete* 2 p/g1` +
+This deletes the general note from phantom paragraph `G1` in the offline copy of bookmark 2.
 
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
 
-[[annotate-edit]]
+
+[[annotateedit]]
 === Modifying annotations on an offline copy: *`annotate-edit`*
 
-This modifies existing annotations on the offline copy of the given bookmarked
-website. When you give this command, the UI will switch to the offline tab showing the results of your command.
-With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, change the highlight or
-choose to move notes from a paragraph to another paragraph. This command also supports moving notes of a
-<<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
+If you want to modify existing annotations on the offline copy of a bookmark, you can do so using the `annotate-edit` command.
+You can choose to overwrite the existing note of a particular paragraph with another note, change the highlight or
+choose to move notes from a paragraph to another paragraph. You can also use this command to move a general note to the main text by specifying which original paragraph to move it to.
 
 NOTE: While both `*annotate-edit*` and `*annotate*` can be used to change current annotation highlight and notes, `*annotate-edit*`
 allows you to shift your annotations from one paragraph to another in a single step.
@@ -618,7 +639,20 @@ allows you to shift your annotations from one paragraph to another in a single s
 Moving of notes to the <<stray-notes, _General notes section_>> is not supported. If you really want to shift them,
 use <<annotatedelete, `*annotate-delete*`>> with  `n/true` as the only optional flag you include.
 
+Upon editing an annotation, your view will be switched to the offline tab showing the results of your command.
+
 Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+
+For example:
+
+* Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
+
+image::EditAnnotationCommandUi1.png[]
+// offline tab after   annotate 1 p/null n/this note was once a general note
+
+* Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
+
+image::EditAnnotationCommandUi2.png[]
 
 ****
  * `INDEX` is the bookmark that you want to annotate offline version of.
@@ -651,7 +685,7 @@ This replaces the content of the note for paragraph 1 with "new notes" in the of
 * `*annotate-edit* 1 p/p1 h/yellow` +
 This changes the highlight colour to yellow for paragraph 1 in the offline copy of bookmark 1.
 
-* `*annotate-edit* 1 p/s2 to/p1` +
+* `*annotate-edit* 1 p/g2 to/p1` +
 This moves the general note of phantom paragraph `S2` to paragraph 1 in the offline copy of bookmark 1.
 
 * `*annotate-edit* 1 p/p2 to/p3 n/changing and moving notes` +
@@ -661,8 +695,8 @@ a note with content "changing and moving notes". The annotation on paragraph 2 i
 
 === Viewing an annotated offline copy: *`offline`*
 
-Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
-show the latest offline copy with annotations by default.
+If you want to view the offline copy of a bookmark, you can do so using the `offline` command. Your view will be switched
+to the offline tab where the offline copy is shown.
 
 Format: `*offline* INDEX`
 //TODO: [v/VERSION = current]`
