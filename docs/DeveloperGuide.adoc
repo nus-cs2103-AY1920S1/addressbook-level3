@@ -63,7 +63,7 @@ image::LogicComponentClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete|1`.
 
 .Component interactions for `delete|1` command
-//TODO: Update diagram
+
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -150,7 +150,11 @@ This section describes some noteworthy details on how certain features are imple
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
 When an item expires, the item is automatically tagged as `#Expired`.
-By searching for the `#Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
+
+.All expired items are automatically tagged with the `Expired` tag (circled in figure).
+image::expired_tags.png[]
+
+By searching for the `Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
 
 .Sequence Diagram for ItemManager Class
 image::ItemManagerSequenceDiagram.png[]
@@ -746,7 +750,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to both the tracking list and the to-buy list, unless specific otherwise.)
+(For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to the tracking list, unless specific otherwise.)
 
 [discrete]
 === Use case: UC01 - Add item
@@ -1067,26 +1071,65 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding expired items to the tracking list for testing
+
+Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
+
+.Expiry date should be updated to one that has passed to test for expired items in Xpire.
+image::xpire_json_file.png[]
+
+.. By design, our app does not accept items that have expired unless the json file is tampered with.
+.. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
+.. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
+.. The format to follow for adding an item can be seen within the box outline:
+
+.Format to follow for adding an XpireItem manually to xpire.json file
+image::json_format_example.png[]
+
+Example:
+
+.Example of a valid XpireItem manually added to xpire.json file
+image::json_example.png[]
+An item with `name` Jelly and `expiryDate` 24/6/2019 (which has passed) is now added to the json file for your testing.
+
+[NOTE]
+Remember to enclose these name-value items with `{` and `}`.
+Do note that if you manually tamper with the xpire.json file, the data file might be corrupted.
+See <<Saving data>> on details for corrupted files.
+For more information about JSON objects, please refer to https://www.digitalocean.com/community/tutorials/an-introduction-to-json[this tutorial].
 
 === Deleting an item
 
 . Deleting an item while all items are listed
 
-.. Prerequisites: List all items using the `list` command. Multiple items in the list.
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
 .. Test case: `delete|1` +
-   Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
+   Expected: First item is deleted from the list. Details of the deleted item shown in the status message.
 .. Test case: `delete|0` +
    Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting an item quantity
+
+The examples given below acts according to the following list:
+
+image::delete_example_list.png[]
+
+.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+   Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+   Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Corrupted data files will be deleted. A new json file without any items will be used.

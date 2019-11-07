@@ -1,9 +1,10 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_REPLENISH_SHIFT_SUCCESS;
+import static io.xpire.model.ListType.REPLENISH;
+import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,13 +13,14 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
-import io.xpire.model.item.Name;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
+import javafx.collections.ObservableList;
 
 /**
  * Deletes an xpireItem identified with its displayed index or tag(s) associated with the xpireItem.
@@ -82,38 +84,37 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException, ParseException {
         requireNonNull(model);
         stateManager.saveState(new ModifiedState(model));
-        List<XpireItem> lastShownList = model.getFilteredXpireItemList();
+        ObservableList<? extends Item> currentList = model.getCurrentList();
 
-        if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (this.targetIndex.getZeroBased() >= currentList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        XpireItem targetXpireItem = lastShownList.get(this.targetIndex.getZeroBased());
+        XpireItem targetXpireItem = (XpireItem) currentList.get(this.targetIndex.getZeroBased());
         this.item = targetXpireItem;
 
         switch(this.mode) {
         case ITEM:
-            model.deleteItem(targetXpireItem);
+            model.deleteItem(XPIRE, targetXpireItem);
             this.result = String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
         case TAGS:
             assert this.tagSet != null;
             XpireItem newTaggedXpireItem = removeTagsFromItem(new XpireItem(targetXpireItem), this.tagSet);
-            model.setItem(targetXpireItem, newTaggedXpireItem);
+            model.setItem(XPIRE, targetXpireItem, newTaggedXpireItem);
             this.result = String.format(MESSAGE_DELETE_TAGS_SUCCESS, newTaggedXpireItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
         case QUANTITY:
             assert this.quantity != null;
-            XpireItem newQuantityXpireItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
-            Name itemName = newQuantityXpireItem.getName();
-            model.setItem(targetXpireItem, newQuantityXpireItem);
+            XpireItem updatedItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
+            model.setItem(XPIRE, targetXpireItem, updatedItem);
             // transfer item to replenish list
-            if (Quantity.quantityIsZero(newQuantityXpireItem.getQuantity())) {
-                model.shiftItemToReplenishList(newQuantityXpireItem);
+            if (Quantity.quantityIsZero(updatedItem.getQuantity())) {
+                shiftItemToReplenishList(model, updatedItem);
                 this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem)
-                        + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName);
+                        + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, updatedItem.getName());
                 setShowInHistory(true);
                 return new CommandResult(this.result);
             }
@@ -164,6 +165,15 @@ public class DeleteCommand extends Command {
         Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
         targetXpireItem.setQuantity(updatedQuantity);
         return targetXpireItem;
+    }
+
+    /**
+     * Shifts Item to ReplenishList.
+     */
+    private void shiftItemToReplenishList(Model model, XpireItem itemToShift) {
+        Item remodelledItem = itemToShift.remodel();
+        model.addItem(REPLENISH, remodelledItem);
+        model.deleteItem(XPIRE, itemToShift);
     }
 
     @Override

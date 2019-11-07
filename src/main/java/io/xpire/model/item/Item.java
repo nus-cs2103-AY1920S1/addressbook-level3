@@ -1,5 +1,7 @@
 package io.xpire.model.item;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -15,12 +17,11 @@ import io.xpire.model.tag.TagComparator;
  */
 public class Item {
 
+    //data fields
+    protected Set<Tag> tags = new TreeSet<>(new TagComparator());
+
     //identity fields
     final Name name;
-
-    //data fields
-    private Set<Tag> tags = new TreeSet<>(new TagComparator());
-
 
     /**
      * Every field must be present and not null.
@@ -35,7 +36,7 @@ public class Item {
      * Every field must be present and not null.
      */
     public Item(Name name) {
-        CollectionUtil.requireAllNonNull(name);
+        requireNonNull(name);
         this.name = name;
     }
 
@@ -44,8 +45,13 @@ public class Item {
      * Used for testing.
      */
     public Item(Item item) {
+        requireNonNull(item);
         this.name = item.getName();
         this.tags = item.getTags();
+    }
+
+    public XpireItem remodel(ExpiryDate expiryDate, Quantity quantity) {
+        return new XpireItem(this.name, expiryDate, quantity, this.tags);
     }
 
     public Name getName() {

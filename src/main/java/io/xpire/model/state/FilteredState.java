@@ -1,39 +1,28 @@
 package io.xpire.model.state;
 
-import io.xpire.model.CloneModel;
+import java.util.logging.Logger;
+
+import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.Model;
-import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.ModelManager;
+
 
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. FilteredState denotes
  * a state in which the current view has been modified but not the items.
  */
-public class FilteredState implements State {
+public class FilteredState extends State {
 
-    private XpireMethodOfSorting method;
-    private CloneModel cloneModel;
-
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     public FilteredState(Model model) {
-        this.method = model.getXpire().getMethodOfSorting();
-        this.cloneModel = clone(model, this.method);
-    }
-
-    /**
-     * Clones a complete copy of model.
-     */
-    public CloneModel clone(Model model, XpireMethodOfSorting method) {
-        return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
-                model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getListToView());
-    }
-
-    public CloneModel getCloneModel() {
-        return this.cloneModel;
-    }
-
-    public XpireMethodOfSorting getMethod() {
-        return this.method;
+        try {
+            build(model);
+        } catch (ClassCastException e) {
+            logger.warning("Predicate Type mismatch in FilteredState");
+        }
+        this.stateType = StateType.FILTERED;
+        this.cloneModel = clone(model, this.stateType);
     }
 
     @Override

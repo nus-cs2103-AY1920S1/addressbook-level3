@@ -1,5 +1,7 @@
 package io.xpire.logic;
 
+import static io.xpire.model.ListType.XPIRE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -15,15 +17,16 @@ import io.xpire.logic.parser.Parser;
 import io.xpire.logic.parser.ReplenishParser;
 import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * The main LogicManager of the app.
@@ -37,7 +40,7 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
-    private final StateManager stateManager = new StateManager();
+    private final StateManager stateManager = new StackManager();
     private final CommandHistory commandHistory = new CommandHistory();
 
     public LogicManager(Model model, Storage storage) {
@@ -85,18 +88,30 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public FilteredList<? extends Item> getCurrentFilteredItemList() {
-        return this.model.getCurrentFilteredItemList();
+    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+        return this.model.getCurrentList();
     }
 
+    // @author xiaoyu
     @Override
     public ObservableList<XpireItem> getXpireItemList() {
-        return this.model.getFilteredXpireItemList();
+        try {
+            return (ObservableList<XpireItem>) this.model.getItemList(XPIRE);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Xpire");
+            return null;
+        }
     }
 
+    // @author xiaoyu
     @Override
     public ObservableList<Item> getReplenishItemList() {
-        return this.model.getFilteredReplenishItemList();
+        try {
+            return (ObservableList<Item>) this.model.getItemList(ListType.REPLENISH);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Replenish List");
+            return null;
+        }
     }
 
     @Override
@@ -115,6 +130,6 @@ public class LogicManager implements Logic {
     }
 
     private boolean isXpireListView() {
-        return this.model.getCurrentFilteredItemList().equals(this.model.getFilteredXpireItemList());
+        return model.getCurrentView() == XPIRE;
     }
 }
