@@ -1,27 +1,16 @@
 package seedu.guilttrip.logic.commands;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
-import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-
     public static final String COMMAND_WORD = "command";
-
-    public static final String MESSAGE_USAGE = "usage";
-
-    public static final Set<Prefix> REQUIRED_PREFIXES = Collections
-            .unmodifiableSet(new HashSet<Prefix>());
-
-    public static final boolean REQUIRES_PREAMBLE = false;
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": If you see this, contact the developers.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     /**
      * Executes the command and returns the result message.
@@ -33,4 +22,25 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model, CommandHistory history)
             throws CommandException;
+
+    /**
+     * @return a one-liner describing the command.
+     */
+    public static String getOneLinerDesc() {
+        return ONE_LINER_DESC;
+    }
+
+    /**
+     * @return the command word for this command
+     */
+    public static String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
+    /**
+     * @return the usage string containing explanation, parameters and example.
+     */
+    public static String getUsage() {
+        return MESSAGE_USAGE;
+    }
 }

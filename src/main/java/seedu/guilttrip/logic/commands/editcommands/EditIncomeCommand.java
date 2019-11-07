@@ -33,8 +33,8 @@ import seedu.guilttrip.model.tag.Tag;
 public class EditIncomeCommand extends Command {
 
     public static final String COMMAND_WORD = "editIncome";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Income identified "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Income identified ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "by the index number used in the displayed Incomes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "

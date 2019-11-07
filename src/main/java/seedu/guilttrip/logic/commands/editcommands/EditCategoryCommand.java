@@ -20,8 +20,9 @@ public class EditCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "editCategory";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Category specified "
-            + "by the name of the Category as well as the type of category whether it is expense or income. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Category specified "
+            + "by the name of the Category as well as the type of category whether it is expense or income. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE OF CATEGORY "

@@ -3,6 +3,8 @@ package seedu.guilttrip.logic.commands;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.GuiltTripParser.BASIC_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.GuiltTripParser.COMMANDS_SET;
+import static seedu.guilttrip.logic.parser.GuiltTripParser.MESSAGE_USAGE_MAP;
+import static seedu.guilttrip.logic.parser.GuiltTripParser.ONE_LINER_DESC_MAP;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -36,20 +38,18 @@ public final class GuiltTripCommandSuggester {
             String commandWord = getCommandWord(textInput);
 
             if (commandIsIncomplete(commandWord)) {
-                return getClosestCommands(commandWord, COMMAND_RECOMMENDATION_COUNT);
+                return "[Autosuggestion] Showing the closest commands:\n"
+                        + getClosestCommands(commandWord, COMMAND_RECOMMENDATION_COUNT);
             } else {
-                return getCommandHelpMessage(commandWord);
+                return "[Autosuggestion] Help message as below:\n" + getCommandHelpMessage(commandWord);
             }
         } catch (ParseException pe) {
             return pe.getMessage();
         }
-
-        // ArgumentMultimap argumentMultimap = getArgumentMultimap(textInput);
     }
 
-    // TODO
     private static String getCommandHelpMessage(String commandWord) {
-        return "placeholder";
+        return MESSAGE_USAGE_MAP.get(commandWord);
     }
 
     private static String getCommandWord(String textInput) throws ParseException {
@@ -75,12 +75,13 @@ public final class GuiltTripCommandSuggester {
         return !COMMANDS_SET.contains(commandWord);
     }
 
-    // TODO: Save a set of all commands. Either at model or guiltTrip
     private static String getClosestCommands(String commandWord, int count) {
         Queue<String> commandsHeap = new PriorityQueue<>(new EditDistanceComparator(commandWord));
         commandsHeap.addAll(COMMANDS_SET);
 
-        return IntStream.rangeClosed(1, COMMAND_RECOMMENDATION_COUNT).mapToObj(i -> commandsHeap.poll())
+        return IntStream.rangeClosed(1, COMMAND_RECOMMENDATION_COUNT)
+                .mapToObj(i -> ONE_LINER_DESC_MAP.get(commandsHeap.poll()))
+                .map(String::trim)
                 .collect(Collectors.joining("\n"));
     }
 }

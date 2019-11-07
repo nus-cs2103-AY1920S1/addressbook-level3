@@ -2,7 +2,11 @@ package seedu.guilttrip.logic.parser;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfMessageUsages;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfOneLinerDescs;
+import static seedu.guilttrip.logic.parser.ParserUtil.setOfCommandWords;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -120,78 +124,13 @@ import seedu.guilttrip.logic.parser.uicommandparsers.TogglePanelCommandParser;
  */
 public class GuiltTripParser {
 
+    public static final Set<String> COMMANDS_SET = setOfCommandWords();
+    public static final Map<String, String> ONE_LINER_DESC_MAP = mapOfOneLinerDescs();
+    public static final Map<String, String> MESSAGE_USAGE_MAP = mapOfMessageUsages();
     /**
      * Used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final Set<String> COMMANDS_SET = Set.of(
-            AddExpenseCommand.COMMAND_WORD,
-            AddExpenseCommand.COMMAND_WORD_SHORT,
-            AddIncomeCommand.COMMAND_WORD,
-            AddBudgetCommand.COMMAND_WORD,
-            AddCategoryCommand.COMMAND_WORD,
-            EditExpenseCommand.COMMAND_WORD,
-            EditExpenseCommand.COMMAND_WORD_SHORT,
-            EditIncomeCommand.COMMAND_WORD,
-            EditCategoryCommand.COMMAND_WORD,
-            EditWishCommand.COMMAND_WORD,
-            EditBudgetCommand.COMMAND_WORD,
-            DeleteExpenseCommand.COMMAND_WORD,
-            DeleteExpenseCommand.COMMAND_WORD_SHORT,
-            DeleteIncomeCommand.COMMAND_WORD,
-            DeleteCategoryCommand.COMMAND_WORD,
-            DeleteWishCommand.COMMAND_WORD,
-            DeleteBudgetCommand.COMMAND_WORD,
-            ClearCommand.COMMAND_WORD,
-            FindExpenseCommand.COMMAND_WORD,
-            FindAutoExpenseCommand.COMMAND_WORD,
-            FindIncomeCommand.COMMAND_WORD,
-            FindWishCommand.COMMAND_WORD,
-            FindBudgetCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD,
-            ListCategoriesCommand.COMMAND_WORD,
-            ListFontCommand.COMMAND_WORD,
-            WishListCommand.COMMAND_WORD,
-            ListBudgetCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD,
-            SortExpenseCommand.COMMAND_WORD,
-            SortIncomeCommand.COMMAND_WORD,
-            SortBudgetCommand.COMMAND_WORD,
-            SortAutoExpenseCommand.COMMAND_WORD,
-            SortWishCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD,
-            AddReminderCommand.COMMAND_WORD,
-            EditReminderCommand.COMMAND_WORD,
-            DeleteReminderCommand.COMMAND_WORD,
-            AddConditionToReminderCommand.COMMAND_WORD,
-            RemoveConditionFromReminderCommand.COMMAND_WORD,
-            ListAllRemindersCommand.COMMAND_WORD,
-            ListActiveRemindersCommand.COMMAND_WORD,
-            AddClassConditionCommand.COMMAND_WORD,
-            AddDateConditionCommand.COMMAND_WORD,
-            AddHasKeyWordConditionCommand.COMMAND_WORD,
-            AddQuotaConditionCommand.COMMAND_WORD,
-            AddTagsConditionCommand.COMMAND_WORD,
-            DeleteConditionCommand.COMMAND_WORD,
-            ReplaceConditionCommand.COMMAND_WORD,
-            ShowConditionListCommand.COMMAND_WORD,
-            AddAutoExpenseCommand.COMMAND_WORD,
-            EditAutoExpenseCommand.COMMAND_WORD,
-            DeleteAutoExpenseCommand.COMMAND_WORD,
-            ViewBarChartCommand.COMMAND_WORD,
-            ViewTableCommand.COMMAND_WORD,
-            ViewPieChartCommand.COMMAND_WORD,
-            ViewEntryCommand.COMMAND_WORD,
-            TogglePanelCommand.COMMAND_WORD,
-            UndoCommand.COMMAND_WORD,
-            RedoCommand.COMMAND_WORD,
-            HistoryCommand.COMMAND_WORD,
-            ChangeFontCommand.COMMAND_WORD,
-            SetLightThemeCommand.COMMAND_WORD,
-            SetDarkThemeCommand.COMMAND_WORD
-    );
-
 
     /**
      * Parses user input into command for execution.

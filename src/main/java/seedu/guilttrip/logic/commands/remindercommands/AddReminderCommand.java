@@ -28,7 +28,8 @@ public class AddReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder to reminders list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a Reminder to reminders list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_DESC + "REMINDER_MESSAGE"
             + "[" + PREFIX_INDEX + "CONDITION INDEX]..."

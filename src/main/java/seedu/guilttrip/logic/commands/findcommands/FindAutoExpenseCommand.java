@@ -25,7 +25,8 @@ public class FindAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "findAutoExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all autoexpense entries which contains "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Finds all autoexpense entries ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC + "which contains "
             + " the keywords that the user requests to be filtered by contain any of and displays them as a list with "
             + "index numbers.\n"
             + "[" + PREFIX_CATEGORY + "KEYWORDS] "

@@ -16,6 +16,8 @@ import seedu.guilttrip.model.Model;
 public class SwitchStatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "switchStats";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": switches in between the Statistics Graphics and the Statistics Table in guilttrip.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
     public static final String MESSAGE_SUCCESS = "Switched Stats.";
 
     @Override

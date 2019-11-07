@@ -18,7 +18,8 @@ public class RemoveConditionFromReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "removeFromReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a condition to reminder. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Removes a condition to reminder. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: CONDITIONINDEX, REMINDERINDEX (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 

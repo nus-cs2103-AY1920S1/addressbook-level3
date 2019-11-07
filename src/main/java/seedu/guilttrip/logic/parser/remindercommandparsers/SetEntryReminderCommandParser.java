@@ -13,7 +13,6 @@ import java.time.temporal.TemporalUnit;
 import java.util.stream.Stream;
 
 import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.addcommands.AddCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SetEntryReminderCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
@@ -38,7 +37,7 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
                 ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetEntryReminderCommand.MESSAGE_USAGE));
         }
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
