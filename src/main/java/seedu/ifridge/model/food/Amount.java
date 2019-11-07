@@ -448,4 +448,19 @@ public class Amount {
         return fullAmt.hashCode();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Amount)) {
+            return false;
+        } else {
+            try {
+                Amount reducedAmount = this.reduceBy((Amount) o);
+                return getValue(reducedAmount) == 0;
+            } catch (InvalidUnitException | InvalidAmountException e) {
+                return false;
+            }
+        }
+    }
 }

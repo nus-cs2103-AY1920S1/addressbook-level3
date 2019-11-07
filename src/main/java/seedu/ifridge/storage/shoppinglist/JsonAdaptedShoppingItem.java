@@ -14,27 +14,24 @@ import seedu.ifridge.model.food.ShoppingItem;
  */
 public class JsonAdaptedShoppingItem {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Shopping Item's %s field is missing!";
 
     private final String name;
     private final String amount;
-    //private final String expiryDate;
     private final boolean urgent;
     private final boolean bought;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedShoppingItem} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedShoppingItem(
             @JsonProperty("name") String name,
             @JsonProperty("amount") String amount,
-            //@JsonProperty("expiryDate") String expiryDate,
             @JsonProperty("bought") boolean bought,
             @JsonProperty("urgent") boolean urgent) {
         this.name = name;
         this.amount = amount;
-        //this.expiryDate = expiryDate;
         this.bought = bought;
         this.urgent = urgent;
     }
@@ -45,7 +42,6 @@ public class JsonAdaptedShoppingItem {
     public JsonAdaptedShoppingItem(ShoppingItem source) {
         name = source.getName().fullName;
         amount = source.getAmount().fullAmt;
-        //expiryDate = source.getExpiryDate().expiryDate;
         bought = source.isBought();
         urgent = source.isUrgent();
     }
@@ -60,15 +56,17 @@ public class JsonAdaptedShoppingItem {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        }
         final Name modelName = new Name(name);
         final Amount modelAmount = new Amount(amount);
-        //if (bought) {
-        //    final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
-        //    return new ShoppingItem(modelName, modelAmount, modelExpiryDate);
-        //}
         ShoppingItem result = new ShoppingItem(modelName, modelAmount);
         result = result.setBought(bought);
         result = result.setUrgent(urgent);

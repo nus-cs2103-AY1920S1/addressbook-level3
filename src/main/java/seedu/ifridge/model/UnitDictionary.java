@@ -83,4 +83,14 @@ public class UnitDictionary {
         return this.unitDictionary;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof UnitDictionary)) {
+            return false;
+        } else {
+            return this.unitDictionary.equals(((UnitDictionary) o).unitDictionary);
+        }
+    }
 }

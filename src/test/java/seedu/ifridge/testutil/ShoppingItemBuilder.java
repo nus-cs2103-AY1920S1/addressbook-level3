@@ -8,21 +8,25 @@ import seedu.ifridge.model.food.ShoppingItem;
  * A utility class to help with building Person objects.
  */
 public class ShoppingItemBuilder {
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Orange";
     public static final String DEFAULT_AMOUNT = "300g";
-    //public static final String DEFAULT_EXPIRY_DATE = "10.08.2019";
+    public static final boolean DEFAULT_BOUGHT = false;
+    public static final boolean DEFAULT_URGENT = false;
 
     private Name name;
     private Amount amount;
-    //private Set<Tag> tags;
+    private boolean bought;
+    private boolean urgent;
 
     public ShoppingItemBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
+        bought = DEFAULT_BOUGHT;
+        urgent = DEFAULT_URGENT;
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ShoppingItemBuilder with the data of {@code shoppingItemToCopy}.
      */
     public ShoppingItemBuilder(ShoppingItem shoppingItemToCopy) {
         name = shoppingItemToCopy.getName();
@@ -30,7 +34,7 @@ public class ShoppingItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code ShoppingList} that we are building.
      */
     public ShoppingItemBuilder withName(String name) {
         this.name = new Name(name);
@@ -38,32 +42,35 @@ public class ShoppingItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Amount} of the {@code ShoppingItem} that we are building.
      */
     public ShoppingItemBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
         return this;
     }
 
-    /*
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code bought} of the {@code ShoppingItem} that we are building.
+     * @param bought boolean value to set as bought status
+     * @return {@code ShoppingItemBuilder} with new bought status
      */
-    /*public GroceryItemBuilder withExpiryDate(String expiryDate) {
-        this.expiryDate = new ExpiryDate(expiryDate);
+    public ShoppingItemBuilder withBought(boolean bought) {
+        this.bought = bought;
         return this;
-    }*/
+    }
 
-    /*/**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+    /**
+     * Sets the {@code urgent} of the {@code ShoppingItem} that we are building.
+     * @param urgent boolean value to set as urgent status
+     * @return {@code ShoppingItemBuilder} with new urgent status
      */
-    /*public GroceryItemBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public ShoppingItemBuilder withUrgent(boolean urgent) {
+        this.urgent = urgent;
         return this;
-    }*/
+    }
 
     public ShoppingItem build() {
-        return new ShoppingItem(name, amount);
+        return new ShoppingItem(name, amount, bought, urgent);
     }
 
 }

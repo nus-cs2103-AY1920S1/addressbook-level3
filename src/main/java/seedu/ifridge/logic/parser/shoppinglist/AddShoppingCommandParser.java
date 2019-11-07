@@ -32,7 +32,7 @@ public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_AMOUNT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddShoppingCommand.MESSAGE_USAGE));
         }
 

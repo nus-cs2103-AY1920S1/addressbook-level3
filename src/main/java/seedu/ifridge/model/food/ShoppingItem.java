@@ -88,6 +88,17 @@ public class ShoppingItem extends Food {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof ShoppingItem)) {
+            return false;
+        } else {
+            return ((ShoppingItem) o).isSameFood(this);
+        }
+    }
+
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())

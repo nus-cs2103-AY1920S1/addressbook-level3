@@ -66,4 +66,15 @@ public class TemplateItem extends Food implements Comparable<TemplateItem> {
 
         return thisName.toLowerCase().compareTo(otherName.toLowerCase());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof TemplateItem)) {
+            return false;
+        } else {
+            return this.isSameFood((TemplateItem) o);
+        }
+    }
 }

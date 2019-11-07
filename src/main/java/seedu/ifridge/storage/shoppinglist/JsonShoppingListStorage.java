@@ -17,13 +17,13 @@ import seedu.ifridge.model.ReadOnlyShoppingList;
 /**
  * A class to access GroceryList data stored as a json file on the hard disk.
  */
-public class JsonShoppingItemStorage implements ShoppingListStorage {
+public class JsonShoppingListStorage implements ShoppingListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonShoppingItemStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonShoppingListStorage.class);
 
     private Path filePath;
 
-    public JsonShoppingItemStorage(Path filePath) {
+    public JsonShoppingListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
