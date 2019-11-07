@@ -27,27 +27,30 @@ The final implementation with this library is such that the export and import fu
 Apart the CSV parsing aspect, coding the data interaction for reading and writing patients to the address book had its challenges as well, due to the potential (buggy) interactions with the data from other features.
 ** Credits: link:https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-csv[Jackson Dataformat CSV], along with the existing Jackson annotations in AB3 used for JSON processing.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: My contributed code can be found link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=cheongsiuhong[here]. Use the filters to sort functional and test code as needed.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Opened milestones and user stories issues.
+*** Managed milestones `v1.0` and `v1.1`.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Created the product README
+*** Sanitized irrelevant aspects of the User Guide and Developer Guide : https://github.com[#200]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments) or approved:
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/66[#66],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/74[#74],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/75[#75],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/95[#95],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/108[#108],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/109[#109],
+and everything else link:https://github.com/AY1920S1-CS2103-F10-1/main/pulls?q=is%3Apr+reviewed-by%3Acheongsiuhong+is%3Aclosed[here]
+*** Reported bugs (example: https://github.com/AY1920S1-CS2103-F10-1/main/issues/103[#103])
+and another severe bug reported offline fixed in https://github.com/AY1920S1-CS2103-F10-1/main/pull/120[#120]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated coveralls to the project.
 
 == Contributions to the User Guide
 
@@ -56,9 +59,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../userguide/ImportExport.adoc[]
 
 == Contributions to the Developer Guide
 
@@ -66,13 +67,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../devguide/ImportExport.adoc[]
