@@ -21,12 +21,12 @@ public class ExactFindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsExactFindCommand() {
         // no leading and trailing whitespaces
         ExactFindCommand expectedExactFindCommand = new ExactFindCommand(new PersonContainsPrefixesPredicate(
-                ArgumentTokenizer.tokenize("   " + ExactFindCommand.COMMAND_WORD + " n/Alice Bob      ",
+                ArgumentTokenizer.tokenize(" n/Alice Bob",
                         PREFIX_NAME)));
-        assertParseSuccess(parser, ExactFindCommand.COMMAND_WORD + " n/Alice Bob", expectedExactFindCommand);
+        assertParseSuccess(parser, " n/Alice Bob", expectedExactFindCommand);
     }
 
 }
