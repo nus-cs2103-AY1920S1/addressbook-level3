@@ -30,7 +30,7 @@ public class Amount {
     }
 
     /**
-     * Returns true if the given amount is a valid expendable amount.
+     * Returns true if the given amount is a valid amount for an expense.
      */
     public static boolean isValidAmount(double test) {
         double d = Math.round(test * 100) / 100.0;
