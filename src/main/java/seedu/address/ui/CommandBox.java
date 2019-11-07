@@ -94,6 +94,8 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void keyListener(KeyEvent event) {
+        assert currentOffset >= 0 : "Offset cannot be negative";
+
         if (event.getCode() == KeyCode.UP && currentOffset < history.size()) {
             currentOffset++;
             String command = history.get(history.size() - currentOffset);
@@ -101,13 +103,9 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.positionCaret(command.length());
         } else if (event.getCode() == KeyCode.DOWN && currentOffset > 0) {
             currentOffset--;
-            if (currentOffset == 0) {
-                commandTextField.setText("");
-            } else {
-                String command = history.get(history.size() - currentOffset);
-                commandTextField.setText(command);
-                commandTextField.positionCaret(command.length());
-            }
+            String command = (currentOffset > 0) ? history.get(history.size() - currentOffset) : "";
+            commandTextField.setText(command);
+            commandTextField.positionCaret(command.length());
         }
     }
 

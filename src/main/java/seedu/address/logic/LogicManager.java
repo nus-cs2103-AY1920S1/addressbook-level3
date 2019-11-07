@@ -218,6 +218,7 @@ public class LogicManager implements Logic {
         Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
 
         if (commandWord.isPresent() && !(command instanceof SuggestionCommand)) {
+            logger.info(String.format("Adding command `%s` to command history...", commandWord.get()));
             model.addCommandToHistory(commandWord.get(), commandText);
         }
     }

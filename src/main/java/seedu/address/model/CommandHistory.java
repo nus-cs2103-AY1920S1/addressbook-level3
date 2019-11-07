@@ -15,11 +15,15 @@ import javafx.util.Pair;
  */
 public class CommandHistory {
 
-    private final LinkedList<Pair<String, String>> userInputHistory = new LinkedList<Pair<String, String>>();
-    private final ObservableList<Pair<String, String>> unmodifiableObservableList =
-            FXCollections.unmodifiableObservableList(FXCollections.observableList(userInputHistory));
+    private final LinkedList<Pair<String, String>> userInputHistory;
+    private final ObservableList<Pair<String, String>> unmodifiableObservableList;
 
-    public CommandHistory() {}
+    public CommandHistory() {
+        userInputHistory = new LinkedList<Pair<String, String>>();
+        unmodifiableObservableList = FXCollections.unmodifiableObservableList(
+                FXCollections.observableList(userInputHistory)
+        );
+    }
 
     /**
      * Adds a triplet of {@code objectType, @code CommandWord, @code userInput}

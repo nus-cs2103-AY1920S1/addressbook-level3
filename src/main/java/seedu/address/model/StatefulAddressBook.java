@@ -49,6 +49,7 @@ public class StatefulAddressBook extends AddressBook {
      * Restores our address book to a previous state, depending on whether a person or a policy was modified.
      */
     public void undo() throws CannotUndoException {
+        assert currentStatePointer >= 0 : "currentStatePointer cannot be less than zero";
         if (!canUndo()) {
             throw new CannotUndoException();
         }
@@ -60,6 +61,7 @@ public class StatefulAddressBook extends AddressBook {
      * Restores our address book to its previously undone state, depending on whether a person or policy was undone.
      */
     public void redo() throws CannotRedoException {
+        assert currentStatePointer >= 0 : "currentStatePointer cannot be less than zero";;
         if (!canRedo()) {
             throw new CannotRedoException();
         }

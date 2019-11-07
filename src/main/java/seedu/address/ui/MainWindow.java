@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.logging.Logger;
@@ -163,7 +164,9 @@ public class MainWindow extends UiPart<Stage> {
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
+    /** Show command history in right panel */
     private void showListHistory() {
+        logger.info("Displaying command history...");
         historyListPanel = new HistoryListPanel(logic.getHistoryList());
         displayPlaceHolder.getChildren().removeAll();
         displayPlaceHolder.getChildren().add(historyListPanel.getRoot());

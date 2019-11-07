@@ -320,6 +320,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addCommandToHistory(String commandWord, String commandText) {
+        requireNonNull(commandWord);
+        requireNonNull(commandText);
         commandHistory.addCommand(commandWord, commandText);
     }
 
