@@ -1,0 +1,25 @@
+@startuml
+scale 3/4
+start
+:User executes display command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if ()then ([arguments matches "interviewee"])
+    :signal TabListener;
+- TabListener signals Main Window
+- Main Window display interviewee tab
+else if () then ([arguments matches "interviewer"])
+    :display interviewer tab;
+    - TabListener signals Main Window
+    - Main Window display interviewer tab
+else if () then ([arguments matches "schedule"])
+:display schedule tab;
+- TabListener signals Main Window
+- Main Window display schedule tab
+else ([else])
+:throw invalid command exception;
+endif
+stop
+@end uml

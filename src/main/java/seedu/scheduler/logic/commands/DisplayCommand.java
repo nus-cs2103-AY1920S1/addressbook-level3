@@ -11,15 +11,17 @@ import seedu.scheduler.model.Model;
 public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
-    private static final String INTERVIEWEE_TAB_COMMAND_WORD = " interviewee";
-    private static final String INTERVIEWER_TAB_COMMAND_WORD = " interviewer";
-    private static final String SCHEDULE_TAB_COMMAND_WORD = " schedule";
-    private static final String CHANGE_TAB_SUCCESS = " displayed.";
+    public static final String CHANGE_TAB_SUCCESS = " displayed.";
+    private static final String INTERVIEWEE_TAB_COMMAND_WORD = "interviewee";
+    private static final String INTERVIEWER_TAB_COMMAND_WORD = "interviewer";
+    private static final String SCHEDULE_TAB_COMMAND_WORD = "schedule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": command to display "
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Command to display "
             + "the schedules in a list of tables, the interviewer's information "
             + "or the interviewer's information in a list.\n"
-            + "Example: " + COMMAND_WORD + SCHEDULE_TAB_COMMAND_WORD;
+            + "Only schedule, interviewee and interviewer keywords are allowed.\n"
+            + "Example: " + COMMAND_WORD + " " + SCHEDULE_TAB_COMMAND_WORD;
 
     private final String commandType;
 
@@ -29,18 +31,17 @@ public class DisplayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        switch (this.commandType) {
-        case INTERVIEWEE_TAB_COMMAND_WORD:
+        if (this.commandType.equalsIgnoreCase(INTERVIEWEE_TAB_COMMAND_WORD)) {
             model.intervieweeTabChange();
-            return new CommandResult(this.commandType + CHANGE_TAB_SUCCESS, false, false);
-        case INTERVIEWER_TAB_COMMAND_WORD:
+            return new CommandResult(INTERVIEWEE_TAB_COMMAND_WORD + CHANGE_TAB_SUCCESS, false, false);
+        } else if (this.commandType.equalsIgnoreCase(INTERVIEWER_TAB_COMMAND_WORD)) {
             model.interviewerTabChange();
-            return new CommandResult(this.commandType + CHANGE_TAB_SUCCESS, false, false);
-        case SCHEDULE_TAB_COMMAND_WORD:
+            return new CommandResult(INTERVIEWER_TAB_COMMAND_WORD + CHANGE_TAB_SUCCESS, false, false);
+        } else if (this.commandType.equalsIgnoreCase(SCHEDULE_TAB_COMMAND_WORD)) {
             model.scheduleTabChange();
-            return new CommandResult(this.commandType + CHANGE_TAB_SUCCESS, false, false);
-        default:
-            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            return new CommandResult(SCHEDULE_TAB_COMMAND_WORD + CHANGE_TAB_SUCCESS, false, false);
         }
+        throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
+
 }

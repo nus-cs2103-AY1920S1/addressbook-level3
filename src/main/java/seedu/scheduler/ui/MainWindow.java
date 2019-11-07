@@ -21,8 +21,6 @@ import seedu.scheduler.logic.Logic;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
-import seedu.scheduler.model.person.Interviewee;
-import seedu.scheduler.model.person.Interviewer;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -205,17 +203,6 @@ public class MainWindow extends UiPart<Stage> {
     public void scheduleDataUpdated(List<List<String>> newTitles,
                 List<ObservableList<ObservableList<String>>> newSchedules) {
         scheduleViewPanel.dataUpdated(newTitles, newSchedules);
-    }
-
-    /**
-     * Signals the interviewer list or interviewee list that the data has been updated
-     */
-    public void intervieweeListUpdated(ObservableList<Interviewee> newIntervieweeList) {
-        intervieweeListPanel.listUpdated(newIntervieweeList);
-    }
-
-    public void interviewerListUpdated(ObservableList<Interviewer> newInterviewerList) {
-        interviewerListPanel.listUpdated(newInterviewerList);
     }
 
     public void changeTab(int index) {

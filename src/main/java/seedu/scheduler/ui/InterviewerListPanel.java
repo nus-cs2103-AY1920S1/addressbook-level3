@@ -46,10 +46,8 @@ public class InterviewerListPanel extends UiPart<Region> {
      */
     private void setTableColumn() {
         createNewTableColumn("Name");
-        createNewTableColumn("Phone");
         createNewTableColumn("Department");
         createNewTableColumn("Availabilities");
-        createNewTableColumn("Tags");
     }
 
     /**
@@ -68,16 +66,6 @@ public class InterviewerListPanel extends UiPart<Region> {
 
         interviewerTableView.getColumns().add(columnTitle);
 
-    }
-
-
-    protected void listUpdated(ObservableList<Interviewer> newInterviewerList) {
-        clearData();
-        this.interviewerTableView.setItems(newInterviewerList);
-    }
-
-    protected void clearData() {
-        this.interviewerTableView.getItems().removeAll();
     }
 }
 

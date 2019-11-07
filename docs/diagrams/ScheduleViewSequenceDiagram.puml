@@ -2,19 +2,24 @@
 !include style.puml
 
 box UI UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
+participant ":UiManager" as UiManager UI_COLOR
 
-[-> MainWindow : fillInnerParts()
+activate UiManager
+create ":MainWindow" as MainWindow UI_COLOR
+UiManager -> MainWindow : start(primaryStage)
+
+UiManager -> MainWindow : fillInnerParts()
 activate MainWindow
 
 create ":ScheduleViewPanel" as ScheduleViewPanel UI_COLOR
 MainWindow -> ScheduleViewPanel
 activate ScheduleViewPanel
 
+loop number of schedules
 create ":ScheduleView" as ScheduleView UI_COLOR
 ScheduleViewPanel -> ScheduleView
 
-loop number of schedules
+
 activate ScheduleView
 
 ScheduleView -> ScheduleView : initialise()
@@ -24,10 +29,22 @@ ScheduleView --> ScheduleViewPanel : schedule
 deactivate ScheduleView
 end loop
 
+loop number of ScheduleView objects
+create ":ScheduleListViewCell" as ScheduleListViewCell UI_COLOR
+ScheduleViewPanel -> ScheduleListViewCell : setCellFactory()
+activate ScheduleListViewCell
+
+create ":ScheduleViewCard" as ScheduleViewCard UI_COLOR
+ScheduleListViewCell -> ScheduleViewCard : setGraphic()
+ScheduleViewCard --> ScheduleListViewCell:
+ScheduleListViewCell --> ScheduleViewPanel
+deactivate ScheduleListViewCell
+end loop
+
 ScheduleViewPanel --> MainWindow : scheduleViewPanel
 deactivate ScheduleViewPanel
 
-[<--MainWindow
+UiManager <-- MainWindow
+deactivate MainWindow
 end box
-
 @enduml

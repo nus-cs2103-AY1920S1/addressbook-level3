@@ -10,8 +10,4 @@ public interface Ui extends RefreshListener, TabListener {
     /** Starts the UI (and the App).  */
     void start(Stage primaryStage);
 
-    @Override
-    default void intervieweeListUpdated() {
-
-    }
 }
