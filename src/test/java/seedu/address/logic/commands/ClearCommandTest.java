@@ -16,7 +16,7 @@ public class ClearCommandTest {
     public void execute_emptyTutorAid_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -25,7 +25,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalTutorAid(), new UserPrefs());
         expectedModel.setVersionedTutorAid(new TutorAid());
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
