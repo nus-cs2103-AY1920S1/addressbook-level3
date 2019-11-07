@@ -1721,6 +1721,7 @@ Expected: A new motivation quote is selected at random and shown in the pane sho
 * https://stackoverflow.com/questions/4129666/how-to-convert-hex-to-rgb-using-java
 * https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string
 * https://stackoverflow.com/questions/10530426/how-can-i-find-dominant-color-of-an-image
+* https://blog.ngopal.com.np/2012/07/11/customize-scrollbar-via-css
 
 === Reference on Healthy Blood Sugar Level Ranges for Diabetic Patients
 https://www.diabetes.co.uk/diabetes_care/blood-sugar-level-ranges.html
