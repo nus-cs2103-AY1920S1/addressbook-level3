@@ -79,7 +79,7 @@ each element is to be separated with a newline.
 	`,` and `;`
 
 =====
-An example of a valid .csv can be seen link:ExampleCsv.png[here]
+An example of a valid .csv can be seen link:https://raw.githubusercontent.com/AY1920S1-CS2103-F10-1/main/master/docs/samplecsvs/importsample.csv[here]
 
 === Exporting data into a CSV file: `app-export`
 
