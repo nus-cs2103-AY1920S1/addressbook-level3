@@ -155,7 +155,7 @@ less than 1,000,000.
 * `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
-Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
+Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
 until the deadline. You will be more self-conscious of your spending and minimise your spending by setting a budget. +
 
@@ -166,7 +166,9 @@ To set a new budget: +
 4. Now you can see the newly set budget in the budget list. +
 
 As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
-to display the remaining amount of budget. If you overspend beyond a set budget, the overspent budget will be displayed in red.
+to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted. +
+
+If you overspend beyond a set budget, the overspent budget will be displayed in red.
 Shown below as budget index 3 is an example of an overspent budget:
 
 .Overspent Budget
@@ -178,6 +180,11 @@ Shown below as budget index 4 is an example of a budget approaching its deadline
 
 .Budget approaching deadline
 image::approachingBudget.png[]
+
+Examples:
+
+* `set $/100 d/010120120 c/BBT`
+* `set $/300 d/29022020 c/shopping`
 
 
 // tag::view[]
@@ -234,6 +241,8 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]`
 * You can not change an `in` transaction to an `out` transaction.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
+
+
 
 Examples:
 
