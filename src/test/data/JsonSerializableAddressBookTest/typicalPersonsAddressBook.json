@@ -39,9 +39,10 @@
       ],
       "tagged": [
         "diabetic",
-        "high blood pressure"
+        "high blood pressure",
+        "public housing"
       ],
-      "dateOfBirth": "12.12.1992"
+      "dateOfBirth": "12.12.1982"
     },
     {
       "name": "Benson Meier",
@@ -68,9 +69,10 @@
       ],
       "tagged": [
         "smoker",
-        "disabled"
+        "disabled",
+        "high blood pressure"
       ],
-      "dateOfBirth": "12.12.1922"
+      "dateOfBirth": "12.12.1942"
     },
     {
       "name": "Carl Kurz",
@@ -167,7 +169,8 @@
       "tagged": [
         "smoker",
         "diabetic",
-        "public housing"
+        "public housing",
+        "high blood pressure"
       ],
       "dateOfBirth": "12.12.1992"
     },
@@ -211,7 +214,8 @@
       "tagged": [
         "smoker",
         "diabetic",
-        "public housing"
+        "public housing",
+        "high blood pressure"
       ],
       "dateOfBirth": "12.12.1992"
     },
@@ -255,7 +259,8 @@
       "tagged": [
         "smoker",
         "diabetic",
-        "public housing"
+        "public housing",
+        "high blood pressure"
       ],
       "dateOfBirth": "12.12.1992"
     },
@@ -299,7 +304,8 @@
       "tagged": [
         "smoker",
         "diabetic",
-        "public housing"
+        "public housing",
+        "high blood pressure"
       ],
       "dateOfBirth": "12.12.1992"
     },

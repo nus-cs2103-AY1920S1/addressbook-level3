@@ -8,11 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertListPeopleCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.CHLOE;
-import static seedu.address.testutil.TypicalPersons.NATASHA;
-import static seedu.address.testutil.TypicalPersons.RACHEL;
-import static seedu.address.testutil.TypicalPersons.VICTORIA;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,15 +71,15 @@ public class FindTagPeopleCommandTest {
     }
 
     @Test
-    public void execute_singleTag_multiplePeopleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
-        List<String> tagNames = prepareInput(" t/high blood pressure");
+    public void execute_singleTag_singlePersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        List<String> tagNames = prepareInput(" t/disabled");
         FindTagPeopleCommand command = new FindTagPeopleCommand(tagNames);
         PersonPossessesTagsPredicate predicate = new PersonPossessesTagsPredicate(
-                Collections.singletonList(new Tag("high blood pressure")));
+                Collections.singletonList(new Tag("disabled")));
         expectedModel.updateFilteredPersonList(predicate);
         assertListPeopleCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, CHLOE, VICTORIA, NATASHA, RACHEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(BENSON), model.getFilteredPersonList());
     }
 
     /**
