@@ -58,4 +58,9 @@ public abstract class Payment extends Transaction implements LedgerOperation {
     public List<Integer> getShares() {
         return IntStream.of(1).boxed().collect(Collectors.toList());
     }
+
+    @Override
+    public List<Amount> getAmounts() {
+        return List.of(amount);
+    }
 }

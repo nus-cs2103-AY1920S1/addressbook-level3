@@ -19,6 +19,7 @@ public class ReceiveCommand extends Command {
         + ": Friend pays you some money.\n"
         + "Parameters: "
         + PREFIX_AMOUNT + "AMOUNT "
+        + "[" + PREFIX_DESC + "DESCRIPTION] "
         + PREFIX_NAME + "NAME "
         + "[" + PREFIX_DATE + "DATE]\n"
         + "Example: " + COMMAND_WORD + " "

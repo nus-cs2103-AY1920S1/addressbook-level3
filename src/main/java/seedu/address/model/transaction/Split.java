@@ -92,6 +92,7 @@ public class Split extends Transaction implements LedgerOperation {
             return this.amount.equals(splitObj.amount)
                 && this.date.equals(splitObj.date)
                 && peopleInvolved.equals(splitObj.peopleInvolved)
+                && description.equals(splitObj.description)
                 && splitAmounts == splitObj.splitAmounts;
         } else {
             return false;
@@ -116,5 +117,10 @@ public class Split extends Transaction implements LedgerOperation {
     @Override
     public List<Integer> getShares() {
         return shares;
+    }
+
+    @Override
+    public List<Amount> getAmounts() {
+        return splitAmounts;
     }
 }
