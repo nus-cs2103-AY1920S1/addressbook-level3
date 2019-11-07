@@ -27,9 +27,9 @@ productivity, you can now always be on top of your:
 
 [[link-main-features]]
 1. **Tasks**
-2. **NUS Courses**
+2. **Finances**
 3. **Co-Curricular Activities (CCA)**
-4. **Finances**
+4. **NUS Courses**
 
 all in one handy, nifty application. Our aim is to build an intuitive, user-friendly student life organiser
 to, as far as possible, alleviate the stress of NUS life.
@@ -279,177 +279,6 @@ clear-task d/12/09/2019
 ----
 
 ////
-Course Planner
-
-Feature by
--> Ryan Tan Yu
-////
-
-{sp} +
-
-=== Course Planner
-NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
-map out academic routes and learn more about the variety of courses NUS has to offer.
-As the Course Planner section of `Jarvis` is thoroughly integrated with NUSMods, you will be able to consolidate all
-the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
-
-==== Adding a course: `add-course`
-To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
-
-Format: `add-course c/COURSE-CODE...`
-
-where `COURSE-CODE` is the course code of the {nusmods-modules}[NUS course] you
-want to add.
-
-===== Example
-----
-add-course c/CS1010
-add-course c/CS1010 c/CS2030 c/CS2040
-----
-
-==== Deleting a course: `delete-course`
-You can easily delete a course from your list - either by the index of the course in the list,
-or by its course code.
-
-Format: `delete-course {c/COURSECODE | INDEX}`
-
-===== Example
-----
-delete-course c/CS1010
-delete-course 2
-----
-
-==== Looking up a course's information: `lookup`
-You can also retrieve information about a specific course - such as name, course code,
-number of credits and its prerequisites.
-
-Format: `lookup c/COURSECODE`
-
-===== Example
-----
-lookup c/CS1010
-----
-
-==== Checking a course: `check`
-If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
-the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
-display a very helpful tree to show you what requirements you need for each course.
-
-Format: `check c/COURSECODE`
-
-===== Example
-----
-check c/CS1010
-----
-
-////
-CCA tracker
-
-Feature by
--> Tan Ye Kai
-////
-{sp} +
-
-=== CCA tracker
-The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on individual interest,
-`Jarvis` can support milestone tracking, equipment management and so much more! Never has being in multiple
-CCAs been so easy.
-
-==== Adding a CCA: `add-cca`
-To start, we can add some CCAs to the CCA Tracker. You will need to to specify
-the name of the cca and the type of CCA.
-
-Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
-
-The `types` of the CCA are:
-
-* `performingArt`
-* `sport`
-* `club`
-* `uniformedGroup`
-
-===== Example
-----
-add-cca n/Swimming t/sport e/swimming trunks e/goggles
-add-cca n/Canoeing t/sport
-add-cca n/Guitar Ensemble t/performingArt e/guitar
-----
-
-==== Deleting a CCA: `delete-cca`
-New semester, new CCAs - deleting outdated ones is a breeze.
-
-Format: `delete-cca INDEX`
-
-where `INDEX` is the *one-based* of a CCA.
-
-===== Example
-----
-delete-cca 1
-----
-
-==== Editing a CCA: `edit-cca`
-If you have bought some new running shoes, or the latest tuner for your violin, let `Jarvis`
-know so that your changes to your CCAs can be updated!
-
-Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT...}`
-
-===== Example
-----
-edit-cca 1 t/sport e/tennis racket
-edit-cca 1 t/performingArt
-edit-cca 1 n/Running e/shoes e/water bottle
-----
-
-[NOTE]
-`Jarvis` will soon also be able to edit the milestones of your CCAs in v2.0!
-
-==== Listing a CCA: `list-cca`
-Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
-pull up the CCA Tracker tab.
-
-Format: `list-cca`
-
-
-==== Finding a CCA: `find-cca`
-For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
-
-Format: `find-cca KEYWORD...`
-
-===== Example
-----
-find-cca swimming
-find-cca canoeing guitar
-----
-
-==== Adding progress levels for a CCA: `add-progress`
-Often, we strive to reach certain milestones in our CCAs. For example, in swimming, you might be aiming to
-progress through the various grade levels (shown in the example below) available. With `add-progress`,
-`Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
-
-Format: `add-progress INDEX p/MILESTONE... `
-
-===== Example
-----
-add-progress 1 p/bronze p/silver p/gold p/gold star
-add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
-add-progress n/Guitar Ensemble l/8
-----
-
-==== Incrementing progress level: `increment-progress`
-Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
-provides a clear view of how much closer you are to their respective milestones.
-
-Format: `increment-progress INDEX`
-
-[NOTE]
-Note that progress can only be incremented if `add-progress` has previously been executed on that particular CCA.
-
-===== Example
-----
-increment-progress 1
-----
-
-////
 Finance Tracker Lookup
 
 Feature by
@@ -641,6 +470,178 @@ means that the index must exist within this list!
 ----
 done-owe INDEX 1
 done-debt INDEX 2
+----
+
+////
+CCA tracker
+
+Feature by
+-> Tan Ye Kai
+////
+{sp} +
+
+=== CCA tracker
+The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on individual interest,
+`Jarvis` can support milestone tracking, equipment management and so much more! Never has being in multiple
+CCAs been so easy.
+
+==== Adding a CCA: `add-cca`
+To start, we can add some CCAs to the CCA Tracker. You will need to to specify
+the name of the cca and the type of CCA.
+
+Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
+
+The `types` of the CCA are:
+
+* `performingArt`
+* `sport`
+* `club`
+* `uniformedGroup`
+
+===== Example
+----
+add-cca n/Swimming t/sport e/swimming trunks e/goggles
+add-cca n/Canoeing t/sport
+add-cca n/Guitar Ensemble t/performingArt e/guitar
+----
+
+==== Deleting a CCA: `delete-cca`
+New semester, new CCAs - deleting outdated ones is a breeze.
+
+Format: `delete-cca INDEX`
+
+where `INDEX` is the *one-based* of a CCA.
+
+===== Example
+----
+delete-cca 1
+----
+
+==== Editing a CCA: `edit-cca`
+If you have bought some new running shoes, or the latest tuner for your violin, let `Jarvis`
+know so that your changes to your CCAs can be updated!
+
+Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT...}`
+
+===== Example
+----
+edit-cca 1 t/sport e/tennis racket
+edit-cca 1 t/performingArt
+edit-cca 1 n/Running e/shoes e/water bottle
+----
+
+[NOTE]
+`Jarvis` will soon also be able to edit the milestones of your CCAs in v2.0!
+
+==== Listing a CCA: `list-cca`
+Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
+pull up the CCA Tracker tab.
+
+Format: `list-cca`
+
+
+==== Finding a CCA: `find-cca`
+For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
+
+Format: `find-cca KEYWORD...`
+
+===== Example
+----
+find-cca swimming
+find-cca canoeing guitar
+----
+
+==== Adding progress levels for a CCA: `add-progress`
+Often, we strive to reach certain milestones in our CCAs. For example, in swimming, you might be aiming to
+progress through the various grade levels (shown in the example below) available. With `add-progress`,
+`Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
+
+Format: `add-progress INDEX p/MILESTONE... `
+
+===== Example
+----
+add-progress 1 p/bronze p/silver p/gold p/gold star
+add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
+add-progress n/Guitar Ensemble l/8
+----
+
+==== Incrementing progress level: `increment-progress`
+Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
+provides a clear view of how much closer you are to their respective milestones.
+
+Format: `increment-progress INDEX`
+
+[NOTE]
+Note that progress can only be incremented if `add-progress` has previously been executed on that particular CCA.
+
+===== Example
+----
+increment-progress 1
+----
+
+
+////
+Course Planner
+
+Feature by
+-> Ryan Tan Yu
+////
+
+{sp} +
+
+=== Course Planner
+NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
+map out academic routes and learn more about the variety of courses NUS has to offer.
+As the Course Planner section of `Jarvis` is thoroughly integrated with NUSMods, you will be able to consolidate all
+the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
+
+==== Adding a course: `add-course`
+To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
+
+Format: `add-course c/COURSE-CODE...`
+
+where `COURSE-CODE` is the course code of the {nusmods-modules}[NUS course] you
+want to add.
+
+===== Example
+----
+add-course c/CS1010
+add-course c/CS1010 c/CS2030 c/CS2040
+----
+
+==== Deleting a course: `delete-course`
+You can easily delete a course from your list - either by the index of the course in the list,
+or by its course code.
+
+Format: `delete-course {c/COURSECODE | INDEX}`
+
+===== Example
+----
+delete-course c/CS1010
+delete-course 2
+----
+
+==== Looking up a course's information: `lookup`
+You can also retrieve information about a specific course - such as name, course code,
+number of credits and its prerequisites.
+
+Format: `lookup c/COURSECODE`
+
+===== Example
+----
+lookup c/CS1010
+----
+
+==== Checking a course: `check`
+If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
+the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
+display a very helpful tree to show you what requirements you need for each course.
+
+Format: `check c/COURSECODE`
+
+===== Example
+----
+check c/CS1010
 ----
 
 ////
