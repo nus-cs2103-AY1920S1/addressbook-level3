@@ -55,7 +55,7 @@
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="groceryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
           <TabPane fx:id="tabPane" minWidth="400.0" prefWidth="500.0">
             <tabs>

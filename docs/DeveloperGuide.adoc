@@ -242,6 +242,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+//tag::reminderdefaultfeature[]
 === Reminder Default Feature
 
 ==== Implementation
@@ -255,7 +256,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `remDefault r/3` Command
 image::RemDefault.png[]
 
+//end::reminderdefaultfeature[]
 
+//tag::generalundoredofeature[]
 === General Undo/Redo Feature
 
 ==== Implementation
@@ -279,6 +282,9 @@ have their own undo/redo feature and complications may occur due to the interdep
 from the interdependency of the list.
 * Cons: Less flexibility to choose which list to undo.
 
+//end::generalundoredofeature[]
+
+//tag::groceryundoredofeature[]
 === Grocery Undo/Redo Feature
 
 ==== Implementation
@@ -290,6 +296,9 @@ grocery command modifies both grocery list and waste list, each grocery command 
 `Model#commitGroceryList` and `Model#commitWasteList` so that undoing/redoing a grocery delete command will update both
 grocery list and waste list, while the other commands will only modify the grocery list.
 
+//end::groceryundoredofeature[]
+
+//tag::shoppingundoredofeature[]
 === Shopping Undo/Redo Feature
 
 ==== Implementation
@@ -301,6 +310,9 @@ Since the bought shopping command modifies both shopping list and bought list, e
 will call `Model#commitShoppingList` and `Model#commitBoughtList` so that undoing/redoing a bought shopping command will update both
 shopping list and bought list, while the other commands will only modify the shopping list.
 
+//end::shoppingundoredofeature[]
+
+//tag::templateundoredofeature[]
 === Template Undo/Redo Feature
 
 ==== Implementation
@@ -332,6 +344,7 @@ Aspect: How template undo/redo is implemented
 * Cons: Harder to implement as we need to check for interdependency between the two list and how it affects the other list' state
 before performing the corresponding undo/redo
 
+//end::templateundoredofeature[]
 
 //tag::reportwastefeature[]
 === Waste Report Feature
