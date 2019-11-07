@@ -13,7 +13,9 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE = "I've opened the help window for you~ The "
+            + "referenced user guide contains useful information on what I can do and how you may tell me what to do! "
+            + "=)";
 
     @Override
     public DisplayPaneType getDisplayPaneType() {

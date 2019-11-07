@@ -15,7 +15,7 @@ import seedu.sugarmummy.ui.DisplayPaneType;
 public class ResetFoodDataCommand extends Command {
 
     public static final String COMMAND_WORD = "resetf";
-    public static final String MESSAGE_SUCCESS = "Food data has been reset.";
+    public static final String MESSAGE_SUCCESS = "Food data has been reset!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

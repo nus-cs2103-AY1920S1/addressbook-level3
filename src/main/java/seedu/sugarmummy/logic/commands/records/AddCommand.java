@@ -31,8 +31,8 @@ public class AddCommand extends Command {
             + PREFIX_BMI_HEIGHT + "HEIGHT "
             + PREFIX_BMI_WEIGHT + "WEIGHT";
 
-    public static final String MESSAGE_SUCCESS = "New record added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the record book";
+    public static final String MESSAGE_SUCCESS = "I've successfully added this new record: %1$s";
+    public static final String MESSAGE_DUPLICATE_RECORD = "Oops! This record already exists in the record book.";
 
     private final Record toAdd;
 

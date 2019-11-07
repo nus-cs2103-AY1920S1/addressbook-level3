@@ -22,8 +22,8 @@ public class DeleteFoodCommand extends Command {
             + "Parameters: " + PREFIX_FOOD_NAME + "FOOD_NAME (case-insensitive)\n"
             + "Example: " + COMMAND_WORD + " fn/Chicken";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Food: %1$s";
-    public static final String MESSAGE_CANNOT_FIND_FOOD = "Cannot find any food that matches %1$s";
+    public static final String MESSAGE_SUCCESS = "I've successfully deleted Food: %1$s";
+    public static final String MESSAGE_CANNOT_FIND_FOOD = "Oops! I'm unable to find any food that matches %1$s";
     private final FoodName foodName;
 
     public DeleteFoodCommand(FoodName foodName) {
