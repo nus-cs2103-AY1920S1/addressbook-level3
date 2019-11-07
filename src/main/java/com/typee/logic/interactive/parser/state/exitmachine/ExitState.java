@@ -7,6 +7,7 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.StateTransitionException;
 
 public class ExitState extends EndState {
 
@@ -22,8 +23,8 @@ public class ExitState extends EndState {
     }
 
     @Override
-    public State transition(ArgumentMultimap newArgs) throws EndStateException {
-        throw new EndStateException(MESSAGE_END_STATE);
+    public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
+        throw new StateTransitionException(MESSAGE_END_STATE);
     }
 
     @Override

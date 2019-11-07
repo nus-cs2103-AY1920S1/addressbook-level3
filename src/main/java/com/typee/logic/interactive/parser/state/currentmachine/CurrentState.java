@@ -11,7 +11,8 @@ import com.typee.logic.interactive.parser.state.StateTransitionException;
 
 public class CurrentState extends EndState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Current information has been displayed";
+    private static final String MESSAGE_CONSTRAINTS = "The parser is currently inactive."
+            + " Please enter a command to get started.";
 
     private String currentMessage;
 

@@ -26,6 +26,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.OptionalState;
+import com.typee.logic.interactive.parser.state.PenultimateStateTransitionException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
@@ -252,8 +253,9 @@ public class Parser implements InteractiveParser {
             while (canTransition(argumentMultimap)) {
                 currentState = currentState.transition(argumentMultimap);
             }
-        } catch (EndStateException e) {
-            // Ignore since this implies that excessive arguments were supplied.
+        } catch (PenultimateStateTransitionException e) {
+            currentState = temporaryState;
+            throw new ParseException(e.getMessage());
         } catch (StateTransitionException e) {
             throw new ParseException(e.getMessage());
         }

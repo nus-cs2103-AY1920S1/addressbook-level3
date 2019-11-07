@@ -11,9 +11,9 @@ public abstract class PenultimateState extends State {
         super(soFar);
     }
 
-    protected void enforceNoExcessiveArguments(ArgumentMultimap args) throws StateTransitionException {
+    protected void enforceNoExcessiveArguments(ArgumentMultimap args) throws PenultimateStateTransitionException {
         if (!args.isEmpty()) {
-            throw new StateTransitionException(MESSAGE_EXCESSIVE_ARGUMENTS);
+            throw new PenultimateStateTransitionException(MESSAGE_EXCESSIVE_ARGUMENTS);
         }
     }
 
