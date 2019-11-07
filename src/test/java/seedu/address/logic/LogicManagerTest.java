@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_1;
 
-import seedu.address.logic.commands.ReversibleCommand;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 
@@ -23,6 +22,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

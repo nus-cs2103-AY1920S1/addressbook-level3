@@ -1,16 +1,22 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
@@ -18,6 +24,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
+import seedu.address.testutil.BookBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -51,6 +58,140 @@ public class DeleteBySerialNumberCommandTest {
                 new DeleteBySerialNumberCommand(outOfBoundSerialNumber);
 
         assertCommandFailure(deleteBySerialNumberCommand, model, Messages.MESSAGE_NO_SUCH_BOOK);
+    }
+
+    @Test
+    public void getUndoCommand_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        try {
+            deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteValidCommand_returnsUndoCommand() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        model.addBook(validBook);
+
+        try {
+            deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteBySerialNumberCommand.getUndoCommand(), new AddCommand(validBook));
+    }
+
+    @Test
+    public void getRedoCommand_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        try {
+            deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteValidCommand_returnsRedoCommand() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        model.addBook(validBook);
+
+        try {
+            deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteBySerialNumberCommand.getRedoCommand(), deleteBySerialNumberCommand);
+    }
+
+    @Test
+    public void getCommandResult_beforeExecute_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        try {
+            deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteBySerialNumberCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteValidCommand_returnsCommandResult() {
+        Book validBook = new BookBuilder().build();
+        SerialNumber serialNumber = validBook.getSerialNumber();
+        DeleteBySerialNumberCommand deleteBySerialNumberCommand = new DeleteBySerialNumberCommand(serialNumber);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        model.addBook(validBook);
+
+        CommandResult expectedCommandResult = new CommandResult("Test");
+
+        try {
+            expectedCommandResult = deleteBySerialNumberCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteBySerialNumberCommand.getCommandResult(), expectedCommandResult);
     }
 
     @Test

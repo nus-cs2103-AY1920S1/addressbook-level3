@@ -116,7 +116,8 @@ public class DeleteByIndexCommandTest {
 
         try {
             deleteByIndexCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, deleteByIndexCommand::getUndoCommand);
@@ -158,7 +159,8 @@ public class DeleteByIndexCommandTest {
 
         try {
             deleteByIndexCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, deleteByIndexCommand::getRedoCommand);
@@ -200,7 +202,8 @@ public class DeleteByIndexCommandTest {
 
         try {
             deleteByIndexCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, deleteByIndexCommand::getCommandResult);

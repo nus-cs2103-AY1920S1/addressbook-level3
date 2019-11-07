@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
-import seedu.address.model.ModelManager;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -28,6 +27,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -83,7 +83,8 @@ public class AddCommandTest {
 
         try {
             addCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, addCommand::getUndoCommand);
@@ -108,7 +109,6 @@ public class AddCommandTest {
     public void getRedoCommand_beforeExecute_throwsNullPointerException() {
         Book validBook = new BookBuilder().build();
         AddCommand addCommand = new AddCommand(validBook);
-        ModelStub modelStub = new ModelStubWithBook(validBook);
 
         assertThrows(NullPointerException.class, addCommand::getRedoCommand);
     }
@@ -122,7 +122,8 @@ public class AddCommandTest {
 
         try {
             addCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, addCommand::getRedoCommand);
@@ -160,7 +161,8 @@ public class AddCommandTest {
 
         try {
             addCommand.execute(model);
-        } catch (CommandException ignored) {
+        } catch (CommandException e) {
+            System.out.println(e);
         }
 
         assertThrows(NullPointerException.class, addCommand::getCommandResult);
