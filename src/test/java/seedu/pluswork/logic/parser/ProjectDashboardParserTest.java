@@ -18,10 +18,10 @@ import seedu.pluswork.logic.commands.AddTaskCommand;
 import seedu.pluswork.logic.commands.ClearCommand;
 import seedu.pluswork.logic.commands.DeleteTaskCommand;
 import seedu.pluswork.logic.commands.ExitCommand;
-import seedu.pluswork.logic.commands.FindCommand;
+import seedu.pluswork.logic.commands.FindTaskCommand;
 import seedu.pluswork.logic.commands.GetStatisticsCommand;
 import seedu.pluswork.logic.commands.HelpCommand;
-import seedu.pluswork.logic.commands.ListCommand;
+import seedu.pluswork.logic.commands.ListTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.Task;
@@ -56,9 +56,9 @@ public class ProjectDashboardParserTest {
     public void parseCommand_edit() throws Exception {
         Task task = new TaskBuilder().build();
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditTaskCommand command = (EditTaskCommand) parser.parseCommand(EditTaskCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_TASK.getOneBased() + " " + TaskUtil.getEditTaskDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_TASK, descriptor), command);
+        assertEquals(new EditTaskCommand(INDEX_FIRST_TASK, descriptor), command);
     }*/
 
     @Test
@@ -70,9 +70,9 @@ public class ProjectDashboardParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindTaskCommand command = (FindTaskCommand) parser.parseCommand(
+                FindTaskCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindTaskCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -83,8 +83,8 @@ public class ProjectDashboardParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListTaskCommand.COMMAND_WORD) instanceof ListTaskCommand);
+        assertTrue(parser.parseCommand(ListTaskCommand.COMMAND_WORD + " 3") instanceof ListTaskCommand);
     }
 
     @Test

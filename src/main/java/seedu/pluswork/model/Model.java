@@ -338,7 +338,7 @@ public interface Model {
     void setClockFormat(ClockFormat newClockFormat);
 
     /**
-     * Update the predicates to show all data after a {@code FindCommand} is executed.
+     * Update the predicates to show all data after a {@code FindTaskCommand} is executed.
      */
     void updateData();
 }

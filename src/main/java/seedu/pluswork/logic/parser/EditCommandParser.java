@@ -16,23 +16,23 @@ import java.util.stream.Stream;
 
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.EditCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditTaskCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class EditCommandParser implements Parser<EditTaskCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the TASK ID of the task you want to edit.";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditTaskCommand
+     * and returns an EditTaskCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditTaskCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_TASK_NAME, PREFIX_TASK_STATUS,
@@ -42,16 +42,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE));
         }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
+        EditTaskCommand.EditTaskDescriptor editTaskDescriptor = new EditTaskCommand.EditTaskDescriptor();
         if (argMultimap.getValue(PREFIX_TASK_NAME).isPresent()) {
             editTaskDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_TASK_NAME).get()));
         }
@@ -65,10 +65,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASK_TAG)).ifPresent(editTaskDescriptor::setTags);
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditTaskCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editTaskDescriptor);
+        return new EditTaskCommand(index, editTaskDescriptor);
     }
 
     /**

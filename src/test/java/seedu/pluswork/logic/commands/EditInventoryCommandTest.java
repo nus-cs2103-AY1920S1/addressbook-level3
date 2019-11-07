@@ -23,7 +23,7 @@ import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.testutil.InventoryBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditTaskCommand.
  */
 public class EditInventoryCommandTest {
     private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());

@@ -8,7 +8,7 @@ import seedu.pluswork.model.Model;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListCommand extends Command {
+public class ListTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "list-tasks";
     public static final String PREFIX_USAGE = "";

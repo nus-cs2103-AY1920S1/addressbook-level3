@@ -29,7 +29,7 @@ import seedu.pluswork.model.task.TaskStatus;
 /**
  * Edits the details of an existing task in the address book.
  */
-public class EditCommand extends Command {
+public class EditTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-task";
     public static final String PREFIX_USAGE = PREFIX_TASK_INDEX + " " + PREFIX_TASK_NAME + " " + PREFIX_TASK_TAG + " " + PREFIX_TASK_STATUS;
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
      * @param index              of the task in the filtered task list to edit
      * @param editTaskDescriptor details to edit the task with
      */
-    public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
+    public EditTaskCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
         requireNonNull(editTaskDescriptor);
 
@@ -127,12 +127,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditTaskCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditTaskCommand e = (EditTaskCommand) other;
         return index.equals(e.index)
                 && editTaskDescriptor.equals(e.editTaskDescriptor);
     }

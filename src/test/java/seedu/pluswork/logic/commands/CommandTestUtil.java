@@ -70,8 +70,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditTaskDescriptor TASK_DESC_FINANCE;
-    public static final EditCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_FINANCE;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
     public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
 
     static {

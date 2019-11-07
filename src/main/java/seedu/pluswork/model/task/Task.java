@@ -51,7 +51,7 @@ public class Task {
         this.tags.addAll(tags);
     }
 
-    /* Used by {@code EditCommand}, and various tests */
+    /* Used by {@code EditTaskCommand}, and various tests */
     public Task(Name name, TaskStatus taskStatus, Set<Tag> tags, LocalDateTime dateTime) {
         requireAllNonNull(name, tags, taskStatus); // deadline may be null if task does not have one
         this.name = name;
