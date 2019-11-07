@@ -14,14 +14,18 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateClearCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateFindCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateListCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateAddCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateArchiveCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateDeleteCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateEditCommandPrompter;
+import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateFindCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateUnarchiveCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateUseCommandPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
@@ -62,11 +66,20 @@ public class TemplatePrompter extends WemePrompter {
         case TemplateArchivesCommand.COMMAND_WORD:
             return new CommandPrompt(TemplateArchivesCommand.MESSAGE_USAGE, userInput);
 
+        case TemplateClearCommand.COMMAND_WORD:
+            return new CommandPrompt(TemplateClearCommand.MESSAGE_USAGE, userInput);
+
         case TemplateDeleteCommand.COMMAND_WORD:
             return new TemplateDeleteCommandPrompter().prompt(model, userInput);
 
         case TemplateEditCommand.COMMAND_WORD:
             return new TemplateEditCommandPrompter().prompt(model, userInput);
+
+        case TemplateFindCommand.COMMAND_WORD:
+            return new TemplateFindCommandPrompter().prompt(model, userInput);
+
+        case TemplateListCommand.COMMAND_WORD:
+            return new CommandPrompt(TemplateListCommand.MESSAGE_USAGE, userInput);
 
         case TemplateUnarchiveCommand.COMMAND_WORD:
             return new TemplateUnarchiveCommandPrompter().prompt(model, userInput);

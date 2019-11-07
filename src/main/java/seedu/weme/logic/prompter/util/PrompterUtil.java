@@ -33,6 +33,7 @@ import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
 import seedu.weme.logic.commands.createcommand.TextDeleteCommand;
 import seedu.weme.logic.commands.createcommand.TextEditCommand;
+import seedu.weme.logic.commands.createcommand.TextMoveCommand;
 import seedu.weme.logic.commands.exportcommand.ExportClearCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
@@ -58,11 +59,15 @@ import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
 import seedu.weme.logic.commands.memecommand.MemeStageCommand;
 import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
+import seedu.weme.logic.commands.memecommand.MemeViewCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateClearCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateFindCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateListCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.prompter.contextprompter.CreatePrompter;
@@ -134,7 +139,8 @@ public class PrompterUtil {
                     MemeLikeCommand.COMMAND_WORD,
                     MemeListCommand.COMMAND_WORD,
                     MemeStageCommand.COMMAND_WORD,
-                    MemeUnarchiveCommand.COMMAND_WORD
+                    MemeUnarchiveCommand.COMMAND_WORD,
+                    MemeViewCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
@@ -151,6 +157,7 @@ public class PrompterUtil {
             put(MemeListCommand.COMMAND_WORD, MemeListCommand.MESSAGE_DESCRIPTION);
             put(MemeStageCommand.COMMAND_WORD, MemeStageCommand.MESSAGE_DESCRIPTION);
             put(MemeUnarchiveCommand.COMMAND_WORD, MemeUnarchiveCommand.MESSAGE_DESCRIPTION);
+            put(MemeViewCommand.COMMAND_WORD, MemeViewCommand.MESSAGE_DESCRIPTION);
             putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
         }};
 
@@ -159,8 +166,11 @@ public class PrompterUtil {
                     TemplateAddCommand.COMMAND_WORD,
                     TemplateArchiveCommand.COMMAND_WORD,
                     TemplateArchivesCommand.COMMAND_WORD,
+                    TemplateClearCommand.COMMAND_WORD,
                     TemplateDeleteCommand.COMMAND_WORD,
                     TemplateEditCommand.COMMAND_WORD,
+                    TemplateFindCommand.COMMAND_WORD,
+                    TemplateListCommand.COMMAND_WORD,
                     TemplateUnarchiveCommand.COMMAND_WORD,
                     TemplateUseCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
@@ -170,8 +180,11 @@ public class PrompterUtil {
             put(TemplateAddCommand.COMMAND_WORD, TemplateAddCommand.MESSAGE_DESCRIPTION);
             put(TemplateArchiveCommand.COMMAND_WORD, TemplateArchiveCommand.MESSAGE_DESCRIPTION);
             put(TemplateArchivesCommand.COMMAND_WORD, TemplateArchivesCommand.MESSAGE_DESCRIPTION);
+            put(TemplateClearCommand.COMMAND_WORD, TemplateClearCommand.MESSAGE_DESCRIPTION);
             put(TemplateDeleteCommand.COMMAND_WORD, TemplateDeleteCommand.MESSAGE_DESCRIPTION);
             put(TemplateEditCommand.COMMAND_WORD, TemplateEditCommand.MESSAGE_DESCRIPTION);
+            put(TemplateFindCommand.COMMAND_WORD, TemplateFindCommand.MESSAGE_DESCRIPTION);
+            put(TemplateListCommand.COMMAND_WORD, TemplateListCommand.MESSAGE_DESCRIPTION);
             put(TemplateUnarchiveCommand.COMMAND_WORD, TemplateUnarchiveCommand.MESSAGE_DESCRIPTION);
             put(TemplateUseCommand.COMMAND_WORD, TemplateUseCommand.MESSAGE_DESCRIPTION);
             putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
@@ -183,7 +196,8 @@ public class PrompterUtil {
                     CreateCommand.COMMAND_WORD,
                     TextAddCommand.COMMAND_WORD,
                     TextDeleteCommand.COMMAND_WORD,
-                    TextEditCommand.COMMAND_WORD
+                    TextEditCommand.COMMAND_WORD,
+                    TextMoveCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
@@ -193,6 +207,7 @@ public class PrompterUtil {
             put(TextAddCommand.COMMAND_WORD, TextAddCommand.MESSAGE_DESCRIPTION);
             put(TextDeleteCommand.COMMAND_WORD, TextDeleteCommand.MESSAGE_DESCRIPTION);
             put(TextEditCommand.COMMAND_WORD, TextEditCommand.MESSAGE_DESCRIPTION);
+            put(TextMoveCommand.COMMAND_WORD, TextMoveCommand.MESSAGE_DESCRIPTION);
             putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
         }};
 
