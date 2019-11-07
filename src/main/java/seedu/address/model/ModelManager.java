@@ -16,7 +16,14 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteRecordCommand;
+import seedu.address.logic.commands.DeleteTrainingCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EventCommand;
+import seedu.address.logic.commands.PerformanceCommand;
+import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
@@ -112,7 +119,6 @@ public class ModelManager implements Model {
     public ReadOnlyAthletick getAthletick() {
         return athletick;
     }
-    
     @Override
     public HistoryManager getHistory() {
         return this.history;

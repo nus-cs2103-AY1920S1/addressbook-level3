@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Model;
-import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.training.Training;
@@ -22,8 +21,12 @@ public class HistoryManager {
     private Stack<List<Training>> undoneTrainingLists = new Stack<>();
     private Stack<ReadOnlyPerformance> performances = new Stack<>();
     private Stack<ReadOnlyPerformance> undonePerformances = new Stack<>();
-    
     public HistoryManager() {}
+    /**
+     * This initialises the HistoryManager, populating the stacks with the initial states
+     * when the application starts.
+     * @param model model class of the application
+     */
     public void init(Model model) {
         this.addressBooks.push(model.getAthletickDeepCopy());
         this.trainingLists.push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));

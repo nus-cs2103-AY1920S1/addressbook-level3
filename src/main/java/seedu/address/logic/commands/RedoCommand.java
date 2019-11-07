@@ -32,7 +32,7 @@ public class RedoCommand extends Command {
             } else if (redoneCommand instanceof PerformanceCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!", ((PerformanceCommand) redoneCommand).getDate(), model);
-            }else {
+            } else {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!");
             }

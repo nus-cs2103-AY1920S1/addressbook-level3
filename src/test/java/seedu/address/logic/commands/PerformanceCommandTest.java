@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.performance.Timing;
@@ -36,7 +37,7 @@ public class PerformanceCommandTest {
     private static final String INVALID_EVENT_NAME = "hurdles";
 
     private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-        new Attendance(), new UserPrefs());
+        new Attendance(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -47,7 +48,7 @@ public class PerformanceCommandTest {
         String expectedMessage = String.format(PerformanceCommand.MESSAGE_SUCCESS,
             person.getName().fullName, VALID_EVENT, VALID_ATHLETICK_DATE_TWO, VALID_ATHLETICK_TIMING);
         ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-            model.getAttendance(), new UserPrefs());
+            model.getAttendance(), new UserPrefs(), model.getHistory());
 
 
         expectedModel.addRecord(VALID_EVENT, person, VALID_RECORD);

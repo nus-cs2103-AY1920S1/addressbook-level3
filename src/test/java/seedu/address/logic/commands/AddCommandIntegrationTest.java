@@ -12,6 +12,7 @@ import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -24,7 +25,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(), new UserPrefs());
+        model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(), new UserPrefs(),
+            new HistoryManager());
     }
 
     @Test
@@ -32,7 +34,7 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs());
+                model.getAttendance(), new UserPrefs(), model.getHistory());
 
         expectedModel.addPerson(validPerson);
 

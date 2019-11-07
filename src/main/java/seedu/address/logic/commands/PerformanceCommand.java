@@ -10,7 +10,6 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Athletick;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
@@ -50,7 +49,6 @@ public class PerformanceCommand extends Command {
         this.date = date;
         this.time = time;
     }
-    
     public AthletickDate getDate() {
         return this.date;
     }
