@@ -38,13 +38,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private BorderPane centralDisplayPlaceholder;
-
     @FXML
     private StackPane commandBoxPlaceholder;
-
+    @FXML
+    private StackPane testPlaceholder;
     @FXML
     private StackPane feedbackDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
 
@@ -91,7 +90,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredAccommodationList(),
                 logic.getFilteredActivityList(),
                 logic.getFilteredContactList(),
-                logic.getItinerary().getStartDateProperty()
+                logic.getItinerary().getStartDateProperty(),
+                logic.getItinerary().getNameProperty()
         );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
         centralDisplay.changeFocus(new UiFocus[] { UiFocus.ACTIVITY });

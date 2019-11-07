@@ -21,7 +21,7 @@
 //
 //import seedu.planner.commons.core.Messages;
 //import seedu.planner.commons.core.index.Index;
-//import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+//import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 //import seedu.planner.model.Model;
 //import seedu.planner.model.ModelManager;
 //import seedu.planner.model.UserPrefs;

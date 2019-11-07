@@ -1,6 +1,7 @@
 package seedu.planner.storage;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -69,6 +70,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void setAccommodationFilePath(Path accommodationFilePath) throws IOException {
+        Files.deleteIfExists(getAccommodationFilePath());
+        accommodationStorage.setAccommodationFilePath(accommodationFilePath);
+    }
+
+    @Override
     public Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException, IOException {
         return readAccommodation(accommodationStorage.getAccommodationFilePath());
     }
@@ -96,6 +103,12 @@ public class StorageManager implements Storage {
     @Override
     public Path getActivityFilePath() {
         return activityStorage.getActivityFilePath();
+    }
+
+    @Override
+    public void setActivityFilePath(Path activityFilePath) throws IOException {
+        Files.deleteIfExists(getActivityFilePath());
+        activityStorage.setActivityFilePath(activityFilePath);
     }
 
     @Override
@@ -129,6 +142,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void setContactFilePath(Path contactFilePath) throws IOException {
+        Files.deleteIfExists(getContactFilePath());
+        contactStorage.setContactFilePath(contactFilePath);
+    }
+
+    @Override
     public Optional<ReadOnlyContact> readContact() throws DataConversionException, IOException {
         return readContact(contactStorage.getContactFilePath());
     }
@@ -156,6 +175,13 @@ public class StorageManager implements Storage {
     @Override
     public Path getItineraryFilePath() {
         return itineraryStorage.getItineraryFilePath();
+    }
+
+    @Override
+    public void setItineraryFilePath(Path itineraryFilePath) throws IOException {
+        Files.deleteIfExists(getItineraryFilePath());
+        Files.deleteIfExists(getItineraryFilePath().getParent());
+        itineraryStorage.setItineraryFilePath(itineraryFilePath);
     }
 
     @Override

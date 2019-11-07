@@ -1,13 +1,13 @@
 package seedu.planner.logic.events.edit;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditAccommodationCommand;
-import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
-import seedu.planner.logic.commands.EditActivityCommand;
-import seedu.planner.logic.commands.EditActivityCommand.EditActivityDescriptor;
-import seedu.planner.logic.commands.EditCommand;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand;
+import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivityDescriptor;
+import seedu.planner.logic.commands.editcommand.EditCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
@@ -49,33 +49,20 @@ public class EditEventFactory {
                     String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
             );
         }
-
-        /*
-        case(EditDayCommand.SECOND_COMMAND_WORD):
-            EditDayCommand tempCommand4 = (EditDayCommand)command;
-            generateEditDayEvent(tempCommand4.getToEdit());
-        }
-        */
     }
 
     public static EditAccommodationEvent generateEditAccommodationEvent(
-            Index index, EditAccommodationDescriptor editInfo, Model model) {
+            Index index, EditAccommodationDescriptor editInfo, Model model) throws EventException {
         return new EditAccommodationEvent(index, editInfo, model);
     }
 
     public static EditActivityEvent generateEditActivityEvent(
-            Index index, EditActivityDescriptor editInfo, Model model) {
+            Index index, EditActivityDescriptor editInfo, Model model) throws EventException {
         return new EditActivityEvent(index, editInfo, model);
     }
 
     public static EditContactEvent generateEditContactEvent(
-            Index index, EditContactDescriptor editInfo, Model model) {
+            Index index, EditContactDescriptor editInfo, Model model) throws EventException {
         return new EditContactEvent(index, editInfo, model);
     }
-
-    /*
-    public static EditDayEvent generateEditDayEvent(int daysEdited) {
-        return new EditDayEvent(daysEdited);
-    }
-    */
 }

@@ -7,8 +7,8 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.planner.logic.commands.AddAccommodationCommand;
-import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
+import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.tag.Tag;
 

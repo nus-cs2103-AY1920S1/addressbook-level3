@@ -53,6 +53,23 @@ public class CommandUtil {
     }
 
     /**
+     * Throws an AssertionError if there is no one and only one non-null object.
+     */
+    public static void onlyOneNonNull(Object ...obj) throws AssertionError {
+        int nonNullCounter = 0;
+        for (Object o : obj) {
+            if (!(o == null)) {
+                nonNullCounter++;
+            }
+        }
+        if (nonNullCounter > 1) {
+            throw new AssertionError("There is more than 1 non-null object.");
+        } else if (nonNullCounter < 1) {
+            throw new AssertionError("The objects are all null.");
+        }
+    }
+
+    /**
      * Calculates and returns the endDateTime of an activity.
      */
     public static LocalDateTime calculateEndDateTime(LocalDate startDate,

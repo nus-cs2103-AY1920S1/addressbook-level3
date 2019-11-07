@@ -72,6 +72,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -88,6 +89,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -240,60 +242,47 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::optimise[]
+=== Schedule optimisation
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The schedule optimisation feature utilises `TimeTable` and allows the user to resolve any overlapping activities. Resulting in a schedule with the
+lowest overall cost and the most number of activities such that the user's time is maximised. The following command is supported:
 
-// end::dataencryption[]
+* optimise INDEX_OF_DAY -- optimises and de-conflicts the schedule. This operation supports activities with or without
+a cost. Activities without a cost have a default cost of $0.00.
 
-=== [Proposed] Schedule optimisation
-==== Proposed Implementation
+Given below is a sample usage of the feature:
 
-The proposed schedule optimisation feature utilises `TimeTable` and allows the user to schedule multiple activities within the same time slot. The following command is supported:
-
-* optimise budget INDEX_OF_DAY -- optimises and brings activities with the lowest cost into focus. This operation supports activities with or without a cost. Activities without a cost has a default cost of $0.00.
-
-
-Given below is a sample usage of the proposed feature:
-
-Step 1. User adds an activity with a cost:
-
-* `add activity n/lunch a/KFC c/5.00`
-
-Step 2. User adds another activity without a cost:
-
-* `add activity n/go for a walk a/park`
-
-Step 3. User schedules the first activity into a day:
-
-* `schedule activity 1 st/1300 et/1400 d/1`
-
-Step 4. User schedules the second activity into the same day:
-
-* `schedule activity 2 st/1300 et/1400 d/1`
-
-Step 6. User executes `optimise budget` command. The activities in that day would be shown in a way such that the activities with the lowest costs are in focus.
+The scheduled activities in a day can be viewed as a Directed Acyclic Graph (DAG), where a path represents a possible schedule. When a user executes the `Optimise` command on a day with conflicting activities, a utility method creates an adjacency list.
+Another utility method then traverses the adjacency list to create all possible paths. The paths are then sorted to obtain the one with the lowest total cost and most number of activities (nodes).
 
 Shown below is a summary of the execution of the command.
 
 image::OptimiseSequenceDiagram.png[]
 
 ==== Design considerations
-Aspect: How version comparison is executed:
+Aspect: Execution
 
-* Alternative 1(current choice): user overload each time slot.
+* Alternative 1 (current): Find all paths
 
-** Pros: User can save time by overloading a single day's schedule.
+** Pros:
+*** Able to compare both budget and number of activities.
+*** Can reuse to find different methods of optimisation besides cost, by replacing comparator.
 
-** Cons: UI might get very cluttered when a single time slot has too many activities.
+** Cons:
+*** Slow runtime.
 
-* Alternative 2: user create copies of each day and choose which they prefer.
+* Alternative 2: Find shortest path
 
-** Pros: UI is neater, each day would not look too crammed.
+** Pros:
+*** Faster runtime.
 
-** Cons: May have a lot of permutations which is tedious for user to optimise.
+** Cons:
+*** Less flexible optimisation.
+// end::optimise[]
 
+// tag::scheduleactivity[]
 === [Proposed] Schedule Activity feature
 
 *_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
@@ -343,7 +332,7 @@ image::ScheduleActivityExecution.png[]
 * **Alternative 2:** Directly updates the activity list in the current `Day` class.
 ** Pros: Seem more intuitive and simple to implement.
 ** Cons: Might make it harder to debug if other functions/classes also depends on the same `Day` class.
-
+// end::scheduleactivity[]
 
 === Logging
 
@@ -414,6 +403,7 @@ Refer to the guide <<DevOps#, here>>.
 trip planning. These students would benefit from having a template as a way to organise the information they have for
 their trip. Plan²travel can organise information faster than a typical mouse/GUI driven app.
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -465,8 +455,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |inexperienced planner |receive planning recommendations |I can improve my planner
 
 |=======================================================================
-
-_{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases
@@ -474,11 +463,11 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Plan²travel` application and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Schedule accommodation
+=== Use case: Schedule activity
 
 *MSS*
 
-1.  User requests to schedule accommodation
+1.  User requests to schedule activity
 2.  System shows a list of days and activities
 3.  User requests to add a specific accommodation to a specific day
 4.  System adds accommodation under selected day

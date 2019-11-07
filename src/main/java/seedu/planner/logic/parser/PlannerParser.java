@@ -6,23 +6,23 @@ import static seedu.planner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.planner.logic.commands.AddCommand;
-import seedu.planner.logic.commands.AutoScheduleCommand;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.Command;
-import seedu.planner.logic.commands.DeleteCommand;
-import seedu.planner.logic.commands.EditCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.InitCommand;
-import seedu.planner.logic.commands.ListContactCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
-import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoCommand;
-import seedu.planner.logic.commands.UnscheduleCommand;
-import seedu.planner.logic.commands.ViewCommand;
+import seedu.planner.logic.commands.addcommand.AddCommand;
+import seedu.planner.logic.commands.deletecommand.DeleteCommand;
+import seedu.planner.logic.commands.editcommand.EditCommand;
+import seedu.planner.logic.commands.listcommand.ListCommand;
+import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
+import seedu.planner.logic.commands.viewcommand.ViewCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
@@ -67,7 +67,7 @@ public class PlannerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListContactCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:

@@ -305,6 +305,10 @@ public class ModelManager implements Model {
                 activityContactMap.put(newAct, oldContact);
             }
         } else if (newAct.getContact().isPresent()) {
+            Contact newContact = newAct.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAct.getContact().get());
             addActivityMapping(newAct);
         }
@@ -332,6 +336,10 @@ public class ModelManager implements Model {
                 contactAccommodationMap.put(oldContact, oldList);
             }
         } else if (newAcc.getContact().isPresent()) {
+            Contact newContact = newAcc.getContact().get();
+            if (contacts.hasContact(newContact)) {
+                deleteContact(newContact);
+            }
             addContact(newAcc.getContact().get());
             addAccommodationMapping(newAcc);
         }
@@ -459,6 +467,17 @@ public class ModelManager implements Model {
     public void setContactFilePath(Path contactFilePath) {
         requireNonNull(contactFilePath);
         userPrefs.setContactFilePath(contactFilePath);
+    }
+
+    @Override
+    public String getFolderName() {
+        return userPrefs.getFolderName();
+    }
+
+    @Override
+    public void setFolderName(Name folderName) {
+        requireNonNull(folderName);
+        userPrefs.setFolderName(folderName.toString());
     }
 
     @Override
@@ -798,6 +817,7 @@ public class ModelManager implements Model {
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
+
         if (obj == this) {
             return true;
         }
@@ -809,6 +829,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return accommodations.equals(other.accommodations)
                 && activities.equals(other.activities)
                 && contacts.equals(other.contacts)

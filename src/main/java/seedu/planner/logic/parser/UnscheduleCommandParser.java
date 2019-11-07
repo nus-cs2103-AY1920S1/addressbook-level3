@@ -6,7 +6,7 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_DAY;
 import java.util.stream.Stream;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.UnscheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**

@@ -1,7 +1,9 @@
 package seedu.planner.logic.commands;
 
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
+import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 
 /**
@@ -11,10 +13,16 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD,
+            "Shows program usage instructions.",
+            COMMAND_WORD,
+            COMMAND_WORD
+    );
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD);
+
+    public static final String SHOWING_HELP_MESSAGE = "Opened the help tab.";
 
     @Override
     public CommandResult execute(Model model) {

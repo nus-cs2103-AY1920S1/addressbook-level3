@@ -19,6 +19,11 @@ public interface ActivityStorage {
     Path getActivityFilePath();
 
     /**
+     * Sets the file path of the data file.
+     */
+    void setActivityFilePath(Path activityFilePath) throws IOException;
+
+    /**
      * Returns Activity data as a {@link ReadOnlyActivity}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.

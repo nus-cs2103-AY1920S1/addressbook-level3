@@ -6,13 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.planner.logic.commands.HelpCommand;
-import seedu.planner.logic.commands.ViewAccommodationCommand;
-import seedu.planner.logic.commands.ViewActivityCommand;
-import seedu.planner.logic.commands.ViewCommand;
-import seedu.planner.logic.commands.ViewContactCommand;
-import seedu.planner.logic.commands.ViewHelpCommand;
-import seedu.planner.logic.commands.ViewInfoCommand;
-import seedu.planner.logic.commands.ViewItineraryCommand;
+import seedu.planner.logic.commands.viewcommand.ViewAccommodationCommand;
+import seedu.planner.logic.commands.viewcommand.ViewActivityCommand;
+import seedu.planner.logic.commands.viewcommand.ViewCommand;
+import seedu.planner.logic.commands.viewcommand.ViewContactCommand;
+import seedu.planner.logic.commands.viewcommand.ViewHelpCommand;
+import seedu.planner.logic.commands.viewcommand.ViewInfoCommand;
+import seedu.planner.logic.commands.viewcommand.ViewItineraryCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**

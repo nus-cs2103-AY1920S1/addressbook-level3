@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
@@ -24,7 +25,7 @@ public class ResultInformation {
         requireNonNull(displayedIndex);
         this.descriptionOfInformation = descriptionOfInformation;
         this.displayedIndex = displayedIndex;
-        onlyOneNonNull(contact, activity, accommodation);
+        CommandUtil.onlyOneNonNull(contact, activity, accommodation);
         this.contact = contact;
         this.activity = activity;
         this.accommodation = accommodation;
@@ -74,20 +75,5 @@ public class ResultInformation {
         return Optional.ofNullable(descriptionOfInformation);
     }
 
-    /**
-     * Throws an AssertionError if there is no one and only one non-null object.
-     */
-    private static void onlyOneNonNull(Object ...obj) throws AssertionError {
-        int nonNullCounter = 0;
-        for (Object o : obj) {
-            if (!(o == null)) {
-                nonNullCounter++;
-            }
-        }
-        if (nonNullCounter > 1) {
-            throw new AssertionError("There is more than 1 non-null object.");
-        } else if (nonNullCounter < 1) {
-            throw new AssertionError("The objects are all null.");
-        }
-    }
+
 }

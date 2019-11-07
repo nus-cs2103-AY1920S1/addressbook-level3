@@ -37,6 +37,9 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getAccommodationFilePath();
 
     @Override
+    void setAccommodationFilePath(Path accommodationFilePath) throws IOException;
+
+    @Override
     Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException, IOException;
 
     @Override
@@ -46,6 +49,9 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
 
     @Override
     Path getActivityFilePath();
+
+    @Override
+    void setActivityFilePath(Path activityFilePath) throws IOException;
 
     @Override
     Optional<ReadOnlyActivity> readActivity() throws DataConversionException, IOException;
@@ -59,6 +65,9 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getContactFilePath();
 
     @Override
+    void setContactFilePath(Path contactFilePath) throws IOException;
+
+    @Override
     Optional<ReadOnlyContact> readContact() throws DataConversionException, IOException;
 
     @Override
@@ -68,6 +77,9 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
 
     @Override
     Path getItineraryFilePath();
+
+    @Override
+    void setItineraryFilePath(Path itineraryFilePath) throws IOException;
 
     @Override
     Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;

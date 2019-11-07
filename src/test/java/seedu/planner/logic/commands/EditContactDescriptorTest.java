@@ -12,7 +12,7 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.testutil.contact.EditContactDescriptorBuilder;
 
 public class EditContactDescriptorTest {

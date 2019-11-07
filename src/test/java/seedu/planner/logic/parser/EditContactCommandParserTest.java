@@ -34,8 +34,8 @@ import static seedu.planner.testutil.TypicalIndexes.INDEX_THIRD_CONTACT;
 import org.junit.jupiter.api.Test;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.model.contact.Email;
 import seedu.planner.model.contact.Phone;
 import seedu.planner.model.field.Address;

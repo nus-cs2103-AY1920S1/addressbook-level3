@@ -43,7 +43,6 @@ public class ClearCommandTest {
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS,
                 new UiFocus[]{UiFocus.AGENDA}, expectedModel);
     }
-
 }
 
 

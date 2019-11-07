@@ -5,19 +5,18 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PlannerParser" as PlannerParser LOGIC_COLOR
 participant ":OptimiseCommandParser" as OptimiseCommandParser LOGIC_COLOR
-participant ":OptimiseBudgetCommand" as OptimiseBudgetCommand LOGIC_COLOR
+participant ":OptimiseCommand" as OptimiseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":Day" as Day MODEL_COLOR
 end box
 
-[-> LogicManager : execute('optimise budget d/1')
+[-> LogicManager : execute('optimise 1')
 activate LogicManager
 
-LogicManager -> PlannerParser : parseCommand('optimise budget d/1')
+LogicManager -> PlannerParser : parseCommand('optimise 1')
 activate PlannerParser
 
 create OptimiseCommandParser
@@ -27,21 +26,15 @@ activate OptimiseCommandParser
 OptimiseCommandParser --> PlannerParser
 deactivate OptimiseCommandParser
 
-PlannerParser -> OptimiseCommandParser : parse('budget d/1')
+PlannerParser -> OptimiseCommandParser : parse('1')
 activate OptimiseCommandParser
 
-OptimiseCommandParser -> OptimiseCommandParser : parseBudget('d/1')
-activate OptimiseCommandParser
+create OptimiseCommand
+OptimiseCommandParser -> OptimiseCommand
+activate OptimiseCommand
 
-create OptimiseBudgetCommand
-OptimiseCommandParser -> OptimiseBudgetCommand
-activate OptimiseBudgetCommand
-
-OptimiseBudgetCommand --> OptimiseCommandParser
-deactivate OptimiseBudgetCommand
-
-OptimiseCommandParser -> OptimiseCommandParser
-deactivate OptimiseCommandParser
+OptimiseCommand --> OptimiseCommandParser
+deactivate OptimiseCommand
 
 OptimiseCommandParser --> PlannerParser
 deactivate OptimiseCommandParser
@@ -52,29 +45,30 @@ destroy OptimiseCommandParser
 PlannerParser --> LogicManager
 deactivate PlannerParser
 
-LogicManager -> OptimiseBudgetCommand : execute
-activate OptimiseBudgetCommand
+LogicManager -> OptimiseCommand : execute
+activate OptimiseCommand
 
-OptimiseBudgetCommand -> ModelManager : getFilteredItinerary()
+OptimiseCommand -> ModelManager : getFilteredItinerary()
 activate ModelManager
 
-ModelManager --> OptimiseBudgetCommand
+ModelManager --> OptimiseCommand
 deactivate ModelManager
 
-OptimiseBudgetCommand -> Day : optimiseBudget()
-activate Day
+OptimiseCommand -> OptimiseCommand
+activate OptimiseCommand
 
-Day --> OptimiseBudgetCommand
-deactivate Day
+OptimiseCommand --> OptimiseCommand
+deactivate OptimiseCommand
 
-OptimiseBudgetCommand -> CommandResult
+create CommandResult
+OptimiseCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> OptimiseBudgetCommand : commandResult
+CommandResult --> OptimiseCommand : commandResult
 deactivate CommandResult
 
-OptimiseBudgetCommand --> LogicManager : commandResult
-deactivate OptimiseBudgetCommand
+OptimiseCommand --> LogicManager : commandResult
+deactivate OptimiseCommand
 
 [<-LogicManager : commandResult
 deactivate LogicManager

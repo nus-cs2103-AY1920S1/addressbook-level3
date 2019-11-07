@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -30,10 +31,17 @@ public class CommandTestUtil {
 
     public static final String VALID_ACTIVITY_NAME_A = "Visit Temple";
     public static final String VALID_ACTIVITY_NAME_B = "Sushi class";
-    public static final String VALID_ACTIVITY_ADDRESS_A = "Kyoto";
-    public static final String VALID_ACTIVITY_ADDRESS_B = "Tokyo";
+    public static final String VALID_ACTIVITY_ADDRESS_A = "Australia";
+    public static final String VALID_ACTIVITY_ADDRESS_B = "Bali";
     public static final String VALID_TAG_SIGHTSEEING = "sightseeing";
-    public static final String VALID_TAG_LESSON = "lesson";
+    public static final String VALID_TAG_SHOPPING = "shopping";
+    public static final String VALID_TAG_HIKING = "hiking";
+    public static final String VALID_DURATION_A = "360";
+    public static final String VALID_DURATION_B = "420";
+    public static final String VALID_PRIORITY_TEN = "10";
+    public static final String VALID_PRIORITY_TWENTY = "20";
+    public static final String VALID_COST_HUNDRED = "100";
+    public static final String VALID_COST_TWO_HUNDRED = "200";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -65,6 +73,8 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final Long VALID_ACTIVITY_COUNT = (long) 6;
 
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;

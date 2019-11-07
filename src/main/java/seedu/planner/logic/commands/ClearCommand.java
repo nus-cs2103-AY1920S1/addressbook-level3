@@ -2,6 +2,7 @@ package seedu.planner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
@@ -25,6 +26,8 @@ public class ClearCommand extends UndoableCommand {
             COMMAND_WORD,
             COMMAND_WORD
     );
+
+    public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD);
 
     @Override
     public String getCommandWord() {

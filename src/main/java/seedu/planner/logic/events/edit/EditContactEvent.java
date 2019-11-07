@@ -2,11 +2,13 @@ package seedu.planner.logic.events.edit;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.EditContactCommand;
-import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.commands.UndoableCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand;
+import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
@@ -18,7 +20,7 @@ public class EditContactEvent implements Event {
     private final EditContactDescriptor editInfo;
     private final EditContactDescriptor reverseEditInfo;
 
-    public EditContactEvent(Index index, EditContactDescriptor editInfo, Model model) {
+    public EditContactEvent(Index index, EditContactDescriptor editInfo, Model model) throws EventException {
         this.index = index;
         this.editInfo = editInfo;
         this.reverseEditInfo = generateReverseEditInfo(model);
@@ -37,12 +39,13 @@ public class EditContactEvent implements Event {
      * @param model Current model in the application.
      * @return the EditContactDescriptor containing information of the original Contact to be edited.
      */
-    private EditContactDescriptor generateReverseEditInfo(Model model) {
+    private EditContactDescriptor generateReverseEditInfo(Model model) throws EventException {
         EditContactDescriptor result = new EditContactDescriptor();
 
         List<Contact> lastShownList = model.getFilteredContactList();
-        assert(index.getZeroBased() < lastShownList.size());
-
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new EventException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        }
         Contact originalContact = lastShownList.get(index.getZeroBased());
 
         result.setName(originalContact.getName());

@@ -1,6 +1,8 @@
 package seedu.planner.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,12 +14,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.StringUtil;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 import seedu.planner.model.activity.Duration;
-import seedu.planner.model.activity.NameWithTime;
 import seedu.planner.model.activity.Priority;
 import seedu.planner.model.contact.Email;
 import seedu.planner.model.contact.Phone;
@@ -25,17 +27,16 @@ import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
+import seedu.planner.model.field.NameOrTagWithTime;
 import seedu.planner.model.tag.Tag;
-import seedu.planner.model.tag.TagWithTime;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_PREFIX = "Prefix given is incorrect.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_PRIORITY = "Value of priority "
-            + "is not a non-zero unsigned positive integer.";
     private static final String DATE_FORMAT_1 = "d-M-yyyy";
     private static final String DATE_FORMAT_2 = "d-M-yy";
     private static final String TIME_FORMAT = "HHmm";
@@ -73,24 +74,38 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String argValue} into a {@code NameWithTime}.
+     * Parses a {@code String argValue} into a {@code NameAndTagWithTime}.
      * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static NameWithTime parseNameWithTime(String argValue) throws ParseException {
+    public static NameOrTagWithTime parseNameOrTagWithTime(String argValue, Prefix prefix) throws ParseException {
         requireNonNull(argValue);
-        String trimmedArgValue = argValue.trim();
-        String[] args = trimmedArgValue.split(" ");
-        try {
-            Integer.parseInt(args[args.length - 1]);
-        } catch (NumberFormatException e) {
-            return new NameWithTime(new Name(trimmedArgValue), null);
-        }
-        try {
-            LocalTime parsedTime = LocalTime.parse(args[args.length - 1], TIME_FORMATTER);
-            String name = trimmedArgValue.substring(0, trimmedArgValue.length() - 5);
-            return new NameWithTime(new Name(name), parsedTime);
-        } catch (DateTimeParseException e) {
-            throw new ParseException("Time format is: " + TIME_FORMAT);
+        if (prefix.equals(PREFIX_NAME) || prefix.equals(PREFIX_TAG)) {
+            String trimmedArgValue = argValue.trim();
+            String[] args = trimmedArgValue.split(" ");
+            LocalTime parsedTime;
+
+            assert args.length > 0;
+
+            if (args.length > 1) {
+                parsedTime = parseTime(args[args.length - 1]);
+
+                String trimmedArg = trimmedArgValue.substring(0, trimmedArgValue.length() - 5);
+                if (prefix.equals(PREFIX_NAME)) {
+                    return new NameOrTagWithTime(new Name(trimmedArg), parsedTime);
+                } else {
+                    return new NameOrTagWithTime(new Tag(trimmedArg), parsedTime);
+                }
+            } else {
+                if (prefix.equals(PREFIX_NAME)) {
+                    return new NameOrTagWithTime(new Name(trimmedArgValue), null);
+                } else {
+                    return new NameOrTagWithTime(new Tag(trimmedArgValue), null);
+                }
+            }
+        } else {
+            throw new ParseException(MESSAGE_INVALID_PREFIX);
         }
     }
 
@@ -154,27 +169,6 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
-    /**
-     * Parses a {@code String argValue} into a {@code TagWithTime}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static TagWithTime parseTagWithTime(String argValue) throws ParseException {
-        requireNonNull(argValue);
-        String trimmedArgValue = argValue.trim();
-        String[] args = trimmedArgValue.split(" ");
-        try {
-            Integer.parseInt(args[args.length - 1]);
-        } catch (NumberFormatException e) {
-            return new TagWithTime(new Tag(trimmedArgValue), null);
-        }
-        try {
-            LocalTime parsedTime = LocalTime.parse(args[args.length - 1], TIME_FORMATTER);
-            String tag = trimmedArgValue.substring(0, trimmedArgValue.length() - 5);
-            return new TagWithTime(new Tag(tag), parsedTime);
-        } catch (DateTimeParseException e) {
-            throw new ParseException("Time format is: " + TIME_FORMAT);
-        }
-    }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
@@ -219,6 +213,10 @@ public class ParserUtil {
             if (!Day.isValidDayNumber(trimmedDays[i])) {
                 throw new ParseException(Day.MESSAGE_CONSTRAINTS);
             }
+            Index dayIndex = parseIndex(trimmedDays[i]);
+            if (dayList.indexOf(dayIndex) != -1) {
+                throw new ParseException(Messages.MESSAGE_DUPLICATE_DAY_INDEX);
+            }
             dayList.add(parseIndex(trimmedDays[i]));
         }
         return dayList;
@@ -233,7 +231,7 @@ public class ParserUtil {
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        LocalTime parsedTime = null;
+        LocalTime parsedTime;
         try {
             parsedTime = LocalTime.parse(trimmedTime, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
@@ -332,11 +330,11 @@ public class ParserUtil {
         try {
             Integer trimmedPriorityValue = Integer.parseInt(priorityValue.trim());
             if (trimmedPriorityValue <= 0) {
-                throw new ParseException(MESSAGE_INVALID_PRIORITY);
+                throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
             }
             return new Priority(trimmedPriorityValue);
         } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_PRIORITY);
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
     }
 }

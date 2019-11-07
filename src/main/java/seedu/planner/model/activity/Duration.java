@@ -1,18 +1,22 @@
 package seedu.planner.model.activity;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the duration of an Activity in the application.
  * Guarantees: immutable;
+ *
  * @@author oscarsu97
  */
 public class Duration {
+    public static final Integer MINUTES_IN_A_DAY = 1440;
     public static final String MESSAGE_CONSTRAINTS =
             "Duration is in minutes and should be a non-zero positive integer less than 1440";
     public static final String VALIDATION_REGEX = "^([1-9][0-9]{0,2}|1[0-4][0-3][0-9])$";
 
     public final Integer value;
+
     /**
      * Constructs a {@code Duration}.
      *
@@ -20,6 +24,7 @@ public class Duration {
      */
     public Duration(Integer duration) {
         requireNonNull(duration);
+        checkArgument(isValidDuration(duration.toString()), MESSAGE_CONSTRAINTS);
         value = duration;
     }
 
