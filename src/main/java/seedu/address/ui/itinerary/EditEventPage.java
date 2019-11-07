@@ -29,6 +29,7 @@ import seedu.address.ui.template.Page;
  */
 public class EditEventPage extends Page<AnchorPane> {
     private static final String FXML = "itinerary/events/EditEventPage.fxml";
+    private static final String FORM_ITEM_STYLESHEET = "/view/trips/trips.css";
 
     private TextFormItem eventNameFormItem;
     private TextFormItem eventDestinationFormItem;
@@ -106,7 +107,17 @@ public class EditEventPage extends Page<AnchorPane> {
                     + " " + PREFIX_LOCATION + destinationValue);
         });
 
-        fillPage(); //update and overwrite with existing edit descriptor
+        eventNameFormItem.getRoot().getStylesheets().clear();
+        eventStartTimeFormItem.getRoot().getStylesheets().clear();
+        eventEndTimeFormItem.getRoot().getStylesheets().clear();
+        eventTotalBudgetFormItem.getRoot().getStylesheets().clear();
+        eventDestinationFormItem.getRoot().getStylesheets().clear();
+
+        eventNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventStartTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventEndTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
 
         formItemsPlaceholder.getChildren().addAll(
                 eventNameFormItem.getRoot(),
