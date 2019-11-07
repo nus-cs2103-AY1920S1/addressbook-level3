@@ -69,6 +69,11 @@ public class EditShoppingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
         }
 
+        if (editShoppingItemDescriptor.getAmount().isPresent()
+                && Amount.isEmptyAmount(editShoppingItemDescriptor.amount)) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
+        }
+
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
