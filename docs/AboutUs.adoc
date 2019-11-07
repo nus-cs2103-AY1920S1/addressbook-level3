@@ -33,7 +33,7 @@ image::nattanyz.png[width="150", align="left"]
 {empty}[http://github.com/nattanyz[github]] [<<nattanyz#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: In charge of Statistics, did first draft of application's GUI, made improvements to v1.4 GUI's appearance
 
 '''
 
