@@ -11,10 +11,8 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
