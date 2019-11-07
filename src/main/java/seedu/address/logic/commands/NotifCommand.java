@@ -28,7 +28,6 @@ import seedu.address.ui.NotifWindow;
  */
 public class NotifCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
-    public static final String MESSAGE_BODY_STATUS_CHANGE_FAILURE = "There was an error in updating the body status";
     public static final String MESSAGE_SUCCESS = "New notif added: %1$s";
     private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 

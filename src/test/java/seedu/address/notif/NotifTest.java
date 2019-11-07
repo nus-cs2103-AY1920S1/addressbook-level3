@@ -34,23 +34,5 @@ public class NotifTest {
         assertFalse(aliceNotif.getBody() == BOB);
         assertFalse(aliceNotif.getBody() == bobNotif.getBody());
     }
-
-    /*
-    @Test
-    public void equals() {
-        Notif aliceNotifCopy = new NotifBuilder(ALICE).build();
-        Notif bobNotifCopy = new NotifBuilder(BOB).build();
-
-        assertTrue(ALICE_NOTIF.equals(ALICE_NOTIF));
-        assertEquals(BOB_NOTIF.hashCode(), bobNotifCopy.hashCode());
-        assertTrue(ALICE_NOTIF.equals(aliceNotifCopy));
-
-        assertFalse(ALICE_NOTIF.equals(null));
-
-        // Different fields
-        assertFalse(ALICE_NOTIF.equals(BOB_NOTIF));
-
-    }
-    */
 }
 //@@author

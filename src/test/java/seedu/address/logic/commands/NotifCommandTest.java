@@ -66,6 +66,5 @@ public class NotifCommandTest extends GuiUnitTest {
 
         assertEquals(Optional.of(PENDING_CLAIM), ALICE_NOTIF.getBody().getBodyStatus());
     }
-
 }
 //@@author
