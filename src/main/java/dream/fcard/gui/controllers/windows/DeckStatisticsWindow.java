@@ -2,10 +2,9 @@ package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 
-import dream.fcard.logic.stats.DeckStats;
-import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
-//import dream.fcard.util.StatsDisplayUtil;
+import dream.fcard.util.stats.SessionListUtil;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +27,10 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private TableView<Session> sessionsTableView;
+    private TableView<Deck> testSessionsTableView;
 
     private Deck deck;
-    private DeckStats deckStats;
+    private SessionList testSessionList;
 
     /** Creates a new instance of DeckStatisticsWindow. */
     public DeckStatisticsWindow(Deck deck) {
@@ -46,26 +45,36 @@ public class DeckStatisticsWindow extends ScrollPane {
             e.printStackTrace();
         }
 
-        windowTitle.setText("Statistics for deck: " + deck.getDeckName());
+        windowTitle.setText("My statistics for deck: " + deck.getDeckName());
         this.deck = deck;
-        this.deckStats = deck.getDeckStats();
+        this.testSessionList = deck.getTestSessionList();
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();
+
+        //this.testSessionsTableView = StatsDisplayUtil.getTestSessionsTableView(deck);
+        //this.sessionsScrollPane.setContent(sessionsTableView);
         //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
+        SessionList testSessionList = deck.getTestSessionList();
         int numberOfCards = deck.getNumberOfCards();
-        numCards.setText("Number of cards in deck: " + numberOfCards
-            + (numberOfCards == 1 ? "card" : "cards"));
+        this.numCards.setText("Number of cards in deck: " + numberOfCards
+            + (numberOfCards == 1 ? " card" : " cards"));
 
-        //int numSessions = deckStats.getNumberOfSessions();
+        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
+            testSessionList);
+        int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
+        this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
+            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
+
+        //int numSessions = testSessionList.getNumberOfSessions();
         //totalSessions.setText("Total login sessions: " + numSessions
         //    + (numSessions == 1 ? " session" : " sessions"));
-
-        //String duration = deckStats.getTotalDurationOfSessionsAsString();
+        //
+        //String duration = testSessionList.getTotalDurationAsString();
         //totalDuration.setText("Total login duration: " + duration);
     }
 }

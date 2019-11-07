@@ -7,6 +7,8 @@ public enum StateEnum {
     DEFAULT,
     TEST,
     TEST_FBCARD,
+    TEST_FBCARD_BACK,
     TEST_MCQ,
+    TEST_MCQ_BACK,
     TEST_JSJAVA
 }

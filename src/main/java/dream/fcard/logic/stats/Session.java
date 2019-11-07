@@ -18,13 +18,13 @@ import dream.fcard.util.stats.DateTimeUtil;
 public class Session implements JsonInterface {
 
     /** The start time of the session, in the user's local time zone. */
-    private LocalDateTime sessionStart;
+    protected LocalDateTime sessionStart;
+
+    /** The end time of the session, in the user's local time zone. */
+    protected LocalDateTime sessionEnd;
 
     /** The start time of the session, as a String for rendering in the GUI. */
     private String sessionStartString;
-
-    /** The end time of the session, in the user's local time zone. */
-    private LocalDateTime sessionEnd;
 
     /** The start time of the session, as a String for rendering in the GUI. */
     private String sessionEndString;
@@ -34,7 +34,6 @@ public class Session implements JsonInterface {
 
     /** The duration of the session, as a String for rendering in the GUI. */
     private String durationString;
-
     /**
      * Constructs a new instance of Session and sets the session's start time to the present.
      */
@@ -134,6 +133,11 @@ public class Session implements JsonInterface {
     /** Gets the duration of this session, as a String. */
     public String getDurationString() {
         return this.durationString;
+    }
+
+    /** Checks if this session is an instance of TestSession. */
+    public boolean isTestSession() {
+        return this instanceof TestSession;
     }
 
     @Override

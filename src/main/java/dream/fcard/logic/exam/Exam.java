@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Interface to define behaviour of exams.
@@ -17,7 +18,7 @@ public interface Exam {
 
     public void gradeQuestion(Boolean isCorrect) throws IndexNotFoundException;
 
-    public void upIndex();
+    public boolean upIndex();
 
     public void downIndex();
 
@@ -27,4 +28,7 @@ public interface Exam {
 
     public int getDuration();
 
+    public AnchorPane getCardDisplayFront();
+
+    public AnchorPane getCardDisplayBack();
 }
