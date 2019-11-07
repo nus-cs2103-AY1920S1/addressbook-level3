@@ -15,20 +15,24 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+* *Major enhancement*: added the **ability to schedule interview**
+** What it does: allows the user to schedule interviews for the interviewees using the imported interviewer
+availability and interviewee details.
+** Justification: This feature is the central feature behind the idea of the entire Scheduler application which is to schedule interviews
+automatically so that the user do not have to manually schedule interviews and thus reduce their workload significantly.
+** Highlights: The scheduling feature uses an algorithm which tries to maximise the number of interviewees who are allocated
+with an interview slot. Please refer to the developer guide for more information regarding the algorithm.
 ** Credits:
 
-* *Minor enhancement*:
+* *Minor enhancement*: Created a data structure which model a schedule timetable as can be seen in the application. The data structure
+is used to link multiple features together, such as adding an interviewer and displaying it on the ui.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases
+*** Managed releases v1.0-v1.4 (4 releases) on GitHub.
 ** Enhancements to existing features:
 ** Documentation:
 ** Community:
