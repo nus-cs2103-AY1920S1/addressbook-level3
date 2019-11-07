@@ -37,10 +37,6 @@ public class DisplayPanel extends UiPart<Region> {
     @FXML
     private VBox informationHolder;
 
-    public DisplayPanel() {
-        super(FXML);
-    }
-
     public DisplayPanel(Person person) {
         super(FXML);
         this.person = person;
@@ -56,15 +52,6 @@ public class DisplayPanel extends UiPart<Region> {
         isPerson = false;
         isPolicy = true;
         isDisplayIndicator = false;
-        setInfo();
-    }
-
-    public DisplayPanel(DisplayIndicator displayIndicator) {
-        super(FXML);
-        this.displayIndicator = displayIndicator;
-        isPerson = false;
-        isPolicy = false;
-        isDisplayIndicator = true;
         setInfo();
     }
 
