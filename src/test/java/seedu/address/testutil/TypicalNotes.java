@@ -15,7 +15,7 @@ public class TypicalNotes {
     public static final Note SAMPLE =
             new NoteBuilder().withTitle("Sample Title").withContent("Sample Content").withTags("SampleTag1",
                     "SampleTag2").build();
-    public static final Note PIPELINE = new NoteBuilder().withTitle("Pipelining Definition")
+    public static final Note PIPELINE = new NoteBuilder().withTitle("Pipelining Definition.")
             .withContent("Pipelining is the process of making a single processor run multiple instructions "
                     + "simultaneously.").withTags("CS2100", "Midterms").build();
     public static final Note POTATO =

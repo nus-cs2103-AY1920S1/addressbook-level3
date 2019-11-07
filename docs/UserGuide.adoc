@@ -101,7 +101,10 @@ E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/f
 
 === General rules for all commands
 
-* All commands are written in English with alphanumeric characters.
+* All commands are written in English.
+
+* Some command parameters are restricted to purely alphanumeric characters, while others are just required to not be
+blank.
 
 * Any indexes provided (denoted by '(index)' ) must be a positive integer (e.g. 1, 2, 3, ...).
 

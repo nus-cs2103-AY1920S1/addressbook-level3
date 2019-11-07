@@ -94,7 +94,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_MODULE = " " + PREFIX_TAG + VALID_TAG_MODULE;
 
     public static final String VALID_TITLE_SAMPLE = "Sample title";
-    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition";
+    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition.";
     public static final String VALID_CONTENT_SAMPLE = "Sample Content";
     public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
             + "multiple instructions simultaneously.";
@@ -106,8 +106,8 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_TAG_1_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_CS2100;
     public static final String VALID_NOTE_TAG_2_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_MIDTERMS;
 
-    public static final String INVALID_NOTE_TITLE = "*";
-    public static final String INVALID_NOTE_CONTENT = " ";
+    public static final String INVALID_NOTE_TITLE = " \t\r\n";
+    public static final String INVALID_NOTE_CONTENT = " \t\r\n";
     public static final String INVALID_NOTE_TAG = "Two words";
 
     public static final String INVALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + INVALID_NOTE_TITLE;
