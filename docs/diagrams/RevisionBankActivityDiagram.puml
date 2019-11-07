@@ -2,18 +2,29 @@
 start
 
 :Game session finishes;
-note right: AppManager calls logic.updateRevisionBank()
+note left: AppManager is notified
 
-- Create revision bank if it doesn't exist
+if () then ([revision dont exist])
+    : Create revision bank;
+    note left: StorageManager
+    else (else)
 
-if () then ([Word bank played is revision bank])
-    :Removes correct card from revision bank;
+endif
 
-else ([Word bank played is not revision bank])
-    :Retrieves a list of correct and wrong cards from current word bank;
+- Retrieve of correct and\n wrong cards from statistics
+note left: GameStatistics
+
+if () then ([word bank played is revision bank])
+note left: LogicManager
+    :Removes correct card from current bank;
+else ([word bank played is not revision bank])
     :Removes correct card from revision bank;
     :Updates revision bank with cards that were wrong;
 
 endif
+
+- Update storage
+    note left: StorageManager
+
 stop
 @enduml

@@ -769,8 +769,7 @@ To segregate cards according to their function, I distinguished the following:
 //For instance, `CreateCommand`: +
 
 ---
-I will now walk you through an `ImportCommand` using a Sequence Diagram. +
-The emphasis here is to show how these commands utilise word bank's data structure and storage.
+Walkthrough - `ImportCommand`. +
 
 // tag::chenhui-importCommandSequenceDiagram[]
 .Sequence diagram detailing a successful `WordBankCommand` through different components.
@@ -778,7 +777,8 @@ image::ImportCommandSeqDiagram.png[]
 // end::chenhui-importCommandSequenceDiagram[]
 
 
-NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams.
+NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams. +
+The emphasis here is to show how these commands utilise word bank's data structure and storage.
 
 We will see the case where an Import command is valid. +
 For example, for the input: "import w/bank1, f/~/downloads"
@@ -808,6 +808,10 @@ This is performed through the common class: `JsonUtil`.
 8. It returns back to `LogicManager`, and a success message is passed back to `AppManager`,
 then to the `UI` to notify the user.
 
+****
+* Other `CardCommands` and `WordBankCommand` work similarly to `ImportCommand`, with slight variance.
+****
+
 {nbsp}
 
 ---
@@ -836,10 +840,15 @@ Simply drag and drop a `WordBank` json file from your computer into Dukemon.
 Likewise, drag and drop a `WordBank` out of the application, into say,
 your desktop, or chat applications. +
 
+---
+
+Walkthrough - Drag in.
+
 // tag::chenhui-dragAndDropSequenceDiagram[]
 .Sequence diagram showing how drag and drop utilises the ImportCommand and thus the word bank's storage.
 image::DragAndDropSequenceDiagram.png[]
 // end::chenhui-dragAndDropSequenceDiagram[]
+
 
 `LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
 It only has access to an `ObservableList<WordBank>`. +
@@ -847,7 +856,16 @@ This means it has no way to perform commands, update model or update storage.
 
 1. To work around this, a functional callback is registered within LoadBankPanel.
 2. LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
-3. Afterwhich, the callback essentially performs an `ImportCommand`, to load the word bank.
+3. After which, the callback essentially performs an `ImportCommand`, to load the word bank.
+
+It is also noteworthy to mention that, dragging into Dukemon functionality is well guarded against: +
+
+* Not json file format.
+* Json file but data in wrong format.
+* Json file with correct format but contains duplicate cards within.
+
+User receives apt feedback through the command box for different cases.
+This is possible with careful exceptions handling within the `ImportCommand` itself.
 
 {nbsp}
 
@@ -868,8 +886,25 @@ You can refer to it to enhance your understanding of this implementation.
 image::RevisionBankActivityDiagram.png[]
 // end::chenhui-revisionBankActivityDiagram[]
 
+Revision bank was one of the essential and dominant features we wanted to implement since early development, however
+it had to be implemented last because it required multiple components working together. +
+Basically Dukemon needed to be up and running, before revision bank can be implemented.
+
+They include:
+
+* AppManager
+* StorageManager
+* LogicManager
+* GameStatistics
+
+Given that well-developed methods reside in each of these components, we then require an overview of revision bank implementation.
+The activity diagram above describes my thought process.
+
 // end::chenhui-section4[]
 
+{nbsp}
+
+---
 
 ==== Design Considerations
 // Why one WBL is referenced both in model and in storage.
@@ -879,8 +914,7 @@ image::RevisionBankActivityDiagram.png[]
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
 Data structure for WordBankList.
-| **Although WordBankList and WordBank have very similar structures, I made classes for each of them they
-each contain a unique list**: +
+| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.**: +
 
 _Pros:_ +
 User's modification to their word banks and cards requires very different methods. These two data structure
@@ -902,7 +936,7 @@ _Cons:_ +
 This couples WordBank with WordBankList. Does not follow the Open-Closed principle.
 
 3+|**Why did we choose Alternative 1:** +
-Following the spirit of software engineering principles, it is better to have the basic data structure implemented well.
+In the spirit of software engineering principles, it is better to have the basic data structure implemented well.
 Commands that depend on it becomes much easier to implement. (This can be seen in the drag and drop feature.)
 
 |===
@@ -910,8 +944,8 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
-Storage system for Word Banks.
-| **One single large json file with word bank names as keys and it's word bank data as values**: +
+Storage system for word banks.
+| **Store one single large json file with word bank names as keys and it's word bank data as values**: +
 
 _Pros:_ +
 Always save a snapshot of the data to the same file, regardless of what commands are executed.
@@ -919,7 +953,7 @@ Always save a snapshot of the data to the same file, regardless of what commands
 _Cons:_ +
 Unable to share word banks with friends, because one file contains all the word banks.
 
-|**In the default data folder, each word bank is stored as a json file.** +
+|**Store each word bank as a json file.** +
 
 _Pros:_ +
 Enables sharing of word bank files to friends.
@@ -940,8 +974,8 @@ aspect in our app, and cannot be compromised.
 |**Aspect 3**: +
 Command implementation. +
 (Same goes for Command Result implementation)
-| **All types of commands extends a single abstract class `Command`**: +
 
+| **All types of commands extends a single abstract class `Command`**: +
 
 _Pros:_ +
 A rather simple implementation which does not break any software engineering principles.
@@ -962,8 +996,40 @@ _Cons:_ +
 Requires tedious implementation to follow the principles.
 
 3+|**Why did we choose Alternative 2:** +
-Alternative 2 allows for easy extension of the app's functionality. Implementation of the drag and
-drop feature is just a function call away, as all data structure and functions are well written.
+Alternative 2 allows for easy extension of Dukemon's functionality. Implementation of the drag and
+drop feature is just a few function calls away, as all data structure and functions are well written.
+
+|===
+
+|===
+
+||**Alternative 1**|**Alternative 2**
+|**Aspect 4**: +
+How to implement Drag and Drop. +
+`LoadBankPanel` is a deeply nested class, and is the corresponding class for the
+`UI` to interact with user's drag and drop action.
+| **Updates the storage directly from `LoadBankPanel`**: +
+
+_Pros:_ +
+It only requires a reference and then saving directly to `Storage`. This can be implemented with ease. +
+
+_Cons:_ +
+Practically, there are a few exceptions being thrown when calling the storage's method directly. `LoadBankPanel` cannot handle them effectively. +
+This also leads to poor abstraction and high potential for cyclic dependencies, resulting in high coupling. +
+
+|**Using _Functional Interfaces_ as Call-backs to call an `ImportCommand` from `LoadBankPanel`.** +
+
+_Pros:_ +
+Calling an already well-implemented `ImportCommand` allows all exceptions caught to be handled properly. +
+It also maintains abstraction and minimal coupling between `LoadBankPanel` and other components.
+
+_Cons:_ +
+It makes the code less OOP and more functional.
+
+3+|**Why did we choose Alternative 2:** +
+Provides a more complete implementation, as it would make sense for exceptions to be caught and allow user to see
+feedback messages.
+
 
 |===
 
