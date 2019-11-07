@@ -2,12 +2,15 @@ package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.pluswork.testutil.Assert.assertThrows;
+import static seedu.pluswork.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +48,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_PUBLICITY = "publicity";
     public static final String VALID_MEMBER_TAG_PUBLICITY = "UIdesigner";
     public static final String VALID_TAG_URGENCY = "urgent";
+    public static final String VALID_TASK_DEADLINE = "20-12-2020 10:00";
 
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
     public static final String MEMBER_NAME_DESC_FINANCE = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_FINANCE;
@@ -54,6 +58,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_PUBLICITY = " " + PREFIX_TASK_TAG + VALID_TAG_PUBLICITY;
     public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
+    public static final String TASK_DEADLINE_DESC = " " + PREFIX_DEADLINE + VALID_TASK_DEADLINE;
 
     public static final String VALID_INVENTORY_NAME_SPORTS = "Sports equipments";
     public static final String VALID_INVENTORY_NAME_MUSIC = "Drums";
@@ -72,6 +77,7 @@ public class CommandTestUtil {
 
     public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_FINANCE;
     public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_DEADLINE;
     public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
 
     static {
@@ -81,6 +87,9 @@ public class CommandTestUtil {
         TASK_DESC_PUBLICITY = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_PUBLICITY)
                 .withStatus(TaskStatus.DOING)
                 .withTags(VALID_TAG_PUBLICITY).build();
+        TASK_DESC_DEADLINE = new EditTaskDescriptorBuilder(ORDER_SHIRTS)
+                .withDeadline(LocalDateTime.now()
+                .plusMonths(3)).build();
 
         INVENTORY_DESC_TOY = new EditInventoryCommand.EditInventoryDescriptor();
         INVENTORY_DESC_TOY.setName(new InvName("toy"));

@@ -235,7 +235,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasksByDeadline.setTasks(tasks.toStream()
                 .filter(Task::hasDeadline)
                 .filter(task -> !(task.getTaskStatus().equals(TaskStatus.UNBEGUN)))
-                .filter(task -> DateTimeUtil.checkIfDueSoon(2, task.getDeadline()))
+                .filter(task -> DateTimeUtil.checkIfDueSoon(task.getDeadline()))
                 .collect(Collectors.toList()));
     }
 

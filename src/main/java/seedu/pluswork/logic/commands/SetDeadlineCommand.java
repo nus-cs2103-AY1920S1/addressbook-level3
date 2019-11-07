@@ -39,7 +39,8 @@ public class SetDeadlineCommand extends Command {
     public static final String MESSAGE_SET_DEADLINE_TASK_SUCCESS = "Set a deadline for the Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in +Work.";
     //Create an alert box when task already has a deadline
-    public static final String MESSAGE_TASK_ALREADY_HAS_DEADLINE = "This task already has a deadline";
+    public static final String MESSAGE_TASK_ALREADY_HAS_DEADLINE = "This task already has a deadline, please use "
+            + "edit-task to edit or remove the deadline";
 
     private final Index index;
     private final LocalDateTime dateTime;
@@ -66,6 +67,12 @@ public class SetDeadlineCommand extends Command {
         }
 
         Task taskToUpdate = lastShownList.get(index.getZeroBased());
+
+        // editing of deadlines should be performed by the {@see EditTaskDeadline}
+        if (taskToUpdate.hasDeadline()) {
+            throw new CommandException(MESSAGE_TASK_ALREADY_HAS_DEADLINE);
+        }
+
         Task updatedTask = createUpdatedTask(taskToUpdate, dateTime);
 
         if (!taskToUpdate.isSameTask(updatedTask) && model.hasTask(updatedTask)) {
@@ -83,6 +90,7 @@ public class SetDeadlineCommand extends Command {
      */
     private static Task createUpdatedTask(Task taskToUpdate, LocalDateTime dateTime) throws CommandException {
         assert taskToUpdate != null;
+        assert !taskToUpdate.hasDeadline();
 
         Name name = taskToUpdate.getName();
         TaskStatus taskStatus = taskToUpdate.getTaskStatus();

@@ -76,7 +76,7 @@ public class TaskBuilder {
     }
 
     public Task build() {
-        return new Task(name, taskStatus, tags);
+        return new Task(name, taskStatus, tags, deadline);
     }
 
 }

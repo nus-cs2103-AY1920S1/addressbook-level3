@@ -21,6 +21,8 @@ public class DateTimeUtil {
     public static final String DISPLAY_FORMAT_TWENTY_FOUR_HOUR = "EEEE, MMM dd, yyyy HH:mm";
     public static final String DISPLAY_FORMAT_TWELVE_HOUR = "EEEE, MMM dd, yyyy hh:mm a";
 
+    public static final int REMINDER_SCHEDULE = 2; // affects upcoming deadlines in {@code ProjectDashboardView}
+
     public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT_MESSAGE
             + " format required";
     public static final String LEAP_YEAR = "The year you entered is not a leap year, please try again";
@@ -72,7 +74,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Display the date/time in a user friendly-manner
+     * Displays the date/time in a user friendly-manner.
      */
     public static String displayDateTime(LocalDateTime dateTime) {
         requireNonNull(dateTime);
@@ -80,15 +82,14 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks if a task is due soon by comparing its due date to the current date and time.
+     * Checks if a task is due soon {@see REMINDER_SCHEDULE} by comparing its due date to the current date and time.
      *
-     * @param weeks    the reminder period specified by the user
      * @param dateTime deadline of the task
      * @return true if task is due within user's reminder period
      */
-    public static boolean checkIfDueSoon(int weeks, LocalDateTime dateTime) {
+    public static boolean checkIfDueSoon(LocalDateTime dateTime) {
         requireNonNull(dateTime);
-        LocalDateTime dueDate = dateTime.minusWeeks(weeks);
+        LocalDateTime dueDate = dateTime.minusWeeks(REMINDER_SCHEDULE);
         return LocalDateTime.now().isAfter(dueDate);
     }
 

@@ -76,7 +76,7 @@ public class DateTimeUtilTest {
 
     @Test
     public void checkIfDueSoon_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> DateTimeUtil.checkIfDueSoon(100, (LocalDateTime) null));
+        assertThrows(NullPointerException.class, () -> DateTimeUtil.checkIfDueSoon((LocalDateTime) null));
     }
 
 }

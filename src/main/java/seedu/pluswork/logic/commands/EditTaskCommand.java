@@ -36,7 +36,9 @@ public class EditTaskCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values. "
+            + "However, a deadline can only be removed or edited using this command. "
+            + "To set one, please use set-deadline!\n"
             + "Parameters:" + PREFIX_TASK_INDEX + "TASK INDEX"
             + PREFIX_TASK_NAME + "NAME] "
             + PREFIX_TASK_STATUS + "STATUS "
@@ -46,13 +48,15 @@ public class EditTaskCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED_DEADLINE = "Please do not use this command to set a deadline!\n"
+            + "Use set-deadline instead";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index              of the task in the filtered task list to edit
+     * @param index of the task in the filtered task list to edit
      * @param editTaskDescriptor details to edit the task with
      */
     public EditTaskCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
@@ -73,6 +77,12 @@ public class EditTaskCommand extends Command {
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
+
+        /* deadline should not be set in EditTaskCommand, {@see SetDeadlineCommand} */
+        if (!taskToEdit.hasDeadline()) {
+            throw new CommandException(MESSAGE_NOT_EDITED_DEADLINE);
+        }
+
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
@@ -90,10 +100,12 @@ public class EditTaskCommand extends Command {
      */
     private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
+        assert taskToEdit.hasDeadline();
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         TaskStatus updatedTaskStatus = editTaskDescriptor.getTaskStatus().orElse(taskToEdit.getTaskStatus());
-        LocalDateTime updatedDeadline = editTaskDescriptor.getDeadline().orElse(taskToEdit.getDeadline());
+        Optional<LocalDateTime> deadlineToUpdate = editTaskDescriptor.getDeadline();
+        LocalDateTime updatedDeadline = deadlineToUpdate.orElse(null);
         Instant timeStart;
 
         if (taskToEdit.getTaskStatus().equals(TaskStatus.UNBEGUN) && updatedTaskStatus.equals(TaskStatus.DOING)) {
@@ -108,6 +120,7 @@ public class EditTaskCommand extends Command {
         } else {
             timeEnd = editTaskDescriptor.getTimeEnd().orElse(taskToEdit.getTimeEnd());
         }
+
 
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
@@ -147,7 +160,7 @@ public class EditTaskCommand extends Command {
         private Set<Tag> tags;
         private Instant timeStart;
         private Instant timeEnd;
-        private LocalDateTime dateTime;
+        private LocalDateTime deadline;
 
         public EditTaskDescriptor() {
         }
@@ -160,7 +173,7 @@ public class EditTaskCommand extends Command {
             setName(toCopy.name);
             setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
-            setDeadline(toCopy.dateTime);
+            setDeadline(toCopy.deadline);
             setTimeStart(toCopy.timeStart);
             setTimeEnd(toCopy.timeEnd);
         }
@@ -169,7 +182,7 @@ public class EditTaskCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, taskStatus, tags);
+            return CollectionUtil.isAnyNonNull(name, taskStatus, tags, deadline);
         }
 
         public void setTaskStatus(TaskStatus taskStatus) {
@@ -189,11 +202,11 @@ public class EditTaskCommand extends Command {
         }
 
         public void setDeadline(LocalDateTime dateTime) {
-            this.dateTime = dateTime;
+            this.deadline = dateTime;
         }
 
         public Optional<LocalDateTime> getDeadline() {
-            return Optional.ofNullable(dateTime);
+            return Optional.ofNullable(deadline);
         }
 
 
