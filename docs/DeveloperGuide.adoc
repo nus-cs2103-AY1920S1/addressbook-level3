@@ -468,7 +468,7 @@ The printing of loan slip feature is facilitated by `LoanSlipUtil`.
 Essentially, it implements the following operations:
 
 * `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
-* `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a pdf version of the loan slip.
+* `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
 * `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
@@ -483,7 +483,7 @@ The following describes the sequence of events displayed in the figure above.
 2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
 3) The `LoanCommand` creates a new `Loan` +
 4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
-5) The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder +
+5) The `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder +
 6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
 7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
 ****
@@ -513,7 +513,7 @@ On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies 
 ** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 
 We have decided to go with Alternative 1 as it allows us to have flexible code that is *easily extendable*. Furthermore,
-it adheres to good programming practices as compared to Alternative 2.
+it adheres to good programming practices as compared to Alternative 2, which *violates the Single Responsibility Principle*.
 // end::printLoanSlip[]
 
 === Logging
