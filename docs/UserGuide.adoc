@@ -218,6 +218,7 @@ image::ListcatStep3.png[width="600"]
 
 //end::flashcard[]
 
+// tag::deadline[]
 === Add general deadlines reminders: `deadline t>TASK d>DUE DATE`
 
 This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
@@ -275,6 +276,8 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
 `calendar`
+
+//end::deadline[]
 
 === Test mode
 
