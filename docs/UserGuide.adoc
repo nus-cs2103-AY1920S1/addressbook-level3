@@ -534,6 +534,7 @@ Examples:
 * `slist add n/banana a/3units`
 
 
+//tag::addTempfeature[]
 ==== Add items in template into shopping list: `slist addTemp`
 
 Adds all template items that are not currently found in the grocery list into the shopping list. +
@@ -543,6 +544,7 @@ Examples:
 
 * `slist addTemp 1`
 
+//end::addTempfeature[]
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
@@ -639,24 +641,6 @@ Examples:
 * `slist urgent 1`
 Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and moves to the top of the shopping list.
 
-//tag::addTempfeature[]
-==== Generate shopping list: `slist addTemp`
-
-Generates a shopping list from all missing grocery items in the template.
-Format: `slist addTemp [l/INDEX] ...`
-
-****
-* At least one template name must be provided.
-* In the case of multiple template lists, the amount of duplicate items will be summed up.
-* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
-****
-
-Examples:
-
-* `slist addTemp l/Weekly Necessities l/Birthday Cake`
-All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
-
-//end::addTempfeature[]
 //tag::slistundoredo[]
 
 ==== Undo Shopping List: `slist undo`
