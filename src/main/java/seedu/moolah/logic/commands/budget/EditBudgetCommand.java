@@ -113,10 +113,8 @@ public class EditBudgetCommand extends UndoableCommand {
         Price updatedAmount = editBudgetDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Timestamp updatedStartDate = editBudgetDescriptor.getStartDate().orElse(budgetToEdit.getWindowStartDate());
         BudgetPeriod updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getBudgetPeriod());
-        Budget newBudget = new Budget(updatedDescription, updatedAmount, updatedStartDate, updatedPeriod,
-                budgetToEdit.getExpenses(), budgetToEdit.isPrimary());
-        newBudget.normalize(Timestamp.getCurrentTimestamp());
-        return newBudget;
+        return new Budget(updatedDescription, updatedAmount, updatedStartDate, updatedPeriod,
+                budgetToEdit.getExpenses(), budgetToEdit.isPrimary()).normalize(Timestamp.getCurrentTimestamp());
     }
 
     @Override

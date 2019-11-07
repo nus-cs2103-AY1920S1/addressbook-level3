@@ -43,8 +43,7 @@ public class SwitchPeriodCommand extends UndoableCommand {
     @Override
     protected void validate(Model model) throws CommandException {
         // No validation necessary.
-        Budget currentPeriod = model.getPrimaryBudget().deepCopy();
-        currentPeriod.normalize(Timestamp.getCurrentTimestamp());
+        Budget currentPeriod = model.getPrimaryBudget().deepCopy().normalize(Timestamp.getCurrentTimestamp());
 
         if (pastDate.dateIsAfter(currentPeriod.getWindowEndDate())) {
             throw new CommandException(MESSAGE_PERIOD_IS_FUTURE);
