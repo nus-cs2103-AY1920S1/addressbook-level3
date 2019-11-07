@@ -35,11 +35,14 @@ My role was to design the `stats`, `filter`, and `find` features. The following 
 
 Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
 
+|===
+| :bulb: a|
 This symbol indicates important information.
-
-A grey highlight (called mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
-
-Blue text indicates a component, class or object in the architecture of the application.
+|`stats`|
+A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
+|_body_|
+Italicised text indicates a component, class or object in the architecture of the application.
+|===
 
 == Summary of contributions
 
@@ -91,10 +94,9 @@ include::../UserGuide.adoc[tag=filter]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+{start of extract}
+include::../DeveloperGuide.adoc[tag=statistics]
+{end of extract}
 
 == PROJECT: PowerPointLabs
 
