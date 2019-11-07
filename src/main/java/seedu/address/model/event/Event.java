@@ -183,7 +183,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both events have the same name, starDate and endDate.
+     * Returns true if both events have the same name, venue, starDate and endDate.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
