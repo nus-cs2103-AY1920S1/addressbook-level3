@@ -542,6 +542,12 @@ The table below summarises the common commands available for use in both lists.
 |`search\|#drink\|mango pudding`
 |`search\|#fruit #sweet`
 
+1.2+|*Shift*
+|`shift\|<index>`
+|`shift\|2`
+|`shift\|<index>\|<expiry date>[\|<quantity>]`
+|`shift\|2\|14/2/2020\|2`
+
 
 |*Clear*
 |`clear`|
@@ -594,10 +600,6 @@ The table below summarises the commands only available for use in the main list.
 
 |`check\|<days>`
 |`check\|20`
-
-|*Shift*
-|`shift\|<index>`
-|`shift\|2`
 
 1.2+|*Sort*
 1.2+|`sort\|<key>`
