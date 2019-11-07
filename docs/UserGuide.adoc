@@ -331,14 +331,17 @@ Exams will also terminate automatically upon running out of cards in the test de
 // tag::stats[]
 === Viewing user statistics : `stats`
 
-Opens a new window to shows your usage statistics, such as time spent and list of login sessions over time. A quick summary of the decks, showing the number of cards, number of test sessions and average score, is also provided for reference. 
+Opens a new window to shows your *usage statistics*, such as time spent and list of login sessions over time. A *quick summary of the decks*, showing the number of cards, number of test sessions and average score, is also provided for reference. 
+
+[TIP]
+You can also open the statistics window by clicking `Statistics > View my statistics` in the menu bar of the app.
 
 [TIP]
 Upon your first login, you will see that the list of login sessions is blank and the number of login sessions is 0. :) A login session refers to the duration between when you launch the app and when you close it. Try opening and closing the app several times!
 
-Statistics on specific decks, such as the list of test sessions involving the deck and their results, can be accessed via `stats deck/deck_NAME`, or by double-clicking on the row representing the deck in the table titled "My statistics by deck".
+*Statistics on specific decks*, such as the list of test sessions involving the deck and their results, can be accessed via `stats deck/deck_NAME`, or by double-clicking on the row representing the deck in the table titled "My statistics by deck".
 
-Statistics on specific cards within a deck, which will allow you to review your understanding of individual concepts, are coming in v2.0.
+*Statistics on specific cards* within a deck, which will allow you to review your understanding of individual concepts, are coming in v2.0.
 
 Format: `stats [deck/DECK_NAME]`
 
