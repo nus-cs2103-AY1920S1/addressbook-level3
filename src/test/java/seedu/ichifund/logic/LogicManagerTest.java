@@ -76,7 +76,7 @@ public class LogicManagerTest {
 
         // Execute add command
         Transaction expectedTransaction = new TransactionBuilder().build();
-        String addTransactionCommand = TransactionUtil.getAddTransactionCommand(expectedTransaction);
+        String addTransactionCommand = TransactionUtil.getAddTransactionCommandString(expectedTransaction);
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTransaction(expectedTransaction);
         expectedModel.updateTransactionContext(expectedTransaction);
