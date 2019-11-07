@@ -143,12 +143,17 @@ public final class GradientDescent {
         return maxData;
     }
 
+
     public double getMinOutput() {
-        return minOutput / OUTPUT_SCALE_FACTOR;
+        return (minOutput / OUTPUT_SCALE_FACTOR);
     }
 
     public double getMaxOutput() {
-        return maxOutput / OUTPUT_SCALE_FACTOR;
+        return (maxOutput / OUTPUT_SCALE_FACTOR);
+    }
+
+    public double getOutput(int idx) {
+        return this.actualValues[idx];
     }
 
     public double getDataRange() {
@@ -164,6 +169,6 @@ public final class GradientDescent {
     }
 
     public double getResult() {
-        return result / OUTPUT_SCALE_FACTOR;
+        return (result / OUTPUT_SCALE_FACTOR);
     }
 }

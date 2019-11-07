@@ -1,6 +1,7 @@
 package seedu.address.model.projection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -28,6 +29,7 @@ public class Projection {
     private List<Budget> budgets = new ArrayList<>();
     private List<Amount> budgetProjections = new ArrayList<>();
     private Amount projection;
+    private Amount cumulativeBalance;
     private GradientDescent projector;
     private Category category;
 
@@ -87,6 +89,8 @@ public class Projection {
     private void project() {
         double [] balances = extractBalances();
         double [] dates = extractDates();
+        System.out.println(Arrays.toString(balances));
+        System.out.println(Arrays.toString(dates));
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
         this.projection = new Amount((int) Math.round(projector.predict(daysToProject)));
@@ -143,17 +147,6 @@ public class Projection {
         return this.projection.toString();
     }
 
-    public String getBudgetForecastText(int idx) {
-        if (this.getBudgets().isEmpty()) {
-            return "";
-        }
-        return this.budgetProjections.get(idx).getIntegerValue() > 0
-                ? String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString())
-                : String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString());
-    }
-
     public Amount getBudgetProjection(int idx) {
         return this.budgetProjections.get(idx);
     }
@@ -172,6 +165,9 @@ public class Projection {
         return text.toString();
     }
 
+    /**
+     * @return an abbreviated description on the projected status of a budget
+     */
     public String getBudgetForecastAbbreviatedText(int idx) {
         if (this.budgets == null || this.budgets.get(idx) == null) {
             return "";
@@ -190,6 +186,7 @@ public class Projection {
         double cumulativeBalance = 0;
         for (int i = 0; i < balances.length; i++) {
             cumulativeBalance += transactionHistory.get(i).getAmount().getIntegerValue();
+            System.out.println(Math.round(cumulativeBalance));
             balances[i] = cumulativeBalance;
         }
         return balances;

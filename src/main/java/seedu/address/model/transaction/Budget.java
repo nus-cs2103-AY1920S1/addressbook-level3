@@ -204,4 +204,8 @@ public class Budget {
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
     }
+
+    public String toLabelText() {
+        return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
+    }
 }

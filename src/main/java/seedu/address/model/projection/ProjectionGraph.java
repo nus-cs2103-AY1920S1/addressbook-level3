@@ -122,7 +122,7 @@ public class ProjectionGraph extends StackPane {
         XYChart.Series<Number, Number> projectionSeries = new XYChart.Series<>();
         projectionSeries.getData().add(new XYChart.Data<>(gradientDescent.getVariable(), gradientDescent.getResult()));
         projectionSeries.getData().add(
-                new XYChart.Data<>(gradientDescent.getMinData(), gradientDescent.getMinOutput()));
+                new XYChart.Data<>(gradientDescent.getInputData(0), gradientDescent.predict(gradientDescent.getInputData(0)) / 100));
         projectionSeries.setName("Projection Line");
         return projectionSeries;
     }
