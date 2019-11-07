@@ -70,6 +70,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::Ui[]
 [[Design-Ui]]
 === UI component
 
@@ -87,8 +88,9 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data. 
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// end::Ui[]
 // tag::logic[]
 
 [[Design-Logic]]
@@ -504,6 +506,7 @@ the necessary information.
 
 //end::moduleinformationandverification[]
 
+// tag::autocomplete[]
 === Autocomplete
 
 ==== Implementation
@@ -627,6 +630,7 @@ take more time and alter the structure of parsing commands.
 ** Cons: The command will have to be parsed upon autocomplete call, which will
 take more time and alter the structure of parsing commands.
 
+// end::autocomplete[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

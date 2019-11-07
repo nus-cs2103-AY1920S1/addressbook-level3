@@ -51,18 +51,23 @@ or as `newplan Algo and Graphics`.
 
 ====
 
+// tag::help[]
 === Basic
 
 ==== General Help: `help`
-Provides a list of possible commands the user can type. +
+Provides a list of possible commands the user can type with brief descriptions. +
 Format: `help`
 
 ==== Help for a specific command: `help`
-Provides help for a specific command. +
+Provides detailed help for a specific command, including the parameters required. +
 Format: `help COMMAND` +
 Example:
 
 * `help newplan`
+
+// end::help[]
+
+// tag::autocomplete[]
 
 ==== Autocompleting: `tab`
 When the user presses `tab`, the command word, or module code, or semester,
@@ -70,6 +75,8 @@ or tag name will be autocompleted
 If there is only one possible completion, it will be filled immediately.
 If there is more than one possible completion, a menu of possible autocompletions
 is drawn that can be selected with the up and down buttons.
+
+// end::autocomplete[]
 
 // tag::undoredo[]
 
@@ -452,41 +459,41 @@ Example:
 
 // end::versiontracking[]
 
+// tag::gui[]
 === GUI
 
 ==== Expanding a semester: `expand`
-Expands a semester so that more details can be seen. +
+Expands a semester so that more details can be seen. Will display module titles, MC count, and their tags. +
 Format: `expand SEMESTER` +
 Example:
 
 * `expand y1s1`
 
 ==== Expanding all semesters: `expandall`
-Expands all semesters so that more details can be seen. +
+Expands all semesters so that more details can be seen. Will display module titles, MC count, and their tags. +
 Format: `expandall`
 
 ==== Collapsing a semester: `collapse`
-Collapses a semester so that most details are hidden. +
+Collapses a semester so that most details are hidden. Will hide module titles, MC count, and their tags. +
 Format: `collapse SEMESTER` +
 Example:
 
 * `collapse y1s1`
 
 ==== Collapsing all semesters: `collapseall`
-Collapses all semesters so that most details are hidden. +
+Collapses all semesters so that most details are hidden. Will hide module titles, MC count, and their tags. +
 Format: `collapseall`
 
 ==== Changing the theme of the GUI: `theme`
-Changes the theme of the GUI +
+Changes the theme of the GUI. Existing themes are: light, dark. +
 Format: `theme THEME_NAME`
-
-Existing themes are:
-light, dark.
 
 Examples:
 
 * `theme light`
 * `theme dark`
+
+// end::gui[]
 
 == Upcoming Features [coming in v2.0]
 
@@ -561,6 +568,16 @@ Format: `declarefocusarea FOCUS_AREA`
 ==== Displays for an invalid study plan
 `[coming in v2.0]` The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
 
+// tag::guifuture[]
+=== GUI
+
+==== Animations: `[coming in v2.0]`
+Expanding and collapsing semesters will be fluidly animated.
+
+==== Colours: `[coming in v2.0]`
+Each module and tag can be assigned with a specific colour to allow more customisation.
+
+// end::guifuture[]
 
 == FAQ
 

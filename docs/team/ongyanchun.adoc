@@ -1,0 +1,90 @@
+= Ong Yan Chun (yaaanch)- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CS ModBuddy
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+ifdef::env-github[]
+image::title.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::title.png[width="600"]
+endif::[]
+
+ifdef::env-github[]
+image::Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::Ui.png[width="600"]
+endif::[]
+== Overview
+
+CS ModBuddy is for those who prefer to use a desktop app for planning their modules. More importantly, CS ModBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
+
+== Summary of contributions
+
+Overall contributions were in the field of User Interface and User Experience.
+
+* *Major enhancement*: added *Autocomplete*
+** What it does: When the user presses `tab`, the command word, or module code, or semester, or tag name will be autocompleted.
+If there is only one possible completion, it will be filled immediately.
+If there is more than one possible completion, a menu of possible autocompletions is drawn that can be selected with the up and down buttons.
+** Justification: This feature improves the product significantly because it makes the entire basis of the command-line interface, typing commands, significantly smoother and easier.
+** Highlights: This enhancement affects every part of the user experience in this CLI app.
+It is interlinked with existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required some use of data structures, as well as integration with existing commands, module codes, and tags.
+* *Minor enhancements*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Added expanding and collapsing of semesters, allows familiar semesters to take up less important visual space in the GUI.
+** Added various GUI themes, such as light or dark mode, so that the user can customise the look of the GUI to their wants.
+** Added a complex help function that can give general help and also specific help per command, which makes using the app much simpler.
+** Added block command handling for adding modules, so multiple modules can be added to a semester at once.
+** Handled most of the overall GUI design, apart from the Result Display on the left side.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yaaanch&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaaanch&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yaaanch&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaaanch&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Team Lead.
+** Enhancements to existing features:
+*** Designed the UX flow and UI mockups with Balsamiq and Figma.
+*** Designed a logo, created banner and replaced the logo and title of the app.
+*** Spearheaded the conversion of GUI from AddressBook (Pull requests #120, #130, #146, #150, #153, #169)
+*** Wrote tests.
+** Documentation:
+*** Edited UI section in Developer Guide.
+*** Helped to rearrange sections within User Guide.
+** Community:
+*** Reviewed other team's Developer Guide: [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11/files/a420128b5b5e72e1fb07a6ba7fdfee5f52b4fcdc?file-filters%5B%5D=.adoc&file-filters%5B%5D=.csv&file-filters%5B%5D=.gradle&file-filters%5B%5D=.java&file-filters%5B%5D=.jpg&file-filters%5B%5D=.json&file-filters%5B%5D=.png&file-filters%5B%5D=.puml&file-filters%5B%5D=.txt&file-filters%5B%5D=dotfile#diff-d23c8091515dc18149f4f2e759e1e288[MoneyGoWhere]]
+*** Contributed to forum: [https://github.com/nus-cs2103-AY1920S1/forum/issues/73[library request]]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=help]
+
+include::../UserGuide.adoc[tag=autocomplete]
+
+include::../UserGuide.adoc[tag=gui]
+
+== Upcoming Features [coming in v2.0]
+
+include::../UserGuide.adoc[tag=guifuture]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Ui]
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+
