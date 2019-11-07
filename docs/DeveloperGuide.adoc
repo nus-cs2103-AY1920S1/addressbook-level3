@@ -1021,7 +1021,83 @@ Use case ends.
 +
 Use case resumes at the step preceding this.
 
-_{More to be added}_
+//tag::yutingUseCase[]
+[discrete]
+==== Use case: Register a borrower
+
+*MSS*
+
+1.  User registers a borrower by specifying its details
+2.  LiBerry shows a success message
+
+Use case ends.
+
+*Extension*
+
+* 1a. The arguments provided are invalid.
++
+[none]
+** 1a1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1b. Phone/Email was registered under another borrower
++
+[none]
+** 1b1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Unregister a borrower
+
+*MSS*
+
+1.  User enters unregister command for borrower by borrower ID
+3.  LiBerry unregisters the borrower
++
+Use case ends.
+
+*Extensions*
+
+* 1a. App is in serve mode
++
+[none]
+** 1a1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1b. Borrower ID is invalid/ not found
++
+[none]
+** 1b1. LiBerry shows an error message.
+Use case ends.
+
+[discrete]
+==== Use case: Serve a borrower
+
+*MSS*
+
+1. User provides user with a borrower ID
+2. User enters serve command for borrower by borrower ID
+3. App serves borrower
+
+*Extensions*
+
+* 2a. App is in serve mode
++
+[none]
+** 2a1. LiBerry shows an error message.
++
+Use case ends.
+
+* 2b. Borrower ID is invalid/ not found
++
+[none]
+** 2b1. LiBerry shows an error message.
+Use case ends.
+
+//end::yutingUseCase[]
 
 === Non Functional Requirements
 

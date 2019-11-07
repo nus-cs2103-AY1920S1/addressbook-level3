@@ -179,7 +179,7 @@ Deletes the 1st book in the results of the `find` command.
 Deletes the book with serial number `sn/B00422`.
 
 // end::bookRelated[]
-
+// tag::UGyuting[]
 ==== Registering a new borrower: `register`
 
 Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed. +
@@ -199,6 +199,8 @@ Example:
 
 * `unregister id/K0001` +
 Deletes the borrower with the borrower ID `id/K0001`
+
+// end::UGyuting[]
 
 ==== Undoing: `undo`
 
@@ -239,7 +241,7 @@ Gives a book a numerical rating. +
 Format: `rate INDEX r/RATING`
 
 '''
-
+// tag::UGyuting2[]
 === Using Serve Mode
 
 The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian. All commands in Normal Mode can be used in Serve Mode too.
@@ -277,6 +279,8 @@ Examples:
 Edits the phone number and borrower's email address to be `91234567` and `jane@austen.com` respectively.
 * `edit n/Betsy Crower` +
 Edits the name of the borrower to be `Betsy Crower`.
+
+// end::UGyuting2[]
 
 // tag::loanRelated[]
 // tag::loanSlip[]
