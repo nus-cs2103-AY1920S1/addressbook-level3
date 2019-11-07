@@ -6,7 +6,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.tag.DefaultTagType;
 import seedu.address.model.tag.UserTag;
 
 /**
@@ -14,7 +13,7 @@ import seedu.address.model.tag.UserTag;
  */
 public class DeleteTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletetag";
+    public static final String COMMAND_WORD = "deletemodtag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a module tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the module tag with the specified tag name "
             + "Parameters: "
@@ -46,19 +45,13 @@ public class DeleteTagCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
 
-        assert !DefaultTagType.contains(tagName);
-
         if (!model.activeSpContainsModuleTag(tagName)) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagName));
         }
 
         UserTag toDelete = (UserTag) model.getModuleTagFromActiveSp(tagName);
 
-        int originalSize = model.getModuleTagsFromActiveSp().asUnmodifiableObservableList().size();
         model.deleteModuleTagFromActiveSp(toDelete);
-        int newSize = model.getModuleTagsFromActiveSp().asUnmodifiableObservableList().size();
-        assert newSize == originalSize - 1;
-
         model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));

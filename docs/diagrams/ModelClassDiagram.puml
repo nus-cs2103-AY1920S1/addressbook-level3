@@ -5,96 +5,52 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyModulePlanner <<Interface>>
+Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class ModulePlanner
-Class ReadOnlyModulePlanner
+Class AddressBook
+Class ReadOnlyAddressBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package StudyPlan {
-Class StudyPlan
-Class Title
-Class UniqueStudyPlanList
-}
-
-Package Module {
-Class UniqueModuleList
-Class Module
-Class ModuleCode
+Package Person {
+Class Person
+Class Address
+Class Email
 Class Name
-Class Color
-Class PrereqTree
+Class Phone
+Class UniquePersonList
 }
 
 Package Tag {
-Interface Tag <<Interface>>
-Class UniqueTagList
-Class UserTag
-Class DefaultTag
-Class PriorityTag
+Class Tag
 }
-
-Package Semester {
-Class Semester
-Class SemesterName
-Class UniqueSemesterList
-}
-
-Package VersionTracking {
-Class VersionTrackingManager
-Class StudyPlanCommitManagerList
-Class StudyPlanCommitManager
-Class CommitList
-Class Commit
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-VersionTrackingManager *--> StudyPlanCommitManagerList
-StudyPlanCommitManagerList o--> "*" StudyPlanCommitManager
-StudyPlanCommitManager *--> CommitList
-CommitList o--> "*" Commit
-Commit *--> StudyPlan
-
-ModulePlanner .up.|> ReadOnlyModulePlanner
+AddressBook .up.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" ModulePlanner
+ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-ModulePlanner *--> ModulesInfo
-ModulePlanner *--> VersionTrackingManager
-ModulePlanner *--> SemesterName
+AddressBook *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *--> "*" Tag
 
-ModulePlanner *--> "1" UniqueStudyPlanList
-UniqueStudyPlanList o--> "*" StudyPlan
-StudyPlan *--> SemesterName
-StudyPlan *--> "2" UniqueTagList
-StudyPlan *--> Title
-StudyPlan *--> UniqueSemesterList
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
 
-UniqueModuleList o--> "*" Module
-Module *--> Name
-Module *--> PrereqTree
-Module *--> Color
-Module *--> ModuleCode
-Module *--> "1" UniqueTagList
-
-UniqueTagList o--> "*" Tag
-UserTag .up.|> Tag
-DefaultTag .up.|> Tag
-PriorityTag .up.|> Tag
-
-UniqueSemesterList o--> "*" Semester
-Semester *--> SemesterName
-Semester *--> UniqueModuleList
-
-ModelManager -->"1" StudyPlan : filtered list
+ModelManager -->"1" Person : filtered list
 @enduml

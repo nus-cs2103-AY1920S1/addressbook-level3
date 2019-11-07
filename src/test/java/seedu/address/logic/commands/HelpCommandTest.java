@@ -16,6 +16,7 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -101,6 +102,9 @@ public class HelpCommandTest {
 
         expectedCommandResult = new CommandResult(RemoveAllTagsCommand.MESSAGE_USAGE, false, false);
         assertEquals(new HelpCommand(RemoveAllTagsCommand.COMMAND_WORD).execute(model), expectedCommandResult);
+
+        expectedCommandResult = new CommandResult(RemoveTagFromAllCommand.MESSAGE_USAGE, false, false);
+        assertEquals(new HelpCommand(RemoveTagFromAllCommand.COMMAND_WORD).execute(model), expectedCommandResult);
 
         expectedCommandResult = new CommandResult(RemoveTagFromModuleCommand.MESSAGE_USAGE, false, false);
         assertEquals(new HelpCommand(RemoveTagFromModuleCommand.COMMAND_WORD).execute(model), expectedCommandResult);

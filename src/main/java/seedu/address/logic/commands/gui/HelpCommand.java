@@ -15,6 +15,7 @@ import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
@@ -86,6 +87,7 @@ public class HelpCommand extends Command {
             + ViewDefaultTagsCommand.HELP_MESSAGE + "\n"
             + TagModuleCommand.HELP_MESSAGE + "\n"
             + RemoveTagFromModuleCommand.HELP_MESSAGE + "\n"
+            + RemoveTagFromAllCommand.HELP_MESSAGE + "\n"
             + RenameTagCommand.HELP_MESSAGE + "\n"
             + DeleteTagCommand.HELP_MESSAGE + "\n"
             + ViewModuleTagsCommand.HELP_MESSAGE + "\n"
@@ -173,6 +175,9 @@ public class HelpCommand extends Command {
 
         case DeleteTagCommand.COMMAND_WORD:
             return new CommandResult(DeleteTagCommand.MESSAGE_USAGE, false, false);
+
+        case RemoveTagFromAllCommand.COMMAND_WORD:
+            return new CommandResult(RemoveTagFromAllCommand.MESSAGE_USAGE, false, false);
 
         case EditTitleCommand.COMMAND_WORD:
             return new CommandResult(EditTitleCommand.MESSAGE_USAGE, false, false);

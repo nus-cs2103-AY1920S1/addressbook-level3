@@ -56,18 +56,11 @@ public class UserTagTest {
     }
 
     @Test
-    public void rename_success() {
+    public void rename() {
         UserTag tag = new TagBuilder().buildTestUserTag();
         String newName = "newName";
         tag.rename(newName);
         assertEquals("newName", tag.getTagName());
-    }
-
-    @Test
-    public void rename_throwsInvalidTagNameException() {
-        UserTag tag = new TagBuilder().buildTestUserTag();
-        String invalidName = new TagBuilder().buildDefaultCoreTag().getTagName();
-        assertThrows(InvalidTagNameException.class, () -> tag.rename(invalidName));
     }
 
     @Test
