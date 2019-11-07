@@ -45,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(3, 1, 0, true);
+    public static final Version VERSION = new Version(1, 3, 3, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -56,7 +56,7 @@ public class MainApp extends Application {
     protected Config config;
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Athletick ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -84,11 +84,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address
-     * book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if
-     * {@code storage}'s address book is not found, or an empty address book will be
-     * used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s athletick data
+     * and {@code userPrefs}. <br>
+     * The data from the sample athletick will be used instead if
+     * {@code storage}'s athletick data is not found, or an empty athletick will be
+     * used instead if errors occur when reading {@code storage}'s athletick data.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAthletick> athletickOptional;

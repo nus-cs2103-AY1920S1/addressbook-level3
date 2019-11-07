@@ -39,12 +39,10 @@ public class CalendarPanel extends UiPart<Region> {
     private int year;
     private Calendar calendar;
     private Model model;
-    private Image leftIcon = new Image(this.getClass().getResourceAsStream("/images/left_arrow.png"));
-    private Image rightIcon = new Image(this.getClass().getResourceAsStream("/images/right_arrow.png"));
-    private Image trainingIcon = new Image(this.getClass().getResourceAsStream("/images"
-            + "/green_dot.png"));
-    private Image performanceIcon = new Image(this.getClass().getResourceAsStream("/images"
-            + "/purple_dot.png"));
+    private Image leftArrowIcon = new Image(this.getClass().getResourceAsStream("/images/left_arrow.png"));
+    private Image rightArrowIcon = new Image(this.getClass().getResourceAsStream("/images/right_arrow.png"));
+    private Image trainingIcon = new Image(this.getClass().getResourceAsStream("/images/green_dot.png"));
+    private Image performanceIcon = new Image(this.getClass().getResourceAsStream("/images/purple_dot.png"));
 
     @FXML
     private Label currYear;
@@ -64,6 +62,10 @@ public class CalendarPanel extends UiPart<Region> {
     @FXML
     private GridPane calendarGridPane;
 
+    /**
+     * Class constructor that constructs calendar for current month when no date is provided.
+     * @param model Represents memory of Athletick
+     */
     public CalendarPanel(Model model) {
         super(FXML);
         this.model = model;
@@ -74,6 +76,11 @@ public class CalendarPanel extends UiPart<Region> {
         initialiseSelectedDate(0);
     }
 
+    /**
+     * Class constructor that constructs calendar for provided date.
+     * @param date Date
+     * @param model Represents memory of Athletick
+     */
     public CalendarPanel(AthletickDate date, Model model) {
         super(FXML);
         this.model = model;
@@ -85,17 +92,28 @@ public class CalendarPanel extends UiPart<Region> {
         initialiseSelectedDate(0);
     }
 
+    /**
+     * Sets image of buttons to left and right arrows to navigate calendar.
+     */
     private void setButtonImage() {
-        ImageView leftArrow = new ImageView(leftIcon);
-        leftArrow.setFitHeight(32);
-        leftArrow.setFitWidth(32);
-        ImageView rightArrow = new ImageView(rightIcon);
-        rightArrow.setFitHeight(32);
-        rightArrow.setFitWidth(32);
+        ImageView leftArrow = createButtonImage(leftArrowIcon);
+        ImageView rightArrow = createButtonImage(rightArrowIcon);
         prevButton.setGraphic(leftArrow);
         nextButton.setGraphic(rightArrow);
         prevButton.setText("");
         nextButton.setText("");
+    }
+
+    /**
+     * Creates button ImageView in desired dimensions.
+     * @param image Image to be used
+     * @return ImageView in desired dimensions
+     */
+    private ImageView createButtonImage(Image image) {
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(32);
+        imageView.setFitWidth(32);
+        return imageView;
     }
 
     /**
@@ -114,10 +132,14 @@ public class CalendarPanel extends UiPart<Region> {
     private void setCurrentDateTitle() {
         String day = DAYS[dayOfWeek - 1];
         String currMonth = MONTHS[month];
-        currYear.setText("" + year);
+        currYear.setText(Integer.toString(year));
         currDayAndDate.setText(day + ", " + currMonth + " " + dayOfMonth);
     }
 
+    /**
+     * Assigns month and year using the provided date.
+     * @param date Date
+     */
     private void retrieveProvidedDate(AthletickDate date) {
         month = date.getMonth() - 1;
         year = date.getYear();
@@ -137,12 +159,19 @@ public class CalendarPanel extends UiPart<Region> {
         fillUpDays();
     }
 
+    /**
+     * Updates month and year variables based on the provided monthChange.
+     * @param monthChange
+     */
     private void updateDateVariables(int monthChange) {
         calendar.add(Calendar.MONTH, monthChange);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
     }
 
+    /**
+     * Sets the text of the selected date label to display to the user.
+     */
     private void setSelectedDateTitle() {
         String selectedMonth = MONTHS[month];
         selectedDateMessage.setText(selectedMonth + ", " + year);
@@ -164,7 +193,6 @@ public class CalendarPanel extends UiPart<Region> {
         String[] after = nextMonth(month, tailGap);
 
         String[] combined = combine(before, current, after);
-
         fillUpGrid(before.length, current.length, combined);
     }
 
@@ -210,18 +238,8 @@ public class CalendarPanel extends UiPart<Region> {
      * @return String array containing days from previous month.
      */
     private String[] previousMonth(int currMonth, int leadGap) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, currMonth);
-        c.add(Calendar.MONTH, -1);
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-
-        GregorianCalendar gc = new GregorianCalendar(y, m, 1);
-        int daysInMonth = DAYS_IN_MONTH[m];
-        if (gc.isLeapYear(gc.get(Calendar.YEAR)) && m == 1) {
-            daysInMonth++;
-        }
+        Calendar c = calendarConstructor(currMonth, -1);
+        int daysInMonth = checkLeapYear(c);
 
         StringBuilder sb = new StringBuilder();
         for (int i = daysInMonth; i > 0; i--) {
@@ -244,7 +262,6 @@ public class CalendarPanel extends UiPart<Region> {
             s[s.length - (i + 1)] = s[i];
             s[i] = temp;
         }
-
         return s;
     }
 
@@ -268,19 +285,8 @@ public class CalendarPanel extends UiPart<Region> {
      * @return String array containing days from next month.
      */
     private String[] nextMonth(int currMonth, int tailGap) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, currMonth);
-        c.add(Calendar.MONTH, 1);
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-
-        GregorianCalendar gc = new GregorianCalendar(y, m, 1);
-        int daysInMonth = DAYS_IN_MONTH[m];
-        if (gc.isLeapYear(gc.get(Calendar.YEAR)) && m == 1) {
-            daysInMonth++;
-        }
-
+        Calendar c = calendarConstructor(currMonth, 1);
+        int daysInMonth = checkLeapYear(c);
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= daysInMonth; i++) {
             sb.append(i).append(" ");
@@ -288,6 +294,38 @@ public class CalendarPanel extends UiPart<Region> {
         String[] allDays = sb.toString().split("\\s");
         String[] neededDays = Arrays.copyOfRange(allDays, 0, tailGap);
         return neededDays;
+    }
+
+    /**
+     * Constructs a calendar with the given month. Year will be updated as well if required.
+     * @param currMonth Current month
+     * @param monthChange Difference between desired month and current month
+     * @return Calendar with desired month and year.
+     */
+    private Calendar calendarConstructor(int currMonth, int monthChange) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, currMonth);
+        c.add(Calendar.MONTH, monthChange);
+        return c;
+    }
+
+    /**
+     * Checks if the year is a leap year and increments the number of days in month if leap year
+     * and month is February.
+     * @param c Calendar with month and year
+     * @return Number of days in month
+     */
+    private int checkLeapYear(Calendar c) {
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+
+        GregorianCalendar gc = new GregorianCalendar(year, month, 1);
+        int daysInMonth = DAYS_IN_MONTH[month];
+        if (gc.isLeapYear(gc.get(Calendar.YEAR)) && month == 1) {
+            daysInMonth++;
+        }
+        return daysInMonth;
     }
 
     /**
@@ -308,7 +346,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Adds date numbers and dot indicators inside each grid of the grid pane in the FXML.
+     * Adds date numbers and dot indicators inside each grid of the 42 cell grid pane.
      * @param numBefore Number of days from month before
      * @param numCurr Number of days from selected month
      * @param days String array containing all 42 days to be used to fill up the 7 * 6 grid pane
@@ -325,40 +363,57 @@ public class CalendarPanel extends UiPart<Region> {
                 boolean haveTrainingEntry;
                 boolean setColour = false;
                 if (beforeCount > 0) {
+                    // fills up leading days from previous month
                     l.setTextFill(Paint.valueOf("#999999"));
                     havePerformanceEntry = checkPerformanceEntryExists(day, -1);
                     haveTrainingEntry = checkTrainingEntryExists(day, -1);
                     beforeCount--;
                 } else if (currentCount > 0) {
-                    // mark today's date in red and bold, otherwise mark as normal
+                    // fills up days for current month
+                    // marks today's date in a blue circle and bold white text
                     if (isToday(days[counter])) {
                         l.setTextFill(Paint.valueOf("#ffffff"));
                         l.setStyle("-fx-font-weight:bold");
+                        // setColour results in a blue circle around the number and indicators
                         setColour = true;
                     }
                     havePerformanceEntry = checkPerformanceEntryExists(day, 0);
                     haveTrainingEntry = checkTrainingEntryExists(day, 0);
                     currentCount--;
                 } else {
+                    // fills up days for next month
                     havePerformanceEntry = checkPerformanceEntryExists(day, 1);
                     haveTrainingEntry = checkTrainingEntryExists(day, 1);
                     l.setTextFill(Paint.valueOf("#999999"));
                 }
-
-                ImageView performanceIndicator = createPerformanceIndicator();
-                ImageView trainingIndicator = createTrainingIndicator();
-                if (havePerformanceEntry && haveTrainingEntry) {
-                    calendarGridPane.add(gridContent(setColour, l,
-                            combineIndicators(trainingIndicator, performanceIndicator)), col, row);
-                } else if (havePerformanceEntry) {
-                    calendarGridPane.add(gridContent(setColour, l, performanceIndicator), col, row);
-                } else if (haveTrainingEntry) {
-                    calendarGridPane.add(gridContent(setColour, l, trainingIndicator), col, row);
-                } else {
-                    calendarGridPane.add(gridContent(setColour, l), col, row);
-                }
+                addContentToGrid(col, row, l, haveTrainingEntry, havePerformanceEntry, setColour);
                 counter++;
             }
+        }
+    }
+
+    /**
+     * Adds label to the provided coordinates of the grid.
+     * @param col Column
+     * @param row Row
+     * @param l Label
+     * @param haveTrainingEntry Indicates if there is a training entry on the date
+     * @param havePerformanceEntry Indicates if there is a performance entry on the date
+     * @param setColour Indicates if the date corresponds to today's date
+     */
+    private void addContentToGrid(int col, int row, Label l, boolean haveTrainingEntry,
+                                  boolean havePerformanceEntry, boolean setColour) {
+        ImageView performanceIndicator = createPerformanceIndicator();
+        ImageView trainingIndicator = createTrainingIndicator();
+        if (havePerformanceEntry && haveTrainingEntry) {
+            calendarGridPane.add(gridContent(setColour, l,
+                    combineIndicators(trainingIndicator, performanceIndicator)), col, row);
+        } else if (havePerformanceEntry) {
+            calendarGridPane.add(gridContent(setColour, l, performanceIndicator), col, row);
+        } else if (haveTrainingEntry) {
+            calendarGridPane.add(gridContent(setColour, l, trainingIndicator), col, row);
+        } else {
+            calendarGridPane.add(gridContent(setColour, l), col, row);
         }
     }
 
@@ -371,14 +426,7 @@ public class CalendarPanel extends UiPart<Region> {
      * @return boolean True if there is a performance entry on that date, false otherwise.
      */
     private boolean checkPerformanceEntryExists(String day, int monthChange) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.add(Calendar.MONTH, monthChange);
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-        AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
-                MONTHS[m]);
+        AthletickDate ad = dateConstructor(day, monthChange);
         return model.hasPerformanceOn(ad);
     }
 
@@ -402,6 +450,19 @@ public class CalendarPanel extends UiPart<Region> {
      * @return boolean True if there is a training entry on that date, false otherwise.
      */
     private boolean checkTrainingEntryExists(String day, int monthChange) {
+        AthletickDate ad = dateConstructor(day, monthChange);
+        return model.hasTrainingOnDate(ad);
+    }
+
+    /**
+     * Constructs AthletickDate using provided day and monthChange for methods
+     * checkTrainingEntryExists() and checkPerformanceEntryExists().
+     * @param day Day
+     * @param monthChange Different between current month and desired month. Used to account for
+     *                    days of previous and next month
+     * @return AthletickDate with desired day, month and year.
+     */
+    private AthletickDate dateConstructor(String day, int monthChange) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
@@ -410,7 +471,7 @@ public class CalendarPanel extends UiPart<Region> {
         int m = c.get(Calendar.MONTH);
         AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
                 MONTHS[m]);
-        return model.hasTrainingOnDate(ad);
+        return ad;
     }
 
     /**
@@ -456,12 +517,7 @@ public class CalendarPanel extends UiPart<Region> {
      * @return VBox containing item.
      */
     private VBox gridContent(boolean setColor, Node ... items) {
-        VBox v = new VBox();
-        v.setFillWidth(false);
-        v.setPrefHeight(30);
-        v.setPrefHeight(30);
-        v.setMaxSize(30, 30);
-        v.setAlignment(Pos.TOP_CENTER);
+        VBox v = createGridContentHolder();
         for (Node item : items) {
             v.getChildren().add(item);
         }
@@ -472,25 +528,57 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
+     * Creates VBox with desired settings that will contain all items for each individual grid.
+     * @return VBox with desired settings.
+     */
+    private VBox createGridContentHolder() {
+        VBox v = new VBox();
+        v.setFillWidth(false);
+        v.setPrefHeight(30);
+        v.setPrefHeight(30);
+        v.setMaxSize(30, 30);
+        v.setAlignment(Pos.TOP_CENTER);
+        return v;
+    }
+
+    /**
      * Combines training and performance indicators together when a date has both training and
      *  performance records.
      * @param items Dot indicators
      * @return HBox with indicators placed inside with appropriate margins between indicators.
      */
     private HBox combineIndicators(Node ... items) {
+        HBox h = createCombineIndicatorHolder();
+        for (Node item : items) {
+            VBox v = createIndicatorHolder();
+            v.getChildren().add(item);
+            h.getChildren().add(v);
+        }
+        return h;
+    }
+
+    /**
+     * Creates a HBox with the desired settings to contain the 2 indicators beside each other.
+     * @return HBox with desired settings
+     */
+    private HBox createCombineIndicatorHolder() {
         HBox h = new HBox();
         h.setFillHeight(false);
         h.setPrefHeight(Region.USE_COMPUTED_SIZE);
         h.setPrefWidth(Region.USE_COMPUTED_SIZE);
         h.setAlignment(Pos.TOP_CENTER);
-        for (Node item : items) {
-            VBox v = new VBox();
-            v.getChildren().add(item);
-            v.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-            v.setPadding(new Insets(0, 3, 0, 3));
-            h.getChildren().add(v);
-        }
         return h;
+    }
+
+    /**
+     * Creates a VBox with the desired settings to contain a single indicator.
+     * @return VBox with desired settings
+     */
+    private VBox createIndicatorHolder() {
+        VBox v = new VBox();
+        v.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        v.setPadding(new Insets(0, 3, 0, 3));
+        return v;
     }
 
     /**

@@ -79,11 +79,11 @@ public class TypicalPersons {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static Athletick getTypicalAthletick() {
-        Athletick ab = new Athletick();
+        Athletick a = new Athletick();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            a.addPerson(person);
         }
-        return ab;
+        return a;
     }
 
     public static List<Person> getTypicalPersons() {

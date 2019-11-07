@@ -64,7 +64,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAthletick getAddressBook() {
+    public ReadOnlyAthletick getAthletick() {
         return model.getAthletick();
     }
 

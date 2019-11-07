@@ -121,6 +121,9 @@ public class ParserUtil {
     public static AthletickDate parseDateTypeOne(String date) throws ParseException {
         try {
             date = date.trim();
+            if (date.length() != 8) {
+                throw new java.text.ParseException("Incorrect date length", 8);
+            }
             SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
             fullDate.setLenient(false);
             Date d = fullDate.parse(date);
@@ -146,6 +149,9 @@ public class ParserUtil {
     public static AthletickDate parseDateTypeTwo(String date) throws ParseException {
         try {
             date = date.trim();
+            if (date.length() != 6) {
+                throw new java.text.ParseException("Incorrect date length", 6);
+            }
             SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
             monthYear.setLenient(false);
             Date d2 = monthYear.parse(date);
