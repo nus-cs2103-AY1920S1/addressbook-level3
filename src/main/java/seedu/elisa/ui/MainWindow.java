@@ -1,5 +1,8 @@
 package seedu.elisa.ui;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -49,8 +52,7 @@ import seedu.elisa.model.item.EventList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
 import seedu.elisa.model.item.VisualizeList;
-
-
+import seedu.elisa.storage.GameStorage;
 
 
 /**
@@ -69,14 +71,16 @@ public class MainWindow extends UiPart<Stage> {
             .getResource("images/FocusElisa.PNG").toString());
     private final Image blueElisa = new Image(getClass().getClassLoader()
             .getResource("images/ElisaImageWithoutWords.PNG").toString());
-
+    private final Path gamefilePath = Paths.get("data", "gamescore.json");
     private Stage primaryStage;
     private Logic logic;
 
     // Elements for Game
+    private GameStorage gameStorage;
     private GameLoop loop;
     private Grid grid;
     private GraphicsContext context;
+    private TreeSet<Integer> scorelist;
 
     // Independent Ui parts residing in this Ui container
     private EventListPanel eventListPanel;
@@ -138,6 +142,15 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
+
+        gameStorage = new GameStorage(gamefilePath);
+        try {
+            gameStorage.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        scorelist = gameStorage.getScorelist();
+        scorelist.add(0);
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -559,6 +572,15 @@ public class MainWindow extends UiPart<Stage> {
             if (loop.isKeyPressed()) {
                 return;
             }
+            if (loop.isPaused()) {
+                scorelist.add(loop.getCurrentScore());
+                gameStorage.updateScoreList(loop.getCurrentScore());
+                try {
+                    gameStorage.save();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
             switch (e.getCode()) {
             case UP:
                 snake.setUp();
@@ -606,7 +628,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void resetgame() {
         grid = new Grid(WIDTH, HEIGHT);
-        loop = new GameLoop(grid, context);
+        loop = new GameLoop(grid, context, scorelist);
         Painter.paint(grid, context);
     }
 

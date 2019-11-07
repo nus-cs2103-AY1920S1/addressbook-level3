@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
  */
 public class Painter {
 
+    private static Snake snake;
+
     /**
      * The method to paint the snake.
      * @param grid
@@ -24,7 +26,7 @@ public class Painter {
         paintPoint(grid.getFood().getPoint(), gc);
 
         // Now the snake
-        Snake snake = grid.getSnake();
+        snake = grid.getSnake();
         gc.setFill(Snake.COLOR);
         snake.getPoints().forEach(point -> paintPoint(point, gc));
         if (!snake.isSafe()) {
@@ -33,8 +35,9 @@ public class Painter {
         }
 
         // The score
+        snake.setCurrentScore(100 * (snake.getPoints().size() - 1));
         gc.setFill(Color.BEIGE);
-        gc.fillText("Score : " + 100 * snake.getPoints().size(), 10, 490);
+        gc.fillText("Current score : " + snake.getCurrentScore(), 10, 470);
     }
 
     /**
@@ -53,5 +56,21 @@ public class Painter {
     public static void paintResetMessage(GraphicsContext gc) {
         gc.setFill(Color.AQUAMARINE);
         gc.fillText("\nHit RETURN to reset the game. \nHit ESC to get back to WORK!!!", 10, 10);
+    }
+
+    public static int getCurrentScore() {
+        return snake.getCurrentScore();
+    }
+
+    public static void resetScore() {
+        snake.setCurrentScore(0);
+    }
+
+    public static void paintHighScore(GraphicsContext gc, int score) {
+        gc.setFill(Color.BEIGE);
+        if (getCurrentScore() > score) {
+            score = getCurrentScore();
+        }
+        gc.fillText("High score: " + String.valueOf(score), 10, 490);
     }
 }

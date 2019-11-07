@@ -1,5 +1,6 @@
 package seedu.elisa.game;
 
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -11,15 +12,18 @@ import seedu.elisa.commons.core.LogsCenter;
 public class GameLoop implements Runnable {
     private final Grid grid;
     private final GraphicsContext context;
+    private int currentScore;
     private int frameRate;
     private float interval;
     private boolean running;
     private boolean paused;
     private boolean keyIsPressed;
 
+    private TreeSet<Integer> scorelist;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public GameLoop(final Grid grid, final GraphicsContext context) {
+    public GameLoop(final Grid grid, final GraphicsContext context, TreeSet<Integer> scorelist) {
         this.grid = grid;
         this.context = context;
         frameRate = 20;
@@ -27,6 +31,8 @@ public class GameLoop implements Runnable {
         running = true;
         paused = false;
         keyIsPressed = false;
+        currentScore = 0;
+        this.scorelist = scorelist;
     }
 
     @Override
@@ -41,7 +47,10 @@ public class GameLoop implements Runnable {
 
             if (!grid.getSnake().isSafe()) {
                 pause();
+                currentScore = Painter.getCurrentScore();
                 Painter.paintResetMessage(context);
+                Painter.paintHighScore(context, scorelist.last());
+                Painter.resetScore();
                 break;
             }
 
@@ -56,6 +65,10 @@ public class GameLoop implements Runnable {
                 }
             }
         }
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
     }
 
     public void stop() {

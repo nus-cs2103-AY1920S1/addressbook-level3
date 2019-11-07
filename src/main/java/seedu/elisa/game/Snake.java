@@ -17,6 +17,7 @@ public class Snake {
     private boolean safe;
     private List<Point> points;
     private Point head;
+    private int currentScore;
     private int xVelocity;
     private int yVelocity;
 
@@ -35,6 +36,11 @@ public class Snake {
         this.grid = grid;
         xVelocity = 0;
         yVelocity = 0;
+        currentScore = 0;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
     }
 
     /**
@@ -145,5 +151,9 @@ public class Snake {
         }
         xVelocity = 1;
         yVelocity = 0;
+    }
+
+    public void setCurrentScore(int score) {
+        this.currentScore = score;
     }
 }
