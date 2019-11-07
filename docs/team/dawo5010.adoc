@@ -106,6 +106,8 @@ statistics to easily be added, simply by changing the criteria used when process
 === Code contributed
 Click on the following links to view the code that I have contributed:
 
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dawo5010&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dawo5010&tabRepo=AY1920S1-CS2103T-T13-3%2Fmain%5Bmaster%5D[RepoSense]
+
 * https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/overview/[Functional Code]
 
 * https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/overview/[Test Code]
