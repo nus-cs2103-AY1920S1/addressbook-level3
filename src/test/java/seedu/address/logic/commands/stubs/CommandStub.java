@@ -23,7 +23,7 @@ public class CommandStub extends Command {
     }
 
     /** CommandStub */
-    private static class Builder extends CommandBuilder {
+    public static class Builder extends CommandBuilder {
 
         @Override
         protected CommandBuilder init() {

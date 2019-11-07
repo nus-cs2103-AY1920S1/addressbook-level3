@@ -31,7 +31,7 @@ public class OneArgumentCommandStub extends Command {
     }
 
     /** CommandStub */
-    private static class Builder extends CommandBuilder {
+    public static class Builder extends CommandBuilder {
 
         private String argument;
 
