@@ -28,13 +28,11 @@ public class ScheduleEvent implements Event {
     private final LocalTime startTime;
     private final Index dayIndex;
     private final Index activityIndex;
-    private final Model model;
 
     public ScheduleEvent(Index activityIndex, LocalTime startTime, Index dayIndex, Model model) throws EventException {
         this.activityIndex = activityIndex;
         this.startTime = startTime;
         this.dayIndex = dayIndex;
-        this.model = model;
         activityScheduled = generateActivityScheduled(model);
     }
 
