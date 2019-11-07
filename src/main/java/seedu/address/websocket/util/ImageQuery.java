@@ -51,7 +51,7 @@ public class ImageQuery {
         try {
             URL url = new URL(imageUrl);
             URLConnection conn = url.openConnection();
-
+            logger.info("Calling: " + imageUrl);
             Map<String, List<String>> map = conn.getHeaderFields();
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                 String key = entry.getKey();

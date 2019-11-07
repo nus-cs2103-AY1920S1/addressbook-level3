@@ -72,8 +72,12 @@ class CacheTest {
     void loadPlacesHappyFlow() {
         JSONObject placeResponse1 = Cache.loadPlaces("NUS_LT17");
         assertEquals("OK", GmapsJsonUtils.getStatus(placeResponse1));
+    }
+
+    @Test
+    void loadPlacesSadFlow_invalidLocation() {
         JSONObject placeResponse2 = Cache.loadPlaces("FOOB");
-        assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(placeResponse2));
+        assertEquals(new JSONObject(), placeResponse2);
     }
 
     @Test
