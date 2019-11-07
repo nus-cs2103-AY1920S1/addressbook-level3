@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -515,6 +516,7 @@ public class ModelManager implements Model {
      */
     @Override
     public List<ObservableList<ObservableList<String>>> getObservableLists() {
+        Collections.sort(schedulesList);
         List<ObservableList<ObservableList<String>>> observableLists = new LinkedList<>();
         for (Schedule schedule : schedulesList) {
             observableLists.add(schedule.getObservableList());
@@ -529,11 +531,13 @@ public class ModelManager implements Model {
      */
     @Override
     public List<Schedule> getSchedulesList() {
+        Collections.sort(schedulesList);
         return schedulesList;
     }
 
     @Override
     public List<List<String>> getTitlesLists() {
+        Collections.sort(schedulesList);
         List<List<String>> titlesLists = new LinkedList<>();
         for (Schedule schedule : schedulesList) {
             titlesLists.add(schedule.getTitles());

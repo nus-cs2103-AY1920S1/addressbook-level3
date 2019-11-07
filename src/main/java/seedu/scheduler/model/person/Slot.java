@@ -32,6 +32,7 @@ public class Slot implements Comparable<Slot> {
             + "Correct: '03/12/2019 13:00-14:00'\n"
             + "Incorrect: '03/12/2019 13:00-13:00'";
     public static final String DATETIME_PARSE_PATTERN = "dd/MM/yyyy HH:mm";
+    public static final String DATE_PARSE_PATTERN = "dd/MM/yyyy";
     private static final Pattern SEPARATION_REGEX =
             Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4}) (?<slot1>\\d{2}:\\d{2})-(?<slot2>\\d{2}:\\d{2})");
     private static final DateTimeFormatter parseFormatter =
