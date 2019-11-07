@@ -86,4 +86,14 @@ public class VersionedTemplateList extends TemplateList {
         newTemplateStateList.add(null);
         templateIndex.add(-1);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof VersionedTemplateList // instanceof handles nulls
+                && templateListStateList.equals(((VersionedTemplateList) other).templateListStateList)
+                && prevTemplateStateList.equals(((VersionedTemplateList) other).prevTemplateStateList)
+                && newTemplateStateList.equals(((VersionedTemplateList) other).newTemplateStateList)
+                && templateIndex.equals(((VersionedTemplateList) other).templateIndex));
+    }
 }

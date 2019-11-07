@@ -756,6 +756,11 @@ public class ModelManager implements Model {
                 && filteredWasteItems.equals(other.filteredWasteItems)
                 && filteredShoppingItems.equals(other.filteredShoppingItems)
                 && filteredShownTemplate.equals(other.filteredShownTemplate)
+                //&& versionedGroceryList.equals(other.versionedGroceryList)
+                //&& versionedTemplateList.equals(other.versionedTemplateList)
+                //&& versionedWasteList.equals(other.versionedWasteList)
+                //&& versionedShoppingList.equals(other.versionedShoppingList)
+                //&& versionedBoughtList.equals(other.versionedBoughtList)
                 && unitDictionary.equals(other.unitDictionary);
     }
 }
