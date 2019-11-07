@@ -1,6 +1,7 @@
 package calofit.storage;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import calofit.commons.exceptions.DataConversionException;
 import calofit.model.meal.MealLog;
 import calofit.model.meal.ReadOnlyMealLog;
 import calofit.testutil.Assert;
+import calofit.testutil.TypicalMeals;
 
 public class JsonMealLogStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMealLogStorageTest");
@@ -50,7 +52,6 @@ public class JsonMealLogStorageTest {
         Assert.assertThrows(DataConversionException.class, () -> readMealLog("invalidMealLog.json"));
     }
 
-    /*
     @Test
     public void readAndSaveMealLog_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempMealLog.json");
@@ -63,20 +64,19 @@ public class JsonMealLogStorageTest {
         assertEquals(original, new MealLog(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addMeal(TypicalMeals.MUSHROOM_SOUP);
+        original.addMeal(TypicalMeals.CEREAL);
         original.removeMeal(TypicalMeals.SPAGHETTI);
         jsonMealLogStorage.saveMealLog(original, filePath);
         readBack = jsonMealLogStorage.readMealLog(filePath).get();
         assertEquals(original, new MealLog(readBack));
 
         // Save and read without specifying file path
-        original.addMeal(TypicalMeals.APPLE_PIE);
+        original.addMeal(TypicalMeals.STEAK);
         jsonMealLogStorage.saveMealLog(original); // file path not specified
         readBack = jsonMealLogStorage.readMealLog().get(); // file path not specified
         assertEquals(original, new MealLog(readBack));
 
     }
-    */
 
     @Test
     public void saveMealLog_nullMealLog_throwsNullPointerException() {
