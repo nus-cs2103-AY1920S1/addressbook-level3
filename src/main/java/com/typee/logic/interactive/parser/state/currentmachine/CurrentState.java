@@ -16,10 +16,6 @@ public class CurrentState extends EndState {
 
     private String currentMessage;
 
-    protected CurrentState(ArgumentMultimap soFar) {
-        super(soFar);
-    }
-
     public CurrentState(String currentMessage) {
         super(new ArgumentMultimap());
         this.currentMessage = currentMessage;
