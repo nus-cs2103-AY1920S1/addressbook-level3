@@ -22,13 +22,13 @@ FlashCard Pro is an application designed for students who prefer to use a deskto
 
 FlashCard Pro is optimised for users who are comfortable with Command Line Interface-based interaction, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
 
-== Flashcards
+== What is a flashcard?
 
-What is a flashcard? Flashcards are containers for information. Each card has a “front” and a “back”. One recommended use case is such: the user stores a question on the “front” of the card, and the answer on the “back”.
+*Flashcards* are containers for information. Each card has a “front” and a “back”. One recommended use case is such: the user stores a question on the “front” of the card, and the answer on the “back”.
 
 == Interacting with flashcards
 
-After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via timed and untimed tests. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard. Other types of flashcards support more advanced interactions. Cards with multiple choices for their answers will prompt the user to select the answer and gauge whether the answer is correct.
+After sets of flashcards (known as *“decks”*) have been created, the user may interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via *timed and untimed tests*. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard. Other types of flashcards support more advanced interactions. Cards with multiple choices for their answers will prompt the user to select the answer and gauge whether the answer is correct.
 
 At the end of a test, FlashCard Pro will provide the user with a score. Comprehensive statistics on the user's login sessions and test sessions are recorded, which can be accessed via the Statistics menu in FlashCard Pro. The user may use these statistics to assess the frequency of their usage and their performance. Statistics are also provided on each card in a deck, so that the user can identify specific cards they may have problems with.
 
