@@ -7,6 +7,7 @@ import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 
+import io.xpire.model.ListType;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.Messages;
@@ -15,16 +16,17 @@ import io.xpire.model.tag.Tag;
 
 public class TagCommandParserTest {
 
-    private TagCommandParser parser = new TagCommandParser();
+    private TagCommandParser parser = new TagCommandParser(ListType.XPIRE);
 
     @Test
     public void parse_validSingleTag_returnTagCommand() {
-        assertEqualsParseSuccess(parser, "1|#Fruit", new TagCommand(INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRUIT}));
+        assertEqualsParseSuccess(parser, "1|#Fruit", new TagCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
+                new String[]{VALID_TAG_FRUIT}));
     }
 
     @Test
     public void parse_validMultipleTags_returnTagCommand() {
-        assertEqualsParseSuccess(parser, "1|#Fruit#Fridge", new TagCommand(INDEX_FIRST_ITEM,
+        assertEqualsParseSuccess(parser, "1|#Fruit#Fridge", new TagCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
                 new String[]{VALID_TAG_FRUIT, VALID_TAG_FRIDGE}));
     }
 
@@ -53,6 +55,6 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_showTags_returnsShowCommand() {
-        assertEqualsParseSuccess(parser, "", new TagCommand());
+        assertEqualsParseSuccess(parser, "", new TagCommand(ListType.XPIRE));
     }
 }

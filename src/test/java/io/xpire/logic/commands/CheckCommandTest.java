@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
+import io.xpire.model.ListType;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.model.Model;
@@ -35,10 +36,10 @@ public class CheckCommandTest {
         String expectedMessage = MESSAGE_SUCCESS;
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
         CheckCommand command = new CheckCommand(predicate);
-        expectedModel.updateFilteredItemList(predicate);
+        expectedModel.filterCurrentList(ListType.XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRING_FISH, EXPIRED_MILK, EXPIRED_ORANGE),
-                model.getFilteredXpireItemList());
+                model.getCurrentList());
     }
 
     @Test
@@ -46,9 +47,9 @@ public class CheckCommandTest {
         String expectedMessage = MESSAGE_SUCCESS;
         ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(5);
         CheckCommand command = new CheckCommand(predicate, 5);
-        expectedModel.updateFilteredItemList(predicate);
+        expectedModel.filterCurrentList(ListType.XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredXpireItemList());
+        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getCurrentList());
     }
 
     @Test
