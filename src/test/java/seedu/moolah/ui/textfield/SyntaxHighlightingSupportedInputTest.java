@@ -40,26 +40,34 @@ class SyntaxHighlightingSupportedInputTest {
 
     @Test
     void getDescription() {
-        assertEquals(prefixStub0.getDescriptionOfArgument(), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getDescription(prefixStub0.getPrefix()));
-        assertEquals(prefixStub1.getDescriptionOfArgument(), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1.getDescription(prefixStub1.getPrefix()));
+        assertEquals(
+                prefixStub0.getDescriptionOfArgument(),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getDescription(prefixStub0.getPrefix()));
+        assertEquals(
+                prefixStub1.getDescriptionOfArgument(),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1.getDescription(prefixStub1.getPrefix()));
 
         assertEquals("", SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1.getDescription("notAprefix"));
 
-        assertNotEquals(prefixStub0.getDescriptionOfArgument(), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1.getDescription(prefixStub1.getPrefix()));
-        assertNotEquals(prefixStub2.getDescriptionOfArgument(), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getDescription(prefixStub1.getPrefix()));
+        assertNotEquals(
+                prefixStub0.getDescriptionOfArgument(),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1.getDescription(prefixStub1.getPrefix()));
+        assertNotEquals(
+                prefixStub2.getDescriptionOfArgument(),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getDescription(prefixStub1.getPrefix()));
     }
 
     @Test
     void getPattern() {
-        Function<Integer, String> zero = num ->  "(?<prefix" + num + "> " + prefixStub0.getPrefix() + ")|";
-        Function<Integer, String> one = num ->  "(?<prefix" + num + "> " + prefixStub1.getPrefix() + ")|";
-        Function<Integer, String> two = num ->  "(?<prefix" + num + "> " + prefixStub2.getPrefix() + ")|";
+        Function<Integer, String> zero = num -> "(?<prefix" + num + "> " + prefixStub0.getPrefix() + ")|";
+        Function<Integer, String> one = num -> "(?<prefix" + num + "> " + prefixStub1.getPrefix() + ")|";
+        Function<Integer, String> two = num -> "(?<prefix" + num + "> " + prefixStub2.getPrefix() + ")|";
 
         String expected0 = String.format(
                 INPUT_PATTERN_TEMPLATE,
                 COMMAND0,
                 String.join("", zero.apply(0), one.apply(1), two.apply(2)));
-        
+
         String expected1 = String.format(
                 INPUT_PATTERN_TEMPLATE,
                 COMMAND1,
@@ -88,8 +96,14 @@ class SyntaxHighlightingSupportedInputTest {
 
     @Test
     void getPrefixes() {
-        assertEquals(List.of(prefixStub0, prefixStub1, prefixStub2), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
-        assertEquals(List.of(prefixStub0, prefixStub1, prefixStub2), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
-        assertEquals(List.of(prefixStub0, prefixStub1, prefixStub2), SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
+        assertEquals(
+                List.of(prefixStub0, prefixStub1, prefixStub2),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
+        assertEquals(
+                List.of(prefixStub0, prefixStub1, prefixStub2),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
+        assertEquals(
+                List.of(prefixStub0, prefixStub1, prefixStub2),
+                SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0.getPrefixes());
     }
 }

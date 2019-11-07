@@ -47,15 +47,18 @@ public class CommandTextField extends StyleClassedTextArea {
     static final String STRING_STYLE = "string";
     static final String SYNTAX_HIGHLIGHTING_CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
-    private static final Border enabledBorder = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
-    private static final Border disabledBorder = new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
+    private static final Border enabledBorder = new Border(
+            new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
+    private static final Border disabledBorder = new Border(
+            new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
 
     private static final double TEXTFIELD_HEIGHT = 25;
 
-    InputHistory inputHistory;
+    private InputHistory inputHistory;
 
     private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
-    AutofillSuggestionMenu autofillMenu;
+
+    private AutofillSuggestionMenu autofillMenu;
     private StringProperty currentCommand;
 
     private Subscription syntaxHighlightSubscription;
@@ -107,7 +110,7 @@ public class CommandTextField extends StyleClassedTextArea {
             } else if (keyEvent.getCode().equals(TAB)) {
                 autofillMenu.toggle();
                 if (autofillMenu.enabledProperty().get()) {
-                    autofillMenu.show(this, Side.BOTTOM, 0,0);
+                    autofillMenu.show(this, Side.BOTTOM, 0, 0);
                 }
                 keyEvent.consume();
             }
@@ -176,6 +179,15 @@ public class CommandTextField extends StyleClassedTextArea {
         String input = getText();
         inputHistory.push(input);
         clear();
+    }
+
+
+    public AutofillSuggestionMenu getAutofillMenu() {
+        return autofillMenu;
+    }
+
+    public InputHistory getInputHistory() {
+        return inputHistory;
     }
 
     /**

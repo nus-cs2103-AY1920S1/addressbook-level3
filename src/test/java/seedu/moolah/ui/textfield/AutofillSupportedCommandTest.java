@@ -16,35 +16,30 @@ class AutofillSupportedCommandTest {
 
     private static final String COMMAND_0 = "command0";
     private static final String COMMAND_1 = "command1";
-
+    private static final AutofillSupportedCommand SUT_3 =
+            new AutofillSupportedCommand(COMMAND_1, Collections.emptyList(), Collections.emptyList());
     private static Prefix prefixStub0 = new Prefix("", "") {
         @Override
         public String getPrefix() {
             return "a/";
         }
     };
-
     private static Prefix prefixStub1 = new Prefix("", "") {
         @Override
         public String getPrefix() {
             return "ab/";
         }
     };
-
     private static final AutofillSupportedCommand SUT_1 =
             new AutofillSupportedCommand(
                     COMMAND_0,
                     List.of(prefixStub0, prefixStub1),
                     Collections.emptyList());
-
     private static final AutofillSupportedCommand SUT_2 =
             new AutofillSupportedCommand(
                     COMMAND_0,
                     List.of(prefixStub0),
                     List.of(prefixStub1));
-
-    private static final AutofillSupportedCommand SUT_3 =
-            new AutofillSupportedCommand(COMMAND_1, Collections.emptyList(), Collections.emptyList());
 
     @Test
     void isRequired() {

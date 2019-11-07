@@ -15,7 +15,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -25,26 +24,29 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moolah.logic.parser.Prefix;
 
+/**
+ * AutofillSuggestionMenuTest for menu which supports a command.
+ */
 class AutofillSuggestionMenuTest1 extends ApplicationTest {
-
-    private AutofillSuggestionMenu sutWithOneCommand;
 
     private static final String COMMAND = "COMMAND";
     private static final String PARTIAL_COMMAND = COMMAND.substring(0, 2);
-
     private static final List<Prefix> REQUIRED = List.of(
             new Prefix("a/", "a"),
             new Prefix("b/", "b")
     );
-
     private static final List<Prefix> OPTIONAL = List.of(
             new Prefix("c/", "c")
     );
 
+    private AutofillSuggestionMenu sutWithOneCommand;
     private CommandTextField styleClassedTextArea;
 
     private SimpleStringProperty commandPropertyStub;
 
+    /**
+     * Helper method to fire a press and release KeyEvent with a specified KeyCode at a specifed EventTarget.
+     */
     private static void pushKey(KeyCode keyCode, EventTarget target) {
         KeyEvent.fireEvent(
                 target,
@@ -59,7 +61,8 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
-        styleClassedTextArea = new CommandTextField(string -> {});
+        styleClassedTextArea = new CommandTextField(string -> {
+        });
         stage.setScene(new Scene(new VBox(styleClassedTextArea)));
         commandPropertyStub = new SimpleStringProperty("");
         sutWithOneCommand = new AutofillSuggestionMenu(styleClassedTextArea, commandPropertyStub);
@@ -127,7 +130,7 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
     void show_noTextHasCommand_show() {
         sutWithOneCommand.toggle();
         Platform.runLater(() -> {
-            sutWithOneCommand.show(styleClassedTextArea, Side.BOTTOM, 0,0);
+            sutWithOneCommand.show(styleClassedTextArea, Side.BOTTOM, 0, 0);
             assertTrue(sutWithOneCommand.isShowing());
         });
     }
@@ -136,7 +139,7 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
     void show_noTextHasCommand_show1() {
         sutWithOneCommand.toggle();
         Platform.runLater(() -> {
-            sutWithOneCommand.show(styleClassedTextArea, 0,0);
+            sutWithOneCommand.show(styleClassedTextArea, 0, 0);
             assertTrue(sutWithOneCommand.isShowing());
         });
     }
@@ -146,7 +149,7 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
         sutWithOneCommand.toggle();
 
         Platform.runLater(() -> {
-            sutWithOneCommand.show(window(styleClassedTextArea), 0,0);
+            sutWithOneCommand.show(window(styleClassedTextArea), 0, 0);
             assertTrue(sutWithOneCommand.isShowing());
         });
     }
@@ -190,7 +193,7 @@ class AutofillSuggestionMenuTest1 extends ApplicationTest {
 
         new FxRobot().write(PARTIAL_COMMAND);
         Platform.runLater(() -> {
-            sutWithOneCommand.show(window(styleClassedTextArea), 0,0);
+            sutWithOneCommand.show(window(styleClassedTextArea), 0, 0);
             assertTrue(sutWithOneCommand.isShowing());
             assertTrue(sutWithOneCommand.getItems().size() > 0);
         });

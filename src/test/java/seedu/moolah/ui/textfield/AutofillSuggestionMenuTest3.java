@@ -1,12 +1,10 @@
 package seedu.moolah.ui.textfield;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fxmisc.richtext.StyleClassedTextArea;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -18,20 +16,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moolah.logic.parser.Prefix;
 
+/**
+ * AutofillSuggestionMenuTest for AutofillSuggestionMenu with supported command which is to be removed.
+ */
 class AutofillSuggestionMenuTest3 extends ApplicationTest {
-
-    private AutofillSuggestionMenu menuWithCommandToBeRemoved;
 
     private static final String COMMAND = "COMMAND";
     private static final List<Prefix> REQUIRED = new ArrayList<>();
     private static final List<Prefix> OPTIONAL = new ArrayList<>();
-
+    private AutofillSuggestionMenu menuWithCommandToBeRemoved;
     private CommandTextField stubToRemove;
 
     @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
-        stubToRemove = new CommandTextField(string -> {});
+        stubToRemove = new CommandTextField(string -> {
+        });
         stage.setScene(new Scene(new VBox(stubToRemove)));
         stubToRemove.setContextMenu(menuWithCommandToBeRemoved);
         SimpleStringProperty commandPropertyStub = new SimpleStringProperty("");

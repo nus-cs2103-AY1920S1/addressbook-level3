@@ -21,13 +21,15 @@ import javafx.stage.Stage;
 
 class CommandBoxTest extends ApplicationTest {
 
+    private static final String COMMAND = "command";
     private CommandBox commandBox;
     private FxRobot robot;
     private CommandBox.CommandExecutor commandExecutorStub;
-    private Runnable resetSUT;
+    private Runnable resetSut;
 
-    private static String COMMAND = "command";
-
+    /**
+     * Helper method to fire a press and release KeyEvent with a specified KeyCode at the Command Box's textfield.
+     */
     void pushKey(KeyCode keyCode) {
         KeyEvent.fireEvent(commandBox.commandTextField,
                 new KeyEvent(KeyEvent.KEY_PRESSED, null, null, keyCode, false, false, false, false));
@@ -35,13 +37,14 @@ class CommandBoxTest extends ApplicationTest {
                 new KeyEvent(KeyEvent.KEY_RELEASED, null, null, keyCode, false, false, false, false));
     }
 
+    @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
         commandExecutorStub = commandText -> null;
         commandBox = new CommandBox(commandExecutorStub);
         stage.setScene(new Scene(commandBox.getRoot()));
         robot = new FxRobot();
-        resetSUT = () -> {
+        resetSut = () -> {
             commandBox = new CommandBox(commandExecutorStub);
             stage.setScene(new Scene(commandBox.getRoot()));
             stage.getScene().getStylesheets().clear();
@@ -52,7 +55,7 @@ class CommandBoxTest extends ApplicationTest {
     @AfterEach
     void tearDown() {
         Platform.runLater(() -> {
-            resetSUT.run();
+            resetSut.run();
         });
     }
 
@@ -91,7 +94,7 @@ class CommandBoxTest extends ApplicationTest {
         robot.sleep(400);
 
         robot.interact(() -> {
-                assertEquals(expected.create(), commandBox.commandTextField.getStyleSpan());
+            assertEquals(expected.create(), commandBox.commandTextField.getStyleSpan());
         });
     }
 

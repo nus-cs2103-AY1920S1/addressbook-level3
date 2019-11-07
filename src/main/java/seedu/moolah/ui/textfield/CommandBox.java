@@ -21,9 +21,8 @@ import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 public class CommandBox extends UiPart<Region> {
 
     private static final String FXML = "CommandBox.fxml";
-
-    private final CommandExecutor commandExecutor;
     final CommandTextField commandTextField;
+    private final CommandExecutor commandExecutor;
 
     @FXML
     private StackPane commandInputAreaPlaceholder;

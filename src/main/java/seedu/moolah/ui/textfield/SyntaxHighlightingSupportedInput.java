@@ -61,7 +61,7 @@ public class SyntaxHighlightingSupportedInput {
      * @param prefixes The list of prefixes of the command.
      * @return The compiled pattern.
      */
-     Pattern compileCommandPattern(String commandWord, List<Prefix> prefixes) {
+    Pattern compileCommandPattern(String commandWord, List<Prefix> prefixes) {
         StringBuilder prefixesPatterns = new StringBuilder();
         int count = 0;
         for (Prefix prefix : prefixes) {

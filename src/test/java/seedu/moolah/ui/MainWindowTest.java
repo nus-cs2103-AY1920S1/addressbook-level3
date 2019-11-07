@@ -1,6 +1,8 @@
 package seedu.moolah.ui;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.awt.Point;
 import java.nio.file.Path;
@@ -47,6 +49,33 @@ class MainWindowTest extends ApplicationTest {
         });
     }
 
+    @Test
+    void getPrimaryStage() {
+        Platform.runLater(() -> {
+            Logic logic = new LogicStub();
+            Timekeeper timekeeper = new Timekeeper(logic);
+            Timer timer = new Timer();
+            Stage stage = new Stage();
+            MainWindow mainWindow = new MainWindow(stage, logic, timekeeper, timer);
+            assertEquals(stage, mainWindow.getPrimaryStage());
+        });
+    }
+
+    @Test
+    void fillInnerParts() {
+        Platform.runLater(() -> {
+            try {
+                Logic logic = new LogicStub();
+                Timekeeper timekeeper = new Timekeeper(logic);
+                Timer timer = new Timer();
+                Stage stage = new Stage();
+                MainWindow mainWindow = new MainWindow(stage, logic, timekeeper, timer);
+                mainWindow.fillInnerParts();
+            } catch (Exception e) {
+                fail();
+            }
+        });
+    }
     static class LogicStub implements Logic {
 
         @Override
@@ -114,7 +143,7 @@ class MainWindowTest extends ApplicationTest {
 
                 @Override
                 public Point getWindowCoordinates() {
-                    return new Point(0,0);
+                    return new Point(0, 0);
                 }
             };
         }
@@ -155,31 +184,4 @@ class MainWindowTest extends ApplicationTest {
         }
     }
 
-    @Test
-    void getPrimaryStage() {
-        Platform.runLater(() -> {
-            Logic logic = new LogicStub();
-            Timekeeper timekeeper = new Timekeeper(logic);
-            Timer timer = new Timer();
-            Stage stage = new Stage();
-            MainWindow mainWindow = new MainWindow(stage, logic, timekeeper, timer);
-            assertEquals(stage, mainWindow.getPrimaryStage());
-        });
-    }
-
-    @Test
-    void fillInnerParts() {
-        Platform.runLater(() -> {
-            try {
-                Logic logic = new LogicStub();
-                Timekeeper timekeeper = new Timekeeper(logic);
-                Timer timer = new Timer();
-                Stage stage = new Stage();
-                MainWindow mainWindow = new MainWindow(stage, logic, timekeeper, timer);
-                mainWindow.fillInnerParts();
-            } catch (Exception e) {
-                fail();
-            }
-        });
-    }
 }

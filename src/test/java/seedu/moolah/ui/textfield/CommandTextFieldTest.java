@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.fxmisc.richtext.ClipboardActions;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -29,8 +28,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 import javafx.application.Platform;
 import javafx.event.EventTarget;
 import javafx.scene.Scene;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -40,9 +37,6 @@ import seedu.moolah.logic.parser.Prefix;
 
 class CommandTextFieldTest extends ApplicationTest {
 
-    private FxRobot robot;
-    private CommandTextField textField;
-    private Runnable resetTextfield;
     private static final String COMMAND = "command1";
     private static final Prefix PREFIX_1 = new Prefix("a/", "bb");
     private static final Prefix PREFIX_2 = new Prefix("ww/", "bb");
@@ -51,22 +45,15 @@ class CommandTextFieldTest extends ApplicationTest {
     private static final List<Prefix> OPTIONAL = Collections.emptyList();
     private static final String SUPPORTED_INPUT = COMMAND + " " + PREFIX_1 + ARGUMENT_1 + " " + PREFIX_2;
     private static final String UNSUPPORTED_INPUT = "somgibbaweiahs";
+    private FxRobot robot;
+    private CommandTextField textField;
+    private Runnable resetTextfield;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        super.start(stage);
-        this.textField = new CommandTextField(ignored -> {});
-        stage.setScene(new Scene(new VBox(textField)));
-        robot = new FxRobot();
-        stage.show();
-        resetTextfield = () -> {
-            textField = new CommandTextField(ignored -> {});
-            stage.setScene(new Scene(new VBox(textField)));
-            stage.show();
-            stage.getScene().getStylesheets().clear();
-        };
-    }
-
+    /**
+     * Helper method to fire a press and release KeyEvent with a specified KeyCode at the specified EventTarget
+     * @param target
+     * @param keyCode
+     */
     static void pushKeyNoType(EventTarget target, KeyCode keyCode) {
         KeyEvent.fireEvent(
                 target,
@@ -76,12 +63,29 @@ class CommandTextFieldTest extends ApplicationTest {
                 new KeyEvent(KeyEvent.KEY_RELEASED, null, null, keyCode, false, false, false, false));
     }
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        super.start(stage);
+        this.textField = new CommandTextField(ignored -> {
+        });
+        stage.setScene(new Scene(new VBox(textField)));
+        robot = new FxRobot();
+        stage.show();
+        resetTextfield = () -> {
+            textField = new CommandTextField(ignored -> {
+            });
+            stage.setScene(new Scene(new VBox(textField)));
+            stage.show();
+            stage.getScene().getStylesheets().clear();
+        };
+    }
+
     @BeforeEach
     void setUp() {
     }
 
     @AfterEach
-    void tearDown () throws Exception {
+    void tearDown() throws Exception {
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
@@ -94,7 +98,7 @@ class CommandTextFieldTest extends ApplicationTest {
         Platform.runLater(() -> {
             textField.commitAndFlush();
             assertEquals("", textField.getText());
-            assertEquals("something", textField.inputHistory.getPreviousInput());
+            assertEquals("something", textField.getInputHistory().getPreviousInput());
         });
     }
 
@@ -133,8 +137,8 @@ class CommandTextFieldTest extends ApplicationTest {
 
     @Test
     void arrowKeysReplaceInputWithHistory_pressUpOrDownArrowsAfterCommitingText_behaviourAsExpected() {
-        textField.inputHistory.push("something2");
-        textField.inputHistory.push("something1");
+        textField.getInputHistory().push("something2");
+        textField.getInputHistory().push("something1");
         robot.interact(() -> {
             // goes to previous
             pushKeyNoType(textField, KeyCode.UP);
@@ -179,8 +183,8 @@ class CommandTextFieldTest extends ApplicationTest {
         robot.write("ad");
         Platform.runLater(() -> {
             pushKeyNoType(textField, KeyCode.TAB);
-            assertEquals(1, textField.autofillMenu.getItems().size());
-            assertTrue(textField.autofillMenu.isShowing());
+            assertEquals(1, textField.getAutofillMenu().getItems().size());
+            assertTrue(textField.getAutofillMenu().isShowing());
         });
     }
 
@@ -192,8 +196,8 @@ class CommandTextFieldTest extends ApplicationTest {
         robot.write("ad");
         Platform.runLater(() -> {
             pushKeyNoType(textField, KeyCode.TAB);
-            assertEquals(0, textField.autofillMenu.getItems().size());
-            assertFalse(textField.autofillMenu.isShowing());
+            assertEquals(0, textField.getAutofillMenu().getItems().size());
+            assertFalse(textField.getAutofillMenu().isShowing());
         });
     }
 
@@ -276,6 +280,5 @@ class CommandTextFieldTest extends ApplicationTest {
                     textField.getStyleSpan());
         });
     }
-
 
 }

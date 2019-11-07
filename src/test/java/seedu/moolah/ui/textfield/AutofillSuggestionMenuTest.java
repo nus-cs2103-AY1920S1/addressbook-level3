@@ -19,7 +19,8 @@ class AutofillSuggestionMenuTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
-        CommandTextField textArea = new CommandTextField(string -> {});
+        CommandTextField textArea = new CommandTextField(string -> {
+        });
         stage.setScene(new Scene(new VBox(textArea)));
         SimpleStringProperty commandPropertyStub = new SimpleStringProperty("");
         textArea.setContextMenu(menuWithNoSupportedCommands);
@@ -34,5 +35,4 @@ class AutofillSuggestionMenuTest extends ApplicationTest {
         assertTrue(menuWithNoSupportedCommands.enabledProperty().get());
         Platform.runLater(() -> assertFalse(menuWithNoSupportedCommands.isShowing()));
     }
-
 }

@@ -1,8 +1,8 @@
 package seedu.moolah.ui.textfield;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.moolah.ui.textfield.CommandTextField.SYNTAX_HIGHLIGHTING_CSS_FILE_PATH;
 import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
+import static seedu.moolah.ui.textfield.CommandTextField.SYNTAX_HIGHLIGHTING_CSS_FILE_PATH;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,13 +22,18 @@ import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 
-class CommandBoxThrowingParseExceptionTest extends ApplicationTest {
+/**
+ * Test for CommandBox to ensure that CommandBox with correctly sets StyleSpans to style which indicates error
+ * when an exception is thrown.
+ */
+class CommandBoxThrowingExceptionTest extends ApplicationTest {
 
     private CommandBox commandBoxThrowingCommandExceptionOnEnter;
     private CommandBox commandBoxThrowingParseExceptionOnEnter;
     private CommandBox commandBoxThrowingUnmappedPanelExceptionOnEnter;
     private FxRobot robot;
 
+    @Override
     public void start(Stage stage) throws Exception {
         super.start(stage);
         commandBoxThrowingCommandExceptionOnEnter = new CommandBox(ignored -> {
@@ -45,7 +50,7 @@ class CommandBoxThrowingParseExceptionTest extends ApplicationTest {
                 commandBoxThrowingParseExceptionOnEnter.getRoot(),
                 commandBoxThrowingUnmappedPanelExceptionOnEnter.getRoot())));
         stage.getScene().getStylesheets().add(
-                CommandBoxThrowingParseExceptionTest.class
+                CommandBoxThrowingExceptionTest.class
                         .getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm());
 
         stage.show();
@@ -113,7 +118,4 @@ class CommandBoxThrowingParseExceptionTest extends ApplicationTest {
                     commandBoxThrowingUnmappedPanelExceptionOnEnter.commandTextField.getStyleSpan());
         });
     }
-
-
-
 }

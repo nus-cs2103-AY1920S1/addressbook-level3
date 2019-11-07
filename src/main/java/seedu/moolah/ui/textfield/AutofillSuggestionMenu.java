@@ -4,15 +4,10 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import org.fxmisc.richtext.StyleClassedTextArea;
-
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -60,7 +55,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
     /**
      * Constructor for the {@code AutofillSuggestionMenu}.
      *
-     * @param textArea  The textInputControl which this autofill menu is bound to.
+     * @param textArea           The textInputControl which this autofill menu is bound to.
      * @param currentCommandWord The 'current matching command word' of the {@code textInputControl}.
      */
     public AutofillSuggestionMenu(CommandTextField textArea, StringProperty currentCommandWord) {
@@ -90,7 +85,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
             commandSuggestions.setPredicate(x -> {
                 if (currentMatchingText.get().isBlank()) {
                     return true;
-                 } else {
+                } else {
                     return x.startsWith(currentMatchingText.get());
                 }
             });
@@ -115,7 +110,8 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Add support for a command with prefixes to be autocompleted and highlighted.
-     * @param command The command word
+     *
+     * @param command          The command word
      * @param requiredPrefixes The required prefixes
      * @param optionalPrefixes The optional prefixes
      */
@@ -196,13 +192,15 @@ public class AutofillSuggestionMenu extends ContextMenu {
      * @param matchingSuggestions The list of suggestions.
      * @param match               The matching text.
      */
-     void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
-                             FilteredList<String> commandSuggestion, String match) {
+    void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
+                      FilteredList<String> commandSuggestion, String match) {
         m.getItems().clear();
         if (!commandSuggestion.isEmpty()) {
             for (String suggestion : commandSuggestion.sorted(String::compareTo)) {
                 String completion = suggestion.replaceFirst(match, "");
-                TextFlow graphic = match.isBlank() ? commandWordGraphic("", " ", completion) : commandWordGraphic("", match, completion);
+                TextFlow graphic = match.isBlank()
+                        ? commandWordGraphic("", " ", completion)
+                        : commandWordGraphic("", match, completion);
                 MenuItem item = new MenuItem();
                 item.setId(completion);
                 item.setGraphic(graphic);
@@ -271,6 +269,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Creates TextFlow used for AutoFillMenu graphics for required prefixs.
+     *
      * @param p The prefix to generate a graphic for.
      * @return The graphic {@code TextFlow}
      */
@@ -288,6 +287,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Creates TextFlow used for AutoFillMenu graphics for list of required prefixs.
+     *
      * @param p The prefix to generate a graphic for.
      * @return The graphic {@code TextFlow}
      */
@@ -303,6 +303,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Creates graphic for optional prefixes in the drop down menu.
+     *
      * @param p The optional prefix
      * @return The graphic {@code TextFlow}
      */
