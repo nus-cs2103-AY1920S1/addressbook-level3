@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+participant "d:ExportCommand" as ExportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("export p/Documents")
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand("export p/Documents")
+activate SpendingBookParser
+
+create ExportCommandParser
+SpendingBookParser -> ExportCommandParser
+activate ExportCommandParser
+
+ExportCommandParser --> SpendingBookParser
+deactivate ExportCommandParser
+
+SpendingBookParser -> ExportCommandParser : parse("Documents")
+activate ExportCommandParser
+
+create ExportCommand
+ExportCommandParser -> ExportCommand
+activate ExportCommand
+
+ExportCommand --> ExportCommandParser : i
+deactivate ExportCommand
+
+ExportCommandParser --> SpendingBookParser : i
+deactivate ExportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExportCommandParser -[hidden]-> SpendingBookParser
+destroy ExportCommandParser
+
+SpendingBookParser --> LogicManager : i
+deactivate SpendingBookParser
+
+LogicManager -> ExportCommand : execute()
+activate ExportCommand
+
+ExportCommand -> Model : getSpendingBookFilePath()
+activate Model
+Model --> ExportCommand
+deactivate Model
+
+
+create CommandResult
+ExportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ExportCommand
+deactivate CommandResult
+
+ExportCommand --> LogicManager : result
+deactivate ExportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

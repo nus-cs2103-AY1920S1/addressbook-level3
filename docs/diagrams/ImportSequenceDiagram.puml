@@ -73,12 +73,10 @@ note right
 end note
 deactivate ImportCommand
 
-loop for all valid spending
-  ImportCommand -> Model : addSpending(spending)
-  activate Model
-  Model --> ImportCommand
-  deactivate Model
-end
+ImportCommand -> Model : addSpending(spending)
+activate Model
+Model --> ImportCommand
+deactivate Model
 
 create CommandResult
 ImportCommand -> CommandResult

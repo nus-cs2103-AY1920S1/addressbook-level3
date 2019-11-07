@@ -568,19 +568,14 @@ The above diagram also highlights how logic and model components interact with e
 // tag::import[]
 === Import Feature
 ==== Implementation
-The Import feature allows our users to import data from a comma-separated values (`.csv`) files.
-It allows users who would like to add their spending in bulk.
+The import feature allows our users to import data from a comma-separated values (`.csv`) files.
+It allows users to add their spending in bulk.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the
 `execute("import p/validSpending.csv")`
 
 .Interactions Inside the Logic Component for the `import` Command
-image::ImportSequenceDiagram.png[width=75%]
-
-//When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
-//It will then call the `SpendingBookParser`, which parses the command string.
-//It then creates and calls the respective command parser, which in this case is `ImportCommandParser`.
-//This parser will then strip the attributes given in the command string into a key-value map with the prefix, `p/` as the key and `validSpending.csv` as the value.
+image::ImportSequenceDiagram.png[width=100%]
 
 The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
 The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
@@ -602,7 +597,7 @@ There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remar
 
 Header Constraints
 
-* The first row is considered a column header and is required.
+* The first row is read in as the header and is *required*.
 
 Cell Formatting
 
@@ -614,6 +609,32 @@ Cell Formatting
 ** """yummy"", ""juicy"""
 ** """fresh"", ""clean"""
 // end::import[]
+
+// tag::export[]
+=== Export Feature
+==== Implementation
+The export feature allows our  users to export their spending into a comma-separated values(`.csv`) files.
+It allows users to export their spending allowing the spending data to be portable.
+
+Given below is the Sequence Diagram for the interactions withing the `Logic` component for the `execute("export p/Documents")`
+
+.Interactions Inside the Logic Component for the `export' Command
+image::ExportSequenceDiagram.png[width=100%]
+
+The export feature has one main component, which is the `ExportCommand.java` file. This file contains the main logic behind the feature.
+The 'ExportCommand#execute()' method utilises the `FasterXML/jackson` library to read in the `.json` file where the application keeps the spending data.
+After the data has been read successfully, it is converted and written into `moneygowhere.csv` file. This file will be created at wherever the user specifies.
+After the data has been successfully exported, the application will then prints an output, showing the result of the command execution.
+
+The following activity diagram summarizes what happens when a user executes an export command:
+
+.Export Feature Activity Diagram
+image::ExportActivityDiagram.png[width=25%]
+
+When a user calls the `export` command and inputs a valid folder path, the application will convert all the spending data into a `.csv` file and export it to `moneygowhere.csv`
+
+
+// end::export[]
 
 // tag::statistics[]
 === Statistics feature
@@ -1398,9 +1419,18 @@ Use case resumes from step 1.
 
 [appendix]
 == Glossary
+Budget:: The maximum amount of money set by the user to spend.
+
+Cost:: Money spent by the user.
+
+Deficit:: The user has spent more than his budget set.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X.
+
+Safe:: The user has spent less or equal to his budget set.
+
+Spending:: An expense incurred by the user.
 
 [appendix]
 == Instructions for Manual Testing
