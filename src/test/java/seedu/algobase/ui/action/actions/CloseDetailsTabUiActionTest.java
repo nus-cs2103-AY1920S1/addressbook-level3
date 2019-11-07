@@ -62,7 +62,7 @@ public class CloseDetailsTabUiActionTest {
     }
 
     @Test
-    public void execute_closeTabIndexOutOfUpperRange_throwsCommandException() throws Exception {
+    public void execute_closeTabIndexOutOfUpperRange_throwsUiActionException() throws Exception {
         FiveTabsModelStub modelStub = new FiveTabsModelStub();
         TabManager tabManager = modelStub.getGuiState().getTabManager();
         tabManager.switchDetailsTab(Index.fromZeroBased(0)); // Switch to the first tab
