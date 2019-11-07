@@ -124,9 +124,7 @@ public class Student {
         }
 
         return otherStudent != null
-                && otherStudent.getName().equals(getName())
-                && otherStudent.getDisplayPictureFilePath().equals(getDisplayPictureFilePath())
-                && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()));
+                && otherStudent.getName().equals(getName());
     }
 
     /**
