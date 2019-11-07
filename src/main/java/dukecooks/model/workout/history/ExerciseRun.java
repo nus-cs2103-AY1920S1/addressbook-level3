@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import dukecooks.model.workout.WorkoutName;
 import dukecooks.model.workout.exercise.ExerciseSetAttempt;
 import dukecooks.model.workout.exercise.details.Sets;
 
@@ -13,6 +14,7 @@ import dukecooks.model.workout.exercise.details.Sets;
  */
 public class ExerciseRun {
 
+    private final WorkoutName workoutName;
     private final LocalDateTime timeStarted;
     private final LocalDateTime timeEnded;
     private final Sets setsAttempted;
@@ -22,7 +24,9 @@ public class ExerciseRun {
 
 
     public ExerciseRun(LocalDateTime timeStarted, LocalDateTime timeEnded, Sets setsAttempted,
-                       Sets setsCompleted, ArrayList<ExerciseSetAttempt> exerciseSetAttempts) {
+                       Sets setsCompleted, ArrayList<ExerciseSetAttempt> exerciseSetAttempts,
+                       WorkoutName workoutName) {
+        this.workoutName = workoutName;
         this.timeStarted = timeStarted;
         this.timeEnded = timeEnded;
         this.setsAttempted = setsAttempted;
@@ -53,6 +57,10 @@ public class ExerciseRun {
 
     public Sets getSetsCompleted() {
         return setsCompleted;
+    }
+
+    public WorkoutName getWorkoutName() {
+        return workoutName;
     }
 
     @Override

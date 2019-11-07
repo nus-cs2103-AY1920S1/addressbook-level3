@@ -49,6 +49,6 @@ public class RunWorkoutCommand extends RunCommand {
             throw new CommandException(MESSAGE_WORKOUT_HAS_NO_EXERCISE);
         }
         return new CommandResult(MESSAGE_RUN_WORKOUT_RUN_SUCCESS, false, false, false, true,
-                workoutToRun);
+                workoutToRun, false);
     }
 }

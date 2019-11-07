@@ -26,6 +26,8 @@ public class CommandResult {
 
     private final boolean isRunWorkout;
 
+    private final boolean isViewWorkout;
+
     private Workout workoutToRun;
 
     /**
@@ -38,19 +40,21 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.isRunWorkout = isRunWorkout;
+        isViewWorkout = false;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit,
-                         boolean isRunWorkout, Workout workoutToRun) {
+                         boolean isRunWorkout, Workout workoutToRun, boolean isViewWorkout) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showReward = showReward;
         this.showHelp = showHelp;
         this.exit = exit;
         this.isRunWorkout = isRunWorkout;
         this.workoutToRun = workoutToRun;
+        this.isViewWorkout = isViewWorkout;
     }
 
     /**
@@ -85,6 +89,10 @@ public class CommandResult {
         return workoutToRun;
     }
 
+    public boolean isViewWorkout() {
+        return isViewWorkout;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -100,12 +108,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showReward == otherCommandResult.showReward
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && isViewWorkout == otherCommandResult.isViewWorkout;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showReward, showHelp, exit);
+        return Objects.hash(feedbackToUser, showReward, showHelp, exit, isRunWorkout);
     }
 
 }

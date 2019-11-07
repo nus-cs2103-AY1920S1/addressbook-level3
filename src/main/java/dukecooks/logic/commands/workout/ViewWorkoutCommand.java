@@ -35,6 +35,7 @@ public class ViewWorkoutCommand extends ViewCommand {
         this.targetIndex = targetIndex;
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Workout> lastShownList = model.getFilteredWorkoutList();
@@ -48,7 +49,7 @@ public class ViewWorkoutCommand extends ViewCommand {
         Workout workoutToShow = lastShownList.get(index);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, workoutToShow),
-                false, false, false, false, workoutToShow);
+                false, false, false, false, workoutToShow, true);
     }
 
     @Override

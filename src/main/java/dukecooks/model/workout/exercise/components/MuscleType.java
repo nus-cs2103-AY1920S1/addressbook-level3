@@ -43,6 +43,12 @@ public class MuscleType {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns a voew version of MuscleType.
+     */
+    public String toView() {
+        return "[" + muscleType + "]";
+    }
 
     @Override
     public String toString() {

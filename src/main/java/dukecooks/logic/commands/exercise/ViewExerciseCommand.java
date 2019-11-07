@@ -37,6 +37,7 @@ public class ViewExerciseCommand extends ViewCommand {
         this.targetIndex = targetIndex;
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();

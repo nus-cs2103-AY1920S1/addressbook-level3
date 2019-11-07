@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private RunWorkoutWindow runWorkoutWindow;
     private Event event;
+    private Workout workout;
 
     private StatusBarFooter dashboardPathStatus;
     private StatusBarFooter recipePathStatus;
@@ -120,6 +121,10 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    public Workout getWorkout() {
+        return workout;
     }
 
     /**
@@ -234,6 +239,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows workout information.
+     */
+    @FXML
+    public void handleViewWorkout() {
+
+    }
+
+    /**
      * Opens the run workout window.
      */
     public void handleRunWorkout(Workout workoutToRun) {
@@ -273,7 +286,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        runWorkoutWindow.getRoot().hide();
+        if (runWorkoutWindow.getRoot().isShowing()) {
+            runWorkoutWindow.getRoot().hide();
+        }
     }
 
     /**
@@ -329,12 +344,16 @@ public class MainWindow extends UiPart<Stage> {
             recordListPanel.handleSwitch(type);
             showProfilePane(true);
             break;
-        case "exercise":
-            //TODO:
+        case "workout":
             versatilePanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
             statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
-            featureMode.setText("Exercise");
+            featureMode.setText("Workout");
             workoutListPanel.handleSwitch(type);
+            break;
+        case "viewWorkout":
+            versatilePanelPlaceholder.getChildren().add(new WorkoutHistoryPanel(workout).getRoot());
+            statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
+            featureMode.setText("Workout");
             break;
         case "diary":
             //TODO:
@@ -375,7 +394,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void switchExercise() {
         event = Event.getInstance();
-        event.set("exercise", "all");
+        event.set("workout", "all");
         resultDisplay.setFeedbackToUser("");
     }
 
@@ -423,6 +442,13 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isRunWorkout()) {
                 handleRunWorkout(commandResult.getWorkoutToRun());
             }
+            if (commandResult.isViewWorkout()) {
+                this.workout = commandResult.getWorkoutToRun();
+                event.set("viewWorkout", "all");
+                handleSwitch();
+            }
+
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
