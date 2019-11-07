@@ -30,7 +30,8 @@ import seedu.address.ui.UiPart;
 /**
  * A UI component for the main title panel, containing title and global statistics.
  */
-public class MainTitlePanel extends UiPart<Region> {
+public class
+MainTitlePanel extends UiPart<Region> {
 
     private static final String FXML = "MainTitlePanel.fxml";
     private static final Image LOGO = AppUtil.getImage("/images/logo.png");

@@ -100,7 +100,7 @@ WordBankList .|> ReadOnlyWordBankList
 
 'ModelManager .right|> StorageManager
 ModelManager .|> Model
-ModelManager -down-> "1" WordBankList
+ModelManager o-down-> "1" WordBankList
 'ModelManager --> "1" ReadOnlyWordBankList
 
 'ModelManager -up--> "1" WordBankStatisticsList
@@ -109,7 +109,7 @@ ModelManager -down-> "1" WordBankList
 'ModelManager -up--> "1" UserPrefs
 'ModelManager -up--> "1" Game
 
-WordBankList -down-> "*" WordBank
+WordBankList o-down-> "*" WordBank
 'WordBank --> "1" UniqueCardList
 'UniqueCardList -right-> "*" Card
 'Card --> "1" Word

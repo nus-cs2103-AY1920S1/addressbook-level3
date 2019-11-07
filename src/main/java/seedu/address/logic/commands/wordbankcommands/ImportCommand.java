@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.io.File;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -40,7 +41,9 @@ public class ImportCommand extends WordBankCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        if (model.hasWordBank(wordBankName)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
+        }
         return new ImportCommandResult(String.format(MESSAGE_IMPORT_CARD_SUCCESS, wordBankName, directory),
                 this.directory.toPath(), wordBankName);
     }

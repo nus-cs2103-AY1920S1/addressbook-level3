@@ -72,8 +72,8 @@ CardCommandResult -up-|> CommandResult
 
 
 LogicManager .left.> Command : executes >
-LogicManager -right-> StorageManager
-LogicManager --> ModelManager
+LogicManager o-right-> StorageManager
+LogicManager o--> ModelManager
 'LogicManager -down-> StorageManager
 'LogicManager -right-> ModelManager
 

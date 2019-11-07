@@ -23,7 +23,7 @@ Class WordBank
 }
 
 WordBankList .left.|> ReadOnlyWordBankList
-WordBankList o-down-> "1" UniqueWordBankList
-UniqueWordBankList -down-> "*" WordBank
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o-down-> "*" WordBank
 
 @enduml

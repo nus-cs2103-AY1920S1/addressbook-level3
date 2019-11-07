@@ -27,6 +27,6 @@ Class Card
 }
 
 WordBank .left.|> ReadOnlyWordBank
-WordBank o-down-> "1" UniqueCardList
-UniqueCardList -down-> "*" Card
+WordBank *-down-> "1" UniqueCardList
+UniqueCardList o-down-> "*" Card
 @enduml

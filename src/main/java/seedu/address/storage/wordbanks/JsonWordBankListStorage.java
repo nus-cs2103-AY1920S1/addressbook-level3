@@ -31,7 +31,7 @@ import seedu.address.model.wordbanklist.WordBankList;
 public class JsonWordBankListStorage implements WordBankListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
-    private WordBankList readOnlyWordBankList;
+    private WordBankList wordBankList;
     private Path wordBanksFilePath; // default : data/wordBanks
 
     /**
@@ -128,7 +128,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 wordBankList.add(wbToAdd);
             }
         }
-        this.readOnlyWordBankList = new WordBankList(wordBankList);
+        this.wordBankList = new WordBankList(wordBankList);
     }
 
     /**
@@ -191,7 +191,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param wordBank data. Cannot be null.
      */
     private void addWordBank(ReadOnlyWordBank wordBank) {
-        WordBankList wbl = (WordBankList) readOnlyWordBankList;
+        WordBankList wbl = (WordBankList) wordBankList;
         wbl.addWordBank(wordBank);
     }
 
@@ -206,7 +206,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         if (toDelete.exists()) {
             toDelete.delete();
         }
-        WordBankList wbl = ((WordBankList) readOnlyWordBankList);
+        WordBankList wbl = ((WordBankList) wordBankList);
         wbl.removeWordBank(wordBank);
     }
 
@@ -215,7 +215,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     @Override
     public Optional<ReadOnlyWordBankList> getWordBankList() {
-        return Optional.of(readOnlyWordBankList);
+        return Optional.of(wordBankList);
     }
 
     /**
@@ -237,7 +237,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     @Override
     public void removeWordBank(String wordBankName) {
-        WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName);
+        WordBank wb = wordBankList.getWordBankFromName(wordBankName);
         deleteWordBank(wb);
     }
 
@@ -273,7 +273,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     @Override
     public void exportWordBank(String wordBankName, Path filePath) {
-        WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName);
+        WordBank wb = wordBankList.getWordBankFromName(wordBankName);
         saveWordBank(wb, filePath);
     }
 
@@ -294,7 +294,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     @Override
     public ObservableList<WordBank> getFilteredWordBankList() {
-        return readOnlyWordBankList.getFilteredWordBankList();
+        return wordBankList.getFilteredWordBankList();
     }
 
     /**
@@ -309,6 +309,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
     @Override
     public WordBank getWordBankFromName(String name) {
-        return readOnlyWordBankList.getWordBankFromName(name);
+        return wordBankList.getWordBankFromName(name);
     }
 }

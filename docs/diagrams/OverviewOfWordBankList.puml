@@ -7,34 +7,26 @@ skinparam classBackgroundColor MODEL_COLOR
 show members
 hide empty members
 
-Package WordBankList <<Rectangle>>{
-Interface ReadOnlyWordBankList <<Interface>> {
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
 'getFilteredWordBankList()
 'getWordBankFromName(String)
 'hasBankName(String)
-}
-
-class WordBankList {
+Class WordBankList {
 '   +addWordBank(ReadOnlyWordBank)
 '   +removeWordBank(WordBank)
 }
+
 Class UniqueWordBankList
 
-WordBankList .left.|> ReadOnlyWordBankList
-WordBankList o-down-> "1" UniqueWordBankList
-UniqueWordBankList --> WordBank
 
-show members
-hide empty members
-
-Package WordBank <<Rectangle>>{
+Package WordBank {
 Interface ReadOnlyWordBank <<Interface>> {
 'getName()
 'getCard(Index)
 'getCardList()
 }
-
-class WordBank {
+Class WordBank {
    -name: String
 '   +addCard(Card)
 '   +removeCard(Card)
@@ -43,27 +35,32 @@ class WordBank {
 '   +resetData(ReadOnlyWordBank)
 }
 Class UniqueCardList
-Class Card
 
-
-WordBank .left.|> ReadOnlyWordBank
-WordBank o-down-> "1" UniqueCardList
-UniqueCardList -down-> Card
-
-show members
-hide empty members
-
-Package Card <<Rectangle>>{
+Package Card {
 Class Card {
 - id: String
 - tags: Set<Tag>
 }
-Class Word
 Class Meaning
+Class Word
+}
+'}
+}
 }
 
-Card o--> "1" Word
-Card o--> "1" Meaning
+WordBankList .right.|> ReadOnlyWordBankList
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o-right-> "*" WordBank
+
+WordBank .right.|> ReadOnlyWordBank
+WordBank *-down-> "1" UniqueCardList
+UniqueCardList o-> "*" Card
+
+show members
+hide empty members
+
+Card *--> "1" Meaning
+Card *--> "1" Word
 
 Meaning *-LEFT[hidden]-> Word
 @enduml
