@@ -384,6 +384,17 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
 
+    public void createSchedule(Lesson lesson) {
+        Scheduler scheduler = new Scheduler(lesson);
+        scheduler.scheduleLesson(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("creating countdown");
+                countDownAlert("You have a lesson", lesson.toString());
+            }
+        });
+    }
+
     /**
      * method to add a listener to lesson observable list.
      * whenever a lesson is added to the list, a scheduler is created.
@@ -393,14 +404,7 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Lesson> lessons = logic.getFilteredLessonList();
         for (int i = 0; i < lessons.size(); i++) {
             Lesson lesson = lessons.get(i);
-            Scheduler scheduler = new Scheduler(lesson);
-            scheduler.scheduleLesson(new Runnable() {
-                @Override
-                public void run() {
-                    logger.info("creating countdown");
-                    countDownAlert("You have a lesson", lesson.toString());
-                }
-            });
+            createSchedule(lesson);
         }
         lessons.addListener(new ListChangeListener<Lesson>() {
             @Override
@@ -409,14 +413,7 @@ public class MainWindow extends UiPart<Stage> {
                     if (c.wasAdded()) {
                         for (Object addedItem : c.getAddedSubList()) {
                             logger.info("creating scheduler");
-                            Scheduler scheduler = new Scheduler((Lesson) addedItem);
-                            scheduler.scheduleLesson(new Runnable() {
-                                @Override
-                                public void run() {
-                                    logger.info("creating countdown");
-                                    countDownAlert("You have a lesson", addedItem.toString());
-                                }
-                            });
+                            createSchedule((Lesson) addedItem);
                         }
                     }
                 }
