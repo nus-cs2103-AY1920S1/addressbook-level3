@@ -1,12 +1,12 @@
 package seedu.pluswork.commons.util;
 
-import javafx.scene.image.Image;
-import seedu.pluswork.MainApp;
+import static java.util.Objects.requireNonNull;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.Objects.requireNonNull;
+import javafx.scene.image.Image;
+import seedu.pluswork.MainApp;
 
 /**
  * A container for App specific utility functions

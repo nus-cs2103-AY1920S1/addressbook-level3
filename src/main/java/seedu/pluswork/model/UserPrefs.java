@@ -1,12 +1,12 @@
 package seedu.pluswork.model;
 
-import seedu.pluswork.commons.core.GuiSettings;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import seedu.pluswork.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.

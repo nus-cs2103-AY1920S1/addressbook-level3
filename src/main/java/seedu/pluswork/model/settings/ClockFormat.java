@@ -1,8 +1,8 @@
 package seedu.pluswork.model.settings;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-
 import java.time.format.DateTimeFormatter;
+
+import seedu.pluswork.commons.util.DateTimeUtil;
 
 /**
  * Represents the current display format chosen by the user for task deadlines in +Work.

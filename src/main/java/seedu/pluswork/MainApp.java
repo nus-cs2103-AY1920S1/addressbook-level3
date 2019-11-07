@@ -1,5 +1,10 @@
 package seedu.pluswork;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.pluswork.commons.core.Config;
@@ -10,16 +15,25 @@ import seedu.pluswork.commons.util.ConfigUtil;
 import seedu.pluswork.commons.util.StringUtil;
 import seedu.pluswork.logic.Logic;
 import seedu.pluswork.logic.LogicManager;
-import seedu.pluswork.model.*;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ModelManager;
+import seedu.pluswork.model.ProjectDashboard;
+import seedu.pluswork.model.ReadOnlyProjectDashboard;
+import seedu.pluswork.model.ReadOnlyUserPrefs;
+import seedu.pluswork.model.ReadOnlyUserSettings;
+import seedu.pluswork.model.UserPrefs;
+import seedu.pluswork.model.UserSettings;
 import seedu.pluswork.model.util.SampleTaskDataUtil;
-import seedu.pluswork.storage.*;
+import seedu.pluswork.storage.JsonProjectDashboardStorage;
+import seedu.pluswork.storage.JsonUserPrefsStorage;
+import seedu.pluswork.storage.JsonUserSettingsStorage;
+import seedu.pluswork.storage.ProjectDashboardStorage;
+import seedu.pluswork.storage.Storage;
+import seedu.pluswork.storage.StorageManager;
+import seedu.pluswork.storage.UserPrefsStorage;
+import seedu.pluswork.storage.UserSettingsStorage;
 import seedu.pluswork.ui.Ui;
 import seedu.pluswork.ui.UiManager;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Runs the application.

@@ -1,15 +1,15 @@
 package seedu.pluswork.model.util;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;
-
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * provides a sample member data

@@ -1,17 +1,19 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.pluswork.logic.commands.AddTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object

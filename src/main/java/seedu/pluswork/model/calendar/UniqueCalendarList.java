@@ -1,5 +1,19 @@
 package seedu.pluswork.model.calendar;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.fortuna.ical4j.model.DateTime;
@@ -8,12 +22,6 @@ import net.fortuna.ical4j.model.PeriodList;
 import seedu.pluswork.model.calendar.exceptions.CalendarNotFoundException;
 import seedu.pluswork.model.calendar.exceptions.DuplicateCalendarException;
 import seedu.pluswork.model.member.MemberName;
-
-import java.time.*;
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 
 /**

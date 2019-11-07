@@ -1,5 +1,8 @@
 package seedu.pluswork.ui.views;
 
+import java.util.Comparator;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -12,9 +15,6 @@ import javafx.scene.layout.Region;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.Comparator;
-import java.util.List;
 
 public class IndivMemberCard extends UiPart<Region> {
     private static final String FXML = "IndivMemberCard.fxml";

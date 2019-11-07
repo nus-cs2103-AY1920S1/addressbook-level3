@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.DoingTaskCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+
+import java.util.stream.Stream;
+
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.DoingTaskCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /*import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;

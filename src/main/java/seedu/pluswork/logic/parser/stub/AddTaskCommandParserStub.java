@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;*/
 
+import java.util.HashSet;
+
 import seedu.pluswork.logic.commands.AddTaskCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
@@ -12,8 +14,6 @@ import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.util.HashSet;
 
 //import java.util.stream.Stream;
 

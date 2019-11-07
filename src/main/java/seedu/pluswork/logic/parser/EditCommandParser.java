@@ -1,10 +1,12 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.EditCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-import seedu.pluswork.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,9 +14,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.logic.commands.EditCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

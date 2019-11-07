@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.logic.commands.DeleteMemberCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-import seedu.pluswork.model.member.MemberId;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+
+import java.util.stream.Stream;
+
+import seedu.pluswork.logic.commands.DeleteMemberCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.member.MemberId;
 
 /**
  * Parses input arguments and creates a new DeleteMemberCommand object

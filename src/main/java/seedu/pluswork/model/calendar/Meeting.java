@@ -1,13 +1,13 @@
 package seedu.pluswork.model.calendar;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.model.member.MemberName;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class Meeting {
     private final LocalDateTime startTime;

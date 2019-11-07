@@ -1,6 +1,6 @@
 package seedu.pluswork.commons.util;
 
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
-import static java.util.Objects.requireNonNull;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Container class for date-time specific utility methods.

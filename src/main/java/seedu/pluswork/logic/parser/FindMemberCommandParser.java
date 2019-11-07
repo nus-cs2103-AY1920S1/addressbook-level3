@@ -1,12 +1,12 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.logic.commands.FindMemberCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.pluswork.logic.commands.FindMemberCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindMemberCommand object

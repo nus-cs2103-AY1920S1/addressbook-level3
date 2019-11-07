@@ -1,15 +1,24 @@
 package seedu.pluswork.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import seedu.pluswork.commons.Keywords;
 import seedu.pluswork.logic.Logic;
 import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.ui.views.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import seedu.pluswork.ui.views.CommandListPanel;
+import seedu.pluswork.ui.views.IndivMemberCard;
+import seedu.pluswork.ui.views.InventoryListPanel;
+import seedu.pluswork.ui.views.MeetingListPanel;
+import seedu.pluswork.ui.views.MemberListPanel;
+import seedu.pluswork.ui.views.MemberStatisticsView;
+import seedu.pluswork.ui.views.ProjectDashboardView;
+import seedu.pluswork.ui.views.SettingsView;
+import seedu.pluswork.ui.views.TaskListPanel;
+import seedu.pluswork.ui.views.TaskStatisticsView;
 
 /**
  * Utility class for controlling navigation between user views.

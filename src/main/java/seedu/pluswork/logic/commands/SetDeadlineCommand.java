@@ -1,5 +1,14 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
@@ -9,15 +18,6 @@ import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 /**
  * Edits the details of an existing task in the address book.

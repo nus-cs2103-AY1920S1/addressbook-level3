@@ -1,19 +1,19 @@
 package seedu.pluswork.storage;
 
-import seedu.pluswork.commons.core.LogsCenter;
-import seedu.pluswork.commons.exceptions.DataConversionException;
-import seedu.pluswork.commons.util.FileUtil;
-import seedu.pluswork.commons.util.JsonUtil;
-import seedu.pluswork.model.ReadOnlyUserSettings;
-import seedu.pluswork.model.UserSettings;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.pluswork.commons.core.LogsCenter;
+import seedu.pluswork.commons.exceptions.DataConversionException;
+import seedu.pluswork.commons.util.FileUtil;
+import seedu.pluswork.commons.util.JsonUtil;
+import seedu.pluswork.model.ReadOnlyUserSettings;
+import seedu.pluswork.model.UserSettings;
 
 /**
  * A class to access user settings stored in the hard disk as a json file.

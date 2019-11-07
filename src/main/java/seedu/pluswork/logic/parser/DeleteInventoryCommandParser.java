@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.DeleteInventoryCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
+
+import java.util.stream.Stream;
+
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.DeleteInventoryCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteInventoryCommand object

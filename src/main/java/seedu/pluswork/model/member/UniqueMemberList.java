@@ -1,15 +1,15 @@
 package seedu.pluswork.model.member;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.pluswork.model.member.exceptions.DuplicateMemberException;
-import seedu.pluswork.model.member.exceptions.MemberNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.pluswork.model.member.exceptions.DuplicateMemberException;
+import seedu.pluswork.model.member.exceptions.MemberNotFoundException;
 
 /**
  * A list of members that enforces uniqueness between its elements and does not allow nulls.

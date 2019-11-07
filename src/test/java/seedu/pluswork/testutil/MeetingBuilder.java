@@ -72,9 +72,9 @@ public class MeetingBuilder {
      */
     public MeetingBuilder withMembers(List<MemberName> memberNameList) {
         this.memberNameList = memberNameList
-                            .stream()
-                            .map(x -> new MemberName(x.fullName))
-                            .collect(Collectors.toList());
+                .stream()
+                .map(x -> new MemberName(x.fullName))
+                .collect(Collectors.toList());
         return this;
     }
 

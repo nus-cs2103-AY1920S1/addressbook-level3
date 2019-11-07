@@ -1,15 +1,15 @@
 package seedu.pluswork.logic.parser.stub;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.commands.SetDeadlineCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 
 /**

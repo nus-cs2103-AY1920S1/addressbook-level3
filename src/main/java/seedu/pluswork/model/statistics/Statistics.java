@@ -1,16 +1,16 @@
 package seedu.pluswork.model.statistics;
 
-import seedu.pluswork.model.mapping.InvMemMapping;
-import seedu.pluswork.model.mapping.TasMemMapping;
-import seedu.pluswork.model.member.Member;
-import seedu.pluswork.model.task.Task;
-import seedu.pluswork.model.task.TaskStatus;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.pluswork.model.mapping.InvMemMapping;
+import seedu.pluswork.model.mapping.TasMemMapping;
+import seedu.pluswork.model.member.Member;
+import seedu.pluswork.model.task.Task;
+import seedu.pluswork.model.task.TaskStatus;
 
 public class Statistics {
     private final List<Member> members;

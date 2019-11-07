@@ -1,9 +1,9 @@
 package seedu.pluswork.model.inventory;
 
-import seedu.pluswork.model.task.Name;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.util.AppUtil.checkArgument;
+
+import seedu.pluswork.model.task.Name;
 
 /**
  * Represents a Inventory's name in ProjectDashBoard.

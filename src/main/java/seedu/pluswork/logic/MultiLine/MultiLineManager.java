@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.MultiLine;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class MultiLineManager {
     private final Logger logger = LogsCenter.getLogger(MultiLineManager.class);
