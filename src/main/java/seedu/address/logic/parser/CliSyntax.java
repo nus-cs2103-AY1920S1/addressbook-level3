@@ -29,6 +29,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_USERNAME = new Prefix("user/");
     public static final Prefix PREFIX_PASSWORD = new Prefix("pass/");
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("mod/");
-    public static final Prefix PREFIX_CONTENT = new Prefix("c/");
+    public static final Prefix PREFIX_CONTENT = new Prefix("note/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");
 }

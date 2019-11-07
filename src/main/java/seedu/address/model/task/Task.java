@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.TreeSet;
 
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.note.Notes;
+import seedu.address.model.note.UniqueNotesList;
 
 /**
  * Represents a Task in the calendar.
@@ -37,7 +39,6 @@ public class Task {
     public Marking getMarking() {
         return marking;
     }
-
 
     /**
      * Returns true if both tasks has the same description.
