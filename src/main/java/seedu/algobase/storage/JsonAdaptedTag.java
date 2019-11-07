@@ -39,10 +39,10 @@ class JsonAdaptedTag {
      */
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_NAME_CONSTRAINTS);
         }
         if (!Tag.isValidTagColor(tagColor)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_COLOR_CONSTRAINTS);
         }
         return new Tag(tagName, tagColor);
     }

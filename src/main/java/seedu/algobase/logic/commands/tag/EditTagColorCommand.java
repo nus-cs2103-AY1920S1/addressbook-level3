@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
@@ -11,6 +11,8 @@ import java.util.List;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
@@ -22,6 +24,7 @@ import seedu.algobase.model.tag.Tag;
 public class EditTagColorCommand extends Command {
 
     public static final String COMMAND_WORD = "edittagcolor";
+    public static final String SHORT_COMMAND_WORD = "etc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the color of the Tag identified "
@@ -30,6 +33,8 @@ public class EditTagColorCommand extends Command {
             + "Parameters: \n"
             + "INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG_COLOR + "TAGCOLOR] \n"
+            + "Tags colors should be one of \"RED\", \"ORANGE\", \"YELLOW\", "
+            + "\"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\". \n"
             + "Example: "
             + COMMAND_WORD + " 1 "
             + PREFIX_TAG_COLOR + "BULE";
@@ -55,6 +60,10 @@ public class EditTagColorCommand extends Command {
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
+        }
+
+        if (!Tag.isValidTagColor(color)) {
+            throw new CommandException(Tag.MESSAGE_COLOR_CONSTRAINTS);
         }
 
         Tag tagToEdit = lastShownList.get(index.getZeroBased());

@@ -2,6 +2,7 @@ package seedu.algobase.model.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -13,8 +14,10 @@ import seedu.algobase.model.Id;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS =
+    public static final String MESSAGE_NAME_CONSTRAINTS =
         "Tags names should contain only alphabets, numbers, hyphen or underscore and should not be empty.";
+    public static final String MESSAGE_COLOR_CONSTRAINTS =
+        "Tags colors should be one of \"RED\", \"ORANGE\", \"YELLOW\", \"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\".";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
     public static final String DEFAULT_COLOR = "#3e7b91";
@@ -29,29 +32,31 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
         this.id = Id.generateId();
         this.tagName = tagName;
         this.tagColor = DEFAULT_COLOR;
     }
     public Tag(String tagName, String tagColor) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(tagName, tagColor);
+        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidTagColor(tagColor), MESSAGE_COLOR_CONSTRAINTS);
         this.id = Id.generateId();
         this.tagName = tagName;
         this.tagColor = tagColor;
     }
 
     public Tag(Id id, String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(id, tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
         this.id = id;
         this.tagName = tagName;
         this.tagColor = DEFAULT_COLOR;
     }
     public Tag(Id id, String tagName, String tagColor) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        requireAllNonNull(tagName, tagColor);
+        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidTagColor(tagColor), MESSAGE_COLOR_CONSTRAINTS);
         this.id = id;
         this.tagName = tagName;
         this.tagColor = tagColor;
@@ -75,8 +80,23 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     *
+     * @param color
+     * @return true is a given string is a valid tag color
+     */
     public static boolean isValidTagColor(String color) {
-        return true;
+        boolean isValid = false;
+        if (color.equalsIgnoreCase("BLUE")
+            || color.equalsIgnoreCase("GREEN")
+            || color.equalsIgnoreCase("RED")
+            || color.equalsIgnoreCase("YELLOW")
+            || color.equalsIgnoreCase("ORANGE")
+            || color.equalsIgnoreCase("BLACK")
+            || color.equalsIgnoreCase("PURPLE")) {
+            isValid = true;
+        }
+        return isValid;
     }
 
     @Override

@@ -18,6 +18,7 @@ import seedu.algobase.logic.commands.storage.ExportCommand;
 import seedu.algobase.logic.commands.storage.ImportCommand;
 import seedu.algobase.logic.commands.tag.AddTagCommand;
 import seedu.algobase.logic.commands.tag.DeleteTagCommand;
+import seedu.algobase.logic.commands.tag.EditTagColorCommand;
 import seedu.algobase.logic.commands.tag.EditTagCommand;
 import seedu.algobase.logic.commands.tag.ListTagCommand;
 import seedu.algobase.logic.commands.task.AddTaskCommand;

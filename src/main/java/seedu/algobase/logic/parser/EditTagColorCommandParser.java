@@ -5,8 +5,7 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG_COLOR;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.EditTagColorCommand;
-import seedu.algobase.logic.commands.EditTagCommand;
+import seedu.algobase.logic.commands.tag.EditTagColorCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -29,7 +28,8 @@ public class EditTagColorCommandParser implements Parser<EditTagColorCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTagColorCommand.MESSAGE_USAGE), pe);
         }
 
         return new EditTagColorCommand(index, argMultimap.getValue(PREFIX_TAG_COLOR).get());
