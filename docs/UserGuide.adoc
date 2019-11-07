@@ -70,8 +70,8 @@ Commands start with a single string (which may include underscores) such as `add
 * Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
-* Previous commands can be accessed by using the *up-arrow keys*.
-* Not following the specific format will trigger an _Invalid Command Format_ erorr message on the result display box.
+* Previous commands can be accessed by using the *up/down arrow keys*.
+* Not following the specific format will trigger an _Invalid Command Format_ error message on the result display box.
 
 [[Constraints]]
 *Parameter Constraints*
@@ -391,20 +391,21 @@ image::afterfetch.png[width="600"]
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically filters and allocates a specified number of employees from the
-complete employee list to an event.
+complete employee list to an event. *AddMin+ prevents conflicting schedules by ensuring that
+employees cannot be allocated to events with overlapping periods.*
 
-Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG]...`
+Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG]...`
 
-[TIP]
-Random selection of employee to allocate if supply exceeds demand of event.
+[NOTE]
+Random selection of employees to allocate if supply exceeds demand of event.
 
 ****
-* Allocates a `NUMBER` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
+* Allocates a `NUMBER_OF_EMPLOYEES` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `NUMBER` refers to the number of employees to be allocated to the event.
-* Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER)_.
+* The `NUMBER_OF_EMPLOYEES` refers to the number of employees to be allocated to the event.
+* Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER_OF_EMPLOYEES)_.
 
-* If no `NUMBER` is specified, it is assumed to be the current manpower count required by the event.
+* If no `NUMBER_OF_EMPLOYEES` is specified, it is assumed to be the current manpower count required by the event.
 
 ****
 
@@ -442,10 +443,13 @@ Allocates the 2nd employee on the employee list to the 1st event on the event li
 Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
 
 *Step 1*:
-double-click the employee card on the left list. Notice the employee to allocate
+double-click the employee card on the left list. Notice the employee to allocate as shown in the
+following figure.
 
 ._Instruction for user to execute `allocatem` command_
 image::afterfree.png[width="600"]
+
+*Step 2*: result after the `allocatem` command is shown below:
 
 ._Result after `allocatem` command_
 image::afterallocatem.png[width="600"]
@@ -472,7 +476,7 @@ Frees an employee with id: "001" allocated to the 1st event on the event list.
 
 Alternatively, the `free` command can be executed from the GUI in just 1 simple step!
 
-*Step 1*: To perform a `free` command without id specification, click the *free* button
+*Step 1*: To perform a `free` command without ID specification, click the *free* button
 as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
 
 [NOTE]
