@@ -1,11 +1,5 @@
 package seedu.address.ui.itinerary;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,10 +10,12 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.days.edit.CancelEditDayCommand;
 import seedu.address.logic.commands.itinerary.days.edit.DoneEditDayCommand;
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DateFormItem;
+import seedu.address.ui.components.form.DayPhotoFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
@@ -35,6 +31,7 @@ public class EditDayPage extends Page<AnchorPane> {
     private DateFormItem dayDateFormItem;
     private DoubleFormItem dayTotalBudgetFormItem;
     private TextFormItem dayDescriptionFormItem;
+    private DayPhotoFormItem dayPhotoFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -66,6 +63,9 @@ public class EditDayPage extends Page<AnchorPane> {
                 dayTotalBudgetFormItem.setValue(budget.value));
         currentEditDescriptor.getDescription().ifPresent((description ->
                 dayDescriptionFormItem.setValue(description.description)));
+        currentEditDescriptor.getPhoto().ifPresent(photo ->
+                dayPhotoFormItem.setValue(photo));
+
     }
 
     /**
@@ -75,24 +75,30 @@ public class EditDayPage extends Page<AnchorPane> {
         //Initialise with new display data
         dayDateFormItem = new DateFormItem("Date : ", date -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DATE_START
+                    + " " + CliSyntax.PREFIX_DATE_START
                     + ParserDateUtil.getStringFromDate(date.atStartOfDay()));
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DATE_END
+                    + " " + CliSyntax.PREFIX_DATE_END
                     + ParserDateUtil.getStringFromDate(date.atTime(23, 59)));
         });
         dayTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_BUDGET + String.format("%.2f", totalBudget));
+                    + " " + CliSyntax.PREFIX_BUDGET + String.format("%.2f", totalBudget));
         });
         dayDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_LOCATION + destinationValue);
+                    + " " + CliSyntax.PREFIX_LOCATION + destinationValue);
         });
         dayDescriptionFormItem = new TextFormItem("Description : ", description -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DESCRIPTION + description);
+                    + " " + CliSyntax.PREFIX_DESCRIPTION + description);
         });
+        dayPhotoFormItem = new DayPhotoFormItem("Photo : ", photo ->
+                mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
+                        + " " + CliSyntax.PREFIX_DATA_FILE_PATH + photo.getImageFilePath()), () ->
+                mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD + " "
+                        + CliSyntax.PREFIX_FILE_CHOOSER + " " + CliSyntax.PREFIX_DATA_FILE_PATH));
+
 
         fillPage(); //update and overwrite with existing edit descriptor
         formItemsPlaceholder.getChildren().add(new Label("Edit Day"));
@@ -101,7 +107,8 @@ public class EditDayPage extends Page<AnchorPane> {
                 dayDateFormItem.getRoot(),
                 dayTotalBudgetFormItem.getRoot(),
                 dayDestinationFormItem.getRoot(),
-                dayDescriptionFormItem.getRoot());
+                dayDescriptionFormItem.getRoot(),
+                dayPhotoFormItem.getRoot());
     }
 
     @FXML

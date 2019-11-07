@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -45,12 +46,13 @@ public class EditTripFieldCommand extends Command {
             + "[" + PREFIX_DATE_START + "START DATE] "
             + "[" + PREFIX_DATE_END + "END DATE] "
             + "[" + PREFIX_LOCATION + "DESTINATION] "
-            + "[" + PREFIX_BUDGET + "TOTAL BUDGET]...\n"
+            + "[" + PREFIX_BUDGET + "TOTAL BUDGET] "
+            + "[" + PREFIX_DATA_FILE_PATH + "FILE PATH TO PHOTO]\n"
             + "Example: " + COMMAND_WORD + " 1 Thailand trip"
             + PREFIX_BUDGET + "3000";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
-    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!\n" + MESSAGE_USAGE;
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form: %1$s";
 
     private final EditTripDescriptor editTripDescriptor;
 
@@ -324,7 +326,8 @@ public class EditTripFieldCommand extends Command {
                     builder.append(" End date: ").append(ParserDateUtil.getDisplayDateTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
-            this.photo.ifPresent(photo -> builder.append("Photo path: ").append(photo));
+            this.photo.ifPresent(photo -> builder.append(" Photo path: ").append(photo));
+
             return builder.toString();
         }
     }

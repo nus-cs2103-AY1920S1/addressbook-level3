@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #F2F4F7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: #F2E8E3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefViewportHeight="300.0" prefViewportWidth="400.0" style="-fx-background-color: #F2F4F7;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                <content>
-         <VBox style="-fx-background-color: #F2F4F7;">
+         <VBox style="-fx-background-color: #F2E8E3;">
             <children>
-                        <GridPane fx:id="tripGridPane" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" style="-fx-background-color: #F2F4F7;" vgap="10.0">
+                        <GridPane fx:id="tripGridPane" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" style="-fx-background-color: #F2E8E3;" vgap="10.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="210" />

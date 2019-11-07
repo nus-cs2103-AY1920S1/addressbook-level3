@@ -34,6 +34,8 @@ public class Trip {
     private final ExpenditureList expenditureList;
     private final Budget totalBudget;
     private final Diary diary;
+
+    //Optional Fields
     private final Photo photo;
 
     private final InventoryList inventoryList;
@@ -83,16 +85,24 @@ public class Trip {
      */
     public void initializeDayList() {
         int totalDays = (int) DAYS.between(startDate, endDate) + 1;
-        assert(totalDays > 0);
-        this.dayList.internalList.clear();
+        assert (totalDays > 0);
+
+        // Remove all days outside interval
+        dayList.setStartDate(startDate);
+        dayList.setEndDate(endDate);
+
+        // Add all days not in list
         for (int i = 0; i < totalDays; i++) {
             LocalDateTime currentDay = startDate.plusDays(i);
-            this.dayList.add(new Day(currentDay.withHour(0).withMinute(0),
+            Day toAdd = new Day(currentDay.withHour(0).withMinute(0),
                     currentDay.withHour(23).withMinute(59),
                     Optional.empty(),
                     destination,
                     Optional.empty(),
-                    new EventList(currentDay)));
+                    new EventList(currentDay), Optional.empty());
+            if (!this.dayList.containsClashing(toAdd)) {
+                this.dayList.add(toAdd);
+            }
         }
     }
 
