@@ -688,11 +688,16 @@ Undo commands will undo command(s) starting from the latest command the user ent
  +
 Redo commands will redo command(s) starting from the latest command that was undone.
 
+If you are not sure of how many commands you have undone or redone, do not worry!
+Jarvis can tell you how many commands you have undone or redone before you make any
+further changes!
+
 You can see how to undo and redo commands in JARVIS in the following
 sections below, which will cover two new commands:
 
 * `undo [NUMBER]`
 * `redo [NUMBER]`
+* `list-history`
 
 [NOTE]
 `[NUMBER]` is an optional argument indicating the number of commands that you
@@ -707,7 +712,7 @@ will let you know if `[NUMBER]` is out of range).
 If `[NUMBER]` parameter is not
 supplied, then `[NUMBER]` is taken to be the value *1*.
 
-==== undo
+==== undo command(s): `undo`
 Format: `undo [NUMBER]`
 
 where `[NUMBER]` is an optional argument indicating the number of commands that you
@@ -729,7 +734,7 @@ It is equivalent to the command `undo 1`
 * `undo 5` -- This command will undo the 5 latest commands entered by the user,
 starting from the latest command.
 
-==== redo
+==== redo command(s): `redo`
 Format: `redo [NUMBER]`
 
 where `[NUMBER]` is an optional argument indicating the number of commands that you
@@ -755,6 +760,13 @@ starting from the latest command that was undone.
 [NOTE]
 If you have entered new commands after undoing previous commands, you will not be able to redo the old
 commands.
+
+==== list the number of commands you can undo or redo: `list-history`
+Format: `list-history`
+
+Lists the number of available commands to be undone, number of available commands to be redone,
+and the limit of the maximum number of commands Jarvis can remember for you to support undo and
+redo commands.
 
 {sp} +
 
@@ -835,3 +847,4 @@ A convenient summary of all the commands you can use in `Jarvis`.
 
 * `undo [NUMBER]`
 * `redo [NUMBER]`
+* `list-history`
