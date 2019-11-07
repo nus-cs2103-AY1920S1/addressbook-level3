@@ -44,8 +44,7 @@ public class ModelManager implements Model {
         this.xpire = new Xpire(lists[0]);
         this.replenishList = new ReplenishList(lists[1]);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.currentList = new FilteredList<>(this.xpire.getItemList());
-        this.currentView = XPIRE;
+        this.setCurrentList(XPIRE);
     }
 
     public ModelManager() {
@@ -212,7 +211,7 @@ public class ModelManager implements Model {
             assert false;
             return;
         }
-        //this.setCurrentList(this.currentView);
+        this.setCurrentList(this.currentView);
     }
 
     @Override
@@ -268,6 +267,7 @@ public class ModelManager implements Model {
             assert false;
             return;
         }
+        this.currentList.setPredicate(PREDICATE_SHOW_ALL_ITEMS);
         this.currentView = listType;
     }
 
@@ -278,14 +278,14 @@ public class ModelManager implements Model {
         try {
             switch (listType) {
             case XPIRE:
-                FilteredList<XpireItem> xpireTemp = ((FilteredList<XpireItem>) this.currentList);
-                xpireTemp.setPredicate((Predicate<XpireItem>)predicate);
-                this.currentList = xpireTemp;
+                FilteredList<XpireItem> xpireTemp = (FilteredList<XpireItem>) this.currentList;
+                Predicate<XpireItem> newXpirePredicate = ((Predicate<XpireItem>) predicate).and(xpireTemp.getPredicate());
+                xpireTemp.setPredicate(newXpirePredicate);
                 break;
             case REPLENISH:
                 FilteredList<Item> replenishTemp = ((FilteredList<Item>) this.currentList);
-                replenishTemp.setPredicate((Predicate<Item>)predicate);
-                this.currentList = replenishTemp;
+                Predicate<Item> newReplenishPredicate = ((Predicate<Item>) predicate).and(replenishTemp.getPredicate());
+                replenishTemp.setPredicate(newReplenishPredicate);
                 break;
             default:
                 logger.warning("Unknown list type");

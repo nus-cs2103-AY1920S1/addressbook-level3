@@ -31,6 +31,7 @@ public class ClearCommand extends Command {
         requireAllNonNull(model, stateManager);
         stateManager.saveState(new ModifiedState(model));
 
+        //remove list dependency on xpire/replenish internal list
         ObservableList<? extends Item> currentList = FXCollections.observableArrayList(model.getCurrentList());
         currentList.forEach(item -> model.deleteItem(this.listType, item));
 

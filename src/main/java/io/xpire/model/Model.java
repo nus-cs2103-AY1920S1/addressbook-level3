@@ -21,7 +21,7 @@ public interface Model {
     Predicate<? extends Item> PREDICATE_SORT_ALL_ITEMS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<? extends Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
+    Predicate<? super Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Item> PREDICATE_SHOW_ALL_REPLENISH_ITEMS = unused -> true;
