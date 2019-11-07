@@ -1,0 +1,78 @@
+= Liu Zechu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CS ModBuddy
+
+---
+
+== Overview
+
+CS ModBuddy is a desktop application used for NUS CS undergraduates to plan modules and manage their study plans.
+It supports basic operations such as adding modules to and removing modules from different semester.
+In addition, the user may create multiple study plans, toggle between different versions of the same study plan,
+classify their modules via tagging, and check the various constraints on module prerequisites and MC-counts, while
+assisted by many user-friendly features such as undo/redo, autocomplete and an elegant GUI.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 30 kLoC.
+CS ModBuddy is morphed from AddressBook-Level 3.
+
+== Summary of contributions
+
+* *Major feature*: added *version tracking for individual study plans*
+** What it does: allows the user to save the state of the current active study plan.
+Each study plan has its own commit history, which represents a chronological series of states of this study plan.
+The user can make a commit, i.e. save the current state, and revert to this commit in the future if they so choose.
+** Justification: This feature improves the product significantly because a user may be unsure of the changes they
+are currently making, and thus may want to revert to a previous state in the future.
+** Highlights: This feature stores a snapshot of the a study plan. Every time the user makes a commit, the study
+plan is cloned and stored in a list of commits corresponding to each study plan. Corresponding JSON storage support
+was also implemented so that the commits can be stored to local files immediately.
+
+* *Minor enhancements*:
+- Enabled the user to add, delete, switch between multiple study plans.
+- Enabled the user to add and delete _non-mainstream_ semesters (i.e. special terms or Year 5 semesters).
+- Implemented most of the storage classes so that study plans and their associated information can be stored to
+local files in JSON format.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liuzechu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub and changed the UI screenshot
+*** In charge of code quality, scheduling and tracking
+*** Hosted most of the project meetings
+** Enhancements to existing features:
+*** Updated the GUI panel to display simplified study plan information (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/212/files[#212])
+*** Wrote additional tests to increase coverage from 69% to 74% (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/301[#301])
+** Documentation:
+*** Updated the Storage section of the Developer Guide: https://github.com[#14] (NOT YET)
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-3/main/pull/232[#232]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/LiuZechu/ped/issues/1[1], https://github.com/LiuZechu/ped/issues/3[2], https://github.com/LiuZechu/ped/issues/4[3], https://github.com/LiuZechu/ped/issues/5[4], https://github.com/LiuZechu/ped/issues/7[5])
+*** Helped some of my teammates write JSON storage files to support their features (https://github.com/AY1920S1-CS2103-F09-3/main/commit/91e35c72b8112a11c8ef7be311c1d3d40342f21a[1], https://github.com/AY1920S1-CS2103-F09-3/main/pull/115[2])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=studyplan]
+
+include::../UserGuide.adoc[tag=versiontracking]
+
+include::../UserGuide.adoc[tag=movingasemester]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=versiontracking]

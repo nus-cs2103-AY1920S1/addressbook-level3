@@ -6,19 +6,39 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface ModulePlannerStorage <<Interface>>
+Interface ModulesInfoStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonModulePlannerStorage
+Class JsonModulesInfoStorage
+
+Class JsonAdaptedModule
+Class JsonAdaptedSemester
+Class JsonAdaptedTag
 
 StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o-right-> "1"UserPrefsStorage
+StorageManager o-down-> "1"ModulesInfoStorage
+StorageManager o--> "1"ModulePlannerStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonModulesInfoStorage .left.|> ModulesInfoStorage
+JsonModulePlannerStorage .left.|> ModulePlannerStorage
+JsonModulePlannerStorage .down.> JsonSerializableModulePlanner
+JsonSerializableModulePlanner o-->"*"JsonAdaptedStudyPlan
+JsonSerializableModulePlanner o-->"*"JsonAdaptedVersionTrackingManager
+
+JsonAdaptedStudyPlan o--> "8..20"JsonAdaptedSemester
+JsonAdaptedStudyPlan o--> "*"JsonAdaptedTag
+JsonAdaptedStudyPlan o--> "*"JsonAdaptedModule
+
+JsonAdaptedSemester o--> "*"JsonAdaptedSkeletalModule
+JsonAdaptedModule o--> "*"JsonAdaptedTag
+
+JsonAdaptedVersionTrackingManager o--> "1"JsonAdaptedStudyPlanCommitManager
+JsonAdaptedStudyPlanCommitManager o--> "*"JsonAdaptedCommit
+JsonAdaptedCommit o--> "1"JsonAdaptedStudyPlan
+
 @enduml

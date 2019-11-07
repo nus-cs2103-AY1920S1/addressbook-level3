@@ -139,18 +139,23 @@ image:BetterModelClassDiagram.png[]
 //end::
 []
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the module planner data in json format and read it back.
+* can save the `ModulePlanner` data in json format and read it back.
+* can save the `ModulesInfo` data in json format and read it back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -230,8 +235,8 @@ image::UndoRedoState4.png[]
 ** Cons: Tedious because there are a lot of commands and we must ensure that the implementation of each individual command are correct.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Work in Progress] Version Tracking
+// tag::versiontracking[]
+=== Version Tracking
 ==== Current Implementation
 
 The version tracking mechanism (or _commit_ mechanism) is facilitated by `VersionTrackingManager`.
@@ -316,7 +321,7 @@ The following activity diagram summarizes what happens when a user executes a co
 * **Alternative 1 (current choice):** Use a list to store the history of commits for each study plan.
 ** Pros: Easy to implement. Each study plan has a clear history of its own.
 ** Cons: Hard to handle the possibility of branching (which is currently disallowed).
-// end::dataencryption[]
+// end::versiontracking[]
 
 === Logging
 
