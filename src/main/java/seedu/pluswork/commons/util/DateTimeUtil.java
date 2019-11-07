@@ -26,6 +26,7 @@ public class DateTimeUtil {
     public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT_MESSAGE
             + " format required";
     public static final String LEAP_YEAR = "The year you entered is not a leap year, please try again";
+    public static final String DEADLINE_PASSED = "The deadline entered has already passed, please try again";
 
     private static DateTimeFormatter defaultFormatter = new DateTimeFormatterBuilder()
             .appendPattern(DEFAULT_INPUT_FORMAT)
@@ -64,7 +65,11 @@ public class DateTimeUtil {
     public static LocalDateTime parseDateTime(String rawDateTime) throws ParseException {
         requireNonNull(rawDateTime);
         try {
-            return LocalDateTime.parse(rawDateTime, defaultFormatter);
+            LocalDateTime deadline = LocalDateTime.parse(rawDateTime, defaultFormatter);
+            if (deadline.isBefore(LocalDateTime.now())) {
+                throw new ParseException(DEADLINE_PASSED);
+            }
+            return deadline;
         } catch (DateTimeParseException e) {
             if (e.getMessage().contains("leap")) {
                 throw new ParseException(LEAP_YEAR);
