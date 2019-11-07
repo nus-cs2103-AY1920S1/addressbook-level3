@@ -1,19 +1,10 @@
 package io.xpire.model;
 
-import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
-
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 
 import io.xpire.model.item.SortedUniqueXpireItemList;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
-import io.xpire.model.tag.Tag;
-import io.xpire.model.tag.TagComparator;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 /**
@@ -102,7 +93,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     public XpireMethodOfSorting getMethodOfSorting() {
         return this.items.getXpireMethodOfSorting();
     }
-/*
+    /*
     //@@author liawsy
     /**
      * Checks expiry date of every item in xpire.
@@ -133,7 +124,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
                 newTag, item.getReminderThreshold());
         setItem(item, updatedItem);
     }
-*/
+    */
 
     //// util methods
 

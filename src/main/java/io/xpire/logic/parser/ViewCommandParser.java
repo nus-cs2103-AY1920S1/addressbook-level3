@@ -19,10 +19,11 @@ import io.xpire.model.ListType;
  * Parses input arguments and creates a new ViewCommand object
  */
 public class ViewCommandParser {
-    private final ListType listType;
+
     private static final String EMPTY_STRING = "";
     private static final String XPIRE_VIEW = "main";
     private static final String REPLENISH_LIST_VIEW = "replenish";
+    private final ListType listType;
 
     ViewCommandParser(ListType listType) {
         this.listType = listType;

@@ -20,7 +20,7 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
-        if (stateManager.isRedoStackEmpty()) {
+        if (stateManager.isNotRedoable()) {
             throw new CommandException(MESSAGE_REDO_FAILURE);
         }
         State succeedingState = stateManager.redo();

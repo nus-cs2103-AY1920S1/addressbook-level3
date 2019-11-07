@@ -1,10 +1,8 @@
 package io.xpire.model;
 
 import io.xpire.model.item.Item;
-import io.xpire.model.item.ListToView;
 import io.xpire.model.item.XpireItem;
-import io.xpire.model.item.sort.XpireMethodOfSorting;
-import javafx.collections.transformation.FilteredList;
+import io.xpire.model.state.State.StateType;
 
 /**
  * A clone of the model that copies over the data from input model.
@@ -14,37 +12,28 @@ public class CloneModel {
     private final Xpire xpire;
     private final ReadOnlyListView<Item> replenishList;
     private final ReadOnlyUserPrefs userPrefs;
-    private final FilteredList<? extends Item> currentList;
 
     public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
-                      ReadOnlyUserPrefs userPrefs, FilteredList<? extends Item> currentList,
-                      XpireMethodOfSorting method) {
-        this.xpire = new Xpire(xpire);
-        this.xpire.setMethodOfSorting(method);
-        this.replenishList = new ReplenishList(replenishList);
-        this.userPrefs = new UserPrefs(userPrefs);
-        this.currentList = new FilteredList<>(currentList);
-    }
-
-    public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
-                      ReadOnlyUserPrefs userPrefs, FilteredList<? extends Item> currentList) {
-        this.xpire = xpire;
-        this.replenishList = replenishList;
-        this.userPrefs = userPrefs;
-        this.currentList = new FilteredList<>(currentList);
-    }
-/*
-    /**
-     * Checks the model's list to view
-
-    private FilteredList<? extends Item> checkListToView(ListToView listToView) {
-        if (listToView.equals(new ListToView("main"))) {
-            return filteredXpireItemList;
-        } else {
-            return filteredReplenishItemList;
+                      ReadOnlyUserPrefs userPrefs, StateType stateType) {
+        switch(stateType) {
+        case FILTERED:
+            this.xpire = xpire;
+            this.replenishList = replenishList;
+            this.userPrefs = userPrefs;
+            break;
+        case MODIFIED:
+            this.xpire = new Xpire(xpire);
+            this.replenishList = new ReplenishList(replenishList);
+            this.userPrefs = new UserPrefs(userPrefs);
+            break;
+        default:
+            this.xpire = null;
+            this.replenishList = null;
+            this.userPrefs = null;
         }
+
     }
-*/
+
     public ReadOnlyListView<XpireItem> getXpire() {
         return this.xpire;
     }
@@ -57,10 +46,6 @@ public class CloneModel {
         return this.userPrefs;
     }
 
-    public FilteredList<? extends Item> getCurrentList() {
-        return this.currentList;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -69,10 +54,9 @@ public class CloneModel {
             return false;
         } else {
             CloneModel other = (CloneModel) obj;
-            System.out.println(other.currentList.getSource().containsAll(this.currentList.getSource()));
             return other.getXpire().getItemList().containsAll(this.getXpire().getItemList())
-                    && other.getReplenishList().getItemList().containsAll(this.getReplenishList().getItemList())
-                    && other.currentList.getSource().containsAll(this.currentList.getSource());
+                    && other.getReplenishList().getItemList().containsAll(this.getReplenishList().getItemList());
         }
     }
+
 }

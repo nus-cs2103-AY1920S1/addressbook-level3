@@ -23,6 +23,7 @@ import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.history.CommandHistory;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
@@ -39,7 +40,7 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
-    private final StateManager stateManager = new StateManager();
+    private final StateManager stateManager = new StackManager();
     private final CommandHistory commandHistory = new CommandHistory();
 
     public LogicManager(Model model, Storage storage) {

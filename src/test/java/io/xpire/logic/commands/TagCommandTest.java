@@ -50,7 +50,7 @@ public class TagCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        XpireItem xpireItemToTag = model.getFilteredXpireItemList().get(INDEX_FIRST_ITEM.getZeroBased());
+        XpireItem xpireItemToTag = model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
         TagCommand tagCommand = new TagCommand(INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());

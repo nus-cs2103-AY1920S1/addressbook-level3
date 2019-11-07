@@ -93,7 +93,7 @@ public class ModelManager implements Model {
 
     //=========== Model methods ================================================================================
 
-/*
+    /*
     public void setList(ListType listType, ReadOnlyListView<? extends Item> list) {
         requireAllNonNull(listType, list);
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
             assert false;
         }
     }
-*/
+    */
     @Override
     public Xpire getXpire() {
         return this.xpire;
@@ -271,6 +271,7 @@ public class ModelManager implements Model {
         this.currentView = listType;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void filterCurrentList(ListType listType, Predicate<? extends Item> predicate) {
         requireAllNonNull(listType, predicate);
@@ -279,12 +280,14 @@ public class ModelManager implements Model {
             switch (listType) {
             case XPIRE:
                 FilteredList<XpireItem> xpireTemp = (FilteredList<XpireItem>) this.currentList;
-                Predicate<XpireItem> newXpirePredicate = ((Predicate<XpireItem>) predicate).and(xpireTemp.getPredicate());
+                Predicate<XpireItem> newXpirePredicate = ((Predicate<XpireItem>) predicate)
+                        .and(xpireTemp.getPredicate());
                 xpireTemp.setPredicate(newXpirePredicate);
                 break;
             case REPLENISH:
                 FilteredList<Item> replenishTemp = ((FilteredList<Item>) this.currentList);
-                Predicate<Item> newReplenishPredicate = ((Predicate<Item>) predicate).and(replenishTemp.getPredicate());
+                Predicate<Item> newReplenishPredicate = ((Predicate<Item>) predicate)
+                        .and(replenishTemp.getPredicate());
                 replenishTemp.setPredicate(newReplenishPredicate);
                 break;
             default:
@@ -292,10 +295,10 @@ public class ModelManager implements Model {
                 assert false;
             }
         } catch (ClassCastException e) {
-            this.logger.warning("List type and predicate type mismatch");
+            logger.warning("List type and predicate type mismatch");
         }
     }
-/*
+    /*
     private void refreshCurrentList() {
         try {
         switch (this.currentView) {
@@ -318,7 +321,7 @@ public class ModelManager implements Model {
             logger.warning("Refresh failed");
         }
     }
-*/
+    */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -338,18 +341,19 @@ public class ModelManager implements Model {
     @Override
     public void update(State state) {
         CloneModel clone = state.getCloneModel();
-        this.setUserPrefs(clone.getUserPrefs());
         this.setXpire(clone.getXpire());
         this.xpire.setMethodOfSorting(state.getMethod());
         this.setReplenishList(clone.getReplenishList());
-        this.currentList = clone.getCurrentList();
+        this.setUserPrefs(clone.getUserPrefs());
+        this.setCurrentList(state.getListType());
+        this.filterCurrentList(this.currentView, state.getPredicate());
     }
 
     @Override
     public ListType getCurrentView() {
         return this.currentView;
     }
-/*
+    /*
     @Override
     public void update(ListToView listToView) {
         FilteredList<XpireItem> filteredXpireList = new FilteredList<>(getXpire().getItemList());

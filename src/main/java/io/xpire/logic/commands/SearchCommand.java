@@ -2,12 +2,10 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
-import io.xpire.commons.util.CollectionUtil;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;

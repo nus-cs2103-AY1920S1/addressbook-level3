@@ -21,7 +21,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
-        if (stateManager.isUndoStackEmpty()) {
+        if (stateManager.isNotUndoable()) {
             throw new CommandException(MESSAGE_UNDO_FAILURE);
         }
         State previousState = stateManager.undo(new ModifiedState(model));

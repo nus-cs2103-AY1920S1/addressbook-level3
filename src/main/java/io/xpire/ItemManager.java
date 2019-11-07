@@ -30,6 +30,7 @@ public class ItemManager {
 
     /**
      * Manages item in Xpire storage based on their expiry date.
+     *
      * @param model See {@code ModelManager}.
      * @param storage See {@code Storage}.
      */
@@ -50,6 +51,9 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Tags Items that are expired.
+     */
     private void tagExpiredItems() {
         List<? extends Item> xpireItems = this.model.getItemList(XPIRE);
         XpireItem itemToCheck;
@@ -62,6 +66,12 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Instantiates a new Item with updated Tags.
+     *
+     * @param itemToUpdate Item that contains the tags and other information to be copied over.
+     * @return a new Item with updated Tags.
+     */
     private XpireItem getItemWithUpdatedTags(XpireItem itemToUpdate) {
         Set<Tag> newTagSet = new TreeSet<>(new TagComparator());
         newTagSet.addAll(itemToUpdate.getNewTagSet(new Tag(EXPIRED_TAG)));

@@ -1,7 +1,5 @@
 package io.xpire.model;
 
-import static io.xpire.model.ListType.XPIRE;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -92,7 +90,7 @@ public interface Model {
 
     ListType getCurrentView();
 
-/*
+    /*
     /**
      * Replaces xpire data with the data in {@code xpire}.
 
@@ -235,5 +233,5 @@ public interface Model {
     void update(ListToView listToView);
 
     ListToView getListToView();
-*/
+    */
 }

@@ -6,11 +6,12 @@ import java.util.Stack;
 /**
  * A class that wraps two internal stacks that handles Undo/Redo commands.
  */
-public class StackManager {
+public class StackManager implements StateManager {
 
     private static State current;
-    private ArrayDeque<State> undoStack = new ArrayDeque<>();
-    private Stack<State> redoStack = new Stack<>();
+    private final int Maximum = 10;
+    private final ArrayDeque<State> undoStack = new ArrayDeque<>();
+    private final Stack<State> redoStack = new Stack<>();
 
     /**
      * Processes the undo command by pushing the current state into the redoStack and
@@ -19,8 +20,8 @@ public class StackManager {
      * @param currentState current State.
      * @return popped State (most recent State).
      */
-    State undo(State currentState) {
-        if (isUndoStackEmpty()) {
+    public State undo(State currentState) {
+        if (isNotUndoable()) {
             return null;
         }
         redoStack.push(currentState);
@@ -34,9 +35,9 @@ public class StackManager {
      *
      * @return popped State (previous State).
      */
-    State redo() {
+    public State redo() {
         undoStack.push(current);
-        if (isRedoStackEmpty()) {
+        if (isNotRedoable()) {
             return null;
         }
         current = redoStack.pop();
@@ -48,10 +49,10 @@ public class StackManager {
      *
      * @param currentState current State to be saved.
      */
-    void saveState(State currentState) {
+    public void saveState(State currentState) {
         redoStack.clear();
         undoStack.push(currentState);
-        if (undoStack.size() > StateManager.MAX_STACK_SIZE) {
+        if (undoStack.size() > Maximum) {
             undoStack.removeLast();
         }
     }
@@ -59,14 +60,14 @@ public class StackManager {
     /**
      * Returns if the undoStack is empty.
      */
-    public boolean isUndoStackEmpty() {
+    public boolean isNotUndoable() {
         return this.undoStack.isEmpty();
     }
 
     /**
      * Returns if the redoStack is empty.
      */
-    public boolean isRedoStackEmpty() {
+    public boolean isNotRedoable() {
         return this.redoStack.isEmpty();
     }
 
