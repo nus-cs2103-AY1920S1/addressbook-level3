@@ -57,10 +57,13 @@ public class SetCommandParser implements Parser<SetCommand> {
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        Budget newBudget = new Budget(budget, date, categoryList);
-
-        return new SetCommand(newBudget);
-
+        if (categoryList.isEmpty()) {
+            Budget newBudget = new Budget(budget, date);
+            return new SetCommand(newBudget);
+        } else {
+            Budget newBudget = new Budget(budget, date, categoryList);
+            return new SetCommand(newBudget);
+        }
     }
 
     /**
