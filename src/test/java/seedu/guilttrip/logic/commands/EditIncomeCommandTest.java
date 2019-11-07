@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_AMOUNT_SALARY_INCOME;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_SALARY_INCOME;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_TUITION_INCOME;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.showIncomeAtIndex;
@@ -201,9 +202,9 @@ public class EditIncomeCommandTest {
                 new EditIncomeDescriptorBuilder().withDescription(VALID_DESC_SALARY_INCOME).build());
 
         // same values -> returns true
-        EditIncomeDescriptor copyDescriptor = new EditIncomeDescriptorBuilder()
+        EditIncomeDescriptor copyDescriptor1 = new EditIncomeDescriptorBuilder()
                 .withDescription(VALID_DESC_SALARY_INCOME).build();
-        EditIncomeCommand commandWithSameValues = new EditIncomeCommand(INDEX_FIRST_ENTRY, copyDescriptor);
+        EditIncomeCommand commandWithSameValues = new EditIncomeCommand(INDEX_FIRST_ENTRY, copyDescriptor1);
         assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
@@ -216,10 +217,12 @@ public class EditIncomeCommandTest {
         assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> not equals returns false
-        assertNotEquals(standardCommand, new EditIncomeCommand(INDEX_SECOND_ENTRY, copyDescriptor));
+        assertNotEquals(standardCommand, new EditIncomeCommand(INDEX_SECOND_ENTRY, copyDescriptor1));
 
         // different descriptor -> not equals returns false
-        assertNotEquals(standardCommand, new EditIncomeCommand(INDEX_FIRST_ENTRY, copyDescriptor));
+        EditIncomeDescriptor copyDescriptor2 = new EditIncomeDescriptorBuilder()
+                .withDescription(VALID_DESC_TUITION_INCOME).build();
+        assertNotEquals(standardCommand, new EditIncomeCommand(INDEX_FIRST_ENTRY, copyDescriptor2));
     }
 
 }

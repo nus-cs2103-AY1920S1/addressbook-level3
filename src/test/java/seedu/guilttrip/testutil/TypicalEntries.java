@@ -11,9 +11,10 @@ import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Income;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Entry} objects to be used in tests.
  */
 public class TypicalEntries {
 
@@ -25,6 +26,13 @@ public class TypicalEntries {
     public static final Expense TRAVEL_EXPENSE = new ExpenseBuilder().withDesc("Travel to Mars")
             .withCategory("Travel").withTime("2019-08-11").withAmt(10000.00).withTags("Gettingalife", "Rest").build();
 
+    public static final Income SALARY_INCOME = new IncomeBuilder().withDesc("november salary")
+            .withCategory("Salary").withDate("2019 11 28").withAmt("3500").withTags("work").build();
+    public static final Income PART_TIME_INCOME = new IncomeBuilder().withDesc("part time work")
+            .withCategory("Salary").withDate("2019 09 21").withAmt("350").withTags("parttime").build();
+    public static final Income GIFT_INCOME = new IncomeBuilder().withDesc("gift card from mom")
+            .withCategory("Gift").withDate("2019 10 20").withAmt("30").withTags("timetogoshopping").build();
+
     public static final Category CATEGORY_FOOD = new CategoryBuilder().withCatType("Expense").withCatName("food")
             .build();
     public static final Category CATEGORY_SHOPPING = new CategoryBuilder().withCatType("Expense")
@@ -33,30 +41,44 @@ public class TypicalEntries {
             .withCatName("travel").build();
     public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
             .build();
+    public static final Category CATEGORY_SALARY = new CategoryBuilder().withCatType("Income").withCatName("salary")
+            .build();
+    public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
+            .build();
+
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalEntries() {
     } // prevents instantiation
 
     /**
-     * Returns an {@code GuiltTrip} with all the typical persons.
+     * Returns an {@code GuiltTrip} with all the typical entries.
      */
     public static GuiltTrip getTypicalGuiltTrip() {
-        GuiltTrip ab = new GuiltTrip(false);
+        GuiltTrip gt = new GuiltTrip(false);
         for (Category category : getTypicalCategories()) {
-            ab.addCategory(category);
+            gt.addCategory(category);
         }
         for (Entry entry : getTypicalEntries()) {
-            ab.addEntry(entry);
+            gt.addEntry(entry);
         }
-        return ab;
+        for (Income income : getTypicalIncomes()) {
+            gt.addIncome(income);
+        }
+        return gt;
     }
 
     public static List<Entry> getTypicalEntries() {
         return new ArrayList<>(Arrays.asList(FOOD_EXPENSE, CLOTHING_EXPENSE, TRAVEL_EXPENSE));
     }
 
+    public static List<Income> getTypicalIncomes() {
+        return new ArrayList<>(Arrays.asList(SALARY_INCOME, PART_TIME_INCOME, GIFT_INCOME));
+    }
+
     public static List<Category> getTypicalCategories() {
-        return new ArrayList<>(Arrays.asList(CATEGORY_FOOD, CATEGORY_SHOPPING, CATEGORY_BUSINESS, CATEGORY_TRAVEL));
+        return new ArrayList<>(Arrays.asList(CATEGORY_FOOD, CATEGORY_SHOPPING, CATEGORY_BUSINESS, CATEGORY_TRAVEL,
+                CATEGORY_GIFT, CATEGORY_SALARY));
     }
 }
