@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        moduleListPanel = new ModuleListPanel(logic.getDisplayedList());
+        moduleListPanel = new ModuleListPanel(this::onClickDisplayModule, logic.getDisplayedList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         homeViewPanel = new HomeViewPanel();
@@ -244,5 +244,15 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    // ==================== EventHandlers ====================
+
+    /**
+     * Event handler for displaying a module on click.
+     */
+    private void onClickDisplayModule(Module module) {
+        logic.setDisplayedModule(module);
+        handleShowModule();
     }
 }

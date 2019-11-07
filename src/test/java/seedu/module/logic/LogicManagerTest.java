@@ -125,6 +125,14 @@ public class LogicManagerTest {
         assertEquals(expectedModule, model.getDisplayedModule());
     }
 
+    @Test
+    public void setDisplayedModule() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+
+        logic.setDisplayedModule(archivedModule);
+        assertEquals((ArchivedModule) model.getDisplayedModule().get(), archivedModule);
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

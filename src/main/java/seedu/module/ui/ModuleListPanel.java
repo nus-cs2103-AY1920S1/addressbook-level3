@@ -1,5 +1,6 @@
 package seedu.module.ui;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -17,11 +18,14 @@ public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
+    private Consumer<Module> onClickDisplayModule;
+
     @FXML
     private ListView<Module> moduleListView;
 
-    public ModuleListPanel(ObservableList<Module> displayedList) {
+    public ModuleListPanel(Consumer<Module> onClickDisplayModule, ObservableList<Module> displayedList) {
         super(FXML);
+        this.onClickDisplayModule = onClickDisplayModule;
         moduleListView.setItems(displayedList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }
@@ -38,7 +42,8 @@ public class ModuleListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ModuleCard(trackedModule, getIndex() + 1).getRoot());
+                setGraphic(new ModuleCard(ModuleListPanel.this.onClickDisplayModule,
+                    trackedModule, getIndex() + 1).getRoot());
             }
         }
     }

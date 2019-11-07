@@ -1,5 +1,7 @@
 package seedu.module.ui;
 
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -37,7 +39,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Pane trackedStatus;
 
-    public ModuleCard(Module module, int displayedIndex) {
+    public ModuleCard(Consumer<Module> onClickDisplayModule, Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
@@ -49,6 +51,8 @@ public class ModuleCard extends UiPart<Region> {
             trackedStatus.getStyleClass().clear();
             trackedStatus.getStyleClass().add("tag-tracked");
         }
+
+        cardPane.setOnMouseClicked(unused -> onClickDisplayModule.accept(module));
     }
 
     @Override

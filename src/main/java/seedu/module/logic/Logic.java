@@ -36,6 +36,11 @@ public interface Logic {
     Optional<Module> getDisplayedModule();
 
     /**
+     * Sets the displayed module.
+     */
+    void setDisplayedModule(Module toDisplay);
+
+    /**
      * Returns the user prefs' Module book file path.
      */
     Path getModuleBookFilePath();

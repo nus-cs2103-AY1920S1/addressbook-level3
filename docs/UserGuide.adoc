@@ -73,11 +73,22 @@ Format: `list`
 
 === Viewing a module: `view`
 
+==== Method 1: Typing the command
+
 Views a module and enters the module view. Can be a tracked module or an archived module.
 
 Format: `view <MODULE_CODE>`
 
 Example: `view cs1231`
+
+==== Method 2: Double clicking on the module in the list
+
+Alternatively, you may simply view the module by double clicking on the module in the module list.
+
+image::ViewCommandGUiStep1.png[width="790"]
+
+image::ViewCommandGUiStep2.png[width="790"]
+
 
 === Return from module view: `back`
 Returns from the module view.
