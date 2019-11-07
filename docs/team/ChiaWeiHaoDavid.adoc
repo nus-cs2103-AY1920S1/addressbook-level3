@@ -57,7 +57,7 @@ Ultimately, the design of the current implementation was chosen as it is relativ
 maintained the application's performance above the acceptable benchmark. This benchmark is the non functional requirement of being able to hold up to 1000 expenses without a noticeable
 sluggishness in performance for typical usage.
 
-* *Code contributed*: [https://tinyurl.com/y4qp9alm[Functional code tracked with RepoSense]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=davidcwh[Functional code tracked with RepoSense]]
 
 * *Other contributions*:
 
