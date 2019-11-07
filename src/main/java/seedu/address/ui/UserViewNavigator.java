@@ -73,8 +73,20 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        TaskListPanel taskListPanel = new TaskListPanel(logic.getProjectDashboard().getTaskList(),
-                logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTasMemMappingList());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+                logic.getFilteredMemberList(), logic.getProjectDashboard().getTasMemMappingList());
+        userViewController.setUserView(taskListPanel);
+    }
+
+    /**
+     * Relays to controller to swap current user view with task list.
+     *
+     * @param logic to access task data
+     */
+    public void loadFoundTaskView(Logic logic) {
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+                logic.getProjectDashboard().getTaskList(), logic.getFilteredMemberList(),
+                logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(taskListPanel);
     }
 
@@ -87,8 +99,9 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadMemberListView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList(),
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
                 logic.getProjectDashboard().getTaskList(), logic.getProjectDashboard().getTasMemMappingList());
+
         userViewController.setUserView(memberListPanel);
     }
 
@@ -99,8 +112,20 @@ public class UserViewNavigator {
      *
      * @param logic to access task data
      */
+    public void loadFoundMembersView(Logic logic) {
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
+                logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTaskList(),
+                logic.getProjectDashboard().getTasMemMappingList());
+        userViewController.setUserView(memberListPanel);
+    }
+
+    // TODO get filtered member list from logic interface
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
     public void loadSpecificMemberView(Logic logic) {
-        List<Member> members = logic.getProjectDashboard().getMemberList();
+        List<Member> members = logic.getFilteredMemberList();
         Member specificMember = members.get(members.size() - 1);
 
         IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size());
@@ -162,17 +187,6 @@ public class UserViewNavigator {
     }
 
     /**
-     * Relays to controller to swap current user view with member list.
-     *
-     * @param logic to access task data
-     */
-    public void loadFoundMembersView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
-                logic.getProjectDashboard().getTaskList(), logic.getProjectDashboard().getTasMemMappingList());
-        userViewController.setUserView(memberListPanel);
-    }
-
-    /**
      * Relays to controller to swap current user view with inventory list.
      *
      * @param logic to access inventory data
@@ -200,7 +214,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadMemberStatsView(Logic logic) {
-        memberStatsView = new MemberStatisticsView(logic.getStatistics(), logic.getFilteredMemberList());
+        memberStatsView = new MemberStatisticsView(logic.getStatistics(), logic.getProjectDashboard().getMemberList());
         userViewController.setUserView(memberStatsView);
     }
 
@@ -210,7 +224,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskStatsView(Logic logic) {
-        taskStatsView = new TaskStatisticsView(logic.getStatistics(), logic.getFilteredTaskList());
+        taskStatsView = new TaskStatisticsView(logic.getStatistics(), logic.getProjectDashboard().getTaskList());
         userViewController.setUserView(taskStatsView);
     }
 

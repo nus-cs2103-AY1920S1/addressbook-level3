@@ -368,6 +368,11 @@ public class AddInventoryCommandTest {
         }
 
         @Override
+        public void updateData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCalendar(CalendarWrapper calendar) {
             throw new AssertionError("This method should not be called.");
         }

@@ -334,6 +334,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public void updateData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addCalendar(CalendarWrapper calendar) {
             throw new AssertionError("This method should not be called.");
         }

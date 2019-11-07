@@ -409,6 +409,11 @@ public class AddTaskCommandTest {
         public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateData() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

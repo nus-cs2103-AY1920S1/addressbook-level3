@@ -537,4 +537,13 @@ public class ModelManager implements Model {
     public void setClockFormat(ClockFormat newClockFormat) {
         userSettings.setClockFormat(newClockFormat);
     }
+
+    // ====================== Util methods ======================================================================
+
+    @Override
+    public void updateData() {
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+    }
+
 }

@@ -336,4 +336,9 @@ public interface Model {
      * @param newClockFormat the format to replace with
      */
     void setClockFormat(ClockFormat newClockFormat);
+
+    /**
+     * Update the predicates to show all data after a {@code FindCommand} is executed.
+     */
+    void updateData();
 }
