@@ -10,7 +10,8 @@ import seedu.address.commons.util.AppUtil;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Description can take any values, and it should not be blank";
+            "Description can take any values, and it should not be blank\n"
+            + "Maximum characters are 100 characters.";
 
     /*
      * The first character of the description must not be a whitespace,
@@ -29,7 +30,7 @@ public class Description {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidDescription(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && (test.length() <= 100);
     }
 
 

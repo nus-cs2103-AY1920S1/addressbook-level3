@@ -43,19 +43,17 @@ public class Date {
             String day = test.substring(0, 2);
             String month = test.substring(2, 4);
             String year = test.substring(4);
-            if ((day.equals("29") || day.equals("30") || day.equals("31")) && month.equals("02")) {
+            if (day.equals("29") && month.equals("02")) {
                 int numYear = Integer.parseInt(year);
                 if (numYear % 400 == 0) {
                     return true;
                 } else if (numYear % 100 == 0) {
                     return false;
-                } else if (numYear % 4 == 0) {
-                    return true;
                 } else {
-                    return false;
+                    return numYear % 4 == 0;
                 }
             } else {
-                return true;
+                return (!day.equals("30") && !day.equals("31")) || !month.equals("02");
             }
         }
         return false;

@@ -41,13 +41,7 @@ class SortFinCommandTest {
         SortFinCommand sortFin1Copy = new SortFinCommand("TIME");
         assertTrue(sortFin1.equals(sortFin1Copy));
 
-        // different types -> returns false
-        assertFalse(sortFin1.equals(1));
-
-        // null -> returns false
-        assertFalse(sortFin1.equals(null));
-
-        // different person -> returns false
+        // different value -> returns false
         assertFalse(sortFin1.equals(sortFin2));
     }
 

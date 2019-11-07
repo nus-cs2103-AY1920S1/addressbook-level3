@@ -8,7 +8,8 @@ import static java.util.Objects.requireNonNull;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain numbers with maximum two decimals";
+            "Amount should only contain positive numbers with maximum two decimals\n"
+            + "Please don't overspend :) Your total expenses are capped at 1 trillion. Fair enough right?";
     public static final String VALIDATION_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
     public final String value;
     public final double numericalValue;
