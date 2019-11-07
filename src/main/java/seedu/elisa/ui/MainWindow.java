@@ -8,6 +8,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.GaussianBlur;
@@ -24,12 +26,17 @@ import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
+import seedu.elisa.game.GameLoop;
+import seedu.elisa.game.Grid;
+import seedu.elisa.game.Painter;
+import seedu.elisa.game.Snake;
 import seedu.elisa.logic.Logic;
 import seedu.elisa.logic.commands.ClearScreenCommandResult;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.CloseCommandResult;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.GameCommandResult;
 import seedu.elisa.logic.commands.OpenCommandResult;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
@@ -464,7 +471,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.elisa.logic.Logic#execute(String)
      */
     @FXML
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws Exception {
         try {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
@@ -514,12 +521,91 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.clear();
             }
 
+            if (commandResult instanceof GameCommandResult) {
+                startgame(primaryStage);
+            }
+
             updatePanels(logic.getVisualList());
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } catch (Exception e) {
+            throw e;
         }
+    }
+
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
+
+    private GameLoop loop;
+    private Grid grid;
+    private GraphicsContext context;
+
+    public void startgame(Stage primaryStage) throws Exception {
+        StackPane root = new StackPane();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        context = canvas.getGraphicsContext2D();
+
+        canvas.setFocusTraversable(true);
+
+        canvas.setOnKeyPressed(e -> {
+            Snake snake = grid.getSnake();
+            if (loop.isKeyPressed()) {
+                return;
+            }
+            switch (e.getCode()) {
+                case UP:
+                    snake.setUp();
+                    break;
+                case DOWN:
+                    snake.setDown();
+                    break;
+                case LEFT:
+                    snake.setLeft();
+                    break;
+                case RIGHT:
+                    snake.setRight();
+                    break;
+                case ENTER:
+                    if (loop.isPaused()) {
+                        resetgame();
+                        (new Thread(loop)).start();
+                    }
+                    break;
+                case ESCAPE:
+                    exitgame();
+                    break;
+            }
+        });
+
+        resetgame();
+
+        root.getChildren().add(canvas);
+
+        Scene gamescene = new Scene(root);
+
+        primaryStage.setResizable(true);
+        primaryStage.setHeight(HEIGHT + 300);
+        primaryStage.setWidth(WIDTH + 300);
+        primaryStage.setTitle("Snake Game");
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+        primaryStage.setScene(gamescene);
+        primaryStage.show();
+
+        (new Thread(loop)).start();
+    }
+
+    private void resetgame() {
+        grid = new Grid(WIDTH, HEIGHT);
+        loop = new GameLoop(grid, context);
+        Painter.paint(grid, context);
+    }
+
+    private void exitgame() {
+        primaryStage.setScene(scene);
+        primaryStage.setHeight(primaryStage.getMinHeight());
+        primaryStage.setWidth(primaryStage.getMinWidth());
     }
 }

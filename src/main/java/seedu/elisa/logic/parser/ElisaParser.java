@@ -16,6 +16,7 @@ import seedu.elisa.logic.commands.DownCommand;
 import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.ExitCommand;
 import seedu.elisa.logic.commands.FindCommand;
+import seedu.elisa.logic.commands.GameCommand;
 import seedu.elisa.logic.commands.JokeCommand;
 import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
@@ -130,6 +131,9 @@ public class ElisaParser {
 
         case SnoozeCommand.COMMAND_WORD:
             return new SnoozeCommandParser().parse(description, flags);
+
+        case GameCommand.COMMAND_WORD:
+            return new GameCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

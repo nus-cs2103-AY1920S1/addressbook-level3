@@ -38,6 +38,8 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -71,7 +73,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.elisa.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws Exception;
     }
 
 }
