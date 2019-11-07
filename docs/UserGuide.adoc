@@ -846,7 +846,7 @@ Coming in `V2.0`:
 
 // end::statisticsCommandUG[]
 
-===== Exiting the program : `exit`
+=== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
