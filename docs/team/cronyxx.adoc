@@ -1,0 +1,116 @@
+= Yeo Tong - LiBerry Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+---
+
+=== Purpose
+This portfolio is written to document my role as the *User Interface* (UI)
+designer and my contributions to our project, *LiBerry*.
+
+=== About the project
+*LiBerry* is a *free*, *single-user*, and *lightweight* library management system,
+that is designed to manage small community and private libraries. It does not
+require any internet connection to function and is optimized for librarians
+who prefer to work with a *Command Line Interface* (CLI). The *Graphical User
+Interface* (GUI) of *LiBerry* is created with *JavaFX* while the entire software
+is written in *Java*.
+
+=== Motivations
+*LiBerry* is created to promote the setting up of private and community
+libraries, so as to improve literacy rates. One of the main reasons why
+literacy rates is low due to the lack of accessibility of knowledge.
+This is more prevalent in rural communities due to the lack of
+sources of knowledge.
+
+Hence, in order to breach this gap in knowledge, we created *LiBerry*,
+which is a free, connectionless, easy to use library management system
+so as to encourage more people to set up their own community libraries.
+
+=== Main Features
+The main features of *LiBerry* are:
+
+* Adding/Removing of books
+* Registering/Unregistering of borrowers
+* Loaning/Returning of books
+* Searching of books
+
+These basic features would allow librarians to manage their libraries
+effectively.
+
+=== Key symbols
+
+
+
+== Summary of Contributions
+---
+
+This section describes the contributions that I have made to *LiBerry*.
+Here is the link to the code that I contributed to the project:
+
+Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Cronyxx[RepoSense Report]
+
+=== Major enhancement: Undo/Redo feature
+
+==== Description:
+Allows the user to undo all previous commands one at a time.
+Preceding undo commands can be reversed by using the redo command.
+
+==== Justification:
+This feature improves the product significantly because a user can
+make mistakes in commands and the app should provide a convenient way
+to rectify them.
+
+==== Highlights:
+This enhancement affects existing commands and commands to be added in
+future. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to
+existing commands.
+
+=== Minor enhancement:
+Added a history command that allows the user to navigate to
+previous commands using up/down keys.
+
+=== Other contributions:
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+//include::../DeveloperGuide.adoc[tag=undoredo]
+
+//include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+
+_{Optionally, you may include other projects in your portfolio.}_
