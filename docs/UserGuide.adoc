@@ -43,6 +43,7 @@ image::Ui.png[width="790"]
 .  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
 .  Refer to <<Command List>> for details of each command.
 
+// tag::learningtagline[]
 == Learning TagLine
 
 Are you new to TagLine? Or are you prone to making typos? In either case, TagLine has some nifty features to help you out.
@@ -102,6 +103,7 @@ image::ug_prompt3.png[width="790"]
 
 When given prompts, to minimize inconvenience to you, the autocomplete menu is temporarily disabled. Once prompting is complete or aborted, autocomplete will be re-enabled.
 ====
+// end::learningtagline[]
 
 == Command List
 

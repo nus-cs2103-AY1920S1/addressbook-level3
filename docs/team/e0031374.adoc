@@ -43,6 +43,7 @@ _{you can add/remove categories in the list above}_
 
 
 ==== Add member to a group: `add`
+
 Adds members to a group.
 
 Format:
@@ -51,7 +52,7 @@ Format:
 
 Example:
 
-* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
+`group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
 +
 Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
 

@@ -74,6 +74,8 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::designui[]
+
 [[Design-Ui]]
 === UI component
 
@@ -105,6 +107,8 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+// end::designui[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -295,6 +299,7 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::userprompting[]
 === User Prompting
 
 ==== Description
@@ -303,7 +308,7 @@ When the user enters an incomplete command, the command could be missing only a 
 
 At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.
 
-==== Proposed Implementation
+==== Implementation
 
 ===== Representing a prompt
 
@@ -362,7 +367,7 @@ To allow the `Ui` to handle user prompts, the sequence of steps taken to handle 
 . The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.
     .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
     .. `MainWindow` checks that `promptHandler` is now complete.
-    .. `MainWindow` calls `getPendingCommand` and `getNextPrompt` of `promptHandler`.
+    .. `MainWindow` calls `getPendingCommand` and `getFilledPromptList` of `promptHandler`.
     .. The incomplete command and the filled prompt list are passed to `Logic` to execute the command.
 
 The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.
@@ -372,6 +377,21 @@ image::UserPromptActivityDiagram.png[]
 
 ==== Design Considerations
 
+===== Aspect: Prompt handling method
+
+* **Alternative 1**: The `Ui` functions as per before and is unaware of prompting. The `Logic` keeps track of the incomplete command and sends prompts back as `CommandResult` objects.
+** Pros: Decreases coupling between `Ui` and `Logic` components
+** Cons: Violates the Single Responsibility Principle for `CommandResult`, i.e. `CommandResult` may now have to change because of changes to the prompting feature
++
+`Ui` has no way to know if it is currently handling prompting, so it cannot abort prompts, disable/enable autocomplete or display special messages.
+* **Alternative 2**: The `Logic` component keeps track of the incomplete command and throws an exception containing prompts to the `Ui`.
+** Pros: Greater flexibility for `Ui` to handle prompts, e.g. aborting
+** Cons: `LogicManager` has to keep track of the command entered, rather than simply acting as a bridge between the `Ui` and the `Parser` sub-component. Increases number of potential points of failure and decreases maintainability.
+* **Alternative 3**: The `Logic` component requests prompts from the `Ui`. The `Ui` component keeps track of the incomplete command.
+** Pros: Greater flexibility for `Ui` to handle prompts, e.g. aborting
+
+*Alternative 3* was chosen as it allows for flexibility in prompt handling while having `Ui` be the sole component responsible for collecting prompt responses.
+
 ===== Aspect: Command correction method
 
 * **Alternative 1**: The `Ui` updates the command with the user's responses by adding the new data to the command string.
@@ -380,11 +400,15 @@ image::UserPromptActivityDiagram.png[]
 * **Alternative 2**: The `LogicManager` updates the command with the user's responses by adding the new data to the command string.
 ** Pros: No need to overload `Parser#parse()` method
 ** Cons: Requires `LogicManager` to know where to insert preambles, and reduces flexibility of prompting
-* **Alternative 3**: `TaglineParser` and the individual parser classes handles the `Prompt` objects when parsing the command
+* **Alternative 3**: `TaglineParser` and the individual parser classes handle the list of `Prompt` objects when parsing the command
 ** Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions
-** Cons: Requires changing multiple `Parser` classes, decreases maintainability in the long run
+** Cons: Requires changing multiple `Parser` classes, may increase code duplication
 
 **Alternative 3** is chosen as it allows the confirmation messages for the `clear` commands to be implemented easily.
+
+For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the `contact clear` command by having the user type `YES`. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like `contact clear <prefix> YES`. Since this is unintuitive, alternative 3 was chosen instead.
+
+// end::userprompting[]
 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation
