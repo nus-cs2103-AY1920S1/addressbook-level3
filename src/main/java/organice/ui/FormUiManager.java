@@ -12,6 +12,7 @@ import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
 import organice.model.person.Age;
 import organice.model.person.BloodType;
+import organice.model.person.Doctor;
 import organice.model.person.DoctorInCharge;
 import organice.model.person.FormField;
 import organice.model.person.Name;
@@ -306,9 +308,15 @@ public class FormUiManager {
             logger.warning("[ADD COMMAND FORM MODE] Doctor's NRIC entered is not valid");
             throw new ParseException(DoctorInCharge.MESSAGE_CONSTRAINTS);
         } else if (!model.hasDoctor(new Nric(personDoctorIc))) {
-            mainWindow.getResultDisplay().setFeedbackToUser(AddCommand.MESSAGE_DOCTOR_NOT_FOUND);
+            ArrayList<Doctor> listOfDoctors = model.getListOfDoctors();
+            String errorMsg = "\nCurrent available doctors are: ";
+            for (Doctor doctor : listOfDoctors) {
+                errorMsg += "[NAME: " + doctor.getName() + " NRIC: " + doctor.getNric() + "], ";
+            }
+            errorMsg = errorMsg.substring(0, errorMsg.length() - 2); //Remove extra space and comma
+            mainWindow.getResultDisplay().setFeedbackToUser(AddCommand.MESSAGE_DOCTOR_NOT_FOUND + errorMsg);
             logger.warning("[ADD COMMAND FORM MODE] Doctor is not found in ORGANice");
-            throw new ParseException(AddCommand.MESSAGE_DOCTOR_NOT_FOUND);
+            throw new ParseException(AddCommand.MESSAGE_DOCTOR_NOT_FOUND + errorMsg);
         }
 
         successFillingField(personDoctorIc, FormField.DOCTOR_IC);

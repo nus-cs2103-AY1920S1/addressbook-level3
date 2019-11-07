@@ -1,11 +1,13 @@
 package organice.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import organice.commons.core.GuiSettings;
+import organice.model.person.Doctor;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
@@ -79,6 +81,11 @@ public class ModelStub implements Model {
 
     @Override
     public Patient getPatient(Nric patientNric) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ArrayList<Doctor> getListOfDoctors() {
         throw new AssertionError("This method should not be called.");
     }
 
