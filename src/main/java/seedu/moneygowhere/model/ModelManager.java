@@ -5,6 +5,7 @@ import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -122,6 +123,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addSpending(Spending spending) {
+        spendingBook.addSpending(spending);
+        updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
+    }
+
+    @Override
+    public void addSpending(List<Spending> spending) {
         spendingBook.addSpending(spending);
         updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
     }
