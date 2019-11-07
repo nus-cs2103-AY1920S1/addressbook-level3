@@ -9,7 +9,7 @@ class ThemeTest {
     @Test
     void getExtensionUrl_checkStoredData_success() {
         assertEquals(Theme.LIGHT.getExtensionUrl(), ThemeTest.class.getClassLoader()
-               .getResource("view/ExtensionsLight.css").toExternalForm());
+                .getResource("view/ExtensionsLight.css").toExternalForm());
         assertEquals(Theme.DARK.getExtensionUrl(), ThemeTest.class.getClassLoader()
                 .getResource("view/Extensions.css").toExternalForm());
     }

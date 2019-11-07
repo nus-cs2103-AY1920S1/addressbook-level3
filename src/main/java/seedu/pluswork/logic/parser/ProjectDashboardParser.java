@@ -25,20 +25,21 @@ import seedu.pluswork.logic.commands.DeleteMemberCommand;
 import seedu.pluswork.logic.commands.DeleteTaskCommand;
 import seedu.pluswork.logic.commands.DoingTaskCommand;
 import seedu.pluswork.logic.commands.DoneTaskCommand;
-import seedu.pluswork.logic.commands.EditTaskCommand;
 import seedu.pluswork.logic.commands.EditInventoryCommand;
 import seedu.pluswork.logic.commands.EditMemberCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand;
 import seedu.pluswork.logic.commands.ExitCommand;
-import seedu.pluswork.logic.commands.FindTaskCommand;
 import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
 import seedu.pluswork.logic.commands.FindMemberCommand;
+import seedu.pluswork.logic.commands.FindTaskCommand;
 import seedu.pluswork.logic.commands.FireCommand;
+import seedu.pluswork.logic.commands.GeneratePDFCommand;
 import seedu.pluswork.logic.commands.GetStatisticsCommand;
 import seedu.pluswork.logic.commands.HelpCommand;
 import seedu.pluswork.logic.commands.HomeCommand;
-import seedu.pluswork.logic.commands.ListTaskCommand;
 import seedu.pluswork.logic.commands.ListInventoryCommand;
 import seedu.pluswork.logic.commands.ListMemberCommand;
+import seedu.pluswork.logic.commands.ListTaskCommand;
 import seedu.pluswork.logic.commands.NoCommand;
 import seedu.pluswork.logic.commands.RedoCommand;
 import seedu.pluswork.logic.commands.SetDeadlineCommand;
@@ -137,8 +138,8 @@ public class ProjectDashboardParser {
             case DeleteInventoryCommand.COMMAND_WORD:
                 return new DeleteInventoryCommandParser().parse(arguments);
 
-             case GeneratePDFCommand.COMMAND_WORD:
-                 return new GeneratePDFCommandParser().parse(arguments);
+            case GeneratePDFCommand.COMMAND_WORD:
+                return new GeneratePDFCommandParser().parse(arguments);
 
             // STATS
             case GetStatisticsCommand.COMMAND_WORD_MEMBER:

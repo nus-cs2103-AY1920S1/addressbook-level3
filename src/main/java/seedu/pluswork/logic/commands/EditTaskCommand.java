@@ -56,7 +56,7 @@ public class EditTaskCommand extends Command {
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index of the task in the filtered task list to edit
+     * @param index              of the task in the filtered task list to edit
      * @param editTaskDescriptor details to edit the task with
      */
     public EditTaskCommand(Index index, EditTaskDescriptor editTaskDescriptor) {

@@ -89,7 +89,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_PUBLICITY).build();
         TASK_DESC_DEADLINE = new EditTaskDescriptorBuilder(ORDER_SHIRTS)
                 .withDeadline(LocalDateTime.now()
-                .plusMonths(3)).build();
+                        .plusMonths(3)).build();
 
         INVENTORY_DESC_TOY = new EditInventoryCommand.EditInventoryDescriptor();
         INVENTORY_DESC_TOY.setName(new InvName("toy"));
