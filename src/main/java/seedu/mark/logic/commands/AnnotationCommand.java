@@ -47,11 +47,17 @@ public abstract class AnnotationCommand extends Command {
         return lastShownList.get(index.getZeroBased());
     }
 
-    public CachedCopy getRequiredCache(Model model) throws CommandException {
-        requireNonNull(model);
+    public OfflineDocument getRequiredDoc(Bookmark bkmark) throws CommandException {
+        requireNonNull(bkmark);
+        CachedCopy c = getRequiredCache(bkmark);
 
-        Bookmark bookmarkOwnerOfCache = getRequiredBookmark(model);
-        List<CachedCopy> caches = bookmarkOwnerOfCache.getCachedCopies();
+        return c.getAnnotations();
+    }
+
+    private CachedCopy getRequiredCache(Bookmark bkmark) throws CommandException {
+        requireNonNull(bkmark);
+
+        List<CachedCopy> caches = bkmark.getCachedCopies();
         if (caches.isEmpty()) {
             //TODO: maybe - create cache if it dne so they can annotate immediately. (then need to change ug and dg too)
             throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
@@ -61,12 +67,25 @@ public abstract class AnnotationCommand extends Command {
         return caches.get(0);
     }
 
-    public OfflineDocument getRequiredDoc(Model model) throws CommandException {
-        requireNonNull(model);
-        CachedCopy c = getRequiredCache(model);
 
-        return c.getAnnotations();
+    /**
+     * Saves that current state of Mark after annotation.
+     * @param model The model of Mark
+     * @param oldBkmark The bookmark to replace before this annotation
+     * @param newBkmark The bookmark to use after this annotation
+     * @param doc The current offline document involved
+     * @param savedMsg The message to show user
+     */
+    public void saveState(Model model, Bookmark oldBkmark, Bookmark newBkmark, OfflineDocument doc, String savedMsg) {
+        model.updateDocument(doc);
+        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
+
+        newBkmark.updateCachedCopy(doc);
+        model.setBookmark(oldBkmark, newBkmark);
+
+        model.saveMark(savedMsg);
     }
+
 
     public Index getBookmarkIndex() {
         return index;
@@ -75,4 +94,18 @@ public abstract class AnnotationCommand extends Command {
         return pid;
     }
 
+}
+
+/**
+ * This is a dummy pid for a non-existent paragraph, null.
+ */
+class DummyParagraphIdentifier extends ParagraphIdentifier {
+    public DummyParagraphIdentifier() {
+        super(Index.fromOneBased(1), ParagraphType.STRAY);
+    }
+
+    @Override
+    public String toString() {
+        return "NULL (i.e. your note has been added to the general notes section)";
+    }
 }

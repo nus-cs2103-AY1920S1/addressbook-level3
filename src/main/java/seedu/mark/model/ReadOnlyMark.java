@@ -1,5 +1,6 @@
 package seedu.mark.model;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.autotag.AutotagController;
@@ -31,5 +32,7 @@ public interface ReadOnlyMark {
     ObservableList<SelectiveBookmarkTagger> getAutotags();
 
     ObservableList<Paragraph> getAnnotatedDocument();
+
+    ObservableValue<String> getOfflineDocCurrentlyShowing();
 
 }

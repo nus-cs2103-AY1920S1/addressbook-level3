@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.annotation.OfflineDocument;
@@ -260,4 +261,8 @@ public interface Model {
      * @return the observable bookmark property
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
+
+    ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
+
+    void setOfflineDocNameCurrentlyShowing(String name);
 }

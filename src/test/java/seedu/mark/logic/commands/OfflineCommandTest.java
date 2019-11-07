@@ -67,5 +67,10 @@ class OfflineCommandTest {
         public void updateDocument(OfflineDocument doc) {
             // valid update
         }
+
+        @Override
+        public void setOfflineDocNameCurrentlyShowing(String name) {
+            // valid set doc title
+        }
     }
 }

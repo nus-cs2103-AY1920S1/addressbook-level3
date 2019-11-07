@@ -50,6 +50,8 @@ class AddAnnotationCommandTest {
                 new AddAnnotationCommand(index, pid, null, Highlight.GREEN));
         assertNotEquals(new AddAnnotationCommand(index, pid, null, Highlight.YELLOW),
                 new AddAnnotationCommand(index, pid, null, Highlight.GREEN));
+        assertNotEquals(new AddAnnotationCommand(index, pid, AnnotationNote.SAMPLE_NOTE, Highlight.PINK),
+                new AddAnnotationCommand(index, Highlight.PINK, AnnotationNote.SAMPLE_NOTE));
     }
 
     @Test
@@ -76,16 +78,27 @@ class AddAnnotationCommandTest {
     }
 
     @Test
-    public void execute_paragraphIsPhantom_throwsCommandException() {
+    public void execute_addNoNoteToPhantom_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
                 .withCachedCopy(new CachedCopyStub()).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
-        assertThrows(CommandException.class, AddAnnotationCommand.MESSAGE_CANNOT_ANNOTATE_PHANTOM, () ->
+        assertThrows(CommandException.class, AddAnnotationCommand.MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE, () ->
                 new AddAnnotationCommand(INDEX_FIRST_BOOKMARK, ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)),
-                        AnnotationNote.SAMPLE_NOTE, Highlight.GREEN)
+                        null, Highlight.GREEN)
                         .execute(modelStub, new StorageStub()));
 
+    }
+
+    @Test
+    public void execute_addToPhantom_success() {
+        Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")
+                .withCachedCopy(new CachedCopyStub()).build();
+        ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
+
+        assertDoesNotThrow(() -> new AddAnnotationCommand(INDEX_FIRST_BOOKMARK,
+                Highlight.ORANGE, AnnotationNote.SAMPLE_NOTE)
+                .execute(modelStub, new StorageStub()));
     }
 
     @Test
@@ -131,6 +144,11 @@ class AddAnnotationCommandTest {
         public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
             // phantom update just for testing
         }
+
+        @Override
+        public void setOfflineDocNameCurrentlyShowing(String name) {
+            // valid set doc title
+        }
     }
 
     private class CachedCopyStub extends CachedCopy {
@@ -152,6 +170,11 @@ class AddAnnotationCommandTest {
         @Override
         public void addAnnotation(ParagraphIdentifier pid, Annotation an) {
             //phantom add annotation for AddAnnotationCommand to call
+        }
+
+        @Override
+        public void addPhantom(Annotation an) {
+            //adding general notes
         }
 
         @Override
@@ -198,9 +221,5 @@ class AddAnnotationCommandTest {
             assert false : "this method should not be called.";
         }
 
-        @Override
-        public void addPhantom(Annotation an) {
-            assert false : "this method should not be called.";
-        }
     }
 }
