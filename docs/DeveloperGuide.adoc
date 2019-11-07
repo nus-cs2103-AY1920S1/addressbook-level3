@@ -178,7 +178,7 @@ the item is automatically tagged as `#Expired`.**
 ** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
 
 ===== Aspect: How commands are executed in the list
-* **Alternative 1 (current choice): Create two separate parses, one for the main tracking list and another for the replenish list.**
+* **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
 ** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
 ** Cons: This would require us to check which parser is to be used every time a command is executed.
 
