@@ -61,6 +61,7 @@ public class SubmitCommand implements Command {
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
+
         // Submit the user's program
         Optional<TestResult> resultsOptional;
         try {
@@ -85,6 +86,7 @@ public class SubmitCommand implements Command {
 
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
+
             this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
         }
 
@@ -96,6 +98,6 @@ public class SubmitCommand implements Command {
             feedback = feedback + "failed";
         }
 
-        return new CommandResult(feedback, false, false);
+        return new CommandResult(feedback, false);
     }
 }

@@ -44,7 +44,7 @@ class ExitCommandTest {
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
         this.matchListData(questionsLogic.getFilteredQuestionsList(), expectedQuestions);
 
-        Question currentQuestion = this.questionsLogic.getQuestion(0);
+        Question currentQuestion = this.questionsLogic.getAllQuestionsList().get(0);
         this.submissionLogic.setCurrentQuestion(currentQuestion);
         this.submissionLogic.setUserProgramSubmissionChannel(() -> program);
 

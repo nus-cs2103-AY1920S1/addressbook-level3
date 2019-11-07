@@ -5,6 +5,7 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
@@ -14,16 +15,16 @@ import com.dukeacademy.model.state.ApplicationState;
 public class ViewCommand implements Command {
     private final QuestionsLogic questionsLogic;
     private final ApplicationState applicationState;
-    private final int index;
+    private final int id;
 
     /**
      * Instantiates a new View command.
      *
-     * @param index                 the index
+     * @param id                 the index
      * @param questionsLogic        the questions logic
      */
-    public ViewCommand(int index, QuestionsLogic questionsLogic, ApplicationState applicationState) {
-        this.index = index - 1;
+    public ViewCommand(int id, QuestionsLogic questionsLogic, ApplicationState applicationState) {
+        this.id = id;
         this.questionsLogic = questionsLogic;
         this.applicationState = applicationState;
     }
@@ -33,19 +34,19 @@ public class ViewCommand implements Command {
         try {
             // Update status of question
             Question questionToView =
-                this.questionsLogic.getQuestion(index);
-            this.questionsLogic.selectQuestion(index);
+                this.questionsLogic.getQuestion(id);
+            this.questionsLogic.selectQuestion(id);
 
             String feedback =
-                "Viewing question " + (index + 1) + " : " + questionToView.getTitle();
+                "Viewing question " + id + " : " + questionToView.getTitle();
 
             // Update the app's current activity
             applicationState.setCurrentActivity(Activity.QUESTION);
 
-            return new CommandResult(feedback, false, false
+            return new CommandResult(feedback, false
             );
-        } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("Index entered out of range for current list of questions.");
+        } catch (QuestionNotFoundRuntimeException e) {
+            throw new CommandException("No question with id  " + id + " found.");
         }
     }
 }

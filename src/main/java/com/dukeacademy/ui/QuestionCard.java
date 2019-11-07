@@ -44,12 +44,11 @@ public class QuestionCard extends UiPart<Region> {
      * Instantiates a new Question card.
      *
      * @param question       the question
-     * @param displayedIndex the displayed index
      */
-    public QuestionCard(Question question, int displayedIndex) {
+    public QuestionCard(Question question) {
         super(FXML);
         this.question = question;
-        id.setText(displayedIndex + ". ");
+        id.setText(question.getId() + ". ");
         title.setText(question.getTitle());
         difficulty.setText(question.getDifficulty().toString());
         status.setText(question.getStatus().toString());

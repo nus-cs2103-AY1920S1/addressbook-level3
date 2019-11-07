@@ -187,8 +187,8 @@ class TestExecutorTest {
         result.getResults().stream().forEach(testCaseResult -> {
             assertFalse(testCaseResult.isSuccessful());
             assertTrue(testCaseResult.getActualOutput().isPresent());
-            assertEquals("Correct solution\n", testCaseResult.getExpectedOutput());
-            assertEquals("Wrong solution\n", testCaseResult.getActualOutput().get());
+            assertEquals("Correct solution" + System.lineSeparator(), testCaseResult.getExpectedOutput());
+            assertEquals("Wrong solution" + System.lineSeparator(), testCaseResult.getActualOutput().get());
         });
     }
 

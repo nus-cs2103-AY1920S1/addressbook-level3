@@ -13,7 +13,7 @@ import com.dukeacademy.model.state.ApplicationState;
  * Command used to switch tabs within the application
  */
 public class TabCommand implements Command {
-    private static final String feedback = "Toggling tab to : ";
+    public static final String FEEDBACK = "Toggling tab to : ";
     private final ApplicationState applicationState;
 
     public TabCommand(ApplicationState applicationState) {
@@ -26,8 +26,8 @@ public class TabCommand implements Command {
 
         if (currentActivity == null) {
             this.applicationState.setCurrentActivity(Activity.HOME);
-            String userFeedback = feedback + Activity.HOME.toString();
-            return new CommandResult(userFeedback, false, false);
+            String userFeedback = FEEDBACK + Activity.HOME.toString();
+            return new CommandResult(userFeedback, false);
         }
 
         Activity[] activities = Activity.values();
@@ -38,15 +38,15 @@ public class TabCommand implements Command {
 
         if (currentActivityIndex.isEmpty()) {
             this.applicationState.setCurrentActivity(Activity.HOME);
-            String userFeedback = feedback + Activity.HOME.toString();
-            return new CommandResult(userFeedback, false, false);
+            String userFeedback = FEEDBACK + Activity.HOME.toString();
+            return new CommandResult(userFeedback, false);
         }
 
         int nextActivityIndex = (currentActivityIndex.getAsInt() + 1) % numActivities;
         Activity nextActivity = activities[nextActivityIndex];
 
         this.applicationState.setCurrentActivity(nextActivity);
-        String userFeedback = feedback + nextActivity.toString();
-        return new CommandResult(userFeedback, false, false);
+        String userFeedback = FEEDBACK + nextActivity.toString();
+        return new CommandResult(userFeedback, false);
     }
 }

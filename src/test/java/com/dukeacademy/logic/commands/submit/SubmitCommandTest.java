@@ -49,7 +49,7 @@ class SubmitCommandTest {
         assertThrows(CommandException.class, "You have not attempted a question yet.", command::execute);
 
         // Check that an exception is thrown if program is empty
-        submissionLogic.setCurrentQuestion(questionsLogic.getQuestion(0));
+        submissionLogic.setCurrentQuestion(questionsLogic.getAllQuestionsList().get(0));
         assertThrows(CommandException.class, "Program must not be empty.", command::execute);
 
         // Check that an exception is thrown if no appropriate class name is found

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.StandardObservable;
 
@@ -65,23 +66,21 @@ public class MockQuestionsLogic implements QuestionsLogic {
 
     @Override
     public Question getQuestion(int index) {
-        return this.filteredQuestions.get(index);
+        return this.questions.stream().filter(question -> question.getId() == index)
+                .findFirst().orElseThrow(QuestionNotFoundRuntimeException::new);
     }
 
     @Override
     public void setQuestion(int index, Question newQuestion) {
-        this.questions.set(index, newQuestion);
+        Question oldQuestion = this.questions.stream().filter(question -> question.getId() == index)
+                .findFirst().orElseThrow(QuestionNotFoundRuntimeException::new);
+        this.replaceQuestion(oldQuestion, newQuestion);
     }
 
     @Override
     public void replaceQuestion(Question oldQuestion, Question newQuestion) {
         int index = this.questions.indexOf(oldQuestion);
         this.questions.set(index, newQuestion);
-    }
-
-    @Override
-    public void deleteQuestion(int index) {
-        this.questions.remove(index);
     }
 
     @Override
