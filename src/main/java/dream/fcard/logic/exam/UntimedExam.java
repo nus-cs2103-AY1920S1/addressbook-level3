@@ -47,9 +47,15 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public void upIndex() {
-        if (index < testDeck.size()) {
+    public boolean upIndex() {
+        if (index < testDeck.size() - 1) {
             this.index++;
+            return false;
+        }  else if (index == testDeck.size()) {
+            Consumers.doTask("DISPLAY_MESSAGE", "No more cards in this deck!");
+            return true;
+        } else {
+            return true;
         }
     }
 

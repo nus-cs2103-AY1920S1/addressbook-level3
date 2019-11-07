@@ -39,6 +39,9 @@ public class ExamRunner {
         String result = exam.getResult();
         EndOfTestAlert.display("Results", "Final Score: " + result);
         examOngoing = false;
+    }
+
+    public static void clearExam() {
         exam = null;
     }
 

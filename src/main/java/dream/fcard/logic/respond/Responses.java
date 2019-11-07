@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.cards.frontview.McqCard;
+import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.logic.exam.Exam;
@@ -337,19 +338,26 @@ public enum Responses {
                     // Duration is a String.
                     try {
                         Deck initDeck = StateHolder.getState().getDeck(deckName);
-                        ArrayList<FlashCard> testDeck = initDeck.getSubsetForTest();
-                        int duration = Integer.parseInt(durationString);
-                        ExamRunner.createExam(testDeck, duration);
-                        Exam currExam = ExamRunner.getCurrentExam();
-                        if (currExam.getDuration() == 0) {
-                            TestDisplay testDisplay = new TestDisplay(currExam);
-                            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+                        if (initDeck.getNumberOfCards() == 0) {
+                            EndOfTestAlert.display("Error", "You cannot start a test on an empty deck!");
+                            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+                            return false;
+                        } else {
+                            ArrayList<FlashCard> testDeck = initDeck.getSubsetForTest();
+                            int duration = Integer.parseInt(durationString);
+                            ExamRunner.createExam(testDeck, duration);
+                            Exam currExam = ExamRunner.getCurrentExam();
+                            if (currExam.getDuration() == 0) {
+                                TestDisplay testDisplay = new TestDisplay(currExam);
+                                Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+                            }
+                            if (currExam.getDuration() > 0) {
+                                TimedTestDisplay timedTestDisplay = new TimedTestDisplay(currExam);
+                                Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
+                            }
+                            return true;
                         }
-                        if (currExam.getDuration() > 0) {
-                            TimedTestDisplay timedTestDisplay = new TimedTestDisplay(currExam);
-                            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
-                        }
-                    } catch (DeckNotFoundException e) {
+                    } catch(DeckNotFoundException e){
                         e.printStackTrace();
                     }
                     return true;
@@ -360,7 +368,8 @@ public enum Responses {
             "^((?i)test).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to specify a deck.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Wrong Command.");
+                    StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
                 } //todo
     ),
@@ -379,7 +388,13 @@ public enum Responses {
                 ResponseGroup.TEST_MCQ_BACK},
                 i -> {
                     Exam exam = ExamRunner.getCurrentExam();
-                    exam.upIndex();
+                    boolean isEndOfDeck = exam.upIndex();
+                    if (isEndOfDeck) {
+                        Consumers.doTask("STOP_TIMELINE", true);
+                        if (ExamRunner.getCurrentExam() != null) {
+                            ExamRunner.terminateExam();
+                        }
+                    }
                     AnchorPane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
@@ -418,6 +433,7 @@ public enum Responses {
                     Consumers.doTask("STOP_TIMELINE", true);
                     if (ExamRunner.getCurrentExam() != null) {
                         ExamRunner.terminateExam();
+                        ExamRunner.clearExam();
                     }
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
@@ -497,6 +513,8 @@ public enum Responses {
                     } catch (IndexNotFoundException e) {
                         Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
                     }
+                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
     ),

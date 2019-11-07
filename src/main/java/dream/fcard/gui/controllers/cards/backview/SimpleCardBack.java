@@ -43,9 +43,7 @@ public class SimpleCardBack extends AnchorPane {
     }
 
     private void seeFront() {
-        Exam exam = ExamRunner.getCurrentExam();
-        AnchorPane currCardFront = exam.getCardDisplayFront();
-        Consumers.doTask("SWAP_CARD_DISPLAY", currCardFront);
+        Consumers.doTask("SEE_FRONT", true);
     }
 
     private void onCorrect() {

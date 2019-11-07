@@ -18,7 +18,7 @@ public interface Exam {
 
     public void gradeQuestion(Boolean isCorrect) throws IndexNotFoundException;
 
-    public void upIndex();
+    public boolean upIndex();
 
     public void downIndex();
 

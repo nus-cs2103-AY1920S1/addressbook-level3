@@ -84,16 +84,10 @@ public class DeckDisplay extends AnchorPane {
     private void startTest() {
         //display the first card
         ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
-        ExamRunner.createExam(testArrayListOfCards, 10);
+        ExamRunner.createExam(testArrayListOfCards, 0);
         Exam exam = ExamRunner.getCurrentExam();
-        if (exam.getDuration() == 0) {
-            TestDisplay testDisplay = new TestDisplay(exam);
-            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
-        }
-        if (exam.getDuration() > 0) {
-            TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
-            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
-        }
+        TestDisplay testDisplay = new TestDisplay(exam);
+        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
     }
 
     /**
