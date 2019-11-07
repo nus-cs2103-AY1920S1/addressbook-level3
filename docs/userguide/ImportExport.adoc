@@ -83,12 +83,11 @@ each element is to be separated with a newline.
 
 	`name`, `phone`, `address`, `email`
 
-* Do not have any of the following special characters in the .csv:
-
-	, and ;
+* The .csv file should adhere to the link:https://tools.ietf.org/html/rfc4180[RFC 2048] standard.
 
 =====
-An example of a valid .csv can be seen link:samplecsvs/importsample.csv[here]
+An example of a valid .csv can be seen
+link:https://raw.githubusercontent.com/AY1920S1-CS2103-F10-1/main/master/docs/samplecsvs/importsample.csv[here]
 
 === Exporting data into a CSV file: `app-export`
 

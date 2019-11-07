@@ -13,13 +13,19 @@ NurseTraverse is a desktop application meant for community nurse to help manage 
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added *the function to export and import patient data.*
+** What it does:
+*** Exporting features: allows the user to export patient data into a comma separated values (CSV) file. Patient data can be exported all at once, or selectively by index.
+*** Importing features: allows the user to import patient data from a CSV file. Imported patient data can either be used to replace all existing patient data or be merged with existing patient data.
+** Justification: This feature improves the functionality of the product by facilitating convenient data sharing.
+To add data for a few patients, there is no longer a need to use the add command multiple times, which can be a hassle. Example use cases:
+*** A freshly trained nurse has been assigned her first set of patients. The patients' data can be passed to the nurse in the CSV format and imported in one go.
+*** A (few) patient(s) has been transferred from the care of one nurse to another. The relevant patient data can be exported, passed to the other nurse, and imported.
+*** An archive of patient data has to be kept for records purposes. The export feature allows for a "snapshot" of all patient data to be saved easily.
+** Highlights: This feature was implementation with Jackson's `dataformat.csv` library. The library is full of functions but is not exactly well documented, and thus the implementation took significant research and experimentation.
+The final implementation with this library is such that the export and import functionality can easily be extended to include additional data fields in the future, using Jackson's `Annotation` feature.
+Apart the CSV parsing aspect, coding the data interaction for reading and writing patients to the address book had its challenges as well, due to the potential (buggy) interactions with the data from other features.
+** Credits: link:https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-csv[Jackson Dataformat CSV], along with the existing Jackson annotations in AB3 used for JSON processing.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
