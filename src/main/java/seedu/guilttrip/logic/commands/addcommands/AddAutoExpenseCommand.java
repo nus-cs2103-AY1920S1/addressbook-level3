@@ -60,6 +60,7 @@ public class AddAutoExpenseCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_CATEGORY);
         }
         model.addAutoExpense(toAdd);
+        model.createExpensesFromAutoExpenses();
         model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

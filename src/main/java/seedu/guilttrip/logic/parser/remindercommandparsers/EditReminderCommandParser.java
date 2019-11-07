@@ -49,7 +49,7 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editReminderDescriptor.setQuota(
-                    (Double) ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
+                    ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
         }
         if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
             editReminderDescriptor.setConditionIndices(

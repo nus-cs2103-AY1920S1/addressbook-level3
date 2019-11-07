@@ -24,6 +24,8 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
  */
 public final class GuiltTripCommandSuggester {
 
+    private static String lastOutput = "";
+
     private static final int COMMAND_RECOMMENDATION_COUNT = 5;
 
     /**
@@ -37,15 +39,22 @@ public final class GuiltTripCommandSuggester {
         try {
             String commandWord = getCommandWord(textInput);
 
-            if (commandIsIncomplete(commandWord)) {
+            if (commandWord.isEmpty()) {
+                return "[Autosuggestion] Type something to start!";
+            } else if (commandIsIncomplete(commandWord)) {
                 return "[Autosuggestion] Showing the closest commands:\n"
                         + getClosestCommands(commandWord, COMMAND_RECOMMENDATION_COUNT);
             } else {
                 return "[Autosuggestion] Help message as below:\n" + getCommandHelpMessage(commandWord);
             }
         } catch (ParseException pe) {
-            return pe.getMessage();
+            // TODO: HACK
+            return lastOutput;
         }
+    }
+
+    public static void setLastOutput(String lastOutput) {
+        GuiltTripCommandSuggester.lastOutput = lastOutput;
     }
 
     private static String getCommandHelpMessage(String commandWord) {

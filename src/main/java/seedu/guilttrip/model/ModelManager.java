@@ -604,7 +604,10 @@ public class ModelManager implements Model {
         versionedGuiltTrip.commit();
     }
 
-    private void createExpensesFromAutoExpenses() {
+    /**
+     * Generates Expenses from AutoExpenses and update the GuiltTrip.
+     */
+    public void createExpensesFromAutoExpenses() {
         for (AutoExpense autoExpense : filteredAutoExpenses) {
             autoExpense.generateNewExpenses().stream().forEach(this::addExpense);
         }
