@@ -96,7 +96,7 @@ a person and the criteria for valid inputs:
 
 * b/**BLOODTYPE** - the blood type of the person
 ** Applicable to: patients and donors
-** Valid input: A/B/AB/O
+** Valid input: A+/B+/AB+/O+/A-/B-/AB-/O-
 
 * p/**PHONE** - contact number of a person
 ** Applicable to: patients, doctors, donors
@@ -123,7 +123,9 @@ a person and the criteria for valid inputs:
 
 * tt/**TISSUE TYPE** - the type of tissues
 ** Applicable to: patients and donors
-** Valid input: a string of 6 numbers (from 1 - 12), separated by commas
+** Valid input: a string of 6 unique numbers (from 1 - 12), separated by commas. Note that the order of the tissue types
+does not matter. For example, tt/1,2,3,4,5,6 and tt/6,5,3,4,2,1 are treated as the same input because they contain the
+same 6 unique numbers.
 
 * exp/**EXPIRY** - expiry date of a donor's organ
 ** Applicable to: donors
@@ -173,14 +175,18 @@ There are two methods to add a person:
 * Method 1: Normal Add
 * Method 2: Add with system prompting
 
-To understand how to add a person via the 'Normal Add' method, go to <<Normal Add>>.
-To understand how to add a person via the 'Add with system prompting' method, go to <<Add with system prompting>>.
+To understand how to add a person via the 'Normal Add' method, go to <<Adding as per normal>>.
+To understand how to add a person via the 'Add with system prompting' method, go to <<Adding with system prompting>>.
 
+Note that when you add a person, ORGANice will detect if the person you are trying to add
+has the same NRIC as another person in ORGANice. When this happens, ORGANice will not allow you to
+add that person. An error message will be displayed, prompting you to change the NRIC of the person you are trying to
+add.
 
-==== Normal Add
+==== Adding as per normal
 
-Normal add refers to specifying all the attributes in the command. To add, type in the following
-commands to add a person:
+This method of adding refers to specifying all the attributes in the command. To add, type in the
+commands of the following format to add a person:
 
 Format for adding patients: `add t/patient n/**NAME** o/**ORGAN** b/**BLOOD TYPE** tt/**TISSUE TYPE**
 p/**PHONE** pr/**PRIORITY** ic/**NRIC** d/**DOCTOR** a/**AGE**` +
@@ -190,21 +196,18 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**` +
 
 Format for adding doctors: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE**`
 
-After adding a person, ORGANice will display a form which contains the attributes of the person. Press
-kbd:[Enter] to confirm the details.
-
 [TIP]
-View the List of Attributes in the beginning of <<Features>> to find out what each attribute mean.
+View the List of Attributes in the beginning of <<Features>> to find out the meaning of each parameter.
 
 Examples:
 
-* `add t/patient n/John Doe o/kidney b/A tt/1,2,3,4,5,6 p/98765432 pr/high ic/S9988330G
+* `add t/patient n/John Doe o/kidney b/A+ tt/1,2,3,4,5,6 p/98765432 pr/high ic/S9988330G
 d/S2235456D a/29`
-* `add t/donor n/Betsy Kim o/kidney b/AB tt/2,5,7,8,9,10 p/99998888 ic/S2345678H
+* `add t/donor n/Betsy Kim o/kidney b/AB- tt/2,5,7,8,9,10 p/99998888 ic/S2345678H
 exp/23-Nov-2020 a/21`
 * `add t/doctor n/Lim Chu Kang p/91054444 ic/S5678908D`
 
-==== Add with system prompting
+==== Adding with system prompting
 
 In this mode, instead of typing a long command at one go, you can add a person's attributes one by one.
 After entering an attribute, the system will prompt you to input another attribute.
@@ -525,14 +528,6 @@ To exit ORGANice, type `exit` in the Command Box. ORGANice will close on its own
 
 Data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Detecting duplicates
-
-When adding a person, ORGANice will detect if the input is a duplicate of another person in the list.
-A duplicate is defined as: Two persons of the same type who have the same NRIC.
-
-When a duplicate is detected, ORGANice will indicate that there is such a person in ORGANice so the inputs
-should be changed.
 
 == Future improvements
 
