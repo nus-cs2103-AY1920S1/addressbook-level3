@@ -104,6 +104,7 @@ This command cannot be undone/redone.
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
 
+//tag::grocerylistfeatures[]
 === Grocery List Management
 
 ==== Adding a food item: `glist add`
@@ -239,6 +240,8 @@ Format: `glist undo`
 ==== Redo Grocery List: `glist redo`
 Redo the grocery list and the corresponding waste list (if applicable). +
 Format: `glist redo`
+
+//end::grocerylistfeatures[]
 
 //tag::wastelistfeatures[]
 === Waste List Management
