@@ -261,7 +261,7 @@ public class ModelManager implements Model {
     @Override
     public void updateProjectionsAfterAdd(BankAccountOperation added) {
         this.getFilteredProjectionsList().forEach(x -> {
-            if (added.isGeneral() && x.isGeneral()) {
+            if (x.isGeneral()) {
                 this.delete(x);
                 UniqueTransactionList newTransactions = new UniqueTransactionList();
                 newTransactions.setTransactions(x.getTransactionHistory());
@@ -318,7 +318,7 @@ public class ModelManager implements Model {
     @Override
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
         this.getFilteredProjectionsList().forEach(x -> {
-            if (deleted.isGeneral() && x.isGeneral()) {
+            if (x.isGeneral()) {
                 this.delete(x);
                 UniqueTransactionList newTransactions = new UniqueTransactionList();
                 newTransactions.setTransactions(x.getTransactionHistory());

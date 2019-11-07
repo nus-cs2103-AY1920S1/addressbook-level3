@@ -64,7 +64,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     public static double format(double value) {
-        return Double.valueOf(AMOUNT_DOUBLE_FORMAT.format(value));
+        return Double.parseDouble(AMOUNT_DOUBLE_FORMAT.format(value));
     }
 
     /**
