@@ -1,58 +1,86 @@
 package io.xpire.ui.history;
 
-import java.util.ArrayDeque;
-import java.util.Stack;
-import static java.util.Objects.requireNonNull;
+import java.util.LinkedList;
 
+/**
+ * Stores user input String history.
+ * One application is to have only one instance of this class.
+ */
 public class HistoryManager {
 
     public static final int MAX_RETRIEVAL_SIZE = 20;
-    private static ArrayDeque<String> retrievalStack = new ArrayDeque<>();
-    private static Stack<String> redoStack = new Stack<>();
+    private static int noOfInstance = 0;
+    private LinkedList<String> retrievalList = new LinkedList<>();
+    private int position = 0;
 
-    private String current;
+    private HistoryManager() {
+        // private constructor
+        noOfInstance = 1;
+    }
 
-    public String previous() {
-        if (isRetrievalStackEmpty()) {
-            return null;
+    /**
+     * Returns a {@Code HistoryManager} object.
+     * @return a {@Code HistoryManager} object.
+     */
+    public static HistoryManager getHistoryManager() {
+        if (noOfInstance < 1) {
+            return new HistoryManager();
         } else {
-            requireNonNull(current);
-            redoStack.push(current);
-            current = retrievalStack.pop();
-            return current;
-        }
-    }
-
-    public String next() {
-        retrievalStack.push(current);
-        if (isRedoStackEmpty()) {
             return null;
         }
-        requireNonNull(current);
-        current = redoStack.pop();
-        return current;
     }
 
-    public void save(String input) {
-        this.current = input;
-        redoStack.clear();
-        retrievalStack.push(current);
-        if (retrievalStack.size() > this.MAX_RETRIEVAL_SIZE) {
-            retrievalStack.removeLast();
+    /**
+     * Retrieves a command entered after the current command.
+     * @return a user input String. Returns {@Code null} if the current command is the most recent command.
+     */
+    public String next() {
+        if (retrievalList.size() < 1) {
+            return null;
+        }
+        if (position < 0) {
+            position = -1;
+            return null;
+        }
+        if (position > retrievalList.size() - 1) {
+            position = retrievalList.size() - 2;
+            return retrievalList.get(position--);
+        } else {
+            return retrievalList.get(position--);
         }
     }
 
     /**
-     * Returns if the retrievalStack is empty.
+     * Retrieves a command entered before the current command.
+     * @return a user input String. Returns {@Code null} if the current command is the least recent command stored.
      */
-    public boolean isRetrievalStackEmpty() {
-        return this.retrievalStack.isEmpty();
+    public String previous() {
+        if (position > retrievalList.size() - 1) {
+            return null;
+        } else if (position < 0) {
+            position = 0;
+            return retrievalList.get(position++);
+        } else {
+            return retrievalList.get(position++);
+        }
     }
 
     /**
-     * Returns if the redoStack is empty.
+     * Saves the user input String.
+     * @param input user input String.
      */
-    public boolean isRedoStackEmpty() {
-        return this.redoStack.isEmpty();
+    public void save(String input) {
+        position = 0;
+        retrievalList.offerFirst(input);
+        if (retrievalList.size() > MAX_RETRIEVAL_SIZE) {
+            retrievalList.pollLast();
+        }
+    }
+
+    /**
+     * Returns if the retrievalList is empty.
+     */
+    public boolean isRetrievalListEmpty() {
+        return this.retrievalList.isEmpty();
     }
 }

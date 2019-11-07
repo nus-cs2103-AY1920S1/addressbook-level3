@@ -1,5 +1,6 @@
 package io.xpire.ui;
 
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 import io.xpire.logic.Logic;
@@ -21,18 +22,17 @@ import javafx.scene.layout.Region;
  */
 public class CommandBox extends UiPart<Region> {
 
+    public static final String MESSAGE_MAXIMUM_INPUT_LENGTH_REACHED = "Maximum input length is 60 characters";
+    public static final String MESSAGE_MAXIMUM_INPUT_RETRIEVAL_REACHED = "There are no previous inputs to retrieve.\n"
+            + "(Up to 20 inputs can be saved!)";
+
     public static final String ERROR_STYLE_CLASS = "error";
     public static final int MAX_LENGTH = 60;
     private static final String FXML = "CommandBox.fxml";
 
-    public static final String MESSAGE_MAXIMUM_INPUT_LENGTH_REACHED = "Maximum input length is 60 characters";
-    public static final String MESSAGE_MAXIMUM_INPUT_RETRIEVAL_REACHED = "There are no previous input to retrieve.\n"
-            + "(Up to 20 inputs can be saved!)";
-    public static final String MESSAGE_MOST_RECENT_INPUT = "This is the most recent input";
-
     private final CommandExecutor commandExecutor;
     private ResultDisplay resultDisplay;
-    private HistoryManager historyManager = new HistoryManager();
+    private HistoryManager historyManager = HistoryManager.getHistoryManager();
 
     @FXML
     private TextField commandTextField;
@@ -60,11 +60,21 @@ public class CommandBox extends UiPart<Region> {
             commandExecutor.execute(input);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
-            commandTextField.setText("");
             setStyleToIndicateCommandFailure();
         }
     }
 
+    /**
+     * Returns whether the commandBox has received a wrong command.
+     */
+    private boolean isStyleFailure() {
+        return commandTextField.getStyleClass().contains(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Handles event when a keyboard key is pressed.
+     * @param e event fired by the keyboard.
+     */
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode() == KeyCode.UP) {
@@ -74,22 +84,31 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    /**
+     * Handles an up key event by retrieving the previous entered command.
+     */
     private void handleUpKey() {
-        if (this.historyManager.isRetrievalStackEmpty()) {
+        String previousInput = historyManager.previous();
+        if (previousInput == null) {
             resultDisplay.setFeedbackToUser(MESSAGE_MAXIMUM_INPUT_RETRIEVAL_REACHED);
         } else {
-            String previousInput = historyManager.previous();
+            resultDisplay.setFeedbackToUser("");
+            if (isStyleFailure()) {
+                previousInput = historyManager.previous();
+            }
             commandTextField.setText(previousInput);
         }
+        commandTextField.end();
     }
 
+    /**
+     * Handles a down key event by retrieving the next entered command after the current command.
+     */
     private void handleDownKey() {
-        if (this.historyManager.isRedoStackEmpty()) {
-            resultDisplay.setFeedbackToUser(MESSAGE_MOST_RECENT_INPUT);
-        } else {
-            String nextInput = historyManager.next();
-            commandTextField.setText(nextInput);
-        }
+        String nextInput = historyManager.next();
+        resultDisplay.setFeedbackToUser("");
+        commandTextField.setText(Objects.requireNonNullElse(nextInput, ""));
+        commandTextField.end();
     }
 
     /**
