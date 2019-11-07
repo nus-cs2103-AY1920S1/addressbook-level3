@@ -12,8 +12,7 @@ public abstract class SuggestCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all suggested exercises";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Suggests exercise.\n"
+    public static final String MESSAGE_USAGE = "Suggest: suggests exercises. \n"
             + "BASIC: " + MESSAGE_USAGE_SUGGEST_BASIC + "\n"
             + "POSSIBLE: " + MESSAGE_USAGE_SUGGEST_POSSIBLE;
 

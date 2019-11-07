@@ -104,15 +104,18 @@ public class SampleDataUtil {
 
     public static Exercise[] getBasicExercises() {
         return new Exercise[]{
-            new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("333"),
-                new Quantity("2.4"), new Unit("km"),
-                getMuscleSet("Legs", "Cardio"), new TreeMap<>()),
-            new Exercise(new Name("Push ups"), new Date("26/09/2019"), new Calories("50"),
-                new Quantity("60"), new Unit("counts"),
+            new Exercise(new Name("Push Ups"), new Date("07/11/2019"), new Calories("80"),
+                new Quantity("100"), new Unit("counts"),
                 getMuscleSet("Chest", "Triceps"), new TreeMap<>()),
-            new Exercise(new Name("Sit ups"), new Date("26/09/2019"), new Calories("50"),
-                new Quantity("60"), new Unit("counts"),
-                getMuscleSet("Abs", "Core"), new TreeMap<>())
+            new Exercise(new Name("Sit ups"), new Date("07/11/2019"), new Calories("50"),
+                new Quantity("100"), new Unit("counts"),
+                getMuscleSet("Abs"), new TreeMap<>()),
+            new Exercise(new Name("Squats"), new Date("07/11/2019"), new Calories("100"),
+                new Quantity("100"), new Unit("counts"),
+                getMuscleSet("Legs"), new TreeMap<>()),
+            new Exercise(new Name("Run"), new Date("07/11/2019"), new Calories("300"),
+               new Quantity("10"), new Unit("km"),
+               getMuscleSet("Legs", "Cardio"), new TreeMap<>())
         };
     }
 

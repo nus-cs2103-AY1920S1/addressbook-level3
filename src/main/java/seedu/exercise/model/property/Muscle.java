@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.ValidationRegex.ONLY_ALPHABETS_AND_SPACE;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
+import seedu.exercise.commons.util.StringUtil;
+
 /**
  * Represents a Muscle tag in ExerHealth.
  * Guarantees: immutable; name is valid as declared in {@link #isValidMuscleName(String)}
@@ -21,7 +23,7 @@ public class Muscle {
     public Muscle(String muscleName) {
         requireNonNull(muscleName);
         checkArgument(isValidMuscleName(muscleName), MESSAGE_CONSTRAINTS);
-        this.muscleName = muscleName;
+        this.muscleName = StringUtil.capitaliseSingleWord(muscleName);
     }
 
     /**

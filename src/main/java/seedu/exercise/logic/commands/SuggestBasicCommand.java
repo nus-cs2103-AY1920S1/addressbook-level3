@@ -18,7 +18,7 @@ import seedu.exercise.ui.ListResourceType;
 public class SuggestBasicCommand extends SuggestCommand {
 
     public static final String MESSAGE_USAGE_SUGGEST_BASIC = "Parameters: "
-            + PREFIX_SUGGEST_TYPE + "SUGGEST_TYPE" + "\n"
+            + PREFIX_SUGGEST_TYPE + "SUGGEST_TYPE"
             + "\t\tExample: " + COMMAND_WORD + " "
             + PREFIX_SUGGEST_TYPE + "basic";
 

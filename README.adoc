@@ -6,11 +6,11 @@ https://coveralls.io/github/AY1920S1-CS2103T-T09-2/main?branch=master[image:http
 https://app.netlify.com/sites/exerhealth/deploys[image:https://api.netlify.com/api/v1/badges/8b51ce83-a6ec-4994-8014-1c4b30aa3cd6/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="800]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[width="800"]
 endif::[]
 
 * ExerHealth is a one-stop platform for students who wish to embark on a journey of health and fitness.

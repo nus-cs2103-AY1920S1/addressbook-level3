@@ -22,7 +22,7 @@ public class Calories {
     public Calories(String calories) {
         requireNonNull(calories);
         checkArgument(isValidCalories(calories), MESSAGE_CONSTRAINTS);
-        value = calories;
+        value = removeLeadingZeros(calories);
     }
 
     /**
@@ -30,6 +30,10 @@ public class Calories {
      */
     public static boolean isValidCalories(String test) {
         return test.matches(ONLY_NUMBERS) && Double.parseDouble(test) <= 50000;
+    }
+
+    private String removeLeadingZeros(String calories) {
+        return calories.replaceFirst("^0*", "");
     }
 
     @Override

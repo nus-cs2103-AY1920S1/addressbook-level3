@@ -51,7 +51,7 @@ public class TypicalExercises {
 
     // Manually added
     public static final Exercise CLAP = new ExerciseBuilder().withName("Clapping").withDate("27/09/2019")
-        .withCalories("0").withQuantity("11").withUnit("claps").build();
+        .withCalories("10").withQuantity("11").withUnit("claps").build();
     public static final Exercise SLAP = new ExerciseBuilder().withName("Slapping").withDate("28/09/2019")
         .withCalories("234").withQuantity("2").withUnit("slaps").build();
 

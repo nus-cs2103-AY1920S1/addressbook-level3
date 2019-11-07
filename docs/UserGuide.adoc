@@ -217,6 +217,13 @@ Examples:
 
 * `delete t/exercise i/2`
 
+image::deleteExerciseBefore.png[]
+
+Expected result:
+
+
+image::deleteExerciseAfter.png[]
+
 ==== Deleting exercise from scheduling regime
 
 Deletes exercises from a certain scheduling regime.
@@ -480,9 +487,9 @@ Suppose you have created a new Custom Property and have been tracking a few exer
 
 `custom s/r f/Rating p/Number`
 
-`add t/exercise n/Run d/01/11/2019 c/100 q/30 u/km m/Leg r/8`
+`add t/exercise n/Run d/02/11/2019 c/200 q/10 u/km m/Legs r/8`
 
-`add t/exercise n/Bench Press d/01/11/2019 c/100 q/30 u/counts m/Chest r/8`
+`add t/exercise n/Bench Press d/05/11/2019 c/150 q/40 u/kg m/Chest r/8`
 
 
 Then, the following input will display a list of exercises which are tagged with "Chest" and have a rating of 8.
@@ -490,6 +497,43 @@ Then, the following input will display a list of exercises which are tagged with
 `suggest s/possible o/and m/Chest r/8`
 
 Thus the command will display only the exercise named "Bench Press".
+
+Expected Result:
+
+image::suggestPossibleAfter1.png[]
+
+The input, `suggest s/possible o/or m/Chest r/8`, however, will display a list of exercises with "Chest" *or* have a rating of 8.
+
+image::suggestPossibleBefore2.png[]
+
+Expected Result:
+
+image::suggestPossibleAfter2.png[]
+
+As seen on the image above, the two previously added exercises named "Bench Press" and "Run" are displayed because they each have a rating of 8.
+In addition to the tracked exercises, ExerHealth will also display suggestions in its database. Hence the exercise named "Push Ups" is displayed
+as it has a "Chest" muscle tag.
+
+===== Duplicates
+
+Sometimes, you may track exercises of the same name. Instead of displaying all suggestions of the same name, this function
+display the information of the most recently tracked exercise of that name.
+
+image::suggestPossibleBefore3.png[]
+
+Expected Result:
+
+image::suggestPossibleAfter3.png[]
+
+As seen on the image above, the tracked exercise named "Bench Press" on "06/11/2019" is displayed instead of the one on "05/11/2019".
+
+****
+*Notes:*
+
+* Suggestions from the database have dates displayed refer to the last time ExerHealth's database was updated.
+
+****
+
 // end::suggest[]
 
 // tag::customfeature[]

@@ -9,8 +9,11 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/
-!data/exercisedatabase.json
+/data/exercisebook.json
+/data/propertybook.json
+/data/propertymanager.json
+/data/regimebook.json
+/data/schedulebook.json
 
 /config.json
 /preferences.json

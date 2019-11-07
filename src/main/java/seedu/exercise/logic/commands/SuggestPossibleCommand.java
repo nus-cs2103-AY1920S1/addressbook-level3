@@ -21,7 +21,7 @@ public class SuggestPossibleCommand extends SuggestCommand {
             + PREFIX_SUGGEST_TYPE + "SUGGEST_TYPE "
             + PREFIX_OPERATION_TYPE + "OPERATION_TYPE"
             + "[" + PREFIX_MUSCLE + "MUSCLE] "
-            + "[" + "CUSTOM_PROPERTY_PREFIX" + "/" + "VALUE]" + "\n"
+            + "[" + "CUSTOM_PROPERTY_PREFIX" + "/" + "VALUE]"
             + "\t\tExample: " + COMMAND_WORD + " "
             + PREFIX_SUGGEST_TYPE + "possible "
             + PREFIX_OPERATION_TYPE + "and "

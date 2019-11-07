@@ -65,4 +65,14 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Formats a single word by capitalising the first letter and setting the remaining
+     * as lowercase.
+     */
+    public static String capitaliseSingleWord(String word) {
+        String capitalisedFirstLetter = word.substring(0, 1).toUpperCase();
+        String lowercaseRemaining = word.substring(1).toLowerCase();
+        return capitalisedFirstLetter + lowercaseRemaining;
+    }
 }
