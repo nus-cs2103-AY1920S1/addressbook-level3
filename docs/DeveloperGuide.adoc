@@ -332,7 +332,51 @@ NOTE: **Alternative 4** was preferred as it provides users with the greatest ove
 
 // tag::flashcardimport[]
 
-TODO old king cole was a merry old soul and a merry old soul was he
+=== Importing of FlashCards
+==== Implementation
+
+The `FlashCard` importing mechanism is primarily facilitated by the following classes:
+
+* `ExportUtil` -- Handles the actual exporting of `FlashCards`
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
+* `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
+
+The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
+
+* `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
+* `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
+* `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
+
+Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
+Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
+It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
+document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
+`org.apache.poi.xwpf.usermodel`).
+
+The following sequence diagram shows how the export operation works:
+
+image::ImportSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes an export command:
+
+image::ImportActivityDiagram.png[width=320,height=480]
+
+==== Design Considerations
+
+|===
+|_This section describes some of the design considerations that went into the implementation of this feature._
+|===
+
+===== Aspect: Implementation of exporting functionality for different file formats
+
+* **Alternative 1 (current choice):** Have a single `export` command - leave file formats to be handled by underlying classes
+** Pros: Is easier for user to remember; can easily be extended to support additional file formats
+** Cons: Is harder to implement
+* **Alternative 2:** Have a separate command for exporting to each format (e.g. `exportdoc`, `exportjson`, etc.)
+** Pros: Is easier to implement
+** Cons: Results in user having more commands to remember; new commands must be added to support new file formats
+
+NOTE: **Alternative 1** was preferred for its ease of extensibility.
 
 // end::flashcardimport[]
 
