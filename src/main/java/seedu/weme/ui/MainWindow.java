@@ -135,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
     private void fillPeripherals() {
         CommandBox commandBox = new CommandBox(this::executeCommand,
                 this::promptCommand,
-                logic.getFilteredMemeList());
+                logic.getFilteredMemeList(),
+                logic.getContext());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();

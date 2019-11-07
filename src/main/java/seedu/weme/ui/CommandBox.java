@@ -6,6 +6,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import java.util.Set;
 import java.util.regex.Matcher;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.prompter.exceptions.PromptException;
+import seedu.weme.model.ModelContext;
 import seedu.weme.model.meme.Meme;
 
 /**
@@ -34,20 +36,22 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final CommandPrompter commandPrompter;
-
+    private final ObservableList<Meme> memeFilteredList;
+    private final ObservableValue<ModelContext> context;
     private boolean isShowingCommandSuccess = false;
-    private ObservableList<Meme> memeFilteredList;
 
     @FXML
     private TextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor,
                       CommandPrompter commandPrompter,
-                      ObservableList<Meme> memeFilteredList) {
+                      ObservableList<Meme> memeFilteredList,
+                      ObservableValue<ModelContext> context) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandPrompter = commandPrompter;
         this.memeFilteredList = memeFilteredList;
+        this.context = context;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
@@ -112,6 +116,10 @@ public class CommandBox extends UiPart<Region> {
             return false;
         }
 
+        if (!context.getValue().equals(ModelContext.CONTEXT_MEMES)) {
+            return false;
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandTextField.getText().trim());
         // Check if the input is a valid command
         if (!matcher.matches()) {
@@ -144,6 +152,10 @@ public class CommandBox extends UiPart<Region> {
      * @return whether this event is handled
      */
     private boolean handleLikeByKeyPress(KeyEvent event) {
+        if (!context.getValue().equals(ModelContext.CONTEXT_MEMES)) {
+            return false;
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandTextField.getText().trim());
         if (!matcher.matches()) {
             return false;
