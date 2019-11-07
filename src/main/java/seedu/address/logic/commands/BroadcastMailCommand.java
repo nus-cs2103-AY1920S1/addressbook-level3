@@ -5,8 +5,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Mailer;
 import seedu.address.model.Model;
 import seedu.address.model.OwnerAccount;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Project;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -56,7 +60,20 @@ public class BroadcastMailCommand extends Command {
             throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
-        List<Person> recipientsList = model.getMembers();
+        Project project = model.getWorkingProject().get();
+
+        List<Person> contactList = model.getMembers();
+        HashMap<Name, Person> contactSet = new HashMap<Name, Person>();
+        for (Person person: contactList) {
+            contactSet.put(person.getName(), person);
+        }
+
+        List<String> recipientsListInString = project.getMemberNames();
+        List<Person> recipientsList = new ArrayList<>();
+        for (String name: recipientsListInString) {
+            Name n = new Name(name);
+            recipientsList.add(contactSet.get(n));
+        }
 
         if (!model.isSignedIn()) {
             throw new CommandException(MESSAGE_SIGN_IN);

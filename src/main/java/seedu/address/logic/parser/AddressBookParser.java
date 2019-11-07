@@ -118,6 +118,9 @@ public class AddressBookParser {
         case BroadcastMailCommand.COMMAND_WORD:
             return new BroadcastMailCommandParser().parse(arguments);
 
+        case SendReminderCommand.COMMAND_WORD:
+            return new SendReminderCommandParser().parse(arguments);
+
         case SignInCommand.COMMAND_WORD:
             return new SignInCommandParser().parse(arguments);
 
