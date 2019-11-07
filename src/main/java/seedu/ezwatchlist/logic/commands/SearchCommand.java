@@ -93,10 +93,32 @@ public class SearchCommand extends Command {
                         model.getSearchResultList().size()));
             }
         } catch (OnlineConnectionException e) {
-            for (String showName : nameList) {
-                addShowFromWatchListIfSameNameAs(showName, model);
+            if (!nameList.isEmpty()) {
+                for (String showName : nameList) {
+                    addShowFromWatchListIfSameNameAs(showName, model);
+                }
             }
-            return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
+            if (!actorList.isEmpty()) {
+                Set<Actor> actorSet = new HashSet<Actor>();
+                for (String actorName : actorList) {
+                    Actor actor = new Actor(actorName);
+                    actorSet.add(actor);
+                }
+                addShowFromWatchListIfHasActor(actorSet, model);
+            }
+            if (!genreList.isEmpty()) {
+                Set<Genre> genreSet = new HashSet<Genre>();
+                for (String genreName : genreList) {
+                    Genre genre = new Genre(genreName);
+                    if (!genreName.isBlank()) {
+                        genreSet.add(genre);
+                    } else if (genreName.isBlank()) {
+                        throw new CommandException(SearchMessages.MESSAGE_INVALID_GENRE_COMMAND);
+                    }
+                }
+                addShowFromWatchListIfIsGenre(genreSet, model);
+            }
+            return new CommandResult(String.format(SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW,
                     model.getSearchResultList().size()));
         }
     }
@@ -117,7 +139,7 @@ public class SearchCommand extends Command {
                 addShowFromOnlineIfSameNameAs(showName);
             }
         } else if (requestedFromOnline()) {
-            throw new CommandException(SearchMessages.MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+            throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
         } else { // there's no restriction on where to search from
             for (String showName : nameList) {
                 addShowFromWatchListIfSameNameAs(showName, model);
@@ -142,9 +164,9 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfHasActor(actorSet, model);
         } else if (requestedSearchFromOnline()) {
-            //addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
+            throw new CommandException(SearchMessages.MESSAGE_UNABLE_TO_SEARCH_FROM_ONLINE_WHEN_SEARCHING_BY_ACTOR);
         } else if (requestedFromOnline()) {
-            throw new CommandException(SearchMessages.MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+            throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfHasActor(actorSet, model);
             // addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
@@ -173,7 +195,7 @@ public class SearchCommand extends Command {
         } else if (requestedSearchFromOnline()) {
             addShowFromOnlineIfIsGenre(genreSet); //unable to search for online tv
         } else if (requestedFromOnline()) {
-            throw new CommandException(SearchMessages.MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+            throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfIsGenre(genreSet, model);
             addShowFromOnlineIfIsGenre(genreSet); //unable to search for online tv
@@ -359,7 +381,13 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search from internal or online.
      * @return True if user requests to search from internal or online.
      */
-    private boolean requestedFromOnline() {
+    private boolean requestedFromOnline() throws CommandException {
+        for (String input : fromOnlineList) {
+            if (!(input.equals(INPUT_FALSE) || input.equals(INPUT_NO) || input.equals(INPUT_TRUE)
+                    || input.equals(INPUT_YES))) {
+                throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
+        }
         return !fromOnlineList.isEmpty();
     }
 
@@ -367,18 +395,28 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search from internal.
      * @return True if user requests to search from internal.
      */
-    private boolean requestedSearchFromInternal() {
-        return requestedFromOnline()
-                && (fromOnlineList.get(0).equals(INPUT_FALSE) || fromOnlineList.get(0).equals(INPUT_NO));
+    private boolean requestedSearchFromInternal() throws CommandException {
+        boolean requestedFromOnline = requestedFromOnline();
+        for (String input : fromOnlineList) {
+            if (requestedFromOnline && (input.equals(INPUT_FALSE) || input.equals(INPUT_NO))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Returns true if user requests to search from online.
      * @return True if user requests to search from online.
      */
-    private boolean requestedSearchFromOnline() {
-        return requestedFromOnline()
-                && (fromOnlineList.get(0).equals(INPUT_TRUE) || fromOnlineList.get(0).equals(INPUT_YES));
+    private boolean requestedSearchFromOnline() throws CommandException {
+        boolean requestedFromOnline = requestedFromOnline();
+        for (String input : fromOnlineList) {
+            if (requestedFromOnline && (input.equals(INPUT_TRUE) || input.equals(INPUT_YES))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

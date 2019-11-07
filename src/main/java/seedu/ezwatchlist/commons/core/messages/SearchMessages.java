@@ -18,8 +18,13 @@ public class SearchMessages {
             + "Shows are searched from watchlist and watched list only, even if you requested to search from online.\n"
             + MESSAGE_SHOWS_FOUND_OVERVIEW;
 
-    public static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
-            "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";
+    public static final String MESSAGE_INVALID_FROM_ONLINE_COMMAND =
+            "Invalid input. For o/[OPTION], OPTION has to be either true/yes or false/no";
+    public static final String MESSAGE_INVALID_IS_WATCHED_COMMAND =
+            "Invalid input. For w/[IS_WATCHED], IS_WATCHED has to be either true/yes or false/no";
+    public static final String MESSAGE_UNABLE_TO_SEARCH_FROM_ONLINE_WHEN_SEARCHING_BY_ACTOR =
+            "Invalid input. When searching by actor, it is not possible to search from online.\n" + MESSAGE_USAGE;
+
     public static final String MESSAGE_INVALID_TYPE_COMMAND =
             "Invalid type. t/[TYPE] where TYPE is either movie or tv";
     public static final String MESSAGE_INVALID_GENRE_COMMAND = "Invalid input. Ensure that genre is not empty.\n"

@@ -24,8 +24,6 @@ import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.statistics.Statistics;
 
 /**
