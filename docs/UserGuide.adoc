@@ -85,9 +85,9 @@ Upon launching the app, existing lists will be automatically loaded into their r
 ==== Saving the file
 Upon exiting the app, updated lists will be automatically saved.
 
-
+//tag::reminderdefaultcommand[]
 ==== Reminder settings: `glist remDefault`
-Change default number of days (n) which grocery item is expiring in,
+Change and saves default number of days (n) which grocery item is expiring in,
 to colour code grocery items based on expiry dates. +
 -*red* = has expired +
 -*orange* = is expiring within n days +
@@ -100,6 +100,8 @@ Examples:
 
 Default number of days is set to 3 days if not yet specified. +
 This command cannot be undone/redone.
+
+//end::reminderdefaultcommand[]
 
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
