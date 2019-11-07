@@ -55,6 +55,7 @@ public class LogicManager implements Logic {
         if (command instanceof UndoableCommand) {
             Event undoableEvent = EventFactory.parse((UndoableCommand) command, model);
             CommandHistory.addToUndoStack(undoableEvent);
+            CommandHistory.clearRedoStack();
         }
 
         commandResult = command.execute(model);

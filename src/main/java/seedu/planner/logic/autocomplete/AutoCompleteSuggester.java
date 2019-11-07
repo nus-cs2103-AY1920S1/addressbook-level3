@@ -31,7 +31,10 @@ import seedu.planner.logic.commands.editcommand.EditContactCommand;
 import seedu.planner.logic.commands.listcommand.ListAccommodationCommand;
 import seedu.planner.logic.commands.listcommand.ListActivityCommand;
 import seedu.planner.logic.commands.listcommand.ListContactCommand;
+import seedu.planner.logic.commands.listcommand.ListDayCommand;
 import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
+import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.commands.viewcommand.ViewAccommodationCommand;
 import seedu.planner.logic.commands.viewcommand.ViewActivityCommand;
 import seedu.planner.logic.commands.viewcommand.ViewContactCommand;
@@ -61,12 +64,15 @@ public class AutoCompleteSuggester {
         InitCommand.COMMAND_INFORMATION,
         ExitCommand.COMMAND_INFORMATION,
         AutoScheduleCommand.COMMAND_INFORMATION,
+        ScheduleCommand.COMMAND_INFORMATION,
+        UnscheduleCommand.COMMAND_INFORMATION,
         OptimiseCommand.COMMAND_INFORMATION,
         UndoCommand.COMMAND_INFORMATION,
         RedoCommand.COMMAND_INFORMATION,
         ListAccommodationCommand.COMMAND_INFORMATION,
         ListActivityCommand.COMMAND_INFORMATION,
         ListContactCommand.COMMAND_INFORMATION,
+        ListDayCommand.COMMAND_INFORMATION,
         ViewAccommodationCommand.COMMAND_INFORMATION,
         ViewActivityCommand.COMMAND_INFORMATION,
         ViewContactCommand.COMMAND_INFORMATION,
