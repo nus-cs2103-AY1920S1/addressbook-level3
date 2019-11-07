@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
- * Allocates an employee from the  to an event.
+ * Allocates an employee from the displayed list of employees to an event.
  */
 public class ManualAllocateCommand extends Command {
 
@@ -79,8 +79,9 @@ public class ManualAllocateCommand extends Command {
      */
     private CommandResult internalManualAllocateById(Model model) throws CommandException {
         List<Employee> lastShownList = model.getFullListEmployees();
-
         List<Event> lastShownEventList;
+
+        //Checks the current tab index and retrieves the relevant list from model
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownEventList = model.getFilteredEventList();
         } else {
@@ -118,6 +119,8 @@ public class ManualAllocateCommand extends Command {
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
         List<Event> lastShownEventList;
+
+        //Checks the current tab index and retrieves the relevant list from model
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownEventList = model.getFilteredEventList();
         } else {
