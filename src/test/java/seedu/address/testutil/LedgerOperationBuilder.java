@@ -118,7 +118,7 @@ public class LedgerOperationBuilder {
     /**
      * Builds Split Transaction
      */
-    public LedgerOperation asSplit(int... shares) {
+    public Split asSplit(int... shares) {
         List<Integer> shareList = Arrays.stream(shares).boxed().collect(Collectors.toList());
         assert shareList.size() == people.size() + 1: "shares cannot be split equally among people";
         return new Split(amount, date, description, shareList, people);

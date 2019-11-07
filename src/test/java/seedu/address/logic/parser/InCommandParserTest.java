@@ -63,7 +63,8 @@ public class InCommandParserTest {
     //            + DESCRIPTION_DESC_ALICE, new InCommand(expectedTransaction2));
     //}
 
-    @Test void parse_compulsoryFieldMissing_failure() {
+    @Test
+    void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE);
 
         // missing amount prefix
