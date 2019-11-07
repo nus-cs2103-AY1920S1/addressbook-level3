@@ -1,15 +1,19 @@
 package seedu.pluswork.model.task;
 
-import seedu.pluswork.model.tag.Tag;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Set;
 
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.pluswork.model.tag.Tag;
 
 /**
  * Represents a Task in the address book.
@@ -37,11 +41,11 @@ public class Task {
         this.taskStatus = taskStatus;
 
         if (taskStatus.equals(TaskStatus.DOING)) {
-            timeStart = Instant.now();
+            this.timeStart = Instant.now();
         }
 
         if (taskStatus.equals(TaskStatus.DONE)) {
-            timeEnd = Instant.now();
+            this.timeEnd = Instant.now();
         }
 
         this.tags.addAll(tags);
@@ -108,9 +112,9 @@ public class Task {
             long timeInHours = timeElasped.toHours();
 
             if (timeInHours == 0) {
-                timeTaken = timeElasped.toMinutes() + "minutes";
+                timeTaken = "Time taken to complete task: " + timeElasped.toMinutes() + "minutes";
             } else {
-                timeTaken = timeInHours + "hours";
+                timeTaken = "Time taken to complete task: " + timeInHours + "hours";
             }
         }
 
