@@ -25,7 +25,7 @@ class BudgetCommandTest {
         ModelManager expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
         expectedModel.setBudget(budget);
 
-        String expectedMessage = BudgetCommand.MESSAGE_SUCCESS + budget.toString();
+        String expectedMessage = BudgetCommand.MESSAGE_SUCCESS + model.getCurrencyInUse().symbol + budget.toString();
 
         try {
             CommandResult result = budgetCommand.execute(model);

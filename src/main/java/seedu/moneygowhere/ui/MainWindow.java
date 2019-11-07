@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.Logic;
@@ -144,11 +145,11 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget());
+        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
+        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget(), currencyInUse);
         budgetPanel = bp;
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
-
-        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
 
         graphTab = new Tab("Graph");
         graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
@@ -216,13 +217,13 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            budgetPanel.update(logic.getSpendingBook().getBudget());
+            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
+            budgetPanel.update(logic.getSpendingBook().getBudget(), currencyInUse);
 
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
 
             if (commandResult.isShowGraph()) {
                 graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
