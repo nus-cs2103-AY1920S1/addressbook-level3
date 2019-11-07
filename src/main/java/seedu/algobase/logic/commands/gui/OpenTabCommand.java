@@ -82,11 +82,36 @@ public class OpenTabCommand extends Command {
         }
     }
 
+    /**
+     * Checks if a model item exists within a {@code Model}.
+     */
+    public boolean isModelItemPresent(Model model, Id modelId) {
+        switch (modelType) {
+        case PROBLEM:
+            return model.getFilteredProblemList()
+                .stream()
+                .map(problem -> problem.getId())
+                .anyMatch((id) -> id.equals(modelId));
+        case PLAN:
+            return model.getFilteredPlanList()
+                .stream()
+                .map(plan -> plan.getId())
+                .anyMatch((id) -> id.equals(modelId));
+        default:
+            return false;
+        }
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
         try {
             Id modelId = retrieveId(model, modelType, modelIndex);
+
+            if (!isModelItemPresent(model, modelId)) {
+                throw new CommandException(String.format(MESSAGE_INVALID_INDEX, modelIndex.getOneBased()));
+            }
+
             TabData tabData = new TabData(modelType, modelId);
             TabCommandType result = tabManager.openDetailsTab(tabData);
             switch(result) {

@@ -32,10 +32,33 @@ public class OpenDetailsTabUiAction extends UiAction {
         this.modelId = modelId;
     }
 
+    /**
+     * Checks if a model item exists within a {@code Model}.
+     */
+    public boolean isModelItemPresent(Model model) {
+        switch (modelType) {
+        case PROBLEM:
+            return model.getFilteredProblemList()
+                .stream()
+                .map(problem -> problem.getId())
+                .anyMatch((id) -> id.equals(modelId));
+        case PLAN:
+            return model.getFilteredPlanList()
+                .stream()
+                .map(plan -> plan.getId())
+                .anyMatch((id) -> id.equals(modelId));
+        default:
+            return false;
+        }
+    }
+
     @Override
     public UiActionResult execute(Model model) throws UiActionException {
         WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
         try {
+            if (!isModelItemPresent(model)) {
+                throw new NoSuchElementException();
+            }
             TabData tabData = new TabData(modelType, modelId);
             TabCommandType result = tabManager.openDetailsTab(tabData);
             return new UiActionResult(Optional.empty());
