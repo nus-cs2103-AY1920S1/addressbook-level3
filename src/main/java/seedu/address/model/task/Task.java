@@ -6,8 +6,6 @@ import java.util.Objects;
 import java.util.TreeSet;
 
 import seedu.address.model.classid.ClassId;
-import seedu.address.model.note.Notes;
-import seedu.address.model.note.UniqueNotesList;
 
 /**
  * Represents a Task in the calendar.

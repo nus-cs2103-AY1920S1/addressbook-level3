@@ -1,8 +1,8 @@
 package seedu.address.model.note;
 
-import seedu.address.model.classid.ClassId;
-
 import java.util.Objects;
+
+import seedu.address.model.classid.ClassId;
 
 /**
  * Note Class
