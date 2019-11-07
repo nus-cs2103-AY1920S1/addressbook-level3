@@ -288,11 +288,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Renders right panel.
+     * Renders right panel. Any logic execution here is always a system input.
      */
-    private CommandResult renderRightPanel(String commandText, boolean isSystemInput) throws
+    private CommandResult renderRightPanel(String commandText) throws
         CommandException, ParseException {
         try {
+            boolean isSystemInput = true;
             CommandResult commandResult = logic.execute(commandText, isSystemInput);
             logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
 
@@ -349,7 +350,7 @@ public class MainWindow extends UiPart<Stage> {
             if (usesRightPane(commandResult)) {
                 rightPanelCommandText = commandText;
             } else if (rightPanelCommandText != null) {
-                executeCommand(rightPanelCommandText, true);
+                renderRightPanel(rightPanelCommandText);
             }
 
             return commandResult;
