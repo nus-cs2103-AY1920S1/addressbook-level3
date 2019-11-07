@@ -4,18 +4,18 @@ import java.util.List;
 
 import seedu.address.logic.GraphWithPreamble;
 import seedu.address.model.Model;
-import seedu.address.model.phone.Phone;
+import seedu.address.model.order.Order;
 
-public class DeletePhoneGraph extends GraphWithPreamble {
+public class CopyOrderGraph extends GraphWithPreamble {
 
-    public DeletePhoneGraph(Model model) {
+    public CopyOrderGraph(Model model) {
         super(model);
     }
 
     @Override
     protected void build(Model model) {
-        List<Phone> phoneList = model.getFilteredPhoneList();
-        setDataList(phoneList);
+        List<Order> orderList = model.getFilteredOrderList();
+        setDataList(orderList);
     }
 
 }

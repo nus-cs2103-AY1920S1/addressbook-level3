@@ -12,6 +12,11 @@ import seedu.address.logic.graphs.AddCustomerGraph;
 import seedu.address.logic.graphs.AddOrderGraph;
 import seedu.address.logic.graphs.AddPhoneGraph;
 import seedu.address.logic.graphs.AddScheduleGraph;
+import seedu.address.logic.graphs.CancelOrderGraph;
+import seedu.address.logic.graphs.CompleteOrderGraph;
+import seedu.address.logic.graphs.CopyCustomerGraph;
+import seedu.address.logic.graphs.CopyOrderGraph;
+import seedu.address.logic.graphs.CopyPhoneGraph;
 import seedu.address.logic.graphs.DeleteCustomerGraph;
 import seedu.address.logic.graphs.DeletePhoneGraph;
 import seedu.address.logic.graphs.DeleteScheduleGraph;
@@ -49,7 +54,7 @@ class GraphGenerator {
         graphs.put("list-c", Graph.emptyGraph(model));
         graphs.put("clear-c", Graph.emptyGraph(model));
         graphs.put("edit-c", new EditCustomerGraph(model));
-        graphs.put("copy-c", Graph.emptyGraph(model)); //TODO
+        graphs.put("copy-c", new CopyCustomerGraph(model));
 
         // Phone commands
         graphs.put("switch-p", Graph.emptyGraph(model));
@@ -59,18 +64,18 @@ class GraphGenerator {
         graphs.put("list-p", Graph.emptyGraph(model));
         graphs.put("clear-p", Graph.emptyGraph(model));
         graphs.put("edit-p", new EditPhoneGraph(model));
-        graphs.put("copy-p", Graph.emptyGraph(model)); //TODO
+        graphs.put("copy-p", new CopyPhoneGraph(model));
 
         // Order commands
         graphs.put("switch-o", Graph.emptyGraph(model));
         graphs.put("add-o", new AddOrderGraph(model));
         graphs.put("find-o", Graph.emptyGraph(model)); //TODO LAST
-        graphs.put("complete", Graph.emptyGraph(model)); //TODO
-        graphs.put("cancel", Graph.emptyGraph(model)); //TODO
+        graphs.put("complete", new CompleteOrderGraph(model));
+        graphs.put("cancel", new CancelOrderGraph(model));
         graphs.put("list-o", Graph.emptyGraph(model));
         graphs.put("clear-o", Graph.emptyGraph(model));
         graphs.put("edit-o", new EditOrderGraph(model));
-        graphs.put("copy-o", Graph.emptyGraph(model)); //TODO
+        graphs.put("copy-o", new CopyOrderGraph(model));
 
         // Schedule commands
         graphs.put("switch-s", Graph.emptyGraph(model));

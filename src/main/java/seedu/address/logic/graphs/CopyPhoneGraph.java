@@ -6,9 +6,9 @@ import seedu.address.logic.GraphWithPreamble;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
 
-public class DeletePhoneGraph extends GraphWithPreamble {
+public class CopyPhoneGraph extends GraphWithPreamble {
 
-    public DeletePhoneGraph(Model model) {
+    public CopyPhoneGraph(Model model) {
         super(model);
     }
 
