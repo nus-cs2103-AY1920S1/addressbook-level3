@@ -802,6 +802,9 @@ image::StatsExampleGraph.png[width="600"]
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
+For dates in YYYY.MM.DD, the MM and DD argument can omit the leading 0 e.g `2019.1.1` is valid
+as long as the date is valid
+[TIP]
 Accuracy is guaranteed up to $0.01 *only*
 [TIP]
 Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
