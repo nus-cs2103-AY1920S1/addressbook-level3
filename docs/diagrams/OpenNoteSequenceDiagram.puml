@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":OpenDisplayNote" as OpenDisplayNote UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+
+
+create MainWindow
+[-> MainWindow
+activate MainWindow
+
+MainWindow -> MainWindow : executeCommand("open 1")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("open 1")
+activate LogicManager
+
+ref over LogicManager
+Open note
+end ref
+
+LogicManager --> MainWindow : openNoteCommandResult
+
+MainWindow -> MainWindow : fillReadParts()
+activate MainWindow
+
+create OpenDisplayNote
+MainWindow -> OpenDisplayNote
+activate OpenDisplayNote
+
+OpenDisplayNote --> MainWindow
+deactivate OpenDisplayNote
+
+-> OpenDisplayNote : onSave()
+activate OpenDisplayNote
+
+OpenDisplayNote -> MainWindow : executeCommand "edit 1 c/new content"
+deactivate OpenDisplayNote
+
+MainWindow -> LogicManager : execute "edit 1 c/new content"
+
+ref over LogicManager
+Edit note
+end ref
+
+LogicManager --> MainWindow : editNoteCommandResult
+deactivate LogicManager
+MainWindow --> MainWindow
+deactivate MainWindow
+MainWindow --> MainWindow
+deactivate MainWindow
+[<-- MainWindow
+deactivate MainWindow
+
+
+@enduml
