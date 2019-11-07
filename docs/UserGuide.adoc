@@ -480,6 +480,7 @@ All attributes of a body or worker entry can be filtered. If more than one attri
 Format: `filter -FLAG [/attributeName attributeValue ...]`
 
 Example:
+
 * `filter -w /sex female` +
 All female worker entries will be displayed.
 
@@ -608,19 +609,23 @@ The following are the correct formats for typing in stats commands, with example
 
 * To display the last 10 days: `stats` +
 The line chart will display statistics over the last 10 days.
-image::statsTenDays.png[width="790"]
+
+image::statsTenDays.png[width="790", align="right"]
 
 * To display a specific week: `stats /week 25/10/2019` +
 The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
-image::statsWeek.png[width="790"]
+
+image::statsWeek.png[width="790", align="right"]
 
 * To display a specific month: `stats /month 5/2019` +
 The line chart will display statistics or the month specified. In this case, it is May 2019.
-image::statsMonth.png[width="790"]
+
+image::statsMonth.png[width="790", align="right"]
 
 * To display a specific year: `stats /year 2019` +
 The line chart will display statistics for the year specified. In this case is it 2019.
-image::statsYear.png[width="790"]
+
+image::statsYear.png[width="790", align="right"]
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
