@@ -82,7 +82,7 @@ public class FillCommandTest {
         Description descriptionToFill = getTypicalDescriptions().get(3);
         FillCommand fillCommand = new FillCommand(TypicalIndexes.INDEX_FIRST_ENTITY, callerNumberToFill,
                 descriptionToFill);
-        ;
+
         Incident toFill = getCompleteDraftIncidentManager().getIncidentList().get(0);
         String expectedMessage = String.format(FillCommand.MESSAGE_FILL_DRAFT_SUCCESS, toFill);
 
@@ -157,7 +157,7 @@ public class FillCommandTest {
 
     @Test
     public void execute_allIncidentFieldsUpdated_success() throws CommandException {
-        // to check if incident has updated status 'complete draft'
+        // to check if incident has updated fields
         model = new ModelManager(getIncompleteDraftIncidentManager(), new UserPrefs());
         model.setSession(ALICE); // Added to simulate a logged in person
         expectedModel = new ModelManager(model.getIncidentManager(), new UserPrefs());

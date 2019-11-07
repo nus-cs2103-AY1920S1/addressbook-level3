@@ -24,7 +24,7 @@ public class SubmitCommand extends Command {
             + "Use " + COMMAND_WORD + " with parameters:"
             + COMMAND_WORD + " INDEX (positive integer) to submit the specified draft.";
 
-    private static final String MESSAGE_SUBMIT_SUCCESS = "New incident report submitted: %1$s";
+    public static final String MESSAGE_SUBMIT_SUCCESS = "New incident report submitted: %1$s";
 
     private final Index targetIndex;
 
