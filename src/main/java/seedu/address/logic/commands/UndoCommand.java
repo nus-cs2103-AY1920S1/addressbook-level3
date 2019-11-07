@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         requireNonNull(model);
 
         if (!model.canUndoAddressBook()) {
-            logger.severe("Undoing even when not possible.");
+            logger.warning("Undoing even when not possible.");
             throw new CommandException(UNDO_NOT_POSSIBLE);
         }
 

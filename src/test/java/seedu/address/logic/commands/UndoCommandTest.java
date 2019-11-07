@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SMOKER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_POLICY;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 
 class UndoCommandTest {
 
@@ -29,7 +33,7 @@ class UndoCommandTest {
     }
 
     @Test
-    public void execute_undoEditCommand_success() {
+    public void execute_undoEditCommand() {
         try {
             new EditCommand(INDEX_FIRST_PERSON, DESC_AMY).execute(model);
             new EditCommand(INDEX_FIRST_PERSON, DESC_BOB).execute(model);
@@ -52,7 +56,7 @@ class UndoCommandTest {
     }
 
     @Test
-    public void execute_undoDeleteCommand_success() {
+    public void execute_undoDeleteCommand() {
         try {
             new DeleteCommand(INDEX_FIRST_PERSON).execute(model);
             new DeleteCommand(INDEX_FIRST_PERSON).execute(model);
@@ -75,7 +79,7 @@ class UndoCommandTest {
     }
 
     @Test
-    public void execute_undoAddCommand_success() {
+    public void execute_undoAddCommand() {
         Person person1 = new PersonBuilder().build();
         Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
 
@@ -101,18 +105,63 @@ class UndoCommandTest {
     }
 
     @Test
-    public void execute_cannotUndoWithPreviousCommand_failure() {
-        new ListPeopleCommand().execute(expectedModel);
+    public void execute_undoAddTagCommand() {
+        try {
+            new AddTagCommand(INDEX_FIRST_PERSON, VALID_TAG_DIABETIC).execute(model);
+            new AddTagCommand(INDEX_FIRST_PERSON, VALID_TAG_SMOKER).execute(model);
+            new AddTagCommand(INDEX_FIRST_PERSON, VALID_TAG_DIABETIC).execute(expectedModel);
+            new AddTagCommand(INDEX_FIRST_PERSON, VALID_TAG_SMOKER).execute(expectedModel);
+        } catch (Exception e) {
+            fail("Should not throw any exception.");
+        }
 
-        UndoCommand undoCommand = new UndoCommand();
-        assertCommandFailure(undoCommand, expectedModel, UndoCommand.UNDO_NOT_POSSIBLE);
+        // multiple undoable states
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // only one undoable state
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // no undoable state
+        assertCommandFailure(new UndoCommand(), model, UndoCommand.UNDO_NOT_POSSIBLE);
     }
 
     @Test
-    public void execute_cannotUndoWithoutPreviousCommand_failure() {
-        Model newModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+    public void execute_undoAssignUnassignPolicyCommand() {
+        Policy policy = model.getAddressBook().getPolicyList().get(INDEX_SECOND_POLICY.getZeroBased());
 
-        UndoCommand undoCommand = new UndoCommand();
-        assertCommandFailure(undoCommand, newModel, UndoCommand.UNDO_NOT_POSSIBLE);
+        try {
+            new AssignPolicyCommand(INDEX_FIRST_PERSON, policy.getName()).execute(model);
+            new UnassignPolicyCommand(INDEX_FIRST_PERSON, policy.getName()).execute(model);
+            new AssignPolicyCommand(INDEX_FIRST_PERSON, policy.getName()).execute(expectedModel);
+            new UnassignPolicyCommand(INDEX_FIRST_PERSON, policy.getName()).execute(expectedModel);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+        // multiple undoable states
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // only one undoable state
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // no undoable state
+        assertCommandFailure(new UndoCommand(), model, UndoCommand.UNDO_NOT_POSSIBLE);
+    }
+
+    @Test
+    public void execute_noDataChangePerformed_failure() {
+        new ListPeopleCommand().execute(expectedModel);
+        new ListPolicyCommand().execute(expectedModel);
+
+        assertCommandFailure(new UndoCommand(), expectedModel, UndoCommand.UNDO_NOT_POSSIBLE);
+    }
+
+    @Test
+    public void execute_nothingPerformed_failure() {
+        assertCommandFailure(new UndoCommand(), expectedModel, UndoCommand.UNDO_NOT_POSSIBLE);
     }
 }

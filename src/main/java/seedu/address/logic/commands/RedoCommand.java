@@ -24,7 +24,7 @@ public class RedoCommand extends Command {
         requireNonNull(model);
 
         if (!model.canRedoAddressBook()) {
-            logger.severe("Redoing even when not possible!");
+            logger.warning("Redoing even when not possible!");
             throw new CommandException(REDO_NOT_POSSIBLE);
         }
 
