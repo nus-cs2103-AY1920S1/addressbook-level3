@@ -6,21 +6,16 @@ import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
-import io.xpire.model.tag.Tag;
-import io.xpire.model.tag.TagComparator;
 
 //@@author liawsy
 /**
@@ -37,58 +32,41 @@ public class ShiftToMainCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the main list";
     public static final String MESSAGE_SUCCESS = "%s is moved to the main list";
 
-    private XpireItem xpireItem;
     private final Index targetIndex;
     private final ExpiryDate expiryDate;
     private final Quantity quantity;
-    private String result = "";
+    private String result;
 
     public ShiftToMainCommand(Index targetIndex, ExpiryDate expiryDate, Quantity quantity) {
         this.targetIndex = targetIndex;
         this.expiryDate = expiryDate;
         this.quantity = quantity;
+        this.result = "";
     }
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-
         requireNonNull(model);
         stateManager.saveState(new ModifiedState(model));
+
         List<? extends Item> lastShownList = model.getCurrentList();
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
+
         Item targetItem = lastShownList.get(this.targetIndex.getZeroBased());
-        XpireItem toShiftItem = adaptItemToXpire(targetItem, expiryDate, quantity);
-        this.xpireItem = toShiftItem;
-        if (model.hasItem(XPIRE, toShiftItem)) {
+        XpireItem remodelledItem = targetItem.remodel(this.expiryDate, this.quantity);
+
+        if (model.hasItem(XPIRE, remodelledItem)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         } else {
-            model.addItem(XPIRE, toShiftItem);
+            model.addItem(XPIRE, remodelledItem);
             model.deleteItem(REPLENISH, targetItem);
         }
-        this.result = String.format(MESSAGE_SUCCESS, toShiftItem.getName());
+
+        this.result = String.format(MESSAGE_SUCCESS, remodelledItem.getName());
         setShowInHistory(true);
         return new CommandResult(this.result);
-    }
-
-    /**
-     * Changes an Item to an XpireItem.
-     * @param item to change into XpireItem.
-     * @param expiryDate of the item.
-     * @param quantity of the item.
-     * @return an XpireItem to be added into the main list.
-     */
-    private XpireItem adaptItemToXpire(Item item, ExpiryDate expiryDate, Quantity quantity) {
-        Name itemName = item.getName();
-        Set<Tag> originalTags = item.getTags();
-        Set<Tag> newTags = new TreeSet<>(new TagComparator());
-        for (Tag tag: originalTags) {
-            if (!newTags.contains(tag)) {
-                newTags.add(tag);
-            }
-        }
-        return new XpireItem(itemName, expiryDate, quantity, newTags);
     }
 
     @Override
