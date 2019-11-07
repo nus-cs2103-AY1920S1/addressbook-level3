@@ -282,11 +282,11 @@ The following sequence diagram shows how the delete by name command works after 
 .Sequence Diagram of Delete Command in Home Tab (transaction package)
 image::HomeDeleteNameCommand.png[width = "300"]
 
-In addition, the `ModelManager#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
+In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
 Find Command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
 To view the full transaction list, the user would be required to enter the
-Back Command where `BackCommand` calls `ModelManager#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+Back Command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
@@ -327,7 +327,7 @@ image::HomeTabSortSD.png[width = "300"]
 When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, the `ModelManager#resetPredicate()` method is not called. If the UI table is showing a filtered
+Similar to the Delete Command, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
 list of transactions, the Back Command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 [big red]*3.1.5 Overall Design Considerations*
