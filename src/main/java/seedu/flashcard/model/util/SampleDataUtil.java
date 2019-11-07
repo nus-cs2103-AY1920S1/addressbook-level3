@@ -51,55 +51,55 @@ public class SampleDataUtil {
                 getChoiceList("Matthew & Melvin",
                         "Mars & Melvin",
                         "Mars & Murrie"),
-                new Definition("They are names of the two sons of the Mars Company founder " +
-                        "and the Hershey Chocolate's president respectively."),
+                new Definition("They are names of the two sons of the Mars Company founder "
+                        + "and the Hershey Chocolate's president respectively."),
                 getTagSet("trivia"),
                 new Answer("Mars & Murrie")),
             new McqFlashcard(new Question("Which of the following describes the service-oriented architecture style?"),
-                getChoiceList("Divides the workload of the system down to a number of transactions which " +
-                                "are then given to a dispatcher that controls the execution of each transaction. ",
-                        "Builds applications by combining functionalities packaged as programmatically " +
-                                "accessible services.",
-                        "Controls the flow of the application by detecting events " +
-                                "from event emitters and communicating those events to interested event consumers"),
+                getChoiceList("Divides the workload of the system down to a number of transactions which "
+                                + "are then given to a dispatcher that controls the execution of each transaction. ",
+                        "Builds applications by combining functionalities packaged as programmatically "
+                                + "accessible services.",
+                        "Controls the flow of the application by detecting events "
+                                + "from event emitters and communicating those events to interested event consumers"),
                 new Definition("Covered in Week 11."),
                 getTagSet("cs2103", "design"),
-                new Answer( "Builds applications by combining functionalities packaged as programmatically " +
-                        "accessible services.")),
+                new Answer("Builds applications by combining functionalities packaged as programmatically "
+                        + "accessible services.")),
             new McqFlashcard(new Question("Which of the following describes the event-driven style?"),
-                getChoiceList("Divides the workload of the system down to a number of transactions which " +
-                                "are then given to a dispatcher that controls the execution of each transaction. ",
-                        "Builds applications by combining functionalities packaged as programmatically " +
-                                "accessible services.",
-                        "Controls the flow of the application by detecting events " +
-                                "from event emitters and communicating those events to interested event consumers"),
+                getChoiceList("Divides the workload of the system down to a number of transactions which "
+                                + "are then given to a dispatcher that controls the execution of each transaction. ",
+                        "Builds applications by combining functionalities packaged as programmatically "
+                                + "accessible services.",
+                        "Controls the flow of the application by detecting events "
+                                + "from event emitters and communicating those events to interested event consumers"),
                 new Definition("Covered in Week 11."),
                 getTagSet("cs2103", "design"),
-                new Answer( "Controls the flow of the application by detecting events " +
-                        "from event emitters and communicating those events to interested event consumers")),
+                new Answer("Controls the flow of the application by detecting events "
+                        + "from event emitters and communicating those events to interested event consumers")),
             new McqFlashcard(new Question("Which of the following describes the transaction processing style?"),
-                getChoiceList("Divides the workload of the system down to a number of transactions which " +
-                                "are then given to a dispatcher that controls the execution of each transaction.",
-                        "Builds applications by combining functionalities packaged as programmatically " +
-                                "accessible services.",
-                        "Controls the flow of the application by detecting events " +
-                                "from event emitters and communicating those events to interested event consumers"),
+                getChoiceList("Divides the workload of the system down to a number of transactions which "
+                                + "are then given to a dispatcher that controls the execution of each transaction.",
+                        "Builds applications by combining functionalities packaged as programmatically "
+                                + "accessible services.",
+                        "Controls the flow of the application by detecting events "
+                                + "from event emitters and communicating those events to interested event consumers"),
                 new Definition("Covered in Week 11."),
                 getTagSet("cs2103", "design"),
-                new Answer( "Divides the workload of the system down to a number of transactions which are " +
-                        "then given to a dispatcher that controls the execution of each transaction.")),
-            new ShortAnswerFlashcard(new Question("Which test case design type designs test cases " +
-                    "exclusively based on the SUT’s specified external behavior?"),
+                new Answer("Divides the workload of the system down to a number of transactions which are "
+                        + "then given to a dispatcher that controls the execution of each transaction.")),
+            new ShortAnswerFlashcard(new Question("Which test case design type designs test cases "
+                    + "exclusively based on the SUT’s specified external behavior?"),
                 new Definition("Covered in Week 10."),
                 getTagSet("cs2103", "test case design"),
                 new Answer("Black-box approach")),
-            new ShortAnswerFlashcard(new Question("Which test case design type designs test cases " +
-                    "based on what is known about the SUT’s implementation?"),
+            new ShortAnswerFlashcard(new Question("Which test case design type designs test cases "
+                    + "based on what is known about the SUT’s implementation?"),
                 new Definition("Covered in Week 10."),
                 getTagSet("cs2103", "test case design"),
                 new Answer("White-box approach")),
-            new ShortAnswerFlashcard(new Question("What is the name given to the lower register of" +
-                    " the clarinet's playing range?"),
+            new ShortAnswerFlashcard(new Question("What is the name given to the lower register of"
+                    + " the clarinet's playing range?"),
                 new Definition("Range of E3 to Bb4"),
                 getTagSet("music", "trivia"),
                 new Answer("Chalumeau")),
@@ -108,8 +108,8 @@ public class SampleDataUtil {
                 new Definition("It is also called Symphony No.9 in E minor"),
                 getTagSet("music", "trivia"),
                 new Answer("Dvorak")),
-            new ShortAnswerFlashcard(new Question("Which of Tchaikovsky's overture commemorated " +
-                    "Napolean's retreat from Moscow?"),
+            new ShortAnswerFlashcard(new Question("Which of Tchaikovsky's overture commemorated "
+                    + "Napolean's retreat from Moscow?"),
                 new Definition("It was written in 1880 and consisted of cannon fire."),
                 getTagSet("music"),
                 new Answer("1812 Overture")),
@@ -133,20 +133,20 @@ public class SampleDataUtil {
                 new Definition("SAT vocabulary word"),
                 getTagSet("english", "SAT"),
                 new Answer("Inveterate")),
-            new ShortAnswerFlashcard(new Question("Which design principle states that " +
-                    "a class should only have one and only one reason to change?"),
-                new Definition("If a class has only one responsibility, it needs to change only when " +
-                        "there is a change to that responsibility."),
+            new ShortAnswerFlashcard(new Question("Which design principle states that "
+                    + "a class should only have one and only one reason to change?"),
+                new Definition("If a class has only one responsibility, it needs to change only when "
+                        + "there is a change to that responsibility."),
                 getTagSet("cs2103", "design"),
                 new Answer("Single Responsibility Principle")),
-            new ShortAnswerFlashcard(new Question("Which design principle states that " +
-                    "a module should be open for extension but closed for modification?"),
-                new Definition("Modules should be written so that they can be extended, " +
-                        "without requiring them to be modified."),
+            new ShortAnswerFlashcard(new Question("Which design principle states that "
+                    + "a module should be open for extension but closed for modification?"),
+                new Definition("Modules should be written so that they can be extended, "
+                        + "without requiring them to be modified."),
                 getTagSet("cs2103", "design"),
                 new Answer("Open-Close Principle")),
-            new ShortAnswerFlashcard(new Question("Which principle states that " +
-                    "no client should be forced to depend on methods it does not use?"),
+            new ShortAnswerFlashcard(new Question("Which principle states that "
+                    + "no client should be forced to depend on methods it does not use?"),
                 new Definition("Covered in Week 9."),
                 getTagSet("cs2103"),
                 new Answer("Interface Segregation Principle")),
