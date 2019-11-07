@@ -1,6 +1,7 @@
 package seedu.revision.model.answerable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.stanford.nlp.ie.NumberNormalizer;
@@ -16,9 +17,29 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 public class AnswerChecker {
 
     /**
+     * Question of the current Answerable
+     */
+//    private static String question;
+    private static List<CoreLabel> question;
+
+    /**
      * Get StanfordCoreNLP pipeline to process String
      */
     private static StanfordCoreNLP pipeline = Pipeline.getPipeline();
+
+    /**
+     * Processes the question of current answerable and return as a list of tokenized words
+     * It will return list of type CoreLabel
+     * @param question String of the question
+     * @return List contraining each words of the question
+     */
+    private static List<CoreLabel> processQuestion(String question) {
+        CoreDocument coreDocument = new CoreDocument(question.toLowerCase().trim());
+        pipeline.annotate(coreDocument);
+        List<CoreLabel> coreLabelList = coreDocument.tokens();
+
+        return coreLabelList;
+    }
 
     /**
      * Processes the String to trim trailing and leading whitespaces, covert all characters to lowercase,
@@ -34,7 +55,7 @@ public class AnswerChecker {
 
         CoreDocument coreDocument = new CoreDocument(processedString.toString());
         pipeline.annotate(coreDocument);
-        List<CoreLabel> coreLabelList = coreDocument.tokens(); // tokenize each word
+        List<CoreLabel> coreLabelList = coreDocument.tokens();
 
         for (CoreLabel coreLabel : coreLabelList) {
 
@@ -43,6 +64,16 @@ public class AnswerChecker {
             if (pos.equals("CD")) {
                 Number num = NumberNormalizer.wordToNumber(coreLabel.originalText());
                 coreLabel.setOriginalText(num.toString());
+            }
+        }
+
+        Iterator<CoreLabel> iter = coreLabelList.iterator();
+        while (iter.hasNext()) {
+            CoreLabel coreLabel = iter.next();
+            for (CoreLabel word : question) {
+                if (coreLabel.originalText().equals(word.originalText())) {
+                    iter.remove();
+                }
             }
         }
 
@@ -116,10 +147,14 @@ public class AnswerChecker {
      * Checks if user answer is correct or not.
      * It will return true if answer is correct and false if answer is wrong
      * @param userInput user's answer to the question
-     * @param correctAnswerList the correct answer to the question
+     * @param answerable the current Answerable - and SAQ Answerable
      * @return true or false
      */
-    public static boolean check(String userInput, ArrayList<Answer> correctAnswerList) {
+    public static boolean check(String userInput, Answerable answerable) {
+
+        question = processQuestion(answerable.question.question);
+
+        ArrayList<Answer> correctAnswerList = answerable.getCorrectAnswerList();
 
         userInput = processString(userInput);
 
