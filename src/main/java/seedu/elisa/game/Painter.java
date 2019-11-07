@@ -52,6 +52,6 @@ public class Painter {
      */
     public static void paintResetMessage(GraphicsContext gc) {
         gc.setFill(Color.AQUAMARINE);
-        gc.fillText("Hit RETURN to reset.", 10, 10);
+        gc.fillText("\nHit RETURN to reset the game. \nHit ESC to get back to WORK!!!", 10, 10);
     }
 }
