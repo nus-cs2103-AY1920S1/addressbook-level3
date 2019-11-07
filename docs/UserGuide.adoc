@@ -247,11 +247,6 @@ Format: `glist redo`
 When you delete an item from your grocery list using `delete`, the item will automatically be
 moved into the waste list if it has not been fully used (the amount of food remaining > 0).
 
-==== Moving all expired food items from grocery list to waste list
-
-By default, every time the application is launched, Food Orchestra helps you check which items
-are expired and automatically moves them into the waste list.
-
 ==== Viewing the waste list: `wlist list`
 
 Shows a list of the food items which have been wasted +
@@ -332,6 +327,31 @@ Generates a waste report from Oct 2018 to Mar 2019 (one year from Mar 2018)
 Generates a waste report from May 2019 to Oct 2019 (current month)
 
 The allowable date formats can be found in the Natty library documentation.
+
+====
+*Using the waste report*
+
+* After a successful waste report command, there will be 3 charts displayed in different tabs, one for each of the following:
+
+** Weight of food wasted (in kg) across the time frame
+** Volume of food wasted (in litres) across the time frame
+** Quantity of food wasted (in units) across the time frame
+
+Our charts are interactive, you can get more details about your food wastage by interacting with our charts.
+
+* Zooming on the chart: If you want to zoom in on a specific region of the graph, you can use your mouse to click and drag on the
+preferred window.
+* To retrieve more specific details on the food wastage for a particular month, you can choose to:
+** click on the particular point in the chart, which will bring up the grid guidelines, or
+** click on the month name in the horizontal axis, which will zoom in on the exact wastage details for that particular month.
+* Returning to the original window: You can easily return to the original window by clicking on the title of the chart.
+
+Below is an example of a waste report with the chart on food wastage in kg:
+
+image::WasteReportWindow.png[]
+
+_By clicking on the data point which lies on "March 2019", we can see that our food wastage for Mar 2019 is around 0.45kg._
+====
 
 ==== Obtain feedback based on current food wastage: `wlist feedback`
 
@@ -640,6 +660,12 @@ There is no need to save manually.
 ==== View most commonly wasted food items
 
 Generates a word cloud based on user's most commonly wasted food.
+
+==== Moving all expired food items from grocery list to waste list
+
+By default, every time the application is launched, iFridge helps you check which items
+are expired and automatically moves them into the waste list.
+
 //end::wastelistfuture[]
 
 === Shopping list
