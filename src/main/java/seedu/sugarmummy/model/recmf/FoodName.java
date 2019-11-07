@@ -56,7 +56,7 @@ public class FoodName implements Comparable<FoodName> {
         if (!(other instanceof FoodName)) {
             return false;
         }
-        return foodName.equals(((FoodName) other).foodName);
+        return foodName.equalsIgnoreCase(((FoodName) other).foodName);
     }
 
     @Override

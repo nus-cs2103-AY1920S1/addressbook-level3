@@ -20,6 +20,7 @@ import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.FoodName;
 import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
@@ -66,6 +67,11 @@ public interface Model {
      * Adds the given food. {@code food} must not already exist in the recommendations.
      */
     void addFood(Food food);
+
+    /**
+     * Deletes the food that matches the give food name. {@code foodName} must exist in the recommendations.
+     */
+    void deleteFood(FoodName foodName);
 
     /**
      * Returns the {@code UniqueFoodList} object.

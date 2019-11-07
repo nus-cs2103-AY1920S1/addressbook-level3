@@ -61,7 +61,7 @@ public class AddFoodCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.ADD_FOOD;
+        return DisplayPaneType.CHANGE_FOOD;
     }
 
     @Override

@@ -37,6 +37,7 @@ import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.calendar.Reminder;
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.FoodName;
 import seedu.sugarmummy.model.recmf.UniqueFoodList;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
@@ -348,6 +349,11 @@ public class ModelManager implements Model {
     @Override
     public void addFood(Food food) {
         foodList.add(food);
+    }
+
+    @Override
+    public void deleteFood(FoodName foodName) {
+        foodList.delete(foodName);
     }
 
     @Override
