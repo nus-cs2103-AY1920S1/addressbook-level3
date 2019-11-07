@@ -1276,13 +1276,11 @@ Otherwise, an error message showing proper note command syntax is thrown as `Com
 *Step 4*. If the command syntax was valid and `VEvent` was added to the `EventRecord`, `LogicManager`
 calls `Storage#saveEvents(ReadOnlyEvents eventRecord)` which saves the `EventRecord` in JSON format after serializing it using the `JsonEventStorage`.
 
-The following is a sample sequence diagram of the `EventAddCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
+The following is a sample sequence diagram of the `EventDeleteCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
 
-.Sequence Diagram for Adding Notes
-image::DeveloperGuideResources/NotesAddSequenceDiagram.png[]
+.Sequence Diagram for Deleting Events
+image::DeveloperGuideResources/EventDeleteSequenceDiagram.png[]
 
-.Supplementary Frame for Sequence Diagram
-image::DeveloperGuideResources/NoteAddFrame.png[]
 
 [[Feature-Event-Index]]
 ==== Index command
@@ -1292,7 +1290,11 @@ The purpose of this command is to return the index of the vEvent(s) with event n
 And if there are no matching VEvents with the same string. Suggest the a VEvent with the most similar event name to that of
 the `desiredEventName` based on the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]
 
+The following is a sample activity diagram of the execute method of `EventIndexCommand`. Note that the "details"
+in the diagram refers to the VEvent object itself and its corresponding index.
 
+.Activity Diagram for finding index of Event
+image::DeveloperGuideResources/EventIndexActivityDiagram.png[]
 
 *Step 1*. The `EventIndexCommand#execute(Model model)` method is executed.
 
@@ -1317,9 +1319,6 @@ is then called through the `Model#findMostSimilarVEvent(String desiredEventName)
 https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]. At the end the event which is most similar and its index will create a new `Pair<Index, VEvent>` and be returned.
 
 *Step 8*. A new `CommandResult` will be returned with a message stating the Index and the corresponding details of the most similar VEvent found.
-
-image::QuestionsSearchActivityDiagram.png[]
-_Figure 6. Activity diagram of questions search_
 
 [[Feature-Event-Edit]]
 ==== Edit Event Command
