@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package CoursePlanner <<Rectangle>> {
+Package Planner <<Rectangle>> {
     Class CoursePlanner
     Class UniqueCourseList
     Class Course
@@ -20,15 +20,15 @@ Package CoursePlanner <<Rectangle>> {
     Class FulfillRequirements
 }
 
-Course *-left-> "1" Title
-Course *--> "1" CourseCode
-Course *--> "1" CourseCredit
-Course *--> "1" Faculty
-Course *--> "1" Description
-Course *--> "0..1" PrereqTree
-Course *--> "0..1" Preclusion
-Course *-right-> "0..1" FulfillRequirements
-UniqueCourseList o--> "*" Course
-CoursePlanner *--> "1" UniqueCourseList
-CoursePlanner *--> "1" CourseTextDisplay
+Course *-down-> "1" Title
+Course *-down-> "1" CourseCode
+Course *-down-> "1" CourseCredit
+Course *-down-> "1" Faculty
+Course *-down-> "1" Description
+Course *-down-> "0..1" PrereqTree
+Course *-down-> "0..1" Preclusion
+Course *-down-> "0..1" FulfillRequirements
+UniqueCourseList o-down-> "*" Course
+CoursePlanner *-down-> "1" UniqueCourseList
+CoursePlanner *-down-> "1" CourseTextDisplay
 @enduml

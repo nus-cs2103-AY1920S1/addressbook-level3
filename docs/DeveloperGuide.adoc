@@ -237,15 +237,17 @@ link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/[[Package\]]
 [[Design-Model]]
 === Model component
 
-The `Model` represents an encapsulation of all data in Jarvis. It is central
-to the application as the `Ui` requires updates from the `Model` and `Logic`
-requires `Model` to modify data. Shown below is the structure of the `Model`
-component.
+The `Model` API is responsible for interacting with the data in JARVIS including
+the various aspects such as user's preferences, command history,
+finance management, cca information, courses and schedule information.
 
-.Structure of the Model Component
-image::ModelDiagram.png[]
+Below is a class diagram involving the `Model` interface, which inherits
+from the feature specific model interfaces.
 
-The `Model`,
+.Model Interface
+image::model/ModelInterfaceClassDiagram.png[]
+
+The `Model` component,
 
 * Stores a `UserPref` object that represents the user's preferences.
 * Stores the `HistoryManager` data
@@ -263,6 +265,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
 The `Storage` API is responsible for reading and writing data in json format.
 This allows the application is remember information in json format when the
 user closes the application.
+
+The `Storage` API acts as a facade that handles interaction regarding
+storage related components.
 
 Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.
