@@ -225,9 +225,7 @@ public class AppManager {
     private void skipOverToNextQuestion() {
         try {
             this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (CommandException e) {
+        } catch (ParseException | CommandException e) {
             e.printStackTrace();
         }
     }

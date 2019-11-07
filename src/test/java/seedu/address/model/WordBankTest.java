@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Meaning;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -104,6 +105,16 @@ public class WordBankTest {
         @Override
         public Card getCard(Index index) {
             return cards.get(index.getZeroBased());
+        }
+
+        @Override
+        public Card getCard(Meaning meaning) {
+            return null;
+        }
+
+        @Override
+        public boolean hasCard(Card c) {
+            return false;
         }
 
         @Override

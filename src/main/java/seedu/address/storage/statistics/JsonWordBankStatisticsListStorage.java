@@ -104,7 +104,6 @@ public class JsonWordBankStatisticsListStorage implements WordBankStatisticsList
         if (toDelete.exists()) {
             toDelete.delete();
         }
-        wbStatsList.removeWordBankStatistics(wbStats);
     }
 
     /**

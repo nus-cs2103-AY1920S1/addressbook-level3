@@ -101,13 +101,6 @@ public class WordBankCard extends UiPart<Region> {
         event.consume();
         System.out.println("dragDetection done");
 
-        //        try {
-        //            commandExecutor.execute("export w/dragAndDropInternalExport" + wordBank.getName()
-        //                    + " f/" + System.getProperty("user.home"));
-        //        } catch (CommandException | ParseException e) {
-        //            e.printStackTrace();
-        //        }
-
     }
 
     /**

@@ -163,7 +163,7 @@ public class ModularDisplay {
      * it were a user.
      * @param commandExecutor Method to register.
      */
-    void registerDragAndDropCalLBack(ModularDisplayExecuteCallBack commandExecutor) {
+    void registerDragAndDropCallBack(ModularDisplayExecuteCallBack commandExecutor) {
         requireAllNonNull(commandExecutor);
         loadBankPanel.registerDragAndDropCallBack(commandExecutor);
     }

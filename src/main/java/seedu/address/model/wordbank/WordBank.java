@@ -47,6 +47,7 @@ public class WordBank implements ReadOnlyWordBank {
     /**
      * Returns true if a card with the same meaning as {@code card} exists in the word bank.
      */
+    @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
         return cards.contains(card);
@@ -97,6 +98,10 @@ public class WordBank implements ReadOnlyWordBank {
         return cards.get(index).clone();
     }
 
+    @Override
+    /**
+     * Returns the card by searching for it's meaning.
+     */
     public Card getCard(Meaning meaning) {
         return cards.getCard(meaning);
     }
