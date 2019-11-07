@@ -27,7 +27,7 @@ public class TrainingCommandPresent extends TrainingCommand {
             + " the specified date.\nIf no date is specified, the current date is used.\n" + "Parameters: "
             + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT_TYPE_ONE + "\n"
             + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20102019 "
-            + PREFIX_INDEXES + " 1 5 7";
+            + PREFIX_INDEXES + " 1 4 5";
 
     private Training trainingToAdd;
     /**

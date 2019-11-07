@@ -46,17 +46,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' Athletick file path.
      */
     Path getAthletickFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' Athletick file path.
      */
     void setAthletickFilePath(Path athletickFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces Athletick data with the data in {@code athletick}.
      */
     void setAthletick(ReadOnlyAthletick athletick);
     /** Returns Athletick */
@@ -85,13 +85,13 @@ public interface Model {
     Command redo();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in athletick.
+     * Returns true if a person with the same identity as {@code person} exists in Athletick.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in Athletick.
      */
     void deletePerson(Person target);
 

@@ -46,7 +46,7 @@
                </children>
             </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" alignment="TOP_LEFT" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

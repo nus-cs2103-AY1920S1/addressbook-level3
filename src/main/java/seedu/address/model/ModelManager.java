@@ -35,7 +35,7 @@ import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Athletick data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -51,7 +51,7 @@ public class ModelManager implements Model {
 
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given athletick, performance, attendance and userPrefs.
      */
     public ModelManager(ReadOnlyAthletick athletick, ReadOnlyPerformance performance,
                         Attendance attendance, ReadOnlyUserPrefs userPrefs, HistoryManager history) {
@@ -103,9 +103,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setAthletickFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAthletickFilePath(addressBookFilePath);
+    public void setAthletickFilePath(Path athletickFilePath) {
+        requireNonNull(athletickFilePath);
+        userPrefs.setAthletickFilePath(athletickFilePath);
     }
 
     //=========== Athletick ========================================================================

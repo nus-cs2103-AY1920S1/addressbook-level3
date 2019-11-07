@@ -44,19 +44,40 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void initialiseAttendanceData() {
         if (model.hasTrainingOnDate(date)) {
-            attendanceBox.getChildren().add(new AttendanceTableHeader().getRoot());
-            List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
-            for (AttendanceEntry entry: attendanceData) {
-                String name = entry.getPerson().getName().toString();
-                boolean isPresent = entry.getIsPresent();
-                AttendanceTableContent content = new AttendanceTableContent(name, isPresent);
-                attendanceBox.getChildren().add(content.getRoot());
-            }
+            addAttendanceTableHeader();
+            addAttendanceTableContent();
         } else {
-            String errorMsg = "No Training Record on " + date.toString();
-            ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
-            attendanceBox.getChildren().add(error.getRoot());
+            displayNoAttendanceError();
         }
+    }
+
+    /**
+     * Adds header for attendance table.
+     */
+    private void addAttendanceTableHeader() {
+        attendanceBox.getChildren().add(new AttendanceTableHeader().getRoot());
+    }
+
+    /**
+     * Adds content for attendance table.
+     */
+    private void addAttendanceTableContent() {
+        List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+        for (AttendanceEntry entry: attendanceData) {
+            String name = entry.getPerson().getName().toString();
+            boolean isPresent = entry.getIsPresent();
+            AttendanceTableContent content = new AttendanceTableContent(name, isPresent);
+            attendanceBox.getChildren().add(content.getRoot());
+        }
+    }
+
+    /**
+     * Displays message informing user that there is no attendance data on the specified date.
+     */
+    private void displayNoAttendanceError() {
+        String errorMsg = "No Training Record on " + date.toString();
+        ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
+        attendanceBox.getChildren().add(error.getRoot());
     }
 
     /**
@@ -65,27 +86,49 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void initialisePerformanceData() {
         if (model.hasPerformanceOn(date)) {
-            HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
-                    model.getCalendarCompatiblePerformance(date);
-            performanceData.forEach((event, recordList) -> {
-                int numRecords = recordList.size();
-                if (numRecords > 0) {
-                    PerformanceTableHeader header = new PerformanceTableHeader(event.getName());
-                    performanceBox.getChildren().add(header.getRoot());
-                    for (int i = 0; i < numRecords; i++) {
-                        CalendarCompatibleRecord record = recordList.get(i);
-                        Person athlete = record.getAthlete();
-                        String name = athlete.getName().toString();
-                        String timing = record.getTiming();
-                        PerformanceTableContent content = new PerformanceTableContent(name, timing);
-                        performanceBox.getChildren().add(content.getRoot());
-                    }
-                }
-            });
+            addPerformanceTable();
         } else {
-            String errorMsg = "No Performance Record on " + date.toString();
-            ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
-            performanceBox.getChildren().add(error.getRoot());
+            displayNoPerformanceError();
         }
+    }
+
+    /**
+     * Adds performance data in the form of a table to {@code CalendarDetailPanel}.
+     */
+    private void addPerformanceTable() {
+        HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
+                model.getCalendarCompatiblePerformance(date);
+        performanceData.forEach((event, recordList) -> {
+            int numRecords = recordList.size();
+            if (numRecords > 0) {
+                PerformanceTableHeader header = new PerformanceTableHeader(event.getName());
+                performanceBox.getChildren().add(header.getRoot());
+                for (int i = 0; i < numRecords; i++) {
+                    CalendarCompatibleRecord record = recordList.get(i);
+                    addPerformanceRecord(record);
+                }
+            }
+        });
+    }
+
+    /**
+     * Adds performance {@code record} for a particular event.
+     * @param record Record of a particular event
+     */
+    private void addPerformanceRecord(CalendarCompatibleRecord record) {
+        Person athlete = record.getAthlete();
+        String name = athlete.getName().toString();
+        String timing = record.getTiming();
+        PerformanceTableContent content = new PerformanceTableContent(name, timing);
+        performanceBox.getChildren().add(content.getRoot());
+    }
+
+    /**
+     * Displays message informing user that there is no performance data on the specified date.
+     */
+    private void displayNoPerformanceError() {
+        String errorMsg = "No Performance Record on " + date.toString();
+        ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
+        performanceBox.getChildren().add(error.getRoot());
     }
 }

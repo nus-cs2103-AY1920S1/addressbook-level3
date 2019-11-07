@@ -104,10 +104,10 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Sorts contents of this list in alphabetical order using {@code personComparator}.
-     * @param personComparator Compares one person to another using name. Case is ignored.
+     * @param personNameComparator Compares one person to another using name. Case is ignored.
      */
-    public void sortByName(PersonComparator personComparator) {
-        internalList.sort(personComparator);
+    public void sortByName(PersonNameComparator personNameComparator) {
+        internalList.sort(personNameComparator);
     }
 
     /**
