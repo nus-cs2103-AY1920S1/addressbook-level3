@@ -15,7 +15,6 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.BankLabelPanel;
 import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.HintLabel;
@@ -23,7 +22,6 @@ import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.QuestionLabel;
 import seedu.address.ui.modules.SettingsPanel;
-import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
 
 
