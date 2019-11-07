@@ -180,6 +180,24 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @Test
+    public void newdoctorUndoRedoTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("newdoctor -id imp0ssible -name bee").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New staff added");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
+
+        robot.write("redo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Redo successful!");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
+    }
+
+    @Test
     public void exitCommandTest(FxRobot robot) {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
 

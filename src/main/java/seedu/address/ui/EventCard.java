@@ -51,22 +51,4 @@ public class EventCard extends UiPart<Region> {
             status.setText("");
         }
     }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EventCard)) {
-            return false;
-        }
-
-        // state check
-        EventCard card = (EventCard) other;
-        return id.getText().equals(card.id.getText())
-                && event.equals(card.event);
-    }
 }

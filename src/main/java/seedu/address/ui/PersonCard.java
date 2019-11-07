@@ -61,22 +61,4 @@ public class PersonCard extends UiPart<Region> {
             address.setStyle("-fx-text-fill: #e67e22;");
         }
     }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
-            return false;
-        }
-
-        // state check
-        PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
-    }
 }
