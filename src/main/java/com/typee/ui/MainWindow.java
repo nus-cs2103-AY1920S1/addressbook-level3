@@ -88,6 +88,9 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        currentTab = new Tab("Engagement");
+        currentTab.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
+
         helpWindow = new HelpWindow();
     }
 
@@ -188,9 +191,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        if (currentTab != null) {
-            currentTab.getController().handleExit();
-        }
+        currentTab.getController().handleExit();
         primaryStage.hide();
     }
 
@@ -198,6 +199,7 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the window to the {@code Tab} specified.
      */
     private void handleTabSwitch(Tab tabInput) {
+        currentTab.getController().handleExit();
         Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
