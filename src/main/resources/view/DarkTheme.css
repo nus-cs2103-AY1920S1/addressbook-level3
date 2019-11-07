@@ -460,3 +460,7 @@
     -fx-border-color: #820263 #383838 -fx-cyan-line-color #383838;
     -fx-border-width: 2;
 }
+
+#annotationListView {
+    -fx-background-color: transparent;
+}
