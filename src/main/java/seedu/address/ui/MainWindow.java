@@ -177,6 +177,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
+    /**
+     * This method is called upon the end of a timetrial
+     */
+    public void setFeedbackTimeTrialEnd(String feedbackMessage) {
+        resultDisplay.setFeedbackToUser(feedbackMessage);
+    }
+
     void show() {
         primaryStage.show();
     }

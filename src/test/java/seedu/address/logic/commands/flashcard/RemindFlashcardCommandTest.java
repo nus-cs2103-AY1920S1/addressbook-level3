@@ -10,9 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_TWO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_ONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TWO;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalAddressBook;
-
-//import org.junit.jupiter.api.Test;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -22,8 +20,8 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.testutil.FlashcardBuilder;
 
 public class RemindFlashcardCommandTest {
+    private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Flashcard overdueFlashcard = new FlashcardBuilder().withQuestion(VALID_QUESTION_ONE)
             .withAnswer(VALID_ANSWER_ONE)
             .withTitle(VALID_TITLE_ONE)
@@ -32,5 +30,4 @@ public class RemindFlashcardCommandTest {
             .withAnswer(VALID_ANSWER_TWO)
             .withTitle(VALID_TITLE_TWO)
             .withStatistics(DUE_STATISTICS).build();
-
 }

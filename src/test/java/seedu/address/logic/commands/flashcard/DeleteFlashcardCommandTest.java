@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
@@ -32,7 +32,7 @@ import seedu.address.model.UserPrefs;
  */
 public class DeleteFlashcardCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
     /*
     @Test
@@ -67,26 +67,25 @@ public class DeleteFlashcardCommandTest {
         assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     }
 
-    /*
     @Test
     public void execute_validIndexFilteredList_success() {
-        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-
-        Flashcard flashcardToDelete = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(INDEX_FIRST_FLASHCARD);
-
-        String expectedMessage = String.format(DeleteFlashcardCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS,
-        flashcardToDelete);
-
-        CommandResult expectedCommandResult = new FlashcardCommandResult(expectedMessage);
-
-        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
-        expectedModel.deleteFlashcard(flashcardToDelete);
-        showNoFlashcard(expectedModel);
-
-        assertCommandSuccess(deleteFlashcardCommand, model, expectedCommandResult, expectedModel);
+    //        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
+    //
+    //        Flashcard flashcardToDelete = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
+    //        DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(INDEX_FIRST_FLASHCARD);
+    //
+    //        String expectedMessage = String.format(DeleteFlashcardCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS,
+    //            flashcardToDelete);
+    //
+    //        CommandResult expectedCommandResult = new FlashcardCommandResult(expectedMessage);
+    //
+    //        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
+    //        expectedModel.deleteFlashcard(flashcardToDelete);
+    //        showNoFlashcard(expectedModel);
+    //
+    //
+    //        assertCommandSuccess(deleteFlashcardCommand, model, expectedCommandResult, expectedModel);
     }
-    */
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
