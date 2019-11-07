@@ -8,7 +8,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsTitle" HBox.hgrow="ALWAYS"
       xmlns="http://javafx.com/javafx/8">
     <children>
-        <ScrollPane fx:id="scrollPane" minHeight="62" fitToWidth="true" pannable="true" styleClass="profile-scroll"
+        <ScrollPane fx:id="scrollPane" minHeight="62" fitToWidth="true" pannable="true" styleClass="autoColouredScrollBar"
                     HBox.hgrow="ALWAYS">
             <content>
                 <VBox maxHeight="Infinity">

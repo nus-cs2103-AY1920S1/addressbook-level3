@@ -45,7 +45,7 @@ public class StyleManager {
     private File tempOutputCss;
     private String lineReadFromReader;
     private String linesToWriteViaWriter;
-    private List<String> fieldsToIgnore = new ArrayList<>(List.of("#lineChart"));
+    private List<String> fieldsToIgnore = new ArrayList<>(List.of("#lineChart", ".autoColouredScrollBar ."));
 
     public StyleManager(Scene scene, VBox mainWindowPlaceholder) {
         this.scene = scene;

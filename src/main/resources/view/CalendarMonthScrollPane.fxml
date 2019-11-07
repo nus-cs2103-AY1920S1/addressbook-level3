@@ -6,7 +6,7 @@
 <?import javafx.geometry.Insets?>
 
 <ScrollPane fx:id="calendarMonthScrollPane" fitToWidth="true" fitToHeight="false"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="300" styleClass="profile-scroll">
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="300" styleClass="autoColouredScrollBar">
     <content>
         <VBox fx:id="calendarMonthVBox" spacing="2">
             <VBox fx:id="monthlyCalendarEntries" spacing="2" VBox.vgrow="ALWAYS"></VBox>

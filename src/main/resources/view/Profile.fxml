@@ -10,7 +10,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="profile" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8">
     <children>
         <ImageView fx:id="displayPicture" fitHeight="76.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true"/>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll"
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="autoColouredScrollBar"
                     HBox.hgrow="ALWAYS">
             <content>
                 <VBox maxHeight="Infinity">

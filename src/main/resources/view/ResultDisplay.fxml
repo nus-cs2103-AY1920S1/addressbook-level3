@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TextArea?>
-<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" fitToWidth="true" styleClass="profile-scroll">
+<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" fitToWidth="true" styleClass="autoColouredScrollBar">
     <content>
         <TextArea fx:id="resultDisplay" editable="false" wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="result-display"/>
     </content>

@@ -188,18 +188,6 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
-    -fx-background-color: transparent;
-}
-
 .profile-name {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
@@ -214,19 +202,18 @@
     -fx-text-fill: white;
 }
 
-.bio-table {
+#tableView {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+}
+
+#tableView .table-row-cell {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
 
 }
 
-.bio-table .table-row-cell {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-
-}
-
-.bio-table .table-cell .table-cell-text {
+#tableView .table-cell .table-cell-text {
     -fx-fill: white;
     -fx-font-family: "Segoe UI Light";
 }
@@ -446,6 +433,19 @@
     -fx-background-radius: 0;
 }
 
+.result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+    -fx-background-color: transparent;
+}
+
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -522,4 +522,43 @@
 
 #lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
+}
+
+.autoColouredScrollBar {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
+}
+
+.autoColouredScrollBar .scroll-bar: horizontal ,
+.autoColouredScrollBar  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
+}
+
+.autoColouredScrollBar .increment-button ,.autoColouredScrollBar .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.autoColouredScrollBar .scroll-bar: horizontal .track ,
+.autoColouredScrollBar .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
+}
+
+.autoColouredScrollBar .scroll-bar: horizontal .thumb,
+.autoColouredScrollBar .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
+}
+
+.autoColouredScrollBar .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.autoColouredScrollBar .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
 }
