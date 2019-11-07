@@ -186,7 +186,7 @@ public class Budget {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("$%.2f", amount));
+        sb.append(String.format("%.2f", amount));
         return sb.toString();
     }
 

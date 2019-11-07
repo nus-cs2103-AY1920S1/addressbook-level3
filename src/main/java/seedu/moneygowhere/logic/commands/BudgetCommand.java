@@ -6,6 +6,7 @@ import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * Sets the budget of the MoneyGoWhere list.
@@ -32,13 +33,22 @@ public class BudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        Currency currencyInUse = model.getCurrencyInUse();
+
+        double budgetAmount = budget.getAmount();
+        String budgetString = budget.toString();
+
+        if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")) {
+            budget = new Budget(budgetAmount / currencyInUse.rate);
+        }
+
         if (budget.getAmount() < 0 || budget.getAmount() > 1000000000) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 
         model.setBudgetAmount(budget);
 
-        return new CommandResult(MESSAGE_SUCCESS + budget.toString());
+        return new CommandResult(MESSAGE_SUCCESS + currencyInUse.symbol + budgetString);
     }
 
     @Override

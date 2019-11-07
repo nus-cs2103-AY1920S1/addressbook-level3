@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * The UI component that is responsible for Showing the current monthly budget and total spending.
@@ -29,11 +30,14 @@ public class BudgetPanel extends UiPart<Region> {
     private double amount;
     private double sum;
 
-    public BudgetPanel(Budget budget) {
+    private Currency currencyInUse;
+
+    public BudgetPanel(Budget budget, Currency currencyInUse) {
         super(FXML);
 
         this.amount = budget.getAmount();
         this.sum = budget.getSum();
+        this.currencyInUse = currencyInUse;
 
         update();
     }
@@ -53,19 +57,21 @@ public class BudgetPanel extends UiPart<Region> {
      * Based on the new {@code Budget}
      * @param budget the budget to get data to update.
      */
-    public void update(Budget budget) {
-        if (this.amount != budget.getAmount() || this.sum != budget.getSum()) {
+    public void update(Budget budget, Currency currencyInUse) {
+        if (this.amount != budget.getAmount() || this.sum != budget.getSum()
+            || !this.currencyInUse.equals(currencyInUse)) {
             this.amount = budget.getAmount();
             this.sum = budget.getSum();
+            this.currencyInUse = currencyInUse;
             update();
         }
     }
 
     private String getRemainingBudgetText() {
         double percentDiff = (amount - sum) / amount;
-        double remainingAmount = Math.abs(amount - sum);
+        double remainingAmount = Math.abs(amount - sum) * currencyInUse.rate;
 
-        String defaultOutput = String.format("$%.2f", remainingAmount);
+        String defaultOutput = currencyInUse.symbol + String.format("%.2f", remainingAmount);
         if (percentDiff < 0) {
             remainingBudget.setTextFill(Color.web("#FF0000"));
             return "-" + defaultOutput;
@@ -95,6 +101,7 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     private String getBudgetAmount() {
-        return "This month's budget: $" + String.format("%.02f", amount);
+        return "This month's budget: " + currencyInUse.symbol
+                + String.format("%.02f", amount * currencyInUse.rate);
     }
 }
