@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's displayPicPath in the displayPicPath book. Guarantees: immutable; is valid as declared in
+ * Represents the user's file path to his / her profile picture. Guarantees: immutable; is valid as
+ * declared in
  * {@link #isValidDisplayPicPath(String)}
  */
 public class DisplayPicPath {
@@ -43,7 +44,7 @@ public class DisplayPicPath {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DisplayPicPath // instanceof handles nulls
-                && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
+                        && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
     }
 
     @Override

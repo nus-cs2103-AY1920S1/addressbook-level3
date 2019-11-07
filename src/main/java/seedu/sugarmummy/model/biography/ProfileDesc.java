@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a ProfileDesc in the user's biography data. Guarantees: immutable; name is valid as declared in {@link
+ * Represents the user's profile description in his / her biography. Guarantees: immutable; name is valid as declared in
+ * {@link
  * #isValidProfileDesc(String)}
  */
 public class ProfileDesc {
@@ -37,7 +38,7 @@ public class ProfileDesc {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProfileDesc // instanceof handles nulls
-                && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
+                        && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
     }
 
     @Override

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's gender in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents the user's gender in his / her biography. Guarantees: immutable; is valid as declared in {@link
  * #isValidGender(String)}
  */
 public class Gender {
@@ -44,7 +44,7 @@ public class Gender {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Gender // instanceof handles nulls
-                && gender.equals(((Gender) other).gender)); // state check
+                        && gender.equals(((Gender) other).gender)); // state check
     }
 
     @Override

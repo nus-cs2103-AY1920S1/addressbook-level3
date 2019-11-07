@@ -110,7 +110,7 @@ public class UniqueRecordList implements Iterable<Record>, ReadOnlyData {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueRecordList // instanceof handles nulls
-                && internalList.equals(((UniqueRecordList) other).internalList));
+                        && internalList.equals(((UniqueRecordList) other).internalList));
     }
 
     @Override

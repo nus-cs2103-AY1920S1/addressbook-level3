@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Goal in the address book. Guarantees: immutable; name is valid as declared in {@link
+ * Represents the user's goal in his / her biography. Guarantees: immutable; name is valid as declared in {@link
  * #isValidGoal(String)}
  */
 public class Goal implements ListableField {
@@ -39,7 +39,7 @@ public class Goal implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Goal // instanceof handles nulls
-                && goal.equals(((Goal) other).goal)); // state check
+                        && goal.equals(((Goal) other).goal)); // state check
     }
 
     @Override

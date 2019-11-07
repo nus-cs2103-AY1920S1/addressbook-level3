@@ -220,8 +220,56 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean coversCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendar.coversCalendarEntry(calendarEntry);
+    }
+
+    @Override
+    public CalendarEntry getCalendarEntryCovers(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendar.getCalendarEntryCovers(calendarEntry);
+    }
+
+    @Override
+    public boolean isAnyCoveredByCalendarEntry(CalendarEntry calendarEntry) {
+        return calendar.isAnyCoveredByCalendarEntry(calendarEntry);
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntriesCoveredBy(CalendarEntry calendarEntry) {
+        return calendar.getCalendarEntriesCoveredBy(calendarEntry);
+    }
+
+    @Override
+    public boolean overlapsCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendar.overlapsCalendarEntry(calendarEntry);
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntryOverlaps(CalendarEntry calendarEntry) {
+        return calendar.getCalendarEntryOverlaps(calendarEntry);
+    }
+
+    @Override
+    public boolean conflictsCalendarEntry(CalendarEntry calendarEntry) {
+        return calendar.conflictsCalendarEntry(calendarEntry);
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getCalendarEntryConflicts(CalendarEntry calendarEntry) {
+        return calendar.getCalendarEntriesConflicts(calendarEntry);
+    }
+
+    @Override
     public void deleteCalendarEntry(CalendarEntry target) {
         calendar.removeCalendarEntry(target);
+    }
+
+    @Override
+    public void deleteAllCalendarEntries(List<CalendarEntry> calendarEntries) {
+        calendar.removeAllCalendarEntries(calendarEntries);
     }
 
     @Override

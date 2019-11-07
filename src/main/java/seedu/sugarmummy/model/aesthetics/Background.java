@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's background in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents a user's chosen background. Guarantees: immutable; is valid as declared in
+ * {@link
  * #isValidBackgroundPicPath(String)}
  */
 public class Background {
@@ -14,7 +15,7 @@ public class Background {
                     + "Colour should be a valid background or a hexadecimal representation of a colour.";
 
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
-    private final boolean isBackgroundColour;
+    private boolean isBackgroundColour;
 
     private String backgroundColour;
     private String backgroundPicPath;
@@ -96,7 +97,10 @@ public class Background {
         } else if (!this.isBackgroundColour) {
             this.bgSize = this.bgSize == null || this.bgSize.equals("") ? "auto" : this.bgSize;
             this.bgRepeat = this.bgRepeat == null || this.bgRepeat.equals("") ? "repeat" : this.bgRepeat;
+        } else if (this.backgroundColour != null && !this.backgroundColour.isEmpty()) {
+            isBackgroundColour = true;
         }
+        setIsBackgroundColour();
     }
 
     public String getBgSize() {
@@ -127,6 +131,7 @@ public class Background {
      * Sets the dominant colour of this background.
      */
     public void setDominantColour() {
+        setIsBackgroundColour();
         String colour = isBackgroundColour
                 ? backgroundColour
                 : ImageTester.getDominantColour(backgroundPicPath);
@@ -134,7 +139,16 @@ public class Background {
     }
 
     public Colour getDominantColour() {
+        setDominantColour();
         return dominantColour;
+    }
+
+    public void setIsBackgroundColour() {
+        if (backgroundColour == null) {
+            isBackgroundColour = false;
+        } else {
+            isBackgroundColour = !backgroundColour.isEmpty();
+        }
     }
 
     public boolean isEmpty() {

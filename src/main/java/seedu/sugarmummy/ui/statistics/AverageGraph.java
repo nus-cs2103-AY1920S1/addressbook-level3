@@ -61,7 +61,7 @@ public class AverageGraph {
     private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                        SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
@@ -102,7 +102,7 @@ public class AverageGraph {
      * @param recordType  the newly updated type of record.
      */
     private void refreshChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                              SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
         customLineChart.getData().clear();
         customLineChart.removeAllHorizontalRangeMarker();
         createChart(averageMap, averageType, recordType);
@@ -112,7 +112,7 @@ public class AverageGraph {
      * A convenience function to create a new chart.
      */
     private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                             SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
         setAxesLabel(averageType, recordType);
         addHorizontalRangeMarker(recordType);

@@ -41,7 +41,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the additional fields of showing bio and achievements.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean showBio, boolean showAchievements,
-                         boolean exit) {
+            boolean exit) {
         this(feedbackToUser, showHelp, exit);
         this.showBio = showBio;
         this.showAchvm = showAchievements;

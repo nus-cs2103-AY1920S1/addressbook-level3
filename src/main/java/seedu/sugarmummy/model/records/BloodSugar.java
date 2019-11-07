@@ -30,7 +30,7 @@ public class BloodSugar extends Record {
         final StringBuilder builder = new StringBuilder();
         builder.append("Blood Sugar Record :")
                 .append(" Concentration: ")
-                .append(concentration);
+                        .append(concentration);
         return builder.toString() + " " + super.toString();
     }
 }

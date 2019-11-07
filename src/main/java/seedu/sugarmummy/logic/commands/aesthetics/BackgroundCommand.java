@@ -14,7 +14,7 @@ import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
- * Edits the details of an existing user in the address book.
+ * Modifies the user's background in the application.
  */
 public class BackgroundCommand extends Command {
 
@@ -47,6 +47,13 @@ public class BackgroundCommand extends Command {
             + "Example: bg white fontcolour/black\n"
             + "Example: bg /Users/bob/black.png s/cover fontcolor/white";
 
+    public static final String MESSAGE_BACKGROUND_REPEAT_AND_COVER_REQUIREMENT = "Oops! The background you have keyed"
+            + " in has a dominant colour that is too dark for the attribute combination whereby the repeat is "
+            + "not set to \"repeat\", and the size is not set to \"cover\". It may get difficult to see the "
+            + "fontcolour once the background is clipped off.";
+
+    public static final Colour TRANSPARENT_BG_COLOUR = new Colour("#F4F4F4");
+
     private Background background;
     private FontColourCommand fontColourCommand;
 
@@ -76,6 +83,7 @@ public class BackgroundCommand extends Command {
                 sb.append(previousBackground.toString());
             }
 
+            assert previousBackground != null;
             if (!previousBackground.isBackgroundColour()) {
                 sb.append("\nBackground-size: ").append(previousBackground.getBgSize());
                 sb.append("\nBackground-repeat: ").append(previousBackground.getBgRepeat());
@@ -88,23 +96,34 @@ public class BackgroundCommand extends Command {
                 ? model.getFontColour()
                 : fontColourCommand.getFontColour();
 
-        if (fontColourToCompare.isCloseTo(background.getDominantColour())) {
-            throw new CommandException(MESSAGE_COLOURS_TOO_CLOSE);
-        }
-
         Background newBackground = background;
 
-        StringBuilder updateMessage = new StringBuilder();
-
         if (previousBackground.isBackgroundColour()
-                && (!newBackground.isEmpty()
+                && (newBackground.isEmpty()
                 && (!newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty()))) {
             throw new CommandException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT, MESSAGE_USAGE));
         }
 
         background.merge(previousBackground);
+        background.setDominantColour();
+
+        assert background.getDominantColour() != null;
+
+        if (fontColourToCompare.isCloseTo(background.getDominantColour())) {
+            throw new CommandException(MESSAGE_COLOURS_TOO_CLOSE);
+        }
+
+        StringBuilder updateMessage = new StringBuilder();
+
+        if (!newBackground.isEmpty() && newBackground.isBackgroundColour()
+                && (!newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty())) {
+            throw new CommandException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT, MESSAGE_USAGE));
+        }
+
+        boolean noChangeInBackground = false;
 
         if (previousBackground.equals(newBackground)) {
+            noChangeInBackground = true;
             if (fontColourCommand == null) {
                 throw new CommandException(MESSAGE_NO_CHANGE);
             } else {
@@ -112,6 +131,13 @@ public class BackgroundCommand extends Command {
                     throw new CommandException(MESSAGE_NO_CHANGE);
                 }
             }
+        }
+
+        if (!newBackground.isBackgroundColour()
+                && !newBackground.getDominantColour().isCloseTo(TRANSPARENT_BG_COLOUR)
+                && (!newBackground.getBgRepeat().equals("repeat")
+                && !newBackground.getBgSize().equals("cover"))) {
+            throw new CommandException(MESSAGE_BACKGROUND_REPEAT_AND_COVER_REQUIREMENT);
         }
 
         model.setBackground(newBackground);
@@ -143,7 +169,9 @@ public class BackgroundCommand extends Command {
             }
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + updateMessage.toString().trim());
+        return new CommandResult(((noChangeInBackground
+                ? MESSAGE_NO_CHANGE
+                : MESSAGE_SUCCESS) + "\n" + updateMessage.toString()).trim());
     }
 
     public Background getBackground() {
@@ -207,7 +235,7 @@ public class BackgroundCommand extends Command {
     public String toString() {
         return "BackgroundCommnand with attributes:\n"
                 + "background: " + background + "\n"
-                + "fontColourCommand: " + fontColourCommand;
+                        + "fontColourCommand: " + fontColourCommand;
     }
 
 }

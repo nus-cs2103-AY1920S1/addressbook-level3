@@ -57,7 +57,7 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
      * @throws ParseException
      */
     private static void addIndividualEdits(List<String> stringList, Prefix prefix,
-                                           EditUserDescriptor editUserDescriptor) throws ParseException {
+            EditUserDescriptor editUserDescriptor) throws ParseException {
         for (String itemString : stringList) {
             HashMap<Index, String> indexMap = getValidatedIndexValueMap(itemString, prefix);
             Index index = indexMap.keySet().iterator().next();

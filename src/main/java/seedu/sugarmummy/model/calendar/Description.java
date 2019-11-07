@@ -40,7 +40,7 @@ public class Description {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Description
-                && value.equals(((Description) other).value));
+                        && value.equals(((Description) other).value));
     }
 
     @Override

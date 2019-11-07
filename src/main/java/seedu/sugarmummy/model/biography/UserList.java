@@ -56,7 +56,7 @@ public class UserList implements ReadOnlyUserList {
     //// user-level operations
 
     /**
-     * Returns true if a user with the same identity as {@code user} exists in the user list.
+     * Returns true if a user with the same biography as {@code user} exists in the user list.
      */
     public boolean hasUser(User user) {
         requireNonNull(user);
@@ -104,7 +104,7 @@ public class UserList implements ReadOnlyUserList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UserList // instanceof handles nulls
-                && users.equals(((UserList) other).users));
+                        && users.equals(((UserList) other).users));
     }
 
     @Override

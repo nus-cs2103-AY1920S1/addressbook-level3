@@ -188,18 +188,6 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
-    -fx-background-color: transparent;
-}
-
 .profile-name {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
@@ -214,19 +202,18 @@
     -fx-text-fill: white;
 }
 
-.bio-table {
+#tableView {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+}
+
+#tableView .table-row-cell {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
 
 }
 
-.bio-table .table-row-cell {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-
-}
-
-.bio-table .table-cell .table-cell-text {
+#tableView .table-cell .table-cell-text {
     -fx-fill: white;
     -fx-font-family: "Segoe UI Light";
 }
@@ -446,6 +433,19 @@
     -fx-background-radius: 0;
 }
 
+#resultDisplay {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+#resultDisplay .label {
+    -fx-text-fill: black !important;
+    -fx-background-color: transparent;
+}
+
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -498,28 +498,106 @@
     -fx-text-fill: black;
 }
 
-#lineChartScrollPane .scroll-bar {
-    -fx-background-color: black;
+/*#lineChartScrollPane .scroll-bar {*/
+/*    -fx-background-color: black;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .thumb {*/
+/*    -fx-background-color: white;*/
+/*    -fx-background-insets: 3;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {*/
+/*    -fx-background-color: white;*/
+/*    -fx-padding: 0 0 0 0;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {*/
+/*    -fx-shape: " ";*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {*/
+/*    -fx-padding: 1 8 1 8;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {*/
+/*    -fx-padding: 8 1 8 1;*/
+/*}*/
+
+.commonScrollPane {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
 }
 
-#lineChartScrollPane .scroll-bar .thumb {
-    -fx-background-color: white;
-    -fx-background-insets: 3;
+.commonScrollPane .scroll-bar: horizontal ,
+.commonScrollPane  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
 }
 
-#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: white;
-    -fx-padding: 0 0 0 0;
+.commonScrollPane .increment-button ,.commonScrollPane .decrement-button {
+    -fx-background-color: transparent !important;
 }
 
-#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-shape: " ";
+.commonScrollPane .scroll-bar: horizontal .track ,
+.commonScrollPane .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
 }
 
-#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+.commonScrollPane .scroll-bar: horizontal .thumb,
+.commonScrollPane .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
 }
 
-#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+.commonScrollPane .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.commonScrollPane .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
+}
+
+.lineChartScrollPaneSecondVersion {
+    /*-fx-background: transparent !important;*/
+    /*-fx-background-color: transparent !important;*/
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal ,
+.lineChartScrollPaneSecondVersion  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
+}
+
+.lineChartScrollPaneSecondVersion .increment-button ,.lineChartScrollPaneSecondVersion .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .track ,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .thumb,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
 }

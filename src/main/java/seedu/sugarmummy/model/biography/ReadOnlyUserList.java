@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.sugarmummy.model.ReadOnlyData;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a UserList
  */
 public interface ReadOnlyUserList extends ReadOnlyData {
 

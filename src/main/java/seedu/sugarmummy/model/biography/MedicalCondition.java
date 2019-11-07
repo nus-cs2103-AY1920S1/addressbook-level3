@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's medical condition in the user's biography data. Guarantees: immutable; is valid as declared in
+ * Represents the user's medical condition in his / her biography. Guarantees: immutable; is valid as declared in
  * {@link #isValidMedicalCondition(String)}
  */
 public class MedicalCondition implements ListableField {
@@ -41,7 +41,7 @@ public class MedicalCondition implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MedicalCondition // instanceof handles nulls
-                && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
+                        && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
     }
 
     @Override

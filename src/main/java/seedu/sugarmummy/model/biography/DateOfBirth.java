@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's dateOfBirth number in the user's biography data. Guarantees: immutable; is valid as declared in
+ * Represents the user's date of birth in his / her biography. Guarantees: immutable; is valid as declared in
  * {@link #isValidDateOfBirth(String)}
  */
 public class DateOfBirth {
@@ -114,7 +114,7 @@ public class DateOfBirth {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateOfBirth // instanceof handles nulls
-                && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
+                        && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
     }
 
     @Override

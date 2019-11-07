@@ -28,7 +28,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
     private VBox monthlyCalendarEntries;
 
     public CalendarMonthScrollPanel(YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek,
-                                    ObservableList<CalendarEntry> calendarEntries) {
+            ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
         calendarMonthVBox.getChildren().add(0, new MonthlyCalendar(yearMonth, calendarEntries).getRoot());
         initializeDailyCalendarEntries(yearMonth, yearMonthDay, isShowingWeek, calendarEntries);
@@ -38,7 +38,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
      * Initializes calendar entries.
      */
     private void initializeDailyCalendarEntries(YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay,
-                                                boolean isShowingWeek, ObservableList<CalendarEntry> calendarEntries) {
+            boolean isShowingWeek, ObservableList<CalendarEntry> calendarEntries) {
         if (yearMonthDay.isPresent()) {
             if (isShowingWeek) {
                 initializeWeeklyCalendarEntries(yearMonthDay.get(), calendarEntries);
@@ -64,7 +64,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
      * Initializes calendar entries on the given year month and day.
      */
     private void initializeDailyCalendarEntries(YearMonthDay yearMonthDay,
-                                                ObservableList<CalendarEntry> calendarEntries) {
+            ObservableList<CalendarEntry> calendarEntries) {
         monthlyCalendarEntries.getChildren().add(new DailyCalendarEntries(yearMonthDay.getYearMonthDay(),
                 calendarEntries).getRoot());
     }

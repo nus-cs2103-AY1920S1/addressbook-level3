@@ -44,7 +44,7 @@ public class AverageCommand extends Command {
     private final int count;
 
     public AverageCommand(RecordContainsRecordTypePredicate recordContainsRecordTypePredicate,
-                          AverageType averageType, RecordType recordType, int count) {
+            AverageType averageType, RecordType recordType, int count) {
         requireNonNull(averageType);
         requireNonNull(recordType);
         this.averageType = averageType;

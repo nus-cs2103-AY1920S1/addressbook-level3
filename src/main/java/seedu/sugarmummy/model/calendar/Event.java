@@ -63,6 +63,21 @@ public class Event extends CalendarEntry {
     }
 
     @Override
+    public boolean isSubsetCalendarEntryOf(CalendarEntry calendarEntry) {
+        return false;
+    }
+
+    @Override
+    public boolean overlaps(CalendarEntry calendarEntry) {
+        return false;
+    }
+
+    @Override
+    public boolean conflicts(CalendarEntry calendarEntry) {
+        return false;
+    }
+
+    @Override
     public boolean isBetween(DateTime start, DateTime end) {
         return getDateTime().isBetweenDateTime(start, end);
     }

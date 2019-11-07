@@ -5,12 +5,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TextArea?>
-<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" fitToWidth="true" styleClass="profile-scroll">
-    <content>
-        <TextArea fx:id="resultDisplay" editable="false" wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="result-display"/>
-    </content>
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-    </padding>
-</ScrollPane>
+
+
+<TextArea fx:id="resultDisplay" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" editable="false"
+          wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="commonScrollPane"/>
+
 

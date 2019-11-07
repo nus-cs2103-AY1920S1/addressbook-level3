@@ -22,7 +22,7 @@ import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
 
 /**
- * Parses input arguments and creates a new FontColourCommand object
+ * Parses input arguments and creates a new BackgroundCommand object
  */
 public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 
@@ -64,7 +64,6 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         String backgroundArg = argMultimap.getPreamble();
 
         Background background = ParserUtil.parseBackground(backgroundArg);
-        background.setDominantColour();
 
         if (background.isBackgroundColour() && !argMultimap.isEmpty()) {
             if (!argMultimap.containsOnlyPrefixes(PREFIX_FONT_COLOR, PREFIX_FONT_COLOUR)) {
@@ -100,7 +99,6 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 
         assert background.getBgRepeat() != null;
         assert background.getBgSize() != null;
-        assert background.getDominantColour() != null;
 
         return fontColourCommand == null
                 ? new BackgroundCommand(background)

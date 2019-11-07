@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's phone number in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * Represents the user's phone number in his / her biography. Guarantees: immutable; is valid as declared in {@link
  * #isValidPhone(String)}
  */
 public class Phone implements ListableField {
@@ -41,7 +41,7 @@ public class Phone implements ListableField {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Phone // instanceof handles nulls
-                && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
+                        && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
     }
 
     @Override

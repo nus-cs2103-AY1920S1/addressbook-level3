@@ -1,7 +1,7 @@
 package seedu.sugarmummy.model.records.exceptions;
 
 /**
- * Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same
+ * Signals that the operation will result in duplicate Records (Records are considered duplicates if they have the same
  * identity).
  */
 public class DuplicateRecordException extends RuntimeException {

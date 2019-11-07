@@ -108,6 +108,11 @@ class ReminderCommandTest {
         @Override
         public void schedule() {
         }
+
+        @Override
+        public boolean overlapsCalendarEntry(CalendarEntry calendarEntry) {
+            return false;
+        }
     }
 
 }

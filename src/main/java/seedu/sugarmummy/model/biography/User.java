@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents the patient using this program. Guarantees: details are present and not null, field values are validated,
+ * Represents the user using this program. Guarantees: details are present and not null, field values are validated,
  * immutable.
  */
 public class User {
 
-    // Identity fields
+    // Biography fields
     private final Name name;
     private final DisplayPicPath dpPath;
     private final ProfileDesc profileDesc;
@@ -23,8 +23,6 @@ public class User {
     private final DateOfBirth dateOfBirth;
     private final Address address;
     private final OtherBioInfo otherBioInfo;
-
-    // Data fields
     private final List<Phone> contactNumbers = new ArrayList<>();
     private final List<Phone> emergencyContacts = new ArrayList<>();
     private final List<MedicalCondition> medicalConditions = new ArrayList<>();
@@ -130,7 +128,7 @@ public class User {
 
         return otherUser != null
                 && otherUser.getName().equals(getName())
-                && (otherUser.getNric().equals(getNric()));
+                        && (otherUser.getNric().equals(getNric()));
     }
 
     /**
@@ -178,8 +176,8 @@ public class User {
     }
 
     /**
-     * Returns true if both users have the same identity and data fields. This defines a stronger notion of equality
-     * between two persons.
+     * Returns true if both users have the same biography. This defines a stronger notion of equality
+     * between two users.
      */
     @Override
     public boolean equals(Object other) {

@@ -56,7 +56,7 @@ public class UniqueUserList implements Iterable<User> {
 
     /**
      * Replaces the user {@code target} in the list with {@code editedUser}. {@code target} must exist in the list. The
-     * user identity of {@code editedUser} must not be the same as another existing user in the list.
+     * user biography of {@code editedUser} must not be the same as another existing user in the list.
      */
     public void setUser(User target, User editedUser) {
         requireAllNonNull(target, editedUser);
@@ -116,7 +116,7 @@ public class UniqueUserList implements Iterable<User> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueUserList // instanceof handles nulls
-                && internalList.equals(((UniqueUserList) other).internalList));
+                        && internalList.equals(((UniqueUserList) other).internalList));
     }
 
     @Override

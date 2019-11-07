@@ -117,6 +117,7 @@ The index refers to the index number shown in the displayed entries list
 ==== Edits a specified data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
 //end::datalog[]
 
+//tag::calendar[]
 === CALENDAR AND REMINDER
 
 ==== Add a reminder: `reminder`
@@ -169,6 +170,7 @@ Search for all entries by providing keyword, time interval, type, venue or peopl
 ==== Delete an entry in calendar `[coming in v2.0]`
 
 Delete an event that you do not want to keep track anymore.
+//end::calendar[]
 
 //tag::personalisedUserExperience[]
 === PERSONALISED USER EXPERIENCE
@@ -436,7 +438,7 @@ than `a/exampleAddress m/test` is. Ultimately, the user has a balance of conveni
 //tag::personalisedUserExperienceAddBioPppPart4[]
 Examples of *VALID* `addbio` commands, provided that a biography does not yet exist, include:
 
-* `addbio dp//Users/bob/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/2019-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `addbio dp//Users/bob/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/1920-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 * `addbio n/testMinimal p/91234567 e/81234567 m/testMedicalCondition`
 //end::personalisedUserExperienceAddBioPppPart4[]
@@ -548,13 +550,13 @@ than `a/exampleAddress m/test` is. Ultimately, the user has a balance of conveni
 //tag::personalisedUserExperienceEditBioPppPart3[]
 Examples of *VALID* `editbio` commands, provided that a biography exists, include:
 
-* `editbio desc/hello world n/testName nric/testNric gender/testGender dob/12/12/2019 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `editbio desc/hello world n/testName nric/testNric gender/testGender dob/1920-10-08 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 * `editbio dob/2019-12-28`
 //end::personalisedUserExperienceEditBioPppPart3[]
 * `editbio p/1234567 p/23456789`
 * `editbio p/1/234567 p/2/3456789`
 * `editbio m/medicalCondition1 m/medicalCondition2 m/medicalCondition3 m/medicalCondition4`
-* `editbio n/Hello World`
+* `editbio n/John Doe`
 
 //tag::personalisedUserExperienceClearBioPppPart1[]
 ==== Clears the biography of the user using: `clrbio`
@@ -583,11 +585,8 @@ The command word, as for all all other commands, is not case-sensitive for conve
 
 Formats:
 
-* `fontcolour`; or
-* `fontcolor`; or
-* `fontcolour COLOUR`; or
-* `fontcolor COLOUR`; or
-* any of the above with `[bg/BACKGROUND ARGUMENTS]`
+* `fontcolour COLOUR [bg/BACKGROUND ARGUMENTS]` or `fontcolor COLOUR [bg/BACKGROUND ARGUMENTS]`; or
+* `fontcolour` or `fontcolor`
 //end::personalisedUserExperienceFontColourPppPart1[]
 
 To accomplish higher levels of personalisation, the user may select not only from a range of colours or standard colours,
@@ -668,7 +667,7 @@ user for this command and both `fonTColour yElLoW` and `fONtColOur #fFFf00` will
 //tag::personalisedUserExperienceFontColourPppPart6[]
 Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 
-* `fontcolour lime`
+* `fontcolour yellow`
 * `fontcolor indigo`
 * `fontcolour #202020`
 //end::personalisedUserExperienceFontColourPppPart6[]
@@ -686,11 +685,12 @@ Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 
 Formats:
 
-* `bg`; or
-* `bg COLOUR`; or
-* `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]`; or
-* `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]` (if background is already a background image)
-* any of the above with `[fontcolour/COLOUR]`
+* `bg COLOUR [fontcolour/COLOUR]` or `bg COLOUR [fontcolor/COLOUR]`; or
+* `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]` or
+`bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]`; or
+* `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]`
+or `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]` (only if background is already a background image); or
+* `bg`
 
 Users are allowed to set the background either using a `COLOUR` or a `PATH` to a background image.
 
@@ -781,6 +781,13 @@ blank. A user may only set the background to *EITHER* a background or an image; 
 be possible. At any point of time, generic or not, the user will have exactly one `background` and `fontcolour`
 (or `fontcolor`) field set for the application.
 
+A user will not be allowed to set the background image in circumstances whereby the background image is not close to
+the "transparent colour", and the background has attributes such that the background size is not `cover` and the
+background repeat is not `repeat`. This is because in such circumstances the text could get difficult to see once
+clipping of the image occurs and the image is surrounded by the light transparent background colour. This of course does
+not apply to backgrounds that are colours as colours will naturally cover the entire screen even as the background size
+and background repeat, which are irrelevant for colours, are naturally empty `String` values.
+
 For each successful command, feedback will be displayed to the user on the change in background, be it from a
 background image to a colour, vice versa or other combinations. If a command such as `bg s/cover` changes only a
 particular attribute of the background, only the changes made will be reported. As for colours, automatic conversion is
@@ -830,7 +837,7 @@ with the user having the freedom to choose any combination of font colours and b
 //tag::personalisedUserExperienceBgPppPart4[]
 Examples of *VALID* `bg` commands:
 
-* `bg lime`
+* `bg yellow`
 * `bg indigo`
 * `bg #202020`
 //end::personalisedUserExperienceBgPppPart4[]
@@ -843,7 +850,7 @@ Examples of *VALID* `bg` commands:
 * `bg /Users/bob/Desktop/SpaceModified.jpg`
 //end::personalisedUserExperienceBgPppPart5[]
 * `bg s/cover` (if background is already a background image)
-* `bg r/no-repeat s/contain` (if background is already a background image)
+* `bg r/no-repeat s/cover` (if background is already a background image)
 * `bg black fontcolor/#FFFF00`
 * `bg /Users/bob/Desktop/SpaceModified.jpg s/cover fontcolour/yellow`
 
@@ -1137,10 +1144,17 @@ E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
 . *Average*: `average a/AVERAGE_TYPE rt/Record_TYPE [n/COUNT]`
 E.g. `average a/weekly rt/bloodsugar n/3`
 . *Bio*: `bio`
-. *Bg*: `bg COLOUR` or `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]` or `bg
+. *Bg*:
+* `bg COLOUR [fontcolour/COLOUR]` or `bg COLOUR [fontcolor/COLOUR]`; or
+* `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]` or
+`bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]`; or
+* `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]`
+or `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]` (only if background is already a background image); or
+* `bg`
 E.g. `bg /Users/Bob/Pictures/bg.jpg s/cover`
 E.g. `bg yellow`
-E.g. `bg #FFFF00`
+E.g. `bg #FFFF00 fontcolor/#000000`
+E.g. `bg black fontcolour/yellow`
 . *Calendar* `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 E.g. `calendar ymd/2019-12-24`
 . *Clear Biography* : `clrbio`
@@ -1152,12 +1166,15 @@ E.g `export d/01.09.2019`
 . *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 . *Edit Biography*: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
-E.g. `editbio g/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
+E.g. `editbio gender/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
 E.g. `editbio dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
 E.g. `editbio p/1/234567 p/2/3456789`
-. *Font Color*: `fontcolour COLOUR` or `fontcolour` or `fontcolor COLOUR` or `fontcolor`
+. *Font Color*:
+* `fontcolour COLOUR [bg/BACKGROUND ARGUMENTS]` or `fontcolor COLOUR [bg/BACKGROUND ARGUMENTS]`; or
+* `fontcolour` or `fontcolor`
 E.g. `fontcolour yellow`
-E.g. `fontcolour #FFFF00`
+E.g. `fontcolor #FFFF00`
+E.g. `fontcolour #FFFFFF bg/black`
 . *List*: `list`
 E.g. `list`
 . *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
