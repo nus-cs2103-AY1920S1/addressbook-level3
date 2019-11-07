@@ -9,11 +9,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class NoteFragment extends Note {
-    public static final String NOTE_FRAGMENT_CONTENT_DETECTION_REGEX = "\\s+C/";
-    public static final String NOTE_FRAGMENT_END_DETECTION_REGEX = "\\s+\\*/";
-    public static final String NOTE_FRAGMENT_START_DETECTION_REGEX = "/\\*|\\s+/\\*";
-    public static final String NOTE_FRAGMENT_TAG_DETECTION_REGEX = "\\s+TAG/\\S+";
-
     /**
      * Every field must be present and not null, except for tags.
      */

@@ -28,6 +28,13 @@ import seedu.address.model.tag.Tag;
  * create NoteFragment objects, if necessary.
  */
 public class NoteFeatureUtil {
+    public static final String NOTE_FRAGMENT_CONTENT_DETECTION_REGEX = "\\s+" + PREFIX_NOTE_FRAGMENT_CONTENT;
+    public static final String NOTE_FRAGMENT_END_DETECTION_REGEX = "\\s+" + PREFIX_NOTE_FRAGMENT_END.toString()
+            .replaceAll("\\*", "\\\\*");
+    public static final String NOTE_FRAGMENT_START_DETECTION_REGEX = "\\s*" + PREFIX_NOTE_FRAGMENT_START.toString()
+            .replaceAll("\\*", "\\\\*");
+    public static final String NOTE_FRAGMENT_TAG_DETECTION_REGEX = "\\s+" + PREFIX_NOTE_FRAGMENT_TAG + "\\S+";
+
     /**
      * Parses a {@code Note note} into a {@code List<NoteFragment>}.
      * @param note The Note to parse.
