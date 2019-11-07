@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.LinkedList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
@@ -13,7 +15,9 @@ import javafx.util.Pair;
  */
 public class CommandHistory {
 
-    private final ObservableList<Pair<String, String>> userInputHistory = FXCollections.observableArrayList();
+    private final LinkedList<Pair<String, String>> userInputHistory = new LinkedList<Pair<String, String>>();
+    private final ObservableList<Pair<String, String>> unmodifiableObservableList =
+            FXCollections.unmodifiableObservableList(FXCollections.observableList(userInputHistory));
 
     public CommandHistory() {}
 
@@ -24,16 +28,14 @@ public class CommandHistory {
     public void addCommand(String commandWord, String userInput) {
         requireNonNull(commandWord);
         requireNonNull(userInput);
-        userInputHistory.add(new Pair<>(commandWord, userInput));
+        userInputHistory.addFirst(new Pair<>(commandWord, userInput));
     }
 
     /**
      * Gets the history of previously entered commands.
      */
     public ObservableList<Pair<String, String>> getHistory() {
-        ObservableList<Pair<String, String>> reversedList = FXCollections.observableList(userInputHistory);
-        FXCollections.reverse(reversedList);
-        return FXCollections.unmodifiableObservableList(reversedList);
+        return unmodifiableObservableList;
     }
 
     @Override
