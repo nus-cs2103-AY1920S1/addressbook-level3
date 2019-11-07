@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.EngagementList;
@@ -23,6 +24,7 @@ import com.typee.model.Model;
 import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.report.Report;
 import com.typee.testutil.EngagementBuilder;
 
 import javafx.collections.ObservableList;
@@ -305,6 +307,16 @@ public class AddCommandTest {
 
         @Override
         public void setComparator(Comparator<Engagement> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveReport(Path fileDir, Report report) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean deleteReport(Report report) throws DeleteDocumentException {
             throw new AssertionError("This method should not be called.");
         }
     }
