@@ -1,9 +1,7 @@
 package seedu.deliverymans.model.util;
 
 import java.math.BigDecimal;
-import java.util.AbstractMap;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -114,27 +112,27 @@ public class SampleDataUtil {
     public static Order[] getSampleOrders() {
         return new Order[]{
             new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh"))
-                    .setRestaurant(new Name("KFC"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1)))
+                    .setRestaurant(new Name("KFC")).setDeliveryman(new Name("Damith"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("3 Piece Chicken"), 1)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 2")).setCustomer(new Name("BerniceYu"))
-                    .setRestaurant(new Name("Prata House"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1)))
+                    .setRestaurant(new Name("Prata House")).setDeliveryman(new Name("Donald Trump"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Curry Fountain"), 1)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 3")).setCustomer(new Name("CharlotteOliveiro"))
-                    .setRestaurant(new Name("SkyBar Bar and Restaurant"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5)))
+                    .setRestaurant(new Name("SkyBar Bar and Restaurant")).setDeliveryman(new Name("Charlie Choong"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Buffalo Wings"), 5)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 4")).setCustomer(new Name("DavidLi"))
-                    .setRestaurant(new Name("IchiNiSan Ramen"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1),
-                            new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen E"), 3)))
+                    .setRestaurant(new Name("IchiNiSan Ramen")).setDeliveryman(new Name("Low Ee Ter"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("Ramen C"), 1),
+                            Map.entry(new Name("Ramen E"), 3)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 5")).setCustomer(new Name("IrfanIbrahim"))
-                    .setRestaurant(new Name("Piggys Self Barbeque"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
-                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
-                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Tail"), 7)))
+                    .setRestaurant(new Name("Piggys Self Barbeque")).setDeliveryman(new Name("Yuen Jun Rong"))
+                    .setFood(Map.ofEntries(Map.entry(new Name("BBQ Trotter"), 7),
+                                Map.entry(new Name("BBQ Shank"), 7),
+                                Map.entry(new Name("BBQ Tail"), 7)))
                     .completeOrder()
         };
     }
@@ -142,14 +140,16 @@ public class SampleDataUtil {
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
             new Deliveryman(new Name("Damith"), new Phone("83412321"),
-                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
+                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
-                    new StatusTag("AVAILABLE")),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
-                getTagSet("active", "AisEnough")),
-            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive")),
-            new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive")),
+                getTagSet("active", "AisEnough"), new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
+                    new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive"),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Jynn Shen "), new Phone("82632181"), getTagSet("veryactive"),
                 new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Gloria Tan"), new Phone("83123111"), getTagSet()),
@@ -199,14 +199,6 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
-    }
-
-    public static Map<Name, Integer> getFoodMap(Map.Entry<Name, Integer>... strings) {
-        HashMap<Name, Integer> toReturn = new HashMap<>();
-        for (Map.Entry<Name, Integer> keyValuePair : strings) {
-            toReturn.put(keyValuePair.getKey(), keyValuePair.getValue());
-        }
-        return toReturn;
     }
 
     /**
