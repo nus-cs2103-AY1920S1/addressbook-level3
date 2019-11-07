@@ -2,7 +2,7 @@ package seedu.address.logic.commands.flashcard;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static seedu.address.testutil.TypicalFlashcards.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import seedu.address.model.flashcard.Question;
 
 public class RemindFlashcardCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
     @Test
     public void test() {

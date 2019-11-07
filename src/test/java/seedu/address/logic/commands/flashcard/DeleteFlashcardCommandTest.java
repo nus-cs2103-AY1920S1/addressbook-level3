@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.commons.core.Messages.MESSAGE_HIT_ENTER_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
@@ -21,9 +22,12 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.CommandResult;
 //import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 //import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.flashcard.Flashcard;
 //import seedu.address.model.flashcard.Flashcard;
 
 /**
@@ -32,7 +36,7 @@ import seedu.address.model.UserPrefs;
  */
 public class DeleteFlashcardCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
     /*
     @Test
@@ -67,7 +71,6 @@ public class DeleteFlashcardCommandTest {
         assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     }
 
-    /*
     @Test
     public void execute_validIndexFilteredList_success() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
@@ -76,7 +79,7 @@ public class DeleteFlashcardCommandTest {
         DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(INDEX_FIRST_FLASHCARD);
 
         String expectedMessage = String.format(DeleteFlashcardCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS,
-        flashcardToDelete);
+            flashcardToDelete);
 
         CommandResult expectedCommandResult = new FlashcardCommandResult(expectedMessage);
 
@@ -84,9 +87,9 @@ public class DeleteFlashcardCommandTest {
         expectedModel.deleteFlashcard(flashcardToDelete);
         showNoFlashcard(expectedModel);
 
+
         assertCommandSuccess(deleteFlashcardCommand, model, expectedCommandResult, expectedModel);
     }
-    */
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {

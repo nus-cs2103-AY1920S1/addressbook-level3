@@ -143,9 +143,24 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-            System.out.println("expectedCommandResult " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("result " + result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedCommandResult,
+                                            Model expectedModel) {
+        try {
+            CommandResult result = command.execute(actualModel);
+            String feedback = result.getFeedbackToUser();
+            assertEquals(expectedCommandResult, result.getFeedbackToUser());
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -238,7 +253,6 @@ public class CommandTestUtil {
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
         System.out.println("Notes: " + model.getFilteredNoteList().size());
-
         assertEquals(1, model.getFilteredNoteList().size());
     }
 
