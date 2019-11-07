@@ -17,7 +17,8 @@ import seedu.guilttrip.model.reminders.conditions.DateCondition;
 public class AddDateConditionCommand extends Command {
     public static final String COMMAND_WORD = "addDateCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Date Condition to the conditions list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a Date Condition to the conditions list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_DATE + "START"
             + PREFIX_DATE + "END"

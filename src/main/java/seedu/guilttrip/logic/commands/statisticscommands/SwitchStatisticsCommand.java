@@ -16,11 +16,14 @@ import seedu.guilttrip.model.Model;
 public class SwitchStatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "switchStats";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": switches in between the Statistics Graphics and"
+            + " the Statistics Table in guiltTrip.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
     public static final String MESSAGE_SUCCESS = "Switched Stats.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, new ArrayList<Boolean>(List.of(true, true)));
+        return new CommandResult(MESSAGE_SUCCESS, new ArrayList<>(List.of(true, true)));
     }
 }

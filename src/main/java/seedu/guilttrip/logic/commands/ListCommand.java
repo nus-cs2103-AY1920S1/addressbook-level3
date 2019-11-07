@@ -7,12 +7,13 @@ import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.model.Model;
 
 /**
- * Lists all persons in the guilttrip book to the user.
+ * Lists all entries in the guiltTrip to the user.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists all entries in the guiltTrip to the user.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
     public static final String MESSAGE_SUCCESS = "Listed all entries";
 
     @Override

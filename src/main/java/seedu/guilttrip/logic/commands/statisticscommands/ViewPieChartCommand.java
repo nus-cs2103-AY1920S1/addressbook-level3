@@ -18,8 +18,9 @@ import seedu.guilttrip.model.entry.Date;
 public class ViewPieChartCommand extends Command {
 
     public static final String COMMAND_WORD = "viewPie";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guilttrip() in pie form. Use a "
-            + "comma to separate the two dates. \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of guilttrip() in pie form. Use a "
+            + "comma to separate the two dates. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_PERIOD + "PERIOD "
             + "Example: " + COMMAND_WORD + " "

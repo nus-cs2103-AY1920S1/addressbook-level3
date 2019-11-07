@@ -16,8 +16,9 @@ public class DeleteConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the condition identified by the index number used in the displayed condition list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Deletes the condition identified by the index number used in the displayed condition list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

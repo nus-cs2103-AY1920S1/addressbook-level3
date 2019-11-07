@@ -14,6 +14,8 @@ import seedu.guilttrip.ui.util.Theme;
 public class SetDarkThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "setDarkTheme";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sets the theme to the dark theme.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     public static final String MESSAGE_SUCCESS = "Changed to dark theme";
 

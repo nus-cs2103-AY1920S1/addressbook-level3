@@ -7,11 +7,14 @@ import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.model.Model;
 
 /**
- * Lists all persons in the guilttrip book to the user.
+ * Lists all budgets in the guiltTrip to the user.
  */
 public class ListBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "listBudget";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists all budgets in the guiltTrip to the user.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
+
 
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
