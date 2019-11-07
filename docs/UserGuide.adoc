@@ -30,7 +30,7 @@ Enjoy!
 == Quick Start
 
 . Ensure you have Java `11` or above installed in your Computer.
-. Download the latest `palpay.jar` link:{repoURL}/releases[here].
+. Download the latest `PalPay.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your finance manager.
 . Double-click the file to start the app.
 The GUI should appear within a few seconds.
@@ -169,7 +169,7 @@ Want to switch tabs without using your mouse? You can switch to another tab with
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction`, `budget` and `ledger` in v1.4.
+* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4.
 ****
 
 Examples:
@@ -246,18 +246,18 @@ Examples:
 === Filtering Transactions : `filter`
 
 PalPay gives you the power to filter your transactions with your desired `CATEGORY`. +
-Format: `filter CATEGORY...`
+Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 
 ****
-* All transactions with at least one `CATEGORY` in the `CATEGORY...` input will be displayed.
-* Example: `filter transport allowance` will display transactions with `transport`, `allowance`, or
-`transport` and `allowance`.
+* All transactions with at least one `CATEGORY` in the `[c/CATEGORY]...` input will be displayed.
+* Example: `filter c/transport c/allowance y/2019` will display transactions with `transport`, `allowance`, or
+`transport` and `allowance` that occurred in 2019.
 ****
 
 Examples:
 
-* `filter food`
-* `filter transport allowance`
+* `filter m/2 n/Genki Sushi`
+* `filter c/transport c/allowance y/2019`
 // end::filter[]
 
 === Projecting Balance : `project`
@@ -267,7 +267,7 @@ Format: `project d/DATE`
 
 ****
 * `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d\`
+* `DATE` input must be preceded by its tag `d/`
 * `DATE` input must be set in the future.
 ****
 
@@ -334,8 +334,8 @@ Example: `delete t1`
 Example: `update b1 $/100 c/transport`
 * *Sort* : `sort PREDICATE` +
 Example: `sort amount`
-* *Filter* : `filter CATEGORY...` +
-Example: `filter food`
+* *Filter* : `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...` +
+Example: `filter c/transport c/allowance y/2019`
 * *Project* : `project DURATION` +
 Example: `project d/22072020`
 * *Redo* : `redo`
