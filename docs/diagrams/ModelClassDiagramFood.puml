@@ -5,58 +5,52 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyUserList <<Interface>>
+Interface ReadOnlyFoodList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class UserList
-Class ReadOnlyUserList
+Class FoodList
+Class ReadOnlyFoodList
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package User {
-Class User
-Class Name
-Class ProfileDesc
-Class DisplayPicPath
-Class Gender
-Class DateOfBirth
-Class Phone
-Class MedicalCondition
-Class Address
-Class Goal
-Class OtherBioInfo
-Class UniqueUserList
+Package Food {
+Class Food
+Class FoodName
+Class Calorie
+Class Gi
+Class Sugar
+Class Fat
+Class FoodType
+Class UniqueFoodList
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-UserList .up.|> ReadOnlyUserList
+FoodList .up.|> ReadOnlyFoodList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" UserList
+ModelManager o--> "1" FoodList
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-UserList *--> "1" UniqueUserList
-UniqueUserList o--> "*" User
-User *--> Name
-User *--> ProfileDesc
-User *--> DisplayPicPath
-User *--> Gender
-User *--> DateOfBirth
-User *--> Phone
-User *--> MedicalCondition
-User *--> Address
-User *--> Goal
-User *--> OtherBioInfo
+FoodList *--> "1" UniqueFoodList
+UniqueFoodList o--> "*" Food
+Food *--> FoodName
+Food *--> Calorie
+Food *--> Gi
+Food *--> Sugar
+Food *--> Fat
+Food *--> FoodType
 
-Phone -down-|> ListableField
-MedicalCondition -down-|> ListableField
-Goal -down-|> ListableField
+Calorie -down-|> NutritionValue
+Gi -down-|> NutritionValue
+Sugar -down-|> NutritionValue
+Fat -down-|> NutritionValue
 
-ModelManager -->"1" User : filtered list
+
+ModelManager -->"1" Food : filtered list
 @enduml

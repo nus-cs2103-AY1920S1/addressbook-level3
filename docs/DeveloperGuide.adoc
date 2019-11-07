@@ -116,8 +116,13 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component for a `User`
 image::ModelClassDiagramUser.png[]
+
+.Structure of the Model Component for `Food`
+image::ModelClassDiagramFood.png[]
+
+Similar structures can also be applied for `Record` and `Calendar`.
 
 *API* : link:{repoURL}/src/main/java/seedu/sugarmummy/model/Model.java[`Model.java`]
 
@@ -131,15 +136,17 @@ The `Model`,
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Structure of the Storage Component for a `User`
+image::StorageClassDiagramUser.png[]
+
+Similar structures can also be applied for `Food`, `Record` and `Calendar`.
 
 *API* : link:{repoURL}/src/main/java/seedu/sugarmummy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the SugarMummy data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -1400,15 +1407,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a Person
+=== Deleting a Record
 
-. Deleting a person while all persons are listed
+. Deleting a record while all records are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all records using the `list` command. Multiple records in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
