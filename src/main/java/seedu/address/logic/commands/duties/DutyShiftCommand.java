@@ -40,7 +40,7 @@ public class DutyShiftCommand extends NonActionableCommand {
         if (trimmedArgs.isEmpty()) {
             this.predicate = PREDICATE_SHOW_ALL_EVENTS;
         } else {
-            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs);
         }
     }
 
@@ -50,7 +50,9 @@ public class DutyShiftCommand extends NonActionableCommand {
         model.setTabListing(OmniPanelTab.DUTY_SHIFT_TAB);
         model.updateFilteredDutyShiftList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredDutyShiftList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                        model.getFilteredDutyShiftList().size(),
+                        predicate.toString()));
     }
 
     @Override

@@ -12,7 +12,7 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -38,7 +38,7 @@ public class ListPatientCommand extends NonActionableCommand {
         if (trimmedArgs.isEmpty()) {
             this.predicate = PREDICATE_SHOW_ALL_PERSONS;
         } else {
-            this.predicate = new ContainsKeywordsPredicate(trimmedArgs.toUpperCase());
+            this.predicate = new PersonContainsKeywordPredicate(trimmedArgs.toUpperCase());
         }
     }
 
@@ -49,7 +49,8 @@ public class ListPatientCommand extends NonActionableCommand {
         model.updateFilteredPatientList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                        model.getFilteredPatientList().size()));
+                        model.getFilteredPatientList().size(),
+                        predicate.toString()));
     }
 
     @Override

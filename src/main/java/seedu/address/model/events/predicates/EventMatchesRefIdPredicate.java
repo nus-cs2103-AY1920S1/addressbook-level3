@@ -9,10 +9,10 @@ import seedu.address.model.events.Event;
 /**
  * Tests that a {@code Event}'s {@code ReferenceId} matches the given {@code ReferenceId}.
  */
-public class EventContainsRefIdPredicate implements Predicate<Event> {
+public class EventMatchesRefIdPredicate implements Predicate<Event> {
     private final ReferenceId referenceId;
 
-    public EventContainsRefIdPredicate(ReferenceId referenceId) {
+    public EventMatchesRefIdPredicate(ReferenceId referenceId) {
         this.referenceId = referenceId;
     }
 
@@ -25,7 +25,14 @@ public class EventContainsRefIdPredicate implements Predicate<Event> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof EventContainsRefIdPredicate // instanceof handles nulls
-            && referenceId.equals(((EventContainsRefIdPredicate) other).referenceId)); // state check
+            || (other instanceof EventMatchesRefIdPredicate // instanceof handles nulls
+            && referenceId.equals(((EventMatchesRefIdPredicate) other).referenceId)); // state check
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Displaying event(s) which involves a person with a ref id of '%1$s'",
+                referenceId.toString());
     }
 }
