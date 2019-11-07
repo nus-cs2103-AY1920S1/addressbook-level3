@@ -27,9 +27,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     @FXML
     private Label valueLabel;
     @FXML
-    private Label startingDateLabel;
-    @FXML
-    private Label endingDateLabel;
+    private Label infoLabel;
     @FXML
     private Label summaryLabel;
     @FXML
@@ -70,16 +68,9 @@ public class StatisticsWindow extends UiPart<Stage> {
         XYChart.Data<String, Number> lastData = axisSeriesData
                 .stream()
                 .reduce((first, second) -> second).get();
-        this.startingDateLabel.setText(
-                "Showing Initial value of " + statsLabel
-                        + "\n" + " from " + firstData.getXValue()
+        this.infoLabel.setText(
+               " From " + firstData.getXValue() + " to " + lastData.getXValue()
         );
-        this.startingDateLabel.setWrapText(true);
-        this.endingDateLabel.setText(
-                "Final value of " + statsLabel + "\n"
-                        + " ending on " + lastData.getXValue()
-        );
-        this.endingDateLabel.setWrapText(true);
         this.summaryLabel.setText(statsLabel + " for this period: ");
         this.summaryValue.setText(revenueResultValue);
     }
