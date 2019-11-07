@@ -19,6 +19,11 @@ public interface ContactStorage {
     Path getContactFilePath();
 
     /**
+     * Sets the file path of the data file.
+     */
+    void setContactFilePath(Path contactFilePath) throws IOException;
+
+    /**
      * Returns Contact data as a {@link ReadOnlyContact}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.

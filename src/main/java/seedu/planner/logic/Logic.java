@@ -76,6 +76,11 @@ public interface Logic {
     Path getContactFilePath();
 
     /**
+     * Returns the user prefs' folder name.
+     */
+    String getFolderName();
+
+    /**
      * Returns the Itinerary.
      *
      * @see seedu.planner.model.Model#getItinerary()

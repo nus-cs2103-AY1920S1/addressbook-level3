@@ -19,6 +19,11 @@ public interface ItineraryStorage {
     Path getItineraryFilePath();
 
     /**
+     * Sets the file path of the data file.
+     */
+    void setItineraryFilePath(Path itineraryFilePath) throws IOException;
+
+    /**
      * Returns Itinerary data as a {@link ReadOnlyItinerary}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.

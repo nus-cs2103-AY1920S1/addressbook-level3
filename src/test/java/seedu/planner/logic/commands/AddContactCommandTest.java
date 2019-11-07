@@ -279,6 +279,17 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // FOLDER METHODS
+        @Override
+        public String getFolderName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFolderName(Name folderName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // DAY METHODS
         @Override
         public Path getItineraryFilePath() {
