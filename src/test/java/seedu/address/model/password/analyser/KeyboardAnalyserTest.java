@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -19,7 +19,7 @@ class KeyboardAnalyserTest {
 
     @Test
     void getAllMatches() {
-        Password p = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("qazxswedcvfr"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
@@ -28,7 +28,7 @@ class KeyboardAnalyserTest {
 
         System.out.println(actualMatches.toString());
 
-        Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("!@#$%^"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 

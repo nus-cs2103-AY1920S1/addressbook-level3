@@ -26,7 +26,7 @@ public abstract class Result {
         requireNonNull(password);
         this.password = password;
         this.description = description;
-        this.passwordDesc = password.getDescription().value;
+        this.passwordDesc = password.getPasswordDescription().value;
         this.passwordUser = password.getUsername().value;
         this.passwordValue = password.getPasswordValue().getEncryptedPasswordValue();
     }
