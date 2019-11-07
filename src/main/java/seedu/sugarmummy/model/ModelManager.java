@@ -43,6 +43,7 @@ import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
+import seedu.sugarmummy.model.time.Today;
 
 /**
  * Represents the in-memory sugarmummy.model of the SugarMummy data.
@@ -306,6 +307,11 @@ public class ModelManager implements Model {
     @Override
     public void stopAllReminders() {
         calendar.stopAllReminders();
+    }
+
+    @Override
+    public Today getToday() {
+        return calendar.getToday();
     }
 
     @Override

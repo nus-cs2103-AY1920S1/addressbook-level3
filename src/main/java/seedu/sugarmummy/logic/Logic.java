@@ -23,6 +23,7 @@ import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.time.Today;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -136,6 +137,12 @@ public interface Logic {
      * Stop all upcoming reminders;
      */
     void stopAllReminders();
+
+    /**
+     * Returns a Today object represents the date of today.
+     */
+    Today getToday();
+
 
     //=========== Statistics List =============================================================
 

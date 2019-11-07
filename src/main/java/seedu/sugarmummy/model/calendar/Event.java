@@ -69,7 +69,18 @@ public class Event extends CalendarEntry {
 
     @Override
     public boolean overlaps(CalendarEntry calendarEntry) {
-        return false;
+        if (calendarEntry == null || !(calendarEntry instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) calendarEntry;
+        if (otherEvent.endingDateTime.isPresent()) {
+            return this.getDateTime().isBetweenDateTime(otherEvent.getDateTime(), otherEvent.endingDateTime.get());
+        } else if (this.endingDateTime.isPresent()) {
+            return otherEvent.getDateTime().isBetweenDateTime(this.getDateTime(), this.endingDateTime.get());
+        } else {
+            return this.getDateTime().equals(otherEvent.getDateTime());
+        }
     }
 
     @Override

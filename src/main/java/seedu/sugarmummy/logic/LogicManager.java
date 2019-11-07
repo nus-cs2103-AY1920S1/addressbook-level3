@@ -28,6 +28,7 @@ import seedu.sugarmummy.model.calendar.ReadOnlyCalendar;
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
+import seedu.sugarmummy.model.time.Today;
 import seedu.sugarmummy.storage.Storage;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
@@ -167,6 +168,11 @@ public class LogicManager implements Logic {
     @Override
     public void stopAllReminders() {
         model.stopAllReminders();
+    }
+
+    @Override
+    public Today getToday() {
+        return model.getToday();
     }
 
     //=========== Statistics List =============================================================

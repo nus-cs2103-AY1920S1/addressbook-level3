@@ -242,7 +242,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
+        reminderListPanel = new ReminderListPanel(logic.getPastReminderList(),
+                logic.getFilteredCalendarEntryList(), logic.getToday());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
 
@@ -341,7 +342,9 @@ public class MainWindow extends UiPart<Stage> {
         assert displayPaneType != null : "displayPaneType cannot be null";
         assert Arrays.asList(DisplayPaneType.values()).contains(displayPaneType) : "The displayPaneType "
                 + displayPaneType + " is not inside the enum";
-
+        if (displayPaneType == displayPaneType.NONE) {
+            return;
+        }
         if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType nextPaneType = getNextPaneType(displayPaneType, guiIsModified(displayPaneType));
             if (nextPaneType == null) {

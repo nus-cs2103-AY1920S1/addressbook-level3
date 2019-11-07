@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.sugarmummy.model.time.Today;
 
 /**
  * Wraps all data at the calendar level Duplicates are not allowed
@@ -148,6 +149,13 @@ public class Calendar implements ReadOnlyCalendar {
      */
     public void stopAllReminders() {
         scheduler.stopAll();
+    }
+
+    /**
+     * Returns a Today object represents the date of today.
+     */
+    public Today getToday() {
+        return scheduler.getToday();
     }
 
     /**
