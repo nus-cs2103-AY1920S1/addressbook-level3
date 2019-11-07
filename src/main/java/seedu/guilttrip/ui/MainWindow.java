@@ -545,7 +545,7 @@ public class MainWindow extends UiPart<Stage> {
                 budgetsPlaceHolder.getChildren().clear();
                 entryListPanelPlaceholder.getChildren().add(budgetsPanel.getRoot()); */
             } else {
-                fillEntryListPanel(entryListPanel);
+                //fillEntryListPanel(entryListPanel);
                 budgetsPlaceHolder.getChildren().clear();
                 budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
             }
