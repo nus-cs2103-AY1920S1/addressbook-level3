@@ -10,7 +10,7 @@ This section explains how _TravEzy_ came to life and highlights the main feature
 == About the Project _TravEzy_
 
 _TravEzy_ is an application developed by my team of five during our software engineering module (CS2103T), 
-and is morphed from this address book application [link here]. 
+and is morphed from  https://github.com/nus-cs2103-AY1920S1/addressbook-level3[this address book application]. 
 
 .To fulfil the requirements for the module, we had to ensure that TravEzy ...
 - uses https://www.defit.org/?s=desktop+application[command line interface (CLI)] as the primary mode of input 
