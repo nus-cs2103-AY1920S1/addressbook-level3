@@ -60,7 +60,14 @@ public class DeleteCheatSheetCommand extends Command {
                 if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
                         .equals(this.targetIndex)) {
                     // correct. allow delete
+                    int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+
                     model.deleteCheatSheet(cheatsheetToDelete);
+
+                    int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+                    // to assert that one cheatsheet got deleted
+                    assert (newAmountOfCheatSheets == currentAmountOfCheatSheets - 1);
+
                     commandResult = new CheatSheetCommandResult(String.format
                             (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
                 }

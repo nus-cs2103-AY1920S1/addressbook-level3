@@ -46,7 +46,7 @@ public class TypicalFlashcards {
     /**
      * Returns an {@code AddressBook} with all the typical flashcards.
      */
-    public static StudyBuddyPro getTypicalAddressBook() {
+    public static StudyBuddyPro getTypicalStudyBuddyPro() {
         StudyBuddyPro ab = new StudyBuddyPro();
         for (Flashcard flashcard : getTypicalFlashcards()) {
             ab.addFlashcard(flashcard);

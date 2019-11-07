@@ -51,7 +51,7 @@ public class StorageManagerTest {
      * UPDATE: This test was removed as it is inapplicable (No more typical address book) - To restructure
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = getTypicalAddressBook();
+        AddressBook original = getTypicalStudyBuddyPro();
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
