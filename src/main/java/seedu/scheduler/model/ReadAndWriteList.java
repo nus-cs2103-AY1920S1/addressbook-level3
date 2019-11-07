@@ -5,7 +5,7 @@ import seedu.scheduler.model.person.Person;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Address book that behaves like a list.
+ * Extends the functionality of {@code ReadOnlyList} to include writes.
  * @param <T> Interviewee or Interviewer.
  */
 public interface ReadAndWriteList<T extends Person> extends ReadOnlyList<T> {

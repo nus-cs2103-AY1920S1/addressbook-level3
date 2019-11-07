@@ -28,11 +28,6 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
-    Path getAddressBookFilePath();
-
-    /* TODO: REMOVE ABOVE LINES */
-
     // ==================================IntervieweeList and InterviewerList ======================================
 
     /**

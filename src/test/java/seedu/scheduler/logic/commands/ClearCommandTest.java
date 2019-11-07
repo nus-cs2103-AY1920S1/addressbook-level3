@@ -16,7 +16,7 @@ import seedu.scheduler.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyIntervieweeInterviewerList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -24,7 +24,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyIntervieweeInterviewerList_success() {
         Model model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
         Model expectedModel = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),

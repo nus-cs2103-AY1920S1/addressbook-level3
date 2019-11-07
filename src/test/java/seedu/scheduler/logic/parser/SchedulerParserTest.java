@@ -11,10 +11,6 @@ import static seedu.scheduler.testutil.Assert.assertThrows;
 import static seedu.scheduler.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.scheduler.testutil.TypicalPersons.BOB_INTERVIEWEE_MANUAL;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.scheduler.logic.commands.AddCommand;
@@ -27,22 +23,19 @@ import seedu.scheduler.logic.commands.EditIntervieweeCommand;
 import seedu.scheduler.logic.commands.EmailCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.ExportCommand;
-import seedu.scheduler.logic.commands.FindCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.ImportCommand;
-import seedu.scheduler.logic.commands.ListCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.Interviewee;
-import seedu.scheduler.model.person.PersonNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Role;
 import seedu.scheduler.testutil.IntervieweeBuilder;
 import seedu.scheduler.testutil.IntervieweeUtil;
 import seedu.scheduler.testutil.PersonUtil;
 import seedu.scheduler.testutil.TestUtil;
 
-public class AddressBookParserTest {
+public class SchedulerParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SchedulerParser parser = new SchedulerParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -86,23 +79,9 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new PersonNameHasKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
     @Test

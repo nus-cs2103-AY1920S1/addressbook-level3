@@ -14,7 +14,7 @@ import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of all data into local storage.
  */
 public class StorageManager implements Storage {
 
