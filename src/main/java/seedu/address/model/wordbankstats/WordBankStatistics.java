@@ -152,6 +152,19 @@ public class WordBankStatistics {
     }
 
     /**
+     * Clear the content of this statistics.
+     */
+    public void clear() {
+        gamesPlayed = 0;
+        fastestClear = Optional.empty();
+        cardStats.clear();
+        scoreStats.clear();
+        receivedBadgeEasy = false;
+        receivedBadgeNormal = false;
+        receivedBadgeHard = false;
+    }
+
+    /**
      * Create a new word bank statistics with the name {@code wbName}.
      */
     public static WordBankStatistics getEmpty(String wbName) {

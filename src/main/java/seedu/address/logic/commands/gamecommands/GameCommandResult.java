@@ -42,4 +42,9 @@ public abstract class GameCommandResult extends CommandResult {
     public boolean isFinishedGame() {
         return isFinishedGame;
     }
+
+    @Override
+    public boolean isGameCommandResult() {
+        return true;
+    }
 }

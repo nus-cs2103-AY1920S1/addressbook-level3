@@ -257,6 +257,11 @@ class DeleteCommandTest {
         }
 
         @Override
+        public void clearActiveWordBankStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
