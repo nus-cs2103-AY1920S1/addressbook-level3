@@ -109,7 +109,40 @@ public class Budget {
      * @param amount
      * @return
      */
-    public Budget updateBudget(Amount amount, Set<Category> categories) {
+    public Budget updateBudget(Amount amount, Set<Category> categories, boolean isRemoveTransaction) {
+        boolean isSameCategory = false;
+
+        for (Category ct : categories) {
+            if (this.categories.contains(ct)) {
+                isSameCategory = true;
+                break;
+            }
+        }
+
+        if (isSameCategory && isRemoveTransaction) {
+            Amount newAmount = this.amount.subtractAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else if (isSameCategory && !isRemoveTransaction){
+            Amount newAmount = this.amount.addAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else {
+            return this;
+        }
+    }
+
+    /** Updates the amount of this budget if a Transaction of the same category is replaced/changed.
+     *
+     * @param amountToReplace accepts the amount to be replaced
+     * @param amountReplacement accepts the amount to replace {@code amountToReplace}
+     * @param categories accepts the set of categories to be cross checked with existing budgets
+     * @return
+     */
+    public Budget updateBudget(Amount amountToReplace, Amount amountReplacement,
+                               Set<Category> categories) {
         boolean isSameCategory = false;
 
         for (Category ct : categories) {
@@ -120,7 +153,7 @@ public class Budget {
         }
 
         if (isSameCategory) {
-            Amount newAmount = this.amount.addAmount(amount);
+            Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
