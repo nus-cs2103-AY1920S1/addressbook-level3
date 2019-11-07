@@ -26,6 +26,11 @@ public class ImportReplaceCommandParser implements Parser<ImportReplaceCommand> 
         }
 
         String fileName = argMultimap.getValue(PREFIX_FILENAME).get();
+        if (!ParserUtil.isValidFileName(fileName)) {
+            throw new ParseException(
+                    String.format(ParserUtil.MESSAGE_INVALID_FILENAME, fileName));
+        }
+
         return new ImportReplaceCommand(fileName);
     }
 }

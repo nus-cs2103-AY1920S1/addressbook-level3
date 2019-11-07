@@ -28,6 +28,8 @@ import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_FILENAME = "%s is not a valid file name.\n"
+            + "File names cannot be blank, and can only contain alphanumerics, hyphens and underscores.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -243,4 +245,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Returns true if the given file name is illegal.
+     * File names can only contain alphanumerics, hyphens and underscores.
+     */
+    public static boolean isValidFileName(String fileName) {
+        String validationRegex = "[-_a-zA-Z]+";
+        return fileName.matches(validationRegex);
+    }
 }
