@@ -1,10 +1,7 @@
 package seedu.module.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -107,95 +104,21 @@ public class LevenshteinDistanceCheckerTest {
     }
 
     @Test
-    public void partitionString_oneWord_returnsTrue() {
-        String other = "a b c d e";
-        String current = "one";
-        ArrayList<String> expectedOutput = new ArrayList<>() {
-            {
-                add("a");
-                add("b");
-                add("c");
-                add("d");
-                add("e");
-            }
-        };
-
+    public void fuzzyContains_wordLengthBelowToleranceLevel_returnsFalse() {
         LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(3);
-        ArrayList<String> output = checker.partitionString(other, current);
-
-        assertEquals(expectedOutput, output);
+        assertFalse(checker.fuzzyContains("are", "aer"));
     }
 
     @Test
-    public void partitionString_twoWord_returnsTrue() {
-        String other = "a b c d e";
-        String current = "one two";
-        ArrayList<String> expectedOutput = new ArrayList<>() {
-            {
-                add("a b");
-                add("b c");
-                add("c d");
-                add("d e");
-                add("e");
-            }
-        };
-
-        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(3);
-        ArrayList<String> output = checker.partitionString(other, current);
-
-        assertEquals(expectedOutput, output);
+    public void fuzzyContains_wordLengthAboveToleranceLevel_returnsTrue() {
+        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(2);
+        assertTrue(checker.fuzzyContains("are", "aer"));
     }
 
     @Test
-    public void partitionString_threeWord_returnsTrue() {
-        String other = "a b c d e";
-        String current = "one two three";
-        ArrayList<String> expectedOutput = new ArrayList<>() {
-            {
-                add("a b c");
-                add("b c d");
-                add("c d e");
-                add("d e");
-                add("e");
-            }
-        };
-
-        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(3);
-        ArrayList<String> output = checker.partitionString(other, current);
-
-        assertEquals(expectedOutput, output);
-    }
-
-    @Test
-    public void partitionString_oneOtherAndOneWord_returnsTrue() {
-        String other = "a";
-        String current = "one";
-        ArrayList<String> expectedOutput = new ArrayList<>() {
-            {
-                add("a");
-            }
-        };
-
-        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(3);
-        ArrayList<String> output = checker.partitionString(other, current);
-
-        assertEquals(expectedOutput, output);
-    }
-
-    @Test
-    public void partitionString_oneOtherAndTwoWords_returnsTrue() {
-        String other = "a";
-        String current = "one two";
-        ArrayList<String> expectedOutput = new ArrayList<>() {
-            {
-                add("a");
-            }
-        };
-
-        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(3);
-        ArrayList<String> output = checker.partitionString(other, current);
-
-        assertEquals(expectedOutput, output);
+    public void fuzzyContains_twoWordsTwoMistakes_returnsTrue() {
+        LevenshteinDistanceChecker checker = new LevenshteinDistanceChecker(2);
+        assertTrue(checker.fuzzyContains("software engineering", "gineering"));
     }
 
 }

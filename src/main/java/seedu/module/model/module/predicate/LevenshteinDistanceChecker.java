@@ -1,6 +1,6 @@
 package seedu.module.model.module.predicate;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
@@ -17,7 +17,7 @@ public class LevenshteinDistanceChecker {
     }
 
     /**
-     * Compares two strings and checks the first string contains substring with Levenshtein distance
+     * Compares the contents of a list of string and checks if the list contains string with Levenshtein distance
      * within the acceptable tolerance range when compared to the second string.
      *
      * @param other The string being compared to.
@@ -26,42 +26,31 @@ public class LevenshteinDistanceChecker {
      */
     public boolean fuzzyContains(String other, String current) {
 
-        ArrayList<String> partitionedList = partitionString(other, current);
+        String[] partitionedList = other.split(" ");
 
-        for (String partitionedString : partitionedList) {
-            Integer distance = ld.apply(partitionedString, current);
-            if (distance <= tolerance) {
-                return true;
-            }
-        }
-        Integer distance = ld.apply(other, current);
-        return distance <= tolerance;
+        return Arrays.asList(partitionedList)
+                .stream().anyMatch(x -> checkWithinLevenshteinDistance(x, current));
     }
 
     /**
-     * Partition the first string into an ArrayList of strings, each with the same number of words as the second string.
+     * Compares two strings and checks if the Levenshtein distance between the two string is within acceptable range.
      *
      * @param other The string being compared to.
      * @param current The string used for comparison to other.
-     * @return ArrayList of strings.
+     * @return Boolean result.
      */
-    public ArrayList<String> partitionString(String other, String current) {
-        ArrayList<String> partitionedString = new ArrayList<>();
-        String[] otherWords = other.split(" ");
-        int takeCount = current.split(" ").length;
-
-        assert takeCount >= 1 : "partitionString received empty input string";
-
-        for (int i = 0; i < otherWords.length; i++) {
-            StringBuilder curr = new StringBuilder()
-                    .append(otherWords[i].replaceAll("\\s*\\p{Punct}+\\s*$", ""));
-            for (int j = 1; i + j < otherWords.length && j < takeCount; j++) {
-                curr.append(" ").append(otherWords[i + j].replaceAll("\\s*\\p{Punct}+\\s*$", ""));
-            }
-            partitionedString.add(curr.toString());
+    private boolean checkWithinLevenshteinDistance(String other, String current) {
+        if (current.length() <= tolerance) {
+            return other.equals(current);
         }
 
-        return partitionedString;
-
+        // removes punctuations from the end of a string.
+        other = other.replaceAll("\\s*\\p{Punct}+\\s*$", "");
+        Integer distance = ld.apply(other, current);
+        if (distance <= tolerance) {
+            return true;
+        }
+        return false;
     }
+
 }

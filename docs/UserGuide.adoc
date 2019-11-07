@@ -106,31 +106,33 @@ It is possible to use any number or combination of filters. Prefixes not present
 ****
 * Prefixes: (case sensitive)
 ** `all\` : List all the modules. *Overrides* all other prefixes.
-*** Example: `find mod\ cs all\` all\ will override mod\ and list all the modules.
+*** Example: `find mod\ cs all\` `all\` will override mod\ and list all the modules.
 ** `mod\` : Find all modules with *module code* that contains the given *keyword(s)*.
-*** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` or `ma` or `st`.
-** `title\` : Find all modules with *title* that contains the given *sentence*.
-*** Example: `find title\ software engineering` will list all modules with titles containing `"software engineering"`.
-** `desc\` : Find all modules with *description* that contains the given *sentence*.
-*** Example: `find desc\ software engineering` will list all modules with description containing `"software engineering"`.
+*** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` *or* `ma` *or* `st`.
+** `title\` : Find all modules with *title* that contains the given *keyword(s)*.
+*** Example: `find title\ software engineering` will list all modules with titles containing `"software" *and* "engineering"`.
+** `desc\` : Find all modules with *description* that contains the given *keywords(s)*.
+*** Example: `find desc\ software engineering` will list all modules with description containing `"software" *and* "engineering"`.
 ** `prereq\` : Find all modules with *prerequisites* that match the given *keyword(s)*.
-*** Example: `find prereq\ cs2030 cs2040` will list all modules with prerequisite of `cs2030` or `cs2040`.
+*** Example: `find prereq\ cs2030 cs2040` will list all modules with prerequisite of `cs2030` *or* `cs2040`.
 ** `preclu\` : Find all modules with *preclusion* that match the given *keyword(s)*.
-*** Example: `find preclu\ cs2030 cs2040` will list all modules with preclusion of `cs2030` or `cs2040`.
+*** Example: `find preclu\ cs2030 cs2040` will list all modules with preclusion of `cs2030` *or* `cs2040`.
 ** `sem\` : Find all modules offered in a particular sem 1 - 4. (Sem 3 and 4 are special terms 1 and 2).
-*** Example: `find sem\ 1 3` will list all modules offered in semester 1 or special term 1.
+*** Example: `find sem\ 1 3` will list all modules offered in semester 1 *or* special term 1.
 * The prefixes can be used together in any order to filter modules that passes all the search requirements.
 ** Example: `find mod\ cs2 cs3 desc\ software engineering sem\ 1` will show all modules with module code containing `cs2`
-or `cs3` with description containing `"software engineering"` offered in semester 1.
+*or* `cs3` with description containing `"software"` *and* `"engineering"` offered in semester 1.
 * The keywords are case insensitive. e.g `cs2103t` will match `CS2103T`.
-* Sentences used in title\ and desc\ are tolerant of minor spelling mistakes.
+* *Keywords* used in *title\* and *desc\* are tolerant of minor *spelling mistakes*.
 ** Example: `find desc\ enginering` will display results similar to `find desc\ engineering`.
-* Search is performed using string matching, which can result results being shown by searching random keywords.
+* Search is performed using string matching, commonly used keywords will therefore produce many search results.
 * Invalid prefixes and keywords before a valid prefix will be ignored.
 ** Eg: `find INVALID\ invalidKeyword mod\ cs` the `INVALID\ invalidKeyword` will be ignored.
 ****
 [NOTE]
-title\ and desc\ will seach a single sentence. mod\, prereq\, preclu\ and sem\ will search for all modules with any of the keywords without checking for spelling errors.
+Keywords are searched using *"OR"* relation (apart from `title\` and `desc\` which uses an *"AND"* relation.) while predicates are seached using
+*"AND"* relations.
+For example, `find mod\ cs ma title\ linear algebra` will produce results of all modules with (module code containing `cs` *OR* `ma`) *AND* (title containing `linear` *AND* `algebra`)
 
 [TIP]
 Modules are imported from NUSMods database.
