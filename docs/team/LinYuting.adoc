@@ -37,7 +37,7 @@ My role was to:
 
 == Summary of Contributions
 
-=== Main enhancement - Loan-related features
+=== Main enhancement - Borrower-related features
 added features related to the registering, unregistering and serving borrowers in our library management app, LiBerry.
 
 ==== What it does
@@ -45,48 +45,50 @@ allow our users, librarians, to *register* a borrower, *serve* a borrower, *edit
 a borrower from the library system.
 
 ==== Justification
-This feature improves the product significantly because a borrower can be no longer using the library and the app should unregister him or her from the library system.
+These features are some of the core features to the library system
 
 ==== Highlights
-This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to many data in the storage.
+The implementation was challenging as these features are widely used in other parts of the application.
+It requires careful implementation and consideration for many different cases.
 
-* *Minor enhancement*: added a Borrower ID generator that auto generates a borrower's ID.
+=== *Minor enhancement*:
+* added a Borrower ID generator that auto generates a borrower's ID.
 
-* *Code contributed*: +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/RegisterCommandParser.java[RegisterCommandParser Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/commands/RegisterCommand.java[RegisterCommand Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/ServeCommandParser.java[ServeCommandParser Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/commands/ServeCommand.java[ServeCommand Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Borrower.java[Borrower Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Name.java[Name Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/BorrowerId.java[BorrowerId Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Phone.java[Phone Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Email.java[Email Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/BorrowerIdGenerator.java[BorrowerIdGenerator Class]] +
+=== *Code contributed*: +
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=linyuting&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false
 
+=== *Other contributions*:
 
-* *Other contributions*:
-
-** Project management
-*** Managed the release of `v1.2` on GitHub. In `v1.2`, we have the following features:
-**** Set default user settings
-**** Exit the application
-**** Register a borrower into the library System
-**** Setting the application to serving mode
-**** Exiting the serving mode
-**** Loaning a book
-**** Returning a book
-**** Deleting a book
+==== Project management
+* Managed the release of `v1.2` on GitHub. In `v1.2`, we have the following features:
+** Set default user settings
+** Exit the application
+** Register a borrower into the library System
+** Setting the application to serving mode
+** Exiting the serving mode
+** Loaning a book
+** Returning a book
+** Deleting a book
 
 
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Improve user stories of the User Guide: https://github.com[#103]
-*** Updating Developer Guide: https://github.com[#165], https://github.com[#183]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+==== Enhancements to existing features:
+* Wrote additional tests for existing features to increase coverage
+(Pull requests https://github.com/AY1920S1-CS2103T-F13-1/main/pull/105[#105],
+ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/171[#171])
+
+==== Documentation:
+* Update ContactUs document https://github.com/AY1920S1-CS2103T-F13-1/main/pull/92[#92]
+* Improve user stories of the User Guide: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/103[#103],
+ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/262[#262]
+* Updating Developer Guide: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/155[#155],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/165[#165],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/183[#183],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/262[#262]
+
+==== Community:
+* PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+* https://github.com/linyutinglyt/ped/issues[Reported] bugs and suggestions for other teams in the class.
+* Contributed to forum discussions as a group (Shared a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] on how to check code coverage when running tests)
 
 
 == Contributions to the User Guide
