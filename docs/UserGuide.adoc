@@ -1064,7 +1064,7 @@ valid format for the command to be executed.
 Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
-`addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
+`addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0 `
 
 ==== Resetting food data: `resetf`
 
