@@ -33,15 +33,7 @@ public class FindEventByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ObservableList<Event> currentEventList;
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            model.updateFilteredEventList(predicate);
-            currentEventList = model.getFilteredEventList();
-        } else {
-            model.updateFilteredScheduledEventList(predicate);
-            currentEventList = model.getFilteredScheduledEventList();
-        }
-
+        ObservableList<Event> currentEventList = MainWindow.getUpdatedCurrentEventList(model, predicate);
         String resultMessage = currentEventList.size() == 1
                 ? Messages.MESSAGE_EVENT_LISTED_OVERVIEW
                 : Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;

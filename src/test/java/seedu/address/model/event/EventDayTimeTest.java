@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEventDayTimes._0800_TO_1230;
-import static seedu.address.testutil.TypicalEventDayTimes._0800_TO_1800;
-import static seedu.address.testutil.TypicalEventDayTimes._1200_TO_1800;
+import static seedu.address.testutil.TypicalEventDayTimes.TIME_0800_TO_1230;
+import static seedu.address.testutil.TypicalEventDayTimes.TIME_0800_TO_1800;
+import static seedu.address.testutil.TypicalEventDayTimes.TIME_1200_TO_1800;
 
 import java.time.LocalTime;
 
@@ -17,9 +17,9 @@ class EventDayTimeTest {
 
     @Test
     void eventDayTimeNumMins() {
-        assertEquals(_0800_TO_1800.numMinutes(), 600);
-        assertEquals(_0800_TO_1230.numMinutes(), 270);
-        assertEquals(_1200_TO_1800.numMinutes(), 360);
+        assertEquals(TIME_0800_TO_1800.numMinutes(), 600);
+        assertEquals(TIME_0800_TO_1230.numMinutes(), 270);
+        assertEquals(TIME_1200_TO_1800.numMinutes(), 360);
     }
 
     @Test

@@ -9,16 +9,15 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.employee.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 class EventNameContainsKeywordsPredicateTest {
 
     @Test
     void testEventNameContainsKeywords() {
         // One keyword
-        EventNameContainsKeywordsPredicate predicate = new EventNameContainsKeywordsPredicate(Collections.singletonList("Musical"));
+        EventNameContainsKeywordsPredicate predicate =
+                new EventNameContainsKeywordsPredicate(Collections.singletonList("Musical"));
         assertTrue(predicate.test(new EventBuilder().withName("Awesome Musical").build()));
 
         // Multiple keywords
@@ -37,7 +36,8 @@ class EventNameContainsKeywordsPredicateTest {
     @Test
     void testEventNameDoesNotContainKeywords() {
         // Zero keywords
-        EventNameContainsKeywordsPredicate predicate = new EventNameContainsKeywordsPredicate(Collections.emptyList());
+        EventNameContainsKeywordsPredicate predicate =
+                new EventNameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new EventBuilder().withName("Party").build()));
 
         // Non-matching keyword
@@ -55,14 +55,17 @@ class EventNameContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        EventNameContainsKeywordsPredicate firstPredicate = new EventNameContainsKeywordsPredicate(firstPredicateKeywordList);
-        EventNameContainsKeywordsPredicate secondPredicate = new EventNameContainsKeywordsPredicate(secondPredicateKeywordList);
+        EventNameContainsKeywordsPredicate firstPredicate =
+                new EventNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        EventNameContainsKeywordsPredicate secondPredicate =
+                new EventNameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        EventNameContainsKeywordsPredicate firstPredicateCopy = new EventNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        EventNameContainsKeywordsPredicate firstPredicateCopy =
+                new EventNameContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false

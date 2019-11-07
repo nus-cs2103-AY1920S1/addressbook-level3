@@ -42,7 +42,7 @@ public class DisplayScheduleForDateCommandTest {
         // same object -> returns true
         assertTrue(displayFirstCommand.equals(displayFirstCommand));
 
-        // same values -> returns true
+        // same predicate -> returns true
         DisplayScheduleForDateCommand displayFirstCommandCopy =
                 new DisplayScheduleForDateCommand(firstPredicate);
         assertTrue(displayFirstCommand.equals(displayFirstCommandCopy));
@@ -53,12 +53,12 @@ public class DisplayScheduleForDateCommandTest {
         // null -> returns false
         assertFalse(displayFirstCommand.equals(null));
 
-        // different event -> returns false
+        // different event with different predicate -> returns false
         assertFalse(displayFirstCommand.equals(displaySecondCommand));
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() throws ParseException {
+    public void execute_validDateKeywordInput_noEventFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDatePredicate predicate = preparePredicate("01/01/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
@@ -68,7 +68,7 @@ public class DisplayScheduleForDateCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
+    public void execute_validDateKeywordInput_multipleEventsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDatePredicate predicate = preparePredicate("12/10/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);

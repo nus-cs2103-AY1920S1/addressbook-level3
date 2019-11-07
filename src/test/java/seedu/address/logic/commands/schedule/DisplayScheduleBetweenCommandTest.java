@@ -47,7 +47,7 @@ public class DisplayScheduleBetweenCommandTest {
         // same object -> returns true
         assertTrue(displayFirstCommand.equals(displayFirstCommand));
 
-        // same values -> returns true
+        // same values/predicate -> returns true
         DisplayScheduleBetweenCommand displayFirstCommandCopy =
                 new DisplayScheduleBetweenCommand(firstPredicate);
         assertTrue(displayFirstCommand.equals(displayFirstCommandCopy));
@@ -58,12 +58,12 @@ public class DisplayScheduleBetweenCommandTest {
         // null -> returns false
         assertFalse(displayFirstCommand.equals(null));
 
-        // different event -> returns false
+        // different event with different predicate -> returns false
         assertFalse(displayFirstCommand.equals(displaySecondCommand));
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() throws ParseException {
+    public void execute_validDateRangeKeywordInput_noEventFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("01/01/2019", "02/01/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
@@ -73,7 +73,7 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
+    public void execute_validDateRangeKeywordInput_multipleEventsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("12/10/2019", "13/10/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
@@ -83,11 +83,11 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     /**
-     * Parses {@code userInput1} and {@code userInput2} into a {@code EventContainsKeyRangePredicate}.
+     * Parses {@code inputDate1} and {@code inputDate2} into a {@code EventContainsKeyRangePredicate}.
      */
-    private EventContainsKeyDateRangePredicate preparePredicate(String userInput1, String userInput2)
+    private EventContainsKeyDateRangePredicate preparePredicate(String inputDate1, String inputDate2)
             throws ParseException {
         return new EventContainsKeyDateRangePredicate(
-                ParserUtil.parseEventDate(userInput1), ParserUtil.parseEventDate(userInput2));
+                ParserUtil.parseEventDate(inputDate1), ParserUtil.parseEventDate(inputDate1));
     }
 }

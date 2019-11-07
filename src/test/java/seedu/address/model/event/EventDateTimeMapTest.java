@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalEventDates.OCT_20_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_21_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_22_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_23_2019;
-import static seedu.address.testutil.TypicalEventDayTimes._0800_TO_1230;
-import static seedu.address.testutil.TypicalEventDayTimes._1200_TO_1800;
-import static seedu.address.testutil.TypicalEventDayTimes.defaultDayTime;
+import static seedu.address.testutil.TypicalEventDayTimes.DEFAULT_DAY_TIME;
+import static seedu.address.testutil.TypicalEventDayTimes.TIME_0800_TO_1230;
+import static seedu.address.testutil.TypicalEventDayTimes.TIME_1200_TO_1800;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -29,7 +29,7 @@ class EventDateTimeMapTest {
         map.deleteDateKey(OCT_23_2019); //Try delete, 4.5hrs removed
         assertEquals(map.totalHours(), 26);
 
-        map.mapDateTime(OCT_23_2019, defaultDayTime); //Try put, 10hrs added
+        map.mapDateTime(OCT_23_2019, DEFAULT_DAY_TIME); //Try put, 10hrs added
         assertEquals(map.totalHours(), 36);
     }
 
@@ -52,14 +52,14 @@ class EventDateTimeMapTest {
         map.flushEventDates(OCT_19_2019, OCT_21_2019);
         assertFalse(map.containsDateKey(OCT_23_2019));
         assertTrue(map.containsDateKey(OCT_21_2019));
-        assertEquals(map.getDateTimeMap().get(OCT_21_2019), _1200_TO_1800);
+        assertEquals(map.getDateTimeMap().get(OCT_21_2019), TIME_1200_TO_1800);
 
         //default EventDate-EventDateTime inserted for new range
         map = new EventDateTimeMap(defaultMap());
         map.flushEventDates(OCT_19_2019, OCT_22_2019);
         assertFalse(map.containsDateKey(OCT_23_2019));
         assertTrue(map.containsDateKey(OCT_22_2019));
-        assertEquals(map.getDateTimeMap().get(OCT_22_2019), defaultDayTime);
+        assertEquals(map.getDateTimeMap().get(OCT_22_2019), DEFAULT_DAY_TIME);
     }
 
     @Test
@@ -88,12 +88,15 @@ class EventDateTimeMapTest {
         assertFalse(map.equals(map2)); //different K-V values
     }
 
+    /**
+     * Generates a default TreeMap for easy access and usage.
+     */
     Map<EventDate, EventDayTime> defaultMap() {
         Map<EventDate, EventDayTime> map = new TreeMap<>();
-        map.put(OCT_19_2019, defaultDayTime);
-        map.put(OCT_20_2019, defaultDayTime);
-        map.put(OCT_21_2019, _1200_TO_1800);
-        map.put(OCT_23_2019, _0800_TO_1230);
+        map.put(OCT_19_2019, DEFAULT_DAY_TIME);
+        map.put(OCT_20_2019, DEFAULT_DAY_TIME);
+        map.put(OCT_21_2019, TIME_1200_TO_1800);
+        map.put(OCT_23_2019, TIME_0800_TO_1230);
 
         return map;
     }

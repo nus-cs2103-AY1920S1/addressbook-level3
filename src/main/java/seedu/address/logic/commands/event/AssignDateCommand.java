@@ -61,12 +61,7 @@ public class AssignDateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList;
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            lastShownList = model.getFilteredEventList();
-        } else {
-            lastShownList = model.getFilteredScheduledEventList();
-        }
+        List<Event> lastShownList = MainWindow.getCurrentEventList(model);
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }

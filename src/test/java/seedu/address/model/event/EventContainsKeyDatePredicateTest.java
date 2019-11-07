@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -78,5 +82,7 @@ class EventContainsKeyDatePredicateTest {
         EventDate eventDateDiff = OCT_21_2019;
         EventContainsKeyDatePredicate predicateDiff = new EventContainsKeyDatePredicate(eventDateDiff);
         assertFalse(predicateDiff.equals(predicate));
+
+
     }
 }
