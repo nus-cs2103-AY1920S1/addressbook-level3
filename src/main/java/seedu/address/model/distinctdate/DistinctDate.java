@@ -45,13 +45,14 @@ public class DistinctDate {
      * Returns true if both DistinctDate object refer to the same object, or share the same EventDate.
      * This defines a weaker notion of equality between two DistinctDate.
      */
-    public boolean isSameDate(DistinctDate otherDistinctDate) {
+    public boolean isSameDistinctDate(DistinctDate otherDistinctDate) {
         if (otherDistinctDate == this) {
             return true;
         }
 
         return otherDistinctDate != null
-                && otherDistinctDate.getDate().equals(getDate());
+                && otherDistinctDate.getDate().equals(getDate())
+                && otherDistinctDate.getListOfEvents().equals(getListOfEvents());
     }
 
     /**
