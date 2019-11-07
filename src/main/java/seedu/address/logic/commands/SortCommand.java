@@ -17,11 +17,11 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = SortCommand.COMMAND_WORD + ": Sorts the transaction "
-        + "in the bank account. "
-        + "Parameter: BY\n"
-        + "Example: " + SortCommand.COMMAND_WORD + " amount";
+        + "in the bank account.\n"
+        + "Parameter: PREDICATE/ORDER\n"
+        + "Example: " + SortCommand.COMMAND_WORD + " amount/a";
 
-    public static final String MESSAGE_SUCCESS = "Sorted all transactions";
+    public static final String MESSAGE_SUCCESS = "Sorted all transactions.";
 
     private final Comparator<BankAccountOperation> comparator;
 
