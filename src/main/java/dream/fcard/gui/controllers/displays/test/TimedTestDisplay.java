@@ -47,24 +47,21 @@ public class TimedTestDisplay extends AnchorPane {
      * The flashcard that is currently on display in test mode.
      */
     private FlashCard cardOnDisplay;
+
     /**
      * The deck in use for the test.
      */
     private Exam exam;
+
     /**
      * The index of the card in the deck that is currently on display.
      */
     private int nowShowing;
+
     /**
      * The user's current score. For Shawn
      */
     private int currentScore = 0;
-    /**
-     * Consumers used to allow the front view of any card (which is a child component of TestDisplay)
-     * to trigger TestDisplay to render a back view of the same card.
-     */
-//    private Consumer<Boolean> seeFrontOfCurrentCard = b -> seeFront();
-//    private Consumer<Boolean> seeBackOfCurrentCard = b -> seeBack();
 
     /**
      * Consumer for cards to update the score attained for each card by the user. This consumer

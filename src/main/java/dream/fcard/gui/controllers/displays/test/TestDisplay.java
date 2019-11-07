@@ -3,12 +3,6 @@ package dream.fcard.gui.controllers.displays.test;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.cards.backview.McqCardBack;
-import dream.fcard.gui.controllers.cards.backview.SimpleCardBack;
-import dream.fcard.gui.controllers.cards.frontview.BasicFrontBackCard;
-import dream.fcard.gui.controllers.cards.frontview.JavaFront;
-import dream.fcard.gui.controllers.cards.frontview.JsCard;
-import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
@@ -17,7 +11,6 @@ import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -46,24 +39,21 @@ public class TestDisplay extends AnchorPane {
      * The flashcard that is currently on display in test mode.
      */
     private FlashCard cardOnDisplay;
+
     /**
      * The deck in use for the test.
      */
     private Exam exam;
+
     /**
      * The index of the card in the deck that is currently on display.
      */
     private int nowShowing;
+
     /**
      * The user's current score. For Shawn
      */
     private int currentScore = 0;
-    /**
-     * Consumers used to allow the front view of any card (which is a child component of TestDisplay)
-     * to trigger TestDisplay to render a back view of the same card.
-     */
-//    private Consumer<Boolean> seeFrontOfCurrentCard = b -> seeFront();
-//    private Consumer<Boolean> seeBackOfCurrentCard = b -> seeBack();
 
     /**
      * Consumer for cards to update the score attained for each card by the user. This consumer
@@ -184,10 +174,10 @@ public class TestDisplay extends AnchorPane {
      * The handler to render the previous card.
      */
     private void onShowPrevious() {
-            exam.downIndex();
-            AnchorPane newCard = exam.getCardDisplayFront();
-            Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
-            Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
+        exam.downIndex();
+        AnchorPane newCard = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
 
     /**

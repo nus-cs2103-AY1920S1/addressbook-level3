@@ -30,7 +30,9 @@ public class JavaFront extends AnchorPane {
     private JavaCard card;
     private Application javaEditor;
     private Consumer<Pair<String, ArrayList<TestCase>>> getResult = this::receiveResult;
-    private Consumer<Boolean> launchJavaCoder = bool -> { startCoding();};
+    private Consumer<Boolean> launchJavaCoder = bool -> {
+        startCoding();
+    };
 
     public JavaFront(JavaCard card) {
         try {

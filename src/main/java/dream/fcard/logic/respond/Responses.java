@@ -3,7 +3,6 @@ package dream.fcard.logic.respond;
 import java.util.ArrayList;
 
 import dream.fcard.core.commons.core.LogsCenter;
-import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
@@ -357,7 +356,7 @@ public enum Responses {
                             }
                             return true;
                         }
-                    } catch(DeckNotFoundException e){
+                    } catch (DeckNotFoundException e) {
                         e.printStackTrace();
                     }
                     return true;
@@ -447,8 +446,8 @@ public enum Responses {
     FB_FRONT(
             "^((?i)front)\\s*",
             new ResponseGroup[]{
-                    ResponseGroup.TEST_FBCARD,
-                    ResponseGroup.TEST_FBCARD_BACK},
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_FBCARD_BACK},
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();

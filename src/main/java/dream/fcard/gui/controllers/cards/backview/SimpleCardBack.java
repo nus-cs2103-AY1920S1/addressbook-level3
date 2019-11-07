@@ -1,7 +1,6 @@
 package dream.fcard.gui.controllers.cards.backview;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
@@ -46,6 +45,9 @@ public class SimpleCardBack extends AnchorPane {
         Consumers.doTask("SEE_FRONT", true);
     }
 
+    /**
+     * Event handler for what happens when correct button is clicked.
+     */
     private void onCorrect() {
         Consumers.doTask("GET_SCORE", true);
         Exam exam = ExamRunner.getCurrentExam();
@@ -54,6 +56,9 @@ public class SimpleCardBack extends AnchorPane {
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
     }
 
+    /**
+     * Event handler for what happens when wrong button is clicked.
+     */
     private void onWrong() {
         Consumers.doTask("GET_SCORE", false);
         Exam exam = ExamRunner.getCurrentExam();

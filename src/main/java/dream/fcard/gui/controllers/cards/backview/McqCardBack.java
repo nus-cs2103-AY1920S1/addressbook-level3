@@ -1,7 +1,6 @@
 package dream.fcard.gui.controllers.cards.backview;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;

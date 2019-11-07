@@ -28,7 +28,9 @@ public class JsCard extends AnchorPane {
     private JavascriptCard card;
     private Application jsEditor;
     private Consumer<Pair<String, Pair<Integer, Integer>>> getResult = this::receiveResult;
-    private Consumer<Boolean> launchJsCoder = bool -> { startCoding();};
+    private Consumer<Boolean> launchJsCoder = bool -> {
+        startCoding();
+    };
 
     public JsCard(JavascriptCard card) {
         try {
