@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.gmaps.Location;
 
 class GmapsModelManagerTest {
     private GmapsModelManager gmapsModelManager;
@@ -35,8 +33,8 @@ class GmapsModelManagerTest {
         String result = gmapsModelManager.closestLocationDataString(locationNameList);
         String expectedResult = "\nFirst closest location: LT17 | Average travelling distance/meters Avg distance: "
                 + "0(meters)\nSecond closest location: LT19 | Average travelling distance/meters Avg distance: "
-                + "11(meters)\nThird closest location: LT8 | Average travelling distance/meters Avg distance: "
-                + "224(meters)\n";
+                + "11(meters)\nThird closest location: SH | Average travelling distance/meters Avg distance: "
+                + "403(meters)\n";
         assertEquals(expectedResult, result);
     }
 
@@ -50,15 +48,6 @@ class GmapsModelManagerTest {
     @Test
     void validLocationSuggesterSadFlow() {
         assertEquals(gmapsModelManager.validLocationSuggester("foobarfoobar"), new ArrayList<String>());
-    }
-
-    @Test
-    void populateCoordinates() {
-        gmapsModelManager.populateCoordinates();
-        ArrayList<Location> locationArrayList = gmapsModelManager.getValidLocationList();
-        for (int i = 0; i < locationArrayList.size(); i++) {
-            assertFalse(locationArrayList.get(i).getLatLng().equals(","));
-        }
     }
 
     @Test

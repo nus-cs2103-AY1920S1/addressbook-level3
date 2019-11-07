@@ -32,7 +32,7 @@ class SanitizeLocationTest {
         lt17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
         Location as5 = new Location("NUS_AS5");
         as5.setValidLocation("NUS_AS5");
-        as5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
+        as5.setPlaceId("ChIJ8c94Qukb2jERlo0SqgxeAqA");
 
         ArrayList<Location> expectedValidLocationList =
                 new ArrayList<Location>(Arrays.asList(lt17, as5));
@@ -46,9 +46,18 @@ class SanitizeLocationTest {
         lt17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
         Location as5 = new Location("AS5-1234556");
         as5.setValidLocation("NUS_AS5");
-        as5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
+        as5.setPlaceId("ChIJ8c94Qukb2jERlo0SqgxeAqA");
         assertEquals(sanitizeLocation.sanitize("LT17"), lt17);
         assertEquals(sanitizeLocation.sanitize("AS5-1234556"), as5);
         assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("jcdhsajkfebadbs"));
+    }
+
+    /**
+     * Acceptance test to make sure that a location has place_id, lat and lng
+     */
+    @Test
+    void sanitizeLatLngAcceptanceTest() throws TimeBookInvalidLocation {
+        Location actualLocation = sanitizeLocation.sanitize("LT17");
+        assertEquals(actualLocation.getLatLng(), "1.2935909,103.773989");
     }
 }

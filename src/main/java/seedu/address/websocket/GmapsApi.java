@@ -57,7 +57,7 @@ public class GmapsApi {
     public static JSONObject getPlaceDetails(String placeId) throws ConnectException {
         ApiQuery query = new ApiQuery(UrlUtil.generateGmapsPlaceDetailsUrl(placeId));
         QueryResult queryResult = query.execute();
-        logger.info("Calling " + UrlUtil.generateGmapsPlacesUrl(placeId));
+        logger.info("Calling " + UrlUtil.generateGmapsPlaceDetailsUrl(placeId));
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;

@@ -36,6 +36,10 @@ class GmapsApiTest {
         JSONObject response = GmapsApi.getLocation("foo");
         assertEquals(GmapsJsonUtils.getStatus(response), "REQUEST_DENIED");
     }
+    @Test
+    void getLocationInvalidUrl() {
+        assertThrows(ConnectException.class, ()-> GmapsApi.getLocation("NUS_HEXADECIMAL HASH"));
+    }
 
     @Test
     void getPlaceDetailsNoApiKey() throws ConnectException {

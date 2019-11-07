@@ -47,10 +47,22 @@ class UrlUtilTest {
     }
 
     @Test
+    void sanitizeApiKey_noKey() {
+        String url = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&size"
+                + "=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7C"
+                + "label:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284";
+        String expectedUrl = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&size"
+                + "=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7C"
+                + "label:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&";
+        assertTrue(UrlUtil.sanitizeApiKey(url).equals(url));
+    }
+
+    @Test
     void generateGmapsPlacesUrl() {
         String expectedUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg"
-                + "&inputtype=textquery&fields=name,place_id&input=qwerty&key=&";
-        assertEquals(UrlUtil.generateGmapsPlacesUrl("qwerty"), expectedUrl);
+                + "&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939"
+                + "&input=qwerty&key=&";
+        assertEquals(expectedUrl, UrlUtil.generateGmapsPlacesUrl("qwerty"));
     }
 
     @Test
