@@ -55,7 +55,8 @@ class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        if (!Amount.isValidAmount(amount)) {
+        // Users shouldn't be able to enter values too massive.
+        if (!isSettlement && !Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount amount = new Amount(this.amount);

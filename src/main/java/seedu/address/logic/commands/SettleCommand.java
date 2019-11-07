@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ContextType;
 import seedu.address.model.Context;
+import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Expense;

@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "The amount of money spent (after rounding to 2 decimal places) can only be from $0.01 to $1000000";
-
+            "The amount of money spent (after rounding to 2 decimal places) can only be from $0.01 to $1000000.";
+    public static final String MESSAGE_POSITIVE_ONLY =
+        "Amounts of money have to be positive!";
     public final double value;
 
     /**
@@ -18,7 +19,7 @@ public class Amount {
      * @param amount A valid amount of money spent.
      */
     public Amount(double amount) {
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(amount >= 0, MESSAGE_POSITIVE_ONLY);
         value = amount;
     }
 
