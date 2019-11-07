@@ -9,6 +9,8 @@ import seedu.address.model.password.analyser.result.Result;
  */
 public class StrongAnalysisReport extends AnalysisReport {
 
+    private static final String MESSAGE_PASSWORDHEADER = "Analysing password for following account: \n";
+
     public StrongAnalysisReport() {
         super();
     }
@@ -27,6 +29,7 @@ public class StrongAnalysisReport extends AnalysisReport {
      * @param password
      */
     public void writePassword(Password password) {
+        super.reportBuilder.append(MESSAGE_PASSWORDHEADER);
         super.reportBuilder.append(password);
         super.reportBuilder.append(MESSAGE_DIVIDER);
     }

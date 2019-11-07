@@ -22,7 +22,7 @@ public class DictionaryResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common passwords");
+            report.append("No passwords were found to have contained commonly used passwords\n");
             return report.toString();
         }
         for (Match m : matches) {

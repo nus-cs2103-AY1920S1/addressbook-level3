@@ -11,7 +11,7 @@ import seedu.address.model.password.analyser.result.Result;
  * Represents the Analysis Report formed from the {@code Result} objects from the various {@code Anlayser} Objects
  */
 public class AnalysisReport {
-    protected static final String MESSAGE_DIVIDER = "----------------------------------------\n";
+    protected static final String MESSAGE_DIVIDER = "-------------------------------------------\n";
     protected static final String MESSAGE_INIT =
             "  ____                           ___ _____  \n"
                     + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
@@ -19,7 +19,7 @@ public class AnalysisReport {
                     + "  ___) |  __/ (__| |_| | | |  __/| |  | |   \n"
                     + " |____/ \\___|\\___|\\__,_|_|  \\___|___| |_|   \n"
                     + "                                            \n"
-                    + "---- Password analysis ----\n"
+                    + "------------ Password analysis ------------\n"
                     + "\n";
     private static final String MESSAGE_UNDERSCORE = "--------------------";
     private static final String COLUMN1 = String.format("%-20s %-5s %-20s %-5s %-20s %-5s %-20s",

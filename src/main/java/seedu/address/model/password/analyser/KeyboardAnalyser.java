@@ -52,7 +52,6 @@ public class KeyboardAnalyser implements Analyser {
                 next = characters[end];
             }
             if (seq.length() >= 3) {
-                System.out.println(seq.toString());
                 matches.add(new KeyboardMatch(start, end - 1, seq.toString(),
                         AdjacencyGraph.getDirections(seq.toString())));
             }
