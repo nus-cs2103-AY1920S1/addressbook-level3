@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
  * Jackson-friendly version of list of shows.
@@ -38,7 +39,7 @@ class JsonAdaptedShows {
      */
     public JsonAdaptedShows(List<Show> source) {
         for (Show show : source) {
-            if (show.getType().equals("Movie")) {
+            if (show.getType().equals(Type.MOVIE)) {
                 movies.add(new JsonAdaptedMovie(show));
             } else {
                 tvShows.add(new JsonAdaptedTvShow(show));

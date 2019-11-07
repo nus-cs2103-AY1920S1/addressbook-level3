@@ -15,7 +15,7 @@ import seedu.ezwatchlist.model.actor.Actor;
  */
 public abstract class Show {
 
-    private String type;
+    private Type type;
 
     //identity fields
     private final Name name;
@@ -54,10 +54,15 @@ public abstract class Show {
     }
 
     public void setType(String type) {
-        this.type = type;
+      switch (type) {
+        case ("movie"):
+          this.type = Type.MOVIE;
+        case ("tv"):
+          this.type = Type.TV_SHOW;
+        }
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
@@ -122,7 +127,7 @@ public abstract class Show {
 
         return otherShow != null
                 && otherShow.getName().equals(getName())
-                && otherShow.getType().equals(getType())
+                && otherShow.getType() == getType()
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
@@ -203,7 +208,7 @@ public abstract class Show {
 
         Show otherShow = (Show) other;
         return otherShow.getName().equals(getName())
-                && otherShow.getType().equals(getType())
+                && otherShow.getType() == getType()
                 && otherShow.getDateOfRelease().equals(getDateOfRelease())
                 && (otherShow.isWatched().equals(isWatched()))
                 && otherShow.getDescription().equals(getDescription())

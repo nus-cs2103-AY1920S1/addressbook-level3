@@ -12,6 +12,7 @@ import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
  * An Immutable WatchList that is serializable to JSON format.
@@ -41,9 +42,9 @@ class JsonSerializableWatchList {
         List<JsonAdaptedMovie> movies = new ArrayList<>();
         List<JsonAdaptedTvShow> tvShows = new ArrayList<>();
         for (Show show : showList) {
-            if (show.getType().equals("Movie")) {
+            if (show.getType().equals(Type.MOVIE)) {
                 movies.add(new JsonAdaptedMovie(show));
-            } else if (show.getType().equals("Tv Show")) {
+            } else if (show.getType().equals(Type.TV_SHOW)) {
                 tvShows.add(new JsonAdaptedTvShow(show));
             }
         }

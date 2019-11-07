@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
  * An UI component that displays information of a {@code Show}.
@@ -64,7 +65,7 @@ public class SearchShowCard extends UiPart<Region> {
         this.displayedIndex = displayedIndex;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
-        type.setText("Type: " + show.getType());
+        type.setText("Type: " + show.getType().getType());
         dateOfRelease.setText("Date of Release: " + show.getDateOfRelease().value);
         description.setText("Description: " + show.getDescription().fullDescription);
         runningTime.setText("Running Time: " + Integer.toString(show.getRunningTime().value) + " minutes");
@@ -107,7 +108,7 @@ public class SearchShowCard extends UiPart<Region> {
     }
 
     private void setLastWatched() {
-        if (show.getType().equals("Tv Show")) {
+        if (show.getType().equals(Type.TV_SHOW)) {
             if (show.getLastWatchedSeasonNum() == 0) {
                 lastWatched.setText("");
             } else {

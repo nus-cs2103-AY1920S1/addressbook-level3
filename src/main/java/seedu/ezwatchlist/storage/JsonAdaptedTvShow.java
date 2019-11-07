@@ -82,7 +82,7 @@ public class JsonAdaptedTvShow {
      */
     public JsonAdaptedTvShow(Show source) {
         name = source.getName().showName;
-        type = source.getType();
+        type = source.getType().getType();
         dateOfRelease = source.getDateOfRelease().value;
         isWatched = Boolean.toString(source.isWatched().value);
         description = source.getDescription().fullDescription;
