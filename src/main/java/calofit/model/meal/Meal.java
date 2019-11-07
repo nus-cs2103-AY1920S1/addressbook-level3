@@ -91,7 +91,7 @@ public class Meal implements Comparable<Meal> {
     }
 
     /**
-     * Returns true if both meals of the same name have the same timestamp.
+     * Returns true if both meals of the same dish have the same timestamp.
      */
     public boolean isSameMeal(Meal otherMeal) {
         if (otherMeal == this) {
