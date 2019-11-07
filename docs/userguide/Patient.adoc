@@ -43,7 +43,7 @@ Format: `pat-add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [vt/VISIT
 ****
  * A patient can have any number of tags.
  * A patient can have any number of visit todos.
- * The patient cannot have the same **identity** an existing patient.
+ * The patient cannot have the same **identity** as an existing patient.
 ****
 
 TIP: Visit Todos are described in further detail under <<VisitHowTo>>.
