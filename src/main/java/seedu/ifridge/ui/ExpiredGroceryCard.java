@@ -51,6 +51,10 @@ public class ExpiredGroceryCard extends UiPart<Region> {
         groceryItem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setWrapText(true);
+        id.setWrapText(true);
+        amount.setWrapText(true);
+        expiryDate.setWrapText(true);
     }
 
     @Override
