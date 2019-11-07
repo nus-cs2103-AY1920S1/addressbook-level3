@@ -23,10 +23,15 @@ import org.reactfx.Subscription;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import seedu.moolah.logic.parser.Prefix;
 
 /**
@@ -40,7 +45,10 @@ public class CommandTextField extends StyleClassedTextArea {
     static final String ARGUMENT_STYLE_PREFIX = "arg";
     static final String COMMAND_WORD_STYLE = "command-word";
     static final String STRING_STYLE = "string";
-    static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
+    static final String SYNTAX_HIGHLIGHTING_CSS_FILE_PATH = "/view/syntax-highlighting.css";
+
+    private static final Border enabledBorder = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
+    private static final Border disabledBorder = new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
 
     private static final double TEXTFIELD_HEIGHT = 25;
 
@@ -59,6 +67,7 @@ public class CommandTextField extends StyleClassedTextArea {
 
         // to store patterns/syntax
         stringToSupportedCommands = new HashMap<>();
+        setBorder(disabledBorder);
 
         currentCommand = new SimpleStringProperty("");
 
@@ -72,6 +81,14 @@ public class CommandTextField extends StyleClassedTextArea {
         // autofill menu
         autofillMenu = new AutofillSuggestionMenu(this, currentCommand);
         setContextMenu(autofillMenu);
+
+        autofillMenu.enabledProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
+                setBorder(enabledBorder);
+            } else {
+                setBorder(disabledBorder);
+            }
+        });
 
         focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if (t1) {
@@ -88,6 +105,10 @@ public class CommandTextField extends StyleClassedTextArea {
                 textGetter.accept(getText().replaceAll("[\\r\\n]", ""));
                 keyEvent.consume();
             } else if (keyEvent.getCode().equals(TAB)) {
+                autofillMenu.toggle();
+                if (autofillMenu.enabledProperty().get()) {
+                    autofillMenu.show(this, Side.BOTTOM, 0,0);
+                }
                 keyEvent.consume();
             }
         });
@@ -102,11 +123,13 @@ public class CommandTextField extends StyleClassedTextArea {
         textProperty().addListener((observableValue, s, t1) -> {
             String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
 
-            Matcher command = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s").matcher(t1);
+            Matcher command = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")(?=\\s|$)").matcher(t1);
 
             if (command.find()) {
-                String cmd = command.group("COMMAND");
-                currentCommand.setValue(cmd);
+                String cmd = command.group("COMMAND").trim();
+                if (!currentCommand.getValue().equals(cmd)) {
+                    currentCommand.setValue(cmd);
+                }
             } else {
                 currentCommand.setValue("");
             }
@@ -208,7 +231,7 @@ public class CommandTextField extends StyleClassedTextArea {
      */
     public void importStyleSheet(Scene parentSceneOfNode) {
         parentSceneOfNode.getStylesheets()
-                .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
+                .add(CommandTextField.class.getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm());
         enableSyntaxHighlighting();
     }
 
@@ -220,7 +243,7 @@ public class CommandTextField extends StyleClassedTextArea {
      * @param prefixes         List of prefixes required in the command
      * @param optionalPrefixes
      */
-    public void addSupportFor(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
+    public void addSupport(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
         stringToSupportedCommands.put(
                 command,
                 new SyntaxHighlightingSupportedInput(command, prefixes, optionalPrefixes));
@@ -233,7 +256,7 @@ public class CommandTextField extends StyleClassedTextArea {
      *
      * @param command
      */
-    public void removeSupportFor(String command) {
+    public void removeSupport(String command) {
         if (stringToSupportedCommands.containsKey(command)) {
             stringToSupportedCommands.remove(command);
             autofillMenu.removeCommand(command);

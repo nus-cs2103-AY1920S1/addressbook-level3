@@ -79,7 +79,7 @@ public class CommandBox extends UiPart<Region> {
      * @param optionalPrefixes
      */
     public void enableSuggestionAndSyntaxHighlightingFor(String com, List<Prefix> pre, List<Prefix> optionalPrefixes) {
-        commandTextField.addSupportFor(com, pre, optionalPrefixes);
+        commandTextField.addSupport(com, pre, optionalPrefixes);
     }
 
     /**
@@ -87,7 +87,7 @@ public class CommandBox extends UiPart<Region> {
      * @param command The command word of the command.
      */
     public void disableSuggestionsAndSyntaxHighlightingFor(String command) {
-        commandTextField.removeSupportFor(command);
+        commandTextField.removeSupport(command);
     }
 
     public void enableSyntaxHighlighting() {

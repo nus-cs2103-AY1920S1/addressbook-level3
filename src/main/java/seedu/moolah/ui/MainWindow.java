@@ -396,8 +396,6 @@ public class MainWindow extends UiPart<Stage> {
                 ClearCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
-        commandBox.enableSyntaxHighlighting();
     }
 
     /**
