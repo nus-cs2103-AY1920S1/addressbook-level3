@@ -3,6 +3,8 @@ package dukecooks.ui;
 import dukecooks.model.dashboard.components.Dashboard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -33,6 +35,8 @@ public class DashboardCard extends UiPart<Region> {
     private Label taskDate;
     @FXML
     private Label taskStatus;
+    @FXML
+    private ImageView imageView;
 
     public DashboardCard(Dashboard dashboard, int displayedIndex) {
         super(FXML);
@@ -41,6 +45,16 @@ public class DashboardCard extends UiPart<Region> {
         dashboardName.setText(dashboard.getDashboardName().fullName);
         taskDate.setText(dashboard.getTaskDate().taskDate);
         taskStatus.setText(dashboard.getTaskStatus().taskStatus);
+        if (dashboard.getTaskStatus().taskStatus.equals("NOT COMPLETE")) {
+            Image sleepykitty = new Image("images/kittysleeping.png");
+            imageView.setImage(sleepykitty);
+        } else if (dashboard.getTaskStatus().taskStatus.equals("COMPLETED")){
+            Image happykitty = new Image("images/kittyhappy.png");
+            imageView.setImage(happykitty);
+        } else {
+            Image workingkitty = new Image("images/kittyworking.png");
+            imageView.setImage(workingkitty);
+        }
     }
 
     @Override

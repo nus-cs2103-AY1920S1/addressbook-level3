@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -45,5 +46,7 @@
                 <RowConstraints />
             </rowConstraints>
         </GridPane>
+      <ImageView fx:id="imageView" fitHeight="105.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Region prefHeight="58.0" prefWidth="57.0" />
     </children>
 </HBox>
