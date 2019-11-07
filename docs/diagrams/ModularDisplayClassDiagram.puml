@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package ModularDisplayItems <<Rectangle>>{
+Class TwoSplitColumnLayout
+Class TwoSplitRowLayout
+Class BankLabelPanel
+Class ResultDisplay
+Class StatusBarFooter
+Class CommandBox
+}
+
+
+package AppManager <<Rectangle>> {
+Class HiddenAppManager #FFFFFF
+}
+
+Class "{abstract}\nUiPart" as UiPart
+
+Class ModularDisplay #000000
+ModularDisplay -left-> AppManager
+
+ModularDisplay -down-> MainWindow
+ModularDisplay --> HelpWindow
+ModularDisplay *-down-> CommandBox
+ModularDisplay *-down-> ResultDisplay
+ModularDisplay *-down-> StatusBarFooter
+
+
+MainWindow -left-|> UiPart
+
+ResultDisplay --|> UiPart
+CommandBox --|> UiPart
+ModularDisplay -down-|> UiPart
+PersonCard --|> UiPart
+StatusBarFooter --|> UiPart
+HelpWindow -down-|> UiPart
+
+UiManager -right-> AppManager
+MainWindow -left-> AppManager
+
+HelpWindow -[hidden]left- CommandBox
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- StatusBarFooter
+
+MainWindow -[hidden]-|> UiPart
+@enduml

@@ -31,17 +31,16 @@ import seedu.address.ui.modules.WordBankStatisticsPanel;
  * Displays the screen for Dukemon.
  */
 public class ModularDisplay {
+    //Overarching AppManager
+    private final AppManager appManager;
 
     //Layouts for non single-pane displays
     private TwoSplitColumnLayout twoSplitColumnLayout;
     private TwoSplitRowLayout twoSplitRowLayout;
 
     //Modules
-    private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
-    private final TitleScreenPanel titleScreenPanel;
     private final SettingsPanel settingsPanel;
-    private final AppManager appManager;
 
     //For the game
     private QuestionLabel questionLabel;
@@ -54,7 +53,6 @@ public class ModularDisplay {
      */
     ModularDisplay(AppManager appManager) {
         loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
-        titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
         questionLabel = new QuestionLabel();
         hintLabel = new HintLabel();
@@ -89,7 +87,6 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToOpenDisplay(StackPane paneToDisplay) {
-        bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
@@ -99,26 +96,6 @@ public class ModularDisplay {
         twoSplitColumnLayout.addToRightPane(
                 new CardListPanel(appManager.getFilteredCardList()).getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
-    }
-
-    /**
-     * Changes back to home display.
-     *
-     * @param paneToDisplay The view to change.
-     */
-    public void swapToHome(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(titleScreenPanel.getRoot());
-    }
-
-    /**
-     * Changes to the word list.
-     *
-     * @param paneToDisplay The view to change.
-     */
-    public void swapToList(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(new CardListPanel(appManager.getFilteredCardList()).getRoot());
     }
 
     /**
@@ -137,16 +114,6 @@ public class ModularDisplay {
             paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics, wbStatistics).getRoot());
         }
 
-    }
-
-    /**
-     * Changes to list the word banks.
-     *
-     * @param paneToDisplay The view to change.
-     */
-    public void swapToBanks(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
     }
 
     /**
