@@ -7,11 +7,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
+import seedu.address.commons.util.Triplet;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
@@ -33,6 +35,8 @@ public class Activity {
     // The actual personid has to be obtained from the id array, and i, j just
     // represent the indices in that array where you can find them.
     private final ArrayList<ArrayList<Double>> transferMatrix;
+    // Used for internal computation. Adjacency matrix of our debts. Should not
+    // be used outside of the context of the debt algorithm.
     private final ArrayList<ArrayList<Double>> debtMatrix;
 
     /**
@@ -103,6 +107,24 @@ public class Activity {
     }
 
     /**
+     * Gets all the expenses in this activity that are not settlements.
+     */
+    public List<Expense> getNonSettlementExpenses() {
+        return expenses.stream()
+            .filter(x -> !x.isSettlement())
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Gets all the expenses in this activity that are settlements.
+     */
+    public List<Expense> getSettlementExpenses() {
+        return expenses.stream()
+            .filter(x -> x.isSettlement())
+            .collect(Collectors.toList());
+    }
+
+    /**
      * Gets the name of the activity.
      * @return A String representation of the name of the activity.
      */
@@ -127,6 +149,15 @@ public class Activity {
     }
 
     /**
+     * Checks whether the person with ID is present in this activity.
+     * @param personId Id of the person to check.
+     * @return True if person exists, false otherwise.
+     */
+    public boolean hasPerson(Integer personId) {
+        return idDict.containsKey(personId);
+    }
+
+    /**
      * Gets the transfer matrix.
      * @return The matrix. Every (i, j) entry reflects how much i receives from
      * j. Negative amounts means i has to give j money.
@@ -146,8 +177,9 @@ public class Activity {
     }
 
     /**
-     * Returns the aggregate amount owed to a specified participant in this activity. A
-     * negative amount indicates this participant owes other participants.
+     * Returns the aggregate amount owed to a specified participant in this
+     * activity. A negative amount indicates this participant owes other
+     * participants.
      * @param participantId {@code Integer} ID of the participant.
      */
     public Double getTransferAmount(Integer participantId) {
@@ -160,6 +192,46 @@ public class Activity {
 
         ArrayList<Double> transfers = transferMatrix.get(participantIndex);
         return transfers.stream().reduce(0.0, (acc, amt) -> acc + amt);
+    }
+
+    /**
+     * Returns a triplet containing the necessary settlements needed to resolve
+     * all debt. The lists of people returned by this function are only
+     * primaryKeys. You can traverse all three lists at the same time to get a
+     * relationship of "owes[i] needs to pay amountOwed[i] to owed[i]".
+     * @return A Triplet of owes, owed, amountOwed, which are lists of Int, Int, Double respectively.
+     */
+    public Triplet<List<Integer>, List<Integer>, List<Double>> getSolution() {
+        List<Integer> owes = new ArrayList<>();
+        List<Integer> owed = new ArrayList<>();
+        List<Double> amountOwed = new ArrayList<>();
+
+        for (int i : idDict.keySet()) {
+            for (int j : idDict.keySet()) {
+                if (i == j) {
+                    continue;
+                }
+
+                // see how much i owes j?
+                double debtEntry = getOwed(i, j);
+                if (debtEntry == 0.0) {
+                    continue;
+                }
+
+                // j owes i instead.
+                if (debtEntry < 0) {
+                    owes.add(i);
+                    owed.add(j);
+                    amountOwed.add(-debtEntry);
+                } else {
+                    owes.add(j);
+                    owed.add(i);
+                    amountOwed.add(debtEntry);
+                }
+            }
+        }
+
+        return new Triplet<>(owes, owed, amountOwed);
     }
 
     /**
@@ -197,15 +269,6 @@ public class Activity {
             debtMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
         }
-    }
-
-    /**
-     * Checks whether the person with ID is present in this activity.
-     * @param personId Id of the person to check.
-     * @return True if person exists, false otherwise.
-     */
-    public boolean hasPerson(Integer personId) {
-        return idDict.containsKey(personId);
     }
 
     /**
