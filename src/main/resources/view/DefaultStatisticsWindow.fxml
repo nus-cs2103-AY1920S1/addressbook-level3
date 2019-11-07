@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="300" minWidth="450" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <stylesheets>
