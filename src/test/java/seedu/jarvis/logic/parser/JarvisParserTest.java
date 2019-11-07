@@ -42,7 +42,8 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_listHistory() throws Exception {
         assertTrue(parser.parseCommand(ListHistoryCommand.COMMAND_WORD) instanceof ListHistoryCommand);
-        assertTrue(parser.parseCommand(ListHistoryCommand.COMMAND_WORD + " 5") instanceof  ListHistoryCommand);
+        assertTrue(parser.parseCommand(ListHistoryCommand.COMMAND_WORD + " 5") instanceof
+                ListHistoryCommand);
     }
 
     /**
