@@ -97,6 +97,12 @@ public class AddCommand extends Command {
         return "the following Add command:\n" + result;
     }
 
+    /**
+     * Retrieves item that is the same as item inputted by user.
+     * @param item existing on the
+     * @param list
+     * @return
+     */
     private XpireItem retrieveXpireItem(XpireItem item, List<? extends Item> list) {
         requireNonNull(item);
         int index = -1;

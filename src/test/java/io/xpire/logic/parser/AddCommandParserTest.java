@@ -14,6 +14,7 @@ import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_KIWI;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,10 +46,11 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // no quantity specified
-        XpireItem expectedXpireItem = new XpireItemBuilder(KIWI).withQuantity("1").withReminderThreshold("0").build();
+        XpireItem expectedXpireItem = new XpireItemBuilder(KIWI).withQuantity("2").withReminderThreshold("0").build();
         String userInput = VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI + "|";
         CommandParserTestUtil.assertEqualsParseSuccess(parser, userInput,
-                new AddCommand(expectedXpireItem));
+                new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
+                        new Quantity(VALID_QUANTITY_KIWI)));
     }
 
     @Test
