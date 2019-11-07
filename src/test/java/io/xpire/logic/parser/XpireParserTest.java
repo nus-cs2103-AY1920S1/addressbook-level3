@@ -2,6 +2,7 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
@@ -77,7 +78,7 @@ public class XpireParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parse(
                 SearchCommand.COMMAND_WORD + "|" + String.join("|", keywords));
-        assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new SearchCommand(XPIRE, new ContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
