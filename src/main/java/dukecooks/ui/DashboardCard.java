@@ -48,7 +48,7 @@ public class DashboardCard extends UiPart<Region> {
         if (dashboard.getTaskStatus().taskStatus.equals("NOT COMPLETE")) {
             Image sleepykitty = new Image("images/kittysleeping.png");
             imageView.setImage(sleepykitty);
-        } else if (dashboard.getTaskStatus().taskStatus.equals("COMPLETED")){
+        } else if (dashboard.getTaskStatus().taskStatus.equals("COMPLETED")) {
             Image happykitty = new Image("images/kittyhappy.png");
             imageView.setImage(happykitty);
         } else {

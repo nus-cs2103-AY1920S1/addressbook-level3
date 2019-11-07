@@ -1,6 +1,8 @@
 package dukecooks.model.dashboard;
 
-import static dukecooks.testutil.dashboard.TypicalDashboard.*;
+import static dukecooks.testutil.dashboard.TypicalDashboard.TASK1;
+import static dukecooks.testutil.dashboard.TypicalDashboard.TASK2;
+import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboard;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import dukecooks.testutil.dashboard.DashboardBuilder;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.model.dashboard.components.Dashboard;
@@ -56,7 +57,8 @@ public class UniqueDashboardListTest {
 
     @Test
     public void setDashboard_nullEditedRecipe_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueDashboardList.setDashboard(TASK1, null));
+        Assert.assertThrows(NullPointerException.class, ()
+            -> uniqueDashboardList.setDashboard(TASK1, null));
     }
 
     @Test
@@ -93,18 +95,20 @@ public class UniqueDashboardListTest {
 
     @Test
     public void setDashboards_nullUniqueDashboardList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueDashboardList.setDashboards((UniqueDashboardList) null));
+        Assert.assertThrows(NullPointerException.class, ()
+            -> uniqueDashboardList.setDashboards((UniqueDashboardList) null));
     }
 
     @Test
     public void setDashboards_nullList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueDashboardList.setDashboards((List<Dashboard>) null));
+        Assert.assertThrows(NullPointerException.class, ()
+            -> uniqueDashboardList.setDashboards((List<Dashboard>) null));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueDashboardList.asUnmodifiableObservableList().remove(0));
+            -> uniqueDashboardList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
