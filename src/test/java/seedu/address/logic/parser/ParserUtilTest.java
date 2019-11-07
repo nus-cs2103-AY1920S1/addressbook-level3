@@ -366,6 +366,7 @@ public class ParserUtilTest {
     @Test
     public void parseMonth_invalidMonthValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseMonth("13"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth("abc"));
     }
 
     @Test
@@ -392,5 +393,6 @@ public class ParserUtilTest {
     public void parseYear_invalidYearValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseYear("1899"));
         assertThrows(ParseException.class, () -> ParserUtil.parseYear("10000"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear("abc"));
     }
 }
