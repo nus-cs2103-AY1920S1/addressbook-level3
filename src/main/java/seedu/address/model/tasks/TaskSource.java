@@ -1,5 +1,6 @@
 package seedu.address.model.tasks;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,7 +19,6 @@ public class TaskSource {
 
     // Optional
     private final DateTime due;
-    // private final Duration expectedDuration;
     private final Set<String> tags;
     private final boolean isDone;
 
@@ -26,7 +26,11 @@ public class TaskSource {
         this.description = taskSourceBuilder.getDescription();
         this.isDone = taskSourceBuilder.isDone();
         this.due = taskSourceBuilder.getDueDate();
-        this.tags = taskSourceBuilder.getTags();
+        if (taskSourceBuilder.getTags() == null) {
+            this.tags = new HashSet<>();
+        } else {
+            this.tags = taskSourceBuilder.getTags();
+        }
     }
 
     /**
@@ -43,18 +47,6 @@ public class TaskSource {
 
     public static TaskSourceBuilder newBuilder(String description) {
         return new TaskSourceBuilder(description);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (object instanceof TaskSource) {
-            TaskSource t = (TaskSource) object;
-            return Objects.equals(this.description, t.description)
-                    && Objects.equals(this.due, t.due)
-                    && this.isDone == t.isDone
-                    && Objects.equals(this.tags, t.tags);
-        }
-        return false;
     }
 
     @JsonProperty("description")
@@ -77,8 +69,22 @@ public class TaskSource {
         return tags;
     }
 
-    /*
-    TODO: implement the following method:
-    public String toIcsString
-    */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof TaskSource) {
+            TaskSource t = (TaskSource) object;
+            return Objects.equals(this.description, t.description)
+                && Objects.equals(this.due, t.due)
+                && Objects.equals(!this.isDone, !t.isDone)
+                && Objects.equals(this.tags, t.tags);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description,
+            this.due,
+            this.tags);
+    }
 }

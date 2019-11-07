@@ -25,7 +25,6 @@ public class UpcomingView extends UiPart<Region> {
     private static final String FXML = "UpcomingView.fxml";
 
     private CalendarDate currentDate;
-    private Integer totalDisplays;
 
     @FXML
     private GridPane upcomingViewBase;
@@ -40,7 +39,7 @@ public class UpcomingView extends UiPart<Region> {
         super(FXML);
         currentDate = CalendarDate.now();
         upcomingViewTitle.setText("Upcoming in " + currentDate.getEnglishMonth());
-        resizeUpcomingView(eventTaskList);
+        onChange(eventTaskList);
     }
 
     /**
@@ -53,9 +52,6 @@ public class UpcomingView extends UiPart<Region> {
         upcomingList.getChildren().clear();
 
         for (Object source : eventTaskList) {
-            if (index >= totalDisplays) {
-                return;
-            }
             if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 DateTime eventDate = event.getStartDateTime();
@@ -74,15 +70,5 @@ public class UpcomingView extends UiPart<Region> {
                 }
             }
         }
-    }
-
-    /**
-     * Re-sizes the upcoming to fit the amount of displays of the UpcomingEventCard.
-     *
-     * @param eventTaskList The list of events and tasks to change the upcoming view.
-     */
-    public void resizeUpcomingView(List<Object> eventTaskList) {
-        totalDisplays = (int) (upcomingViewBase.getHeight() / UpcomingEventCard.UPCOMING_CARD_HEIGHT) - 2;
-        onChange(eventTaskList);
     }
 }

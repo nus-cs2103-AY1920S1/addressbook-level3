@@ -16,10 +16,10 @@ public class ExitCommand extends Command {
 
     private static final long EXIT_DURATION = 1000;
 
-    ExitCommand() {}
+    private ExitCommand() {}
 
     public static CommandBuilder newBuilder() {
-        return new ExitCommandBuilder().init();
+        return new Builder().init();
     }
 
     @Override
@@ -34,25 +34,25 @@ public class ExitCommand extends Command {
         }).start();
         return new UserOutput(MESSAGE_EXIT_SUCCESS);
     }
-}
 
-/**
- * Represents a CommandBuilder responsible for creating {@link ExitCommand}.
- */
-class ExitCommandBuilder extends CommandBuilder {
+    /**
+     * Represents a CommandBuilder responsible for creating {@link ExitCommand}.
+     */
+    static class Builder extends CommandBuilder {
 
-    @Override
-    RequiredArgumentList defineCommandArguments() {
-        return null;
-    }
+        @Override
+        protected RequiredArgumentList defineCommandArguments() {
+            return null;
+        }
 
-    @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
-        return null;
-    }
+        @Override
+        protected Map<String, OptionalArgumentList> defineCommandOptions() {
+            return null;
+        }
 
-    @Override
-    Command commandBuild() {
-        return new ExitCommand();
+        @Override
+        protected Command commandBuild() {
+            return new ExitCommand();
+        }
     }
 }

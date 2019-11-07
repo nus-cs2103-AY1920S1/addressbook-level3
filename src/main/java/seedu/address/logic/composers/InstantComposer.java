@@ -1,6 +1,11 @@
 package seedu.address.logic.composers;
 
+import static seedu.address.MainApp.TIME_ZONE;
+import static seedu.address.model.DateTime.ICS_DATE_TIME_PATTERN;
+import static seedu.address.model.DateTime.USER_DATE_TIME_PATTERN;
+
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,13 +13,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class InstantComposer {
 
-    private final DateTimeFormatter composer;
+    private static final DateTimeFormatter USER_COMPOSER = DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
+        .withZone(TIME_ZONE);
 
-    public InstantComposer(DateTimeFormatter composer) {
-        this.composer = composer;
+    private static final DateTimeFormatter ICS_COMPOSER = DateTimeFormatter.ofPattern(ICS_DATE_TIME_PATTERN)
+        .withZone(ZoneOffset.UTC);
+
+    public String toUserString(Instant dateTime) {
+        return USER_COMPOSER.format(dateTime);
     }
 
-    public String compose(Instant instant) {
-        return this.composer.format(instant);
+    public String toIcsString(Instant dateTime) {
+        return ICS_COMPOSER.format(dateTime);
     }
 }
