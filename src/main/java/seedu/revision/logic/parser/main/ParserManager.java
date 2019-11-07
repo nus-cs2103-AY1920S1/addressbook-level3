@@ -14,9 +14,11 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.HistoryCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
+import seedu.revision.logic.commands.main.StatsCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.quiz.McqInputCommandParser;
 import seedu.revision.logic.parser.quiz.SaqInputCommandParser;
@@ -82,6 +84,12 @@ public class ParserManager {
 
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

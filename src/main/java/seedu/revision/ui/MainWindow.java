@@ -15,9 +15,9 @@ import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.ui.answerables.AnswerableListPanel;
@@ -72,6 +72,32 @@ public class MainWindow extends Window {
     }
 
     /**
+     * Shows history of results as a line graph. Loads the window components for line graph.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleHistory() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("No past results were found.");
+        }
+    }
+
+    /**
+     * Shows results of latest quiz attempted as a pie chart. Loads the window components for pie chart.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleStats() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("You have not attempted any quiz yet.");
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -108,9 +134,9 @@ public class MainWindow extends Window {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == confirmRestore) {
-            ReadOnlyAddressBook sampleData;
-            sampleData = SampleDataUtil.getSampleAddressBook();
-            passedModel.setAddressBook(new AddressBook(sampleData));
+            ReadOnlyRevisionTool sampleData;
+            sampleData = SampleDataUtil.getSampleRevisionTool();
+            passedModel.setRevisionTool(new RevisionTool(sampleData));
         }
     }
 
@@ -143,6 +169,14 @@ public class MainWindow extends Window {
 
             if (commandResult.isShowRestore()) {
                 handleRestore(commandResult.getModel());
+            }
+
+            if (commandResult.isShowHistory()) {
+                handleHistory();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats();
             }
 
             return commandResult;

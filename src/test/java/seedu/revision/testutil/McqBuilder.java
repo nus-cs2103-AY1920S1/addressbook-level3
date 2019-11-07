@@ -36,4 +36,8 @@ public class McqBuilder extends AnswerableBuilder<Mcq> {
     public Mcq build() {
         return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
+
+    public Mcq buildTest() {
+        return new Mcq(correctAnswerList, wrongAnswerList);
+    }
 }

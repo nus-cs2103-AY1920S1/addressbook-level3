@@ -19,7 +19,8 @@ public class StartCommand extends Command {
 
     public static final String COMMAND_AUTOCOMPLETE = "start mode/";
     public static final String COMMAND_AUTOCOMPLETE_NORMAL = "start mode/normal";
-    public static final String COMMAND_AUTOCOMPLETE_CHAOS = "start mode/chaos";
+    public static final String COMMAND_AUTOCOMPLETE_ARCADE = "start mode/arcade";
+    public static final String COMMAND_AUTOCOMPLETE_CUSTOM = "start mode/custom";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Arcade / Custom)\n"
             + "For Custom, you can add the optional prefixes timer/ cat/ diff/ "
