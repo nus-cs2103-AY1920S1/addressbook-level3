@@ -16,7 +16,7 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Description;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 
 
@@ -27,7 +27,7 @@ public class AddReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder to reminders list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a GeneralReminder to reminders list. "
             + "Parameters: "
             + PREFIX_DESC + "REMINDER_MESSAGE"
             + "[" + PREFIX_INDEX + "CONDITION INDEX]..."
@@ -37,15 +37,15 @@ public class AddReminderCommand extends Command {
             + PREFIX_INDEX + "1 "
             + PREFIX_AMOUNT + "100 \n";
 
-    public static final String MESSAGE_SUCCESS = "New Reminder added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New GeneralReminder added: %1$s";
 
     private Description message;
     private List<Index> conditionIndexes;
     private Amount quota;
-    private Reminder reminder;
+    private GeneralReminder generalReminder;
 
     /**
-     * Creates an AddCommand to add the specified {@code Reminder} with no tracker.
+     * Creates an AddCommand to add the specified {@code GeneralReminder} with no tracker.
      */
     public AddReminderCommand(Description message, List<Index> conditionIndexes) {
         this.message = message;
@@ -59,16 +59,16 @@ public class AddReminderCommand extends Command {
         List<Condition> allConditions = model.getFilteredConditions();
         List<Condition> usedConditions = conditionIndexes.stream()
                 .map(index -> allConditions.get(index.getZeroBased())).collect(Collectors.toList());
-        reminder = new Reminder(message, usedConditions);
-        model.addReminder(reminder);
+        generalReminder = new GeneralReminder(message, usedConditions);
+        model.addReminder(generalReminder);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, generalReminder));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddReminderCommand // instanceof handles nulls
-                && reminder.equals(((AddReminderCommand) other).reminder));
+                && generalReminder.equals(((AddReminderCommand) other).generalReminder));
     }
 }

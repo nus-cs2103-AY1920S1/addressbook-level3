@@ -7,11 +7,11 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 
 /**
- * Displays popup for Reminder.
+ * Displays popup for GeneralReminder.
  */
 public class DisplayPopupCommand extends Command {
     public static final String COMMAND_WORD = "popup";
-    public static final String NO_REMINDER_SELECTED = "Please select a reminder to inspect.";
+    public static final String NO_REMINDER_SELECTED = "Please select a generalReminder to inspect.";
     public static final String REMINDER_POPUP_DISABLED = "Please enable pop up before viewing or editing.";
     public static final String MESSAGE_DISPLAY_SUCCESS = "Display popup.";
     @Override

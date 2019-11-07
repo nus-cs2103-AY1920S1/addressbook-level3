@@ -4,7 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_UPPER_BOUND;
 
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
@@ -13,7 +20,6 @@ import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-import seedu.guilttrip.model.reminders.Reminder;
 
 /**
  * Parses input arguments and creates a new EditExpenseCommand object
@@ -28,7 +34,9 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
     public EditReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_INDEX, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args,
+                        PREFIX_TYPE, PREFIX_DESC, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
+                        PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TAG, PREFIX_PERIOD);
 
         Index index;
 

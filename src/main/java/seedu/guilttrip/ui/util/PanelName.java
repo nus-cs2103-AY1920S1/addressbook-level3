@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class PanelName {
 
     public static final String MESSAGE_CONSTRAINTS = "Panel names should be one of the following: wishlist/w, "
-            + "budget(s)/b, reminder(s)/r or autoexpense(s)/ae";
+            + "budget(s)/b, generalReminder(s)/r or autoexpense(s)/ae";
 
     public final String panelName;
 
@@ -36,7 +36,7 @@ public class PanelName {
         String testLowerCase = test.toLowerCase();
 
         ArrayList<String> acceptedInputs = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w", "budget",
-                "budgets", "b", "reminders", "reminder", "r", "autoexpenses", "autoexpense", "autoexp", "ae"));
+                "budgets", "b", "reminders", "generalReminder", "r", "autoexpenses", "autoexpense", "autoexp", "ae"));
 
         return acceptedInputs.contains(testLowerCase);
     }
@@ -66,10 +66,10 @@ public class PanelName {
             break;
         case "reminders":
             // Fallthrough
-        case "reminder":
+        case "generalReminder":
             // Fallthrough
         case "r":
-            standardisedPanelName = "reminder";
+            standardisedPanelName = "generalReminder";
             break;
         case "autoexpense":
             // Fallthrough

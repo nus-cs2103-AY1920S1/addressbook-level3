@@ -5,22 +5,22 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 
 import seedu.guilttrip.model.entry.Entry;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 
 /**
  * Used to keep track of specific Income/ Expense or Wishes.
  */
 public class EntryHandler implements PropertyChangeListener {
-    private Reminder.Status status;
+    private GeneralReminder.Status status;
     private Entry monitoredEntry;
-    private Reminder reminder;
+    private GeneralReminder generalReminder;
 
     private LocalDate currDate;
-//===== Update Status and Notify Reminder =====//
+//===== Update Status and Notify GeneralReminder =====//
     @SuppressWarnings("checkstyle:CommentsIndentation")
     private void update() {
 
-        reminder.setStatus(status.toString());
+        generalReminder.setStatus(status.toString());
     }
 //===== Update Local Date =====//
     @Override

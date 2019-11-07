@@ -5,13 +5,16 @@ import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -30,8 +33,10 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.model.statistics.StatisticsManager;
@@ -60,6 +65,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     private final SortedList<Wish> sortedWishList;
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
+    private final FilteredList<Notification> filteredNotifications;
     private final VersionedGuiltTrip versionedAddressBook;
     private LocalDate currDate;
 
@@ -97,9 +103,10 @@ public class ModelManager implements Model, PropertyChangeListener {
         sortedAutoExpenseList = new SortedList<>(versionedAddressBook.getAutoExpenseList());
         sortedAutoExpenseList.setComparator(new EntryComparator(sortByTime, sortByAsc));
         filteredAutoExpenses = new FilteredList<>(sortedAutoExpenseList);
-
+        //Reminders
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
+        filteredNotifications = new FilteredList<>(versionedAddressBook.getNotificationList());
         createExpensesfromAutoExpenses();
         this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
                 versionedAddressBook.getCategoryList());
@@ -195,9 +202,9 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     @Override
-    public boolean hasReminder(Reminder reminder) {
-        requireNonNull(reminder);
-        return versionedAddressBook.hasReminder(reminder);
+    public boolean hasReminder(Reminder Reminder) {
+        requireNonNull(Reminder);
+        return versionedAddressBook.hasReminder(Reminder);
     }
 
     @Override
@@ -218,8 +225,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -228,15 +233,11 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeIncome(target);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteWish(Wish target) {
         versionedAddressBook.removeWish(target);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
         updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredWishes(sortByTime, sortByAsc);
     }
@@ -246,8 +247,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeBudget(target);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -256,8 +255,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.removeAutoExpense(target);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -288,8 +285,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addIncome(income);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -297,8 +292,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addWish(wish);
         updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredWishes(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -306,8 +299,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.addAutoExpense(autoExpense);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -317,13 +308,11 @@ public class ModelManager implements Model, PropertyChangeListener {
         versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_DISPLAYED_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
-    public void addReminder(Reminder reminder) {
-        versionedAddressBook.addReminder(reminder);
+    public void addReminder(GeneralReminder generalReminder) {
+        versionedAddressBook.addReminder(generalReminder);
     }
 
     @Override
@@ -338,9 +327,9 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     @Override
-    public void setReminder(Reminder target, Reminder editedReminder) {
-        requireAllNonNull(target, editedReminder);
-        versionedAddressBook.setReminder(target, editedReminder);
+    public void setReminder(Reminder target, Reminder editedGeneralReminder) {
+        requireAllNonNull(target, editedGeneralReminder);
+        versionedAddressBook.setReminder(target, editedGeneralReminder);
     }
 
     @Override
@@ -487,11 +476,26 @@ public class ModelManager implements Model, PropertyChangeListener {
         return filteredReminders;
     }
 
-    public ObservableList<Condition> getFilteredConditions() {
-        return filteredConditions;
+    @Override
+
+    public ObservableList<Notification> getFilteredNotifications() {
+        return filteredNotifications;
     }
 
-    //===== Reminder Handler =====//
+    @Override
+    public ObservableList<Condition> getFilteredConditions() {
+        Reminder reminder = getReminderSelected();
+        if (reminder instanceof GeneralReminder) {
+            ObservableList<Condition> conditions = FXCollections.
+                    observableArrayList(((GeneralReminder) reminder).getConditions());
+            return conditions;
+        } else {
+            return FXCollections.
+                    observableArrayList(new ArrayList<>());
+        }
+    }
+
+    //===== GeneralReminder Handler =====//
     @Override
     public Reminder getReminderSelected() {
         return versionedAddressBook.getReminderSelected();

@@ -17,7 +17,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 
@@ -126,8 +126,8 @@ class JsonSerializableGuiltTrip {
         }
 
         ReminderConditionMapper mapper = new ReminderConditionMapper(reminders, conditions);
-        for (Reminder reminder : mapper.getReminders()) {
-            guiltTrip.addReminder(reminder);
+        for (GeneralReminder generalReminder : mapper.getGeneralReminders()) {
+            guiltTrip.addReminder(generalReminder);
         }
 
         for (Condition condition : mapper.getConditions()) {

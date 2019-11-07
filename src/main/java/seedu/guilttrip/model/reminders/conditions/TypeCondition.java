@@ -2,43 +2,28 @@ package seedu.guilttrip.model.reminders.conditions;
 
 import java.util.function.Predicate;
 
-import seedu.guilttrip.model.entry.AutoExpense;
-import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
-import seedu.guilttrip.model.entry.Wish;
 
 /**
  * Condition is met when entry is of a specific class.
  */
-public class ClassCondition extends Condition {
+public class TypeCondition extends Condition {
     /**
      * determines what type of entry will meet the condition.
      */
     public enum EntryType {
-        ENTRY,
         EXPENSE,
-        INCOME,
-        WISH,
-        AUTOEXPENSE,
-        BUDGET;
+        INCOME;
 
         @Override
         public String toString() {
             switch (this) {
-            case EXPENSE:
-                return "expense";
             case INCOME:
                 return "income";
-            case WISH:
-                return "wish";
-            case AUTOEXPENSE:
-                return "autoexpense";
-            case BUDGET:
-                return "budget";
             default:
-                return "entry";
+                return "expense";
             }
         }
     }
@@ -47,23 +32,14 @@ public class ClassCondition extends Condition {
         @Override
         public boolean test(Entry entry) {
             switch (entryType) {
-            case EXPENSE:
-                return entry instanceof Expense;
             case INCOME:
                 return entry instanceof Income;
-            case WISH:
-                return entry instanceof Wish;
-            case AUTOEXPENSE:
-                return entry instanceof AutoExpense;
-            case BUDGET:
-                return entry instanceof Budget;
             default:
-                assert (entryType.equals(EntryType.ENTRY));
-                return true;
+                return entry instanceof Expense;
             }
         }
     };
-    public ClassCondition(String entryType) {
+    public TypeCondition(String entryType) {
         super("Class Condition");
         parseType(entryType);
         super.setPred(classPredicate);
@@ -74,23 +50,11 @@ public class ClassCondition extends Condition {
      */
     private void parseType(String entryType) {
         switch(entryType.toLowerCase()) {
-        case "entry":
-            this.entryType = EntryType.ENTRY;
-            break;
         case "expense":
             this.entryType = EntryType.EXPENSE;
             break;
         case "income":
             this.entryType = EntryType.INCOME;
-            break;
-        case "wish":
-            this.entryType = EntryType.WISH;
-            break;
-        case "autoexpense":
-            this.entryType = EntryType.AUTOEXPENSE;
-            break;
-        case "budget":
-            this.entryType = EntryType.BUDGET;
             break;
         default:
             throw new IllegalArgumentException();
@@ -98,24 +62,15 @@ public class ClassCondition extends Condition {
     }
 
     /**
-     * Called when storing ClassCondition
+     * Called when storing TypeCondition
      * @return String representation of classType;
      */
     public String typeToString() {
         switch(entryType) {
-        case EXPENSE:
-            return "expense";
         case INCOME:
             return "income";
-        case WISH:
-            return "wish";
-        case AUTOEXPENSE:
-            return "autoexpense";
-        case BUDGET:
-            return "budget";
         default:
-            assert(entryType.equals(EntryType.ENTRY));
-            return "entry";
+            return "expense";
         }
     }
 
@@ -128,11 +83,11 @@ public class ClassCondition extends Condition {
         if (this == other) {
             return true;
         } else {
-            if (!(other instanceof ClassCondition)) {
+            if (!(other instanceof TypeCondition)) {
                 return false;
             } else {
-                ClassCondition otherCondition = (ClassCondition) other;
-                return this.entryType.equals(((ClassCondition) other).entryType);
+                TypeCondition otherCondition = (TypeCondition) other;
+                return this.entryType.equals(((TypeCondition) other).entryType);
             }
         }
     }

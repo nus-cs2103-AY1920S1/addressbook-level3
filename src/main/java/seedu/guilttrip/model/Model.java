@@ -20,8 +20,10 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 
@@ -42,6 +44,7 @@ public interface Model {
     Predicate<Reminder> PREDICATE_SHOW_HIDDEN_REMINDERS =
             x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
+    Predicate<Reminder> PREDICATE_SHOW_GENERAL_REMINDERS = reminder -> reminder instanceof GeneralReminder;
 
     DoubleProperty getTotalExpenseForPeriod();
 
@@ -109,7 +112,7 @@ public interface Model {
      * Returns true if a entry with the same identity as {@code entry} exists in
      * the guilttrip book.
      */
-    boolean hasReminder(Reminder reminder);
+    boolean hasReminder(Reminder generalReminder);
 
     boolean hasCondition(Condition condition);
 
@@ -176,7 +179,7 @@ public interface Model {
 
     void addAutoExpense(AutoExpense autoExpense);
 
-    void addReminder(Reminder reminder);
+    void addReminder(GeneralReminder generalReminder);
 
     void addCondition(Condition condition);
 
@@ -226,17 +229,20 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<AutoExpense> getFilteredAutoExpenses();
 
-    /** Returns an unmodifiable view of the filtered reminder list */
+    /** Returns an unmodifiable view of the filtered generalReminder list */
     ObservableList<Reminder> getFilteredReminders();
 
-    /** Returns an unmodifiable view of the filtered condition list */
+    /**Gets notifications of reminders*/
+    ObservableList<Notification> getFilteredNotifications();
+
+    /**Gets conditions of selected reminders*/
     ObservableList<Condition> getFilteredConditions();
 
-    /**Return selected reminder for modification */
+    /**Return selected generalReminder for modification */
     Reminder getReminderSelected();
 
-    /**Select a reminder for modification */
-    void selectReminder(Reminder reminder);
+    /**Select a generalReminder for modification */
+    void selectReminder(Reminder generalReminder);
 
     /**
      * Updates the filter of the filtered entry list to filter by the given

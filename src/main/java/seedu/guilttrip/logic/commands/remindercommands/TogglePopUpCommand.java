@@ -7,7 +7,7 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 
 /**
- * Toggles pop up message of reminder.
+ * Toggles pop up message of generalReminder.
  */
 public class TogglePopUpCommand extends Command {
 
@@ -22,9 +22,9 @@ public class TogglePopUpCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.getReminderSelected().togglePopUpDisplay(willShowPopUp);
         if (willShowPopUp) {
-            return new CommandResult("Reminder will show pop up message");
+            return new CommandResult("GeneralReminder will show pop up message");
         } else {
-            return new CommandResult("Reminder will not show pop up message");
+            return new CommandResult("GeneralReminder will not show pop up message");
         }
     }
 }

@@ -5,7 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * Header of reminder. Will always be included in message pop up.
+ * Header of generalReminder. Will always be included in message pop up.
  */
 public class Header extends Cell {
     public static final String type = "Header";

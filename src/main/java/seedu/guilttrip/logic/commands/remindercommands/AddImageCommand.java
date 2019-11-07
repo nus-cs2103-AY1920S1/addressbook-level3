@@ -11,7 +11,7 @@ import seedu.guilttrip.model.Model;
 
 
 /**|
- * Adds an image to reminder message.
+ * Adds an image to generalReminder message.
  */
 public class AddImageCommand extends Command {
     public static final String COMMAND_WORD = "addImage";

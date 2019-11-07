@@ -24,7 +24,6 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
-import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.util.FontManager;
@@ -58,7 +57,7 @@ public class ParserUtil {
         String[] indexArr = indexes.split(",");
         List<Index> indexList = new ArrayList<>();
         for (String indexString : indexArr) {
-            indexList.add(parseIndex(indexString));
+            indexList.add(parseIndex(indexString.trim()));
         }
         return indexList;
     }

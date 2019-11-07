@@ -6,15 +6,15 @@ import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 
 /**
- * Responsible for generating Condition List from Reminder Lists.
+ * Responsible for generating Condition List from GeneralReminder Lists.
  */
 public class ReminderConditionMapper {
-    private final List<Reminder> reminders = new ArrayList<>();
+    private final List<GeneralReminder> generalReminders = new ArrayList<>();
     private final List<Condition> conditions = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -22,9 +22,9 @@ public class ReminderConditionMapper {
                                     List<JsonAdaptedCondition> jsonConditions)
         throws IllegalValueException {
         for (JsonAdaptedReminder jsonAdaptedReminder : jsonReminders) {
-            Reminder reminder = jsonAdaptedReminder.toModelType();
-            map(reminder);
-            this.reminders.add(reminder);
+            GeneralReminder generalReminder = jsonAdaptedReminder.toModelType();
+            map(generalReminder);
+            this.generalReminders.add(generalReminder);
         }
         for (JsonAdaptedCondition jsonConditionWrapper : jsonConditions) {
             Condition condition = jsonConditionWrapper.toModelType();
@@ -35,23 +35,23 @@ public class ReminderConditionMapper {
     }
 
     /**
-     * Adds conditions in reminders to list.
-     * If reminders is already added, maps condition to reminder in list and vice versa.
-     * @param reminder
+     * Adds conditions in generalReminders to list.
+     * If generalReminders is already added, maps condition to generalReminder in list and vice versa.
+     * @param generalReminder
      */
-    private void map(Reminder reminder) {
-        for (Condition condition : reminder.getConditions()) {
+    private void map(GeneralReminder generalReminder) {
+        for (Condition condition : generalReminder.getConditions()) {
             if (!conditions.contains(condition)) {
                 conditions.add(condition);
             } else {
                 Condition toMap = conditions.get(conditions.indexOf((condition)));
-                reminder.removeCondition(condition);
-                reminder.addCondition(toMap);
+                generalReminder.removeCondition(condition);
+                generalReminder.addCondition(toMap);
             }
         }
     }
-    public List<Reminder> getReminders() {
-        return reminders;
+    public List<GeneralReminder> getGeneralReminders() {
+        return generalReminders;
     }
     public List<Condition> getConditions() {
         return conditions;

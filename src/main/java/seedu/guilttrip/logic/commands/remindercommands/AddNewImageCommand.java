@@ -12,7 +12,7 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 
 /**
- * Adds image to reminder pop up message. Loads message from system files (not in program).
+ * Adds image to generalReminder pop up message. Loads message from system files (not in program).
  * Option to save image in program.
  */
 public class AddNewImageCommand extends Command {

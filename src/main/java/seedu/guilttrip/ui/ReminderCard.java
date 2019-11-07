@@ -7,12 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
+import seedu.guilttrip.model.reminders.messages.Notification;
 
 /**
- * An UI component that displays information of a {@code Reminder}.
+ * An UI component that displays information of a {@code GeneralReminder}.
  */
-public class ReminderCard extends UiPart<Region> implements PropertyChangeListener {
+public class ReminderCard extends UiPart<Region> {
     private static final String FXML = "ReminderListCard.fxml";
 
     /**
@@ -23,7 +24,7 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
 
-    public final Reminder reminder;
+    public final Notification notification;
 
     @javafx.fxml.FXML
     private HBox cardPane;
@@ -32,26 +33,13 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
     @FXML
     private Label id;
 
-    private Reminder.Status status;
-
-    public ReminderCard(Reminder reminder, int displayedIndex) {
+    public ReminderCard(Notification notification, int displayedIndex) {
         super(FXML);
-        this.reminder = reminder;
+        this.notification = notification;
         id.setText(displayedIndex + ". ");
-
-        this.status = reminder.getStatus();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getHeader().fullDesc + "No. of conditions: "
-                + reminder.getConditions().size();
-        desc.setText(descWithStatus);
+        desc.setText(notification.toString());
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        this.status = (Reminder.Status) evt.getNewValue();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getHeader().fullDesc + "No. of conditions: "
-                + reminder.getConditions().size();
-        //desc.setText(descWithStatus);
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -68,6 +56,6 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
         // state check
         ReminderCard card = (ReminderCard) other;
         return id.getText().equals(card.id.getText())
-                && reminder.equals(card.reminder);
+                && notification.equals(card.notification);
     }
 }

@@ -8,24 +8,25 @@ import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 
 /**
- * Add condition to reminder.
+ * Add condition to generalReminder.
  */
 public class AddConditionToReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addToReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a condition to reminder. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a condition to generalReminder. "
             + "Parameters: REMINDERINDEX, CONDITIONINDEX, (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
     public static final String MESSAGE_SUCCESS = "New Condition added: %1$s";
-    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be added to this reminder \n"
-            + "This reminder is entry specific";
-    public static final String CONDITION_PRESENT_MESSAGE = "Reminder already has that condition \n";
+    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be added to this generalReminder \n"
+            + "This generalReminder is entry specific";
+    public static final String CONDITION_PRESENT_MESSAGE = "GeneralReminder already has that condition \n";
 
     private Index reminderIndex;
     private Index conditionIndex;
@@ -37,18 +38,19 @@ public class AddConditionToReminderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Reminder> reminders = model.getFilteredReminders();
+        List<Reminder> Reminders = model.getFilteredReminders();
         List<Condition> conditions = model.getFilteredConditions();
-        Reminder reminder = reminders.get(reminderIndex.getZeroBased());
-        if (reminder.getEntrySpecificity()) {
+        Reminder reminder = Reminders.get(reminderIndex.getZeroBased());
+        if (!(reminder instanceof GeneralReminder)) {
             throw new CommandException(REMINDER_UNMODIFIABLE_MESSAGE);
         }
+        GeneralReminder generalReminder = (GeneralReminder) reminder;
         Condition condition = conditions.get(conditionIndex.getZeroBased());
-        if (!reminder.addCondition(condition)) {
+        if (!generalReminder.addCondition(condition)) {
             throw new CommandException(CONDITION_PRESENT_MESSAGE);
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, generalReminder));
     }
 
     @Override

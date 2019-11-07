@@ -8,24 +8,25 @@ import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 
 /**
- * Removes condition from reminder.
+ * Removes condition from generalReminder.
  */
 public class RemoveConditionFromReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "removeFromReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a condition to reminder. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a condition to generalReminder. "
             + "Parameters: CONDITIONINDEX, REMINDERINDEX (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
     public static final String MESSAGE_SUCCESS = "Condition Removed: %1$s";
-    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be removed from this reminder \n";
-    public static final String CONDITION_ABSENT_MESSAGE = "Reminder does not have that condition \n";
-    public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
+    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be removed from this generalReminder \n";
+    public static final String CONDITION_ABSENT_MESSAGE = "GeneralReminder does not have that condition \n";
+    public static final String CONDITION_NOT_REMOVABLE = "GeneralReminder must have at least one condition \n";
 
     private Index reminderIndex;
     private Index conditionIndex;
@@ -40,19 +41,19 @@ public class RemoveConditionFromReminderCommand extends Command {
 
         List<Reminder> reminders = model.getFilteredReminders();
         List<Condition> conditions = model.getFilteredConditions();
-        Reminder reminder = reminders.get(reminderIndex.getZeroBased());
-        if (reminder.getEntrySpecificity() || reminder.getConditions().size() == 1) {
+        GeneralReminder generalReminder = (GeneralReminder) reminders.get(reminderIndex.getZeroBased());
+        if (!(generalReminder instanceof GeneralReminder) || generalReminder.getConditions().size() == 1) {
             throw new CommandException(REMINDER_UNMODIFIABLE_MESSAGE);
         }
         Condition condition = conditions.get(conditionIndex.getZeroBased());
-        if (reminder.getConditions().size() == 1) {
+        if (generalReminder.getConditions().size() == 1) {
             throw new CommandException(CONDITION_NOT_REMOVABLE);
         }
-        if (!reminder.removeCondition(condition)) {
+        if (!generalReminder.removeCondition(condition)) {
             throw new CommandException(CONDITION_ABSENT_MESSAGE);
         }
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, generalReminder));
     }
 
     @Override

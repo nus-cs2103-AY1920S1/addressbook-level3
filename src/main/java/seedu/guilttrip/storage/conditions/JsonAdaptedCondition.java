@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
-import seedu.guilttrip.model.reminders.conditions.ClassCondition;
+import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.DateCondition;
 import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
@@ -25,10 +25,13 @@ import seedu.guilttrip.storage.JsonAdaptedTag;
 public class JsonAdaptedCondition {
     private String conditionType;
     private String entryType;
+    private boolean isLowerBound;
+    private double lowerBound;
+    private double upperBound;
+    private boolean isStart;
     private String start;
     private String end;
     private final List<String> keywords = new ArrayList<>();
-    private double quota;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -37,17 +40,23 @@ public class JsonAdaptedCondition {
     @JsonCreator
     public JsonAdaptedCondition(@JsonProperty("conditionType") String conditionType,
                                 @JsonProperty("entryType") String entryType,
+                                @JsonProperty("isStart") boolean isStart,
                                 @JsonProperty("start") String start,
                                 @JsonProperty("end") String end,
                                 @JsonProperty("keywords") List<String> keywords,
-                                @JsonProperty("quota") double quota,
+                                @JsonProperty("isLowerBound") boolean isLowerBound,
+                                @JsonProperty("lowerBound") double lowerBound,
+                                @JsonProperty("lowerBound") double upperBound,
                                 @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.conditionType = conditionType;
         this.entryType = entryType;
+        this.isStart = isStart;
         this.start = start;
         this.end = end;
         this.keywords.addAll(keywords);
-        this.quota = quota;
+        this.isLowerBound = isLowerBound;
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
         this.tags.addAll(tags);
     }
 
@@ -55,19 +64,28 @@ public class JsonAdaptedCondition {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedCondition(Condition condition) {
-        if (condition instanceof ClassCondition) {
-            this.conditionType = "classCondition";
-            this.entryType = ((ClassCondition) condition).getEntryType().toString();
+        if (condition instanceof TypeCondition) {
+            this.conditionType = "entryCondition";
+            this.entryType = ((TypeCondition) condition).getEntryType().toString();
         } else if (condition instanceof DateCondition) {
             this.conditionType = "dateCondition";
-            this.start = ((DateCondition) condition).getStart().toString();
-            this.end = ((DateCondition) condition).getEnd().toString();
+            DateCondition dateCondition = (DateCondition) condition;
+            if (isStart) {
+                this.start = ((DateCondition) condition).getDate().toString();
+            } else {
+                this.end = ((DateCondition) condition).getDate().toString();
+            }
         } else if (condition instanceof KeyWordsCondition) {
             this.conditionType = "keyWordsCondition";
             this.keywords.addAll(((KeyWordsCondition) condition).getKeywords());
         } else if (condition instanceof QuotaCondition) {
             this.conditionType = "quotaCondition";
-            this.quota = ((QuotaCondition) condition).getQuota();
+            QuotaCondition quotaCondition = (QuotaCondition) condition;
+            if (isLowerBound) {
+                this.lowerBound = quotaCondition.getQuota();
+            } else {
+                upperBound = quotaCondition.getQuota();
+            }
         } else if (condition instanceof TagsCondition) {
             this.conditionType = "tagsCondition";
             this.tags.addAll(((TagsCondition) condition).getTagList().stream()
@@ -84,13 +102,21 @@ public class JsonAdaptedCondition {
     public Condition toModelType() throws IllegalValueException {
         switch (conditionType) {
         case "classCondition":
-            return new ClassCondition(entryType);
+            return new TypeCondition(entryType);
         case "dateCondition":
-            return new DateCondition(new Date(start), new Date(end));
+            if (isStart) {
+                return new DateCondition(new Date(start), true);
+            } else {
+                return new DateCondition(new Date(end), false);
+            }
         case "keyWordsCondition":
             return new KeyWordsCondition(keywords);
         case "quotaCondition":
-            return new QuotaCondition(quota);
+            if (isLowerBound) {
+                return new QuotaCondition(lowerBound, true);
+            } else {
+                return new QuotaCondition(upperBound, false);
+            }
         case "tagsCondition":
             final List<Tag> tagList = new ArrayList<>();
             for (JsonAdaptedTag tag : tags) {

@@ -9,7 +9,7 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 
 /**
- * Writes message in reminder popup.
+ * Writes message in generalReminder popup.
  */
 public class WriteMessageCommand extends Command {
     public static final String COMMAND_WORD = "writeMessage";

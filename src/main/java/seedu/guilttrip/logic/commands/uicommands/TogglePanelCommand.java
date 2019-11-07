@@ -17,7 +17,7 @@ public class TogglePanelCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles the visibility the specified panel. "
             + "PARAMETERS: (wishlist) wishlist/wish(es)/w, (budget) budget(s)/b, "
-            + "(reminder) reminder(s)/r or (autoexpense) autoexpense(s)/autoexp/ae"
+            + "(generalReminder) generalReminder(s)/r or (autoexpense) autoexpense(s)/autoexp/ae"
             + "EXAMPLE: " + COMMAND_WORD + " wishlist";
 
     public static final String MESSAGE_SUCCESS = "Toggled visibility of %1$s panel";

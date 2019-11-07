@@ -19,7 +19,7 @@ import seedu.guilttrip.model.entry.Entry;
 
 
 /**
- * Optional pop up message for reminder.
+ * Optional pop up message for generalReminder.
  */
 public class Message {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -303,7 +303,7 @@ public class Message {
     //===== Methods for cloning message =====
 
     /**
-     * Makes a copy of this message. Used when cloning reminder.
+     * Makes a copy of this message. Used when cloning generalReminder.
      * @return clone
      */
     public Message clone() {

@@ -9,15 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
@@ -197,8 +194,8 @@ public class MainWindow extends UiPart<Stage> {
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
-        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+        NotificationPanel notificationPanel = new NotificationPanel(logic.getFilteredNotifications());
+        remindersPlaceHolder.getChildren().add(notificationPanel.getRoot());
 
         AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
@@ -294,7 +291,7 @@ public class MainWindow extends UiPart<Stage> {
         case "budget":
             togglePlaceHolder(budgetsPlaceHolder);
             break;
-        case "reminder":
+        case "generalReminder":
             togglePlaceHolder(remindersPlaceHolder);
             break;
         case "autoexpense":
@@ -307,7 +304,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replaces the Reminder Panel with the Conditions Panel.
+     * Replaces the GeneralReminder Panel with the Conditions Panel.
      */
     private void showConditionPanel() {
         remindersPlaceHolder.getChildren().clear();
@@ -317,13 +314,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replaces the Conditions Panel with the Reminder Panel.
+     * Replaces the Conditions Panel with the GeneralReminder Panel.
      */
     private void showReminderPanel() {
         remindersPlaceHolder.getChildren().clear();
         remindersPlaceHolder.getChildren().add(new Label("Reminders"));
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
-        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+        NotificationPanel notificationPanel = new NotificationPanel(logic.getFilteredNotifications());
+        remindersPlaceHolder.getChildren().add(notificationPanel.getRoot());
     }
 
     /**
@@ -473,7 +470,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
     /**
-     * Display reminder popup.
+     * Display generalReminder popup.
      * @param message
      */
     public void displayPopUp(Message message) {
@@ -482,14 +479,6 @@ public class MainWindow extends UiPart<Stage> {
         Scene stageScene = new Scene(message.render(), 300, 300);
         newStage.setScene(stageScene);
         newStage.show();
-
-        /*Stage newStage = new Stage();
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        Scene stageScene = new Scene(message.render(), 300, 300);
-        newStage.setScene(stageScene);
-        Popup pop = new Popup();
-        pop.getContent().add(message.render());
-        pop.show(this.getRoot());*/
     }
 
     /**
@@ -568,7 +557,7 @@ public class MainWindow extends UiPart<Stage> {
                     togglePanel("autoexpense"); //closes autoexpense panel if visible
                 }
                 if (remindersPlaceHolder.isVisible()) {
-                    togglePanel("reminder"); //closes reminder panel if visible
+                    togglePanel("generalReminder"); //closes generalReminder panel if visible
                 }
                 if (!budgetsPlaceHolder.isVisible()) {
                     togglePanel("budget"); //opens budget panel if not visible

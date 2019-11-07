@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 
 /**
  * Instantiated in addressbook. Ensures that conditions are kept up to date.
@@ -92,9 +92,9 @@ public class ConditionsManager implements Iterable<Condition> {
         }
         PropertyChangeListener[] listeners = target.getSupport().getPropertyChangeListeners();
         for (PropertyChangeListener listener : listeners) {
-            Reminder reminder = (Reminder) listener;
-            reminder.removeCondition(target);
-            reminder.addCondition(editedCondition);
+            GeneralReminder generalReminder = (GeneralReminder) listener;
+            generalReminder.removeCondition(target);
+            generalReminder.addCondition(editedCondition);
         }
         generalConditionsList.remove(target);
     }
@@ -110,8 +110,8 @@ public class ConditionsManager implements Iterable<Condition> {
         }
         PropertyChangeListener[] listeners = toRemove.getSupport().getPropertyChangeListeners();
         for (PropertyChangeListener listener : listeners) {
-            Reminder reminder = (Reminder) listener;
-            reminder.removeCondition(toRemove);
+            GeneralReminder generalReminder = (GeneralReminder) listener;
+            generalReminder.removeCondition(toRemove);
         }
         generalConditionsList.remove(toRemove);
     }

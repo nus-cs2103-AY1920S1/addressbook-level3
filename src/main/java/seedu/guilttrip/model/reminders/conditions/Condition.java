@@ -9,7 +9,7 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
- * Tells reminder when to activate. All types of conditions extend form this class.
+ * Tells generalReminder when to activate. All types of conditions extend form this class.
  * Functions as an observable.
  */
 public abstract class Condition {
@@ -46,7 +46,7 @@ public abstract class Condition {
         if (pred.test(entry)) {
             support.firePropertyChange("beingAdded", beingAdded, entry);
             logger.info("Entry added: condition met. Updating "
-                    + support.getPropertyChangeListeners().length + " reminder(s)");
+                    + support.getPropertyChangeListeners().length + " generalReminder(s)");
             beingAdded = entry;
         }
     }
@@ -71,9 +71,9 @@ public abstract class Condition {
     }
     @Override
     public boolean equals(Object other) {
-        if (this instanceof ClassCondition) {
-            if (other instanceof ClassCondition) {
-                return ((ClassCondition) this).equals((ClassCondition) other);
+        if (this instanceof TypeCondition) {
+            if (other instanceof TypeCondition) {
+                return ((TypeCondition) this).equals((TypeCondition) other);
             } else {
                 return false;
             }

@@ -22,14 +22,6 @@ import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddDateConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddQuotaConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddTagsConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.DeleteConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.ReplaceConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.ShowConditionListCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteBudgetCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
@@ -51,7 +43,6 @@ import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCom
 import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddImageCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddNewImageCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DisplayPopupCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
@@ -79,13 +70,6 @@ import seedu.guilttrip.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddIncomeCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasTagConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.AddQuotaConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.DeleteConditionCommandParser;
-import seedu.guilttrip.logic.parser.conditioncommandparsers.ReplaceConditionCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
@@ -107,7 +91,7 @@ import seedu.guilttrip.logic.parser.findcommandparsers.FindWishCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddImageCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddNewImageCommandParser;
-import seedu.guilttrip.logic.parser.remindercommandparsers.AddReminderCommandParser;
+import seedu.guilttrip.logic.parser.remindercommandparsers.AddGeneralReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
@@ -268,7 +252,7 @@ public class GuiltTripParser {
             return new AddNewImageCommandParser().parse(arguments);
 
         case AddGeneralReminderCommand.COMMAND_WORD:
-            return new AddReminderCommandParser().parse(arguments);
+            return new AddGeneralReminderCommandParser().parse(arguments);
 
         case EditReminderCommand.COMMAND_WORD:
             return new EditReminderCommandParser().parse(arguments);
@@ -287,30 +271,6 @@ public class GuiltTripParser {
 
         case ListActiveRemindersCommand.COMMAND_WORD:
             return new ListActiveRemindersCommand();
-
-        case AddClassConditionCommand.COMMAND_WORD:
-            return new AddClassConditionCommandParser().parse(arguments);
-
-        case AddDateConditionCommand.COMMAND_WORD:
-            return new AddDateConditionCommandParser().parse(arguments);
-
-        case AddHasKeyWordConditionCommand.COMMAND_WORD:
-            return new AddHasKeyWordConditionCommandParser().parse(arguments);
-
-        case AddQuotaConditionCommand.COMMAND_WORD:
-            return new AddQuotaConditionCommandParser().parse(arguments);
-
-        case AddTagsConditionCommand.COMMAND_WORD:
-            return new AddHasTagConditionCommandParser().parse(arguments);
-
-        case DeleteConditionCommand.COMMAND_WORD:
-            return new DeleteConditionCommandParser().parse(arguments);
-
-        case ReplaceConditionCommand.COMMAND_WORD:
-            return new ReplaceConditionCommandParser().parse(arguments);
-
-        case ShowConditionListCommand.COMMAND_WORD:
-            return new ShowConditionListCommand();
 
         case AddAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);

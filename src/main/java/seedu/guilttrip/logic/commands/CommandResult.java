@@ -45,7 +45,7 @@ public class CommandResult {
     /** For listing the budgets. */
     private final boolean listBudgets;
 
-    /** For displaying reminder popup */
+    /** For displaying generalReminder popup */
     private final boolean displayPopUp;
     private final Message message;
 

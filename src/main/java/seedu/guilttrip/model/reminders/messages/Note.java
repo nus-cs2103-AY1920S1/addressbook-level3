@@ -44,7 +44,7 @@ public class Note extends Cell {
     }
 
     /**
-     * Automatically called by reminder when budget is updated.
+     * Automatically called by generalReminder when budget is updated.
      * @param entry
      */
     public void update(Entry entry) {

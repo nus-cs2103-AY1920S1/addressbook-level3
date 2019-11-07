@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.reminders.conditions.ClassCondition;
+import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.DateCondition;
 import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
@@ -50,11 +50,11 @@ public class ConditionCard extends UiPart<Region> {
 
         switch(conditionType.toLowerCase()) {
         case "class condition":
-            params.getChildren().add(new Label(((ClassCondition) condition).getEntryType().toString()));
+            params.getChildren().add(new Label(((TypeCondition) condition).getEntryType().toString()));
             break;
         case "date condition":
-            params.getChildren().add(new Label("Start: " + ((DateCondition) condition).getStart().toString()));
-            params.getChildren().add(new Label("End: " + ((DateCondition) condition).getEnd().toString()));
+            params.getChildren().add(new Label("Start: " + ((DateCondition) condition).getDate().toString()));
+            params.getChildren().add(new Label("End: " + ((DateCondition) condition).getDate().toString()));
             break;
         case "keyword condition":
             KeyWordsCondition keyWordsCondition = (KeyWordsCondition) condition;

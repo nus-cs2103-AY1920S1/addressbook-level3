@@ -3,12 +3,20 @@ package seedu.guilttrip.logic.commands.remindercommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_UPPER_BOUND;
+import static seedu.guilttrip.model.Model.PREDICATE_SHOW_GENERAL_REMINDERS;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.guilttrip.commons.core.Messages;
@@ -19,9 +27,17 @@ import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
+import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.conditions.DateCondition;
+import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
+import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
+import seedu.guilttrip.model.reminders.conditions.TagsCondition;
+import seedu.guilttrip.model.reminders.conditions.TypeCondition;
+import seedu.guilttrip.model.tag.Tag;
 
 /**
  * Edits the details of an existing entry in the guilttrip book.
@@ -30,87 +46,136 @@ public class EditReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "editReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the reminder identified "
-            + "by the index number used in the displayed Expenses list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of selected Reminder "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DESC + "REMINDER_MESSAGE"
-            + "[" + PREFIX_INDEX + "CONDITION INDEX]..."
-            + PREFIX_AMOUNT + "(Optional) Quota"
+            + "GeneralReminder Parameters: "
+            + PREFIX_TYPE + "INCOME OR EXPENSE "
+            + PREFIX_DESC + "REMINDER HEADER "
+            + PREFIX_LOWER_BOUND + "LOWERBOUND FOR AMT "
+            + PREFIX_UPPER_BOUND + "UPPERBOUND FOR AMT "
+            + PREFIX_START_DATE + "START DATE "
+            + PREFIX_END_DATE + "END DATE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESC + "Don't be broke. "
-            + PREFIX_INDEX + "1 "
-            + PREFIX_AMOUNT + "100 \n";
+            + PREFIX_DESC + "Singapore Sale!. \n";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Reminder: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guilttrip book.";
     public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
+    public static final String MISMATCHING_REMINDER_TYPES = "Currently selected reminder does not support" +
+            "the modified parameters.\n";
 
 
-    private final Index index;
-    private final EditReminderDescriptor editReminderDescriptor;
+    private EditReminderDescriptor editReminderDescriptor;
 
     /**
-     * @param index of the expenseReminder in the filtered expense reminder list to edit
      * @param editReminderDescriptor details to edit the entry with
      */
-    public EditReminderCommand(Index index, EditReminderDescriptor editReminderDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editReminderDescriptor);
-
-        this.index = index;
-        this.editReminderDescriptor = new EditReminderDescriptor(editReminderDescriptor);
+    public EditReminderCommand(EditReminderDescriptor editReminderDescriptor) {
+        if (editReminderDescriptor instanceof EditGeneralReminderDescriptor) {
+            EditGeneralReminderDescriptor editGeneralReminderDescriptor =
+                    (EditGeneralReminderDescriptor) editReminderDescriptor;
+            this.editReminderDescriptor = new EditGeneralReminderDescriptor(editGeneralReminderDescriptor);
+        }
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
-        List<Reminder> lastShownList = model.getFilteredReminders();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+        Reminder reminderToEdit = model.getReminderSelected();
+        if (editReminderDescriptor instanceof EditGeneralReminderDescriptor) {
+            Reminder editedReminder = createGeneralEditedReminder(model, reminderToEdit, editReminderDescriptor);
+            if (!reminderToEdit.equals(editedReminder) && model.hasReminder(editedReminder)) {
+                throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
+            }
+            model.setReminder(reminderToEdit, editedReminder);
+            model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
         }
-
-        Reminder reminderToEdit = lastShownList.get(index.getZeroBased());
-        List<Condition> allConditions = model.getFilteredConditions();
-        Reminder editedReminder = createEditedReminder(reminderToEdit, editReminderDescriptor, allConditions);
-
-        if (!reminderToEdit.equals(editedReminder) && model.hasReminder(editedReminder)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
+        else {
+            throw new CommandException("");
         }
-
-        model.setReminder(reminderToEdit, editedReminder);
-        model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
     }
 
     /**
      * Creates and returns a {@code Reinder} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Reminder createEditedReminder(Reminder reminderToEdit,
-                                                 EditReminderDescriptor editReminderDescriptor,
-                                                 List<Condition> allConditions) throws CommandException {
-        assert reminderToEdit != null;
-        Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getHeader());
-        List<Condition> updatedCondition;
-        if (editReminderDescriptor.getConditionIndices().isPresent()) {
-            if (editReminderDescriptor.getConditionIndices().get().size() == 0) {
-                throw new CommandException(CONDITION_NOT_REMOVABLE);
+    private static Reminder createGeneralEditedReminder(Model model,
+        Reminder reminderToEdit, EditReminderDescriptor editReminderDescriptor) throws CommandException {
+    assert reminderToEdit != null;
+        if (! (model.getReminderSelected() instanceof GeneralReminder)) {
+            throw new CommandException(MISMATCHING_REMINDER_TYPES);
+        }
+        EditGeneralReminderDescriptor editGeneralReminderDescriptor
+                = (EditGeneralReminderDescriptor) editReminderDescriptor;
+        GeneralReminder generalReminderToEdit = (GeneralReminder) reminderToEdit;
+        HashMap<String, Condition> oldConditions = new HashMap<>();
+        for (Condition condition : generalReminderToEdit.getConditions()) {
+            if (condition instanceof TypeCondition) {
+                oldConditions.put("TypeCondition", condition);
+            } else if (condition instanceof QuotaCondition) {
+                QuotaCondition quotaCondition = (QuotaCondition) condition;
+                if (quotaCondition.isLowerBound()) {
+                    oldConditions.put("LowerBound", condition);
+                } else {
+                    oldConditions.put("UpperBound", condition);
+                }
+            } else if (condition instanceof DateCondition) {
+                DateCondition dateCondition = (DateCondition) condition;
+                if (dateCondition.isStart()) {
+                    oldConditions.put("Start", condition);
+                } else {
+                    oldConditions.put("End", condition);
+                }
+            } else {
+                assert(condition instanceof TagsCondition);
+                oldConditions.put("TagsCondition", condition);
             }
-            List<Index> conditionIndices = editReminderDescriptor.getConditionIndices().get();
-            updatedCondition = conditionIndices.stream()
-                    .map(index -> allConditions.get(index.getZeroBased())).collect(Collectors.toList());
-        } else {
-            updatedCondition = reminderToEdit.getConditions();
         }
-        Reminder editedReminder = new Reminder(updatedMessage, updatedCondition);
-        for (Condition condition : editedReminder.getConditions()) {
-            condition.getSupport().removePropertyChangeListener(reminderToEdit);
+        List<Condition> conditionsToEdit = new ArrayList<>();
+        Condition typeCondition = oldConditions.get("TypeCondition");
+        conditionsToEdit.add(typeCondition);
+        if ( editGeneralReminderDescriptor.getLowerBound().isPresent()) {
+            double lowerBound = editGeneralReminderDescriptor.getLowerBound().get();
+            QuotaCondition lowerBoundCondition = new QuotaCondition(lowerBound, true);
+            conditionsToEdit.add(lowerBoundCondition);
+        } else if (oldConditions.containsKey("LowerBound")){
+            conditionsToEdit.add(oldConditions.get("LowerBound"));
         }
+        if ( editGeneralReminderDescriptor.getUpperBound().isPresent()) {
+            double upperBound = editGeneralReminderDescriptor.getUpperBound().get();
+            QuotaCondition upperBoundCondition = new QuotaCondition(upperBound, false);
+            conditionsToEdit.add(upperBoundCondition);
+        } else if (oldConditions.containsKey("UpperBound")){
+            conditionsToEdit.add(oldConditions.get("UpperBound"));
+        }
+        if ( editGeneralReminderDescriptor.getStart().isPresent()) {
+            Date start = editGeneralReminderDescriptor.getStart().get();
+            DateCondition newStartCondition = new DateCondition(start, true);
+            conditionsToEdit.add(newStartCondition);
+        } else if (oldConditions.containsKey("Start")){
+            conditionsToEdit.add(oldConditions.get("Start"));
+        }
+        if ( editGeneralReminderDescriptor.getEnd().isPresent()) {
+            Date end = editGeneralReminderDescriptor.getEnd().get();
+            DateCondition newEndCondition = new DateCondition(end, false);
+            conditionsToEdit.add(newEndCondition);
+        } else if (oldConditions.containsKey("End")){
+            conditionsToEdit.add(oldConditions.get("End"));
+        }
+        if ( editGeneralReminderDescriptor.getTags().isPresent()) {
+            Set<Tag> tags = editGeneralReminderDescriptor.getTags().get();
+            TagsCondition newTagsCondition = new TagsCondition(new ArrayList<>(tags));
+            conditionsToEdit.add(newTagsCondition);
+        } else if (oldConditions.containsKey("TagsCondition")){
+            conditionsToEdit.add(oldConditions.get("TagsCondition"));
+        }
+        Description header = ((GeneralReminder)reminderToEdit).getHeader();
+        Reminder editedReminder = new GeneralReminder(header, conditionsToEdit);
+        editedReminder.setMessage(reminderToEdit.getMessage());
+        editedReminder.togglePopUpDisplay(reminderToEdit.willDisplayPopUp());
         return editedReminder;
     }
 
@@ -128,78 +193,84 @@ public class EditReminderCommand extends Command {
 
         // state check
         EditReminderCommand e = (EditReminderCommand) other;
-        return index.equals(e.index)
-                && editReminderDescriptor.equals(e.editReminderDescriptor);
+        return this.editReminderDescriptor.equals(e.editReminderDescriptor);
     }
 
+
+    public static interface EditReminderDescriptor {
+    }
     /**
      * Stores the details to edit the entry with. Each non-empty field value will replace the
      * corresponding field value of the entry.
      */
-    public static class EditReminderDescriptor {
-        private Description desc;
-        private List<Index> conditionIndices;
-        private Double quota;
+    public static class EditGeneralReminderDescriptor implements EditReminderDescriptor{
+        private double lowerBound;
+        private double upperBound;
+        private Date start;
+        private Date end;
+        private Set<Tag> tags;
 
-        public EditReminderDescriptor() {}
+        public EditGeneralReminderDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditReminderDescriptor(EditReminderDescriptor toCopy) {
-            setDesc(toCopy.desc);
-            setQuota(toCopy.quota);
-            setConditionIndices(toCopy.conditionIndices);
+        public EditGeneralReminderDescriptor(EditGeneralReminderDescriptor toCopy) {
+            setLowerBound(toCopy.lowerBound);
+            setUpperBound(toCopy.upperBound);
+            setStart(toCopy.start);
+            setEnd(toCopy.end);
+            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, quota, conditionIndices);
-        }
-
-        public void setDesc(Description desc) {
-            this.desc = desc;
-        }
-
-        public Optional<Description> getDesc() {
-            return Optional.ofNullable(desc);
+            return CollectionUtil.isAnyNonNull(lowerBound, upperBound,
+            start, end, tags);
         }
 
 
-        public void setQuota(Double amt) {
-            this.quota = amt;
+        public void setLowerBound(Double amt) {
+            this.lowerBound = amt;
         }
 
-        public Optional<Double> getQuota() {
-            return Optional.ofNullable(quota);
+        public Optional<Double> getLowerBound() {
+            return Optional.ofNullable(lowerBound);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setConditionIndices(List<Index> conditionIndices) {
-            if (conditionIndices != null) {
-                this.conditionIndices = new ArrayList<>();
-                for (Index index : conditionIndices) {
-                    this.conditionIndices.add(index);
-                }
-            } else {
-                this.conditionIndices = null;
-            }
+        public void setUpperBound(Double amt) {
+            this.upperBound = amt;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<List<Index>> getConditionIndices() {
-            return (conditionIndices != null)
-                    ? Optional.of(Collections.unmodifiableList(conditionIndices)) : Optional.empty();
+        public Optional<Double> getUpperBound() {
+            return Optional.ofNullable(upperBound);
+        }
+
+        public void setStart(Date start) {
+            this.start = start;
+        }
+
+        public Optional<Date> getStart() {
+            return Optional.ofNullable(start);
+        }
+
+        public void setEnd(Date end) {
+            this.end = end;
+        }
+
+        public Optional<Date> getEnd() {
+            return Optional.ofNullable(end);
+        }
+
+        public void setTags(Set<Tag> tags) {
+            this.tags = tags;
+        }
+
+        public Optional<Set<Tag>> getTags() {
+            return Optional.ofNullable(tags);
         }
 
         @Override
@@ -215,11 +286,13 @@ public class EditReminderCommand extends Command {
             }
 
             // state check
-            EditReminderDescriptor e = (EditReminderDescriptor) other;
+            EditGeneralReminderDescriptor e = (EditGeneralReminderDescriptor) other;
 
-            return getDesc().equals(e.getDesc())
-                    && getQuota().equals(e.getQuota())
-                    && getConditionIndices().equals(e.getConditionIndices());
+            return getLowerBound().equals(e.getLowerBound())
+                    && getUpperBound().equals(e.getUpperBound())
+                    && getStart().equals(e.getStart())
+                    && getEnd().equals(e.getEnd())
+                    && getTags().equals(e.getTags());
         }
     }
 }

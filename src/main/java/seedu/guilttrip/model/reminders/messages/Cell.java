@@ -3,7 +3,7 @@ package seedu.guilttrip.model.reminders.messages;
 import javafx.scene.Node;
 
 /**
- * Cell represents an item in the displayed reminder pop up.
+ * Cell represents an item in the displayed generalReminder pop up.
  */
 public abstract class Cell {
     private Node node;

@@ -19,18 +19,18 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Entry;
-import seedu.guilttrip.model.reminders.Reminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
 
 /**
- * Creates a reminder for specified entry.
+ * Creates a generalReminder for specified entry.
  */
 public class SetEntryReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "setReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a reminder for a specific entry to \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a generalReminder for a specific entry to \n"
             + "to trigger before/ on the date of the event. \n"
             + "Parameters: "
             + PREFIX_DESC + "DESC"
@@ -45,7 +45,7 @@ public class SetEntryReminderCommand extends Command {
             + PREFIX_AMOUNT + "7"
             + PREFIX_PARAM + "days \n";
 
-    public static final String MESSAGE_SUCCESS = "Reminder Set";
+    public static final String MESSAGE_SUCCESS = "GeneralReminder Set";
     private Description message;
     private String entryType;
     private Index entryIndex;
@@ -88,9 +88,8 @@ public class SetEntryReminderCommand extends Command {
         target.setTracker(entryCondition);
         ArrayList<Condition> conditionWrapper = new ArrayList<Condition>();
         conditionWrapper.add(entryCondition);
-        Reminder entryReminder = new Reminder(message, conditionWrapper);
-        entryReminder.setEntrySpecificity(true);
-        model.addReminder(entryReminder);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, entryReminder));
+        GeneralReminder entryGeneralReminder = new GeneralReminder(message, conditionWrapper);
+        model.addReminder(entryGeneralReminder);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, entryGeneralReminder));
     }
 }
