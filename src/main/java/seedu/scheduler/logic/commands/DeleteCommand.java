@@ -29,7 +29,9 @@ public class DeleteCommand extends Command {
             + "NAME " + PREFIX_ROLE + "interviewee\n"
             + "Parameters to delete interviewees:\n"
             + "NAME " + PREFIX_ROLE + "interviewer\n"
-            + "Example: " + COMMAND_WORD + " John Doe" + "r/interviewee";
+            + "Examples:\n"
+            + COMMAND_WORD + " John Doe " + "r/interviewee\n"
+            + COMMAND_WORD + " Mary Jane " + "r/interviewer";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
