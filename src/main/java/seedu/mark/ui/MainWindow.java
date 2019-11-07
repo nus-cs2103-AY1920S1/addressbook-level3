@@ -4,18 +4,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.collections.ListChangeListener;
+import org.controlsfx.control.Notifications;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
@@ -24,7 +24,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
+
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
@@ -89,11 +89,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane folderStructurePlaceholder;
 
-    private ScheduledExecutorService executor = Executors.newScheduledThreadPool (1);
-    Runnable r = () -> showDueReminder();
-
     private ObservableList<Reminder> reminders;
-    private List<ReminderWindow> reminderWindows = new ArrayList<>();
+    private Timer timer = new Timer();
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -109,23 +106,9 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reminders = logic.getReminderList();
-        setReminderWindows();
-        reminders.addListener((ListChangeListener<? super Reminder>) change -> {
-            while (change.next()) {
-                setReminderWindows();
-            }
-        });
-        executor.scheduleAtFixedRate( r , 0L , 5L , TimeUnit.SECONDS);
+        displayReminderMessage();
     }
 
-    private void setReminderWindows() {
-        reminderWindows.clear();
-        for (int i = 0; i < reminders.size(); i++) {
-            Reminder reminder = reminders.get(i);
-            ReminderWindow window = new ReminderWindow(reminder.getUrl(), reminder.getNote());
-            reminderWindows.add(window);
-        }
-    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -226,9 +209,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        for (ReminderWindow window : reminderWindows) {
-            window.hide();
-        }
+        timer.cancel();
         primaryStage.hide();
     }
 
@@ -343,29 +324,88 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private long compareTime(LocalDateTime before, LocalDateTime after) {
+    /**
+     * Compare two time in hours.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in hour.
+     */
+    private long compareHour(LocalDateTime before, LocalDateTime after) {
         return Duration.between(before, after).toHours();
     }
 
-    private void showDueReminder() {
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("running show");
+    /**
+     * Compare two time in minutes.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in minute.
+     */
+    private long compareMinute(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(before, after).toMinutes();
+    }
 
-        for (int i = 0; i < reminders.size(); i++) {
-            Reminder reminder = reminders.get(i);
-            LocalDateTime remindTime = reminder.getRemindTime();
-            System.out.println(compareTime(now, remindTime));
-            System.out.println(now.isBefore(remindTime) && compareTime(now, remindTime) < 5);
-            if (now.isBefore(remindTime) && compareTime(now, remindTime) < 5) {
-                System.out.println(true);
-                ReminderWindow window = reminderWindows.get(i);
+    /**
+     * Creates a notification for a specific reminder.
+     *
+     * @param reminder the reminder that is used to create notification.
+     * @return the notification for reminder.
+     */
+    private Notifications getNoti(Reminder reminder) {
+        Notifications noti = Notifications.create();
+        noti.title(reminder.getNote().toString() + " " + reminder.getUrl().value);
+        noti.text("Due at : " + reminder.getFormattedTime());
 
-                if (window.isShowing()) {
-                    window.show();
-                } else {
-                    window.focus();
+        noti.hideAfter(javafx.util.Duration.seconds(60));
+        noti.position(Pos.BOTTOM_RIGHT);
+
+        return noti;
+    }
+
+    /**
+     * Display the reminder notification.
+     */
+    private void displayReminderMessage() {
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                LocalDateTime now = LocalDateTime.now();
+
+                try {
+                    for (int i = 0; i < reminders.size(); i++) {
+                        Reminder reminder = reminders.get(i);
+                        LocalDateTime remindTime = reminder.getRemindTime();
+                        System.out.println(compareHour(now, remindTime));
+                        System.out.println(now.isBefore(remindTime) && compareHour(now, remindTime) < 5);
+                        if (now.isBefore(remindTime) && compareHour(now, remindTime) < 5 && !reminder.getShow()) {
+                            System.out.println("show notice");
+                            Notifications noti = getNoti(reminder);
+
+                            Platform.runLater(() -> {
+                                noti.show();
+                            });
+
+                            reminder.toShow();
+
+                        } else if (compareMinute(now, remindTime) == 0 && !reminder.getDue()) {
+                            System.out.println("show notice");
+                            Notifications noti = getNoti(reminder);
+
+                            Platform.runLater(() -> {
+                                noti.show();
+                            });
+                            reminder.setDue();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
-        }
+        };
+
+        timer.schedule(task, 0, 1 * 1000);
     }
 }
