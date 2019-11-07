@@ -41,27 +41,27 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
         .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-        .withPhone("94351253").withDateOfBirth("12.12.1982").withGender("Female")
-        .withPolicies(HEALTH_INSURANCE).withTags("diabetic", "high blood pressure").build();
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Female")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("diabetic", "high blood pressure").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
         .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
-        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1942").withGender("Male")
-        .withPolicies(LIFE_INSURANCE).withTags("smoker", "disabled", "high blood pressure").build();
+        .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922").withGender("Male")
+        .withPolicies(LIFE_INSURANCE).withTags("smoker", "disabled").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S0000003J")
         .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
-        .withDateOfBirth("6.6.1996").withGender("Male").withTags("asthmatic").build();
+        .withDateOfBirth("6.6.1996").withGender("Male").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withNric("S0000004J")
         .withPhone("87652533").withEmail("cornelia@example.com").withAddress("10th street")
-        .withDateOfBirth("14.2.2019").withGender("Male").withTags("tuberculosis").build();
+        .withDateOfBirth("14.2.2019").withGender("Male").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S0000005J")
         .withPhone("94822247").withEmail("werner@example.com").withAddress("michegan ave")
-        .withDateOfBirth("17.5.2000").withGender("Male").withTags("myopic").build();
+        .withDateOfBirth("17.5.2000").withGender("Male").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withNric("S0000006J")
         .withPhone("94824279").withEmail("lydia@example.com").withAddress("little tokyo")
-        .withDateOfBirth("15.8.2008").withGender("Female").withTags("pregnant").build();
+        .withDateOfBirth("15.8.2008").withGender("Female").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S0000007J")
         .withPhone("94824425").withEmail("anna@example.com").withAddress("4th street")
-        .withDateOfBirth("5.5.2015").withGender("Male").withTags("glaucoma").build();
+        .withDateOfBirth("5.5.2015").withGender("Male").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withNric("S0123456H")
@@ -99,7 +99,7 @@ public class TypicalPersons {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         result.put(HEALTH_INSURANCE.getName().toString(), 1);
         result.put(LIFE_INSURANCE.getName().toString(), 1);
-        result.put(FIRE_INSURANCE.getName().toString(), 0);
+        result.put(FIRE_INSURANCE.getName().toString(), 1);
         return result;
     }
 

@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertListPeopleComma
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,15 +71,15 @@ public class FindTagPeopleCommandTest {
     }
 
     @Test
-    public void execute_singleTag_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+    public void execute_singleTag_singlePersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         List<String> tagNames = prepareInput(" t/high blood pressure");
         FindTagPeopleCommand command = new FindTagPeopleCommand(tagNames);
         PersonPossessesTagsPredicate predicate = new PersonPossessesTagsPredicate(
                 Collections.singletonList(new Tag("high blood pressure")));
         expectedModel.updateFilteredPersonList(predicate);
         assertListPeopleCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
     }
 
     /**
