@@ -2,6 +2,9 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S1-CS2103T-F14-4/main[image:https://travis-ci.com/AY1920S1-CS2103T-F14-4/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-F14-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-4/main/badge.svg?branch=master[CoverageStatus]]
+https://www.codacy.com/manual/AY1920S1-CS2103T-F14-4/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F14-4/main&utm_campaign=Badge_Grade"[image:https://api.codacy.com/project/badge/Grade/c70f6c331d00403aade9c0acf4bfe43f[Codacy Badge]]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -11,7 +14,8 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently. While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
+
 * See below for a detailed introduction.
 
 == Site Map
@@ -26,7 +30,7 @@ endif::[]
 * The code base is developed based on the `AddressBook-Level3` project by https://se-education.org[SE-EDU initiative].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/itext/itext7[iText7]
 
 
 == Licence : link:LICENSE[MIT]
