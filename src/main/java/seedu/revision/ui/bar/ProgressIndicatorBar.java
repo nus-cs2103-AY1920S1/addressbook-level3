@@ -1,5 +1,6 @@
 package seedu.revision.ui.bar;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,20 +22,20 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     @FXML
     protected Text text = new Text();
 
-    private final ReadOnlyDoubleProperty workDone;
-    private final double totalWork;
+    private final ReadOnlyDoubleProperty currentScore;
+    private final double totalScore;
     private final String labelFormatSpecifier;
 
-    public ProgressIndicatorBar(final ReadOnlyDoubleProperty workDone, final double totalWork,
+    public ProgressIndicatorBar(final ReadOnlyDoubleProperty currentScore, final double totalScore,
                                 final String labelFormatSpecifier) {
         super(FXML);
-        this.workDone = workDone;
-        this.totalWork = totalWork;
+        this.currentScore = currentScore;
+        this.totalScore = totalScore;
         this.labelFormatSpecifier = labelFormatSpecifier;
         bar.getStyleClass().add("progress-bar");
 
         syncProgress();
-        workDone.addListener(new ChangeListener<Number>() {
+        currentScore.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 syncProgress();
@@ -49,15 +50,26 @@ public class ProgressIndicatorBar extends UiPart<Region> {
      * Synchronizes the progress indicated with the work done.
      */
     private void syncProgress() {
-        if (workDone == null || totalWork == 0) {
-            text.setText("");
-            bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-        } else {
-            text.setText(String.format(labelFormatSpecifier, Math.ceil(workDone.get())));
-            bar.setProgress(workDone.get() / totalWork);
-        }
+        //Run on the JavaFX Application Thread.
+        Platform.runLater(() -> {
+            if (currentScore == null || totalScore == 0) {
+                text.setText("");
+                bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+            } else {
+                text.setText(String.format(labelFormatSpecifier, Math.ceil(currentScore.get())));
+                bar.setProgress(currentScore.get() / totalScore);
+            }
 
-        bar.setMinHeight(text.getBoundsInLocal().getHeight() + DEFAULT_LABEL_PADDING * 2);
-        bar.setMinWidth (text.getBoundsInLocal().getWidth() + DEFAULT_LABEL_PADDING * 2);
+            bar.setMinHeight(text.getBoundsInLocal().getHeight() + DEFAULT_LABEL_PADDING * 2);
+            bar.setMinWidth(text.getBoundsInLocal().getWidth() + DEFAULT_LABEL_PADDING * 2);
+        });
+    }
+
+    public ProgressBar getBar() {
+        return bar;
+    }
+
+    public Text getText() {
+        return text;
     }
 }

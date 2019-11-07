@@ -24,6 +24,7 @@ import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.main.StartCommand;
 import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.ParserManager;
@@ -93,6 +94,13 @@ public class ParserManagerTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " diff/1") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_start() throws Exception {
+        assertTrue(parser.parseCommand(StartCommand.COMMAND_WORD + " mode/normal") instanceof StartCommand);
+        assertTrue(parser.parseCommand(StartCommand.COMMAND_WORD + " mode/custom") instanceof StartCommand);
+        assertTrue(parser.parseCommand(StartCommand.COMMAND_WORD + " mode/arcade") instanceof StartCommand);
     }
 
     @Test

@@ -33,7 +33,7 @@ import seedu.revision.ui.bar.Timer;
  * The Quiz Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class StartQuizWindow extends Window {
+public class StartQuizWindow extends ParentWindow {
 
     protected static final String FXML = "StartQuizWindow.fxml";
 
@@ -239,8 +239,8 @@ public class StartQuizWindow extends Window {
                 handleExit();
             } else {
                 //Reset UI in the window
-                levelLabel = new LevelLabel(nextLevel);
-                levelPlaceholder.getChildren().add(levelLabel.getRoot());
+                levelLabel.updateLevelLabel(nextLevel);
+
                 currentProgressIndex.set(0);
                 progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                         getSizeOfCurrentLevel(nextAnswerable),

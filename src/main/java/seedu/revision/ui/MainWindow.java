@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -27,7 +25,7 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends Window {
+public class MainWindow extends ParentWindow {
 
     protected static final String FXML = "MainWindow.fxml";
 

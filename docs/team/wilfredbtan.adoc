@@ -12,8 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:functionalCodeUrl: https://github.com/AY1920S1-CS2103-F10-3/main/tree/master/src/main/java/seedu/revision
-:testCodeUrl: https://github.com/AY1920S1-CS2103-F10-3/main/tree/master/src/test
+:contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=wilfredbtan
 :ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
 :pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
 
@@ -59,7 +58,7 @@ of many of the other features.
 ** Added a progress bar for each level in the quiz.
 ** Implemented the adaptable UI for each type of question’s answers (i.e. allowing the GUI to change from displaying 4 panels for MCQs to 2 panels for True & False questions).
 
-* *Code contributed*: [link:{functionalCodeUrl}/[Functional Code, window=blank]] [link:{testCodeUrl}/[Test Code, window=blank]]
+* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUtl}/[here, window=blank]
 
 * *Other contributions*:
 

@@ -102,7 +102,15 @@ public class AlertDialog {
         return result;
     }
 
+    public ButtonType getYesButton() {
+        return yesButton;
+    }
+
     public ButtonType getNoButton() {
         return noButton;
+    }
+
+    public Alert getAlert() {
+        return alert;
     }
 }
