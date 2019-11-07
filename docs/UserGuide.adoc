@@ -232,7 +232,7 @@ You can now `sort` your transactions according to `date` or `amount`. +
 Format: `sort PREDICATE`
 
 ****
-* You are only able to `sort` by `date` and `amount` in v1.3.
+* You are only able to `sort` by `date` and `amount` in v1.4.
 * Transactions will be sorted in ascending order.
 ****
 
@@ -245,19 +245,38 @@ Examples:
 // tag::filter[]
 === Filtering Transactions : `filter`
 
-PalPay gives you the power to filter your transactions with your desired `CATEGORY`. +
+Here at PalPay, you do not need to scroll through your history of transactions to find out what you spend two months ago.
+PalPay gives you the power to filter your transactions to solve that problem. +
+
+
+==== Command Syntax
+
 Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 
 ****
+* `YEAR` only accepts integers from 1900 to 9999.
+* `MONTH` only accepts integers from 1 to 12.
 * All transactions with at least one `CATEGORY` in the `[c/CATEGORY]...` input will be displayed.
 * Example: `filter c/transport c/allowance y/2019` will display transactions with `transport`, `allowance`, or
 `transport` and `allowance` that occurred in 2019.
 ****
 
-Examples:
+==== Example usage:
 
-* `filter m/2 n/Genki Sushi`
-* `filter c/transport c/allowance y/2019`
+Imagine that you wanted to find out what you spent while shopping in October 2019.
+
+. By default, PalPay shows your all your transactions you have made.
++
+image::filter1.png[]
++
+. Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
++
+image::filter2.png[]
++
+. You will now see the list of transactions you have made while shopping in October 2019. Hurray!
++
+image::filter3.png[]
+
 // end::filter[]
 
 === Projecting Balance : `project`
