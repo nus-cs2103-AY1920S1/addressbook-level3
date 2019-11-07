@@ -1,21 +1,24 @@
 @startuml
-skinparam classAttributeIconSize 0
-abstract class Command
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Command <<Rectangle>> {
+    Class "{abstract}\nCommand" as Command
+    Class UndoCommand
+    Class RedoCommand
+}
 
 UndoCommand -up-|> Command
 RedoCommand -up-|> Command
 
-abstract class Command {
-{abstract}+execute(Model)
-{abstract}+executeInverse(Model)
-}
-
-class UndoCommand {
--int numberOfTries
+class Command {
+    void execute(model)
 }
 
 class RedoCommand {
--int numberOfTries
+int numberOfTries
 }
 
 @enduml
