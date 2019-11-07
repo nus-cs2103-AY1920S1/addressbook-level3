@@ -125,6 +125,11 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
+    public void clearPlans() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addPlan(Plan plan) {
         throw new AssertionError("This method should not be called.");
     }
