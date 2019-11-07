@@ -54,7 +54,7 @@ public class BudgetCard extends UiPart<Region> {
     private void displayRemDays(Budget budget) {
         budgetDetails.getChildren().add(new Label(budget.getBetween()));
         if (budget.getBetweenRaw() <= 3) {
-            budgetDetails.setId("DEFICIT");
+            budgetDetails.setId("remDays");
         }
     }
 

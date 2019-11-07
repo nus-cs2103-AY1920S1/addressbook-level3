@@ -166,7 +166,18 @@ To set a new budget: +
 4. Now you can see the newly set budget in the budget list. +
 
 As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
-to display the remaining amount of budget. If you overspend
+to display the remaining amount of budget. If you overspend beyond a set budget, the overspent budget will be displayed in red.
+Shown below as budget index 3 is an example of an overspent budget:
+
+.Overspent Budget
+image::overspentBudget.png[]
+
+As the day you have set for the budget approaches, the countdown placeholder as well as the percentage remaining placeholder
+will turn to red when the number of remaining days reaches 3 and below.
+Shown below as budget index 4 is an example of a budget approaching its deadline:
+
+.Budget approaching deadline
+image::approachingBudget.png[]
 
 
 // tag::view[]
