@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_CANNOT_ASSIGN_FRIDGE;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 import static seedu.address.model.entity.fridge.FridgeStatus.OCCUPIED;
@@ -226,9 +227,6 @@ public class UpdateCommandTest extends GuiUnitTest {
         assertEquals(model.getFilteredNotifList().size(), 1);
     }
 
-    // is this test supposed to work? seems like it will execute NotifCommand which has ses that will disrupt junit
-
-    /*
     @Test
     public void executeBody_addNotifOnChangeToArrival_success() throws CommandException, InterruptedException {
         Body body = new BodyBuilder().withStatus("pending police report").build();
@@ -241,10 +239,9 @@ public class UpdateCommandTest extends GuiUnitTest {
         updateCommand.execute(model);
 
         assertEquals(1, model.getFilteredNotifList().size());
-        model.deleteEntity(body);
         model.deleteNotif(model.getFilteredNotifList().get(0));
+        model.deleteEntity(body);
     }
-    */
 
     @Test
     public void executeBody_removeBodyFromFridge_success() throws CommandException {

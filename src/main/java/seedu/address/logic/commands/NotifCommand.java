@@ -99,28 +99,32 @@ public class NotifCommand extends Command {
      */
     public void startSesChangeBodyStatusUi(Model model) {
 
-        Body body = notif.getBody();
-        String notifContent = "Body Id: " + body.getIdNum()
-                + "\nName: " + body.getName()
-                + "\nNext of Kin has been uncontactable. Please contact the police";
-
         Runnable changeUi = () -> Platform.runLater(() -> {
+            Body body = notif.getBody();
+            String notifContent = "Body Id: " + body.getIdNum()
+                    + "\nName: " + body.getName()
+                    + "\nNext of Kin has been uncontactable. Please contact the police";
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
                 up.setUpdateFromNotif(true);
                 body.setBodyStatus(ARRIVED);
+
+                if (model.hasNotif(notif)) {
+                    model.deleteNotif(notif);
+                }
+
+                Platform.runLater(() -> {
+                    if (!model.hasNotif(notif)) {
+                        model.addNotif(notif);
+                    }
+                });
+
                 try {
                     up.execute(model);
                     NotifWindow notifWindow = new NotifWindow();
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
-                    if (model.hasNotif(notif)) {
-                        model.deleteNotif(notif);
-                        model.addNotif(notif);
-                    } else {
-                        model.addNotif(notif);
-                    }
                     storageManager.saveAddressBook(model.getAddressBook());
 
                 } catch (CommandException | IOException e) {
@@ -128,6 +132,7 @@ public class NotifCommand extends Command {
                 }
             }
         });
+
         ses.schedule(changeUi, period, timeUnit);
     }
 

@@ -191,7 +191,11 @@ public class UpdateCommand extends UndoableCommand {
                 if (updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && !doesNotifExist(model)) {
                     Notif notif = new Notif((Body) entity);
-                    Platform.runLater(() -> model.addNotif(notif));
+                    Platform.runLater(() -> {
+                        if (!model.hasNotif(notif)) {
+                            model.addNotif(notif);
+                        }
+                    });
                 }
 
             }
@@ -225,11 +229,11 @@ public class UpdateCommand extends UndoableCommand {
     private void handleUpdatingFridgeAndEntity(Model model, UpdateBodyDescriptor originalBodyDescriptor,
                                                UpdateBodyDescriptor updateBodyDescriptor) throws CommandException {
         List<Fridge> fridgeList = model.getFilteredFridgeList();
-        boolean initallyNoFridge = true;
+        boolean isFridgeInModel = true;
         for (Fridge fridge : fridgeList) {
             if (Optional.ofNullable(fridge.getIdNum()).equals(originalBodyDescriptor.getFridgeId())) {
                 this.originalFridge = fridge;
-                initallyNoFridge = false;
+                isFridgeInModel = false;
             }
             if (!(updateBodyDescriptor.getFridgeId() == null)) {
 
@@ -246,7 +250,7 @@ public class UpdateCommand extends UndoableCommand {
             this.originalFridge.setBody(null);
             this.updatedFridge.setBody((Body) entity);
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        } else if (initallyNoFridge) {
+        } else if (isFridgeInModel) {
             this.updatedFridge.setBody((Body) entity);
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
         } else if (this.updatedFridge == null) {
