@@ -1,5 +1,6 @@
 package seedu.moolah.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -37,7 +38,15 @@ public class Timekeeper {
      */
     public void updateTime() {
         systemTime = new Timestamp(LocalDateTime.now());
-        refreshBudgets();
+        if (isAtDayBreak(systemTime)) {
+            refreshBudgets();
+        }
+    }
+
+    private boolean isAtDayBreak(Timestamp timeNow) {
+        LocalDate dateNow = timeNow.getDate();
+        LocalDate dateJustNow = timeNow.getDateJustNow();
+        return !dateNow.equals(dateJustNow);
     }
 
     /**

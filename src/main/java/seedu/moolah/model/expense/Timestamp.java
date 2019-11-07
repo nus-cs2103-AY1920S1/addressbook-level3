@@ -146,6 +146,10 @@ public class Timestamp implements Comparable<Timestamp> {
         return fullTimestamp.toLocalDate();
     }
 
+    public LocalDate getDateJustNow() {
+        return fullTimestamp.minusSeconds(10).toLocalDate();
+    }
+
     public Timestamp toStartOfDay() {
         return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
