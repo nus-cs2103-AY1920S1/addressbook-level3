@@ -31,6 +31,10 @@ public abstract class WordBankCommandResult extends CommandResult {
         this.filePath = filePath;
     }
 
+    public WordBankCommandResult(String feedback) {
+        super(feedback);
+    }
+
     public abstract void updateStorage(Storage storage) throws DataConversionException, IllegalValueException;
 
 }

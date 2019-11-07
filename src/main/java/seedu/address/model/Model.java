@@ -125,6 +125,8 @@ public interface Model {
 
     WordBankStatisticsList getWordBankStatisticsList();
 
+    void clearActiveWordBankStatistics();
+
     GlobalStatistics getGlobalStatistics();
 
     /**

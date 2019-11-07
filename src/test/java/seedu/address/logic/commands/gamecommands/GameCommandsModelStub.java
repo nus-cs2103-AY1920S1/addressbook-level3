@@ -86,11 +86,17 @@ class GameCommandsModelStub implements Model {
     @Override
     public void clearWordBank() {
         // Stub method that is not used.
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ReadOnlyWordBank getCurrentWordBank() {
         return wordBank;
+    }
+
+    @Override
+    public void clearActiveWordBankStatistics() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -101,16 +107,19 @@ class GameCommandsModelStub implements Model {
     @Override
     public void deleteCard(Card target) {
         // Stub method that is not used.
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addCard(Card card) {
         // Stub method that is not used.
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
         // Stub method that is not used.
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
