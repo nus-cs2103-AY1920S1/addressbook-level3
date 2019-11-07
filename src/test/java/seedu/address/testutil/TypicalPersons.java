@@ -35,13 +35,13 @@ public class TypicalPersons {
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withRemark("WTF CARL?!")
             .withTags("LALALA").build();
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Person DANIEL = new PersonBuilder().withRemark("DANIELLLLL").withName("Daniel Meier").withPhone("87652533")
+            .withEmail("cornelia@example.com").withRemark("CORNELIA LOL").withAddress("10th street").withTags("friends").build();
+    public static final Person ELLE = new PersonBuilder().withRemark("ELLEN?").withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+    public static final Person FIONA = new PersonBuilder().withRemark("FIONA FROM SHREK?").withName("Fiona Kunz").withPhone("9482427")
+            .withEmail("lydia@example.com").withRemark("lyd").withAddress("little tokyo").build();
+    public static final Person GEORGE = new PersonBuilder().withRemark("friend").withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added

@@ -1,0 +1,1995 @@
+{
+  "user" : {
+    "personId" : "-1",
+    "name" : "Alice",
+    "phone" : "91239123",
+    "email" : "alice@gmail.com",
+    "address" : "Kent Ridge Drive",
+    "remark" : "",
+    "schedule" : {
+      "personId" : "-1",
+      "events" : [ {
+        "eventName" : "Project Meeting",
+        "timeSlots" : [ {
+          "startTime" : "31 Oct 2019 08:00",
+          "endTime" : "31 Oct 2019 09:30",
+          "venue" : "I3"
+        }, {
+          "startTime" : "01 Nov 2019 12:30",
+          "endTime" : "01 Nov 2019 13:00",
+          "venue" : "LT32"
+        }, {
+          "startTime" : "02 Nov 2019 11:45",
+          "endTime" : "02 Nov 2019 12:15",
+          "venue" : "AS6"
+        }, {
+          "startTime" : "03 Nov 2019 12:00",
+          "endTime" : "03 Nov 2019 13:00",
+          "venue" : "COM1"
+        }, {
+          "startTime" : "05 Nov 2019 13:00",
+          "endTime" : "05 Nov 2019 13:30",
+          "venue" : "COM2"
+        } ]
+      }, {
+        "eventName" : "CS2103 lecture",
+        "timeSlots" : [ {
+          "startTime" : "31 Oct 2019 15:00",
+          "endTime" : "31 Oct 2019 16:30",
+          "venue" : "COM1"
+        }, {
+          "startTime" : "02 Nov 2019 09:00",
+          "endTime" : "02 Nov 2019 10:30",
+          "venue" : "COM2"
+        }, {
+          "startTime" : "03 Nov 2019 16:00",
+          "endTime" : "03 Nov 2019 18:30",
+          "venue" : "BIZ2"
+        } ]
+      }, {
+        "eventName" : "kjweh",
+        "timeSlots" : [ {
+          "startTime" : "17 Aug 1997 12:00",
+          "endTime" : "17 Aug 1997 14:00",
+          "venue" : "LT9"
+        } ]
+      }, {
+        "eventName" : "jhdw",
+        "timeSlots" : [ {
+          "startTime" : "17 Aug 1997 16:00",
+          "endTime" : "17 Aug 1997 18:00",
+          "venue" : "AS4-0116"
+        } ]
+      } ]
+    },
+    "tagged" : [ ]
+  },
+  "personList" : [ {
+    "personId" : "0",
+    "name" : "Bobby",
+    "phone" : "81259728",
+    "email" : "bobby@gmail.com",
+    "address" : "Hougang road",
+    "remark" : "Best friend",
+    "schedule" : {
+      "personId" : "0",
+      "events" : [ {
+        "eventName" : "Work on project",
+        "timeSlots" : [ {
+          "startTime" : "31 Oct 2019 11:00",
+          "endTime" : "31 Oct 2019 11:30",
+          "venue" : "BIZ1"
+        }, {
+          "startTime" : "02 Nov 2019 12:00",
+          "endTime" : "02 Nov 2019 12:30",
+          "venue" : "BIZ2"
+        }, {
+          "startTime" : "03 Nov 2019 13:00",
+          "endTime" : "03 Nov 2019 13:30",
+          "venue" : "S16"
+        }, {
+          "startTime" : "04 Nov 2019 12:15",
+          "endTime" : "04 Nov 2019 12:45",
+          "venue" : "SDE1"
+        }, {
+          "startTime" : "06 Nov 2019 12:00",
+          "endTime" : "06 Nov 2019 12:30",
+          "venue" : "COM1"
+        } ]
+      }, {
+        "eventName" : "MA1521 lecture",
+        "timeSlots" : [ {
+          "startTime" : "31 Oct 2019 14:00",
+          "endTime" : "31 Oct 2019 15:30",
+          "venue" : "E1"
+        }, {
+          "startTime" : "02 Nov 2019 15:00",
+          "endTime" : "02 Nov 2019 16:30",
+          "venue" : "AS6"
+        }, {
+          "startTime" : "03 Nov 2019 17:00",
+          "endTime" : "03 Nov 2019 18:00",
+          "venue" : "USP"
+        }, {
+          "startTime" : "03 Nov 2019 14:00",
+          "endTime" : "03 Nov 2019 15:30",
+          "venue" : "UTSRC-SR2"
+        } ]
+      } ]
+    },
+    "tagged" : [ "Friends" ]
+  }, {
+    "personId" : "1",
+    "name" : "Charlie",
+    "phone" : "91642323",
+    "email" : "charlie@gmail.com",
+    "address" : "Sembawang ring road",
+    "remark" : "Project mate",
+    "schedule" : {
+      "personId" : "1",
+      "events" : [ {
+        "eventName" : "Swimming class",
+        "timeSlots" : [ {
+          "startTime" : "01 Nov 2019 12:00",
+          "endTime" : "01 Nov 2019 13:30",
+          "venue" : "S1A"
+        }, {
+          "startTime" : "02 Nov 2019 13:00",
+          "endTime" : "02 Nov 2019 13:30",
+          "venue" : "S2"
+        }, {
+          "startTime" : "03 Nov 2019 11:00",
+          "endTime" : "03 Nov 2019 12:30",
+          "venue" : "S5"
+        }, {
+          "startTime" : "05 Nov 2019 10:15",
+          "endTime" : "05 Nov 2019 12:45",
+          "venue" : "S12"
+        }, {
+          "startTime" : "06 Nov 2019 12:00",
+          "endTime" : "06 Nov 2019 13:00",
+          "venue" : "S16"
+        } ]
+      }, {
+        "eventName" : "LSM1301 lecture",
+        "timeSlots" : [ {
+          "startTime" : "02 Nov 2019 14:00",
+          "endTime" : "02 Nov 2019 15:30",
+          "venue" : "TP-SR1"
+        }, {
+          "startTime" : "04 Nov 2019 10:00",
+          "endTime" : "04 Nov 2019 10:30",
+          "venue" : "UTSRC-LT51"
+        }, {
+          "startTime" : "05 Nov 2019 16:00",
+          "endTime" : "05 Nov 2019 17:00",
+          "venue" : "UT-AUD1"
+        }, {
+          "startTime" : "06 Nov 2019 13:30",
+          "endTime" : "06 Nov 2019 14:30",
+          "venue" : "UT-AUD2"
+        } ]
+      } ]
+    },
+    "tagged" : [ "Friends" ]
+  }, {
+    "personId" : "2",
+    "name" : "Denise",
+    "phone" : "88642263",
+    "email" : "denise@gmail.com",
+    "address" : "Kovan road 77",
+    "remark" : "Neighbour",
+    "schedule" : {
+      "personId" : "2",
+      "events" : [ {
+        "eventName" : "Hall activities",
+        "timeSlots" : [ {
+          "startTime" : "01 Nov 2019 11:00",
+          "endTime" : "01 Nov 2019 12:30",
+          "venue" : "LT19"
+        }, {
+          "startTime" : "02 Nov 2019 10:00",
+          "endTime" : "02 Nov 2019 11:30",
+          "venue" : "LT20"
+        }, {
+          "startTime" : "03 Nov 2019 11:00",
+          "endTime" : "03 Nov 2019 11:30",
+          "venue" : "LT34"
+        }, {
+          "startTime" : "05 Nov 2019 11:15",
+          "endTime" : "05 Nov 2019 12:30",
+          "venue" : "LT21"
+        }, {
+          "startTime" : "06 Nov 2019 11:00",
+          "endTime" : "06 Nov 2019 11:30",
+          "venue" : "LT19"
+        } ]
+      }, {
+        "eventName" : "GEQ1000 lecture",
+        "timeSlots" : [ {
+          "startTime" : "01 Nov 2019 14:00",
+          "endTime" : "01 Nov 2019 15:30",
+          "venue" : "MD1"
+        }, {
+          "startTime" : "03 Nov 2019 08:00",
+          "endTime" : "03 Nov 2019 09:30",
+          "venue" : "PGPH-FR4"
+        }, {
+          "startTime" : "05 Nov 2019 14:00",
+          "endTime" : "05 Nov 2019 15:00",
+          "venue" : "SDE-ER4"
+        }, {
+          "startTime" : "06 Nov 2019 17:00",
+          "endTime" : "06 Nov 2019 18:30",
+          "venue" : "LT17"
+        } ]
+      } ]
+    },
+    "tagged" : [ "Neighbour", "Friends" ]
+  }, {
+    "personId" : "3",
+    "name" : "Emily",
+    "phone" : "98674512",
+    "email" : "emily@gmail.com",
+    "address" : "Boon Lay road 69",
+    "remark" : "Friend",
+    "schedule" : {
+      "personId" : "3",
+      "events" : [ {
+        "eventName" : "CS2101 lecture",
+        "timeSlots" : [ {
+          "startTime" : "02 Nov 2019 14:00",
+          "endTime" : "02 Nov 2019 15:30",
+          "venue" : "L51"
+        }, {
+          "startTime" : "03 Nov 2019 16:00",
+          "endTime" : "03 Nov 2019 17:30",
+          "venue" : "L52"
+        }, {
+          "startTime" : "05 Nov 2019 08:00",
+          "endTime" : "05 Nov 2019 10:00",
+          "venue" : "L53"
+        }, {
+          "startTime" : "06 Nov 2019 09:00",
+          "endTime" : "06 Nov 2019 10:30",
+          "venue" : "L54"
+        } ]
+      } ]
+    },
+    "tagged" : [ "Friends" ]
+  }, {
+    "personId" : "4",
+    "name" : "Klement",
+    "phone" : "",
+    "email" : "",
+    "address" : "",
+    "remark" : "",
+    "schedule" : {
+      "personId" : "4",
+      "events" : [ {
+        "eventName" : "CS2100",
+        "timeSlots" : [ {
+          "startTime" : "19 Aug 2019 09:00",
+          "endTime" : "19 Aug 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "26 Aug 2019 09:00",
+          "endTime" : "26 Aug 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "02 Sep 2019 09:00",
+          "endTime" : "02 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "09 Sep 2019 09:00",
+          "endTime" : "09 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "16 Sep 2019 09:00",
+          "endTime" : "16 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "30 Sep 2019 09:00",
+          "endTime" : "30 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "07 Oct 2019 09:00",
+          "endTime" : "07 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "14 Oct 2019 09:00",
+          "endTime" : "14 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "21 Oct 2019 09:00",
+          "endTime" : "21 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "28 Oct 2019 09:00",
+          "endTime" : "28 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "04 Nov 2019 09:00",
+          "endTime" : "04 Nov 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "11 Nov 2019 09:00",
+          "endTime" : "11 Nov 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "14 Aug 2019 09:00",
+          "endTime" : "14 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "21 Aug 2019 09:00",
+          "endTime" : "21 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "28 Aug 2019 09:00",
+          "endTime" : "28 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "04 Sep 2019 09:00",
+          "endTime" : "04 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "11 Sep 2019 09:00",
+          "endTime" : "11 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "18 Sep 2019 09:00",
+          "endTime" : "18 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "02 Oct 2019 09:00",
+          "endTime" : "02 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "09 Oct 2019 09:00",
+          "endTime" : "09 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "16 Oct 2019 09:00",
+          "endTime" : "16 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "23 Oct 2019 09:00",
+          "endTime" : "23 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "30 Oct 2019 09:00",
+          "endTime" : "30 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "06 Nov 2019 09:00",
+          "endTime" : "06 Nov 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Nov 2019 09:00",
+          "endTime" : "13 Nov 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Aug 2019 16:00",
+          "endTime" : "13 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Aug 2019 16:00",
+          "endTime" : "20 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "27 Aug 2019 16:00",
+          "endTime" : "27 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "03 Sep 2019 16:00",
+          "endTime" : "03 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "10 Sep 2019 16:00",
+          "endTime" : "10 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "17 Sep 2019 16:00",
+          "endTime" : "17 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Oct 2019 16:00",
+          "endTime" : "01 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Oct 2019 16:00",
+          "endTime" : "08 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Oct 2019 16:00",
+          "endTime" : "15 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "22 Oct 2019 16:00",
+          "endTime" : "22 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Oct 2019 16:00",
+          "endTime" : "29 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "05 Nov 2019 16:00",
+          "endTime" : "05 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "12 Nov 2019 16:00",
+          "endTime" : "12 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "19 Aug 2019 16:00",
+          "endTime" : "19 Aug 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "26 Aug 2019 16:00",
+          "endTime" : "26 Aug 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "02 Sep 2019 16:00",
+          "endTime" : "02 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "09 Sep 2019 16:00",
+          "endTime" : "09 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "16 Sep 2019 16:00",
+          "endTime" : "16 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "30 Sep 2019 16:00",
+          "endTime" : "30 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "07 Oct 2019 16:00",
+          "endTime" : "07 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "14 Oct 2019 16:00",
+          "endTime" : "14 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "21 Oct 2019 16:00",
+          "endTime" : "21 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "28 Oct 2019 16:00",
+          "endTime" : "28 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "04 Nov 2019 16:00",
+          "endTime" : "04 Nov 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "11 Nov 2019 16:00",
+          "endTime" : "11 Nov 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "28 Nov 2019 09:00",
+          "endTime" : "28 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "CS2103T",
+        "timeSlots" : [ {
+          "startTime" : "16 Aug 2019 14:00",
+          "endTime" : "16 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "23 Aug 2019 14:00",
+          "endTime" : "23 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "30 Aug 2019 14:00",
+          "endTime" : "30 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "06 Sep 2019 14:00",
+          "endTime" : "06 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "13 Sep 2019 14:00",
+          "endTime" : "13 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "20 Sep 2019 14:00",
+          "endTime" : "20 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "04 Oct 2019 14:00",
+          "endTime" : "04 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "11 Oct 2019 14:00",
+          "endTime" : "11 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "18 Oct 2019 14:00",
+          "endTime" : "18 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "25 Oct 2019 14:00",
+          "endTime" : "25 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "01 Nov 2019 14:00",
+          "endTime" : "01 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "08 Nov 2019 14:00",
+          "endTime" : "08 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Nov 2019 14:00",
+          "endTime" : "15 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "13 Aug 2019 14:00",
+          "endTime" : "13 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "20 Aug 2019 14:00",
+          "endTime" : "20 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "27 Aug 2019 14:00",
+          "endTime" : "27 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "03 Sep 2019 14:00",
+          "endTime" : "03 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "10 Sep 2019 14:00",
+          "endTime" : "10 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "17 Sep 2019 14:00",
+          "endTime" : "17 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "01 Oct 2019 14:00",
+          "endTime" : "01 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "08 Oct 2019 14:00",
+          "endTime" : "08 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Oct 2019 14:00",
+          "endTime" : "15 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "22 Oct 2019 14:00",
+          "endTime" : "22 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "29 Oct 2019 14:00",
+          "endTime" : "29 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "05 Nov 2019 14:00",
+          "endTime" : "05 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "12 Nov 2019 14:00",
+          "endTime" : "12 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Aug 2019 10:00",
+          "endTime" : "15 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "22 Aug 2019 10:00",
+          "endTime" : "22 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "29 Aug 2019 10:00",
+          "endTime" : "29 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "05 Sep 2019 10:00",
+          "endTime" : "05 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "12 Sep 2019 10:00",
+          "endTime" : "12 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "19 Sep 2019 10:00",
+          "endTime" : "19 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "03 Oct 2019 10:00",
+          "endTime" : "03 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "10 Oct 2019 10:00",
+          "endTime" : "10 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "17 Oct 2019 10:00",
+          "endTime" : "17 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "24 Oct 2019 10:00",
+          "endTime" : "24 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "31 Oct 2019 10:00",
+          "endTime" : "31 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "07 Nov 2019 10:00",
+          "endTime" : "07 Nov 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "14 Nov 2019 10:00",
+          "endTime" : "14 Nov 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "16 Aug 2019 16:00",
+          "endTime" : "16 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "23 Aug 2019 16:00",
+          "endTime" : "23 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "30 Aug 2019 16:00",
+          "endTime" : "30 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "06 Sep 2019 16:00",
+          "endTime" : "06 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Sep 2019 16:00",
+          "endTime" : "13 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Sep 2019 16:00",
+          "endTime" : "20 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "04 Oct 2019 16:00",
+          "endTime" : "04 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "11 Oct 2019 16:00",
+          "endTime" : "11 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "18 Oct 2019 16:00",
+          "endTime" : "18 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "25 Oct 2019 16:00",
+          "endTime" : "25 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Nov 2019 16:00",
+          "endTime" : "01 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Nov 2019 16:00",
+          "endTime" : "08 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Nov 2019 16:00",
+          "endTime" : "15 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Nov 2019 09:00",
+          "endTime" : "29 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "CS3230",
+        "timeSlots" : [ {
+          "startTime" : "14 Aug 2019 10:00",
+          "endTime" : "14 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "21 Aug 2019 10:00",
+          "endTime" : "21 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "28 Aug 2019 10:00",
+          "endTime" : "28 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "04 Sep 2019 10:00",
+          "endTime" : "04 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "11 Sep 2019 10:00",
+          "endTime" : "11 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "18 Sep 2019 10:00",
+          "endTime" : "18 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "02 Oct 2019 10:00",
+          "endTime" : "02 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "09 Oct 2019 10:00",
+          "endTime" : "09 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "16 Oct 2019 10:00",
+          "endTime" : "16 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "23 Oct 2019 10:00",
+          "endTime" : "23 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "30 Oct 2019 10:00",
+          "endTime" : "30 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "06 Nov 2019 10:00",
+          "endTime" : "06 Nov 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "13 Nov 2019 10:00",
+          "endTime" : "13 Nov 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "13 Aug 2019 10:00",
+          "endTime" : "13 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Aug 2019 10:00",
+          "endTime" : "20 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "27 Aug 2019 10:00",
+          "endTime" : "27 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "03 Sep 2019 10:00",
+          "endTime" : "03 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "10 Sep 2019 10:00",
+          "endTime" : "10 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "17 Sep 2019 10:00",
+          "endTime" : "17 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Oct 2019 10:00",
+          "endTime" : "01 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Oct 2019 10:00",
+          "endTime" : "08 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Oct 2019 10:00",
+          "endTime" : "15 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "22 Oct 2019 10:00",
+          "endTime" : "22 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Oct 2019 10:00",
+          "endTime" : "29 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "05 Nov 2019 10:00",
+          "endTime" : "05 Nov 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "12 Nov 2019 10:00",
+          "endTime" : "12 Nov 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "02 Dec 2019 17:00",
+          "endTime" : "02 Dec 2019 19:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "MA2108",
+        "timeSlots" : [ {
+          "startTime" : "19 Aug 2019 14:00",
+          "endTime" : "19 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "26 Aug 2019 14:00",
+          "endTime" : "26 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "02 Sep 2019 14:00",
+          "endTime" : "02 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "09 Sep 2019 14:00",
+          "endTime" : "09 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "16 Sep 2019 14:00",
+          "endTime" : "16 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "30 Sep 2019 14:00",
+          "endTime" : "30 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "07 Oct 2019 14:00",
+          "endTime" : "07 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "14 Oct 2019 14:00",
+          "endTime" : "14 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "21 Oct 2019 14:00",
+          "endTime" : "21 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "28 Oct 2019 14:00",
+          "endTime" : "28 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "04 Nov 2019 14:00",
+          "endTime" : "04 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "11 Nov 2019 14:00",
+          "endTime" : "11 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "15 Aug 2019 14:00",
+          "endTime" : "15 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "22 Aug 2019 14:00",
+          "endTime" : "22 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "29 Aug 2019 14:00",
+          "endTime" : "29 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "05 Sep 2019 14:00",
+          "endTime" : "05 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "12 Sep 2019 14:00",
+          "endTime" : "12 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "19 Sep 2019 14:00",
+          "endTime" : "19 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "03 Oct 2019 14:00",
+          "endTime" : "03 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "10 Oct 2019 14:00",
+          "endTime" : "10 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "17 Oct 2019 14:00",
+          "endTime" : "17 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "24 Oct 2019 14:00",
+          "endTime" : "24 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "31 Oct 2019 14:00",
+          "endTime" : "31 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "07 Nov 2019 14:00",
+          "endTime" : "07 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "14 Nov 2019 14:00",
+          "endTime" : "14 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "27 Aug 2019 09:00",
+          "endTime" : "27 Aug 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "03 Sep 2019 09:00",
+          "endTime" : "03 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "10 Sep 2019 09:00",
+          "endTime" : "10 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "17 Sep 2019 09:00",
+          "endTime" : "17 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "01 Oct 2019 09:00",
+          "endTime" : "01 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "08 Oct 2019 09:00",
+          "endTime" : "08 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "15 Oct 2019 09:00",
+          "endTime" : "15 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "22 Oct 2019 09:00",
+          "endTime" : "22 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "29 Oct 2019 09:00",
+          "endTime" : "29 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "05 Nov 2019 09:00",
+          "endTime" : "05 Nov 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "12 Nov 2019 09:00",
+          "endTime" : "12 Nov 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "04 Dec 2019 17:00",
+          "endTime" : "04 Dec 2019 19:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "MA2213",
+        "timeSlots" : [ {
+          "startTime" : "04 Sep 2019 17:00",
+          "endTime" : "04 Sep 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "18 Sep 2019 17:00",
+          "endTime" : "18 Sep 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "09 Oct 2019 17:00",
+          "endTime" : "09 Oct 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "23 Oct 2019 17:00",
+          "endTime" : "23 Oct 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "06 Nov 2019 17:00",
+          "endTime" : "06 Nov 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "28 Aug 2019 17:00",
+          "endTime" : "28 Aug 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "11 Sep 2019 17:00",
+          "endTime" : "11 Sep 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "02 Oct 2019 17:00",
+          "endTime" : "02 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "16 Oct 2019 17:00",
+          "endTime" : "16 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "30 Oct 2019 17:00",
+          "endTime" : "30 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "13 Nov 2019 17:00",
+          "endTime" : "13 Nov 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "15 Aug 2019 12:00",
+          "endTime" : "15 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "22 Aug 2019 12:00",
+          "endTime" : "22 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "29 Aug 2019 12:00",
+          "endTime" : "29 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "05 Sep 2019 12:00",
+          "endTime" : "05 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "12 Sep 2019 12:00",
+          "endTime" : "12 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "19 Sep 2019 12:00",
+          "endTime" : "19 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "03 Oct 2019 12:00",
+          "endTime" : "03 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "10 Oct 2019 12:00",
+          "endTime" : "10 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "17 Oct 2019 12:00",
+          "endTime" : "17 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "24 Oct 2019 12:00",
+          "endTime" : "24 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "31 Oct 2019 12:00",
+          "endTime" : "31 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "07 Nov 2019 12:00",
+          "endTime" : "07 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "14 Nov 2019 12:00",
+          "endTime" : "14 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "19 Aug 2019 12:00",
+          "endTime" : "19 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "26 Aug 2019 12:00",
+          "endTime" : "26 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "02 Sep 2019 12:00",
+          "endTime" : "02 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "09 Sep 2019 12:00",
+          "endTime" : "09 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "16 Sep 2019 12:00",
+          "endTime" : "16 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "30 Sep 2019 12:00",
+          "endTime" : "30 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "07 Oct 2019 12:00",
+          "endTime" : "07 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "14 Oct 2019 12:00",
+          "endTime" : "14 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "21 Oct 2019 12:00",
+          "endTime" : "21 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "28 Oct 2019 12:00",
+          "endTime" : "28 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "04 Nov 2019 12:00",
+          "endTime" : "04 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "11 Nov 2019 12:00",
+          "endTime" : "11 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "27 Nov 2019 09:00",
+          "endTime" : "27 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      } ]
+    },
+    "tagged" : [ ]
+  }, {
+    "personId" : "5",
+    "name" : "Damirth",
+    "phone" : "",
+    "email" : "",
+    "address" : "",
+    "remark" : "",
+    "schedule" : {
+      "personId" : "5",
+      "events" : [ {
+        "eventName" : "CS2100",
+        "timeSlots" : [ {
+          "startTime" : "19 Aug 2019 09:00",
+          "endTime" : "19 Aug 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "26 Aug 2019 09:00",
+          "endTime" : "26 Aug 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "02 Sep 2019 09:00",
+          "endTime" : "02 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "09 Sep 2019 09:00",
+          "endTime" : "09 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "16 Sep 2019 09:00",
+          "endTime" : "16 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "30 Sep 2019 09:00",
+          "endTime" : "30 Sep 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "07 Oct 2019 09:00",
+          "endTime" : "07 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "14 Oct 2019 09:00",
+          "endTime" : "14 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "21 Oct 2019 09:00",
+          "endTime" : "21 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "28 Oct 2019 09:00",
+          "endTime" : "28 Oct 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "04 Nov 2019 09:00",
+          "endTime" : "04 Nov 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "11 Nov 2019 09:00",
+          "endTime" : "11 Nov 2019 10:00",
+          "venue" : "COM1-0207"
+        }, {
+          "startTime" : "14 Aug 2019 09:00",
+          "endTime" : "14 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "21 Aug 2019 09:00",
+          "endTime" : "21 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "28 Aug 2019 09:00",
+          "endTime" : "28 Aug 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "04 Sep 2019 09:00",
+          "endTime" : "04 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "11 Sep 2019 09:00",
+          "endTime" : "11 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "18 Sep 2019 09:00",
+          "endTime" : "18 Sep 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "02 Oct 2019 09:00",
+          "endTime" : "02 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "09 Oct 2019 09:00",
+          "endTime" : "09 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "16 Oct 2019 09:00",
+          "endTime" : "16 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "23 Oct 2019 09:00",
+          "endTime" : "23 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "30 Oct 2019 09:00",
+          "endTime" : "30 Oct 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "06 Nov 2019 09:00",
+          "endTime" : "06 Nov 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Nov 2019 09:00",
+          "endTime" : "13 Nov 2019 10:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Aug 2019 16:00",
+          "endTime" : "13 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Aug 2019 16:00",
+          "endTime" : "20 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "27 Aug 2019 16:00",
+          "endTime" : "27 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "03 Sep 2019 16:00",
+          "endTime" : "03 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "10 Sep 2019 16:00",
+          "endTime" : "10 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "17 Sep 2019 16:00",
+          "endTime" : "17 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Oct 2019 16:00",
+          "endTime" : "01 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Oct 2019 16:00",
+          "endTime" : "08 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Oct 2019 16:00",
+          "endTime" : "15 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "22 Oct 2019 16:00",
+          "endTime" : "22 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Oct 2019 16:00",
+          "endTime" : "29 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "05 Nov 2019 16:00",
+          "endTime" : "05 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "12 Nov 2019 16:00",
+          "endTime" : "12 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "19 Aug 2019 16:00",
+          "endTime" : "19 Aug 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "26 Aug 2019 16:00",
+          "endTime" : "26 Aug 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "02 Sep 2019 16:00",
+          "endTime" : "02 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "09 Sep 2019 16:00",
+          "endTime" : "09 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "16 Sep 2019 16:00",
+          "endTime" : "16 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "30 Sep 2019 16:00",
+          "endTime" : "30 Sep 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "07 Oct 2019 16:00",
+          "endTime" : "07 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "14 Oct 2019 16:00",
+          "endTime" : "14 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "21 Oct 2019 16:00",
+          "endTime" : "21 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "28 Oct 2019 16:00",
+          "endTime" : "28 Oct 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "04 Nov 2019 16:00",
+          "endTime" : "04 Nov 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "11 Nov 2019 16:00",
+          "endTime" : "11 Nov 2019 17:00",
+          "venue" : "COM1-0113"
+        }, {
+          "startTime" : "28 Nov 2019 09:00",
+          "endTime" : "28 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "CS2103T",
+        "timeSlots" : [ {
+          "startTime" : "16 Aug 2019 14:00",
+          "endTime" : "16 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "23 Aug 2019 14:00",
+          "endTime" : "23 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "30 Aug 2019 14:00",
+          "endTime" : "30 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "06 Sep 2019 14:00",
+          "endTime" : "06 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "13 Sep 2019 14:00",
+          "endTime" : "13 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "20 Sep 2019 14:00",
+          "endTime" : "20 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "04 Oct 2019 14:00",
+          "endTime" : "04 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "11 Oct 2019 14:00",
+          "endTime" : "11 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "18 Oct 2019 14:00",
+          "endTime" : "18 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "25 Oct 2019 14:00",
+          "endTime" : "25 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "01 Nov 2019 14:00",
+          "endTime" : "01 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "08 Nov 2019 14:00",
+          "endTime" : "08 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Nov 2019 14:00",
+          "endTime" : "15 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "13 Aug 2019 14:00",
+          "endTime" : "13 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "20 Aug 2019 14:00",
+          "endTime" : "20 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "27 Aug 2019 14:00",
+          "endTime" : "27 Aug 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "03 Sep 2019 14:00",
+          "endTime" : "03 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "10 Sep 2019 14:00",
+          "endTime" : "10 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "17 Sep 2019 14:00",
+          "endTime" : "17 Sep 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "01 Oct 2019 14:00",
+          "endTime" : "01 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "08 Oct 2019 14:00",
+          "endTime" : "08 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Oct 2019 14:00",
+          "endTime" : "15 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "22 Oct 2019 14:00",
+          "endTime" : "22 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "29 Oct 2019 14:00",
+          "endTime" : "29 Oct 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "05 Nov 2019 14:00",
+          "endTime" : "05 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "12 Nov 2019 14:00",
+          "endTime" : "12 Nov 2019 16:00",
+          "venue" : "AS6-0210"
+        }, {
+          "startTime" : "15 Aug 2019 10:00",
+          "endTime" : "15 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "22 Aug 2019 10:00",
+          "endTime" : "22 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "29 Aug 2019 10:00",
+          "endTime" : "29 Aug 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "05 Sep 2019 10:00",
+          "endTime" : "05 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "12 Sep 2019 10:00",
+          "endTime" : "12 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "19 Sep 2019 10:00",
+          "endTime" : "19 Sep 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "03 Oct 2019 10:00",
+          "endTime" : "03 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "10 Oct 2019 10:00",
+          "endTime" : "10 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "17 Oct 2019 10:00",
+          "endTime" : "17 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "24 Oct 2019 10:00",
+          "endTime" : "24 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "31 Oct 2019 10:00",
+          "endTime" : "31 Oct 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "07 Nov 2019 10:00",
+          "endTime" : "07 Nov 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "14 Nov 2019 10:00",
+          "endTime" : "14 Nov 2019 11:00",
+          "venue" : "COM1-0210"
+        }, {
+          "startTime" : "16 Aug 2019 16:00",
+          "endTime" : "16 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "23 Aug 2019 16:00",
+          "endTime" : "23 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "30 Aug 2019 16:00",
+          "endTime" : "30 Aug 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "06 Sep 2019 16:00",
+          "endTime" : "06 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "13 Sep 2019 16:00",
+          "endTime" : "13 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Sep 2019 16:00",
+          "endTime" : "20 Sep 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "04 Oct 2019 16:00",
+          "endTime" : "04 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "11 Oct 2019 16:00",
+          "endTime" : "11 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "18 Oct 2019 16:00",
+          "endTime" : "18 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "25 Oct 2019 16:00",
+          "endTime" : "25 Oct 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Nov 2019 16:00",
+          "endTime" : "01 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Nov 2019 16:00",
+          "endTime" : "08 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Nov 2019 16:00",
+          "endTime" : "15 Nov 2019 18:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Nov 2019 09:00",
+          "endTime" : "29 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "CS3230",
+        "timeSlots" : [ {
+          "startTime" : "14 Aug 2019 10:00",
+          "endTime" : "14 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "21 Aug 2019 10:00",
+          "endTime" : "21 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "28 Aug 2019 10:00",
+          "endTime" : "28 Aug 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "04 Sep 2019 10:00",
+          "endTime" : "04 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "11 Sep 2019 10:00",
+          "endTime" : "11 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "18 Sep 2019 10:00",
+          "endTime" : "18 Sep 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "02 Oct 2019 10:00",
+          "endTime" : "02 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "09 Oct 2019 10:00",
+          "endTime" : "09 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "16 Oct 2019 10:00",
+          "endTime" : "16 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "23 Oct 2019 10:00",
+          "endTime" : "23 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "30 Oct 2019 10:00",
+          "endTime" : "30 Oct 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "06 Nov 2019 10:00",
+          "endTime" : "06 Nov 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "13 Nov 2019 10:00",
+          "endTime" : "13 Nov 2019 11:00",
+          "venue" : "COM1-0114"
+        }, {
+          "startTime" : "13 Aug 2019 10:00",
+          "endTime" : "13 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "20 Aug 2019 10:00",
+          "endTime" : "20 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "27 Aug 2019 10:00",
+          "endTime" : "27 Aug 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "03 Sep 2019 10:00",
+          "endTime" : "03 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "10 Sep 2019 10:00",
+          "endTime" : "10 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "17 Sep 2019 10:00",
+          "endTime" : "17 Sep 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "01 Oct 2019 10:00",
+          "endTime" : "01 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "08 Oct 2019 10:00",
+          "endTime" : "08 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "15 Oct 2019 10:00",
+          "endTime" : "15 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "22 Oct 2019 10:00",
+          "endTime" : "22 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "29 Oct 2019 10:00",
+          "endTime" : "29 Oct 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "05 Nov 2019 10:00",
+          "endTime" : "05 Nov 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "12 Nov 2019 10:00",
+          "endTime" : "12 Nov 2019 12:00",
+          "venue" : "I3-AUD"
+        }, {
+          "startTime" : "02 Dec 2019 17:00",
+          "endTime" : "02 Dec 2019 19:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "MA2108",
+        "timeSlots" : [ {
+          "startTime" : "19 Aug 2019 14:00",
+          "endTime" : "19 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "26 Aug 2019 14:00",
+          "endTime" : "26 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "02 Sep 2019 14:00",
+          "endTime" : "02 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "09 Sep 2019 14:00",
+          "endTime" : "09 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "16 Sep 2019 14:00",
+          "endTime" : "16 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "30 Sep 2019 14:00",
+          "endTime" : "30 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "07 Oct 2019 14:00",
+          "endTime" : "07 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "14 Oct 2019 14:00",
+          "endTime" : "14 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "21 Oct 2019 14:00",
+          "endTime" : "21 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "28 Oct 2019 14:00",
+          "endTime" : "28 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "04 Nov 2019 14:00",
+          "endTime" : "04 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "11 Nov 2019 14:00",
+          "endTime" : "11 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "15 Aug 2019 14:00",
+          "endTime" : "15 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "22 Aug 2019 14:00",
+          "endTime" : "22 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "29 Aug 2019 14:00",
+          "endTime" : "29 Aug 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "05 Sep 2019 14:00",
+          "endTime" : "05 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "12 Sep 2019 14:00",
+          "endTime" : "12 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "19 Sep 2019 14:00",
+          "endTime" : "19 Sep 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "03 Oct 2019 14:00",
+          "endTime" : "03 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "10 Oct 2019 14:00",
+          "endTime" : "10 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "17 Oct 2019 14:00",
+          "endTime" : "17 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "24 Oct 2019 14:00",
+          "endTime" : "24 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "31 Oct 2019 14:00",
+          "endTime" : "31 Oct 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "07 Nov 2019 14:00",
+          "endTime" : "07 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "14 Nov 2019 14:00",
+          "endTime" : "14 Nov 2019 16:00",
+          "venue" : "LT29"
+        }, {
+          "startTime" : "27 Aug 2019 09:00",
+          "endTime" : "27 Aug 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "03 Sep 2019 09:00",
+          "endTime" : "03 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "10 Sep 2019 09:00",
+          "endTime" : "10 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "17 Sep 2019 09:00",
+          "endTime" : "17 Sep 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "01 Oct 2019 09:00",
+          "endTime" : "01 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "08 Oct 2019 09:00",
+          "endTime" : "08 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "15 Oct 2019 09:00",
+          "endTime" : "15 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "22 Oct 2019 09:00",
+          "endTime" : "22 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "29 Oct 2019 09:00",
+          "endTime" : "29 Oct 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "05 Nov 2019 09:00",
+          "endTime" : "05 Nov 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "12 Nov 2019 09:00",
+          "endTime" : "12 Nov 2019 10:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "04 Dec 2019 17:00",
+          "endTime" : "04 Dec 2019 19:00",
+          "venue" : ""
+        } ]
+      }, {
+        "eventName" : "MA2213",
+        "timeSlots" : [ {
+          "startTime" : "04 Sep 2019 17:00",
+          "endTime" : "04 Sep 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "18 Sep 2019 17:00",
+          "endTime" : "18 Sep 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "09 Oct 2019 17:00",
+          "endTime" : "09 Oct 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "23 Oct 2019 17:00",
+          "endTime" : "23 Oct 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "06 Nov 2019 17:00",
+          "endTime" : "06 Nov 2019 18:00",
+          "venue" : "S17-0404"
+        }, {
+          "startTime" : "28 Aug 2019 17:00",
+          "endTime" : "28 Aug 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "11 Sep 2019 17:00",
+          "endTime" : "11 Sep 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "02 Oct 2019 17:00",
+          "endTime" : "02 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "16 Oct 2019 17:00",
+          "endTime" : "16 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "30 Oct 2019 17:00",
+          "endTime" : "30 Oct 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "13 Nov 2019 17:00",
+          "endTime" : "13 Nov 2019 18:00",
+          "venue" : "S17-0304"
+        }, {
+          "startTime" : "15 Aug 2019 12:00",
+          "endTime" : "15 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "22 Aug 2019 12:00",
+          "endTime" : "22 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "29 Aug 2019 12:00",
+          "endTime" : "29 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "05 Sep 2019 12:00",
+          "endTime" : "05 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "12 Sep 2019 12:00",
+          "endTime" : "12 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "19 Sep 2019 12:00",
+          "endTime" : "19 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "03 Oct 2019 12:00",
+          "endTime" : "03 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "10 Oct 2019 12:00",
+          "endTime" : "10 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "17 Oct 2019 12:00",
+          "endTime" : "17 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "24 Oct 2019 12:00",
+          "endTime" : "24 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "31 Oct 2019 12:00",
+          "endTime" : "31 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "07 Nov 2019 12:00",
+          "endTime" : "07 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "14 Nov 2019 12:00",
+          "endTime" : "14 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "19 Aug 2019 12:00",
+          "endTime" : "19 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "26 Aug 2019 12:00",
+          "endTime" : "26 Aug 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "02 Sep 2019 12:00",
+          "endTime" : "02 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "09 Sep 2019 12:00",
+          "endTime" : "09 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "16 Sep 2019 12:00",
+          "endTime" : "16 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "30 Sep 2019 12:00",
+          "endTime" : "30 Sep 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "07 Oct 2019 12:00",
+          "endTime" : "07 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "14 Oct 2019 12:00",
+          "endTime" : "14 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "21 Oct 2019 12:00",
+          "endTime" : "21 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "28 Oct 2019 12:00",
+          "endTime" : "28 Oct 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "04 Nov 2019 12:00",
+          "endTime" : "04 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "11 Nov 2019 12:00",
+          "endTime" : "11 Nov 2019 14:00",
+          "venue" : "LT33"
+        }, {
+          "startTime" : "27 Nov 2019 09:00",
+          "endTime" : "27 Nov 2019 11:00",
+          "venue" : ""
+        } ]
+      } ]
+    },
+    "tagged" : [ ]
+  } ],
+  "groupList" : [ {
+    "groupId" : "0",
+    "groupName" : "CS2103",
+    "groupDescription" : "Software engineering project group",
+    "userRole" : "Leader"
+  }, {
+    "groupId" : "1",
+    "groupName" : "Friends",
+    "groupDescription" : "Group of close friends",
+    "userRole" : "Director"
+  } ],
+  "mappingList" : [ {
+    "groupId" : "0",
+    "personId" : "0",
+    "role" : "Member"
+  }, {
+    "groupId" : "0",
+    "personId" : "1",
+    "role" : "Carry"
+  }, {
+    "groupId" : "0",
+    "personId" : "2",
+    "role" : "Slacker"
+  }, {
+    "groupId" : "1",
+    "personId" : "0",
+    "role" : ""
+  }, {
+    "groupId" : "1",
+    "personId" : "1",
+    "role" : ""
+  }, {
+    "groupId" : "1",
+    "personId" : "3",
+    "role" : ""
+  }, {
+    "groupId" : "0",
+    "personId" : "5",
+    "role" : ""
+  } ]
+}
