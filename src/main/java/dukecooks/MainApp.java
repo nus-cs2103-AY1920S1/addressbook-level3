@@ -33,6 +33,7 @@ import dukecooks.model.util.DashboardSampleDataUtil;
 import dukecooks.model.util.SampleDataUtil;
 import dukecooks.model.util.SampleDiaryDataUtil;
 import dukecooks.model.util.SampleMealPlanDataUtil;
+import dukecooks.model.util.SamplePersonDataUtil;
 import dukecooks.model.util.SampleRecipeDataUtil;
 import dukecooks.model.util.SampleRecordDataUtil;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
@@ -159,7 +160,7 @@ public class MainApp extends Application {
             if (!dukeCooksOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample UserProfile");
             }
-            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleUserProfile);
+            initialData = dukeCooksOptional.orElseGet(SamplePersonDataUtil::getSampleUserProfile);
             //initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
@@ -430,6 +431,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting DukeCooks " + MainApp.VERSION);
+        primaryStage.setFullScreen(true);
         ui.start(primaryStage);
     }
 
