@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.ui.tab.Tab;
 
@@ -18,6 +17,7 @@ import seedu.address.ui.tab.Tab;
 public class InCommand extends Command {
 
     public static final String COMMAND_WORD = "in";
+    public static final String MESSAGE_DUPLICATE = "This transaction already exists: $1%s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the bank account.\n"
         + "Parameters: "
@@ -50,18 +50,16 @@ public class InCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.add(transaction);
-        model.getFilteredProjectionsList().forEach(x -> {
-            model.deleteProjection(x);
-            if (x.getBudget().isPresent()) {
-                model.add(new Projection(model.getFilteredTransactionList(), x.getDate(), x.getBudget().get()));
-            } else {
-                model.add(new Projection(model.getFilteredTransactionList(), x.getDate()));
-            }
-        });
-        model.commitUserState();
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
+        if (model.has(transaction)) {
+            return new CommandResult(
+                String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.TRANSACTION);
+        } else {
+            model.add(transaction);
+            model.updateProjectionsAfterAdd(transaction);
+            model.commitUserState();
+            return new CommandResult(
+                String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
+        }
     }
 
     @Override
