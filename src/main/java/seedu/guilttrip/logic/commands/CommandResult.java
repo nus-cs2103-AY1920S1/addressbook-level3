@@ -8,6 +8,7 @@ import java.util.Objects;
 import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
+import seedu.guilttrip.model.reminders.messages.Message;
 
 /**
  * Represents the result of a command execution.
@@ -44,6 +45,9 @@ public class CommandResult {
     /** For listing the budgets. */
     private final boolean listBudgets;
 
+    /** For dsiplaying reminder pop up */
+    private final Message reminderMessage;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -63,6 +67,7 @@ public class CommandResult {
         this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
+        this.reminderMessage = null;
     }
 
     /**
@@ -89,6 +94,7 @@ public class CommandResult {
         this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
+        this.reminderMessage = null;
     }
 
 
@@ -111,6 +117,7 @@ public class CommandResult {
         this.changeTheme = false;
         this.newTheme = null;
         this.listBudgets = listBudgets;
+        this.reminderMessage = null;
     }
 
     /**
@@ -132,6 +139,7 @@ public class CommandResult {
         this.listBudgets = false;
         this.changeTheme = false;
         this.newTheme = null;
+        this.reminderMessage = null;
     }
 
     /**
@@ -153,6 +161,7 @@ public class CommandResult {
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
         this.listBudgets = false;
+        this.reminderMessage = null;
     }
 
     /**
@@ -162,6 +171,27 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
         this.changeTheme = changeTheme;
         this.newTheme = theme;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
+        this.listBudgets = false;
+        this.reminderMessage = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Message reminderMessage) {
+        this.reminderMessage = reminderMessage;;
+        this.feedbackToUser = feedbackToUser;
         this.showHelp = false;
         this.exit = false;
         this.panelName = null;

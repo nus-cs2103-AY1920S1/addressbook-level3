@@ -41,7 +41,7 @@ public class AddImageCommand extends Command {
             throw new CommandException(REMINDER_POPUP_DISABLED);
         }
         try {
-            model.getReminderSelected().getMessage().setImage(imageName, xCoordinate, yCoordinate);
+            model.getReminderSelected().getMessage().placeImage(imageName, xCoordinate, yCoordinate);
             return new CommandResult(IMAGE_ADDED_MESSAGE);
         } catch (java.io.IOException e) {
             throw new CommandException(e.getMessage());

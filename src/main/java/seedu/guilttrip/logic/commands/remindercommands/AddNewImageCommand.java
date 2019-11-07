@@ -49,11 +49,11 @@ public class AddNewImageCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!model.getReminderEditor().getReminderInspected().willShowMessage()) {
+        if (!model.getReminderSelected().willDisplayPopUp()) {
             throw new CommandException(REMINDER_POPUP_DISABLED);
         }
         try {
-            model.getReminderEditor().setNewImage(imageName, imagePath, xCoordinate, yCoordinate, willSave);
+            model.getReminderSelected().getMessage().placeNewImage(imageName, imagePath, xCoordinate, yCoordinate, willSave);
             String successMessage = IMAGE_ADDED_MESSAGE;
             if (willSave) {
                 successMessage += " and saved";

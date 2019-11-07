@@ -16,13 +16,13 @@ public class DisplayPopupCommand extends Command {
     public static final String MESSAGE_DISPLAY_SUCCESS = "Display popup.";
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (model.getReminderEditor().getReminderInspected() == null) {
+        if (model.getReminderSelected() == null) {
             throw new CommandException(NO_REMINDER_SELECTED);
-        } else if (!model.getReminderEditor().getReminderInspected().willShowMessage()) {
+        } else if (!model.getReminderSelected().willDisplayPopUp()) {
             throw new CommandException(REMINDER_POPUP_DISABLED);
         }
         CommandResult commandResult = new CommandResult(MESSAGE_DISPLAY_SUCCESS);
-        commandResult.showReminderMessage((model.getReminderEditor().getPopUp()));
+        commandResult.showReminderMessage((model.getReminderSelected().getMessage()));
         return commandResult;
     }
     @Override
