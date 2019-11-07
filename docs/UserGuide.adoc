@@ -53,6 +53,43 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== Tutorial
+
+Insurelytics is a Command Line Interface (CLI) application for you to manage your contacts and policies. Here is a quick tutorial to help you get started using the application!
+
+You can use Insurelytics to manage two different kinds of data: *contacts* and *policies*. The formats in which these types of data are stored are as follows:
+====
+* Contact:
+** Name (e.g. "Alice Pauline")
+** NRIC (e.g. "S0000001J")
+** Phone number (e.g. 94351253)
+** Email address (e.g. "alice@example.com")
+** Date of birth (e.g. "12 December 1982")
+** Gender (e.g. "Female")
+** Tags (e.g. "nonsmoker, high blood pressure")
+** Policies (e.g. "Life Insurance, Health Insurance")
+====
+====
+* Policy:
+** Policy Name (e.g. "Senior Care")
+** Description (e.g. "Insurance for elderly")
+** Coverage (e.g. "12 years, 0 months, 0 days")
+** Price (e.g. "$5000")
+** Start age (e.g. "50")
+** End age (e.g. "75")
+** Tags (e.g. "term insurance")
+** Criteria (e.g. "nonsmoker")
+====
+
+To add new contacts or policies, you can use the `add` or `addpolicy` functions described in <<Features>>.
+Once stored, contacts can be `assign`-ed policies that they are eligible for. A contact is eligible for a policy if
+he/she falls in the specified age range and possesses all the policy's specified criteria (in his/her tags).
+
+Contacts and policies can easily be retrieved using the various `find` functions, whether by *keyword* or by *tag*.
+
+The various functions outlined in the following section are available to further help the user manage contacts and policies.
+These include additional functions to help the user gather insights, rectify mistakes and validate input among others.
+
 [[Features]]
 == Features
 
