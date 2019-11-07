@@ -177,7 +177,7 @@ Title of the activity is stored using `Title`, which runs validations to ensure 
 
 * Participants
 
-Participants are saved internally under `participantIds`, which only stores the primary key of `Contact` involved.
+Participants are saved internally under `participantIds`, which only stores the primary key of `Person` involved.
 
 * Expenses incurred by this activity
 
@@ -243,6 +243,52 @@ Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an
 ** Pros: Easy to implement. Low possibility of bugs.
 ** Cons: Significantly decreases usability of the application.
 
+// tag::expense[]
+=== Expense class
+`Expense` is a class used to record expense information. It contains the following information:
+
+* Paying person
+
+Each expense must be paid by someone, which is recorded as `personId` internally. As the name suggests, only the primary key of the `Person` paying is stored.
+
+* Other involved people
+
+Each expense also involves some people who will be taken to owe money to the paying person. This is recorded as `involvedIds[]` internally, which only stores the primary key of each involved person.
+
+* Amount
+
+The amount of money spent. The value of an `Amount` is stored as a `double`, and ranges from 0.01 to 1000000.
+
+* Description
+
+The description of an expense. The description may be blank if the user chooses to not describe what it is about.
+
+* Deleted flag
+
+This flag tracks whether an expense has been marked as deleted or not, and is stored as a boolean value `isDeleted`. For accountability purposes, we do not allow an `Expense` to be deleted from an `Activity` entirely, and instead use this flag to keep track of it. Expenses can only be fully deleted by deleting the entire activity.
+
+* Settlement flag
+
+SplitWiser supports 2 main types of "expenses": one is an actual expense, and the other is a transaction between people to pay off debts. The latter is what we call a settlement, and is indicated by the boolean `isSettlement`.
+
+The following diagram describes the structure of the `Expense` class:
+
+.Structure of the Expense class
+image::ExpenseClassDiagram.png[]
+
+==== Design considerations
+===== Aspect: How to actually represent an `Expense`
+* **Alternative 1 (current choice)**: An expense is represented by a paying person, amount, and a list of people involved.
+** **Pros:** Reasonable flexibility as it enables a wide range of possible expense sharing combinations.
+** **Cons:** Forces equal split among participants in the involved list. A simple example would be that a group of people can have a meal together but each person's meal would cost a different amount.
+** **Reason for choice:** Although the above con can be a very real issue from a user's standpoint, we believe this is the best balance between flexibility and usability.
+
+* **Alternative 2**: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.
+** **Pros:** Ultimate flexibility and addresses the con above.
+** **Cons:** Significantly complicates the process of expense adding for the user and the verification process in the backend. Many potential issues may arise, such as the issue of reconciling what happens if the amount list specified does not add up to the amount paid by the paying person.
+
+
+// end::expense[]
 // tag::algorithm[]
 === Debt simplification algorithm
 The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.commons.util.Triplet;
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
 
 /**
