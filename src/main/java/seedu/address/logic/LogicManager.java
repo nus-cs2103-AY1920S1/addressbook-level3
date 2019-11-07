@@ -60,7 +60,6 @@ public class LogicManager implements Logic {
             || command instanceof DeleteEventCommand || command instanceof DeleteRecordCommand) {
             history.getPerformances().push(model.getPerformanceDeepCopy(model.getPerformance()));
         }
-        System.out.println("LogicManager: " + model.getHistory().getPerformances());
         history.getCommands().push(command);
         history.getAddressBooks().push(model.getAthletickDeepCopy());
         try {
