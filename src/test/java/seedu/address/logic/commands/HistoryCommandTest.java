@@ -42,4 +42,10 @@ public class HistoryCommandTest {
         assertHistoryCommandSuccess(new HistoryCommand(), model, HistoryCommand.MESSAGE_SUCCESS, expectedModel);
         assertHistoryCommandSuccess(new HistoryCommand(), model, HistoryCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    @Test
+    public void execute_addHistoryToCommandHistory_success() {
+        expectedModel.addCommandToHistory(HistoryCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD);
+        assertHistoryCommandSuccess(new HistoryCommand(), model, HistoryCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 }
