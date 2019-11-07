@@ -193,7 +193,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Patient book ] =============================");
+        logger.info("============================ [ Stopping PatientBook and AppointmentBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

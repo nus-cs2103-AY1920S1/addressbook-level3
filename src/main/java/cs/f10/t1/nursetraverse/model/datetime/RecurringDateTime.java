@@ -121,14 +121,14 @@ public class RecurringDateTime {
         return Long.parseLong(freq);
     }
 
-    /**
-     * Convert recurring dateTime to a string for JSON storage.
-     * @return dateTime as a string
-     */
-    public String toJacksonJsonString() {
-        List<Long> freqList = new ArrayList<>();
-        Collections.addAll(freqList, years, months, weeks, days, hours, minutes);
-        return CollectionUtil.collectionToString(freqList);
+    public String toUiString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))
+                .append(months == 0 ? "" : ", " + months + (months == 1 ? " month" : ", months"))
+                .append(days == 0 ? "" : ", " + days + (days == 1 ? ", day" : ", days"))
+                .append(hours == 0 ? "" : ", " + hours + (hours == 1 ? ", hour" : ", hours"))
+                .append(minutes == 0 ? "" : ", " + minutes + (minutes == 1 ? " minute" : " minutes"));
+        return builder.toString();
     }
 
     /**
