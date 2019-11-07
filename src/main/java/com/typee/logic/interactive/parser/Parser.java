@@ -20,14 +20,14 @@ import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.OptionalState;
-import com.typee.logic.interactive.parser.state.exceptions.PenultimateStateTransitionException;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
 import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
+import com.typee.logic.interactive.parser.state.exceptions.PenultimateStateTransitionException;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.findmachine.FindBufferState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
@@ -289,10 +289,22 @@ public class Parser implements InteractiveParser {
         return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
     }
 
+    /**
+     * Returns true if the user entered text is the clear argument command's text.
+     *
+     * @param commandText User entered input.
+     * @return true if the input corresponds to the clear arguments command.
+     */
     private boolean isClearArgumentsCommand(String commandText) {
         return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
     }
 
+    /**
+     * Returns true if the user entered text corresponds to the {@code TabCommand}'s text.
+     *
+     * @param commandText User entered input.
+     * @return true if the input corresponds to the {@code TabCommand}.
+     */
     private boolean isTabCommand(String commandText) {
         if (commandText.isBlank()) {
             return false;
