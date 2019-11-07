@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Description should only contain alphanumeric characters and "
-            + "spaces, and should not be blank! The first character should be a alphanumeric character.";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Description should only contain alphanumeric characters, punctuation or whitespace, and should not be blank. "
+            + "The first character should be a alphanumeric character. ";
     public static final String DATA_TYPE = "DESCRIPTION";
 
     /*
@@ -48,8 +49,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && description.equals(((Description) other).description)); // state check
+            || (other instanceof Description // instanceof handles nulls
+            && description.equals(((Description) other).description)); // state check
     }
 
     @Override

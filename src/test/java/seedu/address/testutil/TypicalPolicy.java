@@ -3,27 +3,35 @@ package seedu.address.testutil;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CRITERIA_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AGE_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AGE_SENIOR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HEALTH_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LIFE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SENIOR_INSURANCE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,11 +63,17 @@ public class TypicalPolicy {
         .withPrice(VALID_PRICE_FIRE_INSURANCE).withCriteria(VALID_CRITERIA_FIRE_INSURANCE)
         .withTags(VALID_TAG_FIRE_INSURANCE).build();
 
+    public static final Policy SENIOR_INSURANCE = new PolicyBuilder().withName(VALID_NAME_SENIOR_INSURANCE)
+        .withDescription(VALID_DESCRIPTION_SENIOR_INSURANCE).withCoverage(VALID_COVERAGE_SENIOR_INSURANCE)
+        .withStartAge(VALID_START_AGE_SENIOR_INSURANCE).withEndAge(VALID_END_AGE_SENIOR_INSURANCE)
+        .withPrice(VALID_PRICE_SENIOR_INSURANCE).withCriteria(VALID_CRITERIA_SENIOR_INSURANCE)
+        .withTags(VALID_TAG_SENIOR_INSURANCE).build();
+
     private TypicalPolicy() {
     } // prevents instantiation
 
     public static List<Policy> getTypicalPolicy() {
-        return new ArrayList<>(Arrays.asList(HEALTH_INSURANCE, LIFE_INSURANCE, FIRE_INSURANCE));
+        return new ArrayList<>(Arrays.asList(HEALTH_INSURANCE, LIFE_INSURANCE, FIRE_INSURANCE, SENIOR_INSURANCE));
     }
 }
 

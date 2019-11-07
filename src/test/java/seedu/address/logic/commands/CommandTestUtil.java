@@ -143,41 +143,49 @@ public class CommandTestUtil {
     public static final String VALID_NAME_LIFE_INSURANCE = "Life Insurance";
     public static final String VALID_NAME_FIRE_INSURANCE = "Fire Insurance";
     public static final String VALID_NAME_CAR_INSURANCE = "Car Insurance";
+    public static final String VALID_NAME_SENIOR_INSURANCE = "Senior Insurance";
 
     public static final String VALID_DESCRIPTION_HEALTH_INSURANCE = "Insurance for healthcare";
     public static final String VALID_DESCRIPTION_LIFE_INSURANCE = "Insurance for life";
     public static final String VALID_DESCRIPTION_FIRE_INSURANCE = "Insurance for fire";
     public static final String VALID_DESCRIPTION_CAR_INSURANCE = "Insurance for car";
+    public static final String VALID_DESCRIPTION_SENIOR_INSURANCE = "Insurance for senior";
 
     public static final String VALID_COVERAGE_HEALTH_INSURANCE = "days/10 months/11 years/12";
     public static final String VALID_COVERAGE_LIFE_INSURANCE = "years/50";
     public static final String VALID_COVERAGE_FIRE_INSURANCE = "days/30 months/12";
     public static final String VALID_COVERAGE_CAR_INSURANCE = "months/6 years/5";
+    public static final String VALID_COVERAGE_SENIOR_INSURANCE = "months/10 years/20";
 
     public static final String VALID_START_AGE_HEALTH_INSURANCE = "30";
     public static final String VALID_START_AGE_LIFE_INSURANCE = "21";
     public static final String VALID_START_AGE_FIRE_INSURANCE = "0";
     public static final String VALID_START_AGE_CAR_INSURANCE = "18";
+    public static final String VALID_START_AGE_SENIOR_INSURANCE = "50";
 
     public static final String VALID_END_AGE_HEALTH_INSURANCE = "75";
     public static final String VALID_END_AGE_LIFE_INSURANCE = "80";
     public static final String VALID_END_AGE_FIRE_INSURANCE = "85";
     public static final String VALID_END_AGE_CAR_INSURANCE = "100";
+    public static final String VALID_END_AGE_SENIOR_INSURANCE = "100";
 
     public static final String VALID_PRICE_HEALTH_INSURANCE = "$50000";
     public static final String VALID_PRICE_LIFE_INSURANCE = "$1000000";
     public static final String VALID_PRICE_FIRE_INSURANCE = "$7500";
     public static final String VALID_PRICE_CAR_INSURANCE = "$5000";
+    public static final String VALID_PRICE_SENIOR_INSURANCE = "$100000";
 
     public static final String VALID_CRITERIA_HEALTH_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_LIFE_INSURANCE = "high blood pressure";
     public static final String VALID_CRITERIA_FIRE_INSURANCE = "public housing";
+    public static final String VALID_CRITERIA_SENIOR_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_CAR_INSURANCE = "owns car";
 
     public static final String VALID_TAG_HEALTH_INSURANCE = "health insurance";
     public static final String VALID_TAG_LIFE_INSURANCE = "term insurance";
     public static final String VALID_TAG_FIRE_INSURANCE = "home insurance";
     public static final String VALID_TAG_CAR_INSURANCE = "car insurance";
+    public static final String VALID_TAG_SENIOR_INSURANCE = "senior insurance";
 
     // binItems
     public static final String VALID_DATE_DELETED_DAVID = "22 Oct 2019 at 09:57 PM";

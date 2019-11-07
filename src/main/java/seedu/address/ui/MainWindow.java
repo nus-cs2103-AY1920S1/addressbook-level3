@@ -125,6 +125,15 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void setLogo() {
+        Image image = new Image(LOGO_URL);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
+        displayPlaceHolder.getChildren().add(imageView);
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -187,8 +196,122 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    private void showListPolicy() {
+        policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+    }
+
+    private void showListPeople() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    private void showListHistory() {
+        historyListPanel = new HistoryListPanel(logic.getHistoryList());
+        displayPlaceHolder.getChildren().removeAll();
+        displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
+    }
+
+    private void showListBin() {
+        binItemListPanel = new BinItemListPanel(logic.getFilteredBinItemList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
+    }
+
+    /**
+     * Shows display on right panel.
+     */
+    private void showListDisplay(CommandResult commandResult) throws ParseException {
+        DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
+        DisplayFormat displayFormat = commandResult.getDisplayFormat();
+        DisplayController displayController = null;
+
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        switch (displayFormat.value) {
+        case DisplayFormat.PIECHART:
+            logger.info("Displaying piechart...");
+            displayController = new PieChartController(logic, displayIndicator);
+            break;
+        case DisplayFormat.BARCHART:
+            logger.info("Displaying barchart...");
+            displayController = new BarChartController(logic, displayIndicator);
+            break;
+        case DisplayFormat.LINECHART:
+            logger.info("Displaying linechart...");
+            displayController = new LineChartController(logic, displayIndicator);
+            break;
+        default:
+            throw new ParseException(DisplayFormat.getMessageConstraints());
+        }
+
+        requireNonNull(displayController);
+        displayPlaceHolder.getChildren().add(displayController.getRoot());
+    }
+
+    /**
+     * Expands person in right panel
+     *
+     * @param commandResult
+     */
+    private void showExpandPerson(CommandResult commandResult) {
+        displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+    }
+
+    /**
+     * Expands policy in right panel
+     *
+     * @param commandResult
+     */
+    private void showExpandPolicy(CommandResult commandResult) {
+        displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+    }
+
+    /**
+     * Returns true if command result uses display place holder.
+     *
+     * @return boolean
+     */
+    private boolean usesRightPane(CommandResult commandResult) {
+        return commandResult.isDisplay()
+            || commandResult.isExpandPerson()
+            || commandResult.isExpandPolicy()
+            || commandResult.isListHistory();
+    }
+
+    /**
+     * Renders right panel.
+     */
+    private CommandResult renderRightPanel(String commandText, boolean isSystemInput) throws
+        CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
+            logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
+
+            if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            } else if (commandResult.isExpandPerson()) {
+                showExpandPerson(commandResult);
+            } else if (commandResult.isExpandPolicy()) {
+                showExpandPolicy(commandResult);
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
     }
 
     /**
@@ -205,82 +328,28 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isListPolicy()) {
-                policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
-                listPanelPlaceholder.getChildren().clear();
-                listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
-            }
-
-            if (commandResult.isListPeople()) {
-                personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                listPanelPlaceholder.getChildren().clear();
-                listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            }
-
-            if (commandResult.isListHistory()) {
-                historyListPanel = new HistoryListPanel(logic.getHistoryList());
-                displayPlaceHolder.getChildren().removeAll();
-                displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
-            }
-
-            if (commandResult.isListBin()) {
-                binItemListPanel = new BinItemListPanel(logic.getFilteredBinItemList());
-                listPanelPlaceholder.getChildren().clear();
-                listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
-            }
-
-            if (commandResult.isDisplay()) {
-                DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
-                DisplayFormat displayFormat = commandResult.getDisplayFormat();
-                DisplayController displayController = null;
-
-                displayPlaceHolder.getChildren().clear();
-                assert displayPlaceHolder.getChildren().isEmpty();
-                switch (displayFormat.value) {
-                case DisplayFormat.PIECHART:
-                    logger.info("Displaying piechart...");
-                    displayController = new PieChartController(logic, displayIndicator);
-                    break;
-                case DisplayFormat.BARCHART:
-                    logger.info("Displaying barchart...");
-                    displayController = new BarChartController(logic, displayIndicator);
-                    break;
-                case DisplayFormat.LINECHART:
-                    logger.info("Displaying linechart...");
-                    displayController = new LineChartController(logic, displayIndicator);
-                    break;
-                default:
-                    throw new ParseException(DisplayFormat.getMessageConstraints());
-                }
-
-                requireNonNull(displayController);
-                displayPlaceHolder.getChildren().add(displayController.getRoot());
-            }
-
-            if (commandResult.isExpandPerson()) {
-                displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
-                displayPlaceHolder.getChildren().clear();
-                assert displayPlaceHolder.getChildren().isEmpty();
-                displayPlaceHolder.getChildren().add(displayPanel.getRoot());
-            }
-
-            if (commandResult.isExpandPolicy()) {
-                displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
-                displayPlaceHolder.getChildren().clear();
-                assert displayPlaceHolder.getChildren().isEmpty();
-                displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+            } else if (commandResult.isListPolicy()) {
+                showListPolicy();
+            } else if (commandResult.isListPeople()) {
+                showListPeople();
+            } else if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isListBin()) {
+                showListBin();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            } else if (commandResult.isExpandPerson()) {
+                showExpandPerson(commandResult);
+            } else if (commandResult.isExpandPolicy()) {
+                showExpandPolicy(commandResult);
             }
 
             if (usesRightPane(commandResult)) {
                 rightPanelCommandText = commandText;
             } else if (rightPanelCommandText != null) {
-                executeCommand(rightPanelCommandText, isSystemInput);
+                renderRightPanel(rightPanelCommandText, isSystemInput);
             }
 
             return commandResult;
@@ -289,26 +358,5 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    /**
-     * Returns true if command result uses display place holder.
-     *
-     * @return boolean
-     */
-    private boolean usesRightPane(CommandResult commandResult) {
-        return commandResult.isDisplay()
-            || commandResult.isExpandPerson()
-            || commandResult.isExpandPolicy()
-            || commandResult.isListHistory();
-    }
-
-    private void setLogo() {
-        Image image = new Image(LOGO_URL);
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        imageView.setFitWidth(400);
-        imageView.setFitHeight(400);
-        displayPlaceHolder.getChildren().add(imageView);
     }
 }

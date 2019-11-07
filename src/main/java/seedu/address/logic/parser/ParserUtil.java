@@ -148,11 +148,15 @@ public class ParserUtil {
      */
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
-        String trimmedGender = ParserUtil.capitalizeFirstLetter(gender.trim());
-        if (!Gender.isValidGender(trimmedGender)) {
+        if (gender.isEmpty()) {
             throw new ParseException(Gender.getMessageConstraints());
         }
-        return new Gender(trimmedGender);
+
+        String formattedGender = ParserUtil.capitalizeFirstLetter(gender.trim());
+        if (!Gender.isValidGender(formattedGender)) {
+            throw new ParseException(Gender.getMessageConstraints());
+        }
+        return new Gender(formattedGender);
     }
 
     /**

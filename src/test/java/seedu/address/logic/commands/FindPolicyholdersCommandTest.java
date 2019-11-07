@@ -11,6 +11,10 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_POLICY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_POLICY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ASYRAF;
+import static seedu.address.testutil.TypicalPersons.KEITH;
+import static seedu.address.testutil.TypicalPersons.ROBIN;
+import static seedu.address.testutil.TypicalPersons.TAYYANG;
 
 import java.util.Arrays;
 
@@ -78,13 +82,13 @@ public class FindPolicyholdersCommandTest {
     }
 
     @Test
-    public void execute_validIndex_singlePersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+    public void execute_validIndex_multiplePeopleFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
         FindPolicyholdersCommand command = new FindPolicyholdersCommand(INDEX_FIRST_POLICY);
         Policy policy = model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
         PersonPossessesPolicyPredicate predicate = new PersonPossessesPolicyPredicate(policy);
         expectedModel.updateFilteredPersonList(predicate);
         assertListPeopleCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, ASYRAF, KEITH, ROBIN, TAYYANG), model.getFilteredPersonList());
     }
 }
