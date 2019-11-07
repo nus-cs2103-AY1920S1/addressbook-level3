@@ -33,7 +33,7 @@ public class ProjectionGraph extends StackPane {
 
     ProjectionGraph(Projection projection) {
         this.gradientDescent = projection.getProjector();
-        this.budgets = projection.getBudgets().orElse(null);
+        this.budgets = projection.getBudgets();
 
         // define axes
         this.xAxis = defineXAxis();
@@ -42,7 +42,7 @@ public class ProjectionGraph extends StackPane {
         // draw charts
         drawTransactionScatterChart();
         drawProjectionLineChart();
-        if (this.budgets != null) {
+        if (this.budgets != null && !this.budgets.isEmpty()) {
             drawBudgetLineChart();
         }
     }
@@ -180,12 +180,12 @@ public class ProjectionGraph extends StackPane {
         yAxis.setLabel("Balance ($)");
         yAxis.setAutoRanging(false);
         this.yMin = Math.min(gradientDescent.getResult(), gradientDescent.getMinOutput());
-        if (this.budgets != null) {
+        if (!this.budgets.isEmpty()) {
             this.yMin = Math.min(yMin, this.budgets.stream()
                     .mapToDouble(item -> item.getBudget().getActualValue()).min().getAsDouble());
         }
         this.yMax = Math.max(gradientDescent.getResult(), gradientDescent.getMaxOutput());
-        if (this.budgets != null) {
+        if (!this.budgets.isEmpty()) {
             this.yMax = Math.max(yMax, this.budgets.stream()
                     .mapToDouble(item -> item.getBudget().getActualValue()).max().getAsDouble());
         }

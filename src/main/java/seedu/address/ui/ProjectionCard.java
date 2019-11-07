@@ -41,9 +41,9 @@ public class ProjectionCard extends UiPart<Region> {
         } else {
             category.setVisible(false);
         }
-        if (projection.getBudgets().isPresent()) {
-            IntStream.range(0, projection.getBudgets().get().size()).forEach(x -> {
-                budgetInfo.getChildren().add(new Label(projection.getBudgets().get().get(x).toString()));
+        if (projection.getBudgets() != null) {
+            IntStream.range(0, projection.getBudgets().size()).forEach(x -> {
+                budgetInfo.getChildren().add(new Label(projection.getBudgets().get(x).toString()));
                 Label budgetForecastLabel = new Label(projection.getBudgetForecastAbbreviatedText(x));
                 budgetInfo.getChildren().add(budgetForecastLabel);
                 if (projection.getBudgetProjection(x).getIntegerValue() >= 0) {

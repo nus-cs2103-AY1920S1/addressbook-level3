@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -221,9 +220,13 @@ public interface Model {
 
     void updateFilteredLedgerList(Predicate<LedgerOperation> predicate);
 
-    void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException;
+    void updateProjectionsAfterAdd(BankAccountOperation added);
 
-    void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException;
+    void updateProjectionsAfterAdd(Budget budget);
+
+    void updateProjectionsAfterDelete(Budget budget);
+
+    void updateProjectionsAfterDelete(BankAccountOperation deleted);
 
     /**
      * Returns an unmodifiable view of the filtered budget list
