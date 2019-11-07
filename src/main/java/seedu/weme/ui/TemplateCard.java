@@ -42,6 +42,16 @@ public class TemplateCard extends UiPart<Region> {
         name.setText(template.getName().toString());
     }
 
+    /**
+     * Updates the card content except for the template image.
+     * @param template the template this card is for
+     * @param newIndex the new index of the this card
+     */
+    public void update(Template template, int newIndex) {
+        id.setText(newIndex + "");
+        name.setText(template.getName().toString());
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -57,6 +67,6 @@ public class TemplateCard extends UiPart<Region> {
         // state check
         TemplateCard card = (TemplateCard) other;
         return id.getText().equals(card.id.getText())
-            && template.equals(card.template);
+                && template.equals(card.template);
     }
 }

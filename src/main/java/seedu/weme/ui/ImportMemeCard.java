@@ -50,6 +50,20 @@ public class ImportMemeCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+    /**
+     * Updates the card content except for the meme image.
+     * @param meme the meme this card is for
+     * @param newIndex the new index of the this card
+     */
+    public void update(Meme meme, int newIndex) {
+        id.setText(newIndex + "");
+        description.setText(meme.getDescription().value);
+        tags.getChildren().clear();
+        meme.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

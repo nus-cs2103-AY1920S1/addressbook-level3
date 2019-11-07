@@ -1,5 +1,7 @@
 package seedu.weme.ui;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.GridCell;
@@ -8,17 +10,18 @@ import org.controlsfx.control.GridView;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-
 import seedu.weme.commons.core.LogsCenter;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
 
 
 /**
- * Panel containing the list of memes.
+ * Panel containing the list of memes in the import staging area.
  */
 public class ImportGridPanel extends UiPart<Region> {
     private static final String FXML = "ImportGridPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ImportGridPanel.class);
+    private final Map<ImagePath, ImportMemeCard> importMemeCardMap = new HashMap<>();
 
     @FXML
     private GridView<Meme> importGridView;
@@ -40,8 +43,16 @@ public class ImportGridPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                String filePath = meme.getImagePath().toString();
-                setGraphic(new ImportMemeCard(meme, getIndex() + 1).getRoot());
+                ImagePath imagePath = meme.getImagePath();
+                ImportMemeCard card = importMemeCardMap.get(imagePath);
+                int newIndex = getIndex() + 1;
+                if (card == null) {
+                    card = new ImportMemeCard(meme, newIndex);
+                    importMemeCardMap.put(imagePath, card);
+                } else {
+                    card.update(meme, newIndex);
+                }
+                setGraphic(card.getRoot());
             }
         }
     }
