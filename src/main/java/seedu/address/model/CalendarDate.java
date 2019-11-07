@@ -117,9 +117,6 @@ public class CalendarDate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
         if (obj instanceof CalendarDate) {
             CalendarDate calendarDate = (CalendarDate) obj;
             return sameDate(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());

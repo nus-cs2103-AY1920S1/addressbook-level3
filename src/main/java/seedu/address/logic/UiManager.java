@@ -18,7 +18,7 @@ import seedu.address.model.CalendarDate;
 import seedu.address.model.ModelData;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelDataListener;
 import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
@@ -31,7 +31,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, ModelListListener {
+public class UiManager implements Ui, UserOutputListener, ModelDataListener {
 
     public static final int WINDOW_WIDTH = 1280;
     public static final int WINDOW_HEIGHT = 720;
@@ -197,11 +197,11 @@ public class UiManager implements Ui, UserOutputListener, ModelListListener {
     }
 
     @Override
-    public void onModelListChange(ModelData lists) {
-        List<EventSource> sortedDateEventList = sortDateEventList(lists.getEvents());
-        List<TaskSource> sortedDateTaskList = sortDateTaskList(lists.getTasks());
-        HashMap<EventSource, Integer> eventHash = addEventIndex(lists.getEvents());
-        HashMap<TaskSource, Integer> taskHash = addTaskIndex(lists.getTasks());
+    public void onModelDataChange(ModelData modelData) {
+        List<EventSource> sortedDateEventList = sortDateEventList(modelData.getEvents());
+        List<TaskSource> sortedDateTaskList = sortDateTaskList(modelData.getTasks());
+        HashMap<EventSource, Integer> eventHash = addEventIndex(modelData.getEvents());
+        HashMap<TaskSource, Integer> taskHash = addTaskIndex(modelData.getTasks());
         this.mainWindow.onModelListChange(
                 sortedDateEventList,
                 sortedDateTaskList,

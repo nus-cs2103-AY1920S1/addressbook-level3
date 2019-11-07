@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ICS_DATE_TIME;
 import static seedu.address.model.DateTime.ICS_DATE_TIME_PATTERN;
 
 import java.time.Instant;
@@ -27,7 +27,7 @@ public class IcsDateTimeParser implements Parser<DateTime> {
             Instant instant = Instant.from(PARSER.parse(userInput));
             return DateTime.newBuilder(instant).build();
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATE_TIME, ICS_DATE_TIME_PATTERN));
+            throw new ParseException(MESSAGE_INVALID_ICS_DATE_TIME);
         }
     }
 }

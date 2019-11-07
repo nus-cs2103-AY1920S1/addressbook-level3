@@ -189,7 +189,7 @@ public class DeleteTaskCommandTest {
         model.setModelData(new ModelData(List.of(), tasks));
         assertEquals(5, model.getTasks().size());
 
-        assertThrows(CommandException.class, () -> DeleteEventCommand.newBuilder(model)
+        assertThrows(CommandException.class, () -> DeleteTaskCommand.newBuilder(model)
             .acceptSentence(indexes[0])
             .acceptSentence(indexes[1])
             .acceptSentence(OPTION_TAGS)

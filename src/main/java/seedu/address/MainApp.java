@@ -124,10 +124,10 @@ public class MainApp extends Application {
     private void addListeners() {
         commandManager.addUserOutputListener(uiManager);
 
-        modelManager.addModelListListener(uiManager);
+        modelManager.addModelDataListener(uiManager);
 
-        modelManager.addModelListListener(storageManager);
-        modelManager.addModelListListener(undoRedoManager);
+        modelManager.addModelDataListener(storageManager);
+        modelManager.addModelDataListener(undoRedoManager);
 
         uiManager.addCommandInputListener(commandManager);
     }
