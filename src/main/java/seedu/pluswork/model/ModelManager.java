@@ -147,12 +147,15 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task target) {
+        requireNonNull(target);
         saveDashboardState();
         projectDashboard.removeTask(target);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
     public void addTask(Task task) {
+        requireNonNull(task);
         saveDashboardState();
         projectDashboard.addTask(task);
         updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
@@ -164,6 +167,7 @@ public class ModelManager implements Model {
 
         saveDashboardState();
         projectDashboard.setTask(target, editedTask);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -251,27 +255,6 @@ public class ModelManager implements Model {
         filteredInventories.setPredicate(predicate);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return projectDashboard.equals(other.projectDashboard)
-                && userPrefs.equals(other.userPrefs)
-                && userSettings.equals(other.userSettings)
-                && filteredTasks.equals(other.filteredTasks)
-                && filteredMembers.equals(other.filteredMembers);
-    }
-
     //=========== ProjectDashboard (member) ===============================================
 
     @Override
@@ -288,12 +271,15 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteMember(Member target) {
+        requireNonNull(target);
         saveDashboardState();
         projectDashboard.removeMember(target);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
     public void addMember(Member member) {
+        requireNonNull(member);
         saveDashboardState();
         projectDashboard.addMember(member);
         updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
@@ -305,6 +291,7 @@ public class ModelManager implements Model {
 
         saveDashboardState();
         projectDashboard.setMember(target, editedMember);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
@@ -332,6 +319,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addMapping(Mapping mapping) {
+        requireNonNull(mapping);
         saveDashboardState();
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
@@ -339,8 +327,10 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteMapping(Mapping mapping) {
+        requireNonNull(mapping);
         saveDashboardState();
         projectDashboard.removeMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
@@ -362,6 +352,18 @@ public class ModelManager implements Model {
         filteredMappings.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+        return filteredTasMemMappings;
+    }
+
+    @Override
+    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+        return filteredInvMemMappings;
+    }
+
+
+
     // ========= Statistics =================================================================================
     @Override
     public Statistics getStatistics() {
@@ -379,7 +381,9 @@ public class ModelManager implements Model {
     @Override
     public void addCalendar(CalendarWrapper calendar) {
         requireNonNull(calendar);
+        saveDashboardState();
         projectDashboard.addCalendar(calendar);
+        filteredCalendars.setPredicate(PREDICATE_SHOW_ALL_CALENDARS);
     }
 
     @Override
@@ -391,7 +395,9 @@ public class ModelManager implements Model {
     @Override
     public void deleteCalendar(CalendarWrapper calendar) {
         requireNonNull(calendar);
+        saveDashboardState();
         projectDashboard.deleteCalendar(calendar);
+        filteredCalendars.setPredicate(PREDICATE_SHOW_ALL_CALENDARS);
     }
 
     @Override
@@ -404,13 +410,17 @@ public class ModelManager implements Model {
     @Override
     public void addMeeting(Meeting meeting) {
         requireNonNull(meeting);
+        saveDashboardState();
         projectDashboard.addMeeting(meeting);
+        filteredMeetings.setPredicate(PREDICATE_SHOW_ALL_MEETINGS);
     }
 
     @Override
     public void deleteMeeting(Meeting meeting) {
         requireNonNull(meeting);
+        saveDashboardState();
         projectDashboard.deleteMeeting(meeting);
+        filteredMeetings.setPredicate(PREDICATE_SHOW_ALL_MEETINGS);
     }
 
     @Override
@@ -460,7 +470,6 @@ public class ModelManager implements Model {
 
     // ========= General Commands ===========================================================================
 
-    //Check if ProjectDashboard cloning is deep clone or shallow clone
     @Override
     public void undo() {
         ReadOnlyProjectDashboard previousDashboard = previousSaveState.pop();
@@ -468,17 +477,6 @@ public class ModelManager implements Model {
         projectDashboard.resetData(previousDashboard);
         updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
-
-    @Override
-    public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
-        return filteredTasMemMappings;
-    }
-
-    @Override
-    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
-        return filteredInvMemMappings;
-    }
-
 
     public boolean canUndo() {
         return !previousSaveState.empty();
@@ -546,4 +544,39 @@ public class ModelManager implements Model {
         updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
+    // ============================================================================================
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return projectDashboard.equals(other.projectDashboard)
+                && userPrefs.equals(other.userPrefs)
+                && userSettings.equals(other.userSettings)
+                && filteredTasks.equals(other.filteredTasks)
+                && filteredTasksNotStarted.equals(other.filteredTasksNotStarted)
+                && filteredTasksDoing.equals(other.filteredTasksDoing)
+                && filteredTasksDone.equals(other.filteredTasksDone)
+                && filteredTasksByDeadline.equals(other.filteredTasksByDeadline)
+                && filteredMembers.equals(other.filteredMembers)
+                && filteredMappings.equals(other.filteredMappings)
+                && filteredTasMemMappings.equals(other.filteredTasMemMappings)
+                && filteredInvMemMappings.equals(other.filteredInvMemMappings)
+                && filteredInventories.equals(other.filteredInventories)
+                && filteredCalendars.equals(other.filteredCalendars)
+                && filteredMeetings.equals(other.filteredMeetings)
+                && stats.equals(other.stats)
+                && previousSaveState.equals(other.previousSaveState)
+                && redoSaveState.equals(other.redoSaveState);
+    }
 }
