@@ -13,8 +13,7 @@ public class ThemeCommandParser implements Parser<ThemeCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
      *
-     * @param userInput
-     * @throws ParseException if {@code userInput} does not conform the expected format
+     * @throws ParseException if {@code userInput} does not conform to the expected format
      */
     @Override
     public ThemeCommand parse(String userInput) throws ParseException {
