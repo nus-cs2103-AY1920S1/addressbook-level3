@@ -74,7 +74,6 @@ public class CompleteOrderCommand extends Command {
             }
         }
 
-        model.assignUnassignedOrder();
         /*
         String messageAssignNextOrder;
         Order unassigned = model.getUnassignedOrder();
