@@ -23,7 +23,7 @@ class AddAnnotationCommandParserTest {
         AddAnnotationCommand expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
                 ParagraphIdentifier.makeStrayId(Index.fromOneBased(2)), AnnotationNote.SAMPLE_NOTE, Highlight.PINK);
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2   h/  pink n/" + AnnotationNote.SAMPLE_NOTE.toString(),
+                PREAMBLE_WHITESPACE + "1 p/ g2   h/  pink n/" + AnnotationNote.SAMPLE_NOTE.toString(),
                 expectedNonGeneralCommand);
 
         expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
@@ -45,7 +45,7 @@ class AddAnnotationCommandParserTest {
         AddAnnotationCommand expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
                 ParagraphIdentifier.makeStrayId(Index.fromOneBased(2)), AnnotationNote.SAMPLE_NOTE, Highlight.YELLOW);
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2 n/" + AnnotationNote.SAMPLE_NOTE.toString(),
+                PREAMBLE_WHITESPACE + "1 p/ g2 n/" + AnnotationNote.SAMPLE_NOTE.toString(),
                 expectedNonGeneralCommand);
         expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
                 ParagraphIdentifier.makeExistId(Index.fromOneBased(2)), AnnotationNote.SAMPLE_NOTE, Highlight.YELLOW);
@@ -59,7 +59,7 @@ class AddAnnotationCommandParserTest {
         AddAnnotationCommand expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
                 ParagraphIdentifier.makeStrayId(Index.fromOneBased(2)), null, Highlight.PINK);
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2   h/  pink ",
+                PREAMBLE_WHITESPACE + "1 p/ g2   h/  pink ",
                 expectedNonGeneralCommand);
 
         expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
@@ -76,7 +76,7 @@ class AddAnnotationCommandParserTest {
                 ParagraphIdentifier.makeStrayId(Index.fromOneBased(2)), null, Highlight.YELLOW);
         //stray invalidity handled in execute of command
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/s2",
+                PREAMBLE_WHITESPACE + "1 p/g2",
                 expectedNonGeneralCommand);
 
         expectedNonGeneralCommand = new AddAnnotationCommand(Index.fromOneBased(1),
@@ -90,7 +90,7 @@ class AddAnnotationCommandParserTest {
     @Test
     public void parse_compulsoryIndexMissing_failure() {
         assertParseFailure(parser,
-                PREAMBLE_WHITESPACE + "p/ s2   h/  pink ",
+                PREAMBLE_WHITESPACE + "p/ g2   h/  pink ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE));
     }
 
