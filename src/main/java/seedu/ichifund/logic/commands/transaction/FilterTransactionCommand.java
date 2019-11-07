@@ -89,20 +89,36 @@ public class FilterTransactionCommand extends Command {
         private Optional<Category> category;
         private Optional<TransactionType> transactionType;
 
-        public void setMonth(Optional<Month> month) {
+        /**
+         * Returns a builder with the optional month specified.
+         */
+        public FilterTransactionCommandBuilder withMonth(Optional<Month> month) {
             this.month = month;
+            return this;
         }
 
-        public void setYear(Optional<Year> year) {
+        /**
+         * Returns a builder with the optional year specified.
+         */
+        public FilterTransactionCommandBuilder withYear(Optional<Year> year) {
             this.year = year;
+            return this;
         }
 
-        public void setCategory(Optional<Category> category) {
+        /**
+         * Returns a builder with the optional category specified.
+         */
+        public FilterTransactionCommandBuilder withCategory(Optional<Category> category) {
             this.category = category;
+            return this;
         }
 
-        public void setType(Optional<TransactionType> transactionType) {
+        /**
+         * Returns a builder with the optional transaction type specified.
+         */
+        public FilterTransactionCommandBuilder withTransactionType(Optional<TransactionType> transactionType) {
             this.transactionType = transactionType;
+            return this;
         }
 
         /**
