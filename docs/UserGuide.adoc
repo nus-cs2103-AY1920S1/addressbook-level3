@@ -324,8 +324,7 @@ Imports new questions into the application through a text file.
 * Your text file should be located at the Desktop.
 * Your text file should follow the format specified at <<Custom-Questions>>.
 * The questions in the text file will only be loaded after entering this command.
-* Your text file will have to found in the home directory of DukeAcademy for it to be loaded.
-* Your questions will be loaded the next time you open DukeAcademy!
+* Your questions will be loaded immediately.
 ****
 
 image::loadquestions.png[width="1000"]
@@ -333,7 +332,7 @@ image::loadquestions.png[width="1000"]
 *Examples:*
 
 * `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located in the home directory of DukeAcademy.
+Loads the questions from the file "my_problem_set.txt" located on your desktop.
 
 === Exit the application: `exit`
 
