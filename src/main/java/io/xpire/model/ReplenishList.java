@@ -87,7 +87,7 @@ public class ReplenishList implements ReadOnlyListView<Item> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.items.asUnmodifiableObservableList().size() + " items");
-        this.items.asUnmodifiableObservableList().forEach(x-> sb.append(x));
+        this.items.asUnmodifiableObservableList().forEach(sb::append);
         return sb.toString();
     }
 
@@ -104,7 +104,7 @@ public class ReplenishList implements ReadOnlyListView<Item> {
             return false;
         } else {
             ReplenishList other = (ReplenishList) obj;
-            return this.items.equals(other.items);
+            return this.getItemList().equals(other.getItemList());
         }
     }
 

@@ -118,6 +118,7 @@ public class ModelManagerTest {
         // same values -> returns true
         this.modelManager = new ModelManager(lists, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(lists, userPrefs);
+        assertEquals(this.modelManager.getReplenishList(), modelManagerCopy.getReplenishList());
         assertEquals(this.modelManager, modelManagerCopy);
 
         // same object -> returns true

@@ -97,7 +97,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.items.asUnmodifiableObservableList().size() + " items");
-        this.items.asUnmodifiableObservableList().forEach(x-> sb.append(x));
+        this.items.asUnmodifiableObservableList().forEach(sb::append);
         return sb.toString();
     }
 
@@ -114,7 +114,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
             return false;
         } else {
             Xpire other = (Xpire) obj;
-            return this.items.equals(other.items);
+            return this.getItemList().equals(other.getItemList());
         }
     }
 
