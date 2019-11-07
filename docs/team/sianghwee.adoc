@@ -1,6 +1,6 @@
 = Ng Siang Hwee - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images/sianghwee
+:imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: ELISA
@@ -8,7 +8,7 @@
 == Overview
 My team of 5 software engineering students were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
 
-As we are living in a fast-paced world where things are constantly changing it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid us in managing these tasks, so we chose to morph the address book into a student assistant with a personality to liven up our dreary day.
+As we are living in a fast-paced world where things are constantly changing it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid students in managing these tasks, events and reminders so we chose to morph the address book into a student assistant.
 
 We decided to call her ELISA (Exceptionally Loud and Intelligent Student Assistant). This application enables users to add and track their tasks and events while receiving reminders for them. The assistant is in the form of a chat bot and she was given a sassy and humorous personality to enhance the user experience.
 
@@ -16,9 +16,10 @@ We decided to call her ELISA (Exceptionally Loud and Intelligent Student Assista
 This is how our application looks like:
 
 .User interface annotated
-image::taskpanel-annotated.PNG[]
+image::sianghwee/taskpanel-annotated.PNG[]
 The rest of the report will refer to this components and so their function will be briefly explained.
 
+[cols="3, 10"]
 |===
 |Component |Function
 
@@ -29,13 +30,15 @@ The rest of the report will refer to this components and so their function will 
 |The "chatbox" with ELISA which will contain all the users past input and ELISA response.
 
 |Command box
-|The area in which the user can type their command to interact with ELISA.
+|The user can type their commands here to interact with ELISA.
 
 |View panel
 |The current view of the application. It can show the task(currently showing), event, reminder or calendar panel.
 |===
 
 == Summary of contributions
+
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=sianghwee[here].
 
 === Functional contributions
 * *Priority mode (Major Feature)*:
@@ -83,23 +86,21 @@ Refactored the model and storage class so that it will work with the project.
 
 * *Documentation*:
 
-Updated the user guide to include the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR $47])
+Updated the user guide to include the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR #47])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=sort]
-
-include::../UserGuide.adoc[tag=find]
 
 include::../UserGuide.adoc[tag=priority]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide for my main feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=priority]
