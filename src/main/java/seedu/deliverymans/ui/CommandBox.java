@@ -47,8 +47,8 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             String enteredText = commandTextField.getText();
             //always hide suggestion if nothing has been entered
-            // (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
-            if (enteredText == null) {
+            // (only "spacebars" are disallowed in TextFieldWithLengthLimit)
+            if (enteredText == null || enteredText.isEmpty()) {
                 commandTextField.hideEntriesPopup();
             } else {
                 //Add autocomplete results to commandTextField entries
