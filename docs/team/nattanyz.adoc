@@ -3,35 +3,46 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: FlashCard Pro
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+FlashCard Pro is an application designed for students who prefer to use a desktop app for managing flashcards. It is optimised for users who are comfortable with Command Line Interface-based interaction. 
+
+FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added the *ability for user to view their statistics*.
+** What it does:
+*** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*. 
+*** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
+*** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
+** Justification: 
+*** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive. 
+*** Users can also see their improvement over time and feel encouraged by it.
+** Highlights: 
+*** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
+*** Additions to the  `Storage` component and learning to use Haliq's JSON storage features was required to store and load the `SessionList` objects.
+*** My team's decision to make `State` non-static influenced me to decouple `UserStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
+*** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: contributions to the GUI of the app.
+** What I've done:
+** Justification:
+** Planned future enhancements:
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
-
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote issues upon discovering bugs and assigned them to respective team members. 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** I was quite involved in the conceptualisation of the project in its initial stages and was thus responsible for the first draft of the Introduction section of the User Guide. 
+*** Subsequently, I abstracted out the What is a flashcard? and Interacting with flashcards sections, making non-trivial improvements to the clarity of the writing in the process.
+*** I helped to clean up various sections of the User Guide, especially in the first draft, and made sure they abided by a consistent format.
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
@@ -47,10 +58,13 @@ _{you can add/remove categories in the list above}_
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have 
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=introduction]
+include::../UserGuide.adoc[tag=whatis]
+include::../UserGuide.adoc[tag=interacting]
+include::../UserGuide.adoc[tag=stats]
 
 == Contributions to the Developer Guide
 
