@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
@@ -56,5 +57,10 @@ public class CommandHistory {
 
         CommandHistory other = (CommandHistory) obj;
         return userInputHistory.equals(other.userInputHistory);
+    }
+
+    @Override
+    public String toString() {
+        return userInputHistory.toString();
     }
 }

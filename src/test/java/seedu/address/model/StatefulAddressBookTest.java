@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
@@ -22,6 +23,29 @@ class StatefulAddressBookTest {
     private void setUp() {
         addressBook = new StatefulAddressBook(getTypicalAddressBook());
         expectedAddressBook = new StatefulAddressBook(addressBook);
+    }
+
+    @Test
+    public void saveAddressBookState_withUndo_clearsPreviousStates() {
+        Person person1 = new PersonBuilder().build();
+        Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Person person3 = new PersonBuilder().withName(VALID_NAME_AMY).build();
+
+        // Address book adds person1 and person2, undoes twice, then adds person3
+        addressBook.addPerson(person1);
+        addressBook.saveAddressBookState();
+        addressBook.addPerson(person2);
+        addressBook.saveAddressBookState();
+        addressBook.undo();
+        addressBook.undo();
+        addressBook.addPerson(person3);
+        addressBook.saveAddressBookState();
+
+        // Should be same as just adding person3
+        expectedAddressBook.addPerson(person3);
+        expectedAddressBook.saveAddressBookState();
+
+        assertEquals(addressBook, expectedAddressBook);
     }
 
     @Test

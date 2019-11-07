@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -26,8 +27,10 @@ import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListPeopleCommand;
+import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -98,6 +101,41 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void addCommandToHistory_isSystemInput_notAdded() {
+        CommandHistory history = new CommandHistory();
+
+        // Execute add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY + GENDER_DESC_AMY;
+
+        try {
+            logic.execute(addCommand, true);
+        } catch (Exception e) {
+            fail("Should not raise an exception.");
+        }
+
+        assertEquals(history.getHistory(), logic.getHistoryList());
+    }
+
+    @Test
+    public void addCommandToHistory_success() {
+        // Execute add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + NRIC_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY + GENDER_DESC_AMY;
+
+        CommandHistory history = new CommandHistory();
+        history.addCommand(AddCommand.COMMAND_WORD, addCommand);
+
+        try {
+            logic.execute(addCommand);
+        } catch (Exception e) {
+            fail("Should not raise an exception.");
+        }
+
+        assertEquals(history.getHistory(), logic.getHistoryList());
     }
 
     /**
