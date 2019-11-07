@@ -5,6 +5,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.moolah.ui.textfield.CommandTextField.ARGUMENT_STYLE_PREFIX;
 import static seedu.moolah.ui.textfield.CommandTextField.COMMAND_WORD_STYLE;
+import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
 import static seedu.moolah.ui.textfield.CommandTextField.PREFIX_STYLE_PREFIX;
 import static seedu.moolah.ui.textfield.CommandTextField.STRING_STYLE;
 
@@ -142,27 +143,27 @@ class CommandTextFieldTest extends ApplicationTest {
         textField.inputHistory.push("something1");
         robot.interact(() -> {
             // goes to previous
-            pushKeyNoType(textField.textField, KeyCode.UP);
+            pushKeyNoType(textField, KeyCode.UP);
             assertEquals("something1", textField.getText());
 
             // goes to previous
-            pushKeyNoType(textField.textField, KeyCode.UP);
+            pushKeyNoType(textField, KeyCode.UP);
             assertEquals("something2", textField.getText());
 
             // tries to go to previous, nosuchelement exception ignored here
-            pushKeyNoType(textField.textField, KeyCode.UP);
+            pushKeyNoType(textField, KeyCode.UP);
             assertEquals("something2", textField.getText());
 
             // tries to go to next
-            pushKeyNoType(textField.textField, KeyCode.DOWN);
+            pushKeyNoType(textField, KeyCode.DOWN);
             assertEquals("something2", textField.getText());
 
             // tries to go to next
-            pushKeyNoType(textField.textField, KeyCode.DOWN);
+            pushKeyNoType(textField, KeyCode.DOWN);
             assertEquals("something1", textField.getText());
 
             // tries to go to next, noSuchElement;
-            pushKeyNoType(textField.textField, KeyCode.DOWN);
+            pushKeyNoType(textField, KeyCode.DOWN);
             assertEquals("something1", textField.getText());
 
         });
@@ -245,6 +246,23 @@ class CommandTextFieldTest extends ApplicationTest {
         new FxRobot().interact(() -> assertEquals(
                 spansBuilder.create(),
                 textField.getStyleSpan()));
+    }
+
+    @Test
+    void overrideStyle() {
+        textField.importStyleSheet(textField.getScene());
+        textField.addSupportFor(COMMAND, REQUIRED, OPTIONAL);
+        textField.enableSyntaxHighlighting();
+        new FxRobot().write(SUPPORTED_INPUT);
+        new FxRobot().sleep(400);
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+        spansBuilder.add(Collections.singleton(ERROR_STYLE_CLASS), SUPPORTED_INPUT.length());
+        new FxRobot().interact(() -> {
+            textField.overrideStyle(ERROR_STYLE_CLASS);
+            assertEquals(
+                    spansBuilder.create(),
+                    textField.getStyleSpan());
+        });
     }
 
     @Test

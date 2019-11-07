@@ -33,7 +33,7 @@ import seedu.moolah.logic.parser.Prefix;
  * A single line text area utilising RichTextFX to support syntax highlighting of user input. This has some code which
  * is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
  */
-public class CommandTextField extends Region {
+public class CommandTextField extends StyleClassedTextArea {
 
     public static final String ERROR_STYLE_CLASS = "error";
     static final String PREFIX_STYLE_PREFIX = "prefix";
@@ -44,7 +44,6 @@ public class CommandTextField extends Region {
 
     private static final double TEXTFIELD_HEIGHT = 25;
 
-    StyleClassedTextArea textField;
     InputHistory inputHistory;
 
     private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
@@ -63,42 +62,18 @@ public class CommandTextField extends Region {
 
         currentCommand = new SimpleStringProperty("");
 
-        //--------------- textarea with behaviour modified to prevent new lines --------------
-
-        textField = new StyleClassedTextArea() {
-            @Override
-            public void paste() {
-                super.paste();
-                textField.replaceText(textField.getText().replaceAll("[\\n\\r]", ""));
-            }
-
-            @Override
-            public void insertText(int position, String text) {
-                super.insertText(position, text.replaceAll("[\\n\\r]", ""));
-            }
-        };
-
-        getChildren().addAll(textField);
-
         // ----- sizing ------
 
         // height to look like single line input
-        textField.setPrefHeight(TEXTFIELD_HEIGHT);
-        textField.setMaxHeight(TEXTFIELD_HEIGHT);
-        textField.setMinHeight(TEXTFIELD_HEIGHT);
-
-        // update width so re-sizes properly
-        widthProperty().addListener((unused1, unused2, width) -> {
-            textField.setPrefWidth(width.doubleValue());
-            textField.setMinWidth(width.doubleValue());
-            textField.setMaxWidth(width.doubleValue());
-        });
+        setPrefHeight(TEXTFIELD_HEIGHT);
+        setMaxHeight(TEXTFIELD_HEIGHT);
+        setMinHeight(TEXTFIELD_HEIGHT);
 
         // autofill menu
-        autofillMenu = new AutofillSuggestionMenu(textField, currentCommand);
-        textField.setContextMenu(autofillMenu);
+        autofillMenu = new AutofillSuggestionMenu(this, currentCommand);
+        setContextMenu(autofillMenu);
 
-        textField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+        focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if (t1) {
                 enableSyntaxHighlighting();
             } else {
@@ -108,7 +83,7 @@ public class CommandTextField extends Region {
 
         //------------ prevent entering to remain single line ---------------
 
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(ENTER)) {
                 textGetter.accept(getText().replaceAll("[\\r\\n]", ""));
                 keyEvent.consume();
@@ -119,12 +94,12 @@ public class CommandTextField extends Region {
 
         autofillMenu.showingProperty().addListener((observableValue, aBoolean, t1) -> {
             if (!t1) {
-                textField.requestFocus();
+                requestFocus();
             }
         });
 
         // --------- current command property -------
-        textField.textProperty().addListener((observableValue, s, t1) -> {
+        textProperty().addListener((observableValue, s, t1) -> {
             String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
 
             Matcher command = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s").matcher(t1);
@@ -139,7 +114,7 @@ public class CommandTextField extends Region {
 
         // --------- input history -------
         inputHistory = new InputHistory();
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(UP)) {
                 try {
                     replaceWithPreviousInput();
@@ -156,15 +131,19 @@ public class CommandTextField extends Region {
         });
     }
 
-    /**
-     * Clears the text.
-     */
-    public void clear() {
-        textField.clear();
+    @Override
+    public void paste() {
+        super.paste();
+        replaceText(getText().replaceAll("[\\n\\r]", ""));
+    }
+
+    @Override
+    public void insertText(int position, String text) {
+        super.insertText(position, text.replaceAll("[\\n\\r]", ""));
     }
 
     StyleSpans<Collection<String>> getStyleSpan() {
-        return textField.getStyleSpans(0);
+        return getStyleSpans(0);
     }
 
     /**
@@ -183,7 +162,7 @@ public class CommandTextField extends Region {
     public void replaceWithPreviousInput() throws NoSuchElementException {
         String previous = inputHistory.getPreviousInput();
         clear();
-        textField.replaceText(previous);
+        replaceText(previous);
     }
 
     /**
@@ -193,21 +172,7 @@ public class CommandTextField extends Region {
     public void replaceWithNextInput() throws NoSuchElementException {
         String next = inputHistory.getNextInput();
         clear();
-        textField.replaceText(next);
-    }
-
-    /**
-     * Filters placeholders from input before returning value.
-     *
-     * @return The text property value of the text area with placeholders replaced with an empty String.
-     */
-    public String getText() {
-        return textField.getText();
-        //return functionalTextField.getText().replaceAll(PLACEHOLDER_REGEX, "");
-    }
-
-    public ObservableValue<String> textProperty() {
-        return textField.textProperty();
+        replaceText(next);
     }
 
     /**
@@ -215,10 +180,10 @@ public class CommandTextField extends Region {
      */
     public void enableSyntaxHighlighting() {
         syntaxHighlightSubscription =
-                textField.multiPlainChanges()
+                multiPlainChanges()
                         .successionEnds(Duration.ofMillis(300))
                         .subscribe(ignore -> {
-                            textField.setStyleSpans(
+                            setStyleSpans(
                                     0, computeHighlighting(getText()));
                         });
     }
@@ -231,8 +196,8 @@ public class CommandTextField extends Region {
      */
     public void overrideStyle(String styleClass) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(Collections.singleton(styleClass), textField.getLength());
-        textField.setStyleSpans(0, spansBuilder.create());
+        spansBuilder.add(Collections.singleton(styleClass), getLength());
+        setStyleSpans(0, spansBuilder.create());
         if (syntaxHighlightSubscription != null) {
             syntaxHighlightSubscription.unsubscribe();
         }
@@ -283,7 +248,7 @@ public class CommandTextField extends Region {
      * @param text The text to be formatted.
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
-     StyleSpans<Collection<String>> computeHighlighting(String text) {
+    private StyleSpans<Collection<String>> computeHighlighting(String text) {
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 

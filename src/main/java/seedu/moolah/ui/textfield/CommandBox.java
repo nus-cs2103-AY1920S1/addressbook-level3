@@ -23,7 +23,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final CommandTextField commandTextField;
+    final CommandTextField commandTextField;
 
     @FXML
     private StackPane commandInputAreaPlaceholder;
