@@ -214,7 +214,7 @@ image::redo-result.png[width="450"]
 --
 
 === Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of 
+Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
 engagements per day. More commands are provided for interaction with the calendar window.
 
 Format: `tab calendar`
@@ -243,6 +243,7 @@ This command does not work if the application is in another tab (view) or the sp
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
 
+{empty} +
 
 Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
 for that date.
@@ -260,6 +261,7 @@ Format: `calendar nextmonth`
 .Changing to the next month from October 2019
 image::calendar-next-month.png[width="450"]
 
+{empty} +
 
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month.
@@ -275,6 +277,7 @@ Format: `calendar previousmonth`
 .Changing to the previous month from October 2019
 image::calendar-previous-month.png[width="450"]
 
+{empty} +
 
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month.
