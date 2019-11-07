@@ -308,7 +308,7 @@ public class ScheduleView extends UiPart<Region> {
          */
         private StackPane makeColouredBlockWithText(String color, String text, String tooltipMessage) {
             //Ensure that the block must be greater than 10px in height otherwise block will become distorted.
-            //assert heightOfTimeslot > 10;
+            assert heightOfTimeslot > 10;
             StackPane container = new StackPane();
             Region colouredBlock = makeColouredBlock(color);
             container.getChildren().addAll(colouredBlock, createLabel(text));
@@ -326,6 +326,11 @@ public class ScheduleView extends UiPart<Region> {
             return linearGradient;
         }
 
+        /**
+         * Creates a label that will scale in size depending on the size of the block.
+         * @param text The text to insert into the label.
+         * @return
+         */
         private Label createLabel(String text) {
             Label textLabel = new Label(text);
             if (heightOfTimeslot < 30) {
@@ -352,7 +357,7 @@ public class ScheduleView extends UiPart<Region> {
          */
         private StackPane makeFreeBlock(String text) {
             //Assert that each height is greater than 10px;
-            //assert heightOfTimeslot > 10;
+            assert heightOfTimeslot > 10;
 
             StackPane freeTimeslot = new StackPane();
             Label label = createLabel(text);

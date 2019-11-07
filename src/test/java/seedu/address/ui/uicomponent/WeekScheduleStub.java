@@ -16,17 +16,22 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class WeekScheduleStub {
 
+    public static final List<String> EVENT_NAMES = List.of("EVENT0", "EVENT1", "EVENT2", "EVENT3", "EVENT4", "EVENT5",
+            "EVENT6", "EVENT7", "EVENT8", "EVENT9", "EVENT10", "EVENT11", "EVENT12", "EVENT13", "EVENT14",
+            "EVENT15", "EVENT16");
+    private static final Venue VENUE = new Venue("Central library");
     private LocalDate now;
     private WeekSchedule stub;
-    private static final Venue VENUE = new Venue("Central library");
-    public static final List<String> EVENT_NAMES = List.of("EVENT0", "EVENT1", "EVENT2", "EVENT3", "EVENT4", "EVENT5", "EVENT6",
-            "EVENT7", "EVENT8", "EVENT9", "EVENT10", "EVENT11", "EVENT12", "EVENT13", "EVENT14", "EVENT15", "EVENT16");
 
     public WeekScheduleStub(LocalDate now) {
         this.now = now;
         initialiseContents();
     }
 
+    /**
+     * Creates an empty schedule.
+     * @return
+     */
     public static WeekSchedule getEmptySchedule() {
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekSch = new HashMap<>();
         for (int i = 1; i <= 7; i++) {
@@ -35,6 +40,9 @@ public class WeekScheduleStub {
         return new WeekSchedule(weekSch);
     }
 
+    /**
+     * Initialises the contents in the stub.
+     */
     public void initialiseContents() {
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekSch = new HashMap<>();
         weekSch.put(now.plusDays(0).getDayOfWeek(), simplePersonTimeslotsStub());
@@ -53,6 +61,10 @@ public class WeekScheduleStub {
         this.stub = new WeekSchedule(weekSch);
     }
 
+    /**
+     * Creates a simple and ordinary list of PersonTimeslots.
+     * @return ArrayList of PersonTimeslot.
+     */
     public ArrayList<PersonTimeslot> simplePersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
@@ -64,9 +76,13 @@ public class WeekScheduleStub {
         return timeslots;
     }
 
-    //Back to back lessons.
+    /**
+     * Creates an ArrayList of PersonTimeslot which has back to back time slots.
+     * @return ArrayList of PersonTimeslot.
+     */
     public ArrayList<PersonTimeslot> backToBackPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
+        //Back to back lessons.
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(3), LocalTime.of(8, 0), LocalTime.of(9, 0), VENUE));
         timeslots.add(new PersonTimeslot(
@@ -76,9 +92,13 @@ public class WeekScheduleStub {
         return timeslots;
     }
 
-    //Lessons with weird gaps.
+    /**
+     * Creates an ArrayList of PersonTimeslot that has irregular time slots.
+     * @return ArrayList of irregular PersonTimeslot.
+     */
     public ArrayList<PersonTimeslot> weirdGapsPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
+        //Lessons with weird gaps.
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(6), LocalTime.of(8, 10), LocalTime.of(8, 25), VENUE));
         timeslots.add(new PersonTimeslot(
@@ -88,8 +108,12 @@ public class WeekScheduleStub {
         return timeslots;
     }
 
-    // Another set of weird time slots.
+    /**
+     * Creates a list of PersonTimeslot with irregular times.
+     * @return ArrayList of PersonTimeslot.
+     */
     public ArrayList<PersonTimeslot> anotherWeirdGapPersonTimeslotsStub() {
+        //Another weird set of time slots.
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(9), LocalTime.of(8, 0), LocalTime.of(8, 25), VENUE));
@@ -100,14 +124,23 @@ public class WeekScheduleStub {
         return timeslots;
     }
 
-    //One long day
+
+    /**
+     * Generates a list that contains one PersonTimeslot that span the whole schedule view duration.
+     * @return ArrayList of PersonTimeslot containing the person with the entire schedule.
+     */
     public ArrayList<PersonTimeslot> fullDayPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
+        //One long day
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(12), LocalTime.of(8, 0), LocalTime.of(20, 0), VENUE));
         return timeslots;
     }
 
+    /**
+     * Creates an empty list of PersonTimeslot.
+     * @return an empty ArrayList of PersonTimeslot.
+     */
     public ArrayList<PersonTimeslot> emptyPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         return timeslots;

@@ -7,7 +7,7 @@ import java.time.LocalTime;
  */
 public class TimeUtil {
     public static int formatTimeToInt(LocalTime localTime) {
-        return localTime.getHour() * 100 + (localTime.getMinute() / 2) * 2;
+        return localTime.getHour() * 100 + localTime.getMinute();
     }
 
     /**
