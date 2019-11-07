@@ -7,3 +7,23 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+
+.FormItem .label {
+    -fx-text-fill: black;
+    -fx-font-size: 20px;
+}
+
+.FormItem {
+    -fx-min-height: 80px;
+    -fx-max-width: 500px;
+}
+
+.FormItem .text-field {
+    -fx-border-color: grey;
+    -fx-border-radius: 0px;
+    -fx-border-width: 1px;
+}
+
+.FormItem .ChooseFileButton {
+    -fx-font-size: 15px;
+}
