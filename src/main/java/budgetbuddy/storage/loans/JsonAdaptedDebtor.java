@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Debtor;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
@@ -96,6 +97,8 @@ public class JsonAdaptedDebtor {
     private Amount getValidatedAmount(Long amount) throws IllegalValueException {
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (amount <= 0) {
+            throw new IllegalValueException(Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT);
         }
         return new Amount(amount);
     }

@@ -23,6 +23,8 @@ import budgetbuddy.model.transaction.Amount;
  */
 public class JsonAdaptedLoan {
 
+    public static final String MESSAGE_DATE_ERROR = "Error reading stored date.";
+
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String personName;
@@ -114,6 +116,8 @@ public class JsonAdaptedLoan {
     private Amount getValidatedAmount() throws IllegalValueException {
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (amount <= 0) {
+            throw new IllegalValueException(Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT);
         }
         return new Amount(amount);
     }
@@ -127,7 +131,7 @@ public class JsonAdaptedLoan {
         try {
             return LocalDate.parse(date, getDateFormatter());
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Error reading stored date.");
+            throw new IllegalValueException(MESSAGE_DATE_ERROR);
         }
     }
 

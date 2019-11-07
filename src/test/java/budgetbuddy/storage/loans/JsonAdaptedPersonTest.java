@@ -1,4 +1,4 @@
-package budgetbuddy.storage;
+package budgetbuddy.storage.loans;
 
 import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.storage.loans.JsonAdaptedPerson;
 import budgetbuddy.testutil.loanutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {
