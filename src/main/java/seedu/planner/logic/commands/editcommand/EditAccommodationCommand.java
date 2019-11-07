@@ -116,7 +116,7 @@ public class EditAccommodationCommand extends EditCommand {
         Index accommodationToEditIndex = findIndexOfAccommodation(model, accommodationToEdit);
 
         Accommodation editedAccommodation = createEditedAccommodation(accommodationToEdit,
-                editAccommodationDescriptor, isUndo);
+                editAccommodationDescriptor, model, isUndo);
 
         if (!accommodationToEdit.isSameAccommodation(editedAccommodation)
                 && model.hasAccommodation(editedAccommodation)) {
@@ -149,6 +149,7 @@ public class EditAccommodationCommand extends EditCommand {
      */
     private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
                                                            EditAccommodationDescriptor editAccommodationDescriptor,
+                                                           Model model,
                                                            boolean isUndo) {
         assert accommodationToEdit != null;
 
@@ -157,7 +158,9 @@ public class EditAccommodationCommand extends EditCommand {
         Contact updatedContact = !editAccommodationDescriptor.getPhone().isPresent() && isUndo
                 ? null
                 : editAccommodationDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
+                ? model.hasPhone(editAccommodationDescriptor.getPhone().get())
+                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
+                : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
                 ? accommodationToEdit.getContact().get()
                 : null;
