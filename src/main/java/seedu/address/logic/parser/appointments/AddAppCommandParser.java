@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointments.AddAppCommand;
@@ -22,7 +21,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
@@ -56,7 +54,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
                         PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppCommand.MESSAGE_USAGE));
         }
@@ -69,7 +67,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
         String startString = argMultimap.getValue(PREFIX_START).get();
         Timing timing;
-        if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
             timing = ParserUtil.parseTiming(startString, null);
         } else {
             String endString = argMultimap.getValue(PREFIX_END).get();
@@ -137,13 +135,4 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
         return eventList;
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

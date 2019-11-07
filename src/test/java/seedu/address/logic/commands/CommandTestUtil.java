@@ -21,7 +21,7 @@ import seedu.address.logic.commands.utils.EditPersonDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -128,7 +128,7 @@ public class CommandTestUtil {
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPatientList().size());
         Person person = model.getFilteredPatientList().get(targetIndex.getZeroBased());
-        model.updateFilteredPatientList(new ContainsKeywordsPredicate(person.getName().toString()));
+        model.updateFilteredPatientList(new PersonContainsKeywordPredicate(person.getName().toString()));
 
         assertEquals(1, model.getFilteredPatientList().size());
     }

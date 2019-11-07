@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
  * cancel a duty shift(s) for a staff member.
@@ -52,12 +52,12 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
             if (eventList == null) {
                 checkHasEvent(model, toDelete);
                 model.deleteDutyShifts(toDelete);
-                model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
+                model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(toDelete.getPersonId()));
                 return new CommandResult(String.format(MESSAGE_CANCEL_SHIFT_SUCCESS, toDelete));
             }
 
             model.deleteDutyShifts(eventList);
-            model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+            model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
                     MESSAGE_CANCEL_SHIFTS_SUCCESS,
                     eventList.size(),

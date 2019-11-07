@@ -42,7 +42,7 @@ import seedu.address.ui.queue.QueueListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel {
+public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanelManager {
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -158,8 +158,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
         staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
-        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), deferredDropSelectors, true);
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), deferredDropSelectors, false);
 
         tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
@@ -389,8 +389,14 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         case PATIENTS_TAB:
             patientListPanel.regainSelector();
             break;
+        case APPOINTMENTS_TAB:
+            appointmentListPanel.regainSelector();
+            break;
         case DOCTORS_TAB:
             staffListPanel.regainSelector();
+            break;
+        case DUTY_SHIFT_TAB:
+            dutyShiftListPanel.regainSelector();
             break;
         default:
         }
