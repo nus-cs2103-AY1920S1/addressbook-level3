@@ -223,7 +223,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final ArgumentMultimap searchParams = ArgumentTokenizer
-                .tokenize(FindCommand.COMMAND_WORD + " n/" + person.getName().fullName, PREFIX_NAME);
+                .tokenize(ExactFindCommand.COMMAND_WORD + " n/" + person.getName().fullName, PREFIX_NAME);
 
         model.updateFilteredPersonList(new PersonContainsPrefixesPredicate(searchParams));
         assertEquals(1, model.getFilteredPersonList().size());

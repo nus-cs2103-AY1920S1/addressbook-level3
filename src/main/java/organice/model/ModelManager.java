@@ -200,6 +200,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getFullPersonList() {
+        Predicate predicate = filteredPersons.getPredicate();
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
+        ObservableList<Person> fullPersonList = FXCollections.observableList(
+                Arrays.asList(filteredPersons.toArray(Person[]::new)));
+        filteredPersons.setPredicate(predicate);
+        return fullPersonList;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);

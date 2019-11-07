@@ -86,4 +86,52 @@ public class StringUtil {
             return false;
         }
     }
+
+    // Algorithm taken from https://semanti.ca/blog/?an-introduction-into-approximate-string-matching.
+    // Java code is original work.
+    /**
+     * Calculates the Levenshtein Distance (edit distance) between the given {@code String firstString} and
+     * {@code String secondString}. Levenshtein Distance is the number of character edits required to morph one
+     * string into another.
+     */
+    public static int calculateLevenshteinDistance(String firstString, String secondString) {
+        requireNonNull(firstString);
+        requireNonNull(secondString);
+
+        int firstStringLength = firstString.length();
+        int secondStringLength = secondString.length();
+
+        checkArgument(firstStringLength != 0 && secondStringLength != 0);
+
+        char[] pkChars = firstString.toCharArray();
+        char[] paChars = secondString.toCharArray();
+
+        int[][] costMatrix = new int[firstStringLength][secondStringLength];
+        for (int i = 0; i < firstStringLength; i++) {
+            for (int j = 0; j < secondStringLength; j++) {
+                costMatrix[i][j] = pkChars[i] == paChars[j] ? 0 : 1;
+            }
+        }
+
+        int[][] levenshteinMatrix = new int [firstStringLength + 1][secondStringLength + 1];
+        // Initialise first row and col to be in range 0..length
+        for (int r = 0; r < firstStringLength + 1; r++) {
+            levenshteinMatrix[r][0] = r;
+        }
+        for (int c = 0; c < secondStringLength + 1; c++) {
+            levenshteinMatrix[0][c] = c;
+        }
+
+        // Setting the distance
+        for (int r = 1; r < firstStringLength + 1; r++) {
+            for (int c = 1; c < secondStringLength + 1; c++) {
+                int cellAbovePlusOne = levenshteinMatrix[r - 1][c] + 1;
+                int cellLeftPlusOne = levenshteinMatrix[r][c - 1] + 1;
+                int cellLeftDiagPlusCost = levenshteinMatrix[r - 1][c - 1] + costMatrix[r - 1][c - 1];
+                levenshteinMatrix[r][c] =
+                        Integer.min(cellAbovePlusOne, Integer.min(cellLeftPlusOne, cellLeftDiagPlusCost));
+            }
+        }
+        return levenshteinMatrix[firstStringLength][secondStringLength];
+    }
 }
