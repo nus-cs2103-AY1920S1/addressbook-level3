@@ -13,12 +13,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 //import seedu.address.testutil.UpdateTransactionDescriptorBuilder;
@@ -144,12 +146,16 @@ public class CommandTestUtil {
 
         BankAccountOperation transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
 
-        final List<String> categories = transaction
-            .getCategories()
-            .stream()
-            .map(category -> category.getCategoryName())
-            .collect(Collectors.toList());
-        model.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
+        // final List<String> categories = transaction
+        //     .getCategories()
+        //     .stream()
+        //     .map(category -> category.getCategoryName())
+        //     .collect(Collectors.toList());
+
+        final Optional<Set<Category>> categories = Optional.of(transaction
+            .getCategories());
+        model.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty()));
 
         assertEquals(1, model.getFilteredTransactionList().size());
     }

@@ -83,6 +83,7 @@ public class UpdateCommand extends Command {
             BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
             BankAccountOperation updatedTransaction = createUpdatedOperation(transactionToReplace,
                 updateTransactionDescriptor);
+
             model.set(transactionToReplace, updatedTransaction);
             model.updateProjectionsAfterDelete(transactionToReplace);
             model.updateProjectionsAfterAdd(updatedTransaction);
@@ -117,6 +118,7 @@ public class UpdateCommand extends Command {
                     }
                 }
             });
+            model.set(budgetToReplace, updatedBudget);
 
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),

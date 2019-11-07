@@ -172,15 +172,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteLedger(LedgerOperation target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
     }
 
     @Override
     public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
-    }
-
-    public void deleteLedger(LedgerOperation target) {
-        throw new AssertionError("This method should not be called.");
     }
 
     @Override

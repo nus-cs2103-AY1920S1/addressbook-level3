@@ -50,16 +50,11 @@ public class InCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.has(transaction)) {
-            return new CommandResult(
-                String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.TRANSACTION);
-        } else {
-            model.add(transaction);
-            model.updateProjectionsAfterAdd(transaction);
-            model.commitUserState();
-            return new CommandResult(
-                String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
-        }
+        model.add(transaction);
+        model.updateProjectionsAfterAdd(transaction);
+        model.commitUserState();
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
     }
 
     @Override
