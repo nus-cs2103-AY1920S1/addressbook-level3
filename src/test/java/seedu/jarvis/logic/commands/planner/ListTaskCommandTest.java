@@ -21,7 +21,7 @@ class ListTaskCommandTest {
 
     @Test
     void getCommandWord() {
-        String expected = "list-tasks";
+        String expected = "list-task";
         ListTaskCommand command = new ListTaskCommand();
 
         assertEquals(expected, command.getCommandWord());

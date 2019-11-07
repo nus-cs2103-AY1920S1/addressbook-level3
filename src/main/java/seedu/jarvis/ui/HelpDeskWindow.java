@@ -55,6 +55,7 @@ public class HelpDeskWindow extends UiPart<Region> {
     public void setCcaText() {
         text1.setText("Cca Tracker\n\n"
                 + "Try the following commands:\n\n");
+
         text2.setText("add-cca\n"
                  + "delete-cca\n"
                  + "edit-cca\n"
@@ -94,7 +95,12 @@ public class HelpDeskWindow extends UiPart<Region> {
     public void setPlannerText() {
         text1.setText("Planner\n\n"
                 + "Try the following commands:\n\n");
-        text2.setText("");
+        text2.setText("add-task\n"
+                + "delete-task\n"
+                + "done-task\n"
+                + "list-task\n"
+                + "list-schedule\n"
+                + "pull-task\n");
 
     }
 }

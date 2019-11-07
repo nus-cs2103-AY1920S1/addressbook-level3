@@ -720,7 +720,7 @@ you will not be able to redo the commands.
 * `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 * `list-cca`
 * `find-cca KEYWORD`
-* `add-progress INDEX p/MILESTONE `
+* `add-progress INDEX p/MILESTONE`
 * `increment-progress INDEX`
 
 === Course Planner

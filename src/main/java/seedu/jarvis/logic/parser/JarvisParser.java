@@ -38,7 +38,9 @@ import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
 import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
+import seedu.jarvis.logic.commands.planner.ListScheduleCommand;
 import seedu.jarvis.logic.commands.planner.ListTaskCommand;
+import seedu.jarvis.logic.commands.planner.PullTaskCommand;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.AddProgressCommandParser;
 import seedu.jarvis.logic.parser.cca.DeleteCcaCommandParser;
@@ -63,6 +65,7 @@ import seedu.jarvis.logic.parser.planner.AddTaskCommandParser;
 import seedu.jarvis.logic.parser.planner.DeleteTaskCommandParser;
 import seedu.jarvis.logic.parser.planner.DoneTaskCommandParser;
 import seedu.jarvis.logic.parser.planner.FindTaskCommandParser;
+import seedu.jarvis.logic.parser.planner.PullTaskCommandParser;
 
 /**
  * Parses user input.
@@ -145,6 +148,10 @@ public class JarvisParser {
             return new DoneTaskCommandParser().parse(arguments);
         case ListTaskCommand.COMMAND_WORD:
             return new ListTaskCommand();
+        case ListScheduleCommand.COMMAND_WORD:
+            return new ListScheduleCommand();
+        case PullTaskCommand.COMMAND_WORD:
+            return new PullTaskCommandParser().parse(arguments);
 
         // financetracker commands
         case SetPaidCommand.COMMAND_WORD:

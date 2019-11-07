@@ -170,7 +170,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code Calendar date} for tasks
+     * Parses a {@code String date} into a {@code LocalDate} for tasks
      * @param date the date to be parsed
      * @return an array of Calendars to be added into the Task objects
      */

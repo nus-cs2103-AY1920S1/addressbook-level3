@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.cca.AddProgressCommand;
+import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
@@ -15,6 +16,7 @@ import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
+import seedu.jarvis.model.cca.exceptions.DuplicateCcaMilestoneException;
 
 /**--
  * Parses input arguments and creates a new {@code AddProgressCommand} object.
@@ -41,10 +43,14 @@ public class AddProgressCommandParser implements Parser<AddProgressCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProgressCommand.MESSAGE_USAGE));
         }
 
-        CcaMilestoneList ccaMilestoneList = CcaParserUtil.parseCcaMilestones(argumentMultimap
-                .getAllValues(PREFIX_PROGRESS_LEVEL_NAMES));
+        try {
+            CcaMilestoneList ccaMilestoneList = CcaParserUtil.parseCcaMilestones(argumentMultimap
+                    .getAllValues(PREFIX_PROGRESS_LEVEL_NAMES));
+            return new AddProgressCommand(index, ccaMilestoneList);
 
-        return new AddProgressCommand(index, ccaMilestoneList);
+        } catch (DuplicateCcaMilestoneException e) {
+            throw new ParseException(EditCcaCommand.MESSAGE_DUPLICATE_CCA_MILESTONES);
+        }
     }
 
     /**

@@ -2,9 +2,13 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_CCA_PROGRESS_NOT_YET_SET;
+import static seedu.jarvis.logic.commands.cca.IncreaseProgressCommand.MESSAGE_INCREMENT_AT_MAX;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
@@ -21,6 +25,8 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaCurrentProgress;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
@@ -39,7 +45,9 @@ public class EditCcaCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CCA_NAME + "CCA NAME] "
             + "[" + PREFIX_CCA_TYPE + "CCA TYPE] "
-            + "[" + PREFIX_EQUIPMENT_NAME + "EQUIPMENT]...\n"
+            + "[" + PREFIX_EQUIPMENT_NAME + "EQUIPMENT] "
+            + "[" + PREFIX_PROGRESS_LEVEL + "LEVEL] "
+            + "[" + PREFIX_PROGRESS_LEVEL_NAMES + "MILESTONE NAME]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CCA_TYPE + "sport "
             + PREFIX_EQUIPMENT_NAME + "tennis racket";
@@ -47,6 +55,8 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_EDIT_CCA_SUCCESS = "Edited Cca: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CCA = "This Cca already exists in the CcaTracker.";
+    public static final String MESSAGE_DUPLICATE_EQUIPMENT = "Duplicate equipment found.";
+    public static final String MESSAGE_DUPLICATE_CCA_MILESTONES = "Duplicate milestones found.";
 
     public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
 
@@ -56,7 +66,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -164,15 +174,17 @@ public class EditCcaCommand extends Command {
         }
 
         originalCca = model.getCca(targetIndex);
+
         Cca createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
 
         // checks if edited cca does not conflict with another existing cca that is not the original cca.
         if (!originalCca.isSameCca(createdEditedCca) && model.containsCca(createdEditedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
+
         editedCca = createdEditedCca;
 
-        model.updateCca(originalCca, createdEditedCca);
+        model.updateCca(originalCca, editedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
         model.setViewStatus(LIST_CCA);
 
@@ -205,8 +217,9 @@ public class EditCcaCommand extends Command {
 
         model.updateCca(editedCca, originalCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT, true);
     }
 
     /**
@@ -224,13 +237,34 @@ public class EditCcaCommand extends Command {
      * Creates and returns a {@code Cca} with the details of {@code ccaToEdit}
      * edited with {@code editCcaDescriptor}.
      */
-    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) {
+    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) throws CommandException {
         assert ccaToEdit != null;
 
         CcaName updatedName = editCcaDescriptor.getCcaName().orElse(ccaToEdit.getName());
         CcaType updatedCcaType = editCcaDescriptor.getCcaType().orElse(ccaToEdit.getCcaType());
         EquipmentList updatedEquipmentList = editCcaDescriptor.getEquipmentList().orElse(ccaToEdit.getEquipmentList());
-        CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress().orElse(ccaToEdit.getCcaProgress());
+
+        CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress()
+                .orElse(new CcaProgress(ccaToEdit.getCcaProgress()));
+
+        if (editCcaDescriptor.getCcaMilestoneList().isPresent()) {
+            updatedCcaProgress.setMilestones(editCcaDescriptor.getCcaMilestoneList().get());
+            updatedCcaProgress.resetCcaCurrentProgress();
+        }
+
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent() && updatedCcaProgress.ccaMilestoneListIsEmpty()) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        }
+
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent()
+                && editCcaDescriptor.getCcaCurrentProgress().get().getCurrentProgress()
+                > updatedCcaProgress.getMilestoneList().size()) {
+            throw new CommandException(MESSAGE_INCREMENT_AT_MAX);
+        }
+
+        if (editCcaDescriptor.getCcaCurrentProgress().isPresent()) {
+            updatedCcaProgress.setCcaCurrentProgress(editCcaDescriptor.getCcaCurrentProgress().get());
+        }
 
         return new Cca(updatedName, updatedCcaType, updatedEquipmentList, updatedCcaProgress);
     }
@@ -262,6 +296,8 @@ public class EditCcaCommand extends Command {
         private CcaType ccaType;
         private EquipmentList equipmentList;
         private CcaProgress ccaProgress;
+        private CcaMilestoneList ccaMilestoneList;
+        private CcaCurrentProgress ccaCurrentProgress;
 
         public EditCcaDescriptor() {}
 
@@ -273,13 +309,16 @@ public class EditCcaCommand extends Command {
             setCcaType(toCopy.ccaType);
             setEquipmentList(toCopy.equipmentList);
             setCcaProgress(toCopy.ccaProgress);
+            setMilestoneList(toCopy.ccaMilestoneList);
+            setCcaCurrentProgress(toCopy.ccaCurrentProgress);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList);
+            return CollectionUtil.isAnyNonNull(ccaName, ccaType, equipmentList, ccaProgress, ccaMilestoneList,
+                    ccaCurrentProgress);
         }
 
         public void setCcaName(CcaName ccaName) {
@@ -306,12 +345,28 @@ public class EditCcaCommand extends Command {
             return Optional.ofNullable(equipmentList);
         }
 
+        public void setMilestoneList(CcaMilestoneList ccaMilestones) {
+            this.ccaMilestoneList = ccaMilestones;
+        }
+
+        public Optional<CcaMilestoneList> getCcaMilestoneList() {
+            return Optional.ofNullable(ccaMilestoneList);
+        }
+
         public void setCcaProgress(CcaProgress ccaProgress) {
             this.ccaProgress = ccaProgress;
         }
 
         public Optional<CcaProgress> getCcaProgress() {
             return Optional.ofNullable(ccaProgress);
+        }
+
+        public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
+            this.ccaCurrentProgress = ccaCurrentProgress;
+        }
+
+        public Optional<CcaCurrentProgress> getCcaCurrentProgress() {
+            return Optional.ofNullable(ccaCurrentProgress);
         }
 
         @Override

@@ -6,19 +6,18 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
- * Lists all the tasks in the planner to the user
+ * Lists all the tasks in the planner that is due in the given day or week
  */
-public class ListTaskCommand extends Command {
+public class ListScheduleCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-task";
+    public static final String COMMAND_WORD = "list-schedule";
 
-    public static final String MESSAGE_SUCCESS = "Here are the tasks in your planner:";
+    public static final String MESSAGE_SUCCESS = "Here are the tasks due for the day & the week:";
 
     public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
 
@@ -36,7 +35,7 @@ public class ListTaskCommand extends Command {
 
     /**
      * Returns whether the command has an inverse execution.
-     * Since ListTaskCommand has no inverse execution, then calling {@code executeInverse}
+     * Since ListScheduleCommand has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}
      *
      * @return whether the command has an inverse execution
@@ -47,16 +46,16 @@ public class ListTaskCommand extends Command {
     }
 
     /**
-     * Lists all {@code Task} in the planner.
+     * Lists all {@code Task} in the planner due for that day & week.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that all the tasks were listed successfully.
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.updateSchedule();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
 
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
