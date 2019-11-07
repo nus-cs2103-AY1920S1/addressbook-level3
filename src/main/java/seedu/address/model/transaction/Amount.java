@@ -168,7 +168,7 @@ public class Amount implements Comparable<Amount> {
         final int newAmount = this.amount * -1;
         return new Amount(newAmount);
     }
-    
+
     public boolean isNegative() {
         return this.amount < 0;
     }
