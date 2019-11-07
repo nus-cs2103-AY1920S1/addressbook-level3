@@ -13,12 +13,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.ProjectCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
@@ -259,16 +259,73 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateProjectionsAfterDelete(BankAccountOperation deleted) throws CommandException {
+    public void updateProjectionsAfterAdd(BankAccountOperation added) {
         this.getFilteredProjectionsList().forEach(x -> {
-            if (deleted.getCategories().isEmpty() && x.getCategory() == null) {
+            if (added.isGeneral() && x.isGeneral()) {
                 this.delete(x);
-                if (x.getBudgets().isPresent()) {
-                    this.add(new Projection(this.getFilteredTransactionList()
-                            .filtered(t -> t.getCategories().isEmpty()), x.getDate(), x.getBudgets().get()));
-                } else {
-                    this.add(new Projection(this.getFilteredTransactionList()
-                            .filtered(t -> t.getCategories().isEmpty()), x.getDate()));
+                UniqueTransactionList newTransactions = new UniqueTransactionList();
+                newTransactions.setTransactions(x.getTransactionHistory());
+                newTransactions.add(added);
+                this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate()));
+            } else {
+                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.add(added);
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                            x.getDate(), x.getBudgets(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateProjectionsAfterAdd(Budget added) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (added.isGeneral() && x.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.add(added);
+                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
+                        newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.add(added);
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (deleted.isGeneral() && x.isGeneral()) {
+                this.delete(x);
+                UniqueTransactionList newTransactions = new UniqueTransactionList();
+                newTransactions.setTransactions(x.getTransactionHistory());
+                newTransactions.remove(deleted);
+                if (newTransactions.asUnmodifiableObservableList().size()
+                        >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate()));
                 }
             } else {
                 boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {
@@ -278,47 +335,46 @@ public class ModelManager implements Model {
                     return false;
                 });
                 if (sameCategory) {
-                    UniqueTransactionList txns = new UniqueTransactionList();
-                    txns.setTransactions(x.getTransactionHistory());
-                    txns.remove(deleted);
-                    this.add(new Projection(txns.asUnmodifiableObservableList(),
-                            x.getDate(), x.getBudgets().get(), x.getCategory()));
+                    this.delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.remove(deleted);
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                            x.getDate(), x.getBudgets(), x.getCategory()));
                 }
             }
         });
     }
 
-    // TODO: Fix general to mean all
     @Override
-    public void updateProjectionsAfterAdd(BankAccountOperation added) throws CommandException {
+    public void updateProjectionsAfterDelete(Budget deleted) {
         this.getFilteredProjectionsList().forEach(x -> {
-            if (added.isGeneral() && x.getCategory() == null) {
+            if (deleted.isGeneral() && x.isGeneral()) {
                 this.delete(x);
-                ObservableList<BankAccountOperation> newTransactions =
-                        this.getFilteredTransactionList().filtered(t -> t.getCategories().isEmpty());
-                if (newTransactions.size() >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS
-                        && x.getBudgets().isPresent()) {
-                    this.add(new Projection(newTransactions, x.getDate(), x.getBudgets().get()));
-                } else if (newTransactions.size() >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
-                    this.add(new Projection(newTransactions, x.getDate()));
-                }
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.remove(deleted);
+                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
+                        newBudgets.asUnmodifiableObservableList()));
             } else {
-                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {
                     if (x.getCategory() != null) {
                         return c.equals(x.getCategory());
                     }
                     return false;
                 });
                 if (sameCategory) {
-                    UniqueTransactionList txns = new UniqueTransactionList();
-                    txns.setTransactions(x.getTransactionHistory());
-                    txns.add(added);
-                    this.add(new Projection(txns.asUnmodifiableObservableList(),
-                            x.getDate(), x.getBudgets().get(), x.getCategory()));
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.remove(deleted);
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
                 }
             }
         });
     }
+
 
     @Override
     public boolean equals(Object obj) {

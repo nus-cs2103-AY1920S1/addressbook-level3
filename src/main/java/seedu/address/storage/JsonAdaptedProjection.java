@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
@@ -40,12 +41,8 @@ class JsonAdaptedProjection {
         this.transactions.addAll(transactions);
         this.amount = amount;
         this.date = date;
-        if (!budgets.isEmpty()) {
-            this.budgets.addAll(budgets);
-        }
-        if (category != null) {
-            this.category = category;
-        }
+        this.budgets.addAll(budgets);
+        this.category = category;
     }
 
     /**
@@ -57,13 +54,9 @@ class JsonAdaptedProjection {
                 .collect(Collectors.toList()));
         amount = source.getProjection().toString();
         date = source.getDate().toString();
-        if (source.getBudgets().isPresent()) {
-            this.budgets.addAll(source.getBudgets().get().stream()
-                    .map(JsonAdaptedBudget::new).collect(Collectors.toList()));
-        }
-        if (source.getCategory() != null) {
-            this.category = new JsonAdaptedCategory(source.getCategory());
-        }
+        this.budgets.addAll(source.getBudgets().stream()
+                .map(JsonAdaptedBudget::new).collect(Collectors.toList()));
+        this.category = new JsonAdaptedCategory(source.getCategory());
     }
 
     /**
@@ -93,18 +86,20 @@ class JsonAdaptedProjection {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
+        if (category == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+        }
+
         if (this.budgets == null || this.budgets.isEmpty()) {
             return new Projection(txns.asUnmodifiableObservableList(),
-                    new Amount(Double.parseDouble(amount)), new Date(date));
+                    new Amount(Double.parseDouble(amount)), new Date(date), category.toModelType());
         }
         UniqueBudgetList bgts = new UniqueBudgetList();
         for (JsonAdaptedBudget budget : this.budgets) {
             bgts.add(budget.toModelType());
         }
-        if (this.category == null) {
-            return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)),
-                    new Date(date), bgts.asUnmodifiableObservableList());
-        }
+
         return new Projection(txns.asUnmodifiableObservableList(), new Amount(Double.parseDouble(amount)),
                 new Date(date), bgts.asUnmodifiableObservableList(), this.category.toModelType());
     }
