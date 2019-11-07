@@ -1,0 +1,93 @@
+= halfwhole - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CS ModBuddy
+
+ifndef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+== Overview
+
+CS ModBuddy is an module-planning application designed for primarily first-year computer science undergraduates in NUS.
+Users may create study plans where they can add and remove modules from various semesters, tag these modules to
+personalize their study plan, and check if they meet graduation requirements.
+
+This application is written in Java, and morphed from AddressBook-3.
+
+== Summary of contributions
+
+* *Major enhancement*: added the *checking of module prerequisites and study plan requirements*
+
+** What it does: searches for and highlights modules whose prerequisites are not satisfied in the user's study plan.
+It also checks the study plan for overall graduation requirements, such as focus area requirements,
+core module requirements, and total MC count.
+
+** Justification: This feature allows the user to create a legitimate study plan that satisfies the given requirements,
+so that the resulting study plan is valid and allows the student to graduate according to their study plan.
+
+** Highlights: This enhancement affects the validity of the entire app and user experience.
+*** It required the creation of a comprehensive JSON file detailing module requirements, prerequisites, and all other
+module-related information, which forms the backbone of all modules created in our application.
+*** Module prerequisites needed to be parsed into trees (involving AND or OR structures), that are checked against
+every time the user makes adjustments to the study plan.
+
+** Credits: The information for computer science modules was pulled from https://nusmods.com[NUSMods], while the information
+on overall graduation requirements was sourced from the https://www.comp.nus.edu.sg[NUS Computing website].
+
+* *Minor enhancements*:
+
+*** Added a command to clear all invalid modules in a study plan, whose prerequisites have not been met.
+*** Added a command to describe all of a module's related information, given its module code.
+*** Added a command to view all valid modules that can be taken in a given semester. This helps the user to
+decide what modules he or she may take next.
+
+// TODO
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+// TODO
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+// TODO
+include::../UserGuide.adoc
+
+// TODO
+include::../UserGuide.adoc
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=moduleinformationandverification]
+
+include::../DeveloperGuide.adoc[tag=correctprerequisite]
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

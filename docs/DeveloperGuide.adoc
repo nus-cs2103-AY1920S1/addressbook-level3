@@ -431,6 +431,8 @@ every `Module` instead of just the one in the `StudyPlan`.
 
 //end::moduletagging[]
 
+//tag::moduleinformationandverification[]
+
 === Module Information and Verification
 
 ==== Implementation
@@ -500,6 +502,8 @@ as the model manager needs to keep track of not only `Module` objects, but also 
 the necessary information.
 ** Pros: The module manager does not need to persistently hold on to the same list of `ModuleInfo` objects.
 ** Cons: It performs the same reading action multiple times, which could lead to slowdowns.
+
+//end::moduleinformationandverification[]
 
 === Autocomplete
 
@@ -817,6 +821,8 @@ Use case ends.
 
 // end::tagusecase[]
 
+// tag::correctprerequisite[]
+
 === Use case: UC05 - Correct modules without a prerequisite
 
 *MSS*
@@ -837,10 +843,11 @@ Use case ends.
 ** 1a1. Student removes the module from the semester.
 +
 Use case ends.
-* 3a. ModBuddy suggests suitable semesters where the student can take the untaken prerequisites.
+* 3a. Student checks if the module to be added is valid in a selected previous semester.
 +
 Use case resumes from step 4.
 
+// end::correctprerequisite[]
 
 === Use case: UC06 - Chaining commands
 
