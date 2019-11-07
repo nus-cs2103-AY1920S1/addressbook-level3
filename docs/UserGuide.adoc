@@ -463,7 +463,7 @@ Format: `sort|<key>`
 
 ****
 * Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while 1/1/790 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while an item that expires on 1/1/2020 will sort ahead of another that expires on 1/1/2022.
 ****
 ===== Sorting all items by their name
 Format: `sort|name`
@@ -503,6 +503,7 @@ This command works in the opposite direction as `undo`, it will redo any command
 
 == Command Summary
 
+// tag::tablesummary[]
 === Table Summary
 
 The table below summarises the common commands available for use in both lists.
@@ -595,6 +596,7 @@ The table below summarises the commands only available for use in the main list.
 |`sort\|date`
 
 |===
+// end::tablesummary[]
 
 == Command Shorthands
 

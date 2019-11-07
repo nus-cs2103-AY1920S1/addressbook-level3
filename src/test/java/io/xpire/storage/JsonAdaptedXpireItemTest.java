@@ -4,9 +4,12 @@ import static io.xpire.storage.JsonAdaptedXpireItem.MISSING_FIELD_MESSAGE_FORMAT
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.JELLY;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE_LOWER;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE_UPPER;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD_RANGE;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
@@ -66,6 +69,22 @@ public class JsonAdaptedXpireItemTest {
     }
 
     @Test
+    public void toModelType_invalidExpiryDateUpper_throwsIllegalValueException() {
+        JsonAdaptedXpireItem item = new JsonAdaptedXpireItem(VALID_NAME_JELLY, INVALID_EXPIRY_DATE_UPPER,
+                VALID_QUANTITY_JELLY, VALID_REMINDER_THRESHOLD_JELLY, VALID_TAGS);
+        String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS_UPPER;
+        assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidExpiryDateLower_throwsIllegalValueException() {
+        JsonAdaptedXpireItem item = new JsonAdaptedXpireItem(VALID_NAME_JELLY, INVALID_EXPIRY_DATE_LOWER,
+                VALID_QUANTITY_JELLY, VALID_REMINDER_THRESHOLD_JELLY, VALID_TAGS);
+        String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS_OUTDATED;
+        assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
+    }
+
+    @Test
     public void toModelType_nullExpiryDate_throwsIllegalValueException() {
         JsonAdaptedXpireItem item = new JsonAdaptedXpireItem(VALID_NAME_JELLY, null, VALID_QUANTITY_JELLY,
                 VALID_REMINDER_THRESHOLD_JELLY, VALID_TAGS);
@@ -98,6 +117,15 @@ public class JsonAdaptedXpireItemTest {
                 new JsonAdaptedXpireItem(VALID_NAME_JELLY, VALID_EXPIRY_DATE_JELLY, VALID_QUANTITY_JELLY,
                         INVALID_REMINDER_THRESHOLD, VALID_TAGS);
         String expectedMessage = ReminderThreshold.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidReminderThresholdRange_throwsIllegalValueException() {
+        JsonAdaptedXpireItem item =
+                new JsonAdaptedXpireItem(VALID_NAME_JELLY, VALID_EXPIRY_DATE_JELLY, VALID_QUANTITY_JELLY,
+                        INVALID_REMINDER_THRESHOLD_RANGE, VALID_TAGS);
+        String expectedMessage = ReminderThreshold.MESSAGE_CONSTRAINTS_LOWER;
         assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
     }
 }
