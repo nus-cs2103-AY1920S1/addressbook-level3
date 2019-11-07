@@ -3,15 +3,9 @@ package seedu.ifridge.logic.commands.shoppinglist;
 import static java.util.Objects.requireNonNull;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
-import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
-import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
-import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -26,7 +20,6 @@ import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.ModelManager;
 import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.ReadOnlyShoppingList;
 import seedu.ifridge.model.ReadOnlyTemplateList;
@@ -34,7 +27,6 @@ import seedu.ifridge.model.ReadOnlyUserPrefs;
 import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.ShoppingList;
 import seedu.ifridge.model.UnitDictionary;
-import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
@@ -49,11 +41,7 @@ import seedu.ifridge.testutil.GroceryListBuilder;
 import seedu.ifridge.testutil.ShoppingItemBuilder;
 import seedu.ifridge.testutil.ShoppingListBuilder;
 
-class UndoShoppingCommandTest {
-    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
-            new UnitDictionary(new HashMap<String, String>()));
-
+public class UndoShoppingCommandTest {
     @Test
     public void execute_shoppingListUndone_undoSuccessful() throws Exception {
         ShoppingItem validShoppingItem = new ShoppingItemBuilder().build();
@@ -202,36 +190,37 @@ class UndoShoppingCommandTest {
         @Override
         public void setTemplateListFilePath(Path templateListFilePath) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void setTemplateList(ReadOnlyTemplateList templateList) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ReadOnlyTemplateList getTemplateList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public boolean hasTemplate(UniqueTemplateItems toAdd) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void deleteTemplate(UniqueTemplateItems target) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void addTemplate(UniqueTemplateItems toAdd) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void setTemplate(UniqueTemplateItems target, UniqueTemplateItems editedTemplate) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void setShownTemplate(UniqueTemplateItems templateToBeShown) {
@@ -241,12 +230,12 @@ class UndoShoppingCommandTest {
         @Override
         public ObservableList<UniqueTemplateItems> getFilteredTemplateList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ObservableList<TemplateItem> getFilteredTemplateToBeShown() {
@@ -310,42 +299,42 @@ class UndoShoppingCommandTest {
         @Override
         public Path getWasteListFilePath() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void setWasteListFilePath(Path wasteListFilePath) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void setWasteList(ReadOnlyWasteList wasteList) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ReadOnlyWasteList getWasteList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ReadOnlyWasteList getWasteListByMonth(WasteMonth wasteMonth) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public void addWasteItem(GroceryItem toAdd) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ObservableList<GroceryItem> getFilteredWasteItemList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public SortedSet<WasteMonth> getDescendingWasteMonths() {
