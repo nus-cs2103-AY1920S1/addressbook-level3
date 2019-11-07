@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `glist add n/NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]` can be used as `n/apple e/23/10/2019 a/3units t/fruit` or as `n/apple e/23/10/2019 a/3units`.
 * Items with … after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/fruit`, `t/fruit t/healthy` etc.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
+* If multiple arguments of the same type are provided, the last argument for that field will be taken as the input. Eg: `glist add n/FirstName n/Apple a/5units e/28/11/2019` will create a GroceryItem with the name 'Apple'.
 ====
 
 ====
@@ -520,7 +521,7 @@ Redoing a template item list will display which template is redone.
 ==== Add new item to shopping list: `slist add`
 
 Adds a new item to the shopping list. +
-Format: `slist add f/FOOD_ITEM a/AMOUNT`
+Format: `slist add n/FOOD_ITEM a/AMOUNT`
 
 ****
 * Cannot add item with duplicate name.
@@ -533,6 +534,7 @@ Examples:
 * `slist add n/banana a/3units`
 
 
+//tag::addTempfeature[]
 ==== Add items in template into shopping list: `slist addTemp`
 
 Adds all template items that are not currently found in the grocery list into the shopping list. +
@@ -542,10 +544,11 @@ Examples:
 
 * `slist addTemp 1`
 
+//end::addTempfeature[]
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
-Format: `slist edit INDEX [f/FOODNAME] [a/AMOUNT]`
+Format: `slist edit INDEX [n/FOODNAME] [a/AMOUNT]`
 
 ****
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
@@ -556,7 +559,7 @@ Format: `slist edit INDEX [f/FOODNAME] [a/AMOUNT]`
 
 Examples:
 
-* `slist edit 3 f/pomegranate`
+* `slist edit 3 n/pomegranate`
 Edits the name of the third food item in the shopping list to  `pomegranate`
 * `slist edit 2 a/2kg`
 Edits the amount of the second food item in the shopping list to 2 litres.
@@ -637,30 +640,14 @@ Examples:
 
 * `slist urgent 1`
 Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and moves to the top of the shopping list.
-//tag::addTempfeature[]
-==== Generate shopping list: `slist addTemp`
 
-Generates a shopping list from all missing grocery items in the template.
-Format: `slist addTemp [l/INDEX] ...`
-
-****
-* At least one template name must be provided.
-* In the case of multiple template lists, the amount of duplicate items will be summed up.
-* In the case of the shopping list already containing food items, the amount of duplicate items will be summed up.
-****
-
-Examples:
-
-* `slist addTemp l/Weekly Necessities l/Birthday Cake`
-All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
-
-//end::addTempfeature[]
 //tag::slistundoredo[]
+
 ==== Undo Shopping List: `slist undo`
 Undo the shopping list. +
 Format: `slist undo`
 
-'slist merge bought' command cannot be undone.
+'slist mergebought' command cannot be undone.
 
 ==== Redo Shopping List: `slist redo`
 Redo the shopping list. +
@@ -725,12 +712,12 @@ are expired and automatically moves them into the waste list.
 |`tlist clear` | Clears all template entries from the template list
 |`tlist list` | Shows all entries in the template list
 |`tlist template add TEMPLATEINDEX [n/NAME] [a/AMOUNT]` | Adds an item into a specified template
-|`tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]` | Edits a specified item in the specified template TEMPLATENAME
+|`tlist n/TEMPLATENAME edit INDEX [n/FOODITEM] [a/AMOUNT]` | Edits a specified item in the specified template TEMPLATENAME
 |`tlist template delete TEMPLATEINDEX i/ITEMINDEX` | Deletes the specified item from the specified template
 |`tlist template list TEMPLATEINDEX` | Shows all entries in the specified template
-|`slist add f/FOOD_ITEM a/AMOUNT` | Adds a new item to the shopping list
+|`slist add n/FOOD_ITEM a/AMOUNT` | Adds a new item to the shopping list
 |`slist addTemp INDEX`| Adds all template items that are not currently found in the grocery list into the shopping list
-|`slist edit INDEX [f/FOODNAME] [a/AMOUNT]` | Edits the name of a specified item in a shopping list
+|`slist edit INDEX [n/FOODNAME] [a/AMOUNT]` | Edits the name of a specified item in a shopping list
 |`slist delete INDEX` | Delete specified item from shopping list
 |`slist urgent INDEX` | Marks the specified shopping item as 'urgent!'
 |`slist list` | Lists out all items in the shopping list with bought items first

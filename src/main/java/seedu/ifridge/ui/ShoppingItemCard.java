@@ -58,11 +58,11 @@ public class ShoppingItemCard extends UiPart<Region> {
         Text boughtText = new Text();
         if (shoppingItem.isBought()) {
             if (isCompletelyBought(shoppingItem, boughtList)) {
-                boughtText = new Text("Fully Bought!");
+                boughtText = new Text("Fully Bought! (" + shoppingItem.getAmountBought(boughtList) + " Bought)");
                 boughtText.setFill(Color.DARKGREEN);
             } else {
-                boughtText = new Text("Partially Bought");
-                boughtText.setFill(Color.PALEGREEN);
+                boughtText = new Text("Partially Bought. (" + shoppingItem.getAmountBought(boughtList) + " Bought)");
+                boughtText.setFill(Color.PURPLE);
             }
             boughtTag.getChildren().add(boughtText);
         }
