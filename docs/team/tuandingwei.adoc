@@ -1,22 +1,30 @@
-= John Doe - Project Portfolio
+= Tuan Ding Wei - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Modulo
+image::modulo.png[]
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Modulo (Level 3) is a NUS student life application specially designed for busy and motivated NUS students.
+
+As busy students in NUS, we understand that it can be daunting to keep track of various
+tasks and concurrently do well for exams. Modulo features a one-stop app to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
+
+The user interacts with it using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 35 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+* *Major enhancement*: added *the CAP Tracker*
+** What it does: The CAP tracker allows the user to keep track of his/her grades, overall Cumulative Average Point (CAP), MC taken and the degree classification (also known as "class") the user is in.
+** Justification: This feature complements the function of Modulo as an one-stop application for NUS students to manage their life in NUS. For students in NUS who are well-concerned and motivated, the CAP Tracker allows users to keep track of their CAP and grades with ease.
+** Highlights: The implementation of the CAP feature was challenging but satisfying. The single 'add' command...
+
+
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
@@ -69,4 +77,4 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 ---
 
-
+_{Optionally, you may include other projects in your portfolio.}_
