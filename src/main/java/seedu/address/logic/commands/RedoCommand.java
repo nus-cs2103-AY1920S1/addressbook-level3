@@ -16,7 +16,7 @@ public class RedoCommand extends Command {
         + " Redo command can only be executed after a undo Command.";
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        HistoryManager history = new HistoryManager();
+        HistoryManager history = model.getHistory();
         if (history.isRedoneEmpty()) {
             return new CommandResult(MESSAGE_FAILURE_EMPTY_STACK);
         } else if (!(history.getLatestCommand() instanceof UndoCommand)) {

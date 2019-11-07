@@ -46,13 +46,14 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = athletickParser.parseCommand(commandText);
+        HistoryManager history = model.getHistory();
         commandResult = command.execute(model);
         if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand
             || command instanceof EditCommand) {
-            HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+            history.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
-        HistoryManager.getCommands().push(command);
-        HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
+        history.getCommands().push(command);
+        history.getAddressBooks().push(model.getAthletickDeepCopy());
         try {
             storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());

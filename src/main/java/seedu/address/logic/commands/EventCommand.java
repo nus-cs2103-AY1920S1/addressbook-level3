@@ -43,7 +43,7 @@ public class EventCommand extends Command {
 
     @Override
     public boolean isUndoable() {
-        return false;
+        return true;
     }
 
     @Override

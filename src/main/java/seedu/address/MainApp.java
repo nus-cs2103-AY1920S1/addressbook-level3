@@ -54,6 +54,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -75,12 +76,10 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
+        
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, model);
-        HistoryManager.getAddressBooks().push(model.getAthletickDeepCopy());
-        HistoryManager.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
     }
 
     /**
@@ -94,6 +93,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAthletick> athletickOptional;
         ReadOnlyAthletick initialAthletick;
         ReadOnlyAthletick initialData;
+        HistoryManager history = new HistoryManager();
         try {
             athletickOptional = storage.readAthletick();
             if (!athletickOptional.isPresent()) {
@@ -142,7 +142,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
             initialAttendance = new Attendance();
         }
-        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs);
+        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs, history);
     }
 
     private void initLogging(Config config) {

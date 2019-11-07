@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
@@ -58,14 +59,26 @@ public interface Model {
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAthletick(ReadOnlyAthletick athletick);
-
-
+    
     /** Returns Athletick */
     ReadOnlyAthletick getAthletick();
+    
+    /** Returns HistoryManager */
+    HistoryManager getHistory();
+    
+    /** Returns deep copy of Athletick */
     ReadOnlyAthletick getAthletickDeepCopy();
+    
+    /** Returns deep copy of trainings */
     List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    
+    /** Returns deep copy of hashmap */
     HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    
+    /** Returns Command that is being undone*/
     Command undo();
+    
+    /** Returns Command that is being redone*/
     Command redo();
 
     /**
