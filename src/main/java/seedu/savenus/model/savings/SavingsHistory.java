@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
  */
 public class SavingsHistory implements ReadOnlySavingsHistory {
 
-    // Testing this without the recommended non-static initialization blocks.
     private final SavingsHistoryList savingsHistoryList;
 
     public SavingsHistory() {
@@ -18,7 +17,7 @@ public class SavingsHistory implements ReadOnlySavingsHistory {
     }
 
     /**
-     * Creates a SavingsHistory using the HistoryItems in the {@code toBeCopied}
+     * Creates a SavingsHistory with the {@code toBeCopied}
      */
     public SavingsHistory(ReadOnlySavingsHistory toBeCopied) {
         this();

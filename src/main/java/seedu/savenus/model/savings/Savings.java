@@ -23,13 +23,6 @@ public class Savings {
     private final Money savingsAmount; // the amount to be saved.
     private final TimeStamp timeStamp;
     private final boolean isWithdraw; // required for sanity check in addToHistory in model
-    // Default starting savings amount is a deposit.
-    // Constructor should never be called
-    //    public Savings() {
-    ////        savingsAmount = new Money("0.00");
-    ////        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
-    ////        isWithdraw = false;
-    ////    }
 
     public Savings(String savings, String time, boolean withdraw) {
         requireNonNull(savings);
@@ -44,15 +37,6 @@ public class Savings {
 
     public TimeStamp getTimeStamp() {
         return timeStamp;
-    }
-
-    /**
-     * Makes the savings amount a negative value.
-     * Use for Withdrawals only.
-     */
-    public void makeWithdraw() {
-        // if it is a withdrawal, the saving should be a negative value.
-        savingsAmount.negate();
     }
 
     public Money getSavingsAmount() {

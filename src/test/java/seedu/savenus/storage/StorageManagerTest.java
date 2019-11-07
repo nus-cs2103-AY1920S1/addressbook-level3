@@ -26,6 +26,7 @@ import seedu.savenus.storage.alias.JsonAliasListStorage;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
+import seedu.savenus.storage.savings.JsonSavingsAccountStorage;
 import seedu.savenus.storage.savings.JsonSavingsStorage;
 import seedu.savenus.storage.sort.JsonCustomSortStorage;
 import seedu.savenus.storage.userprefs.JsonUserPrefsStorage;
@@ -43,6 +44,8 @@ public class StorageManagerTest {
         JsonMenuStorage menuStorage = new JsonMenuStorage(getTempFilePath("menuTemp"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonSavingsStorage savingsStorage = new JsonSavingsStorage(getTempFilePath("savingsTemp"));
+        JsonSavingsAccountStorage savingsAccountStorage = new JsonSavingsAccountStorage(
+                getTempFilePath("savingsAccountTemp"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
                 getTempFilePath("purchases"));
@@ -51,7 +54,8 @@ public class StorageManagerTest {
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
         JsonAliasListStorage aliasListStorage = new JsonAliasListStorage(getTempFilePath("alias"));
         storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsStorage, aliasListStorage);
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsStorage, savingsAccountStorage,
+                aliasListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

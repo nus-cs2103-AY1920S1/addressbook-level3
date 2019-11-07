@@ -13,6 +13,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -29,7 +30,7 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
+                new Wallet(), new CustomSorter(), new SavingsHistory(), new SavingsAccount(), new AliasList());
     }
 
     @Test
@@ -37,7 +38,8 @@ public class AddCommandIntegrationTest {
         Food validFood = new FoodBuilder().build();
 
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new AliasList());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new SavingsAccount(),
+                new AliasList());
         expectedModel.addFood(validFood);
 
         assertCommandSuccess(new AddCommand(validFood), model,

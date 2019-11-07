@@ -39,6 +39,7 @@ public class SaveCommand extends Command {
         try {
             model.deductFromWallet(this.savingsAmount);
             model.addToHistory(this.savingsAmount);
+            model.depositInSavings(this.savingsAmount);
         } catch (InsufficientFundsException e) {
             throw new CommandException(e.getMessage() + " to add to savings account!");
         } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.

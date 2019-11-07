@@ -28,8 +28,8 @@ public class WithdrawCommand extends Command {
     private final Savings withdrawalAmount; // withdrawal is a negative saving.
 
     public WithdrawCommand(String savings) {
-        this.withdrawalAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp(), true);
-        this.withdrawalAmount.makeWithdraw();
+        this.withdrawalAmount = new Savings("-" + savings,
+                TimeStamp.generateCurrentTimeStamp(), true);
 
         // DEBUG IN WITHDRAW - Check if value becomes negative
         System.out.println(this.withdrawalAmount);
@@ -46,8 +46,13 @@ public class WithdrawCommand extends Command {
                     .getRemainingBudget().getRemainingBudgetAmount()
                     .subtract(this.withdrawalAmount.getSavingsAmount().getAmount())
                     .toString());
+            System.out.println("can execute new remaining");
             model.getWallet().setRemainingBudget(newRemaining);
+            System.out.println("can set remaining");
             model.addToHistory(this.withdrawalAmount);
+            System.out.println("can execute add to history");
+            model.withdrawFromSavings(this.withdrawalAmount);
+            System.out.println("can execute withdraw from savings");
         } catch (BudgetAmountOutOfBoundsException e) {
             throw new CommandException(e.getMessage());
         }
