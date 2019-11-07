@@ -82,6 +82,7 @@ targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=undoredocommand]
+include::../UserGuide.adoc[tag=commandsummary]
 
 == Contributions to the Developer Guide
 

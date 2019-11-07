@@ -448,53 +448,67 @@ Format: `exit`
 // tag::commandsummary[]
 == Command Summary
 
-** *Add* :
-* `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `add accommodation n/Paradise Hotel a/23 Amoy Quee Road p/22224444`
-* `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG]...` +
-e.g. `add activity n/Skiing a/Mount Kurabaki du/120`
-* `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `add contact n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague`
-* `add days NUMBER` +
-e.g. `add days 10`
-** *Clear* : `clear`
-** *Delete* : +
-* `delete accommodation INDEX`
-* `delete activity INDEX`
-* `delete contact INDEX`
-** *Edit* :
-* `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit accommodation 3 n/Kent Ridge Hotel a/Clementi`
-* `edit activity INDEX [n/NAME] [a/ADDRESS] [du/DURATION] [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG]...` +
-e.g. `edit activity 5 n/Go Disneyland`
-* `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit contact 2 n/James Lee e/jameslee@example.com`
-** *Schedule* :
-* `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX` +
-e.g. `schedule 2 st/1400 d/2`
-** *Unschedule* :
-* `unschedule ACTIVITY_INDEX d/DAY_INDEX` +
-e.g. `unschedule 2 d/2`
-** *Autoschedule* :
-* `autoschedule [t/TAG START_TIME] n/ACTIVITY_NAME START_TIME a/LOCATION_OF_ACTIVITIES d/[DAY_INDEX]` +
-e.g. `autoschedule t/Dining 1000 t/Attraction 1200 n/Disneyland 1400 t/Dining a/Tokyo d/1 4 5`
-** *Optimise* :
-* `optimise <DAY_INDEX>`
-** *Undo* :
-* `undo`
-** *Redo* :
-* `redo`
-** *List* :
-* `list accommodation`
-* `list activity`
-* `list contact`
-** *View* :
-* `view accommodation ACCOMMODATION_INDEX`
-* `view activity ACTIVITY_INDEX`
-* `view contact CONTACT_INDEX`
-* `view itinerary`
-* `view info`
-* `view help`
-** *Help* : `help`
-** *Exit* : `exit`
+=== Add Commands
+|===
+| *Command* | *Example*
+| add accommodation n/NAME a/ADDRESS [p/Phone_NUMBER] [e/EMAIL] [t/TAG] | add accommodation n/Paradise Hotel a/23 Amoy Quee Road p/22224444
+| add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG] | add activity n/Skiing a/Mount Kurabaki du/120
+| add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] | add contact n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague
+| add days NUMBER | add days 10
+|===
+
+=== Delete Commands
+|===
+| *Command*
+| delete accommodation INDEX
+| delete activity INDEX
+| delete contact INDEX
+| delete day INDEX
+|===
+
+=== Edit Commands
+|===
+| *Command* | *Example*
+| edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG] | edit accommodation 3 n/Kent Ridge Hotel a/Clementi
+| edit activity INDEX [n/NAME] [a/ADDRESS] [du/DURATION] [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG] | edit activity 5 n/Go Disneyland
+| edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] | edit contact 2 n/James Lee e/jameslee@example.com
+|===
+
+=== Schedule Commands
+|===
+| *Command* | *Example*
+| schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX | schedule 2 st/1400 d/2
+| unschedule ACTIVITY_INDEX d/DAY_INDEX | unschedule ACTIVITY_INDEX d/DAY_INDEX
+| autoschedule [t/TAG START_TIME] n/ACTIVITY_NAME START_TIME a/LOCATION_OF_ACTIVITIES d/[DAY_INDEX] | autoschedule t/Dining 1000 t/Attraction 1200 n/Disneyland 1400 t/Dining a/Tokyo d/1 4 5
+|===
+
+=== List Commands
+|===
+| *Command*
+| list accommodation
+| list activity
+| list contact
+|===
+
+=== View Commands
+|===
+| *Command*
+| view accommodation ACCOMMODATION_INDEX
+| view activity ACTIVITY_INDEX
+| view contact CONTACT_INDEX
+| view itinerary
+| view info
+| view help
+|===
+
+=== Other Commands
+|===
+| *Command*
+| optimise DAY_INDEX
+| undo
+| redo
+| clear
+| help
+| exit
+|===
 // end::commandsummary[]

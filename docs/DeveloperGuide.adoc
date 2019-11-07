@@ -281,6 +281,15 @@ UndoableCommand. +
 (eg. AddActivityEvent stores the `Activity added`, as `DeleteActivityCommand` requires the Activity to undo
 the initial `AddActivityCommand's` changes)
 
+The following activity diagram summarizes what happens when a user executes an UndoableCommand, an UndoCommand,
+a RedoCommand, or any other Commands.
+
+image::UndoRedoActivityDiagram.png[]
+
+[NOTE]
+A Command that is not a UndoableCommand, UndoCommand or RedoCommand will not affect the stack of Events in CommandHistory. +
+(eg. view, list commands)
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
