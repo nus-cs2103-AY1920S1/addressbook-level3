@@ -301,6 +301,7 @@ public class ModelManager implements Model {
                 contactActivityMap.put(newContact, oldList);
                 activityContactMap.put(newAct, newContact);
             } else {
+                deleteContact(oldContact);
                 contactActivityMap.put(oldContact, oldList);
                 activityContactMap.put(newAct, oldContact);
             }
@@ -332,6 +333,7 @@ public class ModelManager implements Model {
                 contactAccommodationMap.put(newContact, oldList);
                 accommodationContactMap.put(newAcc, newContact);
             } else {
+                deleteContact(oldContact);
                 accommodationContactMap.put(newAcc, oldContact);
                 contactAccommodationMap.put(oldContact, oldList);
             }
@@ -343,6 +345,7 @@ public class ModelManager implements Model {
             addContact(newAcc.getContact().get());
             addAccommodationMapping(newAcc);
         }
+
     }
 
     /**
