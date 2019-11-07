@@ -3,7 +3,7 @@ package seedu.address.logic.commands.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.DELETE;
 import static seedu.address.commons.core.Messages.MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD;
-import static seedu.address.commons.core.Messages.MESSAGE_HIT_ENTER_TO_DELETE;
+import static seedu.address.commons.core.Messages.MESSAGE_CONFIRM_DELETE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,13 +31,6 @@ public class DeleteFlashcardCommand extends Command {
 
     public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "Deleted Flashcard: %1$s";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "DeleteFlashcardCommand not implemented yet";
-
-    private static boolean isSure = false;
-
-    // negative marked index to prevent access
-    private static int markedIndex = -1;
-
     private final Index targetIndex;
 
     /**
@@ -48,6 +42,10 @@ public class DeleteFlashcardCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -57,32 +55,19 @@ public class DeleteFlashcardCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
-        FlashcardCommandResult commandResult = new FlashcardCommandResult("");
-        if (!isSure) {
-            isSure = true;
-            // one prompt for index
-            markedIndex = this.targetIndex.getOneBased();
-            throw new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD
-                    + "\n" + flashcardToDelete
-                    + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
-        }
-        if (isSure && markedIndex == this.targetIndex.getOneBased()) {
-            // if this was marked
-            // this is to prevent calling delete 1 then
-            // calling delete 2
-            // user is forced to delete the same index twice in a row.
-            model.deleteFlashcard(flashcardToDelete);
-            isSure = false;
-            markedIndex = -1; // reset to -1 to prevent wrong access
-            commandResult = new FlashcardCommandResult(String.format(
-                    MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
-        }
-        if (isSure) {
-            // user is sure he wants to delete but changed the index
-            markedIndex = this.targetIndex.getOneBased();
-            throw new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD
-                    + "\n" + flashcardToDelete
-                    + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
+        FlashcardCommandResult commandResult = new FlashcardCommandResult ((
+                MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD
+                + "\n" + flashcardToDelete
+                + "\n" + String.format(MESSAGE_CONFIRM_DELETE, this.targetIndex.getOneBased())));
+
+        if (CommandHistory.getLastCommand().get() instanceof DeleteFlashcardCommand) {
+            if (((DeleteFlashcardCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
+                    .equals(this.targetIndex)) {
+                // correct. allow delete
+                model.deleteFlashcard(flashcardToDelete);
+                commandResult = new FlashcardCommandResult(String.format
+                        (MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+            }
         }
         return commandResult;
     }

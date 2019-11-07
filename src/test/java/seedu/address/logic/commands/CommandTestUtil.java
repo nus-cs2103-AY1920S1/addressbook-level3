@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -10,9 +11,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
@@ -24,6 +27,8 @@ import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.TitleContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardTitleContainsKeywordsPredicate;
+import seedu.address.model.flashcard.ScheduleIncrement;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -36,6 +41,12 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String SPACE = " ";
+
+    public static final Statistics DUE_STATISTICS = new Statistics(LocalDate.now().minusDays(1),
+            LocalDate.now(), ScheduleIncrement.FIRST);
+    public static final Statistics OVERDUE_STATISICS = new Statistics(LocalDate.of(2010, 6, 12),
+            LocalDate.of(2010, 6, 13), ScheduleIncrement.FIRST);
     public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
             + "symbol?";
     public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";
@@ -94,9 +105,24 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_SAMPLE = "Sample Content";
     public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
             + "multiple instructions simultaneously.";
+    public static final String VALID_TAG_CS2100 = "CS2100";
+    public static final String VALID_TAG_MIDTERMS = "Midterms";
 
-    public static final String EXPECTED_VIEW_SAMPLE = "\nTitle: Sample Title\nContent: Sample Content\nTags: "
-            + "[SampleTag2][SampleTag1]";
+    public static final String VALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + VALID_TITLE_PIPELINE;
+    public static final String VALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + VALID_CONTENT_PIPELINE;
+    public static final String VALID_NOTE_TAG_1_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_CS2100;
+    public static final String VALID_NOTE_TAG_2_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_MIDTERMS;
+
+    public static final String INVALID_NOTE_TITLE = "*";
+    public static final String INVALID_NOTE_CONTENT = " ";
+    public static final String INVALID_NOTE_TAG = "Two words";
+
+    public static final String INVALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + INVALID_NOTE_TITLE;
+    public static final String INVALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + INVALID_NOTE_CONTENT;
+    public static final String INVALID_NOTE_TAG_PIPELINE = SPACE + PREFIX_TAG + INVALID_NOTE_TAG;
+
+    public static final String EXPECTED_VIEW_SAMPLE = "Viewing note: \n\tTitle: Sample Title\n\tContent: Sample "
+            + "Content\n\tTags: [sampletag2][sampletag1]";
     public static final String EXPECTED_VIEW_PIPELINE = "\nTitle: Pipelining Definition\nContent: Pipelining is the "
             + "process of making a single processor run multiple instructions simultaneously.\nTags: [CS2100] "
             + "[Midterms]";
@@ -134,6 +160,8 @@ public class CommandTestUtil {
                 .withTitle(VALID_TITLE_GEM).withTags(VALID_TAG_CHEATSHEET, VALID_TAG_FORMULA).build();
     }
 
+    private static Logger logger = Logger.getLogger(CommandTestUtil.class.getName());
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -143,6 +171,11 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+<<<<<<< HEAD
+=======
+            logger.info("expectedCommandResult\n" + expectedCommandResult.getFeedbackToUser());
+            logger.info("result\n" + result.getFeedbackToUser());
+>>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -150,6 +183,7 @@ public class CommandTestUtil {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -168,6 +202,8 @@ public class CommandTestUtil {
     }
 
 
+=======
+>>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
@@ -252,7 +288,12 @@ public class CommandTestUtil {
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
+<<<<<<< HEAD
         System.out.println("Notes: " + model.getFilteredNoteList().size());
+=======
+        logger.info("Number of Notes: " + model.getFilteredNoteList().size());
+
+>>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
         assertEquals(1, model.getFilteredNoteList().size());
     }
 

@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,8 +13,11 @@ import seedu.address.model.tag.Tag;
 public class StudyBuddyItemContainsTagPredicate implements Predicate<StudyBuddyItem> {
     private final Set<Tag> tags;
 
+    private final Logger logger = LogsCenter.getLogger(StudyBuddyItemContainsTagPredicate.class.getName());
+
     public StudyBuddyItemContainsTagPredicate (Set<Tag> tags) {
         this.tags = tags;
+        logger.info("Filtering StudyBuddyItems that contain at least the specified tags");
     }
 
     @Override

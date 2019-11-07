@@ -1,4 +1,4 @@
-= StudyBuddy (Level 1)
+= StudyBuddyPro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W13-3/main[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]

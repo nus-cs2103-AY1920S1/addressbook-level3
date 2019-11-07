@@ -2,7 +2,9 @@ package seedu.address.model.note;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,8 +13,11 @@ import seedu.address.model.tag.Tag;
 public class NoteContainsTagPredicate implements Predicate<Note> {
     private final Set<Tag> tags;
 
+    private final Logger logger = LogsCenter.getLogger(NoteContainsTagPredicate.class.getName());
+
     public NoteContainsTagPredicate (Set<Tag> tags) {
         this.tags = tags;
+        logger.info("Filtering Notes that contain at least the specified tags");
     }
 
     // test on the note to see if he has the tag

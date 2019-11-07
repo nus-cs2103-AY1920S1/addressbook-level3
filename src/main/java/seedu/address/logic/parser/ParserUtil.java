@@ -79,7 +79,7 @@ public class ParserUtil {
         requireNonNull(content);
         String trimmedContent = content.trim();
         if (!Content.isValidContent(trimmedContent)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
         }
         return new Content(trimmedContent);
     }

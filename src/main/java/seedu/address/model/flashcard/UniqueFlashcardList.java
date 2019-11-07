@@ -31,19 +31,24 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Helper method to check if a flashcard contains the same question or title as any other flashcard in internalList.
+     * Helper method to check if a flashcard contains the same question or title as any other flashcard.
      * @param toCheck Flashcard to be checked.
-     * @throws DuplicateFlashcardQuestionException if toCheck has same question as another flashcard in list
-     * @throws DuplicateFlashcardTitleException if toCheck has same title as another flashcard in list
+     * @param beingChecked Flashcard being checked.
+     * @throws DuplicateFlashcardQuestionException if toCheck has same question as beingChecked
+     * @throws DuplicateFlashcardTitleException if toCheck has same title as beingChecked
+     * @throws DuplicateFlashcardException if toCheck is the same flascard as beingChecked
      */
-    private void flashcardExceptionTypeHelper(Flashcard toCheck) throws DuplicateFlashcardQuestionException,
-            DuplicateFlashcardTitleException {
-        for (Flashcard beingChecked : internalList) {
-            if (beingChecked.getQuestion().equals(toCheck.getQuestion())) {
-                throw new DuplicateFlashcardQuestionException();
-            }
+    private void flashcardExceptionTypeHelper(Flashcard toCheck, Flashcard beingChecked)
+        throws DuplicateFlashcardQuestionException, DuplicateFlashcardTitleException, DuplicateFlashcardException {
+        boolean hasSameQuestion = beingChecked.getQuestion().equals(toCheck.getQuestion());
+        boolean hasSameTitle = beingChecked.getTitle().equals(toCheck.getTitle());
+        if (hasSameQuestion && hasSameTitle) {
+            throw new DuplicateFlashcardException();
+        } else if (hasSameQuestion) {
+            throw new DuplicateFlashcardQuestionException();
+        } else if (hasSameTitle) {
+            throw new DuplicateFlashcardTitleException();
         }
-        throw new DuplicateFlashcardTitleException();
     }
 
     /**
@@ -61,7 +66,9 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
     public void add(Flashcard toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            flashcardExceptionTypeHelper(toAdd);
+            for (Flashcard beingChecked : internalList) {
+                flashcardExceptionTypeHelper(toAdd, beingChecked);
+            }
         }
         internalList.add(toAdd);
     }
@@ -79,11 +86,9 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
             throw new FlashcardNotFoundException();
         }
 
-        if (!target.equals(editedFlashcard) && contains(editedFlashcard)) {
-            if (target.getQuestion().equals(editedFlashcard.getQuestion())) {
-                throw new DuplicateFlashcardQuestionException();
-            } else {
-                throw new DuplicateFlashcardTitleException();
+        if (!target.isSameFlashcard(editedFlashcard) && contains(editedFlashcard)) {
+            for (Flashcard beingChecked : internalList) {
+                flashcardExceptionTypeHelper(editedFlashcard, beingChecked);
             }
         }
 
