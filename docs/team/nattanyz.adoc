@@ -22,7 +22,7 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 *** Users can also see their improvement over time and feel encouraged by it.
 ** Highlights: 
 *** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
-*** Additions to the  `Storage` component and learning to use Haliq's JSON storage features was required to store and load the `SessionList` objects.
+*** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
 *** My team's decision to make `State` non-static influenced me to decouple `UserStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
 *** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
 
@@ -30,7 +30,7 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 ** What I've done:
 *** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern. 
 // todo: attach screenshot here
-*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before focusing on integrating the GUI and CLI, and making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since. 
+*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since. 
 ** Justification:
 ** Planned future enhancements:
 ** Highlights:
