@@ -172,6 +172,7 @@ public class ApiManager implements ApiInterface {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreID = genreApi.getId();
+                        apiCall.getGenre().getGenreMovies()
                         Discover discover = new Discover();
                         discover.includeAdult(false).withGenres(genreID);
                         MovieResultsPage tvPage = apiCall.getDiscover().getDiscover(discover);

@@ -31,11 +31,11 @@ import seedu.ezwatchlist.model.show.TvShow;
  * in the list.
  */
 public class RecommendationEngine {
-    private List<Movie> userMovies;
-    private List<TvShow> userTvShows;
+    private final List<Movie> userMovies;
+    private final List<TvShow> userTvShows;
     private List<Integer> userMoviesId;
     private List<Integer> userTvShowsId;
-    private TmdbApi tmdbApi;
+    private final TmdbApi tmdbApi;
     private HashMap<Integer, Integer> movieRecommendationOccurrences;
     private HashMap<Integer, Integer> tvRecommendationOccurrences;
     private List<Movie> movieRecommendations;
@@ -47,7 +47,12 @@ public class RecommendationEngine {
      * @param tvShows @nullable the list of Tv Shows the user has.
      * @param tmdbApi the Api call to retrieve online information.
      */
-    public RecommendationEngine(@Nullable List<Movie> movies, @Nullable List<TvShow> tvShows, TmdbApi tmdbApi) {
+    public RecommendationEngine(@Nullable List<Movie> movies, @Nullable List<TvShow> tvShows, TmdbApi tmdbApi)
+            throws IllegalArgumentException {
+        if (isNull(tmdbApi)) {
+            throw new IllegalArgumentException();
+        }
+
         userMovies = movies;
         userTvShows = tvShows;
         userMoviesId = new LinkedList<>();
@@ -141,7 +146,7 @@ public class RecommendationEngine {
         movieRecommendationOccurrences.entrySet().stream()
                 .sorted(comparingByValue())
                 .limit(noOfRecommendations)
-                .forEachOrdered(x -> movieRecommendations.add(ApiUtil.getMovie(tmdbApi, x.getKey())));
+                .forEachOrdered(entry -> movieRecommendations.add(ApiUtil.getMovie(tmdbApi, entry.getKey())));
     }
 
     /**
@@ -152,7 +157,7 @@ public class RecommendationEngine {
         tvRecommendationOccurrences.entrySet().stream()
                 .sorted(comparingByValue())
                 .limit(noOfRecommendations)
-                .forEachOrdered(x -> tvShowRecommendations.add(ApiUtil.getTvShow(tmdbApi, x.getKey())));
+                .forEachOrdered(entry -> tvShowRecommendations.add(ApiUtil.getTvShow(tmdbApi, entry.getKey())));
     }
 
     /**
