@@ -75,39 +75,60 @@ public class Parser implements InteractiveParser {
     @Override
     public void parseInput(String commandText) throws ParseException {
 
-        /*
-        if (commandText.isBlank()) {
-            throw new ParseException(MESSAGE_BLANK);
-        }
-         */
-
-        if (isClearArgumentsCommand(commandText)) {
-            resetParser();
+        if (isDynamicStatelessCommand(commandText)) {
+            parseDynamicStatelessCommand(commandText);
             return;
         }
 
-        if (isExitCommand(commandText)) {
-            initializeExit();
-            return;
-        }
-
-        if (isHelpCommand(commandText)) {
-            initializeHelp();
-            return;
-        }
-
-        if (isCurrentCommand(commandText)) {
-            initializeCurrent();
-            return;
-        }
-
-        if (isTabCommand(commandText)) {
-            initializeTab();
-            //return;
+        if (isDynamicStatefulCommand(commandText)) {
+            parseDynamicStatefulCommand(commandText);
         }
 
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
         initializeAndParse(commandText, arrayOfPrefixes);
+    }
+
+    private void parseDynamicStatefulCommand(String commandText) {
+        if (isTabCommand(commandText)) {
+            initializeTab();
+        }
+        // Room for further extensions.
+    }
+
+    private void parseDynamicStatelessCommand(String commandText) throws ParseException {
+        String trimmedNormalizedText = commandText.trim().toLowerCase();
+        switch (trimmedNormalizedText) {
+
+        case MESSAGE_CLEAR_ARGUMENTS:
+            resetParser();
+            break;
+
+        case MESSAGE_CURRENT:
+            initializeCurrent();
+            break;
+
+        case ExitCommand.COMMAND_WORD:
+            initializeExit();
+            break;
+
+        case HelpCommand.COMMAND_WORD:
+            initializeHelp();
+            break;
+
+        default:
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    private boolean isDynamicStatelessCommand(String commandText) {
+        return isClearArgumentsCommand(commandText)
+                || isExitCommand(commandText)
+                || isHelpCommand(commandText)
+                || isCurrentCommand(commandText);
+    }
+
+    private boolean isDynamicStatefulCommand(String commandText) {
+        return isTabCommand(commandText);
     }
 
     private void initializeTab() {
