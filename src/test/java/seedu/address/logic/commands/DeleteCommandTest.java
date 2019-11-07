@@ -158,7 +158,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_listActivityContext_deleteSuccess() throws CommandException{
+    public void execute_listActivityContext_deleteSuccess() throws CommandException {
         ModelManager expectedModel = new ModelManager(
                 model2.getAddressBook(), new UserPrefs(), new InternalState(), model2.getActivityBook());
         model2.setContext(listActivitiesContext);

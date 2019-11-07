@@ -21,8 +21,8 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_IN_THE_WRONG_CONTEXT = "Unable to delete: not in list contact/activity " +
-            "or view activity context.";
+    public static final String MESSAGE_IN_THE_WRONG_CONTEXT = "Unable to delete: not in list contact/activity "
+            + "or view activity context.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the current item identified by the index number.\n"
