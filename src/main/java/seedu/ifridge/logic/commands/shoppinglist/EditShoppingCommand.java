@@ -77,8 +77,8 @@ public class EditShoppingCommand extends Command {
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
         editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
-        if (!isCompletelyBought(editedShoppingItem, model.getBoughtList().getGroceryList())) {
-            editedShoppingItem.setUrgent(shoppingItemToEdit.isUrgent());
+        if (isCompletelyBought(editedShoppingItem, model.getBoughtList().getGroceryList())) {
+            editedShoppingItem = editedShoppingItem.setUrgent(false);
         }
 
         if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
@@ -120,7 +120,8 @@ public class EditShoppingCommand extends Command {
         Name updatedName = editShoppingItemDescriptor.getName().orElse(shoppingItemToEdit.getName());
         Amount updatedAmount = editShoppingItemDescriptor.getAmount().orElse(shoppingItemToEdit.getAmount());
 
-        return new ShoppingItem(updatedName, updatedAmount);
+        return new ShoppingItem(updatedName, updatedAmount,
+                shoppingItemToEdit.isBought(), shoppingItemToEdit.isUrgent());
     }
 
     /**
