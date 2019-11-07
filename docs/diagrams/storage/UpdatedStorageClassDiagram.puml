@@ -22,12 +22,12 @@ Class JsonPlannerStorage
 
 StorageManager .up.|> Storage
 
-StorageManager o-left-> UserPrefsStorage
-StorageManager o-right-> HistoryManagerStorage
-StorageManager o-down-> CcaTrackerStorage
-StorageManager o-down-> CoursePlannerStorage
-StorageManager o-down-> FinanceTrackerStorage
-StorageManager o-down-> PlannerStorage
+StorageManager o-left-> "1" UserPrefsStorage
+StorageManager o-right-> "1" HistoryManagerStorage
+StorageManager o-down-> "1" CcaTrackerStorage
+StorageManager o-down-> "1" CoursePlannerStorage
+StorageManager o-down-> "1" FinanceTrackerStorage
+StorageManager o-down-> "1" PlannerStorage
 
 JsonUserPrefsStorage .right.> UserPrefsStorage
 JsonHistoryManagerStorage .left.> HistoryManagerStorage
