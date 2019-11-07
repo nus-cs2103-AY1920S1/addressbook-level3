@@ -12,6 +12,9 @@ import seedu.address.logic.graphs.AddCustomerGraph;
 import seedu.address.logic.graphs.AddOrderGraph;
 import seedu.address.logic.graphs.AddPhoneGraph;
 import seedu.address.logic.graphs.AddScheduleGraph;
+import seedu.address.logic.graphs.DeleteCustomerGraph;
+import seedu.address.logic.graphs.DeletePhoneGraph;
+import seedu.address.logic.graphs.DeleteScheduleGraph;
 import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
@@ -41,39 +44,39 @@ class GraphGenerator {
         // Customer commands
         graphs.put("switch-c", Graph.emptyGraph(model));
         graphs.put("add-c", new AddCustomerGraph(model));
-        graphs.put("delete-c", Graph.emptyGraph(model));
-        graphs.put("find-c", Graph.emptyGraph(model));
+        graphs.put("delete-c", new DeleteCustomerGraph(model));
+        graphs.put("find-c", Graph.emptyGraph(model)); //TODO LAST
         graphs.put("list-c", Graph.emptyGraph(model));
         graphs.put("clear-c", Graph.emptyGraph(model));
         graphs.put("edit-c", new EditCustomerGraph(model));
-        graphs.put("copy-c", Graph.emptyGraph(model));
+        graphs.put("copy-c", Graph.emptyGraph(model)); //TODO
 
         // Phone commands
         graphs.put("switch-p", Graph.emptyGraph(model));
         graphs.put("add-p", new AddPhoneGraph(model));
-        graphs.put("delete-p", Graph.emptyGraph(model));
-        graphs.put("find-p", Graph.emptyGraph(model));
+        graphs.put("delete-p", new DeletePhoneGraph(model));
+        graphs.put("find-p", Graph.emptyGraph(model)); //TODO LAST
         graphs.put("list-p", Graph.emptyGraph(model));
         graphs.put("clear-p", Graph.emptyGraph(model));
         graphs.put("edit-p", new EditPhoneGraph(model));
-        graphs.put("copy-p", Graph.emptyGraph(model));
+        graphs.put("copy-p", Graph.emptyGraph(model)); //TODO
 
         // Order commands
         graphs.put("switch-o", Graph.emptyGraph(model));
         graphs.put("add-o", new AddOrderGraph(model));
-        graphs.put("find-o", Graph.emptyGraph(model));
-        graphs.put("complete", Graph.emptyGraph(model));
-        graphs.put("cancel", Graph.emptyGraph(model));
+        graphs.put("find-o", Graph.emptyGraph(model)); //TODO LAST
+        graphs.put("complete", Graph.emptyGraph(model)); //TODO
+        graphs.put("cancel", Graph.emptyGraph(model)); //TODO
         graphs.put("list-o", Graph.emptyGraph(model));
         graphs.put("clear-o", Graph.emptyGraph(model));
         graphs.put("edit-o", new EditOrderGraph(model));
-        graphs.put("copy-o", Graph.emptyGraph(model));
+        graphs.put("copy-o", Graph.emptyGraph(model)); //TODO
 
         // Schedule commands
         graphs.put("switch-s", Graph.emptyGraph(model));
-        graphs.put("schedule", Graph.emptyGraph(model));
+        graphs.put("schedule", Graph.emptyGraph(model)); //TODO DIFF
         graphs.put("add-s", new AddScheduleGraph(model));
-        graphs.put("delete-s", Graph.emptyGraph(model));
+        graphs.put("delete-s", new DeleteScheduleGraph(model));
         graphs.put("edit-s", new EditScheduleGraph(model));
 
         // Archived order commands
@@ -86,7 +89,7 @@ class GraphGenerator {
         graphs.put("generate-s", new GenerateStatsGraph(model));
         graphs.put("exit", Graph.emptyGraph(model));
         graphs.put("help", Graph.emptyGraph(model));
-        graphs.put("export", Graph.emptyGraph(model));
+        graphs.put("export", Graph.emptyGraph(model)); //TODO SPECIAL
     }
 
     private Optional<Graph> getGraph(String commandWord) {
