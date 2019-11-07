@@ -40,6 +40,7 @@ public abstract class Payment extends Transaction implements LedgerOperation {
         if (peopleInLedger.contains(person)) {
             personInvolved = peopleInLedger.get(person).get();
         } else {
+            person.resetBalance();
             peopleInLedger.add(person);
         }
         return personInvolved;
