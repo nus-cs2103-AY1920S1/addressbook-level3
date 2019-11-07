@@ -821,6 +821,14 @@ This behaviour is intentional and not a bug.
 flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
 will decrease e.g 2 months
 
+* Stats window data not updating
+** If you already have a stats window open and you complete an order,
+you will have to re enter the statistic command to update that value in another window.
+
+* Manually Close the Statistic window before typing `exit` on the main app
+** If you already have a stats window open before you enter the `exit` command, the application will only stop running
+when the remaining statistic windows are closed manually.
+
 * Load time:
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
