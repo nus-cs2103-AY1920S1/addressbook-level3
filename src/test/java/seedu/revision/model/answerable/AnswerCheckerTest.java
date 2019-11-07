@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AnswerCheckerTest {
 
     @Test
-    void check() {
+    void checkTest() {
         // Question: How many fingers does a person have?
         boolean result = AnswerChecker.check("10", new ArrayList<>(Arrays.asList(new Answer("ten"))));
         assertTrue(result);
