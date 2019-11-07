@@ -127,6 +127,20 @@
     -fx-text-fill: black;
 }
 
+.dashboardCell_big_label {
+    -fx-font-family: "";
+    -fx-font-weight: 200;
+    -fx-font-size: 25px;
+    -fx-text-fill: #b03060;
+}
+
+.dashboardCell_small_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: 100;
+    -fx-font-size: 15px;
+    -fx-text-fill: #010504;
+}
+
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-weight: 200;
@@ -539,6 +553,11 @@
 }
 
 #mealPlanHeader {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}
+
+#mealPlanViewing {
     -fx-font-size: 36;
     -fx-font-weight: bold;
 }
