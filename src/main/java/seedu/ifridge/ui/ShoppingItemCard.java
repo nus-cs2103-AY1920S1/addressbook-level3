@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
@@ -58,11 +59,11 @@ public class ShoppingItemCard extends UiPart<Region> {
         Text boughtText = new Text();
         if (shoppingItem.isBought()) {
             if (isCompletelyBought(shoppingItem, boughtList)) {
-                boughtText = new Text("Fully Bought!");
+                boughtText = new Text("Fully Bought! (" + shoppingItem.getAmountBought(boughtList) + " Bought)");
                 boughtText.setFill(Color.DARKGREEN);
             } else {
-                boughtText = new Text("Partially Bought");
-                boughtText.setFill(Color.PALEGREEN);
+                boughtText = new Text("Partially Bought. (" + shoppingItem.getAmountBought(boughtList) + " Bought)");
+                boughtText.setFill(Color.PURPLE);
             }
             boughtTag.getChildren().add(boughtText);
         }
