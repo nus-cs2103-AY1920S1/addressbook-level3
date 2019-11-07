@@ -44,18 +44,6 @@ public class TaskSource {
         return new TaskSourceBuilder(description);
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (object instanceof TaskSource) {
-            TaskSource t = (TaskSource) object;
-            return Objects.equals(this.description, t.description)
-                    && Objects.equals(this.due, t.due)
-                    && this.isDone == t.isDone
-                    && Objects.equals(this.tags, t.tags);
-        }
-        return false;
-    }
-
     @JsonProperty("description")
     public String getDescription() {
         return this.description;
@@ -74,5 +62,24 @@ public class TaskSource {
     @JsonProperty("tags")
     public Set<String> getTags() {
         return tags;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof TaskSource) {
+            TaskSource t = (TaskSource) object;
+            return Objects.equals(this.description, t.description)
+                && Objects.equals(this.due, t.due)
+                && Objects.equals(!this.isDone, !t.isDone)
+                && Objects.equals(this.tags, t.tags);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description,
+            this.due,
+            this.tags);
     }
 }

@@ -1,11 +1,16 @@
 package seedu.address.model.events;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_END_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_REMIND_DATE;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.model.DateTime;
+import seedu.address.model.exceptions.InvalidEventSourceException;
 
 /**
  * Represents an EventSource in Horo.
@@ -30,8 +35,21 @@ public class EventSource {
         this.description = builder.getDescription();
         this.start = builder.getStart();
         this.end = builder.getEnd();
-        this.tags = builder.getTags();
+        if (builder.getTags() == null) {
+            this.tags = new HashSet<>();
+        } else {
+            this.tags = builder.getTags();
+        }
         this.remind = builder.getRemind();
+
+        // Ensure EventSource date time are valid
+        if (this.end != null && this.start.compareTo(this.end) >= 0) {
+            throw new InvalidEventSourceException(MESSAGE_INVALID_EVENT_END_DATE);
+        }
+
+        if (this.remind != null && this.start.compareTo(this.remind) < 0) {
+            throw new InvalidEventSourceException(MESSAGE_INVALID_EVENT_REMIND_DATE);
+        }
     }
 
     /**
@@ -49,19 +67,6 @@ public class EventSource {
 
     public static EventSourceBuilder newBuilder(String description, DateTime start) {
         return new EventSourceBuilder(description, start);
-    }
-
-    /**
-     * Checks if a particular instance EventSource should have its notification posted now.
-     *
-     * @return <code>true</code> if the EventSource's notification timing matches the current notification timing.
-     */
-    public boolean notificationTimeMatchesCurrentTime() {
-        if (remind != null) {
-            return remind.equalsPrecisionMinute(DateTime.now());
-        } else {
-            return start.equalsPrecisionMinute(DateTime.now());
-        }
     }
 
     @JsonProperty("description")
@@ -100,5 +105,14 @@ public class EventSource {
                 && Objects.equals(this.tags, e.tags);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description,
+            this.start,
+            this.end,
+            this.remind,
+            this.tags);
     }
 }

@@ -48,8 +48,8 @@ public class IcsExporter {
      * @return The .ics file content to be exported.
      */
     private String generateIcsFileContent() {
-        List<EventSource> eventList = model.getEventList();
-        List<TaskSource> taskList = model.getTaskList();
+        List<EventSource> eventList = model.getEvents();
+        List<TaskSource> taskList = model.getTasks();
         requireNonNull(eventList);
         requireNonNull(taskList);
 

@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.layout.RowConstraints;
@@ -27,7 +28,10 @@ public class TimelineMonthView extends TimelineView {
      * @param calendarDate Represents the given date.
      * @param eventTaskList Represents the current list of events and tasks.
      */
-    public TimelineMonthView(CalendarDate calendarDate, List<Object> eventTaskList) {
+    public TimelineMonthView(CalendarDate calendarDate,
+                             List<Object> eventTaskList,
+                             HashMap<EventSource, Integer> eventHash,
+                             HashMap<TaskSource, Integer> taskHash) {
         super(FXML);
         this.calendarDate = calendarDate;
         setTotalRows(calendarDate.lengthOfMonth());
@@ -36,7 +40,7 @@ public class TimelineMonthView extends TimelineView {
         addGrids();
         addLabels(getLabels());
         addEventCardHolders();
-        onChange(eventTaskList);
+        onChange(eventTaskList, eventHash, taskHash);
     }
 
     /**
@@ -53,11 +57,11 @@ public class TimelineMonthView extends TimelineView {
     }
 
     @Override
-    void addEventCard(EventSource event) {
+    void addEventCard(EventSource event, Integer eventIndex) {
         // Gets the event Hour
         Integer eventDay = event.getStartDateTime().getDay();
 
-        EventCard eventCard = new EventCard(event);
+        EventCard eventCard = new EventCard(event, eventIndex);
         CardHolder eventCardHolder = getCardHolder().get(eventDay - 1);
         eventCardHolder.addCard(eventCard);
 
@@ -67,11 +71,11 @@ public class TimelineMonthView extends TimelineView {
     }
 
     @Override
-    void addTaskCard(TaskSource task) {
+    void addTaskCard(TaskSource task, Integer taskIndex) {
         // Gets the event Hour
         Integer taskDay = task.getDueDate().getDay();
 
-        TaskCard taskCard = new TaskCard(task);
+        TaskCard taskCard = new TaskCard(task, taskIndex);
         CardHolder eventCardHolder = getCardHolder().get(taskDay - 1);
         eventCardHolder.addCard(taskCard);
 
