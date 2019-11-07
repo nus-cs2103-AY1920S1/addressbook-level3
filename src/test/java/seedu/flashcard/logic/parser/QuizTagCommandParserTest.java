@@ -25,7 +25,6 @@ public class QuizTagCommandParserTest {
     @Test
     public void parse_validArgs_returnsQuizTagCommand() {
         String inputMessage = " " + PREFIX_TAG + VALID_TAG_ROUND + " " + PREFIX_TAG + VALID_TAG_LONG;
-        System.out.println(inputMessage);
         Tag firstTag = new Tag(VALID_TAG_ROUND);
         Tag secondTag = new Tag(VALID_TAG_LONG);
         Set<Tag> inputTags = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(firstTag, secondTag)));

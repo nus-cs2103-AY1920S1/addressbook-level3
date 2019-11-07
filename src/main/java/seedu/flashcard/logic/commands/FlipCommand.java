@@ -113,4 +113,11 @@ public class FlipCommand extends Command {
         return builder.toString();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof FlipCommand
+                && answer.equals(((FlipCommand) other).answer));
+    }
+
 }
