@@ -55,7 +55,7 @@ public class Parser implements InteractiveParser {
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
-    public static final String REGEX_PATTERN_COMMAND_WORD = "[a-zA-Z]+";
+    private static final String REGEX_PATTERN_COMMAND_WORD = "[a-zA-Z]+";
     private static final String REGEX_PATTERN_PREFIX = "[a-z]/";
     private static final String MESSAGE_BLANK = "The command entered cannot be blank!";
 
@@ -91,11 +91,11 @@ public class Parser implements InteractiveParser {
         parseStaticCommand(commandText, wasActivatedNow, arrayOfPrefixes);
     }
 
-    private void parseDynamicStatefulCommand(String commandText) {
-        if (isTabCommand(commandText)) {
-            initializeTab();
-        }
-        // Room for further extensions.
+    private boolean isDynamicStatelessCommand(String commandText) {
+        return isClearArgumentsCommand(commandText)
+                || isExitCommand(commandText)
+                || isHelpCommand(commandText)
+                || isCurrentCommand(commandText);
     }
 
     private void parseDynamicStatelessCommand(String commandText) throws ParseException {
@@ -123,51 +123,16 @@ public class Parser implements InteractiveParser {
         }
     }
 
-    private boolean isDynamicStatelessCommand(String commandText) {
-        return isClearArgumentsCommand(commandText)
-                || isExitCommand(commandText)
-                || isHelpCommand(commandText)
-                || isCurrentCommand(commandText);
-    }
-
     private boolean isDynamicStatefulCommand(String commandText) {
         return isTabCommand(commandText);
+        // Further extensible.
     }
 
-    private void initializeTab() {
-        temporaryState = currentState;
-        currentState = null;
-    }
-
-    private boolean isTabCommand(String commandText) {
-        if (commandText.isBlank()) {
-            return false;
+    private void parseDynamicStatefulCommand(String commandText) {
+        if (isTabCommand(commandText)) {
+            initializeTab();
         }
-        String[] tokens = commandText.split("\\s+");
-        boolean startsWithTab = tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
-        if (tokens.length == 2) {
-            boolean endsWithArgument = tokens[1].matches("b/[a-z]+");
-            return startsWithTab && endsWithArgument;
-        } else if (tokens.length > 2){
-            return false;
-        }
-        return startsWithTab;
-    }
-
-    private void initializeCurrent() {
-        temporaryState = currentState;
-        if (currentState == null) {
-            currentState = new CurrentState(MESSAGE_IDLE_STATE);
-        }
-        currentState = new CurrentState(currentState.getStateConstraints());
-    }
-
-    private boolean isCurrentCommand(String commandText) {
-        return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
-    }
-
-    private boolean isClearArgumentsCommand(String commandText) {
-        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
+        // Room for further extensions.
     }
 
     private boolean activateStateMachineIfInactive(String commandText) throws ParseException {
@@ -177,117 +142,6 @@ public class Parser implements InteractiveParser {
             activatedNow = true;
         }
         return activatedNow;
-    }
-
-    @Override
-    public CommandResult fetchResult() {
-        if (currentState == null) {
-            // This block should only be accessed when a clear command is entered.
-            return new CommandResult(MESSAGE_RESET);
-        }
-        return new CommandResult(currentState.getStateConstraints());
-    }
-
-    @Override
-    public boolean hasParsedCommand() {
-        if (currentState == null) {
-            return false;
-        }
-
-        return currentState.isEndState();
-    }
-
-    @Override
-    public Command makeCommand() throws ParseException {
-        assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
-        EndState endState = (EndState) currentState;
-        try {
-            Command command = endState.buildCommand();
-            if (command instanceof HelpCommand) {
-                revertToPreviousCommand();
-            } else if (command instanceof CurrentCommand) {
-                revertToPreviousCommand();
-            } else if (command instanceof TabCommand) {
-                revertToPreviousCommand();
-            } else {
-                resetParser();
-            }
-            return command;
-        } catch (CommandException e) {
-            throw new ParseException(e.getMessage());
-        }
-    }
-
-    private void revertToPreviousCommand() {
-        currentState = temporaryState;
-        temporaryState = null;
-    }
-
-    private void resetParser() {
-        this.currentState = null;
-    }
-
-    private Prefix[] extractPrefixes(String commandText) {
-        Pattern pattern = Pattern.compile("[a-zA-z]/");
-        Matcher matcher = pattern.matcher(commandText);
-        List<Prefix> prefixes = getMatches(matcher);
-
-        // Convert to an array to allow the values to be processed by varargs.
-        return prefixes.toArray(Prefix[]::new);
-    }
-
-    private List<Prefix> getMatches(Matcher matcher) {
-        List<Prefix> prefixes = new ArrayList<>();
-        while (matcher.find()) {
-            prefixes.add(new Prefix(matcher.group()));
-        }
-        return prefixes;
-    }
-
-    private void parseStaticCommand(String commandText, boolean wasActivatedNow, Prefix... prefixes)
-            throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
-        clearCommandWordIfActivatedNow(wasActivatedNow, argumentMultimap);
-        disallowCommandWordIfActivatedBefore(argumentMultimap);
-        try {
-            while (canTransition(argumentMultimap)) {
-                currentState = currentState.transition(argumentMultimap);
-            }
-        } catch (PenultimateStateTransitionException e) {
-            currentState = temporaryState;
-            throw new ParseException(e.getMessage());
-        } catch (StateTransitionException e) {
-            throw new ParseException(e.getMessage());
-        }
-    }
-
-    private boolean canTransition(ArgumentMultimap argumentMultimap) {
-        return (!argumentMultimap.isEmpty() && !currentState.isEndState())
-                || isOptionalState(argumentMultimap);
-    }
-
-    private void disallowCommandWordIfActivatedBefore(ArgumentMultimap argumentMultimap) throws ParseException {
-        if (!argumentMultimap.getPreamble().isBlank()) {
-            throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
-        } else {
-            argumentMultimap.clearValues(new Prefix(""));
-        }
-    }
-
-    private void clearCommandWordIfActivatedNow(boolean wasActivatedNow, ArgumentMultimap argumentMultimap) {
-        if (wasActivatedNow) {
-            argumentMultimap.clearValues(new Prefix(""));
-        }
-    }
-
-    private boolean isOptionalState(ArgumentMultimap argumentMultimap) {
-        if (currentState instanceof OptionalState) {
-            OptionalState optionalState = (OptionalState) currentState;
-            if (optionalState.canBeSkipped(argumentMultimap)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void instantiateStateMachine(String commandText) throws ParseException {
@@ -343,6 +197,179 @@ public class Parser implements InteractiveParser {
         }
     }
 
+    private void parseStaticCommand(String commandText, boolean wasActivatedNow, Prefix... prefixes)
+            throws ParseException {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
+        clearCommandWordIfActivatedNow(wasActivatedNow, argumentMultimap);
+        disallowCommandWordIfActivatedBefore(argumentMultimap);
+        try {
+            while (canTransition(argumentMultimap)) {
+                currentState = currentState.transition(argumentMultimap);
+            }
+        } catch (PenultimateStateTransitionException e) {
+            currentState = temporaryState;
+            throw new ParseException(e.getMessage());
+        } catch (StateTransitionException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
+
+    //=========== Dynamic Command Checkers =================================================================
+
+    private boolean isCurrentCommand(String commandText) {
+        return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
+    }
+
+    private boolean isClearArgumentsCommand(String commandText) {
+        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
+    }
+
+    private boolean isTabCommand(String commandText) {
+        if (commandText.isBlank()) {
+            return false;
+        }
+        String[] tokens = commandText.split("\\s+");
+        boolean startsWithTab = tokens[0].equalsIgnoreCase(TabCommand.COMMAND_WORD);
+        if (tokens.length == 2) {
+            boolean endsWithArgument = tokens[1].matches("b/[a-z]+");
+            return startsWithTab && endsWithArgument;
+        } else if (tokens.length > 2){
+            return false;
+        }
+        return startsWithTab;
+    }
+
+    private boolean isExitCommand(String commandText) {
+        return commandText.trim().equalsIgnoreCase(ExitCommand.COMMAND_WORD);
+    }
+
+
+    private boolean isHelpCommand(String commandText) {
+        return commandText.trim().equalsIgnoreCase(HelpCommand.COMMAND_WORD);
+    }
+
+    //=========== Dynamic Command Handlers =================================================================
+
+    private void initializeTab() {
+        temporaryState = currentState;
+        currentState = null;
+    }
+
+    private void initializeCurrent() {
+        temporaryState = currentState;
+        if (currentState == null) {
+            currentState = new CurrentState(MESSAGE_IDLE_STATE);
+        }
+        currentState = new CurrentState(currentState.getStateConstraints());
+    }
+
+    private void initializeExit() {
+        currentState = new ExitState(new ArgumentMultimap());
+    }
+
+    private void initializeHelp() {
+        temporaryState = currentState;
+        currentState = new HelpState(new ArgumentMultimap());
+    }
+
+    //=========== Miscellaneous Parser Methods =============================================================
+
+    private void revertToPreviousCommand() {
+        currentState = temporaryState;
+        temporaryState = null;
+    }
+
+    private void resetParser() {
+        this.currentState = null;
+    }
+
+    private boolean canTransition(ArgumentMultimap argumentMultimap) {
+        return (!argumentMultimap.isEmpty() && !currentState.isEndState())
+                || isOptionalState(argumentMultimap);
+    }
+
+    private void disallowCommandWordIfActivatedBefore(ArgumentMultimap argumentMultimap) throws ParseException {
+        if (!argumentMultimap.getPreamble().isBlank()) {
+            throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
+        } else {
+            argumentMultimap.clearValues(new Prefix(""));
+        }
+    }
+
+    private void clearCommandWordIfActivatedNow(boolean wasActivatedNow, ArgumentMultimap argumentMultimap) {
+        if (wasActivatedNow) {
+            argumentMultimap.clearValues(new Prefix(""));
+        }
+    }
+
+    private boolean isOptionalState(ArgumentMultimap argumentMultimap) {
+        if (currentState instanceof OptionalState) {
+            OptionalState optionalState = (OptionalState) currentState;
+            if (optionalState.canBeSkipped(argumentMultimap)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //=========== Command Handling Methods ================================================================
+
+    @Override
+    public CommandResult fetchResult() {
+        if (currentState == null) {
+            // This block should only be accessed when a clear command is entered.
+            return new CommandResult(MESSAGE_RESET);
+        }
+        return new CommandResult(currentState.getStateConstraints());
+    }
+
+    @Override
+    public boolean hasParsedCommand() {
+        if (currentState == null) {
+            return false;
+        }
+
+        return currentState.isEndState();
+    }
+
+    @Override
+    public Command makeCommand() throws ParseException {
+        assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
+        EndState endState = (EndState) currentState;
+        try {
+            Command command = endState.buildCommand();
+            if (command instanceof HelpCommand) {
+                revertToPreviousCommand();
+            } else if (command instanceof CurrentCommand) {
+                revertToPreviousCommand();
+            } else if (command instanceof TabCommand) {
+                revertToPreviousCommand();
+            } else {
+                resetParser();
+            }
+            return command;
+        } catch (CommandException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
+
+    private Prefix[] extractPrefixes(String commandText) {
+        Pattern pattern = Pattern.compile("[a-zA-z]/");
+        Matcher matcher = pattern.matcher(commandText);
+        List<Prefix> prefixes = getMatches(matcher);
+
+        // Convert to an array to allow the values to be processed by varargs.
+        return prefixes.toArray(Prefix[]::new);
+    }
+
+    private List<Prefix> getMatches(Matcher matcher) {
+        List<Prefix> prefixes = new ArrayList<>();
+        while (matcher.find()) {
+            prefixes.add(new Prefix(matcher.group()));
+        }
+        return prefixes;
+    }
+
     private String getCommandWord(String commandText) throws ParseException {
         String trimmedCommandText = commandText.trim();
         List<String> commandWords = getAllCommandWords(trimmedCommandText);
@@ -380,23 +407,6 @@ public class Parser implements InteractiveParser {
         StringBuilder stringBuilder = new StringBuilder(BUFFER_TEXT);
         stringBuilder.append(string);
         return stringBuilder.toString();
-    }
-
-    private boolean isExitCommand(String commandText) {
-        return commandText.trim().equalsIgnoreCase(ExitCommand.COMMAND_WORD);
-    }
-
-    private void initializeExit() {
-        currentState = new ExitState(new ArgumentMultimap());
-    }
-
-    private boolean isHelpCommand(String commandText) {
-        return commandText.trim().equalsIgnoreCase(HelpCommand.COMMAND_WORD);
-    }
-
-    private void initializeHelp() {
-        temporaryState = currentState;
-        currentState = new HelpState(new ArgumentMultimap());
     }
 
 }
