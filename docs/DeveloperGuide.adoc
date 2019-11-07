@@ -207,12 +207,10 @@ The `Model`,
 
 * contains information that the game requires at run time. They include: `WordBankList`, `WordBankStatisticsList`,
  `GlobalStatistics`, `Game`, `AppSettings`, `UserPrefs`.
-* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`.
 * has a direct reference to a user selected `WordBank`.
 * exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
-* can be visualised as playing the role of a computer's RAM, while `Logic` plays the role of an operating system,
-and `Storage` plays the role of a hard disk.
 
 // end::chenhui-model[]
 
@@ -245,11 +243,10 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* contains multiple types of distinct storage.
+* contains multiple types of distinct storage system.
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Model`.
 * handles function calls directly to the computer's system.
 * can save data objects in json format and read it back.
-* can be visualised as playing the role of a computer's hard disk, while `Logic` plays the role of an operating system
-, and `Model` plays the role of a RAM.
 
 // end::chenhui-storage[]
 
@@ -617,8 +614,8 @@ They are: +
 
 ** Word Bank’s data structure and storage +
 ** User Commands +
-** Revision Word Bank +
-** Drag and Drop
+** Drag and Drop +
+** Revision Word Bank
 
 {nbsp}
 
@@ -676,7 +673,7 @@ Cards with the same meaning are duplicates, and is disallowed.
 
 Now the second level - `WordBank`
 
-.Class diagram of `Word Bank`.
+.Class diagram of `WordBank`.
 image::WordBankDiagram.png[]
 
 A `WordBank` contains a `UniqueCardList` and a unique `name`. +
@@ -688,6 +685,8 @@ A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 `WordBank` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
 The UI can be bound to this list so that the UI automatically updates when the cards in the list
 change.
+Word banks with the same name are duplicates, and is disallowed.
+
 
 ---
 
@@ -805,7 +804,7 @@ For importWordBank method, addWordBank and saveWordBank private methods are call
 
 6. Within addWordBank method, `WordBank` is added into the underlying UniqueWordBankList. +
 Two synchronisation happens here. +
-As `Model` contains the same `WordBankList`, the two list contains synchronised data. +
+Firstly, as `Model` contains the same `WordBankList`, the two list contains synchronised data. +
 Secondly, `WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
 `UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated word bank automatically.
 
@@ -858,7 +857,7 @@ image::DragAndDropSequenceDiagram.png[]
 
 
 `LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
-It only has access to an `ObservableList<WordBank>`. +
+It is deeply nested within `UI` and only has access to an `ObservableList<WordBank>`. +
 This means it has no way to perform commands, update model or update storage.
 
 1. To work around this, a functional callback is registered within LoadBankPanel.
@@ -895,9 +894,8 @@ image::RevisionBankActivityDiagram.png[]
 
 Revision bank was one of the essential and dominant features we wanted to implement since early development, however
 it had to be implemented last because it required multiple components working together. +
-Basically Dukemon needed to be up and running, before revision bank can be implemented.
 
-They include:
+These components include:
 
 * AppManager
 * StorageManager
@@ -905,7 +903,13 @@ They include:
 * GameStatistics
 
 Given that well-developed methods reside in each of these components, we then require an overview of revision bank implementation.
-The activity diagram above describes my thought process.
+The activity diagram above is able to detail my thought process and implementation.
+
+1. `AppManager` gets first notification that a `Game` session has ended.
+2. `StorageManager` creates revision word bank if necessary.
+3. `GameStatistics` gives the required information: correct and wrong cards.
+4. `LogicManager` manages the processing of these cards, with some slight variance depending on situation, into revision bank.
+5. `StorageManager` saves it back into hard disk.
 
 // end::chenhui-section4[]
 
@@ -921,7 +925,7 @@ The activity diagram above describes my thought process.
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
 Data structure for WordBankList.
-| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.**: +
+| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.** +
 
 _Pros:_ +
 User's modification to their word banks and cards requires very different methods. These two data structure
@@ -1003,8 +1007,8 @@ _Cons:_ +
 Requires tedious implementation to follow the principles.
 
 3+|**Why did we choose Alternative 2:** +
-Alternative 2 allows for easy extension of Dukemon's functionality. Implementation of the drag and
-drop feature is just a few function calls away, as all data structure and functions are well written.
+Allows for easy extension of Dukemon's functionality. Implementation of the drag and
+drop feature is now a few function calls away, as all data structure and functions are well written.
 
 |===
 
