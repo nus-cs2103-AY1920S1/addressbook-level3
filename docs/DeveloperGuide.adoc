@@ -972,7 +972,6 @@ Furthermore, our user stories appear to suggest the desire for a more personalis
 * In the strict case of single-user support that leaves the app less open to such modification, the alternative would be
 to simply implement and store the `User` in `ModelManager`, rather than the `UserList`.
 
-//tag::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 ===== Background Sub-Argument Values
 * The use of `enum` is a possibility to implement `static final background` sub-argument values (eg, `auto` of attribute
 `background` size). However considerations that eventually led against this idea included the possibility of values that
@@ -980,12 +979,11 @@ are not in proper `String` format that may not be able to be directly enumerated
 additional lengthy `switch` cases). Additionally other `background` fields may be added by future developers  and it could
 be more concise to have them all in a single class rather than as separate enumerations.
 
+//tag::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 ===== Command Classification
 * It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. `addfontcolour`,
 `editfontcolour`, `showfontcolour`, `clrfontcolour`). However, this is likely unnecessary as this will not only require the
-end user to type more words, but also introduce redundancy (eg. `clrfontcolour` could simply be `fontcolour black` and
-this is not hard to achieve the same effects as `clrfontcolour`, which also adds a restrictive definition on what the
-default colour to the user upon clearing settings should be).
+end user to type more words, but also introduce redundancy (eg. `clrfontcolour` could simply be `fontcolour black` and still achieve the same effects as `clrfontcolour`).
 
 ===== Modification of Application Style Dynamically
 * An alternative idea to achieving `fontcolour` and `background` throughout the entire app was to visit each `JavaFX` child `Node`
@@ -1517,7 +1515,7 @@ Expected: Bronze level achievement for BloodSugar continues to be shown to be `P
     Expected: A biography with updated fields name, phone, emergency contacts and medical condition is shown in the biography display pane. All other fields will remain blank. A message indicating success is displayed in the feedback display pane along with fields added.
 ... Test case: `addbio desc/hello world n/testName nric/testNric gender/testGender dob/1920-10-08 p/12343567 p/91234567 e/81234567 m/test medical condition a/example address 123 goal/testGoal o/testOtherInfo` +
     Expected: A biography with entered fields is shown in the biography display pane. For listable fields (i.e. of prefix p/ e/ m/ g/), if more than one field is entered, the items will be presented in a numbered list in it's cell of the biography table. A message indicating success is displayed in the feedback display pane along with fields added.
-... Test case: `addbio n/firstTestName n/secondTestName p/91234567 e/81234567 m/test medical condition `
+... Test case: `addbio n/firstTestName n/secondTestName p/91234567 e/81234567 m/test medical condition`
     Expected: An error message is displayed showing there cannot be more than one prefix for n/.
 ... Test case: `addbio n/firstTestName n/secondTestName gender/Male gender/Female p/91234567 e/81234567 m/test medical condition` +
 Expected: An error message is displayed showing there cannot be more than one prefix for n/ and gender/ (displayed as the default `String` representation of a list to the user).
@@ -1678,11 +1676,11 @@ Expected: Font colour is changed to yellow. Feedback message indicates change in
 Expected: Background colour is changed to yellow. Feedback message indicates change in background colour and that there is nothing to change for font colour.
 
 .. Prerequisites: Current font colour is yellow and background colour is black.
-... Test case: `fontcolour yellow bg/black +
+... Test case: `fontcolour yellow bg/black` +
 Expected: Feedback message indicates that there is nothing to change.
 
 .. Prerequisites: Current background colour is yellow and font colour is black.
-... Test case: `bg yellow fontcolour/black +
+... Test case: `bg yellow fontcolour/black` +
 Expected: Feedback message indicates that there is nothing to change.
 
 === Motivational Quotes Feature
