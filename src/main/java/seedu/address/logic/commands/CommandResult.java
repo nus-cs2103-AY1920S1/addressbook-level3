@@ -64,6 +64,14 @@ public class CommandResult {
         return promptsGuess;
     }
 
+    public boolean isStartCommandResult() {
+        return false;
+    }
+
+    public boolean isGameCommandResult() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

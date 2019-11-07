@@ -939,12 +939,8 @@ In open mode, the user is shown the `WordBankStatistics` of the opened word bank
 A `GameStatisticsBuilder` is used to record user actions during the game.
 
 When the user starts the game by calling a `StartCommand`, the `GameStatisticsBuilder` is initialized.
-
-.Sequence diagram when user starts a game.
-image::InitializeStatisticsSequenceDiagram.png[]
-
-During the game, the `GameStatisticsBuilder` is updated with every `GuessCommand` or `SkipCommand` made. It receives
-the timestamp from the `GameTimer` which also resides in `AppManager`.
+Additionally, the `GameStatisticsBuilder` is updated with every `GuessCommand` or `SkipCommand` made during the game.
+It receives the timestamp from the `GameTimer` which also resides in `AppManager`.
 
 .Sequence diagram when user makes a guess.
 image::UpdateStatisticsSequenceDiagram.png[]
@@ -956,9 +952,15 @@ is shown to the user in the game result page.
 The `GameStatistics` is used to update its corresponding `WordBankStatistics`, which is then saved to disk.
 Additionally, the `GlobalStatistics` is also updated and saved to disk.
 
-.Sequence diagram for saving the statistics to disk.
+.Sequence diagram when the user makes the final guess.
 image::UpdateSaveStatisticsSequenceDiagram.png[]
 
+
+The work done in step 4 and 5 is executed in `AppManager` and the checks to decide what to do are done in
+the same method `updateGameStatisticsBuilder(CommandResult)`.
+
+.Activity diagram of the method `updateGameStatisticsBuilder(CommandResult)`
+image::GameStatisticsBuilderActivityDiagram.png[]
 
 ==== Design Considerations
 
