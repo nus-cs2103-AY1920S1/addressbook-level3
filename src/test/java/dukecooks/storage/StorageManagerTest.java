@@ -2,6 +2,8 @@ package dukecooks.storage;
 
 import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+import static dukecooks.testutil.health.TypicalRecords.getTypicalHealthRecords;
+import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +19,10 @@ import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
+import dukecooks.model.health.HealthRecords;
+import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -60,7 +66,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void prefsReadSave() throws Exception {
+    public void userPrefsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonUserPrefsStorage} class.
@@ -90,6 +96,16 @@ public class StorageManagerTest {
         ReadOnlyRecipeBook retrievedRecipeBook = storageManager.readRecipeBook().get();
         assertEquals(originalRecipeBook, new RecipeBook(retrievedRecipeBook));
 
+        MealPlanBook originalMealPlanBook = getTypicalMealPlanBook();
+        storageManager.saveMealPlanBook(originalMealPlanBook);
+        ReadOnlyMealPlanBook retrievedMealPlanBook = storageManager.readMealPlanBook().get();
+        assertEquals(originalMealPlanBook, new MealPlanBook(retrievedMealPlanBook));
+
+        HealthRecords originalHealthRecords = getTypicalHealthRecords();
+        storageManager.saveHealthRecords(originalHealthRecords);
+        ReadOnlyHealthRecords retrievedHealthRecords = storageManager.readHealthRecords().get();
+        assertEquals(originalHealthRecords, new HealthRecords(retrievedHealthRecords));
+
         ExerciseCatalogue originalWorkoutPlanner = getTypicalWorkoutPlanner();
         storageManager.saveExerciseCatalogue(originalWorkoutPlanner);
         ReadOnlyExerciseCatalogue retrievedWorkoutPlanner = storageManager
@@ -103,13 +119,48 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getDukeCooksFilePath() {
+    public void getUserProfileFilePath() {
         assertNotNull(storageManager.getUserProfileFilePath());
+    }
+
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
     }
 
     @Test
     public void getRecipesFilePath() {
         assertNotNull(storageManager.getRecipesFilePath());
+    }
+
+    @Test
+    public void getHealthRecordsFilePath() {
+        assertNotNull(storageManager.getHealthRecordsFilePath());
+    }
+
+    @Test
+    public void getMealPlansFilePath() {
+        assertNotNull(storageManager.getMealPlansFilePath());
+    }
+
+    @Test
+    public void getExerciseFilePath() {
+        assertNotNull(storageManager.getExerciseFilePath());
+    }
+
+    @Test
+    public void getWorkoutFilePath() {
+        assertNotNull(storageManager.getWorkoutFilePath());
+    }
+
+    @Test
+    public void getDiaryFilePath() {
+        assertNotNull(storageManager.getDiaryFilePath());
+    }
+
+    @Test
+    public void getDashboardFilePath() {
+        assertNotNull(storageManager.getDashboardFilePath());
     }
 
 }

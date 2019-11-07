@@ -28,6 +28,13 @@ public class DateParser {
         return Duration.between(current.atStartOfDay(), other.atStartOfDay()).toDays();
     }
 
+    public static long getCurrentTimeDiff(Time time) {
+        LocalTime current = LocalTime.parse(getCurrentTime(), timePatternFormat);
+        LocalTime other = LocalTime.parse(time.toString(), timePatternFormat);
+
+        return Duration.between(current, other).toMinutes();
+    }
+
     /**
      * Supports comparing two dates to determine which is the more recent one.
      */
@@ -49,6 +56,11 @@ public class DateParser {
     public static String getCurrentDate() {
         LocalDate now = LocalDate.now();
         return datePatternFormat.format(now);
+    }
+
+    public static String getCurrentTime() {
+        LocalTime now = LocalTime.now();
+        return timePatternFormat.format(now);
     }
 
     public static String getCurrentTimestamp() {

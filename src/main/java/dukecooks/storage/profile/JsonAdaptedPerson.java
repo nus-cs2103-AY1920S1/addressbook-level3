@@ -31,8 +31,6 @@ class JsonAdaptedPerson {
     private final String gender;
     private final String bloodGroup;
     private final String weight;
-    private final String weightTimestamp;
-    private final String heightTimestamp;
     private final String height;
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
 
@@ -45,18 +43,14 @@ class JsonAdaptedPerson {
             @JsonProperty("gender") String gender,
             @JsonProperty("bloodGroup") String bloodGroup,
             @JsonProperty("weight") String weight,
-            @JsonProperty("weightTimestamp") String weightTimestamp,
             @JsonProperty("height") String height,
-            @JsonProperty("heightTimestamp") String heightTimestamp,
             @JsonProperty("medicalHistories") List<JsonAdaptedMedicalHistory> medicalHistories) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.bloodGroup = bloodGroup;
         this.weight = weight;
-        this.weightTimestamp = weightTimestamp;
         this.height = height;
-        this.heightTimestamp = heightTimestamp;
 
         if (medicalHistories != null) {
             this.medicalHistories.addAll(medicalHistories);
@@ -72,9 +66,7 @@ class JsonAdaptedPerson {
         gender = source.getGender().gender;
         bloodGroup = source.getBloodType().bloodGroup;
         weight = String.valueOf(source.getWeight().weight);
-        weightTimestamp = source.getWeight().timestamp;
         height = String.valueOf(source.getHeight().height);
-        heightTimestamp = source.getHeight().timestamp;
         medicalHistories.addAll(source.getMedicalHistories().stream()
                 .map(JsonAdaptedMedicalHistory::new)
                 .collect(Collectors.toList()));
@@ -130,7 +122,7 @@ class JsonAdaptedPerson {
         if (!Weight.isValidNumber(weight)) {
             throw new IllegalValueException(Weight.MESSAGE_CONSTRAINTS);
         }
-        final Weight modelWeight = new Weight(weight, weightTimestamp);
+        final Weight modelWeight = new Weight(weight);
 
         if (height == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Height.class.getSimpleName()));
@@ -138,7 +130,7 @@ class JsonAdaptedPerson {
         if (!Height.isValidNumber(height)) {
             throw new IllegalValueException(Height.MESSAGE_CONSTRAINTS);
         }
-        final Height modelHeight = new Height(height, heightTimestamp);
+        final Height modelHeight = new Height(height);
 
         final Set<MedicalHistory> modelMedicalHistories = new HashSet<>(personMedicalHistories);
         return new Person(modelName, modelDateOfBirth, modelGender, modelBloodType,

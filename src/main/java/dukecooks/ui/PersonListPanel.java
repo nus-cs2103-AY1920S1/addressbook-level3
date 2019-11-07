@@ -7,6 +7,7 @@ import dukecooks.model.profile.person.Person;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -41,7 +42,14 @@ public class PersonListPanel extends UiPart<Region> {
      */
     void addDetails(ObservableList<Person> personList) {
         if (personList.isEmpty()) {
-            personCard.getChildren().add(new Label("No User Profile"));
+            Label label = new Label("No User Profile");
+            label.getStyleClass().add("no_profile_label");
+            label.setAlignment(Pos.CENTER);
+            personCard.getChildren().add(label);
+
+            Label subLabel = new Label("Create your profile now!");
+            subLabel.getStyleClass().add("no_profile_sublabel");
+            personCard.getChildren().add(subLabel);
         } else {
             for (Person person: personList) {
                 personCard.getChildren().clear();

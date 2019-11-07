@@ -57,9 +57,16 @@ public class UserProfile implements ReadOnlyUserProfile {
     }
 
     //// person-level operations
+
+    /**
+     * Returns true if a profile exists in Duke Cooks.
+     */
+    public boolean hasProfile() {
+        return !userprofile.isEmpty();
+    }
     /**
      * Adds a person to Duke Cooks.
-     * The person must not already exist in Duke Cooks.
+     * Profile must not already exist in Duke Cooks.
      */
     public void addPerson(Person p) {
         userprofile.add(p);

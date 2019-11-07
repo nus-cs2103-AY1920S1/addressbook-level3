@@ -183,6 +183,12 @@ public class LogicManagerTest {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRecipeList().remove(0));
     }
 
+    @Test
+    public void getFilteredMealPlanList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredMealPlanList().remove(0));
+    }
+
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

@@ -1,6 +1,9 @@
 package dukecooks.model.health.components;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a Person in Duke Cooks.
@@ -9,6 +12,7 @@ import java.util.Objects;
 public class Record {
 
     // Data fields
+    private final Set<Remark> remarks = new HashSet<>();
     private final Type type;
     private final Value value;
     private final Timestamp timestamp;
@@ -16,10 +20,11 @@ public class Record {
     /**
      * Every field must be present and not null.
      */
-    public Record(Type type, Value value, Timestamp timestamp) {
+    public Record(Type type, Value value, Timestamp timestamp, Set<Remark> remarks) {
         this.type = type;
         this.value = value;
         this.timestamp = timestamp;
+        this.remarks.addAll(remarks);
     }
 
     public Type getType() {
@@ -32,6 +37,14 @@ public class Record {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * Returns an immutable remark set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Remark> getRemarks() {
+        return Collections.unmodifiableSet(remarks);
     }
 
     /**
@@ -77,7 +90,9 @@ public class Record {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: " + getType())
                 .append(" Value: " + getValue())
-                .append(" Timestamp: " + getTimestamp());
+                .append(" Timestamp: " + getTimestamp())
+                .append(" Remarks: ");
+        getRemarks().forEach(builder::append);
         return builder.toString();
     }
 

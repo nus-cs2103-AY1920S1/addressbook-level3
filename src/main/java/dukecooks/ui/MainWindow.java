@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
     void initializePanels() {
         dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
+        mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList(), logic.getFilteredRecipeList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());

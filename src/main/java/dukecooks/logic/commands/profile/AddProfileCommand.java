@@ -19,6 +19,8 @@ public class AddProfileCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
+    public static final String MESSAGE_PROFILE_EXISTS = "A profile has already exists in Duke Cooks";
+
     private final Person toAdd;
 
     /**
@@ -32,6 +34,10 @@ public class AddProfileCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasProfile()) {
+            throw new CommandException(MESSAGE_PROFILE_EXISTS);
+        }
 
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

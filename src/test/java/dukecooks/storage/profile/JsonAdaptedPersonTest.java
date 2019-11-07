@@ -21,9 +21,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_BLOODTYPE = BENSON.getBloodType().toString();
     private static final String VALID_GENDER = BENSON.getGender().toString();
     private static final String VALID_WEIGHT = BENSON.getWeight().toString();
-    private static final String VALID_WEIGHT_TIMESTAMP = BENSON.getWeight().timestamp;
     private static final String VALID_HEIGHT = BENSON.getHeight().toString();
-    private static final String VALID_HEIGHT_TIMESTAMP = BENSON.getHeight().timestamp;
     private static final List<JsonAdaptedMedicalHistory> VALID_MEDICALHISTORIES = BENSON.getMedicalHistories().stream()
             .map(JsonAdaptedMedicalHistory::new)
             .collect(Collectors.toList());
@@ -38,8 +36,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(INVALID_NAME, VALID_DOB, VALID_GENDER, VALID_BLOODTYPE,
-                        VALID_WEIGHT, VALID_WEIGHT_TIMESTAMP, VALID_HEIGHT, VALID_HEIGHT_TIMESTAMP,
-                        VALID_MEDICALHISTORIES);
+                        VALID_WEIGHT, VALID_HEIGHT, VALID_MEDICALHISTORIES);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -48,8 +45,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(null, VALID_DOB, VALID_GENDER, VALID_BLOODTYPE,
-                        VALID_WEIGHT, VALID_WEIGHT_TIMESTAMP, VALID_HEIGHT, VALID_HEIGHT_TIMESTAMP,
-                        VALID_MEDICALHISTORIES);
+                        VALID_WEIGHT, VALID_HEIGHT, VALID_MEDICALHISTORIES);
         String expectedMessage = String.format(JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT,
                 Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);

@@ -35,6 +35,7 @@ import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
+import dukecooks.model.recipe.exceptions.RecipeNotFoundException;
 
 /**
  * Edits the details of an existing meal plan in Duke Cooks.
@@ -94,7 +95,12 @@ public class EditMealPlanCommand extends EditCommand {
         }
 
         MealPlan mealPlanToEdit = lastShownList.get(index.getZeroBased());
-        MealPlan editedMealPlan = createEditedMealPlan(mealPlanToEdit, editMealPlanDescriptor, model);
+        MealPlan editedMealPlan;
+        try {
+            editedMealPlan = createEditedMealPlan(mealPlanToEdit, editMealPlanDescriptor, model);
+        } catch (RecipeNotFoundException e) {
+            throw new CommandException(String.format(Messages.MESSAGE_RECIPE_DOES_NOT_EXIST, e.getMessage()));
+        }
 
         if (!mealPlanToEdit.isSameMealPlan(editedMealPlan) && model.hasMealPlan(editedMealPlan)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEALPLAN);
@@ -115,8 +121,64 @@ public class EditMealPlanCommand extends EditCommand {
      */
     private static MealPlan createEditedMealPlan(MealPlan mealPlanToEdit,
                                                  EditMealPlanDescriptor editMealPlanDescriptor,
-                                                 Model model) {
+                                                 Model model) throws RecipeNotFoundException {
         assert mealPlanToEdit != null;
+
+        Set<RecipeName> allRecipes = new HashSet<>();
+        if (editMealPlanDescriptor.getDay1ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay1ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay1ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay1ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay2ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay2ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay2ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay2ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay3ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay3ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay3ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay3ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay4ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay4ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay4ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay4ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay5ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay5ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay5ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay5ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay6ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay6ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay6ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay6ToRemove().get());
+        }
+        if (editMealPlanDescriptor.getDay7ToAdd().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay7ToAdd().get());
+        }
+        if (editMealPlanDescriptor.getDay7ToRemove().isPresent()) {
+            allRecipes.addAll(editMealPlanDescriptor.getDay7ToRemove().get());
+        }
+        for (RecipeName name : allRecipes) {
+            boolean exists = false;
+            for (Recipe recipe : model.getRecipeBook().getRecipeList()) {
+                if (name.equals(recipe.getName())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                throw new RecipeNotFoundException(name.fullName);
+            }
+        }
 
         MealPlanName updatedName = editMealPlanDescriptor.getName().orElse(mealPlanToEdit.getName());
         List<RecipeName> updatedDay1;

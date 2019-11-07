@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.model.profile.person.exceptions.DuplicatePersonException;
+import dukecooks.model.profile.person.exceptions.DuplicateProfileException;
 import dukecooks.model.profile.person.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,24 +31,27 @@ public class UniqueUserProfile implements Iterable<Person> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    /**
+     * Returns true if the list contains an equivalent person as the given argument.
+     */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a new user profile if does not already exist.
-     * Behavior: If user profile exists, overwrite instead.
-     * Calls (@Method setExercise) to overwrite user profile if already exists.
+     * Adds a new user profile if there is no existing profile.
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
-        if (internalList.size() == 0) {
-            internalList.add(toAdd);
-        } else { //assumes size can never exceed 1.
-            Person target = internalList.get(0);
-            setPerson(target, toAdd);
+        if (!isEmpty()) {
+            throw new DuplicateProfileException();
         }
+        internalList.add(toAdd);
     }
 
     /**
@@ -89,8 +92,8 @@ public class UniqueUserProfile implements Iterable<Person> {
      */
     public void setPersons(List<Person> persons) {
         CollectionUtil.requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+        if (!profileExistOnlyOne(persons)) {
+            throw new DuplicateProfileException();
         }
 
         internalList.setAll(persons);
@@ -123,14 +126,7 @@ public class UniqueUserProfile implements Iterable<Person> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    private boolean profileExistOnlyOne(List<Person> persons) {
+        return persons.size() <= 1;
     }
 }

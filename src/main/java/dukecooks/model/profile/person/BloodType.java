@@ -21,6 +21,7 @@ public class BloodType {
      */
     public BloodType(String bloodGroup) {
         requireNonNull(bloodGroup);
+        bloodGroup = bloodGroup.toUpperCase();
         AppUtil.checkArgument(isValidBloodType(bloodGroup), MESSAGE_CONSTRAINTS);
         this.bloodGroup = bloodGroup;
     }
@@ -29,7 +30,7 @@ public class BloodType {
      * Returns true if a given string is a valid blood group.
      */
     public static boolean isValidBloodType(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.toUpperCase().matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class BloodType {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + bloodGroup + ']';
+        return bloodGroup;
     }
 
 }

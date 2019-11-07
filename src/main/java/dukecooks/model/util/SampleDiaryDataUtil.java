@@ -17,16 +17,31 @@ import javafx.collections.ObservableList;
 public class SampleDiaryDataUtil {
     public static Diary[] getSampleDiaries() {
 
-        ArrayList<Page> pageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getSamplePages()));
-        ObservableList<Page> pages = FXCollections.observableArrayList(pageList);
+        ArrayList<Page> foodPageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getFoodSamplePages()));
+        ObservableList<Page> foodPages = FXCollections.observableArrayList(foodPageList);
+
+        ArrayList<Page> exercisePageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getExerciseSamplePages()));
+        ObservableList<Page> exercisePages = FXCollections.observableArrayList(exercisePageList);
+
+        ArrayList<Page> meatPageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getMeatSamplePages()));
+        ObservableList<Page> meatPages = FXCollections.observableArrayList(meatPageList);
+
+        ArrayList<Page> singaporeList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getSingaporeSamplePages()));
+        ObservableList<Page> singaporePages = FXCollections.observableArrayList(singaporeList);
+
+        ArrayList<Page> slimmingList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getSlimmingSamplePages()));
+        ObservableList<Page> slimmingPages = FXCollections.observableArrayList(slimmingList);
+
+        ArrayList<Page> mixedPageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getMixedSamplePages()));
+        ObservableList<Page> mixedPages = FXCollections.observableArrayList(mixedPageList);
 
         return new Diary[] {
-            new Diary(new DiaryName("Asian Cuisines"), pages),
-            new Diary(new DiaryName("Healthy Living")),
-            new Diary(new DiaryName("Meat Lovers"), pages),
-            new Diary(new DiaryName("Vegan Diet")),
-            new Diary(new DiaryName("One Week Slimming"), pages),
-            new Diary(new DiaryName("Core Exercises")),
+            new Diary(new DiaryName("Asian Food"), foodPages),
+            new Diary(new DiaryName("Healthy Living"), mixedPages),
+            new Diary(new DiaryName("Meat Lovers"), meatPages),
+            new Diary(new DiaryName("Singapore Favourites"), singaporePages),
+            new Diary(new DiaryName("One Week Slimming"), slimmingPages),
+            new Diary(new DiaryName("Core Exercises"), exercisePages),
         };
     }
 

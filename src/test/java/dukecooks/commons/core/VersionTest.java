@@ -1,6 +1,7 @@
 package dukecooks.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -132,5 +133,27 @@ public class VersionTest {
     private void verifyVersionParsedCorrectly(String versionString,
             int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
+    }
+
+    @Test
+    public void testEquals() {
+        Version one;
+        Version next;
+        Version another;
+        one = new Version(0, 0, 0, false);
+        next = new Version(1, 1, 1, false);
+        another = new Version(0, 0, 0, false);
+
+        // null object -> return false
+        assertFalse(one.equals(null));
+
+        // different type -> return false
+        assertFalse(one.equals(10));
+
+        // different params -> return false
+        assertFalse(one.equals(next));
+
+        // same params -> return true
+        assertTrue(one.equals(another));
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import dukecooks.commons.core.Event;
+import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -94,6 +95,29 @@ public class AddMealPlanCommand extends AddCommand {
         if (model.hasMealPlan(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEALPLAN);
         }
+
+        Set<RecipeName> allRecipes = new HashSet<>();
+        allRecipes.addAll(toCheckDay1);
+        allRecipes.addAll(toCheckDay2);
+        allRecipes.addAll(toCheckDay3);
+        allRecipes.addAll(toCheckDay4);
+        allRecipes.addAll(toCheckDay5);
+        allRecipes.addAll(toCheckDay6);
+        allRecipes.addAll(toCheckDay7);
+
+        for (RecipeName name : allRecipes) {
+            boolean exists = false;
+            for (Recipe recipe : model.getRecipeBook().getRecipeList()) {
+                if (name.equals(recipe.getName())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                throw new CommandException(String.format(Messages.MESSAGE_RECIPE_DOES_NOT_EXIST, name.fullName));
+            }
+        }
+
 
         List<RecipeName> day1 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay1) {

@@ -94,6 +94,15 @@ public class HealthRecords implements ReadOnlyHealthRecords {
         healthrecords.remove(key);
     }
 
+    /**
+     * Returns a {@code Record} found within {@code RecordBook} if
+     * it shares a name with the given {@code record}.
+     */
+    public Record retrieveRecord(Record record) {
+        requireNonNull(record);
+        return healthrecords.retrieve(record);
+    }
+
     //// util methods
 
     @Override

@@ -98,4 +98,11 @@ public class MealPlanBookTest {
         }
     }
 
+    @Test
+    public void testMealPlanBookHashCode() {
+        MealPlanBook book1 = new MealPlanBook(getTypicalMealPlanBook());
+        MealPlanBook book2 = new MealPlanBook(getTypicalMealPlanBook());
+
+        assertEquals(book1.hashCode(), book2.hashCode());
+    }
 }

@@ -1,0 +1,94 @@
+= Liew Jun Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: DukeCooks <Insert Logo?>
+
+== What is DukeCooks?
+
+DukeCooks is a lifestyle desktop application, specially designed for busy, health-conscious individuals.
+As busy student project developers for DukeCooks, we understand that it can be daunting to keep track of various
+tasks and yet, manage a healthy lifestyle at the same time.
+
+DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single app!
+In DukeCooks, you will be able to manage tasks, store recipes, plan workouts, monitor health and write diaries.
+
+Not only that, DukeCooks runs on the command-line interface (CLI). This means that all the tasks mentioned above can be
+executed all within a single line, saving you even more time!
+
+== Who developed DukeCooks?
+
+DukeCooks is developed by a group of Year 2 Computing students from the National University of Singapore.
+
+
+== What is in this document?
+
+This document provides you with information on the contributions made to DukeCooks by me. It summarises my contributions
+to DukeCooks in the following 3 main areas:
+
+. Overall Project
+
+. User Guide
+
+. Developer Guide
+
+== Contributions to Overall Project
+
+=== Major Enhancement
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+=== Minor enhancement
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+=== Other contributions
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to User Guide
+
+
+|===
+|_This section highlights my contributions to the User Guide for the diary feature.
+You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link], to view the full User Guide._
+|===
+
+//include::../UserGuide.adoc[tag=delete]
+
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to Developer Guide
+
+|===
+|_This section highlights my contributions to the Developer Guide for the diary feature.
+You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link], to view the full Developer Guide._
+|===
+
+//include::../DeveloperGuide.adoc[tag=undoredo]
+
+//include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+//---
+
+_{Optionally, you may include other projects in your portfolio.}_

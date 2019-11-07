@@ -7,17 +7,12 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
 
 <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox>
+      <VBox style="-fx-background-color: snow;">
          <children>
-            <Label fx:id="title" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" text="Overview" textFill="#797373">
-               <font>
-                  <Font name="Devanagari Sangam MN" size="36.0" />
-               </font>
+            <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" stylesheets="@DarkTheme.css" text="Records Overview" textFill="#797373">
                <padding>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>

@@ -1,0 +1,39 @@
+{
+  "_comment": "HealthRecords save file which contains the same records as in TypicalRecords#getTypicalRecords()",
+  "healthrecords" : [ {
+    "type" : "Glucose",
+    "value" : "18.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "two cups of milk tea" ]
+  }, {
+    "type" : "Calories",
+    "value" : "1058.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Dinner", "three course meal" ]
+  }, {
+    "type" : "Fats",
+    "value" : "29.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Dinner" ]
+  }, {
+    "type" : "Weight",
+    "value" : "49.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Height",
+    "value" : "155.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ ]
+  }, {
+    "type" : "Carbs",
+    "value" : "1.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "No carbs diet" ]
+  }, {
+    "type" : "Protein",
+    "value" : "12.0",
+    "timestamp" : "01/11/2019 12:00",
+    "remarks" : [ "Fish challenge" ]
+  } ]
+}

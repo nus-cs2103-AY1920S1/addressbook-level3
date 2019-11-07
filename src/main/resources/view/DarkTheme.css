@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500&display=swap');
+
 .background {
-    -fx-background-color: #f8f8f8;
-    background-color: white; /* Used in the default.html file */
+    -fx-background-color: snow;
+    background-color: snow; /* Used in the default.html file */
 }
 
 .label {
@@ -40,9 +42,9 @@
 }
 
 .table-view {
-    -fx-base: white;
-    -fx-control-inner-background: white;
-    -fx-background-color: white;
+    -fx-base: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -77,14 +79,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(white, 20%);
+    -fx-background-color: transparent;
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(white, 20%);
+    -fx-background-color: transparent;
 }
 
 .list-view {
@@ -104,15 +106,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -126,8 +128,9 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Bold";
-    -fx-font-size: 22px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: 200;
+    -fx-font-size: 20px;
     -fx-text-fill: #010504;
 }
 
@@ -140,7 +143,7 @@
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #1b1f21;
 }
 
 .cell_label {
@@ -162,7 +165,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: white;
+     -fx-background-color: transparent;
 }
 
 .pane-with-border {
@@ -179,7 +182,7 @@
     -fx-background-color: #f2eeeb;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: #4f4a46;
+    -fx-text-fill: grey;
 }
 
 .result-display .label {
@@ -204,13 +207,13 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(white, 30%);
+    -fx-background-color: transparent;
     -fx-border-color: derive(white, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 .context-menu {
@@ -243,10 +246,10 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #f2eee5;
+    -fx-border-color: transparent;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #f2eee5;
+    -fx-background-color: transparent;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -258,12 +261,12 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: #995353;
   -fx-text-fill: white;
 }
 
 .button:focused {
-    -fx-border-color: #f2eee5, #f2eee5;
+    -fx-border-color: transparent, transparent;
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
@@ -342,18 +345,22 @@
 }
 
 #title {
-    -fx-font-size: 36px;
+    -fx-font-size: 44px;
+    -fx-font-family: Tahoma;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10;
 }
 
 #pageInputHeader {
     -fx-font-size: 36;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-font-weight: bold;
     -fx-background-color: #f2eee5;
 }
 
 #titleInput, #typeInput, #descriptionInput, #imageInput, #diaryNameInput {
     -fx-font-size: 18;
-    -fx-font-weight: bold;
+    -fx-font-family: 'Raleway', 'sans-serif';
 }
 
 #pageInputPanel .text-field {
@@ -367,7 +374,7 @@
     -fx-background-color: #90caf9;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 8pt;
-    -fx-text-fill: grey;
+    -fx-text-fill: black;
 }
 
 #confirmButton {
@@ -384,8 +391,9 @@
 
 #diaryHeader {
     -fx-font-size: 36;
-    -fx-font-weight: bold;
+    -fx-font-family: 'Roboto', sans-serif;
     -fx-background-color: #f2eee5;
+    -fx-font-weight: bold;
 }
 
 #pageCardPane {
@@ -397,7 +405,7 @@
 #pageListView {
     -fx-background-insets: 0;
     -fx-padding: 0 0 0 0;
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 #pageListView .list-cell {
@@ -410,15 +418,15 @@
 
 
 #pageListView .list-cell:filled:even {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 #pageListView .list-cell:filled:odd {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 #pageListView .list-cell:filled:selected {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: transparent;
 }
 
 #pageListView .list-cell .label {
@@ -426,12 +434,14 @@
 }
 
 #pageTitle {
-    -fx-font-size: 20;
-    -fx-font-weight: bold;
+    -fx-font-size: 28;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-background-color: transparent;
 }
 
 #pageDescription {
-    -fx-font-size: 14;
+    -fx-font-size: 18;
+    -fx-font-family: 'Roboto', sans-serif;
 }
 
 #commandTypeLabel {
@@ -440,7 +450,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: #ded7d7 #ded7d7;
+    -fx-background-color: #fffdfa #fffdfa;
     -fx-background-insets: 0;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 12pt;
@@ -453,7 +463,7 @@
 
 #resultDisplay .content {
     -fx-background-color: #f2eeeb;
-    -fx-background-radius: 0;
+    -fx-background-radius: 1;
 }
 
 #pages {
@@ -462,12 +472,11 @@
 }
 
 #pages .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-text-fill: black;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-background-radius: 5;
+    -fx-font-size: 12;
 }
 
 #medicalHistories {
@@ -485,8 +494,10 @@
 }
 
 #featureMode {
+    -fx-padding: 0 0 0 10;
     -fx-text-fill: grey;
     -fx-font-size: 17;
+    -fx-font-family: "Microsoft Sans Serif";
 }
 
 #feature_bar {
@@ -500,4 +511,39 @@
 #summaryCardHolder {
     -fx-border-color: black;
     -fx-border-radius: 5;
+}
+
+#personCard {
+    -fx-background-color: linear-gradient(to left top, snow, snow, snow, snow,
+    rgba(238, 173, 146, 0.22), rgba(234, 111, 85, 0.33) 70%, rgba(254, 116, 117, 0.26));
+}
+
+.command-box {
+    -fx-border-width: 3;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+}
+
+.no_profile_label {
+    -fx-font-family: Tahoma;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+}
+
+.no_profile_sublabel {
+    -fx-font-family: Tahoma;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+    -fx-text-fill: rgba(254, 95, 85, 0.75);
+}
+
+#mealPlanHeader {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}
+
+#mealPlanViewing {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
 }

@@ -7,7 +7,6 @@ import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.BURPEES;
 import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
-import static dukecooks.testutil.profile.TypicalProfiles.BENSON;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,6 +27,7 @@ import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.RecipeBook;
+import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.testutil.Assert;
@@ -36,6 +36,7 @@ import dukecooks.testutil.diary.DiaryRecordBuilder;
 import dukecooks.testutil.exercise.WorkoutPlannerBuilder;
 import dukecooks.testutil.profile.UserProfileBuilder;
 import dukecooks.testutil.recipe.RecipeBookBuilder;
+import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class ModelManagerTest {
 
@@ -106,6 +107,19 @@ public class ModelManagerTest {
     @Test
     public void setRecipesFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.setRecipesFilePath(null));
+    }
+
+    @Test
+    public void retrieveRecipe_nullRecipe_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.retrieveRecipe(null));
+    }
+
+    @Test
+    public void retrieveRecipesFilePathSuccess() {
+        modelManager.addRecipe(new RecipeBuilder().build());
+        Recipe recipe = new RecipeBuilder().build();
+        modelManager.retrieveRecipe(recipe);
+        assertEquals(recipe, modelManager.retrieveRecipe(recipe));
     }
 
     @Test
@@ -221,7 +235,6 @@ public class ModelManagerTest {
         modelManager.addRecipe(OMELETTE);
         assertTrue(modelManager.hasRecipe(OMELETTE));
     }
-    //TODO: finish mealplan testutil
 
     @Test
     public void hasDashboard_dashboardInDukeCooks_returnsTrue() {
@@ -251,7 +264,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).build();
         UserProfile differentUserProfile = new UserProfile();
 
         DashboardRecords dashboardRecords = new DashboardRecordBuilder()

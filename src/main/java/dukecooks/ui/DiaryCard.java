@@ -1,8 +1,12 @@
 package dukecooks.ui;
 
+import dukecooks.commons.util.AppUtil;
 import dukecooks.model.diary.components.Diary;
+import dukecooks.model.diary.components.Page;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -26,12 +30,18 @@ public class DiaryCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label diaryName;
+
     @FXML
     private Label id;
+
     @FXML
     private FlowPane pages;
+
+    @FXML
+    private ImageView icon;
 
     public DiaryCard(Diary diary, int displayedIndex) {
         super(FXML);
@@ -39,8 +49,30 @@ public class DiaryCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         diaryName.setText(diary.getDiaryName().fullName);
 
-        diary.getPages().stream()
-                .forEach(page -> pages.getChildren().add(new Label(page.getTitle().toString())));
+        ObservableList<Page> pageList = diary.getPages();
+        for (int i = 0; i < pageList.size(); i++) {
+            Page currentPage = pageList.get(i);
+            Label pageLabel = new Label(currentPage.getTitle().toString());
+
+            if (currentPage.getPageType().toString().equals("food")) {
+                // Set label background to yellow & food image
+                pageLabel.setStyle("-fx-background-color: #fff176;");
+                icon = new ImageView(AppUtil.getImage("/images/food.png"));
+            } else if (currentPage.getPageType().toString().equals("health")) {
+                // Set label background to pink & health image
+                pageLabel.setStyle("-fx-background-color: #f8bbd0;");
+                icon = new ImageView(AppUtil.getImage("/images/hearticon.png"));
+            } else {
+                // Set label background to green & exercise image
+                pageLabel.setStyle("-fx-background-color: #aed581;");
+                icon = new ImageView(AppUtil.getImage("/images/strong.png"));
+            }
+
+            icon.setFitWidth(20);
+            icon.setFitHeight(20);
+            pageLabel.setGraphic(icon);
+            pages.getChildren().add(pageLabel);
+        }
     }
 
     @Override

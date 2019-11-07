@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 
 
 
@@ -38,7 +37,7 @@ public class PageCard extends UiPart<Region> {
     private ImageView pageImage;
 
     @FXML
-    private Text pageDescription;
+    private Label pageDescription;
 
 
     public PageCard(Page page) {

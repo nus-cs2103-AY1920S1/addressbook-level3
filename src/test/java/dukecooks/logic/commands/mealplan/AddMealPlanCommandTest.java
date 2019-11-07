@@ -10,13 +10,15 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
-import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.model.ModelStub;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.recipe.ReadOnlyRecipeBook;
+import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
@@ -32,10 +34,8 @@ public class AddMealPlanCommandTest {
     @Test
     public void execute_mealPlanAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingMealPlanAdded modelStub = new ModelStubAcceptingMealPlanAdded();
+        modelStub.addRecipe(new RecipeBuilder().build());
         MealPlan validMealPlan = new MealPlanBuilder().build();
-        Recipe validRecipe = new RecipeBuilder().build();
-
-        CommandResult recipeCommandResult = new AddRecipeCommand(validRecipe).execute(modelStub);
         CommandResult commandResult = new AddMealPlanCommand(validMealPlan).execute(modelStub);
 
         assertEquals(String.format(AddMealPlanCommand.MESSAGE_SUCCESS, validMealPlan),
@@ -51,6 +51,17 @@ public class AddMealPlanCommandTest {
 
         Assert.assertThrows(CommandException.class, AddMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN, ()
             -> addMealPlanCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_nonExistentRecipe_throwsCommandException() {
+        MealPlan invalidRecipeMealPlan = new MealPlanBuilder().build();
+        AddMealPlanCommand addMealPlanCommand = new AddMealPlanCommand(invalidRecipeMealPlan);
+        ModelStub modelStub = new ModelStubAcceptingMealPlanAdded();
+
+        Assert.assertThrows(CommandException.class,
+                String.format(Messages.MESSAGE_RECIPE_DOES_NOT_EXIST,
+                        invalidRecipeMealPlan.getDay1().get(0).fullName), () -> addMealPlanCommand.execute(modelStub));
     }
 
     @Test
@@ -129,6 +140,13 @@ public class AddMealPlanCommandTest {
         public void addRecipe(Recipe recipe) {
             requireNonNull(recipe);
             recipesAdded.add(recipe);
+        }
+
+        @Override
+        public ReadOnlyRecipeBook getRecipeBook() {
+            RecipeBook recipeBook = new RecipeBook();
+            recipeBook.setRecipes(recipesAdded);
+            return recipeBook;
         }
     }
 
