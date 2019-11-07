@@ -4,7 +4,7 @@
     nav.navbar.navbar-light.bg-light
       .container
         - if attr? 'site-name'
-            a.navbar-brand href=(site_url 'index.html') =EZWATCHLIST
+            a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
             img src=(site_url 'images/applogo.png') alt= 'EZWATCHLIST'
         ul.navbar-nav
           li.nav-item
