@@ -9,11 +9,12 @@ import com.typee.commons.core.index.Index;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.parser.exceptions.ParseException;
 
-public class IndexState extends State {
+public class IndexState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Delete command initiated. Please enter the index of the"
             + " engagement you would like to delete. The index should be prefixed by \"i/\".";
@@ -30,6 +31,8 @@ public class IndexState extends State {
         Optional<String> index = newArgs.getValue(PREFIX_LIST_INDEX);
         performGuardChecks(newArgs, index);
         collateArguments(this, newArgs, PREFIX_LIST_INDEX);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new DeleteEndState(soFar);
     }

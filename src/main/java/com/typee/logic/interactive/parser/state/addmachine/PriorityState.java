@@ -6,12 +6,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.model.engagement.Priority;
 
-public class PriorityState extends State {
+public class PriorityState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "The priority of an engagement can be LOW, MEDIUM, HIGH or NONE."
             + " Please enter the priority prefixed by \"p/\".";
@@ -29,6 +30,8 @@ public class PriorityState extends State {
         Optional<String> priority = newArgs.getValue(PREFIX_PRIORITY);
         performGuardChecks(newArgs, priority);
         collateArguments(this, newArgs, PREFIX_PRIORITY);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new AddCommandEndState(soFar);
     }

@@ -7,10 +7,11 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class OrderState extends State {
+public class OrderState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the ordering to be followed,"
             + " prefixed by \"o/\". Accepted orderings are \"ascending\" and \"descending\".";
@@ -31,6 +32,8 @@ public class OrderState extends State {
         Optional<String> order = newArgs.getValue(PREFIX_ORDER);
         performGuardChecks(newArgs, order);
         collateArguments(this, newArgs, PREFIX_ORDER);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new SortEndState(soFar);
     }

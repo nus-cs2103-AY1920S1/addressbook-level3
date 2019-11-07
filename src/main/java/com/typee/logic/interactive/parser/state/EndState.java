@@ -17,4 +17,5 @@ public abstract class EndState extends State {
     }
 
     public abstract Command buildCommand() throws CommandException;
+
 }

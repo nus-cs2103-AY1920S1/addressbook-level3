@@ -13,10 +13,11 @@ import javax.swing.text.html.Option;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class OpenDisplayState extends State {
+public class OpenDisplayState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a valid date in the dd/mm/yyyy format, prefixed"
             + " by \"d/\".";
@@ -36,6 +37,8 @@ public class OpenDisplayState extends State {
         Optional<String> date = newArgs.getValue(PREFIX_DATE);
         performGuardChecks(newArgs, date);
         collateArguments(this, newArgs, PREFIX_DATE);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new DisplayEndState(soFar);
     }

@@ -35,7 +35,6 @@ import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.findmachine.FindBufferState;
-import com.typee.logic.interactive.parser.state.findmachine.FindDescriptionState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.interactive.parser.state.listmachine.ListState;
 import com.typee.logic.interactive.parser.state.pdfmachine.PdfIndexState;
@@ -73,7 +72,7 @@ public class Parser implements InteractiveParser {
     }
 
     //=========== Core Parser Methods ======================================================================
-    
+
     @Override
     public void parseInput(String commandText) throws ParseException {
 
@@ -87,7 +86,8 @@ public class Parser implements InteractiveParser {
         }
 
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
-        initializeAndParse(commandText, arrayOfPrefixes);
+        boolean wasActivatedNow = activateStateMachineIfInactive(commandText);
+        parseStaticCommand(commandText, wasActivatedNow, arrayOfPrefixes);
     }
 
     private void parseDynamicStatefulCommand(String commandText) {
@@ -169,12 +169,7 @@ public class Parser implements InteractiveParser {
         return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
     }
 
-    private void initializeAndParse(String commandText, Prefix... prefixes) throws ParseException {
-        boolean wasActivatedNow = activateIfInactive(commandText);
-        parse(commandText, wasActivatedNow, prefixes);
-    }
-
-    private boolean activateIfInactive(String commandText) throws ParseException {
+    private boolean activateStateMachineIfInactive(String commandText) throws ParseException {
         boolean activatedNow = false;
         if (!isActive()) {
             instantiateStateMachine(commandText);
@@ -248,26 +243,38 @@ public class Parser implements InteractiveParser {
         return prefixes;
     }
 
-    private void parse(String commandText, boolean wasActivatedNow, Prefix... prefixes)
+    private void parseStaticCommand(String commandText, boolean wasActivatedNow, Prefix... prefixes)
             throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
-        if (wasActivatedNow) {
-            argumentMultimap.clearValues(new Prefix(""));
-        }
-        if (!argumentMultimap.getPreamble().isBlank()) {
-            throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
-        } else {
-            argumentMultimap.clearValues(new Prefix(""));
-        }
+        clearCommandWordIfActivatedNow(wasActivatedNow, argumentMultimap);
+        disallowCommandWordIfActivatedBefore(argumentMultimap);
         try {
-            while ((!argumentMultimap.isEmpty() && !currentState.isEndState())
-                    || isOptionalState(argumentMultimap)) {
+            while (canTransition(argumentMultimap)) {
                 currentState = currentState.transition(argumentMultimap);
             }
         } catch (EndStateException e) {
             // Ignore since this implies that excessive arguments were supplied.
         } catch (StateTransitionException e) {
             throw new ParseException(e.getMessage());
+        }
+    }
+
+    private boolean canTransition(ArgumentMultimap argumentMultimap) {
+        return (!argumentMultimap.isEmpty() && !currentState.isEndState())
+                || isOptionalState(argumentMultimap);
+    }
+
+    private void disallowCommandWordIfActivatedBefore(ArgumentMultimap argumentMultimap) throws ParseException {
+        if (!argumentMultimap.getPreamble().isBlank()) {
+            throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
+        } else {
+            argumentMultimap.clearValues(new Prefix(""));
+        }
+    }
+
+    private void clearCommandWordIfActivatedNow(boolean wasActivatedNow, ArgumentMultimap argumentMultimap) {
+        if (wasActivatedNow) {
+            argumentMultimap.clearValues(new Prefix(""));
         }
     }
 

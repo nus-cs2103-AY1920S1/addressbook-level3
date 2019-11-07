@@ -7,10 +7,11 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class TabState extends State {
+public class TabState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Tab command initiated. Please enter the tab you would like"
             + " to shift to, prefixed by \"b/\"."
@@ -34,6 +35,8 @@ public class TabState extends State {
         Optional<String> tab = newArgs.getValue(PREFIX_TAB);
         performGuardChecks(newArgs, tab);
         collateArguments(this, newArgs, PREFIX_TAB);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new TabEndState(soFar);
     }

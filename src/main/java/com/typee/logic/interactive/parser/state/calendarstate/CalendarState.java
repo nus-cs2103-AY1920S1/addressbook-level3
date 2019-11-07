@@ -10,10 +10,11 @@ import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class CalendarState extends State {
+public class CalendarState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "What would you like to do with the calendar? Please enter"
             + " the command prefixed by \"c/\". Allowed actions are"
@@ -35,7 +36,7 @@ public class CalendarState extends State {
         performGuardChecks(newArgs, operation);
         collateArguments(this, newArgs, PREFIX_CALENDAR);
 
-        return nextState(soFar);
+        return nextState(soFar, newArgs);
     }
 
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> operation)
@@ -58,16 +59,18 @@ public class CalendarState extends State {
                 || operationString.equalsIgnoreCase(CalendarDateDisplayEngagementsCommand.COMMAND_WORD);
     }
 
-    private State nextState(ArgumentMultimap soFar) throws StateTransitionException {
+    private State nextState(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException {
         String operation = soFar.getValue(PREFIX_CALENDAR).get();
         String operationLowerCase = operation.toLowerCase();
 
         switch (operationLowerCase) {
 
         case CalendarNextMonthCommand.COMMAND_WORD:
+            enforceNoExcessiveArguments(newArgs);
             return new NextMonthState(soFar);
 
         case CalendarPreviousMonthCommand.COMMAND_WORD:
+            enforceNoExcessiveArguments(newArgs);
             return new PreviousMonthState(soFar);
 
         case CalendarDateDisplayEngagementsCommand.COMMAND_WORD:

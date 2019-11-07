@@ -5,6 +5,7 @@ import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static com.typee.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static com.typee.logic.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
 import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.time.LocalDateTime;

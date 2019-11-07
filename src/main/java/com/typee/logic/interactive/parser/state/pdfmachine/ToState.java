@@ -8,11 +8,12 @@ import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.model.person.Name;
 
-public class ToState extends State {
+public class ToState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Sender name stored. Please enter the name of the receiver,"
             + " i.e. the person who the report is sent to, prefixed by \"t/\".";
@@ -29,6 +30,8 @@ public class ToState extends State {
         Optional<String> from = newArgs.getValue(PREFIX_TO);
         performGuardChecks(newArgs, from);
         collateArguments(this, newArgs, PREFIX_TO);
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new PdfEndState(soFar);
     }

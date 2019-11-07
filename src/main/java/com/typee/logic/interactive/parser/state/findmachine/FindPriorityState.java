@@ -8,11 +8,12 @@ import java.util.Optional;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.OptionalState;
+import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.model.engagement.Priority;
 
-public class FindPriorityState extends State implements OptionalState {
+public class FindPriorityState extends PenultimateState implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the priority to search for, prefixed by \"p/\".";
 
@@ -29,6 +30,8 @@ public class FindPriorityState extends State implements OptionalState {
         if (priority.isPresent()) {
             collateArguments(this, newArgs, PREFIX_PRIORITY);
         }
+
+        enforceNoExcessiveArguments(newArgs);
 
         return new FindEndState(soFar);
     }
