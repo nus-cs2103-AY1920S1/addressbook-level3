@@ -17,6 +17,7 @@ public class FindEventByTagCommandParser implements Parser<FindEventByTagCommand
     /**
      * Parses the given {@code String} of arguments in the context of the FindEventByTagCommand
      * and returns a FindEventByTagCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindEventByTagCommand parse(String args) throws ParseException {

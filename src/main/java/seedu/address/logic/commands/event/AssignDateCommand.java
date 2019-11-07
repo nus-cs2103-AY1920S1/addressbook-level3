@@ -27,17 +27,16 @@ public class AssignDateCommand extends Command {
             + ": Assigns a Date-TimePeriod mapping to an existing Event identified"
             + " by the index number used in the displayed event list. \n"
             + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
-            + "Example: " + COMMAND_WORD + " 2 on/18/10/2019 time/0500-2000";
+            + "Example: " + COMMAND_WORD + " 2 on/20/10/2019 time/0500-2000";
 
-    public static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
-    public static final String MESSAGE_SUCCESS_ALL =
+    private static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
+    private static final String MESSAGE_SUCCESS_ALL =
             "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
     private static final String EVENT_DATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
     private final Optional<EventDate> targetEventDate;
     private final EventDayTime eventDayTime;
-
 
     /**
      * @param index of the event in the filtered event list to assign to
