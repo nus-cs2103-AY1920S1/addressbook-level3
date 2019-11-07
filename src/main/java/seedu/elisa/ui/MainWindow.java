@@ -456,8 +456,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param theme
      */
     private void changeTheme(String theme) {
-        System.out.print(theme);
-        System.out.print(scene.getStylesheets());
         scene.getStylesheets().remove(0);
         scene.getStylesheets().remove(0);
         switch(theme.trim()) {
