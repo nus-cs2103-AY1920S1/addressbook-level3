@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_NAME_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_TYPE_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_TYPE_BUDGET;
@@ -10,6 +9,7 @@ import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
 import seedu.guilttrip.model.entry.Category;

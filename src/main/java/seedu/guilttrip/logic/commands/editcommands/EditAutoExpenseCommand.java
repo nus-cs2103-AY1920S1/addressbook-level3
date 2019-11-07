@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
@@ -36,8 +37,9 @@ public class EditAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "editAutoExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
-            + "by the index number used in the displayed Expenses list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Expense identified "
+            + "by the index number used in the displayed Expenses list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DESC + "DESCRIPTION "
@@ -79,13 +81,16 @@ public class EditAutoExpenseCommand extends Command {
 
         AutoExpense entryToEdit = lastShownList.get(index.getZeroBased());
         AutoExpense editedEntry = createEditedAutoExpense(entryToEdit, editAutoExpenseDescriptor);
+        if (!model.hasCategory(editedEntry.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasAutoExpense(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
         model.setAutoExpense(entryToEdit, editedEntry);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

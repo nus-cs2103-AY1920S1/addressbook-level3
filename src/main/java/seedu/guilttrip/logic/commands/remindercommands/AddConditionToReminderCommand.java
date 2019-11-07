@@ -18,7 +18,8 @@ public class AddConditionToReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addToReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a condition to reminder. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a condition to reminder. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: REMINDERINDEX, CONDITIONINDEX, (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
@@ -47,7 +48,7 @@ public class AddConditionToReminderCommand extends Command {
         if (!reminder.addCondition(condition)) {
             throw new CommandException(CONDITION_PRESENT_MESSAGE);
         }
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
     }
 

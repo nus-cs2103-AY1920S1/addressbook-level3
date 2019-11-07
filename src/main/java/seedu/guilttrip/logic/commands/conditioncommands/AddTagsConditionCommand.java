@@ -19,8 +19,9 @@ public class AddTagsConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "addHasTagsCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a TagsCondition to the conditions list. \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Adds a TagsCondition to the conditions list. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + "TAG...(No space between keywords, only a comma)\n"
             + "Example: "

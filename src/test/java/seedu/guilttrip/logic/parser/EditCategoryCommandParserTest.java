@@ -1,15 +1,11 @@
 package seedu.guilttrip.logic.parser;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_NAME_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_NAME_FOR_EDIT_NEW;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_NAME_FOR_EDIT_OLD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_TYPE_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_NAME_FOR_EDIT_NEW;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_TYPE_BUDGET;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_TYPE_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_NEW_CATEGORY_NAME;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_OLD_CATEGORY_NAME;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,11 +13,10 @@ import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
-import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditCategoryCommandParser;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.testutil.EditCategoryDescriptorBuilder;
 
 public class EditCategoryCommandParserTest {

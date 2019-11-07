@@ -6,6 +6,7 @@ import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSucc
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.commands.deletecommands.DeleteExpenseCommand;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteExpenseCommandParser;
 

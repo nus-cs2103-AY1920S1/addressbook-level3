@@ -7,6 +7,7 @@ import static seedu.guilttrip.testutil.Assert.assertThrows;
 import static seedu.guilttrip.testutil.TypicalEntries.CATEGORY_SHOPPING;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Category;
 

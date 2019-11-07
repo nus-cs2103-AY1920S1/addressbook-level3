@@ -31,8 +31,9 @@ public class EditReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "editReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the reminder identified "
-            + "by the index number used in the displayed Expenses list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the reminder identified "
+            + "by the index number used in the displayed Expenses list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DESC + "REMINDER_MESSAGE"
@@ -86,7 +87,7 @@ public class EditReminderCommand extends Command {
 
         model.setReminder(reminderToEdit, editedReminder);
         model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
     }
 

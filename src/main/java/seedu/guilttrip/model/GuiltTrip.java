@@ -1,8 +1,6 @@
 package seedu.guilttrip.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_EXISTING_ENTRIES_CATEGORY;
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_NONEXISTENT_CATEGORY;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
@@ -275,7 +273,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * * @param expense the specified Expense to be added.
      */
     public void addExpense(Expense expense) {
-        checkArgument(hasCategory(expense.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.add(expense);
         conditions.addEntryUpdate(expense);
         indicateModified();
@@ -288,7 +285,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param income the specified Income to be added.
      */
     public void addIncome(Income income) {
-        checkArgument(hasCategory(income.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.add(income);
         conditions.addEntryUpdate(income);
         indicateModified();
@@ -299,7 +295,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param budget the specified Income to be added.
      */
     public void addBudget(Budget budget) {
-        checkArgument(hasCategory(budget.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.add(budget);
         conditions.addEntryUpdate(budget);
         indicateModified();
@@ -313,7 +308,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param wish the specified Wish to be added.
      */
     public void addWish(Wish wish) {
-        checkArgument(hasCategory(wish.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.add(wish);
         conditions.addEntryUpdate(wish);
         indicateModified();
@@ -343,7 +337,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * @param autoExpense the specified AutoExpense to be added.
      */
     public void addAutoExpense(AutoExpense autoExpense) {
-        checkArgument(hasCategory(autoExpense.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.add(autoExpense);
         conditions.addEntryUpdate(autoExpense);
         indicateModified();
@@ -412,7 +405,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.setExpense(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -426,7 +418,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.setIncome(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -440,7 +431,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.setWish(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -472,7 +462,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.setBudget(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -498,7 +487,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
         requireNonNull(editedEntry);
-        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -534,7 +522,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * {@code key} must exist in the guilttrip book.
      */
     public void removeCategory(Category category) {
-        checkArgument(!categoryHasAnyEntries(category), MESSAGE_EXISTING_ENTRIES_CATEGORY);
         categoryList.remove(category);
         indicateModified();
     }

@@ -17,7 +17,8 @@ import seedu.guilttrip.model.entry.SortType;
 public class SortAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "sortAutoExp";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the list of autoExpenses in guiltTrip(). \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sorts the list of autoExpenses in guiltTrip(). \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_SEQUENCE + "SEQUENCE "
@@ -39,7 +40,7 @@ public class SortAutoExpenseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredAutoExpense(type, sequence);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 }

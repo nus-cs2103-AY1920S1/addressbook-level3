@@ -1,11 +1,12 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.guilttrip.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -36,8 +37,9 @@ public class EditWishCommand extends Command {
 
     public static final String COMMAND_WORD = "editWish";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Wish identified "
-            + "by the index number used in the displayed Wishes list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Wish identified "
+            + "by the index number used in the displayed Wishes list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESC + "NAME] "
@@ -77,14 +79,17 @@ public class EditWishCommand extends Command {
 
         Wish entryToEdit = lastShownList.get(index.getZeroBased());
         Wish editedEntry = createEditedWish(entryToEdit, editEntryDescriptor);
+        if (!model.hasCategory(editedEntry.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasWish(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
         model.setWish(entryToEdit, editedEntry);
-        model.updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
-        model.commitAddressBook();
+        model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

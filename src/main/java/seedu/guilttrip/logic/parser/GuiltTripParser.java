@@ -2,7 +2,12 @@ package seedu.guilttrip.logic.parser;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfMessageUsages;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfOneLinerDescs;
+import static seedu.guilttrip.logic.parser.ParserUtil.setOfCommandWords;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +27,7 @@ import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddWishCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddDateConditionCommand;
 import seedu.guilttrip.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
@@ -73,6 +79,7 @@ import seedu.guilttrip.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddIncomeCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddWishCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.guilttrip.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -119,13 +126,17 @@ import seedu.guilttrip.logic.parser.uicommandparsers.TogglePanelCommandParser;
  */
 public class GuiltTripParser {
 
+    public static final Set<String> COMMANDS_SET = setOfCommandWords();
+    public static final Map<String, String> ONE_LINER_DESC_MAP = mapOfOneLinerDescs();
+    public static final Map<String, String> MESSAGE_USAGE_MAP = mapOfMessageUsages();
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
+     *
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
@@ -153,6 +164,9 @@ public class GuiltTripParser {
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case AddWishCommand.COMMAND_WORD:
+            return new AddWishCommandParser().parse(arguments);
 
         case EditExpenseCommand.COMMAND_WORD:
             // Fallthrough

@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser.sortcommandparsers;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_ARGUMENT_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;

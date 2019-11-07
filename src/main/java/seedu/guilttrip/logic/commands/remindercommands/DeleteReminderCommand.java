@@ -21,8 +21,9 @@ public class DeleteReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the expense reminder identified by the index number used in the displayed reminder list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Deletes the expense reminder identified by the index number used in the displayed reminder list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -44,7 +45,7 @@ public class DeleteReminderCommand extends Command {
         }
         Reminder reminderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteReminder(reminderToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, reminderToDelete));
     }
 

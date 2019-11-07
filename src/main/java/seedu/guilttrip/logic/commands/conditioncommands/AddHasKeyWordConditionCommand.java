@@ -18,8 +18,9 @@ public class AddHasKeyWordConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "addHasKeyWordCondition";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a KeyWordsCondition to the conditions list. \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Adds a KeyWordsCondition to the conditions list. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + "KEYWORD...(No space between keywords, only a comma)\n"
             + "Example: "

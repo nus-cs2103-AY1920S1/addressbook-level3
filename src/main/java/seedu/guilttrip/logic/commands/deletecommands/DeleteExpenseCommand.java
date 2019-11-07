@@ -21,8 +21,9 @@ public class DeleteExpenseCommand extends Command {
     public static final String COMMAND_WORD = "deleteExpense";
     public static final String COMMAND_WORD_SHORT = "deleteExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
-            + " : Deletes the expense identified by the index number used in the displayed expense list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
+            + " : Deletes the expense identified by the index number used in the displayed expense list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -45,7 +46,7 @@ public class DeleteExpenseCommand extends Command {
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpense(expenseToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, expenseToDelete));
     }
 

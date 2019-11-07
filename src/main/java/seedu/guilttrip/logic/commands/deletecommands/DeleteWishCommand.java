@@ -20,8 +20,9 @@ public class DeleteWishCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteWish";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the wish identified by the index number used in the displayed wish list.\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Deletes the wish identified by the index number used in the displayed wish list.\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -44,7 +45,7 @@ public class DeleteWishCommand extends Command {
 
         Wish entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteWish(entryToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 
