@@ -29,6 +29,7 @@ import seedu.planner.model.day.Day;
 
 /**
  * Schedules an activity to a day.
+ *
  * @@author oscarsu97
  */
 public class ScheduleCommand extends UndoableCommand {
@@ -37,19 +38,19 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(COMMAND_WORD + " ",
             ": Schedule the activity identified "
-            + "by the index number used in the displayed activity list "
-            + "to a day.\n",
+                    + "by the index number used in the displayed activity list "
+                    + "to a day.\n",
             COMMAND_WORD + " "
-            + "ACTIVITY_INDEX (must be a positive integer) "
-            + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_DAY + "DAY_INDEX ",
+                    + "ACTIVITY_INDEX (must be a positive integer) "
+                    + PREFIX_START_TIME + "START_TIME "
+                    + PREFIX_DAY + "DAY_INDEX ",
             COMMAND_WORD + " 1 "
-            + PREFIX_START_TIME + "1100 "
-            + PREFIX_DAY + "2 ");
+                    + PREFIX_START_TIME + "1100 "
+                    + PREFIX_DAY + "2 ");
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
-            "INDEX",
+            "<INDEX>",
             Arrays.asList(PREFIX_START_TIME.toString(), PREFIX_DAY.toString()),
             new ArrayList<>(),
             new ArrayList<>(),
@@ -58,7 +59,8 @@ public class ScheduleCommand extends UndoableCommand {
 
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_END_TIME_EXCEEDS_LAST_DAY = "Activity will end after the end of the itinerary.";
-
+    public static final String MESSAGE_DUPLICATE_ACTIVITY_SCHEDULED = "Activity has already been scheduled in the same"
+            + " timeslot";
     private final Index activityIndex;
     private final LocalTime startTime;
     private final Index dayIndex;
@@ -108,6 +110,7 @@ public class ScheduleCommand extends UndoableCommand {
         LocalDateTime lastDateTimeOfItinerary = model.getLastDateTime();
         LocalDateTime endDateTimeOfActivity = CommandUtil.calculateEndDateTime(model.getStartDate(),
                 dayIndex, startTime, activityToSchedule.getDuration());
+
         if (endDateTimeOfActivity.isAfter(lastDateTimeOfItinerary)) {
             throw new CommandException(MESSAGE_END_TIME_EXCEEDS_LAST_DAY);
         }
@@ -115,6 +118,9 @@ public class ScheduleCommand extends UndoableCommand {
         ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule,
                 startTime.atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())));
 
+        if (dayToEdit.getListOfActivityWithTime().contains(activityWithTimeToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY_SCHEDULED);
+        }
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
 
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);

@@ -30,11 +30,11 @@ public class PriorityTest {
         assertFalse(Priority.isValidPriority("")); // empty string
         assertFalse(Priority.isValidPriority(" ")); // spaces only
         assertFalse(Priority.isValidPriority("thirty")); // non-numeric
-        assertFalse(Priority.isValidPriority("30min")); // alphabets within digits
+        assertFalse(Priority.isValidPriority("PRIORITY3")); // alphabets within digits
 
         // valid priority
         assertTrue(Priority.isValidPriority("1")); //min priority
-        assertTrue(Priority.isValidPriority("1439")); // max value
+        assertTrue(Priority.isValidPriority("7")); // max value
 
     }
 }

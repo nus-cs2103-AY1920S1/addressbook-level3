@@ -55,7 +55,7 @@ public class EventFactory {
             return generateClearEvent(model);
 
         case(ScheduleCommand.COMMAND_WORD):
-            return generateScheduleEvent((ScheduleCommand) command);
+            return generateScheduleEvent((ScheduleCommand) command, model);
 
         case(UnscheduleCommand.COMMAND_WORD):
             return generateUnscheduleEvent((UnscheduleCommand) command, model);
@@ -75,8 +75,8 @@ public class EventFactory {
         return new ClearEvent(model);
     }
 
-    private static Event generateScheduleEvent(ScheduleCommand command) {
-        return new ScheduleEvent(command.getActivityIndex(), command.getStartTime(), command.getDayIndex());
+    private static Event generateScheduleEvent(ScheduleCommand command, Model model) throws EventException {
+        return new ScheduleEvent(command.getActivityIndex(), command.getStartTime(), command.getDayIndex(), model);
     }
 
     private static Event generateUnscheduleEvent(UnscheduleCommand command, Model model) throws EventException {

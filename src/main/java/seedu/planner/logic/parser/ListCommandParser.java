@@ -10,6 +10,7 @@ import seedu.planner.logic.commands.listcommand.ListAccommodationCommand;
 import seedu.planner.logic.commands.listcommand.ListActivityCommand;
 import seedu.planner.logic.commands.listcommand.ListCommand;
 import seedu.planner.logic.commands.listcommand.ListContactCommand;
+import seedu.planner.logic.commands.listcommand.ListDayCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
@@ -17,7 +18,7 @@ import seedu.planner.logic.parser.exceptions.ParseException;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    private static final Pattern LIST_COMMAND_FORMAT = Pattern.compile("(?<type>\\S+).*");
+    private static final Pattern LIST_COMMAND_FORMAT = Pattern.compile("(?<type>\\S+)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
@@ -32,6 +33,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         final String type = matcher.group("type");
+        final String arguments = matcher.group("arguments");
 
         switch (type) {
         case ListActivityCommand.SECOND_COMMAND_WORD:
@@ -40,6 +42,8 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListContactCommand();
         case ListAccommodationCommand.SECOND_COMMAND_WORD:
             return new ListAccommodationCommand();
+        case ListDayCommand.SECOND_COMMAND_WORD:
+            return new ListDayCommand(ParserUtil.parseIndex(arguments));
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }

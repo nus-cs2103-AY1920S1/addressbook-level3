@@ -44,11 +44,6 @@ public class ContactTest {
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameContact(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameContact(editedAlice));
-
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameContact(editedAlice));
