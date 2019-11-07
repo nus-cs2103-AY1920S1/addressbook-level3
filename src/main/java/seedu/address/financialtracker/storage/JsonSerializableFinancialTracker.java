@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.financialtracker.model.ExpenseList;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * An Immutable FinancialTracker that is serializable to JSON format.
@@ -58,7 +59,7 @@ public class JsonSerializableFinancialTracker {
             Expense expense = jsonAdaptedExpense.toModelType();
             try {
                 financialTracker.addExpense(expense, expense.getCountry());
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | CommandException e) {
                 throw new IllegalValueException("File corrupted");
             }
         }

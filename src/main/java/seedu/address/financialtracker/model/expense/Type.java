@@ -10,7 +10,8 @@ import seedu.address.commons.util.AppUtil;
 public class Type {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Type can take any values, and it should not be blank";
+            "Type can take any values, and it should not be blank\n"
+            + "Maximum number of characters is 100.";
 
     /*
      * The first character of the type must not be a whitespace,
@@ -29,7 +30,7 @@ public class Type {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidType(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && (test.length() <= 100);
     }
 
 

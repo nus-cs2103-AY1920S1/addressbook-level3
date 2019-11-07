@@ -26,6 +26,8 @@ class TypeTest {
         // invalid type
         assertFalse(Type.isValidType("")); // empty string
         assertFalse(Type.isValidType(" ")); // spaces only
+        assertFalse(Type.isValidType("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")); // over 100 characters
 
         // valid type
         assertTrue(Type.isValidType("Health_Care"));

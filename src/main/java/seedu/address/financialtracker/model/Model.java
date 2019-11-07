@@ -29,7 +29,7 @@ public class Model {
     /**
      * Adds an expense into the financial tracker.
      */
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws CommandException {
         this.financialTracker.addExpense(expense);
     }
 

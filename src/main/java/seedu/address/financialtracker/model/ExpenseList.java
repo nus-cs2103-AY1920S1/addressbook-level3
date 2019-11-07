@@ -22,14 +22,14 @@ public class ExpenseList {
             .getDateToCompare().compareTo(ep1.getDate().getDateToCompare());
     private final Comparator<? super Expense> byAmount = (ep1, ep2) ->
             Double.compare(ep2.getAmount().numericalValue, ep1.getAmount().numericalValue);
-    private final Comparator<? super Expense> byType = (ep1, ep2) ->
-            ep1.getType().value.compareTo(ep2.getType().value);
+    private final Comparator<? super Expense> byType = Comparator.comparing(ep -> ep.getType().value);
 
     private final String country;
     private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(expenses);
     private Comparator<? super Expense> currentComparator;
+    private double maximumCap = 0;
 
     public ExpenseList(String country) {
         this.country = country;
@@ -75,9 +75,14 @@ public class ExpenseList {
     /**
      * Adds an expense into this representative expense list.
      */
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
-        sort();
+    public void addExpense(Expense expense) throws CommandException {
+        if ((maximumCap + expense.getAmount().numericalValue) > 1000000000000d) {
+            throw new CommandException("Maximum cap 1 trillion reached! Are you sure you're not crazy?!");
+        } else {
+            maximumCap += expense.getAmount().numericalValue;
+            expenses.add(expense);
+            sort();
+        }
     }
 
     /**
