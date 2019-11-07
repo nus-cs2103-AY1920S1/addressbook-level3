@@ -38,8 +38,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HIKING = "hiking";
     public static final String VALID_DURATION_A = "360";
     public static final String VALID_DURATION_B = "420";
-    public static final String VALID_PRIORITY_TEN = "10";
-    public static final String VALID_PRIORITY_TWENTY = "20";
+    public static final String VALID_PRIORITY_SIX = "6";
+    public static final String VALID_PRIORITY_SEVEN = "7";
     public static final String VALID_COST_HUNDRED = "100";
     public static final String VALID_COST_TWO_HUNDRED = "200";
 

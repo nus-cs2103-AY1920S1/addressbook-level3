@@ -80,15 +80,12 @@ https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Morph-Model Part 2] | htt
 *** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]
 
 == Contributions to the User Guide
-
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation
+|_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation
 targeting end-users._
 |===
 
-
-include::../UserGuide.adoc[tag=commandsummary]
+include::../UserGuide.adoc[tag=undoredocommand]
 
 == Contributions to the Developer Guide
 
@@ -96,13 +93,5 @@ include::../UserGuide.adoc[tag=commandsummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=storageuml]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

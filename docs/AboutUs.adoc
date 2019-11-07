@@ -21,16 +21,15 @@ Responsibilities: Logic, Model
 
 === Chen Yi Jun
 image::onearmyj.png[width="150", align="left"]
-{empty}[https://github.com/OneArmyj[github]] [<<OneArmyj#, portfolio>>]
+{empty}[https://github.com/OneArmyj[github]] [<<onearmyj#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI, Model
-
 '''
 
 === Lew Kai Ming
 image::kxxmxxx.png[width="150", align="left"]
-{empty}[https://github.com/KxxMxxx[github]] [<<KxxMxxx#, portfolio>>]
+{empty}[https://github.com/KxxMxxx[github]] [<<kxxmxxx#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic, Storage
