@@ -320,7 +320,7 @@ The commands introduced by this statistics feature includes: `get-task-stats` an
 * `Statistics#getPortionMembersByItems()` -- Retrieves statistics of all the members and number of items purchased by the each individual member.
 * `Statistics#getPortionTasksByStatus()` -- Retrieves statistics of all existing tasks and number of tasks of each status.
 
-These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
+These operations are exposed in the `Model` interface as `Model#doCalculations`, and `Model#getStatistics`.
 
 [NOTE]
 
@@ -328,7 +328,7 @@ To allow the `UI` to be responsive, one of the operations is similarly exposed i
 
 Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
+Step 1. The user launches the application for the first time. The 'Statistics' object stored by ProjectDashboard will be initialised based on the data previously saved.
 
 [NOTE]
 
@@ -336,7 +336,7 @@ Data previously saved refers to the statistics calculation done based on list of
 
 Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
 
-The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
 
 The following sequence diagram shows how the 'get-member-stats' operation works.
 
@@ -345,6 +345,14 @@ Figure 10. Operational flow of 'GetStatisticsCommand'
 
 [NOTE]
 The 'get-member-stats' operation is similar to the one shown in figure 10.
+
+Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `get-task-stats` command is called,
+`TaskStatisticsView` class is also called to display the task stats.
+
+The following sequence diagram shows how calling the 'get-member-stats' operation leads to the comprehensive UI display of task statistics.
+
+image::GetStatisticsUISequenceDiagram.png[]
+Figure 10. Operational flow of GUI when 'GetStatisticsCommand' is called
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -365,7 +373,7 @@ image::GetStatisticsActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
+** Cons: Less details of individual tasks and members exposed in the statistiscs page.
 * **Alternative 2:** Use a list to represent information
 ** Pros: Includes more details for individual elements
 ** Cons: Decreases the ease of comparison between tasks and members
@@ -374,8 +382,13 @@ image::GetStatisticsActivityDiagram.png[]
 // tag::member[]
 === Member Feature
 ==== Implementation
-The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.
-To accomodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
+The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks.
+The following class diagram shows how the different components relating to the Member class works together.
+
+image::MemberClassDiagram.png[]
+
+Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.
+To accommodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
 
 * `Member#getImageUrl()` -- Retrieves the URL of the image stored in the user's computer
 * `Member#getImage()` -- Retrieves the member's image using the image url
@@ -400,11 +413,14 @@ The image's file path will be stored in the Member object. If the image is shift
 
 Step 3. When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView.
 
-The following sequence diagram shows how the image is called up and subsequently displayed in the UI for members.
+The following sequence diagram shows how the image is called up and subsequently displayed in the UI for for an individual member.
 
-image::DisplayImage.png[]
+image::DisplayImageSequenceDiagram.png[]
 Figure 10. Operational flow of displaying a member with image.
 
+[NOTE]
+The sequence diagram only shows how Member's Image is called up and displayed for a member. It doesn't show how the Member's
+name and tags are displayed, since this is very similar to how AB3 originally displays its Person name and tags.
 
 
 The following activity diagram summarizes what happens when a user executes a new command:
