@@ -145,15 +145,12 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag:replenishList[]
-
 === Replenish List
 ==== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
 When an item expires, the item is automatically tagged as `#Expired`.
 By searching for the `#Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
-
-The sequence diagram below demonstrates how the auto-tagging mechanism occurs.
 
 .Sequence Diagram for ItemManager Class
 image::ItemManagerSequenceDiagram.png[]
@@ -180,18 +177,26 @@ the item is automatically tagged as `#Expired`.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
 ** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
 
+===== Aspect: How commands are executed in the list
+* **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
+** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
+** Cons: This would require us to check which parser is to be used every time a command is executed.
+
+* **Alternative 2: Create two versions of each command, one for each list.**
+** Pros: This allows us to greatly customise the command for each list.
+** Cons: This however would lead to unnecessary repetition of code across the code base.
 //
 //===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice):**
+//* **Alternative 1 (current choice): **
 //** Pros:
 //** Cons:
 //
 //* **Alternative 2:**
 //** Pros:
 //** Cons:
+// end::tobuylist[]
 
-
-// tag:autosort[]
+// tag::autosort[]
 === Auto-sorting of items by name then date
 ==== Implementation
 The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replaces `UniqueItemList`.
@@ -202,13 +207,15 @@ The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replac
 
 In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
 
-The following sequence diagram shows how the items added are auto-sorted:
+The following sequence diagram shows how items added are auto-sorted:
 
+.Sequence Diagram modelling how items added are auto-sorted
 image::AutoSortAddSequenceDiagram.png[]
 
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
 
+.Sequence Diagram: set method of sorting as default
 image::AutoSortAddPartSequenceDiagram.png[]
 
 `this.methodOfSorting = new MethodOfSorting("name");`
@@ -218,12 +225,14 @@ the items by name then date.
 
 The following sequence diagram shows how the sort command changes the default order of how items are displayed:
 
+.Sequence Diagram showing how sort command changes order of items
 image::SortSequenceDiagram.png[]
 
 [NOTE]
 When sort is called, the method of sorting is redefined by the user.
 
-image::SortParserPartSequenceDiagram.png[]
+.Sequence Diagram : set method of sorting to date
+image::SortPartSequenceDiagram.png[]
 
 In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
 
@@ -232,15 +241,18 @@ In the above example, the user has specified to sort items by their expiry date,
 [NOTE]
 The SortedList changes accordingly based on the method of sorting specified.
 
+.Activity Diagram showing the control flow of a sort command executed by the user
 image::SortActivityDiagram.png[]
 
 The following sequence diagram shows how the view operation works to display items that are auto-sorted or sorted manually by name or date:
 
+.Sequence Diagram showing how the view operation displays items in order
 image::AutoSortViewSequenceDiagram.png[]
 
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
 
+.Sequence Diagram : retrieve internal sorted list
 image::AutoSortViewPartSequenceDiagram.png[]
 
 [NOTE]
@@ -272,10 +284,10 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 * **Alternative 2:** `TreeSet<Item>`.
 ** Pros: Disallows addition of identical items to the set.
 ** Cons: May not be as compatible with the internalList which is of type ObservableList.
-
 // end::autosort[]
 
-// tag:setreminder[]
+// tag::setreminder[]
+=== Set Reminders for expiring items
 === Reminders for expiring items
 
 The reminder function comprises two parts. Firstly, user sets a date designated to active the reminder through the command
@@ -359,7 +371,6 @@ image::CheckCommandArgUML.png[]
 ** Pros: User gets active updates on expiring items.
 ** Cons: The function will not work if the app does not activate itself on starting of the computer, which required
 change in the user's operating system.
-
 // end::setreminder[]
 
 // tag::undoredo[]
@@ -521,7 +532,7 @@ Below is the UML sequence diagram of an example usage scenario.
 image::SearchCommandSequenceDiagram.png[]
 // end::search[]
 
-// tag:recommendations[]
+// tag::recommendations[]
 === Spelling correction with alternative recommendations
 ==== Implementation
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
@@ -529,6 +540,8 @@ This distance is based on the number of substitutions, deletions, insertions or 
 Relevant functions supporting this operation are implemented in `StringUtil`.
 
 The diagram below is a simplified illustration of how the feature works.
+
+.Example showing what happens when "search|applee" is executed with "apple" misspelled
 
 image::RecommendationsExample1.png[]
 
@@ -538,6 +551,8 @@ The recommendations will be made solely based the list of items previously displ
 As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
 On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
 
+.Example illustrating that recommendations are solely based on the previous list
+
 image::RecommendationsExample2.png[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
@@ -545,13 +560,19 @@ image::RecommendationsExample2.png[]
 The following sequence diagram shows how the sort operation works with recommendations,
 in the case that "date" is misspelled as "dat":
 
+.Sequence diagram illustrating the correction mechanism for command "sort|dat"
+
 image::RecommendationsSortSequenceDiagram.png[]
 
-The following sequence diagram `findSimilar` illustrates the process omitted above.
+The following sequence diagram `find similar words` illustrates the process omitted above.
+
+.Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
 image::FindSimilarSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an unknown command:
+
+.Activity diagram showing what happens when an unknown command is executed
 
 image::RecommendationUnknownCommandActivityDiagram.png[]
 
@@ -559,6 +580,8 @@ image::RecommendationUnknownCommandActivityDiagram.png[]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
 
 The following activity diagram summarizes what happens when a user executes a command with misspelled arguments:
+
+.Activity diagram showing what happens when an a command is executed with misspelled arguments
 
 image::RecommendationsSearchSortActivityDiagram.png[]
 
@@ -585,7 +608,6 @@ Only search and sort commands support this operation.
 * **Alternative 2:** Store all possible recommendations in a long list.
 ** Pros: Simpler implementation.
 ** Cons: Not closely related words may also be recommended to the user.
-
 // end::recommendations[]
 
 === Logging

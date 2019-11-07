@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
+import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 
@@ -28,14 +29,14 @@ public class ViewCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ViewCommand(), model, String.format(ViewCommand.MESSAGE_SUCCESS, "the"),
+        assertCommandSuccess(new ViewCommand(XPIRE), model, String.format(ViewCommand.MESSAGE_SUCCESS, "the"),
             expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
-        assertCommandSuccess(new ViewCommand(), model, String.format(ViewCommand.MESSAGE_SUCCESS, "the"),
+        assertCommandSuccess(new ViewCommand(XPIRE), model, String.format(ViewCommand.MESSAGE_SUCCESS, "the"),
             expectedModel);
     }
 }

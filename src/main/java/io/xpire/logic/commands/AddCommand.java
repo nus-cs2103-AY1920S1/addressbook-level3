@@ -99,10 +99,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     *
-     * @param item
-     * @param list
-     * @return
+     * Search for the item in the list.
      */
     private XpireItem retrieveXpireItem(XpireItem item, List<? extends Item> list) {
         requireNonNull(item);
@@ -116,11 +113,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     *
-     * @param targetItem
-     * @param quantity
-     * @return
-     * @throws ParseException
+     * Returns the item with added quantity.
      */
     private XpireItem increaseItemQuantity(XpireItem targetItem, Quantity quantity) throws ParseException {
         Quantity prevQuantity = targetItem.getQuantity();

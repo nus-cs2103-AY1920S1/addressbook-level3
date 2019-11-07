@@ -102,10 +102,15 @@ public class ReplenishParser implements Parser {
             return new ExportCommand();
 
         case AddCommand.COMMAND_WORD:
+            //fallthrough
         case DeleteCommand.COMMAND_WORD:
+            //fallthrough
         case SortCommand.COMMAND_WORD:
+            //fallthrough
         case CheckCommand.COMMAND_WORD:
+            //fallthrough
         case SetReminderCommand.COMMAND_WORD:
+            //fallthrough
         case TagCommand.COMMAND_WORD:
             throw new ParseException(MESSAGE_XPIRE_COMMAND_ONLY);
 

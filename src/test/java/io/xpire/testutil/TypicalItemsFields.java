@@ -1,7 +1,5 @@
 package io.xpire.testutil;
 
-import static io.xpire.model.item.ExpiryDate.DATE_FORMAT;
-
 import java.time.LocalDate;
 
 import io.xpire.commons.util.DateUtil;
@@ -21,16 +19,16 @@ public class TypicalItemsFields {
     public static final String VALID_NAME_EXPIRED_MILK = "Milk";
     public static final String VALID_NAME_EXPIRED_ORANGE = "Orange";
 
-    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now(), DATE_FORMAT);
-    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7), DATE_FORMAT);
-    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14), DATE_FORMAT);
-    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30), DATE_FORMAT);
-    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1), DATE_FORMAT);
-    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7), DATE_FORMAT);
+    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now());
+    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7));
+    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14));
+    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30));
+    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1));
+    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7));
 
     public static final String VALID_EXPIRY_DATE_APPLE = TODAY;
     public static final String VALID_EXPIRY_DATE_BANANA = IN_TWO_WEEKS;
-    public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/9999";
+    public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/2099";
     public static final String VALID_EXPIRY_DATE_DUCK = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_KIWI = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_JELLY = IN_A_MONTH;
@@ -68,8 +66,11 @@ public class TypicalItemsFields {
     public static final String INVALID_NAME = "@pple";
     public static final String INVALID_EXPIRY_DATE = "50505000";
     public static final String INVALID_EXPIRY_DATE_RANGE = "50/50/5000";
+    public static final String INVALID_EXPIRY_DATE_UPPER = "1/1/9999";
+    public static final String INVALID_EXPIRY_DATE_LOWER = "1/1/1000";
     public static final String INVALID_TAG = "$cold";
     public static final String INVALID_QUANTITY = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";
+    public static final String INVALID_REMINDER_THRESHOLD_RANGE = "30000";
 
 }

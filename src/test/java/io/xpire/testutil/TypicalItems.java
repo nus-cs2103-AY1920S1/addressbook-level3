@@ -1,7 +1,5 @@
 package io.xpire.testutil;
 
-import static io.xpire.model.item.ReminderThresholdExceededPredicateTest.DATE_FORMAT;
-
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_CORIANDER;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
@@ -46,12 +44,12 @@ import io.xpire.model.item.XpireItem;
 public class TypicalItems {
 
 
-    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now(), DATE_FORMAT);
-    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7), DATE_FORMAT);
-    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14), DATE_FORMAT);
-    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30), DATE_FORMAT);
-    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1), DATE_FORMAT);
-    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7), DATE_FORMAT);
+    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now());
+    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7));
+    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14));
+    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30));
+    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1));
+    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7));
 
     // ====================== Xpire Items ==========================================================================
 

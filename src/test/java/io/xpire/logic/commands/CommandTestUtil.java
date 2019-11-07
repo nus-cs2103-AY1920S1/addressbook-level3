@@ -1,10 +1,12 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.model.ListType.XPIRE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import io.xpire.commons.core.index.Index;
@@ -17,6 +19,7 @@ import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.testutil.Assert;
+import javafx.collections.ObservableArray;
 
 /**
  * Contains helper methods for testing commands.
@@ -62,7 +65,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Xpire expectedXpire = new Xpire(actualModel.getLists()[0]);
-        List<XpireItem> expectedFilteredList = new ArrayList<>(actualModel.getCurrentList());
+        @SuppressWarnings ("unchecked")
+        List<XpireItem> expectedFilteredList = new ArrayList<>((Collection<XpireItem>) actualModel.getCurrentList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, stateManager));
         assertEquals(expectedXpire, actualModel.getLists()[0]);
@@ -77,9 +81,10 @@ public class CommandTestUtil {
 
         XpireItem xpireItem = (XpireItem) model.getCurrentList().get(targetIndex.getZeroBased());
         final String[] splitName = xpireItem.getName().toString().split("\\s+");
-        model.filterCurrentList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredXpireItemList().size());
+        model.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getCurrentList().size());
     }
 
 }
