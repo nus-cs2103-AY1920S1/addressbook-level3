@@ -186,6 +186,8 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+    Event getEvent(String eventName);
+
     /**
      * Deletes the given event.
      * The event must exist in performance.
@@ -195,6 +197,8 @@ public interface Model {
     ReadOnlyPerformance getPerformance();
 
     void addRecord(String eventName, Person person, Record record);
+
+    void deleteRecord(String eventName, Person person, AthletickDate date);
 
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 

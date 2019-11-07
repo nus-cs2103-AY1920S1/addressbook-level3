@@ -247,6 +247,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Event getEvent(String eventName) {
+            return null;
+        }
+
+        @Override
         public void deleteEvent(Event target) { }
 
         @Override
@@ -255,9 +260,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addRecord(String eventName, Person person, Record record) {
+        public void addRecord(String eventName, Person person, Record record) { }
 
-        }
+        @Override
+        public void deleteRecord(String eventName, Person person, AthletickDate date) { }
 
         @Override
         public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {

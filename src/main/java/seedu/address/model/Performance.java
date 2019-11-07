@@ -92,6 +92,11 @@ public class Performance implements ReadOnlyPerformance {
         return events.contains(event);
     }
 
+    public Event getEvent(String eventName) {
+        requireNonNull(eventName);
+        return events.getEvent(eventName);
+    }
+
     /**
      * Adds an event to the events list.
      * The event must not already exist in the events list.
@@ -115,7 +120,11 @@ public class Performance implements ReadOnlyPerformance {
      * @param r Record to be added.
      */
     public void addRecord(String e, Person p, Record r) {
-        events.getEvent(e).addPerformance(p, r);
+        events.getEvent(e).addRecord(p, r);
+    }
+
+    public void deleteRecord(String e, Person p, AthletickDate d) {
+        events.getEvent(e).deleteRecord(p, d);
     }
 
     @Override
