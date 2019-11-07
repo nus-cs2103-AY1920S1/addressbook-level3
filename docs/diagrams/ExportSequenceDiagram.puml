@@ -38,6 +38,8 @@ deactivate ExportCommand
 
 ExportCommandParser --> AppParser : e
 deactivate ExportCommandParser
+ExportCommandParser -[hidden]-> AppParser : e
+destroy ExportCommandParser
 
 AppParser --> LogicManager : e
 deactivate AppParser
@@ -55,6 +57,10 @@ end
 
 ExportCommand --> LogicManager : result
 deactivate ExportCommand
+ExportCommand -[hidden]-> LogicManager : result
+destroy ExportCommand
+
+[<-- LogicManager
 
 deactivate LogicManager
 
