@@ -137,7 +137,7 @@ include::../UserGuide.adoc[tag=loanSlip]
 == Contributions to the Developer Guide
 
 |===
-|_This section highlights my contributions to the Developer Guide. The following are excerpts from the 'LiBerry' Developer Guide. These excerpts show the additions I have made for the 'Add Book' and 'Generate Loan Slip' feature._
+|_This section highlights my contributions to the Developer Guide. The following excerpts from the 'LiBerry' Developer Guide demonstrates my ability to communicate with other developers through my detailed documentation._
 |===
 
 include::../DeveloperGuide.adoc[tag=addBook]
