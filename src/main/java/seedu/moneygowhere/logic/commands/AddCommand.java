@@ -63,10 +63,10 @@ public class AddCommand extends Command {
                     toAdd.getTags());
         }
 
-        if (model.hasSpending(toAdd)) {
-            feedbackToUser = MESSAGE_DUPLICATE_FOUND + "\n" + String.format(DUPLICATE_MESSAGE_SUCCESS, toAdd);
+        if (model.hasSpending(tempSpending)) {
+            feedbackToUser = MESSAGE_DUPLICATE_FOUND + "\n" + String.format(DUPLICATE_MESSAGE_SUCCESS, tempSpending);
         } else {
-            feedbackToUser = String.format(NO_DUPLICATE_MESSAGE_SUCCESS, toAdd);
+            feedbackToUser = String.format(NO_DUPLICATE_MESSAGE_SUCCESS, tempSpending);
         }
 
         model.addSpending(tempSpending);

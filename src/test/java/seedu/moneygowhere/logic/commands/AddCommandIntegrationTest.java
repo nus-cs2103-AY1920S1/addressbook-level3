@@ -58,9 +58,6 @@ public class AddCommandIntegrationTest {
         expectedModel.setCurrencyInUse(usdCurrency);
         expectedModel.addSpending(convertedSpending);
 
-//        System.out.println(convertedSpending);
-//        System.out.println(validSpending);
-
         model.setCurrencyInUse(usdCurrency);
 
         assertCommandSuccess(new AddCommand(validSpending), model,
