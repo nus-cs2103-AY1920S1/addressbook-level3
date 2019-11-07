@@ -9,7 +9,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 // TODO: ADD ALL THE COMMANDS
@@ -93,9 +97,12 @@ public class MainParserTest {
         assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " food") instanceof FilterCommand);
 
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        Optional<Set<Category>> categories = Optional.of(new HashSet<>(Arrays.asList(
+            new Category("foo"), new Category("bar"), new Category("baz"))));
         FilterCommand command = (FilterCommand) parser.parseCommand(
             FilterCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FilterCommand(new TransactionContainsCategoriesPredicate(keywords)), command);
+        assertEquals(new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty())), command);
     }
 
     @Test

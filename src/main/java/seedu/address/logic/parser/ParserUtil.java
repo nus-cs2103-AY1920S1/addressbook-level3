@@ -250,4 +250,44 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
+    /**
+     * Parses {@code month} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified month is invalid.
+     */
+    public static Integer parseMonth(String monthString) throws ParseException {
+        requireNonNull(monthString);
+        String trimmedMonth = monthString.trim();
+        try {
+            if (Date.isValidMonth(trimmedMonth)) {
+                return Integer.parseInt(trimmedMonth);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
+    }
+
+    /**
+     * Parses {@code year} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified year is invalid.
+     */
+    public static Integer parseYear(String yearString) throws ParseException {
+        requireNonNull(yearString);
+        String trimmedYear = yearString.trim();
+        try {
+            if (Date.isValidYear(trimmedYear)) {
+                return Integer.parseInt(trimmedYear);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
+    }
 }
