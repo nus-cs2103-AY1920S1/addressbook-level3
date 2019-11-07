@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.logic.commands.CommandTestUtil.DESC_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.DESC_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUS;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
@@ -28,7 +28,8 @@ import seedu.ichifund.testutil.EditTransactionDescriptorBuilder;
 import seedu.ichifund.testutil.TransactionBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditTransactionCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * EditTransactionCommand.
  */
 public class EditTransactionCommandTest {
 

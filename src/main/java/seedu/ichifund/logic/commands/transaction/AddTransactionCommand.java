@@ -148,36 +148,57 @@ public class AddTransactionCommand extends Command {
         private Optional<Year> year;
         private Optional<TransactionType> transactionType;
 
+        /**
+         * Returns a builder with the description specified.
+         */
         public AddTransactionCommandBuilder withDescription(Description description) {
             this.description = description;
             return this;
         }
 
+        /**
+         * Returns a builder with the amount specified.
+         */
         public AddTransactionCommandBuilder withAmount(Amount amount) {
             this.amount = amount;
             return this;
         }
 
+        /**
+         * Returns a builder with the optional category specified.
+         */
         public AddTransactionCommandBuilder withCategory(Optional<Category> category) {
             this.category = category;
             return this;
         }
 
+        /**
+         * Returns a builder with the optional day specified.
+         */
         public AddTransactionCommandBuilder withDay(Optional<Day> day) {
             this.day = day;
             return this;
         }
 
+        /**
+         * Returns a builder with the optional month specified.
+         */
         public AddTransactionCommandBuilder withMonth(Optional<Month> month) {
             this.month = month;
             return this;
         }
 
+        /**
+         * Returns a builder with the optional year specified.
+         */
         public AddTransactionCommandBuilder withYear(Optional<Year> year) {
             this.year = year;
             return this;
         }
 
+        /**
+         * Returns a builder with the optional transaction type specified.
+         */
         public AddTransactionCommandBuilder withTransactionType(Optional<TransactionType> transactionType) {
             this.transactionType = transactionType;
             return this;

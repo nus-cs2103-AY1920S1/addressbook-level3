@@ -30,7 +30,7 @@ public class DeleteTransactionCommandTest {
         Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST.getZeroBased());
         DeleteTransactionCommand deleteTransactionCommand = new DeleteTransactionCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteTransactionCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, 
+        String expectedMessage = String.format(DeleteTransactionCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS,
                 transactionToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getFundBook(), new UserPrefs());

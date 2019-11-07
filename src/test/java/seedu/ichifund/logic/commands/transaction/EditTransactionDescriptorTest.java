@@ -67,6 +67,5 @@ public class EditTransactionDescriptorTest {
         editedAllowance = new EditTransactionDescriptorBuilder(DESC_ALLOWANCE)
                 .withTransactionType(VALID_TRANSACTION_TYPE_BUS).build();
         assertFalse(DESC_ALLOWANCE.equals(editedAllowance));
-        
     }
 }

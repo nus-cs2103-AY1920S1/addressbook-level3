@@ -16,7 +16,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.ichifund.logic.commands.CommandResult;
-import seedu.ichifund.logic.commands.transaction.AddTransactionCommand.AddTransactionCommandBuilder;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.context.TransactionContext;
@@ -34,7 +33,7 @@ public class AddTransactionCommandTest {
 
     @Test
     public void constructor_nullFields_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddTransactionCommand(null, null, null, null, 
+        assertThrows(NullPointerException.class, () -> new AddTransactionCommand(null, null, null, null,
                 null, null, null));
     }
 
