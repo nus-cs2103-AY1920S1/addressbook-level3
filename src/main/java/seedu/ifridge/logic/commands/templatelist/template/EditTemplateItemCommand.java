@@ -181,5 +181,25 @@ public class EditTemplateItemCommand extends Command {
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
         }
+
+        /**
+         * Checks if the object is identical
+         */
+        public boolean equals(EditTemplateItemDescriptor other) {
+            return other == this
+                    || (other instanceof EditTemplateItemDescriptor
+                    && this.name.equals(other.name) && this.amount.equals(other.amount));
+        }
+    }
+
+    /**
+     * Checks if the EditTemplateItemCommand is identical
+     */
+    public boolean equals(EditTemplateItemCommand other) {
+        return other == this
+                || (other instanceof EditTemplateItemCommand
+                && other.targetTemplateIndex.equals(this.targetTemplateIndex)
+                && other.targetItemIndex.equals(this.targetItemIndex)
+                && other.editTemplateItemDescriptor.equals(this.editTemplateItemDescriptor));
     }
 }
