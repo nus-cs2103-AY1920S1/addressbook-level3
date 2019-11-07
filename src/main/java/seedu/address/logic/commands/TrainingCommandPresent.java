@@ -106,6 +106,6 @@ public class TrainingCommandPresent extends TrainingCommand {
     }
     @Override
     public String toString() {
-        return "Add '" + trainingToAdd + "' Command";
+        return "'Add " + trainingToAdd + "' Command";
     }
 }

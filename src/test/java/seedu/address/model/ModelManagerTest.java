@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AthletickBuilder;
 
@@ -116,10 +117,12 @@ public class ModelManagerTest {
         Performance performance = new Performance();
         Attendance attendance = new Attendance();
         UserPrefs userPrefs = new UserPrefs();
+        HistoryManager history = new HistoryManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(athletick, performance, attendance, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(athletick, performance, new Attendance(), userPrefs);
+        modelManager = new ModelManager(athletick, performance, attendance, userPrefs, history);
+        ModelManager modelManagerCopy = new ModelManager(athletick, performance, new Attendance(),
+            userPrefs, new HistoryManager());
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -132,13 +135,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different Athletick -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAthletick, performance, attendance, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAthletick, performance, attendance, userPrefs,
+            history)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(athletick, performance, attendance,
-                userPrefs)));
+                userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -147,7 +151,7 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAthletickFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(athletick, performance, attendance,
-                differentUserPrefs)));
+                differentUserPrefs, history)));
 
     }
 }

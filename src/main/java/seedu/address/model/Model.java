@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
@@ -58,14 +59,29 @@ public interface Model {
      * Replaces Athletick data with the data in {@code athletick}.
      */
     void setAthletick(ReadOnlyAthletick athletick);
-
-
     /** Returns Athletick */
     ReadOnlyAthletick getAthletick();
+    /** Returns HistoryManager */
+    HistoryManager getHistory();
+    /** Returns deep copy of Athletick */
     ReadOnlyAthletick getAthletickDeepCopy();
+    /** Returns deep copy of Trainings under Attendance*/
     List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    /** Returns deep copy of HashMap under Training */
     HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    /** Returns deep copy of Performance */
+    ReadOnlyPerformance getPerformanceDeepCopy(ReadOnlyPerformance originalPerformance);
+    /** Returns deep copy of Events under Performance*/
+    List<Event> getEventsDeepCopy(List<Event> originalEvents);
+    /** Returns deep copy of HashMap under Event */
+    Event getEventDeepCopy(Event originalEvent);
+    /** Returns deep copy of List of Record under Event */
+    List<Record> getRecordsDeepCopy(List<Record> originalRecords);
+    /** Returns deep copy of Record under Event */
+    Record getRecordDeepCopy(Record originalRecord);
+    /** Returns Command that is being undone*/
     Command undo();
+    /** Returns Command that is being redone*/
     Command redo();
 
     /**

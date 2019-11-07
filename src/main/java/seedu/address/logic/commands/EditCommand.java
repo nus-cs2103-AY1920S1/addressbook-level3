@@ -259,6 +259,6 @@ public class EditCommand extends Command {
     }
     @Override
     public String toString() {
-        return "Edit '" + editedPerson + "' Command";
+        return "'Edit " + editedPerson + "' Command";
     }
 }

@@ -53,6 +53,6 @@ public class DeleteTrainingCommand extends DeleteCommand {
     }
     @Override
     public String toString() {
-        return "Delete '" + trainingToBeDeleted + "' Command";
+        return "'Delete " + trainingToBeDeleted + "' Command";
     }
 }

@@ -49,6 +49,9 @@ public class PerformanceCommand extends Command {
         this.date = date;
         this.time = time;
     }
+    public AthletickDate getDate() {
+        return this.date;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -84,10 +87,10 @@ public class PerformanceCommand extends Command {
 
     @Override
     public boolean isUndoable() {
-        return false;
+        return true;
     }
     @Override
     public String toString() {
-        return "Add Performance Command";
+        return "'Add Performance " + this.event + " " + this.date + " " + this.time + "' Command";
     }
 }
