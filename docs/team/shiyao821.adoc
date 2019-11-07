@@ -70,6 +70,7 @@ Made all search parameters (with the exception of book serial number) case insen
 This feature allows users to be
 
 *Code contributed*: +
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense] +
 [https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/FindCommandParser.java[FindCommandParser Class]] +
 [https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/book/BookPredicate.java[BookPredicate Class]] +
 [https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/Flag.java[Flag Class]] +
