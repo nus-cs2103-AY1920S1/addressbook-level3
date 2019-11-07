@@ -5,8 +5,12 @@
 if () then ([command is universal command])
     :Return universal command;
 else ([else])
-    :ContextParser parses command;
-    :Return context command;
+    if () then ([current context is editing])
+        :EditingParser parses command;
+    else ([else])
+        :ContextParser parses command;
+        :Return context command;
+    endif
 endif
 
 :Executes command;

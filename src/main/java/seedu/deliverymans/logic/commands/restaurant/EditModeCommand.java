@@ -17,7 +17,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Goes into editing mode for a restaurant
  */
 public class EditModeCommand extends Command {
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editmode";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the restaurant identified "
             + "by the index number used in the displayed restaurant list.\n"
