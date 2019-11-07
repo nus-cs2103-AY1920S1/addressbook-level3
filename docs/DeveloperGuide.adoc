@@ -431,13 +431,16 @@ commands and previous existing custom commands will be added to its TreeMap.
 Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap and in the `TutorAidParser#parseCommand(String userInput)` function and returns a new `UnknownCommand` since
 the TreeMap does not contain the keyword "plus".
 
-Step 3. The `UnknownCommand` is executed in `LogicManger` and "plus" is saved on a Stack in `ModelManager`. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `CommandResult#isUnknown()` and sets the "unknown" variable in `MainWindow`
+Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on a Stack in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `CommandResult#isUnknown()` and sets the "unknown" variable in `MainWindow`
 to true.
 
 [NOTE]
 `Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways of unknown and known commands.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `LogicManager#execute(String userInput, boolean isUnknown)` now calls `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passed in a value of "true" to the execute command.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `Logic#execute(String userInput, boolean isUnknown)` now calls `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passes in a value of `true` to the `isUnknown` boolean variable of the execute command.
+
+[NOTE]
+`prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`
 
 Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".

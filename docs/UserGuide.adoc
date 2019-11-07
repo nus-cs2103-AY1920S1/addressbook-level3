@@ -368,6 +368,11 @@ Examples:
 List all students in TutorAid.
 Format: `list`
 
+image::list.png[width="500", align="left"]
+
+[NOTE]
+`list` command does not take any arguments.
+
 ==== Find a student: 'find'
 
 Find a student matching the supplied name.
@@ -412,6 +417,9 @@ Examples:
 Marks attendance of students currently displayed.
 Format: `mark_attendance INDEXES`
 
+[NOTE]
+`mark_attendance` increases attendance of all selected students by exactly 1.
+
 Examples:
 
 * `mark_attendance 1,2,3`
@@ -421,6 +429,9 @@ Examples:
 Marks participation of students currently displayed.
 Format: `mark_participation INDEXES`
 
+[NOTE]
+`mark_participation` increases participation of all selected students by exactly 1.
+
 Examples:
 
 * `mark_participation 1,2,3`
@@ -428,11 +439,10 @@ Examples:
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
 Displays list of all students who have not met the set threshold in terms of attendance.
+Format: `absentees THRESHOLD_PERCENTAGE`
 
 [NOTE]
 Calculation will be done from start of semester to the current date.
-
-Format: `absentees THRESHOLD_PERCENTAGE`
 
 Examples:
 
@@ -441,21 +451,20 @@ Examples:
 ==== Check on status of student: 'check_status' [Coming in v2.0]
 
 Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+Format: `check_status`
 
 [NOTE]
 To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
 
-Format: `check_status`
 
 ==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
 
 Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
 The picture will be assigned to the indicated student and be displayed in TutorAid.
+Format: `upload_pic INDEX`
 
 [NOTE]
 Replaces current picture, if any.
-
-Format: `upload_pic INDEX`
 
 Examples:
 
@@ -465,6 +474,9 @@ Examples:
 
 Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
 command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
+
+image::customCommandError.png[width="500", align="left"]
+
 [NOTE]
 You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
 
