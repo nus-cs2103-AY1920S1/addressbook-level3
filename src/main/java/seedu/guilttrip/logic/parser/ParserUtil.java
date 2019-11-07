@@ -325,7 +325,7 @@ public class ParserUtil {
      */
     public static List<Tag> parseTags(String tags) throws ParseException {
         requireNonNull(tags);
-        final List<String> tagNames = Arrays.asList(tags.trim().split(","));
+        final String[] tagNames = tags.trim().split(",");
         final List<Tag> tagList = new ArrayList();
         for (String tagName : tagNames) {
             tagList.add(parseTag(tagName));
@@ -409,6 +409,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * @return a set of Command Words.
+     */
     public static Set<String> setOfCommandWords() {
         return Set.of(
                 AddExpenseCommand.COMMAND_WORD,
@@ -475,6 +478,9 @@ public class ParserUtil {
         );
     }
 
+    /**
+     * @return a map of Command Words to One-liner descriptions.
+     */
     public static Map<String, String> mapOfOneLinerDescs() {
         Map<String, String> toReturn = new HashMap<>();
         toReturn.put(AddExpenseCommand.COMMAND_WORD, AddExpenseCommand.ONE_LINER_DESC);
@@ -513,7 +519,8 @@ public class ParserUtil {
         toReturn.put(EditReminderCommand.COMMAND_WORD, EditReminderCommand.ONE_LINER_DESC);
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.ONE_LINER_DESC);
         toReturn.put(AddConditionToReminderCommand.COMMAND_WORD, AddConditionToReminderCommand.ONE_LINER_DESC);
-        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD, RemoveConditionFromReminderCommand.ONE_LINER_DESC);
+        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD,
+                RemoveConditionFromReminderCommand.ONE_LINER_DESC);
         toReturn.put(ListAllRemindersCommand.COMMAND_WORD, ListAllRemindersCommand.ONE_LINER_DESC);
         toReturn.put(ListActiveRemindersCommand.COMMAND_WORD, ListActiveRemindersCommand.ONE_LINER_DESC);
         toReturn.put(AddClassConditionCommand.COMMAND_WORD, AddClassConditionCommand.ONE_LINER_DESC);
@@ -541,6 +548,9 @@ public class ParserUtil {
         return toReturn;
     }
 
+    /**
+     * @return a map of Command Words to Message Usages.
+     */
     public static Map<String, String> mapOfMessageUsages() {
         Map<String, String> toReturn = new HashMap<>();
         toReturn.put(AddExpenseCommand.COMMAND_WORD, AddExpenseCommand.MESSAGE_USAGE);

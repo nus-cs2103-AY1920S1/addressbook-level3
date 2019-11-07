@@ -21,6 +21,7 @@ import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Description;
+
 /**
  * Parses input argument and creates a new SetEntryReminderCommand object.
  */
@@ -29,6 +30,7 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
     /**
      * Parses the given {@code String} of arguments in the context of the EditExpenseCommand
      * and returns an EditExpenseCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetEntryReminderCommand parse(String args) throws ParseException {
@@ -37,7 +39,8 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
                 ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetEntryReminderCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetEntryReminderCommand.MESSAGE_USAGE));
         }
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
@@ -46,6 +49,7 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
         TemporalUnit temporalUnit = getTemporalUnit(argMultimap.getValue(PREFIX_PARAM).get());
         return new SetEntryReminderCommand(desc, type, index, (int) amount, temporalUnit);
     }
+
     private TemporalUnit getTemporalUnit(String unit) throws ParseException {
         if (unit.toLowerCase().contains("day")) {
             return ChronoUnit.valueOf("DAYS");
@@ -59,6 +63,7 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
             throw new ParseException("Unit time not supported");
         }
     }
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values
      * in the given {@code ArgumentMultimap}.
