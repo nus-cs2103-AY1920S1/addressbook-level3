@@ -1,8 +1,5 @@
 package seedu.address.model.transaction;
 
-import java.util.List;
-import java.util.Optional;
-
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
@@ -30,12 +27,6 @@ public class LendMoney extends Payment {
     public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
         return this.equals(ledgerOperation);
     }
-
-    @Override
-    public Optional<List<Integer>> getShares() {
-        return Optional.empty();
-    }
-
 
     @Override
     public boolean equals(Object obj) {
