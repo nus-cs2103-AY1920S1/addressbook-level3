@@ -9,7 +9,7 @@ show members
   namespace seedu.address {
     namespace model {
       namespace appointment {
-        class seedu.address.model.appointment.AppointmentList {
+        class AppointmentList {
             - internalList : ObservableList<Appointment>
             - internalUnmodifiableList : ObservableList<Appointment>
             + AppointmentList()

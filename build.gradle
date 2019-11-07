@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'unrealunity.visit.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -135,7 +135,7 @@ asciidoctor {
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'VISIT',
         'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F12-2/main',
-        'untitled-label': 'VISIT by Team UnityUnreal'
+        'untitled-label': 'VISIT by Team UnrealUnity'
     ]
 
     options['template_dirs'].each {

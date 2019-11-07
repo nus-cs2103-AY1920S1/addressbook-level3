@@ -9,7 +9,7 @@ show members
   namespace seedu.address {
     namespace model {
       namespace appointment {
-        class seedu.address.model.appointment.AppointmentTable {
+        class AppointmentTable {
             - followup : HashMap<String, Integer>
             - reminders : HashMap<String, Integer>
             + AppointmentTable()
