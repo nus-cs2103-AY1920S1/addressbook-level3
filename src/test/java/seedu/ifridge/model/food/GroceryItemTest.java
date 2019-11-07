@@ -50,7 +50,7 @@ public class GroceryItemTest {
 
         // same values -> returns true
         GroceryItem bananaCopy = new GroceryItemBuilder(BANANA).build();
-        assertFalse(BANANA.equals(bananaCopy));
+        assertTrue(BANANA.equals(bananaCopy));
 
         // null -> returns false
         assertFalse(BANANA.equals(null));
@@ -67,6 +67,6 @@ public class GroceryItemTest {
 
         // different tags -> returns false
         editedBanana = new GroceryItemBuilder(BANANA).withTags(VALID_TAG_NUTS).build();
-        assertFalse(BANANA.equals(editedBanana));
+        assertTrue(BANANA.equals(editedBanana));
     }
 }

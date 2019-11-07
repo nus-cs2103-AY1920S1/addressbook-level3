@@ -13,18 +13,17 @@ import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.commons.util.FileUtil;
 import seedu.ifridge.commons.util.JsonUtil;
 import seedu.ifridge.model.ReadOnlyGroceryList;
-import seedu.ifridge.model.ReadOnlyShoppingList;
 
 /**
  * A class to access GroceryList data stored as a json file on the hard disk.
  */
-public class JsonBoughtItemStorage implements BoughtListStorage {
+public class JsonBoughtListStorage implements BoughtListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonShoppingItemStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonShoppingListStorage.class);
 
     private Path filePath;
 
-    public JsonBoughtItemStorage(Path filePath) {
+    public JsonBoughtListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -38,7 +37,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
     }
 
     /**
-     * Similar to {@link #readShoppingList(Path)}.
+     * Similar to {@link #readBoughtList(Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
@@ -66,7 +65,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
     }
 
     /**
-     * Similar to {@link #saveShoppingList(ReadOnlyShoppingList, Path)}.
+     * Similar to {@link #saveBoughtList(ReadOnlyGroceryList, Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      */

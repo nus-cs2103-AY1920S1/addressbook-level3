@@ -1,0 +1,13 @@
+{
+  "boughtItems": [{
+    "name": "validName",
+    "amount": "3units",
+    "expiryDate": "31/12/2019",
+    "tagged": []
+  }, {
+    "name": "invalidName: k!tkat",
+    "amount": "2units",
+    "expiryDate": "25/12/2019",
+    "tagged": []
+  }]
+}

@@ -1,0 +1,66 @@
+= Kelvin Harris - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iFridge
+
+---
+
+== Overview
+iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has a lot of code.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for user to manage his/her grocery items systematically*.
+** What it does: allows the user to manage grocery items using the commands provided in the user guide.
+** Justification: The grocery list management is the backbone of the app as grocery items management is needed to support management of other lists (waste list, template list and shopping list). In addition, the grocery list is likely to be the most frequented list by the user.
+** Highlights: This enhancement can be extended further if the next developer decides to add other commands for the grocery list.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+
+* *Minor enhancement*: Cross conversion between units supported.
+** What it does: Allows for cross-conversion between different units supported by the app.
+** Justification: Users would prefer to input the amount field based on their own preferences of units.
+They would not want to be restricted by the units already specified as they would have to do their own conversions manually.
+Thus, we decided to implement the unit conversions to allow for greater convenience for the user.
+** Highlights: This enhancement can be extended further if the next developer decides to add other units to the app.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Code contributed*: The samples of my functional and test code can be viewed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=kelvinnharris[here].
+
+* *Other contributions*:
+
+** Project management:
+//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+//** Enhancements to existing features:
+//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+** Community:
+*** Reported bugs and suggestions for other teams in the class (https://github.com/kelvinnharris/ped/issues/5[#5], https://github.com/kelvinnharris/ped/issues/2[#2], https://github.com/kelvinnharris/ped/issues/1[#1])
+** Tools:
+*** Setup for TravisCI for team repo (https://github.com/AY1920S1-CS2103-F10-2/main/pull/7[#7])
+*** Setup for Netlify for team repo
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=grocerylistfeatures]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=usegroceryfeature]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

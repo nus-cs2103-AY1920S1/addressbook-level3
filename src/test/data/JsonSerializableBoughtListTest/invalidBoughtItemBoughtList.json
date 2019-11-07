@@ -1,0 +1,8 @@
+{
+  "boughtItems": [{
+    "name": "cake",
+    "amount": "noNumberInUnits",
+    "expiryDate": "27/12/2019",
+    "tagged": []
+  }]
+}

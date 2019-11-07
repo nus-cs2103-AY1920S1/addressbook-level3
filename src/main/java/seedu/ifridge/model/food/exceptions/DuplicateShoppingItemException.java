@@ -6,6 +6,6 @@ package seedu.ifridge.model.food.exceptions;
  */
 public class DuplicateShoppingItemException extends RuntimeException {
     public DuplicateShoppingItemException() {
-        super("Operation would result in duplicate food items");
+        super("Operation would result in duplicate shopping items!");
     }
 }

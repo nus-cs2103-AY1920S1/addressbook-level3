@@ -126,16 +126,37 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTemplateItems // instanceof handles nulls
-                        && internalList.equals(((UniqueTemplateItems) other).internalList)
-                        && name.toString().equals(((UniqueTemplateItems) other).getName().toString()));
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof UniqueTemplateItems) {
+            boolean nameEquals = name.toString().equals(((UniqueTemplateItems) other).getName().toString());
+            boolean itemsEquals = true;
+            for (int i = 0; i < internalList.size(); i++) {
+                if (internalList.get(i).equals(((UniqueTemplateItems) other).internalList.get(i)) == false) {
+                    itemsEquals = false;
+                    break;
+                }
+            }
+
+            boolean templateEquals = itemsEquals && nameEquals;
+
+            return templateEquals;
+        }
+
+        return false;
+
+        /**return other == this // short circuit if same object
+        || (other instanceof UniqueTemplateItems // instanceof handles nulls
+        && internalList.equals(((UniqueTemplateItems) other).internalList)
+        && name.toString().equals(((UniqueTemplateItems) other).getName().toString()));**/
     }
 
     /**
      * Returns true if both templates of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two templates.
      */
+    //Check if there should be comparison of items inside the template
     public boolean isSameTemplate(UniqueTemplateItems otherTemplate) {
         if (otherTemplate == this) {
             return true;

@@ -32,8 +32,8 @@ public class BoughtShoppingCommand extends Command {
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_EXPIRY_DATE + "30.04.2019"
-            + PREFIX_AMOUNT + "2";
+            + PREFIX_EXPIRY_DATE + "30/04/2019"
+            + PREFIX_AMOUNT + "2units";
 
     public static final String MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS = "Bought shopping item: %1$s";
     public static final String MESSAGE_NOT_PROPER = "At least one of the required fields (amount and expiry date) "
@@ -87,4 +87,16 @@ public class BoughtShoppingCommand extends Command {
         return commandResult;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof BoughtShoppingCommand)) {
+            return false;
+        } else {
+            return this.index.equals(((BoughtShoppingCommand) o).index)
+                    && this.amount.equals(((BoughtShoppingCommand) o).amount)
+                    && this.expiryDate.equals(((BoughtShoppingCommand) o).expiryDate);
+        }
+    }
 }

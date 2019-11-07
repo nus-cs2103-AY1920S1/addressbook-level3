@@ -21,7 +21,7 @@ import seedu.ifridge.model.food.GroceryItem;
 >>>>>>> master
  */
 @JsonRootName(value = "grocerylist")
-class JsonSerializableGroceryList {
+public class JsonSerializableGroceryList {
 
     public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "Grocery list contains duplicate grocery item(s)";
 

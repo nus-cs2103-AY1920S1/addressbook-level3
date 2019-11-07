@@ -129,9 +129,23 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof UniqueTemplateList) {
+            for (int i = 0; i < internalList.size(); i++) {
+                if (internalList.get(i).equals(((UniqueTemplateList) other).internalList.get(i)) == false) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        return false;
+
+        /**return other == this // short circuit if same object
                 || (other instanceof UniqueTemplateList // instanceof handles nulls
-                        && internalList.equals(((UniqueTemplateList) other).internalList));
+                        && internalList.equals(((UniqueTemplateList) other).internalList));**/
     }
 
     @Override

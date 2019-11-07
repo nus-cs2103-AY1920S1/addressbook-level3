@@ -1,0 +1,8 @@
+{
+  "shoppingItems": [{
+    "name": "Shopping item with invalid name field: Or@nge",
+    "amount": "1units",
+    "bought": false,
+    "urgent": false
+  }]
+}

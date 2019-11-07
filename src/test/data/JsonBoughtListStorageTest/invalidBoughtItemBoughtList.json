@@ -1,0 +1,9 @@
+{
+  "boughtItems": [{
+    "name": "Invalid name: or@nge",
+    "amount": "noNumber",
+    "expiryDate": "31/12/2019",
+    "tagged": []
+  }
+  ]
+}
