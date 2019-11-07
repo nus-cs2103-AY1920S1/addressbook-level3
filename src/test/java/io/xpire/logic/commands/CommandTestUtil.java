@@ -19,7 +19,6 @@ import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.testutil.Assert;
-import javafx.collections.ObservableArray;
 
 /**
  * Contains helper methods for testing commands.
