@@ -59,7 +59,7 @@ public class CommandTestUtil {
     public static final String VALID_MONTH_ALLOWANCE = "2";
     public static final String VALID_MONTH_BUS = "7";
     public static final String VALID_YEAR_ALLOWANCE = "2019";
-    public static final String VALID_YEAR_BUS = "2019";
+    public static final String VALID_YEAR_BUS = "2018";
     public static final String VALID_TRANSACTION_TYPE_ALLOWANCE = "in";
     public static final String VALID_TRANSACTION_TYPE_BUS = "exp";
 
