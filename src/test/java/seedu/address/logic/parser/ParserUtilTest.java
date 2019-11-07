@@ -25,17 +25,11 @@ import seedu.address.model.util.Date;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_CATEGORY_1 = "friend";
+    private static final String VALID_CATEGORY_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -130,14 +124,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategory_validValueWithoutWhitespace_returnsCategory() throws Exception {
-        Category expectedCategory = new Category(VALID_TAG_1);
-        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_TAG_1));
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_CATEGORY_1));
     }
 
     @Test
     public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Category expectedCategory = new Category(VALID_TAG_1);
+        String tagWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
         assertEquals(expectedCategory, ParserUtil.parseCategory(tagWithWhitespace));
     }
 
@@ -148,7 +142,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategories_collectionWithInvalidCategories_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, INVALID_TAG)));
     }
 
     @Test
@@ -158,9 +152,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategories_collectionWithValidCategories_returnsCategorySet() throws Exception {
-        Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_TAG_1),
-            new Category(VALID_TAG_2)));
+        Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, VALID_CATEGORY_2));
+        Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_CATEGORY_1),
+            new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
     }
@@ -221,6 +215,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseShares_negativeShares_throwsParseException() {
+        List<String> invalidShares = new ArrayList<>(Arrays.asList("-1", "1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseShares(invalidShares));
+    }
+
+    @Test
     public void parseShares_validValueWithoutWhitespace_returnsList() throws Exception {
         List<String> validShares = new ArrayList<>(Arrays.asList("1", "2"));
         List<Integer> expectedValidShares = new ArrayList<>(Arrays.asList(1, 2));
@@ -236,6 +236,7 @@ public class ParserUtilTest {
     public void parseAmount_invalidAmount_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("$100.00"));
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("100.005"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("10000000000000000"));
     }
 
     @Test
