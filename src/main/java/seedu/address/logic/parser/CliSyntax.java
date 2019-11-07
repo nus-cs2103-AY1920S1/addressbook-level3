@@ -15,4 +15,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_SHARE = new Prefix("s/");
     public static final Prefix PREFIX_BUDGET = new Prefix("b/");
+    public static final Prefix PREFIX_MONTH = new Prefix("m/");
+    public static final Prefix PREFIX_YEAR = new Prefix("y/");
 }

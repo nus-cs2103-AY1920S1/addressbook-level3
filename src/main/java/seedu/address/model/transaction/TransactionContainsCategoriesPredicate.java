@@ -2,6 +2,7 @@ package seedu.address.model.transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
@@ -14,9 +15,8 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
 
     private final List<Category> keyCategories;
 
-    public TransactionContainsCategoriesPredicate(List<String> keyCategories) {
-        this.keyCategories = new ArrayList<>();
-        keyCategories.forEach(category -> this.keyCategories.add(new Category(category)));
+    public TransactionContainsCategoriesPredicate(Set<Category> keyCategories) {
+        this.keyCategories = new ArrayList<>(keyCategories);
     }
 
     @Override
