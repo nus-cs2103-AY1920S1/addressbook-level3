@@ -56,7 +56,7 @@ public class Index {
     public String toString() {
         return Integer.toString(getOneBased());
     }
-    
+
     @Override
     public int hashCode() {
         return zeroBasedIndex;
