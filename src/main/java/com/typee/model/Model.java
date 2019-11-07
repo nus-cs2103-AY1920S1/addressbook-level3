@@ -114,7 +114,7 @@ public interface Model {
 
     void setComparator(Comparator<Engagement> comparator);
 
-    void saveReport(Report report) throws DocumentException, IOException, GenerateExistingReportException;
+    void saveReport(Path fileDir, Report report) throws DocumentException, IOException, GenerateExistingReportException;
 
     boolean deleteReport(Report report) throws DeleteDocumentException;
 }

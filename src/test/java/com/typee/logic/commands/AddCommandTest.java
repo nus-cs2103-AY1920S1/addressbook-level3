@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,11 +14,9 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import com.itextpdf.text.DocumentException;
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.commands.exceptions.DeleteDocumentException;
-import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.EngagementList;
@@ -314,7 +311,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveReport(Report report) throws DocumentException, IOException, GenerateExistingReportException {
+        public void saveReport(Path fileDir, Report report) {
             throw new AssertionError("This method should not be called.");
         }
 

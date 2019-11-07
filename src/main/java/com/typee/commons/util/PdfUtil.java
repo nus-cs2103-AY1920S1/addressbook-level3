@@ -53,11 +53,11 @@ public class PdfUtil {
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
      */
-    public static void generateReport(Report report) throws DocumentException, IOException {
+    public static void generateReport(Path fileDir, Report report) throws DocumentException, IOException {
         docProp = FileUtil.loadProperties();
         Engagement engagement = report.getEngagement();
 
-        String fileName = FOLDER_PATH + generateFileName(report.getTo().getName().fullName,
+        String fileName = fileDir.toString() + "/" + generateFileName(report.getTo().getName().fullName,
                 report.getFrom().getName().fullName,
                 engagement.getTimeSlot().getStartTime(),
                 engagement.getDescription());
