@@ -14,17 +14,22 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 
+/**
+ * Represents the quiz timer, it handles the quiz mode timer and skipping questions.
+ */
 public class TimerDisplay extends UiPart<Region> {
 
     private static final String FXML = "TimerDisplay.fxml";
-    private static final Integer STARTTIME = 15;
-    private int questionNumber;
+    private static final Integer DEFAULT_TIME = 15;
+    private static Integer startTime = 0;
+
+    private static IntegerProperty userPrefTime;
+
 
     private Timeline timeline;
     private IntegerProperty timeSeconds =
-            new SimpleIntegerProperty(STARTTIME);
+            new SimpleIntegerProperty(startTime);
 
-    private IntegerProperty questionCount = new SimpleIntegerProperty(questionNumber);
 
     private final CommandExecutor commandExecutor;
 
@@ -38,36 +43,52 @@ public class TimerDisplay extends UiPart<Region> {
     private Label totalQuestions;
 
 
-    public TimerDisplay(CommandExecutor commandExecutor) {
+    public TimerDisplay(CommandExecutor commandExecutor, IntegerProperty duration,
+                        IntegerProperty totalCards, IntegerProperty remainingCards) {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
         timerLabel.textProperty().bind(timeSeconds.asString());
-        currentQuestion.textProperty().bind(questionCount.asString());
+        currentQuestion.textProperty().bind(remainingCards.asString());
+        totalQuestions.textProperty().bind(totalCards.asString());
+        userPrefTime = duration;
+
     }
 
-
-    void initializeTimer (int size){
-        questionNumber = 1;
-        totalQuestions.setText(String.valueOf(size));
-        timeSeconds.set(STARTTIME);
+    /**
+     * Starts/Restarts the timer with a user defined duration
+     */
+    void initializeTimer () {
+        if (userPrefTime.getValue() == 0) {
+            startTime = DEFAULT_TIME;
+        } else {
+            startTime = userPrefTime.getValue();
+        }
+        timeSeconds.set(startTime);
         timeline = new Timeline();
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(STARTTIME + 1), ae -> timerExpire(),
-        new KeyValue(timeSeconds, 0)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(startTime + 1), ae -> timerExpire(),
+                new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
-
     }
 
+    /**
+     * Handles the timer expiring event by skipping the current flashcard
+     */
     private void timerExpire() {
         try {
             commandExecutor.execute("skip");
         } catch (CommandException | ParseException e) {
+            //shouldn't ever occur in this usage
         }
     }
 
-    public void stopTimer(){
-        timeline.stop();
+    /**
+     * stops the timer and prevents it from counting down further
+     */
+    public void stopTimer() {
+        if (timeline != null) {
+            timeline.stop();
+        }
     }
 
     /**

@@ -38,6 +38,11 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses {@code duration} into an int duration and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
     public static Integer parseDuration(String duration) throws ParseException {
         String trimmedDuration = duration.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedDuration)) {

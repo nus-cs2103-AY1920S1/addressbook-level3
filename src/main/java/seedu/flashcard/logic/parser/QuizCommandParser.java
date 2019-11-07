@@ -21,13 +21,14 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     public QuizCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DURATION);
-        if (argMultimap.getValue(PREFIX_DURATION).isEmpty()) {
-            FlashcardListParser.setQuizMode(false);
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
-                    + QuizCommand.MESSAGE_USAGE));
+
+        Integer duration;
+        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
+            duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
+        } else {
+            duration = null;
         }
 
-        Integer duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         String trimmedIndex = getIndex(args);
         try {
             Index index = ParserUtil.parseIndex(trimmedIndex);
@@ -38,7 +39,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         }
     }
 
-    public String getIndex(String args){
+    public String getIndex(String args) {
         return args.split("s")[0].trim();
     }
 }

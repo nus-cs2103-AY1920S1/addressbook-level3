@@ -1,6 +1,5 @@
 package seedu.flashcard.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 
 import seedu.flashcard.logic.CommandHistory;
@@ -8,7 +7,6 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.Quiz;
-import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
 
 

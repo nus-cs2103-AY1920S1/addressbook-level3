@@ -30,9 +30,9 @@ public class QuizTagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Quiz mode has started.";
     public static final String TAG_INVALID = "There are no quizable flashcards in this tag.";
     private final Set<Tag> target;
-    private final int duration;
+    private final Integer duration;
 
-    public QuizTagCommand(Set<Tag> inputTag, int duration) {
+    public QuizTagCommand(Set<Tag> inputTag, Integer duration) {
         requireNonNull(inputTag);
         this.target = inputTag;
         this.duration = duration;

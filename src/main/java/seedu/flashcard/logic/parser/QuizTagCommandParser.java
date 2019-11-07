@@ -4,7 +4,6 @@ import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
-
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,7 +25,7 @@ public class QuizTagCommandParser implements Parser<QuizTagCommand> {
     @Override
     public QuizTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_DURATION);
-        if (!arePrefixesPresent(argMultimap, PREFIX_DURATION) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
             FlashcardListParser.setQuizMode(false);
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
                     + QuizTagCommand.MESSAGE_USAGE));
@@ -35,13 +34,13 @@ public class QuizTagCommandParser implements Parser<QuizTagCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Integer duration;
-        if(argMultimap.getValue(PREFIX_DURATION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
             duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
-        }else{
+        } else {
             duration = null;
         }
 
-        return new QuizTagCommand(tagList,duration);
+        return new QuizTagCommand(tagList, duration);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

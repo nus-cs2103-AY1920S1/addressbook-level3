@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -150,7 +151,7 @@ public interface Model {
      * Sets the duration of each quiz question.
      * @param duration duration of quiz questions.
      */
-    void setQuizDuration(int duration);
+    void setQuizDuration(Integer duration);
 
     /**
      * Returns true if the model has previous flashcard list states to restore.
@@ -176,5 +177,20 @@ public interface Model {
      * Saves the current flashcard list state for undo/redo.
      */
     void commitFlashcardList();
+
+    /**
+     *returns the duration Property.
+     */
+    IntegerProperty getDurationProperty();
+
+    /**
+     *returns the totalCards Property.
+     */
+    IntegerProperty getTotalCardsProperty();
+
+    /**
+     * returns the remainingCards Property.
+     */
+    IntegerProperty getRemainingCardsProperty();
 
 }

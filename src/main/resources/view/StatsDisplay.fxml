@@ -25,7 +25,7 @@
             <center>
                <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                   <content>
-                     <StackedBarChart fx:id="individualCards" animated="false" legendSide="LEFT" minWidth="1000.0" prefHeight="200.0" stylesheets="@StackedBarChart.css">
+                     <StackedBarChart fx:id="individualCards" animated="false" categoryGap="4.0" legendSide="LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" stylesheets="@StackedBarChart.css">
                        <xAxis>
                          <CategoryAxis animated="false" side="BOTTOM" fx:id="xAxis" />
                        </xAxis>

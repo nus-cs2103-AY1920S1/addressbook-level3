@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.commands.Command;
@@ -102,8 +102,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean isQuiz(){
+    public boolean isQuiz() {
         return flashcardListParser.isQuizMode();
+    }
+
+    @Override
+    public IntegerProperty getDurationProperty() {
+        return model.getDurationProperty();
+    }
+
+    @Override
+    public IntegerProperty getTotalCardsProperty() {
+        return model.getTotalCardsProperty();
+    }
+
+    @Override
+    public IntegerProperty getRemainingCardsProperty() {
+        return model.getRemainingCardsProperty();
     }
 
 

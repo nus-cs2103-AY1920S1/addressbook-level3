@@ -102,7 +102,7 @@ public class CommandResult {
         return flip;
     }
 
-    public boolean isQuiz(){
+    public boolean isQuiz() {
         return quiz;
     }
 

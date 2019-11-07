@@ -137,7 +137,7 @@ public abstract class Flashcard {
         }
     }
 
-    public void skipAnswer(){
+    public void skipAnswer() {
         score.incrementWrongAnswer();
     }
 

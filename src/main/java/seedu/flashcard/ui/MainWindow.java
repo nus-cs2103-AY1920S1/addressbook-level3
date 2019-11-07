@@ -1,6 +1,5 @@
 package seedu.flashcard.ui;
 
-import java.util.Timer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -78,7 +77,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statsDisplay = new StatsDisplay(logic.getStatistics());
-        timerDisplay = new TimerDisplay(this::executeCommand);
+        timerDisplay = new TimerDisplay(this::executeCommand, logic.getDurationProperty(),
+                logic.getTotalCardsProperty(), logic.getRemainingCardsProperty());
 
     }
 
@@ -195,12 +195,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handleTimer(){
-        if(timerDisplayPlaceHolder.getChildren().isEmpty()) {
-            timerDisplay.initializeTimer(0);
+    /**
+     * Controls the timer display
+     */
+    private void handleTimer() {
+        if (timerDisplayPlaceHolder.getChildren().isEmpty()) {
+            timerDisplay.initializeTimer();
             timerDisplayPlaceHolder.getChildren().add(timerDisplay.getRoot());
-        }else{
-            timerDisplay.initializeTimer(0);
+        } else {
+            timerDisplay.initializeTimer();
         }
     }
 
@@ -233,15 +236,15 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isFlip()) {
                 flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
+                if (logic.isQuiz()) {
+                    handleTimer();
+                } else {
+                    timerDisplay.stopTimer();
+                    timerDisplayPlaceHolder.getChildren().clear();
+                }
             }
 
-            if (logic.isQuiz()) {
-                handleTimer();
-            }else {
-                timerDisplay.stopTimer();
-                timerDisplayPlaceHolder.getChildren().clear();
-                flashcardDisplay.setFeedbackToUser("no card selected view ");
-            }
+
 
 
             return commandResult;

@@ -2,6 +2,7 @@ package seedu.flashcard.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.logic.commands.CommandResult;
@@ -66,6 +67,21 @@ public interface Logic {
      * @return
      */
     boolean isQuiz();
+
+    /**
+     *returns the duration .
+     */
+    IntegerProperty getDurationProperty();
+
+    /**
+     *returns the totalCards Property.
+     */
+    IntegerProperty getTotalCardsProperty();
+
+    /**
+     * returns the remainingCards Property.
+     */
+    IntegerProperty getRemainingCardsProperty();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

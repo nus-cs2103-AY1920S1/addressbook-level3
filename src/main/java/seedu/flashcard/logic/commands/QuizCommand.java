@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
