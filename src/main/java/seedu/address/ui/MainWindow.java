@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_WELCOME_STUDYBUDDYPRO;
+
 import java.util.logging.Logger;
 
 import javafx.animation.FadeTransition;
@@ -142,6 +144,7 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplay.setFeedbackToUser(MESSAGE_WELCOME_STUDYBUDDYPRO);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getStudyBuddyProFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
