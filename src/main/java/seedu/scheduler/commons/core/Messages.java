@@ -13,6 +13,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_YEAR_OF_STUDY = "Incorrect year of study format! "
             + "The year of study must be a positive integer within the range [0, 2^31 - 1].\n"
             + "Examples:\n"
-            + "Correct: '2019'\n"
-            + "Incorrect: '-1'";
+            + "Correct: 2019\n"
+            + "Incorrect: -1";
 }

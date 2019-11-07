@@ -30,8 +30,8 @@ public class Slot implements Comparable<Slot> {
             + "The input date dd/mm/yyyy must be valid, i.e 30/02/2019 is an invalid date.\n"
             + "A slot must also have a start time earlier than its end time.\n"
             + "Examples:\n"
-            + "Correct: '03/12/2019 13:00-14:00'\n"
-            + "Incorrect: '03/12/2019 13:00-13:00'";
+            + "Correct: 03/12/2019 13:00-14:00\n"
+            + "Incorrect: 03/12/2019 13:00-13:00";
     public static final String DATETIME_PARSE_PATTERN = "dd/MM/uuuu HH:mm";
     private static final Pattern SEPARATION_REGEX =
             Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4}) (?<slot1>\\d{2}:\\d{2})-(?<slot2>\\d{2}:\\d{2})");

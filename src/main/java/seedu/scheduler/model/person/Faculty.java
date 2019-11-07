@@ -11,8 +11,8 @@ public class Faculty {
     public static final String MESSAGE_CONSTRAINTS =
             "Incorrect faculty format! Faculties can take any values, but should not be blank.\n"
             + "Examples:\n"
-            + "Correct: 'School of Computing'\n"
-            + "Incorrect: ' '";
+            + "Correct: School of Computing\n"
+            + "Incorrect: ' ' (blank input)";
     public static final String VALIDATION_REGEX = "[^\\s].*"; // "" will be wrong
     public final String faculty;
 
