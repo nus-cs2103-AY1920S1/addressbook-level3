@@ -33,7 +33,8 @@ import seedu.ezwatchlist.model.show.TvShow;
 public class RecommendationEngine {
     private List<Movie> userMovies;
     private List<TvShow> userTvShows;
-    private List<Integer> userMoviesId, userTvShowsId;
+    private List<Integer> userMoviesId;
+    private List<Integer> userTvShowsId;
     private TmdbApi tmdbApi;
     private HashMap<Integer, Integer> movieRecommendationOccurrences;
     private HashMap<Integer, Integer> tvRecommendationOccurrences;
@@ -87,12 +88,12 @@ public class RecommendationEngine {
      * @param isMovie to filter the movie list or tv show list.
      */
     private void filterRecommendations(boolean isMovie) {
-        List<Integer> idList = isMovie? userMoviesId: userTvShowsId;
-        HashMap<Integer, Integer> recommendationOccurences = isMovie? movieRecommendationOccurrences:
-                tvRecommendationOccurrences;
+        List<Integer> idList = isMovie ? userMoviesId : userTvShowsId;
+        HashMap<Integer, Integer> recommendationOccurrences = isMovie ? movieRecommendationOccurrences
+                : tvRecommendationOccurrences;
 
         for (Integer id : idList) {
-            recommendationOccurences.remove(id);
+            recommendationOccurrences.remove(id);
         }
     }
 
@@ -204,7 +205,7 @@ public class RecommendationEngine {
                 MovieDb movieDb = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.recommendations);
                 List<MovieDb> similarMovies = movieDb.getRecommendations();
                 if (!isNull(similarMovies)) {
-                    similarMovies.forEach((movie) -> addToRecommendations(movie.getId(),true));
+                    similarMovies.forEach((movie) -> addToRecommendations(movie.getId(), true));
                 }
             }
         } catch (MovieDbException e) {
