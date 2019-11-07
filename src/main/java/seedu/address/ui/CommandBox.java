@@ -70,7 +70,6 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
      * @param keyCode
      */
     private void keyPressed(KeyCode keyCode) {
-
         if (keyCode == KeyCode.UP) {
             try {
                 String previousCommand = history.getPastCommand();
