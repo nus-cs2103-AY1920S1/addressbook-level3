@@ -498,31 +498,31 @@
     -fx-text-fill: black;
 }
 
-#lineChartScrollPane .scroll-bar {
-    -fx-background-color: black;
-}
+/*#lineChartScrollPane .scroll-bar {*/
+/*    -fx-background-color: black;*/
+/*}*/
 
-#lineChartScrollPane .scroll-bar .thumb {
-    -fx-background-color: white;
-    -fx-background-insets: 3;
-}
+/*#lineChartScrollPane .scroll-bar .thumb {*/
+/*    -fx-background-color: white;*/
+/*    -fx-background-insets: 3;*/
+/*}*/
 
-#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: white;
-    -fx-padding: 0 0 0 0;
-}
+/*#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {*/
+/*    -fx-background-color: white;*/
+/*    -fx-padding: 0 0 0 0;*/
+/*}*/
 
-#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-shape: " ";
-}
+/*#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {*/
+/*    -fx-shape: " ";*/
+/*}*/
 
-#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
-}
+/*#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {*/
+/*    -fx-padding: 1 8 1 8;*/
+/*}*/
 
-#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
-}
+/*#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {*/
+/*    -fx-padding: 8 1 8 1;*/
+/*}*/
 
 .autoColouredScrollBar {
     -fx-background: transparent !important;
@@ -560,5 +560,44 @@
 }
 
 .autoColouredScrollBar .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
+}
+
+.lineChartScrollPaneSecondVersion {
+    /*-fx-background: transparent !important;*/
+    /*-fx-background-color: transparent !important;*/
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal ,
+.lineChartScrollPaneSecondVersion  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
+}
+
+.lineChartScrollPaneSecondVersion .increment-button ,.lineChartScrollPaneSecondVersion .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .track ,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .thumb,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: pressed{
     -fx-background-color: derive(black,85%) !important;
 }
