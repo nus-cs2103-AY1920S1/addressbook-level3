@@ -12,7 +12,7 @@ import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.commands.Command;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
-import seedu.scheduler.logic.parser.AddressBookParser;
+import seedu.scheduler.logic.parser.SchedulerParser;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ReadOnlyList;
@@ -30,27 +30,20 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SchedulerParser schedulerParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        schedulerParser = new SchedulerParser();
     }
-
-    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
-    public Path getAddressBookFilePath() {
-        return this.model.getIntervieweeListFilePath();
-    }
-
-    /* TODO: REMOVE ABOVE LINES */
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = schedulerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

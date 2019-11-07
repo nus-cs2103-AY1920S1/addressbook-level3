@@ -1,9 +1,0 @@
-{
-  "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424"
-  }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424"
-  } ]
-}
