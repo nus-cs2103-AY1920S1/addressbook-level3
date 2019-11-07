@@ -171,11 +171,10 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-<<<<<<< HEAD
-=======
+
             logger.info("expectedCommandResult\n" + expectedCommandResult.getFeedbackToUser());
             logger.info("result\n" + result.getFeedbackToUser());
->>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
+
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -183,7 +182,6 @@ public class CommandTestUtil {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -193,7 +191,6 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-            String feedback = result.getFeedbackToUser();
             assertEquals(expectedCommandResult, result.getFeedbackToUser());
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -201,9 +198,6 @@ public class CommandTestUtil {
         }
     }
 
-
-=======
->>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
@@ -288,12 +282,8 @@ public class CommandTestUtil {
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
-<<<<<<< HEAD
-        System.out.println("Notes: " + model.getFilteredNoteList().size());
-=======
         logger.info("Number of Notes: " + model.getFilteredNoteList().size());
 
->>>>>>> 7d3db1dd7e8fb686cc83cbea1a98554eba1d7216
         assertEquals(1, model.getFilteredNoteList().size());
     }
 

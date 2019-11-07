@@ -5,8 +5,16 @@ import java.util.HashSet;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * Helper class used to help generate the relevant objects for Tags.
+ */
 public class TagUtil {
 
+    /**
+     * Generates a list of strings from the tag keyword strings specified.
+     * @param args strings of tags
+     * @return list of tag strings
+     */
     public static ArrayList<String> generateKeywordList(String... args) {
         ArrayList<String> keywords = new ArrayList<>();
         for (String s: args) {
@@ -15,6 +23,11 @@ public class TagUtil {
         return keywords;
     }
 
+    /**
+     * Generates a set of tags from the string arguments.
+     * @param args strings of tags
+     * @return set of tags
+     */
     public static HashSet<Tag> generateTagSetFromStrings(String... args) {
         HashSet<Tag> tags = new HashSet<>();
         for (String tag: args) {

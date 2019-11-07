@@ -17,7 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
@@ -64,15 +63,16 @@ public class StartTimeTrialCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof StartTimeTrialCommand // instanceof handles nulls
                 && compareTagKeywords(((StartTimeTrialCommand) other).tagKeywords)
-                && compareTagPredicate(((StartTimeTrialCommand) other).tagPredicate));
+                && this.tagPredicate.equals(((StartTimeTrialCommand) other).tagPredicate));
     }
 
+    /**
+     * Used for testing if equals to other StartTimeTrial comamands, compares all tags.
+     * @param tags other array of tags to compare to
+     * @return boolean if both arrays of tags are the same
+     */
     public boolean compareTagKeywords(String[] tags) {
         return new HashSet<>(Arrays.asList(tags))
             .equals(new HashSet<>(Arrays.asList(this.tagKeywords)));
-    }
-
-    public boolean compareTagPredicate(FlashcardContainsTagPredicate tagPredicate) {
-        return this.tagPredicate.equals(tagPredicate);
     }
 }
