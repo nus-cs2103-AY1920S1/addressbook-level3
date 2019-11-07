@@ -207,7 +207,7 @@ The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replac
 
 In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
 
-The following sequence diagram shows how the items added are auto-sorted:
+The following sequence diagram shows how items added are auto-sorted:
 
 .Sequence Diagram modelling how items added are auto-sorted
 image::AutoSortAddSequenceDiagram.png[]
@@ -541,6 +541,8 @@ Relevant functions supporting this operation are implemented in `StringUtil`.
 
 The diagram below is a simplified illustration of how the feature works.
 
+.Example showing what happens when "search|applee" is executed with "apple" misspelled
+
 image::RecommendationsExample1.png[]
 
 [NOTE]
@@ -549,6 +551,8 @@ The recommendations will be made solely based the list of items previously displ
 As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
 On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
 
+.Example illustrating that recommendations are solely based on the previous list
+
 image::RecommendationsExample2.png[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
@@ -556,13 +560,19 @@ image::RecommendationsExample2.png[]
 The following sequence diagram shows how the sort operation works with recommendations,
 in the case that "date" is misspelled as "dat":
 
+.Sequence diagram illustrating the correction mechanism for command "sort|dat"
+
 image::RecommendationsSortSequenceDiagram.png[]
 
-The following sequence diagram `findSimilar` illustrates the process omitted above.
+The following sequence diagram `find similar words` illustrates the process omitted above.
+
+.Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
 image::FindSimilarSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an unknown command:
+
+.Activity diagram showing what happens when an unknown command is executed
 
 image::RecommendationUnknownCommandActivityDiagram.png[]
 
@@ -570,6 +580,8 @@ image::RecommendationUnknownCommandActivityDiagram.png[]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
 
 The following activity diagram summarizes what happens when a user executes a command with misspelled arguments:
+
+.Activity diagram showing what happens when an a command is executed with misspelled arguments
 
 image::RecommendationsSearchSortActivityDiagram.png[]
 
