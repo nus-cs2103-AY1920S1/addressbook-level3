@@ -62,7 +62,6 @@ public class AutoAllocateCommand extends Command {
         requireNonNull(tagList);
 
         assert (eventIndex.getOneBased() > 0);
-
         assert manpowerCountToAdd == null || manpowerCountToAdd > 0;
 
         this.manpowerCountToAdd = manpowerCountToAdd;
@@ -133,6 +132,7 @@ public class AutoAllocateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INSUFFICIENT_MANPOWER_COUNT);
         }
 
+        //Shuffles the availableEmployeeList to ensure a random selection.
         Collections.shuffle(availableEmployeeList);
         Event newEventForAllocation = createEventAfterManpowerAllocation(eventToAllocate,
                 availableEmployeeList, manpowerCountToAdd);
