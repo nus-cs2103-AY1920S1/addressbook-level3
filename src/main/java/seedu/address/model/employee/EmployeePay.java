@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Employee's Pay  in the address book.
+ * Represents a Employee's PayCommand  in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}
  */
 public class EmployeePay {
@@ -18,7 +18,7 @@ public class EmployeePay {
     /**
      * Constructs a {@code EmployeeSalaryPaid}.
      *
-     * @param pay A valid Pay number.
+     * @param pay A valid PayCommand number.
      */
     public EmployeePay(String pay) {
         requireNonNull(pay);
@@ -31,7 +31,7 @@ public class EmployeePay {
     }
 
     /**
-     * Returns true if a given string is a valid Pay number.
+     * Returns true if a given string is a valid PayCommand number.
      */
     public static boolean isValidPay(String test) {
         try {

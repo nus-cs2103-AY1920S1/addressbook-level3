@@ -17,7 +17,7 @@ import seedu.address.model.event.Event;
 /**
  * An UI component that displays information of a {@code Employee}.
  */
-public class EmployeeCard1 extends UiPart<Region> {
+public class EmployeeCard_Finance extends UiPart<Region> {
 
     private static final String FXML = "EmployeeListCard.fxml";
     private static final String FETCH_WINDOW_FXML = "EmployeeListCardForFetch.fxml";
@@ -53,7 +53,7 @@ public class EmployeeCard1 extends UiPart<Region> {
     @FXML
     private ImageView imgBox;
 
-    public EmployeeCard1(Employee employee, int displayedIndex, ObservableList<Event> eventList) {
+    public EmployeeCard_Finance(Employee employee, int displayedIndex, ObservableList<Event> eventList) {
         super(FXML);
         this.employee = employee;
         if (employee.getEmployeeGender().gender.equals("male")) {
@@ -71,7 +71,7 @@ public class EmployeeCard1 extends UiPart<Region> {
         double totalSalary = totalHours * employee.getEmployeePay().getPay();
         address.setText("Total Salary : $" + totalSalary);
         double pendingpay = totalSalary - employee.getEmployeeSalaryPaid().getValue();
-        email.setText("Pending to Pay : $" + pendingpay);
+        email.setText("Pending to PayCommand : $" + pendingpay);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -90,7 +90,7 @@ public class EmployeeCard1 extends UiPart<Region> {
         }
 
         // state check
-        seedu.address.ui.EmployeeCard1 card = (seedu.address.ui.EmployeeCard1) other;
+        seedu.address.ui.EmployeeCard_Finance card = (seedu.address.ui.EmployeeCard_Finance) other;
         return id.getText().equals(card.id.getText())
                 && employee.equals(card.employee);
     }

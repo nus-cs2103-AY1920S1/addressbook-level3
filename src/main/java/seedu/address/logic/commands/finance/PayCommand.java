@@ -18,7 +18,7 @@ import seedu.address.model.employee.Employee;
 /**
  * Command to pay Salary to the Employee and record it
  */
-public class Pay extends Command {
+public class PayCommand extends Command {
 
     public static final String COMMAND_WORD = "pay";
 
@@ -40,7 +40,7 @@ public class Pay extends Command {
      * @param index       of the employee in the filtered employee list to edit
      * @param salaryToPay Total Paid Salary to the Employee
      */
-    public Pay(Index index, double salaryToPay) {
+    public PayCommand(Index index, double salaryToPay) {
         requireNonNull(index);
         this.index = index;
         this.salaryToPay = salaryToPay;
@@ -79,12 +79,12 @@ public class Pay extends Command {
             return true;
         }
 
-        if (!(other instanceof Pay)) { // instanceof handles nulls
+        if (!(other instanceof PayCommand)) { // instanceof handles nulls
             return false;
         }
 
         // state check
-        Pay e = (Pay) other;
+        PayCommand e = (PayCommand) other;
         return index.equals(e.index) && salaryToPay == e.salaryToPay;
     }
 
