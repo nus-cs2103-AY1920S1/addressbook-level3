@@ -66,6 +66,11 @@ public class Painter {
         snake.setCurrentScore(0);
     }
 
+    /**
+     * Display high score.
+     * @param gc
+     * @param score
+     */
     public static void paintHighScore(GraphicsContext gc, int score) {
         gc.setFill(Color.BEIGE);
         if (getCurrentScore() > score) {

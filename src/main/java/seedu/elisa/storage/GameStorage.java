@@ -1,11 +1,19 @@
 package seedu.elisa.storage;
 
-import seedu.elisa.model.exceptions.IllegalListException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 
-import java.io.*;
 import java.nio.file.Path;
 import java.util.TreeSet;
 
+import seedu.elisa.model.exceptions.IllegalListException;
+
+/**
+ * Game Storage class to store high score of game.
+ */
 public class GameStorage {
 
     private String filePath;
@@ -22,10 +30,18 @@ public class GameStorage {
         return this.scorelist;
     }
 
+    /**
+     * Method to update scorelist.
+     * @param score
+     */
     public void updateScoreList(int score) {
         scorelist.add(score);
     }
 
+    /**
+     * Methods to save to file.
+     * @throws Exception
+     */
     public void save() throws Exception {
         try {
             FileWriter writer = new FileWriter(file);
@@ -38,6 +54,10 @@ public class GameStorage {
         }
     }
 
+    /**
+     * Method to load the file.
+     * @throws Exception
+     */
     public void load() throws Exception {
         try {
             file = new File(filePath);
