@@ -91,6 +91,8 @@ public class Mark implements ReadOnlyMark {
         setAutotagController(newData.getAutotagController());
 
         setAnnotatedDocument(newData.getAnnotatedDocument());
+
+        setReminders();
     }
 
     //// bookmark-level operations
@@ -370,12 +372,12 @@ public class Mark implements ReadOnlyMark {
                 for (int i = 0; i < reminders.size(); i++) {
                     Reminder reminder = reminders.get(i);
                     LocalDateTime time = reminder.getRemindTime();
-                    if (compareHour(now, time) >= 1) {
+                    if (compareHour(now, time) <= -1) {
                         expiredReminders.add(reminder);
                     }
                 }
 
-                for (int i = 0; i > expiredReminders.size(); i++) {
+                for (int i = 0; i < expiredReminders.size(); i++) {
                     Reminder expiredReminder = expiredReminders.get(i);
                     removeReminder(expiredReminder);
                 }

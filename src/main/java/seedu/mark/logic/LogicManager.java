@@ -118,7 +118,7 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Closes mark's timer.
+     * Delete mark's timer.
      */
     public void closeMarkTimer() {
         model.closeTimer();
