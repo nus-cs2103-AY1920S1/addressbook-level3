@@ -24,8 +24,8 @@ import seedu.scheduler.logic.parser.exceptions.ParseException;
 public class Slot implements Comparable<Slot> {
     public static final String STRING_FORMAT = "%s %s-%s";
     public static final String TIMING_FORMAT = "%s-%s";
-    public static final String MESSAGE_CONSTRAINTS =
-            "A slot must follow this format: " + String.format(STRING_FORMAT, "dd/MM/yyyy", "HH:mm", "HH:mm") + ".\n"
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect slot format! A slot must follow this format: "
+            + String.format(STRING_FORMAT, "dd/MM/yyyy", "HH:mm", "HH:mm") + ".\n"
             + "Constraints:\n"
             + "The input date dd/mm/yyyy must be valid, i.e 30/02/2019 is an invalid date.\n"
             + "A slot must also have a start time earlier than its end time.\n"
