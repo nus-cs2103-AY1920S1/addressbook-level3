@@ -6,13 +6,11 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * API of the Logic component

@@ -50,6 +50,9 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Tags all expired items.
+     */
     private void tagExpiredItems() {
         List<? extends Item> xpireItems = this.model.getItemList(XPIRE);
         XpireItem itemToCheck;

@@ -2,9 +2,7 @@ package io.xpire.model.state;
 
 import io.xpire.model.CloneModel;
 import io.xpire.model.Model;
-import io.xpire.model.item.Item;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. FilteredState denotes
