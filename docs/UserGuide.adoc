@@ -1011,11 +1011,13 @@ NOTE::
 
 ***
 
-Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
+Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...][±sort/SORT_ORDER_TYPE]`
 
 Examples:
-
-`recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
+`recmf -p -f`
+`recmf fn/chicken`
+`recmf -p -m -f fn/chicken`
+`recmf -p -nsv +sort/gi`
 
 ==== Recommending food combination: `recmfmix`
 
@@ -1065,6 +1067,15 @@ Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
 `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0 `
+
+==== Deleting an existing food: `deletef`
+
+Deletes a food that matches the specified food name.
+
+Format: `deletef fn/FOOD_NAME`
+
+Example:
+`deletef fn/Mushroom`
 
 ==== Resetting food data: `resetf`
 
