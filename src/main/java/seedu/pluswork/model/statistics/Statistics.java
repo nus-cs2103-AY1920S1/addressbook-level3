@@ -30,23 +30,6 @@ public class Statistics {
     }
 
 
-    /**
-     * Returns true if both tasks of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameStatistics(Statistics otherStats) {
-        if (otherStats == this) {
-            return true;
-        }
-
-        // TODO change the logic to check for the identity fields of status and member
-        // basically the name cannot be the same, that's it
-        return members.equals(otherStats.getMemberList())
-                && tasks.equals(otherStats.getTaskList())
-                && invMem.equals(otherStats.getInvMemList())
-                && tasMem.equals((otherStats.getTasMemList()));
-    }
-
     public List<Task> getTaskList() {
         return this.tasks;
     }

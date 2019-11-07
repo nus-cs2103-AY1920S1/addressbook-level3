@@ -41,11 +41,11 @@ public class Task {
         this.taskStatus = taskStatus;
 
         if (taskStatus.equals(TaskStatus.DOING)) {
-            timeStart = Instant.now();
+            this.timeStart = Instant.now();
         }
 
         if (taskStatus.equals(TaskStatus.DONE)) {
-            timeEnd = Instant.now();
+            this.timeEnd = Instant.now();
         }
 
         this.tags.addAll(tags);
@@ -112,9 +112,9 @@ public class Task {
             long timeInHours = timeElasped.toHours();
 
             if (timeInHours == 0) {
-                timeTaken = timeElasped.toMinutes() + "minutes";
+                timeTaken = "Time taken to complete task: " + timeElasped.toMinutes() + "minutes";
             } else {
-                timeTaken = timeInHours + "hours";
+                timeTaken = "Time taken to complete task: " + timeInHours + "hours";
             }
         }
 

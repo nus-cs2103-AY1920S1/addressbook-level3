@@ -137,8 +137,8 @@ public class ProjectDashboardParser {
             case DeleteInventoryCommand.COMMAND_WORD:
                 return new DeleteInventoryCommandParser().parse(arguments);
 
-            // case GeneratePDFCommand.COMMAND_WORD:
-            //     return new GeneratePDFCommandParser().parse(arguments);
+             case GeneratePDFCommand.COMMAND_WORD:
+                 return new GeneratePDFCommandParser().parse(arguments);
 
             // STATS
             case GetStatisticsCommand.COMMAND_WORD_MEMBER:
