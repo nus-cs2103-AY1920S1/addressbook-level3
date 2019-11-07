@@ -20,6 +20,9 @@ import seedu.address.model.student.Phone;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
+/**
+ * resets display picture of student to a very handsome man.
+ */
 public class ResetDisplayPictureCommand extends Command {
     public static final String COMMAND_WORD = "resetdisplaypic";
 
