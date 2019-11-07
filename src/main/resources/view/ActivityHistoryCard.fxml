@@ -10,7 +10,7 @@
 
 <VBox fx:id="activityHistoryCard" styleClass="activity-history-pane" VBox.vgrow="ALWAYS" minHeight="-Infinity"
     maxHeight="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane styleClass="activity-history-card" maxWidth="450" hgap="8">
+  <GridPane styleClass="activity-history-card" maxWidth="450">
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" prefWidth="60" />
       <ColumnConstraints hgrow="ALWAYS" />
