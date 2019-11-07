@@ -117,9 +117,18 @@ public class TemplateList implements ReadOnlyTemplateList {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof TemplateList) {
+            boolean templatesEquals = templates.equals(((TemplateList) other).templates);
+            return templatesEquals;
+        }
+
+        return false;
+        /**return other == this // short circuit if same object
                 || (other instanceof TemplateList // instanceof handles nulls
-                && templates.equals(((TemplateList) other).templates));
+                && templates.equals(((TemplateList) other).templates));**/
     }
 
     @Override
