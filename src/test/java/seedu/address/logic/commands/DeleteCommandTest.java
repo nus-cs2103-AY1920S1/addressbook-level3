@@ -200,7 +200,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_viewActivityContext_expenseAlreadyDeleted_throwsException() throws CommandException {
+    public void execute_viewActivityContextExpenseAlreadyDeleted_throwsCommandException() throws CommandException {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(ALICE);
         expectedModel.addPerson(BENSON);
@@ -222,7 +222,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_viewActivityContext_invalidIndexExpense_throwsException() throws CommandException {
+    public void execute_viewActivityContextInvalidIndexExpense_throwsCommandException() throws CommandException {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(ALICE);
         expectedModel.addPerson(BENSON);
