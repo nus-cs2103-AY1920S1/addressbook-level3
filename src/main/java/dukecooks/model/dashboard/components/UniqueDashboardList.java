@@ -34,7 +34,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     /**
      * Sorts the list by date.
      */
-    private void sortDashboard(List<Dashboard> l) {
+    public void sortDashboard(List<Dashboard> l) {
         Comparator<Dashboard> comparator = Comparator.comparing(Dashboard::getLocalDate);
         l.sort(comparator);
     }
@@ -43,8 +43,11 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
      * Counts the number of completed task and returns true if 5 new tasks are completed.
      */
     public boolean doneFive(List<Dashboard> l) {
-        long size = l.stream().filter(i -> i.getTaskStatus().getRecentlyDoneStatus()).count();
+        if (l.isEmpty()) {
+            return false;
+        }
 
+        long size = l.stream().filter(i -> i.getTaskStatus().getRecentlyDoneStatus()).count();
         return size == 5;
     }
 
