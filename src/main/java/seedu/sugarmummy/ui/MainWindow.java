@@ -444,7 +444,7 @@ public class MainWindow extends UiPart<Stage> {
                             calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
                             calendarCommandResult.isShowingWeek());
                 } else if (logic.getDisplayPaneType() != DisplayPaneType.NONE) {
-                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
+                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
                 }
                 logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
