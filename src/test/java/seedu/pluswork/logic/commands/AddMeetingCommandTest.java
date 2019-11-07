@@ -1,14 +1,11 @@
 package seedu.pluswork.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.index.Index;
 
 public class AddMeetingCommandTest {

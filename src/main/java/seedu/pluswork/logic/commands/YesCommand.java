@@ -1,8 +1,8 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.model.Model;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.pluswork.model.Model;
 
 public class YesCommand extends Command {
     public static final String COMMAND_WORD = "yes";

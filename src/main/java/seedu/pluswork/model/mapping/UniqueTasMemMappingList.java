@@ -1,17 +1,17 @@
 package seedu.pluswork.model.mapping;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.pluswork.model.mapping.exceptions.DuplicateMappingException;
-import seedu.pluswork.model.mapping.exceptions.MappingNotFoundException;
-import seedu.pluswork.model.task.Task;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.pluswork.model.mapping.exceptions.DuplicateMappingException;
+import seedu.pluswork.model.mapping.exceptions.MappingNotFoundException;
+import seedu.pluswork.model.task.Task;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

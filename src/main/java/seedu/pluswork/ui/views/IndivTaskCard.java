@@ -1,5 +1,8 @@
 package seedu.pluswork.ui.views;
 
+import java.util.Comparator;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -9,9 +12,6 @@ import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Task}.

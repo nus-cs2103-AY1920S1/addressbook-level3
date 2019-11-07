@@ -1,9 +1,9 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**

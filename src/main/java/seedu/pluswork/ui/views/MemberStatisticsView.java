@@ -1,5 +1,8 @@
 package seedu.pluswork.ui.views;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +13,6 @@ import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.List;
-import java.util.logging.Logger;
 
 public class MemberStatisticsView extends UiPart<Region> {
     private static final String FXML = "MemberStatistics.fxml";

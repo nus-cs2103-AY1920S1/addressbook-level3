@@ -1,10 +1,10 @@
 package seedu.pluswork.model.member;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.util.AppUtil.checkArgument;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Represents a Member's ID in the address book.

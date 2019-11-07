@@ -1,12 +1,12 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.model.Model;
-import seedu.pluswork.model.calendar.CalendarWrapper;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+
+import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.calendar.CalendarWrapper;
 
 
 /**

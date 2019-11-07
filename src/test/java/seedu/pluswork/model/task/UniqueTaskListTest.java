@@ -164,6 +164,6 @@ public class UniqueTaskListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
-            uniqueTaskList.asUnmodifiableObservableList().remove(0));
+                uniqueTaskList.asUnmodifiableObservableList().remove(0));
     }
 }

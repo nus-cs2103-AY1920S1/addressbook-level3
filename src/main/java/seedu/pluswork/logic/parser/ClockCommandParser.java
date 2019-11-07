@@ -1,10 +1,10 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.pluswork.logic.commands.ClockCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.settings.ClockFormat;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new ClockCommand parser object.
@@ -14,7 +14,6 @@ public class ClockCommandParser implements Parser<ClockCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
      *
-     * @param userInput
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
     @Override

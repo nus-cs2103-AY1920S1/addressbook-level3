@@ -1,5 +1,12 @@
 package seedu.pluswork.model.util;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import net.fortuna.ical4j.model.Calendar;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.parser.ParserUtil;
@@ -21,13 +28,6 @@ import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Contains utility methods for populating {@code ProjectDashboard} with sample data.

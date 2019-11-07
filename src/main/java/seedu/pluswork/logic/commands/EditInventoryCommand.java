@@ -1,5 +1,15 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+
+import java.util.List;
+import java.util.Optional;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.CollectionUtil;
@@ -13,12 +23,6 @@ import seedu.pluswork.model.mapping.InvTasMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Task;
-
-import java.util.List;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
 
 /**
  * Edits the details of an existing inventory in the Dashboard.
@@ -137,7 +141,7 @@ public class EditInventoryCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditTaskCommand)) {
             return false;
         }
 

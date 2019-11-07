@@ -1,5 +1,8 @@
 package seedu.pluswork.logic;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.logic.commands.CommandResult;
@@ -15,9 +18,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 
 /**
  * API of the Logic component

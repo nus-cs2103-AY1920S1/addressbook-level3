@@ -1,14 +1,16 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.model.Model;
-import seedu.pluswork.model.calendar.MeetingQuery;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DURATION_HOURS;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_END_PERIOD;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_START_PERIOD;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.calendar.MeetingQuery;
 
 /**
  * Lists all persons in the address book to the user.

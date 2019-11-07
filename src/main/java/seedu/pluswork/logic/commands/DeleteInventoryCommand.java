@@ -1,5 +1,10 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
@@ -10,11 +15,6 @@ import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.InvTasMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
 
 //import seedu.address.commons.core.index.InvIndex;
 

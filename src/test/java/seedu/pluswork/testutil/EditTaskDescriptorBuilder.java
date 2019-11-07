@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.pluswork.logic.commands.EditCommand;
-import seedu.pluswork.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.pluswork.logic.commands.EditTaskCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
@@ -22,7 +22,7 @@ public class EditTaskDescriptorBuilder {
     private EditTaskDescriptor descriptor;
 
     public EditTaskDescriptorBuilder() {
-        descriptor = new EditCommand.EditTaskDescriptor();
+        descriptor = new EditTaskCommand.EditTaskDescriptor();
     }
 
     public EditTaskDescriptorBuilder(EditTaskDescriptor descriptor) {

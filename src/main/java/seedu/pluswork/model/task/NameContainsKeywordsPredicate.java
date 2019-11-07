@@ -1,9 +1,9 @@
 package seedu.pluswork.model.task;
 
-import seedu.pluswork.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.pluswork.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Task}'s {@code Name} matches any of the keywords given.

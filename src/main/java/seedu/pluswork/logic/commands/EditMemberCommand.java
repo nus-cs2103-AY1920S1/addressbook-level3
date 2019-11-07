@@ -1,5 +1,17 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_TAG;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.util.CollectionUtil;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
@@ -8,12 +20,6 @@ import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;
-
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
-import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 /**
  * Edits the details of an existing member in the project dashboard.

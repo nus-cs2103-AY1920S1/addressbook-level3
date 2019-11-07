@@ -28,20 +28,20 @@ import static seedu.pluswork.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.EditCommand;
-import seedu.pluswork.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.pluswork.logic.commands.EditTaskCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.testutil.EditTaskDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditTaskCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TASK_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -51,7 +51,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "edit-task " + VALID_TASK_NAME_FINANCE, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "edit-task ti/1 ", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "edit-task ti/1 ", EditTaskCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "edit-task ti/", MESSAGE_INVALID_FORMAT);
@@ -102,7 +102,7 @@ public class EditCommandParserTest {
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
                 .withTags(VALID_TAG_FINANCE).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -114,7 +114,7 @@ public class EditCommandParserTest {
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withName(VALID_TASK_NAME_FINANCE).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -124,15 +124,15 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withName(VALID_TASK_NAME_FINANCE).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_PUBLICITY;
         descriptor = new EditTaskDescriptorBuilder().withTags(VALID_TAG_PUBLICITY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -145,12 +145,12 @@ public class EditCommandParserTest {
                 + TASK_NAME_DESC_PUBLICITY
                 + TASK_STATUS_DESC_PUBLICITY + TAG_DESC_PUBLICITY;
 
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withName(VALID_TASK_NAME_PUBLICITY)
                 .withStatus(TaskStatus.valueOf(VALID_TASK_STATUS_PUBLICITY.toUpperCase()))
                 .withTags(VALID_TAG_PUBLICITY, VALID_TAG_URGENCY)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -163,7 +163,7 @@ public class EditCommandParserTest {
                 + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withStatus(TaskStatus.valueOf(VALID_TASK_STATUS_PUBLICITY.toUpperCase())).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -171,7 +171,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_FINANCE + INVALID_TASK_NAME_DESC + TASK_NAME_DESC_FINANCE;
         descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE).withTags(VALID_TAG_FINANCE)
                 .build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -181,7 +181,7 @@ public class EditCommandParserTest {
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_EMPTY;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -1,16 +1,18 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DURATION_HOURS;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_END_PERIOD;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_START_PERIOD;
 
 import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object
