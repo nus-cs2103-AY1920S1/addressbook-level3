@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram for a feature
 image::ArchitectureDiagram.png[]
 
 
@@ -57,11 +57,17 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
+==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
+
+The features in _Modulo_ are quite distinct, and essentially do not share the commands and dalexibility of implementing each feature. The same command word `add` is now able to be executete the features to form _Modulo_ with less overlaps when coding. Each time the user switches tover the previous feature's classes.
+
+
+[discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` when in the feature _Module_.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 1` command in _Cap_ feature
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -69,7 +75,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component for each feature
 image::UiClassDiagram.png[]
 
 *API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/calendar/Ui.java[`Ui.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/cap/Ui.java[`Ui.java` (cap)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/quiz/Ui.java[`Ui.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/finance/Ui.java[`Ui.java` (finance)]
@@ -114,7 +120,7 @@ NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) 
 [[Design-Model]]
 === Model component
 
-.Structure of the Cap Model Component
+.Structure of the Model Component for the feature Cap
 image::CapModelClassDiagram.png[]
 
 .Structure of the Model Component for the feature Finance
@@ -378,7 +384,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage modules and tasks with more flexibility than a typical mouse/GUI driven app
+*Value proposition*: manage modules, tasks, learning (through quizzes) and finances in a single application and with more flexibility than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -403,6 +409,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
 
 |`* * *` |competitive student |add some questions and answers that I have learnt today |read again and attempt them before exam
+
+|`* * *` |student with basic finance literacy | keep a record of my finances | understand my spending habits
+
+|`* * *` | cash-strapped student | set a budget for the month | limit my spending
 
 |`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
 
@@ -431,6 +441,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
 
 |`*` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
+
+|`*` |student who often lends money to people | keep track of the people who have not returned my money | chase after them for their unpaid debt or refuse to lend to people who consistently borrow but don't return
+
+|`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
+
 |=======================================================================
 
 

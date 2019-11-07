@@ -4,11 +4,13 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,7 +18,6 @@ import seedu.address.logic.finance.Logic;
 import seedu.address.logic.finance.commands.CommandResult;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private LogEntryListPanel logEntryListPanel;
+    private BudgetListPanel budgetListPanel;
     private StatsGraphic statsGraphic;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -44,7 +46,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private Menu closeToExceedBudgetMenu;
+
+    @FXML
+    private Menu exceedBudgetMenu;
+
+    @FXML
     private StackPane logEntryListPanelPlaceholder;
+
+    @FXML
+    private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private VBox budgetList;
 
     @FXML
     private StackPane statsGraphicPlaceholder;
@@ -76,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        updateBudgetBars();
     }
 
     /**
@@ -115,6 +130,9 @@ public class MainWindow extends UiPart<Stage> {
         logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
         logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
 
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetDataList());
+        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+
         statsGraphic = new StatsGraphic(logic.getGraphicsData());
         statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
 
@@ -126,6 +144,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        updateBudgetBars();
     }
 
     /**
@@ -164,15 +184,54 @@ public class MainWindow extends UiPart<Stage> {
         statsGraphic = new StatsGraphic(logic.getGraphicsData());
         statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
         logEntryListPanelPlaceholder.setVisible(false);
+        budgetList.setVisible(false);
         statsGraphicPlaceholder.setVisible(true);
     }
 
     /**
      * Switch to view of list of log entries.
      */
-    public void hideStats() {
+    public void showLogEntries() {
+        logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
+        logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
+        budgetList.setVisible(false);
         statsGraphicPlaceholder.setVisible(false);
         logEntryListPanelPlaceholder.setVisible(true);
+    }
+
+    /**
+     * Switch to view of list of budgets.
+     */
+    public void showBudget() {
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetDataList());
+        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+        logEntryListPanelPlaceholder.setVisible(false);
+        statsGraphicPlaceholder.setVisible(false);
+        budgetList.setVisible(true);
+    }
+
+    /**
+     * Shows the list of budgets.
+     */
+    @FXML
+    public void handleBudgetBar() {
+        showBudget();
+    }
+
+    /**
+     * Shows budget bars if any active budget is close to exceeding or has exceeded.
+     */
+    private void updateBudgetBars() {
+        if (logic.hasAnyActiveBudgetExceeded()) {
+            exceedBudgetMenu.setVisible(true);
+        } else {
+            exceedBudgetMenu.setVisible(false);
+        }
+        if (logic.hasAnyActiveBudgetCloseToExceed()) {
+            closeToExceedBudgetMenu.setVisible(true);
+        } else {
+            closeToExceedBudgetMenu.setVisible(false);
+        }
     }
 
     /**
@@ -204,17 +263,17 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowStats()) {
                 showStats();
-            } else {
-                hideStats();
-            }
-
-            if (commandResult.isShowHelp()) {
+            } else if (commandResult.isShowBudget()) {
+                showBudget();
+            } else if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isExit()) {
+                handleExit();
+            } else {
+                showLogEntries();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+            updateBudgetBars();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -81,7 +81,7 @@ public class LogEntryList implements Iterable<LogEntry> {
 
     /**
      * Replaces the contents of this list with {@code logEntries}.
-     * {@code logEntries} must not contain duplicate persons.
+     * {@code logEntries} must not contain duplicate log entries.
      */
     public void setLogEntries(List<LogEntry> logEntries) {
         requireAllNonNull(logEntries);

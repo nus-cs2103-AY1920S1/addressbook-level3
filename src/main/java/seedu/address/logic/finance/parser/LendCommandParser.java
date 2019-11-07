@@ -37,14 +37,19 @@ public class LendCommandParser implements Parser<LendCommand> {
                         PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_TO);
 
         // If compulsory fields are empty
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION,
                 PREFIX_TRANSACTION_METHOD, PREFIX_TO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LendCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        TransactionDate tDate = ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get());
+        TransactionDate tDate;
+        if (!argMultimap.getValue(PREFIX_DAY).isPresent()) {
+            tDate = new TransactionDate();
+        } else {
+            tDate = ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get());
+        }
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         TransactionMethod tMethod = ParserUtil.parseTransactionMethod(
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());

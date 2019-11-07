@@ -7,6 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.finance.commands.BorrowCommand;
+import seedu.address.logic.finance.commands.BudgetCommand;
+import seedu.address.logic.finance.commands.CloneCommand;
 import seedu.address.logic.finance.commands.Command;
 import seedu.address.logic.finance.commands.DeleteCommand;
 import seedu.address.logic.finance.commands.EditCommand;
@@ -15,13 +17,13 @@ import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
 import seedu.address.logic.finance.commands.IncomeCommand;
 import seedu.address.logic.finance.commands.LendCommand;
+import seedu.address.logic.finance.commands.ListBudgetCommand;
 import seedu.address.logic.finance.commands.ListCommand;
 import seedu.address.logic.finance.commands.RepaidCommand;
 import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.StatsCommand;
 import seedu.address.logic.finance.commands.SwitchCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-
 
 /**
  * Parses user input.
@@ -79,6 +81,18 @@ public class FinanceLogParser {
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);
+
+        case CloneCommand.COMMAND_WORD:
+            return new CloneCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case BudgetCommand.COMMAND_WORD:
+            return new BudgetCommandParser().parse(arguments);
+
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

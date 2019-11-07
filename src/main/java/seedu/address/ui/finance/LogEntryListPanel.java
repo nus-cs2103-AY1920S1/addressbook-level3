@@ -61,12 +61,9 @@ public class LogEntryListPanel extends UiPart<Region> {
                     break;
 
                 case LendLogEntry.LOG_ENTRY_TYPE:
+                default:
                     LendLogEntry lendLogEntry = (LendLogEntry) logEntry;
                     setGraphic(new LendLogEntryCard(lendLogEntry, getIndex() + 1).getRoot());
-                    break;
-
-                default:
-                    setGraphic(new LogEntryCard(logEntry, getIndex() + 1).getRoot());
                 }
             }
         }
