@@ -115,6 +115,11 @@ Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdu
 ** `[-new]` will list the 10 newest books ** - Coming in v2.0**
 ****
 
+[TIP]
+Inputs for `g/GENRE` is automatically capitalized.
+[TIP]
+`t/TITLE` and `a/AUTHOR` are matched by partial spellings. Search `t/phil` if you forgot how to spell 'Philosopher'!
+
 Examples:
 
 * `find t/Animal Farm a/George Orwell` +
@@ -231,9 +236,9 @@ Sets the renew period to 10 days, fine increment to 5 cents per day, loan period
 Exits the program. +
 Format: `exit`
 
-==== Toggling night mode: `toggleui` - Coming in v2.0
+==== Toggling dark mode : `toggleui`
 
-Toggles between day mode and night mode for the UI. +
+Toggles between light mode and dark mode for the UI. +
 Format: `toggleui`
 
 ==== Rate a book : `rate` - Coming in v2.0
@@ -397,7 +402,7 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Redo* : `redo`
 * *Set user settings*: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
 * *Exit* : `exit`
-* *Toggle night mode*: `toggleui` ** - Coming in v2.0**
+* *Toggle UI theme*: `toggleui`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 
 Commands applicable to *Serve* mode only:
