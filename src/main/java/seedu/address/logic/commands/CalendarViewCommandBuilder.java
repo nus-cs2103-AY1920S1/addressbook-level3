@@ -30,7 +30,6 @@ class CalendarViewCommandBuilder extends CommandBuilder {
         return null;
     }
 
-    // TODO: Currently has a bug when typing "calendar" only. Either add new command or fix this.
     @Override
     protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(

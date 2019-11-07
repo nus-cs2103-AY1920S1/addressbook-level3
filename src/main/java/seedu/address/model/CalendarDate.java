@@ -89,17 +89,6 @@ public class CalendarDate {
     }
 
     /**
-     * Returns a new CalendarDate of the current day plus the given days.
-     *
-     * @param days The number of days to add.
-     * @return A new CalendarDate of the next days.
-     */
-    public CalendarDate nextDays(Integer days) {
-        LocalDate previousLocalDate = localDate.plusDays(days);
-        return new CalendarDate(previousLocalDate);
-    }
-
-    /**
      * Returns a new CalendarDate of the current day minus the given days.
      *
      * @param days The number of days to minus off.
