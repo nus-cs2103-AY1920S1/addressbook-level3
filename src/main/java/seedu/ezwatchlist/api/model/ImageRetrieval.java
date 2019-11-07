@@ -10,16 +10,19 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.config.TmdbConfiguration;
 import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.commons.core.LogsCenter;
 
 /**
  * A class to retrieve images from the internet to store in the user's cache.
  */
 public class ImageRetrieval {
+    private static final Logger logger = LogsCenter.getLogger(ImageRetrieval.class);
     private static final String DEFAULT_FILE_SIZE = "w300";
     private static final String ROOT = defaultDirectory();
     public static final String IMAGE_CACHE_LOCATION = ROOT + File.separator
@@ -116,9 +119,9 @@ public class ImageRetrieval {
             Files.copy(in, filepath);
 
         } catch (FileAlreadyExistsException f) {
-            System.err.println(f.getMessage());
+            logger.info(f.getMessage());
         } catch (IOException e) {
-            System.err.println(e + " in ImageRetrieval line 104");
+            logger.info(e.getMessage());
             throw new OnlineConnectionException("No internet connection at downloading image");
         }
     }

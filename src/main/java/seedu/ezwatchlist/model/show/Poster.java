@@ -1,9 +1,9 @@
 package seedu.ezwatchlist.model.show;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -24,7 +24,7 @@ public class Poster {
     private boolean isPlaceholder;
 
     /**
-     * Constructs a {@code Poster}.
+     * Constructs a Poster class which defaults to a placeholder image to be displayed.
      */
     public Poster() {
         isPlaceholder = true;
@@ -32,7 +32,7 @@ public class Poster {
     }
 
     /**
-     * Constructs a {@code Poster} with a path given.
+     * Constructs a {@code Poster} with the path of the image given.
      * @param path the path of the image in the save location.
      */
     public Poster(String path) {
@@ -40,12 +40,17 @@ public class Poster {
         imagePath = path;
     }
 
+    /**
+     * Returns the image path of the image.
+     * @return string format of the image path.
+     */
     public String getImagePath() {
         return imagePath;
     }
 
     /**
-     * returns the image of the Poster.
+     * Returns the image of the Poster.
+     * @return the Image to be displayed in the application.
      */
     public Image getImage() {
         if (isPlaceholder) {
@@ -62,10 +67,10 @@ public class Poster {
             }
 
             return image;
-        } catch (IIOException i) {
+        } catch (IOException i) {
             logger.info("Cause: " + i + " in Poster class for imagePath " + imagePath);
             return new Image(PLACEHOLDER_IMAGE);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             logger.info("Cause: " + e + " in Poster class for imagePath " + imagePath);
             return new Image(PLACEHOLDER_IMAGE);
         }

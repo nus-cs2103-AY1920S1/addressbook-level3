@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbTV;
@@ -43,7 +45,7 @@ public class RecommendationEngine {
      * @param tvShows @nullable the list of Tv Shows the user has.
      * @param tmdbApi the Api call to retrieve online information.
      */
-    public RecommendationEngine(List<Movie> movies, List<TvShow> tvShows, TmdbApi tmdbApi) {
+    public RecommendationEngine(@Nullable List<Movie> movies, @Nullable List<TvShow> tvShows, TmdbApi tmdbApi) {
         userMovies = movies;
         userTvShows = tvShows;
         this.tmdbApi = tmdbApi;
@@ -118,7 +120,7 @@ public class RecommendationEngine {
         movieRecommendationOccurrences.entrySet().stream()
                 .sorted(comparingByValue())
                 .limit(noOfRecommendations)
-                .forEachOrdered(x -> movieRecommendations.add(getMovie(x.getKey())));
+                .forEachOrdered(x -> movieRecommendations.add(ApiUtil.getMovie(tmdbApi, x.getKey())));
     }
 
     /**
@@ -129,35 +131,7 @@ public class RecommendationEngine {
         tvRecommendationOccurrences.entrySet().stream()
                 .sorted(comparingByValue())
                 .limit(noOfRecommendations)
-                .forEachOrdered(x -> tvShowRecommendations.add(getTvShow(x.getKey())));
-    }
-
-    /**
-     * Retrieves a Movie from it's ID.
-     * @param movieId the ID of the Movie.
-     * @return Movie
-     */
-    private Movie getMovie(Integer movieId) {
-        try {
-            MovieDb movie = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.values());
-            return ApiUtil.extractMovie(tmdbApi, movie);
-        } catch (OnlineConnectionException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Retrieves a Tv Show from it's ID
-     * @param tvId the ID of the Tv Show
-     * @return TvShow
-     */
-    private TvShow getTvShow(Integer tvId) {
-        try {
-            TvSeries tvSeries = tmdbApi.getTvSeries().getSeries(tvId, null, TmdbTV.TvMethod.values());
-            return ApiUtil.extractTvShow(tmdbApi, tvSeries);
-        } catch (OnlineConnectionException e) {
-            return null;
-        }
+                .forEachOrdered(x -> tvShowRecommendations.add(ApiUtil.getTvShow(tmdbApi, x.getKey())));
     }
 
     /**
@@ -214,9 +188,11 @@ public class RecommendationEngine {
                         .searchMovie(movieName, null, null, true, 1);
                 int movieId = movieDbs.getResults().get(0).getId(); //retrieves the first Movie that matches the name.
 
-                MovieDb movieDb = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.similar);
-                List<MovieDb> similarMovies = movieDb.getSimilarMovies();
-                similarMovies.forEach((movie) -> addToRecommendations(movie.getId(), true));
+                MovieDb movieDb = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.recommendations);
+                List<MovieDb> similarMovies = movieDb.getRecommendations();
+                if (!isNull(similarMovies)) {
+                    similarMovies.forEach((movie) -> addToRecommendations(movie.getId(), true));
+                }
             }
         } catch (MovieDbException e) {
             ApiManager.notConnected();
