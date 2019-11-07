@@ -49,8 +49,21 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (quizId.equals("") || quizId == null) {
+            throw new CommandException(BLANK_QUIZ_ID);
+        }
+        if (numQuestions == -1) {
+            throw new CommandException(INVALID_NUM_QUESTIONS);
+        }
+        if (type.equals("")) {
+            throw new CommandException(BLANK_TYPE);
+        }
+        if (!type.equals("mcq") && !type.equals("open") && !type.equals("all")) {
+            throw new CommandException(INVALID_TYPE);
+        }
+
         if (model.checkQuizExists(quizId)) {
-            return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
+            throw new CommandException(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }
 
         boolean isSuccess = model.createQuizAutomatically(quizId, numQuestions, type);
@@ -58,7 +71,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
         } else {
-            return new CommandResult(generateFailureMessage());
+            throw new CommandException(NOT_ENOUGH_QUESTIONS_IN_STORAGE);
         }
     }
 

@@ -6,7 +6,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.question.Question;
 
 /**
  * Deletes a question in the question list.
@@ -15,6 +14,8 @@ public class QuestionDeleteCommand extends QuestionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Deletes a question\n"
         + "Note: index has to be greater than 0";
+
+    public static final String MESSAGE_SUCCESS = "Deleted question:\n%1$s";
 
     private final Index index;
 
@@ -32,17 +33,8 @@ public class QuestionDeleteCommand extends QuestionCommand {
         if (index.getZeroBased() >= model.getAllQuestions().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
-        return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.deleteQuestion(index)),
             CommandResultType.SHOW_QUESTION);
-    }
-
-    /**
-     * Generates a command execution success message.
-     *
-     * @param question that has been deleted.
-     */
-    private String generateSuccessMessage(Question question) {
-        return "Deleted question: " + question;
     }
 
     @Override

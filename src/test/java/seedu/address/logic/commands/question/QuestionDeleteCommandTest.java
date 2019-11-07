@@ -10,25 +10,20 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.SavedQuizzes;
-import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.model.student.StudentRecord;
 
 public class QuestionDeleteCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
-        new StatisticsRecord(),
-        new UserPrefs());
+    private Model model = new ModelManager();
+
+    public QuestionDeleteCommandTest() {
+        model.setSavedQuestions(getTypicalSavedQuestions());
+    }
 
     @Test
     public void execute_deleteQuestion_success() {
@@ -36,9 +31,10 @@ public class QuestionDeleteCommandTest {
         QuestionDeleteCommand deleteCommand = new QuestionDeleteCommand(index);
 
         Question expectedQuestion = model.getQuestion(index);
-        String expectedMessage = "Deleted question: " + expectedQuestion;
-        assertCommandSuccess(deleteCommand, model, expectedMessage, model,
-            CommandResultType.SHOW_QUESTION);
+        String expectedMessage = String
+            .format(QuestionDeleteCommand.MESSAGE_SUCCESS, expectedQuestion);
+        assertCommandSuccess(deleteCommand, model,
+            new CommandResult(expectedMessage, CommandResultType.SHOW_QUESTION), model);
     }
 
     @Test

@@ -26,6 +26,8 @@ public class QuestionEditCommand extends QuestionCommand {
         + "Example: answer/ 2\n"
         + "Example: type/ open";
 
+    public static final String MESSAGE_SUCCESS = "Edited question:\n%1$s";
+
     private final Index index;
     private final String question;
     private final String answer;
@@ -80,41 +82,32 @@ public class QuestionEditCommand extends QuestionCommand {
         String question = (!this.question.isBlank()) ? this.question : questionObj.getQuestion();
         String answer = (!this.answer.isBlank()) ? this.answer : questionObj.getAnswer();
 
-        if (!type.isBlank()) {
-            switch (type) {
-            case "open":
-                questionObj = new OpenEndedQuestion(question, answer);
-                break;
-            case "mcq":
-                formatMcqOptions(questionObj);
-                questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
-                break;
-            default:
-                throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
+        String questionType = type;
+        if (questionType.isBlank()) {
+            if (questionObj instanceof OpenEndedQuestion) {
+                questionType = "open";
+            } else if (questionObj instanceof McqQuestion) {
+                questionType = "mcq";
             }
-        } else {
-            questionObj.setQuestion(question);
-            questionObj.setAnswer(answer);
-
-            if (questionObj instanceof McqQuestion) {
-                formatMcqOptions(questionObj);
-                questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
-            }
-
+        }
+        switch (questionType) {
+        case "open":
+            questionObj = new OpenEndedQuestion(question, answer);
+            break;
+        case "mcq":
+            formatMcqOptions(questionObj);
+            questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
+            break;
+        default:
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
         }
 
+        if (model.hasQuestion(questionObj)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_QUESTION);
+        }
         model.setQuestion(index, questionObj);
-        return new CommandResult(generateSuccessMessage(questionObj),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, questionObj),
             CommandResultType.SHOW_QUESTION);
-    }
-
-    /**
-     * Generates a command execution success message.
-     *
-     * @param question that has been added.
-     */
-    private String generateSuccessMessage(Question question) {
-        return "Edited question: " + question;
     }
 
     /**

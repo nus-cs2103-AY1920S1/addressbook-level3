@@ -8,7 +8,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
 
-    // Address book
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exist.";
+    public static final String MESSAGE_QUESTION_NOT_FOUND = "Unable to find question.";
     public static final String MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX = "Please provide a question index.";
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid.";
     public static final String MESSAGE_MISSING_QUESTION_OPTIONS = "Options A to D are necessary for mcq questions.";
@@ -18,7 +19,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_ANSWER = "Answer cannot be left empty.";
     public static final String MESSAGE_MISSING_TYPE = "Type cannot be left empty.";
     public static final String MESSAGE_MISSING_TEXT_SEARCH = "Please provide a text to search.";
-    public static final String MESSAGE_MISSING_EDIT_FIELDS = "At least one field to be edit has to be defined.";
+    public static final String MESSAGE_MISSING_EDIT_FIELDS = "At least one field to edit has to be defined.";
     public static final String MESSAGE_MISSING_INPUT_FIELDS = "1 or more input fields are left empty.";
 
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";

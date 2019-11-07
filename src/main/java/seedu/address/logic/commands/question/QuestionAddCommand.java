@@ -29,6 +29,8 @@ public class QuestionAddCommand extends QuestionCommand {
         + "Example: question question/ What is 1+1? answer/ 2 type/open\n"
         + "Example: question question/ What is 1+1? answer/ 2 type/ mcq a/ 1 b/ 2 c/ 3 d/ 4";
 
+    public static final String MESSAGE_SUCCESS = "Added question:\n%1$s";
+
     private final String question;
     private final String answer;
     private final String type;
@@ -79,7 +81,6 @@ public class QuestionAddCommand extends QuestionCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Question question;
-        // TODO: Throw exception if type does not exist
         switch (type) {
         case "open":
             question = new OpenEndedQuestion(this.question, this.answer);
@@ -92,17 +93,12 @@ public class QuestionAddCommand extends QuestionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
         }
 
+        if (model.hasQuestion(question)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_QUESTION);
+        }
         model.addQuestion(question);
-        return new CommandResult(generateSuccessMessage(question), CommandResultType.SHOW_QUESTION);
-    }
-
-    /**
-     * Generates a command execution success message.
-     *
-     * @param question that has been added.
-     */
-    private String generateSuccessMessage(Question question) {
-        return "Added question: " + question;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, question),
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Override

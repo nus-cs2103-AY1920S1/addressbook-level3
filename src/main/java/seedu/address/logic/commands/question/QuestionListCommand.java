@@ -16,4 +16,10 @@ public class QuestionListCommand extends QuestionCommand {
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult(model.getQuestionsSummary(), CommandResultType.SHOW_QUESTION);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof QuestionListCommand); // instanceof handles nulls
+    }
 }

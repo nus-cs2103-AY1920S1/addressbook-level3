@@ -5,26 +5,43 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.quiz.QuizBuilder;
 import seedu.address.testutil.quiz.TypicalSavedQuizzes;
 
+/**
+ * Test for the Quiz Model.
+ */
 public class QuizTest {
 
     private static final Quiz EMPTY_QUIZ = new Quiz("empty");
-    private static final Quiz QUIZ_TWO = TypicalSavedQuizzes.QUIZ2;
-    private static final Quiz QUIZ_THREE = TypicalSavedQuizzes.QUIZ3;
+    private static final Quiz QUIZ_ONE = TypicalSavedQuizzes.QUIZ_ONE;
+    private static final Quiz QUIZ_TWO = TypicalSavedQuizzes.QUIZ_TWO;
 
     @Test
     public void sameName_consideredEquals() {
+        assertTrue(QUIZ_ONE.equals(QUIZ_ONE));
         assertTrue(QUIZ_TWO.equals(QUIZ_TWO));
-        assertTrue(QUIZ_THREE.equals(QUIZ_THREE));
         assertTrue(EMPTY_QUIZ.equals(EMPTY_QUIZ));
     }
 
     @Test
-    public void differentName_consideredUnique() {
-        assertFalse(QUIZ_TWO.equals(QUIZ_THREE));
-        assertFalse(QUIZ_THREE.equals(EMPTY_QUIZ));
-        assertFalse(QUIZ_TWO.equals(EMPTY_QUIZ));
+    public void sameName_differentQuestions_consideredEquals() {
+        Quiz editedQuizOne = new QuizBuilder(QUIZ_ONE).withQuizId("empty").build();
+        assertTrue(editedQuizOne.equals(EMPTY_QUIZ));
+        Quiz editedQuizTwo = new QuizBuilder(QUIZ_TWO).withQuizId("empty").build();
+        assertTrue(editedQuizTwo.equals(EMPTY_QUIZ));
     }
 
+    @Test
+    public void differentName_consideredUnique() {
+        assertFalse(QUIZ_ONE.equals(QUIZ_TWO));
+        assertFalse(QUIZ_TWO.equals(EMPTY_QUIZ));
+        assertFalse(QUIZ_ONE.equals(EMPTY_QUIZ));
+    }
+
+    @Test
+    public void differentName_sameQuestions_consideredUnique() {
+        Quiz editedQuiz = new QuizBuilder(QUIZ_TWO).withQuizId("EditedGroup").build();
+        assertFalse(editedQuiz.equals(QUIZ_TWO));
+    }
 }
