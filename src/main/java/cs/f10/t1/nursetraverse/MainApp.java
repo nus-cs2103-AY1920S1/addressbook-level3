@@ -91,6 +91,7 @@ public class MainApp extends Application {
         try {
             patientBookOptional = storage.readPatientBook();
             appointmentBookOptional = storage.readAppointmentBook();
+
             if (!patientBookOptional.isPresent() || !appointmentBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample PatientBook and AppointmentBook");
                 initialDataPatients = SampleDataUtil.getSamplePatientBook();

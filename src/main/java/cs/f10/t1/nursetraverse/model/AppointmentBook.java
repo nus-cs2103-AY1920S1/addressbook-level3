@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.exceptions.CopyError;
@@ -25,6 +27,7 @@ import javafx.collections.ObservableList;
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     private final UniqueAppointmentList appointments;
+    private final UniqueAppointmentList finishedAppointments;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +38,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     {
         appointments = new UniqueAppointmentList();
+        finishedAppointments = new UniqueAppointmentList();
     }
 
     public AppointmentBook() {}
@@ -58,12 +62,35 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
+     * Replaces the contents of the finishedAppointment list with {@code appointments}.
+     * {@code appointments} must not contain duplicate appointments.
+     */
+    public void setFinishedAppointments(List<Appointment> appointments) {
+        if (appointments.isEmpty()) {
+            List<Appointment> empty = new ArrayList<>();
+            this.finishedAppointments.setAppointments(empty);
+        }
+        else {
+            this.finishedAppointments.setAppointments(appointments);
+        }
+    }
+
+    /**
      * Resets the existing data of this {@code AppointmentBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAppointmentBook newData) {
         requireNonNull(newData);
 
-        setAppointments(newData.getAppointmentList());
+        List<Appointment> newAppointmentList = newData.getAppointmentList();
+
+        Predicate<Appointment> toKeep = appt -> StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
+        Predicate<Appointment> finished = appt -> !StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
+
+        List<Appointment> toSetAppointmentList = newAppointmentList.stream().filter(toKeep).collect(Collectors.toList());
+        setAppointments(toSetAppointmentList);
+
+        List<Appointment> toSetFinishedAppointmentList = newAppointmentList.stream().filter(finished).collect(Collectors.toList());
+        setFinishedAppointments(toSetFinishedAppointmentList);
     }
 
     //// appointment-level operations

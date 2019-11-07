@@ -109,12 +109,12 @@ public class HistoryManagerTest {
     @Test
     public void popRedo() {
         HistoryManager historyManager = new HistoryManager(1);
-        assertEquals(historyManager.popRedo(new PatientBook()), Optional.empty());
+        assertEquals(historyManager.popRedo(new PatientBook(), new AppointmentBook()), Optional.empty());
 
         MutatorCommand commandToRedo = new DummyMutatorCommand("1");
-        historyManager.pushRecord(commandToRedo, new PatientBook());
-        historyManager.popRecord(new PatientBook());
-        assertEquals(historyManager.popRedo(new PatientBook()).get(),
-                new HistoryRecord(commandToRedo, new PatientBook()));
+        historyManager.pushRecord(commandToRedo, new PatientBook(), new AppointmentBook());
+        historyManager.popRecord(new PatientBook(), new AppointmentBook());
+        assertEquals(historyManager.popRedo(new PatientBook(), new AppointmentBook()).get(),
+                new HistoryRecord(commandToRedo, new PatientBook(), new AppointmentBook()));
     }
 }

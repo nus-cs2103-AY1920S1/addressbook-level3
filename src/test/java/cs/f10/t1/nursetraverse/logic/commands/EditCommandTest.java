@@ -106,6 +106,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs(),
                                                new AppointmentBook(model.getStagedAppointmentBook()));
         expectedModel.setPatient(model.getFilteredPatientList().get(0), editedPatient);
+        expectedModel.setAppointments(patientInFilteredList, editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
