@@ -20,7 +20,7 @@ public class AddDCommand extends Command {
             + PREFIX_DEADLINE + "DEADLINE "
             + PREFIX_MEMBER_ID + "MEMBERID"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DEADLINE + "10/10/2019 18:00"
+            + PREFIX_DEADLINE + "10-10-2019 18:00"
             + PREFIX_MEMBER_ID + "AR";
 
     public static final String MESSAGE_SUCCESS = "Details added: %1$s";
