@@ -14,6 +14,7 @@ import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
@@ -59,6 +60,9 @@ public class AddTemplateItemCommand extends Command {
         // Check that the template index is valid
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
+        }
+        if (Amount.isEmptyAmount(toAdd.getAmount())) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(index.getZeroBased());
         UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
