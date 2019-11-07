@@ -16,10 +16,10 @@ public abstract class Node<T> {
     }
 
     /**
-     * Returns a {@code Node} that does not tracking anything.
+     * Returns a {@code Node} that does not track anything.
      */
-    public static Node emptyNode() {
-        return new Node(Collections.emptyList()) {
+    public static Node<?> emptyNode() {
+        return new Node<>(Collections.emptyList()) {
             @Override
             public SortedSet<String> getValues() {
                 return Collections.emptySortedSet();

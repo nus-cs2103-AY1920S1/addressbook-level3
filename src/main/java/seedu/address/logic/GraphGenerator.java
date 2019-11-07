@@ -12,6 +12,7 @@ import seedu.address.logic.graphs.AddCustomerGraph;
 import seedu.address.logic.graphs.AddOrderGraph;
 import seedu.address.logic.graphs.AddPhoneGraph;
 import seedu.address.logic.graphs.AddScheduleGraph;
+import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.model.Model;
 
@@ -41,7 +42,7 @@ class GraphGenerator {
         graphs.put("find-c", Graph.emptyGraph(model));
         graphs.put("list-c", Graph.emptyGraph(model));
         graphs.put("clear-c", Graph.emptyGraph(model));
-        graphs.put("edit-c", Graph.emptyGraph(model));
+        graphs.put("edit-c", new EditCustomerGraph(model));
         graphs.put("copy-c", Graph.emptyGraph(model));
 
         // Phone commands
