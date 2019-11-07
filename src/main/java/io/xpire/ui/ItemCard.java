@@ -1,7 +1,5 @@
 package io.xpire.ui;
 
-import static io.xpire.model.item.ExpiryDate.DATE_FORMAT;
-
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
@@ -95,8 +93,8 @@ public class ItemCard extends UiPart<Region> {
         return DateUtil.convertDateToString(
                 DateUtil.getPreviousDate(
                         this.xpireItem.getExpiryDate().getDate(),
-                        this.xpireItem.getReminderThreshold().getValue()),
-                DATE_FORMAT);
+                        this.xpireItem.getReminderThreshold().getValue())
+                );
     }
 
     //@@author xiaoyu-nus
