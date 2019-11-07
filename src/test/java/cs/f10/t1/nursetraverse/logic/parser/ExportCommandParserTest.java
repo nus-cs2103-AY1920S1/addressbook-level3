@@ -34,7 +34,7 @@ public class ExportCommandParserTest {
 
         // Invalid index
         CommandParserTestUtil.assertParseFailure(parser, " n/filename i/a",
-                ParserUtil.MESSAGE_INVALID_INDEX);
+                ParserUtil.MESSAGE_INVALID_FORMAT);
 
         // Invalid filename
         CommandParserTestUtil.assertParseFailure(parser, " n/`/\\:;.@# i/1",
