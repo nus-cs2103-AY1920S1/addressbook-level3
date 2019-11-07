@@ -517,7 +517,11 @@ Hence, the `Stage Command` works in the Meme Context, and the user is able to st
 On the contrary, the unstage command is only available in the export tab, where the user can reference which
 memes to delete using the index in the export tab.
 
- Step 1. The user enters the import tab
+The following diagram shows how the commands interact with the observable lists:
+
+image::ImportExportObjectDiagram.png[]
+
+Step 1. The user enters the import tab
 
 Step 2. The user executes LoadCommand and provide a directory path.
 Weme will find files which are in valid format (e.g. png) and create a new memes
