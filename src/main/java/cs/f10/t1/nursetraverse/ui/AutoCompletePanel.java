@@ -14,18 +14,19 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 
 /**
  * Panel containing the list of suggested words cards.
  */
-public class AutoCompletePanel extends UiPart<Region> {
+public class AutoCompletePanel extends UiPart<Region> implements ObserverUi, DataSender {
     private static final String FXML = "AutoCompletePanel.fxml";
-
-    private int selectedIndex = 0;
 
     private AutoCompleteListHandler autoCompleteListHandler;
     private MatchedWordUpdater matchedWordUpdater;
+
+    private int selectedIndex = 0;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
@@ -72,10 +73,6 @@ public class AutoCompletePanel extends UiPart<Region> {
         autoCompleteWordListView.scrollTo(selectedIndex);
     }
 
-    public int getSelectedIndex() {
-        return selectedIndex;
-    }
-
     public int getTotalItems() {
         return autoCompleteWordListView.getItems().size();
     }
@@ -88,12 +85,11 @@ public class AutoCompletePanel extends UiPart<Region> {
     public void updateListView(String currentPhraseInCommandBox) {
         String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
         LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
-
         // Check and update matched words
         matchedWordUpdater.updateMatchedWords(segments, firstSegmentParts);
         // Choose initial list
         ObservableList<AutoCompleteWord> chosenList = autoCompleteListHandler
-                .chooseInitialList(matchedWordUpdater.getMatchedAutoCompleteWords());
+                .chooseList(matchedWordUpdater.getMatchedAutoCompleteWords());
         // Filter list based on previous matched words
         ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler
                 .filterList(matchedWordUpdater.getMatchedAutoCompleteWords(), chosenList);
@@ -106,10 +102,29 @@ public class AutoCompletePanel extends UiPart<Region> {
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
-    /**
-     * @return string representation of all the matched words plus current selected word
-     */
-    public String getStringAfterSelection() {
-        return matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
+    @Override
+    public void update(KeyCode keyCode) {
+        // handle up and down key separately
+        if (keyCode == KeyCode.UP) {
+            setSelected(selectedIndex - 1);
+        } else if (keyCode == KeyCode.DOWN) {
+            setSelected(selectedIndex + 1);
+        }
+    }
+
+    @Override
+    public void update(KeyCode keyCode, String resultString) {
+        // Do not handle up down button pressed
+        if (keyCode != KeyCode.UP && keyCode != KeyCode.DOWN) {
+            updateListView(resultString);
+        }
+    }
+
+    @Override
+    public String[] sendData() {
+        String textAfterSelection = matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
+        String selectedWordDescription = getSelected().getDescription();
+
+        return new String[]{textAfterSelection, selectedWordDescription};
     }
 }
