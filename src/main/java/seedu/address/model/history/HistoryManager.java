@@ -27,7 +27,7 @@ public class HistoryManager {
     public void init(Model model) {
         this.addressBooks.push(model.getAthletickDeepCopy());
         this.trainingLists.push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
-        this.performances.push(model.getPerformance());
+        this.performances.push(model.getPerformanceDeepCopy(model.getPerformance()));
     }
     public Command getLatestCommand() {
         return commands.peek();

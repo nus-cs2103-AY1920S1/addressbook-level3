@@ -93,6 +93,6 @@ public class PerformanceCommand extends Command {
     }
     @Override
     public String toString() {
-        return "'Add Performance " + " " + this.event + " " + this.date + " " + this.time + "' Command";
+        return "'Add Performance " + this.event + " " + this.date + " " + this.time + "' Command";
     }
 }

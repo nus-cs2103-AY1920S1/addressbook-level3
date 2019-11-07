@@ -41,6 +41,9 @@ public class UndoCommand extends Command {
         } else if (undoneCommand instanceof PerformanceCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!", ((PerformanceCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof DeleteRecordCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", ((DeleteRecordCommand) undoneCommand).getDate(), model);
         } else {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!");

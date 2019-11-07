@@ -16,12 +16,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteTrainingCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EventCommand;
-import seedu.address.logic.commands.PerformanceCommand;
-import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
@@ -205,10 +200,14 @@ public class ModelManager implements Model {
             this.history.getUndoneTrainingLists().push(undoneTrainingList);
             List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
             attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
-        } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand) {
+        } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand
+            || undoneCommand instanceof DeleteEventCommand || undoneCommand instanceof DeleteRecordCommand) {
+            System.out.println("initial: " + this.history.getPerformances());
             ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
+            System.out.println("popped: " + undonePerformance);
             this.history.getUndonePerformances().push(undonePerformance);
             ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
+            System.out.println("peek: " + afterUndonePerformance);
             this.performance.resetData(this.getPerformanceDeepCopy(afterUndonePerformance));
         } else {
             ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
@@ -231,7 +230,8 @@ public class ModelManager implements Model {
             this.history.getTrainingLists().push(redoneTrainingLists);
             attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
             athletick.resetData(redoneAthletick);
-        } else if (redoneCommand instanceof EventCommand || redoneCommand instanceof PerformanceCommand) {
+        } else if (redoneCommand instanceof EventCommand || redoneCommand instanceof PerformanceCommand
+            || redoneCommand instanceof DeleteEventCommand || redoneCommand instanceof DeleteRecordCommand) {
             ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
             this.history.getPerformances().push(redonePerformance);
             this.performance.resetData(this.getPerformanceDeepCopy(redonePerformance));
