@@ -57,6 +57,7 @@ image::UiStartPlan.png[]
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
+* If there are duplicate parameters, *AlgoBase* will only consider the last parameter and ignore previous parameters (with the same parameter name). e.g. `addprob n/nameA n/nameB` will add a problem with name `nameB`.
 ====
 
 === Problems
