@@ -49,6 +49,9 @@ public class UploadPictureCommand extends Command {
 
         requireNonNull(index);
         requireNonNull(fileName);
+        assert fileName.length() > 5;
+        int start = fileName.length() - 3;
+        assert fileName.substring(start).equals("png") || fileName.substring(start).equals("jpg");
         this.index = index;
         this.fileName = fileName;
     }

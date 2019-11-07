@@ -43,6 +43,9 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private void handleCommandEntered() {
         try {
             String command = commandTextField.getText();
+            if (command.equals("exit")) {
+                commandTextField.shutdown();
+            }
             history.sendToHistory(command);
             commandExecutor.execute(command);
             commandTextField.setText("");

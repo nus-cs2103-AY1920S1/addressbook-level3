@@ -4,13 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandMasterList;
 
 //@@author SebastianLie
@@ -24,24 +28,11 @@ public class AutoCompleteTextField extends TextField {
 
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    /**
-     * initialises all commands and their usages,
-     * popup-menu as well as listener
-     */
-    public AutoCompleteTextField() {
-        super();
-        this.entries = new TreeSet<>();
-        this.entriesPopup = new ContextMenu();
-        entries.addAll(CommandMasterList.getCommandWords());
-        setListener();
-    }
-
-    /**
-     * "Suggestion" specific listener
-     */
-    private void setListener() {
-        textProperty().addListener((observable, oldValue, newValue) -> {
+    private ChangeListener<String> changeListener = new ChangeListener<>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
             String enteredText = getText();
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
@@ -61,10 +52,30 @@ public class AutoCompleteTextField extends TextField {
                     entriesPopup.hide();
                 }
             }
-        });
-        focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-            entriesPopup.hide();
-        });
+        }
+    };
+
+
+    /**
+     * initialises all commands and their usages,
+     * popup-menu as well as listener
+     */
+    public AutoCompleteTextField() {
+        super();
+        this.entries = new TreeSet<>();
+        this.entriesPopup = new ContextMenu();
+        entries.addAll(CommandMasterList.getCommandWords());
+        setListener();
+
+    }
+
+    /**
+     * "Suggestion" specific listener
+     */
+    private void setListener() {
+
+        textProperty().addListener(changeListener);
+        logger.info("Listening to command box.");
     }
 
     /**
@@ -99,7 +110,8 @@ public class AutoCompleteTextField extends TextField {
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
     }
-    public void addEntry(String toAdd) {
-        entries.add(toAdd);
+    public void shutdown() {
+        logger.info("Shutting down autocomplete listener for commandbox....");
+        textProperty().removeListener(changeListener);
     }
 }

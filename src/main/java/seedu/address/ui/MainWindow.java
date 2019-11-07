@@ -64,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel satReminderListPanel;
     private ReminderListPanel sunReminderListPanel;
 
+    private ListChangeListener<Lesson> listener;
 
     @FXML
     private TabPane lessonTabPanel;
@@ -293,6 +294,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        logic.getFilteredLessonList().removeListener(listener);
     }
 
     public StudentListPanel getStudentListPanel() {
@@ -417,7 +419,7 @@ public class MainWindow extends UiPart<Stage> {
             Lesson lesson = lessons.get(i);
             createSchedule(lesson);
         }
-        lessons.addListener(new ListChangeListener<Lesson>() {
+        listener = new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
                 while (c.next()) {
@@ -429,7 +431,8 @@ public class MainWindow extends UiPart<Stage> {
                     }
                 }
             }
-        });
+        };
+        lessons.addListener(listener);
     }
 
     //@@author SebastianLie
