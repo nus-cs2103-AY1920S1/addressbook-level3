@@ -1,5 +1,8 @@
 package seedu.scheduler.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -18,7 +21,7 @@ import seedu.scheduler.model.person.Slot;
  * The first row of the Schedule is the column titles, with the first cell as the date of the interview schedule.
  * Subsequent rows are time slots, with the first cell of each row as the timing of all the time slots in the row.
  */
-public class Schedule {
+public class Schedule implements Comparable<Schedule> {
     private static String columnTitleFormat = "%s - %s";
     private String date;
     private ObservableList<String> titles;
@@ -40,6 +43,62 @@ public class Schedule {
     private Schedule() {
     }
 
+    /**
+     * Returns a copy of the @code{Schedule} object given.
+     */
+    public static Schedule cloneSchedule(Schedule schedule) {
+        Schedule clone = new Schedule();
+        clone.date = String.valueOf(schedule.date);
+        clone.titles = cloneRow(schedule.titles);
+        clone.data = cloneTable(schedule.data);
+        return clone;
+    }
+
+    /**
+     * Returns an independent deep copy of the table given in observable list form.
+     */
+    private static ObservableList<ObservableList<String>> cloneTable(ObservableList<ObservableList<String>> table) {
+        ObservableList<ObservableList<String>> tableClone = FXCollections.observableList(new LinkedList<>());
+
+        for (ObservableList<String> row : table) {
+            ObservableList<String> rowClone = cloneRow(row);
+            tableClone.add(rowClone);
+        }
+
+        return tableClone;
+    }
+
+    /**
+     * Returns an independent deep copy of the row given in observable list form.
+     */
+    private static ObservableList<String> cloneRow(ObservableList<String> row) {
+        ObservableList<String> rowClone = FXCollections.observableList(new LinkedList<>());
+        for (String string : row) {
+            rowClone.add(String.valueOf(string));
+        }
+        return rowClone;
+    }
+
+    /**
+     * Convert a two-dimensional LinkedList into a two-dimensional Observable list.
+     */
+    public static ObservableList<ObservableList<String>> toTwoDimensionalObservableList(
+            LinkedList<LinkedList<String>> list) {
+        LinkedList<ObservableList<String>> clone = new LinkedList<>();
+
+        // Shallow copy can be used here as String is immutable.
+        list.forEach(row -> {
+            LinkedList<String> rowCopy = (LinkedList<String>) row.clone();
+            clone.add(FXCollections.observableList(rowCopy));
+        });
+
+        return FXCollections.observableList(clone);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
     public ObservableList<String> getTitles() {
         return titles;
     }
@@ -48,12 +107,13 @@ public class Schedule {
         return data;
     }
 
+    /**
+     * Returns a list of slots allocated to the interviewee.
+     */
     public List<Slot> getInterviewSlots(String intervieweeName) {
         List<Slot> slots = new LinkedList<>();
         int tableSize = data.size();
 
-        // Need to search the first row as well because now the first row of data(table) is not the titles,
-        // it is data.
         for (int i = 0; i < tableSize; i++) {
             ObservableList<String> row = data.get(i);
             int rowSize = row.size();
@@ -186,7 +246,7 @@ public class Schedule {
     /**
      * Returns the corresponding column title of the given interviewer.
      */
-    public String generateColumnTitle(Interviewer interviewer) {
+    private String generateColumnTitle(Interviewer interviewer) {
         return String.format(columnTitleFormat, interviewer.getDepartment().toString(),
             interviewer.getName().toString());
     }
@@ -202,56 +262,17 @@ public class Schedule {
             && data.equals(sCasted.data);
     }
 
-    /**
-     * Returns a copy of the @code{Schedule} object given.
-     */
-    public static Schedule cloneSchedule(Schedule schedule) {
-        Schedule clone = new Schedule();
-        clone.date = String.valueOf(schedule.date);
-        clone.titles = cloneRow(schedule.titles);
-        clone.data = cloneTable(schedule.data);
-        return clone;
-    }
+    @Override
+    public int compareTo(Schedule other) {
+        SimpleDateFormat format = new SimpleDateFormat(Slot.DATE_PARSE_PATTERN);
 
-    /**
-     * Returns an independent deep copy of the table given in observable list form.
-     */
-    private static ObservableList<ObservableList<String>> cloneTable(ObservableList<ObservableList<String>> table) {
-        ObservableList<ObservableList<String>> tableClone = FXCollections.observableList(new LinkedList<>());
-
-        for (ObservableList<String> row : table) {
-            ObservableList<String> rowClone = cloneRow(row);
-            tableClone.add(rowClone);
+        try {
+            Date dateObject = format.parse(date);
+            Date otherDateObject = format.parse(other.date);
+            return dateObject.compareTo(otherDateObject);
+        } catch (ParseException e) {
+            return 0;
         }
-
-        return tableClone;
-    }
-
-    /**
-     * Returns an independent deep copy of the row given in observable list form.
-     */
-    private static ObservableList<String> cloneRow(ObservableList<String> row) {
-        ObservableList<String> rowClone = FXCollections.observableList(new LinkedList<>());
-        for (String string : row) {
-            rowClone.add(String.valueOf(string));
-        }
-        return rowClone;
-    }
-
-    /**
-     * Convert a two-dimensional LinkedList into a two-dimensional Observable list.
-     */
-    public static ObservableList<ObservableList<String>> toTwoDimensionalObservableList(
-        LinkedList<LinkedList<String>> list) {
-        LinkedList<ObservableList<String>> clone = new LinkedList<>();
-
-        // Shallow copy can be used here as String is immutable.
-        list.forEach(row -> {
-            LinkedList<String> rowCopy = (LinkedList<String>) row.clone();
-            clone.add(FXCollections.observableList(rowCopy));
-        });
-
-        return FXCollections.observableList(clone);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package seedu.scheduler.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -28,33 +30,48 @@ public class ScheduleCommand extends Command {
         + "availability and the interviewee's selected time slot.\n"
         + "Parameters: none\n"
         + "Example: " + COMMAND_WORD + " (no other word should follow after it)";
+    private static final String FEEDBACK_PREFIX = "Successfully scheduled!\n";
+    private static final String ALL_MATCHING_FOUND = FEEDBACK_PREFIX + "All interviewees are allocated with a slot!";
+    private static final String NO_MATCHING_FOUND = FEEDBACK_PREFIX + "No matching is found :(";
     private static final Logger logger = LogsCenter.getLogger(ScheduleCommand.class);
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         logger.info("Starting to schedule interviews");
+        String feedback;
 
-        if (model.isScheduled()) {
-            model.resetDataBeforeScheduling();
-        }
+        if (model.getUnfilteredIntervieweeList().isEmpty() || model.getUnfilteredInterviewerList().isEmpty()) {
+            feedback = NO_MATCHING_FOUND;
+        } else {
+            if (model.isScheduled()) {
+                model.resetDataBeforeScheduling();
+            }
 
-        List<Interviewer> interviewers = model.getUnfilteredInterviewerList();
-        List<Interviewee> interviewees = model.getUnfilteredIntervieweeList();
+            List<Interviewer> interviewers = new ArrayList<>(model.getUnfilteredInterviewerList());
+            List<Interviewee> interviewees = new ArrayList<>(model.getUnfilteredIntervieweeList());
 
-        BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
-        HopCroftKarp algorithm = new HopCroftKarp(graph);
-        algorithm.execute();
-        assignSlots(graph);
+            // To ensure fairer scheduling
+            Collections.shuffle(interviewers);
+            Collections.shuffle(interviewees);
 
-        try {
-            model.updateSchedulesAfterScheduling();
-        } catch (ScheduleException e) {
-            throw new CommandException("Error occurs!", e);
+            BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
+            HopCroftKarp algorithm = new HopCroftKarp(graph);
+            algorithm.execute();
+            assignSlots(graph);
+
+            try {
+                model.updateSchedulesAfterScheduling();
+            } catch (ScheduleException e) {
+                throw new CommandException("Error occurs!", e);
+            }
+
+            feedback = generateResultMessage(graph);
         }
 
         logger.info("Finish scheduling interviews");
         model.setScheduled(true);
-        return new CommandResult(generateResultMessage(graph));
+        return new CommandResult(feedback);
     }
 
     @Override
@@ -90,17 +107,14 @@ public class ScheduleCommand extends Command {
      */
     private String generateResultMessage(BipartiteGraph graph) {
         List<Interviewee> notAllocatedInterviewees = getNotAllocatedInterviewees(graph);
-        String message = "Successfully scheduled!\n";
 
         if (notAllocatedInterviewees.isEmpty()) {
-            message = message + "All interviewees are allocated with a slot!";
+            return ALL_MATCHING_FOUND;
         } else if (notAllocatedInterviewees.size() == graph.getNumInterviewees()) {
-            message = message + "No matching is found :(";
+            return NO_MATCHING_FOUND;
         } else {
-            message = message + getNotAllocatedResult(notAllocatedInterviewees);
+            return FEEDBACK_PREFIX + getNotAllocatedResult(notAllocatedInterviewees);
         }
-
-        return message;
     }
 
     /**

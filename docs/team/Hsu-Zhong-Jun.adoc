@@ -15,21 +15,22 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
-** Credits:
+* *Major enhancement*: Added *the ability to automatically generate email*
+** What it does: It allows the user to automatically generate the email to be used for sending to an interviewee. The email will be populated with information such as the allocated time slot and another content that can be configured as part of the user preferences.
+** Justification: This feature drastically improves the efficiency of the user as it is extremely tedious to extract out each interviewee's email and allocated time slot and manually crafting a unique message to each interviewee after the interview allocation is completed.
+** Highlights: A significant portion of the Storage to disk had to be redesigned in order to accommodate the deviation of the program's original architecture of being an Address Book into something that is able to hold different categories of people.
+** Credits: _None_
 
-* *Minor enhancement*:
+* *Minor enhancement*: Restructured the program's Model to accommodate the change in the program's architecture and integrated with changes from other aspects of the program.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases
+*** Ensuring that the team is keeping up with weekly progress to ensure almost 100% of the tasks for each milestone is hit.
 ** Enhancements to existing features:
+*** Designed and developed integration tests to ensure compatibility among different aspects of the program.
 ** Documentation:
 ** Community:
 ** Tools:
@@ -39,9 +40,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=email]
 
 == Contributions to the Developer Guide
 
@@ -49,7 +48,5 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=email]
 
