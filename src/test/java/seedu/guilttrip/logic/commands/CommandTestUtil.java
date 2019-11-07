@@ -36,6 +36,7 @@ import seedu.guilttrip.testutil.EditExpenseDescriptorBuilder;
 public class CommandTestUtil {
 
     //Entry related testUtils.
+    // Expenses
     public static final String VALID_DESC_FOOD_EXPENSE = "pgp mala";
     public static final String VALID_DESC_CLOTHING_EXPENSE = "cotton on jeans on sale";
     public static final String VALID_AMOUNT_FOOD_EXPENSE = "5.50";
@@ -48,6 +49,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_CLOTHING_CLOTHES = "clothes";
     public static final String VALID_TAG_CLOTHING_WANT = "want";
 
+    // Incomes
     public static final String VALID_DESC_SALARY_INCOME = "october salary";
     public static final String VALID_DESC_TUITION_INCOME = "tution work money";
     public static final String VALID_AMOUNT_SALARY_INCOME = "3000";
@@ -67,7 +69,6 @@ public class CommandTestUtil {
     public static final String TAG_DESC_CLOTHING = " " + PREFIX_TAG + VALID_TAG_CLOTHING_CLOTHES;
     public static final String TAG_DESC_WANT = " " + PREFIX_TAG + VALID_TAG_CLOTHING_WANT;
 
-
     public static final String INVALID_NAME_DESC = " " + PREFIX_DESC + ""; // 'empty' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "food*"; // '*' not allowed in tags
     public static final String INVALID_AMOUNT = " " + PREFIX_AMOUNT + "0.001"; // '3dp' not allowed in amount
@@ -81,7 +82,6 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_NAME_INCOME = "Business";
 
     //Category related Test Utils.
-
     public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
     public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_INCOME;
     public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + VALID_CATEGORY_NAME_EXPENSE_FOOD;
@@ -131,7 +131,9 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel, commandHistory);
             System.out.println("expected: " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("actual: " + result.getFeedbackToUser());
+            System.out.println("actual:   " + result.getFeedbackToUser());
+            System.out.println("expected model: " + expectedModel.getFilteredIncomes());
+            System.out.println("actual model:   " + actualModel.getFilteredIncomes());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

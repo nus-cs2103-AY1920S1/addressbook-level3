@@ -14,6 +14,7 @@ import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
@@ -81,6 +82,18 @@ public class EditIncomeCommandTest {
         expectedModel.commitGuiltTrip();
 
         assertCommandSuccess(editIncomeCommand, model, expectedMessage, expectedModel, commandHistory);
+
+        /*
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+         */
     }
 
     @Test

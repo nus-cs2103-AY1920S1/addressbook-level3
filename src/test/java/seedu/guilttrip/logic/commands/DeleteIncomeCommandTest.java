@@ -11,6 +11,7 @@ import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
@@ -29,7 +30,7 @@ public class DeleteIncomeCommandTest {
     private Model model = new ModelManager(getTypicalGuiltTrip(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-/*    @Test
+    /*@Test
     public void execute_validIndexUnfilteredIncomeList_success() {
         Income incomeToDelete = model.getFilteredIncomes().get(INDEX_FIRST_ENTRY.getZeroBased());
         DeleteIncomeCommand deleteIncomeCommand = new DeleteIncomeCommand(INDEX_FIRST_ENTRY);
@@ -62,6 +63,7 @@ public class DeleteIncomeCommandTest {
 
         Model expectedModel = new ModelManager(model.getGuiltTrip(), new UserPrefs());
         expectedModel.deleteIncome(incomeToDelete);
+        expectedModel.commitGuiltTrip();
         showNoIncome(expectedModel);
 
         assertCommandSuccess(deleteIncomeCommand, model, expectedMessage, expectedModel, commandHistory);

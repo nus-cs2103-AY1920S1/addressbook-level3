@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
 import seedu.guilttrip.model.GuiltTrip;
