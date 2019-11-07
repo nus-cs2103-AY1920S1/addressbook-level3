@@ -317,9 +317,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAmount_validNegativeValue_returnsAmount() throws Exception {
-        Amount expectedNegativeAmount = new Amount(-10.00);
-        assertEquals(expectedNegativeAmount, ParserUtil.parseAmount("-10.00"));
+    public void parseAmount_invalidNegativeValue_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("-10.00"));
     }
 
     @Test
