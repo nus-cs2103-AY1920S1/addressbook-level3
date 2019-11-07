@@ -14,6 +14,7 @@ import seedu.revision.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private Path historyFilePath = Paths.get("data", "history.json");
     private Path revisionToolFilePath = Paths.get("data" , "revisiontool.json");
 
     /**
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setRevisionToolFilePath(newUserPrefs.getRevisionToolFilePath());
+        setHistoryFilePath(newUserPrefs.getHistoryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.revisionToolFilePath = revisionToolFilePath;
     }
 
+    public Path getHistoryFilePath() {
+        return historyFilePath;
+    }
+
+    public void setHistoryFilePath(Path historyFilePath) {
+        requireNonNull(historyFilePath);
+        this.historyFilePath = historyFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +79,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && revisionToolFilePath.equals(o.revisionToolFilePath);
+                && revisionToolFilePath.equals(o.revisionToolFilePath)
+                && historyFilePath.equals(o.historyFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, revisionToolFilePath);
+        return Objects.hash(guiSettings, revisionToolFilePath, historyFilePath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + revisionToolFilePath);
+        sb.append("\nLocal data history file location : " + historyFilePath);
         return sb.toString();
     }
 

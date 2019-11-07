@@ -21,6 +21,7 @@ import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.Modes;
+import seedu.revision.model.quiz.Statistics;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.SaqAnswersGridPane;
@@ -30,7 +31,7 @@ import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
 import seedu.revision.ui.bar.Timer;
 
 /**
- * The Main Window. Provides the basic application layout containing
+ * The Quiz Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class StartQuizWindow extends Window {
@@ -58,7 +59,24 @@ public class StartQuizWindow extends Window {
     private Answerable previousAnswerable;
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
+    private int totalScore = 0; //accumulated score for completing all questions in entire quiz
+
+    //to keep track of current score for a particular level eg. level 2 -> 3 out of 5 questions correct
     private int score = 0;
+    //score of level 1 difficulty questions
+    private int score1 = 0;
+    //score of level 2 difficulty questions
+    private int score2 = 0;
+    //score of level 3 difficulty questions
+    private int score3 = 0;
+    //total number of questions answered in level 1
+    private int total1 = 0;
+    //total number of questions answered in level 2
+    private int total2 = 0;
+    //total number of questions answered in level 3
+    private int total3 = 0;
+    //to keep track of the total number of questions answered so far at every level of the quiz
+    private int accumulatedSize = 0;
 
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
@@ -66,6 +84,10 @@ public class StartQuizWindow extends Window {
     public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
         super(FXML, primaryStage, logic);
         this.mode = mode;
+    }
+
+    public final double getCurrentProgressIndex() {
+        return currentProgressIndex.get();
     }
 
     /**
@@ -129,8 +151,7 @@ public class StartQuizWindow extends Window {
         try {
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
-                // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
-                //  Both has access to the answerable.
+                totalScore++;
                 score++;
             }
 
@@ -143,12 +164,12 @@ public class StartQuizWindow extends Window {
 
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
                     && mode.value.equals(Modes.ARCADE.toString())) {
-                handleEnd();
+                handleEnd(currentAnswerable);
                 return new CommandResult().build();
             }
 
             if (!answerableIterator.hasNext()) {
-                handleEnd();
+                handleEnd(currentAnswerable);
                 return new CommandResult().build();
             }
 
@@ -159,7 +180,7 @@ public class StartQuizWindow extends Window {
 
             if (previousAnswerable != null && answerableIterator.hasNext()) {
                 if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
-                    handleNextLevel(currentAnswerable);
+                    handleNextLevel(previousAnswerable, currentAnswerable);
                 }
             }
 
@@ -180,11 +201,26 @@ public class StartQuizWindow extends Window {
      * Handles progression to the next level and receives response from the user.
      * @param nextAnswerable next answerable that will be displayed.
      */
-    private void handleNextLevel(Answerable nextAnswerable) {
+    private void handleNextLevel(Answerable currentAnswerable, Answerable nextAnswerable) {
         int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().difficulty);
-        AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, score,
-                logic.getFilteredAnswerableList().size());
-        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
+
+        accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
+        AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, totalScore, accumulatedSize);
+
+        switch (currentAnswerable.getDifficulty().difficulty) {
+        case "1":
+            score1 = score;
+            total1 = getSizeOfCurrentLevel(currentAnswerable);
+            break;
+        case "2":
+            score2 = score;
+            total2 = getSizeOfCurrentLevel(currentAnswerable);
+            break;
+        default:
+            assert false : currentAnswerable.getDifficulty().difficulty;
+        }
+
+        score = 0;
 
         Task<Void> task = new Task<>() {
             @Override
@@ -221,11 +257,14 @@ public class StartQuizWindow extends Window {
      * Handles ending of quiz session.
      */
     @FXML
-    private void handleEnd() {
+    private void handleEnd(Answerable currentAnswerable) {
+        score3 = score;
+        total3 = getSizeOfCurrentLevel(currentAnswerable);
+        accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         boolean isFailure = mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext();
-        AlertDialog endAlert = AlertDialog.getEndAlert(score, logic.getFilteredAnswerableList().size(), isFailure);
-        //TODO: Khiangleon to replace logic.getFilteredAnswerableList to the total score so far.
+
+        AlertDialog endAlert = AlertDialog.getEndAlert(totalScore, accumulatedSize, isFailure);
 
         Task<Void> task = new Task<>() {
             @Override
@@ -244,6 +283,10 @@ public class StartQuizWindow extends Window {
             }
         });
 
+        Statistics newResult = new Statistics(totalScore, accumulatedSize, score1, total1, score2, total2, score3,
+                total3);
+        logic.updateHistory(newResult);
+
         //Start the event on a new thread so that showAndWait event is not conflicted with timer animation.
         new Thread(task).start();
 
@@ -255,7 +298,15 @@ public class StartQuizWindow extends Window {
     private void restartQuiz() {
         answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
+        score1 = 0;
+        score2 = 0;
+        score3 = 0;
+        total1 = 0;
+        total2 = 0;
+        total3 = 0;
+        totalScore = 0;
         score = 0;
+        accumulatedSize = 0;
         currentProgressIndex.set(0);
         commandBox.getCommandTextField().requestFocus();
     }
@@ -272,11 +323,6 @@ public class StartQuizWindow extends Window {
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("Great attempt! Type 'start mode/MODE' "
                 + "(normal / arcade / custom) to try another quiz!");
-    }
-
-    /** Gets the index of the current question to update the progress bar. **/
-    public final double getCurrentProgressIndex() {
-        return currentProgressIndex.get();
     }
 
 }

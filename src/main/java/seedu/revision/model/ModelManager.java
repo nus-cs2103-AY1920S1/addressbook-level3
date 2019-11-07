@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 
 /**
  * Represents the in-memory model of the revision tool data.
@@ -22,23 +23,28 @@ public class ModelManager implements Model {
     private final RevisionTool revisionTool;
     private final UserPrefs userPrefs;
     private final FilteredList<Answerable> filteredAnswerables;
+    private final FilteredList<Statistics> filteredStatistics;
+    private final History history;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given revisionTool, userPrefs and quiz history.
      */
-    public ModelManager(ReadOnlyRevisionTool revisionTool, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRevisionTool revisionTool, ReadOnlyUserPrefs userPrefs, ReadOnlyHistory history) {
         super();
-        requireAllNonNull(revisionTool, userPrefs);
+        requireAllNonNull(revisionTool, userPrefs, history);
 
-        logger.fine("Initializing with revision tool: " + revisionTool + " and user prefs " + userPrefs);
+        logger.fine("Initializing with revision tool: " + revisionTool + " and user prefs " + userPrefs
+                + " and quiz history " + history);
 
         this.revisionTool = new RevisionTool(revisionTool);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredAnswerables = new FilteredList<>(this.revisionTool.getAnswerableList());
+        this.history = new History(history);
+        filteredStatistics = new FilteredList<>(this.history.getStatisticsList());
     }
 
     public ModelManager() {
-        this(new RevisionTool(), new UserPrefs());
+        this(new RevisionTool(), new UserPrefs(), new History());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,17 +72,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getRevisionToolFilePath() {
         return userPrefs.getRevisionToolFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public Path getHistoryFilePath() {
+        return userPrefs.getHistoryFilePath();
+    }
+
+    @Override
+    public void setRevisionToolFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setRevisionToolFilePath(addressBookFilePath);
     }
 
     //=========== RevisionTool ================================================================================
+    @Override
+    public void setHistoryFilePath(Path historyFilePath) {
+        requireNonNull(historyFilePath);
+        userPrefs.setHistoryFilePath(historyFilePath);
+    }
+
+    //=========== AddressBook ================================================================================
 
     @Override
     public void setRevisionTool(ReadOnlyRevisionTool revisionTool) {
@@ -84,8 +102,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setHistory(ReadOnlyHistory history) {
+        this.history.resetData(history);
+    }
+
+    @Override
     public ReadOnlyRevisionTool getRevisionTool() {
         return revisionTool;
+    }
+
+    @Override
+    public ReadOnlyHistory getHistory() {
+        return history;
     }
 
     @Override
@@ -106,6 +134,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addStatistics(Statistics statistics) {
+        history.addStatistics(statistics);
+    }
+
+    @Override
     public void setAnswerable(Answerable target, Answerable editedAnswerable) {
         requireAllNonNull(target, editedAnswerable);
 
@@ -121,6 +154,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Answerable> getFilteredAnswerableList() {
         return filteredAnswerables;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Statistics} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Statistics> getStatisticsList() {
+        return filteredStatistics;
     }
 
     @Override
@@ -150,6 +192,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return revisionTool.equals(other.revisionTool)
                 && userPrefs.equals(other.userPrefs)
-                && filteredAnswerables.equals(other.filteredAnswerables);
+                && history.equals(other.history)
+                && filteredAnswerables.equals(other.filteredAnswerables)
+                && filteredStatistics.equals(other.filteredStatistics);
     }
 }

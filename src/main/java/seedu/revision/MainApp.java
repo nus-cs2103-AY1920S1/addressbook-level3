@@ -15,14 +15,19 @@ import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.LogicManager;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
+import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Pipeline;
 import seedu.revision.model.util.SampleDataUtil;
+import seedu.revision.model.util.SampleHistoryUtil;
+import seedu.revision.storage.HistoryStorage;
+import seedu.revision.storage.JsonHistoryStorage;
 import seedu.revision.storage.JsonRevisionToolStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.RevisionToolStorage;
@@ -58,7 +63,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RevisionToolStorage revisionToolStorage = new JsonRevisionToolStorage(userPrefs.getRevisionToolFilePath());
-        storage = new StorageManager(revisionToolStorage, userPrefsStorage);
+        HistoryStorage historyStorage = new JsonHistoryStorage(userPrefs.getHistoryFilePath());
+        storage = new StorageManager(revisionToolStorage, userPrefsStorage, historyStorage);
 
         initLogging(config);
 
@@ -77,6 +83,9 @@ public class MainApp extends Application {
      * or an empty revision tool will be used instead if errors occur when reading {@code storage}'s revision tool.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+
+        Optional<ReadOnlyHistory> historyOptional;
+        ReadOnlyHistory initialHistory;
         Optional<ReadOnlyRevisionTool> revisionToolOptional;
         ReadOnlyRevisionTool initialData;
         try {
@@ -93,7 +102,22 @@ public class MainApp extends Application {
             initialData = new RevisionTool();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            historyOptional = storage.readHistory();
+            if (!historyOptional.isPresent()) {
+                logger.info("History file not found. Will be starting with a sample history");
+            }
+            initialHistory = historyOptional.orElseGet(SampleHistoryUtil::getSampleHistory);
+        } catch (DataConversionException e) {
+            logger.warning("History file not in the correct format. "
+                    + "Will be starting with an empty history");
+            initialHistory = new History();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty history");
+            initialHistory = new History();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialHistory);
     }
 
     private void initLogging(Config config) {
