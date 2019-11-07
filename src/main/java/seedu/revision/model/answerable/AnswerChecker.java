@@ -19,7 +19,6 @@ public class AnswerChecker {
     /**
      * Question of the current Answerable
      */
-//    private static String question;
     private static List<CoreLabel> question;
 
     /**
