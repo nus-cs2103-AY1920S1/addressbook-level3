@@ -117,17 +117,16 @@ public class EditCommand extends Command {
                 .orElse(employeeToEdit.getEmployeeAddress());
         Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
                 .orElse(employeeToEdit.getTags());
-        EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
+        EmployeeId updatedEmployeeId = employeeToEdit.getEmployeeId();
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
                 .orElse(employeeToEdit.getEmployeePay());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
-        EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
-                .orElse(employeeToEdit.getEmployeeJoinDate());
+
 
         return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender,
                 updatedEmployeePay, updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
-                updatedEmployeeJoinDate, updatedTags);
+                updatedTags);
     }
 
     @Override

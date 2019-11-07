@@ -23,7 +23,7 @@ public class Employee {
     // Data fields
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
-    private final EmployeeJoinDate employeeJoinDate;
+    //private final EmployeeJoinDate employeeJoinDate;
     private final EmployeePay employeePay;
     private final EmployeeSalaryPaid employeeSalaryPaid;
 
@@ -34,14 +34,14 @@ public class Employee {
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
                     EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid,
                     EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+                    EmployeeAddress employeeAddress, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
         this.employeeAddress = employeeAddress;
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
-        this.employeeJoinDate = employeeJoinDate;
+        //this.employeeJoinDate = employeeJoinDate;
         this.employeePay = employeePay;
         this.employeeSalaryPaid = employeeSalaryPaid;
         this.tags.add(new Tag(employeeGender.gender));
@@ -54,23 +54,12 @@ public class Employee {
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
                     EmployeePay employeePay, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+                    EmployeeAddress employeeAddress, Set<Tag> tags) {
         this(employeeId, employeeName, employeeGender, employeePay, new EmployeeSalaryPaid(),
-                employeePhone, employeeEmail, employeeAddress, employeeJoinDate, tags);
+                employeePhone, employeeEmail, employeeAddress, tags);
     }
 
-    public Employee() {
-        this.employeeName = null;
-        this.employeePhone = null;
-        this.employeeEmail = null;
-        this.employeeAddress = null;
-        this.employeeId = null;
-        this.employeeGender = null;
-        this.employeeJoinDate = null;
-        this.employeeSalaryPaid = null;
-        this.employeePay = null;
-        this.tags.addAll(tags);
-    }
+
 
     public EmployeeName getEmployeeName() {
         return employeeName;
@@ -105,9 +94,6 @@ public class Employee {
         return employeeGender;
     }
 
-    public EmployeeJoinDate getEmployeeJoinDate() {
-        return employeeJoinDate;
-    }
 
     public void addSalaryPaid(double salaryPaid) {
         employeeSalaryPaid.add(salaryPaid);
@@ -162,7 +148,6 @@ public class Employee {
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
-                && otherEmployee.getEmployeeJoinDate().equals(getEmployeeJoinDate())
                 && otherEmployee.getTags().equals(getTags());
     }
 
@@ -188,8 +173,6 @@ public class Employee {
                 .append(getEmployeeEmail())
                 .append(" Address: ")
                 .append(getEmployeeAddress())
-                .append(" JoinDate: ")
-                .append(getEmployeeJoinDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
