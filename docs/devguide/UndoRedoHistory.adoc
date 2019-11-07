@@ -170,4 +170,4 @@ such as `Patient`, `Visit`, and `Appointment` info, whereas history is app metad
 
 The following sequence diagram illustrates what happens when an `app-undo 3` command is executed:
 
-image::UndoSequenceDiagram.puml[]
+image::UndoSequenceDiagram.png[]

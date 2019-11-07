@@ -1,9 +1,11 @@
 package cs.f10.t1.nursetraverse.importexport;
 
+import static cs.f10.t1.nursetraverse.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -36,21 +38,20 @@ public class CsvUtil {
             + "overriding is not allowed";
     private static final String MESSAGE_MISSING_FILE = "File not found.";
 
-    // Folder paths
-    private static final String exportFolder = "exports";
     private static final String importFolder = "imports";
 
     //=========== Writing/Export functions =============================================================
 
     /**
      * Writes a list of Patients into a .csv file
-     * @param patients
-     * @return string of the path that was written to
+     * @param patients pathString
      * @throws IOException
      */
-    public static String writePatientsToCsv(List<Patient> patients, String filename)
+    public static void writePatientsToCsv(List<Patient> patients, String pathString)
             throws IOException, ExportingException {
-        String pathString = exportFolder + "/" + filename + ".csv";
+        requireAllNonNull(patients, pathString);
+        assert !patients.isEmpty();
+
         Path writePath = Paths.get(pathString);
         if (FileUtil.isFileExists(writePath)) {
             throw new ExportingException(MESSAGE_OVERRIDING_FORBIDDEN);
@@ -60,16 +61,15 @@ public class CsvUtil {
         FileUtil.createFile(writePath);
         logger.info("Writing export data to: " + writePath);
         FileUtil.writeToFile(writePath, toWrite);
-        return pathString;
     }
 
     /**
      * Converts a List of patient objects into a String to be written into a .csv file
-     * @param patients
+     * @param patients a list of patients
      * @return csv friendly string
      * @throws JsonProcessingException
      */
-    private static String getCsvStringFromPatients(List<Patient> patients) throws JsonProcessingException {
+    public static String getCsvStringFromPatients(List<Patient> patients) throws JsonProcessingException {
         CsvMapper mapper = new CsvMapper();
         mapper.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
@@ -81,10 +81,11 @@ public class CsvUtil {
 
     /**
      * Converts a list of Patient objects to a list of Jackson .csv friendly objects
-     * @param patients
+     * @param patients a list of json adapted patients
      * @return csv adapted patients
      */
-    private static List<JsonAdaptedPatient> convertToCsvAdaptedList(List<Patient> patients) {
+    public static List<JsonAdaptedPatient> convertToCsvAdaptedList(List<Patient> patients) {
+        requireNonNull(patients);
         List<JsonAdaptedPatient> csvAdaptedList = new ArrayList<>();
         for (Patient patient : patients) {
             csvAdaptedList.add(convertToCsvAdaptedPatient(patient));
@@ -97,7 +98,8 @@ public class CsvUtil {
      * @param patient
      * @return JsonAdaptedPatient
      */
-    private static JsonAdaptedPatient convertToCsvAdaptedPatient(Patient patient) {
+    public static JsonAdaptedPatient convertToCsvAdaptedPatient(Patient patient) {
+        requireNonNull(patient);
         return new JsonAdaptedPatient(patient);
     }
 
@@ -105,14 +107,15 @@ public class CsvUtil {
 
     /**
      * Reads data from a .csv file and converts it to a list of {@Code Patient} objects
+     * @param pathString the string of the path to read from
      * @return a list of patients
-     * @throws IOException
+     * @throws IOException from file util
      * @throws IllegalValueException if illegal values exist in the .csv file
      */
 
-    public static List<Patient> readPatientsFromCsv(String fileName)
+    public static List<Patient> readPatientsFromCsv(String pathString)
             throws IOException, IllegalValueException, ImportingException {
-        String pathString = importFolder + "/" + fileName + ".csv";
+        requireNonNull(pathString);
         Path readPath = Paths.get(pathString);
         if (!FileUtil.isFileExists(readPath)) {
             throw new ImportingException(MESSAGE_MISSING_FILE);
@@ -155,18 +158,19 @@ public class CsvUtil {
     }
 
     /**
-     * Returns true if the imported list contains only unique patients.
+     * Returns true if the imported list contains duplicates.
      */
-    public static boolean importsAreUnique(List<Patient> patients) {
+    public static boolean importsContainDupes(List<Patient> patients) {
+        requireNonNull(patients);
         int len = patients.size();
         for (int i = 0; i < len - 1; i++) {
             for (int j = i + 1; j < len; j++) {
                 if (patients.get(i).isSamePatient(patients.get(j))) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
 }

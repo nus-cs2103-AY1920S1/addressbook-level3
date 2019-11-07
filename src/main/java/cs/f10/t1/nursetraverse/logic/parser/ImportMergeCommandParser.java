@@ -10,7 +10,7 @@ import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 /**
  * Parses input and returns a new ImportMergeCommand object.
  */
-public class ImportMergeCommandParser {
+public class ImportMergeCommandParser implements Parser<ImportMergeCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ImportMergeCommand
      * and returns an ImportMergeCommand object for execution.
@@ -25,6 +25,11 @@ public class ImportMergeCommandParser {
         }
 
         String fileName = argMultimap.getValue(PREFIX_FILENAME).get();
+        if (!ParserUtil.isValidFileName(fileName)) {
+            throw new ParseException(
+                    String.format(ParserUtil.MESSAGE_INVALID_FILENAME, fileName));
+        }
+
         return new ImportMergeCommand(fileName);
     }
 }

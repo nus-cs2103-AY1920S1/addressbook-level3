@@ -32,8 +32,8 @@ public class AddCommand extends MutatorCommand {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney"
+            + PREFIX_TAG + "Back Pain "
+            + PREFIX_TAG + "Joint Pain "
             + PREFIX_PATIENT_VISIT_TODO + "Check blood pressure "
             + PREFIX_PATIENT_VISIT_TODO + "Check if patient has been drinking";
 

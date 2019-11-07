@@ -54,15 +54,17 @@ public class StringUtil {
      * Will return false for any other non-null string input
      * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
      * @throws NullPointerException if {@code s} is null.
+     * @throws NumberFormatException if {@code s} is not a number.
      */
-    public static boolean isNonZeroUnsignedInteger(String s) {
+    public static boolean isNonZeroUnsignedInteger(String s) throws NumberFormatException {
         requireNonNull(s);
 
-        try {
-            int value = Integer.parseInt(s);
-            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
-        } catch (NumberFormatException nfe) {
+        double value = Double.parseDouble(s);
+        int intValue = (int) Math.rint(value);
+        //If value is not a integer
+        if (intValue != value) {
             return false;
         }
+        return intValue > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
     }
 }

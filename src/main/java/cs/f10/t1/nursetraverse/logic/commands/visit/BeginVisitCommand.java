@@ -1,7 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands.visit;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
-import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
@@ -29,11 +28,10 @@ public class BeginVisitCommand extends MutatorCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Begins a visit for a patient. The patient is identified by the index number used in the patient "
             + "list displayed using the list or find patient commands.\n"
-            + "Parameters: "
-            + PREFIX_PATIENT_INDEX + "PATIENT_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_PATIENT_INDEX + " 1 ";
+            + "Parameters: PATIENT_INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_START_VISIT_SUCCESS = "Started a new visit under patient: %1$s";
+    public static final String MESSAGE_START_VISIT_SUCCESS = "Started a new visit under patient: %1$s.";
     public static final String MESSAGE_START_VISIT_FAILURE = "There is already an ongoing visit.";
 
     private final Index patientIndex;
