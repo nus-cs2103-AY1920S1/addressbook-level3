@@ -76,6 +76,11 @@ public class EditTemplateItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
 
+        if (editTemplateItemDescriptor.getAmount().isPresent()
+                && Amount.isEmptyAmount(editTemplateItemDescriptor.amount)) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
+        }
+
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
         UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
         editedTemplate.setTemplateItems(templateToEdit);
