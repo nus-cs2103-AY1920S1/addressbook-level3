@@ -1,5 +1,16 @@
 package seedu.pluswork.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.pluswork.commons.core.GuiSettings;
@@ -18,17 +29,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-
-import java.nio.file.Path;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Stack;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 //Remove after changing to ObservableList for Calendar
 

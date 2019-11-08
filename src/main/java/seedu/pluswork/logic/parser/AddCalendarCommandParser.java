@@ -1,5 +1,12 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_FILE_PATH;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+
+import java.io.FileNotFoundException;
+import java.util.stream.Stream;
+
 import net.fortuna.ical4j.model.Calendar;
 import seedu.pluswork.logic.commands.AddCalendarCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
@@ -7,13 +14,6 @@ import seedu.pluswork.model.calendar.CalendarWrapper;
 import seedu.pluswork.model.calendar.DataAccess;
 import seedu.pluswork.model.calendar.FilePath;
 import seedu.pluswork.model.member.MemberName;
-
-import java.io.FileNotFoundException;
-import java.util.stream.Stream;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_FILE_PATH;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 
 /**
  * Parses input arguments and creates a new AddCommand object

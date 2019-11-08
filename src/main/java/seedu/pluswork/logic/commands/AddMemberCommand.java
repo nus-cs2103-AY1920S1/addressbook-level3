@@ -1,14 +1,16 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.model.Model;
-import seedu.pluswork.model.member.Member;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_TAG;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
-import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
+import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.member.Member;
 
 /**
  * Adds a task to the address book.

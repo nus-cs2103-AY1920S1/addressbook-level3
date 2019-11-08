@@ -1,17 +1,6 @@
 package seedu.pluswork.model;
 
-import javafx.collections.ObservableList;
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.model.calendar.*;
-import seedu.pluswork.model.inventory.Inventory;
-import seedu.pluswork.model.inventory.UniqueInventoryList;
-import seedu.pluswork.model.mapping.*;
-import seedu.pluswork.model.member.Member;
-import seedu.pluswork.model.member.MemberId;
-import seedu.pluswork.model.member.UniqueMemberList;
-import seedu.pluswork.model.task.Task;
-import seedu.pluswork.model.task.TaskStatus;
-import seedu.pluswork.model.task.UniqueTaskList;
+import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.model.calendar.CalendarWrapper;
+import seedu.pluswork.model.calendar.Meeting;
+import seedu.pluswork.model.calendar.MeetingQuery;
+import seedu.pluswork.model.calendar.UniqueCalendarList;
+import seedu.pluswork.model.calendar.UniqueMeetingList;
+import seedu.pluswork.model.inventory.Inventory;
+import seedu.pluswork.model.inventory.UniqueInventoryList;
+import seedu.pluswork.model.mapping.InvMemMapping;
+import seedu.pluswork.model.mapping.InvTasMapping;
+import seedu.pluswork.model.mapping.Mapping;
+import seedu.pluswork.model.mapping.TasMemMapping;
+import seedu.pluswork.model.mapping.UniqueMappingManager;
+import seedu.pluswork.model.member.Member;
+import seedu.pluswork.model.member.MemberId;
+import seedu.pluswork.model.member.UniqueMemberList;
+import seedu.pluswork.model.task.Task;
+import seedu.pluswork.model.task.TaskStatus;
+import seedu.pluswork.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -227,7 +235,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasksByDeadline.setTasks(tasks.toStream()
                 .filter(Task::hasDeadline)
                 .filter(task -> !(task.getTaskStatus().equals(TaskStatus.UNBEGUN)))
-                .filter(task -> DateTimeUtil.checkIfDueSoon(2, task.getDeadline()))
+                .filter(task -> DateTimeUtil.checkIfDueSoon(task.getDeadline()))
                 .collect(Collectors.toList()));
     }
 

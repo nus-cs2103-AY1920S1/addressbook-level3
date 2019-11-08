@@ -1,5 +1,7 @@
 package seedu.pluswork.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,8 +11,6 @@ import seedu.pluswork.MainApp;
 import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.commons.util.StringUtil;
 import seedu.pluswork.logic.Logic;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.

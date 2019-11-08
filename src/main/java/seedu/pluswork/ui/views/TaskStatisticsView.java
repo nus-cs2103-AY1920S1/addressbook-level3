@@ -1,5 +1,7 @@
 package seedu.pluswork.ui.views;
 
+import java.util.logging.Logger;
+
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,8 +15,6 @@ import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.logging.Logger;
 
 public class TaskStatisticsView extends UiPart<Region> {
     private static final String FXML = "TaskStatistics.fxml";

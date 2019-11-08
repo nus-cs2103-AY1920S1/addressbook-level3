@@ -1,11 +1,11 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.util.AppUtil;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all members in project dashboard book whose name contains any of the argument keywords.

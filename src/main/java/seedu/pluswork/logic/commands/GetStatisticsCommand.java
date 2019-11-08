@@ -1,16 +1,18 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MAPPINGS;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import java.util.List;
+
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.model.Model.*;
 
 public class GetStatisticsCommand extends Command {
     public static final String COMMAND_WORD_MEMBER = "member-stats";

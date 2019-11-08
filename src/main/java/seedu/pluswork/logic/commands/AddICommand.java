@@ -1,16 +1,16 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.inventory.InvName;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.inventory.Price;
 import seedu.pluswork.model.member.MemberId;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
 public class AddICommand extends Command {
     public static final String COMMAND_WORD = "add-i";

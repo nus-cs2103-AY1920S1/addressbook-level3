@@ -1,16 +1,16 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.SetDeadlineCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.logic.commands.SetDeadlineCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 
 /**

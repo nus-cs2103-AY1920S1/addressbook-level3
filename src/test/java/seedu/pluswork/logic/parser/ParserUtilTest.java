@@ -14,16 +14,22 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.settings.ClockFormat;
+import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CLOCK_FORMAT = "#twelve";
+    private static final String INVALID_THEME = "li@ght";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_CLOCK_FORMAT = "twEnty_four";
+    private static final String VALID_THEME = "daRk";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -35,7 +41,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -114,5 +120,39 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseClock_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseClock(null));
+    }
+
+    @Test
+    public void parseClock_validClockFormatWithWhiteSpace_success() throws ParseException {
+        String clockWhiteSpace = WHITESPACE + VALID_CLOCK_FORMAT;
+        assertEquals(ClockFormat.TWENTY_FOUR, ParserUtil.parseClock(clockWhiteSpace));
+    }
+
+    @Test
+    public void parseClock_invalidClockFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseClock(""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseClock(INVALID_CLOCK_FORMAT));
+    }
+
+    @Test
+    public void parseTheme_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTheme(null));
+    }
+
+    @Test
+    public void parseTheme_validThemeWithWhiteSpace_success() throws ParseException {
+        String themeWhiteSpace = WHITESPACE + VALID_THEME;
+        assertEquals(Theme.DARK, ParserUtil.parseTheme(themeWhiteSpace));
+    }
+
+    @Test
+    public void parseTheme_invalidTheme_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTheme(""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTheme(INVALID_THEME));
     }
 }

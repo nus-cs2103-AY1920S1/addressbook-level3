@@ -1,9 +1,9 @@
 package seedu.pluswork.model.member;
 
-import seedu.pluswork.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.pluswork.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Mamber}'s {@code MemberName} matches any of the keywords given.

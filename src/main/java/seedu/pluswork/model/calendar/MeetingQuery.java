@@ -1,13 +1,13 @@
 package seedu.pluswork.model.calendar;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MeetingQuery {
     private final ObservableList<Meeting> meetingList = FXCollections.observableArrayList();

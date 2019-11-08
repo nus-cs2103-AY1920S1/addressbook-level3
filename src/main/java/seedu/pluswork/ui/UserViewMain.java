@@ -1,11 +1,11 @@
 package seedu.pluswork.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import seedu.pluswork.MainApp;
 import seedu.pluswork.logic.Logic;
-
-import java.io.IOException;
 
 
 /**

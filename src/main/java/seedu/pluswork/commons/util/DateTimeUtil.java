@@ -1,6 +1,6 @@
 package seedu.pluswork.commons.util;
 
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
-import static java.util.Objects.requireNonNull;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Container class for date-time specific utility methods.
@@ -21,9 +21,12 @@ public class DateTimeUtil {
     public static final String DISPLAY_FORMAT_TWENTY_FOUR_HOUR = "EEEE, MMM dd, yyyy HH:mm";
     public static final String DISPLAY_FORMAT_TWELVE_HOUR = "EEEE, MMM dd, yyyy hh:mm a";
 
+    public static final int REMINDER_SCHEDULE = 2; // affects upcoming deadlines in {@code ProjectDashboardView}
+
     public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT_MESSAGE
             + " format required";
     public static final String LEAP_YEAR = "The year you entered is not a leap year, please try again";
+    public static final String DEADLINE_PASSED = "The deadline entered has already passed, please try again";
 
     private static DateTimeFormatter defaultFormatter = new DateTimeFormatterBuilder()
             .appendPattern(DEFAULT_INPUT_FORMAT)
@@ -62,7 +65,11 @@ public class DateTimeUtil {
     public static LocalDateTime parseDateTime(String rawDateTime) throws ParseException {
         requireNonNull(rawDateTime);
         try {
-            return LocalDateTime.parse(rawDateTime, defaultFormatter);
+            LocalDateTime deadline = LocalDateTime.parse(rawDateTime, defaultFormatter);
+            if (deadline.isBefore(LocalDateTime.now())) {
+                throw new ParseException(DEADLINE_PASSED);
+            }
+            return deadline;
         } catch (DateTimeParseException e) {
             if (e.getMessage().contains("leap")) {
                 throw new ParseException(LEAP_YEAR);
@@ -72,7 +79,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Display the date/time in a user friendly-manner
+     * Displays the date/time in a user friendly-manner.
      */
     public static String displayDateTime(LocalDateTime dateTime) {
         requireNonNull(dateTime);
@@ -80,15 +87,14 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks if a task is due soon by comparing its due date to the current date and time.
+     * Checks if a task is due soon {@see REMINDER_SCHEDULE} by comparing its due date to the current date and time.
      *
-     * @param weeks    the reminder period specified by the user
      * @param dateTime deadline of the task
      * @return true if task is due within user's reminder period
      */
-    public static boolean checkIfDueSoon(int weeks, LocalDateTime dateTime) {
+    public static boolean checkIfDueSoon(LocalDateTime dateTime) {
         requireNonNull(dateTime);
-        LocalDateTime dueDate = dateTime.minusWeeks(weeks);
+        LocalDateTime dueDate = dateTime.minusWeeks(REMINDER_SCHEDULE);
         return LocalDateTime.now().isAfter(dueDate);
     }
 

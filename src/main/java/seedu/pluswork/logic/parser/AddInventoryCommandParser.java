@@ -1,16 +1,19 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+
+import java.util.stream.Stream;
+
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.AddInventoryCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.inventory.InvName;
 import seedu.pluswork.model.inventory.Price;
 import seedu.pluswork.model.member.MemberId;
-
-import java.util.stream.Stream;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
 
 /**
  * Parses the given {@code String} of arguments in the context of the AddInventoryCommand

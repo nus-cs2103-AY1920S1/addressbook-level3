@@ -1,17 +1,17 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
+
+import java.util.List;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.calendar.Meeting;
 import seedu.pluswork.model.calendar.MeetingQuery;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
-import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
 /**
  * Edits the details of an existing task in the address book.

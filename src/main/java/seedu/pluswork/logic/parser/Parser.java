@@ -1,10 +1,10 @@
 package seedu.pluswork.logic.parser;
 
+import java.io.FileNotFoundException;
+
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import java.io.FileNotFoundException;
 
 /**
  * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.
