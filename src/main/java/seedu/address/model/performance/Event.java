@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import seedu.address.model.Athletick;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
@@ -58,6 +59,21 @@ public class Event {
     }
 
     /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public HashMap<Person, List<Record>> getRecords() {
+        return records;
+    }
+
+    /**
      * Checks if the athlete already has a record on the given day for this event.
      * This prevents an athlete from having 2 records on the same day, under the same event.
      */
@@ -75,36 +91,35 @@ public class Event {
     }
 
     /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public HashMap<Person, List<Record>> getRecords() {
-        return records;
-    }
-
-    /**
      * Adds a player's record to this event.
      */
     public void addRecord(Person athlete, Record record) {
         if (!records.containsKey(athlete)) {
-            ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
-            initialisedPerformanceEntries.add(record);
-            records.put(athlete, initialisedPerformanceEntries);
+            addRecordNew(athlete, record);
         } else {
-            ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
-            currentPerformanceEntries.addAll(records.get(athlete));
-            currentPerformanceEntries.add(record);
-            records.remove(athlete);
-            records.put(athlete, currentPerformanceEntries);
+            addRecordExisting(athlete, record);
         }
         sortAthleteRecords(athlete);
+    }
+
+    /**
+     * Adds a player's record to this event when the player has no existing records.
+     */
+    private void addRecordNew(Person athlete, Record record) {
+        ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
+        initialisedPerformanceEntries.add(record);
+        records.put(athlete, initialisedPerformanceEntries);
+    }
+
+    /**
+     * Adds a player's record to this event when the player already has existing records.
+     */
+    private void addRecordExisting(Person athlete, Record record) {
+        ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
+        currentPerformanceEntries.addAll(records.get(athlete));
+        currentPerformanceEntries.add(record);
+        records.remove(athlete);
+        records.put(athlete, currentPerformanceEntries);
     }
 
     /**
@@ -114,6 +129,18 @@ public class Event {
     public void deleteRecord(Person athlete, AthletickDate date) {
         assert(doesAthleteHavePerformanceOn(date, athlete));
         List<Record> athleteRecords = getAthleteRecords(athlete);
+        int i = getIndexToDelete(athleteRecords, date);
+        athleteRecords.remove(i);
+        // delete athlete from HashMap if they have no records
+        if (athleteRecords.isEmpty()) {
+            records.remove(athlete);
+        }
+    }
+
+    /**
+     * Find the index of the record to be deleted.
+     */
+    private int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
         int i = 0;
         for (Record record : athleteRecords) {
             if (record.getDate().equals(date)) {
@@ -121,12 +148,7 @@ public class Event {
             }
             i++;
         }
-        athleteRecords.remove(i);
-
-        // delete athlete from HashMap if they have no records
-        if (athleteRecords.isEmpty()) {
-            records.remove(athlete);
-        }
+        return i;
     }
 
     /**
@@ -137,18 +159,22 @@ public class Event {
         athleteRecords.sort(new Comparator<Record>() {
             @Override
             public int compare(Record first, Record second) {
-                AthletickDate firstDate = first.getDate();
-                AthletickDate secondDate = second.getDate();
-
-                if (!(firstDate.getYear() == secondDate.getYear())) {
-                    return firstDate.getYear() - secondDate.getYear();
-                } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
-                    return firstDate.getMonth() - secondDate.getMonth();
-                } else {
-                    return firstDate.getDay() - secondDate.getDay();
-                }
+                return compareDate(first.getDate(), second.getDate());
             }
         });
+    }
+
+    /**
+     * Helper function to determine the order of dates by comparing the individual elements.
+     */
+    private int compareDate(AthletickDate firstDate, AthletickDate secondDate) {
+        if (!(firstDate.getYear() == secondDate.getYear())) {
+            return firstDate.getYear() - secondDate.getYear();
+        } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
+            return firstDate.getMonth() - secondDate.getMonth();
+        } else {
+            return firstDate.getDay() - secondDate.getDay();
+        }
     }
 
     /**
