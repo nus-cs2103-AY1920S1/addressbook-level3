@@ -24,7 +24,7 @@ public class GenerateSlotCommand extends Command {
     public static final String COMMAND_WORD = "generate";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generate timeslot from requested meeting duration and time range\n"
-            + "Parameters: DURATION(must be positive integer less than 25) "
+            + "Parameters: d/DURATION(must be positive integer less than 25) "
             + "[r/TIMERANGE (DAY TIME DAY TIME)]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DURATION + "2 "
