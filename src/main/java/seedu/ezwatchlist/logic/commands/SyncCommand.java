@@ -8,6 +8,7 @@ import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
@@ -23,6 +24,9 @@ public class SyncCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Sync movie: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "?"; //"This show already exists in the watchlist";
 
+    public static final String MESSAGE_UNSUCCESSFUL = "No matching name found in local internal storage.";
+    public static final String MESSAGE_UNSUCCESFUL2 = "You may use the add INDEX command to add searched-online shows"
+            + " into Watchlist.";
     private Index toSync;
 
     public SyncCommand(Index toSync) {
@@ -34,13 +38,33 @@ public class SyncCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Show> searchResultList = model.getSearchResultList();
-        System.err.println(searchResultList);
+        List<Show> unWatchedList = model.getUnWatchedShowList();
+        System.err.println(unWatchedList);
         if (toSync.getZeroBased() >= searchResultList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
-        model.addShow(fromImdb);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
+        Name name = fromImdb.getName();
+        System.err.println(name.showName);
+        boolean matchingShowName = false;
+        int matchingIndex = -1;
+        for (int i = 0; i < unWatchedList.size(); i++) {
+            Name nameFromUnWatched = unWatchedList.get(i).getName();
+            System.err.println("FROM watchedlist: " + nameFromUnWatched.showName);
+            if (name.equals(nameFromUnWatched)) {
+                System.err.println("MATCHED");
+                matchingShowName = true;
+                matchingIndex = i;
+                break;
+            }
+        }
+        if (matchingShowName) {
+            Show fromUnWatchedList = unWatchedList.get(matchingIndex);
+            model.setShow(fromUnWatchedList, fromImdb);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
+        } else {
+            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2);
+        }
     }
 
     @Override

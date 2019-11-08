@@ -87,10 +87,10 @@ public class SearchCommand extends Command {
 
             if (isOffline) {
                 return new CommandResult(String.format(
-                        SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW, model.getSearchResultList().size()), false);
+                        SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW, model.getSearchResultList().size()));
             } else {
                 return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
-                        model.getSearchResultList().size()), false);
+                        model.getSearchResultList().size()));
             }
         } catch (OnlineConnectionException e) {
             if (!nameList.isEmpty()) {
@@ -119,7 +119,7 @@ public class SearchCommand extends Command {
                 addShowFromWatchListIfIsGenre(genreSet, model);
             }
             return new CommandResult(String.format(SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW,
-                    model.getSearchResultList().size()), false);
+                    model.getSearchResultList().size()));
         }
     }
 

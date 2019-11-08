@@ -107,13 +107,13 @@ public class WatchCommand extends Command {
 
         if (editedShow.getType().equals("Movie") || isToggle) {
             if (isWatched) {
-                return new CommandResult(String.format(MESSAGE_WATCH_SHOW_SUCCESS, editedShow), false);
+                return new CommandResult(String.format(MESSAGE_WATCH_SHOW_SUCCESS, editedShow));
             } else {
-                return new CommandResult(String.format(MESSAGE_UNWATCH_SHOW_SUCCESS, editedShow), false);
+                return new CommandResult(String.format(MESSAGE_UNWATCH_SHOW_SUCCESS, editedShow));
             }
         } else {
             return new CommandResult(String.format(
-                    MESSAGE_MARK_EPISODES_SUCCESS, editedShow.getNumOfEpisodesWatched(), editedShow), false);
+                    MESSAGE_MARK_EPISODES_SUCCESS, editedShow.getNumOfEpisodesWatched(), editedShow));
         }
     }
 

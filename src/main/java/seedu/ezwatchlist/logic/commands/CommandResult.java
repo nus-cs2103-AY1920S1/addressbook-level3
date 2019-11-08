@@ -17,25 +17,24 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The statistics should update.*/
-    private final boolean changedList;
+    private final boolean shortCutKey;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean changedList) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean shortCutKey) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.changedList = changedList;
+        this.shortCutKey = shortCutKey;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean changedList) {
-        this(feedbackToUser, false, false, changedList);
+    public CommandResult(String feedbackToUser) {
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -48,6 +47,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShortCutKey() {
+        return shortCutKey;
     }
 
     @Override

@@ -22,6 +22,7 @@ import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
 import seedu.ezwatchlist.storage.JsonWatchListStorage;
 import seedu.ezwatchlist.storage.StorageManager;
+import seedu.ezwatchlist.ui.MainWindow;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -32,6 +33,7 @@ public class LogicManagerTest {
     private Model model = new ModelManager();
     private Logic logic;
 
+    private final String currentTab = "watchlist";
     @BeforeEach
     public void setUp() {
         JsonWatchListStorage watchListStorage =
@@ -134,7 +136,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        MainWindow mainWindow = null;
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, mainWindow, currentTab));
         assertEquals(expectedModel, model);
     }
 
