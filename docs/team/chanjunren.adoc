@@ -14,7 +14,8 @@ notes that can be later used to generate a reference to create a cheat sheet.
 
 This is what our project looks like:
 
-image::kaibindiagrams/AppDisplay.png[]
+image::jrImages/appPreview.png[]
+
 _Figure 1. The graphical user interface for *StudyBuddyPro*._
 
 == Summary of contributions
@@ -67,9 +68,61 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Flashcards Time Trial Feature
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
+==== Implementation
+a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
+
+The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
+
+image::jrImages/TimeTrialClassDiagram.png[]
+
+The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
+
+image::jrImages/TimeTrialActivityDiagram.png[]
+
+b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
+c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
+d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
+e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
+2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+
+
+The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed.
+
+image::jrImages/TimeTrialSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How the timetrial is implemented
+
+* **Alternative 1 (current choice):** 1.	Using the `TimeLine` class to set the timer
+object.
+** Pros: Tidier and easier to understand.
+** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
+* **Alternative 2:** Looping `Thread.sleep()` to set the timer
+** Pros: Easier to implement
+** Cons: Code will be messier and harder to read
+
+===== Aspect: How to continue the time trial
+
+* **Alternative 1 (current choice): Each flashcard and its’ respective answer is displayed for a set period of time before the next flashcard**
+** Pros: Easier to implement
+** Cons: Inflexible as user can only view the answer for a set amount of time
+* **Alternative 2:** Allowing users to input commands to display the flashcard answer / move on to the next flashcard
+** Pros: Better flow of time trial feature and improved user experience
+** Cons: Hard to implement
+
+==== [Proposed] Future improvements
+** Allowing users to set their own time limit for each flashcard in the time trial mode
+*** Command will be inputted to set the duration of the timer for each flashcard
+** Allowing users to decide when to move on to the next flashcard
+*** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
+
 
 
 == PROJECT: PowerPointLabs
