@@ -175,8 +175,6 @@ TUESDAY 1100 TUESDAY 1500
 * `addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
 Add timetable to the person with index 2 on the list of persons, by retrieving timetable data from NUSMods.
 
-
-
 Below is a step-by-step instruction to guide you through the process of adding a timetable to Alice, through the use of NUSMods:
 
 * Step 1: Type `addTimetable`, followed by the index of the person you wish to add the timetable to, and the URL of the share link.
@@ -372,14 +370,14 @@ associated with this functionality.
 ==== Generate meeting timing: `generate` [Checkout]
 
 =======
-Generates possible meeting timeslots for which everyone is available.
+Generates possible meeting timeslots where all member are available.
 =======
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
 * Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
 
 [NOTE]
-`generate` would still work even if some members do not have timetable assigned to them. Make sure that you have done `addTimetable` for each of the members  in the project.
+`generate` would not give an error if some members do not have timetable assigned to them. Ensure that you have done `addTimetable` for each of the members in the project before using `generate`.
 
 Format: `generate d/DURATION [r/TIMERANGE]`
 
@@ -388,6 +386,24 @@ Example:
 * `generate d/2 r/MONDAY 0900 MONDAY 1800` +
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
+Below is a step-by-step instruction to guide you through generating a meeting timeslot that lasts for 2 hours, between Monday 1000 to Monday 1800:
+
+* Step 1: To generate a meeting timing for a project, you first need to `checkout` that project.
+
+image:generate/generate-step-1.png[]
+
+* Step 2: Enter the command with your desired duration of the meeting, and the time range to generate within
+
+image:generate/generate-step-2.png[]
+
+* Step 3: Press enter, and you will see the following result:
+
+image:generate/generate-step-3.png[]
+
+[NOTE]
+If MyProject is unable to find a timeslot where all members are free, it would try to find another timeslot where most members are free
+
+image:generate/generate-alt.png[]
 
 === Email
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
