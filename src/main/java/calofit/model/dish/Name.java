@@ -32,6 +32,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isWithinThirtyCharacters(name), LENGTH_CONSTRAINTS);
         fullName = name;
     }
 
@@ -42,6 +43,14 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is less than or equal to 30 characters in length.
+     * @param test is the string to be tested
+     * @return a boolean indicating if the condition is true or false.
+     */
+    public static boolean isWithinThirtyCharacters(String test) {
+        return test.length() <= 30;
+    }
 
     @Override
     public String toString() {

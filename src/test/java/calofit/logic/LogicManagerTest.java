@@ -157,7 +157,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called for DishDatabase.
+     * A stub class to throw an {@code IOException} when the save method is called for {@code DishDatabase}.
      */
     private static class JsonDishDatabaseIoExceptionThrowingStub extends JsonDishDatabaseStorage {
         private JsonDishDatabaseIoExceptionThrowingStub(Path filePath) {
