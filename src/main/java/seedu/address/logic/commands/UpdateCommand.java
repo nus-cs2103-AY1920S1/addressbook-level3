@@ -19,7 +19,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -29,7 +28,6 @@ import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.transaction.Split;
-import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.ui.tab.Tab;
 
@@ -42,8 +40,9 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
         + "by the index number used in the displayed person list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
-        + "Budget entries preced by 'b' \n"
+        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', \n"
+        + "Budget entries preceded by 'b' \n"
+        + "Ledger entries preceded by 'l' \n"
         + "[" + PREFIX_AMOUNT + "AMOUNT] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
@@ -53,11 +52,6 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_UPDATE_ENTRY_SUCCESS = "Updated: %1$s";
-    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
-    public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
-    public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
-
-    private static final String LEDGER_TYPE = "l";
 
     private final String type;
     private final Index targetIndex;
@@ -76,7 +70,7 @@ public class UpdateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (this.type.equals("t")) {
+        if (this.type.equals(Model.TRANSACTION_TYPE)) {
             ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -86,13 +80,14 @@ public class UpdateCommand extends Command {
             BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
             BankAccountOperation updatedTransaction = createUpdatedOperation(transactionToReplace,
                 updateTransactionDescriptor);
+
             model.set(transactionToReplace, updatedTransaction);
             model.updateProjectionsAfterDelete(transactionToReplace);
             model.updateProjectionsAfterAdd(updatedTransaction);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
                 false, false, Tab.TRANSACTION);
-        } else if (this.type.equals("b")) {
+        } else if (this.type.equals(Model.BUDGET_TYPE)) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -103,42 +98,11 @@ public class UpdateCommand extends Command {
             Budget updatedBudget = createUpdatedOperation(budgetToReplace,
                     updateTransactionDescriptor);
             model.set(budgetToReplace, updatedBudget);
-            model.getFilteredProjectionsList().forEach(x -> {
-                if (x.getBudgets().isPresent()) {
-                    if (x.getBudgets().get().stream().anyMatch(b -> b.equals(budgetToReplace))) {
-                        UniqueBudgetList newBudgets = new UniqueBudgetList();
-                        model.deleteProjection(x);
-                        newBudgets.setBudgets(x.getBudgets().get());
-                        newBudgets.setBudget(budgetToReplace, updatedBudget);
-                        if (x.getCategory() != null) {
-                            model.add(new Projection(x.getTransactionHistory(), x.getDate(),
-                                    newBudgets.asUnmodifiableObservableList(), x.getCategory()));
-                        } else {
-                            model.add(new Projection(x.getTransactionHistory(), x.getDate(),
-                                    newBudgets.asUnmodifiableObservableList()));
-                        }
-                    }
-                }
-            });
-
+            model.updateProjectionsAfterDelete(budgetToReplace);
+            model.updateProjectionsAfterAdd(updatedBudget);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);
-        } else if (this.type.equals(LEDGER_TYPE)) {
-            ObservableList<LedgerOperation> lastShownList = model.getFilteredLedgerOperationsList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_INDEX);
-            }
-
-            LedgerOperation toReplace = lastShownList.get(targetIndex.getZeroBased());
-            LedgerOperation updatedLedgerOp = createUpdatedOperation(toReplace, updateTransactionDescriptor);
-
-            model.set(toReplace, updatedLedgerOp);
-
-            model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedLedgerOp),
-                    false, false, Tab.LEDGER);
         } else {
             throw new CommandException("Unknown command error");
         }
@@ -185,6 +149,7 @@ public class UpdateCommand extends Command {
     }
 
     /**
+     * [WIP DO NOT USE]
      * Creates and returns a new {@code LedgerOperation} with the details of {@code ToEdit}
      * based on fields from {@code descriptor}.
      */

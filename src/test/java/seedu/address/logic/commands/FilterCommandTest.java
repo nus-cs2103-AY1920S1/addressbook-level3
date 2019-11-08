@@ -9,12 +9,18 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 import seedu.address.ui.tab.Tab;
 
@@ -29,10 +35,14 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        TransactionContainsCategoriesPredicate firstPredicate =
-            new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
-        TransactionContainsCategoriesPredicate secondPredicate =
-            new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
+        Optional<Set<Category>> categoriesOne = Optional.of(
+            new HashSet<>(Collections.singletonList(new Category("first"))));
+        Optional<Set<Category>> categoriesTwo = Optional.of(
+            new HashSet<>(Collections.singletonList(new Category("second"))));
+        TransactionContainsCategoriesPredicate firstPredicate = new TransactionContainsCategoriesPredicate(
+            categoriesOne, Optional.empty(), Optional.empty(), Optional.empty());
+        TransactionContainsCategoriesPredicate secondPredicate = new TransactionContainsCategoriesPredicate(
+            categoriesTwo, Optional.empty(), Optional.empty(), Optional.empty());
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -71,6 +81,13 @@ public class FilterCommandTest {
      * Parses {@code userInput} into a {@code TransactionContainsCategoriesPredicate}.
      */
     private TransactionContainsCategoriesPredicate preparePredicate(String userInput) {
-        return new TransactionContainsCategoriesPredicate(Arrays.asList(userInput.split("\\s+")));
+        List<Category> listOfCat = Arrays
+            .asList(userInput.split("\\s+"))
+            .stream()
+            .map(cat -> new Category(cat))
+            .collect(Collectors.toList());
+        Optional<Set<Category>> categories = Optional.of(new HashSet<>(listOfCat));
+        return new TransactionContainsCategoriesPredicate(categories,
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 }

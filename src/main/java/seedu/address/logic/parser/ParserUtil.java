@@ -8,14 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
@@ -27,6 +25,9 @@ import seedu.address.model.util.Date;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    public static final char NEGATIVE_AMOUNT_SIGN = '-';
+    public static final char ZERO_AMOUNT = '0';
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -104,36 +105,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing
-     * whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Address}. Leading and trailing
-     * whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String date} into an {@code Date}. Leading and trailing
      * whitespaces will be trimmed.
      *
@@ -143,27 +114,12 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!trimmedDate.matches(Date.DATE_FORMAT)) {
-            throw new ParseException(Date.MESSAGE_FORMAT_CONSTRAINTS);
+            throw new ParseException(String.format(Date.MESSAGE_FORMAT_CONSTRAINTS, trimmedDate));
         }
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_INVALID);
         }
         return new Date(trimmedDate);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing
-     * whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
     }
 
     /**
@@ -226,7 +182,22 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
+        char first = s.toCharArray()[0];
+        if (first == NEGATIVE_AMOUNT_SIGN) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_NEGATIVE);
+        }
+
+        /* handles 0 value */
+        if (first == ZERO_AMOUNT && s.length() == 1) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_ZERO);
+        }
+
         try {
+            /* handles overflow value */
+            if (Double.parseDouble(s) >= 1000000) {
+                throw new ParseException(String.format(Messages.MESSAGE_AMOUNT_OVERFLOW));
+            }
+
             return new Amount(Double.parseDouble(s));
         } catch (NumberFormatException ex) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
@@ -249,5 +220,45 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code month} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified month is invalid.
+     */
+    public static Integer parseMonth(String monthString) throws ParseException {
+        requireNonNull(monthString);
+        String trimmedMonth = monthString.trim();
+        try {
+            if (Date.isValidMonth(trimmedMonth)) {
+                return Integer.parseInt(trimmedMonth);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
+    }
+
+    /**
+     * Parses {@code year} into an {@code Integer} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified year is invalid.
+     */
+    public static Integer parseYear(String yearString) throws ParseException {
+        requireNonNull(yearString);
+        String trimmedYear = yearString.trim();
+        try {
+            if (Date.isValidYear(trimmedYear)) {
+                return Integer.parseInt(trimmedYear);
+            } else {
+                throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+        }
     }
 }

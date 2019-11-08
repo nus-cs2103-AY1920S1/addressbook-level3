@@ -13,7 +13,7 @@ import org.apache.commons.math3.exception.MathArithmeticException;
  */
 public final class GradientDescent {
 
-    private static final double LEARNING_RATE = 0.001;
+    private static final double LEARNING_RATE = 0.003;
     private static final double TOLERANCE = 1E-11;
     private static final int MAX_ITERATIONS = 100000;
     private static final int OUTPUT_SCALE_FACTOR = 100;
@@ -90,17 +90,17 @@ public final class GradientDescent {
      * @return The (partial) derivative of the sum of costs for values of theta
      */
     private double deriveTheta(int theta) {
-        double cost = 0.0;
+        double costGradient = 0.0;
         if (theta == 0) {
             for (int i = 0; i < numInputs; i++) {
-                cost += computeHypothesis(inputData[i]) - inputData[i];
+                costGradient += actualValues[i] - computeHypothesis(inputData[i]);
             }
         } else {
             for (int i = 0; i < numInputs; i++) {
-                cost += (computeHypothesis(inputData[i]) - inputData[i]) * inputData[i];
+                costGradient += (actualValues[i] - computeHypothesis(inputData[i])) * inputData[i];
             }
         }
-        return (1.0 / numInputs) * cost;
+        return (-2.0 / numInputs) * costGradient;
     }
 
     /**
@@ -116,7 +116,6 @@ public final class GradientDescent {
      * @return A prediction on the dependent variable based on the final values of {@code theta0} and {@code theta1}
      */
     public double predict(double input) {
-
         this.variable = input;
         double scaledData = (input - dataMean) / dataRange;
         this.result = computeHypothesis(scaledData) * outputRange + outputMean;
@@ -143,12 +142,17 @@ public final class GradientDescent {
         return maxData;
     }
 
+
     public double getMinOutput() {
-        return minOutput / OUTPUT_SCALE_FACTOR;
+        return (minOutput / OUTPUT_SCALE_FACTOR);
     }
 
     public double getMaxOutput() {
-        return maxOutput / OUTPUT_SCALE_FACTOR;
+        return (maxOutput / OUTPUT_SCALE_FACTOR);
+    }
+
+    public double getOutput(int idx) {
+        return this.actualValues[idx];
     }
 
     public double getDataRange() {
@@ -164,6 +168,6 @@ public final class GradientDescent {
     }
 
     public double getResult() {
-        return result / OUTPUT_SCALE_FACTOR;
+        return (result / OUTPUT_SCALE_FACTOR);
     }
 }

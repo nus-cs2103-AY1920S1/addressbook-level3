@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <TabPane fx:id="mainTabPanel" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -33,13 +34,22 @@
             </Tab>
             <Tab text="Ledger">
                 <content>
-                    <VBox fx:id="ledgerList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
-                          VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="5" right="5" bottom="5" left="5"/>
-                        </padding>
-                        <StackPane fx:id="ledgerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </VBox>
+                    <HBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                              HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets top="5" right="5" bottom="5" left="5"/>
+                            </padding>
+                            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                        <VBox fx:id="ledgerList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                              HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets top="5" right="5" bottom="5" left="5"/>
+                            </padding>
+                            <StackPane fx:id="ledgerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                    </HBox>
                 </content>
             </Tab>
             <Tab text="Projection">

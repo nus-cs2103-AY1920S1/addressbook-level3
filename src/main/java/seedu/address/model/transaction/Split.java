@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
@@ -33,8 +32,8 @@ public class Split extends Transaction implements LedgerOperation {
         List<Amount> amounts = shares.stream()
             .map(share -> amount.byShare((double) share / denominator))
             .collect(Collectors.toList());
-        amounts.remove(0); // share to user no longer useful
-        splitAmounts = rebalanceAmounts(amount, amounts);
+        Amount userShare = amounts.remove(0); // share to user no longer useful
+        splitAmounts = rebalanceAmounts(amount.subtractAmount(userShare), amounts);
     }
 
     public static boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
@@ -93,7 +92,8 @@ public class Split extends Transaction implements LedgerOperation {
             return this.amount.equals(splitObj.amount)
                 && this.date.equals(splitObj.date)
                 && peopleInvolved.equals(splitObj.peopleInvolved)
-                && splitAmounts == splitObj.splitAmounts;
+                && description.equals(splitObj.description)
+                && splitAmounts.equals(splitObj.splitAmounts);
         } else {
             return false;
         }
@@ -101,7 +101,7 @@ public class Split extends Transaction implements LedgerOperation {
 
     @Override
     public Amount getAmount() {
-        return amount;
+        return amount.makeNegative();
     }
 
     @Override
@@ -115,7 +115,12 @@ public class Split extends Transaction implements LedgerOperation {
     }
 
     @Override
-    public Optional<List<Integer>> getShares() {
-        return Optional.of(shares);
+    public List<Integer> getShares() {
+        return shares;
+    }
+
+    @Override
+    public List<Amount> getAmounts() {
+        return splitAmounts;
     }
 }

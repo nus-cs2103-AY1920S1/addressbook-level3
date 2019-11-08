@@ -17,6 +17,8 @@ import seedu.address.model.transaction.UniqueLedgerOperationList;
  * Separate field in BankAccount to store transactions related to split
  */
 public class Ledger implements ReadOnlyLedger {
+
+
     private Amount pot;
     private UniquePersonList people;
     private UniqueLedgerOperationList ledgerHistory;
@@ -30,14 +32,13 @@ public class Ledger implements ReadOnlyLedger {
     public Ledger(ReadOnlyLedger ledger) {
         this();
         requireNonNull(ledger);
-        pot = ledger.getBalance();
-        setLedgerHistory(ledger);
-        setPersonList(ledger);
+        resetData(ledger);
     }
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
         this.ledgerHistory.setLedgerOperations(ledger.getLedgerHistory());
+        recalculatePot();
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
@@ -57,7 +58,6 @@ public class Ledger implements ReadOnlyLedger {
         removePeopleWithNoBalance();
     }
 
-    // TODO: test
     /**
      * Removes person from {@code people} that is not in deficit or surplus.
      *
@@ -75,6 +75,21 @@ public class Ledger implements ReadOnlyLedger {
      */
     public void remove(LedgerOperation key) {
         ledgerHistory.remove(key);
+        recalculatePot();
+    }
+
+    /**
+     * Updates the people and pot in ledger after removing a certain LedgerOperation
+     */
+    private void recalculatePot() {
+        Amount updatedAmount = Amount.zero();
+        UniquePersonList updatedPeople = new UniquePersonList();
+        for (LedgerOperation lo : ledgerHistory) {
+            updatedAmount = lo.handleBalance(updatedAmount, updatedPeople);
+        }
+        pot = updatedAmount;
+        people.setPersons(updatedPeople);
+        removePeopleWithNoBalance();
     }
 
     @Override
@@ -129,5 +144,6 @@ public class Ledger implements ReadOnlyLedger {
 
     public void set(LedgerOperation target, LedgerOperation source) {
         ledgerHistory.set(target, source);
+        recalculatePot();
     }
 }

@@ -44,9 +44,13 @@ public class LedgerOperationBuilder {
      * Initializes the LedgerOperationBuildre with the data of {@code toCopy}.
      */
     public LedgerOperationBuilder(LedgerOperation toCopy) {
-        amount = toCopy.getAmount();
+        amount = toCopy.getAmount().makePositive();
         description = toCopy.getDescription();
         date = toCopy.getDate();
+        people = toCopy.getPeopleInvolved();
+        if (people.size() == 1) {
+            person = people.asUnmodifiableObservableList().get(0);
+        }
     }
 
     /**
@@ -114,9 +118,9 @@ public class LedgerOperationBuilder {
     /**
      * Builds Split Transaction
      */
-    public LedgerOperation asSplit(int... shares) {
+    public Split asSplit(int... shares) {
         List<Integer> shareList = Arrays.stream(shares).boxed().collect(Collectors.toList());
-        assert shareList.size() == people.size() : "shares cannot be split equally among people";
+        assert shareList.size() == people.size() + 1 : "shares cannot be split equally among people";
         return new Split(amount, date, description, shareList, people);
     }
 
@@ -129,8 +133,9 @@ public class LedgerOperationBuilder {
 
     /**
      * Builds ReceiveMoney Transaction
+     * @return
      */
-    public LedgerOperation asReceiveMoney() {
+    public ReceiveMoney asReceiveMoney() {
         return new ReceiveMoney(person, amount, date, description);
     }
 

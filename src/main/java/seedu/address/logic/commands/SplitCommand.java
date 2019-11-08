@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
@@ -21,10 +22,12 @@ public class SplitCommand extends Command {
         + ": Splits an expenditure between people and add that transaction to the bank account.\n"
         + "Parameters: "
         + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_DESC + "DESCRIPTION "
         + "[" + PREFIX_NAME + "NAME]..."
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "600 "
+        + PREFIX_DESC + "haidilao "
         + PREFIX_NAME + "John Doe "
         + PREFIX_NAME + "John Soe "
         + PREFIX_NAME + "John Moe "
@@ -58,4 +61,15 @@ public class SplitCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof SplitCommand) {
+            SplitCommand splitCommand = (SplitCommand) obj;
+            return transaction.equals(splitCommand.transaction);
+        } else {
+            return false;
+        }
+    }
 }

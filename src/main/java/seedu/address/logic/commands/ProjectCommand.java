@@ -55,6 +55,7 @@ public class ProjectCommand extends Command {
     public ProjectCommand(Date date) {
         requireNonNull(date);
         this.date = date;
+        this.category = Category.GENERAL;
     }
 
     public ProjectCommand(Date date, Category category) {
@@ -69,16 +70,15 @@ public class ProjectCommand extends Command {
         ObservableList<BankAccountOperation> transactionHistory =
                 model.getBankAccount().getSortedTransactionHistory(new DateComparator());
 
-        if (this.category != null) {
+        if (this.category.equals(Category.GENERAL)) {
+            ensureMinimumTransactions(transactionHistory);
+            this.projection = new Projection(transactionHistory, date);
+        } else {
             transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
             this.budgets = model.getFilteredBudgetList().filtered(x -> x.getCategories().contains(this.category));
             ensureMinimumTransactions(transactionHistory);
             this.projection = new Projection(transactionHistory, date, this.budgets, this.category);
-        } else {
-            ensureMinimumTransactions(transactionHistory);
-            this.projection = new Projection(transactionHistory, date);
         }
-
         if (model.has(this.projection)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, this.projection.getDate().toString()),
                     false, false, Tab.PROJECTION);
