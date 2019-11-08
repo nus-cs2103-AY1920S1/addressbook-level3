@@ -22,7 +22,7 @@ public class CalendarDateCell extends UiPart<Region> {
     private static final String FXML = "CalendarDateCell.fxml";
 
     @FXML
-    private StackPane calendarDatePane;
+    private StackPane calendarDateStackPane;
 
     private LocalDate date;
     private ObservableList<Engagement> engagements;
@@ -42,8 +42,8 @@ public class CalendarDateCell extends UiPart<Region> {
      * Returns the {@code StackPane} that is used to mount this {@code CalendarDateCell}.
      * @return The {@code StackPane} that is used to mount this {@code CalendarDateCell}.
      */
-    public StackPane getCalendarDatePane() {
-        return calendarDatePane;
+    public StackPane getCalendarDateStackPane() {
+        return calendarDateStackPane;
     }
 
     /**
@@ -103,6 +103,14 @@ public class CalendarDateCell extends UiPart<Region> {
         } else {
             engagementsDisplayWindow.focus();
         }
+    }
+
+    /**
+     * Returns true if this calendar date cell has an open engagements display window.
+     * @return True if this calendar date cell has an open engagements display window.
+     */
+    public boolean hasOpenEngagementsDisplay() {
+        return engagementsDisplayWindow.isShowing();
     }
 
 }
