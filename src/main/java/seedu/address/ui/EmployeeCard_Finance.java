@@ -71,7 +71,7 @@ public class EmployeeCard_Finance extends UiPart<Region> {
         double totalSalary = totalHours * employee.getEmployeePay().getPay();
         address.setText("Total Salary : $" + totalSalary);
         double pendingpay = totalSalary - employee.getEmployeeSalaryPaid().getValue();
-        email.setText("Pending to PayCommand : $" + pendingpay);
+        email.setText("Pending to Pay : $" + pendingpay);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

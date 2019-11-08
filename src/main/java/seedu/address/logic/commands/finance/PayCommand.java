@@ -57,7 +57,9 @@ public class PayCommand extends Command {
         double paid = e.getEmployeeSalaryPaid().getValue();
         double pendingPay = totalSalary - paid;
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (pendingPay < 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_OVERPAID);
+        } else if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         } else if (salaryToPay > pendingPay) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_PAID);
