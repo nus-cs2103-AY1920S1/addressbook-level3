@@ -61,8 +61,6 @@ public class TagCommand extends Command {
 
     private final ListType listType;
 
-
-
     public TagCommand(ListType listType, Index index, TagItemDescriptor tagItemDescriptor) {
         this.index = index;
         this.tagItemDescriptor = new TagItemDescriptor(tagItemDescriptor);
@@ -92,49 +90,73 @@ public class TagCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model);
-
-        ObservableList<? extends Item> currentList = model.getCurrentList();
-
         switch (this.mode) {
         case TAG:
-            if (this.index.getZeroBased() >= currentList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
-            }
-            XpireItem xpireItemToTag = (XpireItem) currentList.get(this.index.getZeroBased());
-            this.item = xpireItemToTag;
-            XpireItem taggedXpireItem = createTaggedItem(xpireItemToTag, this.tagItemDescriptor);
-            if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
-                this.containsLongTags = true;
-            }
-            stateManager.saveState(new ModifiedState(model));
-            model.setItem(this.listType, xpireItemToTag, taggedXpireItem);
-            if (containsLongTags) {
-                this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem);
-                setShowInHistory(true);
-                return new CommandResult(this.result);
-            }
-            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem);
-            setShowInHistory(true);
-            return new CommandResult(this.result);
-
+            return executeAddTags(model, stateManager);
         case SHOW:
-            Set<Tag> allTags = model.getItemList(this.listType)
-                    .stream()
-                    .flatMap(item -> item.getTags().stream())
-                    .collect(Collectors.toSet());
-
-            if (allTags.isEmpty()) {
-                return new CommandResult(MESSAGE_TAG_SHOW_FAILURE);
-            }
-            Collection<String> tagNameList = CollectionUtil.stringifyCollection(allTags);
-            StringBuilder str = appendTagsToFeedback(tagNameList, new StringBuilder(MESSAGE_TAG_SHOW_SUCCESS));
-            return new CommandResult(str.toString());
-
+            return executeShowTags(model);
         default:
         }
         throw new CommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     * Executes the show tag command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback message of the operation result for display
+     */
+    private CommandResult executeShowTags(Model model) {
+        Set<Tag> allTags = model.getItemList(this.listType)
+                                .stream()
+                                .flatMap(item -> item.getTags().stream())
+                                .collect(Collectors.toSet());
+
+        if (allTags.isEmpty()) {
+            return new CommandResult(MESSAGE_TAG_SHOW_FAILURE);
+        }
+        Collection<String> tagNameList = CollectionUtil.stringifyCollection(allTags);
+        StringBuilder str = appendTagsToFeedback(tagNameList, new StringBuilder(MESSAGE_TAG_SHOW_SUCCESS));
+        return new CommandResult(str.toString());
+    }
+
+    /**
+     * Executes the add tag(s) command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param stateManager {@code StackManager} which manages the state of each command.
+     * @return feedback message of the operation result for display.
+     * @throws CommandException If an error occurs during command execution.
+     */
+    private CommandResult executeAddTags(Model model, StateManager stateManager) throws CommandException {
+        ObservableList<? extends Item> currentList = model.getCurrentList();
+        if (this.index.getZeroBased() >= currentList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
+
+        Item itemToTag = currentList.get(this.index.getZeroBased());
+        Item taggedItem;
+        this.item = itemToTag;
+        if (itemToTag instanceof XpireItem) {
+            taggedItem = createTaggedXpireItem((XpireItem) itemToTag, this.tagItemDescriptor);
+        } else {
+            taggedItem = createTaggedReplenishItem(itemToTag, this.tagItemDescriptor);
+        }
+        stateManager.saveState(new ModifiedState(model));
+        model.setItem(this.listType, itemToTag, taggedItem);
+
+        if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
+            this.containsLongTags = true;
+        }
+        if (containsLongTags) {
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
+        }
+        this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
+        setShowInHistory(true);
+        return new CommandResult(this.result);
+    }
 
     /**
      * Appends tags to user feedback to show all tags.
@@ -153,7 +175,7 @@ public class TagCommand extends Command {
      * Creates and returns a {@code XpireItem} with the details of {@code xpireItemToTag}
      * edited with {@code tagItemDescriptor}.
      */
-    private static XpireItem createTaggedItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor)
+    private static XpireItem createTaggedXpireItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor)
             throws CommandException {
         assert xpireItemToTag != null;
         Set<Tag> updatedTags = updateTags(xpireItemToTag, tagItemDescriptor);
@@ -165,13 +187,13 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code XpireItem} with the details of {@code xpireItemToTag}
+     * Creates and returns a {@code Item} with the details of {@code replenishItemToTag}
      * edited with {@code tagItemDescriptor}.
      */
-    private static Item createTaggedReplenishItem(Item xpireItemToTag, TagItemDescriptor tagItemDescriptor) {
-        assert xpireItemToTag != null;
-        Set<Tag> updatedTags = updateTags(xpireItemToTag, tagItemDescriptor);
-        return new Item(xpireItemToTag.getName(), updatedTags);
+    private static Item createTaggedReplenishItem(Item replenishItemToTag, TagItemDescriptor tagItemDescriptor) {
+        assert replenishItemToTag != null;
+        Set<Tag> updatedTags = updateTags(replenishItemToTag, tagItemDescriptor);
+        return new Item(replenishItemToTag.getName(), updatedTags);
     }
 
     /**

@@ -33,11 +33,21 @@ public class ViewCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) {
         requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-
         model.setCurrentList(this.listType);
-
         setShowInHistory(true);
         return new CommandResult(String.format(MESSAGE_SUCCESS, listType.toString()));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof ViewCommand)) {
+            return false;
+        } else {
+            ViewCommand other = (ViewCommand) obj;
+            return this.listType.equals(other.listType);
+        }
     }
 
     @Override

@@ -66,7 +66,7 @@ public class XpireParser implements Parser {
         case DeleteCommand.COMMAND_WORD:
             //fallthrough
         case DeleteCommand.COMMAND_SHORTHAND:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser(XPIRE).parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             //fallthrough

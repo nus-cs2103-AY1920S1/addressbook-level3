@@ -38,6 +38,7 @@ public class StringUtil {
      *       containsWordIgnoreCase("ABc def", "DEF") == true
      *       containsWordIgnoreCase("ABc def", "abc d") == true
      *       </pre>
+     *
      * @param sentence cannot be null
      * @param phrase cannot be null and cannot be empty.
      */
@@ -63,6 +64,7 @@ public class StringUtil {
 
     /**
      * Returns true if {@code s} is numeric.
+     *
      * @return true if {@code s} matches validation regex.
      */
     public static boolean isNumeric(String s) {
@@ -74,6 +76,7 @@ public class StringUtil {
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
      * Will return false for any other non-null string input.
      * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters).
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
@@ -92,6 +95,7 @@ public class StringUtil {
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
      * Will return false for any other non-null string input.
      * e.g. empty string, "-1", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonNegativeInteger(String s) {
@@ -108,6 +112,7 @@ public class StringUtil {
     /**
      * Returns true if {@code s} represents an integer smaller than or equal to the given maximum value {@code max}.
      * Returns false for any other non-null string input.
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isExceedingMaxValue(String s, int max) {
@@ -151,6 +156,7 @@ public class StringUtil {
      * How many edits are needed to change source into target.
      * If returns 0, the strings are same.
      * If returns 1, that means either a character is added, removed, replaced or swapped.
+     *
      * @param source the first string
      * @param target the second string
      * @return The Levenshtein Distance between the two strings.
@@ -193,6 +199,7 @@ public class StringUtil {
     //@@author febee99
     /**
      * Returns suggestions of alternatives for an invalid word entered.
+     *
      * @param invalidWord The invalid word entered.
      * @param set The set of alternative words.
      * @param limit The maximum degree of differences between words compared which is accepted.
@@ -222,6 +229,7 @@ public class StringUtil {
 
     /**
      * Returns a formatted string containing similar words to the word specified.
+     *
      * @param word The word specified to find similar words for.
      * @param allWordsToCompare The set that contains all words to compare the word to.
      * @param limit The maximum degree of polarity between words acceptable.
@@ -236,6 +244,7 @@ public class StringUtil {
 
     /**
      * Returns all similar tags to the tag keyword specified.
+     *
      * @param word The tag keyword specified to find similar tags for.
      * @param allTags The set that contains all tags to compare the word to.
      * @return The string which contains all similar tags.
@@ -248,6 +257,7 @@ public class StringUtil {
 
     /**
      * Returns all similar xpireItem names to the search keyword specified.
+     *
      * @param word The keyword specified to find similar items for.
      * @param allNames The set that contains all names to compare the word to.
      * @return The string which contains all similar names.
@@ -260,6 +270,7 @@ public class StringUtil {
                                                     .collect(Collectors.toSet()), 1);
     }
 
+    //@@author JermyTan
     /**
      * Returns the byte array representing the QR code-encoded text
      *

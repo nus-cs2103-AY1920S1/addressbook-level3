@@ -12,4 +12,10 @@ public interface ReadOnlyListView<T extends Item> {
      * This list will not contain any duplicate items.
      */
     ObservableList<T> getItemList();
+
+    /**
+     * Returns true if the two objects are equal.
+     */
+    @Override
+    boolean equals(Object obj);
 }

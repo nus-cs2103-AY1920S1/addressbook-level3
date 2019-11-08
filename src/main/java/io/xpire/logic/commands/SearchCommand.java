@@ -46,6 +46,7 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         stateManager.saveState(new FilteredState(model));
+        // clone the previous list
         ObservableList<? extends Item> prevList = FXCollections.observableArrayList(model.getCurrentList());
         model.filterCurrentList(this.listType, this.predicate);
         ObservableList<? extends Item> currentList = model.getCurrentList();
