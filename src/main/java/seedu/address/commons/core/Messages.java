@@ -1,5 +1,8 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.GlobalClock;
+import seedu.address.model.task.Task;
+
 /**
  * Container for user visible messages.
  */
@@ -13,4 +16,10 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_CUSTOMERS_LISTED_OVERVIEW = "%1$d customers listed!";
     public static final String MESSAGE_DRIVERS_LISTED_OVERVIEW = "%1$d drivers listed!";
+    public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
+    public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled. ";
+    public static final String MESSAGE_ALREADY_COMPLETED = "This task is completed. ";
+    public static final String MESSAGE_NOT_TODAY = "The task is not scheduled for today. " + "\n"
+            + String.format("Only tasks scheduled for today can be assigned. Today is %s.",
+            GlobalClock.dateToday().format(Task.DATE_FORMAT_FOR_PRINT));
 }

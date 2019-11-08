@@ -12,7 +12,7 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Removes a driver from a task.
  */
 public class FreeCommand extends Command {
     public static final String COMMAND_WORD = "free";
@@ -38,7 +38,7 @@ public class FreeCommand extends Command {
     }
 
     /**
-     * Remove a driver from a task, and set the driver free during the corresponding time in the task.
+     * Removes a driver from a task, and set the driver free during the corresponding time in the task.
      * The method will fail if the Task contains no EventTime, or the Driver's Schedule doesn't contain
      * the EventTime.
      *

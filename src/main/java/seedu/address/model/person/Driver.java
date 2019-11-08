@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.EventTime;
@@ -25,7 +27,7 @@ public class Driver extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Driver (int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Driver(int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         schedule = new Schedule();
         this.id = id;
@@ -54,8 +56,12 @@ public class Driver extends Person {
         return schedule.isAvailable(durationToAdd);
     }
 
-    public String suggestTime(EventTime eventTime, LocalTime timeNow) {
+    public SchedulingSuggestion suggestTime(EventTime eventTime, LocalTime timeNow) {
         return this.schedule.getSchedulingSuggestion(eventTime, timeNow);
+    }
+
+    public Optional<EventTime> suggestTime(Duration duration, LocalTime timeNow) {
+        return this.schedule.findFirstAvailableSlot(timeNow, duration);
     }
 
     public void assign(EventTime eventTime) throws SchedulingException {
@@ -105,9 +111,9 @@ public class Driver extends Person {
     public String toString() {
         StringBuilder driverBuilder = new StringBuilder();
         driverBuilder.append(" Driver stats: \n")
-                    .append(" id: ")
-                    .append(getId())
-                    .append(super.toString());
+                .append(" id: ")
+                .append(getId())
+                .append(super.toString());
         return driverBuilder.toString();
     }
 

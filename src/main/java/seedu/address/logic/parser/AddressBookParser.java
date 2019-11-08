@@ -25,6 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReadIdCommand;
 import seedu.address.logic.commands.SavePdfCommand;
+import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -74,6 +75,9 @@ public class AddressBookParser {
 
         case AssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);
+
+        case SuggestCommand.COMMAND_WORD:
+            return new SuggestCommandParser().parse(arguments);
 
         case FreeCommand.COMMAND_WORD:
             return new FreeCommandParser().parse(arguments);

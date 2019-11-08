@@ -65,7 +65,7 @@ class ScheduleTest {
         Schedule sample = sampleSchedule();
         EventTime expected = EventTime.parse("1000", "1100");
         EventTime oneHourTask = EventTime.parse("1500", "1600");
-        assertEquals(expected, sample.findFirstAvailableSlot(oneHourTask, expected.getStart()).get());
+        assertEquals(expected, sample.findFirstAvailableSlot(expected.getStart(), oneHourTask.getDuration()).get());
     }
 
     @Test
@@ -73,21 +73,21 @@ class ScheduleTest {
         Schedule sample = sampleSchedule();
         EventTime oneHourTask = EventTime.parse("1400", "1500");
         EventTime expected = EventTime.parse("1000", "1100");
-        assertEquals(expected, sample.findFirstAvailableSlot(oneHourTask, expected.getStart()).get());
+        assertEquals(expected, sample.findFirstAvailableSlot(expected.getStart(), oneHourTask.getDuration()).get());
     }
 
     @Test
     void findFirstAvailableSlot_alreadyEarliest_returnsItself() {
         Schedule sample = sampleSchedule();
         EventTime threeHourTask = EventTime.parse("1500", "1800");
-        assertEquals(threeHourTask, sample.findFirstAvailableSlot(threeHourTask, TEN_AM).get());
+        assertEquals(threeHourTask, sample.findFirstAvailableSlot(TEN_AM, threeHourTask.getDuration()).get());
     }
 
     @Test
     void findFirstAvailableSlot_notAvailable_returnsEmpty() {
         Schedule sample = sampleSchedule();
         EventTime fourHourTask = EventTime.parse("1400", "1800");
-        assertTrue(sample.findFirstAvailableSlot(fourHourTask, TEN_AM).isEmpty());
+        assertTrue(sample.findFirstAvailableSlot(TEN_AM, fourHourTask.getDuration()).isEmpty());
     }
 
 

@@ -39,6 +39,10 @@ public class SampleEntity {
     public static final LocalDate SECOND_VALID_LOCAL_DATE = Task.getDateFromString("13/11/2019");
     public static final EventTime SECOND_VALID_EVENT_TIME = EventTime.parse("1200 - 1430");
 
+    public static final int THIRD_VALID_TASK_ID = 3;
+    public static final Description THIRD_VALID_DESCRIPTION = new Description("10 boxes of Blood Oranges");
+    public static final LocalDate THIRD_VALID_LOCAL_DATE = GlobalClock.getStaticDate();
+
     public static final Customer VALID_CUSTOMER = new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"),
             new Email("alexyeoh@gmail.com"),
             new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -129,6 +133,8 @@ public class SampleEntity {
         TaskManager taskManager = new TaskManager();
         taskManager.addTask(getUnassignedTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER));
         taskManager.addTask(getUnassignedTask(SECOND_VALID_TASK_ID, SECOND_VALID_DESCRIPTION, SECOND_VALID_LOCAL_DATE,
+                SECOND_VALID_CUSTOMER));
+        taskManager.addTask(getUnassignedTask(THIRD_VALID_TASK_ID, THIRD_VALID_DESCRIPTION, THIRD_VALID_LOCAL_DATE,
                 SECOND_VALID_CUSTOMER));
 
 

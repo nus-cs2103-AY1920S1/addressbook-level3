@@ -5,22 +5,31 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if (Is force assign?) then ([yes])
 
+if (Are the driver and task valid?) then ([yes])
 else ([no])
-    : Check against current schedule;
-    if (The most optimal time slot?) then ([yes])
+ stop
+endif
+
+if (Is the task already assigned?) then ([yes])
+
+else ([yes])
+    if (Is force assign?) then ([yes])
+    : Free that task;
     else ([no])
         stop
     endif
 endif
-if (Within working hours?) then ([yes])
-else ([no])
+
+: Check against the driver's schedule;
+if (Is the target driver available during the proposed time) then ([yes])
+    : assign;
     stop
-endif
-if (No schedule clash?) then ([yes])
+else ([no])
+    if (Was the task changed?) then ([yes])
+        : Restore that task;
     else ([no])
-        stop
 endif
 stop
+
 @enduml
