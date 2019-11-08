@@ -74,10 +74,10 @@ public class EditBioCommand extends Command {
             + PREFIX_CONTACT_NUMBER + "91234567 " + PREFIX_CONTACT_NUMBER + "98765432 "
             + PREFIX_MEDICAL_CONDITION + "1/Type I diabetes " + PREFIX_MEDICAL_CONDITION + "2/High Blood Pressure";
 
-    public static final String MESSAGE_EDIT_USER_SUCCESS = "I've edited your bio successfully! %1$s";
+    public static final String MESSAGE_EDIT_USER_SUCCESS = "I've successfully edited your bio! %1$s";
     public static final String MESSAGE_CHANGES_MADE = "The following changes were made.\n\n%1$s";
     public static final String MESSAGE_NO_CHANGE = "The information that you've keyed in are no different from "
-            + "what already exists in your current biography! As such, there's nothing for me to update :)";
+            + "what already exists in your current biography! As such, there's nothing for me to update =)";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
             + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";

@@ -16,7 +16,7 @@ public class RecmMixedFoodCommand extends Command {
 
     public static final String COMMAND_WORD = "recmfmix";
     public static final String MESSAGE_SUCCESS = "Hope you like this combination~\n"
-            + "If not, type again to see other possible combinations =)";
+            + "If not, try retyping this command again to see other possible combinations =)";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

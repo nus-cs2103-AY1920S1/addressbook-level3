@@ -33,8 +33,8 @@ public class AddFoodCommand extends Command {
             + PREFIX_FOOD_NAME + "Cucumber " + PREFIX_FOOD_TYPE + "nsv "
             + PREFIX_CALORIE + "15 " + PREFIX_GI + "15 " + PREFIX_SUGAR + "1.7 " + PREFIX_FAT + "0\n";
 
-    public static final String MESSAGE_SUCCESS = "New food added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists";
+    public static final String MESSAGE_SUCCESS = "I've successfully added new food: %1$s";
+    public static final String MESSAGE_DUPLICATE_FOOD = "Oops! This food already exists.";
 
     private final Food toAdd;
 

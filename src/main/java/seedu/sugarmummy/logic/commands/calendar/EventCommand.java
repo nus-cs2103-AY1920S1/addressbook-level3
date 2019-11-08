@@ -32,12 +32,12 @@ public class EventCommand extends Command {
             + PREFIX_DATETIME + "2020-05-04 11:00 "
             + PREFIX_TIME_DURATION + "00:30";
 
-    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the calendar";
+    public static final String MESSAGE_SUCCESS = "I've added this new event successfully: %1$s";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Oops! This event already exists in the calendar";
     public static final String MESSAGE_SUCCESS_WITH_OVERLAP = MESSAGE_SUCCESS
             + "\nHowever, it overlaps with the following events: %2$s";
-    public static final String MESSAGE_SUCCESS_WITH_REMINDER = "With auto reminder added: %1$s";
-    public static final String MESSAGE_SUCCESS_REMINDER_EXISTED = "Reminder already existed";
+    public static final String MESSAGE_SUCCESS_WITH_REMINDER = "I've successfully added your auto reminder: %1$s";
+    public static final String MESSAGE_SUCCESS_REMINDER_EXISTED = "Oops! Reminder already exists.";
 
     private final Event toAdd;
 
@@ -57,7 +57,7 @@ public class EventCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        String feedbackToUser = MESSAGE_SUCCESS;
+        String feedbackToUser = String.format(MESSAGE_SUCCESS, toAdd.toString());
         if (model.overlapsCalendarEntry(toAdd)) {
             feedbackToUser = String.format(MESSAGE_SUCCESS_WITH_OVERLAP,
                     toAdd, listToString(model.getCalendarEntryOverlaps(toAdd)));

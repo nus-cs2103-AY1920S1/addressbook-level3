@@ -29,7 +29,8 @@ public class RecmFoodCommand extends Command {
             + "-m: meal recommendations\n"
             + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
 
-    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
+    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "Oops! There are no matches in the current database "
+            + ":( "
             + "Try adding more new foods or reducing some filters~";
     public static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
 
