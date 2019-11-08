@@ -90,7 +90,9 @@ public class ExpenseList {
      * @param index One-based index stating which index or the expense to delete.
      */
     public void deleteExpense(int index) {
+        Expense toDelete = expenses.get(index - 1);
         expenses.remove(index - 1);
+        maximumCap -= toDelete.getAmount().numericalValue;
         sort();
     }
 

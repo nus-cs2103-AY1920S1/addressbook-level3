@@ -14,9 +14,9 @@ class ModelTest {
         // same object -> true
         assertTrue(model.getFinancialTracker().equals(ft));
 
-        model.updateFinancialTracker(new FinancialTracker());
+        Model model1 = new Model(new FinancialTracker());
         // different object -> false
-        assertFalse(model.getFinancialTracker().equals(ft));
+        assertFalse(model1.getFinancialTracker().equals(ft));
 
     }
 }

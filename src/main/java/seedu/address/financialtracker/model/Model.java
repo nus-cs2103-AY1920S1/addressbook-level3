@@ -26,6 +26,11 @@ public class Model {
         internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
     }
 
+    public Model(FinancialTracker financialTracker) {
+        this.financialTracker = financialTracker;
+        internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
+    }
+
     /**
      * Adds an expense into the financial tracker.
      */
@@ -76,15 +81,6 @@ public class Model {
 
     public FinancialTracker getFinancialTracker() {
         return financialTracker;
-    }
-
-    //todo: this implementation is so bad. Change it?
-    /**
-     * Update the Financial Tracker after reading from storage memory.
-     */
-    public void updateFinancialTracker(FinancialTracker financialTracker) {
-        this.financialTracker = financialTracker;
-        internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
     }
 
     public HashMap<String, Double> getSummaryMap() {

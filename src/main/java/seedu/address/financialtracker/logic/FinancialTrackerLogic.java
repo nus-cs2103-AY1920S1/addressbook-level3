@@ -12,6 +12,7 @@ import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.util.SampleDataUtil;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.financialtracker.ui.CountriesDropdown;
@@ -32,17 +33,25 @@ public class FinancialTrackerLogic {
     private final FinancialTrackerParser financialTrackerParser;
 
     public FinancialTrackerLogic() {
-        this.financialTrackerModel = new Model();
+        Model financialTrackerModel;
         this.storage = new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
         financialTrackerParser = new FinancialTrackerParser();
         try {
             Optional<FinancialTracker> financialTrackerOptional = storage.readFinancialTracker();
-            financialTrackerOptional.ifPresent(financialTrackerModel::updateFinancialTracker);
+            if(financialTrackerOptional.isPresent()) {
+                financialTrackerModel = new Model(financialTrackerOptional.get());
+            } else {
+                financialTrackerModel = new Model(SampleDataUtil.getSampleData());
+                logger.info("Data file not found. Will be starting with a sample FinancialTracker");
+            }
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty Financial Tracker");
+            financialTrackerModel = new Model();
+            logger.info("Data file not in the correct format. Will be starting with an empty Financial Tracker");
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty Financial Tracker");
+            financialTrackerModel = new Model();
+            logger.info("Problem while reading from the file. Will be starting with an empty Financial Tracker");
         }
+        this.financialTrackerModel = financialTrackerModel;
     }
 
     /**
