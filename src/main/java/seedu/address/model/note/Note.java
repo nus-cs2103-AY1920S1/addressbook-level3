@@ -53,6 +53,13 @@ public class Note extends StudyBuddyItem {
                 .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, "")
                 .replaceAll(NOTE_FRAGMENT_START_DETECTION_REGEX, " ")
                 .trim();
+
+        boolean hasNoteFragmentRegexes = (cleanedContent.matches(NOTE_FRAGMENT_START_DETECTION_REGEX) ||
+                cleanedContent.matches(NOTE_FRAGMENT_END_DETECTION_REGEX) ||
+                cleanedContent.matches(NOTE_FRAGMENT_CONTENT_DETECTION_REGEX) ||
+                cleanedContent.matches(NOTE_FRAGMENT_TAG_DETECTION_REGEX));
+        assert !hasNoteFragmentRegexes;
+
         return new Content(cleanedContent);
     }
 

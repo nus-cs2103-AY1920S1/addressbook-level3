@@ -59,10 +59,14 @@ public class DeleteNoteCommand extends Command {
             if (CommandHistory.getLastCommand().get() instanceof DeleteNoteCommand) {
                 if (((DeleteNoteCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
                         .equals(this.targetIndex)) {
+                    int noteListSize = model.getFilteredNoteList().size();
+
                     // correct. allow delete
                     model.deleteNote(noteToDelete);
-                    commandResult = new NoteCommandResult(String.format
-                            (MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+
+                    assert (model.getFilteredNoteList().size() - noteListSize == -1);
+
+                    commandResult = new NoteCommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
                 }
             }
         }
