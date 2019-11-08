@@ -493,7 +493,7 @@ public enum Responses {
                 } //todo
     ),
     STATS(
-            RegexUtil.commandFormatRegex("stats", new String[]{"deck/"}),
+            RegexUtil.commandFormatRegex("stats", new String[]{}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res =
