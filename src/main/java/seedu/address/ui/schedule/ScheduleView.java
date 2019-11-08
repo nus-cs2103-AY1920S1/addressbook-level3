@@ -241,6 +241,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
+        timeslotContainer.setId("freeTimeSlotContainer");
         timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
         LocalTime originalTimeStamp = LocalTime.of(START_TIME, 0);
         for (int j = 0; j < freeSchedule.size(); j++) {
@@ -253,6 +254,7 @@ public class ScheduleView extends UiPart<Region> {
             if (originalTimeStamp != startTime) {
                 int timeUntilNext = TimeUtil.getTimeDifference(originalTimeStamp, startTime);
                 Region untilNext = new Block(timeUntilNext).makeEmptyBlock();
+                untilNext.setId("emptyBlock");
                 timeslotContainer.getChildren().add(untilNext);
             }
             timeslotContainer.getChildren().add(freeTime);

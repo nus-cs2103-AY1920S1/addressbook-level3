@@ -30,6 +30,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.schedule.ScheduleView;
 import seedu.address.ui.util.ColorGenerator;
@@ -44,6 +46,8 @@ public class ScheduleViewTest extends ApplicationTest {
     private static final String SCHEDULE_CONTENT_ID = "#scheduleView #scheduleContentContainer";
 
     private static final WeekSchedule TEST_SCHEDULE = new WeekScheduleBuilder(LocalDate.now()).getSampleSchedule();
+    private static final FreeSchedule TEST_FREE_SCHEDULE = new FreeScheduleBuilder(LocalDate.now())
+            .getSampleFreeSchedule();
     private static final List<String> TEST_EVENT_NAMES = WeekScheduleBuilder.EVENT_NAMES;
     private static final String TEST_SCHEDULE_TITLE = "TEST SCHEDULE";
     private static final LocalDate now = LocalDate.now();
@@ -67,6 +71,7 @@ public class ScheduleViewTest extends ApplicationTest {
         ScheduleView scheduleView = new ScheduleView(List.of(TEST_SCHEDULE),
                 ColorGenerator.generateColorList(), TEST_SCHEDULE_TITLE, LocalDate.now());
         //Generate schedule using the TEST_SCHEDULE.
+        scheduleView.setFreeTime(TEST_FREE_SCHEDULE);
         scheduleView.generateSchedule();
         Parent sceneRoot = scheduleView.getRoot();
         Scene scene = new Scene(sceneRoot);
@@ -242,6 +247,69 @@ public class ScheduleViewTest extends ApplicationTest {
                     assertEquals(timeslot.getEndTime(), eventEndTime);
                 }
                 start = timeslot.getEndTime();
+            }
+        }
+    }
+
+    @Test
+    public void checkIfFreeTimeSlotBlocksHaveCorrectNumberAndSize() {
+        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeslot";
+        ArrayList<Node> freeTimeSlotBlocks = new ArrayList<>(lookup(freeTimeSlotId).queryAll());
+        ArrayList<FreeTimeslot> freeTimeSlots = new ArrayList<>();
+        for (int i = 1; i <= 7; i++) {
+            ArrayList<FreeTimeslot> timeslots = TEST_FREE_SCHEDULE.getFreeSchedule()
+                    .get(now.plusDays(i - 1).getDayOfWeek());
+            for (FreeTimeslot freeTimeslot : timeslots) {
+                freeTimeSlots.add(freeTimeslot);
+            }
+        }
+        //Equal number
+        assertEquals(freeTimeSlots.size(), freeTimeSlotBlocks.size());
+        //Equal size
+        for (int i = 0; i < freeTimeSlotBlocks.size(); i++) {
+            double heightOfBlock = ((StackPane) freeTimeSlotBlocks.get(i)).getHeight();
+            double duration = TimeUtil.getTimeDifference(freeTimeSlots.get(i).getStartTime(),
+                    freeTimeSlots.get(i).getEndTime());
+            assertEquals((int) duration, (int) heightOfBlock);
+        }
+    }
+
+    @Test
+    public void checkIfFreeTimeSlotBlocksArePlacedCorrectly() {
+        //Check if free time slot blocks are placed correctly in terms of pixels.
+        //Strategy is to count based on stub data.
+        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeslot";
+        String emptyBlockForFreeScheduleId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #emptyBlock";
+        ArrayList<Node> freeTimeSlotBlocks = new ArrayList<>(lookup(freeTimeSlotId).queryAll());
+        ArrayList<Node> emptyBlocks = new ArrayList<>(lookup(emptyBlockForFreeScheduleId).queryAll());
+        ArrayList<FreeTimeslot> freeTimeSlots = new ArrayList<>();
+        for (int i = 1; i <= 7; i++) {
+            ArrayList<FreeTimeslot> timeslots = TEST_FREE_SCHEDULE.getFreeSchedule()
+                    .get(now.plusDays(i - 1).getDayOfWeek());
+            for (FreeTimeslot freeTimeslot : timeslots) {
+                freeTimeSlots.add(freeTimeslot);
+            }
+        }
+        //From stub: Every 3 empty block and coloured block belong to one day from now until now + 3 days.
+        for (int i = 0; i < 4; i++) {
+            LocalTime curr = LocalTime.of(ScheduleView.START_TIME, 0);
+            for (int j = 0; j < 3; j++) {
+                FreeTimeslot freeTimeslot = freeTimeSlots.remove(0);
+                StackPane freeTimeSlotBlock = (StackPane) freeTimeSlotBlocks.remove(0);
+                if (freeTimeslot.getStartTime().isAfter(curr)) {
+                    //Need to include empty block in calculation.
+                    Region emptyBlock = (Region) emptyBlocks.remove(0);
+                    LocalTime startTime = curr.plusMinutes((long) emptyBlock.getHeight());
+                    LocalTime endTime = startTime.plusMinutes((long) freeTimeSlotBlock.getHeight());
+                    assertEquals(freeTimeslot.getStartTime(), startTime);
+                    assertEquals(freeTimeslot.getEndTime(), endTime);
+                } else {
+                    LocalTime startTime = curr.plusMinutes(0);
+                    LocalTime endTime = startTime.plusMinutes((long) freeTimeSlotBlock.getHeight());
+                    assertEquals(freeTimeslot.getStartTime(), startTime);
+                    assertEquals(freeTimeslot.getEndTime(), endTime);
+                }
+                curr = freeTimeslot.getEndTime();
             }
         }
     }
