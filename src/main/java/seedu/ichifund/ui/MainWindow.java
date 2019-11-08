@@ -36,7 +36,6 @@ public class MainWindow extends UiPart<Stage> {
     private ObservableValue<Integer> currentFeatureParserIndex;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private TransactionListPanel transactionListPanel;
     private RepeaterListPanel repeaterListPanel;
     private BudgetListPanel budgetListPanel;
@@ -67,9 +66,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private TabPane mainTabPane;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane transactionListPanelPlaceholder;
@@ -270,10 +266,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     public TransactionListPanel getTransactionListPanel() {

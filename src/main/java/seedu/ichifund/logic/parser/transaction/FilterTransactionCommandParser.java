@@ -41,24 +41,12 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         Optional<Category> category = parseCategory(argMultimap);
         Optional<TransactionType> transactionType = parseType(argMultimap);
 
-        return buildCommand(month, year, category, transactionType);
-    }
-
-    /**
-     * Builds the FilterTransactionCommand from data fields.
-     */
-    private FilterTransactionCommand buildCommand(Optional<Month> month, Optional<Year> year,
-                                                  Optional<Category> category,
-                                                  Optional<TransactionType> transactionType) {
-        FilterTransactionCommand.FilterTransactionCommandBuilder builder =
-                new FilterTransactionCommand.FilterTransactionCommandBuilder();
-
-        builder.setMonth(month);
-        builder.setYear(year);
-        builder.setCategory(category);
-        builder.setType(transactionType);
-
-        return builder.build();
+        return new FilterTransactionCommand.FilterTransactionCommandBuilder()
+                .withMonth(month)
+                .withYear(year)
+                .withCategory(category)
+                .withTransactionType(transactionType)
+                .build();
     }
 
     /**

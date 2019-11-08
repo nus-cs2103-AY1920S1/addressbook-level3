@@ -18,7 +18,7 @@ public class JsonSerializableFundBookTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableFundBookTest");
     private static final Path TYPICAL_FUNDBOOK_FILE = TEST_DATA_FOLDER.resolve("typicalFundBook.json");
     private static final Path INVALID_FUNDBOOK_FILE = TEST_DATA_FOLDER.resolve("invalidFundBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateFundBook.json");
+    private static final Path DUPLICATE_BUDGET_FILE = TEST_DATA_FOLDER.resolve("duplicateFundBook.json");
 
     @Test
     public void toModelType_typicalFundBookFile_success() throws Exception {
@@ -37,10 +37,10 @@ public class JsonSerializableFundBookTest {
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableFundBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+    public void toModelType_duplicateBudgets_throwsIllegalValueException() throws Exception {
+        JsonSerializableFundBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_BUDGET_FILE,
                 JsonSerializableFundBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableFundBook.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableFundBook.MESSAGE_DUPLICATE_BUDGET,
                 dataFromFile::toModelType);
     }
 

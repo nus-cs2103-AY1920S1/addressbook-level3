@@ -45,14 +45,14 @@ public class JsonFundBookStorage implements FundBookStorage {
     public Optional<ReadOnlyFundBook> readFundBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableFundBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableFundBook> jsonFundBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableFundBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonFundBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonFundBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,8 +60,8 @@ public class JsonFundBookStorage implements FundBookStorage {
     }
 
     @Override
-    public void saveFundBook(ReadOnlyFundBook addressBook) throws IOException {
-        saveFundBook(addressBook, filePath);
+    public void saveFundBook(ReadOnlyFundBook fundBook) throws IOException {
+        saveFundBook(fundBook, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonFundBookStorage implements FundBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveFundBook(ReadOnlyFundBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveFundBook(ReadOnlyFundBook fundBook, Path filePath) throws IOException {
+        requireNonNull(fundBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableFundBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFundBook(fundBook), filePath);
     }
 
 }

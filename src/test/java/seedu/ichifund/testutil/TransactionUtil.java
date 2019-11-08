@@ -8,7 +8,10 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.util.Optional;
+
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.AddTransactionCommand.AddTransactionCommandBuilder;
 import seedu.ichifund.logic.commands.transaction.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.ichifund.model.transaction.Transaction;
 
@@ -20,8 +23,22 @@ public class TransactionUtil {
     /**
      * Returns a full add transaction command string for adding the {@code transaction}.
      */
-    public static String getAddTransactionCommand(Transaction transaction) {
+    public static String getAddTransactionCommandString(Transaction transaction) {
         return AddTransactionCommand.COMMAND_WORD + " " + getTransactionDetails(transaction);
+    }
+
+    /**
+     * Returns a full add transaction command builder for adding the {@code transaction}.
+     */
+    public static AddTransactionCommandBuilder getAddTransactionCommandBuilder(Transaction transaction) {
+        return new AddTransactionCommandBuilder()
+                .withDescription(transaction.getDescription())
+                .withAmount(transaction.getAmount())
+                .withCategory(Optional.of(transaction.getCategory()))
+                .withDay(Optional.of(transaction.getDay()))
+                .withMonth(Optional.of(transaction.getMonth()))
+                .withYear(Optional.of(transaction.getYear()))
+                .withTransactionType(Optional.of(transaction.getTransactionType()));
     }
 
     /**

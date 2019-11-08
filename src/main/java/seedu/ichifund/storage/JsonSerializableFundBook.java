@@ -12,7 +12,6 @@ import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -24,12 +23,10 @@ import seedu.ichifund.model.transaction.Transaction;
 class JsonSerializableFundBook {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Repeater's %s field is missing!";
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_REPEATER = "Repeaters list contains duplicate repeater(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
 
     private final String currentRepeaterUniqueId;
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedRepeater> repeaters = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
@@ -40,12 +37,10 @@ class JsonSerializableFundBook {
     @JsonCreator
     public JsonSerializableFundBook(
             @JsonProperty("currentRepeaterUniqueId") String currentRepeaterUniqueId,
-            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
             @JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
             @JsonProperty("repeaters") List<JsonAdaptedRepeater> repeaters,
             @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.currentRepeaterUniqueId = currentRepeaterUniqueId;
-        this.persons.addAll(persons);
         this.transactions.addAll(transactions);
         this.repeaters.addAll(repeaters);
         this.budgets.addAll(budgets);
@@ -58,7 +53,6 @@ class JsonSerializableFundBook {
      */
     public JsonSerializableFundBook(ReadOnlyFundBook source) {
         currentRepeaterUniqueId = source.getCurrentRepeaterUniqueId().toString();
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         transactions.addAll(source.getTransactionList().stream().map(JsonAdaptedTransaction::new)
                 .collect(Collectors.toList()));
         repeaters.addAll(source.getRepeaterList().stream().map(JsonAdaptedRepeater::new).collect(Collectors.toList()));
@@ -82,14 +76,6 @@ class JsonSerializableFundBook {
         }
         final RepeaterUniqueId modelCurrentRepeaterUniqueId = new RepeaterUniqueId(currentRepeaterUniqueId);
         fundBook.setCurrentRepeaterUniqueId(modelCurrentRepeaterUniqueId);
-
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (fundBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            fundBook.addPerson(person);
-        }
 
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();

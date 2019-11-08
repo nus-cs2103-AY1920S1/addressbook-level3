@@ -70,7 +70,7 @@ class JsonAdaptedRepeater {
     }
 
     /**
-     * Converts this Jackson-friendly adapted repeater object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted repeater object into the model's {@code Repeater} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted repeater.
      */

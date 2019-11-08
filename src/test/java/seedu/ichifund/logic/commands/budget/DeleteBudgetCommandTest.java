@@ -6,8 +6,8 @@ import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandFailure
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ichifund.logic.commands.CommandTestUtil.showBudgetAtIndex;
 import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
-import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST_BUDGET;
-import static seedu.ichifund.testutil.TypicalIndexes.INDEX_SECOND_BUDGET;
+import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ichifund.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +28,8 @@ public class DeleteBudgetCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_FIRST_BUDGET.getZeroBased());
-        DeleteBudgetCommand deleteCommand = new DeleteBudgetCommand(INDEX_FIRST_BUDGET);
+        Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_FIRST.getZeroBased());
+        DeleteBudgetCommand deleteCommand = new DeleteBudgetCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteBudgetCommand.MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete);
 
@@ -49,10 +49,10 @@ public class DeleteBudgetCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showBudgetAtIndex(model, INDEX_FIRST_BUDGET);
+        showBudgetAtIndex(model, INDEX_FIRST);
 
-        Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_FIRST_BUDGET.getZeroBased());
-        DeleteBudgetCommand deleteCommand = new DeleteBudgetCommand(INDEX_FIRST_BUDGET);
+        Budget budgetToDelete = model.getFilteredBudgetList().get(INDEX_FIRST.getZeroBased());
+        DeleteBudgetCommand deleteCommand = new DeleteBudgetCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteBudgetCommand.MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete);
 
@@ -65,9 +65,9 @@ public class DeleteBudgetCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showBudgetAtIndex(model, INDEX_FIRST_BUDGET);
+        showBudgetAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_BUDGET;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of fund book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getFundBook().getBudgetList().size());
 
@@ -78,14 +78,14 @@ public class DeleteBudgetCommandTest {
 
     @Test
     public void equals() {
-        DeleteBudgetCommand deleteFirstCommand = new DeleteBudgetCommand(INDEX_FIRST_BUDGET);
-        DeleteBudgetCommand deleteSecondCommand = new DeleteBudgetCommand(INDEX_SECOND_BUDGET);
+        DeleteBudgetCommand deleteFirstCommand = new DeleteBudgetCommand(INDEX_FIRST);
+        DeleteBudgetCommand deleteSecondCommand = new DeleteBudgetCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteBudgetCommand deleteFirstCommandCopy = new DeleteBudgetCommand(INDEX_FIRST_BUDGET);
+        DeleteBudgetCommand deleteFirstCommandCopy = new DeleteBudgetCommand(INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

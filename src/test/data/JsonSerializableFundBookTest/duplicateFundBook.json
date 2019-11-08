@@ -1,18 +1,24 @@
 {
   "currentRepeaterUniqueId": "0",
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
-  }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
-  } ],
   "transactions" : [ ],
   "repeaters" : [ ],
-  "budgets" : [ ]
+  "budgets" : [ {
+    "description" : "Overall budget",
+    "amount" : "1337",
+    "month" : "12",
+    "year" : "2012",
+    "category": null
+  }, {
+    "description" : "Overall budget",
+    "amount" : "1337",
+    "month" : "12",
+    "year" : "2012",
+    "category": null
+  }, {
+    "description" : "Budget for anime",
+    "amount" : "300.00",
+    "month" : "12",
+    "year" : "2012",
+    "category" : "entertainment"
+  } ]
 }

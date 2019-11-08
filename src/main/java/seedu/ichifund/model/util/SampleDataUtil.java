@@ -1,9 +1,5 @@
 package seedu.ichifund.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.ReadOnlyFundBook;
@@ -16,7 +12,6 @@ import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
-import seedu.ichifund.model.tag.Tag;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -151,15 +146,6 @@ public class SampleDataUtil {
                 currentYear++;
             }
         }
-    }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
     }
 
 }
