@@ -27,6 +27,8 @@ import seedu.ifridge.model.ReadOnlyShoppingList;
 import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
 import seedu.ifridge.model.ReadOnlyWasteList;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.TemplateList;
 import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.food.Food;
@@ -77,7 +79,7 @@ public class AddGroceryCommandTest {
         // null -> returns false
         assertFalse(addBananaCommand.equals(null));
 
-        // different person -> returns false
+        // different grocery item -> returns false
         assertFalse(addBananaCommand.equals(addSpaghettiCommand));
     }
 
@@ -87,7 +89,9 @@ public class AddGroceryCommandTest {
     private class ModelStub implements Model {
 
         private final GroceryList groceryList = new GroceryList();
-        final UnitDictionary unitDictionary = new UnitDictionary(new HashMap<String, String>());
+        private final UnitDictionary unitDictionary = new UnitDictionary(new HashMap<String, String>());
+        private final TemplateList templateList = new TemplateList();
+        private final ShoppingList shoppingList = new ShoppingList();
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -155,7 +159,6 @@ public class AddGroceryCommandTest {
         }
 
         @Override
-
         public boolean hasGroceryItem(GroceryItem food) {
             requireNonNull(food);
             return groceryList.hasGroceryItem(food);
@@ -183,7 +186,6 @@ public class AddGroceryCommandTest {
 
         @Override
         public void commitGroceryList() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -251,6 +253,11 @@ public class AddGroceryCommandTest {
         }
 
         @Override
+        public boolean containsTemplateItemWithName(Food foodItem) {
+            return templateList.containsTemplateItemWithName(foodItem);
+        }
+
+        @Override
         public ObservableList<UniqueTemplateItems> getFilteredTemplateList() {
             throw new AssertionError("This method should not be called.");
         };
@@ -267,11 +274,6 @@ public class AddGroceryCommandTest {
 
         @Override
         public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean containsTemplateItemWithName(Food foodItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -401,7 +403,6 @@ public class AddGroceryCommandTest {
 
         @Override
         public void commitWasteList() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -451,7 +452,7 @@ public class AddGroceryCommandTest {
 
         @Override
         public boolean containsShoppingItemWithName(Food foodItem) {
-            throw new AssertionError("This method should not be called.");
+            return shoppingList.containsShoppingItemWithName(foodItem);
         }
 
         @Override
@@ -581,25 +582,7 @@ public class AddGroceryCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Food food;
-
-        ModelStubWithPerson(Food food) {
-            requireNonNull(food);
-            this.food = food;
-        }
-
-        @Override
-        public boolean hasGroceryItem(GroceryItem food) {
-            requireNonNull(food);
-            return this.food.isSameFood(food);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the grocery item being added.
      */
     private class ModelStubAcceptingGroceryItemAdded extends ModelStub {
         final ArrayList<Food> groceryItemsAdded = new ArrayList<>();

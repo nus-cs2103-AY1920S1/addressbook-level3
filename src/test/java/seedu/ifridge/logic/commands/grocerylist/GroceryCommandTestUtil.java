@@ -15,15 +15,13 @@ import java.util.List;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
-import seedu.ifridge.logic.commands.EditCommand;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
-import seedu.ifridge.model.food.UniqueTemplateItems;
-import seedu.ifridge.testutil.EditFoodDescriptorBuilder;
+import seedu.ifridge.testutil.EditGroceryItemDescriptorBuilder;
 import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
 
 /**
@@ -52,9 +50,10 @@ public class GroceryCommandTestUtil {
 
     public static final String[] VALID_TAG_BANANA = {"potassium", "fruits"};
     public static final String VALID_TAG_OLIVE_OIL = "healthy";
+    public static final String VALID_TAG_NUTS = "nuts";
+    public static final String VALID_TAG_ORANGES = "oranges";
     public static final String VALID_TAG_CARBS = "carbs";
     public static final String VALID_TAG_VEGETABLE = "vegetable";
-    public static final String VALID_TAG_NUTS = "nuts";
 
     public static final String NAME_DESC_NUTS = " " + PREFIX_NAME + VALID_NAME_NUTS;
     public static final String NAME_DESC_ORANGES = " " + PREFIX_NAME + VALID_NAME_ORANGES;
@@ -69,7 +68,8 @@ public class GroceryCommandTestUtil {
     public static final String EXPIRY_DATE_DESC_NUTS = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_NUTS;
     public static final String EXPIRY_DATE_DESC_ORANGES = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_ORANGES;
 
-    public static final String TAG_DESC_BANANA = " " + PREFIX_TAG + VALID_TAG_BANANA[0] + " " + PREFIX_TAG + VALID_TAG_BANANA[1];
+    public static final String TAG_DESC_BANANA = " " + PREFIX_TAG + VALID_TAG_BANANA[0] + " "
+            + PREFIX_TAG + VALID_TAG_BANANA[1];
     public static final String TAG_DESC_OLIVE_OIL = " " + PREFIX_TAG + VALID_TAG_OLIVE_OIL;
     public static final String TAG_DESC_VEGETABLE = " " + PREFIX_TAG + VALID_TAG_VEGETABLE;
     public static final String TAG_DESC_CARBS = " " + PREFIX_TAG + VALID_TAG_CARBS;
@@ -82,16 +82,17 @@ public class GroceryCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditFoodDescriptor DESC_NUTS;
-    public static final EditCommand.EditFoodDescriptor DESC_ORANGES;
+    public static final EditGroceryCommand.EditGroceryItemDescriptor DESC_NUTS;
+    public static final EditGroceryCommand.EditGroceryItemDescriptor DESC_ORANGES;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_MINCED_MEAT;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_TOMATO_JUICE;
 
     static {
-        DESC_NUTS = new EditFoodDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
-                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_VEGETABLE).build();
-        DESC_ORANGES = new EditFoodDescriptorBuilder().withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES)
-                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE).build();
+        DESC_NUTS = new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
+                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_NUTS).build();
+        DESC_ORANGES = new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_ORANGES)
+                .withAmount(VALID_AMOUNT_ORANGES).withExpiryDate(VALID_EXPIRY_DATE_ORANGES)
+                .withTags(VALID_TAG_ORANGES).build();
         DESC_TEMP_MINCED_MEAT = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
         DESC_TEMP_TOMATO_JUICE = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_TOMATO_JUICE)
@@ -141,21 +142,16 @@ public class GroceryCommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredGroceryItemList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the food at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the grocery item at the given {@code targetIndex} in the
+     * {@code model}'s grocery list.
      */
-    public static void showItemAtIndex(Model model, Index targetIndex) {
+    public static void showGroceryItemAtIndex(Model model, Index targetIndex) {
         // For grocery list
         assertTrue(targetIndex.getZeroBased() < model.getFilteredGroceryItemList().size());
         Food food = model.getFilteredGroceryItemList().get(targetIndex.getZeroBased());
         final String[] splitName = food.getName().fullName.split("\\s+");
         model.updateFilteredGroceryItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
         assertEquals(1, model.getFilteredGroceryItemList().size());
-
-        // For template list
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredTemplateList().size());
-        UniqueTemplateItems template = model.getFilteredTemplateList().get(targetIndex.getZeroBased());
-        assertEquals(1, model.getFilteredTemplateList().size());
     }
 
 }
