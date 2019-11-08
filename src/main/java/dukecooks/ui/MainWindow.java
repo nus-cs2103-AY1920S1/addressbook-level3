@@ -286,9 +286,11 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        if (runWorkoutWindow.getRoot().isShowing()) {
+
+        //TODO code below results in a null pointer
+        /**if (runWorkoutWindow.getRoot().isShowing()) {
             runWorkoutWindow.getRoot().hide();
-        }
+        }**/
     }
 
     /**
