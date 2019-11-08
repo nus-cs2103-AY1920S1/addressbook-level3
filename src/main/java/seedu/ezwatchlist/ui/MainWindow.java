@@ -330,7 +330,6 @@ public class MainWindow extends UiPart<Stage> {
                     move(currentButton, searchButton);
                     currentButton = searchButton;
                     CommandResult commandResult = task.getValue();
-                    System.out.println(commandResult);
                     logger.info("Result: " + commandResult.getFeedbackToUser());
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 });
