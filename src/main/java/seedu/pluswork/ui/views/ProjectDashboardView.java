@@ -31,7 +31,7 @@ public class ProjectDashboardView extends UiPart<Region> {
     @FXML
     private ListView<Task> taskListViewUpcomingDeadlines;
     @FXML
-    private ListView<Meeting> meetingListView;
+    private ListView<IndivMeetingCard> meetingListView;
 
     public ProjectDashboardView(ObservableList<Task> taskListNotStarted, ObservableList<Task> taskListDoing,
                                 ObservableList<Task> taskListDone, ObservableList<Task> taskListDeadline,

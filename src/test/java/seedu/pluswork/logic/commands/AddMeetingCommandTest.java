@@ -8,8 +8,33 @@ import static seedu.pluswork.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
+import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ProjectDashboard;
+import seedu.pluswork.model.ReadOnlyProjectDashboard;
+import seedu.pluswork.model.ReadOnlyUserPrefs;
+import seedu.pluswork.model.UserSettings;
+import seedu.pluswork.model.calendar.CalendarWrapper;
+import seedu.pluswork.model.calendar.Meeting;
+import seedu.pluswork.model.calendar.MeetingQuery;
+import seedu.pluswork.model.inventory.Inventory;
+import seedu.pluswork.model.mapping.InvMemMapping;
+import seedu.pluswork.model.mapping.Mapping;
+import seedu.pluswork.model.mapping.TasMemMapping;
+import seedu.pluswork.model.member.Member;
+import seedu.pluswork.model.member.MemberId;
+import seedu.pluswork.model.settings.ClockFormat;
+import seedu.pluswork.model.settings.Theme;
+import seedu.pluswork.model.statistics.Statistics;
+import seedu.pluswork.model.task.Task;
 
 public class AddMeetingCommandTest {
 
@@ -382,6 +407,11 @@ public class AddMeetingCommandTest {
         public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateData() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -390,22 +420,22 @@ public class AddMeetingCommandTest {
     private class ModelStubWithMeeting extends ModelStub {
         private final Meeting meeting;
 
-        ModelStubWithTask(Task task) {
-            requireNonNull(task);
-            this.task = task;
+        private ModelStubWithMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            this.meeting = meeting;
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return this.task.isSameTask(task);
+        public boolean hasMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            return this.meeting.isSameMeeting(meeting);
         }
     }
 
     /**
      * A Model stub that always accept the task being added.
      */
-    private class ModelStubAcceptingTaskAdded extends ModelStub {
+    private class ModelStubAcceptingMeetingAdded extends ModelStub {
         final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
         @Override
