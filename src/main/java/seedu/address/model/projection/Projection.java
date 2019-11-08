@@ -1,9 +1,12 @@
 package seedu.address.model.projection;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,6 +18,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;
 
@@ -25,12 +29,11 @@ public class Projection {
 
     private final ObservableList<BankAccountOperation> transactionHistory;
     private final Date date;
-    private List<Budget> budgets = new ArrayList<>();
+    private ObservableList<Budget> budgets = new UniqueBudgetList().asUnmodifiableObservableList();
     private List<Amount> budgetProjections = new ArrayList<>();
     private List<Amount> budgetStartValues = new ArrayList<>();
     private List<Amount> budgetThresholds = new ArrayList<>();
     private Amount projection;
-    private Amount cumulativeBalance;
     private GradientDescent projector;
     private Category category;
 
@@ -43,7 +46,7 @@ public class Projection {
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      List<Budget> budgets) {
+                      ObservableList<Budget> budgets) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
@@ -52,10 +55,10 @@ public class Projection {
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      List<Budget> budgets, Category category) {
+                      ObservableList<Budget> budgets, Category category) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
-        this.budgets = budgets;
+        this.budgets = budgets.sorted();
         this.category = category;
         this.project();
     }
@@ -73,7 +76,7 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.projection = amount;
         this.date = date;
-        this.budgets = budgets;
+        this.budgets = budgets.sorted();
         this.budgetProjections = new ArrayList<>();
         this.category = category;
         this.project();
@@ -105,7 +108,7 @@ public class Projection {
         return this.projector;
     }
 
-    public List<Budget> getBudgets() {
+    public ObservableList<Budget> getBudgets() {
         return this.budgets;
     }
 
