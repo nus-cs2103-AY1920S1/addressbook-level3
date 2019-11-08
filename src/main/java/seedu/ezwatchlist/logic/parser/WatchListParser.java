@@ -41,8 +41,7 @@ public class WatchListParser {
         /*if (shortCutKey(userInput)) {
             return new GoToParser().parse(userInput);
         }
-
-         */
+        */
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
