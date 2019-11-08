@@ -63,7 +63,7 @@ public class DeleteCommand extends Command {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
             }
             //TODO: updateProjectionsAfterDelete(Budget budget)
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
@@ -76,7 +76,7 @@ public class DeleteCommand extends Command {
             ObservableList<Projection> lastShownList = model.getFilteredProjectionsList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_PROJECTION_DISPLAYED_INDEX);
             }
 
             Projection projectionToDelete = lastShownList.get(targetIndex.getZeroBased());
