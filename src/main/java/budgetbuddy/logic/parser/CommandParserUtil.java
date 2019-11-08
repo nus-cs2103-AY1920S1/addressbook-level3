@@ -32,6 +32,7 @@ import budgetbuddy.model.transaction.Amount;
 public class CommandParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index should be a positive integer.";
+    public static final String MESSAGE_INVALID_DATE = "Date should be in the form of dd/mm/yyyy.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
@@ -145,7 +146,7 @@ public class CommandParserUtil {
         try {
             return LocalDate.parse(trimmedDate, getDateFormatter());
         } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
     }
 
