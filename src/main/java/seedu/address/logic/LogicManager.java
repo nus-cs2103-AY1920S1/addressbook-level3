@@ -69,6 +69,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         Command command = parserManager.parseCommand(commandText);
         commandResult = command.execute(model);
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
+        // @@author
 
         try {
             if (getMode().equals(ModeEnum.SETTINGS)) {

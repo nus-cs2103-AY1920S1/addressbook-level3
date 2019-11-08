@@ -418,6 +418,18 @@ Format: `clear`
 
 // end::chenhui-commandusage[]
 
+// tag::jasonstatscommand[]
+
+=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
+(Available in Open mode)
+
+==== Resetting the _WordBank_ statistics: `reset`
+Resets the statistics of the open _WordBank_ to an empty statistics.
+
+Format: `reset`
+
+// end::jasonstatscommand[]
+
 // tag::yida-game[]
 
 === Game Commands image:game_mode_icon.png[width="30"]
@@ -502,17 +514,6 @@ be reported.*)
 
 // end::yida-game[]
 
-
-// tag::jasonstatscommand[]
-
-=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
-(Available in Open mode)
-
-==== Clear the statistics of the open _WordBank_.
-
-Format: clear
-
-// end::jasonstatscommand[]
 
 // tag::paulsettings[]
 
@@ -725,6 +726,12 @@ s| `find` m| KEYWORD [MORE_KEYWORDS]...
 s| `list` m|
 
 s| `clear` m|
+
+3.1+|
+3.1+|
+1.1+h| WordBank Statistics Commands +
+(Available in Open mode)
+s| `reset` m|
 
 3.1+|
 3.1+|
