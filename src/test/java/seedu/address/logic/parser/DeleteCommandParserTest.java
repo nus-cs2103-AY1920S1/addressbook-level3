@@ -110,7 +110,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parsePerson_validPersonArgs_returnsDeletePersonCommand() throws ParseException {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = Integer.toString(targetIndex.getOneBased());
+        String userInput = FLAG_PERSON + SPACE + Integer.toString(targetIndex.getOneBased());
         DeletePersonCommand expectedCommand = new DeletePersonCommand(targetIndex);
         assertEquals(expectedCommand, parser.parsePerson(userInput));
     }
@@ -124,7 +124,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parseEvent_validEventArgs_returnsDeleteEventCommand() throws ParseException {
         Event targetEvent = new Event(VALID_EVENT);
-        String userInput = VALID_EVENT;
+        String userInput = FLAG_EVENT + SPACE + VALID_EVENT;
         DeleteEventCommand expectedCommand = new DeleteEventCommand(targetEvent);
         assertEquals(expectedCommand, parser.parseEvent(userInput));
     }

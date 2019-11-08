@@ -58,7 +58,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Creates a DeletePersonCommand object if the flag given is for a person.
      */
     public DeletePersonCommand parsePerson(String args) throws ParseException {
-        args = args.replaceAll(FLAG_PERSON.toString(), "");
+        args = removeFlag(args);
         if (args.isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE));
@@ -76,7 +76,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Creates a DeleteRecordCommand object if the flag given is for a record.
      */
     public DeleteRecordCommand parseRecord(String args) throws ParseException {
-        args = args.replaceAll(FLAG_RECORD.toString(), "");
+        args = args.substring(2).trim();
         if (args.isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRecordCommand.MESSAGE_USAGE));
@@ -108,7 +108,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Creates a DeleteEventCommand object if the flag given is for an event.
      */
     public DeleteEventCommand parseEvent(String args) throws ParseException {
-        args = args.replaceAll(FLAG_EVENT.toString(), "");
+        args = removeFlag(args);
         if (args.isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
@@ -139,12 +139,19 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         return flag;
     }
 
+    private String removeFlag(String args) throws ParseException {
+        try {
+            return args.substring(2).trim();
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(DeleteCommand.MESSAGE_USAGE);
+        }
+    }
+
     /**
      * Creates a DeleteTrainingCommand object if the flag given is for a training.
      */
     public DeleteTrainingCommand parseTraining(String args) throws ParseException {
-        args = args.replaceAll(FLAG_TRAINING.toString(), "");
-
+        args = removeFlag(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
         if (!isPrefixPresent(argMultimap, PREFIX_DATE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
