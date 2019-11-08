@@ -19,6 +19,8 @@ import dukecooks.model.dashboard.components.TaskStatus;
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
+    public static final String VARIANT_WORD = "task";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the displayed task list as complete. \n"
             + "Parameters: INDEX (must be a positive integer)\n";

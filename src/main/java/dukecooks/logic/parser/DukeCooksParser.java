@@ -19,7 +19,6 @@ import dukecooks.logic.commands.PushCommand;
 import dukecooks.logic.commands.RunCommand;
 import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.dashboard.DoneTaskCommand;
-import dukecooks.logic.parser.dashboard.DoneTaskCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
@@ -80,7 +79,7 @@ public class DukeCooksParser {
             return new HelpCommand();
 
         case DoneTaskCommand.COMMAND_WORD:
-            return new DoneTaskCommandParser().parse(arguments);
+            return new DoneCommandParser().parse(arguments);
 
         case PushCommand.COMMAND_WORD:
             return new PushCommandParser().parse(arguments);
