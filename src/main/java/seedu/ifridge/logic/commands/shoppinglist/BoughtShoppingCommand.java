@@ -67,6 +67,9 @@ public class BoughtShoppingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
         }
 
+        if (Amount.isEmptyAmount(amount)) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
+        }
         ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
         ShoppingItem boughtShoppingItem = shoppingItemToMarkAsBought.setBought(true);
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);

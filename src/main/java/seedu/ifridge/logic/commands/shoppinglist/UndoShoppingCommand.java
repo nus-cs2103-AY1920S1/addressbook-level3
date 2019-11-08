@@ -17,7 +17,6 @@ public class UndoShoppingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undo shopping list";
 
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
