@@ -57,6 +57,9 @@ class DateUtilTest {
         assertFalse(DateUtil.isValidDate("32-nov"));
         assertFalse(DateUtil.isValidDate("32-nov-19990"));
 
+        assertFalse(DateUtil.isValidDate("nov 32"));
+        assertFalse(DateUtil.isValidDate("nov-32"));
+
         assertFalse(DateUtil.isValidDate("2/2/79"));
         assertFalse(DateUtil.isValidDate("2/25/1995"));
 
