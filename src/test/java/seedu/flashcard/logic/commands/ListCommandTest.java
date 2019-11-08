@@ -1,17 +1,20 @@
 package seedu.flashcard.logic.commands;
 
+import static seedu.flashcard.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.flashcard.logic.commands.CommandTestUtil.showFlashcardAtIndex;
+import static seedu.flashcard.testutil.TypicalFlashcard.getTypicalFlashcardList;
+import static seedu.flashcard.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ModelManager;
 import seedu.flashcard.model.UserPrefs;
 
 
-import static seedu.flashcard.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.flashcard.logic.commands.CommandTestUtil.showFlashcardAtIndex;
-import static seedu.flashcard.testutil.TypicalFlashcard.getTypicalFlashcardList;
-import static seedu.flashcard.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
+
 
 
 /**

@@ -1,6 +1,5 @@
 package seedu.flashcard.logic.parser;
 
-import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.flashcard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.flashcard.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.flashcard.logic.commands.CommandTestUtil.TAG_DESC_LONG;
@@ -16,13 +15,15 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.flashcard.logic.commands.ListCardByTagCommand;
+import seedu.flashcard.logic.commands.StatsCommand;
 import seedu.flashcard.model.tag.Tag;
 
 
-public class ListCardByTagCommandParserTest {
 
-    private ListCardByTagCommandParser listCardByTagCommandParser = new ListCardByTagCommandParser();
+
+
+public class StatsCommandParserTest {
+    private StatsCommandParser statsCommandParser = new StatsCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -31,19 +32,19 @@ public class ListCardByTagCommandParserTest {
         Tag testTag2 = new Tag(VALID_TAG_LONG);
         testTags.add(testTag1);
         testTags.add(testTag2);
-        ListCardByTagCommand listCardByTagCommand = new ListCardByTagCommand(testTags);
-        assertParseSuccess(listCardByTagCommandParser, PREAMBLE_WHITESPACE + TAG_DESC_ROUND + TAG_DESC_LONG,
-                listCardByTagCommand);
+        StatsCommand statsCommand = new StatsCommand(testTags);
+        assertParseSuccess(statsCommandParser, PREAMBLE_WHITESPACE + TAG_DESC_ROUND + TAG_DESC_LONG,
+                statsCommand);
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
-        assertParseFailure(listCardByTagCommandParser, "", MESSAGE_INVALID_COMMAND_FORMAT
-                + ListCardByTagCommand.MESSAGE_USAGE);
+    public void parse_noTags_success() {
+        assertParseSuccess(statsCommandParser, "", new StatsCommand(null));
     }
+
 
     @Test
     public void parse_emptyTag_failure() {
-        assertParseFailure(listCardByTagCommandParser, INVALID_TAG_DESC, MESSAGE_CONSTRAINTS);
+        assertParseFailure(statsCommandParser, INVALID_TAG_DESC, MESSAGE_CONSTRAINTS);
     }
 }

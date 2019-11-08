@@ -19,8 +19,9 @@ import seedu.flashcard.model.tag.Tag;
 
 
 
-public class ListCardByTagCommandTest {
 
+
+public class StatsCommandTest {
     private Model model;
     private Model expectedModel;
     private Set<Tag> testTags;
@@ -39,27 +40,46 @@ public class ListCardByTagCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFilteredandPresentTags_showsSameList() {
+    public void execute_listIsNotFilteredAndPresentTags_showsSameList() {
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
-        assertCommandSuccess(new ListCardByTagCommand(testTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+        assertCommandSuccess(new StatsCommand(testTags), model,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true),
+                expectedModel, commandHistory);
     }
 
     @Test
-    public void execute_listIsFilteredandPresentTags_showsEverything() {
+    public void execute_listIsFilteredAndPresentTags_showsEverything() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
-        assertCommandSuccess(new ListCardByTagCommand(testTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+        assertCommandSuccess(new StatsCommand(testTags), model,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true),
+                expectedModel, commandHistory);
     }
 
     @Test
-    public void execute_listIsNotFilteredwithNonExistantTags_showsSameList() {
+    public void execute_listIsNotFilteredAndNoTags_showsEverything() {
+        assertCommandSuccess(new StatsCommand(null), model,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true),
+                expectedModel, commandHistory);
+    }
+
+
+    @Test
+    public void execute_listIsFilteredAndNoTags_showsEverything() {
+        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
+        assertCommandSuccess(new StatsCommand(null), model,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true),
+                expectedModel, commandHistory);
+    }
+
+    @Test
+    public void execute_listIsNotFilteredWithNonExistentTags_showsSameList() {
         Set<Tag> wrongTags = new HashSet<>();
         Tag wrongTag = new Tag("NonExistant");
         wrongTags.add(wrongTag);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(wrongTags));
-        assertCommandSuccess(new ListCardByTagCommand(wrongTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+        assertCommandSuccess(new StatsCommand(wrongTags), model,
+                new CommandResult(StatsCommand.MESSAGE_FAIL), expectedModel, commandHistory);
     }
+
 }
