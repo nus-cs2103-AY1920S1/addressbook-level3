@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.flashcard.Rating.NULL;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +19,7 @@ public class FlashCardBuilder {
 
     public static final String DEFAULT_QUESTION = "1 + 1";
     public static final String DEFAULT_ANSWER = "2";
-    public static final String DEFAULT_RATING = "good";
+    public static final String DEFAULT_RATING = NULL;
 
     private Question question;
     private Answer answer;
