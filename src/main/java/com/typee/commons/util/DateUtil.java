@@ -1,5 +1,7 @@
 package com.typee.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 
 /**
@@ -13,6 +15,7 @@ public class DateUtil {
      * @return A formatted date string.
      */
     public static String getFormattedDateString(LocalDate date) {
+        requireNonNull(date);
         String dayString = String.format("%02d", date.getDayOfMonth());
         String monthString = String.format("%02d", date.getMonthValue());
         String yearString = String.format("%04d", date.getYear());
