@@ -367,7 +367,12 @@
     -fx-font-size: 11;
 }
 
-#remDays .label {
+#budgetMinus {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#budgetMinus .label {
     -fx-background-color: #DC143C;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
