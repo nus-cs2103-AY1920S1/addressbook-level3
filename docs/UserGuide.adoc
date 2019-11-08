@@ -203,7 +203,6 @@ e.g. `clear`
 Prevent unauthorised access to your grades.
 
 // tag::quizsection[]
-
 === Quiz
 
 To enter the Quiz section please enter the command: `switch quiz` +
@@ -245,6 +244,7 @@ Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_categor
 
 - *Remark (please avoid this):* +
 *add <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+{empty} +
 
 ==== Delete question from record:
 Delete a specific quiz question from the group questions.
@@ -254,6 +254,7 @@ Usage: *[NUMBER]* is the index/row from that category that you want to delete. +
 
 Example 1: +
 *delete* 1 +
+{empty} +
 
 ==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
@@ -282,11 +283,13 @@ Example 1: +
 
 - Remark (Please avoid this): +
 *edit 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+{empty} +
 
 ==== List all the questions
 To list all the questions.
 
 Format: `list` +
+{empty} +
 
 ==== Find the quiz questions with keyword:
 Find the quiz questions from the list of questions.
@@ -313,7 +316,8 @@ Example 2: *find* category, answer <key> Tomorrow +
 Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
 
 Example 3: *find -i* answer <key> Tomrrow +
-Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_ +
+{empty} +
 
 ==== Details of a selected question:
 Show the details of a selected question. This details will show the whole questions that is truncated from the preview window
@@ -322,6 +326,7 @@ and reveal the comment/explanation from the selected question.
 Format: `detail [INDEX]` +
 Usage: *[INDEX]* is the index/row from the question that you want to see. +
 Example: detail 1 +
+{empty} +
 
 ==== Add Comment of a question:
 Users can add a comment/explanation of a particular questions.
@@ -336,7 +341,8 @@ Users can hide all question answers when they want to revise or for other purpos
 provide the user the hint of the answer. By default the answer is shown.
 
 Format: `showAnswer [yes/no]` +
-Example: showAnswer no
+Example: showAnswer no +
+{empty} +
 
 ==== Undo:
 Undo some of the previous action. +

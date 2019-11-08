@@ -287,8 +287,7 @@ image::QuizCreationActivityDiagram.png[]
 ** Cons: User may not be able to position the question from the list of questions.
 * **Alternative 2:** Users insert the question to the desired position.
 ** Pros: User can order the list as they desired and remember things better.
-** Cons: Not as fast as the insertion at the back of the list from alternative 1.
-
+** Cons: Not as fast as the insertion at the back of the list from alternative 1. +
 {empty} +
 
 ==== Undo/Redo feature
