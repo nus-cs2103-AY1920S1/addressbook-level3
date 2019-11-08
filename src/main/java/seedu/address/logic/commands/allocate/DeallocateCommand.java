@@ -39,9 +39,9 @@ public class DeallocateCommand extends Command {
             + " [EMPLOYEE_ID]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EMPLOYEE_ID + "001";
 
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the de-allocate feature\n"
+            + "Note: Deallocate Commands only works on a Tab where you have an Event List.\n";
     private static final String MESSAGE_FREE_EVENT_SUCCESS = "De-allocated %2$s from the Event: %1$s";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the de-allocate feature\n" +
-            "Note: Deallocate Commands only works on a Tab where you have an Event List.\n";
 
     private final Index eventIndex;
     private final String employeeId;

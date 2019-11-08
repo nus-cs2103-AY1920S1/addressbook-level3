@@ -30,8 +30,8 @@ public class DeleteDateMappingCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 on/18/10/2019";
 
     public static final String MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS = "Deleted DateTime [%s] from Event: [%s]";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n" +
-            "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
+            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     private final Index targetIndex;
     private final EventDate targetDate;

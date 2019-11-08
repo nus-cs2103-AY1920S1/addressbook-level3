@@ -40,11 +40,11 @@ public class ManualAllocateCommand extends Command {
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
     public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s.";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the manual allocate feature\n" +
-            "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n" +
-            "You can consider using the Auto Allocate Commands instead.";
-    public static final String MESSAGE_WRONG_TAB_2 = "Current Window does not support the manual allocate feature\n" +
-            "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the manual allocate feature\n"
+            + "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n"
+            + "You can consider using the Auto Allocate Commands instead.";
+    public static final String MESSAGE_WRONG_TAB_2 = "Current Window does not support the manual allocate feature\n"
+            + "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n";
 
     private final Index employeeIndex;
     private final Index eventIndex;

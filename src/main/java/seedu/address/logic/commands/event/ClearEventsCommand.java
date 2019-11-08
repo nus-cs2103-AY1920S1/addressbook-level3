@@ -16,8 +16,8 @@ public class ClearEventsCommand extends Command {
 
     public static final String COMMAND_WORD = "clear_ev";
     public static final String MESSAGE_SUCCESS = "EventBook has been cleared!";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n" +
-            "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
+            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

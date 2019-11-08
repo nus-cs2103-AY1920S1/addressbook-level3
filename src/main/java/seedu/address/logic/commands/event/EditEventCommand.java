@@ -56,14 +56,14 @@ public class EditEventCommand extends Command {
             + PREFIX_EVENT_NAME + "Drawing Competition "
             + PREFIX_EVENT_VENUE + "Utown Student Plaza";
 
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
+            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
     private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     private static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid Manpower Needed input."
             + " You may not state a number that is below the current number of allocated employees. \n"
             + "Free some employees before executing this command again!";
     private static final String MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER =
             "Free all allocated manpower before editing Event Date";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n" +
-            "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;

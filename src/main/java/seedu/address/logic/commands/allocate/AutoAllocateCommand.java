@@ -47,8 +47,8 @@ public class AutoAllocateCommand extends Command {
 
 
     public static final String MESSAGE_ALLOCATE_SUCCESS = "Allocated %2$d people to %1$s ";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the manual allocate feature\n" +
-            "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not support the manual allocate feature\n"
+            + "Note: Manual Allocate Commands only works on either the Main Tab or Employee Window.\n";
 
     private Integer manpowerCountToAdd;
     private final Index eventIndex;

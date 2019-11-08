@@ -23,8 +23,8 @@ public class FindByTagCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fun hardworking";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
-            "Note: Employee Commands only works on either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
+            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final TagContainsKeywordsPredicate predicate;
 

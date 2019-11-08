@@ -26,8 +26,8 @@ public class FetchEmployeeCommand extends Command {
             + "Example: " + COMMAND_WORD + " on/02/12/2019";
 
     public static final String MESSAGE_SUCCESS = "Fetched Employee: %1$s";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
-            "Note: Employee Commands only works on either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
+            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index index;
 

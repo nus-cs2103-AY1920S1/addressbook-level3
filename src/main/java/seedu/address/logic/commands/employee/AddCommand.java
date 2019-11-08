@@ -47,8 +47,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New employee added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the AddMin+";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
-            "Note: Employee Commands only works on either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
+            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Employee toAdd;
 

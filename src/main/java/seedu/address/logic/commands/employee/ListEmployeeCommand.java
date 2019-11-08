@@ -17,8 +17,8 @@ public class ListEmployeeCommand extends Command {
     public static final String COMMAND_WORD = "list_em";
 
     public static final String MESSAGE_SUCCESS = "Listed all employees.";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
-            "Note: Employee Commands only works on either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
+            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
 
     @Override

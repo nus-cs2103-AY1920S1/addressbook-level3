@@ -64,8 +64,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the employeeAddress book.";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
-            "Note: Employee Commands only works on either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
+            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index index;
     private final EditEmployeeDescriptor editEmployeeDescriptor;
