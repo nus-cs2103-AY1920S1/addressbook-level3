@@ -279,6 +279,26 @@ Chat box getting too cluttered? Type `clearscreen` to clear it!
 
 Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
 
+=== Entertainment Features
+
+Too stressed from all the work? Check out these features to take a short break so that you can go further!
+
+==== Play a game: `game`
+
+`game` switches you list of tasks into a game of Snakes! 
+
++++<u>Rules:</u>+++
+
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER! 
+
+Hit `ENTER` to reset the game when your snake dies.
+
+Pressing `ESC` key will exit the game and return you to your list of tasks!
+
+==== Tell a joke: `joke`
+
+Type `joke` in the command box and I will showcase my exceptional sense of humor and tell you a random joke!
+
 === Undo/Redo Feature
 
 // tag::undo[]
