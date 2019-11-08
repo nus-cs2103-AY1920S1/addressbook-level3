@@ -11,6 +11,7 @@ import seedu.address.model.tasks.TaskSource;
  * Represents a class that manages the {@link ModelData} of Horo.
  */
 public class ModelManager {
+
     private ModelData model;
 
     private final List<ModelDataListener> modelDataListeners;
@@ -70,4 +71,9 @@ public class ModelManager {
     public List<TaskSource> getTasks() {
         return this.model.getTasks();
     }
+
+    public ModelData getModel() {
+        return model;
+    }
+
 }

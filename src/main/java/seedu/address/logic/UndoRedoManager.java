@@ -115,7 +115,7 @@ public class UndoRedoManager implements ModelDataListener {
 
     /**
      * Appends the current ModelLists, containing the current events and tasks, to undoStateList.
-     */
+            */
     @Override
     public void onModelDataChange(ModelData modelData) {
         if (listening) {
@@ -153,4 +153,13 @@ public class UndoRedoManager implements ModelDataListener {
             return true;
         }
     }
+
+    public List<ModelData> getUndoStateList() {
+        return undoStateList;
+    }
+
+    public int getUndoIndex() {
+        return undoIndex;
+    }
+
 }
