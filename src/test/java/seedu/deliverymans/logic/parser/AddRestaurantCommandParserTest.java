@@ -1,7 +1,6 @@
 package seedu.deliverymans.logic.parser;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_LOCATION_DESC;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -36,16 +35,16 @@ public class AddRestaurantCommandParserTest {
                 LocationMap.getLocation("Changi").get(),
                 getTagSet("Tag1"));
 
-        assertParseSuccess(parser, NAME_DESC_TWO + LOCATION_DESC_TWO +
-                TAG_DESC_ONE, new AddRestaurantCommand(expectedRestaurant));
+        assertParseSuccess(parser, NAME_DESC_TWO + LOCATION_DESC_TWO
+                + TAG_DESC_ONE, new AddRestaurantCommand(expectedRestaurant));
 
         // multiple tags - success
         Restaurant expectedRestaurantMultipleTags = new Restaurant(new Name("Name Two"),
                 LocationMap.getLocation("Changi").get(),
                 getTagSet("Tag2", "Tag1"));
 
-        assertParseSuccess(parser, NAME_DESC_TWO + LOCATION_DESC_TWO +
-                TAG_DESC_TWO + TAG_DESC_ONE, new AddRestaurantCommand(expectedRestaurantMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_TWO + LOCATION_DESC_TWO
+                + TAG_DESC_TWO + TAG_DESC_ONE, new AddRestaurantCommand(expectedRestaurantMultipleTags));
     }
 
     @Test
@@ -75,16 +74,16 @@ public class AddRestaurantCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + LOCATION_DESC_TWO +
-                TAG_DESC_TWO + TAG_DESC_ONE, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + LOCATION_DESC_TWO
+                + TAG_DESC_TWO + TAG_DESC_ONE, Name.MESSAGE_CONSTRAINTS);
 
         // invalid location
-        assertParseFailure(parser, NAME_DESC_TWO + INVALID_LOCATION_DESC +
-                TAG_DESC_TWO + TAG_DESC_ONE, LocationMap.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_TWO + INVALID_LOCATION_DESC
+                + TAG_DESC_TWO + TAG_DESC_ONE, LocationMap.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_TWO + LOCATION_DESC_TWO +
-                INVALID_TAG_DESC + VALID_TAG_ONE, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_TWO + LOCATION_DESC_TWO
+                + INVALID_TAG_DESC + VALID_TAG_ONE, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + INVALID_LOCATION_DESC, Name.MESSAGE_CONSTRAINTS);

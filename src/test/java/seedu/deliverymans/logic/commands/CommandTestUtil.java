@@ -1,16 +1,5 @@
 package seedu.deliverymans.logic.commands;
 
-import seedu.deliverymans.commons.core.index.Index;
-import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.database.RestaurantDatabase;
-import seedu.deliverymans.model.restaurant.NameContainsKeywordsPredicate;
-import seedu.deliverymans.model.restaurant.Restaurant;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -18,6 +7,20 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.database.RestaurantDatabase;
+import seedu.deliverymans.model.restaurant.NameContainsKeywordsPredicate;
+import seedu.deliverymans.model.restaurant.Restaurant;
+
+/**
+ * Contains helper methods for testing commands.
+ */
 public class CommandTestUtil {
 
     public static final String VALID_NAME_ONE = "Name One";

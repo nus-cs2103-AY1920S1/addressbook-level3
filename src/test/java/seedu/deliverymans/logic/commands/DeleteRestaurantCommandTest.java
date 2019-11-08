@@ -75,7 +75,8 @@ public class DeleteRestaurantCommandTest {
         Restaurant personToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST.getZeroBased());
         DeleteRestaurantCommand deleteCommand = new DeleteRestaurantCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteRestaurantCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteRestaurantCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS,
+                personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getCustomerDatabase(), model.getDeliverymenDatabase(),
                 model.getRestaurantDatabase(), model.getOrderDatabase(), new UserPrefs());
