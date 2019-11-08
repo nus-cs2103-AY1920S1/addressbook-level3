@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DOLLAR_AMOUNT;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,6 @@ class PayCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(payCommandParser, INVALID_DOLLAR_AMOUNT,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PayCommand.MESSAGE_USAGE));
+        assertParseFailure(payCommandParser, INVALID_DOLLAR_AMOUNT, MESSAGE_INVALID_DOLLAR_AMOUNT);
     }
 }

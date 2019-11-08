@@ -34,7 +34,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index should be a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DOLLAR_AMOUNT =
-            "Dollar amount should be a non-zero number with at most 2 decimal places.";
+            "Dollar amount should be a non-zero number with at most 2 decimal places.\n"
+                    + "Maximum dollar amount payable is $21474836.47";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -204,7 +205,7 @@ public class ParserUtil {
     public static LoanPeriod parseLoanPeriod(String loanPeriod) throws ParseException {
         requireNonNull(loanPeriod);
         String trimmedLoanPeriod = loanPeriod.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLoanPeriod)) {
+        if (!LoanPeriod.isValidLoanPeriod(trimmedLoanPeriod)) {
             throw new ParseException(LoanPeriod.MESSAGE_CONSTRAINTS);
         }
         return new LoanPeriod(trimmedLoanPeriod);
@@ -218,7 +219,7 @@ public class ParserUtil {
     public static RenewPeriod parseRenewPeriod(String renewPeriod) throws ParseException {
         requireNonNull(renewPeriod);
         String trimmedRenewPeriod = renewPeriod.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedRenewPeriod)) {
+        if (!RenewPeriod.isValidRenewPeriod(trimmedRenewPeriod)) {
             throw new ParseException(RenewPeriod.MESSAGE_CONSTRAINTS);
         }
         return new RenewPeriod(trimmedRenewPeriod);
@@ -232,7 +233,7 @@ public class ParserUtil {
     public static FineIncrement parseFineIncrement(String fineIncrement) throws ParseException {
         requireNonNull(fineIncrement);
         String trimmedFineIncrement = fineIncrement.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedFineIncrement)) {
+        if (!FineIncrement.isValidFineIncrement(trimmedFineIncrement)) {
             throw new ParseException(FineIncrement.MESSAGE_CONSTRAINTS);
         }
         return new FineIncrement(trimmedFineIncrement);
@@ -246,7 +247,7 @@ public class ParserUtil {
     public static MaxRenews parseMaxRenews(String maxRenews) throws ParseException {
         requireNonNull(maxRenews);
         String trimmedMaxRenews = maxRenews.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedMaxRenews)) {
+        if (!MaxRenews.isValidMaxRenews(trimmedMaxRenews)) {
             throw new ParseException(MaxRenews.MESSAGE_CONSTRAINTS);
         }
         return new MaxRenews(trimmedMaxRenews);
