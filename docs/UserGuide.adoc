@@ -418,6 +418,7 @@ The following commands are related to the changing the display of the UI.
 
 Take note that UI-related commands are not affected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
+// tag::uiCalendarView[]
 ==== Changing Screen View to Calendar View
 
 .Calendar View Command for Calendar
@@ -446,6 +447,9 @@ Example: +
 
 {empty} +
 
+// end::uiCalendarView[]
+
+// tag::uiTimelineDay[]
 ==== Changing Timeline to a given day
 
 .Day View Command for the Timeline
@@ -485,6 +489,8 @@ Example: +
 `*week* 01/11/2019`
 
 {empty} +
+
+// end::uiTimelineDay[]
 
 ==== Changing Timeline to a given month
 
