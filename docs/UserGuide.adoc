@@ -54,81 +54,119 @@ image::StartUpGUI.png[]
 {sp} +
 
 Jarvis' <<link-main-features, four main features>> have been split into four distinct tabs. You can
-toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
-features' `list` commands.
+toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using
+the `list` command in each feature.
 
-You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
+[NOTE]
+You can also use the `enter` key to return focus to the command box.
+
+You can learn more about each feature's individual GUI and its respective commands in the coming sections.
 
 {sp} +
 
-== Features
+== Symbols and command format.
 
-Before delving straight into each feature, here are some things to note - in order to get the most
-out of this user guide.
+Before delving straight into each feature, lets get familiarised with the conventions used in this user guide.
 
-:sectnums!:
-=== Command Format
+=== Symbols
+[NOTE]
+This symbol indicates important information.
 
-* Words in `UPPER CASE` are parameters supplied by the user, while those
-in `lower case` are **commands** used in `Jarvis`.
-+
-For example:
-+
+=== Command format
+==== Lower case vs upper case
+Words in `lower case` are **commands** used in `Jarvis` while those in `UPPER CASE` are parameters supplied by the user.
+
+Take the following command as an example:
+
 `add-task t/TASK-TYPE des/TASK-DESCRIPTION`
-+
-In the above example, `TASK-TYPE` and `TASK-DESCRIPTION` are the parameters supplied by
-the user, while `add-task` and the prefixes, `t/` and `des/`, are parts of a command.
 
-* Items in square brackets `[]` are optional.
-+
-For example, the command:
-+
+In the above example, `add-task` and the prefixes, `t/` and `des/` are parts of a command while `TASK-TYPE` and
+`TASK-DESCRIPTION` are the parameters supplied by the user.
+
+==== Square brackets
+
+Items in square brackets `[]` are optional.
+
+Take the following command as an example:
+
 `add-task t/TASK-TYPE des/TASK-DESCRIPTION [p/PRIORITY]`
+
+In the above example, the command can be used:
+
+* **With a priority level**:
 +
-Can be used:
-+
-With a priority level:: `add-task t/todo des/assignment p/high`
+`add-task t/todo des/assignment p/high`
 +
 or
-+
-Without a priority level:: `add-task t/todo des/assignment`
 
-* Parameters with `...` can be used once or more.
+* **Without a priority level**:
 +
+`add-task t/todo des/assignment`
+
+==== Ellipses
+
+Parameters with `...` can be used once or more.
+
 For example:
+
+`[#TAG]...` is an optional parameter that can be used either none, once or multiple times.
+
+* **Without an optional parameter**:
 +
-`[#TAG]...` is an optional parameter that can either not be used, used once,
-or used multiple times.
-+
-Without an optional parameter:: `add-task t/todo des/assignment`
+`add-task t/todo des/assignment`
 +
 or
 +
-With an optional parameter:: `add-task t/todo des/assignment #cs2103t #urgent`
+* **With an optional parameter**:
++
+`add-task t/todo des/assignment #cs2103t #urgent`
 
-* Jarvis can parse parameters to commands in *any order*.
+==== Curly braces and pipes
 
-* Some commands can take in different parameters. These parameters are represented with a pipe, `|` ,
+Some commands can take in different parameters. These parameters are represented with a pipe, `|` ,
 surrounded by curly braces, e.g `{param1 | param2}`.
-+
+
 For example, the command:
-+
+
 `export {csv | txt | xlsx} f/FILENAME`
-+
 
 can be used
+
+* **With a csv parameter**:
 +
-With a csv parameter:: `export csv f/MyFile`
+`export csv f/MyFile`
 +
 or
-+
-With a txt parameter:: `export txt f/MyFile`
 
-* Dates follow the following format: `d/m/yyyy`.
+* **With a txt parameter**:
 +
+`export txt f/MyFile`
+
+==== Date format
+Dates follow the following format: `d/m/yyyy`.
+
 For example:
+
+`add-task t/deadline des/assignment d/1/1/1970`
+
+==== Order of parameters
+
+Jarvis can parse parameters to commands in *any order*.
+
+For example, the command can be represented in this format:
+
+* **With the des/ prefix before the d/prefix**:
 +
 `add-task t/deadline des/assignment d/1/1/1970`
++
+or
+* **With the d/ prefix before the des/prefix**:
++
+`add-task t/deadline d/1/1/1970 des/assignment`
+
+== Features
+
+:sectnums!:
 
 ////
 Task Scheduler
@@ -487,12 +525,12 @@ The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on 
 CCAs been so easy.
 
 ==== Adding a CCA: `add-cca`
-To start, we can add some CCAs to the CCA Tracker. You will need to to specify
-the name of the cca and the type of CCA.
+To start, we can add some CCAs to the CCA Tracker. You will need to specify
+the name of the cca and the type of the CCA.
 
 Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
 
-The `types` of the CCA are:
+The `types` of the CCA are limited to the following:
 
 * `performingArt`
 * `sport`
@@ -501,9 +539,9 @@ The `types` of the CCA are:
 
 ===== Example
 ----
-add-cca n/Swimming t/sport e/swimming trunks e/goggles
 add-cca n/Canoeing t/sport
-add-cca n/Guitar Ensemble t/performingArt e/guitar
+add-cca n/Piano t/performingArt e/piano e/musical score e/metronome
+add-cca n/Red cross t/uniformedGroup e/uniform e/first aid kit e/stretcher e/beret
 ----
 
 ==== Deleting a CCA: `delete-cca`
@@ -511,28 +549,31 @@ New semester, new CCAs - deleting outdated ones is a breeze.
 
 Format: `delete-cca INDEX`
 
-where `INDEX` is the *one-based* of a CCA.
-
 ===== Example
 ----
 delete-cca 1
 ----
 
-==== Editing a CCA: `edit-cca`
-If you have bought some new running shoes, or the latest tuner for your violin, let `Jarvis`
-know so that your changes to your CCAs can be updated!
+[NOTE]
+`INDEX` corresponds to the **one based index** shown on the list of Ccas under the Ccas tab. This also means that the
+index must exist within this list!
 
-Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT...}`
+
+==== Editing a CCA: `edit-cca`
+If you have bought the latest tuner for your piano or some new running shoes, let `Jarvis`
+know so that the changes to your CCAs can be updated!
+
+Format: `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT... | p/MILESTONE... | l/PROGRESS-LEVEL }`
 
 ===== Example
 ----
-edit-cca 1 t/sport e/tennis racket
-edit-cca 1 t/performingArt
-edit-cca 1 n/Running e/shoes e/water bottle
+edit-cca 1 n/Piano t/performingArt e/piano e/musical score e/metronome e/tuner e/piano book
+edit-cca 2 n/Running e/shoes e/water bottle e/snack bar
+edit-cca 2 p/beginner p/intermediate p/advanced p/half-marathon p/full marathon p/ultramarathon l/5
 ----
 
 [NOTE]
-`Jarvis` will soon also be able to edit the milestones of your CCAs in v2.0!
+Note that you will have to re-type each `EQUIPMENT` if you wish to add additional `EQUIPMENT` to the selected cca!
 
 ==== Listing a CCA: `list-cca`
 Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
@@ -553,17 +594,16 @@ find-cca canoeing guitar
 ----
 
 ==== Adding progress levels for a CCA: `add-progress`
-Often, we strive to reach certain milestones in our CCAs. For example, in swimming, you might be aiming to
+Often, we strive to reach certain milestones in our CCAs. For example, in learning piano, you might be aiming to
 progress through the various grade levels (shown in the example below) available. With `add-progress`,
 `Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
 
-Format: `add-progress INDEX p/MILESTONE... `
+Format: `add-progress INDEX p/MILESTONE...`
 
 ===== Example
 ----
-add-progress 1 p/bronze p/silver p/gold p/gold star
-add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
-add-progress n/Guitar Ensemble l/8
+add-progress 1 p/Grade 1 p/Grade 2 p/Grade 3 p/Grade 4 p/Grade 5 p/Grade 6 p/Grade 7 p/Grade 8 p/Diploma
+add-progress 2 p/LCP p/Corporal p/Sergeant p/Staff Sergeant p/Warrant Officer p/Senior Warrant Officer
 ----
 
 ==== Incrementing progress level: `increment-progress`
@@ -572,14 +612,24 @@ provides a clear view of how much closer you are to their respective milestones.
 
 Format: `increment-progress INDEX`
 
-[NOTE]
-Note that progress can only be incremented if `add-progress` has previously been executed on that particular CCA.
-
 ===== Example
 ----
 increment-progress 1
 ----
 
+[NOTE]
+Note that progress can only be incremented if `add-progress` has previously been executed on that particular Cca.
+
+
+==== Add training date: `add-cca` [v2.0]
+Need a reminder on Cca trainings? Add training dates to each Cca. Note that the training date is an optional parameter.
+
+Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]... [d/TRAINING DATE]...`
+
+===== Example
+----
+add-cca n/Piano t/performingArt d/1/12/2019 d/7/12/2019
+----
 
 ////
 Course Planner
@@ -780,11 +830,14 @@ redo commands.
 
 '''
 
-**Q:** Are official NUS CCAs supported in the CCA Tracker?
+**Q:** Are official NUS CCAs integrated into the CCA Tracker?
 
 **A:** Not in the current version, but you can look forward to it in v2.0!
 
+'''
+
 **Q:** Am I able to manage my non-computing courses in the Course Planner?
+
 **A:** As the information is obtained directly from NUSMods, you are able to add any official NUS module to the Course
 Planner, as long as it is available on NUSMods as well.
 
@@ -809,23 +862,6 @@ A convenient summary of all the commands you can use in `Jarvis`.
 * `edit-task INDEX//NEW-DESCRIPTION...` [v2.0]
 * `clear-task [#TAG]... [d/DATE]` [v2.0]
 
-=== Course Planner
-
-* `add-course c/COURSECODE...`
-* `delete-course {c/COURSECODE | INDEX}`
-* `lookup c/COURSECODE`
-* `check c/COURSECODE`
-
-=== Cca Tracker
-
-* `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
-* `delete-cca INDEX`
-* `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT...}`
-* `list-cca`
-* `find-cca KEYWORD...`
-* `add-progress INDEX p/MILESTONE...`
-* `increment-progress INDEX`
-
 === Finance Tracker
 
 * `add-paid d/PURCHASE-DESCRIPTION a/AMOUNT`
@@ -842,6 +878,24 @@ A convenient summary of all the commands you can use in `Jarvis`.
 * `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
 * `done-debt INDEX`
 * `done-owe INDEX`
+
+=== Cca Tracker
+
+* `add-cca n/NAME t/TYPE [e/EQUIPMENT]...`
+* `delete-cca INDEX`
+* `edit-cca INDEX { n/NAME | t/TYPE | e/EQUIPMENT... | p/MILESTONE... | l/PROGRESS-LEVEL }`
+* `list-cca`
+* `find-cca KEYWORD...`
+* `add-progress INDEX p/MILESTONE...`
+* `increment-progress INDEX`
+* `add-cca n/NAME t/TYPE [e/EQUIPMENT]... [d/TRAINING DATE]...` [v2.0]
+
+=== Course Planner
+
+* `add-course c/COURSECODE...`
+* `delete-course {c/COURSECODE | INDEX}`
+* `lookup c/COURSECODE`
+* `check c/COURSECODE`
 
 === App History
 
