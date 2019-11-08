@@ -18,7 +18,7 @@ public class NotesContainsKeywordsPredicate implements Predicate<Notes> {
     @Override
     public boolean test(Notes note) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(note.getCode().moduleCode + " "
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(note.getCode().value + " "
                         + note.getContent().content, keyword));
     }
 

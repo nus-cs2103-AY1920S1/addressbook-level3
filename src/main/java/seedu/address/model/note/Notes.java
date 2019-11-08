@@ -2,14 +2,16 @@ package seedu.address.model.note;
 
 import java.util.Objects;
 
+import seedu.address.model.classid.ClassId;
+
 /**
  * Note Class
  */
 public class Notes {
-    private ModuleCode code;
+    private ClassId code;
     private Content content;
 
-    public Notes(ModuleCode code, Content content) {
+    public Notes(ClassId code, Content content) {
         this.code = code;
         this.content = content;
     }
@@ -22,11 +24,11 @@ public class Notes {
         this.content = content;
     }
 
-    public ModuleCode getCode() {
+    public ClassId getCode() {
         return code;
     }
 
-    public void setCode(ModuleCode code) {
+    public void setCode(ClassId code) {
         this.code = code;
     }
 

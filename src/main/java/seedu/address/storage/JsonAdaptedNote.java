@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
@@ -30,7 +31,7 @@ public class JsonAdaptedNote {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedNote(Notes source) {
-        classId = source.getCode().moduleCode;
+        classId = source.getCode().value;
         content = source.getContent().content;
     }
     /**
@@ -46,7 +47,7 @@ public class JsonAdaptedNote {
         if (!ModuleCode.isValidModuleCode(classId)) {
             throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        final ModuleCode modelCode = new ModuleCode(classId);
+        final ClassId modelCode = new ClassId(classId);
 
         if (content == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
