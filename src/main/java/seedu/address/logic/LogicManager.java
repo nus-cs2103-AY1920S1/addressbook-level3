@@ -97,6 +97,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void refreshFilteredTaskList() {
+        model.refreshFilteredTaskList();
+    }
+
     public boolean isStartAfresh() {
         return model.isStartAfresh();
     }

@@ -109,6 +109,7 @@ public class NotificationWindow extends UiPart<Stage> {
             Driver driver = task.getDriver().orElseThrow();
             FreeCommand.freeDriverFromTask(driver, task);
         }
+        logic.refreshFilteredTaskList();
         this.hide();
     }
 }

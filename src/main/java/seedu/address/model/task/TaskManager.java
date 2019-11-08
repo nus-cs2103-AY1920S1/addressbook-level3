@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Driver;
 
-
 /**
  * Manages the task list.
  * It contains the minimal set of list operations.
