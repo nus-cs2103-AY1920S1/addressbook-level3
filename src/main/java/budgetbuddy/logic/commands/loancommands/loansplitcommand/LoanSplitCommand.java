@@ -1,4 +1,4 @@
-package budgetbuddy.logic.commands.loancommands;
+package budgetbuddy.logic.commands.loancommands.loansplitcommand;
 
 import static budgetbuddy.commons.util.CollectionUtil.generateCombinations;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;

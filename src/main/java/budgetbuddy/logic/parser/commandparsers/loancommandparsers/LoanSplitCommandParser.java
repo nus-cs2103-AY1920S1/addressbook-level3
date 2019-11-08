@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import budgetbuddy.logic.commands.exceptions.CommandException;
-import budgetbuddy.logic.commands.loancommands.LoanSplitCommand;
+import budgetbuddy.logic.commands.loancommands.loansplitcommand.LoanSplitCommand;
 import budgetbuddy.logic.parser.ArgumentMultimap;
 import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;

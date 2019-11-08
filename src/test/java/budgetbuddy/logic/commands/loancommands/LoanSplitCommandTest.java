@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.logic.commands.loancommands.loansplitcommand.LoanSplitCommand;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.attributes.Description;
