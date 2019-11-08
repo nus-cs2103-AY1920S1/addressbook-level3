@@ -244,7 +244,7 @@ public class DiaryListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);;
             } else {
-                setGraphic(new PageCard(page).getRoot());
+                setGraphic(new PageCard(page, getIndex() + 1).getRoot());
             }
         }
     }

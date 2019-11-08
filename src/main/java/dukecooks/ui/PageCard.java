@@ -40,12 +40,12 @@ public class PageCard extends UiPart<Region> {
     private Label pageDescription;
 
 
-    public PageCard(Page page) {
+    public PageCard(Page page, int displayedIndex) {
         super(FXML);
         this.page = page;
 
         // Set page title
-        pageTitle.setText(page.getTitle().toString());
+        pageTitle.setText(displayedIndex + ". " + page.getTitle().toString());
 
         // Set page description
         pageDescription.setText(page.getDescription().fullPageDescription);
