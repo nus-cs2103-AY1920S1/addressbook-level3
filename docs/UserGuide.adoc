@@ -228,10 +228,10 @@ If the person does not have any transactions, Leo will also respond with a messa
 This command allows you to edit an existing transaction in the table and change its details.
 
 * Command:
-`edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+`edit ID [dt/DATE] [d/DESCRIPTION] [c/CATEGORY] [a/AMOUNT] [p/PERSON]`
 
 [NOTE]
-The fields above can vary in their order. It is not compulsory to include all of them but you need to
+The optional fields above can vary in their order. It is not compulsory to include all of them but you need to
 include at least one.
 
 * Examples:
@@ -305,7 +305,7 @@ find from the full list transactions and show the results.
 Shown below is the table of all transactions:
 
 //.Screenshot of all transactions in Home tab
-image::homeUG/HomeFindCurr.png[width = "600"]
+image::homeUG/HomeFindCurr.png[width = "700"]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
@@ -318,7 +318,7 @@ image::homeUG/HomeFindStep1cr.png[]
 transactions matching the keywords. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for find command in Home tab
-image::homeUG/HomeFindStep2.png[width = "600"]
+image::homeUG/HomeFindStep2.png[width = "700"]
 
 
 [start = 3]
@@ -337,7 +337,7 @@ All other commands require you to input `back` to return to the full list of all
 The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
 
 .Screenshot of the user input for Back Command after entering Find Command in Home Tab
-image::homeUG/HomeFindStep3Back.png[width="600"]
+image::homeUG/HomeFindStep3Back.png[width="700"]
 
 ==== To Go Back to Display the Full List in the Home Tab
 This command helps you to display the full transaction list after Find Commands. After a Find Command, you can enter Delete, Edit or Sort Commands
