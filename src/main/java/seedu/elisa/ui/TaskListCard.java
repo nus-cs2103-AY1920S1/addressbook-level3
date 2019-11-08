@@ -8,10 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * An UI component that displays information of a {@code Person}.

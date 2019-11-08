@@ -1,17 +1,13 @@
 package seedu.elisa.ui;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.Reminder;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * An UI component that displays information of a {@code Person}.
