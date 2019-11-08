@@ -1,0 +1,25 @@
+@startuml
+start
+: User wants to send reminder of meetings and
+tasks due in specific number of day to members;
+:User executes command;
+
+if () then ([valid input])
+:Obtain current list of tasks and and meetings;
+:Check meetings which are within the specific number of days;
+:Append the meetings to the list of meetings to be sent to members;
+:Check for tasks which are due within the specific number of days;
+:Append the tasks to the list of tasks to be sent to members;
+:Obtain current list of members;
+:Send the list of meetings and tasks to members via email;
+:Display success message;
+else ([invalid input])
+: Checks for type of invalid input;
+if () then ([Empty Input])
+: Display duration cannot be empty error meessage;
+else ([Non-numeric input])
+: Display duration must be numeric error message;
+endif
+endif
+stop
+@enduml
