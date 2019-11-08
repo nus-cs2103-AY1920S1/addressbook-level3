@@ -263,7 +263,7 @@ Although, the ESC key can close too, we do not advise doing so as ELISA may be c
 
 Screen is too dark? Switch up the theme by typing `theme white`!
 
-image::themewhite.png[]
+image::themewhite.PNG[]
 
 Examples:
 
@@ -281,7 +281,7 @@ Chat box getting too cluttered? Type `clearscreen` to clear it!
 
 Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
 
-image::calendar.png[]
+image::calendar.PNG[]
 
 === Entertainment Features
 
@@ -291,7 +291,7 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches you list of tasks into a game of Snakes! 
 
-image::SnakeGame.png[]
+image::SnakeGame.PNG[]
 
 +++<u>Rules:</u>+++
 
