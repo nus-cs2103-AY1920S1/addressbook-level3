@@ -7,8 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_TAG;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -101,7 +105,12 @@ public class NoteFeatureUtil {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
                 PREFIX_NOTE_FRAGMENT_TAG);
         try {
-            return ParserUtil.parseContent(argMultimap.getValue(PREFIX_NOTE_FRAGMENT_CONTENT).get());
+            if (argMultimap.getValue(PREFIX_NOTE_FRAGMENT_CONTENT).isPresent()) {
+                return ParserUtil.parseContent(argMultimap.getValue(PREFIX_NOTE_FRAGMENT_CONTENT).get());
+            } else {
+                assert false;
+                return new Content("");
+            }
         } catch (ParseException e) {
             throw new ParseException(Content.MESSAGE_CONSTRAINTS);
         }
@@ -117,7 +126,12 @@ public class NoteFeatureUtil {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
                 PREFIX_NOTE_FRAGMENT_TAG);
         try {
-            return ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG));
+            if (argMultimap.getValue(PREFIX_NOTE_FRAGMENT_CONTENT).isPresent()) {
+                return ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG));
+            } else {
+                assert false;
+                return new HashSet<>();
+            }
         } catch (ParseException e) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }

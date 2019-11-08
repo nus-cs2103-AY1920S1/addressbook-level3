@@ -17,12 +17,12 @@ public class NoteFeatureUtilTest {
     private static final String VALID_CONTENT = "Valid content";
     private static final String INVALID_NOTE_FRAGMENT = "Invalid note fragment";
     private static final String VALID_NOTE_1 = "Valid /* TAG/test1 TAG/test2 C/note */ fragment";
-    private static final String VALID_NOTE_1_FRAGMENT_1 = "TAG/test1 TAG/test2 C/note";
+    private static final String VALID_NOTE_1_FRAGMENT_1 = " TAG/test1 TAG/test2 C/note";
     private static final String VALID_NOTE_2 = "/* C/Valid TAG/test1 */ /* TAG/test2 TAG/test3 "
             + "C/note */ /* " + "TAG/test4 C/fragment */";
-    private static final String VALID_NOTE_2_FRAGMENT_1 = "C/Valid TAG/test1";
-    private static final String VALID_NOTE_2_FRAGMENT_2 = "TAG/test2 TAG/test3 C/note";
-    private static final String VALID_NOTE_2_FRAGMENT_3 = "TAG/test4 C/fragment";
+    private static final String VALID_NOTE_2_FRAGMENT_1 = " C/Valid TAG/test1";
+    private static final String VALID_NOTE_2_FRAGMENT_2 = " TAG/test2 TAG/test3 C/note";
+    private static final String VALID_NOTE_2_FRAGMENT_3 = " TAG/test4 C/fragment";
 
     @Test
     public void parseNoteFragmentMatches_stringWithOneMatch_returnsListWithOneNoteFragment() throws Exception {
@@ -31,36 +31,35 @@ public class NoteFeatureUtilTest {
     }
 
     @Test
-    public void parseNoteFragmentMatches_stringWithMultipleMatches_returnsListWithMultipleStrings()
-            throws Exception {
+    public void parseNoteFragmentMatches_stringWithMultipleMatches_returnsListWithMultipleStrings() {
         List<String> expectedList = List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3);
         assertEquals(expectedList, NoteFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_2));
     }
 
     @Test
-    public void parseNoteFragmentMatches_stringWithNoMatches_returnsEmptyList() throws Exception {
+    public void parseNoteFragmentMatches_stringWithNoMatches_returnsEmptyList() {
         assertEquals(Collections.emptyList(), NoteFeatureUtil.parseNoteFragmentMatches(INVALID_NOTE_FRAGMENT));
     }
 
-    /*@Test
+    @Test
     public void parseNoteFragmentsFromString_listWithMultipleStrings_returnsListWithMultipleNoteFragments()
             throws Exception {
 
         NoteFragment frag1 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_1),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_1));
+                NoteFeatureUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_1),
+                NoteFeatureUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_1));
         NoteFragment frag2 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_2),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_2));
+                NoteFeatureUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_2),
+                NoteFeatureUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_2));
         NoteFragment frag3 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_3),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_3));
+                NoteFeatureUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_3),
+                NoteFeatureUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_3));
 
         List<NoteFragment> expectedList = List.of(frag1, frag2, frag3);
 
-        assertEquals(expectedList, ParserUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
+        assertEquals(expectedList, NoteFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
                 List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3)));
-    }*/
+    }
 
     @Test
     public void parseNoteFragmentsFromString_emptyList_returnsEmptyList() throws Exception {
