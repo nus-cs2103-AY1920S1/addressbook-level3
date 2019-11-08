@@ -14,7 +14,7 @@
     "optionB" : null,
     "optionC" : null,
     "optionD" : null
-    
+
     "question" : "What is 30 + 20?",
     "answer" : "50",
     "type" : "mcq",
