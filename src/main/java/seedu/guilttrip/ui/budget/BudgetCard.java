@@ -64,6 +64,7 @@ public class BudgetCard extends UiPart<Region> {
 
         if (spentAmount / totalAmount >= 1) {
             progressBar.setStyle("-fx-accent: IndianRed;");
+            spent.setStyle("-fx-text-fill: IndianRed");
         } else {
             progressBar.setStyle("-fx-accent: SteelBlue;");
         }
