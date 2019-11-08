@@ -50,6 +50,8 @@ public class PayCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+
         List<Employee> lastShownList = model.getFilteredEmployeeList();
         Employee e = lastShownList.get(index.getZeroBased());
         double totalSalary = EmployeeEventProcessor.findEmployeeTotalWorkedHours(e, model.getFullListEvents())

@@ -57,9 +57,13 @@ public class AutoAllocateCommand extends Command {
      * @param manpowerCountToAdd for the event (must be a positive Integer)
      * @param tagList            list of tags to filter the list of available employees
      */
-    public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd, Set<Tag> tagList) {
+    public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd, Set<Tag> tagList) throws CommandException {
         requireNonNull(eventIndex);
         requireNonNull(tagList);
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_AUTO_ALLOCATE);
+        }
 
         assert (eventIndex.getOneBased() > 0);
         assert manpowerCountToAdd == null || manpowerCountToAdd > 0;

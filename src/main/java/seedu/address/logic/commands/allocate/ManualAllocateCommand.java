@@ -41,6 +41,7 @@ public class ManualAllocateCommand extends Command {
 
     public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s.";
 
+
     private final Index employeeIndex;
     private final Index eventIndex;
     private final EmployeeId employeeId;
@@ -49,8 +50,16 @@ public class ManualAllocateCommand extends Command {
      * @param eventIndex of the event in the filtered event list to edit
      * @param employeeIndex      of the employee in the filtered employee list to add to event
      */
-    public ManualAllocateCommand(Index eventIndex, Index employeeIndex, EmployeeId employeeId) {
+    public ManualAllocateCommand(Index eventIndex, Index employeeIndex, EmployeeId employeeId) throws CommandException {
         requireNonNull(eventIndex);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_1);
+        }
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_2);
+        }
 
         this.employeeIndex = employeeIndex;
         this.eventIndex = eventIndex;

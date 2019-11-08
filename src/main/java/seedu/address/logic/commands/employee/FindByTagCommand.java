@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.TagContainsKeywordsPredicate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Finds and lists all persons in address book whose tag contains any of the argument keywords.
@@ -21,6 +23,7 @@ public class FindByTagCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fun hardworking";
 
+
     private final TagContainsKeywordsPredicate predicate;
 
     public FindByTagCommand(TagContainsKeywordsPredicate predicate) {
@@ -28,8 +31,13 @@ public class FindByTagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
+        }
+
         model.updateFilteredEmployeeList(predicate);
 
         int employeeListSize = model.getFilteredEmployeeList().size();

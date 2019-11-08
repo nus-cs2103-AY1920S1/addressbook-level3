@@ -58,6 +58,10 @@ public class DeallocateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_DE_ALLOCATE);
+        }
+
         List<Employee> lastShownList = model.getFullListEmployees();
         List<Event> lastShownEventList;
 

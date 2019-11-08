@@ -39,6 +39,11 @@ public class FetchEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
+        }
+
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);
 
         if (index.getZeroBased() >= lastShownList.size()) {

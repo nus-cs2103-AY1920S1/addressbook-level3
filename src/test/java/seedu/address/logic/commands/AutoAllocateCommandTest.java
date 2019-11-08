@@ -20,6 +20,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
 import seedu.address.logic.commands.employee.ClearEmployeesCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -46,7 +47,7 @@ public class AutoAllocateCommandTest {
     private Set<Tag> tagList = new HashSet<Tag>();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Set<Tag> tagList = new HashSet<Tag>();
         tagList.add(new Tag("male"));
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
@@ -62,7 +63,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_onlyTagsSpecifiedUnfilteredList_success() {
+    public void execute_onlyTagsSpecifiedUnfilteredList_success() throws CommandException {
         Set<Tag> tagList = new HashSet<Tag>();
         tagList.add(new Tag("male"));
 
@@ -77,7 +78,7 @@ public class AutoAllocateCommandTest {
         assertCommandSuccess(autoAllocateCommand, model, expectedMessage, expectedModel);
     }
     @Test
-    public void execute_onlyManpowerCountToAddSpecifiedUnfilteredList_success() {
+    public void execute_onlyManpowerCountToAddSpecifiedUnfilteredList_success() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, sampleManpowerCountToAdd,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -90,7 +91,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
         String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
@@ -102,7 +103,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidEventIndexUnfilteredList_failure() {
+    public void execute_invalidEventIndexUnfilteredList_failure() throws CommandException {
         Integer outOfBoundInteger = initialEventData.getEventList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(invalidIndex,
@@ -112,7 +113,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidManpowerCountUnfilteredList_failure() {
+    public void execute_invalidManpowerCountUnfilteredList_failure() throws CommandException {
         Integer invalidManpowerCount = 20;
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 invalidManpowerCount, tagList);
@@ -121,7 +122,7 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_fullManpowerCountUnfilteredList_failure() {
+    public void execute_fullManpowerCountUnfilteredList_failure() throws CommandException {
         Event eventToEdit = initialEventData.getEventList().get(0);
         List<Employee> availableEmployeeList = new ArrayList<>();
         for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
@@ -136,14 +137,14 @@ public class AutoAllocateCommandTest {
     }
 
     @Test
-    public void execute_insufficientManpowerCountUnfilteredList_failure() {
+    public void execute_insufficientManpowerCountUnfilteredList_failure() throws CommandException {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_SECOND_EVENT,
                 null, tagList);
         assertCommandFailure(autoAllocateCommand, model, Messages.MESSAGE_INSUFFICIENT_MANPOWER_COUNT);
     }
 
     @Test
-    public void equals() {
+    public void equals() throws CommandException {
         Set<Tag> tagList = new HashSet<Tag>();
         final AutoAllocateCommand standardCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);

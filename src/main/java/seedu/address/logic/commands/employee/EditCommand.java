@@ -36,6 +36,7 @@ import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.
@@ -71,9 +72,13 @@ public class EditCommand extends Command {
      * @param index of the employee in the filtered employee list to edit
      * @param editEmployeeDescriptor details to edit the employee with
      */
-    public EditCommand(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
+    public EditCommand(Index index, EditEmployeeDescriptor editEmployeeDescriptor) throws CommandException {
         requireNonNull(index);
         requireNonNull(editEmployeeDescriptor);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
+        }
 
         this.index = index;
         this.editEmployeeDescriptor = new EditEmployeeDescriptor(editEmployeeDescriptor);

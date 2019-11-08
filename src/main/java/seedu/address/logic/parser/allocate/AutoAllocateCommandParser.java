@@ -13,6 +13,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -30,7 +31,7 @@ public class AutoAllocateCommandParser implements Parser<AutoAllocateCommand> {
      * and returns an AutoAllocateCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AutoAllocateCommand parse(String args) throws ParseException {
+    public AutoAllocateCommand parse(String args) throws ParseException, CommandException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEE_NUMBER, PREFIX_TAG);
 
