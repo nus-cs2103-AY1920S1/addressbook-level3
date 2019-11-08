@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventTagContainsKeywordsPredicate;
@@ -24,6 +25,9 @@ public class FindEventByTagCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fun free";
 
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n" +
+            "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
+
     private final EventTagContainsKeywordsPredicate predicate;
 
     public FindEventByTagCommand(EventTagContainsKeywordsPredicate predicate) {
@@ -31,8 +35,13 @@ public class FindEventByTagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(MESSAGE_WRONG_TAB);
+        }
+
         ObservableList<Event> currentEventList = MainWindow.getUpdatedCurrentEventList(model, predicate);
         String resultMessage = currentEventList.size() == 1
                 ? Messages.MESSAGE_EVENT_LISTED_OVERVIEW

@@ -213,6 +213,58 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns a boolean of whether the current user is in the Main Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isMainTab() {
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Schedule Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isScheduleTab() {
+        if (MainWindow.getCurrentTabIndex() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Finance Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isFinanceTab() {
+        if (MainWindow.getCurrentTabIndex() == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a boolean of whether the current user is in the Statistics Tab
+     * used to restrict user command to specific windows.
+     * @return a boolean value of whether user is in the MainTab
+     */
+    public static boolean isStatsTab() {
+        if (MainWindow.getCurrentTabIndex() == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML

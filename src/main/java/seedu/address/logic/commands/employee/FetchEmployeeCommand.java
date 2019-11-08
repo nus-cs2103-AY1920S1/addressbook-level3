@@ -13,6 +13,7 @@ import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.employee.Employee;
+import seedu.address.ui.MainWindow;
 
 /**
  * Fetches all details of an Employee and the employee's schedule.
@@ -25,6 +26,8 @@ public class FetchEmployeeCommand extends Command {
             + "Example: " + COMMAND_WORD + " on/02/12/2019";
 
     public static final String MESSAGE_SUCCESS = "Fetched Employee: %1$s";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
+            "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index index;
 
@@ -35,6 +38,10 @@ public class FetchEmployeeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(MESSAGE_WRONG_TAB);
+        }
 
         List<Employee> shownEmployeeList = model.getFilteredEmployeeList();
         if (index.getZeroBased() >= shownEmployeeList.size()) {

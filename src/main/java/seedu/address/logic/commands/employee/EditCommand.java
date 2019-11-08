@@ -36,6 +36,7 @@ import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.
@@ -63,6 +64,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the employeeAddress book.";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
+            "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index index;
     private final EditEmployeeDescriptor editEmployeeDescriptor;
@@ -71,9 +74,13 @@ public class EditCommand extends Command {
      * @param index of the employee in the filtered employee list to edit
      * @param editEmployeeDescriptor details to edit the employee with
      */
-    public EditCommand(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
+    public EditCommand(Index index, EditEmployeeDescriptor editEmployeeDescriptor) throws CommandException {
         requireNonNull(index);
         requireNonNull(editEmployeeDescriptor);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(MESSAGE_WRONG_TAB);
+        }
 
         this.index = index;
         this.editEmployeeDescriptor = new EditEmployeeDescriptor(editEmployeeDescriptor);

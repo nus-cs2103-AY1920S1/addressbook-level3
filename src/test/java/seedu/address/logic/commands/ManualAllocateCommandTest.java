@@ -20,6 +20,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.logic.commands.employee.ClearEmployeesCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -42,7 +43,7 @@ public class ManualAllocateCommandTest {
     private Model model = new ModelManager(initialData, initialEventData, new UserPrefs());
 
     @Test
-    public void execute_employeeIndexSpecifiedUnfilteredList_success() {
+    public void execute_employeeIndexSpecifiedUnfilteredList_success() throws CommandException {
         ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
                 INDEX_FIRST_PERSON, null);
 
@@ -59,7 +60,7 @@ public class ManualAllocateCommandTest {
 
 
     @Test
-    public void execute_invalidEventIndexUnfilteredList_failure() {
+    public void execute_invalidEventIndexUnfilteredList_failure() throws CommandException {
         Integer outOfBoundInteger = initialEventData.getEventList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
         ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(invalidIndex,
@@ -68,7 +69,7 @@ public class ManualAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidEmployeeIndexUnfilteredList_failure() {
+    public void execute_invalidEmployeeIndexUnfilteredList_failure() throws CommandException {
         Integer outOfBoundInteger = initialData.getEmployeeList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
         ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
@@ -77,7 +78,7 @@ public class ManualAllocateCommandTest {
     }
 
     @Test
-    public void execute_invalidEmployeeIdUnfilteredList_failure() {
+    public void execute_invalidEmployeeIdUnfilteredList_failure() throws CommandException {
         EmployeeId invalidEmployeeId = new EmployeeId("100");
 
         ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
@@ -86,7 +87,7 @@ public class ManualAllocateCommandTest {
     }
 
     @Test
-    public void execute_fullManpowerCountUnfilteredList_failure() {
+    public void execute_fullManpowerCountUnfilteredList_failure() throws CommandException {
         Event eventToEdit = initialEventData.getEventList().get(0);
         List<Employee> availableEmployeeList = new ArrayList<>();
         for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
@@ -103,7 +104,7 @@ public class ManualAllocateCommandTest {
     }
 
     @Test
-    public void execute_employeeAlreadyAllocatedUnfilteredList_failure() {
+    public void execute_employeeAlreadyAllocatedUnfilteredList_failure() throws CommandException {
         Event eventToEdit = initialEventData.getEventList().get(0);
         List<Employee> availableEmployeeList = new ArrayList<>();
         for (int i = 0; i < eventToEdit.getManpowerNeeded().value - 1; i++) {
@@ -121,7 +122,7 @@ public class ManualAllocateCommandTest {
 
 
     @Test
-    public void equals() {
+    public void equals() throws CommandException {
         final ManualAllocateCommand standardCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_FIRST_PERSON,
                 null);
 

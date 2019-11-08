@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.model.tag.Tag;
 
@@ -68,7 +69,7 @@ public class AutoAllocateCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
+    public void parse_allFieldsSpecified_success() throws CommandException {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + "";
         AutoAllocateCommand expectedCommand = new AutoAllocateCommand(targetIndex, null,
@@ -78,7 +79,7 @@ public class AutoAllocateCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
+    public void parse_someFieldsSpecified_success() throws CommandException {
         Index targetIndex = INDEX_SECOND_EVENT;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.MANPOWER_COUNT_DESC;
 

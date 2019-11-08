@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Adds an {@code Event} to the EventBook.
@@ -44,6 +45,8 @@ public class AddEventCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n" +
+            "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     private final Event toAdd;
 
@@ -59,6 +62,10 @@ public class AddEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(MESSAGE_WRONG_TAB);
+        }
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_EVENTS_DUPLICATE);

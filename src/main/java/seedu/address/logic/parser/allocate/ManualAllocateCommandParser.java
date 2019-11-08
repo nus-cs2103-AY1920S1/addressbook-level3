@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
@@ -22,8 +23,10 @@ public class ManualAllocateCommandParser {
      * and returns an ManualAllocateCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ManualAllocateCommand parse(String args) throws ParseException {
+    public ManualAllocateCommand parse(String args) throws ParseException, CommandException {
         requireNonNull(args);
+
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEE_NUMBER, PREFIX_EMPLOYEE_ID);
 

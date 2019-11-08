@@ -21,6 +21,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 
 /**
@@ -36,6 +37,8 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Employee: %1$s";
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n" +
+            "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index targetIndex;
 
@@ -46,6 +49,11 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(MESSAGE_WRONG_TAB);
+        }
+
         List<Employee> lastShownList = model.getFilteredEmployeeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
