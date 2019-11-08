@@ -13,17 +13,19 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Tee Hao Wei
 image::thwnus.png[width="150", align="left"]
 {empty}[https://github.com/thwnus[github]]
+{empty}[<<thwnus#, portfolio>>]
 
 Role: Code Quality, Integration +
-Responsibilities: Scripting Engine, Transaction Reports
+Responsibilities: Scripting Engine, Aliases
 
 '''
 
 === Daryl Koh Yi Kai
 image::cambrian-dk.png[width="150", align="left"]
 {empty}[http://github.com/cambrian-dk[github]]
+{empty}[<<cambrian-dk#, portfolio>>]
 
-Role: Developer, Testing +
+Role: Developer +
 Responsibilities: Transactions
 
 '''
@@ -33,7 +35,7 @@ image::tcgj.png[width="150", align="left"]
 {empty}[http://github.com/tcgj[github]]
 {empty}[<<tcgj#, portfolio>>]
 
-Role: Developer, Tracking, UI +
+Role: Tracking Tasks, UI +
 Responsibilities: Rule Engine
 
 '''
@@ -41,17 +43,19 @@ Responsibilities: Rule Engine
 === Chen Jiehan
 image::ChenJiehan318.png[width="150", align="left"]
 {empty}[http://github.com/ChenJiehan318[github]]
+{empty}[<<ChenJiehan318#, portfolio>>]
 
-Role: Developer, Scheduling  +
-Responsibilities: Accounts, Categories
+Role: Developer +
+Responsibilities: Accounts
 
 '''
 
 === Kenneth Fung Chen Yu
 image::kenneth-fung.png[width="150", align="left"]
 {empty}[http://github.com/kenneth-fung[github]]
+{empty}[<<kenneth-fung#, portfolio>>]
 
-Role: Team Lead, Documentation +
+Role: Deadlines & Deliverables, Documentation +
 Responsibilities: Loans
 
 '''
