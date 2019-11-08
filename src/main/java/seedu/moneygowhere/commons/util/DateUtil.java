@@ -30,17 +30,25 @@ public class DateUtil {
     private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_TWO_DIGIT_YEAR = DateTimeFormatter.ofPattern("dd/MM/yy");
 
-    /** Date pattern which allows leading zeroes to be omitted. **/
-    private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
+    /** Date pattern which allows leading zeroes to be omitted (DD/MM/YYYY, DD-MM-YYYY, D-MM-YYYY or DD-M-YYYY) **/
+    private static final Pattern DATE_DEFAULT_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
             + "(?:(?:[/\\-])([0-9]+)|)");
 
-    /** Date pattern with dashes. **/
+    /** Date pattern with dashes (01-Jan-2019). **/
     private static final Pattern DATE_MONTH_DASH_PATTERN =
             Pattern.compile("([0-9]{1,2})-([a-zA-Z]{3})(?:$|-)([0-9]{0,4})");
 
-    /** Date pattern with spaces. **/
+    /** Date pattern with spaces (01 Jan 2019). **/
     private static final Pattern DATE_MONTH_SPACE_PATTERN =
             Pattern.compile("([0-9]{1,2}) ([a-zA-Z]{3})(?:$| )([0-9]{0,4})");
+
+    /** Date pattern with dashes (Jan-01-2019). **/
+    private static final Pattern DATE_MONTH_ALT_DASH_PATTERN =
+            Pattern.compile("([a-zA-Z]{3})-([0-9]{1,2})(?:$|-)([0-9]{0,4})");
+
+    /** Date pattern with spaces (Jan 01 2019). **/
+    private static final Pattern DATE_MONTH_ALT_SPACE_PATTERN =
+            Pattern.compile("([a-zA-Z]{3}) ([0-9]{1,2})(?:$| )([0-9]{0,4})");
 
     /** Prohibited day tokens **/
     private static final String[] PROHIBITED_DAY_TOKENS =
@@ -151,10 +159,10 @@ public class DateUtil {
      * @param matcher Matcher to be processed
      * @return True if the matcher parameter groups were valid.
      */
-    private static boolean processMatcher(Matcher matcher) {
-        int day = Integer.parseInt(matcher.group(1));
-        String month = matcher.group(2);
-        String year = matcher.group(3);
+    private static boolean processMatcher(Matcher matcher, int dayGroup, int monthGroup, int yearGroup) {
+        int day = Integer.parseInt(matcher.group(dayGroup));
+        String month = matcher.group(monthGroup);
+        String year = matcher.group(yearGroup);
 
         if (isMatcherInvalid(year, day)) {
             return false;
@@ -184,17 +192,23 @@ public class DateUtil {
         String[] tokens = date.split("\\s+");
 
         // Check other formats
-        Matcher matcher2 = DATE_MONTH_DASH_PATTERN.matcher(date);
-        Matcher matcher3 = DATE_MONTH_SPACE_PATTERN.matcher(date);
+        Matcher matcherAlt1 = DATE_MONTH_DASH_PATTERN.matcher(date);
+        Matcher matcherAlt2 = DATE_MONTH_SPACE_PATTERN.matcher(date);
+        Matcher matcherAlt3 = DATE_MONTH_ALT_DASH_PATTERN.matcher(date);
+        Matcher matcherAlt4 = DATE_MONTH_ALT_SPACE_PATTERN.matcher(date);
 
-        if (matcher2.matches()) {
-            return processMatcher(matcher2) ? date : "";
-        } else if (matcher3.matches()) {
-            return processMatcher(matcher3) ? date : "";
+        if (matcherAlt1.matches()) {
+            return processMatcher(matcherAlt1, 1, 2, 3) ? date : "";
+        } else if (matcherAlt2.matches()) {
+            return processMatcher(matcherAlt2, 1, 2, 3) ? date : "";
+        } else if (matcherAlt3.matches()) {
+            return processMatcher(matcherAlt3, 2, 1, 3) ? date : "";
+        } else if (matcherAlt4.matches()) {
+            return processMatcher(matcherAlt4, 2, 1, 3) ? date : "";
         }
 
         for (String token : tokens) {
-            Matcher matcher = DATE_PATTERN.matcher(token);
+            Matcher matcher = DATE_DEFAULT_PATTERN.matcher(token);
 
             if (matcher.matches()) {
                 // Manually correct expected dd/mm/yyyy input to yyyy/mm/dd (natty recognised)
