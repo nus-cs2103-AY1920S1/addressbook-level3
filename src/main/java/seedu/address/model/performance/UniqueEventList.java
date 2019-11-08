@@ -62,6 +62,7 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     public Event getEvent(String eventName) {
+        requireNonNull(eventName);
         for (Event event : internalList) {
             if (event.getName().equals(eventName)) {
                 return event;
@@ -71,6 +72,7 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     public ArrayList<Event> getAthleteEvent(Person person) {
+        requireNonNull(person);
         ArrayList<Event> athleteEventList = new ArrayList<>();
         for (Event event : internalList) {
             if (event.getRecords().containsKey(person)) {
@@ -84,6 +86,7 @@ public class UniqueEventList implements Iterable<Event> {
      * Method for Shawn to retrieve performance records on a particular day for the Calendar feature.
      */
     public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        requireNonNull(date);
         HashMap<Event, List<CalendarCompatibleRecord>> hm = new HashMap<>();
         for (Event event : internalList) {
             hm.put(event, event.getCalendarCompatibleRecords(date));
@@ -95,6 +98,7 @@ public class UniqueEventList implements Iterable<Event> {
      * Checks if there are any recorded performances on the specified date.
      */
     public boolean hasPerformanceOn(AthletickDate date) {
+        requireNonNull(date);
         for (Event event : internalList) {
             if (event.hasPerformanceOn(date)) {
                 return true;
@@ -144,6 +148,7 @@ public class UniqueEventList implements Iterable<Event> {
      * Returns true if {@code events} contains only unique events.
      */
     private boolean eventsAreUnique(List<Event> events) {
+        requireAllNonNull(events);
         for (int i = 0; i < events.size() - 1; i++) {
             for (int j = i + 1; j < events.size(); j++) {
                 if (events.get(i).isSameEvent(events.get(j))) {
