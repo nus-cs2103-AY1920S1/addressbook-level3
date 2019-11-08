@@ -52,14 +52,14 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = plannerParser.parseCommand(commandText);
 
+        commandResult = command.execute(model);
+
         if (command instanceof UndoableCommand) {
             Event undoableEvent = EventFactory.parse((UndoableCommand) command, model);
             CommandHistory.addToUndoStack(undoableEvent);
             CommandHistory.clearRedoStack();
-        }
-
-        commandResult = command.execute(model);
-
+        } 
+        
         try {
             storage.setAccommodationFilePath(model.getAccommodationFilePath());
             storage.setActivityFilePath(model.getActivityFilePath());

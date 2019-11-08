@@ -338,13 +338,13 @@ public class ModelManager implements Model {
                     contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
                 }
                 accommodationContactMap.put(newAcc, newContact);
-            } else if (newAcc.getContact().isPresent()) {
-                Contact newContact = newAcc.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
-                addAccommodationMapping(newAcc);
             }
+        } else if (newAcc.getContact().isPresent()) {
+            Contact newContact = newAcc.getContact().get();
+            if (!hasContact(newContact)) {
+                addContact(newContact);
+            }
+            addAccommodationMapping(newAcc);
         }
     }
 
