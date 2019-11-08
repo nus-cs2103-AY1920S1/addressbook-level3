@@ -50,14 +50,14 @@ public class JsonAdaptedFlashcardTest {
     }
 
     @Test
-    public void toModelType_validFlashcardDetails_noException_1() throws Exception {
+    public void toModelType_validFlashcardDetails_successOne() throws Exception {
         JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_QUESTION,
             null, VALID_DEFINITION, null, VALID_ANSWER, VALID_SCORE, VALID_TYPE);
         Flashcard myCard = flashcard.toModelType();
     }
 
     @Test
-    public void toModelType_validFlashcardDetails_noException_2() throws Exception {
+    public void toModelType_validFlashcardDetails_successTwo() throws Exception {
         JsonAdaptedFlashcard flashcard = new JsonAdaptedFlashcard(VALID_QUESTION,
             VALID_CHOICE_LIST, VALID_DEFINITION, VALID_TAG_LIST, VALID_ANSWER, VALID_SCORE, VALID_TYPE_2);
         Flashcard myCard = flashcard.toModelType();

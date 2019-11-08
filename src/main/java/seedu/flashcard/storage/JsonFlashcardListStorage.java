@@ -50,7 +50,6 @@ public class JsonFlashcardListStorage implements FlashcardStorage {
         if (!jsonFlashcardList.isPresent()) {
             return Optional.empty();
         }
-
         try {
             return Optional.of(jsonFlashcardList.get().toModelType());
         } catch (IllegalValueException e) {

@@ -16,7 +16,6 @@ import seedu.flashcard.commons.util.ConfigUtil;
 import seedu.flashcard.commons.util.StringUtil;
 import seedu.flashcard.logic.Logic;
 import seedu.flashcard.logic.LogicManager;
-import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ModelManager;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
@@ -80,19 +79,18 @@ public class MainApp extends Application {
         try {
             flashcardListOptional = storage.readFlashcardList();
             if (!flashcardListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with the default flashcard list.");
             }
             initialData = flashcardListOptional.orElseGet(SampleDataUtil::getSampleFlashcardList);
-
-
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new FlashcardList();
+            logger.warning("Data file not in the correct format. "
+                + "Will be starting with the default flashcard list.");
+            initialData = SampleDataUtil.getSampleFlashcardList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new FlashcardList();
+            logger.warning("Problem while reading from the file. "
+                + "Will be starting with the default flashcard list.");
+            initialData = SampleDataUtil.getSampleFlashcardList();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 

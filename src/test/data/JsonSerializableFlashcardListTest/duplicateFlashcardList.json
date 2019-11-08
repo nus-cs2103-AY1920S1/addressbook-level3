@@ -1,0 +1,44 @@
+{
+  "_comment": "FlashcardList save file which contains valid flashcard list.",
+  "flashcards" : [ {
+    "question" : "Which of the following is true about compactness?",
+    "choices" : [ "The real number space is a compact space", "The complex plane is a compact space", "A compact subspace of a compact metric space must be closed", "A closed subspace of a compact metric space must be compact" ],
+    "definition" : "For any open covering of a metric space, there is a finite subcover.",
+    "tagged" : [ "metric space", "mathematics" ],
+    "answer" : "A compact subspace of a compact metric space must be closed",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }, {
+    "question" : "Which of the following is true about completeness?",
+    "choices" : [ "The rational number space is a complete space", "Compact spaces are always complete", "A complete subspace of a complete space myst be totally bounded", "Closed subspaces in a complete metric space is also complete" ],
+    "definition" : "Any Cauchy sequence converges in this metric space",
+    "tagged" : [ "metric space", "mathematics" ],
+    "answer" : "Closed subspaces in a complete metric space is also complete",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }, {
+    "question" : "What is the largest known living organism?",
+    "choices" : [ ],
+    "definition" : "It is an aspen grove in Utah.",
+    "tagged" : [ "biology", "trivia" ],
+    "answer" : "Pando",
+    "score" : "0 0",
+    "type" : "ShortAnswerFlashcard"
+  }, {
+    "question" : "What does M & M stand for?",
+    "choices" : [ "Matthew & Melvin", "Mars & Melvin", "Mars & Murrie" ],
+    "definition" : "They are names of the two sons of the Mars Company founder and the Hershey Chocolate's president respectively.",
+    "tagged" : [ "trivia" ],
+    "answer" : "Mars & Murrie",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }, {
+    "question" : "What does M & M stand for?",
+    "choices" : [ "Matthew & Melvin", "Mars & Melvin", "Mars & Murrie" ],
+    "definition" : "They are names of the two sons of the Mars Company founder and the Hershey Chocolate's president respectively.",
+    "tagged" : [ "trivia" ],
+    "answer" : "Mars & Murrie",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }]
+}
