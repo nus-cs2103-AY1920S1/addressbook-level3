@@ -98,36 +98,36 @@
                                     </VBox>
                            <VBox styleClass="vbox-tab-pane-with-border">
                               <children>
-                                 <HBox>
+                                 <HBox alignment="CENTER" spacing="20.0">
                                     <children>
-                                       <AnchorPane>
+                                       <ImageView fitHeight="167.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/Wallet.png" />
+                                          </image>
+                                       </ImageView>
+                                       <VBox alignment="CENTER_LEFT">
                                           <children>
-                                             <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="46.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-                                                <image>
-                                                   <Image url="@../images/Wallet.png" />
-                                                </image>
-                                             </ImageView>
-                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" layoutX="202.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="386.0">
+                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="400.0">
                                                           <font>
                                                               <Font name="Monospaced Regular" size="15.0" />
                                                           </font>
                                                       </Text>
-                                                        <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="203.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
+                                                        <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="400.0">
                                                             <font>
                                                                 <Font name="Monospaced Regular" size="15.0" />
                                                             </font>
                                                         </Text>
-                                                        <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="203.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
+                                                        <Text fx:id="daysToExpirePlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="400.0">
                                                             <font>
                                                                 <Font name="Franklin Gothic Demi Cond" size="27.0" />
                                                             </font>
                                                         </Text>
                                           </children>
-                                          <padding>
-                                             <Insets bottom="10.0" top="10.0" />
-                                          </padding>
-                                       </AnchorPane>
+                                       </VBox>
                                     </children>
+                                    <padding>
+                                       <Insets bottom="20.0" top="20.0" />
+                                    </padding>
                                  </HBox>
                                  <TabPane styleClass="tab-pane-with-border" tabClosingPolicy="UNAVAILABLE">
                                    <tabs>
