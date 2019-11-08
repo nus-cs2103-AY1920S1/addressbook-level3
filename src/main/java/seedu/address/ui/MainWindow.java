@@ -237,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
         fetchEventWindow.getRoot().getScene().getStylesheets().add("view/Extensions.css");
         if (!fetchEventWindow.isShowing()) {
             fetchEventWindow.show();
-            //comm
+            primaryStage.requestFocus();
         } else {
             fetchEventWindow.focus();
         }
@@ -255,6 +255,7 @@ public class MainWindow extends UiPart<Stage> {
         fetchEmployeeWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchEmployeeWindow.isShowing()) {
             fetchEmployeeWindow.show();
+            primaryStage.requestFocus();
         } else {
             fetchEmployeeWindow.focus();
         }
@@ -338,6 +339,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
             if (commandResult.getFetch() != null) {
                 if (commandResult.getType().equals("Employee_Fetch")) {
                     handleEmployeeFetch(commandResult.getFetch());
@@ -390,6 +392,15 @@ public class MainWindow extends UiPart<Stage> {
 
             if (fetchEventWindow != null && !commandResult.getType().equals("List")) {
                 fetchEventWindow.updateCards();
+            }
+
+            if (commandResult.getType().equals("unfetch")) {
+                if (fetchEventWindow != null) {
+                    fetchEventWindow.hide();
+                }
+                if (fetchEmployeeWindow != null) {
+                    fetchEmployeeWindow.hide();
+                }
             }
 
             return commandResult;

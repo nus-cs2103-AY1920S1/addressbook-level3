@@ -126,7 +126,8 @@ public class FetchEventWindow extends UiPart<Stage> {
     public void updateCards() {
         event = filteredEventList.get(index);
         ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
-        eventDescription.setText(event.toStringWithNewLine());
+        String currentEventIndex = "Current Event Index: " + (index + 1) + "\n";
+        eventDescription.setText(currentEventIndex + event.toStringWithNewLine());
         personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new AvailablePersonListViewCell(this));
         eventListView.setItems(employeeListForEvent);
@@ -166,7 +167,7 @@ public class FetchEventWindow extends UiPart<Stage> {
      * Hides the fetch window.
      */
     public void hide() {
-        getRoot().hide();
+        getRoot().close();
     }
 
     /**
