@@ -6,10 +6,10 @@ package dream.fcard.logic.respond.commands;
 public class HelpCommand extends Command {
     public static final String IMPORT = "Format: import filepath/FILEPATH.";
     public static final String EXPORT = "Format: export filepath/FILEPATH.";
-    public static final String STATS = "Format: stats (for Application stats) OR stats deck/DECK_NAME"
+    public static final String STATS = "Format: stats (for Application stats) OR stats deck/DECK_NAME "
             + "(for Deck stats).";
     public static final String CREATE = "Format: create deck/DECK_NAME";
-    public static final String ADD = "Format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK"
+    public static final String ADD = "Format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK "
             + "[choice/CHOICE]";
     public static final String DELETE = "Format: delete deck/DECK_NAME index/CARD_TO_BE_DELETED";
     public static final String EDIT = "Format: edit filepath/FILEPATH";
@@ -20,4 +20,18 @@ public class HelpCommand extends Command {
     public static String[] getAllCommands() {
         return allCommands;
     }
+
+    /**
+     * Identifies if the input matches a given help message.
+     *
+     * @param input User input of the command
+     * @param curr The String of the current command.
+     * @return A boolean representing if the input matches the current command.
+     */
+    public static boolean isCorrectMessage(String input, String curr) {
+        String currCommand = curr.split(" ")[1];
+
+        return currCommand.equalsIgnoreCase(input);
+    }
+
 }
