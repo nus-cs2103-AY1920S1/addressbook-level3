@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -74,7 +73,7 @@ public class ArgumentTokenizer {
             prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition);
         }
         if (positions.size() > 1 && !prefix.equals(PREFIX_TAG)) {
-            throw new ParseException(EditNoteCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(DUPLICATE_PREFIX_MESSAGE, prefix.toString()));
         }
         return positions;
     }
