@@ -69,5 +69,6 @@ include::../UserGuide.adoc[tag=optimise]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=logic]
 include::../DeveloperGuide.adoc[tag=optimise]
 include::../DeveloperGuide.adoc[tag=userstories]

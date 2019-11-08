@@ -329,6 +329,9 @@ Examples:
 
 This remove the 5th activity from the activity list from day 2.
 
+[TIP]
+You can use the list day command to find out the index of the activity you wish to unschedule.
+
 // tag::autoschedule[]
 === Auto Schedule: `autoschedule`
 Generates a list of activities for the specified days based on the `highest priority` and the `least number of times it
