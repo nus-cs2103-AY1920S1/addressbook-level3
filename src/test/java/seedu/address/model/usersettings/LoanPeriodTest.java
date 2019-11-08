@@ -34,9 +34,13 @@ public class LoanPeriodTest {
         assertFalse(LoanPeriod.isValidLoanPeriod("hello*")); // contains non-alphanumeric characters
         assertFalse(LoanPeriod.isValidLoanPeriod("hello world")); // alphabets only
         assertFalse(LoanPeriod.isValidLoanPeriod("-1")); // negative integer
+        assertFalse(LoanPeriod.isValidLoanPeriod("366")); // exceed max loan period
+        assertFalse(LoanPeriod.isValidLoanPeriod("0")); // zero
 
         // valid loanPeriod
-        assertTrue(LoanPeriod.isValidLoanPeriod("12345")); // numbers only
+        assertTrue(LoanPeriod.isValidLoanPeriod("123")); // numbers only
+        assertTrue(LoanPeriod.isValidLoanPeriod("365")); // max value
+        assertTrue(LoanPeriod.isValidLoanPeriod("1")); // min value
     }
 
     @Test

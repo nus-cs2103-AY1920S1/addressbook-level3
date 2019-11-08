@@ -9,10 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class RenewPeriod {
 
+    private static final int MAX_RENEW_PERIOD = 365;
     public static final String MESSAGE_CONSTRAINTS =
-            "Renew period should be positive and should not exceed Integer.MAX_VALUE days.";
-    public static final String VALIDATION_REGEX = "\\d+";
-    public final int renewPeriod;
+            "Renew period should be a positive non-zero number and should not exceed "
+                    + MAX_RENEW_PERIOD + " days.";
+
+    private final int renewPeriod;
 
     /**
      * Constructs a {@code RenewPeriod}.
@@ -42,7 +44,13 @@ public class RenewPeriod {
      * Returns true if a given string is a valid renew period.
      */
     public static boolean isValidRenewPeriod(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        try {
+            int renewPeriod = Integer.parseInt(test);
+            return renewPeriod > 0 && renewPeriod <= MAX_RENEW_PERIOD && !test.startsWith("+");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     @Override

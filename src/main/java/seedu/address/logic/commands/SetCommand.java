@@ -35,7 +35,7 @@ public class SetCommand extends ReversibleCommand {
             + PREFIX_LOAN_PERIOD + "14 "
             + PREFIX_RENEW_PERIOD + "14 ";
 
-    public static final String MESSAGE_SET_USER_SETTINGS_SUCCESS = "Set User Settings: %1$s";
+    public static final String MESSAGE_SET_USER_SETTINGS_SUCCESS = "Set User Settings:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
