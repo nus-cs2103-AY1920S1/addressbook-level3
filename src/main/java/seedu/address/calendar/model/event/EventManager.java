@@ -532,6 +532,9 @@ public class EventManager {
      * @throws NoVacationException If there is no vacation
      */
     public double getPercentageTrip() throws NoVacationException {
+        if (getNumDaysVacation() == 0) {
+            throw new NoVacationException();
+        }
         return (double) getNumDaysTrip() / getNumDaysVacation();
     }
 }

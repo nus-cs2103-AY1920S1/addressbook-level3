@@ -51,7 +51,7 @@ public class ViewOnlyDay {
      * @return day of week as a meaningful numerical value that is zero-based
      */
     public int getDayOfWeekZeroIndex() {
-        return DateUtil.getNumericalVal(dayOfWeek);
+        return dayOfWeek.getNumericalVal();
     }
 
     public boolean hasCommitment() {

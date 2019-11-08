@@ -20,7 +20,7 @@ public class MonthOfYearUtil {
      * {@code MonthOfYear}.
      * Guarantees: {@code javaMonth} is between 0 and 11 (inclusive)
      *
-     * @param javaMonth {@code int} representation of a month in Java's default  {@code Calendar} class
+     * @param javaMonth {@code int} representation of a month in Java's default {@code Calendar} class
      * @return {@code MonthOfYear} equivalent of {@code javaMonth}
      */
     static MonthOfYear convertJavaMonth(int javaMonth) {
