@@ -306,14 +306,14 @@ public class Deck implements JsonInterface {
         int totalDeckSize = cards.size();
 
         if (totalDeckSize <= 10) {
-            return cards;
+            return this.duplicateMyself().getCards();
         }
 
-        //int sizeOfLowPrioritySet = (int) Math.floor(totalDeckSize * 0.4);
-        int sizeOfLowPrioritySet = 4;
-
-        //int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
         int sizeOfHighPrioritySet = 6;
+        if (highPriorityQueue.size() < 6){
+            sizeOfHighPrioritySet = highPriorityQueue.size();
+        }
+        int sizeOfLowPrioritySet = 10 - sizeOfHighPrioritySet;
 
         for (int i = 0; i < sizeOfHighPrioritySet; i++) {
             FlashCard chosenCard = getRandomCard(highPriorityQueue);
@@ -338,6 +338,8 @@ public class Deck implements JsonInterface {
      */
     private FlashCard getRandomCard(ArrayList<FlashCard> list) {
         Random rand = new Random(System.currentTimeMillis());
+
+        System.out.println(list.size());
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
     }
