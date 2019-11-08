@@ -3,9 +3,9 @@ package com.typee.model;
 import static com.typee.testutil.TypicalReports.TYPICAL_REPORT;
 import static com.typee.testutil.TypicalReports.TYPICAL_REPORT_DIFF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,7 +87,6 @@ public class ModelManagerTest {
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
-    
     @Test
     public void equals() {
         EngagementList engagementList = TypicalEngagements.getTypicalEngagementList();
