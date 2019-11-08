@@ -4,20 +4,18 @@
 
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_INVALID;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
-import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.schedule.DisplayScheduleBetweenParser;
-import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
-import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 import seedu.address.model.event.EventDate;
 
