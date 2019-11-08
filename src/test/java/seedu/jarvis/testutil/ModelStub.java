@@ -253,6 +253,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addCca(Index targetIndex, Cca cca) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addTask(Task t) {
         throw new AssertionError("This method should not be called.");
     }
