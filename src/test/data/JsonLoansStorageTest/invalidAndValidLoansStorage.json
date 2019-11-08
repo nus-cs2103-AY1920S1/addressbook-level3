@@ -1,0 +1,26 @@
+{
+  "loans" : [ {
+    "personName" : "John",
+    "direction" : "OUT",
+    "amount" : 10000,
+    "date" : "2/1/1970",
+    "description" : "For dinner.",
+    "status" : "UNPAID"
+  }, {
+    "personName" : "CH@rLIE",
+    "direction" : "nowhere",
+    "amount" : -1,
+    "date" : "1st OCT",
+    "description" : 1,
+    "status" : "DEAD"
+  } ],
+  "debtors" : [ {
+    "debtorName" : "John",
+    "creditorsNames" : [ "Mary", "Peter" ],
+    "creditorsAmounts" : [ 3000, 50000 ]
+  }, {
+    "debtorName" : "CH@Rlie",
+    "creditorsNames" : [ "L!nux", "Micro$oft" ],
+    "creditorsAmounts" : [ 0, -1 ]
+  } ]
+}

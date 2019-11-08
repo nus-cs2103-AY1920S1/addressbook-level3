@@ -1,0 +1,15 @@
+{
+  "loans" : [ {
+    "personName" : "CH@rLIE",
+    "direction" : "nowhere",
+    "amount" : -1,
+    "date" : "1st OCT",
+    "description" : 1,
+    "status" : "DEAD"
+  } ],
+  "debtors" : [ {
+    "debtorName" : "CH@Rlie",
+    "creditorsNames" : [ "L!nux", "Micro$oft" ],
+    "creditorsAmounts" : [ 0, -1 ]
+  } ]
+}

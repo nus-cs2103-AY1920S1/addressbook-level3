@@ -1,0 +1,44 @@
+{
+  "loans" : [ {
+    "personName" : "John",
+    "direction" : "OUT",
+    "amount" : 10000,
+    "date" : "2/1/1970",
+    "description" : "For dinner.",
+    "status" : "UNPAID"
+  }, {
+    "personName" : "Mary",
+    "direction" : "IN",
+    "amount" : 420,
+    "date" : "4/1/1970",
+    "description" : "For supper.",
+    "status" : "UNPAID"
+  }, {
+    "personName" : "Peter",
+    "direction" : "OUT",
+    "amount" : 4000,
+    "date" : "3/1/1970",
+    "description" : "For lunch.",
+    "status" : "PAID"
+  }, {
+    "personName" : "Zed",
+    "direction" : "IN",
+    "amount" : 66666,
+    "date" : "5/1/1970",
+    "description" : "For the midnight snack.",
+    "status" : "PAID"
+  } ],
+  "debtors" : [ {
+    "debtorName" : "John",
+    "creditorsNames" : [ "Mary", "Peter" ],
+    "creditorsAmounts" : [ 3000, 50000 ]
+  }, {
+    "debtorName" : "Mary",
+    "creditorsNames" : [ "Peter", "Zed", "Gary" ],
+    "creditorsAmounts" : [ 40000, 930, 7000 ]
+  }, {
+    "debtorName" : "Zed",
+    "creditorsNames" : [ "Gary" ],
+    "creditorsAmounts" : [ 1 ]
+  } ]
+}

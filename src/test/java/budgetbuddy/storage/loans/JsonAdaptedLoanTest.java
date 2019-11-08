@@ -10,6 +10,7 @@ import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.transaction.Amount;
 
@@ -18,6 +19,7 @@ public class JsonAdaptedLoanTest {
     private static final String INVALID_PERSON = "R@chel";
     private static final String INVALID_DIRECTION = "NOWHERE";
     private static final Long INVALID_AMOUNT = -11111L;
+    private static final Long INVALID_AMOUNT_ZERO = 0L;
     private static final String INVALID_DATE = "1st Oct";
     private static final String INVALID_DESCRIPTION = "d".repeat(Description.MAX_LENGTH + 1);
     private static final String INVALID_STATUS = "DEAD";
@@ -63,6 +65,14 @@ public class JsonAdaptedLoanTest {
         JsonAdaptedLoan jsonAdaptedLoan = new JsonAdaptedLoan(VALID_PERSON, VALID_DIRECTION, INVALID_AMOUNT,
                 VALID_DATE, VALID_DESCRIPTION, VALID_STATUS);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, jsonAdaptedLoan::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidAmountZero_throwsIllegalValueException() {
+        JsonAdaptedLoan jsonAdaptedLoan = new JsonAdaptedLoan(VALID_PERSON, VALID_DIRECTION, INVALID_AMOUNT_ZERO,
+                VALID_DATE, VALID_DESCRIPTION, VALID_STATUS);
+        String expectedMessage = Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT;
         assertThrows(IllegalValueException.class, expectedMessage, jsonAdaptedLoan::toModelType);
     }
 
