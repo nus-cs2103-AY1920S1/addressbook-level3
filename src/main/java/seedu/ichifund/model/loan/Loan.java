@@ -4,9 +4,9 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
-
 
 /**
  * Loan class for storing objects of Loan type.
@@ -17,9 +17,9 @@ public class Loan implements Comparable<Loan> {
     private Name name;
     private Date takenOn;
     private Date returnBy;
-    private LoanDescription loanDescription;
+    private Description description;
 
-    public Loan(LoanId loanId, Amount amount, Name name, Date takenOn, Date returnBy, LoanDescription loandescription) {
+    public Loan(LoanId loanId, Amount amount, Name name, Date takenOn, Date returnBy, Description description) {
 
         requireAllNonNull(loanId, amount, takenOn);
 
@@ -28,7 +28,7 @@ public class Loan implements Comparable<Loan> {
         this.name = name;
         this.takenOn = takenOn;
         this.returnBy = returnBy;
-        this.loanDescription = loanDescription;
+        this.description = description;
     }
 
     public LoanId getLoanId() {
@@ -71,12 +71,12 @@ public class Loan implements Comparable<Loan> {
         this.amount = amount;
     }
 
-    public LoanDescription getLoanDescription() {
-        return loanDescription;
+    public Description getDescription() {
+        return description;
     }
 
-    public void setLoanDescription(LoanDescription loanDescription) {
-        this.loanDescription = loanDescription;
+    public void setDescription(Description description) {
+        this.description = description;
     }
 
 
@@ -100,12 +100,12 @@ public class Loan implements Comparable<Loan> {
                 && otherLoan.getName().equals(getName())
                 && otherLoan.getReturnBy().equals(getReturnBy())
                 && otherLoan.getTakenOn().equals(getTakenOn())
-                && otherLoan.getLoanDescription().equals(getLoanDescription());
+                && otherLoan.getDescription().equals(getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanId, amount, name, takenOn, returnBy, loanDescription);
+        return Objects.hash(loanId, amount, name, takenOn, returnBy, description);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Loan implements Comparable<Loan> {
                 .append(" Deadline Date: ")
                 .append(getReturnBy())
                 .append(" Description: ")
-                .append(getLoanDescription());
+                .append(getDescription());
         return builder.toString();
     }
 
@@ -135,7 +135,7 @@ public class Loan implements Comparable<Loan> {
         } else if (amountComparison != 0) {
             return amountComparison;
         } else {
-            return getLoanDescription().compareTo(other.getLoanDescription());
+            return getDescription().compareTo(other.getDescription());
         }
     }
 }
