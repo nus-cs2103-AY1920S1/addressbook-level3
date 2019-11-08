@@ -64,17 +64,19 @@ public class BadCommand extends Command {
         BadQuestions badQuestions = new BadQuestions();
 
         try {
+            model.addDeadline(deadline);
+        } catch (DuplicateDeadlineException e) {
+            return new CommandResult(DUPLICATE_DEADLINE);
+        }
+
+        try {
             badQuestions.addBadQuestion(d, badFlashcard);
         } catch (DuplicateFlashCardException err) {
             return new CommandResult(DUPLICATE_BAD_FLASHCARD);
         }
         badQuestions.saveAsJson(badQuestions);
 
-        try {
-            model.addDeadline(deadline);
-        } catch (DuplicateDeadlineException e) {
-            return new CommandResult(DUPLICATE_DEADLINE);
-        }
+
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
