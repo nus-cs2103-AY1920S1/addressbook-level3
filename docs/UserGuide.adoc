@@ -29,6 +29,14 @@ can help you manage your flashcards much more efficiently than traditional GUI a
 Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
 features not available with most flashcard managers that we're sure you'll love. Enjoy!
 
+Please also note the following icons, which will indicate points of interest throughout this document.
+
+NOTE: A point of information that you may wish to note
+
+TIP: A tip or suggestion
+
+CAUTION: A cautionary word of advice
+
 == Quick Start
 
 .  Ensure you have Java 11 or above installed in your Computer.
@@ -39,7 +47,6 @@ features not available with most flashcard managers that we're sure you'll love.
 .Graphical User Interface of KeyboardFlashCards[
 image::annotatedUi.png[width="790"]
 
-<<<
 //tag::features[]
 
 == Features
@@ -56,15 +63,6 @@ This section contains the features and their respective commands.
 ====
 //end::features[]
 
-Please also note the following icons, which will indicate points of interest throughout this document.
-
-NOTE: A point of information that you may wish to note
-
-TIP: A tip or suggestion
-
-WARNING: A cautionary word of advice
-
-<<<
 //tag::flashcardAll[]
 //tag::flashcard[]
 === Add new FlashCard: `add q>QUESTION a>ANSWER [c>CATEGORY]...`
