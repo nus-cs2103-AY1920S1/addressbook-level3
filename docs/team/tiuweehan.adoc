@@ -69,6 +69,8 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
 
 ** Documentation:
 *** Added images to the User Guide that serves as visual aids.
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/224[#224]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
