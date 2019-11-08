@@ -979,16 +979,3 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
-
-
-* *Other Major enhancement*:
-** My other contributions to the codebase is as follows:
-*** Complete overhaul of User Interface. This includes generating the FXML files, creating the controller files, importing and GUI tests.
-*** UI commands. This includes the command that is directly related to switching of UI e.g `switch-o` which allows the user to switch their their focused tab panel with a command
-
-* *Code contributed*:
-
-* contributed total almost 7k LOC:
-
-** 3k+ functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[functional code]
-** 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[test code]
