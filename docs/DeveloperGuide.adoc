@@ -403,19 +403,44 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 ==== Implementation
 The main point of this feature is to learn a user's typing habits so as to give them a more seamless experience
 while using TutorAid by adapting to their typing style so that they do not have to memorize
-built in commands.
+built in commands. This is done by having TutorAid trigger in and out of "learner" mode.
 
-The sequence of events is triggered when a user accidentally inputs a wrong command. TutorAid will then prompt
-the user on whether or not they wish to add this command to the library as a custom command mapped to the action of a built in command.
+A `CommandResult` object now has an added boolean "unknown" instance variable to indicate if the command entered is
+an unknown command. Along with this, TutorAid shifts between "learner" mode and normal mode by the following implementation:
+[source,java]
+----
+public class MainWindow extends UiPart<Stage> {
+    private boolean unknown;
 
-Custom command keywords and their mappings are stored locally in TutorAid.json with
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText, this.unknown);
+            //currently in "learner" mode and a known command is entered. TutorAid goes back to normal mode.
+            if (this.unknown) {
+                if (!commandResult.isUnknown()) {
+                    //unknown instance variable set to false
+                    setUnknownFalse();
+                }
+            }
+            //unknown command entered, TutorAid goes into "learner" mode
+            if (commandResult.isUnknown()) {
+                //unknown instance variable set to true
+                setUnknownTrue();
+                }
+            //..other logic
+            } catch (CommandException | ParseException e) {
+            //..catch logic
+            }
+    }
+}
+----
+While in "learner" mode, TutorAid can map wrong commands to the actions of known commands. These wrong/custom command keywords and their mappings are stored locally in TutorAid.json with
 the help of `JsonAdaptedCommand`.
 
-The whole mechanism is mainly facilitated by `TutorAidParser` which has been modified to suit our needs. A TreeMap
+The whole mechanism is largely facilitated by `TutorAidParser` as well which has been modified to suit our needs. A TreeMap
 is now being used in the process of parsing commands.
 
-A `CommandResult` object now also has an added boolean "unknown" instance variable to indicate if the command entered is
-an unknown command. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
+New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
 
 * `TutorAidParser#checkCommand()` -- Separate "parser" functions for unknown command operations.
 Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
@@ -431,23 +456,28 @@ commands and previous existing custom commands will be added to its TreeMap.
 Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap and in the `TutorAidParser#parseCommand(String userInput)` function and returns a new `UnknownCommand` since
 the TreeMap does not contain the keyword "plus".
 
-Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on a Stack in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `CommandResult#isUnknown()` and sets the "unknown" variable in `MainWindow`
-to true.
+Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `MainWindow#setUnknownTrue()` and sets TutorAid into "learner" mode via the earlier explained implementation.
+
+image::customStarting.png[width="800"]
 
 [NOTE]
 `Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways of unknown and known commands.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `Logic#execute(String userInput, boolean isUnknown)` now calls `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passes in a value of `true` to the `isUnknown` boolean variable of the execute command.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since `isUnknown` is now passed into `Logic#execute(String userInput, boolean isUnknown)` with a value of `true`, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`.
 
 [NOTE]
 `prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`
 
-Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned.
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
 
-Step 7. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest "prevUnknownCommand" retrieved from the stack, it adds the unknown command and action of the valid command as a key-value pair to the TreeMap and as a new CommandObject to the `TutorAid` for storage via execution of `NewCommand` object.
+image::customRepeat.png[width="800"]
 
-Step 8. `NewCommand` has a `CommandResult` with an "unknown" value of false. This will trigger `MainWindow#setUnknownFalse()` and set the unknown variable in `MainWindow` to false. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
+Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new mapping with the help of `Model`.
+
+image::customEnd.png[width="800"]
+
+Step 7. `NewCommand` has a `CommandResult` with an "unknown" value of false. This will trigger `MainWindow#setUnknownFalse()` and TutorAid goes back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
 The following sequence diagrams shows how the learn custom command operation works:
 
@@ -460,9 +490,6 @@ NOTE: The lifeline for `UnknownCommand` should end at the destroy marker (X) but
 After which, a known command is supplied,
 
 image::NewCommandDiagram.png[]
-
-[NOTE]
-`TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is called instead of the normal `TutorAidParser#parseCommand(String userInput)` function because the boolean input "isUnknown" in `Logic#execute(String userInput, boolean isUnknown)` is set to true.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 

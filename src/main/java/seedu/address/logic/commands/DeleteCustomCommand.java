@@ -15,7 +15,8 @@ public class DeleteCustomCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCustomCommand";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = "%1$s: This is not a valid custom command you've added.\n"
+            + COMMAND_WORD
             + ": Deletes the custom command previously added\n"
             + "Parameters: COMMAND\n"
             + "Example: " + COMMAND_WORD + " CUSTOM_COMMAND";
