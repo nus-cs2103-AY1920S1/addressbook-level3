@@ -19,11 +19,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * The display for a user to review cards.
  */
-public class TestDisplay extends AnchorPane {
+public class TestDisplay extends VBox {
     @FXML
     private AnchorPane cardDisplay;
     @FXML
