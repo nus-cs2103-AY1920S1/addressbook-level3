@@ -464,17 +464,17 @@ Example: `delete 1`
 
 {nbsp} +
 
-==== Entering EditMode: `edit`
+==== Entering EditMode: `editmode`
 This command enters EditMode for the restaurant identified by the specified index in the restaurant list.
 Displays the restaurant's details, menu and current orders.
 Unlocks commands for editing details, adding and removing of food items
 in the menu, and adding of rating.
 
-Format: `edit INDEX`
+Format: `editmode INDEX`
 
 * `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
 
-Example: `edit 3`
+Example: `editmode 3`
 
 image::userguide\EditMode.png[width="790"]
 
@@ -726,7 +726,7 @@ Example: `enter 1`
 * Restaurant commands
 - Add a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
 - Delete a restaurant: `delete INDEX`
-- Enter EditMode: `edit INDEX`
+- Enter EditMode: `editmode INDEX`
 - Edit a restaurant's details (under EditMode) : `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 - Add a food item (under EditMode) : `add n/NAME a/PRICE [t/TAG]...`
 - Delete a food item (under EditMode) : `delete INDEX`

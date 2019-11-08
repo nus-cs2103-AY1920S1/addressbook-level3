@@ -37,7 +37,6 @@ import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
-import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
  * TO fill
