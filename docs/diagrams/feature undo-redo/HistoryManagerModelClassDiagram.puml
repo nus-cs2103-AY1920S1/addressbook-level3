@@ -9,11 +9,11 @@ skinparam classAttributeFontColor #FFFFFFF
 Package HistoryManager <<Rectangle>> {
     Class HistoryManager
     Class CommandDeque
-    Class "{abstract}\nCommand" as Command
 }
 
 Interface Model <<interface>>
 Class ModelManager
+Class "{abstract}\nCommand" as Command
 
 ModelManager .up.|> Model
 ModelManager .left.> "1" HistoryManager
