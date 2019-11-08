@@ -54,7 +54,7 @@ public class OpenDisplayStateTest {
             transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "12/11/2019");
             State finalPostTransitionState = postTransitionState;
             assertThrows(StateTransitionException.class, ()
-                    -> finalPostTransitionState.transition(transitionArgumentMultimap));
+                -> finalPostTransitionState.transition(transitionArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }
