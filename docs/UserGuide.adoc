@@ -49,7 +49,7 @@ Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
 
 EzWatchlist was built with ease in mind hence our interface reflects this design philosophy.
 
-.EzWatchlist graphical interface
+.EzWatchlist's graphical interface
 image::Ui.png[width="900"]
 
 ==== Navigation
