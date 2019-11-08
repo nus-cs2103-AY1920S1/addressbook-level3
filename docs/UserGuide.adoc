@@ -18,7 +18,20 @@ By: `Team CS2103-F14-2`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-TutorAid is for teaching assistants or tutors who prefer to use a desktop app for managing their classes and related tasks. More importantly, TutorAid is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorAid can get your tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+Are you a teaching assistant that is *struggling* to keep up with the additional responsibility of teaching a class?
+
+Do you sometimes *wish* that there was an easier way to organize and filter through your students?
+
+As a broke uni student, do you *desperately* need a tool to keep track of your earnings?
+
+### Look no further! TutorAid is the one stop solution to answer all of your TA woes!
+
+TutorAid is for teaching assistants or tutors who prefer to use a desktop app for managing their classes and related tasks. TutorAid helps in organizing all the information you need in one place so that you can optimize your workflow.
+More importantly, TutorAid is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+This User Guide was written to help you understand and familiarize yourself with all the commands TutorAid has to help you get started.
+
+If you can type fast, TutorAid can get your tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
@@ -35,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : Links you to the User Guide so you can view how to use all the available commands.
-* **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
+* **`add_task`**`c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
@@ -286,7 +299,7 @@ Examples:
 ==== Edit Note: `editnote`
 
 Update Note in the list of notes. +
-Format: `editnote [index] mod/MODULE_CODE c/CONTENT`
+Format: `editnote INDEX mod/MODULE_CODE c/CONTENT`
 
 Examples:
 
@@ -297,7 +310,7 @@ Examples:
 ==== Delete Note: `deletenote`
 
 Delete Note in the list of notes. +
-Format: `deletenote [index]`
+Format: `deletenote INDEX`
 
 Examples:
 
@@ -306,7 +319,7 @@ Examples:
 ==== Find Note: `findnote`
 
 Delete Note in the list of notes. +
-Format: `findnote [KEYWORD]`
+Format: `findnote KEYWORD`
 
 Examples:
 
@@ -480,6 +493,11 @@ image::customCommandError.png[width="700", align="left"]
 [NOTE]
 You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
 
+Examples:
+
+* `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
+to use `ad` as an `add` command in the future.
+
 ==== Delete a custom command: 'deleteCustomCommand'
 
 Deletes a custom command you previously added. This custom command will be forgotten by TutorAid and will not be able to be used anymore.
@@ -554,16 +572,6 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Learning wrong commands as custom commands
-
-TutorAid is able to learn a wrongly supplied command to do what the user intended to do. +
-Format: `WRONG_COMMAND`
-
-Examples:
-
-* `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
-to use `ad` as an `add` command in the future.
-
 === Logout : `logout`
 
 Logs out of the account. +
@@ -609,17 +617,28 @@ _{explain how the user can enable/disable data encryption}_
 * *Reminder* : `reminder INDEX STATUS`
 * *Earnings* : +
 `add_earnings d/DATE c/CLASSID amt/AMOUNT` +
-`update_earnings d/DATE c/CLASSID amt/(NEW_AMOUNT)` +
+`update_earnings d/DATE c/CLASSID amt/AMOUNT type/TYPE` +
 `delete_earnings d/DATE c/CLASSID` +
-`find_earnings k/KEYWORD, ...` +
+`find_earnings k/KEYWORD ...` +
 `claim_earnings d/DATE c/CLASSID` +
 `filter_earnings VARIABLE`
 * *Note* : +
 `addnote mod/MODULE_CODE c/CONTENT` +
-`editnote [index] mod/MODULE_CODE c/CONTENT` +
-`deletenote 1` +
-`findnote [KEYWORD]` +
+`editnote INDEX mod/MODULE_CODE c/CONTENT` +
+`deletenote INDEX` +
+`findnote KEYWORD` +
 `listnote`
+* *Student List* : +
+`add n/NAME c/CLASSID` +
+`delete INDEX` +
+`edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS` +
+`list` +
+`find NAME` +
+`set_pic INDEX pic/FILENAME` +
+`assign_class INDEXES c/CLASSID` +
+`list_class CLASSID` +
+`mark_attendance INDEXES` +
+`mark_participation INDEXES` 
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Clear* : `clear`
