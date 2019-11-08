@@ -60,7 +60,7 @@ public class EventCommandTest {
         ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
         assertThrows(CommandException.class,
-                String.format(EventCommand.MESSAGE_DUPLICATE_EVENT, VALID_EVENT), () -> eventCommand.execute(modelStub));
+            String.format(EventCommand.MESSAGE_DUPLICATE_EVENT, VALID_EVENT), () -> eventCommand.execute(modelStub));
     }
 
     @Test
