@@ -1,12 +1,10 @@
 package seedu.address.logic.parser;
-
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.SendReminderCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class SendReminderCommandParser implements Parser<SendReminderCommand> {
     @Override
@@ -19,7 +17,14 @@ public class SendReminderCommandParser implements Parser<SendReminderCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SendReminderCommand.MESSAGE_USAGE));
         }
 
-        int duration = Integer.parseInt(argMultimap.getValue(SendReminderCommand.PREFIX_DURATION).get());
+        String durationInString = argMultimap.getValue(SendReminderCommand.PREFIX_DURATION).get();
+        if (durationInString.equals("")) {
+            throw new ParseException("Duration cannot be an empty input, please key in a positive number for the duration");
+        }
+        if (!StringUtil.isNonZeroUnsignedInteger(durationInString)) {
+            throw new ParseException("Duration must be a numeric character and a non-zero and non-negative integer");
+        }
+        int duration = Integer.parseInt(durationInString);
 
         return new SendReminderCommand(duration);
     }

@@ -11,6 +11,7 @@ if () then ([valid input])
 :Check for tasks which are due within the specific number of days;
 :Append the tasks to the list of tasks to be sent to members;
 :Obtain current list of members;
+:Obtain ownerAccount for user's email and password;
 :Send the list of meetings and tasks to members via email;
 :Display success message;
 else ([invalid input])

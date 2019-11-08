@@ -67,6 +67,12 @@ activate Model
 Model --> SendReminderCommand : Members
 deactivate Model
 
+SendReminderCommand -> Model : getOwnerAccount()
+activate Model
+
+Model --> SendReminderCommand : OwnerAccount
+deactivate Model
+
 loop for each members in the project
 
    SendReminderCommand -> Mailer : sendMail()
