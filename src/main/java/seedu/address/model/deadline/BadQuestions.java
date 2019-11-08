@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.exceptions.NoBadFlashCardException;
 
 /**
  * BadQuestions class.
@@ -50,13 +51,18 @@ public class BadQuestions {
      */
     public String showBadQuestionsList(DueDate d) {
         Set<FlashCard> set = internalMap.get(d.toString());
-        Iterator<FlashCard> itr = set.iterator();
-        StringBuilder sb = new StringBuilder();
-        sb.append("For Deadline: " + d.toString() + "\n");
-        while (itr.hasNext()) {
-            sb.append(itr.next().getQuestion().toString() + "\n");
+        try {
+            Iterator<FlashCard> itr = set.iterator();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("For Deadline: " + d.toString() + "\n");
+            while (itr.hasNext()) {
+                sb.append(itr.next().getQuestion().toString() + "\n");
+            }
+            return sb.toString();
+        } catch (NullPointerException e) {
+            throw new NoBadFlashCardException();
         }
-        return sb.toString();
     }
 
     /**

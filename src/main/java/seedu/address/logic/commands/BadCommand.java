@@ -76,8 +76,6 @@ public class BadCommand extends Command {
         }
         badQuestions.saveAsJson(badQuestions);
 
-
-
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
