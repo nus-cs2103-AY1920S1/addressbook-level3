@@ -58,5 +58,9 @@ include::../UserGuide.adoc[tag=quizsection]
 
 == Contributions to the Developer Guide
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=createquestion]
+include::../DeveloperGuide.adoc[tag=undoredo1]
+include::../DeveloperGuide.adoc[tag=undoredo2]
+include::../DeveloperGuide.adoc[tag=undoredo3]
+include::../DeveloperGuide.adoc[tag=undoredo4]
 
