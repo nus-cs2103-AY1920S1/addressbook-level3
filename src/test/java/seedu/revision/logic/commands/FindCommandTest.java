@@ -8,7 +8,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.revision.testutil.TypicalAnswerables.C_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.E_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.F_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -26,8 +27,8 @@ import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredic
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
+    private Model expectedModel = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
 
     @Test
     public void equals() {

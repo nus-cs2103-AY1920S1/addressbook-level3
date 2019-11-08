@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -8,14 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.revision.commons.core.GuiSettings;
-import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-
-import java.io.IOException;
+import seedu.revision.ui.answerables.AnswerableListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,11 +24,8 @@ import java.io.IOException;
  */
 public abstract class Window extends UiPart<Stage> {
 
-    protected static final String FXML = "MainWindow.fxml";
-
     protected Stage primaryStage;
-    protected MainLogic mainLogic;
-    protected QuizLogic quizLogic;
+    protected Logic logic;
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
@@ -50,28 +48,23 @@ public abstract class Window extends UiPart<Stage> {
     protected StackPane resultDisplayPlaceholder;
 
     @FXML
-    protected StackPane scoreProgressBar;
+    protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(FXML, primaryStage);
+    public Window(String fxml, Stage primaryStage, Logic logic) {
+        super(fxml, primaryStage);
         this.primaryStage = primaryStage;
-        this.mainLogic = mainLogic;
-        this.quizLogic = quizLogic;
+        this.logic = logic;
         setAccelerators();
         helpWindow = new HelpWindow();
-        setWindowDefaultSize(this.mainLogic.getGuiSettings());
+        setWindowDefaultSize(this.logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public MainLogic getMainLogic() {
-        return mainLogic;
-    }
-
-    public QuizLogic getQuizLogic() {
-        return quizLogic;
+    public Logic getLogic() {
+        return logic;
     }
 
     private void setAccelerators() {
@@ -150,6 +143,7 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException;
+    protected abstract CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IOException;
 
 }

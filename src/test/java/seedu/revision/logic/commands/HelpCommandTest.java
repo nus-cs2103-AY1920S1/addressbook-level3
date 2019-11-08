@@ -17,7 +17,8 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        CommandResult expectedCommandResult = new CommandResult().withFeedBack(SHOWING_HELP_MESSAGE)
+                .withHelp(true).withExit(false).build();
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }

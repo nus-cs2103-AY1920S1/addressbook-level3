@@ -10,6 +10,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -20,6 +21,7 @@ import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.Prefix;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
@@ -27,7 +29,6 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -58,7 +59,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        //assert validateQuestionType(questionType, argMultimap) : "question not valid according to type";
         validateQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
@@ -89,7 +89,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Validates that the question to be added is either an MCQ, TrueFalse or SAQ.
      * @param questionType type of question to be added.
-     * @param argMultimap
+     * @param argMultimap add multi-map.
      * @return true or false
      * @throws ParseException if question is in the wrong format.
      */
@@ -113,12 +113,18 @@ public class AddCommandParser implements Parser<AddCommand> {
                 }
             case "tf":
                 if (numCorrect == 1 && numWrong <= 1) {
+                    this.correctAnswerList = new ArrayList<>(Arrays.asList(
+                            new Answer(this.correctAnswerList.get(0).answer.toLowerCase())));
                     return true;
                 } else {
                     throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
                 }
             case "saq":
-                return true;
+                if (numCorrect > 0 && numWrong == 0) {
+                    return true;
+                } else {
+                    throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
+                }
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
@@ -138,11 +144,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (answerableToAdd instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) answerableToAdd)) {
                 throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
-            }
-        }
-        if (answerableToAdd instanceof Saq) {
-            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
-                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
             }
         }
         if (answerableToAdd instanceof TrueFalse) {

@@ -20,6 +20,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    public static final String COMPLETE_COMMAND = "add type/ q/ y/ x/ cat/ diff/ ";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the test bank. "
             + "Parameters: "
             + PREFIX_QUESTION_TYPE + "QUESTION TYPE "
@@ -59,7 +61,7 @@ public class AddCommand extends Command {
         }
 
         model.addAnswerable(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS, toAdd)).build();
     }
 
     @Override

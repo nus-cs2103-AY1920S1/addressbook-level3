@@ -14,7 +14,12 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResult().withFeedBack(MESSAGE_EXIT_ACKNOWLEDGEMENT).withHelp(false).withExit(true).build();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExitCommand); // instanceof handles nulls
+    }
 }

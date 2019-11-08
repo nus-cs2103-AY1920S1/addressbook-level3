@@ -18,12 +18,14 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
+import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.ReadOnlyUserPrefs;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.model.quiz.Statistics;
+import seedu.revision.testutil.McqBuilder;
 
 public class AddCommandTest {
 
@@ -35,7 +37,7 @@ public class AddCommandTest {
     @Test
     public void execute_answerableAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingAnswerableAdded modelStub = new ModelStubAcceptingAnswerableAdded();
-        Answerable validAnswerable = new AnswerableBuilder().build();
+        Answerable validAnswerable = new McqBuilder().build();
 
         CommandResult commandResult = new AddCommand(validAnswerable).execute(modelStub);
 
@@ -45,7 +47,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateAnswerable_throwsCommandException() {
-        Answerable validAnswerable = new AnswerableBuilder().build();
+        Answerable validAnswerable = new McqBuilder().build();
         AddCommand addCommand = new AddCommand(validAnswerable);
         ModelStub modelStub = new ModelStubWithAnswerable(validAnswerable);
 
@@ -55,8 +57,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Answerable alice = new AnswerableBuilder().withQuestion("Alice").build();
-        Answerable bob = new AnswerableBuilder().withQuestion("Bob").build();
+        Answerable alice = new McqBuilder().withQuestion("Alice").build();
+        Answerable bob = new McqBuilder().withQuestion("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -102,12 +104,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getRevisionToolFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public Path getHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRevisionToolFilePath(Path revisionToolFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHistoryFilePath(Path historyFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -117,12 +129,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void addStatistics(Statistics statistics) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setRevisionTool(ReadOnlyRevisionTool newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHistory(ReadOnlyHistory newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRevisionTool getRevisionTool() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyHistory getHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -147,7 +174,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Statistics> getStatisticsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeFiltersFromAnswerableList() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -189,8 +225,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyRevisionTool getRevisionTool() {
+            return new RevisionTool();
         }
     }
 

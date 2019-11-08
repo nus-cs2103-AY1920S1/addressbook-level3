@@ -13,4 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DIFFICULTY = new Prefix("diff/");
     public static final Prefix PREFIX_CATEGORY = new Prefix("cat/");
     public static final Prefix PREFIX_MODE = new Prefix("mode/");
+    public static final Prefix PREFIX_TIMER = new Prefix("timer/");
+
 }

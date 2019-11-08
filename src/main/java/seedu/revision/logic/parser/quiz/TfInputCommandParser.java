@@ -17,7 +17,8 @@ public class TfInputCommandParser implements QuizParser<TfInputCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public TfInputCommand parse(String args, Answerable currentAnswerable) throws ParseException {
-        if (args.matches("\\b(?i)(true|false|t|f)\\b")) {
+        args = args.toLowerCase();
+        if (args.matches("\\b(?i)(true|false|t|f|n|)\\b")) {
             return new TfInputCommand(args, currentAnswerable);
         } else {
             throw new ParseException(

@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
 
 /** TfInputCommand class used to execute user inputs for True and False Answerables. **/
 public class TfInputCommand extends Command {
@@ -25,6 +25,7 @@ public class TfInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
+        String result;
 
         switch (tfInput.toLowerCase()) {
         case "true":
@@ -37,14 +38,17 @@ public class TfInputCommand extends Command {
         case "f":
             selectedAnswer = new Answer("false");
             break;
+        case "n":
+            result = "wrong";
+            return new CommandResult().withFeedBack(result).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
-        return new CommandResult(result , false, false);
+        return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }
 
 

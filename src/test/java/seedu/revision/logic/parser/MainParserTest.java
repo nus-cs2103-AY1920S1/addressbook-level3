@@ -27,9 +27,9 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.AnswerableUtil;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class MainParserTest {
 
@@ -37,7 +37,7 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Answerable answerable = new AnswerableBuilder().build();
+        Answerable answerable = new McqBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(AnswerableUtil.getAddCommand(answerable));
         assertEquals(new AddCommand(answerable), command);
     }
@@ -59,7 +59,7 @@ public class MainParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Answerable answerable = new AnswerableBuilder().build();
+        Answerable answerable = new McqBuilder().build();
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(answerable).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ANSWERABLE.getOneBased() + " " + AnswerableUtil
@@ -90,7 +90,7 @@ public class MainParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " diff/1") instanceof ListCommand);
     }
 
     @Test

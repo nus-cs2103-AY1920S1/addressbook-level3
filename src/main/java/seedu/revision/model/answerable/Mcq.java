@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -14,7 +13,8 @@ import seedu.revision.model.category.Category;
  */
 public class Mcq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total";
+    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total"
+            + " with no duplicate answers.";
 
     /**
      * Every field must be present and not null.
@@ -24,15 +24,21 @@ public class Mcq extends Answerable {
         super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
+    public Mcq(ArrayList<Answer> correctAnswerList, ArrayList<Answer> wrongAnswerList) {
+        super(correctAnswerList, wrongAnswerList);
+    }
+
     /**
-     * Checks whether the input Mcq is valid.
+     * Checks whether the input Mcq is valid
      * @param mcq the mcq to validate.
      * @return boolean to indicate whether Mcq is valid or not.
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
-        if (mcq.getCorrectAnswerList().contains(Answer.emptyAnswer())
-                || mcq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
+        if (mcq.getCorrectAnswerList().size() != 1) {
+            return false;
+        }
+        if (mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
             return false;
         }
         if (mcq.getWrongAnswerList().size() != 3) {
@@ -42,21 +48,30 @@ public class Mcq extends Answerable {
     }
 
     /**
+     * Returns true if both {@code Mcq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Mcq}s.
+     */
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion())
+                && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList());
+    }
+
+    /**
      * Returns an entire text string of the answerable (question with all possible answers,
      * difficulty level and categories)
      * @return answerable string
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: MCQ ")
+        builder.append("Type: MCQ\n")
                 .append("Question: ")
-                .append(getQuestion())
-                .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList())
-                .append(" Wrong Answers: " + getWrongAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Correct Answer: " + getCorrectAnswerList() + "\n")
+                .append("Wrong Answers: " + getWrongAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }

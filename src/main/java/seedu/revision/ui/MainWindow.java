@@ -1,11 +1,5 @@
 package seedu.revision.ui;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,21 +7,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-
 import javafx.stage.Stage;
 
-import seedu.revision.MainApp;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
+import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
+import seedu.revision.ui.answerables.AnswerableListPanel;
 
 
 /**
@@ -36,28 +29,29 @@ import seedu.revision.model.util.SampleDataUtil;
  */
 public class MainWindow extends Window {
 
+    protected static final String FXML = "MainWindow.fxml";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(primaryStage, mainLogic, quizLogic);
+    public MainWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage, logic);
     }
-
-    Model passedModel;
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(mainLogic.getFilteredAnswerableList());
+        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
         answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, true);
+        //CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -66,10 +60,9 @@ public class MainWindow extends Window {
      * @throws CommandException
      */
     @FXML
-    public void handleStart() throws CommandException {
-        logger.info(String.valueOf(this.mainLogic.getFilteredAnswerableList().size()));
-        if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
-            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
+    public void handleStart(Mode mode) throws CommandException {
+        if (this.logic.getFilteredAnswerableList().size() > 0) {
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic(), mode);
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
@@ -77,6 +70,33 @@ public class MainWindow extends Window {
                     + "Quiz start aborted. Type 'list' to view your full list of questions again.");
         }
     }
+
+    /**
+     * Shows history of results as a line graph. Loads the window components for line graph.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleHistory() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("No past results were found.");
+        }
+    }
+
+    /**
+     * Shows results of latest quiz attempted as a pie chart. Loads the window components for pie chart.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleStats() throws CommandException {
+        if (this.logic.getStatisticsList().size() > 0) {
+
+        } else {
+            throw new CommandException("You have not attempted any quiz yet.");
+        }
+    }
+
     /**
      * Closes the application.
      */
@@ -84,7 +104,7 @@ public class MainWindow extends Window {
     protected void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        mainLogic.setGuiSettings(guiSettings);
+        logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -93,8 +113,7 @@ public class MainWindow extends Window {
      * Opens the restore window.
      */
     @FXML
-    public void handleRestore(Model passedModel) throws IOException {
-        boolean exists;
+    public void handleRestore(Model passedModel) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
         alert.setHeaderText(null);
@@ -115,9 +134,9 @@ public class MainWindow extends Window {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == confirmRestore) {
-            ReadOnlyAddressBook sampleData;
-            sampleData = SampleDataUtil.getSampleAddressBook();
-            passedModel.setAddressBook(new AddressBook(sampleData));
+            ReadOnlyRevisionTool sampleData;
+            sampleData = SampleDataUtil.getSampleRevisionTool();
+            passedModel.setRevisionTool(new RevisionTool(sampleData));
         }
     }
 
@@ -128,12 +147,12 @@ public class MainWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see MainLogic#execute(String)
+     * @see Logic#execute(String)
      */
     @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = mainLogic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -144,18 +163,24 @@ public class MainWindow extends Window {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isStart()) {
-                handleStart();
+                handleStart(commandResult.getMode());
             }
 
             if (commandResult.isShowRestore()) {
-                passedModel = commandResult.getModel();
-                handleRestore(passedModel);
+                handleRestore(commandResult.getModel());
+            }
+
+            if (commandResult.isShowHistory()) {
+                handleHistory();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats();
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

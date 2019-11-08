@@ -10,8 +10,7 @@ import javafx.stage.Stage;
 import seedu.revision.MainApp;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.commons.util.StringUtil;
-import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.Logic;
 
 /**
  * The manager of the UI component.
@@ -21,16 +20,14 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/idea.png";
 
-    private MainLogic mainLogic;
+    private Logic logic;
     private MainWindow mainWindow;
-    private QuizLogic quizLogic;
 
-    public UiManager(MainLogic mainLogic, QuizLogic quizLogic) {
+    public UiManager(Logic logic) {
         super();
-        this.mainLogic = mainLogic;
-        this.quizLogic = quizLogic;
+        this.logic = logic;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, mainLogic, quizLogic);
+            mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -66,7 +63,7 @@ public class UiManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/OrangeTheme.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

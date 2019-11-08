@@ -1,5 +1,6 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -7,11 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -19,8 +16,6 @@ import seedu.revision.model.category.Category;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Answerable {
-
-    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
 
     protected final Question question;
     protected final Difficulty difficulty;
@@ -38,11 +33,27 @@ public abstract class Answerable {
         this.question = question;
         this.correctAnswerList = correctAnswerList;
         this.wrongAnswerList = wrongAnswerList;
-        this.combinedAnswerList = Stream.concat(
-                correctAnswerList.stream(), wrongAnswerList.stream())
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Answer> shuffledList = new ArrayList<>();
+        shuffledList.addAll(correctAnswerList);
+        shuffledList.addAll(wrongAnswerList);
+        Collections.shuffle(shuffledList);
+        this.combinedAnswerList = shuffledList;
         this.difficulty = difficulty;
         this.categories.addAll(categories);
+    }
+
+    public Answerable (ArrayList<Answer> correctAnswerList,
+                       ArrayList<Answer> wrongAnswerList) {
+        this.question = new Question("Question");
+        this.correctAnswerList = correctAnswerList;
+        this.wrongAnswerList = wrongAnswerList;
+        ArrayList<Answer> combinedList = new ArrayList<>();
+        combinedList.addAll(wrongAnswerList);
+        combinedList.addAll(0, correctAnswerList);
+        this.combinedAnswerList = combinedList;
+        //System.out.println(combinedList);
+        this.difficulty = new Difficulty("1");
+        this.categories.add(new Category("cat"));
     }
 
     public Question getQuestion() {
@@ -75,11 +86,10 @@ public abstract class Answerable {
      * @return true if correct or false if wrong.
      */
     public boolean isCorrect(Answer selectedAnswer) {
+        requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
-            logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
         return false;
     }
 
@@ -91,21 +101,18 @@ public abstract class Answerable {
         if (otherAnswerable == this) {
             return true;
         }
+
+        if (otherAnswerable == null) {
+            return false;
+        }
+
         if (!(otherAnswerable.getClass().equals(this.getClass()))) {
             return false;
         }
 
-        boolean isSameMCq = true;
-        if (this instanceof Mcq) {
-            isSameMCq = otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList());
-        }
-
-        return otherAnswerable != null
-            && otherAnswerable.getQuestion().equals(getQuestion())
-            && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
-            && otherAnswerable.getDifficulty().equals(getDifficulty())
-            && isSameMCq;
+        return true;
     }
+
 
     /**
      * Returns true if both Answerables have the same identity and data fields.
@@ -134,20 +141,4 @@ public abstract class Answerable {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion())
-                .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList())
-                .append(" Wrong Answers: " + getWrongAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
-        getCategories().forEach(builder::append);
-        return builder.toString();
-    }
-
 }

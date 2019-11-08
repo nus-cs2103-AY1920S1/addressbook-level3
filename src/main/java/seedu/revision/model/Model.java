@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 
 /**
  * The API of the Model component.
@@ -37,20 +38,37 @@ public interface Model {
     /**
      * Returns the user prefs' revision tool file path.
      */
-    Path getAddressBookFilePath();
+    Path getRevisionToolFilePath();
+
+    /**
+     * Returns the user prefs' quiz history file path.
+     */
+    Path getHistoryFilePath();
 
     /**
      * Sets the user prefs' revision tool file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setRevisionToolFilePath(Path addressBookFilePath);
+
+    /**
+     * Sets the user prefs' quiz history file path.
+     */
+    void setHistoryFilePath(Path historyFilePath);
 
     /**
      * Replaces revision tool data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setRevisionTool(ReadOnlyRevisionTool revisionTool);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the RevisionTool */
+    ReadOnlyRevisionTool getRevisionTool();
+    /**
+     * Replaces quiz history data with the data in {@code history}.
+     */
+    void setHistory(ReadOnlyHistory history);
+
+    /** Returns the History */
+    ReadOnlyHistory getHistory();
 
     /**
      * Returns true if a answerable with the same identity as {@code answerable} exists in the revision tool.
@@ -70,6 +88,11 @@ public interface Model {
     void addAnswerable(Answerable answerable);
 
     /**
+     * Adds the given statistics.
+     */
+    void addStatistics(Statistics statistics);
+
+    /**
      * Replaces the given answerable {@code target} with {@code editedAnswerable}.
      * {@code target} must exist in the revision tool.
      * The answerable identity of {@code editedAnswerable} must not be the same as
@@ -80,9 +103,16 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered answerable list */
     ObservableList<Answerable> getFilteredAnswerableList();
 
+    /** Returns an unmodifiable view of the statistics list */
+    ObservableList<Statistics> getStatisticsList();
+
     /**
      * Updates the filter of the filtered answerable list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAnswerableList(Predicate<Answerable> predicate);
+
+    /** Removes the filters from answerable list and restores the list to its original size. **/
+    void removeFiltersFromAnswerableList();
+
 }

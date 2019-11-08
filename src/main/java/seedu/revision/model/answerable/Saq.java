@@ -1,11 +1,8 @@
 package seedu.revision.model.answerable;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.ArrayList;
 import java.util.Set;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -14,7 +11,8 @@ import seedu.revision.model.category.Category;
  */
 public class Saq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "SAQs should have at least one correct answer"
+            + " and no wrong answers.";
 
     /**
      * Every field must be present and not null.
@@ -24,18 +22,19 @@ public class Saq extends Answerable {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
+    @Override
+    public boolean isCorrect(Answer selectedAnswer) {
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), getCorrectAnswerList());
+        return answerIsCorrect;
+    }
+
     /**
-     * Checks whether the input Saq is valid.
-     * @param saq the saq to validate.
-     * @return boolean to indicate whether Saq is valid or not.
+     * Returns true if both {@code Saq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Saq}s.
      */
-    public static boolean isValidSaq(Saq saq) {
-        requireNonNull(saq);
-        if (saq.getCorrectAnswerList().contains(Answer.emptyAnswer())
-                || saq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
-            return false;
-        }
-        return true;
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion());
     }
 
     /**
@@ -45,13 +44,14 @@ public class Saq extends Answerable {
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: SAQ ")
+        builder.append("Type: SAQ\n")
                 .append("Question: ")
-                .append(" Correct Answers: ")
-                .append(getCorrectAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Correct Answers: ")
+                .append(getCorrectAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }
