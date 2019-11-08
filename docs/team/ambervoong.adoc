@@ -5,25 +5,49 @@
 
 == PROJECT: Mortago
 
-== Overview
+== 1. Introduction
 
-This project portfolio showcases the contributions I have made to the software project, Mortago.
+This project portfolio showcases the contributions I have made to Mortago, a software project my team and I built
+for a software engineering module.
 
-Purpose
-Team
-As a team of 5 software engineering students
-Project
+=== About the Team
+Our team comprises 5 dedicated Year 2 Computer Science students taking CS2103T, a compulsory software engineering module.
 
-Description of what it can do,
+=== About the Project
 
-Mortago is a mortuary management application for Singaporean mortuaries.
-It was our brainchild for the software engineering project in CS2103T.
+Our task for CS2103T was to build upon and enhance https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)],
+a sample address book application used to teach software engineering. It primarily uses a command line interface (CLI) for user interaction,
+and our enhanced application was required to have this as well.
 
-The project requires that we use base code from AddressBook Level 3 (AB3).
-The user interacts with Mortago using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about [10 kLoC].
+Given a 3 month time span, we decided to morph the application into Mortago, a mortuary management application.
+Written in Java, the software totals to around 20,000 lines of code (20 kLoC).
+Mortago is a desktop application and is designed to make the mortuary workflow faster and smarter
+for mortuary managers in Singapore.
 
-== Summary of contributions
+Mortago's primary purpose is to act as a user-friendly database for mortuaries. A neat and appealing dashboard allows users to see important data with one glance.
+Mortago is comprehensive and tracks a mortuary's bodies, workers, and fridges. Other than basic commands to manipulate and find data, Mortago also automates fridge management for bodies and
+generates critical reminders according to Singapore's laws. It also automatically shows key statistics and allows reports to be easily generated.
+
+Singapore's mortuaries are still using paper records. This idea was conceived because we noticed a gap in the market for
+modern mortuary solutions. The user interacts with Mortago using a CLI, and it has a graphical user interface (GUI) created with JavaFX. Knowing that Singapore's
+mortuary managers are familiar with Microsoft Excel and are comfortable with typing, Mortago's CLI is the perfect fit for them.
+
+I designed and implemented the undo, redo, and update functionality in Mortago. I was responsible for
+the largest base class in Mortago, and also added storage functionality for almost everything in Mortago.
+The sections below detail my contributions as well as the documentation I wrote for the user and developer guides.
+
+You will encounter the following symbols and formatting in this document:
+
+====
+* `undo`:  Grey text with a white background (also known as a mark-up) indicating that the text
+is something the user can enter into the CLI.
+
+is a command that can be inputted into the command line and executed by the application.
+* `[subheader]#GenReportCommand.java#`: Maroon text with grey highlight indicates a component, class or object in the architecture of the application.
+====
+
+
+== Summary of Contributions
 
 * *Major enhancement*: added *the ability to undo/redo commands*
 
@@ -43,7 +67,7 @@ It required a careful analysis of design choices. Among the different alternativ
 * *Minor enhancement*: morphed the `edit` command in AB3 to an `update` command.
 * *Minor enhancement*: added the `Body` class, a foundational class in Mortago.
 
-*Code contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+*Code Contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
 
 * *Other contributions*:
 
