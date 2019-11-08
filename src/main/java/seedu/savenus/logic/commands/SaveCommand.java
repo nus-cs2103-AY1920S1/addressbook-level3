@@ -23,12 +23,16 @@ public class SaveCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    private static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
+    public static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
 
     private final Savings savingsAmount;
 
     public SaveCommand(String savings) {
         this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp(), false);
+    }
+
+    public SaveCommand(String savings, String time) {
+        this.savingsAmount = new Savings(savings, time, false);
     }
 
     @Override
@@ -46,5 +50,12 @@ public class SaveCommand extends Command {
             throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaveCommand // instanceof handles nulls
+                && this.savingsAmount.equals(((SaveCommand) other).savingsAmount)); // state check
     }
 }

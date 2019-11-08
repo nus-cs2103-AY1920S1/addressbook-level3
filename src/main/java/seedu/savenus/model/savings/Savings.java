@@ -61,4 +61,13 @@ public class Savings {
     public String toString() {
         return String.format("%.02f", savingsAmount.getAmount());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Savings
+            && this.savingsAmount.equals(((Savings) other).savingsAmount)
+            && this.getTimeStamp().getTimeStampInLocalDateTime()
+                .equals(((Savings) other).timeStamp.getTimeStampInLocalDateTime()));
+    }
 }
