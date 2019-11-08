@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -17,7 +20,13 @@ public class LookAtGroupMemberCommandParser implements Parser<LookAtGroupMemberC
     @Override
     public LookAtGroupMemberCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_EVENTNAME);
+
+        if (argMultimap.getAllValues(PREFIX_GROUPNAME).size() != 0
+                || argMultimap.getAllValues(PREFIX_EVENTNAME).size() != 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LookAtGroupMemberCommand.MESSAGE_USAGE));
+        }
 
         List<String> namesInString = argMultimap.getAllValues(PREFIX_NAME);
         List<Name> names = namesInString.stream()

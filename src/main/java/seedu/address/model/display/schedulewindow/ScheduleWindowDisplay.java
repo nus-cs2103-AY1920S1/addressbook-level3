@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
@@ -40,25 +41,13 @@ public class ScheduleWindowDisplay {
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
     }
 
-    public ScheduleWindowDisplay() {
-        this.personSchedules = new ArrayList<>();
-        this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
-        this.groupDisplay = null;
-
-        this.freeScheduleWeeks = null;
-    }
-
-    public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
-        this.personSchedules = new ArrayList<>();
-        this.scheduleWindowDisplayType = type;
-        this.groupDisplay = null;
-
-        this.freeScheduleWeeks = null;
-    }
-
     public void setFilteredNames(List<Name> filteredNames) {
         assert this.scheduleWindowDisplayType.equals(ScheduleWindowDisplayType.GROUP);
-        this.filteredNames = Optional.of(filteredNames);
+        List<Name> presentNames = personSchedules.stream()
+                .map(personSchedule -> personSchedule.getPersonDisplay().getName())
+                .filter(name -> filteredNames.contains(name))
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredNames = Optional.of(presentNames);
     }
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {

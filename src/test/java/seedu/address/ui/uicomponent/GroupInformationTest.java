@@ -1,5 +1,6 @@
 package seedu.address.ui.uicomponent;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.util.NodeQueryUtils.hasText;
 
@@ -21,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import seedu.address.model.display.sidepanel.GroupDisplay;
@@ -35,12 +37,12 @@ import seedu.address.ui.util.ColorGenerator;
 
 @ExtendWith(ApplicationExtension.class)
 public class GroupInformationTest extends ApplicationTest {
-    private static Person alice = TypicalPersons.ALICE;
-    private static Person benson = TypicalPersons.BENSON;
-    private static Person carl = TypicalPersons.CARL;
-    private static final List<PersonDisplay> SAMPLE_PERSON_DISPLAYS = List.of(new PersonDisplay(alice,
-                    new Role("Leader")), new PersonDisplay(benson, new Role("Member")),
-            new PersonDisplay(carl, new Role("Freeloader")));
+    private static final Person ALICE = TypicalPersons.ALICE;
+    private static final Person BENSON = TypicalPersons.BENSON;
+    private static final Person CARL = TypicalPersons.CARL;
+    private static final List<PersonDisplay> SAMPLE_PERSON_DISPLAYS = List.of(new PersonDisplay(ALICE,
+                    new Role("Leader")), new PersonDisplay(BENSON, new Role("Member")),
+            new PersonDisplay(CARL, new Role("Freeloader")));
     private static final GroupName SAMPLE_GROUP_NAME = new GroupName("SAMPLE GROUP");
     private static final GroupDescription SAMPLE_GROUP_DESCRIPTION = new GroupDescription("SAMPLE GROUP DESCRIPTION");
     private static final GroupDisplay SAMPLE_GROUP_DISPLAY = new GroupDisplay(SAMPLE_GROUP_NAME,
@@ -66,7 +68,9 @@ public class GroupInformationTest extends ApplicationTest {
      */
     @Start
     public void start(Stage stage) {
-        Parent sceneRoot = new GroupInformation(SAMPLE_PERSON_DISPLAYS, SAMPLE_GROUP_DISPLAY, COLORS).getRoot();
+        //Scenario is only Alice is focused.
+        Parent sceneRoot = new GroupInformation(SAMPLE_PERSON_DISPLAYS, List.of(ALICE.getName()),
+                SAMPLE_GROUP_DISPLAY, COLORS).getRoot();
         Scene scene = new Scene(sceneRoot);
         scene.getStylesheets().add("/view/DarkTheme.css");
         stage.setScene(scene);
@@ -96,6 +100,23 @@ public class GroupInformationTest extends ApplicationTest {
             verifyThat(name, hasText(SAMPLE_PERSON_DISPLAYS.get(i).getName().fullName));
             verifyThat(email, hasText(SAMPLE_PERSON_DISPLAYS.get(i).getEmail().value));
             verifyThat(role, hasText(SAMPLE_PERSON_DISPLAYS.get(i).getRole().toString()));
+        }
+    }
+
+    /**
+     * Checks to see if cards are filtered correctly.
+     */
+    @Test
+    public void groupMemberCardsAreFilteredCorrectly() {
+        String groupMemberCardId = GROUP_MEMBERS_ID + " #listMembers #memberCard";
+        ArrayList<Node> groupMemberCards = new ArrayList<>(lookup(groupMemberCardId).queryAll());
+        for (Node card : groupMemberCards) {
+            Label name = (Label) from(card).lookup("#memberName").query();
+            if (name.getText().equals(ALICE.getName().fullName)) {
+                assertEquals(1, ((GridPane) card).getOpacity());
+            } else {
+                assertEquals(0.5, ((GridPane) card).getOpacity());
+            }
         }
     }
 

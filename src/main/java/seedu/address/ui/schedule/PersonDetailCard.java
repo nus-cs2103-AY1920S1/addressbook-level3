@@ -10,7 +10,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.ui.PersonCard;
 import seedu.address.ui.UiPart;
 
 /**
@@ -44,8 +43,6 @@ public class PersonDetailCard extends UiPart<Region> {
     private Label email;
     @FXML
     private Label remark;
-    @FXML
-    private Label remarkLabel;
     @FXML
     private FlowPane tags;
 
@@ -91,7 +88,7 @@ public class PersonDetailCard extends UiPart<Region> {
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PersonDetailCard card = (PersonDetailCard) other;
         return person.isSamePerson(card.person);
     }
 }

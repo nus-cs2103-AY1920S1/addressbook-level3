@@ -107,7 +107,7 @@ public class ScheduleViewTest extends ApplicationTest {
         ArrayList<Node> timeSlotLabel = new ArrayList<>(lookup(timeSlotLabelsId).queryAll());
         //Titles are labelled in ascending order.
         for (int i = 0; i < timeSlotLabel.size(); i++) {
-            String timeTitle = TimeUtil.formatIntToTime(ScheduleView.START_TIME + i);
+            String timeTitle = TimeUtil.formatHourToString(ScheduleView.START_TIME + i);
             assertEquals(timeTitle, ((Label) timeSlotLabel.get(i)).getText());
         }
     }

@@ -19,15 +19,15 @@ public class TimeUtilTest {
     }
 
     @Test
-    public void formatIntToTimeCorrectly() {
+    public void formatHourToStringCorrectly() {
         //Max value
-        assertEquals(TimeUtil.formatIntToTime(2359), "2359");
+        assertEquals(TimeUtil.formatHourToString(23), "2300");
         //Min value
-        assertEquals(TimeUtil.formatIntToTime(0000), "0000");
+        assertEquals(TimeUtil.formatHourToString(0000), "0000");
         //Case before 1000
-        assertEquals(TimeUtil.formatIntToTime(0200), "0200");
+        assertEquals(TimeUtil.formatHourToString(2), "0200");
         //Case after 1000
-        assertEquals(TimeUtil.formatIntToTime(1600), "1600");
+        assertEquals(TimeUtil.formatHourToString(16), "1600");
     }
 
     @Test

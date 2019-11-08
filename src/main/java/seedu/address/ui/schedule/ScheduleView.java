@@ -86,7 +86,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private void initialiseTimeSlotHeaders() {
         for (int i = START_TIME; i <= END_TIME; i++) {
-            String time = TimeUtil.formatIntToTime(i);
+            String time = TimeUtil.formatHourToString(i);
             StackPane timeSlotHeader = createTimeSlotHeader(time);
             scheduleContentContainer.add(timeSlotHeader, 0, i - START_TIME);
         }

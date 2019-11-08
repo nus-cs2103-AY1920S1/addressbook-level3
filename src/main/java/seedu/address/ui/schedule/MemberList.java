@@ -9,6 +9,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.mapping.Role;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.ui.UiPart;
 
 /**
@@ -30,10 +33,15 @@ public class MemberList extends UiPart<Region> {
     @FXML
     private ScrollPane listMemberContainer;
 
-    public MemberList(List<String> members, List<String> emails, List<String> roles, List<String> colors) {
+    public MemberList(List<Name> memberNames, List<Email> emails, List<Role> roles, List<String> colors,
+                      List<Name> filteredMembers) {
         super(FXML);
-        for (int i = 0; i < members.size(); i++) {
-            MemberCard memberCard = new MemberCard(members.get(i), emails.get(i), roles.get(i), colors.get(i));
+        for (int i = 0; i < memberNames.size(); i++) {
+            MemberCard memberCard = new MemberCard(memberNames.get(i).fullName,
+                    emails.get(i).value, roles.get(i).toString(), colors.get(i));
+            if (filteredMembers != null && !filteredMembers.contains(memberNames.get(i))) {
+                memberCard.reduceOpacity();
+            }
             listMembers.getChildren().add(memberCard.getRoot());
         }
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
@@ -87,6 +95,10 @@ public class MemberList extends UiPart<Region> {
                     + "-fx-background-radius: 2;"
                     + "-fx-min-height: 50;");
             return memberCard;
+        }
+
+        private void reduceOpacity() {
+            memberCard.setStyle("-fx-opacity: 0.5;");
         }
     }
 }

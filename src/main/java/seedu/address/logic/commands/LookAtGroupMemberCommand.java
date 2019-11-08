@@ -18,7 +18,8 @@ public class LookAtGroupMemberCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " PERSON NAME";
 
-    public static final String MESSAGE_SUCCESS = "Looking at members: ";
+    public static final String MESSAGE_SUCCESS = "Looking at members: %s";
+    public static final String MESSAGE_NOT_FOUND = "Members that are not found in this group: %s";
     public static final String MESSAGE_FAILURE = "No group schedule is shown. Cannot filter anything";
 
     private List<Name> membersToBeFiltered;
@@ -33,11 +34,33 @@ public class LookAtGroupMemberCommand extends Command {
         if (!status.equals(ScheduleWindowDisplayType.GROUP) && !status.equals(ScheduleWindowDisplayType.NONE)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-        //Get the previous status.
+
         ScheduleWindowDisplay scheduleWindowDisplay = model.getScheduleWindowDisplay();
         scheduleWindowDisplay.setFilteredNames(membersToBeFiltered);
         model.updateScheduleWindowDisplay(scheduleWindowDisplay);
-        return new CommandResult(MESSAGE_SUCCESS, false, false,
+
+        //Present names.
+        List<Name> namesFoundInGroup = scheduleWindowDisplay.getFilteredNames().get();
+        StringBuilder found = new StringBuilder();
+        for (Name name : namesFoundInGroup) {
+            found.append(name.fullName);
+            found.append(' ');
+        }
+        StringBuilder notFound = new StringBuilder();
+        if (namesFoundInGroup.size() < membersToBeFiltered.size()) {
+            //The given names contain names that are not found in the group.
+            for (Name name : membersToBeFiltered) {
+                if (!namesFoundInGroup.contains(name)) {
+                    notFound.append(name.fullName);
+                    notFound.append(' ');
+                }
+            }
+        }
+        String successMessage = String.format(MESSAGE_SUCCESS, found.toString().trim());
+        final String feedback = notFound.toString().equals("")
+                ? successMessage
+                : successMessage + "\n" + String.format(MESSAGE_NOT_FOUND, notFound.toString().trim());
+        return new CommandResult(feedback, false, false,
                 false, false, false, false, false, true);
     }
 

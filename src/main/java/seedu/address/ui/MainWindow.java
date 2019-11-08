@@ -281,7 +281,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         } else {
             GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
-                    logic.getMainWindowDisplay().getGroupDisplay(),
+                    null, logic.getMainWindowDisplay().getGroupDisplay(),
                     scheduleViewManager.getOriginalColors());
             Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
@@ -334,6 +334,9 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isFilter()) {
                 if (!scheduleWindowDisplay.getFilteredNames().isEmpty()) {
+                    handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
+                            scheduleWindowDisplay.getFilteredNames().get(), scheduleWindowDisplay.getGroupDisplay(),
+                            scheduleViewManager.getOriginalColors()).getRoot(), SidePanelDisplayType.GROUP);
                     scheduleViewManager.filterPersonsFromSchedule(scheduleWindowDisplay.getFilteredNames().get());
                     handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 }
@@ -377,7 +380,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case GROUP:
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
+                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(), null,
                         scheduleWindowDisplay.getGroupDisplay(),
                         scheduleViewManager.getOriginalColors()).getRoot(), SidePanelDisplayType.GROUP);
                 break;
