@@ -7,16 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.logic.commands.AddCommand;
-import seedu.ezwatchlist.logic.commands.ClearCommand;
-import seedu.ezwatchlist.logic.commands.Command;
-import seedu.ezwatchlist.logic.commands.DeleteCommand;
-import seedu.ezwatchlist.logic.commands.EditCommand;
-import seedu.ezwatchlist.logic.commands.ExitCommand;
-import seedu.ezwatchlist.logic.commands.HelpCommand;
-import seedu.ezwatchlist.logic.commands.ListCommand;
-import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.commands.WatchCommand;
+import seedu.ezwatchlist.logic.commands.*;
 
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
@@ -78,6 +69,8 @@ public class WatchListParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case SyncCommand.COMMAND_WORD:
+            return new SyncCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
