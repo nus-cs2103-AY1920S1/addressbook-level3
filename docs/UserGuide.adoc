@@ -153,6 +153,7 @@ e.g. if the command specifies `n/**NAME** p/**PHONE**`, `p/**PHONE** n/**NAME**`
 is also acceptable.
 ====
 
+// tag::help[]
 === Viewing help : `help`
 There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
 ORGANice. To access the user guide of ORGANice, you can do the following:
@@ -164,7 +165,9 @@ ORGANice. To access the user guide of ORGANice, you can do the following:
 .**Help Window**
 
 image::HelpWindow.png[width="790"]
+// end::help[]
 
+// tag::add[]
 === Adding a person: `add`
 
 This command allows you to add a patient, doctor, or donor to ORGANice with the attributes given,
@@ -289,36 +292,52 @@ For example, if you enter the wrong name and want to undo the action, type `/und
 
 .Form layout showing that the last entry is removed after you typed in `/undo`
 image::undoCommand.png[width="790"]
+// end::add[]
 
+// tag::list[]
 === Listing persons : `list`
+This list command can show you the list of persons in ORGANice.
 
-Shows a list of all doctors, donors, or patients in ORGANice, depending on the type of person specified. Shows all
-persons in ORGANice if no type is specified.
+==== Listing all persons
+Simply type `list` in the Command Box and ORGANice will show you all patients, doctors and donors present in the system.
 
 Format: `list`
 
-Optional parameters: Type parameter - `t/TYPE`
+==== Listing persons of a specified type
+If you wish to see a certain type of person only, you can provide the type parameter in the list command.
 
-Examples:
+Optional parameter: Type - `t/TYPE`
 
-* `list` +
-Lists all patients, doctors and donors in the records.
-* `list t/patient` +
-Lists all patients only.
+For instance, if you only want to see all doctors, you can enter the following:
+`list t/doctor`. Likewise, you can change the type parameter in the same manner to see only patients or donors.
+// end::list[]
 
-=== Editing a person : `edit`
+// tag::edit[]
+=== Editing a person's attribute : `edit`
+If you want to make any changes to a person's attribute, you can edit the information using an edit command.
+If there are multiple attributes to change, you can do so in the same edit command.
 
-Edits the information of the person with the specified NRIC to the attributes specified.
-It is up to the user to specify which attributes should be updated. +
+The format is such that after the `edit` keyword, provide the person's NRIC, followed by the attribute(s) that you want to change in the edit command.
 
-Format: `edit **NRIC**`
+Format: `edit **NRIC**` followed by attributes to update
 
-Examples:
+For instance, if you want to change a patient's phone number to 91234567, you can provide his or her NRIC followed by the new phone number
+as follows: `edit S8732457G p/91234567`.
 
-* `edit S8732457G p/91234567` +
-Edits the phone number of the specified patient to be `91234567`.
-* `edit S8732457G n/Betsy Crower p/91234567` +
-Edits the name and phone number of the specified donor to be `Betsy Crower` and `91234567` respectively.
+**You can only make changes to attributes that the person has.**
+For example, you cannot change a doctor's age because a doctor does not have that attribute in ORGANice.
+
+**In addition, there are some attributes that cannot be edited.** These include:
+
+* NRIC
++
+* Type
++
+* Organ expiry date
+
+
+You might want to refer to <<List of Attributes>> to see what attributes are applicable to each type of person in ORGANice.
+// end::edit[]
 
 === Finding persons by attributes: `find`
 
@@ -366,7 +385,9 @@ Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any o
 Looking for exact matches? No problem! Just replace `find` with `exactFind`!
 
 That's it for this section. Congratulations, you now know how to use the `find` command!
+// end::find[]
 
+// tag::match[]
 === Detecting matches: `match`
 
 This command runs a kidney matching test on patients and donors in ORGANice and displays potential matches.
@@ -416,61 +437,55 @@ Following this, you can sort the matches based on different criteria to
 determine which patient to prioritize. Head over to the next section to find out
 how to sort matches.
 
+// tag::sort[]
 === Sorting matches: `sort`
 After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
 
 **The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
-There are three categories by which you can sort the matches, namely:
+There are three criteria in which you can sort the matches, namely:
 
 * Sorting based on donor's organ expiry date
 +
 * Sorting based on priority
 +
 * Sorting based on success rate of match
-+
 
+These criteria will be further explained below.
 
-These categories are further elaborated below. Note that **only one category can be used in one sort command**.
+Note that **only one criteria can be used in one sort command**.
 
 ==== Sorting based on donor's organ expiry date
-This category sorts a list of matched donors belonging to a particular patient based on the donated organ's expiry date (from the earliest to the latest expiry date).
-
-This allows you to determine which organs are expiring soon so that you can prioritize them for organ transplant.
+To find out which organs are expiring soon, you can sort the list of matched donors based on the donor's organ expiry date (from the earliest to the latest expiry date).
 
 Format: `sort expiry`
 
-Example: +
-After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
-You can then run `sort expiry` to obtain the list of donors with the earliest organ expiration date at the top of the list.
+For example, after running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
+You can then run `sort expiry` to obtain the list of donors with earlier organ expiry dates near the top of the list.
 
 ==== Sorting based on priority
-This category sorts a list of matched patients based on their priority (from highest to lowest). You may refer to <<Glossary>> for more information on priority.
-
-This allows you to determine which patient to prioritize for organ transplant.
+To determine which patient to prioritize for organ transplant, you can sort the list of matched patients based on their priority (from highest to lowest).
+You may refer to <<Glossary>> to understand what priority means.
 
 Format: `sort priority`
 
-Example: +
-After running `match ic/all`, you will obtain a list of patients.
-You can then run `sort priority` to obtain a list with high priority patients at the top of the list.
+For example, after running `match ic/all`, you will obtain a list of patients.
+You can then run `sort priority` to obtain the list with higher priority patients near the top of the list.
 
-Note:
-
-* In cases where patients have the **same priority**, those with more matched donors will be displayed first.
+Note that in the case where patients have the **same priority**, those with more matched donors will be displayed first.
 If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
 ==== Sorting based on success rate of match
-This category sorts the list of matched donors belonging to a particular patient based on the success rate of the match (from highest to lowest).
-(Refer to <<Glossary>> for more information on success rate.)
-
-This allows you to determine which patient-donor pair has the highest compatibility and are safe to proceed for organ transplant.
+To determine which patient-donor pair is the most compatible, you can
+sort the list of compatible donors of that patient based on the success rate of the match (from highest to lowest).
+You can refer to <<Glossary>> for more information on success rate.
 
 Format: `sort rate`
 
-Example: +
-After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
-You can then run `sort rate` to obtain the list of donors with the highest success rate at the top of the list.  +
+Take for instance, after running a match command on a specific patient with `match ic/**NRIC**`, you will get a list of donors that are compatible with said patient.
+You can then run `sort rate` to obtain the list of donors with higher success rates near the top of the list.
+// end::sort[]
 
+// tag::process[]
 === Processing potential matches: `processing`
 //TODO: change to shorter term that captures the meaning
 
@@ -490,8 +505,9 @@ The order of the NRICs does not matter.
 
 Example:
 `processing ic/S6764235G ic/S1234567D`
+// end::process[]
 
-
+// tag::mark[]
 === Mark as done : `done`
 
 After the hospital has the results of the cross matching test, they can
@@ -527,7 +543,7 @@ Example:
 
 * `done icP/S7896432A icD/S4578902G res/pass`
 * `done icP/S7896432A icD/S4578902G res/fail`
-
+// end::mark[]
 
 === Exiting the program : `exit`
 
