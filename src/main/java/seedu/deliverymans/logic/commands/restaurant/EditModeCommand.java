@@ -6,10 +6,10 @@ import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
