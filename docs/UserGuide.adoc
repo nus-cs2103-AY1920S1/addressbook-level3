@@ -872,7 +872,8 @@ such as the location, budget, and date.
 | *Display Schedule for between 2 dates*| `display_schedule_between start/DDMMYYYY end/DDMMYYYY` | `display_schedule_between start/02/12/2019 end/05/12/2019`
 | *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
-| *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`
+| *Generate Payment To Employee* | `pay EMPLOYEE_INDEX s/PAYMENT` | `pay 1 s/100`
+| *Undo Payment To Employee* | `undo_pay EMPLOYEE_INDEX s/PAYMENT` | `undo_pay 1 s/100`
 | *Navigate between Tabs* | `main, schedule` | `main, schedule`
 | *Clear* | `clear` | `clear`
 | *Help* | `help`| `help`
