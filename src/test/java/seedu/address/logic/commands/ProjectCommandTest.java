@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,6 +16,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.category.Category;
+import seedu.address.model.projection.Projection;
 import seedu.address.model.stubs.BankAccountStub;
 import seedu.address.model.stubs.ModelStub;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -20,7 +25,7 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.BankOperationBuilder;
-
+import seedu.address.testutil.TypicalTransactions;
 
 
 public class ProjectCommandTest {
@@ -30,7 +35,17 @@ public class ProjectCommandTest {
     }
 
     @Test
-    public void executeProjectCommand_oneTransaction_throwsCommandException() throws Exception {
+    public void executeProjectCommand_zeroTransactions_throwsCommandException() {
+        List<BankAccountOperation> transactions = new ArrayList<>();
+        ModelStubWithTransactions modelStub = new ModelStubWithTransactions(transactions);
+        Date date = new Date("12122019");
+
+        ProjectCommand projectCommand = new ProjectCommand(date);
+        assertThrows(CommandException.class, () -> projectCommand.execute(modelStub));
+    }
+
+    @Test
+    public void executeProjectCommand_oneTransaction_throwsCommandException() {
         BankAccountOperation transaction = new BankOperationBuilder()
                 .withCategories("Food")
                 .withAmount("100")
@@ -43,6 +58,16 @@ public class ProjectCommandTest {
 
         ProjectCommand projectCommand = new ProjectCommand(date);
         assertThrows(CommandException.class, () -> projectCommand.execute(modelStub));
+    }
+
+    @Test
+    public void executeProjectCommand_noCategory_categoryGeneralByDefault() {
+        List<BankAccountOperation> transactions = TypicalTransactions.getOneToTenTypicalTransactions(5);
+        ModelStubWithTransactions modelStub = new ModelStubWithTransactions(transactions);
+        Date date = new Date("12122019");
+
+        ProjectCommand projectCommand = new ProjectCommand(date);
+        assertEquals(projectCommand.getCategory(), Category.GENERAL);
     }
 
     /**
@@ -64,7 +89,7 @@ public class ProjectCommandTest {
     }
 
     /**
-     * A Model stub that contains 10 transactions.
+     * A Model stub that contains transactions.
      */
     private class ModelStubWithTransactions extends ModelStub {
         private ReadOnlyBankAccountStub readOnlyBankAccountStub;
@@ -78,6 +103,9 @@ public class ProjectCommandTest {
         public ReadOnlyBankAccount getBankAccount() {
             return readOnlyBankAccountStub;
         }
+
+        @Override
+        public boolean has(Projection projection) { return false; };
     }
 
     private class ReadOnlyBankAccountStub extends BankAccountStub {
