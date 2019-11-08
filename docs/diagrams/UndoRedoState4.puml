@@ -3,12 +3,12 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "list"
+title After command "liststudents"
 
 package States <<rectangle>> {
-    class State1 as "__c0:Classroom__"
-    class State2 as "__c1:Classroom__"
-    class State3 as "__c2:Classroom__"
+    class State1 as "__n0:Notebook__"
+    class State2 as "__n1:Notebook__"
+    class State3 as "__n2:Notebook__"
 }
 
 State1 -[hidden]right-> State2
