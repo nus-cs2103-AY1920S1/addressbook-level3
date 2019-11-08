@@ -7,9 +7,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.Triplet;
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
 
@@ -33,6 +35,8 @@ public class Activity {
     // The actual personid has to be obtained from the id array, and i, j just
     // represent the indices in that array where you can find them.
     private final ArrayList<ArrayList<Double>> transferMatrix;
+    // Used for internal computation. Adjacency matrix of our debts. Should not
+    // be used outside of the context of the debt algorithm.
     private final ArrayList<ArrayList<Double>> debtMatrix;
 
     /**
@@ -95,19 +99,29 @@ public class Activity {
     }
 
     /**
-     * Gets the list of id of participants in the activity.
-     * @return An ArrayList containing the id participants.
-     */
-    public ArrayList<Integer> getParticipantIds() {
-        return participantIds;
-    }
-
-    /**
      * Gets the list of expenses in the activity.
      * @return An ArrayList of expenses.
      */
     public ArrayList<Expense> getExpenses() {
         return expenses;
+    }
+
+    /**
+     * Gets all the expenses in this activity that are not settlements.
+     */
+    public List<Expense> getNonSettlementExpenses() {
+        return expenses.stream()
+            .filter(x -> !x.isSettlement())
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Gets all the expenses in this activity that are settlements.
+     */
+    public List<Expense> getSettlementExpenses() {
+        return expenses.stream()
+            .filter(x -> x.isSettlement())
+            .collect(Collectors.toList());
     }
 
     /**
@@ -127,6 +141,23 @@ public class Activity {
     }
 
     /**
+     * Returns an ArrayList containing all the IDs of the participants.
+     * @return A {@code List} containing the IDs of all participants.
+     */
+    public ArrayList<Integer> getParticipantIds() {
+        return participantIds;
+    }
+
+    /**
+     * Checks whether the person with ID is present in this activity.
+     * @param personId Id of the person to check.
+     * @return True if person exists, false otherwise.
+     */
+    public boolean hasPerson(Integer personId) {
+        return idDict.containsKey(personId);
+    }
+
+    /**
      * Gets the transfer matrix.
      * @return The matrix. Every (i, j) entry reflects how much i receives from
      * j. Negative amounts means i has to give j money.
@@ -138,8 +169,17 @@ public class Activity {
     }
 
     /**
-     * Returns the aggregate amount owed to a specified participant in this activity. A
-     * negative amount indicates this participant owes other participants.
+     * Gets the amount the first person owes the second.
+     */
+    public double getOwed(int firstId, int secondId) {
+        return getTransferMatrix().get(idDict.get(firstId))
+                .get(idDict.get(secondId));
+    }
+
+    /**
+     * Returns the aggregate amount owed to a specified participant in this
+     * activity. A negative amount indicates this participant owes other
+     * participants.
      * @param participantId {@code Integer} ID of the participant.
      */
     public Double getTransferAmount(Integer participantId) {
@@ -152,6 +192,40 @@ public class Activity {
 
         ArrayList<Double> transfers = transferMatrix.get(participantIndex);
         return transfers.stream().reduce(0.0, (acc, amt) -> acc + amt);
+    }
+
+    /**
+     * Returns a triplet containing the necessary settlements needed to resolve
+     * all debt. The lists of people returned by this function are only
+     * primaryKeys. You can traverse all three lists at the same time to get a
+     * relationship of "owes[i] needs to pay amountOwed[i] to owed[i]".
+     * @return A Triplet of owes, owed, amountOwed, which are lists of Int, Int, Double respectively.
+     */
+    public List<Triplet<Integer, Integer, Double>> getSolution() {
+        List<Triplet<Integer, Integer, Double>> sol = new ArrayList<>();
+
+        for (int i : idDict.keySet()) {
+            for (int j : idDict.keySet()) {
+                if (i == j) {
+                    continue;
+                }
+
+                // see how much i owes j?
+                double debtEntry = getOwed(i, j);
+                if (debtEntry == 0.0) {
+                    continue;
+                }
+
+                // j owes i instead.
+                if (debtEntry < 0) {
+                    sol.add(new Triplet<>(j, j, -debtEntry));
+                } else {
+                    sol.add(new Triplet<>(i, j, debtEntry));
+                }
+            }
+        }
+
+        return sol;
     }
 
     /**
@@ -189,15 +263,6 @@ public class Activity {
             debtMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
         }
-    }
-
-    /**
-     * Checks whether the person with ID is present in this activity.
-     * @param personId Id of the person to check.
-     * @return True if person exists, false otherwise.
-     */
-    public boolean hasPerson(Integer personId) {
-        return idDict.containsKey(personId);
     }
 
     /**
@@ -295,10 +360,21 @@ public class Activity {
             .map(x -> idDict.get(x))
             .toArray();
 
-        expenses.add(expense);
 
         // We update the balance sheet
-        double splitAmount = amount / (involved.length + 1);
+        double splitAmount;
+        if (expense.isSettlement()) {
+            double debt = getOwed(involved[0], payer);
+            if (debt < 0) {
+                return;
+            } else if (amount > debt || amount == 0) {
+                splitAmount = debt;
+            } else {
+                splitAmount = amount;
+            }
+        } else {
+            splitAmount = amount / (involved.length + 1);
+        }
 
         // all this does is to just add splitAmount to the (x, payerpos) entry.
         // This signifies "x owes payerpos" $splitAmount more.
@@ -309,6 +385,8 @@ public class Activity {
         IntStream.of(involved)
             .forEach(x -> participantActive.set(idDict.get(x), true));
         participantActive.set(payerPos, true);
+
+        expenses.add(expense);
     }
 
     /**

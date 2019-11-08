@@ -12,6 +12,7 @@ public class Expense {
     private int[] involvedIds;
     private final Amount amount;
     private final String description;
+    private boolean isSettlement;
     private boolean isDeleted;
 
     /**
@@ -26,6 +27,7 @@ public class Expense {
         this.amount = amount;
         this.description = description;
         this.isDeleted = false;
+        this.isSettlement = false;
         involvedIds = null;
     }
 
@@ -49,6 +51,10 @@ public class Expense {
         involvedIds = ids;
     }
 
+    public boolean isSettlement() {
+        return isSettlement;
+    }
+
     public Amount getAmount() {
         return amount;
     }
@@ -63,6 +69,10 @@ public class Expense {
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    public void setIsSettlement(boolean isSettlement) {
+        this.isSettlement = isSettlement;
     }
 
     /**
