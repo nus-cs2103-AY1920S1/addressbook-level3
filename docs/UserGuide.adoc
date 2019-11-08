@@ -117,10 +117,17 @@ Examples:
 Adds a meme with the image from `/Users/Me/Downloads/dgirl_oof.jpg` and tag `Funny`
 
 ****
-Note the double `/` near the prefix `p/`.
-This is because the examples given in this guide use MacOS absolute file paths, which start with a `/`.
+* The `PATH` argument can be either a relative path or an absolute path.
+** On MacOS and *nix systems
+*** Absolute paths start with `/` (e.g. `/home/me/Downloads/doge.jpg`).
+*** Relative paths start directly with the file/directory name (e.g. `data/images/doge.jpg`), and is resolved in the current working directory.
+** On Windows
+*** Absolute paths start with a drive letter (e.g. `C:/Users/me/Downloads`)
+*** Relative paths are the same as those on MacOS and *nix systems.
+* Note the double `/` near the prefix `p/` in the example given.
+This is because the examples in this guide use MacOS absolute file paths, which start with a `/`.
 Therefore, the first `/` is part of the argument prefix, whereas the second `/` is part of the file path.
-If you are using MacOS or *nix systems, both `/` s must be present for the command to succeed.
+If you are using MacOS or *nix systems, both `/` s must be present if your path is an absolute path.
 If you are using Windows, your command might look something like `add p/C:/Users/Me/Downloads/dgirl_off.jpg` instead.
 ****
 
