@@ -155,7 +155,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
-        helpWindow.hide();
         PageManager.closeWindows();
     }
 

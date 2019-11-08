@@ -163,7 +163,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private void handleExit() {
         helpWindow.hide();
-        itineraryScene.getWindow().hide();
+        codeWindow.hide();
+        PageManager.closeWindows();
     }
 
     @Override
@@ -184,7 +185,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isExit()) {
-                PageManager.closeWindows();
+                handleExit();
             }
 
             if (commandResult.isShowHelp()) {

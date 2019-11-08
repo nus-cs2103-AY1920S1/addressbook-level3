@@ -105,15 +105,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Quit after letting user read the ByeResponse.
-     *
-     */
-
-    public void exit() {
-        primaryStage.hide();
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -123,9 +114,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        exit();
+        PageManager.closeWindows();
     }
 }
