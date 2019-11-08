@@ -1,19 +1,36 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.commands.CommandTestUtil.*;
+import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
+import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
+import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
-import static io.xpire.testutil.TypicalIndexes.*;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
-import static io.xpire.testutil.TypicalItemsFields.*;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BAGEL;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_CADBURY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_COCOA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_PROTEIN;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_SWEET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.xpire.model.item.Item;
-import io.xpire.testutil.ItemBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +39,10 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.tag.Tag;
+import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.XpireItemBuilder;
 
 /**
@@ -144,7 +163,7 @@ public class TagCommandTest {
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
 
-    //---------------- Tests for Replenish List --------------------------------------------------------------------------
+    //---------------- Tests for Replenish List --------------------------------------------------------------------
     @Test
     public void execute_validIndexUnfilteredReplenishList_success() {
         model.setCurrentList(REPLENISH);
@@ -188,8 +207,9 @@ public class TagCommandTest {
         expectedModel.setItem(REPLENISH, replenishItemToTag, expectedReplenishItem);
         expectedModel.setCurrentList(REPLENISH);
         showSomeReplenishItem(expectedModel, new ArrayList<>() {{
-            add(expectedReplenishItem);
-        }});
+                add(expectedReplenishItem);
+            }}
+        );
         String expectedMessage = String.format(TagCommand.MESSAGE_TAG_ITEM_SUCCESS, expectedReplenishItem);
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }

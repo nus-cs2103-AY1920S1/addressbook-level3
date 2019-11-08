@@ -1,26 +1,23 @@
 package io.xpire.storage;
 
-import static io.xpire.testutil.TypicalItems.*;
-import static io.xpire.testutil.TypicalItemsFields.*;
+import static io.xpire.testutil.TypicalItems.CHOCOLATE;
+import static io.xpire.testutil.TypicalItems.CORIANDER;
+import static io.xpire.testutil.TypicalItems.JELLY;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReplenishList;
 import io.xpire.model.Xpire;
-import io.xpire.model.item.*;
-import io.xpire.model.tag.Tag;
+import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 import javafx.collections.FXCollections;
-import org.junit.jupiter.api.Test;
 
 public class JsonSerializableListTest {
-
-    private static final List<JsonAdaptedTag> VALID_TAGS = new ArrayList<>() {{
-        add(new JsonAdaptedTag(new Tag(VALID_TAG_FRIDGE)));
-    }};
 
     @Test
     public void toModelType_validItemLists_returnsLists() throws Exception {

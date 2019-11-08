@@ -1,7 +1,6 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static io.xpire.commons.core.Messages.MESSAGE_VIEW_OPTIONS;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
