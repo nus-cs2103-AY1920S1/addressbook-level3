@@ -17,7 +17,8 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
  */
 public class ArchiveCommandParser implements Parser<ArchiveCommand> {
 
-    public static final String MESSAGE_ARCHIVE_COMMANDS = "Invalid archive command format! \nSupported commands:\n"
+    public static final String MESSAGE_ARCHIVE_COMMANDS = "Invalid archive command format! \nCommand format: "
+            + "archive (archive command) (parameters if needed)\nSupported archive commands:\n"
             + "add \ndelete \nrevert \nlist\nlistall \nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
 
     /**

@@ -15,7 +15,7 @@ public class FilterTagCommand extends TagCommand {
 
     public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters all expenses with the specified tags and displays them as a list with index numbers.\n"
-            + "Parameters: " + PREFIX_TAG + "[TAG]\n"
+            + "Parameters: " + PREFIX_TAG + "[TAG] (1 or more)\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_TAG + "drinks";
 
     private final ContainsTagPredicate predicate;

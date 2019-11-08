@@ -42,6 +42,7 @@ public class DeleteCommand extends Command {
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.decreaseCount(expenseToDelete.getTags());
         model.deleteExpense(expenseToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
     }
 
