@@ -48,21 +48,21 @@ public class LogicManager implements Logic {
         HistoryManager history = model.getHistory();
         commandResult = command.execute(model);
         if (model.commandUnderTraining(command) || command instanceof EditCommand) {
-            history.pushTrainingList(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getTrainingManager().getTrainings()));
         }
         if (model.commandUnderPerformance(command)) {
             history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
         }
         if (command instanceof ClearCommand) {
             history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
-            history.pushTrainingList(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getTrainingManager().getTrainings()));
         }
         history.pushCommand(command);
         history.pushAthletick(model.getAthletickDeepCopy());
         try {
             storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());
-            storage.saveAttendance(model.getAttendance());
+            storage.saveTrainingManager(model.getTrainingManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -86,7 +86,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String getPersonAttendance() {
-        return model.getAttendance().getPersonAttendanceRateString(getPerson());
+        return model.getTrainingManager().getPersonAttendanceRateString(getPerson());
     }
 
     @Override

@@ -12,22 +12,22 @@ import seedu.address.model.training.Training;
 /**
  * Represents the AttendanceManager of Athletick.
  */
-public class Attendance {
+public class TrainingManager {
 
     private List<Training> trainings;
 
-    public Attendance() {
+    public TrainingManager() {
         trainings = new ArrayList<>();
     }
 
-    public Attendance(List<Training> trainings) {
+    public TrainingManager(List<Training> trainings) {
         this.trainings = trainings;
     }
 
     /**
      * Resets all data in the Attendance.
      */
-    public void resetAttendance() {
+    public void resetTrainingManager() {
         this.trainings = new ArrayList<>();
     }
 

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -37,7 +37,7 @@ public class PerformanceCommandTest {
     private static final String INVALID_EVENT_NAME = "hurdles";
 
     private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-        new Attendance(), new UserPrefs(), new HistoryManager());
+        new TrainingManager(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -48,7 +48,7 @@ public class PerformanceCommandTest {
         String expectedMessage = String.format(PerformanceCommand.MESSAGE_SUCCESS,
             person.getName().fullName, VALID_EVENT, VALID_ATHLETICK_DATE_TWO, VALID_ATHLETICK_TIMING);
         ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-            model.getAttendance(), new UserPrefs(), model.getHistory());
+            model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
 
         expectedModel.addRecord(VALID_EVENT, person, VALID_RECORD);

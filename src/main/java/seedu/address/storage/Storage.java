@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -39,9 +39,9 @@ public interface Storage extends AthletickStorage, PerformanceStorage, Attendanc
     void saveEvents(ReadOnlyPerformance events, Path filePath) throws IOException;
 
     @Override
-    Optional<Attendance> readAttendance() throws DataConversionException, IOException;
+    Optional<TrainingManager> readTrainingManager() throws DataConversionException, IOException;
 
     @Override
-    void saveAttendance(Attendance attendance) throws IOException;
+    void saveTrainingManager(TrainingManager trainingManager) throws IOException;
 
 }

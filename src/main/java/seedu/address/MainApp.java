@@ -16,7 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Athletick;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Performance;
@@ -125,22 +125,22 @@ public class MainApp extends Application {
             initialEventsList = new Performance();
         }
 
-        Optional<Attendance> attendanceOptional;
-        Attendance initialAttendance;
+        Optional<TrainingManager> attendanceOptional;
+        TrainingManager initialTrainingManager;
         try {
-            attendanceOptional = storage.readAttendance();
+            attendanceOptional = storage.readTrainingManager();
             if (!attendanceOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Attendance");
             }
-            initialAttendance = attendanceOptional.orElse(new Attendance());
+            initialTrainingManager = attendanceOptional.orElse(new TrainingManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Attendance");
-            initialAttendance = new Attendance();
+            initialTrainingManager = new TrainingManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
-            initialAttendance = new Attendance();
+            initialTrainingManager = new TrainingManager();
         }
-        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs, history);
+        return new ModelManager(initialAthletick, initialEventsList, initialTrainingManager, userPrefs, history);
     }
 
     private void initLogging(Config config) {

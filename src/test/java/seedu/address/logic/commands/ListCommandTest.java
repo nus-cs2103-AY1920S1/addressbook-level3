@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,9 +26,9 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-                new Attendance(), new UserPrefs(), new HistoryManager());
+                new TrainingManager(), new UserPrefs(), new HistoryManager());
         expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs(), model.getHistory());
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
     }
 
     @Test

@@ -35,9 +35,9 @@ class AttendanceTest {
 
     @Test
     void constructor() {
-        Attendance attendanceWithoutList = new Attendance();
-        assertNotNull(attendanceWithoutList);
-        assertEquals(Collections.emptyList(), attendanceWithoutList.getTrainings());
+        TrainingManager trainingManagerWithoutList = new TrainingManager();
+        assertNotNull(trainingManagerWithoutList);
+        assertEquals(Collections.emptyList(), trainingManagerWithoutList.getTrainings());
 
         List<Training> trainings = new ArrayList<Training>();
         trainings.add(FIRST_TRAINING);
@@ -45,9 +45,9 @@ class AttendanceTest {
         trainings.add(THIRD_TRAINING);
         trainings.add(FOURTH_TRAINING);
 
-        Attendance attendanceWithList = new Attendance(trainings);
-        assertNotNull(attendanceWithList);
-        assertEquals(trainings, attendanceWithList.getTrainings());
+        TrainingManager trainingManagerWithList = new TrainingManager(trainings);
+        assertNotNull(trainingManagerWithList);
+        assertEquals(trainings, trainingManagerWithList.getTrainings());
     }
 
     @Test
@@ -56,95 +56,95 @@ class AttendanceTest {
         trainings.add(FIRST_TRAINING);
         trainings.add(SECOND_TRAINING);
         trainings.add(THIRD_TRAINING);
-        Attendance attendance = new Attendance(trainings);
+        TrainingManager trainingManager = new TrainingManager(trainings);
 
-        assertTrue(attendance.hasTrainingOnDate(FIRST_DATE));
-        assertTrue(attendance.hasTrainingOnDate(SECOND_DATE));
-        assertTrue(attendance.hasTrainingOnDate(THIRD_DATE));
+        assertTrue(trainingManager.hasTrainingOnDate(FIRST_DATE));
+        assertTrue(trainingManager.hasTrainingOnDate(SECOND_DATE));
+        assertTrue(trainingManager.hasTrainingOnDate(THIRD_DATE));
     }
 
     @Test
     void getTrainings() {
-        Attendance attendance = new Attendance();
-        assertNotNull(attendance.getTrainings());
+        TrainingManager trainingManager = new TrainingManager();
+        assertNotNull(trainingManager.getTrainings());
 
-        attendance.addTraining(FIRST_TRAINING);
+        trainingManager.addTraining(FIRST_TRAINING);
         List<Training> trainings = new ArrayList<>();
         trainings.add(FIRST_TRAINING);
-        assertEquals(trainings, attendance.getTrainings());
+        assertEquals(trainings, trainingManager.getTrainings());
 
     }
 
     @Test
     void addTraining_normalAddition() {
-        Attendance attendance = new Attendance();
+        TrainingManager trainingManager = new TrainingManager();
         List<Training> trainings = new ArrayList<>();
         trainings.add(FIRST_TRAINING);
-        attendance.addTraining(FIRST_TRAINING);
-        assertEquals(attendance.getTrainings(), trainings);
+        trainingManager.addTraining(FIRST_TRAINING);
+        assertEquals(trainingManager.getTrainings(), trainings);
     }
 
     @Test
     void addTraining_trainingWithSortedList_returnTrue() {
-        Attendance attendance = new Attendance();
+        TrainingManager trainingManager = new TrainingManager();
         List<Training> trainingsOrdered = new ArrayList<>();
         trainingsOrdered.add(FIRST_TRAINING);
         trainingsOrdered.add(FOURTH_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
-        attendance.addTraining(FIRST_TRAINING);
-        assertEquals(attendance.getTrainings(), trainingsOrdered);
+        trainingManager.addTraining(FOURTH_TRAINING);
+        trainingManager.addTraining(FIRST_TRAINING);
+        assertEquals(trainingManager.getTrainings(), trainingsOrdered);
     }
 
     @Test
     void addTraining_trainingWithUnsortedList_returnFalse() {
-        Attendance attendance = new Attendance();
+        TrainingManager trainingManager = new TrainingManager();
         List<Training> trainingsUnordered = new ArrayList<>();
         trainingsUnordered.add(FOURTH_TRAINING);
         trainingsUnordered.add(FIRST_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
-        attendance.addTraining(FIRST_TRAINING);
-        assertNotEquals(attendance.getTrainings(), trainingsUnordered);
+        trainingManager.addTraining(FOURTH_TRAINING);
+        trainingManager.addTraining(FIRST_TRAINING);
+        assertNotEquals(trainingManager.getTrainings(), trainingsUnordered);
     }
 
     @Test
     void getPersonAttendedTrainings() {
-        Attendance attendance = new Attendance();
-        attendance.addTraining(FIRST_TRAINING);
-        attendance.addTraining(SECOND_TRAINING);
-        attendance.addTraining(THIRD_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
-        assertEquals(4, attendance.getPersonAttendedTrainings(ALICE));
-        assertEquals(2, attendance.getPersonAttendedTrainings(HOON));
+        TrainingManager trainingManager = new TrainingManager();
+        trainingManager.addTraining(FIRST_TRAINING);
+        trainingManager.addTraining(SECOND_TRAINING);
+        trainingManager.addTraining(THIRD_TRAINING);
+        trainingManager.addTraining(FOURTH_TRAINING);
+        assertEquals(4, trainingManager.getPersonAttendedTrainings(ALICE));
+        assertEquals(2, trainingManager.getPersonAttendedTrainings(HOON));
     }
 
     @Test
     void getPersonAbsentTrainings() {
-        Attendance attendance = new Attendance();
-        attendance.addTraining(FIRST_TRAINING);
-        attendance.addTraining(SECOND_TRAINING);
-        attendance.addTraining(THIRD_TRAINING);
-        assertEquals(1, attendance.getPersonAbsentTrainings(GEORGE));
-        assertEquals(1, attendance.getPersonAbsentTrainings(HOON));
+        TrainingManager trainingManager = new TrainingManager();
+        trainingManager.addTraining(FIRST_TRAINING);
+        trainingManager.addTraining(SECOND_TRAINING);
+        trainingManager.addTraining(THIRD_TRAINING);
+        assertEquals(1, trainingManager.getPersonAbsentTrainings(GEORGE));
+        assertEquals(1, trainingManager.getPersonAbsentTrainings(HOON));
     }
 
     @Test
     void getPersonTotalTrainings() {
-        Attendance attendance = new Attendance();
-        attendance.addTraining(FIRST_TRAINING);
-        attendance.addTraining(SECOND_TRAINING);
-        attendance.addTraining(THIRD_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
-        assertEquals(4, attendance.getPersonTotalTrainings(ALICE));
-        assertEquals(4, attendance.getPersonTotalTrainings(GEORGE));
-        assertEquals(3, attendance.getPersonTotalTrainings(HOON));
-        assertEquals(2, attendance.getPersonTotalTrainings(IDA));
+        TrainingManager trainingManager = new TrainingManager();
+        trainingManager.addTraining(FIRST_TRAINING);
+        trainingManager.addTraining(SECOND_TRAINING);
+        trainingManager.addTraining(THIRD_TRAINING);
+        trainingManager.addTraining(FOURTH_TRAINING);
+        assertEquals(4, trainingManager.getPersonTotalTrainings(ALICE));
+        assertEquals(4, trainingManager.getPersonTotalTrainings(GEORGE));
+        assertEquals(3, trainingManager.getPersonTotalTrainings(HOON));
+        assertEquals(2, trainingManager.getPersonTotalTrainings(IDA));
     }
 
     @Test
     void getTrainingAttendanceListOnDate() {
-        Attendance attendance = new Attendance();
-        attendance.addTraining(FIRST_TRAINING);
-        List<AttendanceEntry> firstAttendanceEntries = attendance.getTrainingAttendanceListOnDate(FIRST_DATE);
+        TrainingManager trainingManager = new TrainingManager();
+        trainingManager.addTraining(FIRST_TRAINING);
+        List<AttendanceEntry> firstAttendanceEntries = trainingManager.getTrainingAttendanceListOnDate(FIRST_DATE);
         List<AttendanceEntry> attendanceEntries = new ArrayList<>();
         attendanceEntries.add(new AttendanceEntry(ALICE, true));
         attendanceEntries.add(new AttendanceEntry(BENSON, true));

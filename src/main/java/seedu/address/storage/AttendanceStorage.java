@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 
 /**
- * Represents a storage for {@link seedu.address.model.Attendance}.
+ * Represents a storage for {@link TrainingManager}.
  */
 public interface AttendanceStorage {
 
@@ -17,11 +17,11 @@ public interface AttendanceStorage {
      */
     Path getAthletickFilePath();
 
-    Optional<Attendance> readAttendance() throws DataConversionException, IOException;
+    Optional<TrainingManager> readTrainingManager() throws DataConversionException, IOException;
 
-    Optional<Attendance> readAttendance(Path filePath) throws DataConversionException, IOException;
+    Optional<TrainingManager> readTrainingManager(Path filePath) throws DataConversionException, IOException;
 
-    void saveAttendance(Attendance attendance) throws IOException;
+    void saveTrainingManager(TrainingManager trainingManager) throws IOException;
 
-    void saveAttendance(Attendance attendance, Path filePath) throws IOException;
+    void saveTrainingManager(TrainingManager trainingManager, Path filePath) throws IOException;
 }

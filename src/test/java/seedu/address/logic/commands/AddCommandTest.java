@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Athletick;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.AttendanceRateEntry;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAthletick;
@@ -252,7 +252,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public Attendance getAttendance() {
+        public TrainingManager getTrainingManager() {
             throw new AssertionError("This method should not be called.");
         }
 

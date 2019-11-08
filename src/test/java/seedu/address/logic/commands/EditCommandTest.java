@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.Athletick;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Performance;
@@ -37,7 +37,7 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
-            new Attendance(), new UserPrefs(), new HistoryManager());
+            new TrainingManager(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -48,7 +48,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new Athletick(model.getAthletick()),
-                new Performance(model.getPerformance()), model.getAttendance(), new UserPrefs(), model.getHistory());
+                new Performance(model.getPerformance()), model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
@@ -71,7 +71,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new Athletick(model.getAthletick()),
-                new Performance(model.getPerformance()), model.getAttendance(), new UserPrefs(), model.getHistory());
+                new Performance(model.getPerformance()), model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.setPerson(lastPerson, editedPerson);
 
@@ -86,7 +86,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new Athletick(model.getAthletick()),
-                new Performance(model.getPerformance()), model.getAttendance(), new UserPrefs(), model.getHistory());
+                new Performance(model.getPerformance()), model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -103,7 +103,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new Athletick(model.getAthletick()),
-                new Performance(model.getPerformance()), model.getAttendance(), new UserPrefs(), model.getHistory());
+                new Performance(model.getPerformance()), model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 

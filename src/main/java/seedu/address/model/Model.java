@@ -189,7 +189,7 @@ public interface Model {
     /**
      * Returns the Attendance.
      */
-    Attendance getAttendance();
+    TrainingManager getTrainingManager();
 
     /**
      * Resets all data in Attendance.

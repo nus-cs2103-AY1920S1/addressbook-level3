@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -115,22 +115,22 @@ public class StorageManager implements Storage {
     // ================ Attendance methods ==============================
 
     @Override
-    public Optional<Attendance> readAttendance() throws DataConversionException, IOException {
-        return attendanceStorage.readAttendance();
+    public Optional<TrainingManager> readTrainingManager() throws DataConversionException, IOException {
+        return attendanceStorage.readTrainingManager();
     }
 
     @Override
-    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException, IOException {
-        return attendanceStorage.readAttendance(filePath);
+    public Optional<TrainingManager> readTrainingManager(Path filePath) throws DataConversionException, IOException {
+        return attendanceStorage.readTrainingManager(filePath);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance) throws IOException {
-        attendanceStorage.saveAttendance(attendance);
+    public void saveTrainingManager(TrainingManager trainingManager) throws IOException {
+        attendanceStorage.saveTrainingManager(trainingManager);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance, Path filePath) throws IOException {
-        attendanceStorage.saveAttendance(attendance, filePath);
+    public void saveTrainingManager(TrainingManager trainingManager, Path filePath) throws IOException {
+        attendanceStorage.saveTrainingManager(trainingManager, filePath);
     }
 }

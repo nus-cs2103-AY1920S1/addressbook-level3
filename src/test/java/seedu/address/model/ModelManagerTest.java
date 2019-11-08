@@ -115,13 +115,13 @@ public class ModelManagerTest {
         Athletick athletick = new AthletickBuilder().withPerson(ALICE).withPerson(BENSON).build();
         Athletick differentAthletick = new Athletick();
         Performance performance = new Performance();
-        Attendance attendance = new Attendance();
+        TrainingManager trainingManager = new TrainingManager();
         UserPrefs userPrefs = new UserPrefs();
         HistoryManager history = new HistoryManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(athletick, performance, attendance, userPrefs, history);
-        ModelManager modelManagerCopy = new ModelManager(athletick, performance, new Attendance(),
+        modelManager = new ModelManager(athletick, performance, trainingManager, userPrefs, history);
+        ModelManager modelManagerCopy = new ModelManager(athletick, performance, new TrainingManager(),
             userPrefs, new HistoryManager());
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -135,13 +135,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different Athletick -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAthletick, performance, attendance, userPrefs,
+        assertFalse(modelManager.equals(new ModelManager(differentAthletick, performance, trainingManager, userPrefs,
             history)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(athletick, performance, attendance,
+        assertFalse(modelManager.equals(new ModelManager(athletick, performance, trainingManager,
                 userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests
@@ -150,7 +150,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAthletickFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(athletick, performance, attendance,
+        assertFalse(modelManager.equals(new ModelManager(athletick, performance, trainingManager,
                 differentUserPrefs, history)));
 
     }
