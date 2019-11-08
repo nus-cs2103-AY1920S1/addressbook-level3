@@ -2,7 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
+import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -74,7 +74,7 @@ public class TagCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showItemAtIndex(model, INDEX_FIRST_ITEM);
+        showXpireItemAtIndex(model, INDEX_FIRST_ITEM);
         XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
         TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIRST_ITEM,
                 new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
@@ -94,7 +94,7 @@ public class TagCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showItemAtIndex(model, INDEX_FIRST_ITEM);
+        showXpireItemAtIndex(model, INDEX_FIRST_ITEM);
         Index outOfBoundIndex = INDEX_SECOND_ITEM;
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLists()[0].getItemList().size());
         TagCommand tagCommand = new TagCommand(XPIRE, outOfBoundIndex,

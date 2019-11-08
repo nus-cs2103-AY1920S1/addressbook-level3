@@ -1,5 +1,6 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +16,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
@@ -71,11 +73,12 @@ public class CommandTestUtil {
         assertEquals(expectedXpire, actualModel.getLists()[0]);
         assertEquals(expectedFilteredList, actualModel.getCurrentList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the xpireItem at the given {@code targetIndex} in the
      * {@code model}'s expiry date tracker.
      */
-    public static void showItemAtIndex(Model model, Index targetIndex) {
+    public static void showXpireItemAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getCurrentList().size());
 
         XpireItem xpireItem = (XpireItem) model.getCurrentList().get(targetIndex.getZeroBased());
@@ -83,6 +86,19 @@ public class CommandTestUtil {
 
         model.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
+        assertEquals(1, model.getCurrentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the replenishItem at the given {@code targetIndex} in the
+     * {@code model}'s replenish list.
+     */
+    public static void showReplenishItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getCurrentList().size());
+
+        Item replenishItem = model.getCurrentList().get(targetIndex.getZeroBased());
+        final String[] splitName = replenishItem.getName().toString().split("\\s+");
+        model.filterCurrentList(REPLENISH, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
         assertEquals(1, model.getCurrentList().size());
     }
 

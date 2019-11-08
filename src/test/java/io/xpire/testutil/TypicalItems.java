@@ -115,6 +115,14 @@ public class TypicalItems {
     public static final Item CHOCOLATE = new ItemBuilder().withName("Chocolate")
                                             .withTags("Cadbury", "Cocoa").build();
 
+    public static final Item COOKIE = new ItemBuilder().withName("Cookie")
+                                                          .withTags("Sweet").build();
+
+    public static final Item BISCUIT = new ItemBuilder().withName("Biscuit")
+                                                       .withTags("Sweet").build();
+
+    public static final Item PAPAYA = new ItemBuilder().withName("Papaya").build();
+
     private TypicalItems() {} // prevents instantiation
 
     /**
@@ -159,7 +167,7 @@ public class TypicalItems {
     }
 
     public static List<Item> getTypicalReplenishListItems() {
-        return new ArrayList<>(Arrays.asList(BAGEL, CHOCOLATE));
+        return new ArrayList<>(Arrays.asList(BAGEL, CHOCOLATE, COOKIE, BISCUIT));
     }
 
 }
