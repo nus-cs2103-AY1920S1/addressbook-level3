@@ -58,6 +58,8 @@ public interface Model {
 
     void updateBarCharts(Date month);
 
+    void createExpensesFromAutoExpenses();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

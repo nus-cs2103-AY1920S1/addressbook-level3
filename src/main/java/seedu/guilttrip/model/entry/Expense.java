@@ -16,7 +16,7 @@ public class Expense extends Entry {
     }
 
     public String getType() {
-        return this.ENTRYTYPE;
+        return ENTRYTYPE;
     }
 
     /**

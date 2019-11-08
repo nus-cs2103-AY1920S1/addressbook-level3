@@ -30,7 +30,7 @@ public class AutoExpense extends Entry {
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
+        return ENTRY_TYPE;
     }
 
     public Date getNextTime() {
