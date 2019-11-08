@@ -24,14 +24,11 @@ public class SetCommand extends Command {
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "100 "
-        + PREFIX_DATE + "01012019 "
+        + PREFIX_DATE + "010120120 "
         + PREFIX_CATEGORY + "food ";
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
     public static final String MESSAGE_DUPLICATE = "This budget already exists: %1$s";
-    public static final String MESSAGE_AMOUNT_OVERFLOW = "Budget amount cannot exceed 1 million (i.e. 1000000)";
-    public static final String MESSAGE_AMOUNT_NEGATIVE = "Budget amount cannot be negative";
-    public static final String MESSAGE_AMOUNT_ZERO = "Budget amount cannot be zero";
     public static final String MESSAGE_DATE_PAST = "Budget cannot be set for past dates";
 
     private Budget budget;

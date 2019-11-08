@@ -236,7 +236,7 @@ public class Budget {
             return true;
         } else if (obj instanceof Budget) {
             Budget inObj = (Budget) obj;
-            return amount.equals(inObj.amount)
+            return initialAmount.equals(inObj.initialAmount)
                 && deadline.equals(inObj.deadline)
                 && categories.equals(inObj.categories)
                 && valid == inObj.valid;
