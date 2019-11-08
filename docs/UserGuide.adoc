@@ -68,35 +68,24 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 ====
 
-=== Splitting a Bill with Friends : `split`
+=== Logging Income : `in`
 
-Split a bill with your friends +
-Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+Adds an income of your personal finance +
+Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
-
-* `[SHARE]` defines portion of bill to be paid by each person
-** if no shares are given, `amount` will be split evenly across all people, including user
-** user is included in the bill if number of shares is *1* more than number of people
-*** user's share will be the first listed share
-** each person's share is assigned in order
-*** i.e. last person's share is the last share listed
-** shares cannot be negative numbers
-
-Examples:
-
-* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
-* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
-
-=== Settling Up with a Friend : `receive`
-
-Receives money from 1 friend +
-Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+****
+* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* `ITEM` accepts the description of this income.
+* `DATE` accepts accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
+* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+****
 
 Examples:
 
-* `pay $/2.5 n/Albert`
+* `in $/100 d/01012019 n/errand c/work c/drinks`
+* `in $/200 d/29022020 n/mom c/family`
+* `in $/120 d/31122019 n/work`
 
 === Logging Expense : `out`
 
@@ -116,25 +105,6 @@ Examples:
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
-
-=== Logging Income : `in`
-
-Adds an income of your personal finance +
-Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
-
-****
-* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
-* `ITEM` accepts the description of this income.
-* `DATE` accepts accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
-* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
-****
-
-Examples:
-
-* `in $/100 d/01012019 n/errand c/work c/drinks`
-* `in $/200 d/29022020 n/mom c/family`
-* `in $/120 d/31122019 n/work`
 
 === Setting a Budget : `set`
 
@@ -159,8 +129,53 @@ To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
 2. The result box will display the message "New budget successfully set". +
 3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
-4. Now you can see the newly set budget in the budget list. +
+4. Now you can see the newly set budget in the budget list.
 
+=== Splitting a Bill with Friends : `split`
+
+Split a bill with your friends +
+Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+
+
+* `[SHARE]` defines portion of bill to be paid by each person
+** if no shares are given, `amount` will be split evenly across all people, including user
+** user is included in the bill if number of shares is *1* more than number of people
+*** user's share will be the first listed share
+** each person's share is assigned in order
+*** i.e. last person's share is the last share listed
+** shares cannot be negative numbers
+
+Examples:
+
+* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+
+=== Receiving Money from a Friend : `receive`
+
+Receives money from 1 friend +
+Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+
+Examples:
+
+* `receive $/2.5 n/Albert`
+
+=== Projecting Balance : `project`
+
+Projects future balance based on past In or Out transactions +
+Format: `project d/DATE`
+
+****
+* `DATE` input only accepts date in format DDMMYYYY.
+* `DATE` input must be preceded by its tag `d/`
+* `DATE` input must be set in the future.
+****
+
+Examples:
+
+* `project d/22072020`
+* `project d/01012020`
 
 // tag::view[]
 === Displaying View : `view`
@@ -312,31 +327,53 @@ image::filter3.png[]
 
 // end::filter[]
 
-=== Projecting Balance : `project`
+=== Undoing the Last Command : `undo`
 
-Projects future balance based on past In or Out transactions +
-Format: `project d/DATE`
+Did you accidentally delete a transaction? Do not panic! PalPay lets you undo your previous commands with just one
+word, `undo`.
+
+==== Command Syntax
+
+Format: `undo`
 
 ****
-* `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`
-* `DATE` input must be set in the future.
+* Once you exit PalPay, you cannot undo the previous commands.
+* List of Undoable Commands:
+** `in`
+** `out`
+** `set`
+** `split`
+** `receive`
+** `project`
+** `filter`
+** `sort`
+** `update`
+** `delete`
+** `clear`
 ****
 
-Examples:
+==== Example Usage:
 
-* `project d/22072020`
-* `project d/01012020`
+Suppose you want to update your allowance you received in October 2019 to $800 but you accidentally update the GrabTaxi
+ride instead. Without going through the trouble of updating the same transaction again, you can simply perform the
+`undo` command. Just follow these three simple steps.
+
+. Here, you see the wrong update you just made.
++
+image::undo1.png[]
++
+. Simply type *undo* in the command box and press kbd:[Enter].
++
+image::undo2.png[]
++
+. As you wish, your command has been undone.
++
+image::undo3.png[]
 
 === Redoing the Last Command : `redo`
 
 Redo the last command +
 Format: `redo`
-
-=== Undoing the Last Command : `undo`
-
-Undo the last command. +
-Format: `undo`
 
 === Clearing All Entries : `clear`
 
