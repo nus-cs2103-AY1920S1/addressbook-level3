@@ -28,7 +28,7 @@ import seedu.ichifund.testutil.EditTransactionDescriptorBuilder;
 import seedu.ichifund.testutil.TransactionBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * EditTransactionCommand.
  */
 public class EditTransactionCommandTest {

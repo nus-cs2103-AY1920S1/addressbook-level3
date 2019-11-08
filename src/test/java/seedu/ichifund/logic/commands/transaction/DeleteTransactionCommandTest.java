@@ -18,7 +18,7 @@ import seedu.ichifund.model.UserPrefs;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteTransactionCommand}.
  */
 public class DeleteTransactionCommandTest {
