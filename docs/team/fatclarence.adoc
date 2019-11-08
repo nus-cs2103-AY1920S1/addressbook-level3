@@ -99,6 +99,11 @@ from the command-line.
 However, I enabled the user to reference the full list of commands previous type from the `CommandHistory`. Now, previously typed commands are observable all at once.
 This is an enhancement to the implemented command-line command history feature.
 
+=== Code contributions
+
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=fatclarence&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-05[Project Code Dashboard]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Afatclarence+is%3Aclosed[Pull Request]
+
 === Other contributions
 
 * Project Management:
@@ -136,5 +141,13 @@ include::../UserGuide.adoc[tag=withdrawals]
 == Contributions to the Developer Guide
 
 This section shows the additions that I have made to the Savings feature of the Developer Guide.
+
+include::../DeveloperGuide.adoc[tag=savings]
+
+== Contributions to Developer Guide
+
+I have made documentation contributions to the Developer Guide regarding the 2 main features I implemented, i.e. Savings-Tracking and Withdrawal-Tracking features. +
+This section will only show the contribution that I have made regarding the Savings-Tracking feature of the Developer Guide to adhere to the PPP word limit. +
+The documentation regarding the Withdrawal-Tracking feature can be found in our Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=savings]
