@@ -26,7 +26,7 @@ public class Amount implements Comparable<Amount> {
         "Shares cannot be negative";
 
     public static final String DIVIDE_CONSTRAINTS =
-            "You cannot divide by $0";
+        "You cannot divide by $0";
 
     public static final DecimalFormat AMOUNT_DOUBLE_FORMAT = new DecimalFormat("#.00");
 

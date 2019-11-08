@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.transaction.Amount;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -51,5 +52,48 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
+    }
+
+    @Test
+    public void spend() {
+        Amount amount = new Amount(100.00);
+        ALICE.spend(amount);
+
+        // 200 - 100 = 100 -> return true
+        assertTrue(ALICE.getBalance().equals(new Amount(100.00)));
+
+        Amount zeroAmount = Amount.zero();
+        ALICE.spend(zeroAmount);
+        // 100 - 0 = 100 -> return true
+        assertTrue(ALICE.getBalance().equals(new Amount(100.00)));
+    }
+
+    @Test
+    public void receive() {
+        Amount amount = new Amount(100.00);
+        ALICE.receive(amount);
+        // 200 + 100 = 300 -> return true
+        assertTrue(ALICE.getBalance().equals(new Amount(300.00)));
+
+        Amount zeroAmount = Amount.zero();
+        ALICE.receive(zeroAmount);
+        // 100 + 0 = 100 -> return true
+        assertTrue(ALICE.getBalance().equals(new Amount(300.00)));
+    }
+
+    @Test
+    public void resetBalance() {
+        ALICE.resetBalance();
+        // 0 dollars -> return true
+        assertTrue(ALICE.getBalance().equals(Amount.zero()));
+    }
+
+    @Test
+    public void testToString() {
+        // same values -> return true
+        assertTrue(ALICE.toString().equals("Alice Pauline Balance: 200.00"));
+
+        // same object -> return true
+        assertTrue(ALICE.toString().equals(ALICE.toString()));
     }
 }
