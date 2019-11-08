@@ -73,12 +73,15 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import java.util.List;
 
 /**
  * Class that initialise and stores all list
@@ -87,7 +90,7 @@ public class AutoCompleteWordStorage {
 
     public static final String VISIT_OBJECT_WORD = parseFirstSegment(BeginVisitCommand.COMMAND_WORD)
             .get(0);
-    public static final String PAT_OBJECTWORD = parseFirstSegment(AddCommand.COMMAND_WORD)
+    public static final String PAT_OBJECT_WORD = parseFirstSegment(AddCommand.COMMAND_WORD)
             .get(0);
     public static final String APP_OBJECT_WORD = parseFirstSegment(ExportCommand.COMMAND_WORD)
             .get(0);
@@ -99,13 +102,17 @@ public class AutoCompleteWordStorage {
     private ObservableList<AutoCompleteWord> oListAllPrefixWord;
     private FilteredList<Patient> patList;
     private FilteredList<Appointment> apptList;
+    private ObservableList<HistoryRecord> historyList;
 
-    public AutoCompleteWordStorage(FilteredList<Patient> patList, FilteredList<Appointment> apptList) {
+    public AutoCompleteWordStorage(FilteredList<Patient> patList,
+                                   FilteredList<Appointment> apptList,
+                                   ObservableList<HistoryRecord> historyList) {
         this.oListAllCommandWord = initAllCommandWordList();
         this.oListAllPrefixWord = initAllPrefixWordList();
         this.oListAllObjectWord = initAllObjectWordList();
         this.patList = patList;
         this.apptList = apptList;
+        this.historyList = historyList;
     }
 
     /**
@@ -131,7 +138,7 @@ public class AutoCompleteWordStorage {
         // App commands
         oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD,
                 parseFirstSegment(UndoCommand.COMMAND_WORD).get(1), UNDO_DESCRIPTION,
-                false, false));
+                true, false));
         oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD,
                 parseFirstSegment(RedoCommand.COMMAND_WORD).get(1), REDO_DESCRIPTION,
                 false, false));
@@ -152,22 +159,22 @@ public class AutoCompleteWordStorage {
                 false, false));
 
         // Patient commands
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(ListCommand.COMMAND_WORD).get(1), LIST_DESCRIPTION,
                 false, false));
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(FindCommand.COMMAND_WORD).get(1), FIND_DESCRIPTION,
                 false, false));
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1), ADD_DESCRIPTION,
                 false, true));
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1), EDIT_DESCRIPTION,
                 true, true));
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(DeleteCommand.COMMAND_WORD).get(1), DELETE_DESCRIPTION,
                 true, false));
-        oListAllCommandWord.add(new CommandWord(PAT_OBJECTWORD,
+        oListAllCommandWord.add(new CommandWord(PAT_OBJECT_WORD,
                 parseFirstSegment(ClearCommand.COMMAND_WORD).get(1), CLEAR_DESCRIPTION,
                 false, false));
 
@@ -222,40 +229,40 @@ public class AutoCompleteWordStorage {
                 parseFirstSegment(ImportMergeCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_FILENAME.getPrefix(), PREFIX_FILENAME_DESCRIPTION));
         // Pat prefixes
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_NAME.getPrefix(), PREFIX_NAME_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_PHONE.getPrefix(), PREFIX_PHONE_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_EMAIL.getPrefix(), PREFIX_EMAIL_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_ADDRESS.getPrefix(), PREFIX_ADDRESS_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_TAG.getPrefix(), PREFIX_TAG_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_PATIENT_VISIT_TODO.getPrefix(), PREFIX_PATIENT_VISIT_TODO_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_NAME.getPrefix(), PREFIX_NAME_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_PHONE.getPrefix(), PREFIX_PHONE_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_EMAIL.getPrefix(), PREFIX_EMAIL_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_ADDRESS.getPrefix(), PREFIX_ADDRESS_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_TAG.getPrefix(), PREFIX_TAG_DESCRIPTION));
-        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
+        oListAllPrefixWord.add(new PrefixWord(PAT_OBJECT_WORD,
                 parseFirstSegment(EditCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_PATIENT_VISIT_TODO.getPrefix(), PREFIX_PATIENT_VISIT_TODO_DESCRIPTION));
         // Appt prefixes
@@ -333,7 +340,7 @@ public class AutoCompleteWordStorage {
     private ObservableList<AutoCompleteWord> initAllObjectWordList() {
         ObservableList<AutoCompleteWord> oListAllObjectWord = FXCollections.observableArrayList();
 
-        oListAllObjectWord.add(new ObjectWord(PAT_OBJECTWORD, PAT_DESCRIPTION));
+        oListAllObjectWord.add(new ObjectWord(PAT_OBJECT_WORD, PAT_DESCRIPTION));
         oListAllObjectWord.add(new ObjectWord(VISIT_OBJECT_WORD, VISIT_DESCRIPTION));
         oListAllObjectWord.add(new ObjectWord(APPT_OBJECT_WORD, APPT_DESCRIPTION));
         oListAllObjectWord.add(new ObjectWord(APP_OBJECT_WORD, APP_DESCRIPTION));
@@ -365,8 +372,12 @@ public class AutoCompleteWordStorage {
             for (int i = 0; i < apptList.size(); i++) {
                 oListAllIndexWord.add(new IndexWord(Integer.toString(i + 1), INDEX_A_DESCRIPTION));
             }
-        } else {
+        } else if (objectWord.getSuggestedWord().equals(PAT_OBJECT_WORD)) {
             for (int i = 0; i < patList.size(); i++) {
+                oListAllIndexWord.add(new IndexWord(Integer.toString(i + 1), INDEX_P_DESCRIPTION));
+            }
+        } else {
+            for (int i = 0; i < historyList.size(); i++) {
                 oListAllIndexWord.add(new IndexWord(Integer.toString(i + 1), INDEX_P_DESCRIPTION));
             }
         }

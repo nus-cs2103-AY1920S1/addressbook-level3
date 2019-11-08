@@ -7,6 +7,7 @@ import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWordStorage;
 import cs.f10.t1.nursetraverse.autocomplete.MatchedWordUpdater;
 import cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil;
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import javafx.collections.ObservableList;
@@ -31,10 +32,12 @@ public class AutoCompletePanel extends UiPart<Region> implements ObserverUi, Dat
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
 
-    public AutoCompletePanel(FilteredList<Patient> patList, FilteredList<Appointment> apptList) {
+    public AutoCompletePanel(FilteredList<Patient> patList,
+                             FilteredList<Appointment> apptList,
+                             ObservableList<HistoryRecord> historyList) {
         super(FXML);
 
-        AutoCompleteWordStorage autoCompleteWordStorage = new AutoCompleteWordStorage(patList, apptList);
+        AutoCompleteWordStorage autoCompleteWordStorage = new AutoCompleteWordStorage(patList, apptList,historyList);
         autoCompleteListHandler = new AutoCompleteListHandler(autoCompleteWordStorage);
         matchedWordUpdater = new MatchedWordUpdater(autoCompleteWordStorage, autoCompleteListHandler);
 

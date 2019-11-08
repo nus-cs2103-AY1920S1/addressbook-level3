@@ -142,7 +142,11 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPatientBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        autoCompletePanel = new AutoCompletePanel(logic.getFilteredPatientList(), logic.getFilteredAppointmentList());
+        autoCompletePanel = new AutoCompletePanel(
+                logic.getFilteredPatientList(),
+                logic.getFilteredAppointmentList(),
+                logic.getObservableHistoryList()
+        );
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
 
         commandBox = new CommandBox(this::executeCommand);
