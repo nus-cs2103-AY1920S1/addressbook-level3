@@ -33,7 +33,7 @@ import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
- * Edits the details of an existing cca in the address book.
+ * Edits the details of an existing cca in Jarvis.
  */
 public class EditCcaCommand extends Command {
 
@@ -61,7 +61,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
 
     public static final String MESSAGE_INVERSE_CCA_NOT_FOUND =
-            "Unable to edit cca, cca not found in the address book.";
+            "Unable to edit cca, cca not found in the CcaTracker.";
 
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";

@@ -34,7 +34,7 @@ public class ListFinancesCommandTest {
     }
 
     /**
-     * Verifies that checking {@code ListAddressCommand} for the availability of inverse execution returns false.
+     * Verifies that checking {@code ListFinancesCommand} for the availability of inverse execution returns false.
      */
     @Test
     public void hasInverseExecution() {
@@ -49,7 +49,7 @@ public class ListFinancesCommandTest {
     }
 
     /**
-     * Verifies that calling inverse execution of {@code ListAddressCommand} will always throw a
+     * Verifies that calling inverse execution of {@code ListFinancesCommand} will always throw a
      * {@code CommandException} with the correct message.
      */
     @Test

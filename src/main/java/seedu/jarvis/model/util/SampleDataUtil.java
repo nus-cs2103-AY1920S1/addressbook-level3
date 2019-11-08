@@ -49,7 +49,18 @@ public class SampleDataUtil {
             CourseUtil.getCourse("CS1231").get(),
             CourseUtil.getCourse("MA1511").get(),
             CourseUtil.getCourse("MA1512").get(),
-            CourseUtil.getCourse("GER1000").get()
+            CourseUtil.getCourse("GER1000").get(),
+            CourseUtil.getCourse("CS2030").get(),
+            CourseUtil.getCourse("CS2040").get(),
+            CourseUtil.getCourse("CS2100").get(),
+            CourseUtil.getCourse("GET1028").get(),
+            CourseUtil.getCourse("GES1011").get(),
+            CourseUtil.getCourse("MA1101R").get(),
+            CourseUtil.getCourse("CS2101").get(),
+            CourseUtil.getCourse("CS2102").get(),
+            CourseUtil.getCourse("CS2103T").get(),
+            CourseUtil.getCourse("GEQ1000").get(),
+            CourseUtil.getCourse("ST2334").get()
         };
     }
 

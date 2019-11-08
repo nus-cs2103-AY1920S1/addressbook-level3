@@ -52,15 +52,15 @@ public class EditInstallmentCommandTest {
     }
 
     /**
-     * Verifies that checking {@code EditAddressCommand} for the availability of inverse execution returns true.
+     * Verifies that checking {@code EditInstallCommand} for the availability of inverse execution returns true.
      */
     @Test
     public void hasInverseExecution() {
         Installment editedInstallment = new InstallmentBuilder().build();
         EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(editedInstallment).build();
-        EditInstallmentCommand editAddressCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT, descriptor);
-        assertTrue(editAddressCommand.hasInverseExecution());
+        EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT, descriptor);
+        assertTrue(editInstallmentCommand.hasInverseExecution());
     }
 
     @Test
