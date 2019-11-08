@@ -46,20 +46,30 @@ on your PC.
 2. Move `Jarvis` to the directory you would like to use as the
 home folder for the application.
 
-3. Run `jarvis.jar` to start the app. You should see the following on starting the application up:
+3. Run `jarvis.jar` to start the app. You should see something similar when starting the application up:
 
 .Jarvis' Graphical User Interface (GUI)
-image::StartUpGUI.png[]
+image::StartUpUI.png[]
 
-{sp} +
+In Figure 1, there are three boxes labelled with numbers - these are the shared GUI sections across all the features:
 
-Jarvis' <<link-main-features, four main features>> have been split into four distinct tabs. You can
-toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
+1. `HelpDesk` - Unique to each feature's tab, it will display a list of commands you can use so you do not need to
+remember them all!
+
+2. Feature Tabs - The <<link-main-features, four main features>> of `Jarvis` have been split into distinct tabs.
+The tab that you are currently on would be underlined in red, as seen in Figure 1.
+You can also toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
 features' `list` commands.
 
-You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
+3. Command Result (top) & Command Entry (bottom) Boxes - Keying commands into the Command Entry Box will cause the
+respective Command Results to show in the Command Result Box. An invalid command will result in a red border around
+the Command Entry Box and an appropriate error message will be displayed in the Command Result Box, as shown in an
+example in Figure 2 below.
 
-{sp} +
+.Adding a non-existent course into the Course Planner will result in a display like this
+image::ErrorMessage.png[]
+
+You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
 
 == Features
 
@@ -145,6 +155,20 @@ A digital planner to help you stay organized; `Jarvis` can help you cope with yo
 events, errands and more. Tagging and prioritizing tasks are just two of the many ways `Jarvis` will
 enable you to stay on top of everything you need to do!
 
+.GUI for the Task Planner
+image::PlannerUI.png[]
+
+The Planner feature of `Jarvis` has a very intuitive user interface, with three main sections - as seen in Figure 3.
+
+Each task is represented by a task card (an example of which is boxed in green in Figure 3). Each task card has the task
+description right at the top, followed by the task type, and the optional fields (if present). The icon at the bottom
+of each task card indicates whether a task has been done, or not - a red cross for tasks that have not been completed
+and a green tick for tasks that have.
+
+The default display ia a column on the left for all the tasks in the planner, and a column on the right for your
+schedule. The schedule consists two lists stacked on top of each other - the top one showing tasks happening on that
+day and the bottom showing tasks happening that week.
+
 ==== Adding a task: `add-task`
 The most fundamental command for the Planner - `add-task` adds a task to the Planner.
 
@@ -204,6 +228,9 @@ delete-task 3
 Too many tasks to comb through? Ask `Jarvis` to find a task for you based on one or more keywords that match the
 descriptions of your tasks.
 
+.Display for find-task
+image::find-task.png[]
+
 Format: `find-task KEYWORD...`
 
 NOTE: There must be at least one keyword & this command is case-insensitive.
@@ -217,7 +244,10 @@ find-task homework cs ma1101r
 ==== Updating a task's status: `done-task`
 Once you have completed a task (hooray!), you can let `Jarvis` know. By default on
 `add-task`, all tasks are marked as undone, represented by a `[✗]`. Upon marking the task as done, the task will be
-represented with a `[✓]`.
+represented with a `[✓]`, as seen in Figure 5 below.
+
+.Comparison between a task that is marked as done, and one that is not
+image::done-task.png[]
 
 Format: `done-task INDEX`
 
@@ -226,6 +256,9 @@ where `INDEX` is the **one-based** index of the task list.
 ==== Sorting tasks by attribute: `pull-task`
 To get a quick glimpse of all the tasks you have in your Planner that match a certain <<link-attributes, attribute>>,
 simply pull all tasks relating to that attribute.
+
+.Display for pull-task
+image::pull-task.png[]
 
 Format: `pull-task { t/TYPE | #TAG | p/PRIORITY-LEVEL | f/FREQUENCY-LEVEL | d/DATE }`
 
