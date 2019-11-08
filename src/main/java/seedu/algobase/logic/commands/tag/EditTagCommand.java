@@ -15,7 +15,6 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -65,9 +64,7 @@ public class EditTagCommand extends Command {
 
         model.setTag(tagToEdit, editedTag);
         model.setTags(tagToEdit, editedTag);
-        for (Problem problem : model.getFilteredProblemList()) {
-            model.setProblem(problem, problem);
-        }
+
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
         model.updateFilteredPlanList(Model.PREDICATE_SHOW_ALL_PLANS);
         model.updateFilteredTagList(Model.PREDICATE_SHOW_ALL_TAGS);

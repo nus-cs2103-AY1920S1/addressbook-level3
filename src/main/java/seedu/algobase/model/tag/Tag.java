@@ -17,7 +17,16 @@ public class Tag {
     public static final String MESSAGE_NAME_CONSTRAINTS =
         "Tags names should contain only alphabets, numbers, hyphen or underscore and should not be empty.";
     public static final String MESSAGE_COLOR_CONSTRAINTS =
-        "Tags colors should be one of \"RED\", \"ORANGE\", \"YELLOW\", \"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\".";
+        "Tags colors should be one of "
+                + "\"RED\", "
+                + "\"ORANGE\", "
+                + "\"YELLOW\", "
+                + "\"GREEN\", "
+                + "\"BLUE\", "
+                + "\"PURPLE\", "
+                + "\"BLACK\", "
+                + "\"TEAL\" and "
+                + "\"DEFAULT\".";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
     public static final String DEFAULT_COLOR = "#3e7b91";

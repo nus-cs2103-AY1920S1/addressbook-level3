@@ -52,7 +52,7 @@ public class ParserUtil {
     public static final String DATE_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd'.";
     public static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
-
+    public static final String DEFAULT_COLOR = "#3e7b91";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -202,13 +202,17 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
+    public static Tag parseTag(String tag, String color) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
+        String trimmedColor = color.trim();
         if (!Tag.isValidTagName(trimmedTag) || tag.isBlank()) {
             throw new ParseException(Tag.MESSAGE_NAME_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        if (color.isEmpty()) {
+            trimmedColor = "#3e7b91";
+        }
+        return new Tag(trimmedTag, trimmedColor);
     }
 
     /**
@@ -218,7 +222,7 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagSet.add(parseTag(tagName, DEFAULT_COLOR));
         }
         return tagSet;
     }
