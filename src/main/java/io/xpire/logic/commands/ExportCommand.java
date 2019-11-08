@@ -6,6 +6,7 @@ import io.xpire.model.item.Item;
 import io.xpire.model.state.StateManager;
 import javafx.collections.ObservableList;
 
+//@@author JermyTan
 /**
  * Exports the list through a QR code.
  */
@@ -17,9 +18,11 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the current list through a QR code.\n"
             + "Example: " + COMMAND_WORD;
 
+    /** Message to be shown to the user. */
     public static final String SHOWING_EXPORT_MESSAGE = "QR code generated.";
 
-    private static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * * * * *\n";
+    /** Pretty formatting of the exported data. */
+    private static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * *\n";
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {

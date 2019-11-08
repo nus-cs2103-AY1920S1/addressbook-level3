@@ -10,6 +10,7 @@ import io.xpire.model.state.StateManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//@@author JermyTan
 /**
  * Clears all items in the list.
  */
@@ -20,8 +21,14 @@ public class ClearCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Current list has been cleared!";
 
+    /** The current list type. */
     private final ListType listType;
 
+    /**
+     * Public constructor for class.
+     *
+     * @param listType Current list type.
+     */
     public ClearCommand(ListType listType) {
         this.listType = listType;
     }

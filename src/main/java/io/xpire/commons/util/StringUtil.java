@@ -87,6 +87,7 @@ public class StringUtil {
         }
     }
 
+    //@@author JermyTan
     /**
      * Returns true if {@code s} represents a non-negative integer.
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
@@ -105,6 +106,7 @@ public class StringUtil {
         }
     }
 
+    //@@author
     /**
      * Returns true if {@code s} represents an integer smaller than or equal to the given maximum value {@code max}.
      * Returns false for any other non-null string input.
@@ -260,14 +262,18 @@ public class StringUtil {
                                                     .collect(Collectors.toSet()), 1);
     }
 
+    //@@author JermyTan
     /**
-     * Returns the byte array representing the QR code-encoded text
+     * Returns the byte array representing the QR code-encoded text.
      *
      * @param text The string to be encoded.
      * @param length The size of the QR code
      * @return The byte array of the QR code-encoded text
      */
     public static byte[] getQrCode(String text, int length) {
+        requireNonNull(text);
+        assert length <= 0: "Length must be more than 0";
+
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
