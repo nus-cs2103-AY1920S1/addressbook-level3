@@ -45,7 +45,7 @@ In this section, I will be briefly going through my contributions to this team p
 
 _What it does?_
 
-This feature allows the user to enter a priority mode where they are able to prioritize tasks with a higher priority first.
+This feature allows the user to enter a priority mode where they are able to prioritize tasks with a higher priority first and focus on that task to complete it.
 
 _Why do it?_
 
@@ -54,6 +54,14 @@ This features help to solve the problem of students having too many tasks and be
 _What's special?_
 
 There are multiple modes for the user to choose from to suit their needs. Users can choose from a focus mode, a timed mode or just a normal mode. The individual mode will be explained in greater detail in the user guide.
+
+At the same time, users are able to update their task list in realtime (add, delete, edit) so that they can always be sure that the task that they are currently doing is the most important one.
+
+_Difficulties?_
+
+The difficulty of this feature comes from the fact that it has to be integrated with all the other commands within the application. That means that the algorithm needs to be written in a way such that it is constantly updating itself to give the user the most important task despite the changes in the tasks.
+
+For example, when a new task of a higher priority (than the current task) is added, the algorithm should be able to make that the task that is to be completed first. This requires a lot of integration with all the other code so that ELISA can behave differently depending on whether she is in priority mode.
 
 * *Sorting (Minor Feature)*:
 
