@@ -708,7 +708,16 @@ public class ModelManager implements Model {
 
     @Override
     public void shiftDatesInItineraryByDay(long days) {
-        this.itinerary.shiftDatesInItineraryByDay(days);
+        shiftDatesInItineraryByDayBetweenRange(
+                days,
+                Index.fromOneBased(1),
+                Index.fromOneBased(itinerary.getNumberOfDays())
+        );
+    }
+
+    @Override
+    public void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex) {
+        this.itinerary.shiftDatesInItinerary(days, startIndex, endIndex);
     }
 
     @Override

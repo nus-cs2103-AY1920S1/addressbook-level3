@@ -94,9 +94,16 @@ public class DayList implements Iterable<Day> {
      */
     public void remove(Day toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        int indexOfToRemove = internalList.indexOf(toRemove);
+        if (indexOfToRemove == -1) {
             throw new DayNotFoundException();
         }
+        shiftDatesInItinerary(
+                -1,
+                Index.fromZeroBased(indexOfToRemove + 1),
+                Index.fromOneBased(internalList.size())
+        );
+        internalList.remove(toRemove);
     }
 
     /**
@@ -125,13 +132,16 @@ public class DayList implements Iterable<Day> {
     }
 
     /**
-     * Shifts the dates of activities in every day.
+     * Shifts the dates of activities in days from startIndex to endIndex - 1.
      * @param days the amount of days to shift by
+     * @param startIndex the start index, inclusive
+     * @param endIndex the end index, exclusive
      */
-    public void shiftDatesInItineraryByDay(long days) {
-        for (Day day : internalList) {
-            Day editedDay = shiftDatesOfAllActivitiesInDay(day, days);
-            setDay(day, editedDay);
+    public void shiftDatesInItinerary(long days, Index startIndex, Index endIndex) {
+        for (int i = startIndex.getZeroBased(); i < endIndex.getZeroBased(); i++) {
+            Day currDay = internalList.get(i);
+            Day editedDay = shiftDatesOfAllActivitiesInDay(currDay, days);
+            setDay(currDay, editedDay);
         }
     }
 

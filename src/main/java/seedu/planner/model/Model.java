@@ -332,6 +332,15 @@ public interface Model {
     void shiftDatesInItineraryByDay(long days);
 
     /**
+     * Shifts the days starting from {@code startIndex} to day {@code endIndex}-1.
+     * by {@code days} amount of days.
+     * @param days the amount of days to shift by
+     * @param startIndex the start index, inclusive
+     * @param endIndex the end index, exclusive
+     */
+    void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex);
+
+    /**
      * Replaces current Itinerary data with the data in {@code itinerary}.
      */
     void setItinerary(ReadOnlyItinerary itinerary);

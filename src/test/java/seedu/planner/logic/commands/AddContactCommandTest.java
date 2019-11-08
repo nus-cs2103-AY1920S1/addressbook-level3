@@ -334,6 +334,10 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void addDays(int n) {
             throw new AssertionError("This method should not be called.");
         }

@@ -75,8 +75,8 @@ public class Itinerary implements ReadOnlyItinerary {
         this.days.setDays(itinerary);
     }
 
-    public void shiftDatesInItineraryByDay(long days) {
-        this.days.shiftDatesInItineraryByDay(days);
+    public void shiftDatesInItinerary(long days, Index startIndex, Index endIndex) {
+        this.days.shiftDatesInItinerary(days, startIndex, endIndex);
     }
 
     public void setDay(Day oldDay, Day newDay) {
