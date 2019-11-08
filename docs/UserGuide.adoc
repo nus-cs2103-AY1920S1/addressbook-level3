@@ -419,6 +419,9 @@ Example:
 
 * `signIn ac/example@gmail.com pa/12345678`
 
+[NOTE]
+This command is required to be executed before the remainder of the email commands can be executed.
+
 ==== Log out from your account: `logOut`
 Logs out from your email account. +
 Format: `logOut`
@@ -445,7 +448,7 @@ Example:
 
 ==== Send reminder: `sendReminder`
 
-Sends a reminder to all members of the upcoming Meeting and Task that is due from the current working project. +
+Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
 Format: `sendReminder`d/DURATION
 
 `DURATION` is the number of days from the current time within which the Tasks are due and The Meetings are held.
