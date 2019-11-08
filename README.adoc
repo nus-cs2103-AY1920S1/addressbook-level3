@@ -2,20 +2,16 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T17-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-T17-1/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://coveralls.io/github/AY1920S1-CS2103T-T17-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T17-1/main/badge.svg?branch=master[Coverage Status]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+Too overwhelmed by the amount of group projects? Don't worry! My project is here to help. With our vast array of functionality, you would soon be managing your projects with ease.
+
+MyProject is a desktop Project Management application. It has a GUI to display various useful information but most of the user interactions happen using a CLI (Command Line Interface).
 
 ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Project Management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
 
