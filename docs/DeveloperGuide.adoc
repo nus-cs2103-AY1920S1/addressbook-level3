@@ -385,14 +385,15 @@ The incident filling and submission subroutines are facilitated by the `fill` an
 In the IMS, each incident can have one of three statuses - `INCOMPLETE_DRAFT`, `COMPLETE_DRAFT`, and `SUBMITTED REPORT`.
 These three statuses are maintained by an `enum` in `Incident`. Executing the `fill` command changes the status of
 drafts (complete or incomplete) into `COMPLETE_DRAFT` while the `submit` command changes the status of only `COMPLETE_DRAFTS` to `SUBMITTED_REPORT`.
+To prevent potential misuse, only the operator who has created the incident report is allowed access to execute the fill and submit commands on that report.
 
 ===== Overview of `Fill` and `Submit`
 
 Each command works in two modes:
 
-1. Without parameters: +
+1. *Without parameters:*
 In this mode, the command - `fill` or `submit` - lists the incidents that are ready for Filling (i.e. only all complete and incomplete drafts) or Submitting (i.e. only all complete drafts).
-2. With parameters:
+2. *With parameters:*
 In this mode, the command - `fill` or `submit` - actually fills (i.e. makes incident status `COMPLETE_DRAFT`) or submits (i.e. changes incident status from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`) the specified incident.
 
 The implementation of these two modes is discussed below. As both `fill` and `submit` are rather similar in their implementation, a detailed discussion of only the `fill` command is given below.
@@ -405,7 +406,7 @@ with predicate `Incident::isDraft`. This `ListIncidentsCommand` is then executed
 
 For the `submit` command, the predicate `Incident::isCompleteDraft` is used instead.
 
-image::FillCommandNoParamsSequenceDiagram.png[]
+image::FillCommandNoParamsSequenceDiagram.png[width="600"]
 
 ===== Parameter mode (modifying incidents)
 * For the `fill` command with parameters, the `FillCommandParser` will be invoked to parse the fields `targetIndex`, `callerNumber`, and `description` and return a `FillCommand` containing these non-null fields.
@@ -414,8 +415,8 @@ image::FillCommandNoParamsSequenceDiagram.png[]
 * The old incident report will be removed from the system and be replaced with the new updated incident report.
 * The new incident report is placed at the front of the incident list for easy access.
 
-image::FillCommandWithParamsSequenceDiagram.png[]
-.In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
+image::FillCommandWithParamsSequenceDiagram.png[width="800"]
+In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
 
 The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, and its fields are copied into a new `Incident` object with a `SUBMITTED_REPORT` status.
 
@@ -449,9 +450,8 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pros: +
 1. Improved accountability. Prevents a user from changing the most important fields of the incident report, such as `incidentId`, `incidentDateTime`, and `vehicle`, without first committing the report into the system. +
 2. More convenient for the user as they only have to specify 2 report fields instead of 6 or 7.
-** Cons: +
+** Con: +
 1. User is unable to fill `callerNumber` independently of `description` unless they first submit the incident report and then use the `edit` command.
-2. If an incident report has a very long description, then this way of filling the report can be troublesome.
 * **Alternative 1:** Combine `fill` and `submit` functions i.e. filling a report completely will automatically submit it.
 ** Pros: +
 1. Easier to implement as Incident reports have two statuses - DRAFT or SUBMITTED - instead of three.
@@ -462,11 +462,12 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pro: +
 1. Satisfies the cons of the two approaches above as it is versatile enough to allow the user to independently fill different incident report fields as well as adaptable enough to accommodate extra fields.
 ** Con: +
-1. Harder to implement as we would need to make elaborate and thorough methods to parse the variable arguments.
+1. Harder to implement as we would need more elaborate methods to parse the variable arguments.
 
 ==== Known Issues
 
 A user cannot independently fill the various incident report fields unless they first submit the incident report.
+This might be an acceptable issue it encourages users to completely fill a new incident report before submitting it, which reduces the likelihood of finding incomplete drafts in the system.
 
 ==== Activity diagram summarising Incident creation, filling, and submission features
 
