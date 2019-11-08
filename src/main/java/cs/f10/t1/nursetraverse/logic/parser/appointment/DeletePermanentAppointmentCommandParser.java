@@ -10,7 +10,7 @@ import cs.f10.t1.nursetraverse.logic.parser.ParserUtil;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteAppointmentCommand object
+ * Parses input arguments and creates a new DeletePermanentAppointmentCommand object
  */
 public class DeletePermanentAppointmentCommandParser implements Parser<DeletePermanentAppointmentCommand> {
 
