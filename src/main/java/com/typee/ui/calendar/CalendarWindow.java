@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
 
 import javafx.collections.ListChangeListener;
@@ -131,13 +132,27 @@ public class CalendarWindow extends UiPart<Region> {
     private void addAllEngagementsForDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
         calendarDateCell.clearEngagements();
         for (Engagement engagement : engagements) {
-            LocalDateTime startDateTime = engagement.getTimeSlot().getStartTime();
-            if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
-                    && startDateTime.getMonthValue() == calendarDate.getMonthValue()
-                    && startDateTime.getYear() == calendarDate.getYear()) {
+            if (isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
                 calendarDateCell.addEngagement(engagement);
             }
         }
+    }
+
+    /**
+     * Returns true if the specified calendar date is within the specified time slot.
+     * @param calendarDate The specified calendar date.
+     * @param timeSlot The specified time slot.
+     * @return True if the specified calendar date is within the specified time slot.
+     */
+    private boolean isWithinTimeSlot(LocalDate calendarDate, TimeSlot timeSlot) {
+        LocalDateTime startDateTime = timeSlot.getStartTime();
+        LocalDateTime endDateTime = timeSlot.getEndTime();
+        return (startDateTime.getDayOfMonth() <= calendarDate.getDayOfMonth()
+                && calendarDate.getDayOfMonth() <= endDateTime.getDayOfMonth())
+                && (startDateTime.getMonthValue() <= calendarDate.getMonthValue()
+                && calendarDate.getMonthValue() <= endDateTime.getMonthValue())
+                && (startDateTime.getYear() <= calendarDate.getYear()
+                && calendarDate.getYear() <= endDateTime.getYear());
     }
 
     /**
