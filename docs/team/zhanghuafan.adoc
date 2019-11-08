@@ -56,8 +56,6 @@ include::../UserGuide.adoc[tag=recmf]
 
 == Contributions to the Developer Guide
 
-include::../DeveloperGuide.adoc[tag=recmf]
-
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===

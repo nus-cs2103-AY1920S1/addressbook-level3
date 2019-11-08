@@ -9,7 +9,7 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
  */
 public class FoodName implements Comparable<FoodName> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Names should only contain alphanumeric characters and spaces. "
+    public static final String MESSAGE_CONSTRAINTS = "Names should only contain alphabets, numbers, and whitespace. "
             + "It should not be blank or longer than 30 characters";
 
     /*

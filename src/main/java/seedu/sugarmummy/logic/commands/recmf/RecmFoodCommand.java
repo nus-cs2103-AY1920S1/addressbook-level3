@@ -27,7 +27,8 @@ public class RecmFoodCommand extends Command {
             + "-p: protein recommendations\n"
             + "-s: snack recommendations\n"
             + "-m: meal recommendations\n"
-            + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
+            + "Usage: " + COMMAND_WORD + " [-FLAG]... [fn/FOOD_NAME][±sort/SORT_ORDER_TYPE]\n"
+            + "Example: recmf -p -nsv +sort/gi";
 
     private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
             + "Try adding more new foods or reducing some filters~";
