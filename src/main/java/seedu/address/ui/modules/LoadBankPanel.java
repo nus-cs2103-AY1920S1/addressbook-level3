@@ -34,7 +34,6 @@ public class LoadBankPanel extends UiPart<Region> {
 
     public LoadBankPanel(ObservableList<WordBank> wbl) {
         super(FXML);
-        this.storage = storage;
         loadBankView.setItems(wbl);
         loadBankView.setCellFactory(listView -> new LoadBankViewCell());
     }
@@ -85,11 +84,6 @@ public class LoadBankPanel extends UiPart<Region> {
             Path p = firstFile.toPath();
             String childString = p.getFileName().toString();
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
-
-            //        if(firstFile.exists()) {
-            //            Path p = firstFile.toPath();
-            //            String childString = p.getFileName().toString();
-            //            String wordBankName = getFileNameWithoutExtension(firstFile);
 
             try {
                 commandExecutor.execute("import w/" + wordBankName

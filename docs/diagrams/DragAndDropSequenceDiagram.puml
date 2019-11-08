@@ -1,0 +1,66 @@
+@startuml
+!include style.puml
+
+!define COMMONS_COLOR #999999
+!define COMMONS_COLOR_T1 #CCCCCC
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow LOGIC_COLOR
+participant ":ModularDisplay" as ModularDisplay MODEL_COLOR
+participant ":LoadBankPanel" as LoadBankPanel STORAGE_COLOR
+end box
+
+box JavaFX MAINAPP_COLOR
+participant ":JavaFX" as JavaFX MAINAPP_COLOR_T1
+end box
+
+box User PARSERMANAGER_COLOR_T1
+participant ":User" as User PARSERMANAGER_COLOR
+end box
+
+[-> MainWindow : initialize
+activate MainWindow
+MainWindow -> ModularDisplay : register callback:\n commandExecutor
+activate ModularDisplay
+ModularDisplay -> LoadBankPanel : register callback:\n commandExecutor
+
+activate LoadBankPanel
+note right: 1.
+LoadBankPanel --> ModularDisplay :
+
+deactivate LoadBankPanel
+
+ModularDisplay --> MainWindow
+deactivate ModularDisplay
+[<--MainWindow
+
+deactivate MainWindow
+
+
+activate User
+User -> JavaFX : Dragged file in
+activate JavaFX
+JavaFX -> LoadBankPanel : handleDragDropped
+note left: 2.
+
+activate LoadBankPanel
+LoadBankPanel -> MainWindow : commandExecutor.execute("import w/.. f/..")
+
+
+activate MainWindow
+MainWindow --[hidden]> MainWindow
+note left: 3. Import Command gets executed.\n Refer to my section: User Commands\n for more details
+MainWindow --> LoadBankPanel
+deactivate MainWindow
+
+LoadBankPanel --> JavaFX
+deactivate LoadBankPanel
+
+JavaFX --> User
+note right: User gets visual update
+
+deactivate JavaFX
+
+@enduml
+
+

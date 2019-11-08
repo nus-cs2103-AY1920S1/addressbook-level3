@@ -22,42 +22,50 @@ Class Game
 
 Package WordBankList {
 Interface ReadOnlyWordBankList <<Interface>>
-
 Class WordBankList
+Class UniqueWordBankList
+
 Package WordBank {
+Interface ReadOnlyWordBank <<Interface>>
 Class WordBank
 Class UniqueCardList
-}
 
 Package Card {
 Class Card
 Class Meaning
 Class Word
 }
+'}
+}
 }
 
-WordBankList .left.|> ReadOnlyWordBankList
+WordBankList .right.|> ReadOnlyWordBankList
 WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
 AppSettings .up.|> ReadOnlyAppSettings
 
+
 ModelManager .left.|> Model
 Model .left.> ObservableList
-ModelManager -down--> "1" WordBankList
-ModelManager -up-> "1" WordBankStatisticsList
-ModelManager -up-> "1" GlobalStatistics
-ModelManager -up-> "1" AppSettings
-ModelManager -up-> "1" UserPrefs
-ModelManager -up-> "1" Game
+ModelManager o-down--> "1" WordBankList
+ModelManager o-up-> "1" WordBankStatisticsList
+ModelManager o-up-> "1" GlobalStatistics
+ModelManager o-up-> "1" AppSettings
+ModelManager o-up-> "1" UserPrefs
+ModelManager o-up-> "1" Game
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-WordBankList -right-> "1" WordBank
-WordBank --> "*" UniqueCardList
-UniqueCardList -right-> "1" Card
-Card --> "1" Word
-Card --> "1" Meaning
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o-right-> "*" WordBank
 
-ModelManager --> WordBank : selected
-ModelManager --> Card : filteredList
+WordBank .right.|> ReadOnlyWordBank
+WordBank *-down-> "*" UniqueCardList
+UniqueCardList o-right-> "*" Card
+
+Card *--> "1" Meaning
+Card *--> "1" Word
+
+ModelManager --> "1" WordBank : selected
+ModelManager --> "1" Card : filtered list
 
 @enduml
 

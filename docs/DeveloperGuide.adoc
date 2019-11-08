@@ -82,15 +82,21 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::paului[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/UiManager.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ModularDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+.Structure of the ModularDisplay items.
+image::ModularDisplayClassDiagram.png[]
+
+As our application also comprises a dynamically changing UI in replacement of the `PersonListPanel`, `ModularDisplay` contains multiple other `Panel` classes in itself in order to render the proper screens during runtime. This rendering is controlled by `UpdateUi` in `MainWindow`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,6 +104,7 @@ The `UI` component,
 
 * Executes user commands using the `AppManager` component.
 * Listens for changes to `Model` data and `Timer` through the `AppManager` so that the UI can be updated correspondingly.
+// end::paului[]
 
 // tag::yida-AppManager[]
 
@@ -198,15 +205,14 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Word Bank data.
-* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* contains information that the game requires at run time. They include: `WordBankList`, `WordBankStatisticsList`,
+ `GlobalStatistics`, `Game`, `AppSettings`, `UserPrefs`.
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`
+* has a direct reference to a user selected `WordBank`.
+* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change.
+* can be visualised as playing the role of a computer's RAM, while `Logic` plays the role of an operating system,
+and `Storage` plays the role of a hard disk.
 
 // end::chenhui-model[]
 
@@ -214,7 +220,6 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Game]]
 === Game component
-
 
 .Structure of the Game Component
 image::GameClassDiagram.png[]
@@ -240,10 +245,14 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* contains multiple types of distinct storage.
+* handles function calls directly to the computer's system.
+* can save data objects in json format and read it back.
+* can be visualised as playing the role of a computer's hard disk, while `Logic` plays the role of an operating system
+, and `Model` plays the role of a RAM.
 
 // end::chenhui-storage[]
+
 // tag::jasonstats[]
 [[Design-Statistics]]
 === Statistics component
@@ -600,56 +609,54 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#WordBank Features#
-Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
-It comes along with a set of commands that either modifies it's data, or modify the view. +
-These commands will then synchronise the data in storage, or update the model for viewing. +
-Lastly, there is a cool drag and drop feature for word banks, to transfer the files into and out of your computer.
+=== [underline]#Word Bank Management#
+This section discusses the implementation of Word Bank Management in varied levels of detail. +
+This can be split into four complimentary distinct sections.
 
-Let's begin by explaining some key terms:
+They are: +
 
-A `Card` contains a word and a unique meaning. (May contain tags) +
-`CardCommands` work on `Cards`. +
+** Word Bank’s data structure and storage +
+** User Commands +
+** Revision Word Bank +
+** Drag and Drop
 
-A `WordBank` contains multiple `Cards`. (May contain tags) +
-`WordBankCommands` work on `WordBanks`.
-
-A `WordBankList` contains multiple `WordBanks`.
-
-Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
-`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
-
-{nbsp} +
+{nbsp}
 
 ---
 
-A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
+// tag::chenhui-section1[]
 
-{nbsp} +
+==== Word Bank's data structure and storage
+In the following class diagrams which details the data structure and storage of `WordBankList`,
+observe closely the attributes and methods. +
+Each of them are implemented with close examination so that it is easily usable and extended upon by other
+teammates/complimentary features.
 
-.`CardCommands`
-image::CardCommands.png[]
-
-{nbsp} +
-
-.`Cards`
-image::Cards.png[]
-
-{nbsp} +
-
-.`WordBankCommands`
-image::WordBankCommands.png[]
-
-{nbsp} +
-
-.`WordBanks`
-image::WordBanks.png[]
-
-{nbsp} +
-
----
-
-==== Data Structure Overview
+//A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
+//
+//{nbsp} +
+//
+//.`CardCommands`
+//image::CardCommands.png[]
+//
+//{nbsp} +
+//
+//.`Cards`
+//image::Cards.png[]
+//
+//{nbsp} +
+//
+//.`WordBankCommands`
+//image::WordBankCommands.png[]
+//
+//{nbsp} +
+//
+//.`WordBanks`
+//image::WordBanks.png[]
+//
+//{nbsp} +
+//
+//---
 We start from the lowest level - `Card`. +
 
 .Class diagram of `Card`.
@@ -657,15 +664,13 @@ image::CardDiagram.png[]
 
 A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
-`id` : for statistical tracking +``
-`word`: answer to the question +
+`id` : for statistical tracking +
+`word`: answer to the question (meaning) +
 `meaning`: the question that will appear in the game +
-`tags`: optional tag to classify cards
+`tags`: optional tags to classify cards
 
 [NOTE]
 Cards with the same meaning are duplicates, and is disallowed.
-
-{nbsp} +
 
 ---
 
@@ -680,10 +685,9 @@ A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 `name`: unique name of the word bank +
 
 [NOTE]
-Internally, the `UniqueCardList` contains an observable list of `Card`.
-This is so any changes to the cards gets updated in the `Model` and thus the `UI` automatically.
-
-{nbsp} +
+`WordBank` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
+The UI can be bound to this list so that the UI automatically updates when the cards in the list
+change.
 
 ---
 
@@ -697,84 +701,215 @@ A `WordBankList` contains a `UniqueWordBankList`.
 `UniqueWordBankList` : prevent duplicate word banks
 
 [NOTE]
-Internally, the `UniqueWordBankList` contains an observable list of `WordBank`.
-This is so any changes to the word banks gets updated in the `Model` and thus the `UI` automatically.
+`WordBank` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
+The UI can be bound to this list so that the UI automatically updates when the cards in the list
+change.
 
 In Dukemon, there is should only be one `WordBankList`, which is created upon `Storage` initialisation. +
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
+Architecture overview - `WordBankList`
 
-.Entire overview `WordBankList`.
+// tag::chenhui-overviewOfWbl[]
+.Overview of `WordBankList`.
 image::OverviewOfWordBankList.png[]
+// end::chenhui-overviewOfWbl[]
 
 ---
 
-Now the integration - How these data structures are stored in `Model` and `Storage`.
+Now the integration with storage - How `WordBankList` is stored in `Model` and `Storage`.
 
-.Overview class diagram of `Storage` and `Model`.
+// tag::chenhui-wblStorageModel[]
+.Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
+// end::chenhui-wblStorageModel[]
+
+WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
+Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
+
+On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
+by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
+
+{nbsp}
 
 ---
-==== Implementation of CardCommands and WordBankCommands
-A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
-WordBank data structure. +
-A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
-the WordBankList data structure.
 
-To have a better understanding of how these commands work, I will show you how these commands are structured in `Logic`
-and then walk you through a Sequence Diagram of executing a particular command.
+// end::chenhui-section1[]
+// tag::chenhui-section2[]
 
+==== User Commands
+Allows user to customise his cards and group them according to topics (word banks). +
+User commands edits and manipulates `Cards` and `WordBanks` heavily.
+
+NOTE: As mentioned previously, user commands will extend and utilise word bank's data structure and storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
+
+//A `WordBankList` contains multiple `WordBanks`.
+
+//Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
+//`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
+
+//A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
+//WordBank data structure. +
+//A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
+//the WordBankList data structure.
+
+Let me first introduce you how these commands are implemented and structured in `Logic`. +
+
+// tag::chenhui-wblLogicStorageModel[]
 .Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
 image::WBLogicStorageModel.png[]
+// end::chenhui-wblLogicStorageModel[]
 
-With the understanding of `WordBankList` data structure, and how the `Commands` are structured within `Logic`,
-I will now take you through what happens when a `Command` is called. +
-For instance, `CreateCommand`: +
+Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
+To segregate cards according to their function, I distinguished the following:
 
-.Sequence diagram describing the updating of `WordBankList` using `WordBankCommand` through different components
-image::CreateCommandSequenceDiagram.png[]
+//A `Card` contains a word and a unique meaning. (May contain tags) +
+`CardCommands` work on `Cards`. +
 
-We will see the case where the input: "create bank1" is valid.
+//A `WordBank` contains multiple `Cards`. (May contain tags) +
+`WordBankCommands` work on `WordBanks`.
 
-1. It gets parsed by the ParserManager. Depending on the input, a specific `Command` is returned.
-In this case, a `CreateCommand` object is instantiated.
-2. Depending on the type of Command object, execute() performs slightly different tasks.
-In this case, the execute method of `CreateCommand` checks in `Model` to see if the `WordBank` currently already exist.
-3. Relevant information is stored in `CreateCommandResult` and is returned back to `LogicManager`.
-4. With the retrieved information and type of `CommandResult`, commandResult updates the storage through it's method.
-5. The `Storage` abstracts away details and contains well-written methods, each to handle different cases of `CommandResult`.
-In this case, createWordBank is called.
-6. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
-For a `CreateCommandResult`, addWordBank and saveWordBank is called.
-7. In addWordBank method, it simply adds to the only WordBankList in the entire app. This `WordBankList` is the
-same instance as referenced by `Model`.
-8. In saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
+//With the understanding of `WordBankList` data structure, and how the `Commands` are structured within `Logic`,
+//I will now take you through what happens when a `Command` is called. +
+//For instance, `CreateCommand`: +
+
+---
+Walkthrough - `ImportCommand`. +
+
+// tag::chenhui-importCommandSequenceDiagram[]
+.Sequence diagram detailing a successful `WordBankCommand` through different components.
+image::ImportCommandSeqDiagram.png[]
+// end::chenhui-importCommandSequenceDiagram[]
+
+
+NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams. +
+The emphasis here is to show how these commands utilise word bank's data structure and storage.
+
+We will see the case where an Import command is valid. +
+For example, for the input: "import w/bank1, f/~/downloads"
+
+1. Depending on the input, a specific `Command` type is returned by `ParserManager`. i.e. `ImportCommand`.
+
+2. Each type of `Command` executes with slight variance. `ImportCommand` executes and checks in `Model` to check if
+`WordBankList` already contains `WordBank`.
+
+3. Relevant information is stored in a specific `CommandResult` and is returned back to `LogicManager`.
+i.e. `ImportCommandResult`.
+
+4. Each type of `CommandResult` updates the storage with slight variance. `ImportCommand` calls the importWordBank method.
+
+5. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
+For importWordBank method, addWordBank and saveWordBank private methods are called.
+
+6. Within addWordBank method, `WordBank` is added into the underlying UniqueWordBankList. +
+Two synchronisation happens here. +
+As `Model` contains the same `WordBankList`, the two list contains synchronised data. +
+Secondly, `WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
+`UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated word bank automatically.
+
+7. Within saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
 This is performed through the common class: `JsonUtil`.
-9. In addWordBank method, it simply adds to the only WordBankList in the entire app. This `WordBankList` is the
-same instance as referenced by `Model`.
-10. It returns void all the way back to `LogicManager`, and then success message is then passed back to `AppManager`,
+
+8. It returns back to `LogicManager`, and a success message is passed back to `AppManager`,
 then to the `UI` to notify the user.
+
+****
+* Other `CardCommands` and `WordBankCommand` work similarly to `ImportCommand`, with slight variance.
+****
+
+{nbsp}
 
 ---
 
-==== Drag and drop feature and it's implementation.
-As much as a pro CLI user would love to type all the commands, I figured a good old drag and drop feature will save
-the user lots of time. +
-It aims to streamline the process of sharing word banks with friends.
+// end::chenhui-section2[]
+// tag::chenhui-section3[]
 
-.Screenshot showing drag and drop steps
-image::dragAndDropSteps.png[]
+==== Drag and drop
+Enables saving/loading a word bank file into/out of user's computer through drag and drop. +
+Improves user experience by making it easy to share word banks with friends.
 
-.Screenshot showing drag and drop steps
-image::dragAndDropSteps.png[]
+NOTE: As mentioned previously, drag and drop will extend and utilise word bank's storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
 
-From `HOME` mode, you can view `WordBank`, then simply drag and drop a `WordBank`, out of the application, into say,
+.Word bank file.
+image::DragAndDrop1.png[150, 150]
+
+.Dragging into Dukemon.
+image::DragAndDrop2.png[150, 150]
+
+.Dukemon registers the bank.
+image::DragAndDrop3.png[150, 150]
+
+From `HOME` mode, you can view your `WordBanks`.
+Simply drag and drop a `WordBank` json file from your computer into Dukemon.
+Likewise, drag and drop a `WordBank` out of the application, into say,
 your desktop, or chat applications. +
-From your computer, simply drag and drop a `WordBank` json file into Dukemon's `HOME` page.
 
-With the well designed `WordBankList` data structure and it's functions, drag and drop feature is simply an import and export
-function call, linked by the JavaFX's UI drag detection and drag dropped methods.
+---
+
+Walkthrough - Drag in.
+
+// tag::chenhui-dragAndDropSequenceDiagram[]
+.Sequence diagram showing how drag and drop utilises the ImportCommand and thus the word bank's storage.
+image::DragAndDropSequenceDiagram.png[]
+// end::chenhui-dragAndDropSequenceDiagram[]
+
+
+`LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
+It only has access to an `ObservableList<WordBank>`. +
+This means it has no way to perform commands, update model or update storage.
+
+1. To work around this, a functional callback is registered within LoadBankPanel.
+2. LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
+3. After which, the callback essentially performs an `ImportCommand`, to load the word bank.
+
+It is also noteworthy to mention that, dragging into Dukemon functionality is well guarded against: +
+
+* Not json file format.
+* Json file but data in wrong format.
+* Json file with correct format but contains duplicate cards within.
+
+User receives apt feedback through the command box for different cases.
+This is possible with careful exceptions handling within the `ImportCommand` itself.
+
+{nbsp}
+
+---
+
+// end::chenhui-section3[]
+// tag::chenhui-section4[]
+
+==== Revision Word Bank
+Serves as a centralised bank that collects cards across different word banks through the game play.
+The update to revision word bank is done automatically after every game session. +
+
+NOTE: As mentioned previously, revision word bank will extend and utilise word bank's data structure and storage heavily. +
+You can refer to it to enhance your understanding of this implementation.
+
+// tag::chenhui-revisionBankActivityDiagram[]
+.Activity diagram showing different scenarios possible while trying to update revision bank.
+image::RevisionBankActivityDiagram.png[]
+// end::chenhui-revisionBankActivityDiagram[]
+
+Revision bank was one of the essential and dominant features we wanted to implement since early development, however
+it had to be implemented last because it required multiple components working together. +
+Basically Dukemon needed to be up and running, before revision bank can be implemented.
+
+They include:
+
+* AppManager
+* StorageManager
+* LogicManager
+* GameStatistics
+
+Given that well-developed methods reside in each of these components, we then require an overview of revision bank implementation.
+The activity diagram above describes my thought process.
+
+// end::chenhui-section4[]
+
+{nbsp}
 
 ---
 
@@ -786,8 +921,7 @@ function call, linked by the JavaFX's UI drag detection and drag dropped methods
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
 Data structure for WordBankList.
-| **Although WordBankList and WordBank have very similar structures, I made classes for each of them they
-each contain a unique list**: +
+| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.**: +
 
 _Pros:_ +
 User's modification to their word banks and cards requires very different methods. These two data structure
@@ -809,7 +943,7 @@ _Cons:_ +
 This couples WordBank with WordBankList. Does not follow the Open-Closed principle.
 
 3+|**Why did we choose Alternative 1:** +
-Following the spirit of software engineering principles, it is better to have the basic data structure implemented well.
+In the spirit of software engineering principles, it is better to have the basic data structure implemented well.
 Commands that depend on it becomes much easier to implement. (This can be seen in the drag and drop feature.)
 
 |===
@@ -817,8 +951,8 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
-Storage system for Word Banks.
-| **One single large json file with word bank names as keys and it's word bank data as values**: +
+Storage system for word banks.
+| **Store one single large json file with word bank names as keys and it's word bank data as values**: +
 
 _Pros:_ +
 Always save a snapshot of the data to the same file, regardless of what commands are executed.
@@ -826,7 +960,7 @@ Always save a snapshot of the data to the same file, regardless of what commands
 _Cons:_ +
 Unable to share word banks with friends, because one file contains all the word banks.
 
-|**In the default data folder, each word bank is stored as a json file.** +
+|**Store each word bank as a json file.** +
 
 _Pros:_ +
 Enables sharing of word bank files to friends.
@@ -847,8 +981,8 @@ aspect in our app, and cannot be compromised.
 |**Aspect 3**: +
 Command implementation. +
 (Same goes for Command Result implementation)
-| **All types of commands extends a single abstract class `Command`**: +
 
+| **All types of commands extends a single abstract class `Command`**: +
 
 _Pros:_ +
 A rather simple implementation which does not break any software engineering principles.
@@ -869,8 +1003,40 @@ _Cons:_ +
 Requires tedious implementation to follow the principles.
 
 3+|**Why did we choose Alternative 2:** +
-Alternative 2 allows for easy extension of the app's functionality. Implementation of the drag and
-drop feature is just a function call away, as all data structure and functions are well written.
+Alternative 2 allows for easy extension of Dukemon's functionality. Implementation of the drag and
+drop feature is just a few function calls away, as all data structure and functions are well written.
+
+|===
+
+|===
+
+||**Alternative 1**|**Alternative 2**
+|**Aspect 4**: +
+How to implement Drag and Drop. +
+`LoadBankPanel` is a deeply nested class, and is the corresponding class for the
+`UI` to interact with user's drag and drop action.
+| **Updates the storage directly from `LoadBankPanel`**: +
+
+_Pros:_ +
+It only requires a reference and then saving directly to `Storage`. This can be implemented with ease. +
+
+_Cons:_ +
+Practically, there are a few exceptions being thrown when calling the storage's method directly. `LoadBankPanel` cannot handle them effectively. +
+This also leads to poor abstraction and high potential for cyclic dependencies, resulting in high coupling. +
+
+|**Using _Functional Interfaces_ as Call-backs to call an `ImportCommand` from `LoadBankPanel`.** +
+
+_Pros:_ +
+Calling an already well-implemented `ImportCommand` allows all exceptions caught to be handled properly. +
+It also maintains abstraction and minimal coupling between `LoadBankPanel` and other components.
+
+_Cons:_ +
+It makes the code less OOP and more functional.
+
+3+|**Why did we choose Alternative 2:** +
+Provides a more complete implementation, as it would make sense for exceptions to be caught and allow user to see
+feedback messages.
+
 
 |===
 

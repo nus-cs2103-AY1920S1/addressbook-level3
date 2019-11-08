@@ -40,12 +40,11 @@ public class WordBankList implements ReadOnlyWordBankList {
     /**
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
+     * @param wordBankName
      */
-    public void removeWordBank(WordBank wordBankName) {
-        wordBankList.remove(wordBankName);
+    public void removeWordBank(ReadOnlyWordBank wordBankName) {
+        wordBankList.remove((WordBank) wordBankName);
     }
-
-    // util methods
 
     @Override
     public int size() {
