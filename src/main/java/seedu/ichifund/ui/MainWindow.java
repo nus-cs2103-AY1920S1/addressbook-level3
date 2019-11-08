@@ -324,6 +324,7 @@ public class MainWindow extends UiPart<Stage> {
         @Override
         public void invalidated(Observable observable) {
             // Change tabs in TabPane
+            logger.info("----------Switching to tab: " + currentFeatureParserIndex + "----------");
             this.tabPane.getSelectionModel().select(currentFeatureParserIndex.getValue());
         }
     }
