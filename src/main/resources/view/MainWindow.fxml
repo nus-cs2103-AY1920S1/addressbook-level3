@@ -26,7 +26,6 @@
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
-        <URL value="@textBkgrd.css" />
       </stylesheets>
 
       <VBox>
@@ -55,7 +54,7 @@
 
           <BorderPane maxWidth="300.0" minWidth="300.0" prefWidth="300.0" HBox.hgrow="NEVER" styleClass="pane-with-border">
             <padding>
-              <Insets bottom="5" left="10" right="10" top="5" />
+              <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             <bottom>
               <HBox>

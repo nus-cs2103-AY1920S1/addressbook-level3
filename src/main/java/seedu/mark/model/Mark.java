@@ -1,6 +1,7 @@
 package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.model.annotation.OfflineDocument.NAME_NO_DOCUMENT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
-        offlineDocCurrentlyShowing = new SimpleStringProperty("NOTHING");
+        offlineDocCurrentlyShowing = new SimpleStringProperty(NAME_NO_DOCUMENT);
     }
 
     /**
