@@ -34,7 +34,6 @@ public class ListBadCommand extends Command {
         requireNonNull(model);
 
         BadQuestions badQuestions = new BadQuestions();
-        //TODO: parse date
         String bad = badQuestions.showBadQuestionsList(date);
 
         return new CommandResult(String.format(bad, "hello"));

@@ -34,7 +34,6 @@ public class BadQuestions {
     //private JsonBadDeadlines jsonBadDeadlines;
 
     public BadQuestions() {
-        //TODO: add initialisation of bad deadline list - load json
         internalMap = loadFromJson();
         if (internalMap.isEmpty()) {
             HashMap<String, Set<FlashCard>> map = new HashMap<>();
