@@ -99,7 +99,11 @@ public class SampleDataUtil {
             new Incident(samplePersons[0], new District(6), sampleIncidentDateTimes[5],
                     new IncidentId(sampleIncidentDateTimes[5].getMonth(), sampleIncidentDateTimes[5].getYear()),
                     new CallerNumber("87656743"), new Description("Fire reported at District 6 warehouse"),
-                    Incident.Status.COMPLETE_DRAFT, sampleVehicles[6])
+                    Incident.Status.COMPLETE_DRAFT, sampleVehicles[6]),
+            new Incident(samplePersons[0], new District(6), sampleIncidentDateTimes[5],
+                new IncidentId(sampleIncidentDateTimes[5].getMonth(), sampleIncidentDateTimes[5].getYear()),
+                new CallerNumber("87656743"), new Description("Fire reported at District 6 warehouse"),
+                Incident.Status.COMPLETE_DRAFT, sampleVehicles[6])
         };
 
         return sampleIncidents;
@@ -113,7 +117,16 @@ public class SampleDataUtil {
             new IncidentDateTime("2015-06-16T14:00:00"),
             new IncidentDateTime("2016-09-01T21:00:00"),
             new IncidentDateTime("2017-11-02T22:30:00"),
-            new IncidentDateTime("2016-03-22T16:30:00")
+            new IncidentDateTime("2016-03-22T16:30:00"),
+            new IncidentDateTime("2018-07-24T04:15:43"),
+            new IncidentDateTime("2018-22-02T18:47:04"),
+            new IncidentDateTime("2018-04-09T05:10:00"),
+            new IncidentDateTime("2019-06-16T09:32:44"),
+            new IncidentDateTime("2019-09-21T11:43:56"),
+            new IncidentDateTime("2019-11-11T13:37:14"),
+            new IncidentDateTime("2019-12-29T19:26:16"),
+            new IncidentDateTime("2019-01-23T21:53:07"),
+            new IncidentDateTime("2019-06-01T23:14:10"),
         };
     }
 

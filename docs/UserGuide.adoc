@@ -285,7 +285,7 @@ The user can only fill the draft incident reports that have been created by them
 
 * Example usage:
 
-image::fillCommandNoParamsBeforeScreenshot.png[FillExample1]
+image::fillCommandNoParamsBeforeScreenshot.png[FillExample1][width="500"]
 .Fig X. Incident panel GUI shows all incidents before executing `fill` in no-parameter mode.
 
 * Expected outcome:
