@@ -1,0 +1,17 @@
+{
+    "interviewers" : [ {
+        "availabilities" : [ "20/09/2019 18:00-18:30" ],
+        "department" : "Marketing",
+        "email" : "MaryJane@u.nus.edu",
+        "name" : "Mary Jane",
+        "phone" : "99999999",
+        "tagged" : [ ]
+    }, {
+        "availabilities" : [ "20/09/2019 18:00-18:30" ],
+        "department" : "Publicity",
+        "email" : "MaryJane2@u.nus.edu",
+        "name" : "Mary Jane",
+        "phone" : "88888888",
+        "tagged" : [ ]
+    } ]
+}

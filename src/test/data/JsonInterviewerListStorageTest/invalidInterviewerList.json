@@ -1,0 +1,17 @@
+{
+    "interviewers" : [ {
+        "availabilities" : [ "20/09/2019 18:00-18:30" ],
+        "department" : "Marketing",
+        "email" : "MaryJane@u.nus.edu",
+        "name" : "Person with invalid name: R@chel",
+        "phone" : "99999999",
+        "tagged" : [ ]
+    }, {
+        "availabilities" : [ "20/09/2019 18:00-18:30" ],
+        "department" : "Marketing",
+        "email" : "MaryJane@u.nus.edu",
+        "name" : "Person with invalid phone field",
+        "phone" : "+65 9999 1111",
+        "tagged" : [ ]
+    } ]
+}

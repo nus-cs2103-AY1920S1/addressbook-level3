@@ -166,9 +166,13 @@ public class Interviewee extends Person {
      * Returns true if both interviewees of the same name have the same name and phone number.
      * This defines a weaker notion of equality between two interviewees.
      */
-    public boolean isSamePerson(Interviewee interviewee) {
+    public boolean isSamePerson(Person interviewee) {
         if (interviewee == this) {
             return true;
+        }
+
+        if (!(interviewee instanceof Interviewee)) {
+            return false;
         }
 
         return interviewee != null

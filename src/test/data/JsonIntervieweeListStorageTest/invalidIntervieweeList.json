@@ -1,0 +1,28 @@
+{
+    "interviewees" : [ {
+        "faculty" : "School of Computing",
+        "yearOfStudy" : 2018,
+        "departmentChoices" : [ "Marketing" ],
+        "availableTimeslots" : [ "20/09/2019 18:00-18:30" ],
+        "emails" : {
+            "PERSONAL" : [ "JohnDoe@gmail.com" ],
+            "NUS" : [ "JohnDoe@u.nus.edu" ]
+        },
+        "name" : "Person with invalid name field: R@chel!",
+        "phone" : "88888888",
+        "tagged" : [ "dogLover", "CAP5" ]
+    }, {
+        "faculty" : "School of Computing",
+        "yearOfStudy" : 2018,
+        "departmentChoices" : [ "Marketing" ],
+        "availableTimeslots" : [ "20/09/2019 18:00-18:30" ],
+        "emails" : {
+            "PERSONAL" : [ "JohnDoe@gmail.com" ],
+            "NUS" : [ "JohnDoe@u.nus.edu" ]
+        },
+        "name" : "Person with invalid phone field",
+        "phone" : "+65 9999 1111",
+        "tagged" : [ "catLover", "CAP5" ]
+    } ]
+}
+
