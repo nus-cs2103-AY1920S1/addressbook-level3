@@ -1,14 +1,30 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
+import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
+import static seedu.address.commons.util.EventUtil.DAILY_RECUR_RULE_STRING;
+import static seedu.address.commons.util.EventUtil.INVALID_RECURRENCE_TYPE;
+import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
+import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
+import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventScheduleViewMode;
+import seedu.address.model.event.RecurrenceType;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
@@ -122,5 +138,141 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String colorNumberString} into a {@code ArrayList<Categories>}.
+     */
+    public static ArrayList<Categories> parseColorNumber(String colorNumberString) throws ParseException {
+        if (!validateColorNumberString(colorNumberString)) {
+            throw new ParseException("invalid color string passed.");
+        }
+        String colorCategoryString = convertNumberToColorNumber(colorNumberString);
+        Categories colorCategory = new Categories(colorCategoryString);
+        ArrayList<Categories> colorCategoryList = new ArrayList<>();
+        colorCategoryList.add(colorCategory);
+        return colorCategoryList;
+    }
+
+    /**
+     * Converts a string number to format that ICalendarAgenda accepts.
+     * @param number String representation of number
+     * @return String representation of colorNumber as required by ICalendarAgenda
+     */
+    private static String convertNumberToColorNumber(String number) throws NumberFormatException {
+        return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
+    }
+
+    /**
+     * Validates if a color number string is valid, must be a integer from 0 -23.
+     * @param colorNumberString numberString to be checked
+     * @return true if colorNumberString is valid
+     * @throws NumberFormatException when colorNumberString cannot be cast to Integer,
+     * representing invalid string format
+     */
+    private static boolean validateColorNumberString(String colorNumberString) {
+        //validate number is in range
+        try {
+            Integer colorNumberInteger = Integer.parseInt(colorNumberString);
+            boolean result = colorNumberInteger <= 23 && colorNumberInteger >= 0;
+            return result;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Parses {@code String localDateTimeString} into a {@code LocalDateTime}.
+     */
+    public static LocalDateTime parseLocalDateTime(String localDateTimeString) throws ParseException {
+        LocalDateTime result;
+        try {
+            result = LocalDateTime.parse(localDateTimeString);
+        } catch (DateTimeParseException dtpEx) {
+            throw new ParseException(BAD_DATE_FORMAT, dtpEx);
+        }
+        return result;
+    }
+
+    /**
+     * Parses {@code String recurrenceTypeString} into a {@code RecurrenceRule}.
+     */
+    public static RecurrenceRule parseRecurrenceType(String recurrenceTypeString) throws ParseException {
+        if (!validateRecurTypeString(recurrenceTypeString)) {
+            throw new ParseException(INVALID_RECURRENCE_TYPE);
+        }
+        RecurrenceRule result;
+        try {
+            result = stringToRecurrenceRule(recurrenceTypeString);
+        } catch (IllegalValueException ex) {
+            throw new ParseException(ex.getMessage(), ex);
+        }
+        return result;
+    }
+
+    /**
+     * Validates if recurTypeString is valid based on RecurrenceType enumeration
+     * @param recurTypeString String to be evaluated
+     * @return true if recurTypeString is valid
+     */
+    private static boolean validateRecurTypeString(String recurTypeString) {
+        if (recurTypeString.equalsIgnoreCase(RecurrenceType.WEEKLY.name())) {
+            return true;
+        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.DAILY.name())) {
+            return true;
+        } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Converts a recurrenceString to a RecurrenceRule object.
+     * @param recurrenceString
+     * @return returns a RecurrenceRule object which is used to configure VEVents
+     * @throws IllegalValueException for invalid recurrenceString.
+     */
+    private static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
+        if (recurrenceString.equalsIgnoreCase("weekly")) {
+            return RecurrenceRule.parse(WEEKLY_RECUR_RULE_STRING);
+        } else if (recurrenceString.equalsIgnoreCase("daily")) {
+            return RecurrenceRule.parse(DAILY_RECUR_RULE_STRING);
+        } else if (recurrenceString.equalsIgnoreCase("none")) {
+            return RecurrenceRule.parse(NONE_RECUR_RULE_STRING);
+        } else {
+            throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
+        }
+    }
+
+    /**
+     * Convert viewMode to its Enum Type: EventScheduleViewMode
+     * @param viewMode String representation of the viewMode desired
+     * @return corresponding EventScheduleViewMode enumeration
+     * @throws IllegalValueException if viewMode is not equilavent to any of the viewModes
+     */
+    public static EventScheduleViewMode parseEventScheduleViewMode(String viewMode) throws ParseException {
+        if (viewMode.equalsIgnoreCase(EventScheduleViewMode.WEEKLY.name())) {
+            return EventScheduleViewMode.WEEKLY;
+        } else if (viewMode.equalsIgnoreCase(EventScheduleViewMode.DAILY.name())) {
+            return EventScheduleViewMode.DAILY;
+        } else {
+            throw new ParseException(MESSAGE_INVALID_SCHEDULE_VIEW_MODE);
+        }
+    }
+
+    /**
+     * Convert localDateString into localDateTime with default hour, minute and second values.
+     * @param localDateString String representation of the local date
+     * @return LocalDateTime form of the local date time string parsed
+     * @throws ParseException for invalid local date format.
+     */
+    public static LocalDateTime parseLocalDate(String localDateString) throws ParseException {
+        try {
+            LocalDateTime targetDateTime = dateToLocalDateTimeFormatter(localDateString);
+            return targetDateTime;
+        } catch (DateTimeParseException ex) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
     }
 }

@@ -697,8 +697,8 @@ sequence diagram for the StudentAddCommand.
 
 .Sequence Diagram for `StudentAddCommand`
 image::StudentAddSequence.png[]
-
-*The following are the common steps among all Student commands.*
+{nbsp} +
+**The following are the common steps among all Student commands.**
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `StudentCommandParser`
 
@@ -878,8 +878,8 @@ diagram that depicts the execution of the `AddMarkCommand`.
 
 .Activity Diagram for `AddMarkCommand`
 image::MarkActivityDiagram.png[]
-
-*The following are the common steps among all Mark commands.*
+{nbsp} +
+**The following are the common steps among all Mark commands.**
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `MarkCommandParser`
 
@@ -951,8 +951,9 @@ The feature comprises of four commands namely,
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
+{nbsp} +
 
-*The following are the common steps among all Group commands.*
+**The following are the common steps among all Group commands.** +
 
 *Step 1*. The `NjoyParser` will delegate the parsing of the command to `GroupCommandParser`
 
@@ -1078,6 +1079,7 @@ The feature comprises of four commands namely,
 * <<Feature-Note-Sort, `NoteSortCommand`>> -Sorts all notes.
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+
 (See <<Design-Logic, logic component>> for the general overview).
 [[Feature-Note-Add]]
 ==== Add Note Command
@@ -1184,7 +1186,7 @@ aim to keep our notes feature as simple as a pen-paper recording or even simpler
 [[Feature-Statistics]]
 === Statistics feature
 
-The slideshow feature allows users of Njoy to generate statistics reports using external files as input data.
+The statistics feature allows users of Njoy to generate statistics reports using external files as input data.
 
 Current File Compatibilities: Excel(.xlsx)
 
@@ -1233,6 +1235,198 @@ image::DeveloperGuideResources/StatisticsActivityDiagram.png[]
 ** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
 // end::Statistics Feature[]
 
+[[Feature-Events]]
+
+=== Events feature
+[.big]##**Overview**##
+
+The events feature allows users of Njoy to manage, view and export their events. This feature is built based on the jfxtras iCalendarAgenda library.
+The iCalendarAgenda object is used on the UI side to render VEvents. The VEvent object from the iCalendarAgenda library is used to encapsulate event details such as
+event name, start date time, recurrence, etc. Note that VEvent is primarily used throughout the application, as it is the required object type for iCalendarAgenda.
+At the model level, VEvents are mapped to Event objects for saving and vice versa for reading purposes in the storage layer.
+
+The feature comprises of the following features:
+
+* <<Feature-Event-Add, `EventAddCommand`>> - Creates a new event.
+* <<Feature-Event-Index, `EventIndexCommand`>> -Gets the index of an event.
+* <<Feature-Event-Edit, `EventEditCommand`>> - Edits an existing event, identified by their index.
+* <<Feature-Event-Delete, `EventDeleteCommand`>> - Deletes an existing event, identified by their index.
+* <<Feature-Event-View, `EventViewCommand`>> -View and set the preferences of the event schedule.
+* <<Feature-Event-Screenshot, `EventScreenshotCommand`>> -Takes a screenshot of the current event schedule.
+* <<Feature-Event-Expport, `EventExportCommand`>> -Exports events to a .ics file type.
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+[[Feature-Event-Add]]
+==== Add Event Command
+
+The following is a detailed explanation of the operations `EventAddCommand` performs. +
+
+*Step 1*. The `EventAddCommand#execute(Model model)` method is executed and it validates that the `VEvent` object passed from the parser using command input is valid.
+
+*Step 2*. The method `Model#addVEvent(VEvent vEvent)` will then be called to add the specified VEvent to the `EventRecord`.
+The `VEvent` added is validated for uniqueness by `EventUtil#isSameVEvent(VEvent vEvent)`.
+
+[NOTE]
+The `ReadOnlyVEventRecord` and `ReadOnlyEventRecord` hides the implementation of the EventRecord from the other layers of the software.
+
+*Step 3*. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message.
+Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+*Step 4*. If the command syntax was valid and `VEvent` was added to the `EventRecord`, `LogicManager`
+calls `Storage#saveEvents(ReadOnlyEvents eventRecord)` which saves the `EventRecord` in JSON format after serializing it using the `JsonEventStorage`.
+
+The following is a sample sequence diagram of the `EventDeleteCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
+
+.Sequence Diagram for Deleting Events
+image::DeveloperGuideResources/EventDeleteSequenceDiagram.png[]
+
+
+[[Feature-Event-Index]]
+==== Index command
+
+The following is a detailed explanation of the operations `EventIndexCommand` performs.
+The purpose of this command is to return the index of the vEvent(s) with event name that equals to the `desiredEventName` which is input from the user.
+And if there are no matching VEvents with the same string. Suggest the a VEvent with the most similar event name to that of
+the `desiredEventName` based on the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]
+
+The following is a sample activity diagram of the execute method of `EventIndexCommand`. Note that the "details"
+in the diagram refers to the VEvent object itself and its corresponding index.
+
+.Activity Diagram for finding index of Event
+image::DeveloperGuideResources/EventIndexActivityDiagram.png[]
+
+*Step 1*. The `EventIndexCommand#execute(Model model)` method is executed.
+
+*Step 2*. The method `EventRecord#findVEvents(String desiredEventName)` is then called through the `Model#findVEvents(String desiredEventName)` method.
+
+*Step 3*. The `EventRecord#vEvents` list is iterated once and the search is performed on the 'desiredEventName' using `String.util#equalsIgnoreCase` with the `summary`
+value of each VEvent. Matching VEvents and their corresponding index in vEvents will form a new `Pair<Index, VEvent>` and be added to the `resultIndexList`. At the end of the iteration
+`resultIndexList` is returned.
+
+[NOTE]
+VEvent objects used a `summary` object to represent the name of an event.
+
+*Step 4*. If the `resultIndexList` returned is not empty, a new `CommandResult` will be returned with a message
+stating the Index and the corresponding details of the VEvents found.
+
+*Step 5*. Else, when the `resultIndexList` is empty, the method `EventRecord#findMostSimilarVEvent(String desiredEventName)`
+is then called through the `Model#findMostSimilarVEvent(String desiredEventName)` method.
+
+*Step 6*. If the there are no VEvents, in `vEvents` of `EventRecord` the method will throw a `VEventNotFoundException` which will be caught and throw wrapped to a `CommandException` with a corresponding user message to be shown.
+
+*Step 7*. Otherwise, `EventRecord#vEvents` list will be iterated once, and the similarity between `desiredEventName` and the `summary` value of each VEvent will be calculated based on the
+https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]. At the end the event which is most similar and its index will create a new `Pair<Index, VEvent>` and be returned.
+
+*Step 8*. A new `CommandResult` will be returned with a message stating the Index and the corresponding details of the most similar VEvent found.
+
+[[Feature-Event-Edit]]
+==== Edit Event Command
+
+The following is a detailed explanation of the operations `EventEditCommand` performs. +
+
+*Step 1*. The `EventEditCommand#execute(Model model)` method is executed and it validates that the index is within range
+and there have been fields changed. It uses the `EventEditCommand.EditVEventDescriptor` to detect if any fields has been changed.
+
+*Step 2*. The target VEvent to be edited is retrieved using the `Model#getVEvent(Index index)` method. A new `editedVEvent` object
+is then created using the `EventEditCommand.EditVEventDescriptor`
+
+*Step 2*. Validation is then carried out to check that the setting of this new `editedVEvent` will not result in duplicate VEvents
+in the `vEvents` list in `EventRecord` using the `EventUtil#isSameVEvent(VEvent vEvent)` method and the `Model#HasVEvent(VEvent vEvent)` method.
+If validation fails, a `CommandException` will be thrown.
+
+*Step 3*. If the validation is successful, `Model#setVEvent(Index index, VEvent vEvent)` method will be called.
+This will replace the target VEvent with the new `editedVEvent`. A success message will be generated by the and a new `CommandResult` will be returned with the generated success message.
+
+*Step 4*. If the command syntax was valid and `VEvent` was edited from the `EventRecord`, `LogicManager` calls `Storage#saveEventRecord(ReadOnlyEventRecord eventRecord)` which saves the edited notes in JSON format after serializing it using the `JsonEventRecord`.
+
+[[Feature-Event-Delete]]
+==== Delete event command
+
+The following is a detailed explanation of the operations `EventDeleteCommand` performs. +
+
+*Step 1*. The `EventDeleteCommand#execute(Model model)` method is executed and it validates that the specified `VEvent` index to delete is within range. If valid, the vEvent is retrieved using its index in the `Model`’s `eventRecord`.
+
+*Step 2*. The method `Model#deleteVEvent(Index index)` will then be called to remove the `VEvent` from the `EventRecord`. `EventRecord#deleteVEvent(Index index)` is invoked which makes a call to its internal list to remove the speficied vEvent.
+
+*Step 3*. If successful, a success message will be generated by the and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+*Step 4*. If the command syntax was valid and `VEvent` was removed from the `EventRecord`, `LogicManager` calls `Storage#saveEventRecord(ReadOnlyEventRecord eventRecord)` which saves the new notes record in JSON format after serializing it using the `JsonEventRecord`.
+
+[[Feature-Event-View]]
+==== View event command
+
+This command changes the mode which the `EventSchedulePanel` is in. The command has 2 optional parameters being `targetViewDateTime`
+and `eventScheduleViewMode`. The `EventScheduleViewMode` enum is used to represent the the skins of the iCalendarAgenda: weekly and daily.
+The `targetViewDateTime` sets the reference date time to be rendered in iCalendarAgenda, which will in turn
+show the corresponding week (if it is in week mode) which contains the reference date time. Otherwise, in daily mode, it will simply show
+the VEvents for that day.
+
+The following is a detailed explanation of the operations `EventDeleteCommand` performs. +
+
+*Step 1*. The `EventViewCommand#execute(Model model)` method is executed. If the `targetViewDateTime` is not null, the `Model#setEventScheduleTargetDateTime(LocalDateTime targetDateTime)`
+method will be called to store the `targetViewDateTime` in the `EventSchedulePrefs` object in the `ModelManager`.
+If the `eventScheduleViewMode` is not null, the `Model#setEventScheduleViewMode(EventScheduleViewMode eventScheduleViewMode)`
+method will be called to store the `eventScheduleViewMode` in the `EventSchedulePrefs` object in the `ModelManager`.
+
+[NOTE]
+The `EventSchedulePrefs` object is used to store the preference of the user for the `iCalendarAgenda`.
+Specifically the skin mode and the displayed date time
+
+*Step 2*. A new `CommandResult` with type `CommandResultType.SHOW_SCHEDULE` will be generated and returned.
+
+*Step 3*. Upon detecting the `CommandResultType.SHOW_SCHEDULE` in `MainWindow`, it will call `handleSchedule` which will
+call `Logic#getScheduleViewMode()` and `Logic#getEventScheduleTargetDateTime()` to get the respective data and set them accordingly in the
+`eventSchedulePanel` to be rendered to the user.
+
+
+[[Feature-Event-Screenshot]]
+==== Screenshot event command
+This command allows the user to take a screenshot of the current state of the `EventSchedulePanel` and save it to a .png file.
+
+The following is a detailed explanation of the operations `EventScreenshotCommand` performs. +
+
+*Step 1*. The `EventScreenshotCommand#execute(Model model)` method is executed. This simply returns a new
+`CommandResult` with type `CommandResultType.SCHEDULE_SCREENSHOT` and `targetPrintableFileName` from `Model#getEventSchedulePrefString()`
+
+[NOTE]
+The `Model#getEventSchedulePrefString()` method gets the a string representation of the current state of the Event Schedule Panel.
+This is to allow user to easily identify what the .png screenshot shows.
+
+*Step 2*. The `MainWindow` which detects that the `CommandResult`is of type `CommandResultType.SCHEDULE_SCREENSHOT` will
+call `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)`.
+
+*Step 3*. Within the `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)` it will then open a new full-screen window
+of the current `EventSchedulePanel` and get its `WritableImage`. Then it will construct a new `SchedulePrintable` with the `targetPrintableFileName` and `WritabelImage` and call
+`logic#savePrintable(NjoyPrintable printable)`.
+
+[NOTE]
+The `NjoyPrintable` object is used to encapsulate the `WritableImage` of the JavaFX Node to be saved and the file name to save it to.
+
+*Step 4*. If successful, this will save the EventSchedulePanel as .png file type in the printable directory with file name `targetPrintableFileName`
+
+[[Feature-Event-Export]]
+==== Export event command
+
+This command allows the user to export all the events into a .ics file.
+
+The following is a detailed explanation of the operations `EventScreenshotCommand` performs. +
+
+*Step 1*. The `EventExportCommand#execute(Model model)` method is executed. This simply returns a new
+`CommandResult` with type `CommandResultType.EXPORT_CALENDAR`
+
+*Step 2*. When the `LogicManager` detects that `CommandResultType` is equals to CommandResultType.EXPORT_CALENDAR`, it wil then call
+`Storage#exportEvent(ReadOnlyVEvents eventRecord)` which in turn calls `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)`
+
+*Step 3*. Then it will check and create the exports directory if it does not exist.
+
+*Step 4*. The contents of the .ics file is generated by loading the 'VEvents' in `ReadOnlyVEvents` into a `VCalendar` object from the
+iCalendarAgenda library and calling its `toString()` method. Which formats the VEvents into .ics format. Then the contents are written into the .ics file
+with file name as specified in `EVENT_SCHEDULE_FILE_NAME` in `IcsEventExport`
+
+[NOTE]
+This command will overwrite any previously created .ics files from the export command in the exports directory.
 
 // tag::undoredo[]
 ////

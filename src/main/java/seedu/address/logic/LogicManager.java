@@ -61,7 +61,7 @@ public class LogicManager implements Logic {
             storage.saveQuizzes(model.getSavedQuizzes());
             storage.saveNotesRecord(model.getNotesRecord());
             if (commandResult.getCommandResultType().equals(EXPORT_CALENDAR)) {
-                storage.exportEvent(model.getEventExportPath(), model.getVEventRecord());
+                storage.exportEvent(model.getVEventRecord());
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

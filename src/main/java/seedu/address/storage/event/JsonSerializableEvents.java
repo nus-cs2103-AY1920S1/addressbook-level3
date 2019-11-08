@@ -50,5 +50,4 @@ class JsonSerializableEvents {
         }
         return new EventRecord(eventList);
     }
-
 }

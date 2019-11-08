@@ -80,7 +80,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
     void saveEvents(ReadOnlyEvents events) throws IOException;
 
     @Override
-    String exportEvent(String targetDirectory, ReadOnlyVEvents eventRecord) throws IOException;
+    String exportEvent(ReadOnlyVEvents eventRecord) throws IOException;
 
     //endregion
 
