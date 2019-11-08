@@ -52,7 +52,7 @@ public class RemoveConditionFromReminderCommand extends Command {
         if (!reminder.removeCondition(condition)) {
             throw new CommandException(CONDITION_ABSENT_MESSAGE);
         }
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
     }
 

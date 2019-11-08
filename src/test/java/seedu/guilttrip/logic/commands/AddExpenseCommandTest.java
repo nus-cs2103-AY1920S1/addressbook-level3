@@ -101,10 +101,11 @@ public class AddExpenseCommandTest {
 
         //TODO
         @Override
-        public void commitAddressBook() {}
+        public void commitGuiltTrip() {
+        }
 
         @Override
-        public ReadOnlyGuiltTrip getAddressBook() {
+        public ReadOnlyGuiltTrip getGuiltTrip() {
             return new GuiltTrip(true);
         }
     }

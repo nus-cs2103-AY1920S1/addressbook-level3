@@ -7,7 +7,7 @@ import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.model.Model;
 
 /**
- * Lists all budgets in the guiltTrip to the user.
+ * Lists all budgets in the guiltTrip main panel to the user.
  */
 public class ListBudgetCommand extends Command {
 
@@ -18,11 +18,10 @@ public class ListBudgetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        return new CommandResult(MESSAGE_SUCCESS, true, "budget");
     }
 }

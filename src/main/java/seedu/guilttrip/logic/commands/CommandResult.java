@@ -35,14 +35,15 @@ public class CommandResult {
     private final boolean listFonts;
     private final boolean changeFont;
 
-    /** For changing the theme */
+    /** For changing the theme. */
     private final boolean changeTheme;
     private final Theme newTheme;
 
     private boolean toShowConditionPanel = false;
 
-    /** For listing the budgets. */
-    private final boolean listBudgets;
+    /** For listing any entry list. */
+    private final String entryToList;
+    private final boolean isListEntry;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -60,7 +61,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.listBudgets = false;
+        this.isListEntry = false;
+        this.entryToList = null;
         this.changeTheme = false;
         this.newTheme = null;
     }
@@ -86,7 +88,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.listBudgets = false;
+        this.entryToList = null;
+        this.isListEntry = false;
         this.changeTheme = false;
         this.newTheme = null;
     }
@@ -95,7 +98,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean listBudgets) {
+    public CommandResult(String feedbackToUser, boolean isListEntry, String entryToList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
@@ -110,7 +113,8 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.changeTheme = false;
         this.newTheme = null;
-        this.listBudgets = listBudgets;
+        this.isListEntry = isListEntry;
+        this.entryToList = entryToList;
     }
 
     /**
@@ -129,7 +133,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.listBudgets = false;
+        this.entryToList = null;
+        this.isListEntry = false;
         this.changeTheme = false;
         this.newTheme = null;
     }
@@ -152,7 +157,8 @@ public class CommandResult {
         this.togglePieChart = false;
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
-        this.listBudgets = false;
+        this.entryToList = null;
+        this.isListEntry = false;
     }
 
     /**
@@ -173,7 +179,8 @@ public class CommandResult {
         this.togglePieChart = false;
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
-        this.listBudgets = false;
+        this.entryToList = null;
+        this.isListEntry = false;
     }
 
     public void showConditionPanel() {
@@ -198,6 +205,10 @@ public class CommandResult {
 
     public Theme getNewTheme() {
         return newTheme;
+    }
+
+    public String getEntryToList() {
+        return entryToList;
     }
 
     public boolean isShowHelp() {
@@ -240,8 +251,8 @@ public class CommandResult {
         return changeTheme;
     }
 
-    public boolean isListBudgets() {
-        return listBudgets;
+    public boolean isListEntry() {
+        return isListEntry;
     }
 
     @Override
@@ -264,7 +275,7 @@ public class CommandResult {
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
-                && listBudgets == otherCommandResult.listBudgets
+                && entryToList == otherCommandResult.entryToList
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme == (otherCommandResult.newTheme);
     }
@@ -272,7 +283,7 @@ public class CommandResult {
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
-                newTheme, changeTheme, listBudgets);
+                newTheme, changeTheme, entryToList);
     }
 
 }

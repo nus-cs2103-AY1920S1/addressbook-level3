@@ -48,7 +48,7 @@ public class AddConditionToReminderCommand extends Command {
         if (!reminder.addCondition(condition)) {
             throw new CommandException(CONDITION_PRESENT_MESSAGE);
         }
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
     }
 

@@ -2,7 +2,6 @@ package seedu.guilttrip.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static seedu.guilttrip.testutil.TypicalEntries.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -11,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.guilttrip.commons.core.GuiSettings;
-//import seedu.guilttrip.model.GuiltTrip;
-//import seedu.guilttrip.model.ReadOnlyGuiltTrip;
 import seedu.guilttrip.model.UserPrefs;
 import seedu.guilttrip.ui.util.Theme;
+
+//import static seedu.guilttrip.testutil.TypicalEntries.getTypicalAddressBook;
+//import seedu.guilttrip.model.GuiltTrip;
+//import seedu.guilttrip.model.ReadOnlyGuiltTrip;
 
 public class StorageManagerTest {
 
@@ -66,7 +67,7 @@ public class StorageManagerTest {
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getGuiltTripFilePath());
     }
 
 }

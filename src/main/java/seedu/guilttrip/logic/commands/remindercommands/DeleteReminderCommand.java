@@ -45,7 +45,7 @@ public class DeleteReminderCommand extends Command {
         }
         Reminder reminderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteReminder(reminderToDelete);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, reminderToDelete));
     }
 

@@ -80,7 +80,7 @@ public class AddReminderCommand extends Command {
             reminder.setTracker(trackerType, (long) quota.value);
         }
         model.addReminder(reminder);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
     }
 

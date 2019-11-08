@@ -86,7 +86,7 @@ public class EditBudgetCommand extends Command {
         }
 
         model.setBudget(entryToEdit, editedEntry);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

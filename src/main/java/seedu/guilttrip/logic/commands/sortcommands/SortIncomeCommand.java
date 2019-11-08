@@ -40,7 +40,7 @@ public class SortIncomeCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredIncome(type, sequence);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 }

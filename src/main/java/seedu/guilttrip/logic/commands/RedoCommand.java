@@ -33,12 +33,12 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook(step)) {
+        if (!model.canRedoGuiltTrip(step)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
         for (long l = 0; l < step.value; l++) {
-            model.redoAddressBook();
+            model.redoGuiltTrip();
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

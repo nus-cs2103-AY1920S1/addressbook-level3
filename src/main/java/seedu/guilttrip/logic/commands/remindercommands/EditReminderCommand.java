@@ -87,7 +87,7 @@ public class EditReminderCommand extends Command {
 
         model.setReminder(reminderToEdit, editedReminder);
         model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
     }
 
