@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package guitests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.revision.ui.LevelLabel;
 
 @ExtendWith(ApplicationExtension.class)
 class LevelLabelTest {

@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package guitests;
 
 import java.util.concurrent.TimeUnit;
 

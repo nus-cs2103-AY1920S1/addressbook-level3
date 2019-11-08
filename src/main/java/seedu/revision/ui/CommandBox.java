@@ -44,7 +44,7 @@ public class CommandBox extends UiPart<Region> {
         if (mainWindow) {
             autoCompleteField = new AutoComplete();
             autoCompleteField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault(true));
-            autoCompleteField.setId("commandTextField");
+            autoCompleteField.getStyleClass().add("commandTextField");
 
             autoCompleteField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -56,6 +56,7 @@ public class CommandBox extends UiPart<Region> {
         } else {
             commandTextField = new TextField();
             commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault(false));
+            commandTextField.getStyleClass().add("commandTextField");
             commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ENTER) {
                     handleCommandEntered(false);

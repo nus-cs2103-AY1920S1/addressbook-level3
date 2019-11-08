@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package guitests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +11,7 @@ import org.testfx.matcher.control.TextInputControlMatchers;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.revision.ui.ResultDisplay;
 
 @ExtendWith(ApplicationExtension.class)
 class ResultDisplayTest {

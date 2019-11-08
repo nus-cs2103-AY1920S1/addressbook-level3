@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package guitests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.ui.CommandBox;
 
 @ExtendWith(ApplicationExtension.class)
 class CommandBoxTest {
@@ -58,6 +59,7 @@ class CommandBoxTest {
      */
     @Test
     public void commandBox_typeEnterAfterValidInput_shouldBeEmpty(FxRobot robot) {
+        robot.clickOn(".commandTextField");
         robot.write(COMMAND_SUCCESS);
         robot.type(KeyCode.DOWN, KeyCode.ENTER, KeyCode.ENTER);
         FxAssert.verifyThat(commandBox.getAutoCompleteField(), TextInputControlMatchers.hasText(""));
@@ -69,6 +71,7 @@ class CommandBoxTest {
      */
     @Test
     public void commandBox_typeEnterAfterInValidInput_shouldNotAccept(FxRobot robot) {
+        robot.clickOn(".commandTextField");
         robot.write(COMMAND_INVALID);
         robot.type(KeyCode.ENTER);
         FxAssert.verifyThat(commandBox.getAutoCompleteField(), TextInputControlMatchers.hasText(COMMAND_INVALID));
