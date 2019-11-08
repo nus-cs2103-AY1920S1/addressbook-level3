@@ -1,5 +1,7 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
@@ -10,11 +12,13 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
@@ -33,6 +37,8 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
+import seedu.pluswork.testutil.MeetingBuilder;
+import seedu.pluswork.testutil.MeetingQueryBuilder;
 
 public class AddMeetingCommandTest {
 
@@ -41,27 +47,34 @@ public class AddMeetingCommandTest {
         assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
     }
 
-//    @Test
-//    public void execute_calendarAcceptedByModel_addSuccessful() throws Exception {
-//        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-//        Task validTask = new TaskBuilder().build();
-//
-//        CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
-//
-//        //Commented out for assertion error
-//        //assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
-//        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
-//    }
-//
-//    @Test
-//    public void execute_duplicateTask_throwsCommandException() {
-//        Task validTask = new TaskBuilder().build();
-//        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
-//        ModelStub modelStub = new ModelStubWithTask(validTask);
-//
-//        assertThrows(CommandException.class, AddTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
-//                addTaskCommand.execute(modelStub));
-//    }
+    @Test
+    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+        Index sampleTaskIndex = Index.fromZeroBased(1);
+        Meeting validMeeting = validMeetingQuery.getMeetingList().get(sampleTaskIndex.getZeroBased());
+        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, validMeeting);
+
+        Index validIndex = Index.fromZeroBased(0);
+        assert(!sampleTaskIndex.equals(validIndex));
+
+        CommandResult commandResult = new AddMeetingCommand(validIndex).execute(modelStub);
+
+        //Commented out for assertion error
+        //assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        assertEquals(validMeeting, modelStub.meeting);
+    }
+
+    @Test
+    public void execute_duplicateMeeting_throwsCommandException() {
+        Index validIndex = new Index(1);
+        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, validMeeting);
+
+        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
+                addMeetingCommand.execute(modelStub));
+    }
 
     @Test
     public void equals() {
@@ -413,24 +426,6 @@ public class AddMeetingCommandTest {
     }
 
     /**
-     * A Model stub that contains a single task.
-     */
-    private class ModelStubWithMeeting extends ModelStub {
-        private final Meeting meeting;
-
-        private ModelStubWithMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            this.meeting = meeting;
-        }
-
-        @Override
-        public boolean hasMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            return this.meeting.isSameMeeting(meeting);
-        }
-    }
-
-    /**
      * A Model stub that always accept the task being added.
      */
     private class ModelStubAcceptingMeetingAdded extends ModelStub {
@@ -454,4 +449,27 @@ public class AddMeetingCommandTest {
         }
     }
 
+    /**
+     * A Model stub that contains a single task.
+     */
+    private class ModelStubWithMeetingQuery extends ModelStub {
+        final MeetingQuery meetingQuery;
+        final Meeting meeting;
+
+        private ModelStubWithMeetingQuery(MeetingQuery meetingQuery, Meeting meeting) {
+            requireNonNull(meetingQuery);
+            this.meetingQuery = meetingQuery;
+            this.meeting = meeting;
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            return this.meeting.isSameMeeting(meeting);
+        }
+
+        @Override
+        public MeetingQuery getMeetingQuery() {
+            return meetingQuery;
+        }
+    }
 }
