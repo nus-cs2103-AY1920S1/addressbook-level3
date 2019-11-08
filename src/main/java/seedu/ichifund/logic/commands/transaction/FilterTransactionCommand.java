@@ -32,7 +32,7 @@ public class FilterTransactionCommand extends Command {
             + "\"" + PREFIX_CATEGORY + Category.CATEGORY_ALL.toString() + "\". "
             + "To show both income and expenditure items, use "
             + "\"" + PREFIX_TRANSACTION_TYPE + TransactionType.TRANSACTION_TYPE_ALL.toString() + "\". "
-            + "Parameters: "
+            + "Parameters (at least one present): "
             + "[" + PREFIX_MONTH + "MONTH] "
             + "[" + PREFIX_YEAR + "YEAR] "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
