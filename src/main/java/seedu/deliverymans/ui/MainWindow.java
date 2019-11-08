@@ -1,5 +1,7 @@
 package seedu.deliverymans.ui;
 
+import java.nio.file.Paths;
+
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -72,6 +74,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private SplitPane splitPane;
+
     @FXML
     private VBox personList;
 
@@ -139,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath()); // to be edited
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Paths.get("")); // to be edited
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic);
