@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -47,7 +48,7 @@ import seedu.sugarmummy.ui.motivationalquotes.MotivationalQuotesLabel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
+    private static final double SPLITPANE_RATIO = 0.8;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -76,6 +77,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane mainDisplayPanePlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private HBox resultDisplayPlaceholder;
@@ -238,6 +242,9 @@ public class MainWindow extends UiPart<Stage> {
         if (logic.getBackground().showDefaultBackground()) {
             setFontColour(logic.getGuiSettings());
         }
+
+        splitPane.setDividerPosition(0, SPLITPANE_RATIO);
+
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
