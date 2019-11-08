@@ -1,6 +1,5 @@
 package seedu.address.financialtracker.ui;
 
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -13,10 +12,6 @@ import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
-import seedu.address.financialtracker.model.FinancialTracker;
-import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.storage.FinancialTrackerStorage;
-import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;

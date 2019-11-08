@@ -9,7 +9,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class MainParser {

@@ -892,7 +892,9 @@ Below are the _PREFIX_ convention that TravEzy's Financial Tracker will be using
 
     t/food
 
-. Country. You can select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
+. Country. You can switch between countries by using the ``switch`` command or select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
+
+ Look out for switch command below!
 
 === Adding an expense: ``add``
 Adding what you've spent at the nice coffee shop you stopped by?
@@ -981,6 +983,32 @@ image::/images/FinancialTrackerEdit2.png[]
 image::/images/FinancialTrackerEdit3.png[]
 
 // tag::financialtracker[]
+=== Switching between countries: ``switch``
+Currently in somewhere else? Switch to that expense list instead!
+
+The _Command Word_ is ``switch`` followed by a country field. This command switched your current view of expense list to the country specified. Note that the list of countries that are valid is only shown on the _countries drop down menu_. +
+Do realise that you can always use the drop down menu instead!
+
+Example:
+
+ switch Japan
+
+Illustration:
+
+. Type ``switch Japan`` in the command box and press _Enter_.
+
+image::/images/FinancialTrackerSwitch1.png[]
+
+[start = 2]
+. The result box will display the message "Expense list switched".
+
+image::/images/FinancialTrackerSwitch2.png[]
+
+[start = 3]
+. Now your expense list has been switched to that which is in Japan!
+
+image::/images/FinancialTrackerSwitch3.png[]
+
 === Requesting help: ``help``
 At anytime, not sure what to do? Simply ask for help!
 

@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import seedu.address.achievements.logic.AchievementsLogic;
@@ -9,12 +8,10 @@ import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.logic.AddressBookLogicManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.model.Model;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.storage.Storage;
 

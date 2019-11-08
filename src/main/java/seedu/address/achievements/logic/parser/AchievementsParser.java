@@ -3,11 +3,12 @@ package seedu.address.achievements.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -40,6 +41,10 @@ public class AchievementsParser {
         switch (commandWord) {
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand<StatisticsModel>();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand<StatisticsModel>();
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }

@@ -26,6 +26,8 @@ class DescriptionTest {
         // invalid description
         assertFalse(Description.isValidDescription("")); // empty string
         assertFalse(Description.isValidDescription(" ")); // spaces only
+        assertFalse(Description.isValidDescription("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")); // over 100 characters
 
         // valid description
         assertTrue(Description.isValidDescription("bottle from FairPrice"));
