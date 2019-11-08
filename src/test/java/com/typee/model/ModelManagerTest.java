@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,7 +71,6 @@ public class ModelManagerTest {
         assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
 
-    /*
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
@@ -84,6 +84,8 @@ public class ModelManagerTest {
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
+
+    /*
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {

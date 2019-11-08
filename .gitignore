@@ -21,3 +21,6 @@ src/main/resources/docs/
 
 /docs/images/appveyor/
 
+/test/data/sandbox/serialize.json
+/test/data/sandbox/invalidList.json
+
