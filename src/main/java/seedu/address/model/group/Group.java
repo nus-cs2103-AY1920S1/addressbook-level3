@@ -89,7 +89,7 @@ public class Group {
                 otherGroup = (Group) other;
             }
             if (otherGroup != null) {
-                return otherGroup.getGroupId().equals(this.groupId) || this.isSameGroup(otherGroup);
+                return otherGroup.getGroupId().equals(this.groupId) && this.isSameGroup(otherGroup);
             }
         }
         return false;
