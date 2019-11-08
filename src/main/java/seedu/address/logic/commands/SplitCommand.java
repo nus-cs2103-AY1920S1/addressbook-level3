@@ -61,4 +61,15 @@ public class SplitCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof SplitCommand) {
+            SplitCommand splitCommand = (SplitCommand) obj;
+            return transaction.equals(splitCommand.transaction);
+        } else {
+            return false;
+        }
+    }
 }

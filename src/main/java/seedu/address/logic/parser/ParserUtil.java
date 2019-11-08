@@ -114,7 +114,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!trimmedDate.matches(Date.DATE_FORMAT)) {
-            throw new ParseException(Date.MESSAGE_FORMAT_CONSTRAINTS);
+            throw new ParseException(String.format(Date.MESSAGE_FORMAT_CONSTRAINTS, trimmedDate));
         }
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_INVALID);
