@@ -36,9 +36,9 @@ public class InstallmentCard extends UiPart<Region> {
     public InstallmentCard(Installment installment, int displayedIndex) {
         super(FXML);
         this.installment = installment;
-        id.setText(Integer.toString(displayedIndex) + ".");
+        id.setText(displayedIndex + ".");
         description.setText(installment.getDescription().getInstallmentDescription());
-        subscriptionFee.setText("i pay $" + installment.getMoneySpentOnInstallment().toString());
+        subscriptionFee.setText("I pay $" + installment.getMoneySpentOnInstallment().toString());
     }
 
     @Override

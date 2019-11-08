@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.jarvis.commons.core.Messages.MESSAGE_NO_PURCHASES_FOUND;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.logic.commands.finance.FindPurchaseCommand.MESSAGE_NO_PURCHASES_FOUND;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.DINNER_REEDZ;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.LUNCH_JAPANESE;
