@@ -152,17 +152,6 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().add(tempCreateDeckDisplay);
     }
 
-    ///**
-    // * Switches the display pane to create pane, used to enter StateEnun.CREATE.
-    // *
-    // * @param s The name of the deck being created.
-    // */
-    //private void showCreateNewDeckForm(String s) {
-    //    displayContainer.getChildren().clear();
-    //    this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
-    //    displayContainer.getChildren().add(tempCreateDeckDisplay);
-    //}
-
     /**
      * When user wants to create/edit deck, put the editing pane.
      * Otherwise when the user clicks on a deck, put the deck display Pane containing info about the deck.
@@ -204,7 +193,6 @@ public class MainWindow extends VBox {
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
-        //Consumers.addConsumer(ConsumerSchema.OPEN_WINDOW, openWindow);
     }
 
     /**

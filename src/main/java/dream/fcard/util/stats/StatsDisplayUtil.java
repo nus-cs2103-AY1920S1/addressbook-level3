@@ -28,7 +28,7 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new StatisticsWindow());
         stage.setScene(scene);
-        stage.setTitle("My Statistics");
+        stage.setTitle("My overall statistics");
         stage.show();
     }
 
@@ -38,7 +38,7 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new DeckStatisticsWindow(deck));
         stage.setScene(scene);
-        stage.setTitle("My Statistics");
+        stage.setTitle("My statistics for deck:" + deck.getDeckName());
         stage.show();
     }
 
