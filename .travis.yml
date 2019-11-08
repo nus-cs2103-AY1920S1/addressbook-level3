@@ -29,6 +29,9 @@ include:
       - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.verbose=true"
   # Headed macOS is not currently possible on Travis.
 
+before_install:
+  - sudo apt-get install at-spi2-core
+
 services:
   - xvfb
 

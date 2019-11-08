@@ -66,6 +66,7 @@ of many of the other features.
 *** Managed releases v1.3 - v1.4 (2 releases) on GitHub
 
 ** Enhancements to existing features:
+*** Wrote additional GUI tests to increase coverage from 50% to 72% (PR link:{pullUrl}/158[#158])
 *** Updated the GUI colour scheme and added aesthetic artifacts such as level label (PR link:{pullUrl}/98[#98], link:{pullUrl}/148[#148])
 *** Created skeleton class for `AnswerableBuilder` using Java Generics and the builder class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
 *** Adapted CommandResult to follow the builder design pattern .
