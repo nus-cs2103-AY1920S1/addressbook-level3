@@ -161,7 +161,7 @@ public class Projection {
         StringBuilder text = new StringBuilder();
         IntStream.range(0, budgetProjections.size()).forEach(x -> {
             if (this.budgetProjections.get(x).getIntegerValue() > 0) {
-                text.append(String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS, this.budgets.get(x).toString(),
+                text.append(String.format(ProjectCommand.MESSAGE_BUDGET_ON_TRACK, this.budgets.get(x).toString(),
                         this.budgetProjections.get(x).toString()));
             } else {
                 text.append(String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION, this.budgets.get(x).toString(),

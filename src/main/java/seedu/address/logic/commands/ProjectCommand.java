@@ -24,6 +24,18 @@ public class ProjectCommand extends Command {
 
     public static final String COMMAND_WORD = "project";
     public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
+    public static final String MESSAGE_BUDGET_CAUTION =
+            "You are likely to exceed your budget of %s, with a deficit of %s!\n";
+    public static final String MESSAGE_BUDGET_ON_TRACK =
+            "You are on track to meeting your budget of %s, with a surplus of %s!\n";
+    public static final String MESSAGE_SUCCESS = "Projected balance: %s\n%s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
+            + "Parameters: "
+            + PREFIX_DATE + "DATE\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DATE + "12122103 09:00";
+    public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
+
     private static final String MESSAGE_VOID_TRANSACTION_HISTORY =
             "There are no transactions in %s. It is impossible to cast a projection.";
     private static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
@@ -34,21 +46,10 @@ public class ProjectCommand extends Command {
             "Projection is based on a small sample size, and may be limited in its accuracy";
     private static final String PROTRACTED_PROJECTION =
             "Projection is cast far into the future, and may be limited in its accuracy";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
-            + "Parameters: "
-            + PREFIX_DATE + "DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "12122103 09:00";
     private static final String MESSAGE_WARNING = "[WARNING] %1$s";
-    public static final String MESSAGE_SUCCESS = "Projected balance: %s\n%s";
-    public static final String MESSAGE_BUDGET_SUCCESS =
-            "You are on track to meeting your budget of %s, with a surplus of %s!\n";
-    public static final String MESSAGE_BUDGET_CAUTION =
-            "You are likely to exceed your budget of %s, with a deficit of %s!\n";
     private static final int REQUIRED_MAXIMUM_DAYS_TO_PROJECT = 730;
     private static final int RECOMMENDED_MAXIMUM_DAYS_TO_PROJECT = 365;
     private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
-    public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
     private static final String MESSAGE_DUPLICATE = "A projection to %s already exists.";
 
     public final Date date;
@@ -95,6 +96,11 @@ public class ProjectCommand extends Command {
                 projection.getAllBudgetForecastText()));
     }
 
+    /**
+     * Defines the {@code Projection} by filtering {@code transactionHistory} according to the
+     * projection's category, if present
+     * @param transactionHistory to be projected upon by {@code Projection}
+     */
     private Projection defineProjection(ObservableList<BankAccountOperation> transactionHistory, Model model)
             throws CommandException {
         if (this.category.equals(Category.GENERAL)) {
@@ -127,7 +133,10 @@ public class ProjectCommand extends Command {
         }
     }
 
-    private void ensureDaysToProjectIsWithinRange(Date toProject) throws CommandException{
+    /**
+     * Ensures that the {@code Projection} is not cast beyond the maximum number of days to project
+     */
+    private void ensureDaysToProjectIsWithinRange(Date toProject) throws CommandException {
         int daysFromNow = Math.abs(Date.daysBetween(Date.now(), toProject));
         if (daysFromNow >= REQUIRED_MAXIMUM_DAYS_TO_PROJECT) {
             throw new CommandException(MESSAGE_PROJECTION_TOO_PROTRACTED);
