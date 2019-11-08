@@ -56,8 +56,9 @@ public class BadQuestions {
 
             StringBuilder sb = new StringBuilder();
             sb.append("For Deadline: " + d.toString() + "\n");
+            int index = 1;
             while (itr.hasNext()) {
-                sb.append(itr.next().getQuestion().toString() + "\n");
+                sb.append(index + ". " + itr.next().getQuestion().toString() + "\n");
             }
             return sb.toString();
         } catch (NullPointerException e) {
