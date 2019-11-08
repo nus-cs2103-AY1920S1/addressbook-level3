@@ -25,10 +25,10 @@ public class ProjectCommand extends Command {
     public static final String COMMAND_WORD = "project";
     public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
     public static final String MESSAGE_BUDGET_CAUTION =
-            "You are likely to exceed your budget of %s, with a deficit of %s!\n";
+            "You are likely to exceed your budget of $%s, with a deficit of $%s!\n";
     public static final String MESSAGE_BUDGET_ON_TRACK =
-            "You are on track to meeting your budget of %s, with a surplus of %s!\n";
-    public static final String MESSAGE_SUCCESS = "Projected balance: %s\n%s";
+            "You are on track to meeting your budget of $%s, with a surplus of $%s!\n";
+    public static final String MESSAGE_SUCCESS = "Projected balance: $%s\n%s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
             + "Parameters: "
             + PREFIX_DATE + "DATE\n"
