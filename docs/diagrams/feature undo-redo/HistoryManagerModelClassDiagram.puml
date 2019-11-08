@@ -7,12 +7,13 @@ skinparam classAttributeIconSize 0
 skinparam classAttributeFontColor #FFFFFFF
 
 Package HistoryManager <<Rectangle>> {
-    Interface Model <<interface>>
-    Class ModelManager
     Class HistoryManager
     Class CommandDeque
     Class "{abstract}\nCommand" as Command
 }
+
+Interface Model <<interface>>
+Class ModelManager
 
 ModelManager .up.|> Model
 ModelManager .left.> "1" HistoryManager
