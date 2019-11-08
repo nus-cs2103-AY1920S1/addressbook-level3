@@ -302,6 +302,11 @@ public class ModelManager implements Model {
     //=========== WordBankStatistics methods =============================================================
 
     @Override
+    public void clearActiveWordBankStatistics() {
+        wordBankStatistics.clear();
+    }
+
+    @Override
     public WordBankStatisticsList getWordBankStatisticsList() {
         return wordBankStatisticsList;
     }

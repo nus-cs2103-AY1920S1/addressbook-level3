@@ -38,7 +38,7 @@ the use of self-created digital flashcards. *Supercharge your learning with Duke
 3.  Copy the file to the folder you want to use as the home directory of _Dukemon_ (this is where your
 data will be stored).
 4.  Double-click the `Dukemon.jar` to run the app.
-5. Before getting to the quick start instructions, get familiar with our interface and appication modes.
+5.  Before getting to the quick start instructions, get familiar with our interface and appication modes.
 
 === User Interface
 
@@ -109,15 +109,39 @@ The highlighted section shows, what commands are currently available. You can cl
 
 === Drag and drop
 
-To enable sharing of word banks between friends,
-You can drag and drop a particular word bank out of the app into your computer.
-Likewise, you can drag and drop a json word bank into your app.
+Streamline the process of sharing of word banks with friends.
+
+.Word bank file
+image::DragAndDrop1.png[150, 150]
+
+.Dragging into Dukemon
+image::DragAndDrop2.png[150, 150]
+
+.Dukemon registers the bank
+image::DragAndDrop3.png[150, 150]
+
+From `HOME` mode, you can view your _WordBanks_. +
+Simply drag and drop a _WordBank_ json file from your computer into Dukemon. +
+Likewise, drag and drop a _WordBank_ out of the application, into say,
+your desktop, or chat applications. +
 
 Try it!
 
-NOTE: The drag and drop feature works fine on Windows, but exporting through drag and drop may sometimes crash the app
-on Mac. +
-To avoid this on Mac, simply use the export command instead.
+NOTE: Dukemon only reads json files.
+
+=== Revision bank
+
+A revision bank is automatically updated for you, every time a game session ends. +
+It collates all your wrong cards, whichever _WordBank_ it may have came from. +
+It is also smart enough to remove the cards if you have cleared it afterwards.
+
+.Revision bank alongside with other word banks
+image::revisionbank.png[220, 220]
+
+.Screenshot of how a revision page looks like
+image::revisionpage.png[700,700]
+
+To try it, simply play some _WordBank_ and then visit the revision bank to attempt all your wrong cards.
 
 === QuickStart
 
@@ -274,8 +298,8 @@ Removes a new _WordBank_ with specified name. +
 Format: `remove WORD_BANK` +
 Examples:
 
-* `Remove Gen 3 pokemon`
-* `Remove Vocabulary`
+* `remove Gen 3 pokemon`
+* `remove Vocabulary`
 
 ==== Import a _WordBank_: `import`
 Import the _WordBank_ from a specified folder path on your system. +
@@ -296,7 +320,7 @@ Examples:
 * `import w/fire pokemons f//Users/chrischenhui/data`
 
 NOTE: We have a drag and drop feature. +
-You can drag and drop a file from your computer into the section which holds the _WordBank_s.
+You can drag and drop a file from your computer into the section which holds the _WordBanks_.
 
 ==== Export a _WordBank_: `export`
 Export the _WordBank_ to a specified file path on your system. +
@@ -368,11 +392,11 @@ Finds entry whose word or meaning or tag  contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `capital` will match `cApiTAl`
+* The order of the keywords does not matter. e.g. `key words` will match `words key`
 * Word, meaning and tag will be searched
 * Words contained within will be matched e.g. `formal` will match `Informal`
-* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Peter man` will return `Peter Parker`, `Spiderman`
 ****
 
 Examples:
@@ -477,6 +501,18 @@ Format: `stop`
 be reported.*)
 
 // end::yida-game[]
+
+
+// tag::jasonstatscommand[]
+
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+(Available in Open mode)
+
+==== Clear the statistics of the open _WordBank_.
+
+Format: clear
+
+// end::jasonstatscommand[]
 
 // tag::paulsettings[]
 
@@ -613,6 +649,8 @@ The _WordBank_ statistics is shown on open mode and contains all information of 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
 
+NOTE: The high score and fastest clear of a word bank will not be reset on adding/deleting cards.
+
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
 of the app.
@@ -633,11 +671,9 @@ image::annotated_global_statistics_ui.png[]
 
 *Q*: Do I have to save data? +
 *A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
-These commands are generally card commands.
+These commands are generally Card/_WordBank_ commands.
 There is no need to save manually.
 Statistics are also stored automatically.
-
-
 
 // tag::chenhui-commandsummary[]
 
@@ -684,7 +720,7 @@ s| `delete` m| INDEX
 
 s| `edit` m| INDEX w/WORD m/MEANING [t/TAG]
 
-s| `find` m| KEYWORD [MORE_KEYWORDS]
+s| `find` m| KEYWORD [MORE_KEYWORDS]...
 
 s| `list` m|
 

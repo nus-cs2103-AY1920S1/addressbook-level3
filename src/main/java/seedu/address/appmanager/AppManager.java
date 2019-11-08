@@ -94,25 +94,8 @@ public class AppManager {
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
 
-        if (commandResult instanceof StartCommandResult) {
-            StartCommandResult startCommandResult = (StartCommandResult) commandResult;
-            initGameStatistics(startCommandResult.getTitle()); // initialize game statistics building
-        }
 
-        // handles game related actions
-        if (commandResult instanceof GameCommandResult) {
-            GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
-
-            // update statistics upon receiving a GameCommandResult with a Card
-            updateGameStatistics(gameCommandResult);
-            // should make logic save the updated game statistics
-            if (gameCommandResult.isFinishedGame()) {
-                abortAnyExistingGameTimer();
-                GameStatistics gameStatistics = gameStatisticsBuilder.build();
-                logic.updateStatistics(gameStatisticsBuilder.build());
-                logic.updateRevisionBank(gameStatisticsBuilder.build());
-            }
-        }
+        updateGameStatisticsBuilder(commandResult);
 
         /* AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
@@ -121,7 +104,6 @@ public class AppManager {
             setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
 
             Platform.runLater(() -> {
-
                 /* Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
 
@@ -134,17 +116,37 @@ public class AppManager {
     }
 
     /**
+     * Updates or initializes {@code gameStatisticsBuilder} as necessary based on {@code commandResult}.
+     */
+    private void updateGameStatisticsBuilder(CommandResult commandResult) throws CommandException {
+        if (commandResult.isStartCommandResult()) {
+            StartCommandResult startCommandResult = (StartCommandResult) commandResult;
+            initGameStatistics(startCommandResult.getTitle()); // initialize game statistics building
+        } else if (commandResult.isGameCommandResult()) {
+            // handles game related actions
+            GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
+
+            // update statistics upon receiving a GameCommandResult with a Card
+            addToGameStatisticsBuilder(gameCommandResult);
+            // should make logic save the updated game statistics
+            if (gameCommandResult.isFinishedGame()) {
+                abortAnyExistingGameTimer();
+                GameStatistics gameStatistics = gameStatisticsBuilder.build();
+                logic.updateStatistics(gameStatistics);
+                logic.updateRevisionBank(gameStatistics);
+            }
+        }
+    }
+
+    /**
      * Update the {@code gameStatisticsBuilder} with the {@code gameCommandResult}.
      */
-    private void updateGameStatistics(GameCommandResult gameCommandResult) {
+    private void addToGameStatisticsBuilder(GameCommandResult gameCommandResult) {
         if (gameCommandResult.getCard().isPresent()) {
             gameStatisticsBuilder.addDataPoint(
                     gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                     gameCommandResult.getCard().get());
         }
-    }
-    public String getSelectedWbName() {
-        return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -223,9 +225,7 @@ public class AppManager {
     private void skipOverToNextQuestion() {
         try {
             this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (CommandException e) {
+        } catch (ParseException | CommandException e) {
             e.printStackTrace();
         }
     }

@@ -51,11 +51,13 @@ LogicManager --> AppManager: gameCommandResult
 destroy GameCommand
 deactivate LogicManager
 
-AppManager -> AppManager: updateGameStatistics\n(gameCommandResult)
-
+AppManager -> AppManager: updateGameStatisticsBuilder\n(gameCommandResult)
 activate AppManager #yellow
+note bottom: GameStatisticsBuilder\nis initialized and\n populated here
+AppManager -> AppManager: addToGameStatisticsBuilder\n(gameCommandResult)
+activate AppManager
 deactivate AppManager
-note bottom: GameStatisticsBuilder\nis updated here
+deactivate AppManager
 
 
 AppManager --> UI

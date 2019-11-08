@@ -17,8 +17,8 @@ Class Word
 Class Meaning
 }
 
-Card --> "1" Word
-Card --> "1" Meaning
+Card *--> "1" Word
+Card *--> "1" Meaning
 
 Meaning *-LEFT[hidden]-> Word
 @enduml

@@ -5,6 +5,9 @@
 
 == PROJECT: Dukemon
 
+_Link to Reposense code_: https://github.com/AY1920S1-CS2103T-T11-2/main[Reposense]
+
+_Link to Github Repo_: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
 
 == Overview
 
@@ -76,6 +79,8 @@ include::../UserGuide.adoc[tag=paulsettings]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=paului]
 
 include::../DeveloperGuide.adoc[tag=settings]
 
