@@ -26,8 +26,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "findprob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds a problem by name, author, and/or "
-            + "description and displays them as a list with index numbers.\n"
+            + ": Finds a problem by constraints.\n"
             + "Parameters:\n"
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AUTHOR + "AUTHOR] "

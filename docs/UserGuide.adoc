@@ -103,7 +103,7 @@ image::UiStartPlan.png[]
 Generates a new problem. +
 Format: `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
 
-* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
+* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (If no difficulty is provided, *AlgoBase* will internally store the difficulty as 0)
 
 [NOTE]
 Don't provide extreme values like `5.00000...01` as difficulty as computers can't store decimals exactly and some round-off error is unavoidable.
@@ -159,6 +159,7 @@ Displays a list of all existing problems. +
 Format: `listprob`
 
 // tag::sort[]
+
 ==== Sorting problems: `sortprob`
 
 Sorts the current list of results by a specified order and direction. +
@@ -185,10 +186,14 @@ Sorts the current list of problems from lowest to highest difficulty.
 === Searching Problems
 
 // tag::find[]
+
 ==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
 Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
 
 * Name
 ** is case-insensitive. e.g. `henz` will match `Henz`
@@ -199,6 +204,10 @@ Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_B
 ** is case-insensitive
 ** is matched word by word
 ** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
+
+[NOTE]
+Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+
 * Source requires an exact match.
 * Tag
 ** Constraints are separated by spaces. (e.g. `findprob t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
@@ -212,10 +221,7 @@ If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-
 If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
-When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
-
-[NOTE]
-Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+Ensure that `-` only appears once as the connective between two bounds (i.e. negative difficulty is not allowed, as mentioned before). Otherwise the command is considered invalid.
 
 Examples:
 
