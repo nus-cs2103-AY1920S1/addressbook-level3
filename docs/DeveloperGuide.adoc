@@ -236,7 +236,7 @@ comparator implemented in a method that would return a sorted `FilteredList<Task
 ** Pros: Need to switch the `compareTo()` method of each `Task` each time `sort` is called.
 ** Cons: New/edited task would be automatically placed at the correct order.
 
-// tag::createquestion[]
+// tag::createquestion1[]
 === Quiz feature
 ==== Create question feature
 ===== Implementation
@@ -269,10 +269,12 @@ causing the modified state of the quiz book, after the command executes, to be s
 *Step 4.* _[Addtional]_ The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
 The `comment` command calls `Model#setQuestion()` to parse in an additional parameter of comment into the entity of the question. It will then be saved in the
 `quizBookStateList` and shown in the UI.
+// end::createquestion1[]
 
 [NOTE]
 Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.5.2]).
 
+// tag::createquestion2[]
 The following activity diagram summarizes the basic question creation process:
 
 image::QuizCreationActivityDiagram.png[]
@@ -289,7 +291,7 @@ image::QuizCreationActivityDiagram.png[]
 ** Cons: Not as fast as the insertion at the back of the list from alternative 1. +
 {empty} +
 
-// end::createquestion[]
+// end::createquestion2[]
 // tag::undoredo1[]
 ==== Undo/Redo feature
 ===== Implementation
@@ -304,7 +306,7 @@ Additionally, it implements the following operations:
 
 These operations are exposed in the `Model` interface as `Model#commitQuizBook()`, `Model#undoQuizBook()` and `Model#redoQuizBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Below is an example usage scenario on how the undo/redo mechanism behaves at each step.
 
 *Step 1.* The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
 
@@ -358,6 +360,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::CommitActivityDiagram.png[]
 
 // tag::undoredo4[]
+
 ===== Design Considerations
 
 ====== Aspect: How undo & redo executes
