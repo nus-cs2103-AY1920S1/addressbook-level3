@@ -68,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statsListPanel;
     private StatisticsPieChartHolder statsGraphics;
     private StatisticsBarChart statsBar;
+    private BudgetPanel budgetsPanel;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
