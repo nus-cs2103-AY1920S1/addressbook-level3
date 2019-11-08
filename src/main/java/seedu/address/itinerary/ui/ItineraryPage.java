@@ -105,6 +105,11 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
         this.itineraryLogic = itineraryLogic;
 
+        setAccelerators();
+
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+
         fillInnerParts();
         this.clearCommandWindow = new ClearCommandWindow();
     }
@@ -173,14 +178,18 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         }
     }
 
+    @Override
+    public void closeResources() {
+        clearCommandWindow.hide();
+        helpWindow.hide();
+        codeWindow.hide();
+    }
+
     /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
-        clearCommandWindow.hide();
-        helpWindow.hide();
-        codeWindow.hide();
         PageManager.closeWindows();
     }
 
@@ -247,12 +256,6 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     @Override
     public Parent getParent() {
-        setAccelerators();
-
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
-
-        fillInnerParts();
         return itineraryPane;
     }
 }

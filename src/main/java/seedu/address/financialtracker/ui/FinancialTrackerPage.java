@@ -150,6 +150,11 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
         }
     }
 
+    public void closeResources() {
+        helpWindow.hide();
+        codeWindow.hide();
+    }
+
     /**
      * Closes the application.
      */

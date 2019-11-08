@@ -146,13 +146,17 @@ public class MainPage extends UiPart<Region> implements Page {
         }
     }
 
+    @Override
+    public void closeResources() {
+        helpWindow.hide();
+        codeWindow.hide();
+    }
+
     /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
-        helpWindow.hide();
-        codeWindow.hide();
         PageManager.closeWindows();
     }
 

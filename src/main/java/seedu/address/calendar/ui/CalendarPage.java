@@ -1,9 +1,6 @@
 package seedu.address.calendar.ui;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-import java.util.Optional;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
@@ -14,18 +11,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.calendar.logic.CalendarLogic;
-import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.date.Year;
-import seedu.address.calendar.model.util.CalendarStatistics;
-import seedu.address.calendar.storage.CalendarStorage;
-import seedu.address.calendar.storage.JsonCalendarStorage;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -41,6 +34,8 @@ public class CalendarPage extends UiPart<Region> implements Page {
     private CalendarLogic calendarLogic;
     private ReadOnlyDoubleProperty monthViewWidth;
     private ListWindow listWindow;
+    private CodeWindow codeWindow;
+    private HelpWindow helpWindow;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -55,6 +50,7 @@ public class CalendarPage extends UiPart<Region> implements Page {
     @FXML
     GridPane weekHeader;
 
+
     public CalendarPage(CalendarLogic calendarLogic) {
         super(FXML);
 
@@ -63,6 +59,8 @@ public class CalendarPage extends UiPart<Region> implements Page {
 
         fillInnerParts();
         listWindow = new ListWindow();
+        codeWindow = new CodeWindow();
+        helpWindow = new HelpWindow();
     }
 
     public PageType getPageType() {
@@ -116,6 +114,12 @@ public class CalendarPage extends UiPart<Region> implements Page {
     private void updateMonthView(ViewOnlyMonth viewOnlyMonth) {
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
+    }
+
+    @Override
+    public void closeResources() {
+        helpWindow.hide();
+        codeWindow.hide();
     }
 
     @FXML

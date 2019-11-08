@@ -14,6 +14,11 @@ public interface Page {
     PageType getPageType();
 
     /**
+     * Close page resources when exiting application.
+     */
+    void closeResources();
+
+    /**
      * Gets the parent node for {@code this} page
      * @return parent node for {@code this} page
      */

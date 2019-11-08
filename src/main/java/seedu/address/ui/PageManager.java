@@ -78,9 +78,10 @@ public class PageManager {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         guiSettingsLogic.setGuiSettings(guiSettings);
+        pages.stream().forEach(page -> page.closeResources());
+        primaryStage.hide();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
-            primaryStage.hide();
             Platform.exit();
         });
         delay.play();
