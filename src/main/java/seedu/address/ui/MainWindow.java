@@ -74,9 +74,11 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        helpWindow = new HelpWindow();
+        codeWindow = new CodeWindow();
+        calendarPage = new CalendarPage(logic.getCalendarLogic());
         achievementsPage = new AchievementsPage(logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(logic.getAddressBookLogic());
-        calendarPage = new CalendarPage();
         diaryPage = new DiaryPage(logic.getDiaryLogic());
         financialTrackerPage = new FinancialTrackerPage(logic.getFinancialTrackerLogic());
         itineraryPage = new ItineraryPage(logic.getItineraryLogic());

@@ -9,7 +9,9 @@ import seedu.address.calendar.model.event.EventManager;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
+import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.exceptions.NoVacationException;
 
 import java.nio.file.NoSuchFileException;
 import java.util.List;
@@ -180,5 +182,69 @@ public class Calendar {
      */
     public void completeVisibleUpdates() {
         hasVisibleUpdates = false;
+    }
+
+    /**
+     * Gets the number of days of vacation (i.e. school breaks and holidays)
+     *
+     * @return Number of days of vacation (i.e. school breaks and holidays)
+     */
+    private long getNumDaysVacation() {
+        return events.getNumDaysVacation();
+    }
+
+    /**
+     * Gets the number of days spent on trips
+     *
+     * @return Number of days spent on trips
+     */
+    private long getNumDaysTrip() {
+        return events.getNumDaysTrip();
+    }
+
+    /**
+     * Gets the number of trips.
+     *
+     * @return Absolute number of trips
+     */
+    private long getNumTrip() {
+        return events.getNumTrip();
+    }
+
+    /**
+     * Gets the percentage of vacation that is spent on trips.
+     *
+     * @return Percentage of vacation that is spent on trips
+     * @throws NoVacationException If there is no vacation
+     */
+    private double getPercentageTrip() throws NoVacationException {
+        return events.getPercentageTrip();
+    }
+
+    public CalendarStatistics getStatistics() {
+        return new CalendarStatisticsManager();
+    }
+
+    /**
+     * Creates a statistics object that contains statistics of {@code this} calendar.
+     */
+    private class CalendarStatisticsManager implements CalendarStatistics {
+
+        public long getNumDaysVacation() {
+            return Calendar.this.getNumDaysVacation();
+        }
+
+        public long getNumDaysTrip() {
+            return Calendar.this.getNumDaysTrip();
+        }
+
+        public long getNumTrip() {
+            return Calendar.this.getNumTrip();
+        }
+
+        public double getPercentageTrip() throws NoVacationException {
+            return Calendar.this.getPercentageTrip();
+        }
+
     }
 }
