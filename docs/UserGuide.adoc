@@ -173,8 +173,24 @@ MONDAY 1400 MONDAY 1600 +
 TUESDAY 1100 TUESDAY 1500
 
 * `addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
-Add timetable to the person with index 2 on the list of persons.
+Add timetable to the person with index 2 on the list of persons, by retrieving timetable data from NUSMods.
 
+
+
+Below is a step-by-step instruction to guide you through the process of adding a timetable to Alice, through the use of NUSMods:
+
+* Step 1: Type `addTimetable`, followed by the index of the person you wish to add the timetable to, and the URL of the share link.
+
+image:add-timetable/add-timetable-step-1.png[]
+
+* Step 2: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable added!
+
+image:add-timetable/add-timetable-step-2.png[]
+
+[TIP]
+Even if you accidentally entered a wrong URL, MyProject would prompt you helpfully!
+
+image:add-timetable/add-timetable-step-3.png[]
 
 ==== Add a task: `addTask` [Checkout]
 

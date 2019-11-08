@@ -99,7 +99,7 @@ public class TimeTableInput {
                 });
         if (targets.size() < 1) {
             // System.out.println(String.format("Group:%s,LessonType:%s,sem:%d", group, lessonType, sem));
-            throw new IllegalValueException("No such lesson exists: " + String.format("Module:%s, Group: %s, LessonType:%s, Sem:%d", moduleCode, group, lessonType, sem));
+            throw new IllegalValueException("No such lesson exists: " + String.format("Module: %s, Group: %s, LessonType: %s, Sem: %d", moduleCode, group, lessonType, sem));
         }
 
         // Possible to have more than
