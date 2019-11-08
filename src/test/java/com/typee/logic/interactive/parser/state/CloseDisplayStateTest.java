@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
@@ -66,6 +67,14 @@ public class CloseDisplayStateTest {
         State finalPostTransitionState = closeDisplayState;
         assertThrows(StateTransitionException.class, ()
             -> finalPostTransitionState.transition(transitionArgumentMultimap));
+    }
+
+    @Test
+    public void transition_invalidArgumentMultimap_throwsStateTransitionException() {
+        ArgumentMultimap invalidArgumentMultimap = new ArgumentMultimap();
+        invalidArgumentMultimap.put(new Prefix("hi"), "11/11/2019");
+        assertThrows(StateTransitionException.class, ()
+                -> closeDisplayState.transition(invalidArgumentMultimap));
     }
 
     @Test
