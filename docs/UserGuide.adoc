@@ -636,12 +636,15 @@ possible in case you cannot remember every word of the headings. Please note tha
 the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
 no task will be retrieved because "he" and "word" are not complete words contained in the headings.
 
-[width="70%",cols="50%,<50%",options="header",]
-|=======================================================================
-|Input|Task shown|
-
-|rfind h/hello
-|=======================================================================
+//[width="70%",cols="50%,<50%",options="header",]
+//|=======================================================================
+//|Input|Task shown
+//
+//|rfind h/hello|"hello" +
+//"hello world"
+//
+//
+//|=======================================================================
 
 ==== Clear current revision plan: `rclear`
 You can remove all revision tasks with this command. +
