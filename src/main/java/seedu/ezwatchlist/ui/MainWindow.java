@@ -313,7 +313,7 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
-          CommandResult commandResult = logic.execute(commandText, this, currentTab);
+            CommandResult commandResult = logic.execute(commandText, this, currentTab);
             if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
