@@ -48,7 +48,7 @@ public class GotoReminderCommand extends Command {
         Bookmark bookmarkToOpen = model.getBookmarkFromReminder(target);
         model.setCurrentUrl(bookmarkToOpen.getUrl());
 
-        return new GotoCommandResult(String.format(MESSAGE_GOTO_REMINDER_ACKNOWLEDGEMENT, bookmarkToOpen));
+        return new GotoCommandResult(String.format(MESSAGE_GOTO_REMINDER_ACKNOWLEDGEMENT, target));
     }
 
     @Override
