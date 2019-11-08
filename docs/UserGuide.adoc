@@ -248,7 +248,7 @@ Edits the phone number and tag of the 1st contact to be 93746658 and true respec
 === Deleting a contact: `delete contact`
 
 Deletes a contact from the contact list +
-Format: `delete contact INDEX...`
+Format: `delete contact INDEX`
 
 * Deletes the contact at the specified INDEX.
 * The index refers to the index number shown in the displayed contact list.
@@ -259,13 +259,12 @@ Examples:
 * `delete contact 3`
 
 Deletes the 3rd contact in the contact list.
+// end::yjContact[]
 
 === List the contacts in the planner: `list contact`
 
 List the contacts in the planner +
 Format: `list contact`
-
-// tag::viewcontact[]
 
 === Viewing a specific contact: `view contact`
 

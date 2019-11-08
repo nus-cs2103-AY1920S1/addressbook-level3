@@ -77,7 +77,6 @@ https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Morph-Model Part 2] | htt
 *** Over 20 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+author%3AOneArmyj[Pull Requests] on Github
 *** Over 10 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
 *** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]
-
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation

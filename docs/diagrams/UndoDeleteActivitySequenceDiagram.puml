@@ -32,6 +32,12 @@ deactivate CommandHistory
 UndoCommand -> DeleteActivityEvent : undo()
 activate DeleteActivityEvent
 
+DeleteActivityEvent -> AddActivityCommand
+activate AddActivityCommand
+
+AddActivityCommand --> DeleteActivityEvent
+deactivate AddActivityCommand
+
 DeleteActivityEvent --> UndoCommand : command
 deactivate DeleteActivityEvent
 
