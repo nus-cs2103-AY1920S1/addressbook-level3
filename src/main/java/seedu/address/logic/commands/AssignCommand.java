@@ -116,15 +116,16 @@ public class AssignCommand extends Command {
         Task task = model.getTask(taskId);
         Optional<EventTime> existingEventTime = task.getEventTime();
 
+        // check if the task is already completed
+        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
+
         // check whether the task is scheduled for today
         if (!task.getDate().equals(GlobalClock.dateToday())) {
             throw new CommandException(MESSAGE_NOT_TODAY);
         }
 
-        // check if the task is already assigned
-        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
-            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
-        }
 
         boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent();

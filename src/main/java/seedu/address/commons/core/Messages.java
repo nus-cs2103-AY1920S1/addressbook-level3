@@ -22,7 +22,8 @@ public class Messages {
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled. ";
-    public static final String MESSAGE_ALREADY_COMPLETED = "This task is completed. ";
+    public static final String MESSAGE_ALREADY_COMPLETED = "This task is completed. You can only assign an "
+            + "incomplete task. ";
     public static final String MESSAGE_NOT_TODAY = "The task is not scheduled for today. " + "\n"
             + String.format("Only tasks scheduled for today can be assigned. Today is %s.",
             GlobalClock.dateToday().format(Task.DATE_FORMAT_FOR_PRINT));
