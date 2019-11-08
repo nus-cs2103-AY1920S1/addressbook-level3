@@ -102,7 +102,7 @@ public class AddCommand extends Command {
         if (searchResultList.isEmpty()) {
             throw new CommandException(UNSUCCESSFUL_INDEX);
         }
-        if (index >= searchResultList.size()) {
+        if (index > searchResultList.size()) {
             throw new CommandException(UNSUCCESSFUL_LARGER);
         }
         Show fromImdb = searchResultList.get(index - 1);

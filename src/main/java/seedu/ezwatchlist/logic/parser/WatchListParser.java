@@ -102,10 +102,10 @@ public class WatchListParser {
             return isShortCutKey;
         } catch (NumberFormatException e) {
             String userInputLowerCase = userInput.toLowerCase();
-            boolean stringShortCutKey = userInputLowerCase.equals("watchlist") ||
-                    userInputLowerCase.equals("watched") ||
-                    userInputLowerCase.equals("search") ||
-                    userInputLowerCase.equals("statistics");
+            boolean stringShortCutKey = userInputLowerCase.equals("watchlist")
+                    || userInputLowerCase.equals("watched")
+                    || userInputLowerCase.equals("search")
+                    || userInputLowerCase.equals("statistics");
             return stringShortCutKey;
         }
     }

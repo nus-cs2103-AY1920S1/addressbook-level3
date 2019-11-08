@@ -87,7 +87,10 @@ public class ParserUtil {
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedDate);
+        String[] dateArr = trimmedDate.split("/");
+        String newDate = dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
+        Date resultDate = new Date(newDate);
+        return resultDate;
     }
 
     /**
