@@ -33,8 +33,6 @@ productivity, you can now always be on top of your:
 
 all in one handy, nifty application. Our aim is to build an intuitive, user-friendly student life organiser
 to, as far as possible, alleviate the stress of NUS life.
-//Jarvis also supports undo and redo functionality, allowing you easily
-//undo and redo any mistakes that you may make in your application.
 
 == Let's get started
 
@@ -49,7 +47,7 @@ home folder for the application.
 3. Run `jarvis.jar` to start the app. You should see something similar when starting the application up:
 
 .Jarvis' Graphical User Interface (GUI)
-image::StartUpUI.png[]
+image::ug/StartUpUI.png[]
 
 In Figure 1, there are three boxes labelled with numbers - these are the shared GUI sections across all the features:
 
@@ -67,7 +65,7 @@ the Command Entry Box and an appropriate error message will be displayed in the 
 example in Figure 2 below.
 
 .Adding a non-existent course into the Course Planner will result in a display like this
-image::ErrorMessage.png[]
+image::ug/ErrorMessage.png[]
 
 {sp} +
 
@@ -192,7 +190,7 @@ events, errands and more. Tagging and prioritizing tasks are just two of the man
 enable you to stay on top of everything you need to do!
 
 .GUI for the Task Planner
-image::PlannerUI.png[]
+image::ug/PlannerUI.png[]
 
 The Planner feature of `Jarvis` has a very intuitive user interface, with three main sections - as seen in Figure 3.
 
@@ -265,7 +263,7 @@ Too many tasks to comb through? Ask `Jarvis` to find a task for you based on one
 descriptions of your tasks.
 
 .Display for find-task
-image::find-task.png[]
+image::ug/find-task.png[]
 
 Format: `find-task KEYWORD...`
 
@@ -283,7 +281,7 @@ Once you have completed a task (hooray!), you can let `Jarvis` know. By default 
 represented with a `[✓]`, as seen in Figure 5 below.
 
 .Comparison between a task that is marked as done, and one that is not
-image::done-task.png[]
+image::ug/done-task.png[]
 
 Format: `done-task INDEX`
 
@@ -294,7 +292,7 @@ To get a quick glimpse of all the tasks you have in your Planner that match a ce
 simply pull all tasks relating to that attribute.
 
 .Display for pull-task
-image::pull-task.png[]
+image::ug/pull-task.png[]
 
 Format: `pull-task { t/TYPE | #TAG | p/PRIORITY-LEVEL | f/FREQUENCY-LEVEL | d/DATE }`
 
@@ -360,14 +358,15 @@ Feature by
 Introducing the Finance Tracker feature of Jarvis - responsible for keeping track of all your purchases,
 monthly subscriptions and monthly spending amount.
 
-//todo: add a ui ss
-
-On switching to the Finance tab, you will be able to see a list of purchases on
-the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
-spending for that month, as well as how much you are left with (if you have set a spending limit).
-
 As students, we often fail to keep our spending habits in check. But do not worry, as with `Jarvis`, you will never
 have to worry about not saving enough for that new laptop or yet another trip with your friends.
+
+.GUI for the Finance Tracker
+image::ug/FinanceUI.png[]
+
+In Figure 7, you will be able to see a list of purchases on
+the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
+spending for that month, as well as how much you are left with (if you have set a spending limit).
 
 ==== Add a single-use purchase: `add-paid`
 
@@ -401,6 +400,10 @@ This also means that the index must exist within this list!
 ==== Searching for a purchase: `find-paid`
 To have a quick view of the number of cups of Gongcha you have bought over the last month, you can used `find-paid`
 to pull up purchases with descriptions matching `KEYWORD` provided.
+
+.Display for find-paid
+image::ug/find-paid.png[]
+
 
 Format: `find-paid KEYWORD`
 
@@ -491,6 +494,20 @@ The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on 
 `Jarvis` can support milestone tracking, equipment management and so much more! Never has being in multiple
 CCAs been so easy.
 
+.GUI for the CCA Tracker
+image::ug/CcaUI.png[]
+
+All CCAs are added to a main list, with each CCA having a Progress Tracker and an Equipment List, as seen in
+Figure 9.
+Within the Progress Tracker:
+
+1. Box 1 displays the percentage of milestones of the CCA that have been completed.
+
+2. Box 2 shows all the milestones assigned to that CCA.
+
+3. The area below Box 2 displays the current milestone you are at, the next milestone succeeding the current
+one, and the fraction of milestones that have been completed.
+
 ==== Adding a CCA: `add-cca`
 To start, we can add some CCAs to the CCA Tracker. You will need to specify
 the name of the cca and the type of the CCA.
@@ -552,6 +569,9 @@ Format: `list-cca`
 ==== Finding a CCA: `find-cca`
 For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
 
+.Display for find-cca
+image::ug/find-cca.png[]
+
 Format: `find-cca KEYWORD...`
 
 ===== Example
@@ -561,8 +581,8 @@ find-cca canoeing guitar
 ----
 
 ==== Adding progress levels for a CCA: `add-progress`
-Often, we strive to reach certain milestones in our CCAs. For example, in learning piano, you might be aiming to
-progress through the various grade levels (shown in the example below) available. With `add-progress`,
+Often, we strive to reach certain milestones in our CCAs. For example, in learning the piano, you might be aiming to
+progress through the various grade levels available. With `add-progress`,
 `Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
 
 Format: `add-progress INDEX p/MILESTONE...`
@@ -576,6 +596,12 @@ add-progress 2 p/LCP p/Corporal p/Sergeant p/Staff Sergeant p/Warrant Officer p/
 ==== Incrementing progress level: `increment-progress`
 Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
 provides a clear view of how much closer you are to their respective milestones.
+
+.Display for increment-progress
+image::ug/increment-progress.png[]
+
+In Figure 11 above, using `increment-progress` on Swimming will raise the progress percentage from 50% to
+62.5%.
 
 Format: `increment-progress INDEX`
 
@@ -610,8 +636,15 @@ Feature by
 === Course Planner
 NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
 map out academic routes and learn more about the variety of courses NUS has to offer.
-As the Course Planner section of `Jarvis` is thoroughly integrated with NUSMods, you will be able to consolidate all
+As the Course Planner is thoroughly integrated with NUSMods, you will be able to consolidate all
 the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
+
+.GUI for the Course Planner
+image::ug/CoursePlannerUI.png[]
+
+The default display for the Course Planner is a list of courses on the left and an empty Result Box on the right -
+as shown in Figure 12. This box will display different pieces of information depending on the commands
+entered.
 
 ==== Adding a course: `add-course`
 To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
@@ -640,8 +673,12 @@ delete-course 2
 ----
 
 ==== Looking up a course's information: `lookup`
-You can also retrieve information about a specific course - such as name, course code,
-number of credits and its prerequisites.
+You can also retrieve information about a specific course - such as course title, course code,
+number of credits and its prerequisites. The information will be displayed in the Result Box on the right of
+the Course Planner, as seen below in Figure 13.
+
+.Display for lookup
+image::ug/lookup.png[]
 
 Format: `lookup c/COURSECODE`
 
@@ -654,6 +691,9 @@ lookup c/CS1010
 If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
 the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
 display a very helpful tree to show you what requirements you need for each course.
+
+.Display for check
+image::ug/check.png[]
 
 Format: `check c/COURSECODE`
 
@@ -779,6 +819,12 @@ If you have entered new commands after undoing previous commands, you will not b
 commands.
 
 ==== list the number of commands you can undo or redo: `list-history`
+`Jarvis` can provide you with the maximum number of commands you can `undo` and `redo` - which will be shown
+in the Command Result Box.
+
+.Display for list-history
+image::ug/list-history.png[]
+
 Format: `list-history`
 
 Lists the number of available commands to be undone, number of available commands to be redone,
