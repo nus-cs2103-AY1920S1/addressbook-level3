@@ -15,7 +15,7 @@ import java.util.Date;
 import seedu.address.logic.finance.commands.BudgetCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.budget.Budget;
 
 /**
  * Parses input arguments and creates a new BudgetCommand object

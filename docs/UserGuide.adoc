@@ -16,9 +16,11 @@ endif::[]
 
 By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 Modulo is a desktop application helping National University of Singapore (NUS) students to audit their academics, finances and schedule their time as they try their best to survive yet another semester of college. Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
+// end::intro[]
 
 == Quick Start
 
@@ -371,6 +373,7 @@ To exit application (Modulo).
 Format: `exit` +
 {empty} +
 
+// tag::finance1[]
 === Finances
 
 To enter the Finances section, please enter the command: `switch finance`
@@ -387,6 +390,7 @@ Record down an entry of spending with relevant information associated with it. I
 
 Format: `*spend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD [<place>PLACE] [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
 e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
+// end::finance1[]
 
 ==== Add an entry of income: `income`
 
@@ -433,6 +437,7 @@ List out all entries in recorded down. All entries will be ordered chronological
 
 Format: `*list*`
 
+// tag::finance2[]
 ==== Edit an entry: `edit`
 
 Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
@@ -500,6 +505,7 @@ Example Format 1: `*budget* <amt>AMOUNT <start>START_DATE <end>END_DATE [<met>TR
 Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS [<cat>CATEGORY_NAME]` +
 Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
 e.g. `budget <amt> 300 <month>11-2019 <met>cash`
+// end::finance2[]
 
 ==== List out all budgets: `listb`
 
@@ -516,17 +522,3 @@ There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _Modulo_ folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
