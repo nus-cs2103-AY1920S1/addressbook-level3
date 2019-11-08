@@ -583,7 +583,7 @@ UndoCommand will check whether if there is any command to be undone by calling t
 
 The following sequence diagram shows how the undo operation works:
 
-//image::UndoSequenceDiagram.png[]
+image::dg-diagram/UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
