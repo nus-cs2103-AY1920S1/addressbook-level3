@@ -5,15 +5,23 @@ import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.deleteFirstMeme;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 
-public class RedoCommandTest {
-    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+public class RedoCommandTest extends ApplicationTest {
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    }
 
     @Test
     public void execute() {

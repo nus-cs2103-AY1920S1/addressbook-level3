@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
@@ -36,7 +37,7 @@ import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.MemeUtil;
 
-public class MemeParserTest {
+public class MemeParserTest extends ApplicationTest {
 
     private final WemeParser parser = new MemeParser();
 

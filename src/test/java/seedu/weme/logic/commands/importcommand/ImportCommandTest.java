@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -28,8 +29,14 @@ class ImportCommandTest extends ApplicationTest {
 
     private static final DirectoryPath LOAD_DIRECTORY_PATH = new DirectoryPath("src/test/data/memes/");
 
-    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    }
 
     @Test
     public void execute_import_successMessage() throws IOException {

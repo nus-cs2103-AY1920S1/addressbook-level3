@@ -6,13 +6,14 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
 
-public class MemeClearCommandTest {
+public class MemeClearCommandTest extends ApplicationTest {
 
     @Test
     public void execute_emptyWeme_success() {

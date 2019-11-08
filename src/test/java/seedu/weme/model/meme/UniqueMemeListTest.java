@@ -17,12 +17,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.meme.exceptions.MemeNotFoundException;
 import seedu.weme.testutil.MemeBuilder;
 
-public class UniqueMemeListTest {
+public class UniqueMemeListTest extends ApplicationTest {
 
     private final UniqueMemeList uniqueMemeList = new UniqueMemeList();
 

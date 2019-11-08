@@ -9,7 +9,9 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.memecommand.MemeStageCommand;
 import seedu.weme.model.Model;
@@ -17,9 +19,15 @@ import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
 
-class UnstageCommandTest {
-    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+class UnstageCommandTest extends ApplicationTest {
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    }
 
     @Test
     public void execute_unstageMeme_success() {

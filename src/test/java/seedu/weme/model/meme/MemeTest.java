@@ -10,10 +10,11 @@ import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.testutil.MemeBuilder;
 
-public class MemeTest {
+public class MemeTest extends ApplicationTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {

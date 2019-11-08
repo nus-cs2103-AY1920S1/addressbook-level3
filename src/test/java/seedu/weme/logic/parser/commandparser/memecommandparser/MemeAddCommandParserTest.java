@@ -20,6 +20,7 @@ import static seedu.weme.testutil.TypicalMemes.CHARMANDER;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.memecommand.MemeAddCommand;
 import seedu.weme.model.meme.Meme;
@@ -27,7 +28,7 @@ import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.MemeBuilder;
 
-public class MemeAddCommandParserTest {
+public class MemeAddCommandParserTest extends ApplicationTest {
     private MemeAddCommandParser parser = new MemeAddCommandParser();
 
     @Test

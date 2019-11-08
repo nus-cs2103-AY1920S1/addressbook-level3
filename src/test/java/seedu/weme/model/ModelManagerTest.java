@@ -12,7 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
@@ -22,9 +24,14 @@ import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.testutil.WemeBuilder;
 
-public class ModelManagerTest {
+public class ModelManagerTest extends ApplicationTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    @BeforeEach
+    public void setup() {
+        modelManager = new ModelManager();
+    }
 
     @Test
     public void constructor() {

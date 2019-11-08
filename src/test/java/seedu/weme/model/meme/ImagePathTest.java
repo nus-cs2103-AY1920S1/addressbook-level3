@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.model.path.ImagePath;
 
-public class ImagePathTest {
+public class ImagePathTest extends ApplicationTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {

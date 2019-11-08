@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.records.Records;
@@ -39,7 +39,7 @@ import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 import seedu.weme.testutil.MemeBuilder;
 
-public class WemeTest {
+public class WemeTest extends ApplicationTest {
 
     private final Weme weme = new Weme();
 
