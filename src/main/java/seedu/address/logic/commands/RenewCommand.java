@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_IS_OVERDUE;
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_RENEW_IMMEDIATELY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_RENEWABLE_BOOKS;
@@ -112,9 +113,8 @@ public class RenewCommand extends ReversibleCommand {
             // update Loan in LoanRecords with extended due date
             model.updateLoan(loanToBeRenewed, renewedLoan);
 
-            // mount renewed loan
             try {
-                LoanSlipUtil.mountLoan(renewedLoan, renewedBook, servingBorrower);
+                LoanSlipUtil.mountLoan(renewedLoan, renewedBook, model.getServingBorrower());
             } catch (LoanSlipException e) {
                 e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
             }
@@ -148,7 +148,9 @@ public class RenewCommand extends ReversibleCommand {
                 if (DateUtil.isDateBeforeToday(loan.getDueDate())) { // overdue
                     continue;
                 }
-
+                if (LoanSlipUtil.bookIsInSession(book)) { // dont allow renewing books immediately after loaning
+                    continue;
+                }
                 renewingBooks.add(book);
             }
 
@@ -159,8 +161,11 @@ public class RenewCommand extends ReversibleCommand {
             if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
                 throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
             }
-
             Book bookToBeRenewed = lastShownBorrowerBooksList.get(index.getZeroBased());
+
+            if (LoanSlipUtil.bookIsInSession(bookToBeRenewed)) { // dont allow renewing books immediately after loaning
+                throw new CommandException(MESSAGE_CANNOT_RENEW_IMMEDIATELY);
+            }
             renewingBooks.add(bookToBeRenewed);
         }
 

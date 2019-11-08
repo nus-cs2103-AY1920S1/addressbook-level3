@@ -313,6 +313,7 @@ public class ModelManager implements Model {
             sb.append("No loan history!");
         } else {
             target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+            Collections.sort(loanStream);
             Collections.reverse(loanStream); // To make latest loan go on top
             loanStream.stream()
                     .map(loan -> singleLoanHistoryString(

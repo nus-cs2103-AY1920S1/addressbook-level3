@@ -45,16 +45,33 @@ This section shows a summary of my contributions in terms of coding, documentati
 === *Major enhancement - Generating Loan Slip*
 The ability to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
 
-==== What it does
+****
+* *Depth*: This feature is deeply linked with the loan features.
+Not only does it generate viewable information about a new loan, it also syncs up with the renew feature and generates information about a loan renewal as well.
+Furthermore, the implementation has to support the undo/redo features.
+
+* *Completeness*: This feature is complete with the intended styling of the loan slip and is rigorously tested in many test cases. It fully behaves the way it was conceived to be.
+
+* *Effort*: This feature required in-depth understanding of:
+** How to add libraries from the Maven Central Repository
+** How to handle file input
+** How to handle file output
+** How to create PDFs from text.
+** How to use the 'iText7' Library suitably for 'LiBerry' by reading the 'iText7' documentation
+
+These additional information are not in the scope of the course and would therefore require intensive research on my part.
+****
+
+==== What the feature does
 This feature generates loan slips so that the librarian can immediately print the loan slip for the borrower.
-The printed loan slip contains all information about the loan, including the books loaned and the due date of the loans.
+The printed loan slip contains all information about the loan or renew, including a list of loaned books and the due date of these loans.
 
 ==== Justification
-Since our target group is small impoverished communities, it is unlikely they will have internet access to check the status of their loans.
-Therefore, it will be suitable to provide them with a printed version of the loan.
+Since our target group is small impoverished communities, it is unlikely they will have reliable internet access to check the status of their loans.
+Therefore, it will be suitable for librarians to provide them with a printed version of the loan.
 
 ==== Highlights
-This feature is challenging to implement as it will require us to create a new pdf document from scratch.
+This feature is challenging to implement as it will require us to create a new PDF document from scratch.
 I was required to understand a great deal about file input and output in Java, which is something out of the scope of the course.
 On top of that, this document will have to be suitably styled as a loan slip populated with information about the loans.
 
@@ -71,20 +88,37 @@ image::LoanSlip.png[width=350, align=center]
 In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
 
 === Code Contributed
+The following link shows the analysis of my code contributions:
 
-* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test Code]
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense link for Code Contributions]
 
-=== *Minor enhancement* - Book-related features
+=== *Other enhancements* - Book-related features
 On top of the feature to generate loan slips, I am also primarily involved the implementation of the basic book-related core features.
+These features include:
 
-==== Implemented the ability to *add books*
-* This feature assists the librarian in tracking the movement of books with ease using the system.
+==== The ability to *add books*
+* This feature allows the librarian to start tracking the movement of books using the system.
+****
+* *Depth*: This is a basic core feature of the system and is therefore.
+* *Completeness*: This is a basic core feature of the system and is therefore.
+* *Effort*: This is a basic core feature of the system and is therefore.
+****
 
-==== Implemented the ability to *delete books*.
+==== The ability to *delete books*.
 * This feature allows the librarian to update the catalog when a book goes missing.
+****
+* *Depth*: This is a basic core feature of the system and is therefore.
+* *Completeness*: This is a basic core feature of the system and is therefore.
+* *Effort*: This is a basic core feature of the system and is therefore.
+****
 
-==== Implemented the ability to *display information* about a book.
+==== The ability to *display information* about a book.
 * This feature aids the librarian in retrieving more information about a book when a borrower enquires about it.
+****
+* *Depth*: This is a basic core feature of the system and is therefore.
+* *Completeness*: This is a basic core feature of the system and is therefore.
+* *Effort*: This is a basic core feature of the system and is therefore.
+****
 
 === *Other contributions*:
 
@@ -133,7 +167,9 @@ include::../UserGuide.adoc[tag=bookRelated]
 {nbsp}
 
 === Loan book
-The feature to loan books will allow librarians to mark that the book has been loaned to a particular borrower. In this feature, I implemented the ability to auto-generate loan slips, allowing librarians to conveniently print it out for the borrower. +
+The feature to loan books will allow librarians to mark that the book has been loaned to a particular borrower.
+In this feature, I implemented and documented the loan slip generation feature, allowing librarians to understand how to generate a loan slip when serving a borrower.
+The other descriptions on the loan feature is written by See Zi Yang. +
 {nbsp}
 
 include::../UserGuide.adoc[tag=loanSlip]
@@ -141,7 +177,8 @@ include::../UserGuide.adoc[tag=loanSlip]
 == Contributions to the Developer Guide
 
 |===
-|_This section highlights my contributions to the Developer Guide. The following excerpts from the 'LiBerry' Developer Guide demonstrates my ability to communicate with other developers through my detailed documentation._
+|_This section highlights my contributions to the Developer Guide.
+The following excerpts from the 'LiBerry' Developer Guide demonstrates my ability to communicate with other developers to aid them in understanding how the book-related features and the loan slip generation feature work._
 |===
 
 include::../DeveloperGuide.adoc[tag=addBook]
