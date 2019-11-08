@@ -5,13 +5,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import seedu.address.ui.StatusBarFooter;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.Logic;
@@ -45,16 +45,25 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private ScrollPane flashcardListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane viewFlashcardListPanelPlaceholder;
+    private StackPane flashcardDisplayPlaceholder;
 
     @FXML
     private StackPane statisticsDisplayPlaceholder;
+
+    @FXML
+    private StackPane timerDisplayPlaceHolder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
+
+    private TimerDisplay timerDisplay;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -66,10 +75,11 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
         statsDisplay = new StatsDisplay(logic.getStatistics());
+        timerDisplay = new TimerDisplay(this::executeCommand, logic.getDurationProperty(),
+                logic.getTotalCardsProperty(), logic.getRemainingCardsProperty());
+
     }
 
     public Stage getPrimaryStage() {
@@ -115,16 +125,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList());
-        flashcardListPanelPlaceholder.setContent(flashcardListPanel.getRoot());
+        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         flashcardDisplay = new FlashcardDisplay();
-        statisticsDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
+        flashcardDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+
+        seedu.address.ui.StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFlashcardListFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
@@ -181,6 +195,18 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Controls the timer display
+     */
+    private void handleTimer() {
+        if (timerDisplayPlaceHolder.getChildren().isEmpty()) {
+            timerDisplay.initializeTimer();
+            timerDisplayPlaceHolder.getChildren().add(timerDisplay.getRoot());
+        } else {
+            timerDisplay.initializeTimer();
+        }
+    }
+
     public FlashcardListPanel getPersonListPanel() {
         return flashcardListPanel;
     }
@@ -210,7 +236,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isFlip()) {
                 flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
+                if (logic.isQuiz()) {
+                    handleTimer();
+                } else {
+                    timerDisplay.stopTimer();
+                    timerDisplayPlaceHolder.getChildren().clear();
+                }
             }
+
+
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

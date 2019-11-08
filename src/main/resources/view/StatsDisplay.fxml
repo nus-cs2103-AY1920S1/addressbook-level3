@@ -6,39 +6,36 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
 <fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-            <VBox fx:id="statsBox">
-            <children>
-               <HBox fx:id="pieCharts" VBox.vgrow="ALWAYS">
+            <BorderPane prefHeight="400.0" prefWidth="400.0">
+            <top>
+               <HBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                   <children>
-                     <PieChart fx:id="completion" animated="false" HBox.hgrow="ALWAYS" />
-                     <PieChart fx:id="accuracy" animated="false" HBox.hgrow="ALWAYS" />
+                     <PieChart fx:id="accuracy" animated="false" stylesheets="@PieChart.css" />
+                     <PieChart fx:id="completion" animated="false" stylesheets="@PieChart.css" />
                   </children>
                </HBox>
-               <ScrollPane VBox.vgrow="ALWAYS">
+            </top>
+            <center>
+               <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                   <content>
-                     <Pane>
-                        <children>
-                           <StackedBarChart fx:id="individualCards" alternativeRowFillVisible="false" animated="false" legendSide="TOP" minHeight="600.0" minWidth="1000.0">
-                             <xAxis>
-                               <CategoryAxis animated="false" label="Name" side="BOTTOM" fx:id="xAxis" />
-                             </xAxis>
-                             <yAxis>
-                               <NumberAxis fx:id="yAxis" animated="false" label="Number of attempts" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" side="LEFT" tickUnit="0.0" upperBound="0.0" />
-                             </yAxis>
-                           </StackedBarChart>
-                        </children>
-                     </Pane>
+                     <StackedBarChart fx:id="individualCards" animated="false" categoryGap="4.0" legendSide="LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" prefHeight="400.0" stylesheets="@StackedBarChart.css">
+                       <xAxis>
+                         <CategoryAxis animated="false" side="BOTTOM" fx:id="xAxis" />
+                       </xAxis>
+                       <yAxis>
+                         <NumberAxis fx:id="yAxis" side="LEFT" />
+                       </yAxis>
+                     </StackedBarChart>
                   </content>
                </ScrollPane>
-            </children></VBox>
+            </center></BorderPane>
         </Scene>
     </scene>
 </fx:root>

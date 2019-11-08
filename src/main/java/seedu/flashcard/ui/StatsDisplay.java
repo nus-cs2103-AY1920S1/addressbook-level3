@@ -10,8 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.Statistics;
@@ -31,9 +30,7 @@ public class StatsDisplay extends UiPart<Stage> {
     @FXML
     private PieChart completion;
     @FXML
-    private HBox pieCharts;
-    @FXML
-    private VBox statsBox;
+    private ScrollPane scrollPane;
     @FXML
     private CategoryAxis xAxis;
     @FXML
@@ -79,6 +76,9 @@ public class StatsDisplay extends UiPart<Stage> {
         individualCards.getData().clear();
         individualCards.getData().addAll(statistics.getCorrectSeries(), statistics.getWrongSeries());
         individualCards.setTitle("Statistics by card");
+
+
+        scrollPane.setFitToHeight(true);
 
     }
 

@@ -5,47 +5,54 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-
-<?import javafx.scene.control.ScrollPane?>
-<fx:root maxHeight="Infinity" maxWidth="Infinity" minHeight="800.0" minWidth="200" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-
+<fx:root onCloseRequest="#handleExit" title="Flashmind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-         <HBox maxHeight="1.7976931348623157E308" maxWidth="Infinity" minHeight="420.0" minWidth="300.0" prefHeight="683.0" prefWidth="900.0">
+            <AnchorPane prefHeight="200" prefWidth="200">
             <children>
-               <VBox>
+               <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                     <MenuBar fx:id="MenuBar">
+                     <MenuBar VBox.vgrow="ALWAYS">
                        <menus>
-                         <Menu mnemonicParsing="false" text="Action">
+                         <Menu mnemonicParsing="false" text="File">
                            <items>
                              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
                            </items>
                          </Menu>
                          <Menu mnemonicParsing="false" text="Help">
                            <items>
-                             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Show Help" />
+                             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="About" />
                            </items>
                          </Menu>
                        </menus>
                      </MenuBar>
-                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" maxHeight="Infinity" minWidth="300.0" maxWidth="Infinity"/>
-                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="Infinity" minHeight="250.0" maxWidth="Infinity" minWidth="300.0" styleClass="pane-with-border" />
-                     <StackPane fx:id="statisticsDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="443.0" maxWidth="Infinity" minWidth="300.0" styleClass="pane-with-border" />
+                     <HBox VBox.vgrow="ALWAYS">
+                        <children>
+                           <VBox HBox.hgrow="ALWAYS">
+                              <children>
+                                 <StackPane fx:id="commandBoxPlaceholder" />
+                                 <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="flashcardDisplayPlaceholder" VBox.vgrow="ALWAYS" />
+                              </children>
+                           </VBox>
+                           <VBox minWidth="300.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <StackPane fx:id="flashcardListPanelPlaceholder" minWidth="300.0" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="timerDisplayPlaceHolder" />
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                     <StackPane fx:id="statusbarPlaceholder" />
                   </children>
                </VBox>
-               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="1000.0" prefWidth="500.0" minWidth="300" styleClass="pane-with-border-2">
-                  <children>
-                     <ScrollPane fx:id="flashcardListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="1000.0" prefWidth="500.0" minWidth="300" styleClass="pane-with-border-2" />
-                  </children>
-               </VBox>
-            </children>
-         </HBox>
+            </children></AnchorPane>
          <stylesheets>
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />
