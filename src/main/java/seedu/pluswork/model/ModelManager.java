@@ -150,7 +150,6 @@ public class ModelManager implements Model {
         requireNonNull(target);
         saveDashboardState();
         projectDashboard.removeTask(target);
-        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
@@ -274,7 +273,6 @@ public class ModelManager implements Model {
         requireNonNull(target);
         saveDashboardState();
         projectDashboard.removeMember(target);
-        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
@@ -330,7 +328,6 @@ public class ModelManager implements Model {
         requireNonNull(mapping);
         saveDashboardState();
         projectDashboard.removeMapping(mapping);
-        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
@@ -397,7 +394,6 @@ public class ModelManager implements Model {
         requireNonNull(calendar);
         saveDashboardState();
         projectDashboard.deleteCalendar(calendar);
-        filteredCalendars.setPredicate(PREDICATE_SHOW_ALL_CALENDARS);
     }
 
     @Override
@@ -420,7 +416,6 @@ public class ModelManager implements Model {
         requireNonNull(meeting);
         saveDashboardState();
         projectDashboard.deleteMeeting(meeting);
-        filteredMeetings.setPredicate(PREDICATE_SHOW_ALL_MEETINGS);
     }
 
     @Override
@@ -575,8 +570,6 @@ public class ModelManager implements Model {
                 && filteredInventories.equals(other.filteredInventories)
                 && filteredCalendars.equals(other.filteredCalendars)
                 && filteredMeetings.equals(other.filteredMeetings)
-                && stats.equals(other.stats)
-                && previousSaveState.equals(other.previousSaveState)
-                && redoSaveState.equals(other.redoSaveState);
+                && stats.equals(other.stats);
     }
 }
