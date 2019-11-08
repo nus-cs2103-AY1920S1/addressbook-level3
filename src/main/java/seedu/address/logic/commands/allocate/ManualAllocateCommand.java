@@ -43,78 +43,26 @@ public class ManualAllocateCommand extends Command {
 
     private final Index employeeIndex;
     private final Index eventIndex;
-    private final String employeeId;
+    private final EmployeeId employeeId;
 
     /**
      * @param eventIndex of the event in the filtered event list to edit
      * @param employeeIndex      of the employee in the filtered employee list to add to event
      */
-    public ManualAllocateCommand(Index eventIndex, Index employeeIndex) {
-        requireNonNull(employeeIndex);
+    public ManualAllocateCommand(Index eventIndex, Index employeeIndex, EmployeeId employeeId) {
         requireNonNull(eventIndex);
 
         this.employeeIndex = employeeIndex;
         this.eventIndex = eventIndex;
-        this.employeeId = null;
-    }
-
-    /**
-     * A ManualAllocateCommand to allocate employee with specified {@code EmployeeId} to the specified event.
-     * This constructor is used for GUI purposes.
-     *
-     * @param eventIndex of the event in the filtered event list to edit
-     * @param employeeId      of the employee to add to the event
-     */
-    public ManualAllocateCommand(Index eventIndex, String employeeId) {
-        requireNonNull(employeeId);
-        requireNonNull(eventIndex);
-
-        this.eventIndex = eventIndex;
-        this.employeeIndex = null;
         this.employeeId = employeeId;
-    }
-
-    /**
-     * A private method for manual allocation used primarily for GUI purposes.
-     */
-    private CommandResult internalManualAllocateById(Model model) throws CommandException {
-        List<Employee> lastShownList = model.getFullListEmployees();
-        List<Event> lastShownEventList;
-
-        //Checks the current tab index and retrieves the relevant list from model
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            lastShownEventList = model.getFilteredEventList();
-        } else {
-            lastShownEventList = model.getFilteredScheduledEventList();
-        }
-
-        Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
-
-        Optional<Employee> optionalPersonToAdd = lastShownList.stream()
-                .filter(x -> x.getEmployeeId().id.equals(employeeId))
-                .findAny();
-
-        if (optionalPersonToAdd.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
-        }
-
-        Employee personToAdd = optionalPersonToAdd.get();
-
-        if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
-            throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
-        }
-
-        Event newEventForAllocation = createEditedEvent(eventToAllocate, personToAdd);
-        model.setEvent(eventToAllocate, newEventForAllocation);
-        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, personToAdd.getEmployeeName(),
-                newEventForAllocation.getName()));
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (employeeId != null) {
-            return internalManualAllocateById(model);
+
+        if (employeeId != null && employeeIndex != null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
@@ -126,16 +74,29 @@ public class ManualAllocateCommand extends Command {
         } else {
             throw new CommandException(Messages.MESSAGE_WRONG_WINDOW);
         }
+        Employee personToAdd;
 
-        if (employeeIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+        if (employeeIndex != null) {
+            if (employeeIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+            }
+            personToAdd = lastShownList.get(employeeIndex.getZeroBased());
+
+        } else { //employeeId != null
+            Optional<Employee> optionalPersonToAdd = lastShownList.stream()
+                    .filter(x -> x.getEmployeeId().equals(employeeId))
+                    .findAny();
+
+            if (optionalPersonToAdd.isEmpty()) {
+                throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
+            }
+            personToAdd = optionalPersonToAdd.get();
         }
 
         if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Employee personToAdd = lastShownList.get(employeeIndex.getZeroBased());
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
         if (eventToAllocate.getManpowerAllocatedList().containsEmployee(personToAdd)) {

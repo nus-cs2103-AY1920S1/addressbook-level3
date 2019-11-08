@@ -150,7 +150,8 @@ public class FetchEventWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing fetched event.");
         getRoot().show();
-        getRoot().centerOnScreen();
+        getRoot().setX(700);
+        getRoot().setY(70);
 
     }
 

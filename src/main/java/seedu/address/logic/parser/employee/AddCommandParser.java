@@ -49,8 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
-        EmployeeId employeeId = ParserUtil.parseEmployeeId();
+        EmployeeId employeeId = new EmployeeId();
         EmployeeName employeeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         EmployeeGender employeeGender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
         EmployeePay employeePay = ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get());

@@ -78,6 +78,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private TabPane tabPanePlaceholder;
 
+    @FXML
+    private CommandBox commandBox;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -234,6 +237,7 @@ public class MainWindow extends UiPart<Stage> {
         fetchEventWindow.getRoot().getScene().getStylesheets().add("view/Extensions.css");
         if (!fetchEventWindow.isShowing()) {
             fetchEventWindow.show();
+            //comm
         } else {
             fetchEventWindow.focus();
         }

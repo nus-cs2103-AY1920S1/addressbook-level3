@@ -44,6 +44,7 @@ public class ErrorWindow extends UiPart<Stage> {
         logger.fine("Showing error message.");
         getRoot().show();
         getRoot().centerOnScreen();
+        getRoot().setAlwaysOnTop(true);
     }
 
     /**
