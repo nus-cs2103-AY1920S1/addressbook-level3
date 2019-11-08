@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the Event's Venue.
+ * Guarantees: Immutable and Valid
  */
 public class EventVenue {
     public static final String MESSAGE_CONSTRAINTS = "Venues can take any values, and it should not be blank";
@@ -20,7 +21,7 @@ public class EventVenue {
     /**
      * Constructs an {@code Venue}.
      *
-     * @param venue A valid veneu.
+     * @param venue A valid venue.
      */
     public EventVenue(String venue) {
         requireNonNull(venue);

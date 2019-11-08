@@ -11,7 +11,7 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Event in the AddMin app.
+ * Represents an Event in the AddMin+ app.
  */
 public class Event {
 
@@ -28,7 +28,8 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Basic Constructor, called for a new Event Creation.
+     * Basic Event Constructor.
+     * Instantiates new {@code EventDateTimeMap} and {@code EventManpowerAllocatedList}
      */
     public Event(EventName name, EventVenue venue,
                  EventManpowerNeeded manpowerNeeded, EventDate startDate,
@@ -119,17 +120,24 @@ public class Event {
     }
 
     /**
-     * Checks if there are no manpower allocated to this Event.
+     * Checks if there is no manpower allocated to this Event.
      */
-    public boolean isEventEmpty() {
-        return manpowerAllocatedList.isAnyManpowerAllocated();
+    public boolean isManpowerAllocatedEmpty() {
+        return getCurrentManpowerCount() == 0;
+    }
+
+    /**
+     * @return current number of allocated {@code Employee} in the {@code EventManpowerAllocatedList}
+     */
+    public int getCurrentManpowerCount() {
+        return manpowerAllocatedList.getManpowerList().size();
     }
 
     /**
      * Assigns the EventDate-EventDayTime mapping to the EventDateTimeMap object.
      *
      * @param eventDate       Target Date to be assigned.
-     * @param eventTimePeriod Time Period Event is being held.
+     * @param eventTimePeriod Time Period of a Specific Date of the Event.
      */
     public void assignDateTime(EventDate eventDate, EventDayTime eventTimePeriod) {
         this.eventDateTimeMap.mapDateTime(eventDate, eventTimePeriod);
@@ -139,21 +147,20 @@ public class Event {
      * When Event object is first created, auto-initialize DateTime mapping for Start&End Date.
      */
     public void initalizeDateTime(EventDate startDate, EventDate endDate) {
-        EventDayTime standard = EventDayTime.defaultEventDayTime();
-        assignDateTime(startDate, standard);
-        assignDateTime(endDate, standard);
+        EventDayTime defaultEventDayTime = EventDayTime.defaultEventDayTime();
+        assignDateTime(startDate, defaultEventDayTime);
+        assignDateTime(endDate, defaultEventDayTime);
     }
 
     /**
-     * Clears all DateTime Mappings associated with the
+     * Clears all DateTime Mappings associated with the EventDateTimeMap.
      */
     public void clearDateTimeMapping() {
         this.eventDateTimeMap.clearMapping();
     }
 
     /**
-     * Gets the total hours that the event will last for
-     * @return
+     * Gets the Event's total hours based on the mapped DateTimes of the Event.
      */
     public double getEventTotalHours() {
         return eventDateTimeMap.totalHours();
@@ -176,8 +183,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both events have the same name, venue, starDate and endDate.
+     * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
@@ -220,18 +227,18 @@ public class Event {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, venue, manpowerNeeded,
-                startDate, endDate, manpowerAllocatedList, tags);
+                startDate, endDate, manpowerAllocatedList, eventDateTimeMap, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Event Venue: ").append(getVenue());
-        builder.append(" Event Manpower Needed: ").append(getManpowerNeeded());
-        builder.append(" Event Start Date: ").append(getStartDate());
-        builder.append(" Event End Date: ").append(getEndDate());
-        builder.append(" Tags: ");
+        builder.append("\nEvent Venue: ").append(getVenue());
+        builder.append("\nEvent Manpower Needed: ").append(getManpowerNeeded());
+        builder.append("\nEvent Start Date: ").append(getStartDate());
+        builder.append("\nEvent End Date: ").append(getEndDate());
+        builder.append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
@@ -252,7 +259,4 @@ public class Event {
         return builder.toString();
     }
 
-    public int getCurrentManpowerCount() {
-        return manpowerAllocatedList.getManpowerList().size();
-    }
 }

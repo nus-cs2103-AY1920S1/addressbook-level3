@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Tests that a {@code Event}'s {@code EventTag} matches any of the keywords given.
+ * Tests that a {@code Event}'s {@code Tag} matches any of the keywords given.
  */
 public class EventTagContainsKeywordsPredicate implements Predicate<Event> {
     private final List<String> keywords;

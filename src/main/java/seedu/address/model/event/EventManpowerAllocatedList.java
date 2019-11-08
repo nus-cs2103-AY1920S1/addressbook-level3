@@ -58,9 +58,9 @@ public class EventManpowerAllocatedList {
     }
 
     /**
-     * Boolean Method to check if there is any manpower currently allocated.
+     * Boolean Method to check if there is any manpower currently allocated to the list.
      */
-    public boolean isAnyManpowerAllocated() {
+    public boolean isManpowerAllocationEmpty() {
         return manpowerList.isEmpty();
     }
 
