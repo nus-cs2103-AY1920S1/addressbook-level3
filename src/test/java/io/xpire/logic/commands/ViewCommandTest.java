@@ -12,9 +12,10 @@ import org.junit.jupiter.api.Test;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
+
 //@@author febee99
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ViewCommand.
  */
 public class ViewCommandTest {
 
@@ -27,14 +28,15 @@ public class ViewCommandTest {
         expectedModel = new ModelManager(model.getLists(), new UserPrefs());
     }
 
+    //---------------- Tests for Xpire List --------------------------------------------------------------------------
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    public void execute_xpireIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ViewCommand(XPIRE), model, String.format(ViewCommand.MESSAGE_SUCCESS, "main"),
             expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_xpireIsFiltered_showsEverything() {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         assertCommandSuccess(new ViewCommand(XPIRE), model, String.format(ViewCommand.MESSAGE_SUCCESS, "main"),
             expectedModel);

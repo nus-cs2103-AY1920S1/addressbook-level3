@@ -15,6 +15,9 @@ import io.xpire.model.tag.Tag;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
+    public static final String MESSAGE_DELETE_QUANTITY_INVALID_USAGE =
+            "Items in the replenish list do not have quantities to delete from.\n"
+            + "Please use this command in the main list instead.";
     private final ListType listType;
     public DeleteCommandParser(ListType listType) {
         this.listType = listType;
@@ -42,9 +45,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             case XPIRE:
                 return deleteQuantityCommand(index, splitArgs[1]);
             case REPLENISH:
-                throw new ParseException(
-                        "Items in the replenish list do not have quantities to delete from. \nPlease use this command"
-                        + " in the main list instead.");
+                throw new ParseException(MESSAGE_DELETE_QUANTITY_INVALID_USAGE);
+
             default:
                 throw new ParseException("Invalid list type.");
             }
