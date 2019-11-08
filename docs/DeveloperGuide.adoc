@@ -302,6 +302,7 @@ The approve claim feature is facilitated by the `RejectClaimCommandParser` and t
 The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
 components of our application.
 
+// tag::shortcutfeature[]
 === Income feature
 
 The `add_income` command allows for users to register new `Income` objects into FinSec.
@@ -471,11 +472,11 @@ XYSeries public Command checkCommand(String currentInput, String prevInput) {
 
 The following activity diagram summarises what happens when a user executes an unknown command:
 
-<<ShortcutDiagram>> is the activity diagram when a user inputs an unkown command
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unknown command
 [[ShortcutDiagram]]
-[reftext="Figure 2.3.2.2"]
-[caption="Figure 2.3.2.2: "]
-.ActivityDiagram
+[reftext="Figure 2.4"]
+[caption="Figure 2.4: "]
+.ActivityDiagram when a user inputs an unknown command
 image::ShortcutActivityDiagram.png[width="800"]
 
 ==== Why was it implemented this way?
@@ -503,6 +504,7 @@ We considered between two alternatives.
 
 We have decided to opt for the first option primarily because it significantly improves the performance of the application.
 
+// end::shortcutfeature[]
 
 === Autocorrect feature
 
@@ -547,9 +549,7 @@ XYSeries  public CommandResult execute(Model model) throws CommandException {
 
 *Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
 
-*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded and ready to display for the next user input.
-
-
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded by the methods `FinSecParser#getCommandList().keySet()` and `SuggestionsStorage#getSuggestions()` and ready to display for the next user input.
 
 
 === Budget feature
