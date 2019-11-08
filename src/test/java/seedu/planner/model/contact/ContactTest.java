@@ -35,10 +35,6 @@ public class ContactTest {
         Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameContact(editedAlice));
 
-        // different name -> returns false
-        editedAlice = new ContactBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameContact(editedAlice));
-
         // same name, same phone, different attributes -> returns true
         editedAlice = new ContactBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
