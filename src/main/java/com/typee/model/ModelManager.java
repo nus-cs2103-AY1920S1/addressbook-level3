@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -198,7 +197,7 @@ public class ModelManager implements Model {
     @Override
     public void saveReport(Path fileDir, Report report) throws DocumentException, IOException,
             GenerateExistingReportException {
-        if (PdfUtil.checkIfDocumentExists(Paths.get(PdfUtil.FOLDER_PATH),
+        if (PdfUtil.checkIfDocumentExists(fileDir,
                 report.getTo().getName().fullName,
                 report.getFrom().getName().fullName,
                 report.getEngagement().getTimeSlot().getStartTime(),
@@ -210,15 +209,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean deleteReport(Report report) throws DeleteDocumentException {
+    public boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException {
         String to = report.getTo().getName().fullName;
         String from = report.getFrom().getName().fullName;
         LocalDateTime start = report.getEngagement().getTimeSlot().getStartTime();
         String desc = report.getEngagement().getDescription();
 
-        boolean isExisting = PdfUtil.checkIfDocumentExists(Paths.get(PdfUtil.FOLDER_PATH), to, from, start, desc);
+        boolean isExisting = PdfUtil.checkIfDocumentExists(fileDir, to, from, start, desc);
         if (isExisting) {
-            return PdfUtil.deleteDocument(Paths.get(PdfUtil.FOLDER_PATH), to, from, start, desc);
+            return PdfUtil.deleteDocument(fileDir, to, from, start, desc);
         }
         throw new DeleteDocumentException();
     }

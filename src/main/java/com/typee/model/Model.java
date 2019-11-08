@@ -116,5 +116,5 @@ public interface Model {
 
     void saveReport(Path fileDir, Report report) throws DocumentException, IOException, GenerateExistingReportException;
 
-    boolean deleteReport(Report report) throws DeleteDocumentException;
+    boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException;
 }
