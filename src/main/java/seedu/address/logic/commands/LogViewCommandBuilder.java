@@ -6,6 +6,7 @@ import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 
+//@@author Kyzure
 /**
  * Represents a CommandBuilder responsible for creating {@link LogViewCommand}.
  */
