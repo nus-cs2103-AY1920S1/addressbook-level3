@@ -16,7 +16,7 @@ import seedu.address.model.eatery.Tag;
 /**
  * Parses user input and returns a Removetag command object.
  */
-public class RemoveTagCommandParser {
+public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddTagCommand
