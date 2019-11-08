@@ -20,7 +20,7 @@
         <Label layoutX="22.0" layoutY="107.0" text="Type your question" />
         <TextField fx:id="questionField" layoutX="22.0" layoutY="136.0" />
         <Label layoutX="24.0" layoutY="166.0" text="Add your answers" />
-        <VBox fx:id="answerContainer" layoutX="22.0" layoutY="196.0" prefHeight="94.0" prefWidth="502.0" />
+        <VBox fx:id="answerContainer" layoutX="22.0" layoutY="196.0" />
       <HBox spacing="10.0">
          <children>
               <Button fx:id="saveChangesButton" mnemonicParsing="false" text="Save Changes" />

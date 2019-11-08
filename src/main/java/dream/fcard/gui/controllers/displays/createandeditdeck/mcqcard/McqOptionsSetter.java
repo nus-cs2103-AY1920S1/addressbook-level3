@@ -11,14 +11,13 @@ import dream.fcard.logic.respond.Consumers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
 /**
  * A container to display and remember the multiple choice options the user has created.
  */
-public class McqOptionsSetter extends ScrollPane {
+public class McqOptionsSetter extends VBox {
     @FXML
     private VBox optionInputBox;
 

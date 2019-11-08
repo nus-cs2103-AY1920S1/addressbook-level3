@@ -14,7 +14,7 @@
         <Label text="Enter your question" />
         <TextField fx:id="questionField" />
         <Label fx:id="addAnswerLabel" text="Enter your answers" />
-        <VBox fx:id="answerContainer" prefHeight="80.0" />
+        <VBox fx:id="answerContainer" />
       <HBox spacing="10.0">
          <children>
               <Label text="Type of card" />
