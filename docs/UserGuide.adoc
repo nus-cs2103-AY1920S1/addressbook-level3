@@ -45,9 +45,15 @@ Dive into LiBerry with our simple set-up guide for a quick tour of our user inte
 .  Copy the file to the folder you want to use as the home folder for your LiBerry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-.LiBerry's User Interface
-image::Ui.png[]
+.Components of LiBerry's User Interface (UI)
+image::annotated-ui.png[]
 +
+. The UI of LiBerry consists of 5 main components. +
+1. The *command box* where you input commands to interact with the software.
+2. The *command result display* which provides feedback for your inputs.
+3. The *displayed book list* which displays all the books in LiBerry's catalog and also search results.
+4. The *borrower panel* which displays information about a borrower and his/her borrowed books when LiBerry is in Serve mode.
+5. The *mode indicator* which indicates if LiBerry is in Normal mode or Serve mode.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Here are some commands you can try out:
@@ -55,10 +61,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .. *Register a new borrower* to LiBerry by using `register n/John Smith p/97875454 e/jsmith@gmail.com`
 
 .  Refer to <<Features>> for details of each command.
-
-. A list of books will be displayed at the left column but not a list of borrowers as a list of borrowers
-    will not be very useful. Serving a borrower require the borrower's `borrowerId` instead browsing
-    the app until the borrower's name/id is found.
 // end::quickStart[]
 
 [[Features]]
@@ -86,6 +88,7 @@ Normal Mode is for librarians to manage the books in the library. Commands in no
 ==== Viewing help : `help`
 
 Opens the help window, which includes a list of possible commands. +
+
 Format: `help`
 
 // tag::UGshiyao1[]
@@ -93,6 +96,7 @@ Format: `help`
 ==== Locating books by title: `find`
 
 Shows all relevant books found. +
+
 Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] }` +
 Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] [-rated] [-popular] [-new] }` ** - Coming in v2.0**
 
@@ -132,11 +136,13 @@ Searches for children mystery books that are not on loan and show the first 3 en
 ==== Viewing a book: `info`
 
 Views more information about a book in the displayed list. +
+
 Format: `info INDEX`
 
 ==== Clearing all entries : `clear`
 
-Clears the most recent search and displays all books. +
+Clears the most recent search from the displayed book list and displays all books. +
+
 Format: `clear`
 
 // tag::bookRelated[]
@@ -144,6 +150,7 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
+
 Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
 [TIP]
@@ -164,7 +171,8 @@ this book will be automatically generated.
 
 ==== Deleting a book : `delete`
 
-Deletes a book from the library records. Used when book is lost or trashed.
+Deletes a book from the library records. Used when book is lost or trashed. +
+
 Format: `delete INDEX` or `delete sn/BOOK_SN`
 
 ****
@@ -188,6 +196,7 @@ Deletes the book with serial number `sn/B00422`.
 ==== Registering a new borrower: `register`
 
 Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed. +
+
 Format: `register n/NAME p/PHONE_NUMBER e/EMAIL`
 
 Example:
@@ -198,6 +207,7 @@ Registers a new borrower called "matt", with phone number "83938249" and email "
 ==== Unregistering a borrower: `unregister`
 
 Unregisters and removes a borrower with the given borrower ID from the library records. +
+
 Format:  `unregister id/BORROWER_ID`
 
 Example:
@@ -218,9 +228,10 @@ Redoes the most recent undo should there be no more commands/actions after the m
 Format: `redo`
 
 
-==== Set User Settings: `set`
+==== Setting User Settings: `set`
 
 Sets the user settings for loan period (in days), renew period (in days), fine increment (in cents) and maximum renews allowed. +
+
 Format: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS] }`
 
 Examples:
@@ -231,30 +242,29 @@ Sets the loan period to 30 days and renew period to 10 days.
 *  `set rp/10 fi/5 lp/10 mr/2` +
 Sets the renew period to 10 days, fine increment to 5 cents per day, loan period to 10 days and maximum renews allowed to 2.
 
-==== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
 ==== Toggling dark mode : `toggleui`
 
 Toggles between light mode and dark mode for the UI. +
+
 Format: `toggleui`
 
-==== Rate a book : `rate` - Coming in v2.0
+==== Rating a book : `rate` - Coming in v2.0
 Gives a book a numerical rating. +
+
 Format: `rate INDEX r/RATING`
 
-'''
+==== Exiting the program : `exit`
+
+Exits the program. +
+
+Format: `exit`
+
 // tag::UGyuting2[]
-=== Using Serve Mode
-
-The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian. All commands in Normal Mode can be used in Serve Mode too.
-
-'''
 ==== Entering Serve Mode: `serve`
 
 Enters Serve Mode. All commands/actions will be done on this specific borrower. A list of the borrower’s currently loaned books and their serial numbers will be displayed. +
+Borrower ID is used as the borrower will produce their library card which contains their ID to the librarian to be served. +
+
 Format: `serve id/BORROWER_ID`
 
 Example:
@@ -262,14 +272,31 @@ Example:
 * `serve id/K0001` +
 Enters save mode to serve a borrower with the ID `K0001`
 
+'''
+=== Using Serve Mode
+
+The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian. All commands in Normal Mode can be used in Serve Mode too.
+
+// tag::loanSlip[]
 ==== Exiting Serve Mode: `done`
 
 Exits Serve Mode. +
+
 Format: `done`
+
+After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated. The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
+
+****
+.Printable loan slip generated.
+image::LoanSlip.png[width=250]
+****
+In the figure above, we can see that the loan slip records all the books being borrowed by 'Bill'.
+// end::loanSlip[]
 
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
+
 Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
@@ -288,81 +315,107 @@ Edits the name of the borrower to be `Betsy Crower`.
 // end::UGyuting2[]
 
 // tag::loanRelated[]
-// tag::loanSlip[]
 ==== Loaning book(s): `loan`
 
-Loan book(s) by their serial number. +
+Loan book(s) to the currently served borrower. +
+Serial number of the book is used as the borrower would bring the physical copy of the book they want to borrow
+to the librarian. Thus, librarians need not search for the index of the book in the displayed book list.
+
 Format: `loan sn/BOOK_SN` +
-Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0**
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0** +
+
 Examples:
 
-* `loan sn/B00041` +
-Loans the book with serial number B00041 to the currently served borrower.
+* `loan sn/B00006` +
+Loans the book with serial number B00006 to the currently served borrower. +
+{empty} +
++
+.User interface after book is loaned out.
+image::ug-loan-pic.png[width=850]
+After this command is entered, the command result display will provide a short summary of which book is loaned
+out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
+panel on the right. Inside the main list on the left, an on loan box would also indicate
+this book as being loaned out.
+
 * `loan sn/B00201 sn/B02929 sn/B00203` **- Coming in v2.0** +
 Loans the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
-
-After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated. The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
-
-****
-.Printable loan slip generated.
-image::LoanSlip.png[width=250]
-{nbsp}
-****
-In the figure above, we can see that the loan slip records all the books being borrowed by 'Bill'.
-// end::loanSlip[]
 
 ==== Returning book(s): `return`
 
 Return book(s) that were loaned by the borrower. +
+Fine incurred for late returns will automatically be calculated and added to
+the borrower's total outstanding fines. +
+
 Format: `return INDEX` or `return -all` +
-Including `-all` will return all currently loaned books.
-
-// add example with ss when UI is done
 
 ****
-* Returns the book at the specified `INDEX` in the borrower panel or all of the currently served borrower's loaned out books.
-* The index refers to the index number shown in the borrower's book list on the right.
-* The index *must be a positive integer* 1, 2, 3, ...
-* `INDEX` indicates the book at this index in the borrower's book list.
-* `-all` indicates all the books currently loaned out by the borrower.
+* Returns the book at the specified `INDEX` in the *borrower panel* or `-all` of the currently served borrower's loaned out books.
+* `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
+* `-all` indicates all the books currently loaned out by the borrower. +
+{nbsp}
+
+.Screenshot to illustrate return commands that can be entered.
+image::ug-return.png[width=850]
+* Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
+However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
+would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behaves".
 ****
+
 ==== Renewing book(s): `renew`
 
 Renew book(s) from the list of currently loaned books, i.e., extend their due dates. +
+
 Format: `renew INDEX` or `renew -all` +
 
-// add example with ss when UI is done
-
 ****
-* Renews the book at the specified `INDEX` in the borrower panel or all of the currently served borrower's loaned out books that can still be renewed.
-* The index refers to the index number shown in the borrower's book list on the right.
-* The index *must be a positive integer* 1, 2, 3, ...
-* `INDEX` indicates the book at this index in the borrower's book list.
+* Renews the book at the specified `INDEX` in the *borrower panel* or all of the currently served borrower's loaned out books that can still be renewed.
+* `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
+* Books that have reached the maximum renew count or are overdue cannot be renewed.
 ****
 
 ==== Paying fines: `pay`
 
-Reduces the outstanding amount of borrower's fines by AMOUNT (in dollars). +
+Receive AMOUNT (in dollars) from the currently served borrower to pay off his/her outstanding fines. +
+
 Format: `pay $AMOUNT`
 
-==== Reserve a book: `reserve` - Coming in v2.0
+IMPORTANT: `AMOUNT` can only have up to 2 decimal places.
 
-Reserve a particular book
+Examples:
+
+* `pay $12.80` +
+Receive $12.80 to pay off borrower's total outstanding fine. +
+{empty} +
++
+.The command result display after paying fines.
+image::ug-pay.png[width=500]
+As seen from the screenshot above, after a fine amount is paid, a short summary can be seen. The remaining outstanding fine
+will be shown. If the borrower pays an amount greater than his/her total outstanding fine, the amount of change to
+be given back to the borrower is also shown.
+
+* `pay $5` +
+Receive $5 to pay off borrower's total outstanding fine.
+
+==== Reserving a book: `reserve` - Coming in v2.0
+
+Reserve a particular book for the borrower. +
+
 Format: `reserve INDEX` or `reserve sn/BOOK_SN`
 
 ****
 * Reserves the book at the specified `INDEX` or the book with the specified serial number `BOOK_SN` for the currently served borrower.
-* The index refers to the index number shown in the displayed book list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* `INDEX` indicates the book at this index in the search results list
-* `sn/BOOK_SN` indicates the particular book with this serial number
+* `INDEX` indicates the book at this index number shown in the displayed book list.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the displayed book list.
+* `sn/BOOK_SN` indicates the particular book with this serial number.
 ****
 
 Examples:
 
 * `reserve 2` +
-Reserves the 2nd book in the results of the `find` command for the currently served borrower.
+Reserves the 2nd book shown in the displayed book list for the currently served borrower.
 * `reserve sn/B02422` +
 Reserves the book with serial number `sn/B02422` for the currently served borrower.
 
@@ -372,7 +425,8 @@ Reserves the book with serial number `sn/B02422` for the currently served borrow
 
 === Saving the Data
 
-LiBerry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+LiBerry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. +
+Data saved should not be manually edited to prevent files from being corrupted.
 
 == FAQ
 
@@ -401,16 +455,15 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Set user settings*: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
-* *Exit* : `exit`
 * *Toggle UI theme*: `toggleui`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
+* *Exit* : `exit`
+* *Enter Serve mode* : `serve id/BORROWER_ID` +
+e.g. `serve id/K0001`
 
 Commands applicable to *Serve* mode only:
 
-* *Serve mode* : `serve id/BORROWER_ID` +
-e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
-
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
 * *Loan book* : `loan sn/BOOK_SN` +
