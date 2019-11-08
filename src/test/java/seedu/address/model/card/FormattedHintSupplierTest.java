@@ -7,26 +7,26 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 
-public class HintSupplierTest {
+public class FormattedHintSupplierTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new HintSupplier(null));
+        assertThrows(NullPointerException.class, () -> new FormattedHintSupplier(null));
     }
 
     @Test
     public void getRemainingHints() {
         String name = "Sudowoodo";
-        HintSupplier hintSupplier = new HintSupplier(name);
-        assertEquals(hintSupplier.getRemainingHints(), name.length());
+        FormattedHintSupplier formattedHintSupplier = new FormattedHintSupplier(name);
+        assertEquals(formattedHintSupplier.getRemainingNumOfHints(), name.length());
     }
 
     @Test
     public void get() {
         String word = "Sudowoodo";
-        HintSupplier hintSupplier = new HintSupplier(word);
-        FormattedHint formattedHint = hintSupplier.get();
+        FormattedHintSupplier formattedHintSupplier = new FormattedHintSupplier(word);
+        FormattedHint formattedHint = formattedHintSupplier.get();
         for (int i = 0; i < word.length() - 1; i++) {
-            formattedHint = hintSupplier.get();
+            formattedHint = formattedHintSupplier.get();
         }
         // After all hint characters are supplied, the formatted hint should be same as original word.
         assertEquals(word, formattedHint.toString());

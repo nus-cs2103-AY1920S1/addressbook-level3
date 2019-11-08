@@ -29,7 +29,7 @@ public class FormattedHint {
     }
 
     /**
-     * Formats all the characters into a {@code String} in a HangMan-style. Null characters are replaced
+     * Formats all the characters into a {@code String} in the HangMan-style. Null characters are replaced
      * with an underscore, to represent that they are not provided yet.
      */
     @Override

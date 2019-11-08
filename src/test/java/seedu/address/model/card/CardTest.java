@@ -50,9 +50,9 @@ public class CardTest {
         String wordStr = "Pikachu";
         String meaningStr = "PIKA PIKA";
         Card card = new Card("dummyID", new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
-        FormattedHint formattedHint = card.getHint();
+        FormattedHint formattedHint = card.getFormattedHint();
         for (int i = 0; i < wordStr.length(); ++i) {
-            formattedHint = card.getHint();
+            formattedHint = card.getFormattedHint();
         }
         /** After all hint characters are supplied, the formatted hint should be same as original word. */
         assertTrue(formattedHint.toString().equals(wordStr));

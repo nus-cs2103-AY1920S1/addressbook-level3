@@ -239,7 +239,7 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    // <------------------------------------- Callbacks to Pass Into GameTimer ---------------------------------->
+    // <------------------------------------- Callbacks to register with GameTimer ------------------------------->
 
     /**
      * Calls-back to the UI to update HintDisplay after getting the next FormattedHint from Logic.
@@ -262,13 +262,11 @@ public class AppManager {
     private void skipOverToNextQuestion() {
         try {
             this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
-        } catch (ParseException e) {
+        } catch (ParseException | CommandException e) {
             // Code should not be throwing ParseException. (Command word is correct)
             e.printStackTrace();
-        } catch (CommandException e) {
-            // Code should not be throwing CommandException (should be in a valid state to SKIP)
-            e.printStackTrace();
-        }
+        } // Code should not be throwing CommandException (should be in a valid state to SKIP)
+
     }
 
     // <---------------------- Methods to register UI components to be called back by AppManager ---------------->
