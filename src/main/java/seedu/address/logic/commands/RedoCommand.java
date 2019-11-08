@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Redo the previous undone Command.
@@ -32,6 +33,9 @@ public class RedoCommand extends Command {
             } else if (redoneCommand instanceof PerformanceCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!", ((PerformanceCommand) redoneCommand).getDate(), model);
+            } else if (redoneCommand instanceof ClearCommand) {
+                return new CommandResult(MESSAGE_SUCCESS + redoneCommand
+                    + " Success!", new Feature("calendar"), model);
             } else {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!");

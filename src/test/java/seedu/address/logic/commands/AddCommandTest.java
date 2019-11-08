@@ -236,6 +236,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
+        public boolean commandUnderTraining(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean commandUnderPerformance(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public Command undo() {
             throw new AssertionError("This method should not be called.");
         }

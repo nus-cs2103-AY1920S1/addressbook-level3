@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteRecordCommand;
@@ -120,6 +121,36 @@ public class ModelManager implements Model {
         return athletick;
     }
     @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return athletick.hasPerson(person);
+    }
+    @Override
+    public void deletePerson(Person target) {
+        athletick.removePerson(target);
+    }
+    @Override
+    public void addPerson(Person person) {
+        athletick.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+    @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        athletick.setPerson(target, editedPerson);
+    }
+    @Override
+    public Person selectPerson() {
+        return selectedPerson;
+    }
+    public void storePerson(Person person) {
+        selectedPerson = person;
+    }
+    public void sortAthletickByName() {
+        this.athletick.sortByName();
+    }
+    //=========== HistoryManager ========================================================================
+    @Override
     public HistoryManager getHistory() {
         return this.history;
     }
@@ -189,99 +220,57 @@ public class ModelManager implements Model {
         return recordCopy;
     }
     @Override
+    public boolean commandUnderTraining(Command command) {
+        return command instanceof TrainingCommand || command instanceof DeleteTrainingCommand;
+    }
+    @Override
+    public boolean commandUnderPerformance(Command command) {
+        return command instanceof EventCommand || command instanceof PerformanceCommand
+            || command instanceof DeleteEventCommand || command instanceof DeleteRecordCommand;
+    }
+    @Override
     public Command undo() {
-        Command undoneCommand = this.history.getCommands().pop();
-        ReadOnlyAthletick undoneAthletick = this.history.getAddressBooks().pop();
-        this.history.getUndoneCommands().push(undoneCommand);
-        this.history.getUndoneAddressBooks().push(undoneAthletick);
-        if (undoneCommand instanceof TrainingCommand || undoneCommand instanceof DeleteTrainingCommand) {
-            List<Training> undoneTrainingList = this.history.getTrainingLists().pop();
-            this.history.getUndoneTrainingLists().push(undoneTrainingList);
-            List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
-            attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
+        Command undoneCommand = this.history.popLatestCommand();
+        ReadOnlyAthletick undoneAthletick = this.history.popLatestAthletick();
+        this.history.pushUndoneCommand(undoneCommand);
+        this.history.pushUndoneAthletick(undoneAthletick);
+        if (commandUnderTraining(undoneCommand)) {
+            this.history.undoTrainingStack(attendance, this);
+        } else if (commandUnderPerformance(undoneCommand)) {
+            this.history.undoPerformanceStack(performance, this);
         } else if (undoneCommand instanceof EditCommand) {
-            ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
-            athletick.resetData(afterUndoneState);
-            List<Training> undoneTrainingList = this.history.getTrainingLists().pop();
-            this.history.getUndoneTrainingLists().push(undoneTrainingList);
-            List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
-            attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
-        } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand
-            || undoneCommand instanceof DeleteEventCommand || undoneCommand instanceof DeleteRecordCommand) {
-            System.out.println("initial: " + this.history.getPerformances());
-            ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
-            System.out.println("popped: " + undonePerformance);
-            this.history.getUndonePerformances().push(undonePerformance);
-            ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
-            System.out.println("peek: " + afterUndonePerformance);
-            this.performance.resetData(this.getPerformanceDeepCopy(afterUndonePerformance));
+            this.history.undoAthletickStack(athletick);
+            this.history.undoTrainingStack(attendance, this);
+        } else if (undoneCommand instanceof ClearCommand) {
+            this.history.undoPerformanceStack(performance, this);
+            this.history.undoAthletickStack(athletick);
+            this.history.undoTrainingStack(attendance, this);
         } else {
-            ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
-            athletick.resetData(afterUndoneState);
+            this.history.undoAthletickStack(athletick);
         }
         return undoneCommand;
     }
     @Override
     public Command redo() {
-        Command redoneCommand = this.history.getUndoneCommands().pop();
-        ReadOnlyAthletick redoneAthletick = this.history.getUndoneAddressBooks().pop();
+        Command redoneCommand = this.history.popLatestUndoneCommand();
+        ReadOnlyAthletick redoneAthletick = this.history.popLatestUndoneAthletick();
         this.history.getCommands().push(redoneCommand);
         this.history.getAddressBooks().push(redoneAthletick);
-        if (redoneCommand instanceof TrainingCommand || redoneCommand instanceof DeleteTrainingCommand) {
-            List<Training> redoneTrainingLists = getTrainingsDeepCopy(this.history.getUndoneTrainingLists().pop());
-            this.history.getTrainingLists().push(redoneTrainingLists);
-            attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+        if (commandUnderTraining(redoneCommand)) {
+            this.history.redoTrainingStack(attendance, this);
         } else if (redoneCommand instanceof EditCommand) {
-            List<Training> redoneTrainingLists = getTrainingsDeepCopy(this.history.getUndoneTrainingLists().pop());
-            this.history.getTrainingLists().push(redoneTrainingLists);
-            attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+            this.history.redoTrainingStack(attendance, this);
             athletick.resetData(redoneAthletick);
-        } else if (redoneCommand instanceof EventCommand || redoneCommand instanceof PerformanceCommand
-            || redoneCommand instanceof DeleteEventCommand || redoneCommand instanceof DeleteRecordCommand) {
-            ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
-            this.history.getPerformances().push(redonePerformance);
-            this.performance.resetData(this.getPerformanceDeepCopy(redonePerformance));
+        } else if (commandUnderPerformance(redoneCommand)) {
+            this.history.redoPerformanceStack(performance, this);
+        } else if (redoneCommand instanceof ClearCommand) {
+            this.history.redoPerformanceStack(performance, this);
+            this.history.redoTrainingStack(attendance, this);
+            athletick.resetData(redoneAthletick);
         } else {
             athletick.resetData(redoneAthletick);
         }
         return redoneCommand;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return athletick.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        athletick.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        athletick.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        athletick.setPerson(target, editedPerson);
-    }
-
-    @Override
-    public Person selectPerson() {
-        return selectedPerson;
-    }
-
-    public void storePerson(Person person) {
-        selectedPerson = person;
-    }
-
-    public void sortAthletickByName() {
-        this.athletick.sortByName();
     }
 
     //=========== Filtered Person List Accessors =============================================================
