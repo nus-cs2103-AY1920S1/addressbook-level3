@@ -1,7 +1,6 @@
 package com.typee.logic.parser;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.CalendarCloseDisplayCommand;
@@ -61,6 +60,12 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         return new CalendarOpenDisplayCommand(date);
     }
 
+    /**
+     * Prepares a {@code CalendarCloseDisplayCommand} based on the specified arguments.
+     * @param individualArgs The specified arguments.
+     * @return A {@code CalendarCloseDisplayCommand} based on the specified arguments.
+     * @throws ParseException If the specified arguments are invalid.
+     */
     private CalendarCloseDisplayCommand prepareCalendarCloseDisplayCommand(
             String[] individualArgs) throws ParseException {
         if (individualArgs.length != 2) {

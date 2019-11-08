@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 
+import com.typee.commons.util.DateUtil;
 import com.typee.model.Model;
 
 /**
@@ -25,10 +26,7 @@ public class CalendarCloseDisplayCommand extends CalendarCommand {
 
     @Override
     public CommandResult execute(Model model) {
-        String dayString = String.format("%02d", date.getDayOfMonth());
-        String monthString = String.format("%02d", date.getMonthValue());
-        String yearString = String.format("%04d", date.getYear());
-        String formattedDateString = String.format("%s/%s/%s", dayString, monthString, yearString);
+        String formattedDateString = DateUtil.getFormattedDateString(date);
         return new CommandResult(MESSAGE_SUCCESS + formattedDateString, true, date, COMMAND_WORD);
     }
 
