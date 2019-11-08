@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 /**
  * A controller for the container of rows of test cases used during JavaCard creation.
  */
-public class JavaTestCaseInputBox extends ScrollPane {
+public class JavaTestCaseInputBox extends VBox {
     @FXML
     private VBox testCaseBox;
 
