@@ -13,7 +13,9 @@ public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should have at least one correct answer"
             + " and no wrong answers.";
-    public static final String MESSAGE_EXIT_ERROR = "The answer cannot be 'exit'";
+    public static final String MESSAGE_INVALID_ANSWER_EXIT = "The answer cannot be 'exit'. "
+            + "'Exit' is a special command";
+    public static final String MESSAGE_INVALID_ANSWER = "Answers should not appear in the question.";
 
     /**
      * Every field must be present and not null.

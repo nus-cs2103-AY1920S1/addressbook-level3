@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -172,7 +173,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     private boolean areSaqAnswersValid(ArrayList<Answer> answerList) throws ParseException {
         for (Answer answer : answerList) {
             if (answer.getAnswer().toLowerCase().trim().equals("exit")) {
-                throw new ParseException(Saq.MESSAGE_EXIT_ERROR);
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER_EXIT);
+            }
+
+            if (FuzzySearch.tokenSetRatio(answer.getAnswer(), question.question) == 100) {
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER);
             }
         }
         return true;

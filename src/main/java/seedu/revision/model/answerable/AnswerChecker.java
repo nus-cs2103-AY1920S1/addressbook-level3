@@ -30,10 +30,11 @@ public class AnswerChecker {
      * Processes the question of current answerable and return as a list of tokenized words
      * It will return list of type CoreLabel
      * @param question String of the question
-     * @return List contraining each words of the question
+     * @return List containing each words of the question
      */
     private static List<CoreLabel> processQuestion(String question) {
-        CoreDocument coreDocument = new CoreDocument(question.toLowerCase().trim());
+        CoreDocument coreDocument = new CoreDocument(question.replaceAll("\\s*\\p{Punct}+\\s*$", "")
+                .toLowerCase().trim());
         pipeline.annotate(coreDocument);
         List<CoreLabel> coreLabelList = coreDocument.tokens();
 
@@ -156,6 +157,10 @@ public class AnswerChecker {
         ArrayList<Answer> correctAnswerList = answerable.getCorrectAnswerList();
 
         userInput = processString(userInput);
+
+        if (userInput.isBlank()) {
+            return false;
+        }
 
         for (Answer answer : correctAnswerList) {
             String correctAnswer = processString(answer.getAnswer());
