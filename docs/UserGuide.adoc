@@ -1,4 +1,24 @@
-= MyProject User Guide:
+= MyProject
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://ay1920s1-cs2103t-t17-1.github.io/main/
+
+By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
+
+Team: *T17-1*
+
+*Content*
 
 == Introduction:
 
