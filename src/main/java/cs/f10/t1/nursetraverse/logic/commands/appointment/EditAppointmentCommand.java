@@ -19,7 +19,6 @@ import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
-import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
