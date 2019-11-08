@@ -21,7 +21,7 @@ Main features of LiBerry:
 This portfolio serves to demonstrate my proficiency in the various aspects of software engineering such as coding,
 technical writing skills in crafting documentation that fits the target user and also, my project management capabilities. +
 
-My role was to design and implement the code for the loan related features. The following sections further elaborates on these
+My role was to design and implement the code for the loan-related features. The following sections further elaborates on these
 enhancements I have made. Also included are the details of the relevant documentation I have written in the user and developer guide to
 assist users and other developers to understand these features.
 
@@ -34,17 +34,16 @@ I have added features related to the loaning and returning of books in our libra
 
 ==== What it does
 
-This set of features allow our users, librarians, to *loan* out books to borrowers, *return* loaned out books, *renew* loaned
-out books, and to record payments of *fines* incurred for overdue books. +
-
-Every time a book is borrowed, both the starting date and due date of the loan are automatically recorded. For each loaned
-out book, other than the details of the book and the borrower, the starting date, due date, and returning date,
-along with the number of times it has been renewed and the fine incurred after returning are all meticulously tracked.
+This set of features allow our users, librarians, to `loan` out books to borrowers, `return` loaned out books, `renew` loaned
+out books such that their due dates are extended, and to `pay` fines incurred for overdue books. +
 
 ==== Justification
 
-As the main purpose of a library is to allow visitors to borrow books, these features are core to a library and are
-needed for a library to function.
+As the main purpose of a library is to allow visitors to borrow books, this feature set is core to a library and is
+needed for a library to function. The tracking of loaned out and returned books is key to managing a library. Allowing
+librarians to renew loaned out books can help them better serve borrowers who would want to read the books for a longer
+period of time. The fine system for overdue books also tie in nicely with many libraries' policy of charging fines
+to deter late returns.
 
 ==== Highlights
 
