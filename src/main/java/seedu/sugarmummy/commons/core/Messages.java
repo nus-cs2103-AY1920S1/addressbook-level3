@@ -64,9 +64,9 @@ public class Messages {
 
     //---Achievements---
     public static final String MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST = "You have attained new achievement(s) and "
-            + "lost one / some too! Key in the \'achvm\' command to view your updated list of achievements. :)";
+            + "lost one / some too! Key in the \'achvm\' command to view your updated list of achievements. =)";
     public static final String MESSAGE_ACHIEVEMENTS_ATTAINED = "You have attained new achievement(s)! Key in "
-            + "the \'achvm\' command to view your updated list of achievements. :)";
+            + "the \'achvm\' command to view your updated list of achievements. =)";
     public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
             + "the \'achvm\' command to view your updated list of achievements.";
 

@@ -79,7 +79,7 @@ public class MainDisplayPane {
                         newPaneIsToBeCreated);
             }
 
-        case ADD_FOOD:
+        case CHANGE_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
                 newPaneIsToBeCreated);
 

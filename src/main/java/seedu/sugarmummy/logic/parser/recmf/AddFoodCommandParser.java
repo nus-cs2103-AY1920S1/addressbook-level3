@@ -24,7 +24,7 @@ import seedu.sugarmummy.model.recmf.Sugar;
 import seedu.sugarmummy.model.recmf.exceptions.FoodNotSuitableException;
 
 /**
- * Parses input arguments and creates a new AddFoodCommand object
+ * Parses input arguments and creates a new AddFoodCommand object.
  */
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
 
