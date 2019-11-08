@@ -21,8 +21,8 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
         </Menu>
     </MenuBar>
-   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" prefWidth="100.0" VBox.vgrow="NEVER" />
-    <HBox id="header" alignment="CENTER">
+   <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" VBox.vgrow="NEVER" />
+    <HBox id="header" alignment="CENTER" VBox.vgrow="NEVER">
         <children>
             <VBox alignment="CENTER">
                 <children>
@@ -33,30 +33,32 @@
             </VBox>
         </children>
     </HBox>
-   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
-    <VBox style="-fx-background-color: fff;" />
-    <VBox style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
-      <StackPane id="scroll bar" fx:id="diaryListPanelPlaceholder" />
-   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" VBox.vgrow="NEVER" />
-    <VBox alignment="CENTER_RIGHT">
-        <children>
-            <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border">
+   <HBox minHeight="5.0" prefHeight="5.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9) linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" VBox.vgrow="NEVER" />
+   <HBox VBox.vgrow="ALWAYS">
+      <children>
+            <StackPane id="scroll bar" fx:id="diaryListPanelPlaceholder" HBox.hgrow="ALWAYS" />
+      </children>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="142.0" minHeight="5.0" prefHeight="5.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9) linear-gradient(to right, #f64f59, #c471ed, #12c2e9)linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
+   <HBox maxHeight="100.0" minHeight="100.0" prefWidth="100.0" VBox.vgrow="NEVER">
+      <children>
+            <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
             </StackPane>
-        </children>
-    </VBox>
-    <VBox>
-        <children>
+      </children>
+   </HBox>
+   <HBox VBox.vgrow="NEVER">
+      <children>
 
-            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
             </StackPane>
-        </children>
-    </VBox>
+      </children>
+   </HBox>
     <VBox.margin>
         <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
     </VBox.margin>
