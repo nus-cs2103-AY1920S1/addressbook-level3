@@ -327,7 +327,7 @@ Feature by
 
 === Finance Tracker
 Introducing the Finance Tracker feature of Jarvis - responsible for keeping track of all your purchases,
-monthly subscriptions and debts owed.
+monthly subscriptions and monthly spending amount.
 
 //todo: add a ui ss
 
@@ -446,70 +446,6 @@ export txt f/MyFile
 ----
 
 NOTE: Jarvis will export the file containing all expenditures to its current directory.
-
-==== Adding owed amounts: `owe` & `debt` [v2.0]
-A night out with friends usually ends in someone paying first and subsequently, splitting the tab with the rest of the
-group. If you need an easy way of remembered who owes whom, let `Jarvis` take care of your debts.
-
-`add-owe`: someone else paid the bill, and now you owe him/her.
-
-`add-debt`: you paid the bill, and now people owe you.
-
-Format:
-
-`add-owe d/DESCRIPTION n/PERSON a/AMOUNT`
-
-or
-
-`add-debt d/DESCRIPTION n/PERSON a/AMOUNT`
-
-===== Example
-----
-add-owe n/Jamie a/5.50
-add-debt n/Sean a/10
-----
-
-==== Splitting a Tab: `add-tab` [v2.0]
-You settled the bill first this time? Let `Jarvis` do the math!
-
-Format: `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
-
-===== Example
-----
-add-tab d/pizza party a/20 n/Alice n/Bob n/Charlie
-----
-
-NOTE: The above example is equivalent to adding these commands separately: +
-`add paid d/pizza party a/5` +
-`add-debt n/Alice a/5` +
-`add-debt n/Bob a/5` +
-`add-debt n/Charlie a/5`
-
-
-==== Mark a debt/owe as paid: `paid-debt` - [v2.0]
-Updating settled debts can be easily done through `paid-debt`. Soon `Jarvis` will be able to mark your debts or owed
-amounts as done.
-
-`done-owe` should be used when someone has paid you back for money they have owed you.
-
-`done-debt` should be used when you have paid someone back from money you owed them.
-
-Format:
-
-`done-debt INDEX`
-
-or
-
-`done-owe INDEX`
-
-where `INDEX` corresponds to the *one based* index shown on the list of debts under the Finance tab. This also
-means that the index must exist within this list!
-
-===== Example
-----
-done-owe INDEX 1
-done-debt INDEX 2
-----
 
 ////
 CCA tracker
@@ -873,11 +809,13 @@ A convenient summary of all the commands you can use in `Jarvis`.
 * `set-limit a/AMOUNT`
 * `list-finances`
 * `export {csv | txt | xlsx} f/FILENAME` [v2.0]
-* `add-owe d/DESCRIPTION n/PERSON a/AMOUNT` [v2.0]
-* `add-debt d/DESCRIPTION n/PERSON a/AMOUNT` [v2.0]
-* `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
-* `done-debt INDEX`
-* `done-owe INDEX`
+
+=== Course Planner
+
+* `add-course c/COURSECODE...`
+* `delete-course {c/COURSECODE | INDEX}`
+* `lookup c/COURSECODE`
+* `check c/COURSECODE`
 
 === Cca Tracker
 

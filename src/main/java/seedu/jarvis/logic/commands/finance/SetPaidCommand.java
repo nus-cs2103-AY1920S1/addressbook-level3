@@ -46,6 +46,11 @@ public class SetPaidCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this purchase: \n%1$s";
     public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Purchase was already deleted: %1$s";
 
+    public static final String MESSAGE_ALMOST_TO_LIMIT = "Note: You're almost at your spending limit for"
+            + " the month!\n" + MESSAGE_SUCCESS;
+    public static final String MESSAGE_OVERSPEND = "Note: You've reached your spending limit this month!"
+            + " Please change your monthly limit with the command 'set-limit'.\n" + MESSAGE_SUCCESS;
+
     public static final boolean HAS_INVERSE = true;
 
     private final Purchase toAdd;
@@ -107,6 +112,17 @@ public class SetPaidCommand extends Command {
 
         model.addPurchase(toAdd);
         model.setViewStatus(ViewType.LIST_FINANCE);
+
+        boolean hasSpendingLimit = model.getMonthlyLimit().isPresent();
+        if (hasSpendingLimit) {
+            boolean isReachingLimit = model.calculateRemainingAmount() < 50.0 && model.calculateRemainingAmount() > 0;
+            boolean hasExceededLimit = model.calculateRemainingAmount() <= 0;
+            if (isReachingLimit) {
+                return new CommandResult(String.format(MESSAGE_ALMOST_TO_LIMIT, toAdd), true);
+            } else if (hasExceededLimit) {
+                return new CommandResult(String.format(MESSAGE_OVERSPEND, toAdd), true);
+            }
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }

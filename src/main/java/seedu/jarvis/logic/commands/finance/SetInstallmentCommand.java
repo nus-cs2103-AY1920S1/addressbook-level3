@@ -47,6 +47,16 @@ public class SetInstallmentCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this installment: %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment was already deleted: %1$s";
 
+    public static final String MESSAGE_ALMOST_TO_LIMIT = "Note: You're almost at your spending limit for"
+            + " the month!\n" + MESSAGE_SUCCESS;
+    public static final String MESSAGE_OVERSPEND = "Note: You've reached your spending limit this month!"
+            + " Please change your monthly limit with the command 'set-limit'.\n" + MESSAGE_SUCCESS;
+
+    public static final String MESSAGE_ALMOST_TO_LIMIT_SIMILAR = "Note: You're almost at your spending limit for"
+            + " the month!\n" + MESSAGE_SUCCESS_WITH_WARNING;
+    public static final String MESSAGE_OVERSPEND_SIMILAR = "Note: You've reached your spending limit this month!"
+            + " Please change your monthly limit with the command 'set-limit'.\n" + MESSAGE_SUCCESS_WITH_WARNING;
+
     public static final boolean HAS_INVERSE = true;
 
     private final Installment toAdd;
@@ -111,8 +121,29 @@ public class SetInstallmentCommand extends Command {
         model.addInstallment(toAdd);
         model.setViewStatus(ViewType.LIST_FINANCE);
 
+        boolean hasSpendingLimit = model.getMonthlyLimit().isPresent();
+
         if (doesSimilarInstallmentExist) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, toAdd), true);
+            boolean isReachingLimit = model.calculateRemainingAmount() < 50.0 && model.calculateRemainingAmount() > 0;
+            boolean hasExceededLimit = model.calculateRemainingAmount() <= 0;
+
+            if (hasSpendingLimit && isReachingLimit) {
+                return new CommandResult(String.format(MESSAGE_ALMOST_TO_LIMIT_SIMILAR, toAdd), true);
+            } else if (hasSpendingLimit && hasExceededLimit) {
+                return new CommandResult(String.format(MESSAGE_OVERSPEND_SIMILAR, toAdd), true);
+            } else {
+                return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, toAdd), true);
+            }
+        }
+
+        if (hasSpendingLimit) {
+            boolean isReachingLimit = model.calculateRemainingAmount() < 50.0 && model.calculateRemainingAmount() > 0;
+            boolean hasExceededLimit = model.calculateRemainingAmount() <= 0;
+            if (isReachingLimit) {
+                return new CommandResult(String.format(MESSAGE_ALMOST_TO_LIMIT, toAdd), true);
+            } else if (hasExceededLimit) {
+                return new CommandResult(String.format(MESSAGE_OVERSPEND, toAdd), true);
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
