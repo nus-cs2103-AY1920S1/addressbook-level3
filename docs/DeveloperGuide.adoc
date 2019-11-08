@@ -348,6 +348,60 @@ no additional sorting needed when adding or editing new elements.
 ** Cons: Have to create and add all the tasks into another PriorityQueue if the sorting order were to be changed. Harder to implement.
 
 
+
+
+
+=== Sending Reminder feature
+==== Description of feature
+
+Sends reminder for tasks and meetings that are due in the number of days given by the user input.
+
+The basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail which is responsible for sending all kinds of email to a given recipient(s). User's email account information is stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email. Currently, only gmail server has been made available for use in sending the emails.
+
+[NOTE]
+User Email  Account Information is stored through the signIn command.
+
+==== Details
+SendReminder takes in a single integer as parameter. The integer will be the duration in days from the current times in which the meetings and tasks are due.
+
+The following sequence diagram shows the process of sending reminder to the project members.
+
+.Sequence Diagram for sendReminder
+image::SendReminderSequenceDiagram.png[]
+
+These are the stages shown in figure 9. Stages are similar for sort spending as well.
+
+. Parses the input to obtain the duration.
+. Goes to `Model` to get the the Meetings and Tasks.
+. Obtains list of tasks and meetings which are due in the duration time.
+. Goes to `Model` to get the members in the project.
+. Sends email to all the members about the upcoming meetings and tasks in the project.
+. Display the success message.
+
+.Activity Diagram for sortTask
+image::SendReminderActivityDiagram.png[]
+
+The diagram above shows how sendReminder works. There are 2 possible error messages that can occur. Firstly,
+if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
+an error will be shown if the user non-numeric number as the duration of time.
+
+
+==== Design considerations
+
+===== Aspect: Data structure to support the sort commands
+
+
+* **Alternative 1:** Storing List<Person> in the Project for members.
+** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of 
+members' names in the project.
+** Cons: Introduces coupling and may cause unwanted bugs due to cyclic depencdencies as Project contains Person and 
+Person contains Project.
+* **Alternative 2:** Stores members as List<String> of members names.
+** Pros: Reduces coupling and and eliminates cyclic dependencies between Project and Person object..
+** Cons: Have to hash the members object in the addressBook by names and go through the List<String> of members'
+names one by one to get the Person object of the member. Harder to implement.
+
+
 === Generate meeting timeslot
 ==== Description of Feature
 
