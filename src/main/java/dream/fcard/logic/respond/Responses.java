@@ -513,7 +513,7 @@ public enum Responses {
                             StatsDisplayUtil
                                     .openDeckStatisticsWindow(StateHolder.getState().getDeck(
                                             res.get(0).get(0).trim()));
-                        } catch(DeckNotFoundException e) {
+                        } catch (DeckNotFoundException e) {
                             return false;
                         }
                         return true;
