@@ -82,8 +82,8 @@ public class CommandTestUtil {
     public static final String VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN = "20-Jan-2020";
     public static final String VALID_ORGAN_EXPIRY_DATE_DONOR_JOHNY = "21-Jan-2020";
 
-    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_BOB = "S1111111A";
-    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE = "S1231231B";
+    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_BOB = "S8162183G";
+    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE = "F1289064T";
 
     public static final String VALID_STATUS_DONOR_JOHN = Status.STATUS_NOT_PROCESSING;
     public static final String VALID_STATUS_PATIENT_IRENE = Status.STATUS_NOT_PROCESSING;

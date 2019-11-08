@@ -13,7 +13,6 @@ import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import organice.logic.commands.AddCommand;
@@ -57,12 +56,14 @@ public class FormUiManager {
     private static final String PROMPT_DOCTOR_IC = "Enter doctor in charge's nric:\n";
     private static final String PROMPT_ORGAN_EXPIRY_DATE = "Enter organ expiry date:\n";
     private static final String PROMPT_DONE = "Please ensure you have typed in the correct details."
-            + "\nYou can only type in '/done' to confirm, '/abort' to abort the form, or 'undo' to undo your "
-                    + "previous entry!";
+            + "\nYou can only type in '/done' to confirm, '/abort' to abort the form,  '/undo' to undo your "
+                    + "previous entry, or '/exit' to exit the application";
 
     private static final String MESSAGE_ABORT = "Form successfully aborted!";
     private static final String MESSAGE_UNDO_SUCCESS = "Successfully undo the previous entry!";
     private static final String MESSAGE_UNDO_ERROR = "You can't undo at this stage!";
+    private static final String MESSAGE_SPECIAL_COMMAND = "Here are some special commands you can use: "
+            + "'/undo' to undo your last entry, '/exit' to exit the application, and '/abort' to abandon the form.";
 
     private MainWindow mainWindow;
     private Type formType;
@@ -70,7 +71,7 @@ public class FormUiManager {
     private Logger logger;
 
     // For undo feature purpose
-    private LinkedList<String> history = new LinkedList<>();
+    private ArrayList<String> history = new ArrayList<>();
     private int currentState = -1;
 
 
@@ -359,7 +360,11 @@ public class FormUiManager {
     private void getPersonField(CommandBox commandBox, String prompt) {
         mainWindow.getCommandBoxPlaceholder().getChildren().clear();
         mainWindow.getCommandBoxPlaceholder().getChildren().add(commandBox.getRoot());
-        mainWindow.getResultDisplay().setFeedbackToUser(prompt);
+        if (prompt == PROMPT_DONE) {
+            mainWindow.getResultDisplay().setFeedbackToUser(prompt);
+        } else {
+            mainWindow.getResultDisplay().setFeedbackToUser(prompt + "\n" + MESSAGE_SPECIAL_COMMAND);
+        }
     }
 
     public void getPersonDetails() {
@@ -458,7 +463,11 @@ public class FormUiManager {
         mainWindow.getForm().increaseProgress();
         currentState++;
         history.add(currentState, formField);
-        FormAnimation.typingAnimation(mainWindow, fieldValue, formField);
+        if (formField.equals(FormField.NAME)) { //Name is case sensitive while the rest is not
+            FormAnimation.typingAnimation(mainWindow, fieldValue, formField);
+        } else {
+            FormAnimation.typingAnimation(mainWindow, fieldValue.toUpperCase(), formField);
+        }
         logger.info(String.format("----------------[USER INPUT][%s: %s]", formField.toUpperCase(), fieldValue));
     }
 

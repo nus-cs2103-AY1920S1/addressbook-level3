@@ -9,9 +9,8 @@ import static organice.commons.util.AppUtil.checkArgument;
  */
 public class DoctorInCharge {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Doctor in charge's NRIC must start with a letter 'S/T/F/G', 7 numbers afterward "
-                    + "and its must end with a letter";
+    public static final String MESSAGE_CONSTRAINTS = "Doctor In Charge's Nric must be a valid Singaporean Nric "
+            + "that starts with any of 'S/T/F/G', has 7 numbers afterward and ends with a valid checksum letter.";
     public static final String MESSAGE_DOCTOR_NOT_FOUND = "We could not identify the doctor that you have specified."
             + " Please check and try again!";
     public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
@@ -33,7 +32,7 @@ public class DoctorInCharge {
      * Returns true if a given string is a valid doctor in charge.
      */
     public static boolean isValidDoctorInCharge(String test) {
-        return test.toUpperCase().matches(VALIDATION_REGEX);
+        return Nric.isValidNric(test);
     }
 
     @Override

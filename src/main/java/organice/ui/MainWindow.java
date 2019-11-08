@@ -171,6 +171,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void resetInnerParts() {
         personListPanelPlaceholder.getChildren().clear();
+        personListPanel = new PersonListPanel(logic.getDisplayedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         commandBoxPlaceholder.getChildren().clear();

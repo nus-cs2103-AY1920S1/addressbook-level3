@@ -188,11 +188,10 @@ public class PatientForm extends UiPart<Region> implements Form {
             + " " + PREFIX_DOCTOR_IN_CHARGE + doctorIc.getText();
 
         mainWindow.getLogic().execute(addCommand);
+        mainWindow.resetInnerParts();
         FormAnimation.fadingAnimation(mainWindow);
         mainWindow.executeCommand(matchCommand);
         mainWindow.getCommandBoxPlaceholder().getChildren().add(mainWindow.getCommandBox().getRoot());
-        mainWindow.getCommandBox().requestFocus();
-        mainWindow.getResultDisplayPlaceholder().setMinHeight(200);
     }
 
     public void setAge(String age) {
