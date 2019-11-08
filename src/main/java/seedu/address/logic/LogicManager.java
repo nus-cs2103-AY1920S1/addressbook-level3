@@ -8,15 +8,10 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteEventCommand;
-import seedu.address.logic.commands.DeleteRecordCommand;
-import seedu.address.logic.commands.DeleteTrainingCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EventCommand;
-import seedu.address.logic.commands.PerformanceCommand;
-import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AthletickParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -52,16 +47,18 @@ public class LogicManager implements Logic {
         Command command = athletickParser.parseCommand(commandText);
         HistoryManager history = model.getHistory();
         commandResult = command.execute(model);
-        if (command instanceof DeleteTrainingCommand || command instanceof TrainingCommand
-            || command instanceof EditCommand) {
-            history.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        if (model.commandUnderTraining(command) || command instanceof EditCommand) {
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
-        if (command instanceof EventCommand || command instanceof PerformanceCommand
-            || command instanceof DeleteEventCommand || command instanceof DeleteRecordCommand) {
-            history.getPerformances().push(model.getPerformanceDeepCopy(model.getPerformance()));
+        if (model.commandUnderPerformance(command)) {
+            history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
         }
-        history.getCommands().push(command);
-        history.getAddressBooks().push(model.getAthletickDeepCopy());
+        if (command instanceof ClearCommand) {
+            history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
+        }
+        history.pushCommand(command);
+        history.pushAthletick(model.getAthletickDeepCopy());
         try {
             storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());

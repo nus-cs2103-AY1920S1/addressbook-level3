@@ -46,14 +46,7 @@ public class Attendance {
             public int compare(Training first, Training second) {
                 AthletickDate firstDate = first.getDate();
                 AthletickDate secondDate = second.getDate();
-
-                if (!(firstDate.getYear() == secondDate.getYear())) {
-                    return firstDate.getYear() - secondDate.getYear();
-                } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
-                    return firstDate.getMonth() - secondDate.getMonth();
-                } else {
-                    return firstDate.getDay() - secondDate.getDay();
-                }
+                return AthletickDate.compareDate(firstDate, secondDate);
             }
         });
     }

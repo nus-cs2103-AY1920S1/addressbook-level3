@@ -236,6 +236,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
+        public boolean commandUnderTraining(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean commandUnderPerformance(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public Command undo() {
             throw new AssertionError("This method should not be called.");
         }
@@ -303,6 +311,9 @@ public class AddCommandTest {
         public ArrayList<Event> getAthleteEvents(Person person) {
             return null;
         }
+
+        @Override
+        public void editPersonPerformanceRecords(Person target, Person editedPerson) { }
     }
 
     /**

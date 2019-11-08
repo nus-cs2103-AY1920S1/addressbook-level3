@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Undo the most recent undoable Command.
@@ -43,6 +44,9 @@ public class UndoCommand extends Command {
         } else if (undoneCommand instanceof DeleteRecordCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!", ((DeleteRecordCommand) undoneCommand).getDate(), model);
+        } else if (undoneCommand instanceof ClearCommand) {
+            return new CommandResult(MESSAGE_SUCCESS + undoneCommand
+                + " Success!", new Feature("calendar"), model);
         } else {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!");
