@@ -358,7 +358,7 @@
     -fx-vgap: 3;
 }
 
-#budgetDetails .label {
+#budgetDetails, #amounts .label {
     -fx-text-fill: white;
     -fx-background-color: #56ae87;
     -fx-padding: 1 3 1 3;
@@ -378,6 +378,8 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+    -fx-hgap: 7;
+    -fx-vgap: 3;
 }
 
 #people {
