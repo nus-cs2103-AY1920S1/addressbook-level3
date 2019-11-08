@@ -2,6 +2,7 @@ package com.typee.logic.interactive.parser.state;
 
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,7 @@ public class CloseDisplayStateTest {
 
     @Test
     public void isEndState() {
-        assertEquals(closeDisplayState.isEndState(), false);
+        assertFalse(closeDisplayState.isEndState());
     }
 
     @Test
