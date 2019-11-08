@@ -24,7 +24,7 @@ public class Flashcard extends StudyBuddyItem {
      */
     public Flashcard(Question question, Answer answer, Title title, Set<Tag> tags) {
         super(tags);
-        requireAllNonNull(question, answer, tags);
+        requireAllNonNull(question, answer, title, tags);
         this.question = question;
         this.answer = answer;
         this.title = title;
