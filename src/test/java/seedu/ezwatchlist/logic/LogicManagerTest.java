@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX;
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX;
+import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 import java.io.IOException;

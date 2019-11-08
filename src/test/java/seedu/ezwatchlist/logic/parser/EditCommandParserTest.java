@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.logic.parser;
 
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
