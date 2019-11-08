@@ -125,6 +125,13 @@ public class TypicalLogEntries {
             .withCats(VALID_CAT_PRESENT)
             .withPlace(VALID_PLACE_LOG2)
             .withPerson(VALID_FROM_LOG2).buildLend();
+    public static final LogEntry LOG05 = new LogEntryBuilder().withAmount(VALID_AMOUNT_LOG2)
+            .withTransactionDate(VALID_TDATE_LOG2)
+            .withDescription(VALID_DESC_LOG2)
+            .withTransactionMethod(VALID_TMET_LOG2)
+            .withCats(VALID_CAT_PRESENT)
+            .withPlace(VALID_PLACE_LOG2)
+            .withPerson(VALID_FROM_LOG2).buildSpend();
 
     public static final String KEYWORD_MATCHING_VITASOY = "Vitasoy"; // A keyword that matches VITASOY
 
