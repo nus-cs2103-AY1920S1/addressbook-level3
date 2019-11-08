@@ -37,7 +37,7 @@ public class CommandBox extends UiPart<Region> {
      * @param commandExecutor To execute the command.
      * @param mainWindow Is to see if commandBox is in main or quiz mode.
      */
-    public CommandBox(CommandExecutor commandExecutor, Boolean mainWindow) {
+    public CommandBox(CommandExecutor commandExecutor, boolean mainWindow) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         if (mainWindow) {

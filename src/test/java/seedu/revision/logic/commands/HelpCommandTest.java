@@ -6,6 +6,7 @@ import static seedu.revision.logic.commands.main.HelpCommand.SHOWING_HELP_MESSAG
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -17,8 +18,8 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(SHOWING_HELP_MESSAGE)
-                .withHelp(true).withExit(false).build();
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(SHOWING_HELP_MESSAGE)
+                .withHelp(true).build();
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }

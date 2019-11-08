@@ -375,6 +375,10 @@
     -fx-font-size: 15;
 }
 
+.alert.warning.dialog-pane {
+    -fx-background-color: derive(#878784, 20%);
+}
+
 .alert.error.dialog-pane {
     -fx-background-color: derive(#878784, 20%);
     -fx-graphic: url("/images/tongue.png");

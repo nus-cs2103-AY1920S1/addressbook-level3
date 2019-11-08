@@ -19,10 +19,10 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.ui.answerables.AnswerableListPanel;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Parent Window. Provides the basic application layout containing a menu bar and space where other JavaFX
+ * elements can be placed. Other windows can extend this basic window layout.
  */
-public abstract class Window extends UiPart<Stage> {
+public abstract class ParentWindow extends UiPart<Stage> {
 
     protected Stage primaryStage;
     protected Logic logic;
@@ -50,7 +50,7 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(String fxml, Stage primaryStage, Logic logic) {
+    public ParentWindow(String fxml, Stage primaryStage, Logic logic) {
         super(fxml, primaryStage);
         this.primaryStage = primaryStage;
         this.logic = logic;
