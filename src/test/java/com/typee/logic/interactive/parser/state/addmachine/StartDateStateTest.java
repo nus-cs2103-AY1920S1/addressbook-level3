@@ -24,22 +24,27 @@ class StartDateStateTest {
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
 
-            // EP : Valid inputs - valid dates.
+            // Equivalence Partitions : valid dates.
 
-            List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE);
-            List<String> arguments = List.of("interview");
+            List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME);
+            List<String> firstArgs = List.of("interview", "14/07/2019/1631");
+            List<String> secondArgs = List.of("meeting", "22/12/2019/2358");
 
-            ArgumentMultimap firstMap = ArgumentMultimapBuilder.build(prefixes, arguments);
+            State firstState = new StartDateState(ArgumentMultimapBuilder.build(
+                    prefixes.subList(0, 1), firstArgs.subList(0, 1)));
+            State secondState = new StartDateState(ArgumentMultimapBuilder.build(
+                    prefixes.subList(0, 1), secondArgs.subList(0, 1)));
 
-            State firstState = new StartDateState(firstMap);
-            State firstPostTransitionState = firstState.transition(
-                    ArgumentMultimapBuilder.build(List.of(PREFIX_START_TIME), List.of("16/11/2019/1500")));
-
-            List<Prefix> newPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME);
-            List<String> newArgs = List.of("interview", "16/11/2019/1500");
+            State firstPostTransitionState = firstState.transition(ArgumentMultimapBuilder.build(
+                    prefixes.subList(1, 2), firstArgs.subList(1, 2)));
+            State secondPostTransitionState = secondState.transition(ArgumentMultimapBuilder.build(
+                    prefixes.subList(1, 2), secondArgs.subList(1, 2)));
 
             assertEquals(firstPostTransitionState, new EndDateState(
-                    ArgumentMultimapBuilder.build(newPrefixes, newArgs)));
+                    ArgumentMultimapBuilder.build(prefixes, firstArgs)));
+            assertEquals(secondPostTransitionState, new EndDateState(
+                    ArgumentMultimapBuilder.build(prefixes, secondArgs)));
+
         } catch (StateTransitionException e) {
             fail();
         }
@@ -49,15 +54,15 @@ class StartDateStateTest {
     void transition_validArgumentMultimapMultipleInputs_returnsPostTransitionState() {
         try {
 
-            // EP : Regular dates, leap years (test leap day)
+            // Equivalence Partitions : Regular dates, leap years (leap day)
 
             List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME,
                     PREFIX_END_TIME, PREFIX_LOCATION);
 
-            // Regular day
-            List<String> firstArgs = List.of("meeting", "15/11/2019/1400", "15/11/2019/1500", "COM-1");
+            // EP : Regular day
+            List<String> firstArgs = List.of("meeting", "30/11/2019/1400", "30/11/2019/1500", "COM-1");
 
-            // Leap day
+            // EP : Leap day
             List<String> secondArgs = List.of("meeting", "29/02/2016/1400", "15/11/2019/1500", "COM-1");
 
             State firstInitialState = new StartDateState(ArgumentMultimapBuilder.build(
@@ -84,26 +89,30 @@ class StartDateStateTest {
     @Test
     void transition_validArgumentMultiMapInvalidInput_throwsStateTransitionException() {
 
-        // EP : Invalid day for the month, invalid month, invalid year, invalid time, string that is not a date, null.
+        // Equivalence Partitions : Invalid day for the month, invalid month, invalid year, invalid time,
+        // string that is not a date, blank string, null.
         // Apply at most one invalid input heuristic for the tests.
 
         List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME);
-        // Invalid day of the month.
+        // EP : Invalid day of the month.
         List<String> firstArgs = List.of("appointment", "31/02/2015/1600");
 
-        // Invalid month.
+        // EP : Invalid month.
         List<String> secondArgs = List.of("appointment", "13/13/2018/1600");
 
-        // Invalid year.
+        // EP : Invalid year.
         List<String> thirdArgs = List.of("appointment", "13/12/0000/1600");
 
-        // Invalid time.
+        // EP : Invalid time.
         List<String> fourthArgs = List.of("appointment", "13/11/2018/2500");
 
-        // String that is not a date.
+        // EP : String that is not a date.
         List<String> fifthArgs = List.of("appointment", "hello");
 
-        // null
+        // EP : Blank string
+        List<String> sixthArgs = List.of("meeting", "   ");
+
+        // EP : null
         // null can't be tested as an input since ArgumentMultimap doesn't support null arguments.
 
         State firstState = new StartDateState(ArgumentMultimapBuilder.build(
@@ -116,6 +125,8 @@ class StartDateStateTest {
                 prefixes.subList(0, 1), fourthArgs.subList(0, 1)));
         State fifthState = new StartDateState(ArgumentMultimapBuilder.build(
                 prefixes.subList(0, 1), fifthArgs.subList(0, 1)));
+        State sixthState = new StartDateState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 1), sixthArgs.subList(0, 1)));
 
         assertThrows(StateTransitionException.class, () -> firstState.transition(
                 ArgumentMultimapBuilder.build(prefixes.subList(1, 2), firstArgs.subList(1, 2))));
@@ -127,6 +138,8 @@ class StartDateStateTest {
                 ArgumentMultimapBuilder.build(prefixes.subList(1, 2), fourthArgs.subList(1, 2))));
         assertThrows(StateTransitionException.class, () -> fifthState.transition(
                 ArgumentMultimapBuilder.build(prefixes.subList(1, 2), fifthArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> sixthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), sixthArgs.subList(1, 2))));
 
     }
 

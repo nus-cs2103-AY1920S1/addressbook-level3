@@ -73,13 +73,23 @@ class TypeStateTest {
     @Test
     void transition_validArgumentMultimapInvalidInput_throwsStateTransitionException() {
 
-        // EP : Regular invalid input
+        // Equivalence Partitions : Non-blank invalid input, blank input
 
-        ArgumentMultimap argumentMultimap = new ArgumentMultimap();
-        argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, "This is invalid.");
+        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE);
 
-        State initialState = new TypeState(new ArgumentMultimap());
-        assertThrows(StateTransitionException.class, () -> initialState.transition(argumentMultimap));
+        // EP : Non-blank invalid input
+        List<String> firstArgs = List.of("hahahaha");
+
+        // EP : Blank invalid input
+        List<String> secondArgs = List.of("   ");
+
+        State firstState = new TypeState(new ArgumentMultimap());
+        State secondState = new TypeState(new ArgumentMultimap());
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(
+                ArgumentMultimapBuilder.build(prefixes, firstArgs)));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(
+                ArgumentMultimapBuilder.build(prefixes, secondArgs)));
 
         // EP : null
 
