@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.elisa.logic.commands.ClearCommand;
+import seedu.elisa.logic.commands.ClearScreenCommand;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.DeleteCommand;
@@ -15,6 +16,7 @@ import seedu.elisa.logic.commands.DownCommand;
 import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.ExitCommand;
 import seedu.elisa.logic.commands.FindCommand;
+import seedu.elisa.logic.commands.GameCommand;
 import seedu.elisa.logic.commands.JokeCommand;
 import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
@@ -141,6 +143,9 @@ public class ElisaParser {
         case DownCommand.COMMAND_WORD:
             return new DownCommand();
 
+        case ClearScreenCommand.COMMAND_WORD:
+            return new ClearScreenCommand();
+
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(description, flags);
 
@@ -149,6 +154,9 @@ public class ElisaParser {
 
         case SnoozeCommand.COMMAND_WORD:
             return new SnoozeCommandParser().parse(description, flags);
+
+        case GameCommand.COMMAND_WORD:
+            return new GameCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
