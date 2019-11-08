@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="575.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dream.fcard.gui.controllers.windows.MainWindow">
+<VBox prefHeight="575.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dream.fcard.gui.controllers.windows.MainWindow">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
