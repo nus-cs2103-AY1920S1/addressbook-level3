@@ -106,9 +106,13 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+// tag::logicDiagram[]
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+
+// end::logicDiagram[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
