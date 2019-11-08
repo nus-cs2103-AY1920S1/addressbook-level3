@@ -349,17 +349,20 @@ Opens the first bookmark in the bookmark manager.
 
 // Context: When to use this command?
 If you're browsing the web and want to bookmark a website, you can do so using the `add` command.
+You can also use `add` to bookmark web pages using their URLs.
 
-Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
+Format: `*add* u/URL n/NAME [r/REMARK=-] [f/FOLDER=ROOT] [t/TAG]...​`
 
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* Type the name and URL of the bookmark to be added. `add u/this n/Homepage`
+* While surfing the Internet in Mark, input `add u/this n/Homepage` into the command box.
 +
 image::AddCommandUi1.png[]
 // online tab, showing mark User Guide
-* The bookmark is added and can be viewed in the bookmark list.
+* Observe that a bookmark of the current page has been added and is visible in the bookmark list.
+The new bookmark has the name `Homepage`. Since the folder and remark are not specified,
+it is added to the root folder and has the default remark "-".
 +
 image::AddCommandUi2.png[]
 
@@ -376,9 +379,15 @@ Other examples:
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
 f/CS2103T r/Contains textbook & important deadlines`
 +
+Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
+The new bookmark's remark is `Contains textbook & important deadlines`.
++
 image::AddCommandExample1.png[]
 
 * `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
++
+Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
+`video` and `watchLater`.
 +
 image::AddCommandExample2.png[]
 
