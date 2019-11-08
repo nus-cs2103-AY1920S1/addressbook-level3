@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Modulo Quiz
 
 == Overview
 
@@ -11,7 +11,7 @@ _Modulo_ - a java application that enable students to keep track of their studie
 by enabling them to create modules, plans, quizzes and managing their finances. The code is written in Java and
 the user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
-== Summary of contributions
+=== Summary of contributions
 
 * *Major enhancement*: added *the ability to switch application for different features*
 ** What it does: allows the user to switch logic, model, storage, and UI from one feature to another.
@@ -42,8 +42,8 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=victorvic54&sort=grou
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.1` - `v1.2.1` (3 releases) on GitHub
+** Project management: +
+Managed releases `v1.1` - `v1.2.1` (3 releases) on GitHub
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/104[#104]

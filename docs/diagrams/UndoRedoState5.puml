@@ -17,5 +17,5 @@ State2 -[hidden]right-> State3
 class Pointer as "Current State" #FFFFF
 
 Pointer -up-> State3
-note right on link: State ab2 deleted.
+note right on link: State qb2 deleted.
 @end

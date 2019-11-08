@@ -31,7 +31,7 @@ public class SampleDataUtil {
                 new Category("CS2132"), new Type("normal"),
                 getTagSet("tutorial")),
             new Question(new Name("What is it that goes up, but never comes down?"),
-                new Comment("The explanation is on lecture 20"), new Answer("Age"),
+                new Comment("The explanation is on lecture 20"), new Answer("Lorem ipsum"),
                 new Category("Random"), new Type("high"),
                 getTagSet("trivia"))
         };
