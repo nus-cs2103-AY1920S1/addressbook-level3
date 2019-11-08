@@ -474,7 +474,7 @@ public class Activity {
         }
 
         // We update the balance sheet
-        double splitAmount = amount / (involved.length + 1);
+        double splitAmount = expense.isSettlement() ? amount : amount / (involved.length + 1);
 
         // Revert the change made by addExpense
         IntStream.of(positionMask)
