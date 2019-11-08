@@ -121,7 +121,8 @@ public class SampleDataUtil {
                 getTagSet("DesignPrinciples"));
 
         Card card5 = new Card("5324524g", new Word("Cohesion"),
-                new Meaning("Measure of how strongly-related and focused the various responsibilities of a component are."),
+                new Meaning("Measure of how strongly-related and focused the various responsibilities of"
+                        + " a component are."),
                 getTagSet("DesignPrinciples"));
 
         Card card6 = new Card("dsgasd2arrads", new Word("Test Coverage"),
@@ -149,8 +150,8 @@ public class SampleDataUtil {
                 getTagSet("Easy"));
 
         Card card5 = new Card("hjklhji9hjil", new Word("Minimal spanning tree"),
-                new Meaning("What is the spanning tree which has the minimum weight among all the spanning trees of" +
-                        " a particular graph?"),
+                new Meaning("What is the spanning tree which has the minimum weight among all the spanning trees of"
+                        + " a particular graph?"),
                 getTagSet("Easy"));
 
         Card card6 = new Card("fhnfhtfhyn", new Word("n - m + l = 2"),

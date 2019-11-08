@@ -6,16 +6,21 @@ import java.util.Random;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.*;
+import seedu.address.ui.modules.CardListPanel;
+import seedu.address.ui.modules.GameResultPanel;
+import seedu.address.ui.modules.HintLabel;
+import seedu.address.ui.modules.LoadBankPanel;
+import seedu.address.ui.modules.MainTitlePanel;
+import seedu.address.ui.modules.QuestionLabel;
+import seedu.address.ui.modules.SettingsPanel;
+import seedu.address.ui.modules.WordBankCard;
+import seedu.address.ui.modules.WordBankStatisticsPanel;
 
 
 /**
@@ -66,8 +71,8 @@ public class ModularDisplay {
                 globalStats,
                 wbStatsList.getMostPlayedWordBankStatistics(),
                 avatarId == 0
-                ? new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1
-                : avatarId).getRoot());
+                        ? new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1
+                        : avatarId).getRoot());
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
@@ -92,9 +97,9 @@ public class ModularDisplay {
     /**
      * Changes to the game result.
      *
-     * @param paneToDisplay The view to change.
+     * @param paneToDisplay  The view to change.
      * @param gameStatistics The statistics to be shown in the game result panel.
-     * @param wbStatistics The overall word bank statistics.
+     * @param wbStatistics   The overall word bank statistics.
      */
     public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics,
                                  WordBankStatistics wbStatistics) {
@@ -121,6 +126,7 @@ public class ModularDisplay {
 
     /**
      * Creates and returns a {@code TwoSplitRowLayout} that contains the question and hint label.
+     *
      * @return
      */
     public TwoSplitRowLayout createQuestionHints() {
@@ -151,14 +157,14 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(createQuestionHints().getRoot());
     }
 
-     /**
+    /**
      * Registers a method that will be called by the ModularDisplay to simulate an Import or Export command as though
      * it were a user.
-      *
+     *
      * @param importCommandExecutor for import.
      * @param exportCommandExecutor for export.
      */
-     void registerDragAndDropCallBack(LoadBankPanel.LoadBankPanelDisplayExecuteCallBack importCommandExecutor,
+    void registerDragAndDropCallBack(LoadBankPanel.LoadBankPanelDisplayExecuteCallBack importCommandExecutor,
                                      WordBankCard.WordBankCardExecuteCallBack exportCommandExecutor) {
         requireAllNonNull(importCommandExecutor, exportCommandExecutor);
         loadBankPanel.registerDragAndDropCallBack(importCommandExecutor, exportCommandExecutor);

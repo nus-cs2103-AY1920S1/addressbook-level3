@@ -73,12 +73,12 @@ For the components UI, Logic, Model, Timer, Storage and Game:
 
 
 [discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+//==== How the architecture components interact with each other
+//
+//The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+//
+//.Component interactions for `delete 1` command
+//image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
@@ -614,10 +614,10 @@ This can be split into four complimentary distinct sections.
 
 They are: +
 
-** Word Bank’s data structure and storage +
-** User Commands +
-** Drag and Drop +
-** Revision Word Bank
+** Word bank’s data structure and it's storage system
+** User Commands
+** Drag and drop
+** Revision word bank
 
 {nbsp}
 
@@ -625,9 +625,12 @@ They are: +
 
 // tag::chenhui-section1[]
 
-==== Word Bank's data structure and storage
-In the following class diagrams which details the data structure and storage of `WordBankList`,
-observe closely the attributes and methods. +
+==== Word bank's data structure and it's storage system
+Allows developers to use and extend this architecture to streamline their feature implementation. +
+Allows user to save and load their word banks. +
+
+Observe closely the attributes and methods of the following class diagrams. +
+They describe and explain word bank's data structure and storage in detail. +
 Each of them are implemented with close examination so that it is easily usable and extended upon by other
 teammates/complimentary features.
 
@@ -882,7 +885,7 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
-==== Revision Word Bank
+==== Revision word bank
 Serves as a centralised bank that collects cards across different word banks through the game play.
 The update to revision word bank is done automatically after every game session. +
 

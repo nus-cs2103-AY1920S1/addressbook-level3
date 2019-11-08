@@ -17,7 +17,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
 
 /**
@@ -47,7 +46,7 @@ public class WordBankCard extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    private  WordBankCardExecuteCallBack commandExecutor;
+    private WordBankCardExecuteCallBack commandExecutor;
 
     /**
      * Card containing the details of the word bank.

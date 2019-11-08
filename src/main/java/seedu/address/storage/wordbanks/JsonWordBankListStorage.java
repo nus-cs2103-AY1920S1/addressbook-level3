@@ -99,6 +99,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         }
     }
 
+    /**
+     * Loads the default word banks for the user the first time Dukemon is launched.
+     */
     private void loadDefaultData() {
         WordBank pokemonWb = SampleDataUtil.getPokemonWordBank();
         WordBank arithmeticWb = SampleDataUtil.getArithmeticWordBank();

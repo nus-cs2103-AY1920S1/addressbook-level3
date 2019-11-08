@@ -1,5 +1,7 @@
 package seedu.address.ui.modules;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
@@ -18,10 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.Storage;
-import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Panel containing the list of word banks.

@@ -1,8 +1,8 @@
 //= image:chrischenhui.png[icon, 100, 100]
-= image:chrischenhui.png[width="150", height="150", align="left"] Chen Hui - Project Portfolio
+= image:chrischenhui.png[width="120", height="12", align="left"] Chen Hui - Project Portfolio
 :site-section: AboutUs
-:toc:
-:toc-title: Table of Contents
+//:toc:
+//:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: ../images/
@@ -14,7 +14,11 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-PROJECT: [https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]] image:address_book_32.png[icon, 25, 23]
+
+Project: image:address_book_32.png[icon, 25, 23] [https://github.com/AY1920S1-CS2103T-T11-2/main[_Dukemon_]]
+{nbsp} {nbsp} {nbsp}
+RepoSense: {empty} [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Chen Hui]]
+ [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=AY1920S1-CS2103T-T11-2&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Team]]
 
 Tutors: {empty}[https://github.com/jamessspanggg[James Pang]]
 {empty} [http://www.nus.edu.sg/celc/staff/anitatoh.html[Ms. Anita]]
@@ -28,62 +32,68 @@ Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
 {empty}[http://github.com/jascxx[Jason]]
 {empty}[http://github.com/dragontho[Paul]]
 
-image:chrischenhui.png[width="100", height="100", align="left"]
-image:kohyida1997.png[width="100", height="100", align="left"]
-image:sreesubbash.png[width="100", height="100", align="left"]
-image:jascxx.png[width="91", height="100", align="left"]
-image:dragontho.png[width="111", height="100", align="left"]
+image:chrischenhui.png[width="80", align="left"]
+image:kohyida1997.png[width="80", align="left"]
+image:sreesubbash.png[width="80", align="left"]
+image:jascxx.png[width="73", align="left"]
+image:dragontho.png[width="89", align="left"]
 
 ---
 
 == image:address_book_32.png[icon, 39, 36] Overview of _Dukemon_
+//== Overview of _Dukemon_
 
-.The Home Page of Dukemon upon initial start-up.
-image::DukemonWithMew.png[width="790"]
+._Dukemon_'s design.
+image::DukemonWithMewOnly.png[width="400"]
 
-_Dukemon_ aims to streamline and gamify the process of learning words or definitions through
-the use of self-created digital flashcards.
+_Dukemon_ is a desktop flashcard application, whose aim is to streamline and gamify
+the process of learning words and definitions. +
+The user interacts with it primarily through a CLI (Command Line Interface), with some GUI (Graphical User Interface) features.
 
-These flashcards are termed as `Cards`. +
-Every `Card` is contained in a `WordBank`.
+Allow me to brief you on some useful terms and to give you a context.
 
-General flow of program usage:
+1. Flashcards are termed as `Cards`. +
+2. A collective set of `Cards` are termed as `WordBank`.
 
-* Note taking phase
+3. A general flow of _Dukemon_'s usage is as follows:
 
-. User creates/selects a `WordBank`
-. User populates/edits the `WordBank` with `Cards`
+.. Note taking phase
 
-* Learning phase
+... User creates/selects a `WordBank`.
+... User populates the `WordBank` with `Cards`, or edit the `Cards`.
 
-. User starts the game using selected `WordBank`
-. Dukemon prompts questions, and user has to answer
-. Dukemon ends the game
-. User reviews performance from statistics page
+.. Learning phase
+
+... User starts the game using selected `WordBank`.
+... _Dukemon_ prompts the questions, and user has to answer accordingly.
+... _Dukemon_ ends the game.
+... User reviews performance from statistics page.
 
 == Summary of contributions
 
 === Major feature
 *Word Bank Management*.
 
-* Feature: +
-** Enables user to have full control over his word banks and cards through typed commands and
-graphical user interface. Behind the scenes, Dukemon manages your word banks automatically.
+* What it does: +
+** Enables user to have a high level management for his word banks and cards through CLI and GUI. +
+Is also semi-automated by _Dukemon_ to enhance user's learning experience. +
+Consist of four complementary distinct sections.
 
-. *Word Bank's data structure and storage*: +
+. *Word bank's data structure and it's storage system*: +
+Allows developers to use and extend this architecture to streamline their feature implementation. +
 Is implemented with a robust underlying `WordBankList` data structure, with it's own `WordBankListStorage`,
 along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise it's data.
 
 . *User Commands*: +
-Allows users to edit cards/word banks through `CardCommands`/ `WordBankCommands`.
+Allows users to edit cards/word banks through `CardCommands` / `WordBankCommands`.
 
-. *Drag and Drop*: +
-Supports sharing of word banks with friends. +
-User can export their word bank to their computer simply by dragging it out of Dukemon. +
-Likewise, drag a word bank file into Dukemon to import the word bank.
+. *Drag and drop*: +
+Allows user to export their word bank to their computer simply by dragging it out of _Dukemon_. +
+Likewise, it allows user to drag a word bank file into _Dukemon_ to import the word bank.
 
-. *Revision Word Bank*: +
-Serves as a centralised bank that collects cards across different word banks throughout the game play. +
+. *Revision word bank*: +
+Serves as a centralised bank that collects cards across different word banks throughout the game play,
+to enhance learning experience. +
 Cards that were answered wrongly are automatically added to this revision bank. +
 Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
 
@@ -91,15 +101,14 @@ Likewise, cards that were answered correctly during game play are automatically 
 
 * Justification:
 
-** Allowing user to edit his own card and grouping these cards according to topics (Word Banks) is
-essential for a self-typed flashcard app like Dukemon.
+** Management system is essential for a self-typed flashcard app like _Dukemon_.
 
 ** Well designed architecture and well implemented data structure streamlines integration with other features
-that builds on top of it. (statistics, settings, game modes)
+that builds on top of it. (statistics, game, settings)
+
+** Accelerates sharing of word banks with friends, thereby enhancing learning experience through sharing of knowledge/notes with friends.
 
 ** Revision bank improves learning experience for the user, by helping the user automatically aggregate cards that were answered wrongly.
-
-** Learning can be enhanced through sharing of knowledge/notes with friends. Drag and Drop feature accelerates this process.
 
 //{nbsp}
 
@@ -124,13 +133,14 @@ that builds on top of it. (statistics, settings, game modes)
 === Minor features
 ** Default word banks for new players.
 *** Three user friendly word banks for user to try out. (pokemon, arithmetic and trivia)
-*** They are created on the first launch of Dukemon, and behaves like normal word bank. (Can be removed)
+*** They are created on the first launch of _Dukemon_, and behaves like normal word bank. (Can be removed)
 
 ** Greatly improve user experience
 *** Played the game insane amount of times to design constructive feedback to display on the command box from the user perspective.
-*** Developed user friendly command usage feedback that guides the user to using Dukemon.
+*** Developed user friendly command usage feedback that guides the user to using _Dukemon_.
 
-** Automatically creation of folder for Dukemon related files if not present.
+
+** Automatically creation of folder for _Dukemon_ related files if not present.
 
 ** Preference.json file
 
@@ -138,7 +148,8 @@ that builds on top of it. (statistics, settings, game modes)
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions* :
-** Discovered and fixed multiple bugs across different parts of Dukemon.
+** Discovered and fixed multiple bugs across different parts of _Dukemon_.
+
 
 ** Project management:
 *** Selected members and formed the team. Went extra miles to bond the team through fine details.
@@ -179,7 +190,7 @@ _{you can add/remove categories in the list above}_
 
 //include::../UserGuide.adoc[tag=chenhui-commandusage]
 
-include::../UserGuide.adoc[tag=chenhui-commandsummary]
+//include::../UserGuide.adoc[tag=chenhui-commandsummary]
 
 == Contributions to the Developer Guide
 
