@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -50,7 +51,7 @@ class RenewCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build().addToLoanHistory(LOAN_7);
         catalog.addBook(onLoan);
 
         LoanRecords loanRecords = new LoanRecords();
@@ -152,6 +153,7 @@ class RenewCommandTest {
         model.setServingBorrower(borrower);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
+        LoanSlipUtil.clearSession();
 
         String actualMessage;
         try {

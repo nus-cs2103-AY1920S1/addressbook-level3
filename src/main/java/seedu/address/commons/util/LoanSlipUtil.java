@@ -110,6 +110,17 @@ public class LoanSlipUtil {
     }
 
     /**
+     * Returns true if book is in current session.
+     * @param book book to check against
+     * @return true if book is in current session.
+     */
+    public static boolean bookIsInSession(Book book) {
+        return loansInCurrentSession.stream()
+                .filter(loan -> loan.getBookSerialNumber().equals(book.getSerialNumber()))
+                .count() == 1;
+    }
+
+    /**
      * Unmounts a specific loan from the loan slip
      *
      * @param loan loan to be unmounted.

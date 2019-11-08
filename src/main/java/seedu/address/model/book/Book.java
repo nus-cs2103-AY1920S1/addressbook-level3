@@ -134,6 +134,25 @@ public class Book implements Comparable<Book> {
     }
 
     /**
+     * Renews a book.
+     * @param renewedLoan renewed loan to be updated in the book's loan history.
+     * @return a new renewed book.
+     */
+    public Book renewBook(Loan renewedLoan) {
+        assert this.isCurrentlyLoanedOut() : "Book is not on loan.";
+        Book holdingBook = new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                renewedLoan,
+                this.getGenres(),
+                this.getLoanHistory());
+        return holdingBook
+                .deleteFromLoanHistory(this.getLoan().get())
+                .addToLoanHistory(renewedLoan);
+    }
+
+    /**
      * Adds to the loan history of a book.
      *
      * @param loan {@code Loan} to be added into the history.

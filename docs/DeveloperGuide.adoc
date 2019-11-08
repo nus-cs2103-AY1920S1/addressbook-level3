@@ -56,7 +56,7 @@ In this section, we will explain the design and behaviour of the top-level compo
 This sub-section shows the *relationship* between the major components at the highest level, illustrated by the following diagram.
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[align=center]
 
 {nbsp} +
 
@@ -91,7 +91,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 {nbsp} +
 
 [discrete]
@@ -100,7 +100,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `add t/Animal Farm a/George`.
 
 .Component interactions for `add t/Animal Farm a/George` command
-image::AddBook.png[]
+image::AddBook.png[align=center]
 {nbsp} +
 
 In the diagram above, we can see how the components integrate together to execute a single command. +
@@ -114,7 +114,7 @@ This sub-section shows the structure of the User Interface (UI) and the relation
 The following diagram aims to illustrate how each UI sub-component is linked to one another.
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see the association between the different UI sub-components, as well as the classes that interact with the external `Logic` and `Model` components.
@@ -142,7 +142,7 @@ the UI component when the user enters an add command.
 The exact command entered is `add t/Animal Farm a/George`.
 
 .Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
-image::UiAddBookSequenceDiagram.png[]
+image::UiAddBookSequenceDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see how the UI components invoke the `execute` method of the `Logic` class in order to obtain and subsequently display the result of the execution.
@@ -162,7 +162,7 @@ In this sub-section, we will explain the internal workings of the `Logic` compon
 The following class diagram aims to show how the 'Command Design Pattern' is used to achieve a high-level form of encapsulation of the `Command` object.
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 {nbsp} +
 In the diagram above, we can see that the `LogicManager` executes the `Command` class without knowledge of what each command does. This is achieve through polymorphism where all possible commands extend from the `Command` class.
 
@@ -178,7 +178,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add t/Animal Farm a/George")` API call.
 
 .Interactions Inside the Logic Component for the `add t/Animal Farm a/George` Command
-image::AddBookLogicSequenceDiagram.png[]
+image::AddBookLogicSequenceDiagram.png[align=center]
 {nbsp} +
 In the diagram above, we can see that the `Logic` component's `execute` is invoked by the `UI` component from before. A series of method calls would invoke the `addBook` method of the `Model`, moving the chain of calls further downstream.
 
@@ -194,7 +194,7 @@ The `Model` component is mainly composed of the `Book`, `Borrower` and `Loan` cl
 The figure below shows the relationship between smaller components. These smaller components are modelled after real world objects.
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[align=center]
 {nbsp} +
 
 The figure illustrates the composition of the `Model` component. The `Model`,
@@ -219,7 +219,7 @@ The `Storage` component is responsible for updating the memory of the system (in
 The figure below aims to show the different records storage that are implemented in LiBerry.
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see that we are maintaining 4 different storages. These storages aim to keep the memory of:
@@ -298,6 +298,10 @@ We can see that the book holds a `Optional<Loan>` in order to have either *0 or 
 * **Alternative 2 (current choice):** Store them in a HashMap.
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
+
+We have decided to go with Alternative 2. In contrast to the original AddressBook3, there is much more retrieval of
+book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
+outweigh the additional memory costs to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
@@ -392,7 +396,7 @@ return an error to the user rather than attempting to perform the undo.
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo command
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[align=center]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X)
 but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -474,7 +478,7 @@ Essentially, it implements the following operations:
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
 .Sequence Diagram for the generation of a loan slip
-image::LoanSlipGeneration.png[]
+image::LoanSlipGeneration.png[align=center]
 {nbsp} +
 
 The following describes the sequence of events displayed in the figure above.
@@ -545,7 +549,7 @@ This feature is mainly facilitated by the `Loan` association class between a `Bo
 at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
-image::LoanObjectDiagram.png[width="800"]
+image::LoanObjectDiagram.png[width="800, align=center]
 {nbsp} +
 
 In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
@@ -562,7 +566,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
 .Activity diagram when a loan command is entered
-image::LoaningActivityDiagram.png[width="580"]
+image::LoaningActivityDiagram.png[width="580, align=center]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -585,7 +589,7 @@ Similarly, the new book object replaces the old book object in the `Catalog` obj
 The following activity diagram summarizes what happens when a user enters a return command:
 
 .Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width="700"]
+image::ReturningActivityDiagram.png[width="700, align=center]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -677,8 +681,8 @@ image::FindSequenceDiagram.png[width="840]
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-image:BookPredicateEmptyObjectDiagram.png[height="300"]
-image:BookPredicateFilledObjectDiagram.png[height="300"]
+image:BookPredicateEmptyObjectDiagram.png[height="300, align=center]
+image:BookPredicateFilledObjectDiagram.png[height="300, align=center]
 
 .Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
 
@@ -728,19 +732,19 @@ system is as followed: +
 Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.
 
 .Activity Diagram for registering a borrower
-image:RegisterBorrowerActivityDiagram.png[width=270]
+image:RegisterBorrowerActivityDiagram.png[width=270, align=center]
 {nbsp} +
 
 Given below is a class diagram of a book.
 
 .Class Diagram for `Borrower`
-image::BorrowerClassDiagram.png[width=400]
+image::BorrowerClassDiagram.png[width=400, align=center]
 {nbsp} +
 
 Given below is the object diagram of a newly registered borrower.
 
 .Object Diagram for `Borrower`
-image::BorrowerObjectDiagram.png[width=300]
+image::BorrowerObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
 ==== Design Considerations
@@ -894,39 +898,10 @@ I submit a book title query
 The use case diagram below illustrates the main use cases of LiBerry.
 
 .General Use Cases for LiBerry
-image::UseCases.png[width="330"]
+image::UseCases.png[width="330, align=center]
 {nbsp} +
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
-
-[discrete]
-==== Use case: Delete a book
-
-*MSS*
-
-1.  User searches for books by name, genre or author
-2.  LiBerry shows a list of books
-3.  User requests to delete a specific book in the list
-4.  LiBerry deletes the book
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-[none]
-Use case ends
-+
-{empty} +
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. LiBerry shows an error message.
-+
-Use case resumes at step 2.
-
 
 [discrete]
 ==== Use case: Add a book
@@ -945,10 +920,73 @@ Use case ends.
 +
 Use case ends.
 
-* 1b. Serial Number is not provided.
+*Extensions*
+[none]
+* 1b. The mandatory arguments are not provided.
 +
 [none]
-** 1b1. Serial Number is auto-generated.
+** 1b1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1c. Serial Number is not provided.
++
+[none]
+** 1c1. Serial Number is auto-generated.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Delete a book
+
+*MSS*
+
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to delete a specific book in the list
+4.  LiBerry deletes the book
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends
++
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. LiBerry shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Get information of a book
+
+*MSS*
+
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to view the information of a specific book from the list
+4.  Information regarding the book is displayed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+[none]
+Use case ends
++
+{empty} +
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. LiBerry shows an error message.
 +
 Use case resumes at step 2.
 
@@ -1028,7 +1066,7 @@ Use case ends.
 *MSS*
 
 1.  User enters unregister command for borrower by borrower ID
-3.  LiBerry unregisters the borrower
+2.  LiBerry unregisters the borrower
 +
 Use case ends.
 
