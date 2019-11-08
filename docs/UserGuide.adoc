@@ -563,6 +563,9 @@ Format: `pay EMPLOYEE_INDEX s/VALUE
 It must be a valid number.
 * VALUE is the amount of payment pay for the employee.
 * If the VALUE is larger than the money pending to pay, the payment would not be generated.
+* If the employee who has been paid for a past event has been removed from the allocation of a past event,
+the "Pending To Pay" value may become negative. You may not pay an employee who's current pending pay is negative,
+until the 'undo_pay' command is executed to reset the pending payment value to >= 0.
 ****
 
 Examples:
