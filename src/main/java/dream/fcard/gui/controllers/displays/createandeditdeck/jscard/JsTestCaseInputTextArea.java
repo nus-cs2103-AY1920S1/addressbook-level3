@@ -5,7 +5,6 @@ import java.io.IOException;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 
 /**
