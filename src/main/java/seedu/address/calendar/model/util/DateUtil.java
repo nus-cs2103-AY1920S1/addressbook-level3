@@ -88,7 +88,7 @@ public class DateUtil {
     }
 
     public static boolean isValidMonthNum(int montNum) {
-        return MonthOfYearUtil.isValidMonthNum(montNum);
+        return MonthOfYearUtil.isValidZeroBasedMonthNum(montNum);
     }
 
     public static MonthOfYear convertStrToMonth(String monthStr) {
@@ -96,7 +96,7 @@ public class DateUtil {
     }
 
     public static MonthOfYear convertNumToMonth(int zeroBasedMonth) {
-        return  MonthOfYearUtil.convertNumToMonth(zeroBasedMonth);
+        return  MonthOfYearUtil.convertZeroBasedNumToMonth(zeroBasedMonth);
     }
 
     /* The following is used for more specific month-and-day-related purposes. */
