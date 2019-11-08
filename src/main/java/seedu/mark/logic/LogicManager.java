@@ -139,10 +139,13 @@ public class LogicManager implements Logic {
         return model.getBookmarkDisplayingCacheProperty();
     }
 
+    @Override
     /**
      * Delete mark's timer.
      */
     public void closeMarkTimer() {
         model.closeTimer();
     }
+
+
 }

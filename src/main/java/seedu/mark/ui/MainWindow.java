@@ -2,6 +2,7 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -9,6 +10,8 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.controlsfx.control.Notifications;
 
 import javafx.application.Platform;
@@ -32,6 +35,7 @@ import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Reminder;
 
@@ -105,6 +109,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
         reminders = logic.getReminderList();
         displayReminderMessage();
     }
@@ -356,9 +361,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     private Notifications getNoti(Reminder reminder) {
         Notifications noti = Notifications.create();
-        noti.title(reminder.getNote().toString() + " " + reminder.getUrl().value);
-        noti.text("Due at : " + reminder.getFormattedTime());
+        noti.title("Reminder Notification");
 
+
+        String remindMessage = reminder.getNote().toString() + " " + reminder.getUrl().value + "\n"
+                + "Due at : " + reminder.getFormattedTime();
+        noti.text(remindMessage);
+        Image image = new Image("/images/bell.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        noti.graphic(imageView);
         noti.hideAfter(javafx.util.Duration.seconds(60));
         noti.position(Pos.BOTTOM_RIGHT);
 

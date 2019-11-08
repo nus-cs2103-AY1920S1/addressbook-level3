@@ -111,4 +111,5 @@ public interface Logic {
      * Delete expired reminders.
      */
     public void closeMarkTimer();
+
 }
