@@ -49,8 +49,6 @@ public class EditReminderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of selected Reminder "
             + "Existing values will be overwritten by the input values.\n"
             + "GeneralReminder Parameters: "
-            + PREFIX_TYPE + "INCOME OR EXPENSE "
-            + PREFIX_DESC + "REMINDER HEADER "
             + PREFIX_LOWER_BOUND + "LOWERBOUND FOR AMT "
             + PREFIX_UPPER_BOUND + "UPPERBOUND FOR AMT "
             + PREFIX_START_DATE + "START DATE "

@@ -1,19 +1,15 @@
 package seedu.guilttrip.ui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.messages.Notification;
 
 /**
  * An UI component that displays information of a {@code GeneralReminder}.
  */
-public class ReminderCard extends UiPart<Region> {
+public class NotificationCard extends UiPart<Region> {
     private static final String FXML = "ReminderListCard.fxml";
 
     /**
@@ -33,7 +29,7 @@ public class ReminderCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public ReminderCard(Notification notification, int displayedIndex) {
+    public NotificationCard(Notification notification, int displayedIndex) {
         super(FXML);
         this.notification = notification;
         id.setText(displayedIndex + ". ");
@@ -49,12 +45,12 @@ public class ReminderCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ReminderCard)) {
+        if (!(other instanceof NotificationCard)) {
             return false;
         }
 
         // state check
-        ReminderCard card = (ReminderCard) other;
+        NotificationCard card = (NotificationCard) other;
         return id.getText().equals(card.id.getText())
                 && notification.equals(card.notification);
     }

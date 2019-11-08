@@ -558,7 +558,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * {@code key} must exist in the guilttrip book.
      */
     public void removeEntry(Entry key) {
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -568,7 +567,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -578,7 +576,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -589,7 +586,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void removeWish(Wish key) {
         checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
         wishes.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -599,7 +595,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeBudget(Budget key) {
         budgets.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -609,7 +604,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeAutoExpense(AutoExpense key) {
         autoExpenses.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 

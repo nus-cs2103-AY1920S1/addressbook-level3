@@ -8,7 +8,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
-import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.messages.Notification;
 
 
@@ -39,7 +38,7 @@ public class NotificationPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ReminderCard(notification, getIndex() + 1).getRoot());
+                setGraphic(new NotificationCard(notification, getIndex() + 1).getRoot());
             }
         }
     }

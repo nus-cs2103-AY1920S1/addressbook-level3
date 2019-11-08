@@ -1,7 +1,5 @@
 package seedu.guilttrip.ui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -11,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.guilttrip.MainApp;
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
+import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.model.reminders.messages.Message;
@@ -18,7 +19,7 @@ import seedu.guilttrip.model.reminders.messages.Message;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui, PropertyChangeListener {
+public class UiManager implements Ui, ListenerSupport {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -87,7 +88,7 @@ public class UiManager implements Ui, PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(final PropertyChangeEvent evt) {
+    public void propertyChange(Evt evt) {
         this.mainWindow.displayPopUp((Message) evt.getNewValue());
     }
 }

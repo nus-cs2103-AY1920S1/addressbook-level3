@@ -3,20 +3,20 @@ package seedu.guilttrip.model.reminders;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
-import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.ui.UiManager;
+import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 
 
 /**
@@ -24,7 +24,7 @@ import seedu.guilttrip.ui.UiManager;
  * Supports a minimal set of list operations.
  *
  */
-public class ReminderList implements Iterable<Reminder>, PropertyChangeListener {
+public class ReminderList implements Iterable<Reminder>, ListenerSupport {
     private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
     private final ObservableList<Reminder> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -34,7 +34,8 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
 
     private Reminder reminderSelected;
 
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ObservableSupport support = new ObservableSupport();
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public Reminder getReminderSelected() {
         return reminderSelected;
@@ -60,9 +61,10 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
      * Adds a entry to the list.
      * The entry must not already exist in the list.
      */
-    public void add(GeneralReminder toAdd) {
+    public void add(Reminder toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        toAdd.addPropertyChangeListener(this);
         //internalList.sort(new sortByPriority());
     }
 
@@ -73,11 +75,12 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
      */
     public void setReminder(Reminder target, Reminder editedReminder) {
         requireAllNonNull(target, editedReminder);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EntryNotFoundException();
         }
+        target.removePropertyChangeListener(this);
+        editedReminder.addPropertyChangeListener(this);
         internalList.set(index, editedReminder);
     }
 
@@ -87,6 +90,7 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
      */
     public void remove(Reminder toRemove) {
         requireNonNull(toRemove);
+        toRemove.removePropertyChangeListener(this);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
@@ -120,18 +124,6 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
         return internalNotificationList;
     }
 
-    /**
-     * When an entry is removed, the corresponding Entry Specific GeneralReminder must be removed if present.
-     * @param entry
-     */
-    public void removeEntrySpecificReminder(Entry entry) {
-        if (entry.getTracker().isPresent()) {
-            EntrySpecificCondition condition = entry.getTracker().get();
-            for (PropertyChangeListener listener: condition.getSupport().getPropertyChangeListeners()) {
-                internalList.remove(listener);
-            }
-        }
-    }
 
     @Override
     public Iterator<Reminder> iterator() {
@@ -151,8 +143,9 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(Evt evt) {
         if (evt.getPropertyName().equals("statusChange")) {
+            logger.info("ReminderList notified of change of state.");
             Reminder reminder = (Reminder) evt.getNewValue();
             if (reminder.willDisplayPopUp()) {
                 Message message = reminder.getMessage();
@@ -162,6 +155,7 @@ public class ReminderList implements Iterable<Reminder>, PropertyChangeListener 
                 reminder.reset();
             }
             notificationList.add(reminder.genNotification());
+            logger.info("Noticiation added");
         }
     }
 }

@@ -21,8 +21,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_FREQ = new Prefix("f/", "FREQUENCY");
     public static final Prefix PREFIX_COORDINATES = new Prefix("c/", "COORDINATES");
     public static final Prefix PREFIX_BOOL = new Prefix("b/", "COORDINATES");
-    public static final Prefix PREFIX_UPPER_BOUND = new Prefix("u/", "UPPERBOUND");
-    public static final Prefix PREFIX_LOWER_BOUND = new Prefix("l/", "LOWERBOUND");
+    public static final Prefix PREFIX_UPPER_BOUND = new Prefix("u.b/", "UPPERBOUND");
+    public static final Prefix PREFIX_LOWER_BOUND = new Prefix("l.b/", "LOWERBOUND");
     public static final Prefix PREFIX_START_DATE = new Prefix("start/", "START_DATE");
     public static final Prefix PREFIX_END_DATE = new Prefix("end/", "END_DATE");
 }

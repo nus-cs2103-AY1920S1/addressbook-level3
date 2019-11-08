@@ -46,7 +46,7 @@ public class JsonAdaptedCondition {
                                 @JsonProperty("keywords") List<String> keywords,
                                 @JsonProperty("isLowerBound") boolean isLowerBound,
                                 @JsonProperty("lowerBound") double lowerBound,
-                                @JsonProperty("lowerBound") double upperBound,
+                                @JsonProperty("upperBound") double upperBound,
                                 @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.conditionType = conditionType;
         this.entryType = entryType;

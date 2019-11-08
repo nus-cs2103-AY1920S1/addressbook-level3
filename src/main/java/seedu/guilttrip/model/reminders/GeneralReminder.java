@@ -1,24 +1,21 @@
 package seedu.guilttrip.model.reminders;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.time.Period;
 import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.reminders.conditions.Condition;
-import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
 
 /**
  * Basic generalReminder class with minimal functionality.
  */
-public class GeneralReminder implements PropertyChangeListener, Reminder{
+public class GeneralReminder implements ListenerSupport, Reminder{
 
     private Description header;
 
@@ -29,11 +26,11 @@ public class GeneralReminder implements PropertyChangeListener, Reminder{
     private long numberOfConditionsMet = 0;
     private Status status = Status.unmet;
 
-    private boolean displayPopUp;
+    private boolean displayPopUp = false;
     private Message message;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ObservableSupport support = new ObservableSupport();
 
     //===== Constructor =====//
     public GeneralReminder(Description header, List<Condition> conditions) {
@@ -101,38 +98,46 @@ public class GeneralReminder implements PropertyChangeListener, Reminder{
      * @param evt
      */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(ObservableSupport.Evt evt) {
         if (evt.getPropertyName().equals("beingAdded")) {
-            logger.info("Condition met: Updating status");
             Entry entryExamined = (Entry) evt.getNewValue();
             if (status.equals(Status.unmet)) {
                 if (entryExamined == beingAdded) {
                     numberOfConditionsMet += 1;
+                    logger.info("Reminder Condition met: " + numberOfConditionsMet + " / " + numberOfConditions);
                 } else {
                     numberOfConditionsMet = 1;
+                    logger.info("Reminder Condition met: " + numberOfConditionsMet + " / " + numberOfConditions);
                     beingAdded = entryExamined;
                 }
                 if (numberOfConditionsMet == numberOfConditions) {
-                    message.update(entryExamined);
-                    support.firePropertyChange("statusChange", null, Status.met);
+                    if (message != null) {
+                        message.update(entryExamined);
+                    }
+                    logger.info("Notifying ReminderList: " + support.getPropertyChangeListeners().size());
+                    support.firePropertyChange("statusChange", null, this);
                     status = Status.met;
-                    logger.info("All condition met. Setting GeneralReminder status to " + status.toString());
+                    logger.info("All Reminder condition met. Setting GeneralReminder status to " + status.toString());
                 }
+                logger.info("IMPT:" + numberOfConditionsMet + " / " + numberOfConditions);
             }
         }
     }
 
-    public PropertyChangeSupport getSupport() {
+    public ObservableSupport getSupport() {
         return support;
     }
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    @Override
+    public void addPropertyChangeListener(ListenerSupport pcl) {
         support.addPropertyChangeListener(pcl);
     }
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    @Override
+    public void removePropertyChangeListener(ListenerSupport pcl) {
         support.removePropertyChangeListener(pcl);
     }
     // ===== generalReminder display behavior =====//
 
+    @Override
     public boolean willDisplayPopUp() {
         return displayPopUp;
     }
@@ -183,7 +188,9 @@ public class GeneralReminder implements PropertyChangeListener, Reminder{
 
     @Override
     public void reset() {
+        logger.info("reset");
         this.status = Status.unmet;
         this.numberOfConditionsMet = 0;
+        this.beingAdded = null;
     }
 }

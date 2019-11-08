@@ -64,7 +64,7 @@ public class AddGeneralReminderCommand extends Command {
     private Date start;
     private Date end;
     private Set<Tag> tagList;
-    private List<Condition> conditions;
+    private List<Condition> conditions = new ArrayList<>();
     private GeneralReminder reminder;
 
     /**
@@ -106,13 +106,6 @@ public class AddGeneralReminderCommand extends Command {
         conditions.add(new TagsCondition(tags));
     }
 
-    /**
-     * Creates an AddCommand to add the specified {@code GeneralReminder} with tracker.
-     */
-    public AddGeneralReminderCommand(
-            Description message, List<Index> conditionIndexes, Amount quota) {
-        this.message = message;
-    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

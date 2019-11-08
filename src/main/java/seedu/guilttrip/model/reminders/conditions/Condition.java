@@ -1,11 +1,11 @@
 package seedu.guilttrip.model.reminders.conditions;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
@@ -15,7 +15,7 @@ import seedu.guilttrip.model.entry.Entry;
 public abstract class Condition {
     private String conditionType;
     private Predicate<Entry> pred;
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ObservableSupport support = new ObservableSupport();
     private Entry beingAdded = null;
     private Entry beingRemoved = null;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -44,9 +44,9 @@ public abstract class Condition {
      */
     public void addEntryUpdate(Entry entry) {
         if (pred.test(entry)) {
-            support.firePropertyChange("beingAdded", beingAdded, entry);
             logger.info("Entry added: condition met. Updating "
-                    + support.getPropertyChangeListeners().length + " generalReminder(s)");
+                    + support.getPropertyChangeListeners().size() + " generalReminder(s)");
+            support.firePropertyChange("beingAdded", beingAdded, entry);
             beingAdded = entry;
         }
     }
@@ -56,17 +56,17 @@ public abstract class Condition {
      */
     public void removeEntryUpdate(Entry entry) {
         if (pred.test(entry)) {
-            support.firePropertyChange("beingRemoved", beingRemoved, entry);
+            support.firePropertyChange("beingRemoved", null, entry);
             beingRemoved = entry;
         }
     }
-    public PropertyChangeSupport getSupport() {
+    public ObservableSupport getSupport() {
         return support;
     }
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    public void addPropertyChangeListener(ListenerSupport pcl) {
         support.addPropertyChangeListener(pcl);
     }
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    public void removePropertyChangeListener(ListenerSupport pcl) {
         support.removePropertyChangeListener(pcl);
     }
     @Override

@@ -1,11 +1,13 @@
 package seedu.guilttrip.model.reminders;
 
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
 
 public interface Reminder {
     /**
-     * Used by R3minderList to know when to update displayed reminder messages.
+     * Used by ReminderList to know when to update displayed reminder messages.
      * @return
      */
     abstract Status getStatus();
@@ -15,6 +17,9 @@ public interface Reminder {
     abstract boolean willDisplayPopUp();
     abstract void togglePopUpDisplay(boolean willDisplayPopup);
     abstract void setMessage(Message message);
+    public ObservableSupport getSupport();
+    public void addPropertyChangeListener(ListenerSupport pcl);
+    public void removePropertyChangeListener(ListenerSupport pcl);
 
     /**
      * Status of condition

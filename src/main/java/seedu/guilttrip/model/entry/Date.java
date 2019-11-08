@@ -137,6 +137,10 @@ public class Date {
         return new Date(this.getDate().plus(freq.getPeriod()));
     }
 
+    public Date minus(Frequency freq) {
+        return new Date(this.getDate().minus(freq.getPeriod()));
+    }
+
     /**
      * Adds a specified number of days/ months/ years to a Date
      *
@@ -155,6 +159,32 @@ public class Date {
             break;
         case 'y':
             newDate = date.plusYears(duration);
+            break;
+        default:
+            newDate = date;
+        }
+        return new Date(newDate);
+    }
+
+
+    /**
+     * Removes a specified number of days/ months/ years to a Date
+     *
+     * @param period Period
+     * @return Date new Date after the addition of the period
+     */
+    public Date minus(Period period) {
+        LocalDate newDate;
+        long duration = period.getDuration();
+        switch (period.getInterval()) {
+        case 'd':
+            newDate = date.minusDays(duration);
+            break;
+        case 'm':
+            newDate = date.minusMonths(duration);
+            break;
+        case 'y':
+            newDate = date.minusYears(duration);
             break;
         default:
             newDate = date;

@@ -9,8 +9,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.model.entry.Entry;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 import seedu.guilttrip.model.reminders.GeneralReminder;
 
@@ -55,7 +55,6 @@ public class ConditionsManager implements Iterable<Condition> {
             beingAdded.setTracker(entryCondition);
             entryCondition.update();
         }
-        deleteEntryUpdate(beingRemove);
         addEntryUpdate(beingAdded);
     }
     /**
@@ -73,9 +72,14 @@ public class ConditionsManager implements Iterable<Condition> {
     public void add(Condition toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateEntryException();
+            int index = generalConditionsList.indexOf(toAdd);
+            Condition existingCondition = generalConditionsList.get(index);
+            for (ListenerSupport listener : toAdd.getSupport().getPropertyChangeListeners()) {
+                existingCondition.addPropertyChangeListener(listener);
+            }
+        } else {
+                generalConditionsList.add(toAdd);
         }
-        generalConditionsList.add(toAdd);
     }
 
     /**
@@ -85,13 +89,12 @@ public class ConditionsManager implements Iterable<Condition> {
      */
     public void setCondition(Condition target, Condition editedCondition) {
         requireAllNonNull(target, editedCondition);
-        assert(generalConditionsList.contains(editedCondition));
         int index = generalConditionsList.indexOf(target);
         if (index == -1) {
             throw new EntryNotFoundException();
         }
-        PropertyChangeListener[] listeners = target.getSupport().getPropertyChangeListeners();
-        for (PropertyChangeListener listener : listeners) {
+        List<ListenerSupport> listeners = target.getSupport().getPropertyChangeListeners();
+        for (ListenerSupport listener : listeners) {
             GeneralReminder generalReminder = (GeneralReminder) listener;
             generalReminder.removeCondition(target);
             generalReminder.addCondition(editedCondition);
@@ -108,8 +111,8 @@ public class ConditionsManager implements Iterable<Condition> {
         if (!generalConditionsList.contains(toRemove)) {
             throw new EntryNotFoundException();
         }
-        PropertyChangeListener[] listeners = toRemove.getSupport().getPropertyChangeListeners();
-        for (PropertyChangeListener listener : listeners) {
+        List<ListenerSupport> listeners = toRemove.getSupport().getPropertyChangeListeners();
+        for (ListenerSupport listener : listeners) {
             GeneralReminder generalReminder = (GeneralReminder) listener;
             generalReminder.removeCondition(toRemove);
         }
