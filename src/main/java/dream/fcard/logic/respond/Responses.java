@@ -12,6 +12,7 @@ import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
+import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
@@ -273,11 +274,7 @@ public enum Responses {
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
                 "deck/",
-                "index/",
-                "front/",
-                "back/",
-                "choiceIndex/",
-                "choice/"}),
+                "index/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
@@ -301,8 +298,10 @@ public enum Responses {
                         return true;
                     }
 
+
                     // Obtain deck
                     String deckName = res.get(0).get(0);
+
                     Deck deck = null;
                     try {
                         deck = StateHolder.getState().getDeck(deckName);
@@ -311,8 +310,8 @@ public enum Responses {
                         return true;
                     }
                     assert deck != null;
-
                     ArrayList<FlashCard> cards = deck.getCards();
+
                     int index = -1;
                     try {
                         index = Integer.parseInt(res.get(1).get(0));
@@ -321,6 +320,7 @@ public enum Responses {
                         return true;
                     }
                     assert index != -1;
+
                     boolean isIndexValid = index > 0 && index <= cards.size();
                     if (!isIndexValid) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
@@ -398,7 +398,7 @@ public enum Responses {
                 }
     ),
     DELETE_CARD(
-            RegexUtil.commandFormatRegex("delete", new String[]{"deck/", "index/"}),
+            RegexUtil.commandFormatRegex("delete", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("delete",
@@ -410,13 +410,25 @@ public enum Responses {
                     boolean hasDeck = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
-                    if (!hasDeck || !hasIndex) {
+                    if (!hasDeck) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
 
                     String deckName = res.get(0).get(0);
+
+                    if (!hasIndex) {
+                        // Delete deck
+                        try {
+                            State s = StateHolder.getState();
+                            s.removeDeck(deckName);
+                        } catch (DeckNotFoundException dnf) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnf.getMessage());
+                            return true;
+                        }
+                    }
+
                     assert deckName != null;
                     try {
                         Deck deck = StateHolder.getState().getDeck(deckName);
