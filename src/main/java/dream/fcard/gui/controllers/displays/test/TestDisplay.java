@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -194,7 +193,7 @@ public class TestDisplay extends VBox {
                 ExamRunner.terminateExam();
             }
         }
-        VBox newCard = exam.getCardDisplayFront();
+        Pane newCard = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
         Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
