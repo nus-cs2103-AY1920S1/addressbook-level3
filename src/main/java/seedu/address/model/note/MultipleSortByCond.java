@@ -84,7 +84,7 @@ public class MultipleSortByCond {
 
     @Override
     public String toString() {
-        return String.join(",then by ",Arrays.asList(multipleSortByCond));
+        return String.join(", then by ", Arrays.asList(multipleSortByCond));
     }
     @Override
     public boolean equals(Object other) {

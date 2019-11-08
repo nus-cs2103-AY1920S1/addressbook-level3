@@ -213,11 +213,13 @@ public class MainWindow extends UiPart<Stage> {
     @SuppressWarnings("unchecked")
     void fillReadParts(Object object, Index index) {
         if (object instanceof Password) {
+            readList.setMaxWidth(420);
             readDisplayPassword = new ReadDisplayPassword();
             readDisplayPassword.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
             readDisplayPassword.setFeedbackToUser((Password) object, index);
         } else if (object instanceof Note) {
+            readList.setMaxWidth(420);
             openDisplayNote = new OpenDisplayNote();
             openDisplayNote.setLogic(logic);
             //TODO bad coupling? how else to implement though?
@@ -225,17 +227,22 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(openDisplayNote.getRoot());
             openDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
+            readList.setMaxWidth(Double.MAX_VALUE);
             //readList.setMinWidth(600);
+            //readList.setMaxWidth(10000);
+            //readList.getParent().
             readDisplayPasswordReport = new ReadDisplayPasswordReport();
             readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
             //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
             readDisplayPasswordReport.setFeedbackToUser(object);
         } else if (object instanceof Card) {
+            readList.setMaxWidth(420);
             readDisplayCard = new ReadDisplayCard();
             readDisplayCard.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayCard.getRoot());
             readDisplayCard.setFeedbackToUser((Card) object);
         } else if (object instanceof ViewableFile) {
+            readList.setMaxWidth(420);
             filePreviewPanel = new FilePreviewPanel();
             readListPanelPlaceholder.getChildren().add(filePreviewPanel.getRoot());
             filePreviewPanel.setFeedbackToUser((ViewableFile) object);
