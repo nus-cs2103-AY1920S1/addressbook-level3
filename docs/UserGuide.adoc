@@ -369,46 +369,55 @@ That's it for this section. Congratulations, you now know how to use the `find` 
 
 === Detecting matches: `match`
 
-This command runs a kidney matching test on patients and donors in ORGANice and displays the match results.
+This command runs a kidney matching test on patients and donors in ORGANice and displays potential matches.
+A patient-donor pair is considered a potential match if they pass the blood type and
+tissue compatibility tests.
 Refer to <<FAQ>> for a better understanding of the procedure for kidney matching.
 
-You can either run a kidney matching test on all patients and donors or find matching donors for a specific patient.
-To learn how to run kidney matching tests on all patients, refer to <<Matching all patients>>. To learn how to run
-kidney matching tests on a specific patient, refer to <<Matching a specific patient>>.
+You can either run a kidney matching test on a specific patient or on all patients in ORGANice.
+To learn how to run kidney matching tests on a specific patient,
+refer to <<Matching a specific patient>>.
+To learn how to run kidney matching tests on all patients,
+refer to <<Matching all patients>>.
 
 ==== Matching a specific patient
-This section will explain how to run kidney matching tests on a specific patient and run you through an example.
-To run a match of a specific patient, type in a command of the format `match ic/**NRIC**`.
+This section will explain how to run kidney matching tests for a specific patient and illustrate
+the process with an example.
+To get a list of potential donors for a patient, type in `match ic/**PATIENT NRIC**`.
 
-Here is an example. Suppose you want to match a specific patient called "John Doe" and his NRIC is "S1234568R". This is
-what you can do:
+Here is an example. Suppose you want to find potential donors for a patient "John Doe" and his NRIC is "S1234568R".
+Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
 
-. Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
+You will see a list of potential donors for John Doe along with the compatibility
+rate of each donor, similar to Figure 13.
 
-. The list of donors and their success rate are displayed as shown in the screenshot below. +
-+
+//TODO need to change this to another screenshot
+.List of potential donors for John Doe
 image::MatchingDonorsDisplayed.png[width=790]
-+
-For more information on the success rate, you may refer to <<FAQ>>.
+
+For more information on the compatibility rate, you may refer to <<FAQ>>.
 
 ==== Matching all patients
-This section will explain how to run kidney matching tests on all patients stored in ORGANice and run you
-through an example.
-To match all the patients in ORGANice, do the following:
+This section will explain how to run kidney matching tests on all patients and illustrate the process
+with an example.
+If you want to find potential donors for all patients,
+type `match ic/all` in the Command Box and press kbd:[Enter].
 
-. Type `match ic/all` in the command box and press kbd:[Enter].
+You will see a list of all the patients in ORGANice along with the number of
+potential donors for each patient.
 
-. The list of patients and the number of matching donors each patient have are displayed in the screenshot below.
-+
+As seen in Figure 14, 'Someone edited' is displayed with the red text 'Matches: 3'.
+This means that 'Someone edited' has 3 potential donors.
+
+.List of Persons with number of matching donors
 image::PatientMatchResults.png[width=790]
-+
 
-Following this, you can sort the matches based on different categories to deduce which patient to prioritize.
-+
-Refer to refer to <<Sorting matches: `sort`>> for more information.
+Following this, you can sort the matches based on different criteria to
+determine which patient to prioritize. Head over to the next section to find out
+how to sort matches.
 
 === Sorting matches: `sort`
-After matching patients and donors, you can sort the list of matches to determine which patient to prioritize for organ transplant.
+After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
 
 **The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
 There are three categories by which you can sort the matches, namely:
@@ -611,12 +620,18 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
 ** Optional parameters: any parameter from <<List of Attributes>>
 * *Find* : `find`
 ** Optional parameters: any parameter from <<List of Attributes>>
-* *Match* : `match [all/ic]`
-** Optional parameters: `sort/[rate/expiry/priority]` +
-* *Processing*: `processing icP/**NRIC of Patient** icD/**NRIC OF DONOR**`
+* *Match* :
+** *Match a specific patient*: `match ic/**NRIC OF PATIENT**`
+** *Match all patients*: `match ic/all`
+* *Sort matches*:
+** *Sort based on compatibility rate*: `sort/rate`
+** *Sort based on organ expiry date*: `sort expiry`
+** *Sort based on patient priority* `sort priority` +
+* *Processing*: `processing ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**`
+* *Mark tasks as done*: `processingMarkDone ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**
 * *List* : `list t/**TYPE**`
 * *Help* : `help`
-* *Done* : `done icP/**NRIC of Patient** icD/**NRIC OF DONOR** `
+* *Done* : `done ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** `
 * *Exit* : `exit`
 
 == Glossary
@@ -641,6 +656,8 @@ for harmful interactions between patient and donor's blood
 
 * duplicate: refers to two persons of the same type which have the same NRIC
 
-* success rate: refers to a number which indicates the degree of compatibility between the patient and donor. This percentage is calculated from the number of tissue matches between the patient and donor.
+* compatibility rate: A percentage from 0 to 100% that indicates the degree of compatibility
+between the patient and the donor.
+This percentage is calculated from the number of tissue matches between the patient and donor.
 
 * priority: used to indicate the level of importance or urgency of getting organ transplant for the patient. The different levels are include high, medium and low, and it is specified by the doctor after an assessment.
