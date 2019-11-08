@@ -98,8 +98,6 @@ public class Tutorial {
         this.assignments = assignments;
     }
 
-
-
     public TutName getTutName() {
         return tutName;
     }
@@ -220,6 +218,18 @@ public class Tutorial {
             }
         }
         return eventLog;
+    }
+
+    public List<Event> getEventListForSaving() {
+        return this.eventLog;
+    }
+
+    /**
+     * Wrap around for constructing a Tutorial with event list.
+     * @param eventList List of events.
+     */
+    public void setEventList(List<Event> eventList) {
+        this.eventLog = eventList;
     }
 
     /**

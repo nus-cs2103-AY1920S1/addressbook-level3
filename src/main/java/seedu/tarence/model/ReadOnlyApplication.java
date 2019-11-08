@@ -34,4 +34,5 @@ public interface ReadOnlyApplication {
      * This list will not contain any duplicate tutorials.
      */
     ObservableList<Tutorial> getTutorialList();
+
 }

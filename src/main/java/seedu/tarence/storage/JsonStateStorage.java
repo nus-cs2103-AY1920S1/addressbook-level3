@@ -17,6 +17,7 @@ import seedu.tarence.commons.exceptions.IllegalValueException;
 import seedu.tarence.commons.util.FileUtil;
 import seedu.tarence.commons.util.JsonUtil;
 import seedu.tarence.model.ReadOnlyApplication;
+import seedu.tarence.model.module.Module;
 
 /**
  * A class to access the application states stored as json files on the hard disk.
@@ -58,7 +59,6 @@ public class JsonStateStorage implements ApplicationStateStorage {
      * Clears the folder used to store temporate state json files.
      * @throws IOException if got error in accessing the file directory.
      */
-    // TODO: Throws import cannot be found error
     public void clearStateFolder() throws IOException {
         Path filePath = Paths.get(dataFolderName, stateFolderName);
         FileUtils.deleteDirectory(filePath.toFile());
@@ -78,6 +78,9 @@ public class JsonStateStorage implements ApplicationStateStorage {
         // Only save the state if the incoming application is different from the latest application
         ReadOnlyApplication latestApplication = getLatestState();
 
+        // System.out.println("Current app sem start date: " + Module.getSemStart());
+        //System.out.println("Saved semester start date: " + getSemesterStartDateOfLatestState());
+
         // Only saves the state when there is a change with the current state
         if (!latestApplication.equals(application)) {
             // Save the application state
@@ -89,6 +92,76 @@ public class JsonStateStorage implements ApplicationStateStorage {
 
         }
     }
+
+    public String getSemesterStartDateOfLatestState() throws IOException {
+        String latestSemStartDate = "";
+
+        try {
+            // Read the previous semester start date from the latest state.
+            Path filePath = getFilePathFromIndex(getLatestStateIndex());
+            Optional<JsonSerializableApplication> jsonApplication = JsonUtil.readJsonFile(
+                    filePath, JsonSerializableApplication.class);
+
+            if (jsonApplication.isPresent()) {
+                // Iterate through all as all modules will have the same semester start date since it is a class atrbute
+                for (JsonAdaptedModule m : jsonApplication.get().getJsonAdaptedModules()) {
+                    latestSemStartDate = m.getSemesterStartString();
+                }
+            } else {
+                throw new IOException("Unable to undo as there is a problem with the state file");
+            }
+
+        } catch (DataConversionException | IOException e) {
+            throw new IOException("Unable to undo as there is a problem with the state file");
+        }
+
+        return latestSemStartDate;
+    }
+
+
+    /**
+     * Checks if the semester start date has been changed by comparing with the previously saved-state file.
+     * @return
+     * @throws IOException
+     */
+    public Boolean hasSemesterStartDateChanged() throws IOException {
+
+        // Semester start is assigned a class level attribute.
+        String currentStartDate = String.valueOf(Module.getSemStart());
+
+        String latestSavedStartDate = "";
+        try {
+            // Read the previous semester start date from the latest state.
+            Path filePath = getFilePathFromIndex(getLatestStateIndex());
+            Optional<JsonSerializableApplication> jsonApplication = JsonUtil.readJsonFile(
+                    filePath, JsonSerializableApplication.class);
+
+            if (jsonApplication.isPresent()) {
+                // Iterate through all as all modules will have the same semester start date since it is a class atrbute
+                for (JsonAdaptedModule m : jsonApplication.get().getJsonAdaptedModules()) {
+                    latestSavedStartDate = m.getSemesterStartString();
+                }
+            } else {
+                throw new IOException("Unable to undo as there is a problem with the state file");
+            }
+
+        } catch (DataConversionException e) {
+            throw new IOException("Unable to undo as there is a problem with the state file");
+        }
+
+
+
+        System.out.println("Saved app state start date: " + String.valueOf(latestSavedStartDate));
+
+        if (latestSavedStartDate.equals(currentStartDate)) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
 
     /**
      * Saves the first state. Has to be handled seperately as in the normal saving, saving is only done when there is
@@ -112,7 +185,7 @@ public class JsonStateStorage implements ApplicationStateStorage {
 
     /**
      * Checks if the number of rollbacks doesn't exceed the stack size.
-     * @param i Specified number of follback.
+     * @param i Specified number of rollback.
      * @return Boolean.
      */
     public Boolean isValidNumberOfRollbacks(Integer i) {

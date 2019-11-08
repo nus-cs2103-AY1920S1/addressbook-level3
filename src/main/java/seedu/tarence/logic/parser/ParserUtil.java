@@ -4,15 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSITIVE;
 import static seedu.tarence.logic.parser.ArgumentPatterns.PATTERN_WEEKRANGE;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 
 import seedu.tarence.commons.core.index.Index;
+import seedu.tarence.commons.exceptions.IllegalValueException;
 import seedu.tarence.commons.util.StringUtil;
 import seedu.tarence.logic.parser.exceptions.NegativeIndexException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -284,6 +287,28 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException("Invalid duration entered. Duration should contain only numbers");
         }
+    }
+
+    /**
+     * Parses the string representation of a Semester start date (a Module attribute).
+     *
+     * @param semesterStartString String representation of a Semester start date obtained from Json.
+     * @return Date object.
+     * @throws IllegalValueException thrown if there is an error with parsing the String.
+     */
+    public static Date parseSemesterStartDateFromJson(String semesterStartString) throws IllegalValueException {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        Date semesterStartDate = null;
+
+        try {
+            if (!semesterStartString.contains("null")) {
+                semesterStartDate = dateFormatter.parse(semesterStartString);
+            }
+        } catch (java.text.ParseException e) {
+            String errorMessage = "Error with parsing module's start date " + e.getMessage();
+            throw new IllegalValueException(errorMessage);
+        }
+        return semesterStartDate;
     }
 
 }

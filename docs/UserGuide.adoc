@@ -664,11 +664,19 @@ Example:
 ****
 
 
-=== Clearing all entries : `clear` [coming in v2.0]
+=== Clearing all entries : `clear`
 
 Clears all entries from the T.A.rence. +
 
 Format: `clear`
+
+Example:
+
+`clear`
+
+****
+* Resets the application state to a clean state.
+****
 
 === Mark Participation for a Student : `classPart` [coming in v2.0]
 

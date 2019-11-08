@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,9 +15,6 @@ import seedu.tarence.logic.parser.ParserUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
-import seedu.tarence.model.student.Student;
-import seedu.tarence.model.tutorial.Assignment;
-import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -55,6 +51,11 @@ public class JsonAdaptedModule {
     public static final String ASSIGNMENT_STUDENT_LIST = "assignmentStudentList";
     public static final String ASSIGNMENT_NUMBER = "assignmentNumber-";
 
+    public static final String EVENT_NAME = "eventName";
+    public static final String EVENT_START_DATE = "eventStartDate";
+    public static final String EVENT_END_DATE = "eventEndDate";
+    public static final String EVENT_NUMBER = "eventNumber-";
+
     // Error message Strings
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is missing!";
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is invalid!";
@@ -65,8 +66,7 @@ public class JsonAdaptedModule {
     // Implemented LinkedHashMap to preserve ordering.
     private LinkedHashMap<String, LinkedHashMap<String, String>> tutorialMap;
     private String moduleCode;
-    private Date semesterStart;
-
+    private String semesterStartString;
 
     /**
      * Invoked during reading of the Json file.
@@ -77,9 +77,11 @@ public class JsonAdaptedModule {
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleName,
                              @JsonProperty("tutorialMap") LinkedHashMap<String,
-                                     LinkedHashMap<String, String>> tutorialMap) {
+                                     LinkedHashMap<String, String>> tutorialMap,
+                             @JsonProperty("semesterStart") String semesterStartString) {
         this.moduleCode = moduleName;
         this.tutorialMap = tutorialMap;
+        this.semesterStartString = semesterStartString;
     }
 
     /**
@@ -90,9 +92,8 @@ public class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModCode().toString();
         tutorialMap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
-        semesterStart = source.getSemesterStart();
+        semesterStartString = String.valueOf(Module.getSemStart());
 
-        //System.out.println("Semester start of module " + moduleCode + " is " + semesterStart);
 
         for (Tutorial t : source.getTutorials()) {
             LinkedHashMap<String, String> singleTutorialMap = new LinkedHashMap<String, String>();
@@ -106,7 +107,7 @@ public class JsonAdaptedModule {
             String studentListString = JsonUtil.studentListToString(t.getStudents());
             String tutorialModuleCode = t.getModCode().toString();
             String tutorialAttendanceString = JsonUtil.attendanceListToString(t.getAttendance());
-
+            String tutorialAssignmentString = JsonUtil.assignmentListToString(t.getAssignmentsForSaving());
 
             // Add into LinkedHashMap<String,String>, singleTutorialMap. Reading is order dependant
             singleTutorialMap.put(TUTORIAL_NAME, tutorialName);
@@ -117,81 +118,15 @@ public class JsonAdaptedModule {
             singleTutorialMap.put(TUTORIAL_STUDENT_LIST, studentListString);
             singleTutorialMap.put(TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceString);
             singleTutorialMap.put(TUTORIAL_MODULE_CODE, tutorialModuleCode);
-
-            // Saving of assignment
-            String tutorialAssignmentString = assignmentListToString(t.getAssignmentsForSaving());
             singleTutorialMap.put(TUTORIAL_ASSIGNMENT_LIST, tutorialAssignmentString);
 
             // Saving of event(s)
-            String tutorialEventString = eventListToString(t.getEventLog());
+            String tutorialEventString = JsonUtil.eventListToString(t.getEventListForSaving());
+            singleTutorialMap.put(TUTORIAL_EVENT_LIST, tutorialEventString);
 
             tutorialMap.put(tutorialName, singleTutorialMap);
 
         }
-    }
-
-    /**
-     * Converts a tutorial's eventList ot a String
-     *
-     * @param eventLog
-     * @return
-     */
-    public String eventListToString(List<Event> eventLog) {
-        //System.out.println(eventLog.toString());
-        return "";
-    }
-
-    /**
-     * Returns the string representation of a Tutorial's Assignment(s).
-     *
-     * @param assignmentList Assignment List, obtained directly from Tutorial.
-     * @return String.
-     */
-    public String assignmentListToString (Map<Assignment, Map<Student, Integer>> assignmentList) {
-
-        LinkedHashMap<String, String> listOfAssignments = new LinkedHashMap<>();
-        Integer assignmentCounter = 0;
-
-        for (Assignment a : assignmentList.keySet()) {
-            LinkedHashMap<String, String> assignmentMap = new LinkedHashMap<String, String>();
-            String assignmentName = a.getAssignmentName();
-            String assignmentMaxScore = Integer.toString(a.getMaxScore());
-            String assignmentStartDate = a.getStartDate().toString();
-            String assignmentEndDate = a.getEndDate().toString();
-
-            // Serializes Students with their respective assignment scores
-            Map<Student, Integer> studentScores = assignmentList.get(a);
-            String assignmentStudentString = "[";
-            for (Student s : studentScores.keySet()) {
-                LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
-                studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE, Integer.toString(studentScores.get(s)));
-                assignmentStudentString = assignmentStudentString + studentMap.toString() + "],[";
-            }
-            // Case when there are no students.
-            if (assignmentStudentString.equals("[")) {
-                assignmentStudentString += "]";
-            } else {
-                // Remove the last square bracket
-                assignmentStudentString = assignmentStudentString.substring(0, (assignmentStudentString.length() - 2));
-            }
-
-            assignmentMap.put(ASSIGNMENT_NAME, assignmentName);
-            assignmentMap.put(ASSIGNMENT_MAX_SCORE, assignmentMaxScore);
-            assignmentMap.put(ASSIGNMENT_START_DATE, assignmentStartDate);
-            assignmentMap.put(ASSIGNMENT_END_DATE, assignmentEndDate);
-            assignmentMap.put(ASSIGNMENT_STUDENT_LIST, assignmentStudentString);
-
-            assignmentCounter++;
-            listOfAssignments.put(ASSIGNMENT_NUMBER + assignmentCounter.toString(), assignmentMap.toString());
-        }
-
-        return listOfAssignments.toString();
     }
 
     /**
@@ -211,19 +146,20 @@ public class JsonAdaptedModule {
                 tutorials.add(tutorialFromJson);
             }
         } catch (NullPointerException e) {
-            String errorMessage = e.getClass().toString() + " " + e.getMessage();
+            String errorMessage = e.getClass().toString() + " " + e.getMessage() + " from parsing Json file";
             throw new IllegalValueException(errorMessage);
         }
 
         try {
             ModCode modCodeFromJson = ParserUtil.parseModCode(moduleCode);
-            return new Module(modCodeFromJson, tutorials);
+            Date semesterStartDate = ParserUtil.parseSemesterStartDateFromJson(semesterStartString);
+            return new Module(modCodeFromJson, tutorials, semesterStartDate);
+
         } catch (ParseException e) {
             String errorMessage = String.format(INVALID_FIELD, Module.class.getSimpleName()) + " "
                     + moduleCode + " " + e.getMessage();
             throw new IllegalValueException(errorMessage);
         }
-
     }
 
     /**
@@ -242,6 +178,16 @@ public class JsonAdaptedModule {
      */
     public LinkedHashMap<String, LinkedHashMap<String, String>> getTutorialMap() {
         return tutorialMap;
+    }
+
+    /**
+     * Getter function to get semester start date from a particular json adapted module.
+     * Used to compare semester start dates of different states.
+     *
+     * @return String of saved semester start date.
+     */
+    public String getSemesterStartString() {
+        return this.semesterStartString;
     }
 }
 

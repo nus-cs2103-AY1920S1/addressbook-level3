@@ -10,6 +10,7 @@ import seedu.tarence.logic.commands.AddModuleCommand;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.AddTutorialCommand;
 import seedu.tarence.logic.commands.ChangeTabCommand;
+import seedu.tarence.logic.commands.ClearCommand;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.ConfirmNoCommand;
 import seedu.tarence.logic.commands.ConfirmYesCommand;
@@ -132,6 +133,8 @@ public class ApplicationParser {
             return new ImportCommandParser().parse(arguments);
         } else if (DisplayAssignmentListCommand.isMatchingCommandWord(commandWord)) {
             return new DisplayAssignmentListCommandParser().parse(arguments);
+        } else if (ClearCommand.isMatchingCommandWord(commandWord) && arguments.isEmpty()) {
+            return new ClearCommand();
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -49,6 +49,7 @@ import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Attendance;
+import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
@@ -78,6 +79,8 @@ public class JsonUtil {
             throws IOException {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
+
+    //============================ General Json Utility methods ========================================================
 
     /**
      * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
@@ -142,50 +145,6 @@ public class JsonUtil {
     }
 
     /**
-     * Invoked when saving an Attendance object.
-     * Converts an Attendance object to String.
-     *
-     * @param attendance Attendance object.
-     * @return String representation of Attendance object.
-     */
-    public static String attendanceListToString(Attendance attendance) {
-        Map<Week, Map<Student, Boolean>> attendanceMap = attendance.getAttendance();
-        LinkedHashMap<String, String> attendanceStringMap = new LinkedHashMap<String, String>();
-
-        for (Week week : attendanceMap.keySet()) {
-            Map<Student, Boolean> singleWeek = attendanceMap.get(week);
-
-            // Each student is encompassed in [].
-            String attendanceString = "[";
-            for (Student s : singleWeek.keySet()) {
-                LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
-                studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
-                studentMap.put(JsonAdaptedModule.STUDENT_ATTENDANCE_STATUS, singleWeek.get(s).toString());
-                attendanceString = attendanceString + studentMap.toString() + "],[";
-            }
-
-            // Case when there are no students.
-            if (attendanceString.equals("[")) {
-                attendanceString += "]";
-            } else {
-                // Remove the last square bracket
-                attendanceString = attendanceString.substring(0, (attendanceString.length() - 2));
-            }
-
-            // Mapping of weeks to studentStrings example:  {1=[{studentObe}],[{studentTwo}],
-            //                                               2=[{studentOne}],[{studentTwo}]}
-            //where '1' and '2' are the weeks and studentOne and studentTwo are the String representations of 2 Students
-            attendanceStringMap.put(week.toString(), attendanceString);
-        }
-        return attendanceStringMap.toString();
-    }
-
-    /**
      * Returns the exact field of an identifier.
      * Pre-condition: Desired field must not be the last field of the string.
      *
@@ -212,86 +171,70 @@ public class JsonUtil {
     }
 
     /**
-     * Converts a list of Students to a String.
-     * Eg. [{studentName=Ellie Yee, studentEmail=e0035152@u.nus.edu.sg, studentMatricNumber=OptionalA0155413M,
-     * studentNusnetId=OptionalE0031550, studentModuleCode=CS1010S, studentTutorialName=Lab Session}]
+     * Generic function to construct a new TreeMap from HashMap
      *
-     * @param studentList List of Student objects.
-     * @return String representation of a Student List.
+     * @param hashMap hashMap
+     * @param <K>
+     * @param <V>
+     * @return Treemap
      */
-    public static String studentListToString(List<Student> studentList) {
-        String studentListString = "[";
+    public static <K, V> Map<K, V> convertToTreeMap(Map<K, V> hashMap) {
 
-        for (Student s : studentList) {
-            LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
-            studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
-            studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
-            studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
-            studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
-            studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
-            studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
-            studentListString = studentListString + studentMap.toString() + "],[";
-        }
+        Map<K, V> treeMap = hashMap
+                // Get the entries from the hashMap
+                .entrySet()
 
-        // Remove the last instance of "[,]" from studentListString
-        if (studentList.size() != 0) {
-            studentListString = studentListString.substring(0, (studentListString.length() - 2));
-        } else {
-            // There are no students in the list. studentListString is just "[]".
-            studentListString = studentListString + "]";
-        }
-        return studentListString;
+                // Convert the map into stream
+                .stream()
+
+                // Now collect the returned TreeMap
+                .collect(
+                        Collectors
+
+                                // Using Collectors, collect the entries
+                                // and convert it into TreeMap
+                                .toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue, (
+                                                oldValue, newValue) -> newValue, TreeMap::new));
+
+        // Return the TreeMap
+        return treeMap;
     }
 
     /**
-     * Creates a Student Object with the given parsed String params.
-     *
-     * @param studentNameString Parsed student name string.
-     * @param studentEmailString Parsed student email string.
-     * @param studentMatricNumberString Parsed student matriculation number string.
-     * @param studentNusnetIdString Parsed student NUSNET ID string.
-     * @param studentModuleCodeString Parsed student module code string.
-     * @param studentTutorialNameString Parsed student tutorial string.
-     * @return Student object.
+     * Contains methods that retrieve logging level from serialized string.
      */
-    public static Student studentStringsToStudent(String studentNameString, String studentEmailString,
-                                                  String studentMatricNumberString, String studentNusnetIdString,
-                                                  String studentModuleCodeString, String studentTutorialNameString) {
+    private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
-        // Populates the fields needed to create a Student object.
-        studentNameString = studentNameString.replace("[", "").replace("]", "");
-        Name studentName = new Name(studentNameString);
-
-        studentEmailString = studentEmailString.replace("[", "").replace("]", "");
-        Email studentEmail = new Email(studentEmailString);
-
-        Optional<MatricNum> studentMatricNumber = Optional.empty();
-        if (studentMatricNumberString.contains("empty")) {
-            studentMatricNumber = Optional.empty();
-        } else {
-            studentMatricNumberString = studentMatricNumberString.replace("Optional", "");
-            studentMatricNumberString = studentMatricNumberString.replace("[", "").replace("]", "");
-            studentMatricNumber = Optional.of(new MatricNum(studentMatricNumberString));
+        protected LevelDeserializer(Class<?> vc) {
+            super(vc);
         }
 
-        Optional<NusnetId> studentNusnetId = Optional.empty();
-        if (studentNusnetIdString.contains("empty")) {
-            studentNusnetId = Optional.empty();
-        } else {
-            studentNusnetIdString = studentNusnetIdString.replace("Optional", "");
-            studentNusnetIdString = studentNusnetIdString.replace("[", "").replace("]", "");
-            studentNusnetId = Optional.of(new NusnetId(studentNusnetIdString));
+        @Override
+        protected Level _deserialize(String value, DeserializationContext ctxt) {
+            return getLoggingLevel(value);
         }
 
-        studentModuleCodeString = studentModuleCodeString.replace("[", "").replace("]", "");
-        ModCode studentModuleCode = new ModCode(studentModuleCodeString);
+        /**
+         * Gets the logging level that matches loggingLevelString
+         * <p>
+         * Returns null if there are no matches
+         *
+         */
+        private Level getLoggingLevel(String loggingLevelString) {
+            return Level.parse(loggingLevelString);
+        }
 
-        studentTutorialNameString = studentTutorialNameString.replace("[", "").replace("[", "");
-        TutName studentTutorialName = new TutName(studentTutorialNameString);
-
-        return new Student(studentName, studentEmail, studentMatricNumber, studentNusnetId,
-                studentModuleCode, studentTutorialName);
+        @Override
+        public Class<Level> handledType() {
+            return Level.class;
+        }
     }
+
+
+    //============================== Validity String-checker methods ===================================================
+
 
     /**
      * Checks if the tutorialString contains valid fields.
@@ -349,49 +292,219 @@ public class JsonUtil {
                 < studentString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)));
     }
 
+
+    //============================== From object to Json String methods ================================================
+
+
     /**
-     * Converts a tutorialString to a LinkedHashMap. Represents the components needed to construct a Tutorial object.
+     * Invoked when saving an Attendance object.
+     * Converts an Attendance object to String.
      *
-     * @param tutorialString String.
-     * @return LinkedHashMap.
+     * @param attendance Attendance object.
+     * @return String representation of Attendance object.
      */
-    public static LinkedHashMap<String, String> tutorialStringToMap(String tutorialString)
-            throws IllegalValueException {
-        if (!isValidTutorialString(tutorialString)) {
-            throw new IllegalValueException("Tutorial string has invalid order or absence of fields");
+    public static String attendanceListToString(Attendance attendance) {
+        Map<Week, Map<Student, Boolean>> attendanceMap = attendance.getAttendance();
+        LinkedHashMap<String, String> attendanceStringMap = new LinkedHashMap<String, String>();
+
+        for (Week week : attendanceMap.keySet()) {
+            Map<Student, Boolean> singleWeek = attendanceMap.get(week);
+
+            // Each student is encompassed in [].
+            String attendanceString = "[";
+            for (Student s : singleWeek.keySet()) {
+                LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
+                studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_ATTENDANCE_STATUS, singleWeek.get(s).toString());
+                attendanceString = attendanceString + studentMap.toString() + "],[";
+            }
+
+            // Case when there are no students.
+            if (attendanceString.equals("[")) {
+                attendanceString += "]";
+            } else {
+                // Remove the last square bracket
+                attendanceString = attendanceString.substring(0, (attendanceString.length() - 2));
+            }
+
+            // Mapping of weeks to studentStrings example:  {1=[{studentObe}],[{studentTwo}],
+            //                                               2=[{studentOne}],[{studentTwo}]}
+            //where '1' and '2' are the weeks and studentOne and studentTwo are the String representations of 2 Students
+            attendanceStringMap.put(week.toString(), attendanceString);
+        }
+        return attendanceStringMap.toString();
+    }
+
+    /**
+     * Converts a list of Students to a String.
+     * Eg. [{studentName=Ellie Yee, studentEmail=e0035152@u.nus.edu.sg, studentMatricNumber=OptionalA0155413M,
+     * studentNusnetId=OptionalE0031550, studentModuleCode=CS1010S, studentTutorialName=Lab Session}]
+     *
+     * @param studentList List of Student objects.
+     * @return String representation of a Student List.
+     */
+    public static String studentListToString(List<Student> studentList) {
+        String studentListString = "[";
+
+        for (Student s : studentList) {
+            LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
+            studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
+            studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
+            studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
+            studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
+            studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
+            studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
+            studentListString = studentListString + studentMap.toString() + "],[";
         }
 
-        LinkedHashMap<String, String> tutorialStringToMap = new LinkedHashMap<String, String>();
-        // Extracts the correct Strings needed to populate the LinkedHashMap.
-        // Relevant terms to extract are tutorialName, tutorialDayOfWeek, studentListString, tutorialModuleCode,
-        // tutorialStartTime, tutorialDuration, tutorialWeeks.
-        String tutorialNameFromTutorialString = extractField(JsonAdaptedModule.TUTORIAL_NAME,
-                JsonAdaptedModule.TUTORIAL_DAY, tutorialString);
-        String tutorialDayOfWeek = extractField(JsonAdaptedModule.TUTORIAL_DAY,
-                JsonAdaptedModule.TUTORIAL_START_TIME, tutorialString);
-        String tutorialStartTime = extractField(JsonAdaptedModule.TUTORIAL_START_TIME,
-                JsonAdaptedModule.TUTORIAL_WEEKS, tutorialString);
-        String tutorialWeeks = extractField(JsonAdaptedModule.TUTORIAL_WEEKS,
-                JsonAdaptedModule.TUTORIAL_DURATION, tutorialString);
-        String tutorialDuration = extractField(JsonAdaptedModule.TUTORIAL_DURATION,
-                JsonAdaptedModule.TUTORIAL_STUDENT_LIST, tutorialString);
-        String tutorialStudentList = extractField(JsonAdaptedModule.TUTORIAL_STUDENT_LIST,
-                JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST, tutorialString);
-        String tutorialAttendanceList = extractField(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST,
-                JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialString);
-        String tutorialModuleCode = extractLastField(JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialString);
+        // Remove the last instance of "[,]" from studentListString
+        if (studentList.size() != 0) {
+            studentListString = studentListString.substring(0, (studentListString.length() - 2));
+        } else {
+            // There are no students in the list. studentListString is just "[]".
+            studentListString = studentListString + "]";
+        }
+        return studentListString;
+    }
 
-        // Places the extracted Strings into a HashMap
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_NAME, tutorialNameFromTutorialString);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_DAY, tutorialDayOfWeek);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_START_TIME, tutorialStartTime);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_WEEKS, tutorialWeeks);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_DURATION, tutorialDuration);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_STUDENT_LIST, tutorialStudentList);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceList);
-        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialModuleCode);
+    /**
+     * Returns the string representation of a Tutorial's Assignment(s).
+     *
+     * @param assignmentList Assignment List, obtained directly from Tutorial.
+     * @return String.
+     */
+    public static String assignmentListToString(Map<Assignment, Map<Student, Integer>> assignmentList) {
 
-        return tutorialStringToMap;
+        LinkedHashMap<String, String> listOfAssignments = new LinkedHashMap<>();
+        Integer assignmentCounter = 0;
+
+        for (Assignment a : assignmentList.keySet()) {
+            LinkedHashMap<String, String> assignmentMap = new LinkedHashMap<String, String>();
+            String assignmentName = a.getAssignmentName();
+            String assignmentMaxScore = Integer.toString(a.getMaxScore());
+            String assignmentStartDate = a.getStartDate().toString();
+            String assignmentEndDate = a.getEndDate().toString();
+
+            // Serializes Students with their respective assignment scores
+            Map<Student, Integer> studentScores = assignmentList.get(a);
+            String assignmentStudentString = "[";
+            for (Student s : studentScores.keySet()) {
+                LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
+                studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE, Integer.toString(studentScores.get(s)));
+                assignmentStudentString = assignmentStudentString + studentMap.toString() + "],[";
+            }
+            // Case when there are no students.
+            if (assignmentStudentString.equals("[")) {
+                assignmentStudentString += "]";
+            } else {
+                // Remove the last square bracket
+                assignmentStudentString = assignmentStudentString.substring(0, (assignmentStudentString.length() - 2));
+            }
+
+            assignmentMap.put(JsonAdaptedModule.ASSIGNMENT_NAME, assignmentName);
+            assignmentMap.put(JsonAdaptedModule.ASSIGNMENT_MAX_SCORE, assignmentMaxScore);
+            assignmentMap.put(JsonAdaptedModule.ASSIGNMENT_START_DATE, assignmentStartDate);
+            assignmentMap.put(JsonAdaptedModule.ASSIGNMENT_END_DATE, assignmentEndDate);
+            assignmentMap.put(JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST, assignmentStudentString);
+
+            assignmentCounter++;
+            listOfAssignments.put(JsonAdaptedModule.ASSIGNMENT_NUMBER + assignmentCounter.toString(),
+                    assignmentMap.toString());
+        }
+
+        return listOfAssignments.toString();
+    }
+
+    /**
+     * Serializes an Event List to a Json-friendly string.
+     *
+     * @param eventList List of Events
+     * @return String representation of an event.
+     */
+    public static String eventListToString(List<Event> eventList) {
+        LinkedHashMap<String, String> eventHashMap = new LinkedHashMap<>();
+        Integer eventCounter = 0;
+
+        for (Event e : eventList) {
+            eventCounter++;
+            String eventName = e.eventName;
+            String eventStartDate = e.startTime.toString();
+            String eventEndDate = e.endTime.toString();
+
+            LinkedHashMap<String, String> singleEventMap = new LinkedHashMap<>();
+            singleEventMap.put(JsonAdaptedModule.EVENT_NAME, eventName);
+            singleEventMap.put(JsonAdaptedModule.EVENT_START_DATE, eventStartDate);
+            singleEventMap.put(JsonAdaptedModule.EVENT_END_DATE, eventEndDate);
+
+            eventHashMap.put((JsonAdaptedModule.EVENT_NUMBER + eventCounter), singleEventMap.toString());
+        }
+
+        return eventHashMap.toString();
+    }
+
+
+    // ============================== Parsing student-Json-String to Student objects ===================================
+
+
+    /**
+     * Creates a Student Object with the given parsed String params.
+     *
+     * @param studentNameString Parsed student name string.
+     * @param studentEmailString Parsed student email string.
+     * @param studentMatricNumberString Parsed student matriculation number string.
+     * @param studentNusnetIdString Parsed student NUSNET ID string.
+     * @param studentModuleCodeString Parsed student module code string.
+     * @param studentTutorialNameString Parsed student tutorial string.
+     * @return Student object.
+     */
+    public static Student studentStringsToStudent(String studentNameString, String studentEmailString,
+                                                  String studentMatricNumberString, String studentNusnetIdString,
+                                                  String studentModuleCodeString, String studentTutorialNameString) {
+
+        // Populates the fields needed to create a Student object.
+        studentNameString = studentNameString.replace("[", "").replace("]", "");
+        Name studentName = new Name(studentNameString);
+
+        studentEmailString = studentEmailString.replace("[", "").replace("]", "");
+        Email studentEmail = new Email(studentEmailString);
+
+        Optional<MatricNum> studentMatricNumber = Optional.empty();
+        if (studentMatricNumberString.contains("empty")) {
+            studentMatricNumber = Optional.empty();
+        } else {
+            studentMatricNumberString = studentMatricNumberString.replace("Optional", "");
+            studentMatricNumberString = studentMatricNumberString.replace("[", "").replace("]", "");
+            studentMatricNumber = Optional.of(new MatricNum(studentMatricNumberString));
+        }
+
+        Optional<NusnetId> studentNusnetId = Optional.empty();
+        if (studentNusnetIdString.contains("empty")) {
+            studentNusnetId = Optional.empty();
+        } else {
+            studentNusnetIdString = studentNusnetIdString.replace("Optional", "");
+            studentNusnetIdString = studentNusnetIdString.replace("[", "").replace("]", "");
+            studentNusnetId = Optional.of(new NusnetId(studentNusnetIdString));
+        }
+
+        studentModuleCodeString = studentModuleCodeString.replace("[", "").replace("]", "");
+        ModCode studentModuleCode = new ModCode(studentModuleCodeString);
+
+        studentTutorialNameString = studentTutorialNameString.replace("[", "").replace("[", "");
+        TutName studentTutorialName = new TutName(studentTutorialNameString);
+
+        return new Student(studentName, studentEmail, studentMatricNumber, studentNusnetId,
+                studentModuleCode, studentTutorialName);
     }
 
     /**
@@ -447,6 +560,10 @@ public class JsonUtil {
         }
         return studentList;
     }
+
+
+    //======================= Parsing attendance-Json-String to Attendance objects =====================================
+
 
     /**
      * Used to parse a studentString with attendance field, to a Map of Student objects and Booleans.
@@ -548,56 +665,97 @@ public class JsonUtil {
         return new Attendance(attendance);
     }
 
+
+    //=============================== Parsing event-Json-String to Event object ========================================
+
+
     /**
-     * Invoked during reading of Json String.
+     * Converts the String representation of Tutorial Events to a List of Events.
      *
-     * Returns a Tutorial Object given the TutorialMap constructed from Json.
-     *
-     * @param tutorialMap LinkedHashMap obtained after parsing Tutorial String.
-     * @return Tutorial object.
-     * @throws IllegalValueException when Tutorial components are unable to be parsed correctly from Strings.
+     * @param tutorialEventString String representation of Tutorial Events
+     * @return List of Events.
+     * @throws IllegalValueException when there is an error during parsing.
      */
-    public static Tutorial tutorialMapToTutorial(LinkedHashMap<String, String> tutorialMap)
-            throws IllegalValueException {
+    public static List<Event> tutorialEventStringToEventList(String tutorialEventString) throws IllegalValueException {
+        List <Event> eventList = new ArrayList<Event>();
+        int numOfEvents = getTotalNumberOfEvents(tutorialEventString);
 
-        //TODO: CHECK ALL FIELDS ARE PRESENT
+        if (numOfEvents == 0) {
+            return eventList;
+        }
+
+        for (int i = 1; i < numOfEvents; i++) {
+
+            String identifier = JsonAdaptedModule.EVENT_NUMBER + i;
+            String nextIdentifier = JsonAdaptedModule.EVENT_NUMBER + (i + 1);
+
+            String singleEventString = extractField(identifier, nextIdentifier, tutorialEventString);
+            Event createdEvent = singleEventStringToEvent(singleEventString);
+
+            eventList.add(createdEvent);
+
+        }
+
+        // Parse the final event string
+        String finalIdentifier = JsonAdaptedModule.EVENT_NUMBER + numOfEvents;
+        String finalSingleEventString = extractLastField(finalIdentifier, tutorialEventString);
+        Event lastEvent = singleEventStringToEvent(finalSingleEventString);
+
+        eventList.add(lastEvent);
+
+        return eventList;
+    }
+
+    /**
+     * Converts the String representation of a Single Event to an Event object.
+     *
+     * @param singleEventString String representing a single Event.
+     * @return Event object.
+     * @throws IllegalValueException when there is an error during parsing.
+     */
+    public static Event singleEventStringToEvent(String singleEventString) throws IllegalValueException {
+        //TODO: check all event fields are present and in order 66
+
+        singleEventString = singleEventString.replace("{", "").replace("}", "");
+
+        String eventName = extractField(JsonAdaptedModule.EVENT_NAME,
+                JsonAdaptedModule.EVENT_START_DATE, singleEventString);
+        String eventStartDateString = extractField(JsonAdaptedModule.EVENT_START_DATE,
+                JsonAdaptedModule.EVENT_END_DATE, singleEventString);
+        String eventEndDateString = extractLastField(JsonAdaptedModule.EVENT_END_DATE, singleEventString);
+
         try {
-            List<Student> studentList = studentStringToList(tutorialMap.get(JsonAdaptedModule.TUTORIAL_STUDENT_LIST));
-            TutName tutorialName = ParserUtil.parseTutorialName(tutorialMap.get(JsonAdaptedModule.TUTORIAL_NAME));
-            DayOfWeek day = ParserUtil.parseDayOfWeek(tutorialMap.get(JsonAdaptedModule.TUTORIAL_DAY));
-            Set<Week> weeks = ParserUtil.parseWeeks(tutorialMap.get(JsonAdaptedModule.TUTORIAL_WEEKS));
-            ModCode modCode = ParserUtil.parseModCode(tutorialMap.get(JsonAdaptedModule.TUTORIAL_MODULE_CODE));
-            Duration duration = Duration.parse(tutorialMap.get(JsonAdaptedModule.TUTORIAL_DURATION));
-            LocalTime startTime = LocalTime.parse(tutorialMap.get(JsonAdaptedModule.TUTORIAL_START_TIME),
-                    DateTimeFormatter.ISO_TIME);
-            Attendance attendance = attendanceStringToAttendance(tutorialMap
-                    .get(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST), weeks);
+            // Parse the event-strings to an Event object
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+            Date eventStartDate = dateFormatter.parse(eventStartDateString);
+            Date eventEndDate = dateFormatter.parse(eventEndDateString);
 
-            // Constructing Assignment(s) from String
-            Map<Assignment, Map<Student, Integer>> listOfAssignments =
-                    tutorialAssignmentStringToAssignment(tutorialMap.get(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST));
+            Event eventFromJson = new Event(eventName, eventStartDate, eventEndDate);
+            return eventFromJson;
 
-            // With assignment construction
-            Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
-                   modCode, attendance, listOfAssignments);
-
-            //Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
-            //                modCode, attendance);
-
-            //Tutorial t = SampleDataUtil.getSampleTutorial();
-            return t;
-
-        } catch (ParseException | IllegalArgumentException e) {
-            throw new IllegalValueException(JsonAdaptedModule.MISSING_GENERIC_FIELD + e.getMessage());
-        } catch (DateTimeParseException e) {
-            // Thrown by either Duration or LocalTime objects.
-            String errorMessage = String.format(JsonAdaptedModule.INVALID_FIELD_MESSAGE_FORMAT,
-                    Duration.class.getSimpleName())
-                    + " Or " + String.format(JsonAdaptedModule.INVALID_FIELD_MESSAGE_FORMAT,
-                    LocalTime.class.getSimpleName());
-            throw new IllegalValueException(errorMessage);
+        } catch (java.text.ParseException e) {
+            throw new IllegalValueException("Illegal value in assignment date: " + eventStartDateString
+                    + " or " + eventEndDateString);
         }
     }
+
+    public static int getTotalNumberOfEvents(String tutorialEventString) {
+        int numOfEvents = 0;
+
+        int index = 0;
+        while (index != -1) {
+            index = tutorialEventString.indexOf(JsonAdaptedModule.EVENT_NUMBER, index);
+            if (index != -1) {
+                index++;
+                numOfEvents++;
+            }
+        }
+        return numOfEvents;
+    }
+
+
+    //========================== Parsing assignment-Json-String to Assignment object ===================================
+
 
     /**
      * Converts a tutorial Assignment String (with embedded students and their scores) to a Map of Assignments to
@@ -615,7 +773,6 @@ public class JsonUtil {
         if (numOfAssignmentsToParse == 0) {
             //return null;
             // Since according to Tutorial constructor, null is used for the default Tutorial.
-            // NTS: reverify
             return assignmentMap;
         }
 
@@ -625,7 +782,7 @@ public class JsonUtil {
             String nextIdentifier = JsonAdaptedModule.ASSIGNMENT_NUMBER + (i + 1);
 
             String singleAssignmentString = extractField(identifier, nextIdentifier, tutorialAssignmentString);
-            Assignment assignmentFromString = stringToAssignment(singleAssignmentString);
+            Assignment assignmentFromString = assignmentStringToAssignment(singleAssignmentString);
 
             // Create map of Students to their respective scores
             String studentAssignmentString = extractLastField(JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST,
@@ -638,7 +795,7 @@ public class JsonUtil {
         // Parse the final assignment string
         String finalIdentifier = JsonAdaptedModule.ASSIGNMENT_NUMBER + numOfAssignmentsToParse;
         String finalAssignmentString = extractLastField(finalIdentifier, tutorialAssignmentString);
-        Assignment assignmentFromString = stringToAssignment(finalAssignmentString);
+        Assignment assignmentFromString = assignmentStringToAssignment(finalAssignmentString);
 
         // Create map of Students to their respective scores
         String studentAssignmentString = extractLastField(JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST,
@@ -703,7 +860,6 @@ public class JsonUtil {
         }
 
         return studentIntegerTreeMap;
-        //return studentIntegerTreeMap;
     }
 
     /**
@@ -713,7 +869,7 @@ public class JsonUtil {
      * @return Assignment object.
      * @throws IllegalValueException thrown when there is an error in parsing.
      */
-    public static Assignment stringToAssignment(String assignmentString) throws IllegalValueException {
+    public static Assignment assignmentStringToAssignment(String assignmentString) throws IllegalValueException {
         // TODO: CHECK ORDER IS VALID
         String assignmentName = extractField(JsonAdaptedModule.ASSIGNMENT_NAME,
                 JsonAdaptedModule.ASSIGNMENT_MAX_SCORE, assignmentString);
@@ -768,67 +924,104 @@ public class JsonUtil {
     }
 
     /**
-     * Generic function to construct a new TreeMap from HashMap
+     * Converts a tutorialString to a LinkedHashMap. Represents the components needed to construct a Tutorial object.
      *
-     * @param hashMap hashMap
-     * @param <K>
-     * @param <V>
-     * @return Treemap
+     * @param tutorialString String.
+     * @return LinkedHashMap.
      */
-    public static <K, V> Map<K, V> convertToTreeMap(Map<K, V> hashMap) {
+    public static LinkedHashMap<String, String> tutorialStringToMap(String tutorialString)
+            throws IllegalValueException {
+        if (!isValidTutorialString(tutorialString)) {
+            throw new IllegalValueException("Tutorial string has invalid order or absence of fields");
+        }
 
-        Map<K, V> treeMap = hashMap
-                // Get the entries from the hashMap
-                .entrySet()
+        LinkedHashMap<String, String> tutorialStringToMap = new LinkedHashMap<String, String>();
+        // Extracts the correct Strings needed to populate the LinkedHashMap.
+        // Relevant terms to extract are tutorialName, tutorialDayOfWeek, studentListString, tutorialModuleCode,
+        // tutorialStartTime, tutorialDuration, tutorialWeeks.
+        String tutorialNameFromTutorialString = extractField(JsonAdaptedModule.TUTORIAL_NAME,
+                JsonAdaptedModule.TUTORIAL_DAY, tutorialString);
+        String tutorialDayOfWeek = extractField(JsonAdaptedModule.TUTORIAL_DAY,
+                JsonAdaptedModule.TUTORIAL_START_TIME, tutorialString);
+        String tutorialStartTime = extractField(JsonAdaptedModule.TUTORIAL_START_TIME,
+                JsonAdaptedModule.TUTORIAL_WEEKS, tutorialString);
+        String tutorialWeeks = extractField(JsonAdaptedModule.TUTORIAL_WEEKS,
+                JsonAdaptedModule.TUTORIAL_DURATION, tutorialString);
+        String tutorialDuration = extractField(JsonAdaptedModule.TUTORIAL_DURATION,
+                JsonAdaptedModule.TUTORIAL_STUDENT_LIST, tutorialString);
+        String tutorialStudentList = extractField(JsonAdaptedModule.TUTORIAL_STUDENT_LIST,
+                JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST, tutorialString);
+        String tutorialAttendanceList = extractField(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST,
+                JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialString);
+        String tutorialModuleCode = extractLastField(JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialString);
 
-                // Convert the map into stream
-                .stream()
+        // Places the extracted Strings into a HashMap
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_NAME, tutorialNameFromTutorialString);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_DAY, tutorialDayOfWeek);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_START_TIME, tutorialStartTime);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_WEEKS, tutorialWeeks);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_DURATION, tutorialDuration);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_STUDENT_LIST, tutorialStudentList);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceList);
+        tutorialStringToMap.put(JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialModuleCode);
 
-                // Now collect the returned TreeMap
-                .collect(
-                        Collectors
-
-                                // Using Collectors, collect the entries
-                                // and convert it into TreeMap
-                                .toMap(
-                                        Map.Entry::getKey,
-                                        Map.Entry::getValue, (
-                                                oldValue, newValue) -> newValue, TreeMap::new));
-
-        // Return the TreeMap
-        return treeMap;
+        return tutorialStringToMap;
     }
+
+
+    //==================== Parses a tutorial Map to a Tutorial object ==================================================
 
 
     /**
-     * Contains methods that retrieve logging level from serialized string.
+     * Invoked during reading of Json String.
+     *
+     * Returns a Tutorial Object given the TutorialMap constructed from Json.
+     *
+     * @param tutorialMap LinkedHashMap obtained after parsing Tutorial String.
+     * @return Tutorial object.
+     * @throws IllegalValueException when Tutorial components are unable to be parsed correctly from Strings.
      */
-    private static class LevelDeserializer extends FromStringDeserializer<Level> {
+    public static Tutorial tutorialMapToTutorial(LinkedHashMap<String, String> tutorialMap)
+            throws IllegalValueException {
 
-        protected LevelDeserializer(Class<?> vc) {
-            super(vc);
-        }
+        //TODO: CHECK ALL FIELDS ARE PRESENT
+        try {
+            List<Student> studentList = studentStringToList(tutorialMap.get(JsonAdaptedModule.TUTORIAL_STUDENT_LIST));
+            TutName tutorialName = ParserUtil.parseTutorialName(tutorialMap.get(JsonAdaptedModule.TUTORIAL_NAME));
+            DayOfWeek day = ParserUtil.parseDayOfWeek(tutorialMap.get(JsonAdaptedModule.TUTORIAL_DAY));
+            Set<Week> weeks = ParserUtil.parseWeeks(tutorialMap.get(JsonAdaptedModule.TUTORIAL_WEEKS));
+            ModCode modCode = ParserUtil.parseModCode(tutorialMap.get(JsonAdaptedModule.TUTORIAL_MODULE_CODE));
+            Duration duration = Duration.parse(tutorialMap.get(JsonAdaptedModule.TUTORIAL_DURATION));
+            LocalTime startTime = LocalTime.parse(tutorialMap.get(JsonAdaptedModule.TUTORIAL_START_TIME),
+                    DateTimeFormatter.ISO_TIME);
+            Attendance attendance = attendanceStringToAttendance(tutorialMap
+                    .get(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST), weeks);
 
-        @Override
-        protected Level _deserialize(String value, DeserializationContext ctxt) {
-            return getLoggingLevel(value);
-        }
+            // Constructing Assignment(s) from String
+            Map<Assignment, Map<Student, Integer>> listOfAssignments =
+                    tutorialAssignmentStringToAssignment(tutorialMap.get(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST));
 
-        /**
-         * Gets the logging level that matches loggingLevelString
-         * <p>
-         * Returns null if there are no matches
-         *
-         */
-        private Level getLoggingLevel(String loggingLevelString) {
-            return Level.parse(loggingLevelString);
-        }
+            // Constructing Event(s) from String
+            String eventString = tutorialMap.get(JsonAdaptedModule.TUTORIAL_EVENT_LIST);
+            List<Event> listOfEvents = tutorialEventStringToEventList(eventString);
 
-        @Override
-        public Class<Level> handledType() {
-            return Level.class;
+            // With assignment and event listconstruction
+            Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
+                   modCode, attendance, listOfAssignments);
+            t.setEventList(listOfEvents);
+
+            return t;
+
+        } catch (ParseException | IllegalArgumentException e) {
+            throw new IllegalValueException(JsonAdaptedModule.MISSING_GENERIC_FIELD + e.getMessage());
+        } catch (DateTimeParseException e) {
+            // Thrown by either Duration or LocalTime objects.
+            String errorMessage = String.format(JsonAdaptedModule.INVALID_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName())
+                    + " Or " + String.format(JsonAdaptedModule.INVALID_FIELD_MESSAGE_FORMAT,
+                    LocalTime.class.getSimpleName());
+            throw new IllegalValueException(errorMessage);
         }
     }
-
 
 }

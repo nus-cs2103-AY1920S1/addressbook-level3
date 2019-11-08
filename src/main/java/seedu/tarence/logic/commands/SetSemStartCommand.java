@@ -65,6 +65,7 @@ public class SetSemStartCommand extends Command {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         String previousDateMessage = "";
 
+        // Check if semStart is null
         if (Module.hasSemesterStartBeenSet()) {
 
             if (isSameDate()) {

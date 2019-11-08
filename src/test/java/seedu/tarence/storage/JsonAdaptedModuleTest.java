@@ -23,7 +23,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_tutorialMapWithInvalidDay_throwsIllegalValueException() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
-                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDay());
+                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDay(), "null");
         String expectedMessage = "Error in reading field! Invalid day entered";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
@@ -42,7 +42,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_tutorialMapWithInvalidDuration_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
-                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDuration());
+                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDuration(), "null");
         String expectedMessage = "Tutorial's Duration field is invalid! Or Tutorial's LocalTime field is invalid!";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
@@ -50,7 +50,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_tutorialMapWithInvalidStartTime_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
-                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialStartTime());
+                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialStartTime(), "null");
         String expectedMessage = "Tutorial's Duration field is invalid! Or Tutorial's LocalTime field is invalid!";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
@@ -58,7 +58,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_tutorialMapWithInvalidWeeks_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
-                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialWeeks());
+                JsonUtil.getMapOfSingleTutorialWithInvalidTutorialWeeks(), "null");
         String expectedMessage = "Error in reading field! Invalid weeks input. Must be 'even', 'odd', or 'every week', "
                 + "or numbers separated by commas.";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
@@ -67,7 +67,7 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_tutorialMapWithInvalidModuleCode_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
-                JsonUtil.getMapOfSingleTutorialWithInvalidModuleCode());
+                JsonUtil.getMapOfSingleTutorialWithInvalidModuleCode(), "null");
         String expectedMessage = "Error in reading field! " + ModCode.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }

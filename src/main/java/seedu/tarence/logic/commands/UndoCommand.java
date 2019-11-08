@@ -37,7 +37,7 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        assert true : "Undo command requires Storage to function properly";
+        assert false : "Undo command requires Storage to function properly";
         throw new CommandException("Error with UndoCommand.java's execution path");
     }
 
