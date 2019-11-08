@@ -608,6 +608,7 @@ public class MainWindow extends UiPart<Stage> {
                     //showRemindersOnMainPanel();
                     mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
+
                     break;
                 default:
                     // Do nothing.

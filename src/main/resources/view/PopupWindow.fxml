@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.stage.Popup?>
+<Popup xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <!-- left side placeholder -->
+    <!--    <VBox>-->
+
+    <!--    prefHeight="400.0" prefWidth="600.0"-->
+    <!--    </VBox>-->
+
+    <!--    &lt;!&ndash; right side placeholder &ndash;&gt;-->
+    <!--    <VBox>-->
+    <!--        <HBox>-->
+
+    <!--        </HBox>-->
+    <!--        <Label>-->
+
+    <!--        </Label>-->
+    <!--    </VBox>-->
+</Popup>
