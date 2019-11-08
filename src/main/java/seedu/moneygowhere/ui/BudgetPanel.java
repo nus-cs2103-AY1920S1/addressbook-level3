@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import seedu.moneygowhere.commons.util.MoneyUtil;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.currency.Currency;
 
@@ -71,7 +72,7 @@ public class BudgetPanel extends UiPart<Region> {
         double percentDiff = (amount - sum) / amount;
         double remainingAmount = Math.abs(amount - sum) * currencyInUse.rate;
 
-        String defaultOutput = currencyInUse.symbol + String.format("%.2f", remainingAmount);
+        String defaultOutput = String.format("%s %s", currencyInUse.symbol, MoneyUtil.format(remainingAmount));
         if (percentDiff < 0) {
             remainingBudget.setTextFill(Color.web("#FF0000"));
             return "-" + defaultOutput;
@@ -101,7 +102,7 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     private String getBudgetAmount() {
-        return "This month's budget: " + currencyInUse.symbol
-                + String.format("%.02f", amount * currencyInUse.rate);
+        return String.format("This month's budget: %s %s", currencyInUse.symbol,
+                MoneyUtil.format(amount * currencyInUse.rate));
     }
 }

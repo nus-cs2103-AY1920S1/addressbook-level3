@@ -10,6 +10,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import seedu.moneygowhere.commons.util.MoneyUtil;
 import seedu.moneygowhere.model.currency.Currency;
 
 /**
@@ -35,7 +36,7 @@ public class StatsPanel extends UiPart<Region> {
 
         for (Map.Entry<String, Double> i : statsData.entrySet()) {
             double newCost = currency.rate * i.getValue();
-            pieChartData.add(new PieChart.Data(String.format("%s (%s%.2f)", i.getKey(), currency.symbol, newCost),
+            pieChartData.add(new PieChart.Data(String.format("%s (%s%s)", i.getKey(), currency.symbol, MoneyUtil.format(newCost)),
                 Math.round(i.getValue())));
         }
         PieChart pieChart = new PieChart(pieChartData);

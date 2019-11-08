@@ -51,9 +51,9 @@
           <children>
             <GridPane GridPane.rowIndex="0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="24.0" prefWidth="10.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="5.0" percentWidth="26.0" prefWidth="10.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="2" percentWidth="1" prefWidth="2" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="160.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="48.0" prefWidth="160.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="2" percentWidth="1" prefWidth="2" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="24.0" prefWidth="70.0" />
                 <ColumnConstraints />

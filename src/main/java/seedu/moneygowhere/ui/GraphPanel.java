@@ -12,6 +12,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import seedu.moneygowhere.commons.util.MoneyUtil;
 import seedu.moneygowhere.model.currency.Currency;
 
 /**
@@ -56,7 +57,7 @@ public class GraphPanel extends UiPart<Region> {
             for (XYChart.Data<String, Number> d : s.getData()) {
                 Tooltip tp = new Tooltip(
                         "Date: \t" + d.getXValue() + "\n"
-                                + "Spending: \t" + currency.symbol + d.getYValue() + ".00");
+                                + "Spending: \t" + currency.symbol + MoneyUtil.format(d.getYValue().doubleValue()));
                 tp.setShowDelay(Duration.seconds(0.0005));
                 Tooltip.install(d.getNode(), tp);
 
