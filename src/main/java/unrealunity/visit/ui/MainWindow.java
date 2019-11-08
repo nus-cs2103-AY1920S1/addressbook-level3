@@ -71,10 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Load font
-        Font.loadFont(
-                MainWindow.class.getResource("/font/Gill Sans MT.TTF")
-                .toExternalForm(), 10
-        );
+        Font.loadFont(getClass().getResourceAsStream("/font/Gill-Sans-MT.TTF"), 10);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
