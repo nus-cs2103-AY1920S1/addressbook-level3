@@ -8,4 +8,4 @@ Find **bugs** in our application **by Sunday morning.** Thank you!!
 ## QA
 1. Go through the short `Tutorial` section (< 5 mins).
 2. Test commands in `Feature` section.
-3. Report bugs in our issue tracker [here](https://github.com/AY1920S1-CS2103-F09-4/main/issues). 
+3. Report bugs in our issue tracker [here](https://github.com/AY1920S1-CS2103-F09-4/main/issues). Please follow the `bug report` issue template.
