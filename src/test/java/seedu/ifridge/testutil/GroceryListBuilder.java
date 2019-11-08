@@ -23,7 +23,7 @@ public class GroceryListBuilder {
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public GroceryListBuilder withPerson(GroceryItem food) {
+    public GroceryListBuilder withGroceryItem(GroceryItem food) {
         groceryList.addGroceryItem(food);
         return this;
     }

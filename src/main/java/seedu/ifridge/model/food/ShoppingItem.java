@@ -63,28 +63,29 @@ public class ShoppingItem extends Food {
      */
     public static boolean isCompletelyBought(ShoppingItem shoppingItem,
                                              ObservableList<GroceryItem> internalBoughtList) {
-        Amount shoppingAmount = shoppingItem.getAmount();
-        boolean result = false;
-        Amount totalBoughtAmount = new Amount("0" + getUnit(shoppingAmount));
-        for (GroceryItem boughtItem: internalBoughtList) {
+        Amount amountBought = shoppingItem.getAmountBought(internalBoughtList);
+        return getValue(amountBought) >= getValue(shoppingItem.getAmount());
+    }
+
+    /**
+     * Gives the amount of shopping item bought.
+     * @param internalBoughtList boughtItems to compare shoppingItem with
+     * @return Amount bought
+     */
+    public Amount getAmountBought(ObservableList<GroceryItem> internalBoughtList) {
+        Amount shoppingAmount = this.getAmount();
+        Amount totalBoughtAmount = new Amount("0" + getUnit(this.getAmount()));
+        for (GroceryItem boughtItem : internalBoughtList) {
+            if (!this.isSameName(boughtItem)) {
+                continue;
+            }
             Amount boughtAmount = boughtItem.getAmount();
-            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
+            if (!hasSameAmountUnit(boughtAmount, shoppingAmount)) {
                 boughtAmount = shoppingAmount.convertAmount(boughtAmount);
             }
-            if (!shoppingItem.getName().equals(boughtItem.getName())) {
-                continue;
-            } else if (getValue(shoppingAmount) > getValue(totalBoughtAmount)) {
-                totalBoughtAmount = totalBoughtAmount.increaseBy(boughtAmount);
-                if (getValue(shoppingAmount) <= getValue(totalBoughtAmount)) { //for when last element makes difference
-                    result = true;
-                    break;
-                }
-            } else {
-                result = true;
-                break;
-            }
+            totalBoughtAmount = totalBoughtAmount.increaseBy(boughtAmount);
         }
-        return result;
+        return totalBoughtAmount;
     }
 
     @Override

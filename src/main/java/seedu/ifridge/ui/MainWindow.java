@@ -62,7 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane groceryListPanelPlaceholder;
 
     @FXML
     private StackPane templateListPanelPlaceholder;
@@ -201,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
     private void displayGroceryListPanel() {
         groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList(),
                 logic.getIFridgeSettings().getNumberOfDays());
-        personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
+        groceryListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
         logger.info("Showing grocery list panel.");
     }
 
@@ -287,7 +287,9 @@ public class MainWindow extends UiPart<Stage> {
                 displayShoppingListPanel();
             } else if (commandResult.isWasteReportCommand()) {
                 displayWasteReport(logic.getWasteReport());
-            } else if (commandResult.isReminderDefaultCommand()) {
+            }
+
+            if (commandResult.isReminderDefaultCommand()) {
                 displayGroceryListPanel();
             }
 

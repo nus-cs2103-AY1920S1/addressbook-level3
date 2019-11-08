@@ -48,4 +48,11 @@ public class VersionedWasteList extends WasteList {
     public void add(ReadOnlyWasteList wasteList) {
         wasteListStateList.add(wasteList);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof VersionedWasteList // instanceof handles nulls
+                && wasteListStateList.equals(((VersionedWasteList) other).wasteListStateList));
+    }
 }

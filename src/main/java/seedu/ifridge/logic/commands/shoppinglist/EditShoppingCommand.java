@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,6 @@ import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 
-//For now edit shopping command will not be able to change the expiry date
 /**
  * Edits the details of an existing person in the address book.
  */
@@ -69,19 +69,26 @@ public class EditShoppingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
         }
 
+        if (editShoppingItemDescriptor.getAmount().isPresent()
+                && Amount.isEmptyAmount(editShoppingItemDescriptor.amount)) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
+        }
+
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
+        editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
+        if (isCompletelyBought(editedShoppingItem, model.getBoughtList().getGroceryList())) {
+            editedShoppingItem = editedShoppingItem.setUrgent(false);
+        }
 
         if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
                 && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
         }
-        if (!shoppingItemToEdit.isBought()) {
-            model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
-            model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
-            model.commitShoppingList();
-            model.commitBoughtList();
-        }
+        model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
+        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        model.commitShoppingList();
+        model.commitBoughtList();
         model.sortShoppingItems();
         CommandResult commandResult =
                 new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
@@ -113,7 +120,8 @@ public class EditShoppingCommand extends Command {
         Name updatedName = editShoppingItemDescriptor.getName().orElse(shoppingItemToEdit.getName());
         Amount updatedAmount = editShoppingItemDescriptor.getAmount().orElse(shoppingItemToEdit.getAmount());
 
-        return new ShoppingItem(updatedName, updatedAmount);
+        return new ShoppingItem(updatedName, updatedAmount,
+                shoppingItemToEdit.isBought(), shoppingItemToEdit.isUrgent());
     }
 
     /**
@@ -180,7 +188,7 @@ public class EditShoppingCommand extends Command {
                 return false;
             } else {
                 if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()
-                    && this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
+                        && this.getAmount().isPresent() && ((EditShoppingItemDescriptor) o).getAmount().isPresent()) {
                     return this.name.equals(((EditShoppingItemDescriptor) o).name)
                             && this.amount.equals(((EditShoppingItemDescriptor) o).amount);
                 } else if (this.getName().isPresent() && ((EditShoppingItemDescriptor) o).getName().isPresent()) {
