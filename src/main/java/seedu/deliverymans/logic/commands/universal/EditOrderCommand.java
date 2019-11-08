@@ -85,6 +85,8 @@ public class EditOrderCommand extends Command {
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
         AddOrderCommand.isValidOrder(editedOrder, model);
 
+        model.deleteOrderInCustomer(orderToEdit);
+        model.addOrderInCustomer(editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         model.setOrder(orderToEdit, editedOrder);
         return new CommandResult(String.format(MESSAGE_SUCCESS_EDIT, editedOrder));
