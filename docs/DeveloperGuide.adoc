@@ -273,7 +273,7 @@ Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.
 
 .Storage Interface
-image::storage/StorageInterfaceClassDiagram.png[]
+image::StorageInterfaceClassDiagram.png[]
 
 The `Storage` component,
 
@@ -288,7 +288,7 @@ the storage for `UserPrefs`, `FinanceTracker`, `CcaTracker`,
 Below is a class diagram of `StorageManager`.
 
 .`StorageManager` class
-image::storage/UpdatedStorageClassDiagram.png[]
+image::UpdatedStorageClassDiagram.png[]
 
 Each feature of JARVIS is able to save its information to local storage
 in `JSON` format, by adapting each feature component into
@@ -297,19 +297,19 @@ in `JSON` format, by adapting each feature component into
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::storage/HistoryManagerStorageClassDiagram.png[300,200]
+image::HistoryManagerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableCcaTracker`
-image::storage/CcaTrackerStorageClassDiagram.png[600,400]
+image::CcaTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializableCoursePlanner`
-image::storage/CoursePlannerStorageClassDiagram.png[300,200]
+image::CoursePlannerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableFinanceTracker`
-image::storage/FinanceTrackerStorageClassDiagram.png[600,400]
+image::FinanceTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializablePlanner`
-image::storage/PlannerStorageClassDiagram.png[600,400]
+image::PlannerStorageClassDiagram.png[600,400]
 
 Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
 link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
