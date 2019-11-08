@@ -28,6 +28,7 @@ import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.ReminderList;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.ConditionsManager;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -392,7 +393,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         String oldCategoryName = target.categoryName;
         String newCategoryName = editedCategory.categoryName;
         categoryList.setCategory(target, editedCategory);
-        String categoryType = target.categoryType;
+        String categoryType = target.categoryType.getCatType();
         editCategoryNamesToNewName(oldCategoryName, newCategoryName, categoryType);
         indicateModified();
     }
@@ -496,7 +497,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns the truth value for whether the Category has any entries that currently exist in guilttrip.
      */
     public boolean categoryHasAnyEntries(Category category) {
-        if (category.categoryType.equalsIgnoreCase("Income")) {
+        if (category.categoryType.equals(CategoryType.INCOME)) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             return tocheckIncomeList.stream()
                     .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));

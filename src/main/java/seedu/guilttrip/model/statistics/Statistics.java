@@ -1,7 +1,10 @@
 package seedu.guilttrip.model.statistics;
 
+import java.util.List;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
+import seedu.guilttrip.model.entry.Date;
 
 /**
  * The API of the Statistics Component.
@@ -27,4 +30,12 @@ public interface Statistics {
      * @return the list of the statistics by Category for Income.
      */
     ObservableList<CategoryStatistics> getListOfStatsForIncome();
+
+    void updateListOfStats();
+
+    void updateListOfStats(List<Date> listOfPeriods);
+
+    void updateBarCharts();
+
+    void updateBarCharts(Date monthToShow);
 }

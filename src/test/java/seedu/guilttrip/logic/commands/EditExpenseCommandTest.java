@@ -129,7 +129,6 @@ public class EditExpenseCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, chs);
     }
 
-
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenses().size() + 1);

@@ -52,7 +52,7 @@ public class CategoryList {
      */
     public boolean contains(Category toCheck) {
         requireNonNull(toCheck);
-        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType);
+        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType.getCatType());
         return typeOfCategory.stream().anyMatch(toCheck::equals);
     }
 
@@ -80,7 +80,7 @@ public class CategoryList {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.categoryType);
+        ObservableList internalList = determineWhichList(target.categoryType.getCatType());
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new CategoryNotFoundException();
@@ -104,7 +104,7 @@ public class CategoryList {
             throw new DuplicateCategoryException();
         }
 
-        if (category.categoryType.equalsIgnoreCase("Income")) {
+        if (category.categoryType.getCatType().equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -119,7 +119,7 @@ public class CategoryList {
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
         //checks if it is in list. Also works for cases where List has 0 categories.
-        ObservableList internalList = determineWhichList(toRemove.categoryType);
+        ObservableList internalList = determineWhichList(toRemove.getCategoryType());
 
         if (!internalList.remove(toRemove)) {
             throw new CategoryNotFoundException();

@@ -148,10 +148,6 @@ public class CommandTestUtil {
             Model expectedModel, CommandHistory commandHistory) {
         try {
             CommandResult result = command.execute(actualModel, commandHistory);
-            System.out.println("expected: " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("actual:   " + result.getFeedbackToUser());
-            System.out.println("expected model: " + expectedModel.getFilteredExpenses());
-            System.out.println("actual model:   " + actualModel.getFilteredExpenses());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

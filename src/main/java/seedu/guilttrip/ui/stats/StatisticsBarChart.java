@@ -2,19 +2,30 @@ package seedu.guilttrip.ui.stats;
 
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Side;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.ui.UiPart;
@@ -91,14 +102,17 @@ public class StatisticsBarChart extends UiPart<Region> {
         for (int i = 0; i < statsForDaily.size(); i++) {
             DailyStatistics t = statsForDaily.get(i);
             if (t.getTotalExpense() != 0.00) {
-                this.dataForExpense.add(new XYChart.Data<String, Number>(Integer.toString(t.getDate()),
-                        t.getTotalExpense()));
+                XYChart.Data<String, Number> data = new XYChart.Data<String, Number>(Integer.toString(t.getDate()),
+                        t.getTotalExpense());
+                this.dataForExpense.add(data);
             }
             if (t.getTotalIncome() != 0.00) {
-                this.dataForIncome.add(new XYChart.Data<String, Number>(Integer.toString(t.getDate()),
-                        t.getTotalIncome()));
+                XYChart.Data<String, Number> data = new XYChart.Data<String, Number>(Integer.toString(t.getDate()),
+                        t.getTotalIncome());
+                this.dataForIncome.add(data);
             }
         }
+
         if (dataForIncome.isEmpty() && dataForExpense.isEmpty()) {
             barChart.setVisible(false);
             noEntryLabel.setVisible(true);

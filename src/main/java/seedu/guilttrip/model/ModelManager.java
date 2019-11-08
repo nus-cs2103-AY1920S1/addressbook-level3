@@ -30,6 +30,7 @@ import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
+import seedu.guilttrip.model.statistics.Statistics;
 import seedu.guilttrip.model.statistics.StatisticsManager;
 import seedu.guilttrip.model.util.EntryComparator;
 
@@ -38,7 +39,7 @@ import seedu.guilttrip.model.util.EntryComparator;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private StatisticsManager stats;
+    private Statistics stats;
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;

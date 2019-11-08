@@ -5,6 +5,8 @@ import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
 import java.util.Arrays;
 
+import seedu.guilttrip.model.util.CategoryType;
+
 /**
  * Represents a entry's Category in the guilttrip.
  */
@@ -19,7 +21,7 @@ public class Category {
     public static final String[] VALIDATIONLIST = new String[] {"Expense", "Income"};
 
     public final String categoryName;
-    public final String categoryType;
+    public final CategoryType categoryType;
 
     /**
      * Constructs a {@code Name}. Validates that the categoryType is Expense or Income, and that the category
@@ -34,6 +36,13 @@ public class Category {
         checkArgument(isValidCategoryType(categoryType), MESSAGE_CONSTRAINTS_TYPE);
         checkArgument(isNotEmptyCategoryName(categoryName), MESSAGE_CONSTRAINTS_NAME_NOT_EMPTY);
         this.categoryName = categoryName;
+        this.categoryType = CategoryType.parse(categoryType);
+    }
+
+    public Category(String categoryName, CategoryType categoryType) {
+        requireNonNull(categoryName);
+        checkArgument(isNotEmptyCategoryName(categoryName), MESSAGE_CONSTRAINTS_NAME_NOT_EMPTY);
+        this.categoryName = categoryName;
         this.categoryType = categoryType;
     }
 
@@ -42,9 +51,8 @@ public class Category {
     }
 
     public String getCategoryType() {
-        return this.categoryType;
+        return this.categoryType.getCatType();
     }
-
 
     /**
      * Returns the truth value for whether the categoryType specified is in the Validation List.
@@ -79,7 +87,7 @@ public class Category {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
                 && categoryName.equalsIgnoreCase(((Category) other).categoryName) // state check
-                && categoryType.equalsIgnoreCase(((Category) other).categoryType)); // state check
+                && categoryType.getCatType().equalsIgnoreCase(((Category) other).categoryType.getCatType()));
     }
 
     @Override

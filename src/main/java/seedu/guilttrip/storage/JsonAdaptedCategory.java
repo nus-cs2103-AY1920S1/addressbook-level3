@@ -32,7 +32,7 @@ class JsonAdaptedCategory {
      */
     public JsonAdaptedCategory(Category source) {
         categoryName = source.categoryName;
-        categoryType = source.categoryType;
+        categoryType = source.categoryType.getCatType();
     }
 
     /**

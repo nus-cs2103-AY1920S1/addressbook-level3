@@ -3,6 +3,7 @@ package seedu.guilttrip.testutil;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD_EXPENSE;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,12 +47,17 @@ public class TypicalEntries {
     public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
             .build();
 
-
     //For adding new Categories
     public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
             .build();
     public static final Category CATEGORY_SPACE = new CategoryBuilder().withCatType("Expense").withCatName("space")
             .build();
+
+    //For Calculations of Stats;
+    public static final Double TOTAL_EXPENSE = 305.50;
+    public static final Double TOTAL_INCOME = 3880.00;
+    public static final Double TOTAL_EXPENSE_FOR_SEPTEMBER = 5.50;
+    public static final Double TOTAL_INCOME_FOR_SEPTEMBER = 350.00;
 
     private TypicalEntries() {
     } // prevents instantiation

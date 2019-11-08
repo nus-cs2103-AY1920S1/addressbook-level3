@@ -69,7 +69,7 @@ public class Budget extends Entry {
     }
 
     public void setSpent(FilteredList<Expense> filteredExpenses) {
-        this.filteredExpenses = filteredExpenses;
+        this.filteredExpenses = new FilteredList<>(filteredExpenses);
         expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
         this.filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
     }

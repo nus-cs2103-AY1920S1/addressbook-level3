@@ -23,6 +23,14 @@ public class DailyList {
         this.date = LocalDate.of(year, month, day);
     }
 
+    public FilteredList<Expense> getFilteredListOfExpenses() {
+        return this.listOfExpenses;
+    }
+
+    public FilteredList<Income> getFilteredListOfIncome() {
+        return this.listOfIncomes;
+    }
+
     /**
      * Calculates the total expense and income for the day.
      *
@@ -39,5 +47,21 @@ public class DailyList {
         }
         DailyStatistics statisticsForDay = new DailyStatistics(this.date, totalExpense, totalIncome);
         return statisticsForDay;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DailyList)) {
+            return false;
+        }
+
+        DailyList otherDailyList = (DailyList) other;
+
+        return otherDailyList.getFilteredListOfExpenses().equals(getFilteredListOfExpenses())
+                && otherDailyList.getFilteredListOfIncome().equals(getFilteredListOfIncome());
     }
 }

@@ -19,12 +19,13 @@ import seedu.guilttrip.model.util.Frequency;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS_FOR_ENTRIES = "Date is not in a valid format. Below are some of the "
-            + "possible formats. [yyyy MM dd] , [yyyy/MM/dd], [dd/MM/yyyy]. Date also must not exceed the maximum "
-            + "allowed days allowed for the month";
+            + "possible formats. \n [yyyy MM dd] , [yyyy/MM/dd], [dd/MM/yyyy]. \n Date also must not exceed the maximum"
+            + " allowed days allowed for the month";
 
     public static final String MESSAGE_CONSTRAINTS_FOR_STATS = "Date is not in a valid format. Below are some of the "
-            + "possible formats. [yyyy-MM] , [yyyy MM]. Date also cannot exceed the maximum allowed "
-            + "months allowed for the year and must only contain in the format [yyyy-MM] without days";
+            + "possible formats. \n [yyyy-MM] , [yyyy MM]. \n Date also cannot exceed the maximum allowed "
+            + "months allowed for the year and must only contain in the format [yyyy-MM] without days. \n If you "
+            + "wish to search for a period dates seperate the start and end with a comma.";
 
     /*
      * The first character of the guilttrip must not be a whitespace, otherwise " " (a

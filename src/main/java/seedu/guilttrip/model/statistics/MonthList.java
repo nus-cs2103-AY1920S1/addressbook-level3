@@ -12,6 +12,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Contains the entries for the current Month in the idea.
@@ -37,8 +38,10 @@ public class MonthList {
                      FilteredList<Income> filteredListOfIncome, Month month, int year) {
         this.listOfExpenseCategories = listOfCategories.getInternalListForOtherEntries();
         this.listOfIncomeCategories = listOfCategories.getInternalListForIncome();
-        this.filteredListForExpense = filteredListOfExpenses;
-        this.filteredListForIncome = filteredListOfIncome;
+        this.filteredListForExpense = new FilteredList<>(filteredListOfExpenses,
+                new EntryContainsMonthYearPredicate(month.getValue(), year));
+        this.filteredListForIncome =  new FilteredList<>(filteredListOfIncome,
+                new EntryContainsMonthYearPredicate(month.getValue(), year));
         mapOfExpenseCategories = FXCollections.observableHashMap();
         mapOfIncomeCategories = FXCollections.observableHashMap();
         listOfDailyStatistics = FXCollections.observableArrayList();
@@ -49,14 +52,22 @@ public class MonthList {
         initRecords();
     }
 
+    public YearMonth getYearMonth() {
+        return yearMonth;
+    }
+
+    public FilteredList<Expense> getFilteredListForExpense() {
+        return this.filteredListForExpense;
+    }
+
+    public FilteredList<Income> getFilteredListForIncome() {
+        return this.filteredListForIncome;
+    }
+
     /**
      * Initiates the MonthList Record in guilttrip.
      */
     private void initRecords() {
-        mapOfExpenseCategories.clear();
-        mapOfIncomeCategories.clear();
-        mapOfDailyLists.clear();
-        listOfDailyStatistics.clear();
         for (int i = 0; i < this.listOfExpenseCategories.size(); i++) {
             Category toFilterCategory = this.listOfExpenseCategories.get(i);
             FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
@@ -73,9 +84,9 @@ public class MonthList {
 
         for (int j = 1; j <= this.yearMonth.lengthOfMonth(); j++) {
             FilteredList<Expense> dailyExpense = new FilteredList<Expense> (filteredListForExpense,
-                    new EntryDayContainsPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
+                    new EntryContainsDayPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
             FilteredList<Income> dailyIncome = new FilteredList<Income> (filteredListForIncome,
-                    new EntryDayContainsPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
+                    new EntryContainsDayPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));
             DailyList dailyListOfMonth = new DailyList(dailyExpense, dailyIncome, j,
                     this.yearMonth.getMonth(), this.yearMonth.getYear());
             this.mapOfDailyLists.put(j, dailyListOfMonth);
@@ -97,7 +108,7 @@ public class MonthList {
     public Double updateListOfStats(Category cat) {
         double newTotal = 0.00;
         updateMapOfEntries(cat);
-        if (cat.categoryType.equalsIgnoreCase("Income")) {
+        if (cat.categoryType.equals(CategoryType.INCOME)) {
             FilteredList<Income> toCalculate = this.mapOfIncomeCategories.get(cat);
             double calculatedTotal = 0.00;
             for (int i = 0; i < toCalculate.size(); i++) {
@@ -120,7 +131,7 @@ public class MonthList {
      * @param cat Category to update.
      */
     private void updateMapOfEntries(Category cat) {
-        if (cat.categoryType.equalsIgnoreCase("Income")) {
+        if (cat.categoryType.equals(CategoryType.INCOME)) {
             if (!mapOfIncomeCategories.containsKey(cat.categoryName)) {
                 FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
                         new EntryContainsCategoryPredicate(cat));
@@ -151,5 +162,22 @@ public class MonthList {
             }
         }
         return listOfDailyStatistics;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MonthList)) {
+            return false;
+        }
+
+        MonthList otherMonthList = (MonthList) other;
+
+        return otherMonthList.getFilteredListForExpense().equals(getFilteredListForExpense())
+                && otherMonthList.getFilteredListForIncome().equals(getFilteredListForIncome())
+                && otherMonthList.getYearMonth().equals(getYearMonth());
     }
 }

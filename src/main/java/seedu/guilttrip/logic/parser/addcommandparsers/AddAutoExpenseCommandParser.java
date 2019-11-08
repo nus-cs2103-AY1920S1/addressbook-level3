@@ -52,8 +52,8 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         Date date = ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        AutoExpense autoExpense = new AutoExpense(new Category(categoryName, "Expense"), desc, amt, tagList, freq,
-                date);
+        AutoExpense autoExpense = new AutoExpense(new Category(categoryName, "Expense"), desc, amt,
+                tagList, freq, date);
         return new AddAutoExpenseCommand(autoExpense);
     }
 

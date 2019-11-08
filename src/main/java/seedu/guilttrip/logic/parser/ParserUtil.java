@@ -225,6 +225,7 @@ public class ParserUtil {
         String[] dateArr = period.split(",");
         List<Date> startAndEnd = Arrays.stream(dateArr).map(dateString -> new Date(dateString.trim(), true))
                 .collect(Collectors.toList());
+        startAndEnd.sort((start,end) -> start.getDate().compareTo(end.getDate()));
         return startAndEnd;
     }
 

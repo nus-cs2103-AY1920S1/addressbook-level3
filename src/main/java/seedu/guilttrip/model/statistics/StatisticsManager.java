@@ -73,11 +73,7 @@ public class StatisticsManager implements Statistics {
         for (int i = 1; i <= 12; i++) {
             FilteredList<Expense> filteredExpenseByMonth = modelTotalFilteredExpenses;
             FilteredList<Income> filteredIncomeByMonth = modelTotalFilteredIncomes;
-            FilteredList<Expense> filteredExpenses = new FilteredList<>(filteredExpenseByMonth,
-                    new EntryTimeContainsPredicate(i, currentYear));
-            FilteredList<Income> filteredIncome = new FilteredList<>(filteredIncomeByMonth,
-                    new EntryTimeContainsPredicate(i, currentYear));
-            MonthList monthToCompare = new MonthList(listOfCategories, filteredExpenses, filteredIncome,
+            MonthList monthToCompare = new MonthList(listOfCategories, filteredExpenseByMonth, filteredIncomeByMonth,
                     Month.of(i), currentYear);
             monthlyRecord.put(i, monthToCompare);
         }
@@ -153,6 +149,7 @@ public class StatisticsManager implements Statistics {
     /**
      * Calculates the statistics for the current month.
      */
+    @Override
     public void updateListOfStats() {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
         ArrayList<MonthList> listOfMonths = new ArrayList<MonthList>();
@@ -169,6 +166,7 @@ public class StatisticsManager implements Statistics {
      *
      * @param listOfPeriods contains the range of periods that was specified by the user.
      */
+    @Override
     public void updateListOfStats(List<Date> listOfPeriods) {
         if (listOfPeriods.size() == 1) {
             calculationsForOneMonth(listOfPeriods.get(0));
@@ -284,6 +282,7 @@ public class StatisticsManager implements Statistics {
     /**
      * Calculates the statistics for the current month. This statistics is to be used later in the barchart.
      */
+    @Override
     public void updateBarCharts() {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
         MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
@@ -300,6 +299,7 @@ public class StatisticsManager implements Statistics {
      *
      * @param monthToShow contains the month that was specified by the user.
      */
+    @Override
     public void updateBarCharts(Date monthToShow) {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
         MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
