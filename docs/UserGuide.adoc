@@ -211,6 +211,22 @@ Examples:
 * `theme white`
 * `theme black`
 
+=== Clearing the list : `clear`
+
+Clears ALL the lists.
+
+Examples:
+
+* `clear`
+
+=== Clearing the chat box : `clearscreen`
+
+Clears the chat box.
+
+Examples:
+
+* `clearscreen`
+
 === Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
