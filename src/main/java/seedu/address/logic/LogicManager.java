@@ -6,6 +6,7 @@ import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.achievements.logic.AchievementsLogicManager;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.logic.AddressBookLogicManager;
+import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
@@ -17,12 +18,12 @@ import seedu.address.storage.Storage;
  * The main AddressBookLogicManager of the app.
  */
 public class LogicManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private AddressBookLogic addressBookLogic;
     private AchievementsLogic achievementsLogic;
     private UserPrefsModel userPrefsModel;
     private DiaryBookLogic diaryLogic;
+    private CalendarLogic calendarLogic;
     private Storage storage;
 
     public LogicManager(Model model, Storage storage) {
@@ -32,6 +33,7 @@ public class LogicManager implements Logic {
         this.addressBookLogic = new AddressBookLogicManager(userPrefsModel, model.getAddressBookModel(), storage);
         this.achievementsLogic = new AchievementsLogicManager(userPrefsModel, model.statisticsModelSupplier());
         this.diaryLogic = new DiaryBookLogic();
+        this.calendarLogic = new CalendarLogic();
         this.storage = storage;
     }
 
@@ -39,16 +41,24 @@ public class LogicManager implements Logic {
         return storage;
     }
 
+    @Override
     public AddressBookLogic getAddressBookLogic() {
         return addressBookLogic;
     }
 
+    @Override
     public AchievementsLogic getAchievementsLogic() {
         return achievementsLogic;
     }
 
+    @Override
     public DiaryBookLogic getDiaryLogic() {
-        return this.diaryLogic;
+        return diaryLogic;
+    }
+
+    @Override
+    public CalendarLogic getCalendarLogic() {
+        return calendarLogic;
     }
 
     @Override

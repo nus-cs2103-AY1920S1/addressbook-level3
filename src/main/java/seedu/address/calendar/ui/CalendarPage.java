@@ -54,22 +54,10 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     @FXML
     GridPane weekHeader;
 
-    public CalendarPage() {
+    public CalendarPage(CalendarLogic calendarLogic) {
         super(FXML);
-        Calendar calendar = new Calendar();
-        CalendarStorage calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
 
-        try {
-            Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
-            calendar.updateCalendar(calendarOptional);
-        } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty Calendar");
-        } catch (NoSuchFileException e) {
-            System.err.println(e);
-        } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty Calendar");
-        }
-        calendarLogic = new CalendarLogic(calendar, calendarStorage);
+        this.calendarLogic = calendarLogic;
         monthViewWidth = weekHeader.widthProperty();
 
         fillInnerParts();

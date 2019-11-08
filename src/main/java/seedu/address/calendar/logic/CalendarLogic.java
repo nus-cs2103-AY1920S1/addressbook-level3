@@ -2,6 +2,7 @@ package seedu.address.calendar.logic;
 
 import seedu.address.calendar.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
+import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.util.CalendarStatistics;
@@ -9,23 +10,44 @@ import seedu.address.calendar.parser.AlternativeCalendarParser;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.calendar.parser.Option;
 import seedu.address.calendar.storage.CalendarStorage;
+import seedu.address.calendar.storage.JsonCalendarStorage;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 public class CalendarLogic {
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+
     private CalendarStorage calendarStorage;
     private Calendar calendar;
     private SuggestionManager suggestionManager;
 
-    public CalendarLogic(Calendar calendar, CalendarStorage calendarStorage) {
-        this.calendarStorage = calendarStorage;
-        this.calendar = calendar;
+    public CalendarLogic() {
+        this.calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));;
+        this.calendar = new Calendar();
         this.suggestionManager = new SuggestionManager();
+
+        try {
+            Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
+            calendar.updateCalendar(calendarOptional);
+        } catch (DataConversionException e) {
+            logger.info("Data file not in the correct format. Will be starting with an empty Calendar");
+        } catch (NoSuchFileException e) {
+            logger.info("Data file cannot be found. Will be creating and starting with an empty Calendar");
+        } catch (IOException e) {
+            logger.info("Problem while reading from the file. Will be starting with an empty Calendar");
+        }
     }
 
     public CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
