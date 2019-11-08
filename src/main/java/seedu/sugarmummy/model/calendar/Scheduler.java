@@ -29,12 +29,20 @@ public class Scheduler {
     private LocalDateTime currentStartingDateTime;
     private Queue<ScheduledFuture> scheduledFutures;
     private Today today;
+    private final LocalDateTime appStartingDateTime;
+    private boolean isFirstScheduling;
 
     public Scheduler() {
+        appStartingDateTime = LocalDateTime.now().withSecond(0).withNano(0).minusMinutes(1);
         currentDeadline = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59));
-        currentStartingDateTime = LocalDateTime.now();
+        currentStartingDateTime = appStartingDateTime.plusMinutes(1);
         scheduledFutures = new LinkedList<>();
         today = new Today();
+        isFirstScheduling = true;
+    }
+
+    public LocalDateTime getAppStartingDateTime() {
+        return appStartingDateTime;
     }
 
     /**
@@ -64,12 +72,22 @@ public class Scheduler {
     }
 
     /**
+     * Returns a LocalDate Object representing the date of today.
+     */
+    public LocalDate getTodayDate() {
+        return today.getDate();
+    }
+
+    /**
      * Schedules reminders according to the current model.
      */
     public void schedule(Calendar calendar) {
         Map<LocalTime, List<Reminder>> dateTimeMap = getDateTimeMapToReminders(calendar.getCalendarEntryList());
-
-        cancelAll();
+        if (isFirstScheduling) {
+            isFirstScheduling = false;
+        } else {
+            cancelAll();
+        }
         currentStartingDateTime = LocalDateTime.now();
         for (Map.Entry<LocalTime, List<Reminder>> entry : dateTimeMap.entrySet()) {
             scheduledFutures.add(scheduler.schedule(new ReminderAdder(entry.getValue(), calendar),
@@ -84,7 +102,9 @@ public class Scheduler {
      */
     private TreeMap<LocalTime, List<Reminder>> getDateTimeMapToReminders(
             ObservableList<CalendarEntry> calendarEntries) {
-        currentStartingDateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        if (!isFirstScheduling) {
+            currentStartingDateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        }
 
         return calendarEntries
                 .stream()

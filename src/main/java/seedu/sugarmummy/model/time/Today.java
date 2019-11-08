@@ -22,4 +22,8 @@ public class Today {
     public void refresh() {
         date.set(LocalDate.now());
     }
+
+    public LocalDate getDate() {
+        return date.get();
+    }
 }

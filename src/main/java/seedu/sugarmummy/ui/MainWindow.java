@@ -250,7 +250,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         reminderListPanel = new ReminderListPanel(logic.getPastReminderList(),
-                logic.getFilteredCalendarEntryList(), logic.getToday());
+                logic.getFilteredCalendarEntryList(), logic.getToday(), logic.getAppStartingDateTime());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
 

@@ -4,11 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<HBox fx:id="rawCard" spacing="2" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<HBox fx:id="rawCard" spacing="4" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
     <padding>
-        <Insets top="5" right="10" bottom="5" left="10"/>
+        <Insets top="5" right="10" bottom="5"/>
     </padding>
-    <Label fx:id="index" alignment="BOTTOM_RIGHT">
+    <Label fx:id="index" alignment="BOTTOM_RIGHT" prefWidth="30" wrapText="true">
         <padding>
             <Insets top="2"></Insets>
         </padding>

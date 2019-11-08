@@ -112,9 +112,9 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     }
 
     /**
-     * Adds a list of calendar entries that does not exit in the list to the list.
+     * Adds a list of calendar entries to the list.
      */
-    public void addAll(List<? extends CalendarEntry> toAdd) {
+    public void addAll(List<CalendarEntry> toAdd) {
         internalList.addAll(toAdd.stream().filter(calendarEntry -> !contains(calendarEntry))
                 .collect(Collectors.toList()));
     }
