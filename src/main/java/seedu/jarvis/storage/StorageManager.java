@@ -22,7 +22,7 @@ import seedu.jarvis.storage.planner.PlannerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Jarvis data in local storage.
  */
 public class StorageManager implements Storage {
 

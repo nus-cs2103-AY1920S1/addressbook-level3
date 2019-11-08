@@ -64,7 +64,7 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Saves the address book to local storage.
+     * Saves the Jarvis to local storage.
      * Saves the history manager to local storage.
      *
      * @throws CommandException If there was an {@code IOException} when saving a component to local storage.

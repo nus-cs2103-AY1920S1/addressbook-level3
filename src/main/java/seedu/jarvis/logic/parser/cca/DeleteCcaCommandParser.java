@@ -8,13 +8,13 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new CcaAddressCommand object
+ * Parses input arguments and creates a new DeleteCcaCommand object
  */
 public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteAddressCommand
-     * and returns a DeleteAddressCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteCcaCommand
+     * and returns a DeleteCcaCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public DeleteCcaCommand parse(String args) throws ParseException {

@@ -57,9 +57,9 @@ public class DeleteCcaCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCcaList().size() + 1);
-        DeleteCcaCommand deleteAddressCommand = new DeleteCcaCommand(outOfBoundIndex);
+        DeleteCcaCommand deleteCcaCommand = new DeleteCcaCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteAddressCommand, model, Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCcaCommand, model, Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
     }
 
     @Test
