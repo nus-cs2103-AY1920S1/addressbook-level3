@@ -433,10 +433,12 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     protected Void call() throws Exception {
                         try {
-                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
-                                    statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
+                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(),
+                                    statistics.getFavouriteGenre(), statistics.getMovieRecommendations(),
+                                    statistics.getTvShowRecommendations());
                         } catch (OnlineConnectionException e) {
-                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
+                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(),
+                                    statistics.getFavouriteGenre(),
                                     null, null);
                             resultDisplay.setFeedbackToUser("Note: You are not connected to the internet!");
                         }

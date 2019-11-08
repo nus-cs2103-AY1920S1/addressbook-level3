@@ -24,7 +24,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean shortCutKey, boolean isChangedList) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean shortCutKey, boolean isChangedList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -56,7 +57,9 @@ public class CommandResult {
         return shortCutKey;
     }
 
-    public boolean isChangedList() { return isChangedList; }
+    public boolean isChangedList() {
+        return isChangedList;
+    }
 
     @Override
     public boolean equals(Object other) {
