@@ -56,8 +56,14 @@ Model --> MergeShoppingCommand : lastShownBoughtList
 deactivate Model
 
 loop for each boughtItem in lastShownBoughtList
-ref over MergeShoppingCommand, Model : Modify groceryList according to boughtItem
-ref over MergeShoppingCommand, Model : Modify shoppingList according to boughtItem
+MergeShoppingCommand -> MergeShoppingCommand: modifyGroceryListAccordingToBoughtItem(boughtItem)
+activate MergeShoppingCommand
+MergeShoppingCommand --> MergeShoppingCommand
+deactivate MergeShoppingCommand
+MergeShoppingCommand -> MergeShoppingCommand: modifyShoppingListAccordingToBoughtItem(boughtItem)
+activate MergeShoppingCommand
+MergeShoppingCommand --> MergeShoppingCommand
+deactivate MergeShoppingCommand
 end
 
 create GroceryList
@@ -79,6 +85,10 @@ Model -> ShoppingComparator : ShoppingComparator()
 activate ShoppingComparator
 ShoppingComparator --> Model
 deactivate ShoppingComparator
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShoppingComparator -[hidden]-> Model
+destroy ShoppingComparator
+
 
 
 Model --> MergeShoppingCommand
