@@ -47,7 +47,7 @@ Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
 
 === How do I use EzWatchlist?
 
-EzWatchlist was built with ease in mind hence our interface represents this design philosophy.
+EzWatchlist was built with ease in mind hence our interface reflects this design philosophy.
 
 .EzWatchlist graphical interface
 image::Ui.png[width="900"]
