@@ -6,7 +6,6 @@ import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 import java.io.File;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -28,11 +27,10 @@ class PdfCommandTest {
     }
 
     @Test
-    @Order(1)
     public void execute_valid() {
         assertCommandSuccess(new PdfCommand(1,
-                new PersonBuilder().withName("Jason").build(),
-                new PersonBuilder().withName("Gihun").build(),
+                new PersonBuilder().withName("Harry").build(),
+                new PersonBuilder().withName("Jenny").build(),
                 tempDir.toPath()), model, PdfCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

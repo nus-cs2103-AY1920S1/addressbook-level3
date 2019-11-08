@@ -1,5 +1,6 @@
 package com.typee.logic.commands;
 
+import static com.typee.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 
@@ -39,12 +40,5 @@ public class TabCommandTest {
         TabCommand tabCommandCalendar = new TabCommand(new Tab("Add Engagement"));
         assertCommandSuccess(tabCommandCalendar, model,
                 TabCommand.MESSAGE_SUCCESS + "Add Engagement", model);
-    }
-
-    @Test
-    public void execute_invalid_tabCommand() {
-        Model model = new ModelManager(getTypicalEngagementList(), new UserPrefs());
-        TabCommand tabCommand = new TabCommand(new Tab("Generate Report"));
-        assertCommandSuccess(tabCommand, model, TabCommand.MESSAGE_SUCCESS + "Generate Report", model);
     }
 }

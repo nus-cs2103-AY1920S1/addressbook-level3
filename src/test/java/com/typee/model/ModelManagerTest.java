@@ -58,6 +58,18 @@ public class ModelManagerTest {
                 TYPICAL_REPORT_DIFF));
     }
 
+    @Test
+    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
+        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
+        modelManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
+    }
+
     /*
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
@@ -71,18 +83,6 @@ public class ModelManagerTest {
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
-    }
-
-    @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
-    }
-
-    @Test
-    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
