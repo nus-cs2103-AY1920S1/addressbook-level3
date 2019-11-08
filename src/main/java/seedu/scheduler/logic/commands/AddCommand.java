@@ -67,6 +67,7 @@ public abstract class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This entity already exists in Scheduler.";
+    public static final String MESSAGE_DUPLICATE_SLOT = "Duplicate slots are not allowed.";
 
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;

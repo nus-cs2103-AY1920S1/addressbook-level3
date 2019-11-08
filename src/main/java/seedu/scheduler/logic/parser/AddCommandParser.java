@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.scheduler.commons.util.CollectionUtil;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.AddIntervieweeCommand;
 import seedu.scheduler.logic.commands.AddInterviewerCommand;
@@ -90,6 +91,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
         List<Department> departmentChoices =
                 ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
+
+        // Ensure no duplicate slots and departments supplied
+        if (CollectionUtil.collectionHasDuplicate(availableTimeslots)) {
+            throw new ParseException(AddCommand.MESSAGE_DUPLICATE_SLOT);
+        }
+
+        if (CollectionUtil.collectionHasDuplicate(departmentChoices)) {
+
+        }
 
         // Build the interviewee
         Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagSet)
