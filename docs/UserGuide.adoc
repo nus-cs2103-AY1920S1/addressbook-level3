@@ -320,6 +320,11 @@ Format: `use INDEX`
 The create tab allows you to create a new meme from a template.
 To start a meme creation session, select a template from the templates tab and execute the `use` command.
 
+****
+Meme creation sessions will not be saved after exiting the app. +
+Please finish the meme creation session before exiting the app if you would like to create a meme from it.
+****
+
 ==== Adding text: `add`
 
 Adds a piece of text to the template. +
