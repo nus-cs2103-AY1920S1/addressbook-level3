@@ -47,6 +47,7 @@ public class JsonDiaryStorage implements DiaryStorage {
 
         Optional<JsonSerializableDiaryCatalogue> jsonDiary = JsonUtil.readJsonFile(
                 filePath, JsonSerializableDiaryCatalogue.class);
+
         if (!jsonDiary.isPresent()) {
             return Optional.empty();
         }

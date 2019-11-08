@@ -20,7 +20,7 @@ public class ViewDiaryCommand extends ViewCommand {
 
     public static final String VARIANT_WORD = "diary";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a specific diary "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views a specific diary "
             + "Parameters: "
             + "1";
 
