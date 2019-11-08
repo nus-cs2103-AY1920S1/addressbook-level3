@@ -250,7 +250,7 @@ Below are the quiz model class diagram:
 image::ModelQuizClassDiagram.png[]
 
 In quiz feature, a `Question` has 6 attributes namely: `Name`, `Answer`, `Category`, `Type`, `Comment`, `Tag`, with
-the first two attributes differentiate one `Question` from the others. When the users first time launch the app or the are no data yet,
+the first three attributes differentiate one `Question` from the others. When the users first time launch the app or there are no data yet,
 Modulo will automatically populate the four questions from `SampleDataUtil`. The users are able to use the `clear` command
 if they want to delete the given data entirely. UI will then pull and updates the data from the `ModelQuizManager` which
 represents the in-memory model of the `AddressQuizBook` data, and show them to the users.
@@ -310,18 +310,18 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 image::UndoRedoState0.png[]
 
-*Step 2.* The user executes `delete 5` command to delete the 5th person in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
+*Step 2.* The user executes `delete 5` command to delete the 5th question in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
 
 image::UndoRedoState1.png[]
 
-*Step 3.* The user executes `comment 1 <val> NewComment` to add a new person. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
+*Step 3.* The user executes `comment 1 <val> NewComment` to add a new question. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitQuizBook()`, so the quiz book state will not be saved into the `quizBookStateList`.
 
-*Step 4.* The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
+*Step 4.* The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -359,7 +359,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the question being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ====== Aspect: Data structure to support the undo/redo commands

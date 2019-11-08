@@ -306,21 +306,18 @@ The expected details/instructions for [INSTRUCTION] keyword are:  +
 - `type` Indicate that I want to include the priority/importance level of the question in my search. +
 - `tag` Indicate that I want to include the customized tag of the question in my search.
 
-*Note:*
+*Note:* +
+• To search for everything, leave the [INSTRUCTION] field blank. +
+• To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,` +
+• To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
 
-- To search for everything, leave the [INSTRUCTION] field blank.
-
-- To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,`
-
-- To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
-
-Example 1: find <key> CS2131, lecture +
+Example 1: *find* <key> CS2131, lecture +
 Explanation: search for _CS2131_ and _lecture_ keyword from the whole question
 
-Example 2: find category, answer <key> Tomorrow +
+Example 2: *find* category, answer <key> Tomorrow +
 Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
 
-Example 3: find -i answer <key> Tomrrow +
+Example 3: *find -i* answer <key> Tomrrow +
 Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
 {empty} +
 
@@ -346,32 +343,27 @@ Users can hide all question answers when they want to revise or for other purpos
 provide the user the hint of the answer. By default the answer is shown.
 
 Format: `showAnswer [yes/no]` +
-Example: showAnswer no +
-{empty} +
+Example: showAnswer no
 
 ==== Undo:
 Undo some of the previous action. +
 Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment`
 
-Format: `undo` +
-{empty} +
+Format: `undo`
 
 ==== Redo:
 Redo some of the previous action.
 Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment`
 
-Format: `redo` +
-{empty} +
+Format: `redo`
 
 ==== Help:
-Format : `help` +
-{empty} +
+Format : `help`
 
 ==== Clear all data:
 To remove all of the current data in quiz book.
 
-Format: `clear` +
-{empty} +
+Format: `clear`
 
 ==== Exit application:
 To exit application (Modulo).
