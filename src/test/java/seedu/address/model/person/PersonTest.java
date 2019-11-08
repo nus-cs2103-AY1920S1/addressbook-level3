@@ -107,4 +107,18 @@ public class PersonTest {
         // same object -> return true
         assertTrue(GEORGE.toString().equals(GEORGE.toString()));
     }
+
+    @Test
+    public void testHashCode() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+
+        // same values -> return true
+        assertTrue(GEORGE.hashCode() == georgeCopy.hashCode());
+
+        // same object -> return true
+        assertTrue(GEORGE.hashCode() == GEORGE.hashCode());
+
+        // different object -> return false
+        assertFalse(GEORGE.hashCode() == ALICE.hashCode());
+    }
 }
