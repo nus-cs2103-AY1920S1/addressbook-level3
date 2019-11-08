@@ -49,14 +49,11 @@ class CalendarDateDisplayEngagementsCommandTest {
                 new CalendarOpenDisplayCommand(otherDate);
         assertFalse(calendarDateDisplayEngagementsCommand
                 .equals(differentCalendarDateDisplayEngagementsCommand));
-<<<<<<< HEAD
 
         CalendarOpenDisplayCommand typicalCommand = new CalendarOpenDisplayCommand(date);
-        assert(typicalCommand.equals(typicalCommand));
+        assertTrue(typicalCommand.equals(typicalCommand));
 
         assertFalse(typicalCommand.equals(new CalendarNextMonthCommand()));
-=======
->>>>>>> 6cad22334ac04d02b3fb283714773a4db0717070
     }
 
 }
