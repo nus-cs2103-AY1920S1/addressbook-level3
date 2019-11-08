@@ -43,7 +43,8 @@
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="5">
+                    <VBox fx:id="mainPanel" minWidth="340" prefWidth="340" styleClass="pane-with-border"
+                          VBox.vgrow="ALWAYS" spacing="5">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
