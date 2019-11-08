@@ -117,7 +117,11 @@ Examples:
 Adds a meme with the image from `/Users/Me/Downloads/dgirl_oof.jpg` and tag `Funny`
 
 ****
-Note the double `/` near the prefix `p/`. The first `/` is part of the argument prefix, whereas the second `/` is part of the file path. Both `/` s must be present for the command to succeed.
+Note the double `/` near the prefix `p/`.
+This is because the examples given in this guide use MacOS absolute file paths, which start with a `/`.
+Therefore, the first `/` is part of the argument prefix, whereas the second `/` is part of the file path.
+If you are using MacOS or *nix systems, both `/` s must be present for the command to succeed.
+If you are using Windows, your command might look something like `add p/C:/Users/Me/Downloads/dgirl_off.jpg` instead.
 ****
 
 ==== Listing all memes: `list`
