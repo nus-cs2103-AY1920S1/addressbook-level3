@@ -110,7 +110,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parsePerson_validPersonArgs_returnsDeletePersonCommand() throws ParseException {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = FLAG_PERSON + SPACE + Integer.toString(targetIndex.getOneBased());
+        String userInput = FLAG_PERSON + SPACE + targetIndex.getOneBased();
         DeletePersonCommand expectedCommand = new DeletePersonCommand(targetIndex);
         assertEquals(expectedCommand, parser.parsePerson(userInput));
     }

@@ -139,6 +139,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         return flag;
     }
 
+    /**
+     * Removes the flag (-p, -e, or -t) from the argument string.
+     */
     private String removeFlag(String args) throws ParseException {
         try {
             return args.substring(2).trim();
