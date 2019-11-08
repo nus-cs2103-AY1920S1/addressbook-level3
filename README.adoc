@@ -14,12 +14,16 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* FlashCard Pro is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
-* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* FlashCard Pro is an application designed for *students who prefer to use a desktop app for managing flashcards*.
+* It is also useful for teachers who would like to provide resources, in the form of custom flashcard decks, to support their students’ learning.
+* FlashCard Pro is optimised for users who are *comfortable with Command Line Interface-based interaction*. It has a Graphical User Interface for viewing and interacting with the flashcards, but most of the user interactions are also accessible via the CLI.
+* Users of FlashCard Pro may find using the CLI to be faster than the GUI as many interactions, such as tests, involve repetitive button clicks which can be suitably replaced by typing the respective commands.
 
 == Who is FlashCard Pro for?
-Have you ever felt like there should be more kinds of flashcards you could create in order to learn different things? Like flashcards that require you to complete code snippets, or flashcards with multiple choice?
-FlashcardPro allows you to create these kinds of flashcards!
+* Have you wished to create *more kinds of flashcards* in order to learn different things?
+* Unlike traditional pen-and-paper flashcards or even existing flashcard apps like Anki, FlashCard Pro supports flashcards with *multiple choices*, and even flashcards that require you to *complete code snippets*!
+* With FlashCard Pro, you can *test yourself* on each deck, *edit decks and cards* on-the-fly, and *view statistics* on your activity.
+* Never fear losing all your flashcards ever again -- in FlashCard Pro, all decks are *stored in the lightweight and portable JSON format*, allowing decks to be migrated between devices, or sent to your friends! Teachers can also easily design their own decks for students to use as learning tools!
 
 == Site Map
 

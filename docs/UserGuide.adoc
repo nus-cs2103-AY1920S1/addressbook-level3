@@ -16,22 +16,34 @@ endif::[]
 
 By: `Team F09-02`      Since: `Aug 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-FlashCard Pro is an application designed for students of all fields who prefer to use a desktop app for managing flashcards, as well as teachers who would like to provide resources (in the form of custom flashcard decks) to support their students’ learning.
+FlashCard Pro is an application designed for students who *prefer to use a desktop app for managing flashcards*. It is also useful for teachers who would like to provide resources, in the form of custom flashcard decks, to support their students’ learning.
 
-FlashCard Pro is optimised for users who are comfortable with Command Line Interface-based interaction, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
+FlashCard Pro is optimised for users who are *comfortable with Command Line Interface-based interaction*, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
 
-== Flashcards
+// end::introduction[]
+// tag::whatis[]
+== What is a flashcard?
 
-What is a flashcard? Flashcards are containers for information. Each card has a “front” and a “back”. Although FlashCard Pro is agnostic in its implementation, one recommended use case is such: the user stores a question on the “front” of the card and the answer on the “back”.
+*Flashcards* are containers for information. Each card has a “front” and a “back”. One recommended use case is such: the user stores a question on the “front” of the card, and the answer on the “back”.
 
-After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, FlashCard Pro can be configured to show the “front” of the card, prompting the user to enter their guess for what is on the “back” of the card. The user’s attempt is gauged “correct” if it matches the definition of the card.
+// end::whatis[]
+// tag::interacting[]
+== Interacting with flashcards
 
-As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming.
+After sets of flashcards (known as *“decks”*) have been created, the user can interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via *timed and untimed tests*. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard.
 
-For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
+Other types of flashcards support more advanced interactions. Cards with *multiple choices* for their answers will prompt the user to select an answer, and the app will automatically determine if the answer is correct.
 
+At the end of each test, FlashCard Pro will provide the user with a score. Comprehensive *statistics on the user's test sessions and login sessions* are recorded, which can be accessed via the Statistics menu in FlashCard Pro. The user may use these statistics to assess the frequency of their usage and their performance over time. Statistics are also provided on each card in a deck, so that the user can identify specific cards they may have problems with [coming in v2.0].
+
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc [coming in v2.0]. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses, to support for learning programming.
+
+With FlashCard Pro's *Java and JavaScript cards*, teachers can define basic coding problems for their students. Based on the test cases provided by the teachers, FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress. Test decks can be passed easily from student to teacher, as they are stored in convenient, lightweight JSON files which can be *imported or exported* natively in FlashCard Pro.
+
+// end::interacting[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -325,27 +337,37 @@ Exams will also terminate automatically upon running out of cards in the test de
 // tag::stats[]
 === Viewing user statistics : `stats`
 
-Shows your usage statistics, such as time spent and usage count in general of for a deck of cards.
+Opens a new window to shows your *usage statistics*, such as time spent and list of login sessions over time. A *quick summary of the decks*, showing the number of cards, number of test sessions and average score, is also provided for reference.
+
+[TIP]
+You can also open the statistics window by clicking `Statistics > View my statistics` in the menu bar of the app.
+
+[TIP]
+Upon your first login, you will see that the list of login sessions is blank and the number of login sessions is 0. :) A login session refers to the duration between when you launch the app and when you close it. Try opening and closing the app several times!
+
+*Statistics on specific decks*, such as the list of test sessions involving the deck and their results, can be accessed via `stats deck/deck_NAME`, or by double-clicking on the row representing the deck in the table titled "My statistics by deck".
+
+*Statistics on specific cards* within a deck, which will allow you to review your understanding of individual concepts, are coming in v2.0.
 
 Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
 * `stats` +
-
-Displays the overview of the time spent and usage count of all decks of cards. Also shows the statistics of the current program State.
+// todo: add screenshot
+Displays an overview of your statistics, grouped by your login sessions and statistics specific to each deck.
 
 * `stats deck/science_deck` +
-
-Display the overview of time spend and usage count of the deck of cards, `science_deck`.
+// todo: add screenshot
+Displays the overview of time spent reviewing the deck `science_deck`, as well as the list of test sessions involving the deck and their results.
 
 // end::stats[]
 
 // tag::FAQ[]
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer. Copy the JSON files of any decks you would like to transfer into the `data` folder of the app.
 
 // end::FAQ[]
 

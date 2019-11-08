@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.jsjava.JsTestRunnerApplication;
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.util.datastructures.Pair;
 import javafx.application.Application;
@@ -27,10 +28,11 @@ public class JsCard extends AnchorPane {
     private JavascriptCard card;
     private Application jsEditor;
     private Consumer<Pair<String, Pair<Integer, Integer>>> getResult = this::receiveResult;
-    private Consumer<String> updateUserAttempt;
-    private Consumer<Boolean> getScore;
+    private Consumer<Boolean> launchJsCoder = bool -> {
+        startCoding();
+    };
 
-    public JsCard(JavascriptCard card, Consumer<String> updateUserAttempt, Consumer<Boolean> getScore) {
+    public JsCard(JavascriptCard card) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Cards/Front/JsCard.fxml"));
@@ -38,8 +40,7 @@ public class JsCard extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
-            this.getScore = getScore;
-            this.updateUserAttempt = updateUserAttempt;
+            Consumers.addConsumer("LAUNCH_JS", launchJsCoder);
             questionTextLabel.setText(card.getFront());
             openCoderButton.setOnAction(e -> startCoding());
         } catch (IOException e) {
@@ -80,15 +81,15 @@ public class JsCard extends AnchorPane {
         if (result.snd().snd().equals(0)) {
             card.editFront(front + pass);
             questionTextLabel.setText(front + pass);
-            getScore.accept(true);
+            Consumers.doTask("GET_SCORE", true);
         } else if (result.snd().fst() != -1) {
             card.editFront(front + fail);
             questionTextLabel.setText(front + fail);
-            getScore.accept(false);
+            Consumers.doTask("GET_SCORE", false);
         } else {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
-            getScore.accept(false);
+            Consumers.doTask("GET_SCORE", false);
         }
     }
 }

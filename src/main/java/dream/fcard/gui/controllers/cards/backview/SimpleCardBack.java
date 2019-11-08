@@ -1,9 +1,11 @@
 package dream.fcard.gui.controllers.cards.backview;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
+import dream.fcard.logic.respond.Consumers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -23,21 +25,15 @@ public class SimpleCardBack extends AnchorPane {
     @FXML
     private Label answerLabel;
 
-    private Consumer<Boolean> onNext;
-    private Consumer<Boolean> updateScore;
-
-    public SimpleCardBack(String backOfCard, Consumer<Boolean> wantToSeeFront,
-                          Consumer<Boolean> updateScore, Consumer<Boolean> onNext) {
+    public SimpleCardBack(String backOfCard) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Cards/"
                     + "Back/SimpleCardBack.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            this.onNext = onNext;
-            this.updateScore = updateScore;
             answerLabel.setText(backOfCard);
-            seeFrontButton.setOnAction(e -> wantToSeeFront.accept(true));
+            seeFrontButton.setOnAction(e -> seeFront());
             correctButton.setOnAction(e -> onCorrect());
             wrongButton.setOnAction((e -> onWrong()));
         } catch (IOException e) {
@@ -45,13 +41,29 @@ public class SimpleCardBack extends AnchorPane {
         }
     }
 
-    private void onCorrect() {
-        updateScore.accept(true);
-        onNext.accept(true);
+    private void seeFront() {
+        Consumers.doTask("SEE_FRONT", true);
     }
 
+    /**
+     * Event handler for what happens when correct button is clicked.
+     */
+    private void onCorrect() {
+        Consumers.doTask("GET_SCORE", true);
+        Exam exam = ExamRunner.getCurrentExam();
+        exam.upIndex();
+        AnchorPane nextCardFront = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+    }
+
+    /**
+     * Event handler for what happens when wrong button is clicked.
+     */
     private void onWrong() {
-        updateScore.accept(false);
-        onNext.accept(false);
+        Consumers.doTask("GET_SCORE", false);
+        Exam exam = ExamRunner.getCurrentExam();
+        exam.upIndex();
+        AnchorPane nextCardFront = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
     }
 }

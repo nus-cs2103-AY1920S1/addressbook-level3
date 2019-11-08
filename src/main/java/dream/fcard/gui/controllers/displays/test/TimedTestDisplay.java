@@ -3,19 +3,14 @@ package dream.fcard.gui.controllers.displays.test;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.cards.backview.McqCardBack;
-import dream.fcard.gui.controllers.cards.backview.SimpleCardBack;
-import dream.fcard.gui.controllers.cards.frontview.BasicFrontBackCard;
-import dream.fcard.gui.controllers.cards.frontview.JavaFront;
-import dream.fcard.gui.controllers.cards.frontview.JsCard;
-import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.model.StateEnum;
+import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -52,24 +47,21 @@ public class TimedTestDisplay extends AnchorPane {
      * The flashcard that is currently on display in test mode.
      */
     private FlashCard cardOnDisplay;
+
     /**
      * The deck in use for the test.
      */
     private Exam exam;
+
     /**
      * The index of the card in the deck that is currently on display.
      */
     private int nowShowing;
+
     /**
      * The user's current score. For Shawn
      */
     private int currentScore = 0;
-    /**
-     * Consumers used to allow the front view of any card (which is a child component of TestDisplay)
-     * to trigger TestDisplay to render a back view of the same card.
-     */
-    private Consumer<Boolean> seeFrontOfCurrentCard = b -> seeFront();
-    private Consumer<Boolean> seeBackOfCurrentCard = b -> seeBack();
 
     /**
      * Consumer for cards to update the score attained for each card by the user. This consumer
@@ -99,9 +91,48 @@ public class TimedTestDisplay extends AnchorPane {
         onShowNext();
     };
 
+    @SuppressWarnings("unchecked")
+    private Consumer<FlashCard> changeTestState = currCard -> {
+        if (currCard.getClass().getSimpleName().equals("FrontBackCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
+        } else if (currCard.getClass().getSimpleName().equals("MultipleChoiceCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
+        } else if (currCard.getClass().getSimpleName().equals("JavaCard")
+                || currCard.getClass().getSimpleName().equals("JavascriptCard")) {
+            StateHolder.getState().setCurrState(StateEnum.TEST_JSJAVA);
+        } else {
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        }
+    };
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> clearCardDisplay = bool -> {
+        cardDisplay.getChildren().clear();
+    };
+
+    @SuppressWarnings("unchecked")
+    private Consumer<AnchorPane> swapCardDisplay = pane -> {
+        cardDisplay.getChildren().add(pane);
+    };
+
     private Integer durationInSeconds;
     private IntegerProperty timeSeconds;
     private Timeline timeline;
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> stopTimeline = bool -> {
+        timeline.stop();
+    };
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> seeBack = bool -> {
+        seeBack();
+    };
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> seeFront = bool -> {
+        seeFront();
+    };
 
     public TimedTestDisplay(Exam exam) {
         try {
@@ -122,7 +153,14 @@ public class TimedTestDisplay extends AnchorPane {
             Consumers.addConsumer("UPDATE_MCQ_ATTEMPT", updateMcqUserAttempt);
             Consumers.addConsumer("UPDATE_STRING_ATTEMPT", updateStringUserAttempt);
             Consumers.addConsumer("SHOW_NEXT", nextCard);
-            seeFront();
+            Consumers.addConsumer("UPDATE_TEST_STATE", changeTestState);
+            Consumers.addConsumer("SEE_FRONT", seeFront);
+            Consumers.addConsumer("SEE_BACK", seeBack);
+            Consumers.addConsumer("SWAP_CARD_DISPLAY", swapCardDisplay);
+            Consumers.addConsumer("CLEAR_CARD_DISPLAY", clearCardDisplay);
+            Consumers.addConsumer("STOP_TIMELINE", stopTimeline);
+            Consumers.doTask("UPDATE_TEST_STATE", cardOnDisplay);
+            Consumers.doTask("SWAP_CARD_DISPLAY", exam.getCardDisplayFront());
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> onEndSession());
             nextButton.setOnAction(e -> onShowNext());
@@ -139,76 +177,44 @@ public class TimedTestDisplay extends AnchorPane {
      * the mcq options / code editors with the user's attempt.
      */
     private void seeFront() {
-        FlashCard card = cardOnDisplay;
-        cardDisplay.getChildren().clear();
-        String typeOfCard = card.getClass().getSimpleName();
-        if (typeOfCard.equals("FrontBackCard")) {
-            BasicFrontBackCard frontBackCard = new BasicFrontBackCard(cardOnDisplay, seeBackOfCurrentCard);
-            cardDisplay.getChildren().add(frontBackCard);
-        } else if (typeOfCard.equals("MultipleChoiceCard")) {
-            McqCard mcqCard = new McqCard((MultipleChoiceCard) cardOnDisplay, seeBackOfCurrentCard);
-            cardDisplay.getChildren().add(mcqCard);
-        } else if (typeOfCard.equals("JavascriptCard")) {
-            cardDisplay.getChildren().clear();
-            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateStringUserAttempt, getScore);
-            cardDisplay.getChildren().add(jsCard);
-        } else if (typeOfCard.equals("JavaCard")) {
-            cardDisplay.getChildren().clear();
-            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateStringUserAttempt, getScore);
-            cardDisplay.getChildren().add(javaFront);
-        }
-
+        Consumers.doTask("CLEAR_CARD_DISPLAY", true);
+        AnchorPane currCardFront = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", currCardFront);
     }
 
     /**
      * A method to render the back of the current card on display.
      */
     private void seeBack() {
-        FlashCard card = cardOnDisplay;
-        cardDisplay.getChildren().clear();
-        String typeOfCard = card.getClass().getSimpleName();
-        if (typeOfCard.equals("FrontBackCard")) {
-            String back = cardOnDisplay.getBack();
-            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore, nextCard);
-            cardDisplay.getChildren().add(backOfCard);
-        } else if (typeOfCard.equals("MultipleChoiceCard")) {
-            McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
-                    seeFrontOfCurrentCard, getScore, updateMcqUserAttempt);
-            cardDisplay.getChildren().add(backCard);
-        }
+        Consumers.doTask("CLEAR_CARD_DISPLAY", true);
+        AnchorPane currCardBack = exam.getCardDisplayBack();
+        Consumers.doTask("SWAP_CARD_DISPLAY", currCardBack);
     }
-
-
 
     /**
      * The handler to render the previous card.
      */
     private void onShowPrevious() {
         exam.downIndex();
-        cardOnDisplay = exam.getCurrentCard();
-        seeFront();
+        AnchorPane newCard = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
 
     /**
      * The handler to render the next card.
      */
     private void onShowNext() {
-        try {
-            exam.upIndex();
-            cardOnDisplay = exam.getCurrentCard();
-            seeFront();
-        } catch (IndexOutOfBoundsException e) {
-            //code for a result popup
-            timeline.stop();
-            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You've ran out of cards in this test!");
-            exam.downIndex();
-            try {
+        boolean isEndOfDeck = exam.upIndex();
+        if (isEndOfDeck) {
+            Consumers.doTask("STOP_TIMELINE", true);
+            if (ExamRunner.getCurrentExam() != null) {
                 ExamRunner.terminateExam();
-            } catch (NullPointerException e2) {
-                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE,
-                        "Exam has already ended! Either review your previous questions or exit :)");
             }
         }
+        AnchorPane newCard = exam.getCardDisplayFront();
+        Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
     //sample renderer for Shawn
     private void renderCurrentScore() {
@@ -221,10 +227,11 @@ public class TimedTestDisplay extends AnchorPane {
      */
     private void updateStatDeckWithScore(Boolean isCorrect) {
         try {
-            exam.gradeQuestion(isCorrect);
             FlashCard currCard = exam.getCurrentCard();
-            currCard.updateScore(isCorrect);
-            //checkif this method works for MCQ and JS card
+            if (currCard.getCardResult() == -1) {
+                exam.gradeQuestion(isCorrect);
+                currCard.updateScore(isCorrect);
+            }
         } catch (IndexNotFoundException e) {
             e.printStackTrace();
         }
@@ -244,7 +251,7 @@ public class TimedTestDisplay extends AnchorPane {
      * Terminates exam if there is an active exam and brings user to deck display.
      */
     private void onEndSession() {
-        timeline.stop();
+        Consumers.doTask("STOP_TIMELINE", true);
         if (ExamRunner.getCurrentExam() != null) {
             ExamRunner.terminateExam();
         }
