@@ -65,8 +65,6 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
         filteredColors = new ArrayList<>();
         for (PersonSchedule personSchedule : originalPersonSchedules) {
             if (filteredList.contains(personSchedule.getPersonDisplay().getName())) {
-                System.out.println(personSchedule.getPersonDisplay().getName().toString());
-                System.out.println(filteredList.contains(personSchedule.getPersonDisplay().getName()));
                 int index = originalPersonSchedules.indexOf(personSchedule);
                 filteredMonthSchedules.add(personSchedule.getScheduleDisplay());
                 filteredColors.add(originalColors.get(index));

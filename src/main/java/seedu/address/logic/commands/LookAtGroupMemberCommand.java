@@ -71,9 +71,28 @@ public class LookAtGroupMemberCommand extends Command {
         } else if (command instanceof LookAtGroupMemberCommand) {
             //Same list of names to be filtered. Order does not matter.
             int numberOfMatch = 0;
-            LookAtGroupMemberCommand lookAtGroupMemberCommand = (LookAtGroupMemberCommand) command;
-            for (Name name : membersToBeFiltered) {
-                if (lookAtGroupMemberCommand.membersToBeFiltered.contains(name)) {
+            LookAtGroupMemberCommand otherCommand = (LookAtGroupMemberCommand) command;
+            for (Name name : this.membersToBeFiltered) {
+                if (otherCommand.membersToBeFiltered.contains(name)) {
+                    numberOfMatch++;
+                }
+            }
+            return numberOfMatch == membersToBeFiltered.size();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof LookAtGroupMemberCommand) {
+            //Same list of names to be filtered. Order does not matter.
+            int numberOfMatch = 0;
+            LookAtGroupMemberCommand otherCommand = (LookAtGroupMemberCommand) obj;
+            for (Name name : this.membersToBeFiltered) {
+                if (otherCommand.membersToBeFiltered.contains(name)) {
                     numberOfMatch++;
                 }
             }
