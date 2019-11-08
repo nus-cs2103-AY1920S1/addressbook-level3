@@ -305,7 +305,7 @@ find from the full list transactions and show the results.
 Shown below is the table of all transactions:
 
 //.Screenshot of all transactions in Home tab
-image::homeUG/HomeFindCurr.png[width = "400"]
+image::homeUG/HomeFindCurr.png[width = "600"]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
@@ -318,7 +318,7 @@ image::homeUG/HomeFindStep1cr.png[]
 transactions matching the keywords. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for find command in Home tab
-image::homeUG/HomeFindStep2.png[width = "400"]
+image::homeUG/HomeFindStep2.png[width = "600"]
 
 
 [start = 3]
