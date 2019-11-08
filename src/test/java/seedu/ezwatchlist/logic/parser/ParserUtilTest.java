@@ -22,7 +22,7 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Titanic";
     private static final String VALID_DESCRIPTION = "Ship";
     private static final boolean VALID_IS_WATCHED = false;
-    private static final String VALID_DATE = "24 September 1997";
+    private static final String VALID_DATE = "24/9/1997";
     private static final int VALID_RUNNING_TIME = 122;
     private static final String VALID_ACTORS_1 = "Leonardo Di Caprio";
     private static final String VALID_ACTORS_2 = "Kate Winslet";
@@ -82,8 +82,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDate_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Date expectedDate = new Date(VALID_DATE);
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        Date expectedDate = new Date("1997-9-24");
         assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
     }
 
