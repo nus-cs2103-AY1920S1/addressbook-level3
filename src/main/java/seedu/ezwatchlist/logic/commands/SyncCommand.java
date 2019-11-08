@@ -7,7 +7,6 @@ import java.util.List;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
@@ -48,7 +47,7 @@ public class SyncCommand extends Command {
         System.err.println(name.showName);
         boolean matchingShowName = false;
         int matchingIndex = -1;
-        for(int i = 0; i < unWatchedList.size(); i++) {
+        for (int i = 0; i < unWatchedList.size(); i++) {
             Name nameFromUnWatched = unWatchedList.get(i).getName();
             System.err.println("FROM watchedlist: " + nameFromUnWatched.showName);
             if (name.equals(nameFromUnWatched)) {
@@ -58,7 +57,7 @@ public class SyncCommand extends Command {
                 break;
             }
         }
-        if(matchingShowName) {
+        if (matchingShowName) {
             Show fromUnWatchedList = unWatchedList.get(matchingIndex);
             model.setShow(fromUnWatchedList, fromImdb);
             return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
