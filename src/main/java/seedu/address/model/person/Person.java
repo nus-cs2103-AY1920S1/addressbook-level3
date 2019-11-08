@@ -20,7 +20,7 @@ public class Person {
     private Amount balance;
 
     /**
-     * Only name must be non-null
+     * All parameters must be non-null.
      */
     public Person(Name name, Amount amount) {
         requireAllNonNull(name, amount);
