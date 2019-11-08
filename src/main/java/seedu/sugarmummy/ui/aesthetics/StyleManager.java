@@ -46,7 +46,7 @@ public class StyleManager {
     private String lineReadFromReader;
     private String linesToWriteViaWriter;
     private List<String> fieldsToIgnore = new ArrayList<>(List.of("#lineChart", ".commonScrollPane .",
-            ".lineChartScrollPaneSecondVersion ."));
+            ".lineChartScrollPaneSecondVersion .", ".card_big_label", ".card_small_label"));
 
     public StyleManager(Scene scene, VBox mainWindowPlaceholder) {
         this.scene = scene;
@@ -274,7 +274,7 @@ public class StyleManager {
      */
     private void ignoreTextToBeIgnored() throws IOException {
         for (String fieldToIgnore : fieldsToIgnore) {
-            if (lineReadFromReader.startsWith(fieldToIgnore)) {
+            if (lineReadFromReader != null && lineReadFromReader.startsWith(fieldToIgnore)) {
                 ignoreUntilNextField();
             }
         }
