@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.logging.Logger;
 
