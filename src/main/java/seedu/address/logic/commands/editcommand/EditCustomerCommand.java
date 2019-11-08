@@ -80,8 +80,28 @@ public class EditCustomerCommand extends UndoableCommand {
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
 
+        // If both email and contact number not edited, proceed to next check
+        // If both email and contact number edited, check if same as any existing
         if (!customerToEdit.isSameAs(editedCustomer) && model.hasCustomer(editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+        }
+
+        // Only email is edited, check if email already in
+        if (!customerToEdit.getEmail().equals(editedCustomer.getEmail())) {
+            boolean clash = model.getCustomerBook().getList().stream()
+                    .anyMatch(customer -> customer.getEmail().equals(editedCustomer.getEmail()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+            }
+        }
+
+        // Only contact number is edited, check if contact number already in
+        if (!customerToEdit.getContactNumber().equals(editedCustomer.getContactNumber())) {
+            boolean clash = model.getCustomerBook().getList().stream()
+                    .anyMatch(customer -> customer.getContactNumber().equals(editedCustomer.getContactNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+            }
         }
 
         model.setCustomer(customerToEdit, editedCustomer);

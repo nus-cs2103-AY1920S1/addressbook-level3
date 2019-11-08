@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete-c`**`1` : deletes the 1st customer shown in the current list
 * *`exit`* : exits the app
 
- Refer to <<Features>> for details of each command.
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -849,7 +849,7 @@ Coming in `V2.0`:
 
 // end::statisticsCommandUG[]
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
