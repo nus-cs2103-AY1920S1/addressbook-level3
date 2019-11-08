@@ -1,6 +1,7 @@
 package com.typee.logic.commands;
 
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static com.typee.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 
 import java.io.File;
@@ -32,5 +33,15 @@ class PdfCommandTest {
                 new PersonBuilder().withName("Harry").build(),
                 new PersonBuilder().withName("Jenny").build(),
                 tempDir.toPath()), model, PdfCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_invalid_index() {
+        assertCommandFailure(new PdfCommand(0,
+                        new PersonBuilder().withName("Harry").build(),
+                        new PersonBuilder().withName("Jenny").build(),
+                        tempDir.toPath()),
+                model,
+                PdfCommand.MESSAGE_INDEX_INVALID);
     }
 }
