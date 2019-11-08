@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the final state of the state machine that builds the {@code UndoCommand}.
+ */
 public class UndoState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "The latest undoable command will be undone.";

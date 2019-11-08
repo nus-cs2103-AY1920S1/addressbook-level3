@@ -11,6 +11,9 @@ import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the initial and the penultimate state of the state machine that builds the {@code TabCommand}.
+ */
 public class TabState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Tab command initiated. Please enter the tab you would like"
@@ -41,6 +44,14 @@ public class TabState extends PenultimateState {
         return new TabEndState(soFar);
     }
 
+    /**
+     * Checks that the input doesn't have duplicate prefixes, contains the required keyword and is valid.
+     *
+     * @param newArgs Unprocessed arguments.
+     * @param tab User entered {@code String}.
+     * @throws StateTransitionException If there are duplicate prefixes, the required keyword is missing, or
+     * the input is invalid.
+     */
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> tab)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
@@ -48,6 +59,12 @@ public class TabState extends PenultimateState {
         enforceValidity(tab);
     }
 
+    /**
+     * Ensures that the input {@code String} is a valid tab.
+     *
+     * @param tab Tab to switch to.
+     * @throws StateTransitionException If the tab is invalid.
+     */
     private void enforceValidity(Optional<String> tab) throws StateTransitionException {
         String tabString = tab.get();
         if (!isValid(tabString)) {
@@ -55,6 +72,12 @@ public class TabState extends PenultimateState {
         }
     }
 
+    /**
+     * Returns true if the {@code String} input is not a valid tab.
+     *
+     * @param tabString {@code String} representing a tab.
+     * @return true if the {@code String} is a valid tab.
+     */
     private boolean isValid(String tabString) {
         return tabString.equalsIgnoreCase(KEYWORD_GAME_TAB)
                 || tabString.equalsIgnoreCase(KEYWORD_ENGAGEMENT_TAB)

@@ -12,6 +12,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.ui.Tab;
 
+/**
+ * Represents the accepting state of the finite state machine that parses the {@code TabCommand}.
+ */
 public class TabEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Tab successfully shifted!";
@@ -36,6 +39,13 @@ public class TabEndState extends EndState {
         return new TabCommand(tabToSwitchTo);
     }
 
+    /**
+     * Makes a {@code Tab} from the entered {@code String}.
+     *
+     * @param tab String that represents a tab.
+     * @return {@code Tab} that corresponds to the {@code String}.
+     * @throws CommandException If no such tab exists.
+     */
     private Tab makeTab(String tab) throws CommandException {
         String tabLowerCase = tab.toLowerCase().trim();
         switch(tabLowerCase) {
