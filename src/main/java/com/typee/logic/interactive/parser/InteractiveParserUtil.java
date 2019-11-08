@@ -9,6 +9,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,7 @@ public class InteractiveParserUtil {
     public static final String MESSAGE_INVALID_DESCRIPTION = "The description cannot be empty.";
     public static final String MESSAGE_INVALID_ATTENDEES = "There can't be no attendees.";
     private static final String FORMAT_DATE_TIME = "dd/MM/uuuu/HHmm";
+    private static final String MESSAGE_YEAR_ZERO = "The year zero is not allowed!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -256,6 +258,10 @@ public class InteractiveParserUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)
                 .withResolverStyle(ResolverStyle.STRICT);
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        int year = localDateTime.getYear();
+        if (year == 0) {
+            throw new DateTimeException(MESSAGE_YEAR_ZERO);
+        }
         return localDateTime;
     }
 
