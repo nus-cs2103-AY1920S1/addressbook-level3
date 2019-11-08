@@ -37,6 +37,8 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label rating;
     @FXML
+    private Label quantity;
+    @FXML
     private FlowPane tags;
 
     public RestaurantCard(Restaurant restaurant, int displayedIndex) {
@@ -46,7 +48,7 @@ public class RestaurantCard extends UiPart<Region> {
         name.setText(restaurant.getName().fullName);
         loc.setText("Location: " + restaurant.getLocation().name);
         rating.setText("Rating: " + restaurant.getRating().toString());
-        //quantity.setText("Quantity Ordered: " + restaurant.getQuantityOrdered());
+        quantity.setText("Quantity Ordered: " + restaurant.getQuantityOrdered());
         restaurant.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
