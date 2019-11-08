@@ -38,73 +38,73 @@ public class JsonQuizAdaptedQuestionTest {
 
     @Test
     public void toModelType_validQuestionDetails_returnsQuestion() throws Exception {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(BENSON);
+        assertEquals(BENSON, question.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(INVALID_NAME, null,
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(INVALID_NAME, null,
                 VALID_ANSWER, VALID_CATEGORY, VALID_TYPE, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(null, null,
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(null, null,
                 VALID_ANSWER, VALID_CATEGORY, VALID_TYPE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_invalidAnswer_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(VALID_NAME, null,
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(VALID_NAME, null,
                 INVALID_ANSWER, VALID_CATEGORY, VALID_TYPE, VALID_TAGS);
         String expectedMessage = Answer.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_nullAnswer_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(VALID_NAME, null, null,
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(VALID_NAME, null, null,
                 VALID_CATEGORY, VALID_TYPE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person =
+        JsonQuizAdaptedQuestion question =
                 new JsonQuizAdaptedQuestion(VALID_NAME, null, VALID_ANSWER, INVALID_CATEGORY, VALID_TYPE, VALID_TAGS);
         String expectedMessage = Category.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person = new JsonQuizAdaptedQuestion(VALID_NAME, null, VALID_ANSWER,
+        JsonQuizAdaptedQuestion question = new JsonQuizAdaptedQuestion(VALID_NAME, null, VALID_ANSWER,
                 null, VALID_TYPE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_invalidQuestion_throwsIllegalValueException() {
-        JsonQuizAdaptedQuestion person =
+        JsonQuizAdaptedQuestion question =
                 new JsonQuizAdaptedQuestion(VALID_NAME, null, VALID_ANSWER, VALID_CATEGORY, INVALID_TYPE, VALID_TAGS);
         String expectedMessage = String.format(MESSAGE_CONSTRAINTS, Question.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonQuizAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonQuizAdaptedTag(INVALID_TAG));
-        JsonQuizAdaptedQuestion person =
+        JsonQuizAdaptedQuestion question =
                 new JsonQuizAdaptedQuestion(VALID_NAME, null, VALID_ANSWER, VALID_CATEGORY, VALID_TYPE, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, question::toModelType);
     }
 
 }

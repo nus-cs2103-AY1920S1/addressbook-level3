@@ -2,7 +2,7 @@ package seedu.address.logic.quiz.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
- * E.g. 't/' in 'add James t/ friend'.
+ * E.g. '< val >' in 'comment 1 < val > friend'.
  */
 public class Prefix {
     private final String prefix;

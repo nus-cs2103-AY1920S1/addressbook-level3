@@ -1,5 +1,7 @@
 package seedu.address.logic.quiz.commands.exceptions;
 
+import seedu.address.logic.quiz.commands.Command;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */

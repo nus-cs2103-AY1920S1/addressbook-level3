@@ -88,6 +88,7 @@ public class QuizBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
         case ViewAnswerCommand.COMMAND_WORD:
             return new ViewAnswerCommandParser().parse(arguments);
 

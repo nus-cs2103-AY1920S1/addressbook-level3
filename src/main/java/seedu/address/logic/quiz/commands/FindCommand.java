@@ -9,7 +9,7 @@ import seedu.address.model.quiz.person.NameContainsKeywordsPredicate;
 
 
 /**
- * Finds and lists all questions in address book whose name contains any of the argument keywords.
+ * Finds and lists all questions in modulo whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

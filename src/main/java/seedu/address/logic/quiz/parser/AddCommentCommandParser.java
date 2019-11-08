@@ -7,13 +7,13 @@ import seedu.address.logic.quiz.commands.AddCommentCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new AddCommentCommand object
  */
 public class AddCommentCommandParser implements Parser<AddCommentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCommentCommand
+     * and returns an AddCommentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommentCommand parse(String args) throws ParseException {
