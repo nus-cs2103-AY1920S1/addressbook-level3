@@ -638,7 +638,7 @@ _{explain how the user can enable/disable data encryption}_
 `assign_class INDEXES c/CLASSID` +
 `list_class CLASSID` +
 `mark_attendance INDEXES` +
-`mark_participation INDEXES` 
+`mark_participation INDEXES`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Clear* : `clear`
