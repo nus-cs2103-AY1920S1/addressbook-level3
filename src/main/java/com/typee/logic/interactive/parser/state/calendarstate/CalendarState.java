@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
@@ -75,6 +76,9 @@ public class CalendarState extends PenultimateState {
 
         case CalendarOpenDisplayCommand.COMMAND_WORD:
             return new OpenDisplayState(soFar);
+
+        case CalendarCloseDisplayCommand.COMMAND_WORD:
+            return new CloseDisplayState(soFar);
 
         default:
             throw new StateTransitionException(MESSAGE_INVALID_INPUT);
