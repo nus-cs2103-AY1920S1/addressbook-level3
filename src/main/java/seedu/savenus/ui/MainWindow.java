@@ -16,6 +16,7 @@ import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
@@ -230,6 +231,16 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Runs recommend command.
+     */
+    @FXML
+    private void handleRecommend() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(RecommendCommand.COMMAND_WORD);
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
     }
 
     public FoodListPanel getFoodListPanel() {
