@@ -28,6 +28,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.event.Event;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -41,9 +42,9 @@ public class ManualAllocateCommandTest {
     private Model model = new ModelManager(initialData, initialEventData, new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_employeeIndexSpecifiedUnfilteredList_success() {
         ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
-                INDEX_FIRST_PERSON);
+                INDEX_FIRST_PERSON, null);
 
         String expectedMessage = String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS,
                 initialData.getEmployeeList().get(0).getEmployeeName(),
@@ -56,20 +57,32 @@ public class ManualAllocateCommandTest {
     }
 
 
+
     @Test
     public void execute_invalidEventIndexUnfilteredList_failure() {
         Integer outOfBoundInteger = initialEventData.getEventList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
-        ManualAllocateCommand autoAllocateCommand = new ManualAllocateCommand(invalidIndex, INDEX_FIRST_PERSON);
-        assertCommandFailure(autoAllocateCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(invalidIndex,
+                INDEX_FIRST_PERSON, null);
+        assertCommandFailure(manualAllocateCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidEmployeeIndexUnfilteredList_failure() {
         Integer outOfBoundInteger = initialData.getEmployeeList().size() + 1;
         Index invalidIndex = Index.fromOneBased(outOfBoundInteger);
-        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, invalidIndex);
+        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
+                invalidIndex, null);
         assertCommandFailure(manualAllocateCommand, model, Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidEmployeeIdUnfilteredList_failure() {
+        EmployeeId invalidEmployeeId = new EmployeeId("100");
+
+        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT,
+                null, invalidEmployeeId);
+        assertCommandFailure(manualAllocateCommand, model, Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
     }
 
     @Test
@@ -83,7 +96,9 @@ public class ManualAllocateCommandTest {
         model.setEvent(eventToEdit, newEvent);
         Integer validInteger = 6;
         Index validIndex = Index.fromOneBased(validInteger);
-        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, validIndex);
+        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, validIndex,
+                null);
+
         assertCommandFailure(manualAllocateCommand, model, Messages.MESSAGE_EVENT_FULL_MANPOWER);
     }
 
@@ -98,7 +113,8 @@ public class ManualAllocateCommandTest {
         model.setEvent(eventToEdit, newEvent);
         Integer validInteger = 1;
         Index validIndex = Index.fromOneBased(validInteger);
-        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, validIndex);
+        ManualAllocateCommand manualAllocateCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, validIndex,
+                null);
         assertCommandFailure(manualAllocateCommand, model, Messages.MESSAGE_EMPLOYEE_ALREADY_ALLOCATED);
     }
 
@@ -106,10 +122,12 @@ public class ManualAllocateCommandTest {
 
     @Test
     public void equals() {
-        final ManualAllocateCommand standardCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_FIRST_PERSON);
+        final ManualAllocateCommand standardCommand = new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_FIRST_PERSON,
+                null);
 
         // same values -> returns true
-        ManualAllocateCommand commandWithSameValues = new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_FIRST_PERSON);
+        ManualAllocateCommand commandWithSameValues = new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_FIRST_PERSON,
+                null);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -122,10 +140,12 @@ public class ManualAllocateCommandTest {
         assertFalse(standardCommand.equals(new ClearEmployeesCommand()));
 
         // different eventIndex -> returns false
-        assertFalse(standardCommand.equals(new ManualAllocateCommand(INDEX_SECOND_EVENT, INDEX_FIRST_PERSON)));
+        assertFalse(standardCommand.equals(new ManualAllocateCommand(INDEX_SECOND_EVENT, INDEX_FIRST_PERSON,
+                null)));
 
         // different employeeIndex -> returns false
-        assertFalse(standardCommand.equals(new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_SECOND_PERSON)));
+        assertFalse(standardCommand.equals(new ManualAllocateCommand(INDEX_FIRST_EVENT, INDEX_SECOND_PERSON,
+                null)));
 
     }
 }
