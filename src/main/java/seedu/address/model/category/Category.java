@@ -10,7 +10,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Category {
 
     public static final Category GENERAL = new Category("GENERAL");
-
     public static final String MESSAGE_CONSTRAINTS = "Categories names should be alphanumeric";
     private static final String VALIDATION_REGEX = "\\p{Alnum}+";
 

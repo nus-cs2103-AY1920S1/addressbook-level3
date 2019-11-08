@@ -30,7 +30,7 @@ Enjoy!
 == Quick Start
 
 . Ensure you have Java `11` or above installed in your Computer.
-. Download the latest `palpay.jar` link:{repoURL}/releases[here].
+. Download the latest `PalPay.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your finance manager.
 . Double-click the file to start the app.
 The GUI should appear within a few seconds.
@@ -165,17 +165,32 @@ To set a new budget: +
 // tag::view[]
 === Displaying View : `view`
 
-Want to switch tabs without using your mouse? You can switch to another tab with the `view` command. +
+Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
+
+==== Command Syntax
+
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction`, `budget` and `ledger` in v1.4.
+* `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4. It is case-insensitive.
 ****
 
-Examples:
+==== Example Usage:
 
-* `view transaction`
-* `view budget`
+You do not have to use your mouse in PalPay to switch tabs anymore.
+
+. By default, you are in the `transaction` tab.
++
+image::view1.png[]
++
+. Simply type *view budget* in the command box and press kbd:[Enter].
++
+image::view2.png[]
++
+. You can now view your budgets. Easy!
++
+image::view3.png[]
+
 // end::view[]
 
 // tag::delete[]
@@ -229,35 +244,72 @@ Examples:
 Have you ever wonder which is the most expensive transaction you ever made?
 Or wondered which is the latest transaction you made? Fret not!
 You can now `sort` your transactions according to `date` or `amount`. +
-Format: `sort PREDICATE`
+
+
+==== Command Syntax
+
+Format: `sort PREDICATE/ORDER`
 
 ****
-* You are only able to `sort` by `date` and `amount` in v1.3.
-* Transactions will be sorted in ascending order.
+* `PREDICATE` accepts only `date` or `amount`. It is case-insensitive.
+* `ORDER` accepts only `a` or `d` which represents ascending and descending, respectively.
 ****
 
-Examples:
+==== Example Usage:
 
-* `sort amount`
-* `sort date`
+Do you want to know what is the latest transaction you made? No need to scroll all the way down anymore. PalPay
+has made it simple for you.
+
+. By default, your transactions are sorted from the earliest
+transaction you entered to the latest transaction you entered.
++
+image::sort1.png[]
++
+. Simply type *sort date/d* in the command box and press kbd:[Enter].
++
+image::sort2.png[]
++
+. Great! You can now see the latest transactions you made.
++
+image::sort3.png[]
+
 // end::sort[]
 
 // tag::filter[]
 === Filtering Transactions : `filter`
 
-PalPay gives you the power to filter your transactions with your desired `CATEGORY`. +
-Format: `filter CATEGORY...`
+Here at PalPay, you do not need to scroll through your history of transactions to find out what you spend two months ago.
+PalPay gives you the power to filter your transactions to solve that problem. +
+
+
+==== Command Syntax
+
+Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 
 ****
-* All transactions with at least one `CATEGORY` in the `CATEGORY...` input will be displayed.
-* Example: `filter transport allowance` will display transactions with `transport`, `allowance`, or
-`transport` and `allowance`.
+* `YEAR` accepts only integers from 1900 to 9999.
+* `MONTH` accepts only integers from 1 to 12.
+* All transactions with at least one `CATEGORY` in the `[c/CATEGORY]...` input will be displayed.
+* Example: `filter c/transport c/allowance y/2019` will display transactions with `transport`, `allowance`, or
+`transport` and `allowance` that occurred in 2019.
 ****
 
-Examples:
+==== Example Usage:
 
-* `filter food`
-* `filter transport allowance`
+Imagine that you wanted to find out what you spent on shopping in October 2019.
+
+. By default, PalPay shows your all your transactions you have made.
++
+image::filter1.png[]
++
+. Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
++
+image::filter2.png[]
++
+. You will now see the list of transactions you have made while shopping in October 2019. Hurray!
++
+image::filter3.png[]
+
 // end::filter[]
 
 === Projecting Balance : `project`
@@ -267,7 +319,7 @@ Format: `project d/DATE`
 
 ****
 * `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d\`
+* `DATE` input must be preceded by its tag `d/`
 * `DATE` input must be set in the future.
 ****
 
@@ -334,8 +386,8 @@ Example: `delete t1`
 Example: `update b1 $/100 c/transport`
 * *Sort* : `sort PREDICATE` +
 Example: `sort amount`
-* *Filter* : `filter CATEGORY...` +
-Example: `filter food`
+* *Filter* : `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...` +
+Example: `filter c/transport c/allowance y/2019`
 * *Project* : `project DURATION` +
 Example: `project d/22072020`
 * *Redo* : `redo`

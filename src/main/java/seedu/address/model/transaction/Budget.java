@@ -17,6 +17,7 @@ import seedu.address.model.util.Date;
 public class Budget {
     private Amount initialAmount;
     private Amount amount;
+    private Date start = Date.now();
     private Date deadline;
     private boolean valid;
     private int between;
@@ -67,6 +68,10 @@ public class Budget {
         this.between = calculateRemaining();
     }
 
+    public Date getStart() {
+        return this.start;
+    }
+
     public void setInitialAmount(Amount amount) {
         this.initialAmount = amount;
     }
@@ -109,7 +114,7 @@ public class Budget {
      * @param amount
      * @return
      */
-    public Budget updateBudget(Amount amount, Set<Category> categories) {
+    public Budget updateBudget(Amount amount, Set<Category> categories, boolean isRemoveTransaction) {
         boolean isSameCategory = false;
 
         for (Category ct : categories) {
@@ -119,8 +124,48 @@ public class Budget {
             }
         }
 
-        if (isSameCategory) {
+        if (isSameCategory && isRemoveTransaction) {
+            Amount newAmount = this.amount.subtractAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else if (isSameCategory && !isRemoveTransaction) {
             Amount newAmount = this.amount.addAmount(amount);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else {
+            return this;
+        }
+    }
+
+    /** Updates the amount of this budget if a Transaction of the same category is replaced/changed.
+     *
+     * @param amountToReplace accepts the amount to be replaced
+     * @param amountReplacement accepts the amount to replace {@code amountToReplace}
+     * @param categories accepts the set of categories to be cross checked with existing budgets
+     * @param isSameTransactionCategory returns true if the categories of both transactions
+     * to be edited and replaced are the same.
+     * @return
+     */
+    public Budget updateBudget(Amount amountToReplace, Amount amountReplacement,
+                               Set<Category> categories, boolean isSameTransactionCategory) {
+        boolean isSameCategory = false;
+
+        for (Category ct : categories) {
+            if (this.categories.contains(ct)) {
+                isSameCategory = true;
+                break;
+            }
+        }
+
+        if (isSameCategory && !isSameTransactionCategory) {
+            Amount newAmount = this.amount.addAmount(amountReplacement);
+            Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
+            newBudget.setInitialAmount(this.initialAmount);
+            return newBudget;
+        } else if (isSameCategory && isSameTransactionCategory) {
+            Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
@@ -203,5 +248,9 @@ public class Budget {
     @Override
     public String toString() {
         return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+    }
+
+    public String toLabelText() {
+        return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
     }
 }

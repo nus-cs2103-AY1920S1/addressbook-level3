@@ -54,7 +54,7 @@ public class JsonAdaptedLedgerOperations {
         description = source.getDescription().toString();
         people.addAll(source.getPeopleInvolved().asUnmodifiableObservableList()
             .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        shares.addAll(source.getShares().orElse(new ArrayList<>()).stream()
+        shares.addAll(source.getShares().stream()
             .map(i -> i.toString()).collect(Collectors.toList()));
     }
 
@@ -113,16 +113,16 @@ public class JsonAdaptedLedgerOperations {
         }
         final List<Integer> modelShares = shares.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
 
-        if (!Split.isValidSharesLength(modelShares, peopleInvolved)) {
-            throw new IllegalValueException(Split.SHARE_CONSTRAINTS);
-        }
 
-        if (peopleInvolved.size() == 1) {
+        if (shares.size() == 1) {
             return modelAmount.isNegative()
-                ? new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
-                : new LendMoney(people.get(0).toModelType(), modelAmount.makeNegative(), modelDate, modelDescription);
+                ? new LendMoney(people.get(0).toModelType(), modelAmount.makePositive(), modelDate, modelDescription)
+                : new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription);
         } else {
-            return new Split(modelAmount, modelDate, modelDescription, modelShares, peopleInvolved);
+            if (!Split.isValidSharesLength(modelShares, peopleInvolved)) {
+                throw new IllegalValueException(Split.SHARE_CONSTRAINTS);
+            }
+            return new Split(modelAmount.makePositive(), modelDate, modelDescription, modelShares, peopleInvolved);
         }
     }
 }

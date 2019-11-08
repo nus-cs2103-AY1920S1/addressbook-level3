@@ -82,10 +82,14 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
+        if (!Date.isValid(date)) {
+            throw new IllegalValueException(Date.MESSAGE_FORMAT_CONSTRAINTS);
+        }
+
         final Set<Category> modelCategories = new HashSet<>(budgetCategories);
 
         return new Budget(new Amount(Double.parseDouble(initialAmount)),
-                new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
+            new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
     }
 
 }
