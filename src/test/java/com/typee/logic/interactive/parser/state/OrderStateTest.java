@@ -19,9 +19,6 @@ public class OrderStateTest {
     @BeforeEach
     public void setup() {
         try {
-            ArgumentMultimap validArgumentMultimap = new ArgumentMultimap();
-            validArgumentMultimap.put(CliSyntax.PREFIX_ORDER, "ascending");
-
             postTransitionState = new PropertyState(new ArgumentMultimap());
             ArgumentMultimap transitionArgumentMultimap = new ArgumentMultimap();
             transitionArgumentMultimap.put(CliSyntax.PREFIX_PROPERTY, "start");
