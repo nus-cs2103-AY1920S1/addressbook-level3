@@ -237,6 +237,9 @@ include at least one.
 * Examples:
 ** [blue]`edit 1 p/Bernice Yu dt/23-Aug-2019`
 ** [blue]`edit 3 a/12`
+** [blue]`find Betsy` +
+[blue]`edit 1 a/-12`:Edits the 1st person in the results of the [blue]`find` command. The Find Command is detailed
+in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>
 
 * Steps:
 1. Type the command with the ID of the transaction to be edited, along with the new parameters to be changed, as shown in the screenshot below:
@@ -267,6 +270,13 @@ This command enables you to sort the table of transactions into a specified orde
 ** By name (from alphabetical order of name): [blue]`sort name`
 ** By amount (from smallest to largest in amount): [blue]`sort amount`
 ** Undo sort: [blue]`sort reset`
+
+* Examples:
+** [blue]`find Betsy` +
+[blue]`sort date`:Sorts both the results of the [blue]`find` command shown and the actual transaction list. The Find Command is detailed
+in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab>>. To view the full sorted list,
+enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6. To Go Back to Display the Full List in the Home Tab>>
+
 
 [NOTE]
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
@@ -332,13 +342,14 @@ image::homeUG/HomeFindStep3cr.png[]
 The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
 [NOTE]
 If an Add Command is entered, the table will automatically reverse back to the previous view to show the full list of all transactions.
-All other commands require you to input `back` to return to the full list of all transactions.
+All other commands require you to input [blue]`back` to return to the full list of all transactions.
 
-The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
+The screenshot below shows the table after entering [blue]`back` which shows all the transactions in the table again:
 
 .Screenshot of the user input for Back Command after entering Find Command in Home Tab
 image::homeUG/HomeFindStep3Back.png[width="700"]
 
+[[homeBackCommand]]
 ==== To Go Back to Display the Full List in the Home Tab
 This command helps you to display the full transaction list after Find Commands. After a Find Command, you can enter Delete, Edit or Sort Commands
 before entering the Back Command to display the full list.
@@ -373,8 +384,7 @@ A person can have any number of tags (including 0).
 This command shows you a list of all persons in the database.
 
 * Command:
-`list`
-
+[blue]`list`
 
 ==== Edit a Person
 This command enables you to edit an existing person in the database at a specified index.
