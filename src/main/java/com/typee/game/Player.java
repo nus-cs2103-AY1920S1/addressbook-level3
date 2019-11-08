@@ -17,30 +17,43 @@ public class Player {
     private static final Logger logger = LogsCenter.getLogger(Player.class);
     private static final int DEFAULT_SCORE_VALUE = 0;
     private static final int DEFAULT_HEALTH_VALUE = 100;
+    private static final int DEFAULT_HEALTH_PROPERTY_VALUE = 1;
     private int score;
     private int health;
     private SimpleIntegerProperty scoreProperty = new SimpleIntegerProperty(this, "score");
     private SimpleDoubleProperty healthProperty = new SimpleDoubleProperty(this, "health");
     private SimpleBooleanProperty isGameOver = new SimpleBooleanProperty();
-    private StringProperty inputText;
+    private StringProperty inputTextProperty;
 
     public Player() {
         score = DEFAULT_SCORE_VALUE;
         scoreProperty.setValue(score);
         health = DEFAULT_HEALTH_VALUE;
-        healthProperty.set(health / 100.0);
+        healthProperty.set(DEFAULT_HEALTH_PROPERTY_VALUE);
         isGameOver.set(false);
     }
 
-    public void setInputAs(StringProperty inputText) {
-        this.inputText = inputText;
+    /**
+     * Sets the player's input text as {@code inputTextProperty}
+     * @param inputTextProperty The text property associated with the player.
+     */
+    public void setInputAs(StringProperty inputTextProperty) {
+        this.inputTextProperty = inputTextProperty;
+    }
+
+    /**
+     * Sets the player's input text as {@code inputText}
+     * @param inputText The text property associated with the player.
+     */
+    public void setInputAs(String inputText) {
+        this.inputTextProperty.set(inputText);
     }
 
     /**
      * Returns input text by player.
      */
     public String getInputText() {
-        return inputText.get().strip();
+        return inputTextProperty.get().strip();
     }
 
     /**

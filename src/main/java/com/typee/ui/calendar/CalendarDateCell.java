@@ -22,7 +22,7 @@ public class CalendarDateCell extends UiPart<Region> {
     private static final String FXML = "CalendarDateCell.fxml";
 
     @FXML
-    private StackPane calendarDatePane;
+    private StackPane calendarDateStackPane;
 
     private LocalDate date;
     private ObservableList<Engagement> engagements;
@@ -42,8 +42,8 @@ public class CalendarDateCell extends UiPart<Region> {
      * Returns the {@code StackPane} that is used to mount this {@code CalendarDateCell}.
      * @return The {@code StackPane} that is used to mount this {@code CalendarDateCell}.
      */
-    public StackPane getCalendarDatePane() {
-        return calendarDatePane;
+    public StackPane getCalendarDateStackPane() {
+        return calendarDateStackPane;
     }
 
     /**

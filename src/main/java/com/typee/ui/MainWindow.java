@@ -88,6 +88,9 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        currentTab = new Tab("Engagement");
+        currentTab.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
+
         helpWindow = new HelpWindow();
     }
 
@@ -188,16 +191,15 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        if (currentTab != null) {
-            currentTab.getController().handleExit();
-        }
+        currentTab.getController().handleExit();
         primaryStage.hide();
     }
 
     /**
      * Switch the window to the {@code Tab} specified.
      */
-    private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
+    private void handleTabSwitch(Tab tabInput) {
+        currentTab.getController().handleExit();
         Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
@@ -215,27 +217,19 @@ public class MainWindow extends UiPart<Stage> {
         }
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
         String calendarCommandType = commandResult.getCalendarCommandType();
-        try {
-            switch (calendarCommandType) {
-            case "opendisplay":
-                calendarWindow.display(commandResult.getCalendarDate());
-                break;
-            case "nextmonth":
-                calendarWindow.populateCalendarWithNextMonth();
-                break;
-            case "previousmonth":
-                calendarWindow.populateCalendarWithPreviousMonth();
-                break;
-            default:
-                throw new CommandException("Invalid calendar command.");
-            }
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(e.getMessage());
+        switch (calendarCommandType) {
+        case "opendisplay":
+            calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
+            break;
+        case "nextmonth":
+            calendarWindow.populateCalendarWithNextMonth();
+            break;
+        case "previousmonth":
+            calendarWindow.populateCalendarWithPreviousMonth();
+            break;
+        default:
+            throw new CommandException("Invalid calendar command.");
         }
-    }
-
-    public EngagementListPanel getEngagementListPanel() {
-        return engagementListPanel;
     }
 
     /**

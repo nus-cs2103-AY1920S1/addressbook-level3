@@ -67,6 +67,7 @@ public class AddCommand extends Command {
 
         model.addEngagement(toAdd);
         model.saveEngagementList();
+        model.updateSortedEngagementList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

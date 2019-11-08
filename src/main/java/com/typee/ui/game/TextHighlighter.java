@@ -16,7 +16,7 @@ public class TextHighlighter {
     public static TextFlow convertToTextFlowUsing(String playerInput, String word) {
         if (word.indexOf(playerInput) == 0 && playerInput.length() <= word.length()) {
             Text highlightedText = new Text(word.substring(0, playerInput.length()));
-            highlightedText.getStyleClass().addAll("withShadow");
+            highlightedText.getStyleClass().add("withShadow");
             Text remainingText = new Text(word.substring(playerInput.length()));
             return new TextFlow(highlightedText, remainingText);
         }
@@ -25,7 +25,7 @@ public class TextHighlighter {
     }
 
     /**
-     * Returns the TextFlow of {@code word}.
+     * Returns the TextFlow of {@code word} without highlighting.
      *
      * @param word The word that is to be converted into TextFlow.
      */

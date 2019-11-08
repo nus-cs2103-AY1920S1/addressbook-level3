@@ -19,7 +19,7 @@ import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.person.DescriptionContainsKeywordsPredicate;
+import com.typee.model.engagement.EngagementPredicate;
 
 public class TypeeParserTest {
 
@@ -66,10 +66,16 @@ public class TypeeParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
+        List<String> keywords = Arrays.asList("a/Mr Foo", "l/bar at level 2", "d/Meeting with baz", "p/high");
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD
+                + " " + keywords.stream().collect(Collectors.joining(" ")));
+        EngagementPredicate predicate = new EngagementPredicate();
+        predicate.setAttendees("Mr Foo");
+        predicate.setLocation("bar at level 2");
+        predicate.setDescription("Meeting with baz");
+        predicate.setPriority("HIGH");
+        FindCommand expected = new FindCommand(predicate);
+        assertEquals(expected, command);
     }
 
     @Test

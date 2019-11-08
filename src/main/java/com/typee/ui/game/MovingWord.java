@@ -1,12 +1,16 @@
 package com.typee.ui.game;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
+import com.typee.commons.core.LogsCenter;
 import com.typee.game.Player;
 import com.typee.game.Words;
 import com.typee.ui.UiPart;
 
 import javafx.animation.AnimationTimer;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
@@ -14,6 +18,7 @@ import javafx.scene.layout.Pane;
  */
 public class MovingWord extends UiPart<Pane> {
 
+    private static final Logger logger = LogsCenter.getLogger(MovingWord.class);
     private static final String FXML = "MovingWord.fxml";
     private static final Random random = new Random();
     private static final double LOWER_BOUND = 520;
@@ -26,19 +31,15 @@ public class MovingWord extends UiPart<Pane> {
     private String word;
     private AnimationTimer animationTimer;
 
-    public MovingWord(Pane parent, Player player) {
+    public MovingWord(double fallingRate, Pane parent, Player player) {
         super(FXML);
         this.parent = parent;
         this.player = player;
+        this.fallingRate = fallingRate;
         word = Words.get(random.nextInt(Words.SIZE));
         setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
-    }
-
-    public MovingWord(double fallingRate, Pane parent, Player player) {
-        this(parent, player);
-        this.fallingRate = fallingRate;
     }
 
     private void stopAnimation() {
@@ -65,19 +66,36 @@ public class MovingWord extends UiPart<Pane> {
             disappear();
             return;
         }
-        getRoot().setLayoutY(getRoot().getLayoutY() + fallingRate);
-        getRoot().getChildren().clear();
-        getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(player.getInputText(), word));
-        getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(word));
-        if (getRoot().getLayoutY() > LOWER_BOUND && parent.getChildren().contains(getRoot())) {
+        incrementYCoordinateBy(fallingRate);
+        highlightWords();
+        if (getRoot().getLayoutY() > LOWER_BOUND) {
             stopAnimation();
             player.decrementHealth(DECREMENT_VALUE);
             disappear();
         } else if (player.getInputText().equals(word)) {
             stopAnimation();
             player.incrementScore(word.length() * SCORE_MULTIPLIER);
+            player.setInputAs("");
             disappear();
         }
+    }
+
+    /**
+     * Converts moving word into text flow with or without CSS highlighting depending on what the player types, before
+     * adding the words to the main pane.
+     */
+    private void highlightWords() {
+        ObservableList<Node> words = getRoot().getChildren();
+        words.clear();
+        Node highlightedNode = TextHighlighter.convertToTextFlowUsing(player.getInputText(), word);
+        Node nodeWithoutHighlight = TextHighlighter.convertToTextFlowUsing(word);
+        words.add(highlightedNode);
+        words.add(nodeWithoutHighlight);
+    }
+
+    private void incrementYCoordinateBy(double fallingRate) {
+        double currentYCoordinate = getRoot().getLayoutY();
+        getRoot().setLayoutY(currentYCoordinate + fallingRate);
     }
 
     /**
