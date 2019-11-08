@@ -420,7 +420,7 @@ Format: `clear`
 
 // tag::jasonstatscommand[]
 
-=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Reset the statistics of the open _WordBank_.
