@@ -471,11 +471,11 @@ XYSeries public Command checkCommand(String currentInput, String prevInput) {
 
 The following activity diagram summarises what happens when a user executes an unknown command:
 
-<<ShortcutDiagram>> is the activity diagram when a user inputs an unkown command
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unknown command
 [[ShortcutDiagram]]
-[reftext="Figure 2.3.2.2"]
-[caption="Figure 2.3.2.2: "]
-.ActivityDiagram
+[reftext="Figure 2.4"]
+[caption="Figure 2.4: "]
+.ActivityDiagram when a user inputs an unknown command
 image::ShortcutActivityDiagram.png[width="800"]
 
 ==== Why was it implemented this way?
