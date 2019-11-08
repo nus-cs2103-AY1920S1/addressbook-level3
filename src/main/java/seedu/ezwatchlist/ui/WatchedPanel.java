@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
@@ -73,7 +74,7 @@ public class WatchedPanel extends UiPart<Region> {
         public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
             try {
                 mainWindow.executeCommand("watch " + displayedIndex);
-            } catch (CommandException | ParseException | OnlineConnectionException e) {
+            } catch (CommandException | ParseException | OnlineConnectionException | NoRecommendationsException e) {
                 mainWindow.getResultDisplay().setFeedbackToUser(e.getMessage());
             }
         }
