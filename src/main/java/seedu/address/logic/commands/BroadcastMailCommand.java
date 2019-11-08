@@ -39,7 +39,7 @@ public class BroadcastMailCommand extends Command {
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_MESSAGE + "EMAIL BODY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SUBJECT + "sending email"
+            + PREFIX_SUBJECT + "sending email "
             + PREFIX_MESSAGE + "Hello World!";
 
     private String subject;

@@ -322,6 +322,18 @@ These are the stages shown in figure 9. Stages are similar for sort spending as 
 . Obtains list of tasks from model and sorts it. List now maintains this sorting order and displays a sorted list even after adding or editing elements.
 . Display the newly sorted task list.
 
+.Activity Diagram for sortTask
+image::SortTaskActivityDiagram.png[]
+
+The diagram above shows sortTask works. There are 2 possible error messages that can occur. Firstly,
+if the user inputs an index that is not applicable to the type of items sorted. For example, `sortTask 5`
+is invalid as index 5 is linked to a price sorting mechanism which is not applicable to sorting tasks. Secondly,
+an error will be shown if the user attempts to sort the items in the same order is the current sorting order.
+For example, since the default sorting order for tasks is by increasing order of date, the command `sortTask 3`
+will be invalid if the sorting order has never been changed before. Otherwise if the input is valid,
+the sorting will occur and the newly sorted task list will be displayed.
+
+
 ==== Design considerations
 
 ===== Aspect: Data structure to support the sort commands
@@ -579,13 +591,19 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
+* university students (will be expanded to working adults as well in future versions)
+* handles many different projects at once
+* unable to keep track of tasks and deadlines
+* loves visual aids such as charts and graphs to display information
+* needs a single app to store all kinds of different information
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: One stop project management app to store and display
+different projects with user-friendly commands using a command line interface.
 
 [appendix]
 == User Stories

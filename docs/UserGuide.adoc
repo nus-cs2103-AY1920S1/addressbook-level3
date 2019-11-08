@@ -29,6 +29,8 @@ MP is optimized for those who prefer to work with a Command Line Interface (CLI)
 while still having the benefits of a Graphical User Interface (GUI).
 With MP it is a one-stop app to store and manage your projects and their relevant information,
 this is especially useful if you are always managing multiple projects across different teams.
+MP has unique functions such as sending emails to members within the app and finance tracking capabilities etc.
+
 Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 
 == Quick Start:
@@ -42,9 +44,12 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 .. exit : exits the app
 . Refer to Section 3, “Features” for details of each command.
 
+<<<<<<< HEAD
+=======
 .The home page of MyProject listing all the projcts you have
 image::home-page.png[]
 
+>>>>>>> upstream/master
 == Features
 
 === Basic Commands
@@ -69,9 +74,12 @@ Example:
 
 * `checkout 1`
 
+<<<<<<< HEAD
+=======
 .After you have checked out to a project, an overview of the project will be shown.
 image::checkout-command.png[]
 =======
+>>>>>>> upstream/master
 ==== Return to previous: `back`
 
 If you want to return to the previous view page of the app, simply type the command `back`.
@@ -120,12 +128,20 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 
+<<<<<<< HEAD
+=====  Add a member to your project
+=======
 ==== Add a member to your project
+>>>>>>> upstream/master
 
 Adding a member can be done in 2 ways, you can either add a new person to your contacts and to your current project,
 or you can simply add an existing person from your contacts to your current project.
 
+<<<<<<< HEAD
+====== 1. Add a new member: `addMember` [Checkout]
+=======
 ===== Add a new member: `addMember` [Checkout]
+>>>>>>> upstream/master
 
 This command is similar to adding a person to your contacts shown previously, except that you have to be
 checked out into a project. +
@@ -143,7 +159,11 @@ Example:
 * `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend t/criminal`
 
 
+<<<<<<< HEAD
+====== 2. Add from your contacts: `addFromContacts` [Checkout]
+=======
 ===== Add from your contacts: `addFromContacts` [Checkout]
+>>>>>>> upstream/master
 
 
 This command helps to add a person you already saved in your contacts into your project, reducing the need
@@ -214,7 +234,11 @@ whereby the year must be between 1900 to 2100 and the time must be between 0000 
 MyProject checks for invalid days as well such as 30th February so do ensure you input
 your dates correctly!
 
+<<<<<<< HEAD
+==== Add a project meeting: `addProjectMeeting` [Checkout]
+=======
 ==== Add a project meeting: `addProjectMeeting`
+>>>>>>> upstream/master
 
 Adds a new project meeting to the current working project.  +
 Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
@@ -222,6 +246,14 @@ Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
 Example:
 
 * `addProjectMeeting c/29/09/2019 1900 s/milestone discussion`
+
+==== Add a budget [Checkout]
+Add multiple budgets available to the current project. +
+Format: `addBudget [b/NAME_OF_BUDGET AMOUNT NAME_OF_BUDGET AMOUNT...]`
+
+==== Add an expense [Checkout]
+Whenever an expenditure is made under a budget, add it to record. +
+Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM/yyyy HHmm]`
 
 === Editing
 
@@ -249,7 +281,11 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+<<<<<<< HEAD
+==== Edit a task : `editTask` [Checkout]
+=======
 ==== Edit a task : `editTask`
+>>>>>>> upstream/master
 
 Edits an existing task in the task list of the current project. +
 Format: `editTask INDEX [s/DESCRIPTION] [c/dd/MM/yyyy HHmm] [d/]` +
@@ -347,6 +383,14 @@ Example:
 Shows you the list of contacts you have currently along with their respective information. +
 Format: `list`
 
+<<<<<<< HEAD
+==== List your budgets: `listBudget` [Checkout]
+See the summary of all budget which shows how much money is left with that budget and where is this budget used. +
+
+Format: `listBudget`
+
+=======
+>>>>>>> upstream/master
 === Finding
 
 
@@ -378,7 +422,11 @@ associated with this functionality.
 ==== Generate meeting timing: `generate` [Checkout]
 
 =======
+<<<<<<< HEAD
+Generates possible meeting timeslots for which everyone is available.
+=======
 Generates possible meeting timeslots where all member are available.
+>>>>>>> upstream/master
 =======
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
@@ -394,6 +442,8 @@ Example:
 * `generate d/2 r/MONDAY 0900 MONDAY 1800` +
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
+<<<<<<< HEAD
+=======
 Below is a step-by-step instruction to guide you through generating a meeting timeslot that lasts for 2 hours, between Monday 1000 to Monday 1800:
 
 * Step 1: To generate a meeting timing for a project, you first need to `checkout` that project.
@@ -412,6 +462,7 @@ image:generate/generate-step-3.png[]
 If MyProject is unable to find a timeslot where all members are free, it would try to find another timeslot where most members are free
 
 image:generate/generate-alt.png[]
+>>>>>>> upstream/master
 
 === Email
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
@@ -427,9 +478,12 @@ Example:
 
 * `signIn ac/example@gmail.com pa/12345678`
 
+<<<<<<< HEAD
+=======
 [NOTE]
 This command is required to be executed before the remainder of the email commands can be executed.
 
+>>>>>>> upstream/master
 ==== Log out from your account: `logOut`
 Logs out from your email account. +
 Format: `logOut`
@@ -446,7 +500,11 @@ Example:
 
 * `sendMail r/example@gmail.com su/Test me/HelloWorld!`
 
+<<<<<<< HEAD
+==== Broadcast an email: `broadcastMail` [Checkout]
+=======
 ==== Broadcast an email: `broadcastMail`
+>>>>>>> upstream/master
 Sends an email to all members in the current working project. +
 Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
 
@@ -454,7 +512,11 @@ Example:
 
 * `broadcastMail su/CS2103T me/added new Task`
 
+<<<<<<< HEAD
+==== Send reminder: `sendReminder` [Checkout]
+=======
 ==== Send reminder: `sendReminder`
+>>>>>>> upstream/master
 
 Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
 Format: `sendReminder`d/DURATION
@@ -480,7 +542,11 @@ All commands in this section follow this set of index/order pairing, where appli
 . Increasing price
 ****
 
+<<<<<<< HEAD
+==== Sort tasks: `sortTask` [Checkout]
+=======
 ==== Sort tasks: `sortTask`
+>>>>>>> upstream/master
 
 Sorts the tasks in the task list of the current working project based on given specification. +
 Format: `sortTask INDEX`
@@ -491,7 +557,11 @@ Example:
 
 * `sortTask 4` (Sorts the tasks whether they are done and then by increasing date/time)
 
+<<<<<<< HEAD
+==== Sort spending: `sortSpending` [Checkout]
+=======
 ==== Sort spending: `sortSpending`
+>>>>>>> upstream/master
 
 Sorts the spending in the budget list of the current working project based on given specification. +
 Format: `sortSpending INDEX`
@@ -502,6 +572,8 @@ Example:
 
 * `sortSpending 5` (Sorts the spending by increasing prices)
 
+<<<<<<< HEAD
+=======
 === Finance
 Isn't it always a pain to keep track of all the finances and checking with the treasurer everytime? You can do it easily with MyProject!
 
@@ -519,3 +591,4 @@ Format: `listBudget`
 
 .Present budget in a pie chart depicting all expenses under the budget and the remaining amount.
 image::listbudget-command.png[]
+>>>>>>> upstream/master

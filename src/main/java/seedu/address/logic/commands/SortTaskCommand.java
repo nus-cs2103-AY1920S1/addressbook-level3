@@ -20,7 +20,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
  */
 public class SortTaskCommand extends Command {
     public static final String COMMAND_WORD = "sortTask";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the task from the current project according to given index.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the task from the current project according to given index.\n"
             + "1 - Sorts by alphabetical order.\n"
             + "2 - Sorts by increasing date/time.\n"
             + "3 - Sorts by whether tasks are done.\n"
