@@ -179,7 +179,7 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd meme in the results of the `list` command.
-* `meme find pikachu` +
+* `find pikachu` +
 `delete 1` +
 Deletes the 1st meme in the results of the `find` command.
 
