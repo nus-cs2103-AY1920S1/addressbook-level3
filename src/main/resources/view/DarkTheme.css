@@ -3,25 +3,25 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 13pt;
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
-    -fx-font-size: 11pt;
+    -fx-font-size: 13pt;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 34pt;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 14pt;
 }
 
 .tab-pane {
@@ -60,7 +60,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 22pt;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -115,12 +115,12 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-text-fill: white;
 }
 
 .cell_big_label_amt {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
@@ -198,7 +198,7 @@
 }
 
 .side-panel-title {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: White;
 }
@@ -218,7 +218,7 @@
 
 .stats-graphic-title {
     -fx-text-fill: white;
-    -fx-font-size: 20px
+    -fx-font-size: 22px
 }
 
 .stats-bar-text {
@@ -244,17 +244,17 @@
 
 #dateOfRecord {
     -fx-text-fill: white;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .chart-title {
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
 }
 
 .axis-label {
     -fx-text-fill: white;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .stats-pie-text {
@@ -279,18 +279,18 @@
     -fx-text-fill: black;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
 }
 
 .result-display {
     -fx-background-color: Black;
-    -fx-font-size: 13pt;
+    -fx-font-size: 14pt;
     -fx-text-fill: white;
 }
 
 .result-display-text-area {
     -fx-background-color: Black;
-    -fx-font-size: 13pt;
+    -fx-font-size: 14pt;
     -fx-text-fill: White;
     -fx-border-color: Grey;
     -fx-border-width: 1px;
@@ -328,7 +328,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 10pt;
+    -fx-font-size: 12pt;
     -fx-text-fill: Black;
     -fx-opacity: 0.9;
 }
@@ -442,7 +442,7 @@
 }
 
 #commandTypeLabel {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
     -fx-text-fill: #F70D1A;
 }
 
@@ -452,7 +452,7 @@
     -fx-border-color: grey;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-size: 11pt;
+    -fx-font-size: 13pt;
     -fx-text-fill: White;
 }
 
@@ -471,7 +471,7 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 13;
 }
 
 .labelCategoryIncome {
@@ -480,7 +480,7 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 13;
 }
 
 .labelCategoryExpense {
@@ -489,5 +489,5 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 13;
 }

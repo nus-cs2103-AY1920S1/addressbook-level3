@@ -84,4 +84,5 @@ public final class GuiltTripCommandSuggester {
                 .map(String::trim)
                 .collect(Collectors.joining("\n"));
     }
+
 }
