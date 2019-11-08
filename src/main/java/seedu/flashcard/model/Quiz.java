@@ -74,12 +74,9 @@ public class Quiz {
         return quizableFlashcards.isEmpty();
     }
 
-
-
     public IntegerProperty getDurationProperty() {
         return duration;
     }
-
 
     public IntegerProperty totalCardsProperty() {
         return totalCards;
@@ -93,4 +90,15 @@ public class Quiz {
         this.duration.setValue(duration);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Quiz)) {
+            return false;
+        }
+        Quiz obj = (Quiz) other;
+        return quizableFlashcards.equals(obj.quizableFlashcards);
+    }
 }

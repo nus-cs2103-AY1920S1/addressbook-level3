@@ -178,7 +178,8 @@ public class ModelManager implements Model {
         ModelManager obj = (ModelManager) other;
         return versionedFlashcardList.equals(obj.versionedFlashcardList)
                 && userPrefs.equals(obj.userPrefs)
-                && filteredFlashcards.equals(obj.filteredFlashcards);
+                && filteredFlashcards.equals(obj.filteredFlashcards)
+                && quiz.equals(obj.quiz);
     }
 
     @Override

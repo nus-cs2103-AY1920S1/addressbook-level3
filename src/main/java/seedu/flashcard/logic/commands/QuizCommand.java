@@ -16,7 +16,6 @@ import seedu.flashcard.model.flashcard.Flashcard;
  * Command to view the MCQ choices in a flashcard. The answer will not be shown.
  */
 public class QuizCommand extends Command {
-
     public static final String COMMAND_WORD = "quiz";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

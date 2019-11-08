@@ -57,4 +57,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setFlashcardListFilePath(Path flashcardListFilePath) {
         this.flashcardListFilePath = flashcardListFilePath;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof UserPrefs)) { //this handles null as well.
+            return false;
+        }
+
+        UserPrefs o = (UserPrefs) other;
+
+        return guiSettings.equals(o.guiSettings)
+                && flashcardListFilePath.equals(o.flashcardListFilePath);
+    }
 }

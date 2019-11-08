@@ -62,4 +62,11 @@ public class QuizTagCommand extends Command {
         Flashcard firstCard = model.getQuiz().quizCard();
         return new CommandResult(MESSAGE_SUCCESS, true, firstCard.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof QuizTagCommand
+                && target.equals(((QuizTagCommand) other).target));
+    }
 }
