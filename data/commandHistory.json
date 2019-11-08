@@ -294,5 +294,30 @@
     "output" : "Undo Successful ",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1573047499967
+  }, {
+    "input" : "approve a/2",
+    "output" : "Student is not registered for this module.  Not able to approve appeal C000001.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1573050550728
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nA0180000 max credits updated to: 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573050557166
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573050558593
+  }, {
+    "input" : "redo",
+    "output" : "Redo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573050560706
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573050561781
   } ]
 }
