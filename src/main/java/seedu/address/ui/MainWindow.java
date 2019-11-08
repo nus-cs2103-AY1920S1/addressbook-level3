@@ -282,7 +282,7 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
                     logic.getMainWindowDisplay().getGroupDisplay(),
-                    scheduleViewManager.getColors());
+                    scheduleViewManager.getOriginalColors());
             Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
             try {
@@ -310,6 +310,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
             ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
+            //Command results that require early return statements.
             if (commandResult.isScroll()) {
                 handleScroll();
                 return commandResult;
@@ -328,6 +329,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExport()) {
                 handleExport();
+                return commandResult;
+            }
+
+            if (commandResult.isFilter()) {
+                if (!scheduleWindowDisplay.getFilteredNames().isEmpty()) {
+                    scheduleViewManager.filterPersonsFromSchedule(scheduleWindowDisplay.getFilteredNames().get());
+                    handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
+                }
                 return commandResult;
             }
 
@@ -351,7 +360,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
                         scheduleWindowDisplay.getGroupDisplay(),
-                        scheduleViewManager.getColors()).getRoot(), SidePanelDisplayType.GROUP);
+                        scheduleViewManager.getOriginalColors()).getRoot(), SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
                 // do nothing

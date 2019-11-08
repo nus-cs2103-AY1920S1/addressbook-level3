@@ -3,6 +3,8 @@ package seedu.address.model.display.schedulewindow;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
@@ -19,6 +21,7 @@ public class ScheduleWindowDisplay {
     private ArrayList<PersonSchedule> personSchedules;
     private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
+    private Optional<List<Name>> filteredNames = Optional.empty();
 
     private ArrayList<FreeSchedule> freeScheduleWeeks;
 
@@ -53,6 +56,11 @@ public class ScheduleWindowDisplay {
         this.freeScheduleWeeks = null;
     }
 
+    public void setFilteredNames(List<Name> filteredNames) {
+        assert this.scheduleWindowDisplayType.equals(ScheduleWindowDisplayType.GROUP);
+        this.filteredNames = Optional.of(filteredNames);
+    }
+
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
         return scheduleWindowDisplayType;
     }
@@ -67,6 +75,10 @@ public class ScheduleWindowDisplay {
 
     public ArrayList<FreeSchedule> getFreeSchedule() {
         return freeScheduleWeeks;
+    }
+
+    public Optional<List<Name>> getFilteredNames() {
+        return filteredNames;
     }
 
     public ArrayList<PersonDisplay> getPersonDisplays() {

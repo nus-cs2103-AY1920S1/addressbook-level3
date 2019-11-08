@@ -14,16 +14,16 @@ import seedu.address.model.person.schedule.Venue;
 /**
  * A class for testing Schedule View.
  */
-public class WeekScheduleStub {
+public class WeekScheduleBuilder {
 
     public static final List<String> EVENT_NAMES = List.of("EVENT0", "EVENT1", "EVENT2", "EVENT3", "EVENT4", "EVENT5",
             "EVENT6", "EVENT7", "EVENT8", "EVENT9", "EVENT10", "EVENT11", "EVENT12", "EVENT13", "EVENT14",
             "EVENT15", "EVENT16");
     private static final Venue VENUE = new Venue("Central library");
     private LocalDate now;
-    private WeekSchedule stub;
+    private WeekSchedule weekSchedule;
 
-    public WeekScheduleStub(LocalDate now) {
+    public WeekScheduleBuilder(LocalDate now) {
         this.now = now;
         initialiseContents();
     }
@@ -58,7 +58,7 @@ public class WeekScheduleStub {
                 weekSch.put(DayOfWeek.of(i), personTimeslots);
             }
         }
-        this.stub = new WeekSchedule(weekSch);
+        this.weekSchedule = new WeekSchedule(weekSch);
     }
 
     /**
@@ -147,7 +147,7 @@ public class WeekScheduleStub {
     }
 
     public WeekSchedule getSampleSchedule() {
-        return stub;
+        return weekSchedule;
     }
 
 }

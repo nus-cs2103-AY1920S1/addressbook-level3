@@ -28,7 +28,6 @@ public class BubbleGenerator {
     }
 
     public StackPane getBubble() {
-        //String color = ColorGenerator.generateColorList().get(0);
         Ellipse outer = new Ellipse(size / 2, size / 2);
         Label bubbleLabel = new Label(bubbleContent);
         bubbleLabel.setStyle("-fx-text-fill: black; -fx-font-size: 20;");

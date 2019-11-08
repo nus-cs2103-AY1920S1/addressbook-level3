@@ -10,7 +10,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
-    <ScrollPane fx:id="listHeaderContainer" prefWidth="300" vbarPolicy="NEVER" hbarPolicy="NEVER">
+    <ScrollPane fx:id="listHeaderContainer" prefWidth="300" vbarPolicy="NEVER" hbarPolicy="NEVER" fitToWidth="true">
         <GridPane id="listHeaders" fx:id="listHeaders" prefWidth="300">
             <columnConstraints>
                 <ColumnConstraints percentWidth="25" />
@@ -25,7 +25,7 @@
             <Label text="Role" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS"/>
         </GridPane>
     </ScrollPane>
-    <ScrollPane fx:id="listMemberContainer" minHeight="150" prefWidth="300" vbarPolicy="NEVER" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+    <ScrollPane fx:id="listMemberContainer" minHeight="150" prefWidth="300" vbarPolicy="NEVER" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" fitToWidth="true">
         <VBox fx:id="listMembers" prefWidth="300" spacing="10">
         </VBox>
     </ScrollPane>

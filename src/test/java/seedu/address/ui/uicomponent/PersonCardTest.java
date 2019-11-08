@@ -1,5 +1,7 @@
 package seedu.address.ui.uicomponent;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.util.NodeQueryUtils.hasText;
 
@@ -29,7 +31,7 @@ public class PersonCardTest {
     private static final String NAME_ID = "#name";
     private static final String INITIALS_ID = "#personId .label";
     private Person alice = TypicalPersons.ALICE;
-
+    private Person benson = TypicalPersons.BENSON;
     @AfterEach
     public void pause(FxRobot robot) {
         robot.sleep(500);
@@ -59,7 +61,20 @@ public class PersonCardTest {
     }
 
     @Test
-    public void initialsDisplayedCorrectly() {
+    public void isInitialsDisplayedCorrectly() {
         verifyThat(INITIALS_ID, hasText(PersonCard.getPersonInitials(alice.getName().fullName)));
+    }
+
+    @Test
+    public void equalTest() {
+        //Same object.
+        PersonCard personCard = new PersonCard(new PersonDisplay(alice));
+        assertEquals(personCard, personCard);
+        //Different object with same field.
+        PersonCard samePersonCard = new PersonCard(new PersonDisplay(alice));
+        assertEquals(personCard, samePersonCard);
+        //Different object and with different field.
+        PersonCard differentPersonCard = new PersonCard(new PersonDisplay(benson));
+        assertNotEquals(personCard, differentPersonCard);
     }
 }

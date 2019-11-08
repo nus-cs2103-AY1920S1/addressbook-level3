@@ -37,8 +37,6 @@ public class MemberList extends UiPart<Region> {
             listMembers.getChildren().add(memberCard.getRoot());
         }
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
-        listMemberContainer.setFitToWidth(true);
-        listHeaderContainer.setFitToWidth(true);
     }
 
     /**
@@ -79,6 +77,7 @@ public class MemberList extends UiPart<Region> {
         }
 
         private GridPane setUpCard(String color) {
+            //Inline styling because the colour is dependent what is passed.
             DropShadow shadowEffect = new DropShadow();
             shadowEffect.setOffsetY(3);
             shadowEffect.setOffsetX(3);

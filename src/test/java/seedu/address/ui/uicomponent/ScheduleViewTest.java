@@ -43,8 +43,8 @@ public class ScheduleViewTest extends ApplicationTest {
     private static final String SCHEDULE_HEADERS_ID = "#scheduleView #scheduleHeaderWrapper #scheduleHeaderContainer";
     private static final String SCHEDULE_CONTENT_ID = "#scheduleView #scheduleContentContainer";
 
-    private static final WeekSchedule TEST_SCHEDULE = new WeekScheduleStub(LocalDate.now()).getSampleSchedule();
-    private static final List<String> TEST_EVENT_NAMES = WeekScheduleStub.EVENT_NAMES;
+    private static final WeekSchedule TEST_SCHEDULE = new WeekScheduleBuilder(LocalDate.now()).getSampleSchedule();
+    private static final List<String> TEST_EVENT_NAMES = WeekScheduleBuilder.EVENT_NAMES;
     private static final String TEST_SCHEDULE_TITLE = "TEST SCHEDULE";
     private static final LocalDate now = LocalDate.now();
 
