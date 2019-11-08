@@ -36,7 +36,7 @@ public class MainApp extends Application {
             stage.setMinHeight(500);
             stage.setMinWidth(900);
             stage.setTitle("FlashCard Pro");
-            stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
+            stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/icon_black_resized.png")));
             stage.show();
 
             // load code font

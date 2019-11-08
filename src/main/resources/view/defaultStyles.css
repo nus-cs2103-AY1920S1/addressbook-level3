@@ -18,3 +18,6 @@
     -fx-font-family: Inconsolata;
 }
 
+.light-background {
+    -fx-background-color: #BB86FC;
+}

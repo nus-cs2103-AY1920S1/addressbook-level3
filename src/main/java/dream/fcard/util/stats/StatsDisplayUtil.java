@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,7 +29,9 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new StatisticsWindow());
         stage.setScene(scene);
-        stage.setTitle("My overall statistics");
+        stage.getIcons().add(new Image(StatisticsWindow.class.getResourceAsStream(
+            "/images/icon_black_resized.png")));
+        stage.setTitle("FlashCard Pro: My overall statistics");
         stage.show();
     }
 
@@ -38,7 +41,9 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new DeckStatisticsWindow(deck));
         stage.setScene(scene);
-        stage.setTitle("My statistics for deck:" + deck.getDeckName());
+        stage.getIcons().add(new Image(DeckStatisticsWindow.class.getResourceAsStream(
+            "/images/icon_black_resized.png")));
+            stage.setTitle("My statistics for deck: " + deck.getDeckName());
         stage.show();
     }
 

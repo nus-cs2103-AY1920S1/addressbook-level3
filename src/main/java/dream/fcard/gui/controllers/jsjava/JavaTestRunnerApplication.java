@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -37,7 +38,9 @@ public class JavaTestRunnerApplication extends Application {
             VBox vb = fxmlloader.load();
             Scene scene = new Scene(vb);
             stage.setScene(scene);
-            stage.setTitle("FlashCoder Java");
+            stage.getIcons().add(new Image(JavaTestRunnerApplication.class.getResourceAsStream(
+                "/images/icon_black_resized.png")));
+            stage.setTitle("FlashCard Pro: FlashCoder Java");
             TextArea textArea = (TextArea) vb.getChildren().get(2);
             textArea.setText(boilerPlate());
             vb.getChildren().get(2).requestFocus();
