@@ -318,9 +318,6 @@ public class ParserUtil {
         if (!Photo.isValidFilePath(trimmedPath)) {
             throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
         }
-        if (!Photo.isFileExist(trimmedPath)) {
-            throw new ParseException(Photo.NO_FILE_EXIST_MESSAGE);
-        }
         return new Photo(trimmedPath);
     }
 }
