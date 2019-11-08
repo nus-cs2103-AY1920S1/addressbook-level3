@@ -12,7 +12,7 @@
                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <xAxis>
-            <CategoryAxis animated="false" label="Date" fx:id="xAxis">
+            <CategoryAxis fx:id="xAxis" animated="false" label="Date">
             </CategoryAxis>
         </xAxis>
 

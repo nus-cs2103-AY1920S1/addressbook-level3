@@ -15,7 +15,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javafx.concurrent.Task;
-import javafx.util.Pair;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
@@ -45,8 +44,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
         List<? extends Expense> sortedExpense = sortExpensesByDate(expenses);
         LocalDate latestDate = getLatestDate(sortedExpense);
 
-        return generate(expenses, DateRange.fromClosed(
-                latestDate.with(DateInterval.YEAR.getAdjuster()), latestDate));
+        return generate(expenses, DateRange.fromClosed(latestDate.minusYears(1), latestDate));
     }
 
     /**
@@ -88,7 +86,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
         LocalDate latestDate = getLatestDate(sortedExpense);
 
         return generateAsync(sortedExpense, DateRange.fromClosed(
-                latestDate.with(DateInterval.YEAR.getAdjuster()), latestDate));
+                latestDate.minusYears(1), latestDate));
     }
 
     /**
@@ -129,9 +127,10 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
         LocalDate createdDate = expense.getCreated().dateTime.toLocalDate();
 
         if (dateRange.contains(createdDate)) {
-            int index = (int) ChronoUnit.WEEKS.between(dateRange.getStartDate(), createdDate);
-            DayOfWeek dayOfWeek = createdDate.getDayOfWeek();
+            int index = (int) ChronoUnit.WEEKS.between(
+                    dateRange.getStartDate().with(DateInterval.WEEK.getAdjuster()), createdDate);
 
+            DayOfWeek dayOfWeek = createdDate.getDayOfWeek();
             heatMapValues.get(index).merge(dayOfWeek, expense.getAmount(), Amount::add);
         }
     }

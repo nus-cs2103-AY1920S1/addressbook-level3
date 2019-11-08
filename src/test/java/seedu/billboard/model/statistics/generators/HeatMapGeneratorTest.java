@@ -2,16 +2,24 @@ package seedu.billboard.model.statistics.generators;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.aMapWithSize;
+import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.date.DateRange;
-import seedu.billboard.model.statistics.formats.ExpenseHeatMap;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.TypicalExpenses;
 
 
@@ -34,12 +42,22 @@ class HeatMapGeneratorTest {
     // Based of expenses list from {@code TypicalExpenses#getTypicalExpenses}.
     @Test
     void generate_nonEmptyList_returnsCorrectExpenseHeatMap() {
-        ExpenseHeatMap heatMap = heatMapGenerator.generate(TypicalExpenses.getTypicalExpenses());
-        heatMap.getHeatMapValues();
-    }
+        List<Expense> expenses = TypicalExpenses.getTypicalExpenses();
+        List<EnumMap<DayOfWeek, Amount>> heatmapValues = heatMapGenerator.generate(expenses).getHeatMapValues();
 
-    @Test
-    void generateAsync() {
-    }
+        // either size 54 or 55 depending on whether additional week was added when
+        assertThat(heatmapValues, hasSize(54));
+        assertThat(heatmapValues.get(0), is(anEmptyMap()));
 
+        assertThat(heatmapValues.get(53), is(aMapWithSize(1)));
+        assertThat(heatmapValues.get(53), hasEntry(DayOfWeek.TUESDAY, new Amount("23.50")));
+
+        assertThat(heatmapValues.get(48), is(aMapWithSize(1)));
+        assertThat(heatmapValues.get(48), hasEntry(DayOfWeek.SATURDAY, new Amount("4.20")));
+
+        assertThat(heatmapValues.get(47), is(aMapWithSize(1)));
+        assertThat(heatmapValues.get(47), hasEntry(DayOfWeek.TUESDAY, new Amount("10.00")));
+
+        assertThat(heatmapValues.get(30), is(aMapWithSize(1)));
+    }
 }
