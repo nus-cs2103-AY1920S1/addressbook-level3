@@ -20,7 +20,7 @@ public class Card {
     private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
 
-    // stateful objects, will create a new hintSupplier every game session. (by instantiating a new card).
+    /** stateful objects, will create a new hintSupplier every game session. (by instantiating a new card). */
     private HintSupplier hintSupplier;
 
     /**
@@ -42,6 +42,7 @@ public class Card {
      */
     @Override
     public Card clone() {
+        /** ID of the card remains the same to track statistics properly.*/
         return new Card(this.id, this.word, this.meaning, this.tags);
     }
 
@@ -97,9 +98,13 @@ public class Card {
      * Returns the next {@code FormattedHint}, and null if no more hints available.
      */
     public FormattedHint getHint() {
-        return hintSupplier.get();
+        return this.hintSupplier.get();
     }
 
+    /**
+     * Returns the {@code HintFormatSize} which is the same as the number of characters of this Card's
+     * Word.
+     */
     public int getHintFormatSize() {
         return word.toString().length();
     }

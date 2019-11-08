@@ -2,30 +2,42 @@ package seedu.address.appmanager.timer;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the back-end countdown timer that runs during a Game session.
  */
 public class GameTimerManager implements GameTimer {
 
+    private final Logger logger = LogsCenter.getLogger(GameTimerManager.class);
+
+    /** Internal timer that schedules TimerTasks.*/
     private Timer timer;
+
+    /** Total time this GameTimer is allowed to run for.*/
     private long totalTimeGiven; // the initial time allocated for the timer.
+
+    /** Time remaining for this GameTimer to run.*/
     private long timeLeft; // the time left of this timer, updated by the timer.
+
+    /** Main message that this GameTimer will update UI components with.*/
     private String mainMessage;
 
-    /** Call-back functions that this GameTimerManager is dependent on. */
+    /** Call-back functions that this GameTimerManager is dependent on.*/
     private SkipOverCallBack skipOverCallBack;
     private UpdateTimerCallBack updateTimerCallBack;
     private UpdateHintCallBack updateHintCallBack;
 
+    /** Boolean to indicated whether this GameTimer has finished running.*/
     private boolean cancelled = false;
 
-    // By default no hints (and by extension by HintTimingQueue) are provided.
+    /** Queue of timestamps for Hints, is initialized to be null by default (not enabled).*/
     private HintTimingQueue hintTimingQueue = null;
 
-    // If no hints are enabled, nextTimeForHint is set at -100ms (placeholder for null).
+    /** Next timing for a Hint to be requested, initialized to -100ms (represents a null value).*/
     private long nextTimeForHint = -100L;
 
     /**
@@ -37,10 +49,10 @@ public class GameTimerManager implements GameTimer {
      * @param updateTimerCallBack Call-back function to notify that TimerDisplay needs to be updated.
      * @param updateHintCallBack Call-back function to notify that HintDisplay needs to be updated.
      */
-    public GameTimerManager(String mainMessage, long durationInMs,
-                            SkipOverCallBack skipOverCallBack,
-                            UpdateTimerCallBack updateTimerCallBack,
-                            UpdateHintCallBack updateHintCallBack) {
+    GameTimerManager(String mainMessage, long durationInMs,
+                     SkipOverCallBack skipOverCallBack,
+                     UpdateTimerCallBack updateTimerCallBack,
+                     UpdateHintCallBack updateHintCallBack) {
         this.mainMessage = mainMessage;
         this.skipOverCallBack = skipOverCallBack;
         this.updateTimerCallBack = updateTimerCallBack;
@@ -58,8 +70,9 @@ public class GameTimerManager implements GameTimer {
     public void abortTimer() {
         cancelled = true;
         this.timer.cancel();
+
+        /** Ensuring any changes to UI are always called from JavaFX Application Thread.*/
         if (!Thread.currentThread().getName().equals("JavaFX Application Thread")) {
-            // Ensuring any changes to UI are always called from JavaFX Application Thread.
             Platform.runLater(() ->
                     updateTimerCallBack.updateTimerDisplay("", 0, totalTimeGiven));
             return;
@@ -120,6 +133,8 @@ public class GameTimerManager implements GameTimer {
     private void stopAndCallBackToSkipOver() {
         cancelled = true;
         timer.cancel();
+
+        logger.info("Skip over initiated by a GameTimer!");
 
         // Makes a call-back to the AppManager to execute a 'skip' command
         skipOverCallBack.skipOverToNextQuestion();

@@ -19,13 +19,19 @@ public class FormattedHint {
      * @throws HintOutOfBoundsException if input Hint's index is out of range of {@code arrayOfHintCharacters}.
      */
     void updateHintArray(Hint hint) throws HintOutOfBoundsException {
-        if (hint.index.getZeroBased() >= totalNumberOfCharacters) {
-            throw new HintOutOfBoundsException(hint.index.getZeroBased(), totalNumberOfCharacters);
+        int zeroBasedIndex = hint.index.getZeroBased();
+
+        if (zeroBasedIndex >= totalNumberOfCharacters) {
+            throw new HintOutOfBoundsException(zeroBasedIndex, totalNumberOfCharacters);
         }
 
-        arrayOfHintCharacters[hint.index.getZeroBased()] = hint.letter;
+        arrayOfHintCharacters[zeroBasedIndex] = hint.letter;
     }
 
+    /**
+     * Formats all the characters into a {@code String} in a HangMan-style. Null characters are replaced
+     * with an underscore, to represent that they are not provided yet.
+     */
     @Override
     public String toString() {
         StringBuilder outputFormat = new StringBuilder(totalNumberOfCharacters);
