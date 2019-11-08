@@ -10,6 +10,7 @@ import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
+import seedu.guilttrip.logic.commands.GuiltTripCommandSuggester;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.GuiltTripParser;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
@@ -57,6 +58,7 @@ public class LogicManager implements Logic {
         try {
             Command command = guiltTripParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
+            GuiltTripCommandSuggester.setLastOutput(commandResult.getFeedbackToUser());
         } finally {
             history.add(commandText);
         }
