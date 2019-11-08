@@ -32,6 +32,6 @@ What are you waiting for? Start tracking your finances now!
 == Acknowledgements
 
 * This application was built upon the AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative].
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/joestelmach/natty[Natty]
 
 == Licence : link:LICENSE[MIT]
