@@ -33,13 +33,9 @@ Enjoy!
 . Download the latest `PalPay.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your finance manager.
 . Double-click the file to start the app.
-The GUI should appear within a few seconds. Starting up, there should be no prior data pre-stored in the application.
-The GUI should look like this:
-
-.Initial GUI of PalPay
-image::startingUp.png[]
-
-. Your overall balance is reflected at the right bottom of PalPay window.
+The GUI should appear within a few seconds.
++
++
 . Type your command in the command box and press kbd:[Enter] to execute it. +
 Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
@@ -156,7 +152,6 @@ Examples:
 
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
-
 
 
 === Splitting a Bill with Friends : `split`
@@ -328,8 +323,6 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]`
 * You can not change an `in` transaction to an `out` transaction.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
-
-
 
 Examples:
 

@@ -48,7 +48,7 @@ deactivate BankAccountParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : deleteTransaction(1)
 activate Model
 
 Model --> DeleteCommand
