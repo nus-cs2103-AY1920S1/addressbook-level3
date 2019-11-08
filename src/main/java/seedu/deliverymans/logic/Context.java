@@ -1,4 +1,4 @@
-package seedu.deliverymans.logic.parser.universal;
+package seedu.deliverymans.logic;
 
 /**
  * (to be added)

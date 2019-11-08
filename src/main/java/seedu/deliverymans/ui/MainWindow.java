@@ -21,7 +21,7 @@ import seedu.deliverymans.logic.LogicManager;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**

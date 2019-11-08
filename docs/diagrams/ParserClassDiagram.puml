@@ -21,11 +21,11 @@ Class ContextParser
 
 LogicManager .up.|> Logic
 LogicManager .left.> Context: contains >
-UniversalParser .right.> ContextParser: creates >
+UniversalParser .left.> ContextParser: creates >
 LogicManager -down->"1" UniversalParser
 
 UniversalParser ..|> Parser
 ContextParser ..|> Parser
-note right of ContextParser: ContextParser = \nCustomerParser, \nRestaurantParser, \nDeliverymenParser or \nEditingParser
+note left of ContextParser: ContextParser = \nCustomerParser, \nRestaurantParser, \nDeliverymenParser or \nEditingParser
 
 @enduml
