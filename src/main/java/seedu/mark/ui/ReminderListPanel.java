@@ -17,7 +17,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.reminder.Reminder;
