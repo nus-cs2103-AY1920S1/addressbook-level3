@@ -3,8 +3,8 @@ package seedu.address.model;
 import seedu.address.model.person.Person;
 
 /**
- * Wrapper for attendance record that will be displayed in the Calendar. Each entry has a person and a boolean and
- * indicates whether a person attended the training.
+ * Wrapper for attendance record that will be displayed in the Calendar. Each entry has a person and a string that
+ * indicates a person's attendance rate.
  */
 public class AttendanceRateEntry {
     private Person person;

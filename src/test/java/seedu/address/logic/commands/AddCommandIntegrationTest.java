@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(), new UserPrefs(),
-            new HistoryManager());
+                new HistoryManager());
     }
 
     @Test

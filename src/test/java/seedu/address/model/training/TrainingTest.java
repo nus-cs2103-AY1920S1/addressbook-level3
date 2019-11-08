@@ -98,33 +98,6 @@ class TrainingTest {
     }
 
     @Test
-    public void test_getAttended() {
-        Training training = FIRST_TRAINING;
-
-        List<Person> attended = training.getAttended();
-        List<Person> selfCreatedAttended = new ArrayList<>();
-        selfCreatedAttended.add(ALICE);
-        selfCreatedAttended.add(BENSON);
-        selfCreatedAttended.add(ELLE);
-
-        assertTrue(attended.containsAll(selfCreatedAttended));
-    }
-
-    @Test
-    public void test_getAbsent() {
-        Training training = FIRST_TRAINING;
-
-        List<Person> absentees = training.getAbsentees();
-        List<Person> selfCreatedAbsentees = new ArrayList<>();
-        selfCreatedAbsentees.add(CARL);
-        selfCreatedAbsentees.add(GEORGE);
-        selfCreatedAbsentees.add(FIONA);
-        selfCreatedAbsentees.add(DANIEL);
-
-        assertTrue(absentees.containsAll(selfCreatedAbsentees));
-    }
-
-    @Test
     public void test_getTrainingAttendanceList() {
         Training training = FIRST_TRAINING;
         List<AttendanceEntry> attendanceEntries = new ArrayList<>();

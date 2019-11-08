@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.TrainingManager;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -22,16 +22,16 @@ public class StorageManager implements Storage {
     private AthletickStorage athletickStorage;
     private PerformanceStorage performanceStorage;
     private UserPrefsStorage userPrefsStorage;
-    private AttendanceStorage attendanceStorage;
+    private TrainingManagerStorage trainingManagerStorage;
 
 
     public StorageManager(AthletickStorage athletickStorage,
                           PerformanceStorage performanceStorage,
-                          AttendanceStorage attendanceStorage, UserPrefsStorage userPrefsStorage) {
+                          TrainingManagerStorage trainingManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.athletickStorage = athletickStorage;
         this.performanceStorage = performanceStorage;
-        this.attendanceStorage = attendanceStorage;
+        this.trainingManagerStorage = trainingManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -116,21 +116,21 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<TrainingManager> readTrainingManager() throws DataConversionException, IOException {
-        return attendanceStorage.readTrainingManager();
+        return trainingManagerStorage.readTrainingManager();
     }
 
     @Override
     public Optional<TrainingManager> readTrainingManager(Path filePath) throws DataConversionException, IOException {
-        return attendanceStorage.readTrainingManager(filePath);
+        return trainingManagerStorage.readTrainingManager(filePath);
     }
 
     @Override
     public void saveTrainingManager(TrainingManager trainingManager) throws IOException {
-        attendanceStorage.saveTrainingManager(trainingManager);
+        trainingManagerStorage.saveTrainingManager(trainingManager);
     }
 
     @Override
     public void saveTrainingManager(TrainingManager trainingManager, Path filePath) throws IOException {
-        attendanceStorage.saveTrainingManager(trainingManager, filePath);
+        trainingManagerStorage.saveTrainingManager(trainingManager, filePath);
     }
 }

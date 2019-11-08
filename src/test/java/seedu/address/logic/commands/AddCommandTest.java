@@ -19,12 +19,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Athletick;
-import seedu.address.model.TrainingManager;
 import seedu.address.model.AttendanceRateEntry;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
@@ -257,7 +257,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetAttendance() {
+        public void resetTrainingManager() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -10,11 +10,11 @@ import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
- * Represents the AttendanceManager of Athletick.
+ * Represents the TrainingManager of Athletick.
  */
 public class TrainingManager {
 
-    private List<Training> trainings;
+    private final List<Training> trainings;
 
     public TrainingManager() {
         trainings = new ArrayList<>();
@@ -25,10 +25,10 @@ public class TrainingManager {
     }
 
     /**
-     * Resets all data in the Attendance.
+     * Resets all data in the TrainingManager.
      */
     public void resetTrainingManager() {
-        this.trainings = new ArrayList<>();
+        this.trainings.clear();
     }
 
     /**
@@ -176,7 +176,12 @@ public class TrainingManager {
         }
         return null; // With assertion, code should not reach here.
     }
+
+    /**
+     * Resets trainings in TrainingManager to the {@code newTrainingList}.
+     */
     public void resetTrainingList(List<Training> newTrainingList) {
-        this.trainings = newTrainingList;
+        this.resetTrainingManager();
+        this.trainings.addAll(newTrainingList);
     }
 }

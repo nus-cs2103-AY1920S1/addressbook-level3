@@ -29,13 +29,15 @@ class AttendanceRateEntryTest {
 
     @Test
     void constructorTest() {
-        AttendanceRateEntry entry = new AttendanceRateEntry(ALICE, trainingManager.getPersonAttendanceRateString(ALICE));
+        AttendanceRateEntry entry = new AttendanceRateEntry(ALICE,
+                trainingManager.getPersonAttendanceRateString(ALICE));
         assertNotNull(entry);
     }
 
     @Test
     void getPersonTest() {
-        AttendanceRateEntry entry = new AttendanceRateEntry(BENSON, trainingManager.getPersonAttendanceRateString(BENSON));
+        AttendanceRateEntry entry = new AttendanceRateEntry(BENSON,
+                trainingManager.getPersonAttendanceRateString(BENSON));
         assertEquals(entry.getPerson(), BENSON);
         assertNotEquals(entry.getPerson(), ALICE);
     }
@@ -52,7 +54,8 @@ class AttendanceRateEntryTest {
                 trainingManager.getPersonAttendanceRateString(DANIEL));
         AttendanceRateEntry firstEntryCopy = new AttendanceRateEntry(DANIEL,
                 trainingManager.getPersonAttendanceRateString(DANIEL));
-        AttendanceRateEntry secondEntry = new AttendanceRateEntry(ELLE, trainingManager.getPersonAttendanceRateString(ELLE));
+        AttendanceRateEntry secondEntry = new AttendanceRateEntry(ELLE,
+                trainingManager.getPersonAttendanceRateString(ELLE));
         AttendanceRateEntry secondEntryInvalid = new AttendanceRateEntry(ELLE,
                 trainingManager.getPersonAttendanceRateString(GEORGE));
         assertEquals(firstEntry, firstEntry);

@@ -5,11 +5,11 @@ import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Athletick;
-import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.training.Training;
 
 /**

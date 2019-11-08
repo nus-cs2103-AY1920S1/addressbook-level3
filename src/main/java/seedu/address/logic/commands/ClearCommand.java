@@ -18,7 +18,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAthletick(new Athletick());
-        model.resetAttendance();
+        model.resetTrainingManager();
         model.setPerformance(new Performance());
         return new CommandResult(MESSAGE_SUCCESS, false, false, true, model);
     }

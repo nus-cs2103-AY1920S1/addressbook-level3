@@ -309,7 +309,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Training & Attendance =======================================================================
+    //=========== Training  =======================================================================
     @Override
     public void addTraining(Training training) {
         this.trainingManager.addTraining(training);
@@ -352,7 +352,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void resetAttendance() {
+    public void resetTrainingManager() {
         this.trainingManager.resetTrainingManager();
     }
 

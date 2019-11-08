@@ -11,7 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
-import seedu.address.model.training.Training;
 
 /**
  * Adds a training session of players specified by the indexes on the specified date.
@@ -54,14 +53,14 @@ public abstract class TrainingCommand extends Command {
     }
 
     /**
-     * Executes the TrainingCommand which adds a training to the Attendance in model.
+     * Executes the TrainingCommand which adds a training to the TrainingManger in model.
      * @param model {@code Model} where Training is saved.
      * @return Outcome of executed command.
      * @throws CommandException Thrown when specified indexes are invalid.
      */
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;
-    public abstract Training getTrainingToAdd();
+
     /**
      * Indicates whether a TrainingCommand can be undone.
      * @return Returns true as a TrainingCommand is undoable.
@@ -70,6 +69,7 @@ public abstract class TrainingCommand extends Command {
     public boolean isUndoable() {
         return true;
     }
+
     @Override
     public String toString() {
         return "Add Training Command";

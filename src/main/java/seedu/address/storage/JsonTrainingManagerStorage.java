@@ -17,13 +17,13 @@ import seedu.address.model.TrainingManager;
 /**
  * A class to access Attendance data stored as a json file on the hard disk.
  */
-public class JsonAttendanceStorage implements AttendanceStorage {
+public class JsonTrainingManagerStorage implements TrainingManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAthletickStorage.class);
 
     private Path path;
 
-    public JsonAttendanceStorage(Path path) {
+    public JsonTrainingManagerStorage(Path path) {
         this.path = path;
     }
 

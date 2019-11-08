@@ -7,9 +7,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.TrainingManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.testutil.FeatureBuilder;

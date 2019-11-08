@@ -41,9 +41,6 @@ public class TrainingCommandPresent extends TrainingCommand {
         super(date, indexList);
     }
 
-    public Training getTrainingToAdd() {
-        return this.trainingToAdd;
-    }
     /**
      * Executes the TrainingCommandPresent which adds a training to the Attendance
      * in model. People in indexList are marked as present while everyone else is
