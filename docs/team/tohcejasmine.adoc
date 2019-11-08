@@ -56,9 +56,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=intro]
 
-include::../UserGuide.adoc[tag=budget]
+include::../UserGuide.adoc[tag=finance]
 
 == Contributions to the Developer Guide
 
@@ -66,9 +66,7 @@ include::../UserGuide.adoc[tag=budget]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
-
-The features in _Modulo_ are quite distinct, and essentially do not share the commands and dalexibility of implementing each feature. The same command word `add` is now able to be executete the features to form _Modulo_ with less overlaps when coding. Each time the user switches to another feature, the previous feature's classes (Ui, Logic, Model, Storage) will be replaced with the next feature's components.
+include::../DeveloperGuide.adoc[tag=rationale]
 
 === Class diagrams
 
@@ -77,6 +75,8 @@ image::FinanceModelClassDiagram.png[]
 
 .Structure of the Storage Component for the feature _Finance_
 image::FinanceStorageClassDiagram.png[]
+
+=== Implementation
 
 include::../DeveloperGuide.adoc[tag=budget]
 
@@ -96,141 +96,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
 |=======================================================================
 
-
 === Use Cases
 
-[discrete]
-==== Use case: Record down an entry of borrowing to finance log
-Preconditions: User has switched to the _finance_ feature
+include::../DeveloperGuide.adoc[tag=financeMSS]
 
-*MSS*
-
-1.  User enters details of money borrowed.
-2.  User requests to add a Borrow entry.
-3.  Modulo adds Borrow entry and displays it in list of log entries.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Modulo detects an error in command/details entered.
-[none]
-** 2a1. Modulo shows an error message.
-** 2a2. Modulo requests for command to be entered in the correct format.
-** 2a3. User enters new line of command with new details.
-* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
-* Use case resumes from step 3.
-
-[discrete]
-==== Use case: Set a budget
-Preconditions: User has switched to the _finance_ feature
-
-*MSS*
-
-1.  User enters details of budget.
-2.  User requests to add a budget to finance log.
-3.  Modulo adds the budget and displays it in list of budgets.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Modulo detects an error in command/details entered.
-[none]
-** 2a1. Modulo shows an error message.
-** 2a2. Modulo requests for command to be entered in the correct format.
-** 2a3. User enters new line of command with new details.
-* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
-* Use case resumes from step 3.
-
-[none]
-* 2b. Modulo detects that budget already exists in finance log (with all details exactly the same).
-[none]
-** 2b1. Modulo shows an error message.
-* Use case ends.
-
-[discrete]
-==== Use case: Record down an entry of borrowing to finance log
-Preconditions: User has switched to the _finance_ feature, a budget exists in finance log
-
-*MSS*
-
-1.  User enters details of money spend.
-2.  User requests to add a Spend entry.
-3.  Modulo adds Spend entry and displays it in list of log entries.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Modulo detects an error in command/details entered.
-[none]
-** 2a1. Modulo shows an error message.
-** 2a2. Modulo requests for command to be entered in the correct format.
-** 2a3. User enters new line of command with new details.
-* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
-* Use case resumes from step 3.
-
-[none]
-* 3a. Spend entry is included under budget and budget is exceeded (i.e. limit set by budget is crossed).
-[none]
-** 3a1. Modulo notifies that budget has been exceeded.
-** 3a2. Exceeded budget is marked as so.
-* Use case ends.
-
-[none]
-* 3a. Spend entry is included under budget and budget is close to being exceeded.
-[none]
-** 3a1. Modulo notifies that budget is close to exceeding.
-* Use case ends.
-
-[discrete]
-==== Use case: Mark an entry of money lent as repaid
-Preconditions: User has switched to the _finance_ feature
-
-*MSS*
-
-1.  User requests to mark Lend entry as repaid.
-2.  Modulo marks the entry as repaid and record downs the date of repayment.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User requests to mark Lend entry as repaid with date of repayment specified.
-* Use case resumes from step 2.
-[none]
-* 2a. Modulo checks that entry was already repaid and notifies user of it.
-* Use case ends.
-
-[discrete]
-==== Use case: View statistical summary of finance log
-Preconditions: User has switched to the _finance_ feature
-
-*MSS*
-
-1.  User requests to view statistical summary with type of summary specified.
-2.  Modulo shows graphs summarising the flow of money in the finance log.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Modulo detects an error in command/details entered.
-[none]
-** 1a1. Modulo shows an error message.
-** 1a2. Modulo requests for command to be entered in the correct format.
-** 1a3. User enters new line of command with new details.
-* Steps 1a1-1a3 are repeated until the command and details entered are in the correct format.
-* Use case resumes from step 2.
-
-[none]
-* 2a. Modulo detects that no entries have been entered in the finance log.
-[none]
-** 1a1. Modulo shows an empty page.
-* Use case ends.
