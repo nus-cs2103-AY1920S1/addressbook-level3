@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.deliverymans.model.util.SampleDataUtil.getMenu;
 import static seedu.deliverymans.model.util.SampleDataUtil.getTagSet;
 
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.LocationMap;
