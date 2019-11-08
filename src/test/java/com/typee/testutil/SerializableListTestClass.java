@@ -3,6 +3,9 @@ package com.typee.testutil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Serializable List for testing Json parsing into {@Code List<Object>}
+ */
 public class SerializableListTestClass {
     private List<String> serializableTestList = new ArrayList<>();
 
