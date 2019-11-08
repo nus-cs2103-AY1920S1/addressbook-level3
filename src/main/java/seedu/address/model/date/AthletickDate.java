@@ -56,6 +56,19 @@ public class AthletickDate {
     }
 
     /**
+     * Determines the order of dates by comparing their individual elements (day, month, year).
+     */
+    public static int compareDate(AthletickDate firstDate, AthletickDate secondDate) {
+        if (!(firstDate.getYear() == secondDate.getYear())) {
+            return firstDate.getYear() - secondDate.getYear();
+        } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
+            return firstDate.getMonth() - secondDate.getMonth();
+        } else {
+            return firstDate.getDay() - secondDate.getDay();
+        }
+    }
+
+    /**
      * Retrieves the suffix of this day.
      */
     private String getDaySuffix() {

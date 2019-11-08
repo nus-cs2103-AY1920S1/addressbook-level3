@@ -1,5 +1,8 @@
 package seedu.address.model.performance;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -33,6 +36,7 @@ public class Event {
      * @param name of this event.
      */
     public Event(String name) {
+        requireNonNull(name);
         this.name = name.toLowerCase();
         this.records = new HashMap<>();
     }
@@ -43,6 +47,7 @@ public class Event {
      * @param records to be included in this event.
      */
     public Event(String name, HashMap<Person, List<Record>> records) {
+        requireAllNonNull(name, records);
         this.name = name.trim().toLowerCase();
         this.records = records;
     }
@@ -55,23 +60,6 @@ public class Event {
             return true;
         }
         return otherEvent != null && otherEvent.getName().equals(name);
-    }
-
-    /**
-     * Checks if the athlete already has a record on the given day for this event.
-     * This prevents an athlete from having 2 records on the same day, under the same event.
-     */
-    public boolean doesAthleteHavePerformanceOn(AthletickDate athletickDate, Person athlete) {
-        List<Record> athleteRecords = getAthleteRecords(athlete);
-        if (athleteRecords == null) {
-            return false;
-        }
-        for (Record record : athleteRecords) {
-            if (record.getDate().equals(athletickDate)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -90,21 +78,56 @@ public class Event {
     }
 
     /**
+     * Checks if the athlete already has a record on the given day for this event.
+     * This prevents an athlete from having 2 records on the same day, under the same event.
+     */
+    public boolean doesAthleteHavePerformanceOn(AthletickDate athletickDate, Person athlete) {
+        requireAllNonNull(athletickDate, athlete);
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        if (athleteRecords == null) {
+            return false;
+        }
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(athletickDate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a player's record to this event.
      */
     public void addRecord(Person athlete, Record record) {
+        requireAllNonNull(athlete, record);
         if (!records.containsKey(athlete)) {
-            ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
-            initialisedPerformanceEntries.add(record);
-            records.put(athlete, initialisedPerformanceEntries);
+            addRecordNew(athlete, record);
         } else {
-            ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
-            currentPerformanceEntries.addAll(records.get(athlete));
-            currentPerformanceEntries.add(record);
-            records.remove(athlete);
-            records.put(athlete, currentPerformanceEntries);
+            addRecordExisting(athlete, record);
         }
         sortAthleteRecords(athlete);
+    }
+
+    /**
+     * Adds a player's record to this event when the player has no existing records.
+     */
+    private void addRecordNew(Person athlete, Record record) {
+        requireAllNonNull(athlete, record);
+        ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
+        initialisedPerformanceEntries.add(record);
+        records.put(athlete, initialisedPerformanceEntries);
+    }
+
+    /**
+     * Adds a player's record to this event when the player already has existing records.
+     */
+    private void addRecordExisting(Person athlete, Record record) {
+        requireAllNonNull(athlete, record);
+        ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
+        currentPerformanceEntries.addAll(records.get(athlete));
+        currentPerformanceEntries.add(record);
+        records.remove(athlete);
+        records.put(athlete, currentPerformanceEntries);
     }
 
     /**
@@ -112,17 +135,11 @@ public class Event {
      * Since there can only be one record per day, only the date needs to be specified.
      */
     public void deleteRecord(Person athlete, AthletickDate date) {
+        requireAllNonNull(athlete, date);
         assert(doesAthleteHavePerformanceOn(date, athlete));
         List<Record> athleteRecords = getAthleteRecords(athlete);
-        int i = 0;
-        for (Record record : athleteRecords) {
-            if (record.getDate().equals(date)) {
-                break;
-            }
-            i++;
-        }
+        int i = getIndexToDelete(athleteRecords, date);
         athleteRecords.remove(i);
-
         // delete athlete from HashMap if they have no records
         if (athleteRecords.isEmpty()) {
             records.remove(athlete);
@@ -130,23 +147,30 @@ public class Event {
     }
 
     /**
+     * Find the index of the record to be deleted.
+     */
+    private int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
+        requireAllNonNull(athleteRecords, date);
+        int i = 0;
+        for (Record record : athleteRecords) {
+            if (record.getDate().equals(date)) {
+                break;
+            }
+            i++;
+        }
+        return i;
+    }
+
+    /**
      * Sorts records based on AthletickDate.
      */
     private void sortAthleteRecords(Person athlete) {
+        requireNonNull(athlete);
         List<Record> athleteRecords = getAthleteRecords(athlete);
         athleteRecords.sort(new Comparator<Record>() {
             @Override
             public int compare(Record first, Record second) {
-                AthletickDate firstDate = first.getDate();
-                AthletickDate secondDate = second.getDate();
-
-                if (!(firstDate.getYear() == secondDate.getYear())) {
-                    return firstDate.getYear() - secondDate.getYear();
-                } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
-                    return firstDate.getMonth() - secondDate.getMonth();
-                } else {
-                    return firstDate.getDay() - secondDate.getDay();
-                }
+                return AthletickDate.compareDate(first.getDate(), second.getDate());
             }
         });
     }
@@ -176,6 +200,7 @@ public class Event {
     //// Analysis helper functions
 
     public List<Record> getAthleteRecords(Person athlete) {
+        requireNonNull(athlete);
         List<Record> athleteRecords = records.get(athlete);
         assert(!athleteRecords.isEmpty());
         return athleteRecords;
@@ -185,6 +210,7 @@ public class Event {
      * Retrieves the athlete's fastest timing for this event.
      */
     public String[] getPersonalBest(Person athlete) {
+        requireNonNull(athlete);
         double personalBest = Double.MAX_VALUE;
         String personalBestDate = "";
         for (Record record : getAthleteRecords(athlete)) {
@@ -203,6 +229,7 @@ public class Event {
      * @return String array with the first index being the date and second index being the timing.
      */
     public String[] getLatestTiming(Person athlete) {
+        requireNonNull(athlete);
         List<Record> athleteRecords = getAthleteRecords(athlete);
         Record latestRecord = athleteRecords.get(athleteRecords.size() - 1);
         return new String[]{latestRecord.getDate().toString(), latestRecord.getTiming().toString()};
@@ -215,6 +242,7 @@ public class Event {
      * @param date of Calendar-compatible records.
      */
     public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
+        requireNonNull(date);
         List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
         records.forEach((person, recordList) -> {
             String timing = "";
@@ -233,6 +261,7 @@ public class Event {
      * Checks if this event has a recorded performance on the given date.
      */
     public boolean hasPerformanceOn(AthletickDate date) {
+        requireNonNull(date);
         AtomicBoolean answer = new AtomicBoolean(false);
         records.forEach((person, recordList) -> {
             for (Record record : recordList) {
