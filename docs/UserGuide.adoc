@@ -492,11 +492,9 @@ The diagram below shows how a revision task looks like:
 
 image::UserGuideRes/TaskUI.png[]
 
-NOTE: The revision tasks are not synchronised with the note and the question. Once created, the task content will not
-change if you modify the corresponding note or question. For example, if you have added a task for note "An AVL Tree"
-and then you delete the note or change the title of the note, the task still exist with the heading unchanged. We adopt
-this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
-we disassociate the task from notes and questions once created.
+NOTE: The revision tasks are not synchronised with the note or the question. Once created, the task content will not
+change if you modify the corresponding note or question. We deliberately disassociate the task from notes and questions once created
+because we would like to allow you to customise the task headings in *version v2.0* of the app.
 
 NOTE: Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist
 in the revision task list. Even if they have different status, they still cannot co-exist
@@ -504,8 +502,8 @@ because it does not make sense to have same tasks but different status.
 
 ==== Adding a revision task for a note: `rn`
 You can add a revision task for a note to the current revision task list with this command.
-The heading will copy the title and the GUI will display all tasks upon completing the command.
-An invalid date will be interpreted as the nearest valid date. +
+The heading will copy the title. +
+The GUI will display all tasks upon completing the command. +
 Format: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
 
 NOTE: `TITLE_OF_NOTE` is case sensitive.
@@ -545,7 +543,7 @@ NOTE: "2400" and "0000" for `TIME` are both considered valid and represent 12am 
 ====
 
 ==== Adding a revision task for a question: `rq`
-You can add a revision task for a question to the current revision task list with this command. +
+You can add a revision task for a question to the current revision task list with this command.
 The heading will copy the question body. +
 The GUI will display all tasks upon completing the command. +
 Format: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
@@ -570,7 +568,7 @@ image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[]
 +
 
 ==== Marking the revision task as done: `rdone`
-You can mark a task as done once you finished it.
+You can mark a task as done once you finished it. +
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdone INDEX` +
 
@@ -586,45 +584,46 @@ of the task turns from "[N]" (not done) to "[Y]" (done).
 image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[]
 +
 
-NOTE: You cannot use "undone" (marking a task as not done) feature as we believe that the chance of accidentally marking
-an unfinished task as done is fairly low by command line input. So the app should not support a "undo" action for `rdone`.
+NOTE: You cannot use "undone" (marking a task as not done) feature.
 People usually "undone" a task because they realise that some parts of the task are not fully completed. In this case, you
 should create a new task with a new date or time (same as "re-scheduling" in the real world).
 
 ==== Editing a revision task: `redit`
 You can edit a revision task with this command. You need to provide non-empty arguments with prefix `h/`, `dt/` and `tm/`
-as you would do with `rn`, but only those fields you want to change. + Please take note that *at least one field* must be provided. +
+as you would do with `rn`, but only those fields you want to change. Please take note that *at least one field* must be provided. +
 Format: `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
 Example: +
 `redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200`
 
 NOTE: Please note that the prefix for the heading of a task is no longer `t/` (for note task) or `i/` (for question task).
 Instead, the prefix becomes `h/` for both types of tasks. `HEADING` can be the title of a note or the question body of a question.
-The edited `HEADING` must be an existing title or question body. + `HEADING` is case sensitive.
+The edited `HEADING` must be an existing title or question body.
 
-NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may want to use `rdone` if you want to mark a
-task as done. You cannot do "undone" operation as explained in `rdone` feature.
+NOTE: `HEADING` is case sensitive.
+
+NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may use `rdone`.
+You cannot do "undone" operation as explained in `rdone` feature.
 
 ==== Viewing all revision tasks: `rlist`
-This command displays the whole revision task list. +
+You may view the whole revision task list using this command. +
 Format: `rlist`
 
 ==== Viewing completed revision tasks: `finished`
-This command displays the list of revision tasks that you have completed. +
+You may use this command to view the list of revision tasks that you have completed. +
 Format: `finished`
 
 ==== Viewing uncompleted revision task: `unfinished`
-This command displays the list of revision tasks that you have not completed. +
+You may use this command to the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
 ==== Viewing overdue revision tasks: `overdue`
-This command displays the revision tasks which you have not done but having passed the scheduled time. +
+You may use this command to view the revision tasks which you have not done but having passed the scheduled time. +
 Format: `overdue`
 
 ==== Finding tasks with specified details: `rfind`
 You may use this command to search for tasks with specified details. You may key in keyword(s) of the heading, or the date, or the time,
-with prefix `h/` `dt/` `tm/` respectively.
-The GUI will display a task list of all tasks with field (heading or date or time) that matches your input. +
+with prefix `h/` `dt/` `tm/` respectively. +
+The GUI will display a task list of all tasks with the field (heading or date or time) that matches your input. +
 Format:
 `rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
 
@@ -638,22 +637,23 @@ Example: +
 NOTE: The priority of the fields are `h/` > `dt/` > `tm/`. When multiple prefixes (fields) are provided for search, only
 the field with the highest priority will be considered. The rest will be ignored.
 
-NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
-the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
-or "hello world blablabla..." will all appear in the GUI. Our rationale is to provide you with as many matching tasks as
-possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
-the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
-no task will be retrieved because "he" and "word" are not complete words contained in the headings.
+NOTE: A heading is considered matching with the keywords as long as one of the words in the heading is the same as one of the words in the input keywords.
+Please note that the minimum matching unit is a word (*not characters*) in the heading. Words in the headings are separated by a space. +
 
-//[width="70%",cols="50%,<50%",options="header",]
-//|=======================================================================
-//|Input|Task shown
-//
-//|rfind h/hello|"hello" +
-//"hello world"
-//
-//
-//|=======================================================================
+====
+For example, suppose we have a task list with tasks of headings {"hello", "hello?", "Hello", "helloworld", "hello world", "HelloWorld"},
+here are the use cases:
+[width="90%",cols="30%,50%",options="header"]
+|=======================================================================
+|Input `WORD`|Tasks shown
+
+|hello|{"hello", "Hello", "hello world"}
+|hello?|{"hello?"}
+|helloworld|{"helloworld", "HelloWorld"}
+|hello world|{"hello", "Hello", "hello world"}
+|he|No task shown
+|=======================================================================
+====
 
 ==== Clearing current revision plan: `rclear`
 You can remove all revision tasks with this command. +
@@ -735,7 +735,7 @@ eg. `difficulty hard` +
 *Filtering by subject:* `subject SUBJECT` +
 eg. `subject CS2103T` +
 
-*Clearing all questions:* + `clearq`
+*Clearing all questions:* `clearq`
 
 *Entering quiz mode:* `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT` +
 eg. `quiz n/2 d/Easy s/CS2040` +
