@@ -149,11 +149,11 @@ public class Projection {
         return this.budgetProjections.get(idx);
     }
 
-    public Amount getBudgetStartValue(int idx) {
+    Amount getBudgetStartValue(int idx) {
         return this.budgetStartValues.get(idx);
     }
 
-    public Amount getBudgetThreshold(int idx) {
+    Amount getBudgetThreshold(int idx) {
         return this.budgetThresholds.get(idx);
     }
 
@@ -213,7 +213,7 @@ public class Projection {
     /**
      * Checks if the given projection projects the same date as this Projection
      */
-    public boolean isSameProjection(Projection other) {
+    boolean isSameProjection(Projection other) {
         if (other == this) {
             return true;
         }

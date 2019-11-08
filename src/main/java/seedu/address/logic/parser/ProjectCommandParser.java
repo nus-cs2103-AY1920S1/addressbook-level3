@@ -27,12 +27,14 @@ public class ProjectCommandParser implements Parser<ProjectCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProjectCommand.MESSAGE_USAGE));
         }
 
+        assert(argMultimap.getValue(PREFIX_DATE).isPresent());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         if (date.compareTo(Date.now()) <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_USAGE, ProjectCommand.MESSAGE_INVALID_DATE));
         }
         if (arePrefixesPresent(argMultimap, PREFIX_CATEGORY)) {
+            assert(argMultimap.getValue(PREFIX_CATEGORY).isPresent());
             Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
             return new ProjectCommand(date, category);
         }

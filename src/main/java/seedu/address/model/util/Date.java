@@ -21,7 +21,7 @@ public class Date implements Comparable<Date> {
     public static final String MESSAGE_DATE_INVALID = "Invalid date.\n"
         + "%s is not a valid date in the (Gregorian) calendar";
     public static final String DATE_FORMAT = "\\b\\d{8}\\b";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
     public static final Date TODAY = now();
 
     public final LocalDate date;
@@ -40,7 +40,7 @@ public class Date implements Comparable<Date> {
         return isValidFormat(test) && isValidDate(test);
     }
 
-    public static boolean isValidFormat(String test) {
+    private static boolean isValidFormat(String test) {
         return test.matches(DATE_FORMAT);
     }
 
@@ -82,7 +82,7 @@ public class Date implements Comparable<Date> {
     /**
      * TODO: remove and refactor
      */
-    public LocalDate toLocalDate() {
+    private LocalDate toLocalDate() {
         return this.date;
     }
 
@@ -115,11 +115,7 @@ public class Date implements Comparable<Date> {
      */
     public static boolean isValidMonth(String month) {
         int monthInt = Integer.parseInt(month);
-        if (monthInt >= 1 && monthInt <= 12) {
-            return true;
-        }
-
-        return false;
+        return monthInt >= 1 && monthInt <= 12;
     }
 
     /**
@@ -127,11 +123,7 @@ public class Date implements Comparable<Date> {
      */
     public static boolean isValidYear(String year) {
         int yearInt = Integer.parseInt(year);
-        if (yearInt >= 1900 && yearInt <= 9999) {
-            return true;
-        }
-
-        return false;
+        return yearInt >= 1900 && yearInt <= 9999;
     }
 
     /**

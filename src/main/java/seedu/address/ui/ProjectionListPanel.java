@@ -20,7 +20,7 @@ public class ProjectionListPanel extends UiPart<Region> {
     @FXML
     private ListView<Projection> projectionListView;
 
-    public ProjectionListPanel(ObservableList<Projection> projections) {
+    ProjectionListPanel(ObservableList<Projection> projections) {
         super(FXML);
         projectionListView.setItems(projections);
         projectionListView.setCellFactory(listView -> new ProjectionListViewCell());
@@ -29,7 +29,7 @@ public class ProjectionListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Projection} using a {@code ProjectionCard}.
      */
-    class ProjectionListViewCell extends ListCell<Projection> {
+    static class ProjectionListViewCell extends ListCell<Projection> {
         @Override
         protected void updateItem(Projection projection, boolean empty) {
             super.updateItem(projection, empty);

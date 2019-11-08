@@ -188,12 +188,15 @@ public class ProjectionGraph extends StackPane {
         this.yMin = Math.min(gradientDescent.getResult(), gradientDescent.getMinOutput());
         if (!this.budgets.isEmpty()) {
             this.yMin = Math.min(yMin, IntStream.range(0, this.budgets.size())
-                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx).getActualValue()).min().getAsDouble());
+                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx)
+                            .getActualValue()).min()
+                    .orElseThrow());
         }
         this.yMax = Math.max(gradientDescent.getResult(), gradientDescent.getMaxOutput());
         if (!this.budgets.isEmpty()) {
             this.yMax = Math.max(yMax, IntStream.range(0, this.budgets.size())
-                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx).getActualValue()).max().getAsDouble());
+                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx).getActualValue()).max()
+                    .orElseThrow(AssertionError::new));
         }
         this.yRange = yMax - yMin;
         this.yUnit = Math.round(yRange / 10);

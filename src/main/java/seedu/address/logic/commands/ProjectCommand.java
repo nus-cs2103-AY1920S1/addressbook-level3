@@ -24,37 +24,35 @@ public class ProjectCommand extends Command {
 
     public static final String COMMAND_WORD = "project";
     public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
-    public static final String MESSAGE_VOID_TRANSACTION_HISTORY =
+    private static final String MESSAGE_VOID_TRANSACTION_HISTORY =
             "There are no transactions in %s. It is impossible to cast a projection.";
-    public static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
+    private static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
             "There are too few transactions. It is impossible to cast a projection.";
-    public static final String MESSAGE_PROJECTION_TOO_PROTRACTED =
+    private static final String MESSAGE_PROJECTION_TOO_PROTRACTED =
             "Projections should be a maximum of 2 years (730 days) from now";
-    public static final String SMALL_SAMPLE_SIZE =
+    private static final String SMALL_SAMPLE_SIZE =
             "Projection is based on a small sample size, and may be limited in its accuracy";
-    public static final String PROTRACTED_PROJECTION =
+    private static final String PROTRACTED_PROJECTION =
             "Projection is cast far into the future, and may be limited in its accuracy";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
             + "Parameters: "
             + PREFIX_DATE + "DATE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "12122103 09:00";
-    public static final String MESSAGE_WARNING = "[WARNING] %1$s";
+    private static final String MESSAGE_WARNING = "[WARNING] %1$s";
     public static final String MESSAGE_SUCCESS = "Projected balance: %s\n%s";
     public static final String MESSAGE_BUDGET_SUCCESS =
             "You are on track to meeting your budget of %s, with a surplus of %s!\n";
     public static final String MESSAGE_BUDGET_CAUTION =
             "You are likely to exceed your budget of %s, with a deficit of %s!\n";
-    public static final int REQUIRED_MAXIMUM_DAYS_TO_PROJECT = 730;
-    public static final int RECOMMENDED_MAXIMUM_DAYS_TO_PROJECT = 365;
-    public static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
+    private static final int REQUIRED_MAXIMUM_DAYS_TO_PROJECT = 730;
+    private static final int RECOMMENDED_MAXIMUM_DAYS_TO_PROJECT = 365;
+    private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
     public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
     private static final String MESSAGE_DUPLICATE = "A projection to %s already exists.";
 
     public final Date date;
     private Category category;
-    private ObservableList<Budget> budgets;
-    private Projection projection;
 
     public ProjectCommand(Date date) {
         requireNonNull(date);
@@ -70,27 +68,16 @@ public class ProjectCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        int daysFromNow = Math.abs(Date.daysBetween(Date.now(), this.date));
-        if (daysFromNow >= REQUIRED_MAXIMUM_DAYS_TO_PROJECT) {
-            throw new CommandException(MESSAGE_PROJECTION_TOO_PROTRACTED);
-        }
+        ensureDaysToProjectIsWithinRange(this.date);
         ObservableList<BankAccountOperation> transactionHistory =
                 model.getBankAccount().getSortedTransactionHistory(new DateComparator());
+        Projection projection = defineProjection(transactionHistory, model);
 
-        if (this.category.equals(Category.GENERAL)) {
-            ensureMinimumTransactions(transactionHistory);
-            this.projection = new Projection(transactionHistory, date);
-        } else {
-            transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
-            this.budgets = model.getFilteredBudgetList().filtered(x -> x.getCategories().contains(this.category));
-            ensureMinimumTransactions(transactionHistory);
-            this.projection = new Projection(transactionHistory, date, this.budgets, this.category);
-        }
-        if (model.has(this.projection)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE, this.projection.getDate().toString()),
+        if (model.has(projection)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, projection.getDate().toString()),
                     false, false, Tab.PROJECTION);
         }
-        model.add(this.projection);
+        model.add(projection);
         model.commitUserState();
 
         if (transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS
@@ -108,6 +95,20 @@ public class ProjectCommand extends Command {
                 projection.getAllBudgetForecastText()));
     }
 
+    private Projection defineProjection(ObservableList<BankAccountOperation> transactionHistory, Model model)
+            throws CommandException {
+        if (this.category.equals(Category.GENERAL)) {
+            ensureMinimumTransactions(transactionHistory);
+            return new Projection(transactionHistory, date);
+        } else {
+            transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
+            ObservableList<Budget> budgets = model.getFilteredBudgetList()
+                    .filtered(x -> x.getCategories().contains(this.category));
+            ensureMinimumTransactions(transactionHistory);
+            return new Projection(transactionHistory, date, budgets, this.category);
+        }
+    }
+
     Category getCategory() {
         return this.category;
     }
@@ -123,6 +124,13 @@ public class ProjectCommand extends Command {
 
         if (transactionHistory.size() < REQUIRED_MINIMUM_TRANSACTIONS) {
             throw new CommandException(MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY);
+        }
+    }
+
+    private void ensureDaysToProjectIsWithinRange(Date toProject) throws CommandException{
+        int daysFromNow = Math.abs(Date.daysBetween(Date.now(), toProject));
+        if (daysFromNow >= REQUIRED_MAXIMUM_DAYS_TO_PROJECT) {
+            throw new CommandException(MESSAGE_PROJECTION_TOO_PROTRACTED);
         }
     }
 }

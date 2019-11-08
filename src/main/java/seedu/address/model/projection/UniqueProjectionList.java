@@ -50,27 +50,6 @@ public class UniqueProjectionList implements Iterable<Projection> {
     }
 
     /**
-     * Replaces the Projection {@code target} in the list with {@code editedProjection}.
-     * {@code target} must exist in the list.
-     * The Projection identity of {@code editedProjection} must not be the same as
-     * another existing Projection in the list.
-     */
-    public void setProjection(Projection target, Projection edited) {
-        requireAllNonNull(target, edited);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new ProjectionNotFoundException();
-        }
-
-        if (!target.equals(edited) && contains(edited)) {
-            throw new DuplicateProjectionException();
-        }
-
-        internalList.set(index, edited);
-    }
-
-    /**
      * Removes the equivalent projection from the list.
      * The projection must exist in the list.
      */
@@ -96,7 +75,6 @@ public class UniqueProjectionList implements Iterable<Projection> {
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
-     * @return
      */
     public ObservableList<Projection> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
