@@ -11,8 +11,8 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  */
 public class JavascriptCard extends FlashCard {
 
-    protected String front; //question
-    protected String back;
+    //protected String front; //question
+    //protected String back;
     protected String attempt;
 
 
