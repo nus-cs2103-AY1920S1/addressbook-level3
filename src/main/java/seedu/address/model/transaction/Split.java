@@ -93,7 +93,7 @@ public class Split extends Transaction implements LedgerOperation {
                 && this.date.equals(splitObj.date)
                 && peopleInvolved.equals(splitObj.peopleInvolved)
                 && description.equals(splitObj.description)
-                && splitAmounts == splitObj.splitAmounts;
+                && splitAmounts.equals(splitObj.splitAmounts);
         } else {
             return false;
         }
