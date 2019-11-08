@@ -273,7 +273,7 @@ image::questionCommandsDemo/clearcommand.png[width = "600"]
 image::questionCommandsDemo/clearresult.png[width = "600"]
 // end::question[]
 
-// tag::quizStart[]
+// tag::quiz[]
 === Quiz mode
 
 There is a built-in quiz mode in NUStudy for you to take a revision quiz. You can indicate the number of questions,
@@ -320,7 +320,6 @@ graph simulates the situation after you answer the question. +
 
 .The result after answer
 image::quiz/QuizAnswerResult.png[600, 600]
-// end::quizStart[]
 
 ==== Show an answer : `show`
 
@@ -356,7 +355,6 @@ Step 2: The current question is skipped and next question will be displayed. +
 .The result of `skip` command
 image::quiz/SkipCommandResult.png[600, 600]
 
-// tag::quizQuit[]
 ==== Exit quiz mode : `quit`
 
 You can exit from the quiz mode using this command. +
@@ -377,7 +375,7 @@ explains what would happen after you `quit` from the quiz mode. +
 
 .The result of `quit` command
 image::quiz/QuitQuizCommandResult.png[600, 600]
-// end::quizQuit[]
+// end::quiz[]
 
 // tag::statistics[]
 === Statistics
@@ -462,6 +460,8 @@ You can also add two `dt/` fields representing a time period to get questions yo
 within that time period. The format for date is dd/MM/yyyy. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 
+NOTE: For `DATE` input constraints, you may refer to <<Add a revision task for a note: `rn`>>.
+
 NOTE: If you have more than 8 different difficulty levels, the stack bar chart may repeat
 colors for the difficulties. To differentiate between the different bars in the chart,
 you can use your mouse to hover above them.
@@ -499,7 +499,7 @@ this approach because we would like to allow you to customise the task headings 
 we disassociate the task from notes and questions once created.
 
 NOTE: Revision tasks with the same heading, same date and same time are considered duplicate tasks and cannot co-exist
-in the revision task list. Tasks with the same heading, same date, same time, but different status are cannot co-exist
+in the revision task list. Even if they have different status, they still cannot co-exist
 because it does not make sense to have same tasks but different status.
 
 ==== Add a revision task for a note: `rn`
@@ -507,9 +507,12 @@ You can add a revision task for a note to the current revision task list with th
 The heading will copy the title and the GUI will display all tasks upon completing the command.
 An invalid date will be interpreted as the nearest valid date. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+
+NOTE: `TITLE_OF_NOTE` is case sensitive.
+
 Example: +
 
-1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
 +
@@ -517,11 +520,29 @@ image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
 The task is added to the task list shown in the middle panel.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[]
++
 
+====
 
+*Constrains for `DATE` (yyyy : `YEAR`, MM : `MONTH`, dd : `DAY`), `TIME` (HH : `HOUR` , mm : `MINUTE`) input:*
 
-NOTE: You need to follow the format "dd/MM/yyyy" for START_DATE input and "HHmm" with 24-hour format for START_TIME
-input. For example: "31/12/2019" to represent "31st December 2019", "0900" to represent "9am", "1400" to represent "2pm".
+* All numerical inputs must be integers.
+* `DATE` input format should follow Singapore local date convention (i.e. dd/MM/yyyy).
+* `YEAR` is 4-digit. 0000 < yyyy < 9999.
+* `MONTH` is 2-digit. 00 < MM < 13.
+* `DATE` is 2-digit. 00 < dd < 32.
+* `HOUR` is 2-digit and follows 24-hour format. -01 < HH < 24.
+* `MINUTE` is 2-digit. -01 < mm < 60.
+
+NOTE: There are some days of month which are valid for some months but invalid for others, eg. *31* is invalid for February, April,
+June, September, November; *30* is invalid for February; *29* is invalid for February in common years. But they are valid
+for other scenarios. Sometimes you may get confused about the number of days in a month. For example, you may happen to think
+that there are 31 days in September and you key in "31/09/2019". In this case, the day of month will automatically run
+down to the last valid day of that month.
+
+NOTE: "2400" and "0000" for `TIME` are both considered valid and represent 12am on the same day.
+
+====
 
 ==== Add a revision task for a question: `rq`
 You can add a revision task for a question to the current revision task list with this command. +
@@ -531,19 +552,39 @@ Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
 Example: +
 `rq i/1 dt/11/11/2019 tm/1500`
 
+NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Add a revision task for a note: `rn`>>.
+
 ==== Remove revision task: `rdelete`
 You can remove a particular revision task from current list with this command. +
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdelete INDEX_OF_TASK` +
 Example: +
-`rdelete 2`
+
+1. Type `rdelete 2` in the command input box, and press `Enter` to execute it.
++
+image::UserGuideRes/TaskCommands/DeleteTaskCommand.png[]
++
+2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list.
++
+image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[]
++
 
 ==== Mark the revision task as done: `rdone`
 You can mark a task as done once you finished it.
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdone INDEX` +
+
 Example: +
-`rdone 1`
+
+1. Type `rdone 1` in the command input box, and press `Enter` to execute it.
++
+image::UserGuideRes/TaskCommands/DoneTaskCommand.png[]
++
+2. The result box will display the message "Revision task marked as done: [Y] ..." with the task details. The status icon
+of the task turns from "[N]" (not done) to "[Y]" (done).
++
+image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[]
++
 
 NOTE: You cannot use "undone" (marking a task as not done) feature as we believe that the chance of accidentally marking
 an unfinished task as done is fairly low by command line input. So the app should not support a "undo" action for `rdone`.
@@ -551,15 +592,15 @@ People usually "undone" a task because they realise that some parts of the task 
 should create a new task with a new date or time (same as "re-scheduling" in the real world).
 
 ==== Edit a revision task: `redit`
-You can edit a revision task with this command. You need to provide non-empty arguments with prefix `h/`, `dt/` and `tm/` (at least one)
-as you would do with `rn`, but only those arguments you want to change. +
+You can edit a revision task with this command. You need to provide non-empty arguments with prefix `h/`, `dt/` and `tm/`
+as you would do with `rn`, but only those fields you want to change. + Please take note that *at least one field* must be provided. +
 Format: `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
 Example: +
 `redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200`
 
 NOTE: Please note that the prefix for the heading of a task is no longer `t/` (for note task) or `i/` (for question task).
 Instead, the prefix becomes `h/` for both types of tasks. `HEADING` can be the title of a note or the question body of a question.
-The edited `HEADING` must be an existing title or question body. +
+The edited `HEADING` must be an existing title or question body. + `HEADING` is case sensitive.
 
 NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may want to use `rdone` if you want to mark a
 task as done. You cannot do "undone" operation as explained in `rdone` feature.
@@ -587,10 +628,15 @@ The GUI will display a task list of all tasks with field (heading or date or tim
 Format:
 `rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
 
+NOTE: Words for headings are case insensitive for `rfind`.
+
 Example: +
 `rfind h/hello world` - This command gives you all tasks with headings containing "hello" or "world" or "hello world". +
 `rfind dt/01/11/2019` - This command gives you all tasks on 1 November 2019. +
 `rfind tm/1200` - This command gives you all tasks at 12:00 (12pm), regardless of date.
+
+NOTE: The priority of the fields are `h/` > `dt/` > `tm/`. When multiple prefixes (fields) are provided for search, only
+the field with the highest priority will be considered. The rest will be ignored.
 
 NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
 the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
@@ -598,6 +644,16 @@ or "hello world blablabla..." will all appear in the GUI. Our rationale is to pr
 possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
 the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
 no task will be retrieved because "he" and "word" are not complete words contained in the headings.
+
+//[width="70%",cols="50%,<50%",options="header",]
+//|=======================================================================
+//|Input|Task shown
+//
+//|rfind h/hello|"hello" +
+//"hello world"
+//
+//
+//|=======================================================================
 
 ==== Clear current revision plan: `rclear`
 You can remove all revision tasks with this command. +
