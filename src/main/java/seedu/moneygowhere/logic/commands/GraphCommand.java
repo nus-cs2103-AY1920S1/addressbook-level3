@@ -78,8 +78,8 @@ public class GraphCommand extends Command {
             return PREDICATE_SHOW_ALL_SPENDINGS;
         } else {
             return s-> {
-                return s.getDate().value.compareTo(startDate.value) >= 0
-                    && s.getDate().value.compareTo(endDate.value) <= 0;
+                return s.getDate().compareTo(startDate) >= 0
+                    && s.getDate().compareTo(endDate) <= 0;
             };
         }
     }
