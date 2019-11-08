@@ -3,10 +3,15 @@ package seedu.ifridge.logic.commands;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_END_MONTH;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_START_MONTH;
+import static seedu.ifridge.testutil.TypicalWasteArchive.WASTE_LIST_CURRENT_MONTH;
+import static seedu.ifridge.testutil.TypicalWasteArchive.WASTE_LIST_LAST_MONTH;
+import static seedu.ifridge.testutil.TypicalWasteArchive.WASTE_LIST_THREE_MONTHS_AGO;
+import static seedu.ifridge.testutil.TypicalWasteArchive.WASTE_LIST_TWO_MONTHS_AGO;
 
 import java.time.LocalDate;
 
 import seedu.ifridge.model.waste.WasteMonth;
+import seedu.ifridge.model.waste.WasteStatistic;
 
 /**
  * A utilities class for Waste List Command tests.
@@ -46,5 +51,14 @@ public class WasteListCommandTestUtil {
     public static final WasteMonth WASTE_MONTH_NEXT_MONTH = new WasteMonth(LocalDate.now()).nextWasteMonth();
     public static final WasteMonth WASTE_MONTH_TWO_MONTHS_AGO = new WasteMonth(LocalDate.now()).minusWasteMonth(2);
     public static final WasteMonth WASTE_MONTH_THREE_MONTHS_AGO = new WasteMonth(LocalDate.now()).minusWasteMonth(3);
+
+    public static final WasteStatistic WASTE_STATISTIC_CURRENT_MONTH = WasteStatistic
+            .getWasteStatistic(WASTE_LIST_CURRENT_MONTH.getIterableWasteList());
+    public static final WasteStatistic WASTE_STATISTIC_LAST_MONTH = WasteStatistic
+            .getWasteStatistic(WASTE_LIST_LAST_MONTH.getIterableWasteList());
+    public static final WasteStatistic WASTE_STATISTIC_TWO_MONTHS_AGO = WasteStatistic
+            .getWasteStatistic(WASTE_LIST_TWO_MONTHS_AGO.getIterableWasteList());
+    public static final WasteStatistic WASTE_STATISTIC_THREE_MONTHS_AGO = WasteStatistic
+            .getWasteStatistic(WASTE_LIST_THREE_MONTHS_AGO.getIterableWasteList());
 
 }

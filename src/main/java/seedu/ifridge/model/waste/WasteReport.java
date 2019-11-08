@@ -26,4 +26,11 @@ public class WasteReport implements Iterable<Map.Entry<WasteMonth, WasteStatisti
     public Iterator<Map.Entry<WasteMonth, WasteStatistic>> iterator() {
         return historicalData.entrySet().iterator();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof WasteReport // instanceof handles nulls
+                && historicalData.equals(((WasteReport) other).historicalData));
+    }
 }
