@@ -30,8 +30,17 @@ public class EditScheduleDescriptorBuilder {
      */
     public EditScheduleDescriptorBuilder(Schedule schedule) {
         descriptor = new EditScheduleDescriptor();
-        descriptor.setDate(schedule.getCalendar());
-        descriptor.setTime(schedule.getCalendar());
+        Calendar newDate = new Calendar.Builder().build();
+        newDate.set(Calendar.YEAR, schedule.getCalendar().get(Calendar.YEAR));
+        newDate.set(Calendar.MONTH, schedule.getCalendar().get(Calendar.MONTH));
+        newDate.set(Calendar.DAY_OF_MONTH, schedule.getCalendar().get(Calendar.DAY_OF_MONTH));
+        descriptor.setDate(newDate);
+
+        Calendar newTime = new Calendar.Builder().build();
+        newTime.set(Calendar.HOUR_OF_DAY, schedule.getCalendar().get(Calendar.HOUR_OF_DAY));
+        newTime.set(Calendar.MINUTE, schedule.getCalendar().get(Calendar.MINUTE));
+        descriptor.setTime(newTime);
+
         descriptor.setVenue(schedule.getVenue());
         descriptor.setTags(schedule.getTags());
     }

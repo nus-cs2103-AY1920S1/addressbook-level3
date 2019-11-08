@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete-c`**`1` : deletes the 1st customer shown in the current list
 * *`exit`* : exits the app
 
- Refer to <<Features>> for details of each command.
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -745,7 +745,7 @@ Views the command history of all your previous commands.
 
 image::ug-command/ug-history.png[width="800"]
 
-
+// tag::statisticsCommand[]
 ==== Generate stats : `generate-s`
 
 `v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
@@ -801,12 +801,7 @@ Coming in `V2.0`:
 * Export Chart to PDF
 ** User will be able to export their charts to pdf with a click of a button.
 
-
-
-//==== Check : `check`
-//Check for stock etc. For stock, see the phones that have < threshold quantity.   +
-//Format: `check <flag>` +
-//Possible flag: `-p` for phone stock, `check -p <threshold>`
+// end:statisticsCommand[]
 
 ==== Exiting the program : `exit`
 Exits the program. +

@@ -37,8 +37,11 @@ public class CalendarPanel extends UiPart<Region> {
         this.calendarDate = calendarDate;
 
         agenda = new Agenda();
+
+        // disallow any non-command line actions (mouse) to alter events
         agenda.setAllowDragging(false);
         agenda.setAllowResize(false);
+        agenda.setEditAppointmentCallback((appointment) -> null);
 
         calendarBox.getChildren().add(agenda);
         populateAgenda();
