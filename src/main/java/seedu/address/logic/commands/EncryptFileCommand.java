@@ -40,7 +40,7 @@ public class EncryptFileCommand extends Command {
     public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
     public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
             + "Use add command to add encrypted files to the list.";
-    public static final String MESSAGE_TARGET_FILE_EXISTS = "File decryption failed. "
+    public static final String MESSAGE_TARGET_FILE_EXISTS = "File encryption failed. "
             + "Target file already exists.\nRename %1$s and try again.";
 
     private final EncryptedFile toAdd;

@@ -20,7 +20,7 @@ public class UniqueResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            return report.append("No accounts with same passwords were found\n").toString();
+            return report.append("No accounts were found to have the same password as this account\n").toString();
         }
         report.append("The following accounts share the same password: \n");
         for (UniqueMatch m : matches) {

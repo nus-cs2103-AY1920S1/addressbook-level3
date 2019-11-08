@@ -24,6 +24,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -32,7 +36,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -54,19 +57,23 @@ public class AddCommandParserTest {
 
         // multiple names - last name accepted
         assertParseFailure(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, EditNoteCommand.MESSAGE_USAGE);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(ArgumentTokenizer.DUPLICATE_PREFIX_MESSAGE,
+                PREFIX_NAME));
 
         // multiple phones - last phone accepted
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, EditNoteCommand.MESSAGE_USAGE);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(ArgumentTokenizer.DUPLICATE_PREFIX_MESSAGE,
+                PREFIX_PHONE));
 
         // multiple emails - last email accepted
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, EditNoteCommand.MESSAGE_USAGE);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(ArgumentTokenizer.DUPLICATE_PREFIX_MESSAGE,
+                PREFIX_EMAIL));
 
         // multiple addresses - last address accepted
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, EditNoteCommand.MESSAGE_USAGE);
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(ArgumentTokenizer.DUPLICATE_PREFIX_MESSAGE,
+                PREFIX_ADDRESS));
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)

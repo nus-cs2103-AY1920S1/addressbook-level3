@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import seedu.address.commons.core.Dictionary;
 import seedu.address.commons.util.LeetUtil;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.DictionaryMatch;
+import seedu.address.model.password.analyser.resources.Dictionary;
 import seedu.address.model.password.analyser.result.DictionaryResult;
 import seedu.address.model.password.analyser.result.Result;
 

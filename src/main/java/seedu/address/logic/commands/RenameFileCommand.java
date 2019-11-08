@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,16 +40,22 @@ public class RenameFileCommand extends Command {
         this.newFileName = newFileName;
     }
 
+    private void checkIfTargetFileExists(EncryptedFile newFile) throws CommandException {
+        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
+            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
+        }
+    }
+
+    private void checkIfTargetFileDuplicated(EncryptedFile newFile, Model model) throws CommandException {
+        if (model.hasFile(newFile)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FILE);
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<EncryptedFile> lastShownList = model.getFilteredFileList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
-        }
-
-        EncryptedFile fileToRename = lastShownList.get(targetIndex.getZeroBased());
+        EncryptedFile fileToRename = FileCommandUtil.getFileWithIndex(targetIndex, model);;
         FileCommandUtil.checkIfFileExists(fileToRename, model);
 
         EncryptedFile newFile = new EncryptedFile(
@@ -63,12 +67,8 @@ public class RenameFileCommand extends Command {
                 fileToRename.getEncryptedAt(),
                 fileToRename.getModifiedAt()
         );
-        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
-            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
-        }
-        if (model.hasFile(newFile)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FILE);
-        }
+        checkIfTargetFileExists(newFile);
+        checkIfTargetFileDuplicated(newFile, model);
         boolean success = new File(fileToRename.getEncryptedPath()).renameTo(
                 new File(newFile.getEncryptedPath()));
         if (!success) {

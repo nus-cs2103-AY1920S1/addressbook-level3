@@ -12,6 +12,9 @@ import seedu.address.model.password.Password;
 public abstract class Result {
     protected Password password;
     protected String description;
+    protected String passwordDesc;
+    protected String passwordUser;
+    protected String passwordValue;
 
     /**
      * Constructs a basic {@code Result}
@@ -23,6 +26,21 @@ public abstract class Result {
         requireNonNull(password);
         this.password = password;
         this.description = description;
+        this.passwordDesc = password.getPasswordDescription().value;
+        this.passwordUser = password.getUsername().value;
+        this.passwordValue = password.getPasswordValue().getEncryptedPasswordValue();
+    }
+
+    public String getPasswordDesc() {
+        return passwordDesc;
+    }
+
+    public String getPasswordUser() {
+        return passwordUser;
+    }
+
+    public String getPasswordValue() {
+        return passwordValue;
     }
 
     /**

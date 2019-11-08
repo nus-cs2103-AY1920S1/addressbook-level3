@@ -29,7 +29,7 @@ public class AddCardCommand extends Command {
             + PREFIX_CARDNUMBER + "5283201212034958 "
             + PREFIX_CVC + "876 "
             + PREFIX_EXPIRYDATE + "12/25 "
-            + PREFIX_TAG + "use for groceries";
+            + PREFIX_TAG + "groceries";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the app!";
