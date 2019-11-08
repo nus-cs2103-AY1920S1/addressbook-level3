@@ -28,7 +28,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * The enums are composed of three properties:
@@ -627,7 +627,7 @@ public enum Responses {
                             ExamRunner.terminateExam();
                         }
                     }
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -645,7 +645,7 @@ public enum Responses {
                 i -> {
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.downIndex();
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -684,7 +684,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
@@ -695,7 +695,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -707,7 +707,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", true);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -720,7 +720,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", false);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -745,7 +745,7 @@ public enum Responses {
                     } catch (IndexNotFoundException e) {
                         Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
                     }
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -756,7 +756,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }

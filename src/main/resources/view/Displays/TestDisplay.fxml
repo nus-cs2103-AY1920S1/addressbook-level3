@@ -9,7 +9,7 @@
 <fx:root minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <Label styleClass="window-subtitle" text="Untimed test" />
-        <AnchorPane fx:id="cardDisplay" layoutX="179.0" layoutY="21.0" prefHeight="334.0" prefWidth="274.0" />
+        <VBox fx:id="cardDisplay" prefHeight="350" prefWidth="300" />
       <HBox alignment="CENTER" spacing="10.0">
          <children>
                 <Button fx:id="prevButton" mnemonicParsing="false" text="Prev" />

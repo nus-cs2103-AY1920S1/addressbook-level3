@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,7 +27,7 @@ import javafx.scene.layout.VBox;
  */
 public class TestDisplay extends VBox {
     @FXML
-    private AnchorPane cardDisplay;
+    private VBox cardDisplay;
     @FXML
     private Button prevButton;
     @FXML
@@ -115,7 +116,8 @@ public class TestDisplay extends VBox {
     };
 
     @SuppressWarnings("unchecked")
-    private Consumer<AnchorPane> swapCardDisplay = pane -> {
+    private Consumer<Pane> swapCardDisplay = pane -> {
+        cardDisplay.getChildren().clear();
         cardDisplay.getChildren().add(pane);
     };
 
@@ -156,7 +158,7 @@ public class TestDisplay extends VBox {
      */
     private void seeFront() {
         Consumers.doTask("CLEAR_CARD_DISPLAY", true);
-        AnchorPane currCardFront = exam.getCardDisplayFront();
+        Pane currCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", currCardFront);
     }
 
@@ -165,7 +167,7 @@ public class TestDisplay extends VBox {
      */
     private void seeBack() {
         Consumers.doTask("CLEAR_CARD_DISPLAY", true);
-        AnchorPane currCardBack = exam.getCardDisplayBack();
+        Pane currCardBack = exam.getCardDisplayBack();
         Consumers.doTask("SWAP_CARD_DISPLAY", currCardBack);
     }
 
@@ -176,7 +178,7 @@ public class TestDisplay extends VBox {
      */
     private void onShowPrevious() {
         exam.downIndex();
-        AnchorPane newCard = exam.getCardDisplayFront();
+        Pane newCard = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
         Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
@@ -192,7 +194,7 @@ public class TestDisplay extends VBox {
                 ExamRunner.terminateExam();
             }
         }
-        AnchorPane newCard = exam.getCardDisplayFront();
+        VBox newCard = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
         Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }

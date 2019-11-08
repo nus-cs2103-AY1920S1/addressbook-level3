@@ -10,12 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * The rear view of a front-back card.
  */
-public class SimpleCardBack extends AnchorPane {
+public class SimpleCardBack extends VBox {
     @FXML
     private Button seeFrontButton;
     @FXML
@@ -52,7 +53,7 @@ public class SimpleCardBack extends AnchorPane {
         Consumers.doTask("GET_SCORE", true);
         Exam exam = ExamRunner.getCurrentExam();
         exam.upIndex();
-        AnchorPane nextCardFront = exam.getCardDisplayFront();
+        Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
     }
 
@@ -63,7 +64,7 @@ public class SimpleCardBack extends AnchorPane {
         Consumers.doTask("GET_SCORE", false);
         Exam exam = ExamRunner.getCurrentExam();
         exam.upIndex();
-        AnchorPane nextCardFront = exam.getCardDisplayFront();
+        Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
     }
 }
