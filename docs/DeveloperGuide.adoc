@@ -323,19 +323,19 @@ image::QuizModeActivityDiagram.png[400, 400]
 ===== Aspect: How to store the quiz results
 * **Alternative 1 (current choice):** Update the internal storage `QuizResultList` in `AppData` first, then save the
 updated appData in local storage when the command finishes executing.
-** Pros: Easy to implement.
-** Cons: Need the extra step to ensure that the internal list is correctly maintained.
+** Pros: It is easier to implement.
+** Cons: It needs the extra step to ensure that the internal list is correctly maintained.
 * **Alternative 2:** Update the local storage directly when the command is executing.
-** Pros: No need to implement the internal list.
-** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
+** Pros: There is no need to implement the internal list.
+** Cons: The access to local memory is more frequent and it may have performance issues in terms of memory usage.
 
-===== Aspect: Data structure to support the quiz commands
+===== Aspect: What data structure is used to support the quiz commands
 * **Alternative 1 (current choice):** Use `QuizQuestionList` and `QuizResultList` to store data in `AppData`.
-** Pros: Cater to the quiz model specifically. Quiz question and result list operations are encapsulated in one class.
+** Pros: It is targeted to the quiz model specifically. Quiz question and result list operations are encapsulated in one class.
 ** Cons: Logic is duplicated as other models also implement similar list structure.
 * **Alternative 2:** Use Java list to store the quiz questions and results.
-** Pros: Do not need to maintain a separate list class.
-** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
+** Pros: There is no need to maintain a separate list class.
+** Cons: It violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
 // end::quiz[]
 
