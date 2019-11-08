@@ -46,7 +46,7 @@ public class ItemModelManager implements ItemModel {
     private boolean systemToggle = false;
     private PriorityExitStatus priorityExitStatus = null;
     private PriorityQueue<Item> sortedTask = null;
-    private boolean focusMode = false;
+    private SimpleBooleanProperty focusMode = new SimpleBooleanProperty(false);
 
     //Bryan Reminder
     //These three lists must be synchronized
@@ -379,7 +379,9 @@ public class ItemModelManager implements ItemModel {
 
         if (priorityMode.getValue()) {
             sortedTask.remove(item);
-            sortedTask.offer(newItem);
+            if (newItem.hasTask()) {
+                sortedTask.offer(newItem);
+            }
             getNextTask();
         }
     }
@@ -525,7 +527,7 @@ public class ItemModelManager implements ItemModel {
         offPriorityMode();
 
         sortedTask = null;
-        focusMode = false;
+        focusMode.set(false);
         if (visualList instanceof TaskList) {
             this.visualList = taskList;
         }
@@ -631,10 +633,14 @@ public class ItemModelManager implements ItemModel {
     }
 
     public void toggleOnFocusMode() {
-        focusMode = true;
+        focusMode.set(true);
     }
 
     public boolean isFocusMode() {
+        return focusMode.get();
+    }
+
+    public SimpleBooleanProperty getFocusMode() {
         return focusMode;
     }
 }

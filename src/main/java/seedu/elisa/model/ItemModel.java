@@ -135,4 +135,6 @@ public interface ItemModel {
     boolean isFocusMode();
 
     void toggleOnFocusMode();
+
+    SimpleBooleanProperty getFocusMode();
 }
