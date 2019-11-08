@@ -65,7 +65,8 @@ public class Amount {
     public static final String MESSAGE_ZERO_AMOUNT = "Amount cannot be zero/negligible"
             + "(at least 0.1g or 0.1ml or 0.1units).\n" + MESSAGE_CONSTRAINTS;
 
-    private static Pattern p = Pattern.compile("([0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
+    private static Pattern p =
+            Pattern.compile("([0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
     private static Matcher m;
 
     public final String fullAmt;
@@ -92,7 +93,7 @@ public class Amount {
             DecimalFormat df = new DecimalFormat("#.####"); // round to 4 dp
             df.setRoundingMode(RoundingMode.HALF_UP);
             //float formattedValue = Float.parseFloat(String.format("%.4f", floatValue));
-            fullAmt = df.format((Float)floatValue) + trimmedUnit;
+            fullAmt = df.format((Float) floatValue) + trimmedUnit;
         }
     }
 
