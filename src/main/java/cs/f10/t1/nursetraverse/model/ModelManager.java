@@ -442,6 +442,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteRecurringAppointment(Appointment target) {
+        stagedAppointmentBook.removeRecurringAppointment(target);
+        refreshStagedAppointments();
+        refreshFilteredAppointmentList();
+    }
+
+    @Override
     public void deleteAppointments(Patient target, Index targetIndex) {
         stagedAppointmentBook.removeAppointments(target, targetIndex);
         refreshStagedAppointments();

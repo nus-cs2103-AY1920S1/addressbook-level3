@@ -13,14 +13,15 @@ import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 
 /**
- * Deletes an appointment identified using it's displayed index from the appointment book.
+ * Deletes permanently a recurring appointment identified using it's displayed index from the appointment book.
  */
-public class DeleteAppointmentCommand extends MutatorCommand {
+public class DeletePermanentAppointmentCommand extends MutatorCommand {
 
-    public static final String COMMAND_WORD = "appt-delete";
+    public static final String COMMAND_WORD = "appt-delete-permanent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the appointment identified by the index number used in the displayed appointment list.\n"
+            + ": Deletes the appointment (permanently if recurring) as identified by the index number used in the "
+            + "displayed appointment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -28,7 +29,7 @@ public class DeleteAppointmentCommand extends MutatorCommand {
 
     private final Index targetIndex;
 
-    public DeleteAppointmentCommand(Index targetIndex) {
+    public DeletePermanentAppointmentCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -42,14 +43,14 @@ public class DeleteAppointmentCommand extends MutatorCommand {
         }
 
         Appointment appointmentToDelete = fullAppointmentList.get(targetIndex.getZeroBased());
-        model.deleteAppointment(appointmentToDelete);
+        model.deleteRecurringAppointment(appointmentToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteAppointmentCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteAppointmentCommand) other).targetIndex)); // state check
+                || (other instanceof DeletePermanentAppointmentCommand // instanceof handles nulls
+                && targetIndex.equals(((DeletePermanentAppointmentCommand) other).targetIndex)); // state check
     }
 }

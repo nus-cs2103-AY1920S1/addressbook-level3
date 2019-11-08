@@ -170,6 +170,17 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AppointmentBook}.
+     * Unlike usual {@code removeAppointment} method, this does not add the next recurring appointment,
+     * but permanently deletes it.
+     * {@code key} must exist in the appointment book.
+     */
+    public void removeRecurringAppointment(Appointment key) {
+        requireNonNull(key);
+        appointments.remove(key);
+    }
+
+    /**
      * Removes all appointments with this {@code patient} from this {@code AppointmentBook}.
      */
     public void removeAppointments(Patient patient, Index patientIndex) {

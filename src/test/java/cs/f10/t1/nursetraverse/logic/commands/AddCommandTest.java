@@ -295,6 +295,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteRecurringAppointment(Appointment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteAppointments(Patient target, Index targetIndex) {
             throw new AssertionError("This method should not be called.");
         }

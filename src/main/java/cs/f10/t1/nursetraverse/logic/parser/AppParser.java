@@ -23,6 +23,7 @@ import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
 import cs.f10.t1.nursetraverse.logic.commands.UndoCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.DeletePermanentAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.EditAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.ListAppointmentCommand;
@@ -32,6 +33,7 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.parser.appointment.AddAppointmentCommandParser;
 import cs.f10.t1.nursetraverse.logic.parser.appointment.DeleteAppointmentCommandParser;
+import cs.f10.t1.nursetraverse.logic.parser.appointment.DeletePermanentAppointmentCommandParser;
 import cs.f10.t1.nursetraverse.logic.parser.appointment.EditAppointmentCommandParser;
 import cs.f10.t1.nursetraverse.logic.parser.appointment.FindAppointmentCommandParser;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
@@ -145,6 +147,10 @@ public class AppParser {
 
         case DeleteAppointmentCommand.COMMAND_WORD:
             command = new DeleteAppointmentCommandParser().parse(arguments);
+            break;
+
+        case DeletePermanentAppointmentCommand.COMMAND_WORD:
+            command = new DeletePermanentAppointmentCommandParser().parse(arguments);
             break;
 
         case EditAppointmentCommand.COMMAND_WORD:

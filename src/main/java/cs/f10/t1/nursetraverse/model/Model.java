@@ -249,6 +249,13 @@ public interface Model {
     void deleteAppointment(Appointment target);
 
     /**
+     * Deletes the given recurring appointment.
+     * Unlike usual delete command, this does not add the next recurring appointment, but permanently deletes it.
+     * The appointment must exist in the appointment list.
+     */
+    void deleteRecurringAppointment(Appointment target);
+
+    /**
      * Deletes all appointments associated with the {@code target} patient.
      */
     void deleteAppointments(Patient target, Index targetIndex);
