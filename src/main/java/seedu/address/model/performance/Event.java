@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import seedu.address.model.Athletick;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
