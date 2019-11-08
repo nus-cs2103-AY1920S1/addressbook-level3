@@ -58,6 +58,7 @@ public class MainWindow extends VBox {
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
+        //displayScrollPane.setVvalue(0);
     };
     private Consumer<String> displayMessage = message -> {
         messageLabel.setText(message);
@@ -72,6 +73,7 @@ public class MainWindow extends VBox {
         DeckDisplay deckDisplay = new DeckDisplay(d);
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(deckDisplay);
+        //displayScrollPane.setVvalue(0);
     };
     //private Consumer<Boolean> exitCreate = b -> exitCreate();
 
@@ -166,6 +168,7 @@ public class MainWindow extends VBox {
             DeckDisplay deckDisplay = new DeckDisplay(StateHolder.getState().getDecks().get(0));
             displayContainer.getChildren().clear();
             displayContainer.getChildren().add(deckDisplay);
+            //displayScrollPane.setVvalue(0);
         }
     }
 
