@@ -63,6 +63,7 @@ public class DeleteCommandTest {
         model = new ModelManager(getTypicalLists(), new UserPrefs());
     }
 
+    //---------------- Tests for Xpire List --------------------------------------------------------------------------
     @Test
     public void execute_validIndexUnfilteredList_success() {
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
