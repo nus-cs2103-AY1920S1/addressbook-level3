@@ -17,7 +17,7 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.health.ListRecordCommandParser;
 
 /**
- * Parses input arguments and creates a new AddRecipeCommand object
+ * Parses input arguments and creates a new List Command object
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
@@ -27,8 +27,8 @@ public class ListCommandParser implements Parser<ListCommand> {
     private static final Pattern BASIC_VARIANT_FORMAT = Pattern.compile("(?<variant>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns the appropriate AddCommand-variant object for execution.
+     * Parses the given {@code String} of arguments in the context of the ListCommand
+     * and returns the appropriate ListCommand-variant object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ListCommand parse(String args) throws ParseException {
