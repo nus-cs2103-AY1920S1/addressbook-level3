@@ -91,23 +91,19 @@ The UI consists of a `MainWindow` that is contains 3 main view parts - `Calendar
 
 The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-
-
-
 The `UI` component does the following:
 
 * Executes user two different types commands using the `Logic` component.
 ** One command, when executed, affect the actual Events.
 ** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
-* It listens for any changes in the list of events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/EventListListener.java[`EventListListener`].
-* It also listens for the output to the user with another listener: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/listeners/UserOutputListener.java[`UserOutputListener`].
+* Listens for any changes in both lists of Tasks and Events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/ModelDataListener.java[`ModelDataListener`].
 
 ==== Calendar UI View
 
 .Structure of the Calendar UI View
 image::UiCalendarClassDiagram.png[]
 
-The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays two UI parts of the Calendar: `CalendarScreen` and `TimelineView`.
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays three different UI parts of the Calendar: `CalendarScreen`, `TimelineView` and `UpcomingView`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
 
@@ -117,7 +113,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/Timelin
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
 
-Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of EventCards for displaying the event name and date.
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of `Card` for displaying the event name and date. The details of `Card` will be explained in the one of the next few sections.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/UpcomingView.java[`UpcomingView`] represents a miniature list of Events and Tasks that has a start date or due date in the same month as the user's system current month, but not before the date as the user's date. This list will then hold up to a certain amount of `UpcomingEventCard` and `UpcomingTaskCard` which will be explained together with `Card` as well.
 
 ==== List UI View
 
@@ -128,18 +126,47 @@ The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/a
 
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
 
-* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task. [__To be implemented__]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task.
 
-Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card`, but it will not be held in the `CardHolder`.
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card` to display the information.
 
 ==== Log UI View
 
 .Structure of the Log UI View
 image::UiLogClassDiagram.png[]
 
-The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains several instances of `LogBox`.
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains the list of `LogBox`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/PopUpBox.java[`PopUpBox`] is rather similar to LogBox. It holds up to the same amount of information, as much until the size of the application window, and collapses the rest. It represents the pop up that animates and displays for a few seconds to the user about the given command.
+
+==== Card UI ====
+
+Firstly, there are two types of ways to display information to the user regarding a Event or Task.
+
+* For Events, it is `EventCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingEventCard`
+
+* For Tasks, it is `TaskCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingTaskCard`.
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/EventCard.java[`EventCard`] may display the following information:
+
+. Event Description
+. Event Start Date
+. Event End Date (Optional)
+. Event Reminder Date (Optional)
+. Event Tags (Optional)
+. Event Index (For deleting or editing)
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/TaskCard.java[`TaskCard`] may display the following information:
+
+. Task Description
+. Task Due Date (Optional)
+. Task Reminder Date (Optional)
+. Task Tags (Optional)
+. Task Index (For deleting or editing)
+
+As for link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingEventCard.java[`UpcomingEventCard`] and link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingTaskCard.java[`UpcomingTaskCard`], they only hold the Description of the Event or Task.
 
 [[Design-Logic]]
 === Logic component
