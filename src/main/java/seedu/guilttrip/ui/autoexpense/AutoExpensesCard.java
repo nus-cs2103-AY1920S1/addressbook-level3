@@ -52,7 +52,6 @@ public class AutoExpensesCard extends UiPart<Region> {
         String fullDesc = autoExpense.getDesc().fullDesc;
         desc.setText(fullDesc);
         freq.setText("[" + autoExpense.getFrequency().toString() + "] ");
-        //lastTime.setText(autoExpense.getLastTime().toString());
         nextTime.setText("Next: " + autoExpense.getNextTime().toString());
         amt.setText("$" + autoExpense.getAmount().toString());
         category.setText(autoExpense.getCategory().toString());

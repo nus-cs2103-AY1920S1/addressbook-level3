@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Wish;
 
 /**
- * Provides a handle to a expense card in the expense list panel.
+ * Provides a handle to a wish card in the wish list panel.
  */
-public class ExpenseCardHandle extends NodeHandle<Node> {
+public class WishCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String DESC_FIELD_ID = "#desc";
     private static final String AMOUNT_FIELD_ID = "#amt";
@@ -26,7 +26,7 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
     private final Label categoryLabel;
     private final List<Label> tagLabels;
 
-    public ExpenseCardHandle(Node cardNode) {
+    public WishCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
@@ -71,14 +71,14 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code expense}.
+     * Returns true if this handle contains {@code wish}.
      */
-    public boolean equals(Expense expense) {
-        return getDesc().equals(expense.getDesc().fullDesc)
-                && getAmount().equals(expense.getAmount().toString())
-                && getDate().equals(expense.getDate().toString())
-                && getCategory().equals(expense.getCategory().toString())
-                && getTags().equals(expense.getTags().stream()
+    public boolean equals(Wish wish) {
+        return getDesc().equals(wish.getDesc().fullDesc)
+                && getAmount().equals(wish.getAmount().toString())
+                && getDate().equals(wish.getDate().toString())
+                && getCategory().equals(wish.getCategory().toString())
+                && getTags().equals(wish.getTags().stream()
                 .map(tag -> tag.tagName)
                 .sorted()
                 .collect(Collectors.toList()));

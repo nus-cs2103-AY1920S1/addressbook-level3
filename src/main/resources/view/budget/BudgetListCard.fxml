@@ -2,13 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-
-<?import javafx.scene.control.ProgressBar?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" >
   <GridPane HBox.hgrow="ALWAYS" styleClass="budget_card">
     <columnConstraints>
@@ -40,7 +39,7 @@
       </HBox>
 
     <HBox GridPane.columnIndex="1" spacing="5">
-      <Label fx:id="left" styleClass="cell_big_label_amt" text="\$left" />
+      <Label fx:id="spent" styleClass="cell_big_label_amt" text="\$spent"/>
       <ProgressBar fx:id="progressBar" />
       <Label fx:id="total" styleClass="cell_big_label_amt" text="\$total"/>
     </HBox>

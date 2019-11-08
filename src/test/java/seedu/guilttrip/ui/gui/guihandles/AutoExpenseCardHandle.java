@@ -6,33 +6,36 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.AutoExpense;
 
 /**
- * Provides a handle to a expense card in the expense list panel.
+ * Provides a handle to an AutoExpense card in the AutoExpense list panel.
  */
-public class ExpenseCardHandle extends NodeHandle<Node> {
+public class AutoExpenseCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String DESC_FIELD_ID = "#desc";
     private static final String AMOUNT_FIELD_ID = "#amt";
-    private static final String DATE_FIELD_ID = "#date";
+    private static final String NEXT_TIME_FIELD_ID = "#nextTime";
+    private static final String FREQ_FIELD_ID = "#freq";
     private static final String CATEGORY_FIELD_ID = "#category";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label descLabel;
     private final Label amountLabel;
-    private final Label dateLabel;
+    private final Label nextTimeLabel;
+    private final Label freqLabel;
     private final Label categoryLabel;
     private final List<Label> tagLabels;
 
-    public ExpenseCardHandle(Node cardNode) {
+    public AutoExpenseCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
         descLabel = getChildNode(DESC_FIELD_ID);
         amountLabel = getChildNode(AMOUNT_FIELD_ID);
-        dateLabel = getChildNode(DATE_FIELD_ID);
+        nextTimeLabel = getChildNode(NEXT_TIME_FIELD_ID);
+        freqLabel = getChildNode(FREQ_FIELD_ID);
         categoryLabel = getChildNode(CATEGORY_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -55,8 +58,12 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
         return amountLabel.getText();
     }
 
-    public String getDate() {
-        return dateLabel.getText();
+    public String getNextTime() {
+        return nextTimeLabel.getText();
+    }
+
+    public String getFrequency() {
+        return freqLabel.getText();
     }
 
     public String getCategory() {
@@ -71,14 +78,15 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code expense}.
+     * Returns true if this handle contains {@code autoExpense}.
      */
-    public boolean equals(Expense expense) {
-        return getDesc().equals(expense.getDesc().fullDesc)
-                && getAmount().equals(expense.getAmount().toString())
-                && getDate().equals(expense.getDate().toString())
-                && getCategory().equals(expense.getCategory().toString())
-                && getTags().equals(expense.getTags().stream()
+    public boolean equals(AutoExpense autoExpense) {
+        return getDesc().equals(autoExpense.getDesc().fullDesc)
+                && getAmount().equals(autoExpense.getAmount().toString())
+                && getNextTime().equals(autoExpense.getNextTime().toString())
+                && getFrequency().equals(autoExpense.getFrequency().toString())
+                && getCategory().equals(autoExpense.getCategory().toString())
+                && getTags().equals(autoExpense.getTags().stream()
                 .map(tag -> tag.tagName)
                 .sorted()
                 .collect(Collectors.toList()));
