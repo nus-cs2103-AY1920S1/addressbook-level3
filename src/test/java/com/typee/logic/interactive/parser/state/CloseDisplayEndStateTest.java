@@ -36,7 +36,7 @@ public class CloseDisplayEndStateTest {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
         State finalPostTransitionState = closeDisplayEndState;
         assertThrows(StateTransitionException.class, ()
-                -> finalPostTransitionState.transition(argumentMultimap));
+            -> finalPostTransitionState.transition(argumentMultimap));
     }
 
     @Test
