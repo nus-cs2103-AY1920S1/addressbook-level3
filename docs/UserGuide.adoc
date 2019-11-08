@@ -49,6 +49,8 @@ home folder for the application.
 .Jarvis' Graphical User Interface (GUI)
 image::ug/StartUpUI.png[]
 
+{sp} +
+
 In Figure 1, there are three boxes labelled with numbers - these are the shared GUI sections across all the features:
 
 1. `HelpDesk` - Unique to each feature's tab, it will display a list of commands you can use so you do not need to
@@ -192,6 +194,8 @@ enable you to stay on top of everything you need to do!
 .GUI for the Task Planner
 image::ug/PlannerUI.png[]
 
+{sp} +
+
 The Planner feature of `Jarvis` has a very intuitive user interface, with three main sections - as seen in Figure 3.
 
 Each task is represented by a task card (an example of which is boxed in green in Figure 3). Each task card has the task
@@ -265,6 +269,8 @@ descriptions of your tasks.
 .Display for find-task
 image::ug/find-task.png[]
 
+{sp} +
+
 Format: `find-task KEYWORD...`
 
 NOTE: There must be at least one keyword & this command is case-insensitive.
@@ -283,6 +289,8 @@ represented with a `[✓]`, as seen in Figure 5 below.
 .Comparison between a task that is marked as done, and one that is not
 image::ug/done-task.png[]
 
+{sp} +
+
 Format: `done-task INDEX`
 
 where `INDEX` is the **one-based** index of the task list.
@@ -293,6 +301,8 @@ simply pull all tasks relating to that attribute.
 
 .Display for pull-task
 image::ug/pull-task.png[]
+
+{sp} +
 
 Format: `pull-task { t/TYPE | #TAG | p/PRIORITY-LEVEL | f/FREQUENCY-LEVEL | d/DATE }`
 
@@ -364,6 +374,8 @@ have to worry about not saving enough for that new laptop or yet another trip wi
 .GUI for the Finance Tracker
 image::ug/FinanceUI.png[]
 
+{sp} +
+
 In Figure 7, you will be able to see a list of purchases on
 the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
 spending for that month, as well as how much you are left with (if you have set a spending limit).
@@ -404,6 +416,7 @@ to pull up purchases with descriptions matching `KEYWORD` provided.
 .Display for find-paid
 image::ug/find-paid.png[]
 
+{sp} +
 
 Format: `find-paid KEYWORD`
 
@@ -497,6 +510,8 @@ CCAs been so easy.
 .GUI for the CCA Tracker
 image::ug/CcaUI.png[]
 
+{sp} +
+
 All CCAs are added to a main list, with each CCA having a Progress Tracker and an Equipment List, as seen in
 Figure 9.
 Within the Progress Tracker:
@@ -572,6 +587,8 @@ For a quick view of CCAs matching one or more keywords, `find-cca` will come in 
 .Display for find-cca
 image::ug/find-cca.png[]
 
+{sp} +
+
 Format: `find-cca KEYWORD...`
 
 ===== Example
@@ -599,6 +616,8 @@ provides a clear view of how much closer you are to their respective milestones.
 
 .Display for increment-progress
 image::ug/increment-progress.png[]
+
+{sp} +
 
 In Figure 11 above, using `increment-progress` on Swimming will raise the progress percentage from 50% to
 62.5%.
@@ -642,6 +661,8 @@ the courses you have taken in NUS to date, as well as figure out what courses yo
 .GUI for the Course Planner
 image::ug/CoursePlannerUI.png[]
 
+{sp} +
+
 The default display for the Course Planner is a list of courses on the left and an empty Result Box on the right -
 as shown in Figure 12. This box will display different pieces of information depending on the commands
 entered.
@@ -680,6 +701,8 @@ the Course Planner, as seen below in Figure 13.
 .Display for lookup
 image::ug/lookup.png[]
 
+{sp} +
+
 Format: `lookup c/COURSECODE`
 
 ===== Example
@@ -694,6 +717,8 @@ display a very helpful tree to show you what requirements you need for each cour
 
 .Display for check
 image::ug/check.png[]
+
+{sp} +
 
 Format: `check c/COURSECODE`
 
@@ -824,6 +849,8 @@ in the Command Result Box.
 
 .Display for list-history
 image::ug/list-history.png[]
+
+{sp} +
 
 Format: `list-history`
 
