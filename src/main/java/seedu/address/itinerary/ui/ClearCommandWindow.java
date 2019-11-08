@@ -2,8 +2,6 @@ package seedu.address.itinerary.ui;
 
 import java.util.logging.Logger;
 
-import org.controlsfx.control.Notifications;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,9 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import org.controlsfx.control.Notifications;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.itinerary.model.Model;
 import seedu.address.ui.UiPart;
 
 /**
@@ -24,7 +21,6 @@ import seedu.address.ui.UiPart;
 public class ClearCommandWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(ClearCommandWindow.class);
     private static final String FXML = "ClearCommandWindow.fxml";
-    private Model model = null;
 
     private Notifications notificationBuilder;
 
@@ -80,16 +76,11 @@ public class ClearCommandWindow extends UiPart<Stage> {
                 });
     }
 
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
     public void handleClear() {
-        model.clearEvent();
         getRoot().hide();
         notification(Pos.CENTER, graphic, clearSuccess);
         notificationBuilder.showInformation();

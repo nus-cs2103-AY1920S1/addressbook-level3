@@ -81,6 +81,9 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    @FXML
+    private ClearCommandWindow clearCommandWindow;
+
     private String[] possibleSuggestions = {
         // For basic command
         "greet", "summary", "goto calendar", "goto financial_tracker", "goto diary",
@@ -103,6 +106,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         this.itineraryLogic = itineraryLogic;
 
         fillInnerParts();
+        this.clearCommandWindow = new ClearCommandWindow();
     }
 
     /**
@@ -158,10 +162,23 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     }
 
     /**
+     * Opens the clear command window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleClear() {
+        if (!clearCommandWindow.isShowing()) {
+            clearCommandWindow.show();
+        } else {
+            clearCommandWindow.focus();
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
+        clearCommandWindow.hide();
         helpWindow.hide();
         codeWindow.hide();
         PageManager.closeWindows();
@@ -190,6 +207,10 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowClear()) {
+                handleClear();
             }
 
             return commandResult;

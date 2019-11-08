@@ -23,22 +23,27 @@ public class CommandResult {
     /** The list window should show. */
     private final boolean showList;
 
+    /** The clear window should show. */
+    private final boolean showClear;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage, boolean showList) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage,
+                         boolean showList, boolean showClear) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showPage = showPage;
         this.showList = showList;
+        this.showClear = showClear;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
-        this(feedbackToUser, showHelp, exit, showPage, false);
+        this(feedbackToUser, showHelp, exit, showPage, false, false);
     }
 
     /**
@@ -78,6 +83,10 @@ public class CommandResult {
 
     public boolean isShowList() {
         return showList;
+    }
+
+    public boolean isShowClear() {
+        return showClear;
     }
 
     /** Checks whether user is requesting for a change in page.

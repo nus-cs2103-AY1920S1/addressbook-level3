@@ -1,13 +1,13 @@
 package seedu.address.calendar.commands;
 
+import java.util.Optional;
+
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import java.util.Optional;
 
 public class ListCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "list";
@@ -45,10 +45,10 @@ public class ListCommand extends Command<Calendar> {
         }
 
         if (relevantEvents.equals("")) {
-            return new CommandResult(MESSAGE_LIST_FAILED, false, false, false, true);
+            return new CommandResult(MESSAGE_LIST_FAILED, false, false, false, true, false);
         }
 
         String formattedFeedback = String.format(relevantEvents);
-        return new CommandResult(formattedFeedback, false, false, false, true);
+        return new CommandResult(formattedFeedback, false, false, false, true, false);
     }
 }
