@@ -1,5 +1,6 @@
 package seedu.moneygowhere.ui;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -228,18 +229,21 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowGraph()) {
                 graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
+                graphTab.setContent(graphPanel.getRoot());
             } else {
                 graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
+                logger.log(Level.INFO, logic.getGraphData().toString());
+                graphTab.setContent(graphPanel.getRoot());
             }
-            graphTab.setContent(graphPanel.getRoot());
 
             if (commandResult.isShowStats()) {
                 statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
+                statsTab.setContent(statsPanel.getRoot());
             } else {
                 statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
+                statsTab.setContent(statsPanel.getRoot());
             }
-            statsTab.setContent(statsPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
