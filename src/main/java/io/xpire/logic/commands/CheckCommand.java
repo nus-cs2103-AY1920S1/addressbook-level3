@@ -73,6 +73,6 @@ public class CheckCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Check command:\n" + this.result;
+        return "Check command";
     }
 }

@@ -217,7 +217,7 @@ public class TagCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Tag command:\n" + this.result;
+        return "Tag command";
     }
 
 }

@@ -95,7 +95,7 @@ public class AddCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Add command:\n" + result;
+        return "Add command";
     }
 
     /**

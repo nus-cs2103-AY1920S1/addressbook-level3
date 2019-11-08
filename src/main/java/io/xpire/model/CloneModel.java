@@ -6,6 +6,7 @@ import io.xpire.model.state.State.StateType;
 
 /**
  * A clone of the model that copies over the data from input model.
+ * @@author Kalsyc
  */
 public class CloneModel {
 
@@ -55,7 +56,8 @@ public class CloneModel {
         } else {
             CloneModel other = (CloneModel) obj;
             return other.getXpire().getItemList().containsAll(this.getXpire().getItemList())
-                    && other.getReplenishList().getItemList().containsAll(this.getReplenishList().getItemList());
+                    && other.getReplenishList().getItemList().containsAll(this.getReplenishList().getItemList())
+                    && other.getUserPrefs().equals(this.getUserPrefs());
         }
     }
 
