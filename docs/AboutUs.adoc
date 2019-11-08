@@ -3,6 +3,8 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor-imageOnLeft.css
+:stylesheet: gh-pages.css
 
 LiBerry was developed by the https://github.com/AY1920S1-CS2103T-F13-1[CS2103T-F13-1] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].

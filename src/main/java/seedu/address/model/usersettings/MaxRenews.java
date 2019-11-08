@@ -9,10 +9,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class MaxRenews {
 
+    public static final int MAX_MAX_RENEWS = 20;
     public static final String MESSAGE_CONSTRAINTS =
-            "Maximum renew count should be positive and should not exceed Integer.MAX_VALUE.";
-    public static final String VALIDATION_REGEX = "\\d+";
-    public final int maxRenews;
+            "Maximum renew count should be a positive number and should not exceed " + MAX_MAX_RENEWS;
+
+    private final int maxRenews;
 
     /**
      * Constructs a {@code RenewCount}.
@@ -42,7 +43,13 @@ public class MaxRenews {
      * Returns true if a given string is a valid maximum renew count.
      */
     public static boolean isValidMaxRenews(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        try {
+            int maxRenews = Integer.parseInt(test);
+            return maxRenews >= 0 && maxRenews <= MAX_MAX_RENEWS && !test.startsWith("+");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     @Override
