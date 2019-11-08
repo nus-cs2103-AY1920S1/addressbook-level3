@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -35,6 +36,9 @@ public class MainApp extends Application {
             stage.setTitle("FlashCard Pro");
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
             stage.show();
+
+            // load font
+            Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
 
             StorageManager.loadUserStats();
             // start a session. if UserStats has not been retrieved, it will do so at this point.

@@ -13,3 +13,8 @@
 
 .helper-text {
 }
+
+.code {
+    -fx-font-family: Inconsolata;
+}
+
