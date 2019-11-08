@@ -32,28 +32,28 @@ public class TypicalPersonDescriptor {
 
     public static final PersonDescriptor DANIEL = new PersonDescriptorBuilder()
             .withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street")
+            .withEmail("cornelia@example.com").withAddress("10th street").withRemark("DANIEL???")
             .withTags("friends").build();
 
     public static final PersonDescriptor ELLE = new PersonDescriptorBuilder()
-            .withName("Elle Meyer").withPhone("9482224")
+            .withName("Elle Meyer").withPhone("9482224").withRemark("ELEENNNN?").withTags("friends")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
 
     public static final PersonDescriptor FIONA = new PersonDescriptorBuilder()
-            .withName("Fiona Kunz").withPhone("9482427")
+            .withName("Fiona Kunz").withPhone("9482427").withRemark("FIONA THE SHREK?").withTags("friends")
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
 
     public static final PersonDescriptor GEORGE = new PersonDescriptorBuilder()
-            .withName("George Best").withPhone("9482442")
+            .withName("George Best").withPhone("9482442").withRemark("GEORGEEEEEEE").withTags("friends")
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     public static final PersonDescriptor ZACK = new PersonDescriptorBuilder()
-            .withName("Zack").withPhone("81231236")
+            .withName("Zack").withPhone("81231236").withTags("friends")
             .withEmail("zack@example.com").withAddress("loser street")
             .withRemark("Im not on the list").withTags("blabla").build();
 
     public static final PersonDescriptor USER = new PersonDescriptorBuilder()
-            .withName("User").withPhone("99999999")
+            .withName("User").withPhone("99999999").withTags("friends")
             .withEmail("user@gmail.com").withAddress("bla bla")
             .withRemark("me").build();
 

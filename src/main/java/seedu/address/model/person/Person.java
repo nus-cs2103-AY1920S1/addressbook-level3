@@ -121,7 +121,7 @@ public class Person {
             }
 
             if (otherPerson != null) {
-                return this.isSamePerson(otherPerson) || otherPerson.getPersonId().equals(this.getPersonId());
+                return this.isSamePerson(otherPerson) && otherPerson.getPersonId().equals(this.getPersonId());
             }
         }
         return false;

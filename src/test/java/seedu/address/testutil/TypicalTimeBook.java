@@ -8,6 +8,9 @@ import seedu.address.model.person.PersonList;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.mappingutil.TypicalMappings;
 
+/**
+ * This class is used to fer the typical TimeBook object for testing
+ */
 public class TypicalTimeBook {
     public static TimeBook get() {
         PersonList personListObj = new PersonList();
@@ -21,3 +24,4 @@ public class TypicalTimeBook {
         return timeBook;
     }
 }
+

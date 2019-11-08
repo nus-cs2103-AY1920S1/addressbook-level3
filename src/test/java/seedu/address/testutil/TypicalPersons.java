@@ -23,26 +23,53 @@ import seedu.address.testutil.personutil.PersonBuilder;
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253").withRemark("Alice is a loser")
+    public static final Person ALICE = new PersonBuilder()
+            .withName("Alice Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111")
+            .withEmail("alice@example.com")
+            .withPhone("94351253")
+            .withRemark("Alice is a loser")
             .withTags("friends").build();
-    public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
+    public static final Person BENSON = new PersonBuilder()
+            .withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@example.com")
+            .withPhone("98765432")
             .withRemark("Benson is a dumbass")
             .withTags("owesMoney", "friends").build();
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").withRemark("WTF CARL?!")
+    public static final Person CARL = new PersonBuilder()
+            .withName("Carl Kurz").withPhone("95352563")
+            .withEmail("heinz@example.com")
+            .withAddress("wall street")
+            .withRemark("WTF CARL?!")
             .withTags("LALALA").build();
-    public static final Person DANIEL = new PersonBuilder().withRemark("DANIELLLLL").withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withRemark("CORNELIA LOL").withAddress("10th street").withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withRemark("ELLEN?").withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withRemark("FIONA FROM SHREK?").withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withRemark("lyd").withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withRemark("friend").withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Person DANIEL = new PersonBuilder()
+            .withRemark("DANIELLLLL")
+            .withName("Daniel Meier")
+            .withPhone("87652533")
+            .withEmail("cornelia@example.com")
+            .withRemark("CORNELIA LOL")
+            .withAddress("10th street")
+            .withTags("friends").build();
+    public static final Person ELLE = new PersonBuilder()
+            .withRemark("ELLEN?")
+            .withName("Elle Meyer")
+            .withPhone("9482224")
+            .withEmail("werner@example.com")
+            .withAddress("michegan ave").build();
+    public static final Person FIONA = new PersonBuilder()
+            .withRemark("FIONA FROM SHREK?")
+            .withName("Fiona Kunz")
+            .withPhone("9482427")
+            .withEmail("lydia@example.com")
+            .withRemark("lyd")
+            .withAddress("little tokyo").build();
+    public static final Person GEORGE = new PersonBuilder()
+            .withRemark("friend")
+            .withName("George Best")
+            .withPhone("9482442")
+            .withEmail("anna@example.com")
+            .withAddress("4th street").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")

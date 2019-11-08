@@ -59,6 +59,7 @@ public class JsonAdaptedSchedule {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Schedule.class.getSimpleName()));
         }
+
         final PersonId modelPersonId = new PersonId(personId);
 
         return new Schedule(modelPersonId, scheduleEvents);
