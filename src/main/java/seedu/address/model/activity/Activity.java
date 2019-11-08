@@ -356,6 +356,12 @@ public class Activity {
             expense.setInvolved(involved);
         }
 
+        expenses.add(expense);
+
+        if (expense.isDeleted()) {
+            return;
+        }
+
         positionMask = IntStream.of(involved)
             .map(x -> idDict.get(x))
             .toArray();
@@ -385,8 +391,6 @@ public class Activity {
         IntStream.of(involved)
             .forEach(x -> participantActive.set(idDict.get(x), true));
         participantActive.set(payerPos, true);
-
-        expenses.add(expense);
     }
 
     /**
