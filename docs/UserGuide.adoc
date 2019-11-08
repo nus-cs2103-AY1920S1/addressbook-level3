@@ -745,7 +745,7 @@ Views the command history of all your previous commands.
 
 image::ug-command/ug-history.png[width="800"]
 
-
+// tag::statisticsCommand[]
 ==== Generate stats : `generate-s`
 
 `v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
@@ -801,6 +801,7 @@ Coming in `V2.0`:
 * Export Chart to PDF
 ** User will be able to export their charts to pdf with a click of a button.
 
+// end:statisticsCommand[]
 
 
 //==== Check : `check`
