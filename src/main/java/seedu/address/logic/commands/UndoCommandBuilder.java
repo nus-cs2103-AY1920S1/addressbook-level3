@@ -6,8 +6,10 @@ import seedu.address.logic.UndoRedoManager;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 
+//@@author bruceskellator
+
 /**
- * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
+ * Represents a CommandBuilder responsible for creating {@link UndoCommand}.
  */
 class UndoCommandBuilder extends CommandBuilder {
 
