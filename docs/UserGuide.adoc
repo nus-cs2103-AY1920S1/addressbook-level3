@@ -203,7 +203,6 @@ e.g. `clear`
 Prevent unauthorised access to your grades.
 
 // tag::quizsection[]
-
 === Quiz
 
 To enter the Quiz section please enter the command: `switch quiz` +
@@ -296,8 +295,7 @@ Format: `list` +
 Find the quiz questions from the list of questions.
 
 Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
-
-The [KEYWORDS] is the list of keywords that I want to search.
+Note: The [KEYWORDS] is the list of keywords that I want to search.
 
 The expected details/instructions for [INSTRUCTION] keyword are:  +
 - `question` Indicate that I want to include the name of the question in my search. +
@@ -318,7 +316,7 @@ Example 2: *find* category, answer <key> Tomorrow +
 Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
 
 Example 3: *find -i* answer <key> Tomrrow +
-Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_ +
 {empty} +
 
 ==== Details of a selected question:
@@ -343,35 +341,32 @@ Users can hide all question answers when they want to revise or for other purpos
 provide the user the hint of the answer. By default the answer is shown.
 
 Format: `showAnswer [yes/no]` +
-Example: showAnswer no
+Example: showAnswer no +
+{empty} +
 
 ==== Undo:
 Undo some of the previous action. +
-Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment`
-
+Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `undo`
 
 ==== Redo:
-Redo some of the previous action.
-Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment`
-
+Redo some of the previous action. +
+Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `redo`
 
 ==== Help:
 Format : `help`
 
 ==== Clear all data:
-To remove all of the current data in quiz book.
-
+To remove all of the current data in quiz book. +
 Format: `clear`
 
 ==== Exit application:
-To exit application (Modulo).
-
+To exit application (Modulo). +
 Format: `exit` +
+// end::quizsection[]
 {empty} +
 
-// end::quizsection[]
 
 // tag::finance1[]
 === Finances
