@@ -257,6 +257,25 @@ A typical task will look like this on the app: +
 
 image::TASK.png[]
 
+=== Meeting feature
+==== Description of feature
+Within every project, there are meetings to be held at certain time. The diagram below shows the class diagram of the task class and how it interacts with the model.
+
+.Class Diagram for Meeting
+
+image::MeetingClassDiagram.png[]
+
+As shown above, each project stores multiple meetings in a list. These meetings are automatically sorted based on the time in ascending order.
+Here are some task related commands that can be executed by the app.
+
+. addProjectMeeting - adds a meeting into the project model.
+. deleteProjectMeeting- removes a meeting from the project model based on index specified by user
+
+==== Details
+As seen in figure 10, each meeting consists of 2 parameters namely description and time to show what is the meeting about and the date and time of the meeting respectively.
+A typical task will look like this on the app: +
+
+image::ProjectMeeting.png[]
 
 
 === Sorting feature
