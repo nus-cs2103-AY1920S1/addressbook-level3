@@ -31,10 +31,12 @@ import seedu.address.storage.Storage;
 
 /**
  * Class that serves as a hub for communication between the GUI and the internal components.
- * This is done to separate all logic of the game away from the GameTimer entirely.
+ * This is done to separate all logic of the game away from the GameTimer entirely (Facade layer).
+ *
  */
 public class AppManager {
 
+    /** Internal Logic component that handles bulk of each Command's execution.*/
     private Logic logic;
 
     /** GameTimer object to keep track of time elapsed during Game mode. */
@@ -85,6 +87,7 @@ public class AppManager {
 
     /**
      * Processes the input command commandText by passing it through the AppManager's main logic.
+     * Triggers Statistics and Timer components where necessary.
      *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
@@ -92,22 +95,24 @@ public class AppManager {
      * @throws ParseException   If an error occurs during parsing.
      */
     public CommandResult execute(String commandText) throws ParseException, CommandException {
-        CommandResult commandResult = logic.execute(commandText);
 
+        /** Passing on the {@code commandText} to Logic to execute. */
+        CommandResult commandResult = logic.execute(commandText);
 
         updateGameStatisticsBuilder(commandResult);
 
-        /* AppManager will always abort Timer when a new valid command is entered while Game is running. */
+        /** AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
 
+        /** Initialize and start GameTimer if command is prompting User's guess. */
         if (commandResult.isPromptingGuess()) {
             setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
 
             Platform.runLater(() -> {
-                /* Call-back to UI to update QuestionDisplay with current Question. */
+                /** Call-back to UI to update QuestionDisplay with current Card's Meaning. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
 
-                /* Starts the initialized GameTimer for this current Card. */
+                /** Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
         }
@@ -154,7 +159,7 @@ public class AppManager {
     }
 
     /**
-     * Gets the logic object from itself.
+     * Gets the logic object from this instance of AppManager.
      * @return Logic instance
      */
     public Logic getLogic() {
@@ -165,13 +170,25 @@ public class AppManager {
         return logic.getStorage();
     }
 
+    // <---------------------------------------- WordBank ------------------------------------------------------->
+
     public ReadOnlyWordBank getActiveWordBank() {
         return logic.getActiveWordBank();
     }
 
-    public AppSettings getAppSettings() {
-        return logic.getAppSettings();
+    public ObservableList<Card> getFilteredCardList() {
+        return logic.getFilteredCardList();
     }
+
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return logic.getFilteredWordBankList();
+    }
+
+    public Path getWordBanksFilePath() {
+        return logic.getWordBanksFilePath();
+    }
+
+    // <---------------------------------------- Statistics ----------------------------------------------------->
 
     public GameStatistics getGameStatistics() {
         return gameStatisticsBuilder.build();
@@ -193,28 +210,29 @@ public class AppManager {
         return logic.getGlobalStatistics();
     }
 
-    public ObservableList<Card> getFilteredCardList() {
-        return logic.getFilteredCardList();
-    }
+    // <---------------------------------------- Getting Settings ----------------------------------------------->
 
-    public ObservableList<WordBank> getFilteredWordBankList() {
-        return logic.getFilteredWordBankList();
+    public AppSettings getAppSettings() {
+        return logic.getAppSettings();
     }
 
     public GuiSettings getGuiSettings() {
         return logic.getGuiSettings();
     }
 
-    public Path getWordBanksFilePath() {
-        return logic.getWordBanksFilePath();
-    }
+    // <------------------------------------- Callbacks to Pass Into GameTimer ---------------------------------->
 
-    // <---------------------------------------- CallBacks to Pass Into GameTimer-------------------------------->
-
+    /**
+     * Calls-back to the UI to update HintDisplay after getting the next FormattedHint from Logic.
+     */
     private void updateHints() {
         this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
     }
 
+    /**
+     * Calls-back to the UI to update TimerDisplay with {@code timerMessage}, {@code timeLeft} and
+     * {@code totalTimeGiven}.
+     */
     private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
         this.timerDisplayCallBack.updateTimerDisplay(timerMessage, timeLeft, totalTimeGiven);
     }
@@ -225,12 +243,16 @@ public class AppManager {
     private void skipOverToNextQuestion() {
         try {
             this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
-        } catch (ParseException | CommandException e) {
+        } catch (ParseException e) {
+            // Code should not be throwing ParseException. (Command word is correct)
+            e.printStackTrace();
+        } catch (CommandException e) {
+            // Code should not be throwing CommandException (should be in a valid state to SKIP)
             e.printStackTrace();
         }
     }
 
-    // <-----------------------Methods to register UI components to be called back by AppManager----------------->
+    // <---------------------- Methods to register UI components to be called back by AppManager ---------------->
 
     /**
      * Registers a method that will be called by the AppManager to update the UI's TimerDisplay
@@ -268,6 +290,8 @@ public class AppManager {
         requireAllNonNull(questionDisplayCallBack);
         this.questionDisplayCallBack = questionDisplayCallBack;
     }
+
+    // <---------------------- Functional Interfaces that represent Callbacks to UI ----------------------------->
 
     /**
      * Call-back functional interface for the AppManager to periodically update the TimerDisplay
