@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
@@ -123,7 +123,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidShowIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShowList().size() + 1);
-        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build();
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
@@ -141,7 +141,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getWatchList().getShowList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build());
+                new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }

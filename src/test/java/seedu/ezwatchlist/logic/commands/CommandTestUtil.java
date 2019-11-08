@@ -30,9 +30,13 @@ import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+    public static final String CURRENT_TAB_MAIN_TAB = "watch-list";
+    public static final String CURRENT_TAB_WATCHED_TAB = "watched-list";
+    public static final String CURRENT_TAB_SEARCH_TAB = "search-list";
+    public static final String CURRENT_TAB_STATISTICS_TAB = "statistics tab";
 
-    public static final String VALID_NAME_ANNABELLE = "Annabelle";
-    public static final String VALID_NAME_BOB_THE_BUILDER = "Bob the Builder";
+    public static final String VALID_SHOW_NAME_ANNABELLE = "Annabelle";
+    public static final String VALID_SHOW_NAME_BOB_THE_BUILDER = "Bob the Builder";
     public static final String VALID_TYPE_ANNABELLE = "movie";
     public static final String VALID_TYPE_BOB_THE_BUILDER = "tv";
     public static final String VALID_DATE_ANNABELLE = "10/10/2014";
@@ -48,8 +52,8 @@ public class CommandTestUtil {
     public static final int VALID_NUM_OF_EPISODES_BOB_THE_BUILDER = 3;
     public static final int VALID_NUM_OF_SEASONS_BOB_THE_BUILDER = 1;
 
-    public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_NAME_ANNABELLE;
-    public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_NAME_BOB_THE_BUILDER;
+    public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_SHOW_NAME_ANNABELLE;
+    public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_SHOW_NAME_BOB_THE_BUILDER;
     public static final String TYPE_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_TYPE_ANNABELLE;
     public static final String TYPE_DESC_BOB_THE_BUILDER = " " + PREFIX_TYPE + VALID_TYPE_BOB_THE_BUILDER;
     public static final String DATE_DESC_ANNABELLE = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_ANNABELLE;
@@ -88,11 +92,11 @@ public class CommandTestUtil {
     public static final WatchCommand.WatchShowDescriptor WATCH_DESC_BOB_THE_BUILDER;
 
     static {
-        DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
+        DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
                 .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
                 .withDateOfRelease(VALID_DATE_ANNABELLE)
                 .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
-        DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
+        DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
                 .withType(VALID_TYPE_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
                 .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
@@ -100,12 +104,12 @@ public class CommandTestUtil {
     }
 
     static {
-        WATCH_DESC_ANNABELLE = new WatchShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE)
+        WATCH_DESC_ANNABELLE = new WatchShowDescriptorBuilder().withName(VALID_SHOW_NAME_ANNABELLE)
                 .withType(VALID_TYPE_ANNABELLE)
                 .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
                 .withDateOfRelease(VALID_DATE_ANNABELLE)
                 .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
-        WATCH_DESC_BOB_THE_BUILDER = new WatchShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
+        WATCH_DESC_BOB_THE_BUILDER = new WatchShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
                 .withType(VALID_TYPE_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
                 .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
