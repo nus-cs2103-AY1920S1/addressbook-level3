@@ -4,18 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.LedgerOperationBuilder;
-import seedu.address.testutil.PersonBuilder;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.person.Person;
+import seedu.address.testutil.LedgerOperationBuilder;
+import seedu.address.testutil.PersonBuilder;
+
 public class SplitTest {
     @Test
-    public void handleBalance_validArguments_updatesBalance(){
+    public void handleBalance_validArguments_updatesBalance() {
         Person a = new PersonBuilder().withName("a").build();
         Person b = new PersonBuilder().withName("b").build();
         Person c = new PersonBuilder().withName("c").build();
@@ -34,7 +35,7 @@ public class SplitTest {
     @Test
     public void handleBalance_directTransfer_success() {
         Person a = new PersonBuilder().withName("a").build();
-        LedgerOperationBuilder sendBuilder  = new LedgerOperationBuilder().addPerson(a)
+        LedgerOperationBuilder sendBuilder = new LedgerOperationBuilder().addPerson(a)
                 .withAmount("10");
         LedgerOperation send = sendBuilder.asSplit(0, 1);
 

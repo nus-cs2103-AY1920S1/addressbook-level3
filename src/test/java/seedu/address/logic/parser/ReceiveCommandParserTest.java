@@ -1,21 +1,20 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ReceiveCommand;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.LedgerOperationBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 class ReceiveCommandParserTest {
     private ReceiveCommandParser parser = new ReceiveCommandParser();
