@@ -8,6 +8,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state of the state machine that builds the {@code ExitCommand}.
+ */
 public class ExitState extends EndState {
 
     private static final String MESSAGE_GOODBYE = "Goodbye!";

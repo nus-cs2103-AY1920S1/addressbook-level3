@@ -12,6 +12,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.AttendeeList;
 
+/**
+ * Represents an optional state in the state machine that builds the {@code FindCommand}.
+ * Accepts a list of attendees.
+ */
 public class FindAttendeesState extends State implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the attendees to search for prefixed by \"a/\"."
@@ -34,6 +38,14 @@ public class FindAttendeesState extends State implements OptionalState {
         return new FindPriorityState(soFar);
     }
 
+    /**
+     * Ensures no arguments are duplicated.
+     * If the list of attendees is entered, ensures that the list is valid.
+     *
+     * @param newArgs Unprocessed arguments.
+     * @param attendees {@code String} that represents a list of attendees.
+     * @throws StateTransitionException If the input is invalid.
+     */
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> attendees)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);

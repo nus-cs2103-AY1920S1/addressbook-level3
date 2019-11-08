@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state of the state machines that builds the {@code CurrentCommand}.
+ */
 public class CurrentState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "The parser is currently inactive."

@@ -18,6 +18,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.parser.exceptions.ParseException;
 
+/**
+ * Represents the end state of the state machine that builds the {@code DeleteCommand}.
+ */
 public class DeleteEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Delete command end state";
@@ -57,6 +60,12 @@ public class DeleteEndState extends EndState {
         }
     }
 
+    /**
+     * Returns the index from the {@code String} representation.
+     *
+     * @param value {@code String} representation of the index.
+     * @return index.
+     */
     private String fetchIndex(Optional<String> value) {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(value.get());

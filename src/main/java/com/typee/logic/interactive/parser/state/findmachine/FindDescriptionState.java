@@ -11,6 +11,10 @@ import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents an optional state in the state machine that builds the {@code FindCommand}.
+ * Accepts a description.
+ */
 public class FindDescriptionState extends State implements OptionalState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a description to"
@@ -34,6 +38,14 @@ public class FindDescriptionState extends State implements OptionalState {
         return new FindLocationState(soFar);
     }
 
+    /**
+     * Ensures that no arguments are duplicated.
+     * If an input is entered, ensures that the description is valid.
+     *
+     * @param newArgs Unprocessed arguments.
+     * @param description Description.
+     * @throws StateTransitionException If the description is invalid.
+     */
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> description)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);

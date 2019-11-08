@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state of the state machine that builds the {@code ClearCommand}.
+ */
 public class ClearState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Clear command initiated. Emptying engagement list.";

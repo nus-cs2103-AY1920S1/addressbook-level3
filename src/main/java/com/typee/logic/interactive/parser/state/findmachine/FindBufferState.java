@@ -7,6 +7,9 @@ import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the first state of the state machine that builds the {@code FindCommand}.
+ */
 public class FindBufferState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Find command initiated. Please enter the description, location,"
@@ -20,7 +23,6 @@ public class FindBufferState extends State {
     @Override
     public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
         requireNonNull(newArgs);
-        
         return new FindDescriptionState(soFar);
     }
 

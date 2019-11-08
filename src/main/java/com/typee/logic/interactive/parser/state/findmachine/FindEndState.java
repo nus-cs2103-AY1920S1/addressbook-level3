@@ -18,6 +18,9 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.EngagementPredicate;
 
+/**
+ * Represents the end state in the state machine that builds the {@code FindCommand}.
+ */
 public class FindEndState extends EndState {
 
     private static final String MESSAGE_EMPTY_COMMAND = "Invalid input. The find command cannot be empty!";
@@ -40,6 +43,12 @@ public class FindEndState extends EndState {
         return soFar.isEmpty();
     }
 
+    /**
+     * Builds the {@code EngagementPredicate} from the entered arguments.
+     *
+     * @return {@code EngagementPredicate}.
+     * @throws CommandException If the predicate is invalid.
+     */
     private EngagementPredicate makeEngagementPredicate() throws CommandException {
         // Adapted from Jun Hao's FindCommandParser.
 
@@ -54,6 +63,11 @@ public class FindEndState extends EndState {
         return engagementPredicate;
     }
 
+    /**
+     * Ensures that the {@code EngagementPredicate} is valid.
+     * @param engagementPredicate {@code EngagementPredicate}.
+     * @throws CommandException If the predicate is invalid.
+     */
     private void checkPredicateValidity(EngagementPredicate engagementPredicate) throws CommandException {
         if (!engagementPredicate.isValid()) {
             throw new CommandException(

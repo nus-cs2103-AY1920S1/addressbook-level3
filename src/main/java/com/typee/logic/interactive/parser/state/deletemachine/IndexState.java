@@ -14,6 +14,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.parser.exceptions.ParseException;
 
+/**
+ * Represents the penultimate state of the state machine that builds the {@code DeleteCommand}.
+ */
 public class IndexState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Delete command initiated. Please enter the index of the"
@@ -44,6 +47,12 @@ public class IndexState extends PenultimateState {
         enforceValidity(index);
     }
 
+    /**
+     * Enforces the validity of the entered index.
+     *
+     * @param index Index.
+     * @throws StateTransitionException If the index is invalid.
+     */
     private void enforceValidity(Optional<String> index) throws StateTransitionException {
         try {
             Index listIndex = InteractiveParserUtil.parseIndex(index.get());
