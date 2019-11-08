@@ -15,6 +15,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.step.Step;
+import seedu.guilttrip.commons.util.AutoExpenseUpdater;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
@@ -603,9 +604,8 @@ public class ModelManager implements Model {
      * Generates Expenses from AutoExpenses and update the GuiltTrip.
      */
     public void createExpensesFromAutoExpenses() {
-        for (AutoExpense autoExpense : filteredAutoExpenses) {
-            autoExpense.generateNewExpenses().stream().forEach(this::addExpense);
-        }
+        AutoExpenseUpdater autoExpenseUpdater = new AutoExpenseUpdater(this);
+        new Thread(autoExpenseUpdater).start();
     }
 
     // =========== TrackTime =============================================================
