@@ -209,17 +209,39 @@ Format: `clear`
 
 ==== Mark/Unmark as watched : `watch`
 
-Marks an unwatched show in the watchlist as watched. Also un-marks a watched show as watched. +
+To mark an unwatched show in the watchlist as watched, use the command format listed below. +
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
+*Example Usage:*
+
+1. User wants to mark "The Office" as watched.
+
+image::WatchTheOffice.png[width="790"]
+
+[start=2]
+2. User enters `watch 1` into the command box in the watchlist tab.
+
+image::Watch1.png[width="790"]
+
+[start=3]
+3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `1`.
+
+image::WatchedTheOffice.png[width="790"]
+
+Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+
+image::TheOfficeWatchCommand.png[width="790"]
+
 ****
-* Marks the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
+* The `index` refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * Any number of the optional fields may be provided.
 * Having only the index of the show will mark/unmark the show as watched.
 * Having the index and the episode number of the show will update the cumulative number of episodes of the show that are watched.
 * Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
 * Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
 ****
+[TIP]
+Using the `watch` command on an already watched show will un-mark the show as watched.
 
 Examples:
 
