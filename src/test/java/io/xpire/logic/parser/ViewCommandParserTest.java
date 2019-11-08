@@ -43,13 +43,20 @@ public class ViewCommandParserTest {
         assertParseFailure(xpireParser, "abc", MESSAGE_VIEW_OPTIONS); // only name or date
         assertParseFailure(xpireParser, "-3", MESSAGE_VIEW_OPTIONS); // no numbers
         assertParseFailure(xpireParser, "1.5", MESSAGE_VIEW_OPTIONS); // no numbers
+        assertParseFailure(replenishParser, "abc", MESSAGE_VIEW_OPTIONS); // only name or date
+        assertParseFailure(replenishParser, "-3", MESSAGE_VIEW_OPTIONS); // no numbers
+        assertParseFailure(replenishParser, "1.5", MESSAGE_VIEW_OPTIONS); // no numbers
 
         // only lowercase date
         assertParseFailure(xpireParser, "Replenish", MESSAGE_VIEW_OPTIONS + suggestReplenish);
         assertParseFailure(xpireParser, "REPLENISH", MESSAGE_VIEW_OPTIONS + suggestReplenish);
+        assertParseFailure(replenishParser, "Replenish", MESSAGE_VIEW_OPTIONS + suggestReplenish);
+        assertParseFailure(replenishParser, "REPLENISH", MESSAGE_VIEW_OPTIONS + suggestReplenish);
 
         // only lowercase name
         assertParseFailure(xpireParser, "Main", MESSAGE_VIEW_OPTIONS + suggestMain);
         assertParseFailure(xpireParser, "MAIN", MESSAGE_VIEW_OPTIONS + suggestMain);
+        assertParseFailure(replenishParser, "Main", MESSAGE_VIEW_OPTIONS + suggestMain);
+        assertParseFailure(replenishParser, "MAIN", MESSAGE_VIEW_OPTIONS + suggestMain);
     }
 }

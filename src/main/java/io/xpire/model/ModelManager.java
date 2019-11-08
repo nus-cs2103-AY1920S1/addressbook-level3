@@ -88,7 +88,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
-        return new ReadOnlyListView[]{this.getXpire(), this.getReplenishList()};
+        return new ReadOnlyListView<?>[]{this.getXpire(), this.getReplenishList()};
     }
 
     //=========== Model methods ================================================================================
