@@ -41,7 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        EngagementType engagementType = InteractiveParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
+        EngagementType engagementType = InteractiveParserUtil
+                .parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
         LocalDateTime startTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
         LocalDateTime endTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
         AttendeeList attendees = InteractiveParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());

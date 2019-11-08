@@ -15,6 +15,9 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.util.EngagementComparator;
 
+/**
+ * Represents the end state of the state machine that builds the {@code SortCommand}.
+ */
 public class SortEndState extends EndState {
 
     private static final String CONSTANT_COMBINER = "_";
@@ -40,6 +43,13 @@ public class SortEndState extends EndState {
         return sortCommand;
     }
 
+    /**
+     * Builds an {@code EngagementComparator} from the entered arguments.
+     *
+     * @param soFar Processed arguments.
+     * @return {@code EngagementComparator}.
+     * @throws CommandException If the arguments are invalid.
+     */
     private EngagementComparator makeEngagementComparator(ArgumentMultimap soFar) throws CommandException {
         String property = soFar.getValue(PREFIX_PROPERTY).get();
         String order = soFar.getValue(PREFIX_ORDER).get();
@@ -58,10 +68,23 @@ public class SortEndState extends EndState {
         }
     }
 
+    /**
+     * Combines and formats the entered property and order into a valid sort order.
+     *
+     * @param property Property.
+     * @param order Order.
+     * @return formatted string.
+     */
     private String combineAndFormat(String property, String order) {
         return property.toUpperCase() + CONSTANT_COMBINER + order.toUpperCase();
     }
 
+    /**
+     * Returns a {@code String} representation of a sort order made from the entered, formatted input.
+     *
+     * @param sortOrder Formatted {@code String}.
+     * @return {@code String} representing sort order.
+     */
     private String normalize(String sortOrder) {
         Order order = Order.valueOf(sortOrder);
         switch (order) {
@@ -115,6 +138,9 @@ public class SortEndState extends EndState {
         return DUMMY_PREFIX;
     }
 
+    /**
+     * Represents a collection of the allowed sort orders.
+     */
     private enum Order {
         START_ASCENDING, START_DESCENDING, END_ASCENDING, END_DESCENDING, DESCRIPTION_ASCENDING, DESCRIPTION_DESCENDING,
         PRIORITY_ASCENDING, PRIORITY_DESCENDING

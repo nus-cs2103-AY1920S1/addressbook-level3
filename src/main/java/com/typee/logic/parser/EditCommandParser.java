@@ -34,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditCommand.EditEngagementDescriptor editPersonDescriptor = new EditCommand.EditEngagementDescriptor();
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(InteractiveParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+            editPersonDescriptor.setName(InteractiveParserUtil
+                    .parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
         }
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

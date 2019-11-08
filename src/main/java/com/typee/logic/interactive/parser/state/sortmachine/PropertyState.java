@@ -10,6 +10,9 @@ import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Initial state of the state machine that builds the {@code SortCommand}.
+ */
 public class PropertyState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Sort command initiated. Please enter the property you would"
@@ -18,10 +21,10 @@ public class PropertyState extends State {
     private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid property after \"p\".";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input! Accepted properties are"
             + " \"start\", \"end\", \"description\" and \"priority\".";
-    public static final String KEYWORD_START_PROPERTY = "start";
-    public static final String KEYWORD_END_PROPERTY = "end";
-    public static final String KEYWORD_DESCRIPTION_PROPERTY = "description";
-    public static final String KEYWORD_PRIORITY_PROPERTY = "priority";
+    private static final String KEYWORD_START_PROPERTY = "start";
+    private static final String KEYWORD_END_PROPERTY = "end";
+    private static final String KEYWORD_DESCRIPTION_PROPERTY = "description";
+    private static final String KEYWORD_PRIORITY_PROPERTY = "priority";
 
     public PropertyState(ArgumentMultimap soFar) {
         super(soFar);
@@ -51,6 +54,12 @@ public class PropertyState extends State {
         }
     }
 
+    /**
+     * Returns true if the entered property is a valid, sortable property.
+     *
+     * @param property Property.
+     * @return true if the property is valid.
+     */
     private boolean isValid(String property) {
         return property.equalsIgnoreCase(KEYWORD_START_PROPERTY)
                 || property.equalsIgnoreCase(KEYWORD_END_PROPERTY)

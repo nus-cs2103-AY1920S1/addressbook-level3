@@ -56,7 +56,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_ATTENDEES).isPresent()) {
-            AttendeeList attendeeList = InteractiveParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
+            AttendeeList attendeeList = InteractiveParserUtil
+                    .parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
             String attendeeName = attendeeList.getAttendees().get(0).getName().toString();
             engagementPredicate.setAttendees(attendeeName);
         }

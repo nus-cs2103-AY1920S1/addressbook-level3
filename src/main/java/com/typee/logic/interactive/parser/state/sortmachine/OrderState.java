@@ -11,6 +11,9 @@ import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the penultimate state of the state machine that builds a {@code SortCommand}.
+ */
 public class OrderState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the ordering to be followed,"
@@ -45,6 +48,12 @@ public class OrderState extends PenultimateState {
         enforceValidity(order);
     }
 
+    /**
+     * Ensures that the entered order is valid.
+     *
+     * @param order Order.
+     * @throws StateTransitionException If the order is invalid.
+     */
     private void enforceValidity(Optional<String> order) throws StateTransitionException {
         String sortOrder = order.get();
         if (!isValid(sortOrder)) {
