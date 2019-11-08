@@ -21,7 +21,6 @@ import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -35,7 +34,6 @@ public class ModelManager implements Model {
 
     private final FundBook fundBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Transaction> filteredTransactions;
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
@@ -54,7 +52,6 @@ public class ModelManager implements Model {
 
         this.fundBook = new FundBook(fundBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.fundBook.getPersonList());
         filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
@@ -357,7 +354,6 @@ public class ModelManager implements Model {
 
         return fundBook.equals(other.fundBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
                 && filteredTransactions.equals(other.filteredTransactions)
                 && filteredRepeaters.equals(other.filteredRepeaters)
                 && filteredBudgets.equals(other.filteredBudgets)

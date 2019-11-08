@@ -3,10 +3,10 @@ package seedu.ichifund.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
+import static seedu.ichifund.testutil.TypicalFundBook.BUDGET_ANIME;
+import static seedu.ichifund.testutil.TypicalFundBook.BUDGET_FOOD;
+import static seedu.ichifund.testutil.TypicalFundBook.BUDGET_OVERALL;
 import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import java.util.Arrays;
@@ -20,13 +20,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
-import seedu.ichifund.model.person.Person;
-import seedu.ichifund.model.person.exceptions.DuplicatePersonException;
+import seedu.ichifund.model.budget.exceptions.DuplicateBudgetException;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.BudgetBuilder;
-import seedu.ichifund.testutil.PersonBuilder;
 import seedu.ichifund.testutil.RepeaterBuilder;
 import seedu.ichifund.testutil.TransactionBuilder;
 
@@ -36,7 +34,7 @@ public class FundBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), fundBook.getPersonList());
+        assertEquals(Collections.emptyList(), fundBook.getBudgetList());
     }
 
     @Test
@@ -52,67 +50,66 @@ public class FundBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(PERSON_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateBudgets_throwsDuplicateBudgetException() {
+        // Two budgets with the same identity fields
+        Budget editedAnime = new BudgetBuilder(BUDGET_ANIME)
+                .withAmount(BUDGET_FOOD.getAmount().toString())
                 .build();
         Repeater repeater = new RepeaterBuilder().build();
-        Budget budget = new BudgetBuilder().build();
         Transaction transaction = new TransactionBuilder().build();
         RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
-        List<Person> newPersons = Arrays.asList(PERSON_ALICE, editedAlice);
+        List<Budget> newBudgets = Arrays.asList(BUDGET_ANIME, editedAnime);
         List<Repeater> repeaters = Collections.singletonList(repeater);
-        List<Budget> budgets = Collections.singletonList(budget);
         List<Transaction> transactions = Collections.singletonList(transaction);
-        FundBookStub newData = new FundBookStub(currentRepeaterUniqueId, newPersons, repeaters, budgets, transactions);
+        FundBookStub newData = new FundBookStub(currentRepeaterUniqueId, repeaters, newBudgets, transactions);
 
-        assertThrows(DuplicatePersonException.class, () -> fundBook.resetData(newData));
+        assertThrows(DuplicateBudgetException.class, () -> fundBook.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> fundBook.hasPerson(null));
+    public void hasBudget_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> fundBook.hasBudget(null));
     }
 
     @Test
-    public void hasPerson_personNotInFundBook_returnsFalse() {
-        assertFalse(fundBook.hasPerson(PERSON_ALICE));
+    public void hasBudget_budgetNotInFundBook_returnsFalse() {
+        assertFalse(fundBook.hasBudget(BUDGET_OVERALL));
     }
 
     @Test
-    public void hasPerson_personInFundBook_returnsTrue() {
-        fundBook.addPerson(PERSON_ALICE);
-        assertTrue(fundBook.hasPerson(PERSON_ALICE));
+    public void hasBudget_budgetInFundBook_returnsTrue() {
+        fundBook.addBudget(BUDGET_ANIME);
+        assertTrue(fundBook.hasBudget(BUDGET_ANIME));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInFundBook_returnsTrue() {
-        fundBook.addPerson(PERSON_ALICE);
-        Person editedAlice = new PersonBuilder(PERSON_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(fundBook.hasPerson(editedAlice));
+    public void hasBudget_budgetWithSameIdentityFieldsInFundBook_returnsTrue() {
+        fundBook.addBudget(BUDGET_ANIME);
+        Budget editedAnime = new BudgetBuilder(BUDGET_ANIME).withAmount(BUDGET_FOOD.getAmount().toString()).build();
+        assertTrue(fundBook.hasBudget(editedAnime));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> fundBook.getPersonList().remove(0));
+    public void getBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> fundBook.getTransactionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> fundBook.getRepeaterList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> fundBook.getBudgetList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> fundBook.getDataList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyFundBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyFundBook whose lists can violate interface constraints.
      */
     private static class FundBookStub implements ReadOnlyFundBook {
         private RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Repeater> repeaters = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         private final ObservableList<Data> datas = FXCollections.observableArrayList();
 
-        FundBookStub(RepeaterUniqueId currentRepeaterUniqueId, Collection<Person> persons,
+        FundBookStub(RepeaterUniqueId currentRepeaterUniqueId,
                 Collection<Repeater> repeaters, Collection<Budget> budgets, Collection<Transaction> transactions) {
             this.currentRepeaterUniqueId = currentRepeaterUniqueId;
-            this.persons.setAll(persons);
             this.repeaters.setAll(repeaters);
             this.budgets.setAll(budgets);
             this.transactions.setAll(transactions);
@@ -121,11 +118,6 @@ public class FundBookTest {
         @Override
         public RepeaterUniqueId getCurrentRepeaterUniqueId() {
             return currentRepeaterUniqueId;
-        }
-
-        @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
         }
 
         @Override

@@ -11,8 +11,6 @@ import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.DataList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
-import seedu.ichifund.model.person.Person;
-import seedu.ichifund.model.person.UniquePersonList;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
@@ -21,12 +19,11 @@ import seedu.ichifund.model.transaction.TransactionList;
 
 /**
  * Wraps all data at the fund book level
- * Duplicates are not allowed (by .isSamePerson and .isSameBudget comparison)
+ * Duplicates are not allowed (by .isSameRepeater and .isSameBudget comparison)
  */
 public class FundBook implements ReadOnlyFundBook {
 
     private RepeaterUniqueId currentRepeaterUniqueId;
-    private final UniquePersonList persons;
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
     private final TransactionList transactions;
@@ -41,7 +38,6 @@ public class FundBook implements ReadOnlyFundBook {
      */
     {
         currentRepeaterUniqueId = new RepeaterUniqueId("0");
-        persons = new UniquePersonList();
         repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
         transactions = new TransactionList();
@@ -51,7 +47,7 @@ public class FundBook implements ReadOnlyFundBook {
     public FundBook() {}
 
     /**
-     * Creates an FundBook using the Persons in the {@code toBeCopied}
+     * Creates an FundBook using the items in the {@code toBeCopied}
      */
     public FundBook(ReadOnlyFundBook toBeCopied) {
         this();
@@ -68,14 +64,6 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
 
     /**
      * Replaces the contents of the repeater list with {@code repeaters}.
@@ -113,48 +101,10 @@ public class FundBook implements ReadOnlyFundBook {
     public void resetData(ReadOnlyFundBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
         setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
         setTransactions(newData.getTransactionList());
         setData(newData.getDataList());
-    }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the fund book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the fund book.
-     * The person must not already exist in the fund book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the fund book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the fund book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code FundBook}.
-     * {@code key} must exist in the fund book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
     }
 
     //// transaction-level operations
@@ -267,18 +217,15 @@ public class FundBook implements ReadOnlyFundBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return transactions.asUnmodifiableObservableList().size() + " transactions, "
+                + repeaters.asUnmodifiableObservableList().size() + " repeaters, "
+                + budgets.asUnmodifiableObservableList().size() + " budgets, "
+                + datas.asUnmodifiableObservableList() + " datas";
     }
 
     @Override
     public RepeaterUniqueId getCurrentRepeaterUniqueId() {
         return currentRepeaterUniqueId;
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     @Override
@@ -306,14 +253,14 @@ public class FundBook implements ReadOnlyFundBook {
         return other == this // short circuit if same object
                 || (other instanceof FundBook // instanceof handles nulls
                 && currentRepeaterUniqueId.equals(((FundBook) other).currentRepeaterUniqueId)
-                && persons.equals(((FundBook) other).persons)
                 && transactions.equals(((FundBook) other).transactions)
                 && repeaters.equals(((FundBook) other).repeaters)
-                && budgets.equals(((FundBook) other).budgets));
+                && budgets.equals(((FundBook) other).budgets)
+                && datas.equals(((FundBook) other).datas));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, budgets);
+        return Objects.hash(currentRepeaterUniqueId, transactions, repeaters, budgets, datas);
     }
 }
