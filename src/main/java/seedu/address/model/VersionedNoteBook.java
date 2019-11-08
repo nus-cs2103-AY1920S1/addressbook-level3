@@ -29,13 +29,13 @@ public class VersionedNoteBook extends NoteBook {
         UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
         currentUniqueNoteList.setNotes(getNotes());
         if (undoStack.empty()) {
-            ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByCond());
+            ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
             undoStack.push(new NoteBookWithCommand(currentNoteBookState, command));
         } else {
             ReadOnlyNoteBook previousNoteBookState = undoStack.peek().getNoteBook();
             if (!(previousNoteBookState.getNoteList().equals(getNoteList())
-                    && previousNoteBookState.getSortByCond().equals(getSortByCond()))) {
-                ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByCond());
+                    && previousNoteBookState.getSortByConds().equals(getSortByConds()))) {
+                ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
                 undoStack.push(new NoteBookWithCommand(currentNoteBookState, command));
             }
         }
@@ -53,13 +53,13 @@ public class VersionedNoteBook extends NoteBook {
             ReadOnlyNoteBook previousNoteBookState = undoStack.peek().getNoteBook();
             String previousCommand = undoStack.peek().getCommand();
             if (!(previousNoteBookState.getNoteList().equals(getNoteList())
-                    && previousNoteBookState.getSortByCond().equals(getSortByCond()))) {
+                    && previousNoteBookState.getSortByConds().equals(getSortByConds()))) {
                 UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
                 currentUniqueNoteList.setNotes(getNotes());
-                ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByCond());
+                ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
                 redoStack.push(new NoteBookWithCommand(currentNoteBookState, previousCommand));
                 setNotes(previousNoteBookState.getNoteList());
-                setSortByCond(previousNoteBookState.getSortByCond());
+                setSortByCond(previousNoteBookState.getSortByConds());
                 undoStack.pop();
                 return previousCommand;
             } else {
@@ -81,11 +81,11 @@ public class VersionedNoteBook extends NoteBook {
             String nextCommand = redoStack.peek().getCommand();
             UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
             currentUniqueNoteList.setNotes(getNotes());
-            ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByCond());
+            ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
             undoStack.push(new NoteBookWithCommand(currentNoteBookState, nextCommand));
             ReadOnlyNoteBook nextNoteBookState = redoStack.pop().getNoteBook();
             setNotes(nextNoteBookState.getNoteList());
-            setSortByCond(nextNoteBookState.getSortByCond());
+            setSortByCond(nextNoteBookState.getSortByConds());
             return nextCommand;
         } else {
             throw new InvalidRedoException();

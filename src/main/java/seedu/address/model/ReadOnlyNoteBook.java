@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.SortByCond;
 
@@ -15,6 +16,6 @@ public interface ReadOnlyNoteBook {
      */
     ObservableList<Note> getNoteList();
 
-    SortByCond getSortByCond();
+    MultipleSortByCond getSortByConds();
 
 }
