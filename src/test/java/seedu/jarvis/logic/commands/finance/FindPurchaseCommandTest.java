@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_NO_PURCHASES_FOUND;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -76,7 +77,7 @@ public class FindPurchaseCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPurchaseFound() {
-        String expectedMessage = String.format(MESSAGE_PURCHASES_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_NO_PURCHASES_FOUND, 0);
         PurchaseNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindPurchaseCommand command = new FindPurchaseCommand(predicate);
         expectedModel.updateFilteredPurchaseList(predicate);
