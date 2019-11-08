@@ -282,12 +282,13 @@ The commands include:
 * `QuizModeCommand` -- Enters the quiz mode with questions selected by user.
 * `QuizCheckAnswer` -- Checks the correctness of answer entered by user.
 * `QuizShowAnswerCommand` -- Shows the answer for current question.
+* `QuizSkipQuestion` -- Skips the current question.
 * `QuitQuizModeCommand` -- Quits the quiz mode.
 
 These operations are exposed in the `Model` interface as `Model#getQuizQuestions(int numOfQuestions, Subject subject
 Difficulty difficulty)`, `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`,
-`Model#showQuizAnswer()`, `Model#getFilteredQuizQuestionList()`, `Model#checkQuizAnswer(Answer answer)`
-and `Model#clearQuizQuestionList()` respectively.
+`Model#showQuizAnswer()`, `Model#getFilteredQuizQuestionList()`, `Model#checkQuizAnswer(Answer answer)`,
+`Model#removeOneQuizQuestion()` and `Model#clearQuizQuestionList()` respectively.
 
 Given below is an example usage scenario and how the question mechanism behaves at each step.
 
@@ -315,7 +316,7 @@ image::QuizModeSequenceDiagram.png[]
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
 .QuizModeActivityDiagram
-image::QuizModeActivityDiagram.png[width=400]
+image::QuizModeActivityDiagram.png[400, 400]
 
 ==== Design Considerations
 
