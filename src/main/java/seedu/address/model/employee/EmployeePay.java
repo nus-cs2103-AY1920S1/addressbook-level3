@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EmployeePay {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeePay should only contain numbers, and it should be at least 1 digit and at most 2 digits long";
+            "EmployeePay should only contain positive numbers, and it should be at least 1 digit";
     public static final String VALIDATION_REGEX = "\\d{1,2}";
     public final double value;
 
