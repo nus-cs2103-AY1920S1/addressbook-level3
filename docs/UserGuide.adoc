@@ -1039,7 +1039,7 @@ Fat should be less than 35(g) per serving.
 [small]#*Note:* +
 1. No duplicate food names are allowed. +
 2. All nutrition values should be non-negative numbers and contain no more than four decimals. The decimal point must be between numbers. For example, ".5" and "1." will not be accepted. +
-3. [Silver]#Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
+3. Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
 ====
 
 *Format:* `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
