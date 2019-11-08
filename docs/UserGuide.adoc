@@ -199,7 +199,13 @@ You can see a list of accounts with the word 'trip' contained in their names.
 // end::accounts[]
 
 // tag::loans[]
-=== Tracking loans: `loan`
+=== Managing loans: `loan`
+
+This feature enables you to keep track of who owes you money - and exactly how much they owe you.
+Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
+You can also record who you owe money to, saving you the embarrassment of being publicly reminded by your loan shark friends.
+Finally, it can even help you calculate who owes who how much
+when you and said friends wake in the morning after an expensive night out.
 
 ==== Add a new loan: `loan out|in`
 
