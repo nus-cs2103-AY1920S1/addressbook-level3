@@ -99,6 +99,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Returns a {@code LocalDate} instance representing the first Sunday to be displayed.
      * This Sunday is defined as the Sunday before or on the first day of the month.
+     *
      * @return A {@code LocalDate} instance representing the first Sunday to be displayed.
      */
     private LocalDate getDateOfFirstSundayToBeDisplayed() {
@@ -113,6 +114,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Sets the openSingleDayEngagementsDisplayWindow date of the specified {@code CalendarDateCell} to the
      * date represented by the specified {@code LocalDate}.
+     *
      * @param calendarDateCell The specified {@code CalendarDateCell}.
      * @param calendarDate The specified {@code LocalDate}.
      */
@@ -128,6 +130,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Adds all engagements which occur on the date represented by the specified {@code LocalDate}
      * to the specified {@code CalendarDateCell}.
+     *
      * @param calendarDateCell The specified {@CalendarDate}.
      * @param calendarDate The specified {@CalendarDateCell}.
      */
@@ -142,6 +145,7 @@ public class CalendarWindow extends UiPart<Region> {
 
     /**
      * Returns true if the specified calendar date is within the specified time slot.
+     *
      * @param calendarDate The specified calendar date.
      * @param timeSlot The specified time slot.
      * @return True if the specified calendar date is within the specified time slot.
@@ -160,6 +164,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Updates the specified {@code CalendarDatePane} to openSingleDayEngagementsDisplayWindow the number of engagements
      * in the specified {@code CalendarDateCell}.
+     *
      * @param calendarDateCell The specified {@code CalendarDateCell}.
      */
     private void updateEngagementCountDisplay(CalendarDateCell calendarDateCell) {
@@ -197,6 +202,7 @@ public class CalendarWindow extends UiPart<Region> {
 
     /**
      * Opens a window which displays the engagements on the specified date.
+     *
      * @param date The specified date.
      */
     public void openSingleDayEngagementsDisplayWindow(LocalDate date) {
@@ -215,6 +221,7 @@ public class CalendarWindow extends UiPart<Region> {
 
     /**
      * Closes the single day engagements window for the specified date.
+     *
      * @param date The specified date.
      * @throws CalendarCloseDisplayException If there is no open window for the specified date.
      */

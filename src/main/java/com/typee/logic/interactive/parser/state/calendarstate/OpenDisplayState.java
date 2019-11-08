@@ -21,7 +21,7 @@ public class OpenDisplayState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a valid date in the dd/mm/yyyy format, prefixed"
             + " by \"d/\".";
-    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    private static final String DATE_PATTERN = "dd/MM/uuuu";
     private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid date after \"d/\" in"
             + " the dd/mm/yyyy format.";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input! The date must adhere to the dd/mm/yyyy format.";
