@@ -22,17 +22,13 @@ public class Savings {
     // Identity fields of a saving.
     private final Money savingsAmount; // the amount to be saved.
     private final TimeStamp timeStamp;
+    private final boolean isWithdraw; // required for sanity check in addToHistory in model
 
-    // Default starting savings amount.
-    public Savings() {
-        savingsAmount = new Money("0.00");
-        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
-    }
-
-    public Savings(String savings, String time) {
+    public Savings(String savings, String time, boolean withdraw) {
         requireNonNull(savings);
         savingsAmount = new Money(savings);
         timeStamp = new TimeStamp(time);
+        isWithdraw = withdraw;
     }
 
     public String getTimeStampString() {
@@ -43,8 +39,35 @@ public class Savings {
         return timeStamp;
     }
 
+    public Money getSavingsAmount() {
+        return this.savingsAmount;
+    }
+
+    public boolean isWithdraw() {
+        return this.isWithdraw;
+    }
+
+    /**
+     * Labels a Saving as a withdrawal instead of a deposit
+     */
+    void makeWithdraw() {
+        // Sanity check again to ensure only a withdrawal can call this.
+        if (isWithdraw) {
+            this.savingsAmount.negate();
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("%.02f", savingsAmount.getAmount());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Savings
+            && this.savingsAmount.equals(((Savings) other).savingsAmount)
+            && this.getTimeStamp().getTimeStampInLocalDateTime()
+                .equals(((Savings) other).timeStamp.getTimeStampInLocalDateTime()));
     }
 }

@@ -20,6 +20,11 @@ public class CommandResult {
     /** New food was added by user. Scroll to latest added food item */
     private boolean justAdd;
 
+    /** Boolean to determine if user only wants to view withdrawals. */
+    private boolean showWithdrawOnly;
+
+    private boolean showSavingsOnly;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +33,8 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.justAdd = justAdd;
+        this.showWithdrawOnly = false;
+        this.showSavingsOnly = false;
     }
 
     /**
@@ -36,6 +43,18 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false);
+        this.showSavingsOnly = false;
+        this.showWithdrawOnly = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, and filters
+     * the list of Savings History such that only Savings or Withdrawals are shown.
+     */
+    public CommandResult(String feedbackToUser, boolean showSavingsOnly, boolean showWithdrawOnly) {
+        this(feedbackToUser, false, false, false);
+        this.showSavingsOnly = showSavingsOnly;
+        this.showWithdrawOnly = showWithdrawOnly;
     }
 
     public String getFeedbackToUser() {
@@ -58,6 +77,14 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isShowWithdrawOnly() {
+        return showWithdrawOnly;
+    }
+
+    public boolean isShowSavingsOnly() {
+        return showSavingsOnly;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -72,7 +99,9 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showWithdrawOnly == otherCommandResult.showWithdrawOnly
+                && showSavingsOnly == otherCommandResult.showSavingsOnly;
     }
 
     @Override

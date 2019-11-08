@@ -23,7 +23,9 @@ import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.savings.SavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
@@ -40,7 +42,9 @@ import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
+import seedu.savenus.storage.savings.JsonSavingsAccountStorage;
 import seedu.savenus.storage.savings.JsonSavingsStorage;
+import seedu.savenus.storage.savings.SavingsAccountStorage;
 import seedu.savenus.storage.savings.SavingsStorage;
 import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.sort.JsonCustomSortStorage;
@@ -64,7 +68,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
+    private Config config;
 
     @Override
     public void init() throws Exception {
@@ -78,6 +82,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
         SavingsStorage savingsHistoryStorage = new JsonSavingsStorage(userPrefs.getSavingsHistoryFilePath());
+        SavingsAccountStorage savingsAccountStorage = new JsonSavingsAccountStorage(userPrefs
+                .getSavingsAccountFilePath());
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
         PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
                 .getPurchaseHistoryFilePath());
@@ -85,12 +91,13 @@ public class MainApp extends Application {
         WalletStorage walletStorage = new JsonWalletStorage(userPrefs.getWalletFilePath());
         AliasStorage aliasStorage = new JsonAliasListStorage(userPrefs.getAliasFilePath());
         storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations,
-                purchaseHistoryStorage, walletStorage, sort, savingsHistoryStorage, aliasStorage);
+                purchaseHistoryStorage, walletStorage, sort, savingsHistoryStorage, savingsAccountStorage,
+                aliasStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage, walletStorage,
-                sort, savingsHistoryStorage, aliasStorage);
+                sort, savingsHistoryStorage, savingsAccountStorage, aliasStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -105,12 +112,15 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
                                    PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
                                    CustomSortStorage userSortFields, SavingsStorage savingsHistoryStorage,
-                                   AliasStorage aliasStorage) {
+                                   SavingsAccountStorage savingsAccountStorage, AliasStorage aliasStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
         Optional<ReadOnlySavingsHistory> savingsHistoryOptional;
         ReadOnlySavingsHistory initialSavingsHistory;
+
+        Optional<ReadOnlySavingsAccount> savingsAccountOptional;
+        ReadOnlySavingsAccount initialSavingsAccount;
 
         Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
         ReadOnlyPurchaseHistory initialPurchaseHistory;
@@ -138,6 +148,12 @@ public class MainApp extends Application {
                 logger.info("Savings History file is not found. Will be starting with an empty Savings History");
             }
             initialSavingsHistory = savingsHistoryOptional.orElse(new SavingsHistory());
+
+            savingsAccountOptional = storage.readSavingsAccount();
+            if (!savingsAccountOptional.isPresent()) {
+                logger.info("Savings Account file not found. Will be starting with an empty Savings Account");
+            }
+            initialSavingsAccount = savingsAccountOptional.orElse(new SavingsAccount());
 
             recsOptional = userRecs.readRecs();
             if (!recsOptional.isPresent()) {
@@ -172,6 +188,7 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty application");
             initialData = new Menu();
             initialSavingsHistory = new SavingsHistory();
+            initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
@@ -181,6 +198,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty application");
             initialData = new Menu();
             initialSavingsHistory = new SavingsHistory();
+            initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
@@ -188,7 +206,7 @@ public class MainApp extends Application {
             initialAliasList = new AliasList();
         }
         return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory,
-                initialWallet, initialSorter, initialSavingsHistory, initialAliasList);
+                initialWallet, initialSorter, initialSavingsHistory, initialSavingsAccount, initialAliasList);
     }
 
     private void initLogging(Config config) {
@@ -200,7 +218,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    private Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -236,7 +254,7 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    private UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 

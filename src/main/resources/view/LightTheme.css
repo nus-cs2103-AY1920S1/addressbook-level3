@@ -92,7 +92,13 @@
 .cell_savings {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 20px;
-    -fx-text-fill: #3b5998;
+    -fx-text-fill: #32CD32;
+}
+
+.cell_withdrawal {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 20px;
+    -fx-text-fill: #ff000d;
 }
 
 .cell_small_label {
@@ -153,7 +159,7 @@
 .account-balance {
     -fx-fill: green;
     -fx-font-family: Monospaced;
-    -fx-font-size: 51px;
+    -fx-font-size: 30px;
 }
 
 .purchase-history-text {
@@ -165,7 +171,7 @@
 .account-days-left {
     -fx-fill: #3b5998;
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-size: 27px;
+    -fx-font-size: 25px;
 }
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {

@@ -84,7 +84,7 @@ public class ParserUtil {
         return new BigDecimal(trimmedTopUpAmount);
     }
 
-    /***
+    /**
      * Parses a {@code String} into a {@code Saving}.
      * Leading and trailing whitespaces will be trimmed.
      *

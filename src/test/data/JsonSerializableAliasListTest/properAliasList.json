@@ -80,5 +80,11 @@
   }, {
     "commandWord" : "viewsort",
     "aliasWord" : ""
+  }, {
+    "commandWord" : "withdraw",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "show",
+    "aliasWord" : ""
   } ]
 }

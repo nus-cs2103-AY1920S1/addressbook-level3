@@ -49,9 +49,9 @@ public class RemainingBudget {
     }
 
     /**
-     * Returns the {@code StringProperty} of this instance.
+     * Returns the {@code ObjectProperty} of this instance.
      */
-    public ObjectProperty<Money> getRemainingBudgetProperty() {
+    ObjectProperty<Money> getRemainingBudgetProperty() {
         return remainingBudgetProperty;
     }
 

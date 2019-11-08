@@ -28,7 +28,11 @@ public class SaveCommand extends Command {
     private final Savings savingsAmount;
 
     public SaveCommand(String savings) {
-        this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp());
+        this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp(), false);
+    }
+
+    public SaveCommand(String savings, String time) {
+        this.savingsAmount = new Savings(savings, time, false);
     }
 
     @Override
@@ -38,17 +42,20 @@ public class SaveCommand extends Command {
         // deduct from wallet in model
         try {
             model.deductFromWallet(this.savingsAmount);
+            model.addToHistory(this.savingsAmount);
+            model.depositInSavings(this.savingsAmount);
         } catch (InsufficientFundsException e) {
             throw new CommandException(e.getMessage() + " to add to savings account!");
-        }
-
-        // add to the savings account in the model.
-        try {
-            model.addToHistory(this.savingsAmount);
-        } catch (InvalidSavingsAmountException e) {
+        } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.
             throw new CommandException(e.getMessage());
         }
-
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaveCommand // instanceof handles nulls
+                && this.savingsAmount.equals(((SaveCommand) other).savingsAmount)); // state check
     }
 }

@@ -46,11 +46,11 @@ public class JsonSerializableSavingsHistory {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public SavingsHistory toModelType() throws IllegalValueException {
-        SavingsHistory savingsAccount = new SavingsHistory();
-        for (JsonAdaptedSavings jsonAdaptedSavings : savingsHistory) {
+        SavingsHistory savingsHistory = new SavingsHistory();
+        for (JsonAdaptedSavings jsonAdaptedSavings : this.savingsHistory) {
             Savings savings = jsonAdaptedSavings.toModelType();
-            savingsAccount.addToHistory(savings);
+            savingsHistory.addToHistory(savings);
         }
-        return savingsAccount;
+        return savingsHistory;
     }
 }

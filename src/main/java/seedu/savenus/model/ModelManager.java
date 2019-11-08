@@ -28,9 +28,13 @@ import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.savings.SavingsHistory;
+import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
+import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
@@ -54,6 +58,7 @@ public class ModelManager implements Model {
     private final CustomSorter customSorter;
     private final AliasList aliasList;
     private final SavingsHistory savingsHistory;
+    private final SavingsAccount savingsAccount;
     private boolean autoSortFlag;
 
     /**
@@ -62,6 +67,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
                         ReadOnlyPurchaseHistory purchaseHistory, Wallet wallet,
                         CustomSorter customSorter, ReadOnlySavingsHistory savingsHistory,
+                        ReadOnlySavingsAccount savingsAccount,
                         AliasList aliasList) {
         super();
         requireAllNonNull(menu, userPrefs);
@@ -74,6 +80,7 @@ public class ModelManager implements Model {
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.wallet = wallet;
         this.savingsHistory = new SavingsHistory(savingsHistory);
+        this.savingsAccount = new SavingsAccount(savingsAccount);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
         this.aliasList = aliasList;
@@ -82,7 +89,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new Menu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(),
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new SavingsAccount(),
                 new AliasList());
     }
 
@@ -290,7 +297,6 @@ public class ModelManager implements Model {
                 .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
-
     @Override
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
@@ -370,6 +376,7 @@ public class ModelManager implements Model {
         RecommendationSystem.getInstance().clearDislikes();
     }
 
+    // =========================== Savings History Methods ===========================================================
     /**
      * Function that allows the addition of a Saving into the SavingsHistory
      * @param savings
@@ -377,7 +384,14 @@ public class ModelManager implements Model {
     @Override
     public void addToHistory(Savings savings) throws InvalidSavingsAmountException {
         requireNonNull(savings);
-        if (Float.parseFloat(savings.toString()) <= 0) {
+
+        // If deposit, then should not be 0 nor negative.
+        // If it is a withdrawal, then the value of the savings should not be 0 nor positive.
+        if (savings.isWithdraw()) {
+            // change it back to positive number first
+            savings.getSavingsAmount().negate();
+        }
+        if (Float.parseFloat(savings.toString()) <= 0) { // prevent depositing negative
             throw new InvalidSavingsAmountException();
         } else {
             savingsHistory.addToHistory(savings);
@@ -395,6 +409,46 @@ public class ModelManager implements Model {
     @Override
     public void setSavingsHistory(ReadOnlySavingsHistory savingsHistory) {
         this.savingsHistory.resetData(savingsHistory);
+    }
+
+    // =================================== Savings Account Methods =================================================
+
+    /**
+     * Retrieve the unmodifiable savings account.
+     * @return savingsAccount A ReadOnlySavingsAccount that cannot be changed directly.
+     */
+    @Override
+    public ReadOnlySavingsAccount getSavingsAccount() {
+        return savingsAccount;
+    }
+
+    /**
+     * Add into the savings account a certain amount of money.
+     * @param savings to be added into the savings account.
+     * @throws SavingsOutOfBoundException if adding the savings result in the savings exceeding 1,000,000
+     */
+    @Override
+    public void depositInSavings(Savings savings) throws SavingsOutOfBoundException {
+        requireNonNull(savings);
+        savingsAccount.addToSavings(savings);
+    }
+
+    /**
+     * Withdraw from the savings account a certain amount of money.
+     * @param savings to be withdrawn from the savings account.
+     * @throws InsufficientSavingsException if withdrawing this amount results in the savings account having less
+     * than $0.
+     */
+    @Override
+    public void withdrawFromSavings(Savings savings) throws InsufficientSavingsException {
+        requireNonNull(savings);
+        savingsAccount.deductFromSavings(savings);
+    }
+
+    // ================================ Command History Methods ===================================================
+    @Override
+    public List<String> getCommandHistory() {
+        return CommandHistory.getInstance().getCommandHistory();
     }
 
     @Override
@@ -418,11 +472,7 @@ public class ModelManager implements Model {
                 && wallet.equals(other.wallet)
                 && customSorter.equals(other.customSorter)
                 && savingsHistory.equals(other.savingsHistory)
+                && savingsAccount.equals(other.savingsAccount)
                 && aliasList.equals(other.aliasList);
-    }
-
-    @Override
-    public List<String> getCommandHistory() {
-        return CommandHistory.getInstance().getCommandHistory();
     }
 }
