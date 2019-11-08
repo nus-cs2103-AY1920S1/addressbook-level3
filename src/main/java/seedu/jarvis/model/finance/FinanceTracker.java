@@ -363,10 +363,8 @@ public class FinanceTracker {
      */
     public double calculateRemainingAmount() {
         totalSpending = calculateTotalSpending();
-        double remainingAmount = -1;
-        if (getMonthlyLimit().isPresent()) {
-            remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
-        }
+        double remainingAmount;
+        remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
         return remainingAmount;
     }
 

@@ -32,6 +32,7 @@ import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
+import seedu.jarvis.logic.commands.history.ListHistoryCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
@@ -100,6 +101,8 @@ public class JarvisParser {
             return new HelpCommand();
 
         // undo/redo commands
+        case ListHistoryCommand.COMMAND_WORD:
+            return new ListHistoryCommand();
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
         case RedoCommand.COMMAND_WORD:

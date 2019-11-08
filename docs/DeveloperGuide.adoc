@@ -82,6 +82,13 @@ Use macros as much as possible, see preamble.
 
 ////
 
+== Preface
+
+This is the Developer Guide to Jarvis, a productivity manager tool designed
+for NUS students who want to consolidate their schedule, tasks, finances and
+modules in one place. The link to the GitHub repository can
+be found link:{repourl}[here].
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -89,57 +96,63 @@ Refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
-=== Architecture
+=== Architecture: High-Level View
+
+The architecture diagram below explains the high-level design of Jarvis.
+
+// TODO change architecture diagram
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the
-App. Given below is a quick overview of each component.
+`Main` has three classes called
+link:{repourl}/blob/master/src/main/java/seedu/jarvis/Main.java[`Main`],
+link:{repourl}/blob/master/src/main/java/seedu/jarvis/MainApp.java[`MainApp`], and
+link:{repourl}/blob/master/src/main/java/seedu/jarvis/AppParameters.java[`AppParameters`]
 
-`Main` has two classes called
-link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and
-link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`].
-They are responsible for,
+They are responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and
-  connects them up with each other.
+. On launch of Jarvis
++
+Initialises all components (`Ui`, `Logic`, `Storage`, etc) in the correct
+sequence and establishes the relevant links between each component.
 
-* At shut down: Shuts down the components and invokes cleanup method where
-  necessary.
+. On exit of Jarvis
++
+Shuts down all components and invokes any clean-up methods where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used byx
-multiple other components. The following class plays an important role at the
-architecture level:
+The rest of Jarvis consists of another four components:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log
-  file.
+[width="100%", cols="1, 3"]
+|===
+| Component                     | Remarks
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the
-  hard disk.
+|<<Design-Ui, *`UI`*>>          | Handles all UI logic in the application
+|<<Design-Logic,*`Logic`*>>     | Handles all parsing and execution of commands
+'                                 that operates on `Model`.
+|<<Design-Model,*`Model`*>>     | Handles all reading and updating of runtime
+                                  data within Jarvis.
+|<<Design-Storage,*`Storage`*>> | Handles all reading and writing of Jarvis'
+                                  data, from and to the hard-disk.
+|===
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its _API_ in an `interface` with the same name as its corresponding
+  component.
 
-For example, the `Logic` component (see the class diagram given below) defines
-it's API in the `Logic.java` interface and exposes its functionality using
-the `LogicManager.java` class.
+* Exposes its functionality using a `{ComponentName}Manager` concrete class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+For example, the `Logic` component defines its API using an interface `Logic`.
+`Logic` is then implemented by the `LogicManager` concrete class, which
+exposes its functionality to the rest of the application.
 
-[discrete]
-==== How the architecture components interact with each other
+==== Architecture: Interactions between Components
 
-The _Sequence Diagram_ below shows how the components interact with each
+The sequence diagram below shows how the components interact with each
 other for the scenario where the user issues the command `delete 1`.
+
+// TODO change wording in this section and the image
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -149,87 +162,118 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+The UI component defines the user-viewable part of the application. It consists
+of a `MainWindow` made up of parts, such as the `StatusBarFooter`, `CommandBox`
+and `HelpWindow`. Every part inherits from the abstract class `UiPart`. Shown
+below is the structure of the UI component.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
-`ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these,
-including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are
-defined in matching `.fxml` files that are in the `src/main/resources/view`
-folder. For example, the layout of the
-link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+The `Ui` component uses the JavaFX UI framework. The layout of every part
+is defined in matching `.fxml` files found in `/src/main/resources/view`.
+For example, the layout of
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/ui/MainWindow.java[`MainWindow`]
 is specified in
-link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The UI has the following functionality:
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the
+* Takes in user input from the GUI, and using it in tandem with `Logic` to
+  create the relevant commands.
+* Executes the constructed commands using `Logic`.
+* Listens for changes to `Model` so that the UI can be updated with the
   modified data.
+
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/ui/Ui.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/ui/[[Package\]]
 
 [[Design-Logic]]
 === Logic component
 
-[[fig-LogicClassDiagram]]
+The `Logic` component is the "brains" of Jarvis. While the `Ui` defines
+the GUI and `Model` defines in-memory data, the `Logic` component does most
+of the heavy-lifting in terms of deciding what to change within the `Model`
+and what to return to the `Ui`. The diagram below shows the structure of the
+`Logic` component.
+
+// TODO change logic diagram
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+The diagram above shows how the `Logic` component interacts with its internal
+parts.
 
-. `Logic` uses the `JarvisParser` class to parse the user command.
-. This results in a `Command` object which is executed by the `LogicManager`.
-. The command execution can affect the `Model` (e.g. adding a person).
-. The result of the command execution is encapsulated as a `CommandResult`
-  object which is passed back to the `Ui`.
-. In addition, the `CommandResult` object can also instruct the `Ui` to
-  perform certain actions, such as displaying help to the user.
+. Once a user input is obtained from the GUI, `Logic` uses `JarvisParser` to
+  parse to command to return a `Command` object.
+. The `Command` is executed by `LogicManager`.
+. Depending on the command created, it may mutate the `Model`, such as adding
+  a new task or course.
+. The result of the command execution is encapsulated as a `CommandResult` that
+  is returned to `Ui`.
+. These `CommandResults` can instruct the `Ui` to perform certain actions,
+  such as switching tabs between the various views, and displaying help or
+  error messages to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic`
-component for the `execute("delete 1")` API call.
+Shown below is the Sequence Diagram within the `Logic` component for the API
+call: `execute("add-course c/CS1010")`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+// TODO create a new sequence diagram, and change the above command accordingly
+.Interactions Inside the Logic Component for the `add-course c/CS1010` Command
 image::DeleteSequenceDiagram.png[]
 
+The original caller to `LogicManager`, in the context of Jarvis, is the `Ui`
+component.
+
+// TODO do I need this note?
 NOTE: The lifeline for `DeleteAddressCommandParser` should end at the destroy
 marker (X) but due to a limitation of PlantUML, the lifeline reaches the end
 of diagram.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/Logic.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/[[Package\]]
+
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelDiagram.png[]
+The `Model` API is responsible for interacting with the data in JARVIS including
+the various aspects such as user's preferences, command history,
+finance management, cca information, courses and schedule information.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+Below is a class diagram involving the `Model` interface, which inherits
+from the feature specific model interfaces.
 
-The `Model`,
+.Model Interface
+image::model/ModelInterfaceClassDiagram.png[]
 
-* stores a `UserPref` object that represents the user's preferences.
+The `Model` component,
+
+* Stores a `UserPref` object that represents the user's preferences.
 * Stores the `HistoryManager` data
 * Stores the `FinanceTracker` data
 * Stores the `CcaTracker` Data
 * Stores the `CoursePlanner` Data
 * Stores the `Planner` data
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+
 [[Design-Storage]]
 === Storage component
 
-The `Storage` API is responsible for reading and writing data in
-json format. This allows the application is remember information in
-json format when the user closes the application.
+The `Storage` API is responsible for reading and writing data in json format.
+This allows the application is remember information in json format when the
+user closes the application.
+
+The `Storage` API acts as a facade that handles interaction regarding
+storage related components.
 
 Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.
 
 .Storage Interface
 image::storage/StorageInterfaceClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -253,24 +297,47 @@ in `JSON` format, by adapting each feature component into
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::storage/HistoryManagerStorageClassDiagram.png[]
+image::storage/HistoryManagerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableCcaTracker`
-image::storage/CcaTrackerStorageClassDiagram.png[]
+image::storage/CcaTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializableCoursePlanner`
-image::storage/CoursePlannerStorageClassDiagram.png[]
+image::storage/CoursePlannerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableFinanceTracker`
-image::storage/FinanceTrackerStorageClassDiagram.png[]
+image::storage/FinanceTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializablePlanner`
-image::storage/PlannerStorageClassDiagram.png[]
+image::storage/PlannerStorageClassDiagram.png[600,400]
+
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
 
 [[Design-Commons]]
-=== Common classes
+=== Commons Component
 
-Classes used by multiple components are in the `seedu.jarvis.commons` package.
+The `commons` package represents a set of common classes and utilities used by
+the multiple components throughout Jarvis.
+
+Some examples are:
+
+* link:{repourl}/blob/master/src/main/java/seedu/jarvis/commons/util/JsonUtil.java[`JsonUtil`]
++
+A class for formatting, reading and writing of `.json` files, heavily used by
+the <<Design-Storage, `Storage`>> component.
+
+* link:{repourl}/blob/master/src/main/java/seedu/jarvis/commons/core/Messages.java[`Messages`]
++
+A class that stores generic messages (i.e not specific to a particular feature)
+to be displayed to the user throughout the application.
+
+* link:{repourl}/blob/master/src/main/java/seedu/jarvis/commons/core/LogsCenter.java/[`LogsCenter`]
++
+A class used by many classes for writing and displaying log messages in Jarvis'
+log file.
+
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/commons/[[Package\]]
 
 == Implementation
 

@@ -34,7 +34,7 @@ Package Planner <<Rectangle>> {
 Planner *--> "1" TaskList
 TaskList o--> "*" Task
 
-Package CoursePlanner <<Rectangle>> {
+Package Course <<Rectangle>> {
     Class CoursePlanner
     Class UniqueCourseList
     Class Course
@@ -60,7 +60,7 @@ Course *--> "0..1" FulfillRequirements
 UniqueCourseList o--> "*" Course
 CoursePlanner *--> "1" UniqueCourseList
 
-Package CcaTracker {
+Package Cca {
     Class CcaTracker
     Class CcaList
     Class Cca
@@ -77,7 +77,7 @@ Cca *--> "1" CcaType
 Cca *--> "1" EquipmentList
 EquipmentList o--> "*" Equipment
 
-Package FinanceTracker <<Rectangle>> {
+Package Finance <<Rectangle>> {
     Class FinanceTracker
     Class PurchaseList
     Class InstallmentList
@@ -100,7 +100,7 @@ InstallmentList o--> "*" Installment
 Installment *--> "1" InstallmentDescription
 Installment *--> "1" InstallmentMoneyPaid
 
-Package HistoryManager <<Rectangle>> {
+Package History <<Rectangle>> {
     Class HistoryManager
     Class CommandDeque
     abstract Class Command

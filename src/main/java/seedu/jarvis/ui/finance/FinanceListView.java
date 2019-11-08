@@ -52,10 +52,11 @@ public class FinanceListView extends View<AnchorPane> {
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
 
         spentAmount.setText("$" + model.getTotalSpending() + "");
-        if (model.calculateRemainingAmount() > 0) {
-            remainingAmount.setText("$" + model.getRemainingAmount() + "");
+
+        if (!model.getMonthlyLimit().isPresent()) {
+            remainingAmount.setText("try: set-limit");
         } else {
-            remainingAmount.setText("try 'set-limit'!");
+            remainingAmount.setText("$" + model.getRemainingAmount() + "");
         }
 
         purchaseListHeader.setText("What I bought this month...");

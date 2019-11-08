@@ -218,11 +218,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void listSpending() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public double calculateTotalSpending() {
         throw new AssertionError("This method should not be called.");
     }
@@ -254,6 +249,11 @@ public class ModelStub implements Model {
 
     @Override
     public void addCca(Cca cca) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addCca(Index targetIndex, Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
 

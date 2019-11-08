@@ -3,6 +3,8 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFFF
 
 Package Command <<Rectangle>> {
     Class "{abstract}\nCommand" as Command
@@ -14,11 +16,16 @@ UndoCommand -up-|> Command
 RedoCommand -up-|> Command
 
 class Command {
-    void execute(model)
+    +execute(Model): void {abstract}
+    +executeInverse(Model): void {abstract}
 }
 
 class RedoCommand {
-int numberOfTries
+    -numberOfTries: int
+}
+
+class UndoCommand {
+    -numberOfTries: int
 }
 
 @enduml

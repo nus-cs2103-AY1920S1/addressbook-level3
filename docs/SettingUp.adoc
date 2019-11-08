@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
+// TODO update this file
+
 == Prerequisites
 
 . *JDK `11`* or above
@@ -37,7 +39,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 == Verifying the setup
 
-. Run the `seedu.address.Main` and try a few commands
+. Run the `seedu.jarvis.Main` and try a few commands
 . <<Testing#,Run the tests>> to ensure they all pass.
 
 == Configurations to do before writing code
