@@ -1,7 +1,7 @@
 package dukecooks.logic.commands;
 
 /**
- * Deletes a recipe identified using it's displayed index from Duke Cooks.
+ * Deletes the identified using it's displayed index from DukeCooks.
  */
 public abstract class DeleteCommand extends Command {
 
