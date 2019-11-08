@@ -14,7 +14,7 @@ public class DeleteActivityEvent implements Event {
     private final Index index;
     private final Activity deletedActivity;
 
-    public DeleteActivityEvent(Index index, Activity deletedActivity){
+    public DeleteActivityEvent(Index index, Activity deletedActivity) {
         this.index = index;
         this.deletedActivity = deletedActivity;
     }

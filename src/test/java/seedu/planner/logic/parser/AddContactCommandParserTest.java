@@ -50,34 +50,34 @@ public class AddContactCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + " " + AddContactCommand.SECOND_COMMAND_WORD
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContact));
+                new AddContactCommand(expectedContact, false));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_AMY + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContact));
+                new AddContactCommand(expectedContact, false));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_BOB
                 + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContact));
+                new AddContactCommand(expectedContact, false));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContact));
+                new AddContactCommand(expectedContact, false));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContact));
+                new AddContactCommand(expectedContact, false));
 
         // multiple tags - all accepted
         Contact expectedContactMultipleTags = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_BOB
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddContactCommand(expectedContactMultipleTags));
+                new AddContactCommand(expectedContactMultipleTags, false));
     }
 
     @Test
@@ -85,7 +85,8 @@ public class AddContactCommandParserTest {
         // zero tags
         Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         assertParseSuccess(parser, " " + AddContactCommand.SECOND_COMMAND_WORD + NAME_DESC_AMY
-                        + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddContactCommand(expectedContact));
+                        + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
+                    new AddContactCommand(expectedContact, false));
     }
 
     @Test

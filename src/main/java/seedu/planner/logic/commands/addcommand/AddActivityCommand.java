@@ -17,7 +17,6 @@ import java.util.Arrays;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
-import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -129,8 +128,8 @@ public class AddActivityCommand extends AddCommand {
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd),
                 new ResultInformation[]{
-                        new ResultInformation(
-                                toAdd,
+                    new ResultInformation(
+                            toAdd,
                                 findIndexOfActivity(model, toAdd),
                                 String.format(MESSAGE_SUCCESS, "")
                         )

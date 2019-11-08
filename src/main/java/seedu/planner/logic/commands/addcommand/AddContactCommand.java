@@ -15,8 +15,6 @@ import java.util.Arrays;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
-import seedu.planner.logic.commands.Command;
-import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;

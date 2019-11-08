@@ -9,7 +9,6 @@ import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
-import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -100,8 +99,8 @@ public class DeleteActivityCommand extends DeleteCommand {
         return new CommandResult(
                 String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
                 new ResultInformation[]{
-                        new ResultInformation(
-                                activityToDelete,
+                    new ResultInformation(
+                            activityToDelete,
                                 indexOfActivity,
                                 String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
                         )

@@ -102,20 +102,20 @@ public class AddAccommodationCommand extends AddCommand {
             accommodationAdded = toAdd;
         }
 
-         if (index == null && !isUndoRedo) {
-             //Not due to undo or redo method
-             AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded, isUndoRedo);
-             Event addAccommodationEvent = EventFactory.parse(newCommand, model);
-             CommandHistory.addToUndoStack(addAccommodationEvent);
-             CommandHistory.clearRedoStack();
-             model.addAccommodation(accommodationAdded);
-         } else if (isUndoRedo && index != null) {
-             //Due to undo method DeleteAccommodationEvent
-             model.addAccommodationAtIndex(index, accommodationAdded);
-         } else {
-             //Due to redo method AddAccommodationEvent
-             model.addAccommodation(accommodationAdded);
-         }
+        if (index == null && !isUndoRedo) {
+            //Not due to undo or redo method
+            AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded, isUndoRedo);
+            Event addAccommodationEvent = EventFactory.parse(newCommand, model);
+            CommandHistory.addToUndoStack(addAccommodationEvent);
+            CommandHistory.clearRedoStack();
+            model.addAccommodation(accommodationAdded);
+        } else if (isUndoRedo && index != null) {
+            //Due to undo method DeleteAccommodationEvent
+            model.addAccommodationAtIndex(index, accommodationAdded);
+        } else {
+            //Due to redo method AddAccommodationEvent
+            model.addAccommodation(accommodationAdded);
+        }
 
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, toAdd),

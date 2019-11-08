@@ -137,7 +137,7 @@ public class EditActivityCommand extends EditCommand {
 
         Activity editedActivity;
         editedActivity = (activity == null) ? createEditedActivity(activityToEdit, editActivityDescriptor, model)
-        : activity;
+                : activity;
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);

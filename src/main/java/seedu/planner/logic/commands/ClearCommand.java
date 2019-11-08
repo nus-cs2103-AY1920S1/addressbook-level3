@@ -2,7 +2,6 @@ package seedu.planner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-
 import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
