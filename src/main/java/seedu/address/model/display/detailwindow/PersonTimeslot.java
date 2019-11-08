@@ -14,6 +14,8 @@ public class PersonTimeslot {
     private String color;
     private String eventName;
 
+    private String displayString;
+
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -30,12 +32,17 @@ public class PersonTimeslot {
                           ClosestCommonLocationData locationData) {
         this.id = 0;
         this.eventName = eventName;
+        this.displayString = "-";
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.venue = venue;
         this.color = color;
         this.locationData = locationData;
+    }
+
+    public String getDisplayString() {
+        return displayString;
     }
 
     public String getEventName() {
@@ -60,6 +67,7 @@ public class PersonTimeslot {
 
     public void setId(int id) {
         this.id = id;
+        this.displayString = Integer.toString(id);
     }
 
     public int getId() {

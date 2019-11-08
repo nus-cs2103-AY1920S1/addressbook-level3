@@ -44,7 +44,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
                 groupName.toString(), dateToShow);
         //Required to set the free time schedule first before generating the schedule.
         this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
-        this.scheduleView.generateGroupSchedule();
+        this.scheduleView.generateSchedule();
     }
 
     @Override

@@ -96,7 +96,7 @@ public class DisplayModelManager {
             ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
             PersonSchedule personSchedule = generatePersonSchedule(name.toString(),
-                    time, timeBook.getPersonList().findPerson(name), Role.emptyRole());
+                    time, timeBook.getPersonList().findPerson(name), Role.emptyRole(), null);
             personSchedules.add(personSchedule);
             ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);
@@ -117,7 +117,7 @@ public class DisplayModelManager {
         User user = timeBook.getPersonList().getUser();
         ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
         PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                time, user, Role.emptyRole());
+                time, user, Role.emptyRole(), null);
         personSchedules.add(personSchedule);
 
         ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
@@ -152,8 +152,12 @@ public class DisplayModelManager {
             Role userRole = group.getUserRole();
 
             //Add user schedule.
-            personSchedules.add(generatePersonSchedule(groupName.toString(),
-                    now, user, userRole));
+            personSchedules.add(
+                    generatePersonSchedule(groupName.toString(),
+                            now,
+                            user,
+                            userRole,
+                            ColorGenerator.generateColor(0)));
 
             //Add other schedules.
             for (int i = 0; i < personIds.size(); i++) {
@@ -164,7 +168,9 @@ public class DisplayModelManager {
                 }
                 PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
                         now,
-                        person, role);
+                        person,
+                        role,
+                        ColorGenerator.generateColor(i + 1));
                 personSchedules.add(personSchedule);
             }
             for (int h = 0; h < 4; h++) {
@@ -248,16 +254,22 @@ public class DisplayModelManager {
      * @param role         role of the person
      * @return PersonSchedule
      */
-    private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
-        WeekSchedule weekZeroSchedule = getWeekScheduleOf(now, person);
-        WeekSchedule weekOneSchedule = getWeekScheduleOf(now.plusDays(7), person);
-        WeekSchedule weekTwoSchedule = getWeekScheduleOf(now.plusDays(14), person);
-        WeekSchedule weekThreeSchedule = getWeekScheduleOf(now.plusDays(21), person);
+    private PersonSchedule generatePersonSchedule(String scheduleName,
+                                                  LocalDateTime now,
+                                                  Person person,
+                                                  Role role,
+                                                  String color) {
+
+        WeekSchedule weekZeroSchedule = getWeekScheduleOf(now, person, color);
+        WeekSchedule weekOneSchedule = getWeekScheduleOf(now.plusDays(7), person, color);
+        WeekSchedule weekTwoSchedule = getWeekScheduleOf(now.plusDays(14), person, color);
+        WeekSchedule weekThreeSchedule = getWeekScheduleOf(now.plusDays(21), person, color);
         return new PersonSchedule(scheduleName, new PersonDisplay(person, role), new MonthSchedule(weekZeroSchedule,
                 weekOneSchedule, weekTwoSchedule, weekThreeSchedule));
     }
 
-    private WeekSchedule getWeekScheduleOf(LocalDateTime date, Person person) {
+    private WeekSchedule getWeekScheduleOf(LocalDateTime date, Person person, String color) {
+
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay = new HashMap<>();
 
         Schedule personSchedule = person.getSchedule();
@@ -271,7 +283,10 @@ public class DisplayModelManager {
             Event currentEvent = events.get(e);
             String eventName = currentEvent.getEventName();
 
-            String color = ColorGenerator.generateColor(e);
+            String selectedColor = color;
+            if (selectedColor == null) {
+                selectedColor = ColorGenerator.generateColor(e);
+            }
 
             ArrayList<Timeslot> timeslots = currentEvent.getTimeslots();
             for (int t = 0; t < timeslots.size(); t++) {
@@ -298,7 +313,7 @@ public class DisplayModelManager {
                             currentStartTime.toLocalTime(),
                             currentEndTime.toLocalTime().isAfter(endTime) ? endTime : currentEndTime.toLocalTime(),
                             currentVenue,
-                            color,
+                            selectedColor,
                             gmapsModelManager.closestLocationData(
                                     new ArrayList<>(List.of(currentVenue.getVenue())))
                     );

@@ -36,7 +36,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
         this.scheduleView = new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)),
                 List.of(color), personDisplay.getName().fullName, dateToShow);
-        this.scheduleView.generatePersonSchedule();
+        this.scheduleView.generateSchedule();
     }
 
     @Override
