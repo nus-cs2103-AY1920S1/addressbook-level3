@@ -1,10 +1,7 @@
 package seedu.address.model.pdfmanager;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
@@ -13,12 +10,11 @@ import com.itextpdf.layout.property.AreaBreakType;
 
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 
 /**
  * A outer layout that encapsulates all the layouts used.
  */
-public class PdfWrapperLayout extends PdfLayout {
+public class PdfWrapperLayout {
 
     private Document document;
 
@@ -32,15 +28,9 @@ public class PdfWrapperLayout extends PdfLayout {
      * @param tasks task list.
      * @param dateOfDelivery date of delivery.
      */
-    public void populateDocumentWithTasks(List<Task> tasks, LocalDate dateOfDelivery) {
-        List<Task> tasksOnDate = filterTasksBasedOnDate(tasks, dateOfDelivery);
-        List<Task> sortedTasks = sortTaskByEventTime(tasksOnDate);
-
-        List<Driver> driversOnDate = extractDriversFromTaskList(sortedTasks);
-        List<Driver> sortedDrivers = sortDriverByName(driversOnDate);
-
+    public void populateDocumentWithTasks(List<Task> tasks, List<Driver> drivers, LocalDate dateOfDelivery) {
         //initialise outerlayout
-        insertDriverTasksIntoDocument(sortedDrivers, sortedTasks, dateOfDelivery);
+        insertDriverTasksIntoDocument(drivers, tasks, dateOfDelivery);
     }
 
     /**
@@ -96,62 +86,4 @@ public class PdfWrapperLayout extends PdfLayout {
         }
     }
 
-    /**
-     * Sorts driver list accordingly to driver's name in ascending order.
-     */
-    private List<Driver> sortDriverByName(List<Driver> drivers) {
-        Comparator<Driver> driverComparator = Comparator.comparing(d -> d.getName().toString());
-        drivers.sort(driverComparator);
-
-        return drivers;
-    }
-
-    /**
-     * Creates a driver list out of task list.
-     * The driver list contains the drivers working on the specific date.
-     *
-     * @param tasks task list for a specific date.
-     * @return driver list that contains only drivers that is working on the specific date.
-     */
-    private List<Driver> extractDriversFromTaskList(List<Task> tasks) {
-        List<Driver> driverList = new ArrayList<>();
-        for (Task task : tasks) {
-            Driver driver = task.getDriver().get();
-            if (!driverList.contains(driver)) {
-                driverList.add(driver);
-            }
-        }
-
-        return driverList;
-    }
-
-    /**
-     * Filter task list to get tasks on a specific date. Only account for ONGOING and COMPLETE tasks.
-     * INCOMPLETE tasks are not needed as they are not assigned to any drivers.
-     *
-     * @param tasks task list.
-     * @param date  date of delivery.
-     * @return filtered task list that contains only tasks on a specific date and are ONGOING or COMPLETE.
-     */
-    private List<Task> filterTasksBasedOnDate(List<Task> tasks, LocalDate date) {
-        List<Task> filteredTasks = tasks
-                .stream()
-                .filter(task -> task.getDate().equals(date)
-                        && !task.getStatus().equals(TaskStatus.INCOMPLETE))
-                .collect(Collectors.toList());
-
-        return filteredTasks;
-    }
-
-    /**
-     * Sort tasks by ascending time of delivery.
-     * All the tasks must be assigned tasks with eventTime.
-     * Uses {@code filterTasksBasedOnDate} to get only assigned tasks for a specific date.
-     */
-    private List<Task> sortTaskByEventTime(List<Task> tasksToSort) {
-        //list has been filtered by assigned tasks only so eventTime must exist.
-        Comparator<Task> taskComparator = Comparator.comparing(t -> t.getEventTime().get());
-        tasksToSort.sort(taskComparator);
-        return tasksToSort;
-    }
 }

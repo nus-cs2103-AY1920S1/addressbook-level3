@@ -72,6 +72,10 @@ public class IdManager {
         lastDriverId++;
     }
 
+    public boolean isStartAfresh() {
+        return getLastTaskId() == 0 && getLastCustomerId() == 0 && getLastDriverId() == 0;
+    }
+
     /**
      * Resets all the last id counters for all managers to zero.
      */

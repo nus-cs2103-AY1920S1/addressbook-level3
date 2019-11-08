@@ -1,0 +1,28 @@
+@startuml
+start
+:User executes `savepdf` command;
+
+:Checks if there is tasks
+assigned for the day;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([has tasks assigned for the day])
+    if () then ([file path does
+    not exists])
+        :Create file path;
+    else ([else])
+    endif
+    :Generates a task summary
+    in PDF format;
+    :Save PDF document
+    in the file path;
+else ([else])
+    :Notify user that no tasks
+    are assigned for the day;
+    stop
+endif
+
+stop
+@enduml

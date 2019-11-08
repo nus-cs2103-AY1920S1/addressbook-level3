@@ -16,6 +16,10 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_CUSTOMERS_LISTED_OVERVIEW = "%1$d customers listed!";
     public static final String MESSAGE_DRIVERS_LISTED_OVERVIEW = "%1$d drivers listed!";
+
+    public static final String MESSAGE_DATA_START_NEW = "Starting with a empty manager. \n"
+            + "If you had data previously, this means that your data file is corrupted";
+
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled. ";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task is completed. ";

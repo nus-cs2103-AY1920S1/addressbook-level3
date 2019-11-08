@@ -7,7 +7,7 @@ import com.itextpdf.layout.element.Paragraph;
 /**
  * Represents the page header details in the PDF document.
  */
-public class PdfPageHeaderLayout extends PdfLayout {
+public class PdfPageHeaderLayout {
 
     private Document document;
 
@@ -24,7 +24,7 @@ public class PdfPageHeaderLayout extends PdfLayout {
     }
 
     private Paragraph getPageHeader() {
-        return createParagraph("Deliveria");
+        return PdfLayout.createParagraph("Deliveria");
     }
 
     /**

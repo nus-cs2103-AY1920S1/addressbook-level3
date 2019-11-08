@@ -12,7 +12,7 @@ import seedu.address.model.person.Phone;
 /**
  * Represents a driver's information in a table format in the PDF document.
  */
-public class PdfDriverLayout extends PdfLayout {
+public class PdfDriverLayout {
 
     private Driver driver;
     private Document document;
@@ -42,21 +42,21 @@ public class PdfDriverLayout extends PdfLayout {
 
     private Paragraph getDriverIdCell(int id) {
         String idStr = "Driver ID: " + id;
-        return createParagraph(idStr);
+        return PdfLayout.createParagraph(idStr);
     }
 
     private Paragraph getNameCell(Name name) {
         String nameStr = "Driver: " + name;
-        return createParagraph(nameStr);
+        return PdfLayout.createParagraph(nameStr);
     }
 
     private Paragraph getPhoneNumberCell(Phone phone) {
         String phoneStr = "Contact No: " + phone;
-        return createParagraph(phoneStr);
+        return PdfLayout.createParagraph(phoneStr);
     }
 
     private Paragraph getDateOfDelivery(LocalDate date) {
         String dateOfDelivery = "Date of Delivery: " + date;
-        return createParagraph(dateOfDelivery);
+        return PdfLayout.createParagraph(dateOfDelivery);
     }
 }

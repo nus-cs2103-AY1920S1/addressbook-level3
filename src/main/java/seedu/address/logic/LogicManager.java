@@ -97,6 +97,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public boolean isStartAfresh() {
+        return model.isStartAfresh();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

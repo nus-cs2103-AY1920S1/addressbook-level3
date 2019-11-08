@@ -16,7 +16,7 @@ import seedu.address.model.task.TaskStatus;
 /**
  * Represents a task's information in a table format in the PDF document.
  */
-public class PdfTaskLayout extends PdfLayout {
+public class PdfTaskLayout {
 
     private static boolean toggleColor = false;
 
@@ -42,8 +42,8 @@ public class PdfTaskLayout extends PdfLayout {
         assert optionalEventTime.isPresent();
         Cell eventTimeCell = getEventTimeCell(optionalEventTime.get());
 
-        taskTable.addCell(alignCellMiddle(eventTimeCell));
-        taskTable.addCell(alignCellMiddle(taskIdCell));
+        taskTable.addCell(PdfLayout.alignCellMiddle(eventTimeCell));
+        taskTable.addCell(PdfLayout.alignCellMiddle(taskIdCell));
         taskTable.addCell(descriptionCell);
         taskTable.addCell(statusCell);
 
@@ -62,17 +62,17 @@ public class PdfTaskLayout extends PdfLayout {
 
     public Cell getTaskIdCell(int taskId) {
         String idStr = "Task ID\n" + taskId;
-        return createCell(1, 1, idStr);
+        return PdfLayout.createCell(1, 1, idStr);
     }
 
     public Cell getDescriptionCell(Description description) {
         String descriptionStr = "Goods\n" + description;
-        return createCell(1, 5, descriptionStr);
+        return PdfLayout.createCell(1, 5, descriptionStr);
     }
 
     public Cell getStatusCell(TaskStatus status) {
         String statusStr = "Status\n" + status;
-        return createCell(1, 2, statusStr)
+        return PdfLayout.createCell(1, 2, statusStr)
                 .setFontColor((status.equals(TaskStatus.ON_GOING)
                         ? ColorConstants.RED
                         : ColorConstants.GREEN));
@@ -80,7 +80,7 @@ public class PdfTaskLayout extends PdfLayout {
 
     public Cell getEventTimeCell(EventTime eventTime) {
         String eventTimeStr = eventTime.toString();
-        return createCell(2, 2, eventTimeStr);
+        return PdfLayout.createCell(2, 2, eventTimeStr);
     }
 
     /**

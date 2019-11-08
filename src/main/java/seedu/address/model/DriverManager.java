@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -58,6 +60,14 @@ public class DriverManager extends EntityManager<Driver> {
                 .filter(driver -> driver.getId() == driverId)
                 .findFirst()
                 .orElseThrow(PersonNotFoundException::new);
+    }
+
+    /**
+     * Sorts driver list accordingly to the comparator provided.
+     */
+    public static List<Driver> getSortedDriverList(List<Driver> drivers, Comparator<Driver> comparator) {
+        drivers.sort(comparator);
+        return drivers;
     }
 
     @Override

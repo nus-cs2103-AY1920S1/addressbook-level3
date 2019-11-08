@@ -48,8 +48,10 @@ public class SavePdfCommand extends Command {
 
         LocalDate dateOfDelivery = date.get();
 
+        String filePathWithDate = String.format(FILE_PATH_FOR_PDF, dateOfDelivery);
+
         try {
-            model.saveDriverTaskPdf(FILE_PATH_FOR_PDF, dateOfDelivery);
+            model.saveDriverTaskPdf(filePathWithDate, dateOfDelivery);
         } catch (IOException | PdfNoTaskToDisplayException e) {
             throw new CommandException(e.getMessage());
         }

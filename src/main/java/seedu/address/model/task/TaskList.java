@@ -3,7 +3,9 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -114,18 +117,37 @@ public class TaskList {
         return tasksUnmodifiable;
     }
 
-    public List<Task> getSortedList(Comparator<Task> comparator) {
-        return tasks
-                    .stream()
-                    .sorted(comparator)
-                    .collect(Collectors.toList());
+    public static List<Task> getSortedList(List<Task> tasks, Comparator<Task> comparator) {
+        tasks.sort(comparator);
+        return tasks;
     }
 
-    public List<Task> getFilteredList(Predicate<Task> predicate) {
+    public static List<Task> getFilteredList(List<Task> tasks, Predicate<Task> predicate) {
         return tasks
                     .stream()
                     .filter(predicate)
                     .collect(Collectors.toList());
+    }
+
+    /**
+     * Creates a driver list out of task list.
+     * NOTE: task list must be filtered by assigned tasks so that all the tasks contains a driver.
+     *
+     * @param assignedTasks list of task that is assigned to drivers.
+     * @return driver list that contains only drivers with assigned tasks.
+     */
+    public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {
+        HashSet<Driver> driverSet = new HashSet<>();
+        for (Task task : assignedTasks) {
+            assert task.getDriver().isPresent();
+
+            Driver driver = task.getDriver().get();
+            driverSet.add(driver);
+        }
+
+        List<Driver> driverList = new ArrayList<>(driverSet);
+
+        return driverList;
     }
 
     public Iterator<Task> getIterator() {

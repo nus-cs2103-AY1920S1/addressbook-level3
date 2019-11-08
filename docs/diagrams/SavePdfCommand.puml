@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SavePdfCommandParser" as SavePdfCommandParser LOGIC_COLOR
+participant "p:SavePdfCommand" as SavePdfCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"savepdf 5/11/2019")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(\n"savepdf 5/11/2019")
+activate AddressBookParser
+
+create SavePdfCommandParser
+AddressBookParser -> SavePdfCommandParser : SavePdfCommandParser()
+activate SavePdfCommandParser
+
+SavePdfCommandParser --> AddressBookParser
+deactivate SavePdfCommandParser
+
+AddressBookParser -> SavePdfCommandParser : parse("savepdf 5/11/2019")
+activate SavePdfCommandParser
+
+create SavePdfCommand
+SavePdfCommandParser -> SavePdfCommand : SavePdfCommand(5/11/2019)
+activate SavePdfCommand
+
+SavePdfCommand --> SavePdfCommandParser : p
+deactivate SavePdfCommand
+
+SavePdfCommandParser --> AddressBookParser : p
+deactivate SavePdfCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SavePdfCommandParser -[hidden]-> AddressBookParser
+destroy SavePdfCommandParser
+
+AddressBookParser --> LogicManager : p
+deactivate AddressBookParser
+
+LogicManager -> SavePdfCommand : execute()
+activate SavePdfCommand
+
+
+note right : FILEPATH*: "./data/DeliveryTasks 2019-11-05.pdf"
+SavePdfCommand -> Model : saveDriverTaskPdf(FILEPATH*, 5/11/2019)
+activate Model
+
+Model --> SavePdfCommand
+deactivate Model
+
+create CommandResult
+SavePdfCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SavePdfCommand
+deactivate CommandResult
+
+SavePdfCommand --> LogicManager : result
+deactivate SavePdfCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

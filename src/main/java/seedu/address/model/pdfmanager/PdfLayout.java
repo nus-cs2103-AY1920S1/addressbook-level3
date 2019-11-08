@@ -7,13 +7,9 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 
 /**
- * Represents a general layout which consists of functions to aid creation and formatting of the content in a layout.
+ * Consists of functions to aid creation and formatting of the content in a layout.
  */
 public class PdfLayout {
-
-    public PdfLayout() {
-
-    }
 
     /**
      * Creates a {@code Cell} object with the message and the measurement specified.
@@ -23,7 +19,7 @@ public class PdfLayout {
      * @param message message to be displayed in the cell.
      * @return populated cell with the message.
      */
-    public Cell createCell(int rowSpan, int colSpan, String message) {
+    public static Cell createCell(int rowSpan, int colSpan, String message) {
         Cell newCell = new Cell(rowSpan, colSpan).add(new Paragraph(message));
         Cell designedCell = alignCellMiddle(newCell);
         return designedCell;
@@ -34,7 +30,7 @@ public class PdfLayout {
      *
      * @param str words to be insert.
      */
-    public Paragraph createParagraph(String str) {
+    public static Paragraph createParagraph(String str) {
         Paragraph paragraph = new Paragraph(str);
         return paragraph;
     }
@@ -44,7 +40,7 @@ public class PdfLayout {
      *
      * @param paragraph a block of words.
      */
-    public Paragraph alignParagraphMiddle(Paragraph paragraph) {
+    public static Paragraph alignParagraphMiddle(Paragraph paragraph) {
         paragraph.setTextAlignment(TextAlignment.CENTER);
         paragraph.setVerticalAlignment(VerticalAlignment.MIDDLE);
         paragraph.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -57,7 +53,7 @@ public class PdfLayout {
      *
      * @param cell Cell of a table in the PDF document.
      */
-    public Cell alignCellMiddle(Cell cell) {
+    public static Cell alignCellMiddle(Cell cell) {
         cell.setTextAlignment(TextAlignment.CENTER);
         cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
         cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
@@ -71,7 +67,7 @@ public class PdfLayout {
      *
      * @param cell Cell of a table in the PDF document.
      */
-    public Cell boldCell(Cell cell) {
+    public static Cell boldCell(Cell cell) {
         cell.setBold();
         return cell;
     }
@@ -81,7 +77,7 @@ public class PdfLayout {
      *
      * @param cell Cell of a table in the PDF document.
      */
-    public Cell insertPadding(Cell cell) {
+    public static Cell insertPadding(Cell cell) {
         cell.setPadding(20);
         return cell;
     }

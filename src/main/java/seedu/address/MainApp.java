@@ -89,15 +89,15 @@ public class MainApp extends Application {
         try {
             centralManagerOptional = storage.readManager();
             if (!centralManagerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample Central Manager");
             }
 
             initialManagerData = centralManagerOptional.orElseGet(SampleDataUtil::getSampleCentralManager);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Central Manager");
             initialManagerData = new CentralManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Central Manager");
             initialManagerData = new CentralManager();
         }
 

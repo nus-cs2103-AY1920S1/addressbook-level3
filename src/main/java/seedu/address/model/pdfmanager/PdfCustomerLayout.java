@@ -11,7 +11,7 @@ import seedu.address.model.person.Phone;
 /**
  * Represents a customer's information in a table format in the PDF document.
  */
-public class PdfCustomerLayout extends PdfLayout {
+public class PdfCustomerLayout {
 
     private Customer customer;
 
@@ -42,22 +42,22 @@ public class PdfCustomerLayout extends PdfLayout {
 
     private Cell getCustomerIdCell(int customerId) {
         String idStr = "Customer ID \n" + customerId;
-        return createCell(1, 2, idStr);
+        return PdfLayout.createCell(1, 2, idStr);
     }
 
     private Cell getNameCell(Name name) {
         String nameStr = "Customer\n" + name;
-        return createCell(1, 6, nameStr);
+        return PdfLayout.createCell(1, 6, nameStr);
     }
 
     private Cell getPhoneNumberCell(Phone phone) {
         String phoneNumberStr = "Contact No \n" + phone;
-        return createCell(1, 3, phoneNumberStr);
+        return PdfLayout.createCell(1, 3, phoneNumberStr);
     }
 
     private Cell getAddressCell(Address address) {
         String addressStr = "Address: " + address;
-        return createCell(1, 10, addressStr);
+        return PdfLayout.createCell(1, 10, addressStr);
     }
 
     private Table designTable(Table customerTable) {

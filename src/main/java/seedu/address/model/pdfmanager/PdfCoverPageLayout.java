@@ -9,7 +9,7 @@ import com.itextpdf.layout.element.Text;
 /**
  * Represents the cover page in the PDF document.
  */
-public class PdfCoverPageLayout extends PdfLayout {
+public class PdfCoverPageLayout {
 
     private Document document;
 
@@ -26,8 +26,8 @@ public class PdfCoverPageLayout extends PdfLayout {
     public void addCoverPage(String title, String subTitle) {
         Paragraph titleParagraph = createTitle(title);
         Paragraph subTitleParagraph = createSubTitle(subTitle);
-        document.add(alignParagraphMiddle(titleParagraph));
-        document.add(alignParagraphMiddle(subTitleParagraph));
+        document.add(PdfLayout.alignParagraphMiddle(titleParagraph));
+        document.add(PdfLayout.alignParagraphMiddle(subTitleParagraph));
 
         Table sampleTable = createSampleTable();
         document.add(sampleTable);

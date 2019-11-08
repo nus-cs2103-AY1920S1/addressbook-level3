@@ -201,6 +201,101 @@ Similarly, calling `free` command will:
 // end::task-scheduling[]
 
 
+// tag::task-feature[]
+=== Task Feature (E.g. Add Delivery Task)
+==== Implementation
+The *Add Delivery Task* feature adds a new task into a task list. +
+It uses the `AddTaskCommand`, which extends `Command`, to add a `Task` into the `TaskManager`.
+`AddTaskCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddTaskCommand` to execute.
+'AddTaskCommand' requires the following fields: `Task`, `customerId`.
+The attributes of Task is as follows:
+
+.Class Diagram of Task class.
+image::Task.png[]
+
+As seen in the above class diagram, `driver` and `eventTime` are optional fields that are not mandatory when adding a task.
+They will be assigned subsequently using `assign` command. (Refer to Assign feature)
+The mandatory fields for users are: 'description', 'date' and 'Customer'.
+After the validation is completed, `AddTaskCommand` will fetch `Customer` using the `customerId` through the `CustomerManager`.
+A unique id will also be allocated to the task for differentiation.
+
+The following sequence diagrams show how the add task operation works:
+
+.Sequence Diagram of adding a task.
+image::AddTaskCommand.png[]
+.Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.
+image::ModelInteractWithManagers.png[]
+
+[NOTE]
+The flow of how the task is being accessed and managed as shown above is the same for other task related command
+such as edit task command (`editT`) and delete task command (`del`).
+
+==== Design Considerations
+
+===== Aspect: Coupling of Task and other entities (Driver and Customer)
+
+* **Alternative 1 (current choice):** Task class contains Driver and Customer classes as attributes.
+** Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.
+** Cons: Task will have to depend on Driver and Customer. Decreases testability.
+* **Alternative 2:** Driver and Customer classes have Task class as attribute.
+** Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)
+** Cons: Having 2 classes depend on Task class. Decreases testability.
+// end::task-feature[]
+
+
+
+// tag:generate-pdf[]
+=== Generate PDF Task Summary Feature
+==== Implementation
+The *generate PDF Task Summary* feature creates a task summary in a user-friendly layout in PDF format for *user reference* and *archive* usage.
+`PdfCreator` class creates and saves the PDF document as well as formatting its layout.
+It is implemented with the help of an external library, https://github.com/itext/itext7[iText7].
+
+[NOTE]
+Regarding iText's license, it can be used for free in situations where you distribute your software for free.
+It is a Affero General Public License (AGPL) library. +
+Information updated as of 6 November 2019.
+For more information, please visit the https://itextpdf.com/en[iText official website].
+
+The following sequence diagram shows how the user command `savepdf` is being executed and handled.
+
+.Sequence Diagram of how PDF task summary is saved.
+image::SavePdfCommand.png[]
+
+NOTE: The lifeline for `SavePdfCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Notice that only the `filepath` and the `date of delivery` is needed when calling `saveDriverTaskPdf`.
+This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the `PdfCreator`.
+The rest of the components, such as fetching of the tasks, will be handled by the `Model` while the formatting will be handled by `PdfCreator`.
+
+The following sequence diagram shows how the model interact with `PdfCreator` to generate the PDF task summary.
+
+.Sequence Diagram of how the model generates the PDF task summary.
+image::GeneratePdfSequenceDiagram.png[]
+
+The `PdfWrapperLayout` provides a outer canvas to encapsulates all the layouts.
+The following layouts are mainly what makes up the task summary:
+
+* `PdfDriverLayout` class - wraps driver details.
+* `PdfCustomerLayout` class - wraps customer details.
+* `PdfTaskLayout` class - wraps task details.
+
+The following activity diagram shows what happens when a user executes the `savepdf` command:
+
+.Activity Diagram of how a PDF task summary is generated.
+image::GeneratePdfActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect:
+
+* **Alternative 1 (current choice)**: Abstract the layout of each part of the task summary.
+** Pros: Encourages reuse and easier to manage and add on.
+** Cons: Harder to implement.
+* **Alternative 2**: Do the whole task summary layout in 1 class.
+** Pros: Easy to implement.
+** Cons: Harder to manage.
+// end::generate-pdf[]
 
 
 
@@ -312,44 +407,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-=== Task Feature (E.g. Add Delivery Task)
-==== Implementation
-The *Add Delivery Task* feature adds a new task into a task list. +
-It uses the `AddTaskCommand`, which extends `Command`, to add a `Task` into the `TaskManager`.
-`AddTaskCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddTaskCommand` to execute.
-'AddTaskCommand' requires the following fields: `Task`, `customerId`.
-The attributes of Task is as follows:
-
-.Class Diagram of Task class.
-image::Task.png[]
-
-As seen in the above class diagram, `driver` and `eventTime` are optional fields that are not mandatory when adding a task.
-They will be assigned subsequently using `assign` command. (Refer to Assign feature)
-The mandatory fields for users are: 'description', 'date' and 'Customer'.
-After the validation is completed, `AddTaskCommand` will fetch `Customer` using the `customerId` through the `CustomerManager`.
-A unique id will also be allocated to the task for differentiation.
-
-The following sequence diagrams show how the add task operation works:
-
-.Sequence Diagram of adding a task.
-image::AddTaskCommand.png[]
-.Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.
-image::ModelInteractWithManagers.png[]
-
-[NOTE]
-The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
-
-==== Design Considerations
-
-===== Aspect: Couping of Task and other entities (Driver and Customer)
-
-* **Alternative 1 (current choice):** Task class contains Driver and Customer classes as attributes.
-** Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.
-** Cons: Task will have to depend on Driver and Customer. Decreases testability.
-* **Alternative 2:** Driver and Customer classes have Task class as attribute.
-** Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)
-** Cons: Having 2 classes depend on Task class. Decreases testability.
 
 === Customer Feature (E.g. Add Customer)
 ==== Implementation

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DATA_START_NEW;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -136,6 +138,10 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        if (logic.isStartAfresh()) {
+            resultDisplay.setFeedbackToUser(MESSAGE_DATA_START_NEW);
+        }
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

@@ -4,32 +4,24 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 
 /**
  * Creates and saves details provided into a PDF file.
  */
 public class PdfCreator {
 
-    public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s.";
-
     public final String filePath;
 
     public PdfCreator(String filePath) {
         this.filePath = filePath;
-    }
-
-    public String getFilePathWithDate(LocalDate date) {
-        return String.format(filePath, "(" + date + ")");
     }
 
     /**
@@ -38,25 +30,19 @@ public class PdfCreator {
      * @param tasks tasks list.
      * @param dateOfDelivery date of delivery.
      * @throws IOException if directory used for saving is not found.
-     * @throws PdfNoTaskToDisplayException if there is no assigned task on the day.
      */
-    public void saveDriverTaskPdf(List<Task> tasks, LocalDate dateOfDelivery)
-            throws IOException, PdfNoTaskToDisplayException {
-        if (!hasAssignedTasks(tasks, dateOfDelivery)) {
-            throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, dateOfDelivery));
-        }
-
-        Document document = createDocument(dateOfDelivery);
+    public void saveDriverTaskPdf(List<Task> tasks, List<Driver> drivers, LocalDate dateOfDelivery)
+            throws IOException {
+        Document document = createDocument();
         insertCoverPage(document, dateOfDelivery);
-        insertDriverTask(document, tasks, dateOfDelivery);
+        insertDriverTask(document, tasks, drivers, dateOfDelivery);
 
         //close to save
         document.close();
     }
 
-    private void createFileIfMissing(LocalDate dateOfDelivery) throws IOException {
-        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
-        FileUtil.createIfMissing(Paths.get(filePathWithDate));
+    private void createFileIfMissing() throws IOException {
+        FileUtil.createIfMissing(Paths.get(filePath));
     }
 
     /**
@@ -65,11 +51,10 @@ public class PdfCreator {
      * @return PDF document ready to be filled with content.
      * @throws IOException if file path is not created or found.
      */
-    private Document createDocument(LocalDate dateOfDelivery) throws IOException {
-        createFileIfMissing(dateOfDelivery);
+    private Document createDocument() throws IOException {
+        createFileIfMissing();
 
-        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
-        PdfDocument pdf = new PdfDocument(new PdfWriter(filePathWithDate));
+        PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
         Document newDocument = new Document(pdf);
         newDocument.setMargins(30, 30, 30, 30);
 
@@ -91,26 +76,8 @@ public class PdfCreator {
         coverPageLayout.addCoverPage(title, subTitle);
     }
 
-    private void insertDriverTask(Document document, List<Task> tasks, LocalDate dateOfDelivery)
-            throws PdfNoTaskToDisplayException {
+    private void insertDriverTask(Document document, List<Task> tasks, List<Driver> drivers, LocalDate dateOfDelivery) {
         PdfWrapperLayout wrapperLayout = new PdfWrapperLayout(document);
-        wrapperLayout.populateDocumentWithTasks(tasks, dateOfDelivery);
-    }
-
-    /**
-     * Checks if the task list contains assigned tasks for the specified date.
-     *
-     * @param tasks task list.
-     * @param date date of delivery.
-     * @return true if there are assigned tasks for the specified date.
-     */
-    private boolean hasAssignedTasks(List<Task> tasks, LocalDate date) {
-        List<Task> filteredTasks = tasks
-                .stream()
-                .filter(task -> task.getDate().equals(date)
-                        && !task.getStatus().equals(TaskStatus.INCOMPLETE))
-                .collect(Collectors.toList());
-
-        return (filteredTasks.size() != 0);
+        wrapperLayout.populateDocumentWithTasks(tasks, drivers, dateOfDelivery);
     }
 }

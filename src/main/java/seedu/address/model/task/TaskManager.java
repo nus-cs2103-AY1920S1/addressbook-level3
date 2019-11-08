@@ -1,6 +1,11 @@
 package seedu.address.model.task;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Driver;
 
 
 /**
@@ -52,6 +57,18 @@ public class TaskManager {
 
     public void setTaskList(TaskList taskList) {
         tasks.setTaskList(taskList.getList());
+    }
+
+    public static List<Task> getSortedList(List<Task> tasks, Comparator<Task> comparator) {
+        return TaskList.getSortedList(tasks, comparator);
+    }
+
+    public static List<Task> getFilteredList(List<Task> tasks, Predicate<Task> predicate) {
+        return TaskList.getFilteredList(tasks, predicate);
+    }
+
+    public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {
+        return TaskList.getDriversFromTasks(assignedTasks);
     }
 
     @Override

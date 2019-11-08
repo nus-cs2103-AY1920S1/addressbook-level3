@@ -7,7 +7,7 @@ import com.itextpdf.layout.element.Table;
 /**
  * Represents a table header's details in a table format in the PDF document.
  */
-public class PdfTableHeaderLayout extends PdfLayout {
+public class PdfTableHeaderLayout {
 
     public PdfTableHeaderLayout() {
     }
@@ -21,18 +21,18 @@ public class PdfTableHeaderLayout extends PdfLayout {
         Cell eventTimeTitle = getEventTimeTitle();
         Cell taskTitle = getTaskTitle();
 
-        headerTable.addCell(boldCell(eventTimeTitle));
-        headerTable.addCell(boldCell(taskTitle));
+        headerTable.addCell(PdfLayout.boldCell(eventTimeTitle));
+        headerTable.addCell(PdfLayout.boldCell(taskTitle));
 
         return designTable(headerTable);
     }
 
     private Cell getEventTimeTitle() {
-        return createCell(1, 2, "Duration");
+        return PdfLayout.createCell(1, 2, "Duration");
     }
 
     private Cell getTaskTitle() {
-        return createCell(1, 8, "Task's Details");
+        return PdfLayout.createCell(1, 8, "Task's Details");
     }
 
     private Table designTable(Table headerTable) {
