@@ -43,7 +43,7 @@ public class StatsDisplayUtil {
         stage.setScene(scene);
         stage.getIcons().add(new Image(DeckStatisticsWindow.class.getResourceAsStream(
             "/images/icon_black_resized.png")));
-            stage.setTitle("My statistics for deck: " + deck.getDeckName());
+        stage.setTitle("My statistics for deck: " + deck.getDeckName());
         stage.show();
     }
 
