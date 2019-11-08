@@ -10,11 +10,13 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-Project: `Dukemon` image:address_book_32.png[icon, 30, 36]
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}Project: `Dukemon` image:address_book_32.png[icon, 30, 36]
+{nbsp} {nbsp} {nbsp} {nbsp}
+Github: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon] image:github-mark.png[width=30]
+{nbsp} {nbsp} {nbsp} {nbsp}
+RepoSense: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kohyida1997&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kohyida1997&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Code]
 
-image:github-mark.png[width=30] _Github Repo:_ https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
-
-== image:address_book_32.png[icon, 39, 36] Overview of _Dukemon_
+== image:address_book_32.png[icon, 30, 36] Overview of _Dukemon_
 
 .The Home Page of Dukemon upon initial start-up.
 image::Ui.png[width="500"]
@@ -37,22 +39,17 @@ Below are some *highlights* of the important contributions that I have made to t
 development of *_Dukemon_*.
 
 <<<
-== image:work-icon.png[width=50] Contributions - Summary
+== image:work-icon.png[width=35] Contributions - Summary
 
-=== image:game_timer_icon.png[width="22"] Primary Enhancements - Timer and Hints
+=== image:game_timer_icon.png[width="16"] Primary Enhancements - Timer and Hints
 
-.UI Display of Dukemon in Game Mode, showing the different features I implemented.
-image::UserGuideGameSessionDiagram1.png[width="500"]
+.UI Display of Dukemon in Game Mode, showing the dynamic Timer and Hint features I implemented.
+image::UserGuideGameSessionDiagram1.png[width="450"]
 
-.UI Display of Dukemon in Game Mode, showing how Timer and Hint components are updated dynamically in real time.
-image::UserGuideGameSessionDiagram2.png[width="500"]
-
-<<<
 * *Added a Timer and automatic Hint feature*
 
 ** [underline]#_Brief Description_#:
-*** A _live_ text and graphical countdown _Timer_ (region in yellow box above) that shows the User how much time is left.
-*** Based on the time left, _Hints_ (presented in a Hangman style)
+*** A _live_ text and graphical countdown _Timer_ (region in yellow box above) that shows the User how much time is left. Based on the time left, _Hints_ (presented in a Hangman style)
 are also automatically generated and shown to the user (region in blue box above).
 
 ** [underline]#_Justification_#:
@@ -62,20 +59,18 @@ The User is also thus able to access his own performance and capability in a fun
 *** Introducing Hints incrementally is also a conscious design as it is gives the User time to think,
 as opposed to one-shot hints that risk making the game too easy with hints.
 
+<<<
+
 ** [underline]#_Highlights_#:
-*** Implementing this enhancement was challenging as it required *seamless integration* between
+*** Challenging as it required *seamless integration* and *synchronization* between
 the GUI (Graphical User Interface) and internal logical components in *real time*.
 *** Utilized *advanced programming design concepts* such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ to preserve the
-quality and structural integrity of the existing code base.
-*** Researched about the _JavaFX_ framework to ensure proper synchronization, especially for testing and verification.
-*** Integrated external _TestFX_ library to allow for testing of Timer and other components that run on the _JavaFX Application Thread_
-*** Utilized advanced Java concepts and API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` to run tests for _Callbacks_ and
+quality and structural integrity of the existing code base. API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` to run tests for _Callbacks_ and
 the _Timer_ effectively.
+*** Integrated external _TestFX_ library to allow for testing of _Timer_ and other components that run on the _JavaFX Application Thread_.
 
 ** [underline]#_Credits_# _(Framework/Libraries used)_:
-*** https://openjfx.io/[JavaFX 11] (GUI)
-*** https://github.com/TestFX/TestFX[TestFX] (Testing)
-*** https://github.com/junit-team/junit5[JUnit5] (Testing)
+*** https://openjfx.io/[JavaFX 11] (GUI), https://github.com/TestFX/TestFX[TestFX] (Testing), https://github.com/junit-team/junit5[JUnit5] (Testing)
 
 ** [underline]#_Credits_# _(People)_:
 *** Jason (@jascxx) for the bug resolution and implementation of `Cards`.
@@ -83,26 +78,19 @@ the _Timer_ effectively.
 
 
 * *Code contributed*: +
-[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/appmanager[Functional code (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/card/FormattedHint.java[Function code (Hints)]] +
-[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/appmanager[Test code (Timer)]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/card/FormattedHintTest.java[Test code (Hints)]] +
+[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/appmanager[Functional (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/card/FormattedHint.java[Functional (Hints)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/appmanager[Tests (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/card/FormattedHintTest.java[Tests (Hints)]] +
 
-
-<<<
 === image:game_mode_icon.png[width=35] Other Enhancements - Game
 
 * *Implemented and designed the _Game_ logic, UI and Difficulty.*
 
 ** [underline]#_Brief Description_#:
-*** The primary feature of _Dukemon_ is the _Game_ where the User makes guesses for _Words_ based on a _Meaning_ shown.
-*** Different _Difficulty_ modes are available that changes the time allowed per question, and also the number of _Hints_ displayed.
-are also automatically generated and shown to the user (region in blue box above).
+*** The game is a primary feature _Game_ where the User makes guesses for _Words_ based on a _Meaning_ shown. Different _Difficulty_ modes are available that changes the time allowed per question.
 
 * *Code contributed*: +
-[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional code (Game Logic)]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional code (Game Difficulty)]] +
-[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Test code (Game)]]
+[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional(Game Logic)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional (Game Difficulty)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Tests (Game)]] +
 
-
-=== image:documents_icon.png[width=30] Other contributions
+=== image:documents_icon.png[width=23] Other contributions
 
 ** [underline]#_Project management_#:
 *** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
@@ -114,8 +102,6 @@ https://github.com/AY1920S1-CS2103T-T11-2/main/commit/348951bf148ac4c19bfe1f635c
 https://github.com/AY1920S1-CS2103T-T11-2/main/pull/141[#141] https://github.com/AY1920S1-CS2103T-T11-2/main/pull/96/commits/1727566c7058e5f25ba45e98a23ce121b2858bb1[#96]
 *** Researched and implemented about the concept of _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/d88513c8c11c6e10b0852c078db84e8ad507408a#diff-88f06211563ad55170a8a9c11829abf0[#185]
-** [underline]#_Enhancements to existing features_#:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 ** [underline]#_Documentation_#:
 *** Added icons and diagrams to *User Guide* to aid in reading: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/137[#137]
 *** Added upon _Dukemon_ Introduction, Installation process and Quickstart in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
