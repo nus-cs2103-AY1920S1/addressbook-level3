@@ -38,13 +38,4 @@ class CommandBoxTest {
     public void emptyInput_emptyResult(FxRobot robot) {
         FxAssert.verifyThat(commandBox.getCommandTextField(), TextInputControlMatchers.hasText(""));
     }
-
-    /**
-     * @param robot - Will be injected by the test runner.
-     */
-    @Test
-    public void handleCommandEntered_validInput_shouldShowText(FxRobot robot) {
-        robot.write("list");
-        FxAssert.verifyThat(commandBox.getCommandTextField(), TextInputControlMatchers.hasText("list"));
-    }
 }

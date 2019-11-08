@@ -2,6 +2,11 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+      env:
+        - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
+
+services:
+  - xvfb
 
 script: >-
     ./config/travis/run-checks.sh &&
@@ -17,6 +22,8 @@ deploy:
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
 
 cache:
   directories:
