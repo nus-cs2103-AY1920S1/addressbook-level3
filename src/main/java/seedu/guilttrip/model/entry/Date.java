@@ -46,7 +46,13 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("d-MM-uuuu"))
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM-uuuu"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.MM.uuuu"))
-            .appendOptional(DateTimeFormatter.ofPattern("d.MM.uuuu")).toFormatter();
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM"))
+            .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
+            .toFormatter();
 
     private static final DateTimeFormatter INPUTFORMATTERWITHRESOLVER = INPUTFORMATTER
             .withResolverStyle(ResolverStyle.STRICT);

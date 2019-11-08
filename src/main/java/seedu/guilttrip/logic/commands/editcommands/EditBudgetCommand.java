@@ -85,7 +85,7 @@ public class EditBudgetCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_CATEGORY);
         }
 
-        if (entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
+        if (entryToEdit.isSameBudget(editedEntry) && model.hasBudget(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 

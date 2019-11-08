@@ -97,6 +97,24 @@ public class Budget extends Entry {
     }
 
     /**
+     * Returns true if both entries of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
+    public boolean isSameBudget(Budget otherEntry) {
+        if (otherEntry == this) {
+            return true;
+        }
+
+        return otherEntry != null
+                && otherEntry.getCategory().equals(getCategory())
+                && otherEntry.getDesc().equals(getDesc())
+                && otherEntry.getAmount().equals(getAmount())
+                && otherEntry.getTags().equals(getTags())
+                && otherEntry.getDate().equals(getDate())
+                && otherEntry.getPeriod().equals(getPeriod());
+    }
+
+    /**
      * Returns true if both budgets have the same data fields.
      * This defines a stronger notion of equality between two entries.
      */

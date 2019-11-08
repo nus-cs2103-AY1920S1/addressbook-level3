@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser.addcommandparsers;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -40,10 +39,8 @@ public class AddIncomeCommandParser implements Parser<AddIncomeCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE,
                         PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIncomeCommand.MESSAGE_USAGE));
-        }
+        ParserUtil.errorIfCompulsoryPrefixMissing(AddIncomeCommand.MESSAGE_USAGE, argMultimap, false,
+                PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE);
 
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
