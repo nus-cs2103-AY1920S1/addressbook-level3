@@ -161,4 +161,10 @@ public class GroupList {
         return this.groups;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GroupList // instanceof handles nulls
+                && groups.equals(((GroupList) other).getGroups()));
+    }
 }

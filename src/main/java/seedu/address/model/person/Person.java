@@ -111,16 +111,20 @@ public class Person {
     /**
      * Returns true if both persons are the same instance of person.
      */
-    public boolean equals(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
-        } else if (otherPerson == null) {
-            return false;
-        } else if (!this.isSamePerson(otherPerson)) {
-            return false;
         } else {
-            return otherPerson.getPersonId().equals(this.getPersonId());
+            Person otherPerson = null;
+            if (other instanceof Person) {
+                otherPerson = (Person) other;
+            }
+
+            if (otherPerson != null) {
+                return this.isSamePerson(otherPerson) && otherPerson.getPersonId().equals(this.getPersonId());
+            }
         }
+        return false;
     }
 
     /**

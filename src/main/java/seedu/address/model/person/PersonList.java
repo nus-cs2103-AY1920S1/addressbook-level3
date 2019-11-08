@@ -235,4 +235,12 @@ public class PersonList {
     public User getUser() {
         return this.user;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonList // instanceof handles nulls
+                && persons.equals(((PersonList) other).getPersons()))
+                && user.equals(((PersonList) other).getUser());
+    }
 }
