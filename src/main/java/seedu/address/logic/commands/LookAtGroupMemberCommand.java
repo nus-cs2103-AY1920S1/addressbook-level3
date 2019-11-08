@@ -16,7 +16,7 @@ import seedu.address.model.person.Name;
 public class LookAtGroupMemberCommand extends Command {
     public static final String COMMAND_WORD = "lookat";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " PERSON NAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " allows only " + PREFIX_NAME + " PERSON NAME";
 
     public static final String MESSAGE_SUCCESS = "Looking at members: %s";
     public static final String MESSAGE_NOT_FOUND = "Members that are not found in this group: %s";
@@ -72,25 +72,6 @@ public class LookAtGroupMemberCommand extends Command {
             //Same list of names to be filtered. Order does not matter.
             int numberOfMatch = 0;
             LookAtGroupMemberCommand otherCommand = (LookAtGroupMemberCommand) command;
-            for (Name name : this.membersToBeFiltered) {
-                if (otherCommand.membersToBeFiltered.contains(name)) {
-                    numberOfMatch++;
-                }
-            }
-            return numberOfMatch == membersToBeFiltered.size();
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj instanceof LookAtGroupMemberCommand) {
-            //Same list of names to be filtered. Order does not matter.
-            int numberOfMatch = 0;
-            LookAtGroupMemberCommand otherCommand = (LookAtGroupMemberCommand) obj;
             for (Name name : this.membersToBeFiltered) {
                 if (otherCommand.membersToBeFiltered.contains(name)) {
                     numberOfMatch++;

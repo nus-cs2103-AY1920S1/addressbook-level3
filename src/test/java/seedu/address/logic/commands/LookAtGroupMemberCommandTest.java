@@ -1,7 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
@@ -12,14 +21,6 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.modelutil.TypicalModel;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 
 public class LookAtGroupMemberCommandTest {
     private static final Person ALICE = TypicalPersons.ALICE;
@@ -78,10 +79,10 @@ public class LookAtGroupMemberCommandTest {
                 BENSON.getName()));
 
         //Same object.
-        assertEquals(command, command);
+        assertTrue(command.equals(command));
         //Same fields but in different order.
-        assertEquals(command, duplicateCommand);
+        assertTrue(command.equals(duplicateCommand));
         //Different fields.
-        assertNotEquals(command, differentCommand);
+        assertFalse(command.equals(differentCommand));
     }
 }
