@@ -114,6 +114,7 @@ public class LogicManager implements Logic {
         return model.getImportList();
     }
 
+    @Override
     public ObservableList<Template> getFilteredTemplateList() {
         return model.getFilteredTemplateList();
     }
