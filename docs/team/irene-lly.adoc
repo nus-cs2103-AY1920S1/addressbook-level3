@@ -5,8 +5,8 @@
 
 == About the project
 This portfolio documents my contributions to NUStudy, a learning application.
-Our team of 5 software engineering students were tasked with
-enhancing a basic command line interface desktop Addressbook application
+Our team of 5 software engineering students from the National University of Singapore (NUS)
+were tasked with enhancing a basic command line interface desktop Addressbook application
 as part of our Software Engineering project in CS2103T.
 We were asked to conceptualize and implement enhancements to the existing application
 and do it in a manner such that future developers can continue working on it.
@@ -22,10 +22,10 @@ The following sections illustrate the enhancements in more detail,
 as well as the relevant documentation I have added to the user and developer guides in
 relation to these enhancements.
 
-Note the following symbols and formatting used in this document: +
+Key to symbols and formatting used in this document: +
 `stats`: A grey highlight indicates that this is a command that can be inputted
 into the command line and executed by the application. +
-*Bold*: A bolded word indicates an action to be taken by the user.
+(#1): A hash followed by a number indicates a pull request or an issue.
 
 == Summary of contributions
 This section shows the enhancements I have added to the project as well as my other contributions.
@@ -42,7 +42,7 @@ Overall, the purpose of the statistics feature is to provide users with a rough
 outline of their progress in mastering the foundations of the subject.
 * Highlights: This enhancement affects existing commands and commands to be added in future.
 An in-depth analysis of design alternatives is required in the future.
-The implementation was also challenging as it required changes to existing models
+The implementation was also challenging as it required many changes to existing models
 and logic classes.
 
 **Code contributed**: Please click this link to see a sample of my code:
@@ -55,7 +55,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=irene-lly[
 My job includes making sure that the code follows a consistent style,
 is easy to understand and that the code is well-documented.
 *	Community:
-**	Reviewed pull requests (with non-trivial review comments):
+**	Reviewed pull requests:
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]
 **	Contributed to forum discussions:
@@ -79,7 +79,7 @@ include::../UserGuide.adoc[tag=statistics]
 
 == Developer guide contributions
 We have also modified the existing addressBook developer guide to include implementation of
-our features as well as remove the old documentation of the addressBook features.
+our features as well as remove the old documentation of the AddressBook features.
 Given below shows my additions to the NUStudy developer guide for the statistics feature.
 
 '''

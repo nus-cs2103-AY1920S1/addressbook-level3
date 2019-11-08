@@ -370,6 +370,7 @@ create a pie chart. It will then show a statistics panel, hiding all notes, task
 
 The following sequence diagram shows how the UI handles the `GetStatisticsCommand`:
 
+.UI sequence diagram for `GetStatisticsCommand`
 image::StatisticsSequenceDiagram.png[]
 
 Step 4. The user now wants to stop viewing statistics and decides to view all notes, tasks and questions

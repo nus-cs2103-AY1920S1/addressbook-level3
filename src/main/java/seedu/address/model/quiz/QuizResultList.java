@@ -102,15 +102,13 @@ public class QuizResultList implements Iterable<QuizResult> {
                         .stream()
                         .filter(quizResult -> quizResultFilter.getSubjects()
                                 .stream()
-                                .anyMatch(subject -> subject.toString()
-                                        .equalsIgnoreCase(quizResult.getSubject().toString())))
+                                .anyMatch(subject -> subject.equals(quizResult.getSubject())))
                         .collect(Collectors.toList());
                 break;
             case DIFFICULTY:
                 filteredQuizResults = filteredQuizResults
                         .stream()
-                        .filter(quizResult -> quizResult.getDifficulty().toString()
-                                .equalsIgnoreCase(quizResultFilter.getDifficulty().toString()))
+                        .filter(quizResult -> quizResult.getDifficulty().equals(quizResultFilter.getDifficulty()))
                         .collect(Collectors.toList());
                 break;
             case CORRECT:
