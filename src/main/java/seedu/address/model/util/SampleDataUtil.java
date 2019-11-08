@@ -63,11 +63,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAthletick getSampleAthletick() {
-        Athletick sampleAb = new Athletick();
+        Athletick sampleA = new Athletick();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleA.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleA;
     }
 
     /**

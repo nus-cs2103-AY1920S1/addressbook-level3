@@ -27,8 +27,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.feature.Feature;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser
- * classes.
+ * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
@@ -38,8 +37,7 @@ public class ParserUtil {
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
      * and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero
-     *                        unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -50,11 +48,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndexes} into an {@code List<Index>} and returns it.
+     * Parses {@code oneBasedIndexes} into a {@code List<Index>} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if any index is invalid (not non-zero unsigned
-     *                        integer).
+     * @throws ParseException if any index is invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
         String[] indexes = oneBasedIndexes.trim().split("\\s+");
@@ -94,19 +91,17 @@ public class ParserUtil {
      * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and
      * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified date is invalid (not length of 6 or
-     *                        8).
+     * @throws ParseException if the specified date is invalid (not length of 6 or 8).
      */
     public static AthletickDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
-            if (trimmedDate.length() == 8) {
-                return parseDateTypeOne(trimmedDate);
-            } else {
-                return parseDateTypeTwo(trimmedDate);
-            }
-        } else {
+        switch (trimmedDate.length()) {
+        case 6:
+            return parseDateTypeTwo(trimmedDate);
+        case 8:
+            return parseDateTypeOne(trimmedDate);
+        default:
             throw new ParseException(
                     String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_GENERAL));
         }
@@ -121,20 +116,32 @@ public class ParserUtil {
     public static AthletickDate parseDateTypeOne(String date) throws ParseException {
         try {
             date = date.trim();
-            SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
-            fullDate.setLenient(false);
-            Date d = fullDate.parse(date);
-            int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
-            int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
-            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
-            int type = 1;
-            String mth = new SimpleDateFormat("MMMM").format(d);
-            return new AthletickDate(day, month, year, type, mth);
+            if (date.length() != 8) {
+                throw new java.text.ParseException("Incorrect date length", 8);
+            }
+            return constructAthletickDateTypeOne(date);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
                     + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE) + "\n"
                     + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Constructs an {@code AthletickDate} of type 1 from {@code date}.
+     * @param date Specified date
+     * @return AthletickDate Date used by application
+     * @throws java.text.ParseException if specified date is invalid
+     */
+    private static AthletickDate constructAthletickDateTypeOne(String date) throws java.text.ParseException {
+        SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
+        fullDate.setLenient(false);
+        Date d = fullDate.parse(date);
+        int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
+        int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+        int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+        String mth = new SimpleDateFormat("MMMM").format(d);
+        return new AthletickDate(day, month, year, 1, mth);
     }
 
     /**
@@ -146,20 +153,31 @@ public class ParserUtil {
     public static AthletickDate parseDateTypeTwo(String date) throws ParseException {
         try {
             date = date.trim();
-            SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
-            monthYear.setLenient(false);
-            Date d2 = monthYear.parse(date);
-            int day = Integer.parseInt("0");
-            int month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
-            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
-            int type = 2;
-            String mth = new SimpleDateFormat("MMMM").format(d2);
-            return new AthletickDate(day, month, year, type, mth);
+            if (date.length() != 6) {
+                throw new java.text.ParseException("Incorrect date length", 6);
+            }
+            return constructAthletickDateTypeTwo(date);
         } catch (java.text.ParseException e) {
             throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
                     + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO) + "\n"
                     + AthletickDate.MONTH_CONSTRAINTS + "\n" + AthletickDate.YEAR_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Constructs an {@code AthletickDate} of type 2 from {@code date}.
+     * @param date Specified date
+     * @return AthletickDate Date used by application
+     * @throws java.text.ParseException if specified date is invalid
+     */
+    private static AthletickDate constructAthletickDateTypeTwo(String date) throws java.text.ParseException {
+        SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
+        monthYear.setLenient(false);
+        Date d = monthYear.parse(date);
+        int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+        int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+        String mth = new SimpleDateFormat("MMMM").format(d);
+        return new AthletickDate(0, month, year, 2, mth);
     }
 
     /**

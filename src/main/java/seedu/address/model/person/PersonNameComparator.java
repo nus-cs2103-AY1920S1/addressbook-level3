@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Comparator that enables us to sort a list of Persons in alphabetical order ignoring case.
  */
-public class PersonComparator implements Comparator<Person> {
+public class PersonNameComparator implements Comparator<Person> {
 
     /**
      * Compares a person to another using name. Case is ignored.

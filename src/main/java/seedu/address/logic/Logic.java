@@ -30,7 +30,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getAthletick()
      */
-    ReadOnlyAthletick getAddressBook();
+    ReadOnlyAthletick getAthletick();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

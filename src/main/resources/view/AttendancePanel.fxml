@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" style="-fx-background-color: #ffffff;" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;">
          <children>
-            <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Attendance of all athletes" textFill="#badc58">
+            <Label maxWidth="1.7976931348623157E308" prefHeight="45.0" style="-fx-background-color: #30336B;" text="Attendance of all athletes" textFill="#badc58">
                <font>
                   <Font size="18.0" />
                </font>

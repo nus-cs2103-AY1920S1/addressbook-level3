@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonComparator;
+import seedu.address.model.person.PersonNameComparator;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -100,7 +100,7 @@ public class Athletick implements ReadOnlyAthletick {
      * Sorts list of persons by name in alphabetical order ignoring case.
      */
     public void sortByName() {
-        persons.sortByName(new PersonComparator());
+        persons.sortByName(new PersonNameComparator());
     }
 
     //// util methods

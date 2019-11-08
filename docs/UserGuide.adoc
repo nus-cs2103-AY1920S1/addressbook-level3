@@ -122,18 +122,18 @@ If successfully added, the details of the added athlete will be displayed in the
 
 The added athlete will be shown at the bottom of the team list.
 
-==== Deleting an athlete : `delete`
+==== Deleting an athlete : `delete -p`
 
 This command deletes an athlete from the list by their index.
 
 *What you should do*
 
-Let's say you want to remove Irfan from Athletick as he is no longer in the team. Type the delete command, followed by
-the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
+Let's say you want to remove Sun Yang from Athletick as he is no longer in the team. Type the delete command,
+followed by the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
 
-Format: `delete INDEX`
+Format: `delete -p INDEX`
 
-Example: `delete 5`
+Example: `delete -p 5`
 
 [NOTE]
 ====
@@ -142,11 +142,12 @@ The index refers to the index number shown in the displayed person list.
 The index must be a positive integer 1, 2, 3, …​
 ====
 
-image::delete_before.png[width=450]
+image::deleteperson_wsyd.png[width=450]
 
 *What you should see*
 
-image::delete_after.png[width=350]
+.Notice that Sun Yang is no longer in the athlete list on the left sidebar.
+image::deleteperson_wsys.png[width=450]
 
 If successfully removed, the details of the removed athlete will be displayed in the result box.
 
@@ -277,9 +278,9 @@ If the command is successful, the athlete's name and attendance will be displaye
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
 
-All you have to is add an event (see <<Adding an event : `event`>>),
-and then add records from timed trials under the event
-(see <<Recording an athlete’s performance : `performance`>>).
+// reference section
+First, you will have to add an event.
+After that, you can add records from timed trials under the event to start tracking their performance.
 
 ==== Adding an event : `event`
 
@@ -287,10 +288,10 @@ This command adds an event to *Athletick*, and will be used for storing your ath
 
 *What you should do*
 
-Let's say that you want to start recording performances for the freestyle 50m.
-You will need to add the freestyle 50m event to *Athletick* first.
+Let's say that you want to start recording performances for the `freestyle 50m` event. You will need to add
+the `freestyle 50m` event to *Athletick* first.
 
-Type the event command in the following format and press `Enter` to execute it.
+Type the command in the following format and press `Enter` to execute it.
 
 Format : `event NAME_OF_EVENT`
 
@@ -301,11 +302,37 @@ Example: `event freestyle 50m`
 
 *What you should see*
 
+If successfully added, the result box will display the added event name as shown below.
+
 image::addevent.png[width="350"]
 
-If successfully added, the result box will display the event name as shown above.
+==== Deleting an event : `delete -e`
 
-==== Recording an athlete’s performance : `performance`
+This command removes an event from *Athletick*.
+Records stored under this event will be deleted as well.
+
+*What you should do*
+
+Let's say that your team is no longer participating in the `backstroke 100m` event, and you want to remove it
+from *Athletick*.
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `delete -e NAME_OF_EVENT`
+
+Example: `delete -e backstroke 100m`
+
+image::deleteevent_wysd.png[width="250"]
+
+*What you should see*
+
+If successfully deleted, the result box will display the deleted event name as shown below.
+The event should no longer be in *Athletick*.
+
+.Notice that the backstroke 100m event is no longer listed.
+image::deleteevent_wyss.png[width="150"]
+
+==== Adding an athlete's record : `performance`
 
 This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
 
