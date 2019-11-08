@@ -29,7 +29,11 @@ public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private History history;
 
+    /**
+     * Listener added
+     */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -37,13 +41,10 @@ public class AutoCompleteTextField extends TextField {
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
-                //filter all possible suggestions depends on "Text", case insensitive
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
                         .collect(Collectors.toList());
-                //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
-                    //build popup - list of "CustomMenuItem"
                     populatePopup(filteredEntries, enteredText);
                     if (!entriesPopup.isShowing()) { //optional
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
@@ -54,7 +55,6 @@ public class AutoCompleteTextField extends TextField {
             }
         }
     };
-
 
     /**
      * initialises all commands and their usages,
@@ -70,16 +70,15 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * "Suggestion" specific listener
+     * adds listener to suggest commands
      */
     private void setListener() {
-
         textProperty().addListener(changeListener);
         logger.info("Listening to command box.");
     }
 
     /**
-     * populates contextmenu with suggestions
+     * populates contextmenu
      * of command to be entered
      * if any suggestion is selected,
      * set the textfield to suggestion

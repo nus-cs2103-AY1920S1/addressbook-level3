@@ -18,7 +18,8 @@ By: 'Team CS2103-T14-1'     Since: 'Sep 2019'
 
 == Introduction
 
-Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables, tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
+Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables,
+tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
 
 == Quick Start
 
@@ -119,7 +120,7 @@ Examples: +
 
 // end::edit[]
 
-//tag:: upload[]
+// tag::upload[]
 === Upload: upload
 
 ==== Students' display picture
@@ -132,6 +133,13 @@ Examples: +
 * upload 2 +
 * upload 3
 
+// end::upload[]
+
+=== Resetting Display Picture
+// tag::resetdisplaypic[]
+
+
+// end::resetdisplaypic[]
 
 // tag::update[]
 === Updating: update
