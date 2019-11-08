@@ -35,4 +35,5 @@ public interface ReadOnlyMark {
 
     ObservableValue<String> getOfflineDocCurrentlyShowing();
 
+    void closeTimer();
 }

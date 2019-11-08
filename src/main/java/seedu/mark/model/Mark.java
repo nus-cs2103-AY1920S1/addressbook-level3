@@ -417,11 +417,16 @@ public class Mark implements ReadOnlyMark {
             }
         };
 
+        System.out.println("start mark reminder");
         timer.schedule(task, 0, 1 * 1000);
     }
 
+    @Override
     public void closeTimer() {
+        System.out.println("close mark reminder");
         timer.cancel();
+        timer.purge();
+        return;
     }
 
     @Override

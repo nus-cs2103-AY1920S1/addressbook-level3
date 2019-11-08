@@ -93,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ObservableList<Reminder> reminders;
     private Timer timer = new Timer();
+    private boolean isShutDown = false;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -209,13 +210,19 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+
+        logic.closeMarkTimer();
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        logic.closeMarkTimer();
+
         helpWindow.hide();
-        timer.cancel();
+
         primaryStage.hide();
+        timer.cancel();
+        timer.purge();
+        Platform.exit();
+        System.exit(0);
     }
 
     /**
@@ -357,23 +364,23 @@ public class MainWindow extends UiPart<Stage> {
      * @param reminder the reminder that is used to create notification.
      * @return the notification for reminder.
      */
-    private Notifications getNoti(Reminder reminder) {
-        Notifications noti = Notifications.create();
-        noti.title("Reminder Notification");
+    private Notifications getNotification(Reminder reminder) {
+        Notifications notif = Notifications.create();
+        notif.title("Reminder Notification");
 
 
-        String remindMessage = reminder.getNote().toString() + " " + reminder.getUrl().value + "\n"
+        String remindMessage = reminder.getNote().toString() + "\n"
                 + "Due at : " + reminder.getFormattedTime();
-        noti.text(remindMessage);
+        notif.text(remindMessage);
         Image image = new Image("/images/bell.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
-        noti.graphic(imageView);
-        noti.hideAfter(javafx.util.Duration.seconds(60));
-        noti.position(Pos.BOTTOM_RIGHT);
+        notif.graphic(imageView);
+        notif.hideAfter(javafx.util.Duration.seconds(60));
+        notif.position(Pos.BOTTOM_RIGHT);
 
-        return noti;
+        return notif;
     }
 
     /**
@@ -384,6 +391,7 @@ public class MainWindow extends UiPart<Stage> {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+
                 LocalDateTime now = LocalDateTime.now();
 
                 try {
@@ -394,7 +402,7 @@ public class MainWindow extends UiPart<Stage> {
                         System.out.println(now.isBefore(remindTime) && compareHour(now, remindTime) < 5);
                         if (now.isBefore(remindTime) && compareHour(now, remindTime) < 5 && !reminder.getShow()) {
                             System.out.println("show notice");
-                            Notifications noti = getNoti(reminder);
+                            Notifications noti = getNotification(reminder);
 
                             Platform.runLater(() -> {
                                 noti.show();
@@ -402,9 +410,14 @@ public class MainWindow extends UiPart<Stage> {
 
                             reminder.toShow();
 
+                            if (compareMinute(now, remindTime) < 0) {
+                                reminder.setDue();
+                                continue;
+                            }
+
                         } else if (compareMinute(now, remindTime) == 0 && !reminder.getDue()) {
                             System.out.println("show notice");
-                            Notifications noti = getNoti(reminder);
+                            Notifications noti = getNotification(reminder);
 
                             Platform.runLater(() -> {
                                 noti.show();
