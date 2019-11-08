@@ -41,7 +41,7 @@ public class TypicalPersons {
             .withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street")
-            .withRemark("WTF CARL?!")
+            .withRemark("WTF CARL")
             .withTags("LALALA").build();
     public static final Person DANIEL = new PersonBuilder()
             .withRemark("DANIELLLLL")
@@ -52,13 +52,13 @@ public class TypicalPersons {
             .withAddress("10th street")
             .withTags("friends").build();
     public static final Person ELLE = new PersonBuilder()
-            .withRemark("ELLEN?")
+            .withRemark("ELLENNNN")
             .withName("Elle Meyer")
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave").build();
     public static final Person FIONA = new PersonBuilder()
-            .withRemark("FIONA FROM SHREK?")
+            .withRemark("FIONA FROM SHREK")
             .withName("Fiona Kunz")
             .withPhone("9482427")
             .withEmail("lydia@example.com")
