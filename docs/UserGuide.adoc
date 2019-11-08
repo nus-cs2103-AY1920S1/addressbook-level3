@@ -788,6 +788,7 @@ Additionally, if the description is misspelled or does not match any of the item
 items with similar description that you might be looking for.
 
 Examples:
+
 ** [blue]`add c/food` - Displays all items that are under the 'food' category in the response box
 ** [blue]`add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 ** [blue]`add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
@@ -892,7 +893,7 @@ image::cashierUG/EditCommand3.png[width="600"]
 . Hit `Enter`
 
 //.Screenshot of response message for Edit Command in Cashier Tab
-image::cashierUG/EditCommand3.png[width="600"]
+image::cashierUG/EditCommand2.png[width="600"]
 
 If successfully updated, Leo will respond with a response message. The quantity will then be updated in the table.
 
@@ -1041,10 +1042,9 @@ This command enables you to set a financial goal.
 ** To set sales goal: [blue]`set s/500`
 
 [NOTE]
-The amount should be non-negative.
-
-[NOTE]
-The maximum amount you may set for a goal is 10,000,000 (10 million).
+The amount should be non-negative, and the maximum amount you may set is 10,000,000
+(10 million). +
+To reset the goal, simply set it to 0.
 
 * Steps:
 . Type the command with the corresponding target and amount.
@@ -1062,6 +1062,12 @@ Leo displays a confirmation showing that the goal was successfully set. +
 The user interface reflects this under the respective section.
 
 ==== Set a Notification Threshold
+This command allows you to set a percentage threshold for notifications. +
+For example, an 80 percent threshold will mean that you will receive a notification once you have reached 80% of the
+goal set for that particular financial goal.
+
+[NOTE]
+
 
 * Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
@@ -1074,7 +1080,10 @@ The user interface reflects this under the respective section.
 ** To set sales goal notification: [blue]`notify s/PERCENTAGE`
 
 [NOTE]
-The percentage value should be a value from 0 - 100.
+The percentage value should be a value from 0 - 100. +
+This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
+set to 0. +
+To disable notifications for a particular financial goal, simply set its notifications threshold to 0.
 
 * Steps:
 . Type the command with the corresponding target and amount.

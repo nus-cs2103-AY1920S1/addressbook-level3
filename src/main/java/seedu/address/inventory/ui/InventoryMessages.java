@@ -4,7 +4,7 @@ package seedu.address.inventory.ui;
  * Formats the Ui return responses for different commands to be shown to user.
  */
 public class InventoryMessages {
-    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please input the correct "
             + "command format:\n";
 
     public static final String MESSAGE_NO_SUCH_SORT_COMMAND =
@@ -24,7 +24,7 @@ public class InventoryMessages {
             + "add: Adds an item to the table."
             + "Parameters:\nd/DESCRIPTION\nc/CATEGORY\nq/QUANTITY\nco/COST\n[p/PRICE]";
 
-    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a valid number.";
+    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a positive number less than 10,000.";
 
     public static final String NO_SUCH_ITEM_INVENTORY =
             "Sorry! There is no such item in our database. Do add the item in.";
@@ -51,10 +51,17 @@ public class InventoryMessages {
     public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include "
             + "add, delete, edit, sort, go and exit.";
 
-    public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description and category is the same as that"
+    public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description is the same as that"
             + " of an existing item. We have added the quantity to the existing item.";
+
+    public static final String MESSAGE_NEGATIVE_NUMBER = "The given input cannot be negative.";
 
     public static final String MESSAGE_ON_CASHIER_MODE = "Sorry! You cannot modify any existing items while on "
             + "cashier mode. \nTo turn off the cashier mode, please clear all items on Cashier Tab by "
             + "inputting \"clear\" on the Cashier Tab";
+
+    public static final String MESSAGE_NUMBER_TOO_LARGE = "Sorry, please input a number less than 10,000.";
+
+    public static final String MESSAGE_TOTAL_TOO_LARGE = "Sorry, the total cost/price is too large."
+            + " It must be less than 10,000.";
 }

@@ -22,6 +22,7 @@ import seedu.address.inventory.logic.commands.SortResetCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
@@ -93,7 +94,7 @@ public class CommandTest {
 
     @Test
     public void execute_addDuplicateItemCommandTest_successful() throws ParseException, NoSuchItemException,
-            NotANumberException, NoSuchSortException, OnCashierModeException {
+            NotANumberException, NoSuchSortException, OnCashierModeException, InvalidNumberException {
         InventoryList inventoryList = new InventoryList();
         inventoryList.add(TypicalItem.FISH_BURGER);
         inventoryList.add(TypicalItem.PHONE_CASE);

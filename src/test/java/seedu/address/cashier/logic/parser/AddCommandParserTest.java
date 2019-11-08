@@ -20,6 +20,7 @@ import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTIT
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_POSITIVE;
@@ -53,6 +54,7 @@ public class AddCommandParserTest {
 
     public void setInventoryList() {
         InventoryList inventoryList = new InventoryList();
+        CHIPS.setQuantity(99999999);
         inventoryList.add(CHIPS);
         model = new seedu.address.cashier.model.ModelManager(new seedu.address.cashier.util.InventoryList(
                 inventoryList.getInventoryListInArrayList()),
@@ -91,6 +93,18 @@ public class AddCommandParserTest {
     }
 
     @Test
+    public void parse_itemInvalidAmount_failure() {
+        // with total amount exceeded
+        setInventoryList();
+        assertCommandParserFailure(parser, DESC_DESCRIPTION_CHIPS
+                        + INVALID_QUANTITY_3,
+                MESSAGE_TOTAL_AMOUNT_EXCEEDED, model,
+                (CheckAndGetPersonByNameModel) personModel);
+
+        CHIPS.setQuantity(85); //reset back quantity
+    }
+
+    @Test
     public void parse_itemNotInInventory_failure() throws NoSuchIndexException {
         // with item not found in inventory
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1
@@ -98,6 +112,7 @@ public class AddCommandParserTest {
                 noSuchItemRecommendation(model.getRecommendedItems(INVALID_DESCRIPTION_1)), model,
                 (CheckAndGetPersonByNameModel) personModel);
     }
+
 
     @Test
     public void parse_itemNotForSale_failure() {
@@ -156,10 +171,14 @@ public class AddCommandParserTest {
                 (CheckAndGetPersonByNameModel) personModel);
 
         setInventoryList();
+
+        CHIPS.setQuantity(85); //reset back quantity
         // insufficient qty to add
         String message1 = String.format(MESSAGE_INSUFFICIENT_STOCK, CHIPS.getQuantity(), CHIPS.getDescription());
         assertCommandParserFailure(parser, DESC_DESCRIPTION_CHIPS + INVALID_QUANTITY_3,
                 message1, model, (CheckAndGetPersonByNameModel) personModel);
+
+        CHIPS.setQuantity(85); //reset back quantity
 
     }
 

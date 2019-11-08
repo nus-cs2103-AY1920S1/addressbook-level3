@@ -720,10 +720,6 @@ Upon every successful checkout, all the sales items sold will recorded as one tr
 appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
 accordingly in the `Inventory tab`.
 
-[NOTE]
-If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
-
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
 
@@ -736,8 +732,39 @@ description and quantity fields, `Model` will search all the sales items in the 
 according to the specified category and suggestions would be shown by Leo, the assistant. +
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
-The following sequence diagram shows how the `AddCommand` works and is the reference
-from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
+to show a list of suggestions.
+
+The following are two code snippets from `getRecommendedItems(description)`:
+
+            if (description.length() >= 3) {
+                char[] arr = description.toCharArray();
+                ArrayList<String> combinations = getCombination(arr, arr.length);
+                for (int j = 0; j < combinations.size(); j++) {
+                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
+                            || itemDescription.contains(combinations.get(j))) {
+                        recommendedItems.add(item.getDescription());
+                        continue;
+                    }
+                }
+            }
+
+            ArrayList<String> newList = recommendedItems.stream()
+            .distinct()
+            .collect(Collectors
+            .toCollection(ArrayList::new));
+            return newList;
+
+The `getCombination(arr, arr.length)` method in line 3 of the first snippet returns an ArrayList of all subsets of
+descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
+
+As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
+is passed into a stream to remove duplicates.
+
+[NOTE]
+If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works and is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
@@ -768,7 +795,8 @@ This means that SetCommandParser requires access to the `Model` of the person pa
 If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
 informing the user that there is no such person.
 
-The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows
+how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
 
@@ -776,8 +804,8 @@ image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram shows how the set cashier command works and is the reference
-from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the set cashier command works:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 
@@ -792,7 +820,7 @@ The following activity diagram shows the steps after the user input a set cashie
 image::SetCashierCommandActivity.png[]
 
 ==== Checkout Feature
-This feature confirms all the sales items in the table as one sales transaction under the `Sales` category.
+This feature records all the sales items in the table as one sales transaction under the `Sales` category.
 
 The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
 will also be updated on the `Inventory Tab`.
@@ -806,7 +834,8 @@ transaction of the sales made.
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
-The following sequence diagram shows how the checkout command is executed:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
+shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
@@ -831,9 +860,66 @@ The following activity diagram shows the steps after the user input a checkout c
 
 image::CheckoutCommandCashierActivityDiag.png[]
 
+==== Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Cashier Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|An ArrayList is used to store the list of sales item shown on the `Cashier Tab`.
+
+*Pros*: Elements are be accessed directly more efficiently.
+
+*Cons*: Adding and removing from the head of the list is less time-efficient for ArrayList.
+
+|A LinkedList is used to store the list of sales item.
+
+*Pros*: Time performance is better when elements are accessed from the head of the list.
+
+*Cons*: Performance is poor when accessing directly via the index.
+
+|Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
+
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier's `Logic`
+to call relevant methods to update the inventory and transactions.
+
+*Pros*: Cashier's Logic can access all public methods in the respective `Model`.
+
+*Cons*: It might result in unintended modification to some of the data in the Models.
+
+|Interfaces that only contains required methods are created. The methods are called via these interfaces
+to update the data.
+
+*Pros*: Prevents any unwanted changes through other methods. This follows the Facade Pattern.
+
+*Cons*: If more methods are needed, they need to be added to these interfaces.
+
+|Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
+and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+unintended modification to any of the data in the Models.
+
+|The Cashier Storage directly writes to and from the data file of the inventory and transaction.
+
+*Pros*: It can access the data file directly without any dependencies.
+
+*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+
+|The Cashier Storage accesses the methods from the Transaction and Inventory storage via their `Logic`
+to update the data.
+
+*Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
+
+*Cons*: It introduces more dependencies on the storage of other packages.
+
+|Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
+methods and eliminate any chances of uncoordinated data in the data files.
+
+|===
+
 === Overview Tab
 
-This tab displays summary statistics for the data within treasurerPro. There are four main statistics shown:
+This tab displays various summary statistics for the data within treasurerPro. There are four main statistics shown:
 
 . Expense Summary: Pie chart of expenditure by category.
 . Inventory Summary: Pie chart of inventory by category.
@@ -842,30 +928,128 @@ This tab displays summary statistics for the data within treasurerPro. There are
 
 The above summaries are automatically updated whenever new data is entered from any of the other tabs.
 
-The class diagram for this package is shown as follows:
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
+to set percentage thresholds for notifications.
 
-==== Set command
-For each summary statistic, the user may set targets that they plan to achieve/abide by.
+==== Set Command Feature
+This feature allows the user to set a goal for their budget, expense or sales targets.
+
+The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+.Sequence Diagram of Set Command in the Overview package.
+image::OverviewSetCommandSD.png[]
+
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file.
+
+==== Notify Command Feature
+This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
+particular financial goal, the user will automatically be notified of it with a message from Leo.
+
+The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+
+.Sequence Diagram of Notify Command in the Overview Package
+image::OverviewNotifyCommandSD.png[]
+
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file. The full execution of the command is shown in the activity diagram below:
+
+.Activity Diagram of Notify Command in the Overview Package
+image::OverviewNotifyActivityDiagram.png[]
+
+==== Design Considerations
+In order to display the summary statistics shown to the user within the Overview tab, they must first be calculated.
+Several design considerations were made as to how these calculations would be made, as shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
+
+|The summary statistics are calculated by retrieving the transaction and item lists. Each transaction or item is then
+read individually and their totals added up.
+
+*Pros*: This is a much simpler, straightforward implementation.
+
+*Cons*: It is difficult to filter the list by a given criteria, which is required for certain summary statistics.
+
+|The Java Streams library is used to calculate the summary statistics, by retrieving the transaction list and item list
+as streams instead.
+
+*Pros*: It is much easier to filter the list from a given criteria with the built in `.filter()` method, and additional
+criteria can easily be added simply by adding additional `.filter()` methods.
+
+*Cons*: Java Streams run slower than their iterative counterparts when the list is small, and are more complex to
+implement.
+
+|Alternative 2 is selected as the performance difference is negligible for smaller lists, and will benefit the user in
+the long run as their lists of transactions and items become larger and larger.
+
+Additionally, it allows for future extensibility of summary statistics, as new statistics can be created simply by
+modifying or adding on new criteria.
+
+|A new class is created to act as a notifier, and is called after the execution of every command to check if any
+notifications need to be displayed to the user.
+
+*Pros*: All tabs can utilize this notifications feature and display messages to the user when needed.
+
+*Cons*: Extra program resources are needed to create such a class.
+
+|A method within the Overview tab's `Logic` is called to check if any of the notifications thresholds have been met.
+
+*Pros*: Easy to implement with minimal new resources required.
+
+*Cons*: It will be difficult to extend this functionality to other tabs if needed.
+
+|Alternative 2 was implemented after a discussion held with the team revealed that this functionality was and would not
+be needed for any of the other tabs.
+
+Thus, it made more sense to stick with the simpler, less resource intensive
+implementation of this function,
+
+|===
+
+The following are code snippets of each of the chosen implementations above:
+
+.Code snippet of calculation of summary statistics.
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+            .filter(transaction -> !transaction.getCategory().equals("Sales"))
+            .filter(transaction -> transaction.isNegative())
+            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+            .sum() * -1;
+    }
+
+.Code snippet of notifications implementation.
+    private void checkIfNotify() {
+        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+        for (OverallCommandResult notif: notifications) {
+            lion.setResponse(notif.getFeedbackToUser());
+        }
+    }
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
+It extends each tab with an undo/redo history, stored internally as a `TabStateList` and `TabStatePointer`.
+Additionally, it implements the following operations in each tab's `ModelManager`:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `TabModelManager#commit()` -- Saves the current tab's state in its history.
+* `TabModelManager#undo()` -- Restores the previous tab's state from its history.
+* `TabModelManager#redo()` -- Restores a previously undone tab's state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface of the tab as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Each package in `VersionedtreasuerPro` will be initialized with their initial default state, and the
+`currentStatePointer` of each package pointing to that state.
 
 image::UndoRedoState0.png[]
 
@@ -944,13 +1128,6 @@ For example, when a new command is executed, we must remember to update both `Hi
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
 Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 

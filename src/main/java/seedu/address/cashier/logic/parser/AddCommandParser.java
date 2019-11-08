@@ -2,6 +2,7 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.itemsByCategory;
@@ -20,6 +21,7 @@ import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
@@ -98,11 +100,17 @@ public class AddCommandParser implements Parser {
         if (quantity <= 0) {
             throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
+
+        if (!modelManager.isValidAmount(description, quantity)) {
+            throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
+        }
+
         if (modelManager.hasItemInInventory(description)
                 && modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             AddCommand addCommand = new AddCommand(description, quantity);
             return addCommand;
         }
+
         return null;
     }
 
