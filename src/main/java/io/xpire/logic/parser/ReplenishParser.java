@@ -70,6 +70,11 @@ public class ReplenishParser implements Parser {
         case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser(REPLENISH).parse(arguments);
 
+        case DeleteCommand.COMMAND_WORD:
+            //fallthrough
+        case DeleteCommand.COMMAND_SHORTHAND:
+            return new DeleteCommandParser(REPLENISH).parse(arguments);
+
         case TagCommand.COMMAND_WORD:
             //fallthrough
         case TagCommand.COMMAND_SHORTHAND:
@@ -108,8 +113,6 @@ public class ReplenishParser implements Parser {
 
         case AddCommand.COMMAND_WORD:
             //fallthrough
-        case DeleteCommand.COMMAND_WORD:
-            //fallthrough
         case SortCommand.COMMAND_WORD:
             //fallthrough
         case CheckCommand.COMMAND_WORD:
@@ -136,7 +139,8 @@ public class ReplenishParser implements Parser {
             ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD, ShiftToMainCommand.COMMAND_WORD,
-            ExportCommand.COMMAND_WORD
+            ExportCommand.COMMAND_WORD, TagCommand.COMMAND_WORD,
+            DeleteCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));
