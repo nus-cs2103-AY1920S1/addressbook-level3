@@ -43,7 +43,7 @@ public class ModelManager implements Model {
 
     private final Athletick athletick;
     private final UserPrefs userPrefs;
-    private final Attendance attendance;
+    private final TrainingManager trainingManager;
     private final Performance performance;
     private final FilteredList<Person> filteredPersons;
     private final HistoryManager history;
@@ -55,7 +55,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given athletick, performance, attendance and userPrefs.
      */
     public ModelManager(ReadOnlyAthletick athletick, ReadOnlyPerformance performance,
-                        Attendance attendance, ReadOnlyUserPrefs userPrefs, HistoryManager history) {
+                        TrainingManager trainingManager, ReadOnlyUserPrefs userPrefs, HistoryManager history) {
         super();
         requireAllNonNull(athletick, userPrefs);
 
@@ -64,14 +64,14 @@ public class ModelManager implements Model {
         this.athletick = new Athletick(athletick);
         this.userPrefs = new UserPrefs(userPrefs);
         this.performance = new Performance(performance);
-        this.attendance = attendance;
+        this.trainingManager = trainingManager;
         filteredPersons = new FilteredList<>(this.athletick.getPersonList());
         this.history = history;
         this.history.init(this);
     }
 
     public ModelManager() {
-        this(new Athletick(), new Performance(), new Attendance(), new UserPrefs(), new HistoryManager());
+        this(new Athletick(), new Performance(), new TrainingManager(), new UserPrefs(), new HistoryManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -238,12 +238,12 @@ public class ModelManager implements Model {
         this.history.pushUndoneCommand(undoneCommand);
         this.history.pushUndoneAthletick(undoneAthletick);
         if (commandUnderTraining(undoneCommand)) {
-            this.history.undoTrainingStack(attendance, this);
+            this.history.undoTrainingStack(trainingManager, this);
         } else if (commandUnderPerformance(undoneCommand)) {
             this.history.undoPerformanceStack(performance, this);
         } else if (undoneCommand instanceof EditCommand || undoneCommand instanceof ClearCommand) {
             this.history.undoAthletickStack(athletick);
-            this.history.undoTrainingStack(attendance, this);
+            this.history.undoTrainingStack(trainingManager, this);
             this.history.undoPerformanceStack(performance, this);
         } else {
             this.history.undoAthletickStack(athletick);
@@ -257,11 +257,11 @@ public class ModelManager implements Model {
         this.history.getCommands().push(redoneCommand);
         this.history.getAddressBooks().push(redoneAthletick);
         if (commandUnderTraining(redoneCommand)) {
-            this.history.redoTrainingStack(attendance, this);
+            this.history.redoTrainingStack(trainingManager, this);
         } else if (commandUnderPerformance(redoneCommand)) {
             this.history.redoPerformanceStack(performance, this);
         } else if (redoneCommand instanceof EditCommand || redoneCommand instanceof ClearCommand) {
-            this.history.redoTrainingStack(attendance, this);
+            this.history.redoTrainingStack(trainingManager, this);
             this.history.redoPerformanceStack(performance, this);
             athletick.resetData(redoneAthletick);
         } else {
@@ -306,30 +306,30 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Training & Attendance =======================================================================
+    //=========== Training  =======================================================================
     @Override
     public void addTraining(Training training) {
-        this.attendance.addTraining(training);
+        this.trainingManager.addTraining(training);
     }
 
     @Override
     public void editPersonTrainingRecords(Person target, Person editedPerson) {
-        this.attendance.editPersonTrainingRecords(target, editedPerson);
+        this.trainingManager.editPersonTrainingRecords(target, editedPerson);
     }
 
     @Override
     public boolean hasTrainingOnDate(AthletickDate date) {
-        return this.attendance.hasTrainingOnDate(date);
+        return this.trainingManager.hasTrainingOnDate(date);
     }
 
     @Override
     public Training deleteTrainingOnDate(AthletickDate date) {
-        return this.attendance.deleteTrainingOnDate(date);
+        return this.trainingManager.deleteTrainingOnDate(date);
     }
 
     @Override
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
-        return attendance.getTrainingAttendanceListOnDate(date);
+        return trainingManager.getTrainingAttendanceListOnDate(date);
     }
 
     @Override
@@ -338,19 +338,19 @@ public class ModelManager implements Model {
         List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
         for (Person person : allPeople) {
             attendanceRateEntries.add(new AttendanceRateEntry(person,
-                    attendance.getPersonAttendanceRateString(person)));
+                    trainingManager.getPersonAttendanceRateString(person)));
         }
         return attendanceRateEntries;
     }
 
     @Override
-    public Attendance getAttendance() {
-        return this.attendance;
+    public TrainingManager getTrainingManager() {
+        return this.trainingManager;
     }
 
     @Override
-    public void resetAttendance() {
-        this.attendance.resetAttendance();
+    public void resetTrainingManager() {
+        this.trainingManager.resetTrainingManager();
     }
 
     //=========== Performance =================================================================================

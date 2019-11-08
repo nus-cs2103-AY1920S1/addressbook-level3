@@ -7,8 +7,8 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -48,7 +48,7 @@ public class AttendanceCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Attendance attendance = model.getAttendance();
+        TrainingManager trainingManager = model.getTrainingManager();
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -62,7 +62,7 @@ public class AttendanceCommand extends Command {
         result.append("\n");
         result.append(person.getName().toString());
         result.append(": ");
-        result.append(attendance.getPersonAttendanceRateString(person));
+        result.append(trainingManager.getPersonAttendanceRateString(person));
 
         return new CommandResult(result.toString());
     }

@@ -43,7 +43,7 @@ public class SelectCommand extends Command {
 
         selectedPerson = lastShownList.get(targetIndex.getZeroBased());
         model.storePerson(selectedPerson);
-        model.getAttendance().getPersonAttendanceRateString(selectedPerson);
+        model.getTrainingManager().getPersonAttendanceRateString(selectedPerson);
         return new CommandResult(MESSAGE_SELECT_PERSON_SUCCESS,
                 selectedPerson);
     }

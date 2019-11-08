@@ -26,7 +26,7 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAthletickStorage addressBookStorage = new JsonAthletickStorage(getTempFilePath("ab"));
         JsonPerformanceStorage eventStorage = new JsonPerformanceStorage(getTempFilePath("el"));
-        JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(getTempFilePath("att"));
+        JsonTrainingManagerStorage attendanceStorage = new JsonTrainingManagerStorage(getTempFilePath("att"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, eventStorage, attendanceStorage, userPrefsStorage);
     }

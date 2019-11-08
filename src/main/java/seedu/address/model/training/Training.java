@@ -3,17 +3,23 @@ package seedu.address.model.training;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 /**
- * Represents a Training
- * Guarantees: date and training attendance for the particular training
+ * Represents a Training session in Athletick.
  */
 public class Training {
 
+    /**
+     * Represents the date of Training.
+     */
     private AthletickDate date;
+
+    /**
+     * Represents the attendance record of the training session. Each person is a key and a boolean value indicates
+     * whether they attended or not.
+     */
     private HashMap<Person, Boolean> trainingAttendance;
 
     public Training(AthletickDate date, HashMap<Person, Boolean> trainingAttendance) {
@@ -29,6 +35,10 @@ public class Training {
         return this.trainingAttendance;
     }
 
+    /**
+     * Returns a list of {@code AttendanceEntry} to show attendance of a team in that training. Used in the calendar
+     * function.
+     */
     public List<AttendanceEntry> getTrainingAttendanceList() {
         List<AttendanceEntry> trainingAttendanceList = new ArrayList<>();
         trainingAttendance.forEach((person, isPresent) -> {
@@ -48,41 +58,13 @@ public class Training {
         return this.trainingAttendance.get(person);
     }
 
-    /**
-     * Returns a list of Person who has attended this training
-     */
-    public List<Person> getAttended() {
-        List<Person> listOfAttended = new ArrayList<>();
-        for (Map.Entry<Person, Boolean> set: this.trainingAttendance.entrySet()) {
-            Person name = set.getKey();
-            Boolean hasAttended = set.getValue();
-            if (hasAttended) {
-                listOfAttended.add(name);
-            }
-        }
-        return listOfAttended;
-    }
-
-    /**
-     * Returns a list of Person who has attended this training
-     */
-    public List<Person> getAbsentees() {
-        List<Person> listOfAbsentees = new ArrayList<>();
-        for (Map.Entry<Person, Boolean> set: this.trainingAttendance.entrySet()) {
-            Person name = set.getKey();
-            Boolean hasAttended = set.getValue();
-            if (!hasAttended) {
-                listOfAbsentees.add(name);
-            }
-        }
-        return listOfAbsentees;
-    }
     @Override
     public String toString() {
         return "Training on " + date;
     }
+
     /**
-     * Replaces person data in the training record. Called when a person is edited.
+     * Replaces person data in the training record. Called when a person's details are edited.
      */
     public void editPersonDetails(Person target, Person editedPerson) {
         assert(this.hasPerson(target)); // done in other calls

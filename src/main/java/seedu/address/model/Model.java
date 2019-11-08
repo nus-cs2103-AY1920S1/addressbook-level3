@@ -160,17 +160,17 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds {@code training} to the Attendance class.
+     * Adds {@code training} to the TrainingManager class.
      */
     void addTraining(Training training);
 
     /**
-     * Replaces all occurences of person at {@code target} with {@code editedPerson} in training records.
+     * Replaces all occurrences of person at {@code target} with {@code editedPerson} in training records.
      */
     void editPersonTrainingRecords(Person target, Person editedPerson);
 
     /**
-     * Removes training on {@code date}
+     * Removes training on {@code date} from the TrainingManager.
      */
     Training deleteTrainingOnDate(AthletickDate date);
 
@@ -187,14 +187,15 @@ public interface Model {
     List<AttendanceRateEntry> getAttendanceRateOfAll();
 
     /**
-     * Returns the Attendance.
+     * Returns the Training Manager.
      */
-    Attendance getAttendance();
+    TrainingManager getTrainingManager();
 
     /**
-     * Resets all data in Attendance.
+     * Resets all data in the TrainingManager.
      */
-    void resetAttendance();
+    void resetTrainingManager();
+
     /**
      * Checks with Attendance if there was a Training on {@code date}.
      * @param date Date of training.

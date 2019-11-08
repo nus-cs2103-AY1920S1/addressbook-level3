@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -44,11 +45,28 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void initialiseAttendanceData() {
         if (model.hasTrainingOnDate(date)) {
+            addAttendanceChart();
             addAttendanceTableHeader();
             addAttendanceTableContent();
         } else {
             displayNoAttendanceError();
         }
+    }
+
+    /**
+     * Adds a piechart indicating overall team attendance.
+     */
+    private void addAttendanceChart() {
+        List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+        int total = attendanceData.size();
+        int present = 0;
+        for (AttendanceEntry entry: attendanceData) {
+            if (entry.getIsPresent()) {
+                present++;
+            }
+        }
+        AttendanceChart chart = new AttendanceChart(present, total - present);
+        attendanceBox.getChildren().add(chart.getRoot());
     }
 
     /**
@@ -86,10 +104,25 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void initialisePerformanceData() {
         if (model.hasPerformanceOn(date)) {
+            addPerformanceStats();
             addPerformanceTable();
         } else {
             displayNoPerformanceError();
         }
+    }
+
+    /**
+     * Adds a header indicating total number of performance records on a specified date.
+     */
+    private void addPerformanceStats() {
+        AtomicInteger counter = new AtomicInteger();
+        HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
+                model.getCalendarCompatiblePerformance(date);
+        performanceData.forEach((event, recordList) -> {
+            counter.addAndGet(recordList.size());
+        });
+        PerformanceStats stats = new PerformanceStats(counter.get());
+        performanceBox.getChildren().add(stats.getRoot());
     }
 
     /**
