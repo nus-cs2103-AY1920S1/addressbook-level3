@@ -98,10 +98,10 @@ public class ExpenseCommand extends Command {
      */
     protected void getInvolved(Model model, int payingId) throws CommandException {
         if (persons.size() > 1) {
-            for (String keyword : persons) {
+            for (String keyword : persons.subList(1, persons.size())) {
                 Person person = searchPerson(keyword, searchScope);
                 int personPriKey = person.getPrimaryKey();
-                if (personList.contains(personPriKey)) {
+                if (personList.contains(personPriKey) || personPriKey == payingId) {
                     warningMessage.append(String.format(WARNING_DUPLICATE_PERSON, person.getName()));
                     continue;
                 }

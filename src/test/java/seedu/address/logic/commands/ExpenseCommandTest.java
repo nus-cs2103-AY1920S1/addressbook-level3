@@ -194,7 +194,8 @@ public class ExpenseCommandTest {
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS + MESSAGE_WARNING,
                 amount, TypicalPersons.ALICE.getName(), notEmptyString,
                 "\t\t" + TypicalPersons.BENSON.getName() + "\n",
-                String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName())),
+                String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.ALICE.getName())
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName())),
                 commandResult.getFeedbackToUser());
 
         Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,
