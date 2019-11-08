@@ -33,4 +33,22 @@ public class CommandPrompt {
     public String toString() {
         return String.format("Command prompt: %s\nComplete command: %s\n", commandPrompt, completeCommand);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof CommandPrompt)) {
+            return false;
+        }
+
+        // state check
+        CommandPrompt prompt = (CommandPrompt) other;
+        return commandPrompt.equals(prompt.getCommandPrompt())
+                && completeCommand.equals((prompt.getCompleteCommand()));
+    }
 }

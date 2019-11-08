@@ -59,19 +59,29 @@
   },
   "records" : {
     "pathRecords" : [
-      "/home/me/Pictures/weme.jpg"
+      "/home/me/Pictures/weme.jpg",
+      "/home/me/Pictures/smiling_cat.png",
+      "/home/me/Downloads/disaster_girl.jpg"
     ],
     "descriptionRecords" : [
-      "OMG my favorite meme!!!"
+      "OMG my favorite meme!!!",
+      "First meme about programming",
+      "Old memes"
     ],
     "tagRecords" : [
-      "[CS2103]"
+      "CS2103",
+      "programming",
+      "Computing"
     ],
     "nameRecords" : [
-      "disaster girl"
+      "disaster girl",
+      "Cute cat",
+      "Sponge Bob"
     ],
     "textRecords" : [
-      "lol"
+      "lol",
+      "Nay",
+      "Success starts with SU"
     ]
   }
 }

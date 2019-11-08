@@ -95,12 +95,6 @@ public class PrompterUtil {
 
     public static final int MAX_RESULTS_DISPLAY = 3;
 
-    public static final String NO_LISTED_MEME = "No meme listed for now!";
-
-    public static final String NO_STAGED_MEME = "No meme found in staging!";
-
-    public static final String NO_LISTED_TEMPLATE = "No template listed for now!";
-
     public static final Set<String> CONTEXTS = Set.of(
             CONTEXT_MEMES.getContextName(),
             CONTEXT_TEMPLATES.getContextName(),
@@ -353,7 +347,7 @@ public class PrompterUtil {
      * Sort given set of strings by similarity to the argument.
      * @return Stream containing the sorted records.
      */
-    public static Stream<String> sortStringsBySimilarity(Set<String> strings, String argument) {
+    private static Stream<String> sortStringsBySimilarity(Set<String> strings, String argument) {
         return strings
                 .stream()
                 .sorted((a, b) -> compareStrings(a.toLowerCase(), b.toLowerCase(), argument.toLowerCase()));

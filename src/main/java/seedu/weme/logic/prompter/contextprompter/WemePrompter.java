@@ -1,6 +1,5 @@
 package seedu.weme.logic.prompter.contextprompter;
 
-import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 
@@ -34,7 +33,6 @@ public class WemePrompter {
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
-        final String arguments = matcher.group(ARGUMENTS);
         switch (commandWord) {
 
         case TabCommand.COMMAND_WORD:
