@@ -79,7 +79,12 @@ public class ReminderCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.NONE;
+        return DisplayPaneType.CALENDAR_ENTRY;
+    }
+
+    @Override
+    public boolean isToCreateNewPane() {
+        return true;
     }
 
     @Override

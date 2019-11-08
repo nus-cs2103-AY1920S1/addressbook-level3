@@ -64,7 +64,8 @@ public class ReminderListPanel extends UiPart<Region> {
     private void initializeMissedReminders(ObservableList<CalendarEntry> calendarEntries) {
         DateTime start = new DateTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0)));
         DateTime end = new DateTime(LocalDateTime.now().minusMinutes(1));
-        missedReminders.setItems(calendarEntries.filtered(calendarEntry -> calendarEntry.isBetween(start, end)));
+        missedReminders.setItems(calendarEntries.filtered(calendarEntry -> calendarEntry instanceof Reminder
+                && calendarEntry.isBetween(start, end)));
         missedReminders.setCellFactory(listView -> new ReminderListViewCell());
         missedReminders.prefHeightProperty().bind(Bindings.size(
                 calendarEntries.filtered(calendarEntry -> calendarEntry.isBetween(start, end))).multiply(54));
@@ -76,7 +77,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private void initializePastReminders(ObservableList<CalendarEntry> reminders) {
         reminderListView.setItems(reminders);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
-        reminderListView.prefHeightProperty().bind(Bindings.size(reminders).multiply(54));
+        reminderListView.prefHeightProperty().bind(Bindings.size(reminders).multiply(54).add(2));
         reminderListView.setStyle("-fx-border-width: 0 0 2 0; -fx-border-color: #818A9E");
     }
 
