@@ -157,26 +157,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Method that allows the mouse to click on the window to be moved.
-     *
-     * @param event The event that the user clicks on the window.
-     */
-    public void handleWindowPress(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    /**
-     * Method that allows the window to be moved.
-     *
-     * @param event The event that the user drags the window.
-     */
-    public void handleWindowDrag(MouseEvent event) {
-        primaryStage.setX(event.getScreenX() - xOffset);
-        primaryStage.setY(event.getScreenY() - yOffset);
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
