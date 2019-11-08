@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
@@ -78,6 +79,9 @@ public class EditWishCommand extends Command {
 
         Wish entryToEdit = lastShownList.get(index.getZeroBased());
         Wish editedEntry = createEditedWish(entryToEdit, editEntryDescriptor);
+        if (!model.hasCategory(editedEntry.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasWish(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);

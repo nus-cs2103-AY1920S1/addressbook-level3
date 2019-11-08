@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser.sortcommandparsers;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_ARGUMENT_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
@@ -28,25 +27,17 @@ public class SortIncomeCommandParser implements Parser<SortIncomeCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortIncomeCommand parse(String args) throws ParseException, IllegalArgumentException {
-        try {
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_SEQUENCE);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_SEQUENCE);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_SEQUENCE)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortIncomeCommand.MESSAGE_USAGE));
-            }
-            SortType type = ParserUtil.parseSortType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
-            SortSequence seq = ParserUtil.parseSortSequence(argMultimap.getValue(PREFIX_SEQUENCE).get().toLowerCase());
-            return new SortIncomeCommand(type, seq);
-        } catch (IllegalArgumentException iea) {
-            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT,
-                    SortType.MESSAGE_CONSTRAINTS));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortIncomeCommand.MESSAGE_USAGE), pe);
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_SEQUENCE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SortIncomeCommand.MESSAGE_USAGE));
         }
+        SortType type = ParserUtil.parseSortType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
+        SortSequence seq = ParserUtil.parseSortSequence(argMultimap.getValue(PREFIX_SEQUENCE).get().toLowerCase());
+        return new SortIncomeCommand(type, seq);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

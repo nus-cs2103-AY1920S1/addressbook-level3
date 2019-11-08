@@ -53,6 +53,10 @@ public class MonthList {
      * Initiates the MonthList Record in guilttrip.
      */
     private void initRecords() {
+        mapOfExpenseCategories.clear();
+        mapOfIncomeCategories.clear();
+        mapOfDailyLists.clear();
+        listOfDailyStatistics.clear();
         for (int i = 0; i < this.listOfExpenseCategories.size(); i++) {
             Category toFilterCategory = this.listOfExpenseCategories.get(i);
             FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
@@ -86,11 +90,13 @@ public class MonthList {
 
     /**
      * Calculates the stats for the particular category for the particular month.
+     *
      * @param cat is the category to calculate the statistics for.
      * @return calculatedTotal, the total amount spent for that particular category in the month.
      */
     public Double updateListOfStats(Category cat) {
         double newTotal = 0.00;
+        updateMapOfEntries(cat);
         if (cat.categoryType.equalsIgnoreCase("Income")) {
             FilteredList<Income> toCalculate = this.mapOfIncomeCategories.get(cat);
             double calculatedTotal = 0.00;
@@ -107,6 +113,28 @@ public class MonthList {
             return calculatedTotal;
         }
     }
+
+    /**
+     *  If the category doesn't exist in the categoryList, update the categoryList to reflect the newly added Category.
+     *
+     * @param cat Category to update.
+     */
+    private void updateMapOfEntries(Category cat) {
+        if (cat.categoryType.equalsIgnoreCase("Income")) {
+            if (!mapOfIncomeCategories.containsKey(cat.categoryName)) {
+                FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
+                        new EntryContainsCategoryPredicate(cat));
+                this.mapOfIncomeCategories.put(cat, filteredByCategory);
+            }
+        } else {
+            if (!mapOfExpenseCategories.containsKey(cat.categoryName)) {
+                FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
+                        new EntryContainsCategoryPredicate(cat));
+                this.mapOfExpenseCategories.put(cat, filteredByCategory);
+            }
+        }
+    }
+
 
     /**
      * Calculates the statistics everyday to be used in the bar chart.

@@ -3,7 +3,7 @@ package seedu.guilttrip.logic.commands.editcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
 
 import javafx.collections.ObservableList;
 import seedu.guilttrip.logic.CommandHistory;
@@ -25,12 +25,12 @@ public class EditCategoryCommand extends Command {
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE OF CATEGORY "
-            + PREFIX_CATEGORY + "CATEGORY NAME "
+            + PREFIX_CATEGORY + "TYPE OF CATEGORY "
+            + PREFIX_OLD_NAME + "CATEGORY OLD NAME "
             + PREFIX_DESC + "NEW NAME FOR CATEGORY "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "Expense "
-            + PREFIX_CATEGORY + "Food "
+            + PREFIX_CATEGORY + "Expense "
+            + PREFIX_OLD_NAME + "Food "
             + PREFIX_DESC + "Food And Drink ";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Category: %1$s";
@@ -56,6 +56,7 @@ public class EditCategoryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        //ensures that the category old Name specified does not exist in GuiltTrip
         if (!model.hasCategory(toEditCategory)) {
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.categoryType));
         }
@@ -67,6 +68,7 @@ public class EditCategoryCommand extends Command {
         //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
         //TODO possible if doesn't work properly
+        //ensures that the new category specified does not exist in guilttrip
         if (categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
         }
@@ -159,9 +161,8 @@ public class EditCategoryCommand extends Command {
 
             // state check
             EditCategoryDescriptor e = (EditCategoryDescriptor) other;
-
             return getCategoryName().equals(e.getCategoryName())
-                    && getCategoryType().equals(e.getCategoryType());
+                    && getCategoryType().equalsIgnoreCase(e.getCategoryType());
         }
     }
 }
