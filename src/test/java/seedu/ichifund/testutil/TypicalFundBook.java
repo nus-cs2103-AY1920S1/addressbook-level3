@@ -61,10 +61,16 @@ public class TypicalFundBook {
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
-    public static final Person PERSON_HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person PERSON_IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Transaction TRANSACTION_CAT_FOOD = new TransactionBuilder()
+            .withDescription("Cat Food").withAmount("3.00")
+            .withDate(new DateBuilder().withDay("25").withMonth("2").withYear("2005").build())
+            .withCategory("Pet")
+            .withTransactionType("exp").build();
+    public static final Transaction TRANSACTION_DARK_CHOCOLATE = new TransactionBuilder()
+            .withDescription("Dark Chocolate").withAmount("2.50")
+            .withDate(new DateBuilder().withDay("17").withMonth("8").withYear("2006").build())
+            .withCategory("Food")
+            .withTransactionType("exp").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person PERSON_AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
