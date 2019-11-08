@@ -62,19 +62,19 @@ public class NoteTest {
         assertTrue(SAMPLE.equals(sampleCopy));
 
         // same object -> returns true
-        assertTrue(SAMPLE.equals(SAMPLE));
+        assertTrue(sampleCopy.equals(sampleCopy));
 
         // null -> returns false
-        assertFalse(SAMPLE.equals(null));
+        assertFalse(sampleCopy.equals(null));
 
         // different type -> returns false
-        assertFalse(SAMPLE.equals(5));
+        assertFalse(sampleCopy.equals(5));
 
         // different note -> returns false
-        assertFalse(SAMPLE.equals(PIPELINE));
+        assertFalse(sampleCopy.equals(PIPELINE));
 
         // different name -> returns false
         Note editedNote = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
-        assertFalse(SAMPLE.equals(editedNote));
+        assertFalse(sampleCopy.equals(editedNote));
     }
 }

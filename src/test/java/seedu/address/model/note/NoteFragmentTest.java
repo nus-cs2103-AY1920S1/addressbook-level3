@@ -63,19 +63,19 @@ public class NoteFragmentTest {
         assertTrue(SAMPLE.equals(sampleCopy));
 
         // same object -> returns true
-        assertTrue(SAMPLE.equals(SAMPLE));
+        assertTrue(sampleCopy.equals(sampleCopy));
 
         // null -> returns false
-        assertFalse(SAMPLE.equals(null));
+        assertFalse(sampleCopy.equals(null));
 
         // different type -> returns false
-        assertFalse(SAMPLE.equals(5));
+        assertFalse(sampleCopy.equals(5));
 
         // different noteFragment -> returns false
-        assertFalse(SAMPLE.equals(PIPELINE));
+        assertFalse(sampleCopy.equals(PIPELINE));
 
         // different name -> returns false
         NoteFragment editedNoteFragment = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").buildFragment();
-        assertFalse(SAMPLE.equals(editedNoteFragment));
+        assertFalse(sampleCopy.equals(editedNoteFragment));
     }
 }
