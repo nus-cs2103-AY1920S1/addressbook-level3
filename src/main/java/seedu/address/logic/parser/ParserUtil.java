@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.InvalidPathException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
