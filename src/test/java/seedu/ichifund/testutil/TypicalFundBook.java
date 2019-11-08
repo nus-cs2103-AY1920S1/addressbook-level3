@@ -1,6 +1,5 @@
 package seedu.ichifund.testutil;
 
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_ALLOWANCE;
@@ -9,13 +8,8 @@ import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUS;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_MONTH_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_MONTH_BUS;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TRANSACTION_TYPE_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TRANSACTION_TYPE_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_YEAR_ALLOWANCE;
@@ -28,7 +22,6 @@ import java.util.List;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**

@@ -4,7 +4,6 @@ import java.util.Date;
 
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
-import seedu.ichifund.model.person.Name;
 
 /**
  * Loan class for storing objects of Loan type.

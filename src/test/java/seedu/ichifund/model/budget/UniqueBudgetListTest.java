@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ichifund.model.budget.exceptions.DuplicateBudgetException;
 import seedu.ichifund.model.budget.exceptions.BudgetNotFoundException;
+import seedu.ichifund.model.budget.exceptions.DuplicateBudgetException;
 import seedu.ichifund.testutil.BudgetBuilder;
 
 public class UniqueBudgetListTest {
@@ -161,6 +161,6 @@ public class UniqueBudgetListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueBudgetList.asUnmodifiableObservableList().remove(0));
+            -> uniqueBudgetList.asUnmodifiableObservableList().remove(0));
     }
 }

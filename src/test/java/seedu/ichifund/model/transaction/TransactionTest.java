@@ -2,9 +2,9 @@ package seedu.ichifund.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUS;
-import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TRANSACTION_TYPE_BUS;
 import static seedu.ichifund.testutil.TypicalFundBook.TRANSACTION_ALLOWANCE;
 import static seedu.ichifund.testutil.TypicalFundBook.TRANSACTION_BUS;
@@ -35,7 +35,8 @@ public class TransactionTest {
         assertFalse(TRANSACTION_ALLOWANCE.equals(TRANSACTION_BUS));
 
         // different description -> returns false
-        Transaction editedAllowance = new TransactionBuilder(TRANSACTION_ALLOWANCE).withDescription(VALID_DESCRIPTION_BUS).build();
+        Transaction editedAllowance = new TransactionBuilder(TRANSACTION_ALLOWANCE)
+                .withDescription(VALID_DESCRIPTION_BUS).build();
         assertFalse(TRANSACTION_ALLOWANCE.equals(editedAllowance));
 
         // different amount -> returns false
