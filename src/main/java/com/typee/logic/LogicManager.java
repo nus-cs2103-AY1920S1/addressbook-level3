@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.TypeeParser;
+import com.typee.logic.interactive.parser.InteractiveParser;
+import com.typee.logic.interactive.parser.Parser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyEngagementList;
@@ -29,12 +29,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final TypeeParser typeeParser;
+    private final InteractiveParser interactiveParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        typeeParser = new TypeeParser();
+        interactiveParser = new Parser();
     }
 
     @Override
@@ -42,8 +42,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = typeeParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        interactiveParser.parseInput(commandText);
+        commandResult = interactiveParser.fetchResult();
+        if (interactiveParser.hasParsedCommand()) {
+            commandResult = interactiveParser.makeCommand().execute(model);
+        }
 
         try {
             storage.saveEngagementList(model.getEngagementList());

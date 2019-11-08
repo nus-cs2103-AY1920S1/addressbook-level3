@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.PdfCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.person.Person;
 
@@ -69,7 +71,7 @@ public class PdfCommandParser implements Parser<PdfCommand> {
      * @return {@code Person}.
      */
     private Person parsePerson(String args) {
-        return new Person(ParserUtil.parseNameDeterministic(args.trim()));
+        return new Person(InteractiveParserUtil.parseNameDeterministic(args.trim()));
     }
 
 }

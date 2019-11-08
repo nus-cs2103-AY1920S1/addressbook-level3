@@ -29,7 +29,7 @@ public class TypeeParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Engagement engagement = new EngagementBuilder().buildAsAppointment();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(engagement));
+        AddCommand command = (AddCommand) parser.parseInput(PersonUtil.getAddCommand(engagement));
         assertEquals(new AddCommand(engagement), command);
     }
      */
@@ -52,7 +52,7 @@ public class TypeeParserTest {
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditCommand command = (EditCommand) parser.parseInput(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ENGAGEMENT.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ENGAGEMENT, descriptor), command);
     }

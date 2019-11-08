@@ -2,6 +2,7 @@ package com.typee.logic.parser;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.SortCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
@@ -18,7 +19,7 @@ public class SortCommandParser implements Parser<SortCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        return new SortCommand(ParserUtil.parseComparator(parseOrder()));
+        return new SortCommand(InteractiveParserUtil.parseComparator(parseOrder()));
     }
 
     /**

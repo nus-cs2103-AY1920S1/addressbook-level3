@@ -12,7 +12,8 @@ import com.typee.model.person.Person;
  */
 public class AttendeeList {
 
-    public static final String MESSAGE_CONSTRAINTS = "AttendeeList should be a list of persons.";
+    public static final String MESSAGE_CONSTRAINTS = "The List of attendees should be a list of persons separated"
+            + " by vertical lines.";
 
     private final List<Person> attendees;
 
@@ -35,7 +36,7 @@ public class AttendeeList {
         if (stringWithoutBrackets.isBlank()) {
             return false;
         }
-        return validateNames(stringWithoutBrackets);
+        return areValidNames(stringWithoutBrackets);
     }
 
     /**
@@ -44,8 +45,8 @@ public class AttendeeList {
      * @param stringWithoutBrackets {@code String} representing a list of people.
      * @return true if all the names are valid.
      */
-    private static boolean validateNames(String stringWithoutBrackets) {
-        return Arrays.stream(stringWithoutBrackets.split(","))
+    public static boolean areValidNames(String stringWithoutBrackets) {
+        return Arrays.stream(stringWithoutBrackets.split("\\|"))
                 .map(person -> person.trim())
                 .allMatch(name -> Name.isValidName(name));
     }
@@ -70,7 +71,7 @@ public class AttendeeList {
      * @return List of people.
      */
     private static List<Person> getListOfPeople(String stringWithoutBrackets) {
-        return Arrays.stream(stringWithoutBrackets.split(","))
+        return Arrays.stream(stringWithoutBrackets.split("\\|"))
                     .map(str -> str.trim())
                     .map(name -> new Person(new Name(name)))
                     .collect(Collectors.toList());
@@ -92,7 +93,7 @@ public class AttendeeList {
 
     @Override
     public String toString() {
-        return attendees.toString();
+        return attendees.toString().replace(",", " |");
     }
 
     @Override

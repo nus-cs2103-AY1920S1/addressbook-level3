@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.typee.logic.interactive.parser.Prefix;
+
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.
@@ -49,6 +51,10 @@ public class ArgumentMultimap {
             return new ArrayList<>();
         }
         return new ArrayList<>(argMultimap.get(prefix));
+    }
+
+    public void clearValues(Prefix prefix) {
+        argMultimap.remove(prefix);
     }
 
     /**

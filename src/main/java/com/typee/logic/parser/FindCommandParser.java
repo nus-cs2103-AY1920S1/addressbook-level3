@@ -10,6 +10,7 @@ import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import com.typee.logic.commands.FindCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.EngagementPredicate;
@@ -40,7 +41,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             engagementPredicate.setLocation(
-                    ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()).toString());
+                    InteractiveParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()).toString());
         }
 
         //        if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
@@ -51,18 +52,19 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
             engagementPredicate.setPriority(
-                    ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()).toString());
+                    InteractiveParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()).toString());
         }
 
         if (argMultimap.getValue(PREFIX_ATTENDEES).isPresent()) {
-            AttendeeList attendeeList = ParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
+            AttendeeList attendeeList = InteractiveParserUtil
+                    .parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
             String attendeeName = attendeeList.getAttendees().get(0).getName().toString();
             engagementPredicate.setAttendees(attendeeName);
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             engagementPredicate.setDescription(
-                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+                    InteractiveParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (!engagementPredicate.isValid()) {
@@ -83,3 +85,4 @@ public class FindCommandParser implements Parser<FindCommand> {
                 PREFIX_END_TIME, PREFIX_PRIORITY, PREFIX_ATTENDEES, PREFIX_DESCRIPTION);
     }
 }
+
