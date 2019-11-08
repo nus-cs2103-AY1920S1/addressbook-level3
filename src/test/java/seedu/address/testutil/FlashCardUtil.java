@@ -31,7 +31,6 @@ public class FlashCardUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_QUESTION + flashCard.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_ANSWER + flashCard.getAnswer().fullAnswer + " ");
-        sb.append(PREFIX_RATING + flashCard.getRating().value + " ");
         flashCard.getCategories().stream().forEach(
             s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );

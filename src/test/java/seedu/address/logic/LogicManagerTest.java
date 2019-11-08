@@ -79,8 +79,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_1 + ANSWER_DESC_1
-                + RATING_DESC_1;
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_1 + ANSWER_DESC_1;
         FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withCatgeories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFlashCard(expectedFlashCard);
