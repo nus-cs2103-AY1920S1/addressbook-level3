@@ -111,9 +111,6 @@ public class TypicalFundBook {
      */
     public static FundBook getTypicalFundBook() {
         FundBook fb = new FundBook();
-        for (Person person : getTypicalPersons()) {
-            fb.addPerson(person);
-        }
         for (Transaction transaction : getTypicalTransactions()) {
             fb.addTransaction(transaction);
         }

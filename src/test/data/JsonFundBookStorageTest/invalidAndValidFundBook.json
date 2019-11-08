@@ -1,6 +1,5 @@
 {
   "currentRepeaterUniqueId": "0",
-  "persons" : [],
   "transactions": [ {
     "description" : "Valid tx",
     "amount" : "2.10",
