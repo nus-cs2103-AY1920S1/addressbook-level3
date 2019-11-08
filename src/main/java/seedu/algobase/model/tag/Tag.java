@@ -23,7 +23,7 @@ public class Tag {
     public static final String DEFAULT_COLOR = "#3e7b91";
     public final Id id;
     public final String tagName;
-    public final String tagColor;
+    private String tagColor;
 
     /**
      * Constructs a {@code Tag}.
@@ -72,6 +72,10 @@ public class Tag {
 
     public String getColor() {
         return tagColor;
+    }
+
+    public void setColor(String color) {
+        this.tagColor = color;
     }
     /**
      * Returns true if a given string is a valid tag name.
