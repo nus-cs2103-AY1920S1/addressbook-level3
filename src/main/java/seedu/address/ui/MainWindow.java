@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +22,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -72,6 +77,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private TabPane tabPanePlaceholder;
+
+    @FXML
+    private CommandBox commandBox;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -174,6 +182,37 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns the current eventList that the user is referring to according to
+     * what tab he is on.
+     * @param model takes in a model to extract the eventList from
+     * @return an eventList that the user is referring to
+     */
+    public static List<Event> getCurrentEventList(Model model) {
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            return model.getFilteredEventList();
+        } else {
+            return model.getFilteredScheduledEventList();
+        }
+    }
+
+    /**
+     * Returns the updated version of the Current eventList that the user is referring
+     * to according to what tab he is on.
+     * @param model takes in a model to extract the eventList from
+     * @param predicate that updates the filtered eventList
+     * @return an updated eventList based on the predicate that the user is referring to
+     */
+    public static ObservableList<Event> getUpdatedCurrentEventList(Model model, Predicate predicate) {
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            model.updateFilteredEventList(predicate);
+            return model.getFilteredEventList();
+        } else {
+            model.updateFilteredScheduledEventList(predicate);
+            return model.getFilteredScheduledEventList();
+        }
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -198,6 +237,7 @@ public class MainWindow extends UiPart<Stage> {
         fetchEventWindow.getRoot().getScene().getStylesheets().add("view/Extensions.css");
         if (!fetchEventWindow.isShowing()) {
             fetchEventWindow.show();
+            primaryStage.requestFocus();
         } else {
             fetchEventWindow.focus();
         }
@@ -215,6 +255,7 @@ public class MainWindow extends UiPart<Stage> {
         fetchEmployeeWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchEmployeeWindow.isShowing()) {
             fetchEmployeeWindow.show();
+            primaryStage.requestFocus();
         } else {
             fetchEmployeeWindow.focus();
         }
@@ -298,6 +339,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
             if (commandResult.getFetch() != null) {
                 if (commandResult.getType().equals("Employee_Fetch")) {
                     handleEmployeeFetch(commandResult.getFetch());
@@ -350,6 +392,15 @@ public class MainWindow extends UiPart<Stage> {
 
             if (fetchEventWindow != null && !commandResult.getType().equals("List")) {
                 fetchEventWindow.updateCards();
+            }
+
+            if (commandResult.getType().equals("unfetch")) {
+                if (fetchEventWindow != null) {
+                    fetchEventWindow.hide();
+                }
+                if (fetchEmployeeWindow != null) {
+                    fetchEmployeeWindow.hide();
+                }
             }
 
             return commandResult;

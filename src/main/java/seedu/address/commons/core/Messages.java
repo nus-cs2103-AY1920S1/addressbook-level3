@@ -16,6 +16,8 @@ public class Messages {
     public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
     public static final String MESSAGE_EVENT_LISTED_OVERVIEW = "%1$d event listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
+    public static final String MESSAGE_EVENTS_DUPLICATE = "There is a duplicate event in the EventBook! \n"
+            + "An Event is uniquely identified by its Name, Venue, Start Date and End Date.";
     public static final String MESSAGE_GENERATE_SUCCESS = "Schedule Generated";
     public static final String MESSAGE_GENERATE_FAILURE = "There is no events available, unable to generate schedule";
     public static final String MESSAGE_UNAVAILABLE_MANPOWER = "Employee to allocate is unavailable for this event!";
@@ -31,7 +33,9 @@ public class Messages {
     public static final String MESSAGE_DATE_TOO_OLD = "Only dates of the last 10 years is accepted";
     public static final String MESSAGE_DATE_BIG_RANGE =
             "The maximum acceptable range between the Start and End Dates is 90 days. \n"
-            + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
+                    + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
+    public static final String MESSAGE_DATE_START_AFTER_END =
+            "Your stated Start Date [%s] is after your End Date [%s]!";
     public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
             + "allocated to the event!";
     public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"

@@ -25,7 +25,12 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
      */
     @Override
     public boolean test(Event event) {
-        return YearMonth.from(event.getStartDate().getDate()).equals(yearMonth);
+        YearMonth start = YearMonth.of(event.getStartDate().getDate().getYear(),
+                event.getStartDate().getDate().getMonth());
+        YearMonth end = YearMonth.of(event.getEndDate().getDate().getYear(),
+                event.getEndDate().getDate().getMonth());
+        return yearMonth.equals(start) || yearMonth.equals(end)
+                || yearMonth.isAfter(start) && yearMonth.isBefore(end);
     }
 
     @Override
@@ -36,4 +41,3 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
     }
 
 }
-

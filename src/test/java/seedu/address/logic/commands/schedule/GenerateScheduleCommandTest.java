@@ -22,7 +22,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -56,7 +55,7 @@ public class GenerateScheduleCommandTest {
     }
 
     @Test
-    public void execute_generateSchedule_noEventFound() throws CommandException {
+    public void execute_generateSchedule_noEventFound() {
         String expectedMessage = String.format(Messages.MESSAGE_GENERATE_FAILURE);
         GenerateScheduleCommand command = new GenerateScheduleCommand();
         List<DistinctDate> distinctDates = DistinctDatesProcessor.generateAllDistinctDateList(emptyExpectedModel);

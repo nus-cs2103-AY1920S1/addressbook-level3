@@ -43,7 +43,7 @@ public class EmployeeSalaryPaid {
     }
 
     /**
-     * Returns true if a given string is a valid Pay number.
+     * Returns true if a given string is a valid PayCommand number.
      */
     public static boolean isValidSalaryPaid(String test) {
         try {

@@ -63,6 +63,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, handleArrowKey);
     }
 
+
     /**
      * Handles the Enter button pressed event.
      */

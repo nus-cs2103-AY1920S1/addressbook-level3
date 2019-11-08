@@ -30,12 +30,13 @@ import seedu.address.logic.commands.event.FetchEventCommand;
 import seedu.address.logic.commands.event.FindEventByTagCommand;
 import seedu.address.logic.commands.event.FindEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
-import seedu.address.logic.commands.finance.Pay;
-import seedu.address.logic.commands.finance.Undopay;
+import seedu.address.logic.commands.finance.PayCommand;
+import seedu.address.logic.commands.finance.UndoPayCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.general.MainCommand;
 import seedu.address.logic.commands.general.ScheduleCommand;
+import seedu.address.logic.commands.general.UnfetchCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
@@ -95,10 +96,10 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case Undopay.COMMAND_WORD:
+        case UndoPayCommand.COMMAND_WORD:
             return new Undopayparser().parse(arguments);
 
-        case Pay.COMMAND_WORD:
+        case PayCommand.COMMAND_WORD:
             return new Payparser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
@@ -184,6 +185,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UnfetchCommand.COMMAND_WORD:
+            return new UnfetchCommand();
 
         case GenerateStatisticsCommand.COMMAND_WORD:
             return new GenerateStatisticsCommand();

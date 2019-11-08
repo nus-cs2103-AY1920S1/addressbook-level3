@@ -13,7 +13,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
+ * Represents a Single Date of an Event. Events can span a time period of multiple days (dates).
+ * Valid with Constraints.
  */
 public class EventDate implements Comparable<EventDate> {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format dd/MM/yyyy";
@@ -26,7 +27,7 @@ public class EventDate implements Comparable<EventDate> {
     /**
      * Constructs a {@code EventDate}.
      *
-     * @param date A valid LocalDate Object.
+     * @param date A valid LocalDate Object that satisfies the Date Constraints.
      */
     public EventDate(LocalDate date) {
         this.date = date;
@@ -45,7 +46,7 @@ public class EventDate implements Comparable<EventDate> {
     }
 
     /**
-     * Boolean to check if the current EventDate is beofre another EventDate
+     * Boolean to check if the current EventDate is before another EventDate
      * Note: If same, date, return false.
      */
     public boolean isBefore(EventDate otherDate) {
@@ -53,7 +54,7 @@ public class EventDate implements Comparable<EventDate> {
     }
 
     /**
-     * Returns true if a given string is a valid localDate number.
+     * Returns true if a given string can be parsed to a LocalDate and satisfy the Constraints.
      */
     public static boolean isValidDate(String test) {
         try {
@@ -75,7 +76,7 @@ public class EventDate implements Comparable<EventDate> {
     }
 
     /**
-     * Returns true if the current EventDate is already past, according to the SystemDate.
+     * Returns true if the current EventDate is already past, according to the System's Date.
      */
     public boolean isPastDate() {
         return Config.getCurrentDate().isAfter(date);
@@ -86,14 +87,13 @@ public class EventDate implements Comparable<EventDate> {
      */
     public long dateDifference(EventDate other) {
         long daysBetween = DAYS.between(date, other.getDate());
-        System.out.println(daysBetween);
         return daysBetween;
     }
 
     /**
-     * Returns a sequential stream of Event Dates.
+     * Returns a sequential stream of {@code EventDate}.
      *
-     * @param endInclusive an Event Date that will be included in the Stream
+     * @param endInclusive an {@code EventDate} that acts as the ending range (inclusive) of the Stream.
      */
     public Stream<EventDate> datesUntil(EventDate endInclusive) {
         return getDate().datesUntil(endInclusive.getDate().plusDays(1))

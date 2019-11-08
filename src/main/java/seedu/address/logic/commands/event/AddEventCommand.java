@@ -2,6 +2,8 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_BIG_RANGE;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
+import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_DUPLICATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -14,9 +16,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
 
 /**
- * Adds a employee to the address book.
+ * Adds an {@code Event} to the EventBook.
  */
 public class AddEventCommand extends Command {
 
@@ -40,14 +43,13 @@ public class AddEventCommand extends Command {
             + PREFIX_TAG + "free ";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event book";
     public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
 
     private final Event toAdd;
 
 
     /**
-     * Creates an AddCommand to add the specified {@code Employee}
+     * Creates an AddEventCommand to add the specified {@code Event}
      */
     public AddEventCommand(Event event) {
         requireNonNull(event);
@@ -59,17 +61,19 @@ public class AddEventCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEvent(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+            throw new CommandException(MESSAGE_EVENTS_DUPLICATE);
         }
 
-        if (toAdd.getStartDate().compareTo(toAdd.getEndDate()) > 0) {
-            throw new CommandException(MESSAGE_INVALID_DATES);
-        }
+        EventDate eventStartDate = toAdd.getStartDate();
+        EventDate eventEndDate = toAdd.getEndDate();
+        long dateDifference = eventStartDate.dateDifference(eventEndDate);
 
-        long dateDifference = toAdd.getStartDate().dateDifference(toAdd.getEndDate());
-        if (dateDifference > 90) {
+        if (dateDifference < 0) {
+            throw new CommandException(
+                    String.format(MESSAGE_DATE_START_AFTER_END, eventStartDate, eventEndDate));
+        } else if (dateDifference > 90) {
             throw new CommandException(String.format(
-                    MESSAGE_DATE_BIG_RANGE, toAdd.getStartDate(), toAdd.getEndDate(), dateDifference));
+                    MESSAGE_DATE_BIG_RANGE, eventStartDate, eventEndDate, dateDifference));
         }
 
         model.addEvent(toAdd);

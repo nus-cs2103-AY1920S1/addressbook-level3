@@ -27,17 +27,16 @@ public class AssignDateCommand extends Command {
             + ": Assigns a Date-TimePeriod mapping to an existing Event identified"
             + " by the index number used in the displayed event list. \n"
             + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
-            + "Example: " + COMMAND_WORD + " 2 on/18/10/2019 time/0500-2000";
+            + "Example: " + COMMAND_WORD + " 2 on/20/10/2019 time/0500-2000";
 
-    public static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
-    public static final String MESSAGE_SUCCESS_ALL =
+    private static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
+    private static final String MESSAGE_SUCCESS_ALL =
             "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
     private static final String EVENT_DATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
     private final Optional<EventDate> targetEventDate;
     private final EventDayTime eventDayTime;
-
 
     /**
      * @param index of the event in the filtered event list to assign to
@@ -62,12 +61,7 @@ public class AssignDateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList;
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            lastShownList = model.getFilteredEventList();
-        } else {
-            lastShownList = model.getFilteredScheduledEventList();
-        }
+        List<Event> lastShownList = MainWindow.getCurrentEventList(model);
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
@@ -76,7 +70,7 @@ public class AssignDateCommand extends Command {
 
         if (targetEventDate.isPresent()) {
             EventContainsKeyDatePredicate dateCheck =
-                    new EventContainsKeyDatePredicate(targetEventDate.get().getDate());
+                    new EventContainsKeyDatePredicate(targetEventDate.get());
             if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
                 throw new CommandException(EVENT_DATE_INVALID);
             }

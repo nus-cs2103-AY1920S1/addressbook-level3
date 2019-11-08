@@ -32,9 +32,9 @@ public class DisplayScheduleForDateCommandTest {
     @Test
     public void equals() throws ParseException {
         EventContainsKeyDatePredicate firstPredicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("10/12/2019"));
+                new EventContainsKeyDatePredicate(ParserUtil.parseEventDate("10/12/2019"));
         EventContainsKeyDatePredicate secondPredicate =
-                new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate("12/12/2019"));
+                new EventContainsKeyDatePredicate(ParserUtil.parseEventDate("12/12/2019"));
 
         DisplayScheduleForDateCommand displayFirstCommand = new DisplayScheduleForDateCommand(firstPredicate);
         DisplayScheduleForDateCommand displaySecondCommand = new DisplayScheduleForDateCommand(secondPredicate);
@@ -42,7 +42,7 @@ public class DisplayScheduleForDateCommandTest {
         // same object -> returns true
         assertTrue(displayFirstCommand.equals(displayFirstCommand));
 
-        // same values -> returns true
+        // same predicate -> returns true
         DisplayScheduleForDateCommand displayFirstCommandCopy =
                 new DisplayScheduleForDateCommand(firstPredicate);
         assertTrue(displayFirstCommand.equals(displayFirstCommandCopy));
@@ -53,12 +53,12 @@ public class DisplayScheduleForDateCommandTest {
         // null -> returns false
         assertFalse(displayFirstCommand.equals(null));
 
-        // different event -> returns false
+        // different event with different predicate -> returns false
         assertFalse(displayFirstCommand.equals(displaySecondCommand));
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() throws ParseException {
+    public void execute_validDateKeywordInput_noEventFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDatePredicate predicate = preparePredicate("01/01/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
@@ -68,7 +68,7 @@ public class DisplayScheduleForDateCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
+    public void execute_validDateKeywordInput_multipleEventsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDatePredicate predicate = preparePredicate("12/10/2019");
         DisplayScheduleForDateCommand command = new DisplayScheduleForDateCommand(predicate);
@@ -81,6 +81,6 @@ public class DisplayScheduleForDateCommandTest {
      * Parses {@code userInput} into a {@code EventContainsKeyDatePredicate}.
      */
     private EventContainsKeyDatePredicate preparePredicate(String userInput) throws ParseException {
-        return new EventContainsKeyDatePredicate(ParserUtil.parseAnyDate(userInput));
+        return new EventContainsKeyDatePredicate(ParserUtil.parseEventDate(userInput));
     }
 }
