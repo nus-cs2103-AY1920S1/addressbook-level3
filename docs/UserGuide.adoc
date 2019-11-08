@@ -374,14 +374,24 @@ image::defaultsuccess.png[]
 
 //tag::budgeting[]
 === Budgeting
+.Example User's Wallet
+image::wallet.png[width = "400"]
+
+[NOTE]
+Maximum budget amount is 1 million dollars. +
+Maximum budget duration is 365 days (1 year).
 
 ==== Sets budget for a number of days: `budget`
-Allows the user to set a budget AMOUNT for food expenses for a certain number
-of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
+Allows the user to set a budget for food expenses.
 
 ****
-*Format*: `budget AMOUNT DAYS` +
+*Format*: `budget AMOUNT [DURATION]` +
 *Example*: `budget 100.00 10`
+
+*Note*: +
+`AMOUNT` must be a non-negative integer or non-negative double with 2 decimal places. +
+`DURATION` is in days, and must be a non-negative integer. +
+
 ****
 
 
@@ -390,11 +400,17 @@ Allows users to top up the money into their wallet.
 ****
 *Format*: `topup AMOUNT` +
 *Example*: `topup 10`
+
+*Note*: +
+`AMOUNT` must be a non-negative integer or or non-negative double with 2 decimal places. +
+
 ****
 
 [NOTE]
-If the top up was successful, you should be able to see the update in your wallet immediately.
+If the top up was successful, you should be able to see the update to your wallet immediately.
 //end::budgeting[]
+
+=== Saving
 
 //tag::savings[]
 ==== Saves money into savings account: `save`
@@ -447,18 +463,23 @@ Also the amount withdrawn is added into your wallet.
 //tag::purchasing[]
 === Purchasing
 
+.Example User's PurchaseHistory
+image::PurchaseHistory.png[width = 600]
+
 ==== Buy a food item: `buy`
 Allows users to log a food expense into the application.
 ****
 *Format*: `buy FOOD_INDEX` +
 *Example*: `buy 1`
+
+*Note*: `FOOD_INDEX` is with reference to the currently displayed food list
 ****
 
 [IMPORTANT]
 Make sure you have enough money in your wallet for the purchase.
 
 [NOTE]
-If the purchase was successful, you should be able to see the update in your purchase history immediately.
+If the purchase was successful, you should be able to see the update to your purchase history immediately.
 //end::purchasing[]
 
 //tag::recommendations[]

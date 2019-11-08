@@ -157,13 +157,13 @@
 }
 
 .purchase-history-text {
-    -fx-fill: black;
+    -fx-fill: #3b5998;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 40px;
 }
 
 .account-days-left {
-    -fx-fill: black;
+    -fx-fill: #3b5998;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 27px;
 }
