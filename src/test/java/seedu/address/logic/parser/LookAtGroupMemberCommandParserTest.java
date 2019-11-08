@@ -18,8 +18,6 @@ public class LookAtGroupMemberCommandParserTest {
     public void wrongFlagsGivenToParser() {
         assertParseFailure(parser, "n/Alex g/Benjamin", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 LookAtGroupMemberCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "e/Tim n/Alex", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                LookAtGroupMemberCommand.MESSAGE_USAGE));
     }
 
     @Test
