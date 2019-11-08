@@ -5,7 +5,6 @@ import static seedu.module.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.module.logic.commands.linkcommands.LaunchLinkCommand;
 import seedu.module.logic.parser.ArgumentMultimap;
 import seedu.module.logic.parser.exceptions.ParseException;
-import seedu.module.model.module.Link;
 
 /**
  * Parser specific to LaunchLinkCommand
@@ -22,7 +21,7 @@ public class LaunchLinkCommandParser {
             String title = argMultimap.getValue(PREFIX_NAME).get();
             return new LaunchLinkCommand(title);
         } else {
-            throw new ParseException(Link.MESSAGE_CONSTRAINTS);
+            throw new ParseException("No launch target specified");
         }
     }
 }

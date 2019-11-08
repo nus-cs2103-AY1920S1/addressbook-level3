@@ -41,9 +41,6 @@ public class JsonAdaptedLink {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Link.
      */
     public Link toModelType() throws IllegalValueException {
-        if (!Link.isValidUrl(url)) {
-            throw new IllegalValueException(Link.MESSAGE_CONSTRAINTS);
-        }
         return new Link(linkTitle, url, marked);
     }
 

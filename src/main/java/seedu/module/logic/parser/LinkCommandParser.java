@@ -50,7 +50,7 @@ public class LinkCommandParser implements Parser<LinkCommand> {
                 throw new ParseException("Command not recognized");
             }
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LinkCommand.MESSAGE_USAGE), e);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()), e);
         }
     }
 

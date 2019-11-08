@@ -8,8 +8,8 @@ import java.util.Optional;
 
 import seedu.module.logic.commands.linkcommands.EditLinkCommand;
 import seedu.module.logic.parser.ArgumentMultimap;
+import seedu.module.logic.parser.ParserUtil;
 import seedu.module.logic.parser.exceptions.ParseException;
-import seedu.module.model.module.Link;
 
 /**
  * Parser specific to EditLinkCommand
@@ -26,9 +26,17 @@ public class EditLinkCommandParser {
             String title = argMultimap.getValue(PREFIX_NAME).get();
             Optional<String> newTitle = argMultimap.getValue(PREFIX_NEW_NAME);
             Optional<String> newLink = argMultimap.getValue(PREFIX_NEW_LINK);
+            if (newLink.isPresent()) {
+                String link = newLink.get();
+                link = ParserUtil.checkScheme(link);
+                if (!ParserUtil.isValidUrl(link)) {
+                    throw new ParseException("Not a valid URL");
+                }
+                newLink = Optional.of(link);
+            }
             return new EditLinkCommand(title, newTitle, newLink);
         } else {
-            throw new ParseException(Link.MESSAGE_CONSTRAINTS);
+            throw new ParseException("No edit target specified");
         }
     }
 

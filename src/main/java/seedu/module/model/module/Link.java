@@ -6,8 +6,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 
-import org.apache.commons.validator.routines.UrlValidator;
-
 import seedu.module.model.module.exceptions.LinkAccessException;
 
 /**
@@ -20,44 +18,19 @@ public class Link {
     public final String name;
     private boolean marked = false;
 
-    public Link(String name, String url) throws IllegalArgumentException {
+    public Link(String name, String url) {
 
         requireNonNull(url);
-        String properLink = url;
-        if (!url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://")) {
-            properLink = "http://" + url;
-        }
-        if (!isValidUrl(properLink)) {
-            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
-        }
         this.name = name;
-        this.url = properLink;
+        this.url = url;
     }
 
-    public Link(String name, String url, boolean marked) throws IllegalArgumentException {
+    public Link(String name, String url, boolean marked) {
 
         requireNonNull(url);
-        String properLink = url;
-        if (!url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://")) {
-            properLink = "http://" + url;
-        }
-        if (!isValidUrl(properLink)) {
-            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
-        }
         this.name = name;
-        this.url = properLink;
+        this.url = url;
         this.marked = marked;
-    }
-
-    /**
-     * Returns True if the string given is a valid URL
-     * @param url
-     * @return
-     */
-    public static boolean isValidUrl(String url) {
-        String[] scheme = {"http", "https"};
-        UrlValidator urlValidator = new UrlValidator(scheme);
-        return urlValidator.isValid(url);
     }
 
     /**
