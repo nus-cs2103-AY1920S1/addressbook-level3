@@ -234,10 +234,10 @@ image::AutoAllocateFlowChart.png[align="center", width = "300"]
 to the 1st event displayed in the event list.
 
 **Step 2**. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
+The command also checks if the event still requires manpower, and if manpower count stated by user
+exceeds that needed by the event.
 [NOTE]
 If `ManpowerCountToAdd` is not specified, it is assumed to be the maximum number possible for the event.
-Validity of other command arguments e.g. if `ManpowerCountToAdd` is a positive integer is checked
-by `AutoAllocateCommandParser` and not within the command `AutoAllocateCommand`.
 
 
 **Step 3**. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees

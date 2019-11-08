@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.allocate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
- * Allocates an employee from the displayed list of employees to an event.
+ * Allocates an employee to an event.
  */
 public class ManualAllocateCommand extends Command {
 
@@ -36,6 +37,8 @@ public class ManualAllocateCommand extends Command {
             + "\n"
             + "Parameters: EVENT_INDEX "
             + PREFIX_EMPLOYEE_NUMBER + "PERSON_INDEX (must be valid positive integers)\n"
+            + "[" + PREFIX_EMPLOYEE_NUMBER + "EMPLOYEE_INDEX] "
+            + "[" + PREFIX_EMPLOYEE_ID + "EMPLOYEE_ID]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
@@ -71,11 +74,11 @@ public class ManualAllocateCommand extends Command {
         requireNonNull(model);
 
         if (employeeId != null && employeeIndex != null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(Messages.MESSAGE_INVALID_ALLOCATEM_INPUT);
         }
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
-        List<Event> lastShownEventList;
+        List<Event> lastShownEventList = null;
 
         //Checks the current tab index and retrieves the relevant list from model
         if (MainWindow.getCurrentTabIndex() == 0) {

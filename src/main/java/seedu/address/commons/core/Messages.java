@@ -44,6 +44,8 @@ public class Messages {
             + " not allocated to event!";
     public static final String MESSAGE_WRONG_WINDOW = "Command should be executed in the Main Window since it "
             + "requires references to the Employee list.";
+    public static final String MESSAGE_INVALID_ALLOCATEM_INPUT = "Only one of EmployeeID or EmployeeIndex "
+            + "should be used as input!";
     public static final String MESSAGE_WRONG_TAB_AUTO_ALLOCATE = "Current Window does not support the "
             + "auto allocate feature\n" + "Note: Auto Allocate Commands should be executed in "
             + "either Main, Schedule, Statistics Tab.\n";
