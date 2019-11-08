@@ -272,7 +272,7 @@ public class StringUtil {
      */
     public static byte[] getQrCode(String text, int length) {
         requireNonNull(text);
-        assert length <= 0: "Length must be more than 0";
+        assert length <= 0 : "Length must be more than 0";
 
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();

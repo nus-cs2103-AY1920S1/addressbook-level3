@@ -1,6 +1,6 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,6 +18,7 @@ import io.xpire.model.tag.Tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+//@@author JermyTan
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
@@ -33,10 +34,18 @@ public class SearchCommand extends Command {
             + "Format: search|<keyword>[|<other keywords>]... (keyword(s) for tags must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|apple|#fridge|banana";
 
+    /** A predicate that tests if an item contains a set of keywords. */
     private final ContainsKeywordsPredicate predicate;
 
+    /** The current list type. */
     private final ListType listType;
 
+    /**
+     * Public constructor for class.
+     *
+     * @param listType Current list type.
+     * @param predicate Predicate to test the {@code Item} object.
+     */
     public SearchCommand(ListType listType, ContainsKeywordsPredicate predicate) {
         this.listType = listType;
         this.predicate = predicate;
@@ -44,24 +53,30 @@ public class SearchCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-        ObservableList<? extends Item> prevList = FXCollections.observableArrayList(model.getCurrentList());
+
+        //Saves the current copy of the list view
+        ObservableList<? extends Item> previousList = FXCollections.observableArrayList(model.getCurrentList());
+        //Updates the list view
         model.filterCurrentList(this.listType, this.predicate);
-        ObservableList<? extends Item> currentList = model.getCurrentList();
-        StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, currentList.size()));
-        model.filterCurrentList(this.listType, this.predicate);
-        if (model.getCurrentList().size() == 0) {
-            Set<Tag> allTags = prevList
+        //Retrieves the updated list view
+        ObservableList<? extends Item> updatedList = model.getCurrentList();
+        StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, updatedList.size()));
+
+        //If the list view is empty
+        if (updatedList.size() == 0) {
+            Set<Tag> allTags = previousList
                     .stream()
                     .flatMap(item -> item.getTags().stream())
                     .collect(Collectors.toSet());
-            Set<Name> allItemNames = prevList
+            Set<Name> allItemNames = previousList
                     .stream()
                     .map(Item::getName)
                     .collect(Collectors.toSet());
 
-            predicate.getKeywords().forEach(s -> sb.append(s.startsWith("#")
+            //Includes any similar tags or item names found
+            this.predicate.getKeywords().forEach(s -> sb.append(s.startsWith("#")
                     ? StringUtil.findSimilarItemTags(s, allTags)
                     : StringUtil.findSimilarItemNames(s, allItemNames)));
         }

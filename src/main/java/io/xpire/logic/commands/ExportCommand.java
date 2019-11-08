@@ -1,5 +1,7 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
@@ -24,15 +26,20 @@ public class ExportCommand extends Command {
     /** Pretty formatting of the exported data. */
     private static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * *\n";
 
+    /** Resolution size of the QR code image. */
+    private static final int RESOLUTION_SIZE = 800;
+
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
+        requireAllNonNull(model, stateManager);
+
         ObservableList<? extends Item> currentList = model.getCurrentList();
         StringBuilder formattedOutput = new StringBuilder(BORDER);
         for (int index = 1; index <= currentList.size(); index++) {
             formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index - 1).toString()));
             formattedOutput.append(BORDER);
         }
-        byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), 800);
+        byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), RESOLUTION_SIZE);
         return new CommandResult(SHOWING_EXPORT_MESSAGE, true, pngData);
     }
 }

@@ -73,7 +73,8 @@ public class DateUtil {
      *
      * @param earlierDate The earlier date.
      * @param laterDate The later date.
-     * @return Difference in number of days between the 2 dates. Negative of the difference is returned when earlierDate is later than laterDate.
+     * @return Difference in number of days between the 2 dates.
+     * Negative of the difference is returned when earlierDate is later than laterDate.
      */
     public static long getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
