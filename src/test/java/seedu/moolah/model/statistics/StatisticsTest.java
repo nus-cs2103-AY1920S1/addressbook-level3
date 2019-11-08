@@ -77,6 +77,10 @@ class StatisticsTest {
      */
 
 
+    //the methods that call the run method, now depreciated because run method quite different and
+    //we want to map the command there instead of the model object
+    //now the run method will always take in non-null values because handled elsewhere, so it stops checking
+    //these tests should be migrated
     @Test
     void calculateStats_validInputForStats_success() {
 
@@ -86,12 +90,12 @@ class StatisticsTest {
                 VALID_EARLY_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof PieChartStatistics);
         assertTrue(Statistics.calculateStats(commandWord,
                 VALID_EARLY_TIMESTAMP, VALID_EARLY_TIMESTAMP, VALID_BUDGET, true) instanceof PieChartStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                VALID_LATE_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof PieChartStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                INVALID_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof PieChartStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                INVALID_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof PieChartStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                VALID_LATE_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof PieChartStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                INVALID_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof PieChartStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                INVALID_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof PieChartStatistics);
     }
 
 

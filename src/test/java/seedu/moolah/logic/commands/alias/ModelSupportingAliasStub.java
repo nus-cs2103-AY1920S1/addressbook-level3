@@ -309,4 +309,9 @@ public class ModelSupportingAliasStub implements Model {
     public Statistics getStatistics() {
         throw new AssertionError("Method should not be called.");
     }
+
+    @Override
+    public void setStatistics(Statistics statistics) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

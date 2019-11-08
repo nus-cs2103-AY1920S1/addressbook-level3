@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.moolah.logic.commands.statistics.StatsCommand;
+import seedu.moolah.logic.commands.statistics.StatsDescriptor;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
 import seedu.moolah.logic.parser.Parser;
@@ -45,6 +46,8 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
+        StatsDescriptor statsDescriptor = new StatsDescriptor();
+
         Timestamp startDate = null;
         Timestamp endDate = null;
 
@@ -54,16 +57,24 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             checkStartBeforeEnd(argMultimap);
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsCommand.createWithBothDates(startDate, endDate);
+            //return StatsCommand.createWithBothDates(startDate, endDate);
+            statsDescriptor.setStartDate(startDate);
+            statsDescriptor.setEndDate(endDate);
         } else if (isStartPresent) {
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            return StatsCommand.createOnlyWithStartDate(startDate);
+            //return StatsCommand.createOnlyWithStartDate(startDate);
+            statsDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsCommand.createOnlyWithEndDate(endDate);
-        } else {
-            return StatsCommand.createWithNoDate();
+            //return StatsCommand.createOnlyWithEndDate(endDate);
+//        } else {
+//            //return StatsCommand.createWithNoDate();
+//        }
+//    }
         }
+
+        //can no need fill anything
+        return new StatsCommand(statsDescriptor);
     }
 
     /**

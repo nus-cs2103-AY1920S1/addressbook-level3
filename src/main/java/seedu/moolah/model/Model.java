@@ -254,4 +254,6 @@ public interface Model {
 
     Statistics getStatistics();
 
+    void setStatistics(Statistics statistics);
+
 }

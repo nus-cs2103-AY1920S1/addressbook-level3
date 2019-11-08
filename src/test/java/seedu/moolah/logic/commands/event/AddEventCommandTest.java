@@ -375,6 +375,11 @@ public class AddEventCommandTest {
         public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setStatistics(Statistics statistics) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
