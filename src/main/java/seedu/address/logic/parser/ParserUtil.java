@@ -359,8 +359,11 @@ public class ParserUtil {
         requireNonNull(length);
         try {
             int lengthNum = Integer.parseInt(length);
-            if (!GeneratePasswordCommand.isValidGeneratePasswordLength(lengthNum)) {
-                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
+            if (lengthNum < 4) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MIN);
+            }
+            if (lengthNum > 25) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MAX);
             }
             return lengthNum;
         } catch (NumberFormatException e) {
