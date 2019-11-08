@@ -55,7 +55,7 @@ We have used the following symbols to help you better understand our application
 | Symbol | What it means
 | image:./icons/important.png[] | Important information that you may want to note.
 | image:./icons/lightbulb.png[] | Shortcuts or hacks that would improve your experience using this application.
-| image:./icons/warning.png[] | Warning! Be careful if you encounter this symbol.
+| image:./icons/...warning.png[] | Warning! Be careful if you encounter this symbol.
 |====
 
 == Quick Start

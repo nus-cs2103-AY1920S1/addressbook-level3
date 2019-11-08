@@ -3,7 +3,11 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.IDA;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -68,32 +72,34 @@ class JsonTimeBookStorageTest {
         assertEquals(original, readBack);
 
         // Modify data, overwrite exiting file, and read back
-//        original.addPerson(HOON);
-//        original.removePerson(ALICE);
-//        jsonAddressBookStorage.saveAddressBook(original, filePath);
-//        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-//        assertEquals(original, new AddressBook(readBack));
-//
-//        // Save and read without specifying file path
-//        original.addPerson(IDA);
-//        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-//        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-//        assertEquals(original, new AddressBook(readBack));
+        original.addPerson(HOON);
+        original.getPersonList().deletePerson(ALICE.getPersonId());
+        jsonTimeBookStorage.saveTimeBook(original, filePath);
+        readBack = jsonTimeBookStorage.readTimeBook(filePath).get();
+        assertEquals(original, readBack);
+
+        // Save and read without specifying file path
+        original.addPerson(IDA);
+        jsonTimeBookStorage.saveTimeBook(original); // file path not specified
+        readBack = jsonTimeBookStorage.readTimeBook().get(); // file path not specified
+        assertEquals(original, readBack);
 
     }
-    /*
+
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+        assertThrows(NullPointerException.class, () ->  {
+          saveTimeBook(null, "SomeFile.json");
+        });
     }
 
-    *//*
+    /*
      * Saves {@code addressBook} at the specified {@code filePath}.
-     *//*
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+     */
+    private void saveTimeBook(TimeBook timeBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonTimeBookStorage(Paths.get(filePath))
+                    .saveTimeBook(timeBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -101,7 +107,6 @@ class JsonTimeBookStorageTest {
 
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
+        assertThrows(NullPointerException.class, () -> saveTimeBook(new TimeBook(), null));
     }
-}*/
 }
