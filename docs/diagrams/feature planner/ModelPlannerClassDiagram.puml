@@ -1,5 +1,5 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -7,13 +7,15 @@ skinparam classBackgroundColor MODEL_COLOR
 Package Planner <<Rectangle>> {
     Class Planner
     Class TaskList
-    abstract Class Task
+    Class "{abstract}\nTask" as Task
     Class Event
     Class Deadline
     Class Todo
     Class Priority
     Class Frequency
     Class Tag
+    Class Status
+    Class TaskType
 }
 
 Planner *--> "1" TaskList
@@ -21,8 +23,10 @@ TaskList o--> "*" Task
 Event -up-|> Task
 Deadline -up-|> Task
 Todo -up-|> Task
-Task *-left-> "*" Tag
-Task *-right-> "0..1" Priority
-Task *-right-> "0..1" Frequency
+Task *-up-> "0..1" Frequency
+Task *-up-> "*" Tag
+Task *-up-> "0..1" Priority
+Task *-right-> "1" Status
+Task *-left-> "1" TaskType
 
 @enduml
