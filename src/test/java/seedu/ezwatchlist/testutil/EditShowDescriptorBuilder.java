@@ -34,7 +34,7 @@ public class EditShowDescriptorBuilder {
     public EditShowDescriptorBuilder(Show show) {
         descriptor = new EditShowDescriptor();
         descriptor.setName(show.getName());
-        descriptor.setType(show.getType().getType());
+        descriptor.setType(show.getType());
         descriptor.setDescription(show.getDescription());
         descriptor.setIsWatched(show.isWatched());
         descriptor.setDateOfRelease(show.getDateOfRelease());

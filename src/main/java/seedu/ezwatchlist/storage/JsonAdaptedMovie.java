@@ -71,7 +71,7 @@ public class JsonAdaptedMovie {
      */
     public JsonAdaptedMovie(Show source) {
         name = source.getName().showName;
-        type = source.getType().getType();
+        type = source.getType();
         dateOfRelease = source.getDateOfRelease().value;
         isWatched = Boolean.toString(source.isWatched().value);
         description = source.getDescription().fullDescription;

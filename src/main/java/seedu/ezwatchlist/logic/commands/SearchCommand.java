@@ -248,9 +248,9 @@ public class SearchCommand extends Command {
                 continue; // skip if request to be watched but show is not watched
             } else if (requestedSearchFromWatchList() && show.isWatched().getIsWatchedBoolean()) {
                 continue; // skip if requested to be in watchlist but show is watched
-            } else if (requestedSearchForMovie() && !show.getType().equals(Type.MOVIE)) {
+            } else if (requestedSearchForMovie() && !show.getType().equals("Movie")) {
                 continue; // skip if requested search for movie but show is tv
-            } else if (requestedSearchForTv() && !show.getType().equals(Type.TV_SHOW)) {
+            } else if (requestedSearchForTv() && !show.getType().equals("Tv Show")) {
                 continue; // skip if requested search for tv but show is movie
             }
             searchResult.add(show);

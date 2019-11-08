@@ -8,7 +8,13 @@ import java.util.stream.Stream;
 
 import seedu.ezwatchlist.logic.commands.WatchCommand.WatchShowDescriptor;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
 
 /**
  * A utility class to help with building WatchShowDescriptor objects.
@@ -38,7 +44,7 @@ public class WatchShowDescriptorBuilder {
         descriptor.setRunningTime(show.getRunningTime());
         descriptor.setActors(show.getActors());
         descriptor.setPoster(show.getPoster());
-        if (show.getType().equals(Type.TV_SHOW)) {
+        if (show.getType().equals("Tv Show")) {
             descriptor.setNumOfEpisodesWatched(show.getNumOfEpisodesWatched());
             descriptor.setTotalNumOfEpisodes(show.getTotalNumOfEpisodes());
             descriptor.setSeasons(show.getTvSeasons());
@@ -57,12 +63,7 @@ public class WatchShowDescriptorBuilder {
      * Sets the {@code type} of the {@code WatchShowDescriptor} that we are building.
      */
     public WatchShowDescriptorBuilder withType(String type) {
-      switch (type) {
-        case ("movie"):
-          descriptor.setType(Type.MOVIE);
-        case ("tv"):
-          descriptor.setType(Type.TV_SHOW);
-      }
+        descriptor.setType(type);
         return this;
     }
 

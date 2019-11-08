@@ -23,7 +23,16 @@ import info.movito.themoviedbapi.model.tv.TvSeries;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ImageRetrieval;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Contains utility methods for extracting information from movies and tv shows.
@@ -270,7 +279,7 @@ public class ApiUtil {
     public static List<Movie> filterToMovieFromShow(List<Show> shows) {
         List<Movie> movies = new LinkedList<>();
         for (Show show: shows) {
-            if (show.getType().equals(Type.MOVIE)) {
+            if (show.getType().equals("Movie")) {
                 movies.add((Movie) show);
             }
         }
@@ -285,7 +294,7 @@ public class ApiUtil {
     public static List<TvShow> filterToTvShowsFromShow(List<Show> shows) {
         List<TvShow> tvShows = new LinkedList<>();
         for (Show show: shows) {
-            if (show.getType().equals(Type.TV_SHOW)) {
+            if (show.getType().equals("Tv Show")) {
                 tvShows.add((TvShow) show);
             }
         }

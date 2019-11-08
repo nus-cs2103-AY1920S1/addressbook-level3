@@ -5,7 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
+import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
 /**
@@ -14,15 +22,15 @@ import seedu.ezwatchlist.model.util.SampleDataUtil;
 public class ShowBuilder {
 
     public static final String DEFAULT_NAME = "Inception";
-    public static final Type DEFAULT_TYPE = Type.MOVIE;
+    public static final String DEFAULT_TYPE = "movie";
     public static final String DEFAULT_DATE = "16 July 2010";
-    public static final String DEFAULT_IS_WATCHED = "true";
+    public static final String DEFAULT_ISWATCHED = "true";
     public static final String DEFAULT_DESCRIPTION = "A thief who steals corporate secrets through the use "
             + " of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.";
     public static final int DEFAULT_RUNNINGTIME = 148;
 
     private Name name;
-    private Type type;
+    private String type;
     private Description description;
     private IsWatched isWatched;
     private RunningTime runningTime;
@@ -33,7 +41,7 @@ public class ShowBuilder {
         name = new Name(DEFAULT_NAME);
         this.type = DEFAULT_TYPE;
         description = new Description(DEFAULT_DESCRIPTION);
-        this.isWatched = new IsWatched(DEFAULT_IS_WATCHED);
+        this.isWatched = new IsWatched(DEFAULT_ISWATCHED);
         dateOfRelease = new Date(DEFAULT_DATE);
         this.runningTime = new RunningTime(DEFAULT_RUNNINGTIME);
         actors = new HashSet<>();
@@ -64,12 +72,7 @@ public class ShowBuilder {
      * Sets the {@code type} of the {@code Show} that we are building.
      */
     public ShowBuilder withType(String type) {
-        switch (type) {
-          case ("movie"):
-            this.type = Type.MOVIE;
-          case ("tv"):
-            this.type = Type.TV_SHOW;
-        }
+        this.type = type;
         return this;
     }
 
@@ -118,7 +121,7 @@ public class ShowBuilder {
      * @return show.
      */
     public Show build() {
-        if (type.equals(Type.MOVIE)) {
+        if (type.equals("movie")) {
             return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
         } else {
             return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,

@@ -23,7 +23,17 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genre;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Edits the details of an existing show in the watchlist.
@@ -101,7 +111,7 @@ public class EditCommand extends Command {
         Poster updatedPoster = editShowDescriptor.getPoster().orElse(showToEdit.getPoster());
         Set<Genre> updatedGenres = editShowDescriptor.getGenres().orElse(showToEdit.getGenres());
 
-        if (showToEdit.getType().equals(Type.MOVIE)) {
+        if (showToEdit.getType().equals("Movie")) {
             Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors);
             editedShow.setPoster(updatedPoster);

@@ -17,7 +17,17 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genre;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Marks an existing show in the watchlist as watched.
@@ -86,7 +96,7 @@ public class WatchCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
 
-        if (showToEdit.getType().equals(Type.MOVIE) && !isToggle) {
+        if (showToEdit.getType().equals("Movie") && !isToggle) {
             throw new CommandException(MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS);
         }
 
@@ -95,7 +105,7 @@ public class WatchCommand extends Command {
 
         boolean isWatched = editedShow.isWatched().value;
 
-        if (editedShow.getType().equals(Type.MOVIE) || isToggle) {
+        if (editedShow.getType().equals("Movie") || isToggle) {
             if (isWatched) {
                 return new CommandResult(String.format(MESSAGE_WATCH_SHOW_SUCCESS, editedShow));
             } else {
@@ -125,7 +135,7 @@ public class WatchCommand extends Command {
         List<TvSeason> seasons = showToEdit.getTvSeasons();
         Set<Genre> genres = showToEdit.getGenres();
 
-        if (showToEdit.getType().equals(Type.MOVIE)) {
+        if (showToEdit.getType().equals("Movie")) {
 
             IsWatched updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             Movie editedShow = new Movie(name, description, updatedIsWatched, dateOfRelease, runningTime, actors);
@@ -222,12 +232,12 @@ public class WatchCommand extends Command {
     }
 
     private boolean isValidSeasonNumber(Show showToEdit, int seasonNum) {
-        return showToEdit.getType().equals(Type.TV_SHOW)
+        return showToEdit.getType().equals("Tv Show")
                 && (seasonNum <= showToEdit.getNumOfSeasons());
     }
 
     private boolean isValidEpisodeNumberOfSeason(Show showToEdit, int episodeNum, int seasonNum) {
-        return showToEdit.getType().equals(Type.TV_SHOW)
+        return showToEdit.getType().equals("Tv Show")
                 && episodeNum <= showToEdit.getTvSeasons().get(seasonNum - 1).getTotalNumOfEpisodes();
     }
 
@@ -237,7 +247,7 @@ public class WatchCommand extends Command {
      */
     public static class WatchShowDescriptor {
         private Name name;
-        private Type type;
+        private String type;
         private Date dateOfRelease;
         private IsWatched isWatched;
         private Description description;
@@ -287,11 +297,11 @@ public class WatchCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setType(Type type) {
+        public void setType(String type) {
             this.type = type;
         }
 
-        public Optional<Type> getType() {
+        public Optional<String> getType() {
             return Optional.ofNullable(type);
         }
 
