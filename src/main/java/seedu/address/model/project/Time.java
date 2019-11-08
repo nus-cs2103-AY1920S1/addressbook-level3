@@ -15,7 +15,13 @@ public class Time {
      */
 
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be written in the following format : dd/MM/yyyy hhmm";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be written in the following format : dd/MM/yyyy hhmm\n"
+            + "-  where dd refers to days in 2 digits\n"
+            + "-  MM refers to months in 2 digits\n"
+            + "-  yyyy refers to years in 4 digits\n"
+            + "-  hh refers to the clock time in hours in 2 digits\n"
+            + "-  mm refers to the clock time in minutes in 2 digits";
+
     public static final String DATE_CONSTRAINTS = "the date in the format of dd/MM/yyyy hhmm should be written in the following range: \n"
             + "-  MM between 01-12 inclusive\n"
             + "-  dd between 0-31 inclusive in the months of Jan(01), Mar(03), May(05), July(07), Aug(08), Oct(10), Dec(12)\n"
