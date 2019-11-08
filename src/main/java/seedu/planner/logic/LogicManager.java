@@ -58,8 +58,7 @@ public class LogicManager implements Logic {
             Event undoableEvent = EventFactory.parse((UndoableCommand) command, model);
             CommandHistory.addToUndoStack(undoableEvent);
             CommandHistory.clearRedoStack();
-        } 
-        
+        }
         try {
             storage.setAccommodationFilePath(model.getAccommodationFilePath());
             storage.setActivityFilePath(model.getActivityFilePath());
