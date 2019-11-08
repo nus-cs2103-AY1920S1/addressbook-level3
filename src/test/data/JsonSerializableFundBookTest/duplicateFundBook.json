@@ -14,5 +14,23 @@
   } ],
   "transactions" : [ ],
   "repeaters" : [ ],
-  "budgets" : [ ]
+  "budgets" : [ {
+    "description" : "Overall budget",
+    "amount" : "1337",
+    "month" : "12",
+    "year" : "2012",
+    "category": null
+  }, {
+    "description" : "Overall budget",
+    "amount" : "1337",
+    "month" : "12",
+    "year" : "2012",
+    "category": null
+  }, {
+    "description" : "Budget for anime",
+    "amount" : "300.00",
+    "month" : "12",
+    "year" : "2012",
+    "category" : "entertainment"
+  } ]
 }
