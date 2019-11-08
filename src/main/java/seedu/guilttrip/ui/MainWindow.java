@@ -203,8 +203,8 @@ public class MainWindow extends UiPart<Stage> {
         this.budgetPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(this.budgetPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
-        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+        this.reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        remindersPlaceHolder.getChildren().add(this.reminderPanel.getRoot());
 
         this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(this.autoExpensesPanel.getRoot());
@@ -295,6 +295,9 @@ public class MainWindow extends UiPart<Stage> {
     private void togglePanel(String panelName) throws CommandException {
         switch (panelName) {
         case "wishlist":
+            if (mainPanel.getChildren().contains(wishListPanel.getRoot())) {
+                throw new CommandException("The panel you want to toggle is already shown in the main panel!");
+            }
             togglePlaceHolder(wishesPlaceHolder);
             break;
         case "budget":
@@ -304,10 +307,10 @@ public class MainWindow extends UiPart<Stage> {
             togglePlaceHolder(budgetsPlaceHolder);
             break;
         case "reminder":
+            if (mainPanel.getChildren().contains(reminderPanel.getRoot())) {
+                throw new CommandException("The panel you want to toggle is already shown in the main panel!");
+            }
             togglePlaceHolder(remindersPlaceHolder);
-            break;
-        case "autoexpense":
-            togglePlaceHolder(autoExpensesPlaceHolder);
             break;
         default:
             break;
@@ -469,7 +472,7 @@ public class MainWindow extends UiPart<Stage> {
         mainPanel.getChildren().removeAll(mainPanel.getChildren());
         mainPanel.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
 
-        // Add the respective panels to their placeholders and turn them on
+        // Add the respective panels back to their placeholders and turn them on
         if (!budgetsPlaceHolder.getChildren().contains(budgetPanel.getRoot())) {
             budgetsPlaceHolder.getChildren().add(budgetPanel.getRoot());
             togglePlaceHolder(budgetsPlaceHolder);
@@ -483,6 +486,11 @@ public class MainWindow extends UiPart<Stage> {
         if (!autoExpensesPlaceHolder.getChildren().contains(autoExpensesPanel.getRoot())) {
             autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
             togglePlaceHolder(autoExpensesPlaceHolder);
+        }
+
+        if (!remindersPlaceHolder.getChildren().contains(reminderPanel.getRoot())) {
+            remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+            togglePlaceHolder(remindersPlaceHolder);
         }
 
     }
@@ -571,7 +579,7 @@ public class MainWindow extends UiPart<Stage> {
                 String toList = commandResult.getToList();
                 // allow only these possible values of entryToList
                 assert (toList.equals("main") || toList.equals("budget") || toList.equals("wish")
-                        || toList.equals("autoexpense") || toList.equals("reminder"));
+                        || toList.equals("reminder"));
 
                 switch (toList) {
                 case "main":
@@ -580,22 +588,25 @@ public class MainWindow extends UiPart<Stage> {
                 case "budget":
                     resetMainPanel();
                     mainPanel.getChildren().add(this.budgetPanel.getRoot());
-                    togglePlaceHolder(budgetsPlaceHolder);
+                    if (budgetsPlaceHolder.isVisible() && budgetsPlaceHolder.isManaged()) {
+                        togglePlaceHolder(budgetsPlaceHolder);
+                    }
                     break;
                 case "wish":
                     resetMainPanel();
                     mainPanel.getChildren().add(this.wishListPanel.getRoot());
-                    togglePlaceHolder(wishesPlaceHolder);
-                    break;
-                case "autoexpense":
-                    resetMainPanel();
-                    mainPanel.getChildren().add(this.autoExpensesPanel.getRoot());
-                    togglePlaceHolder(autoExpensesPlaceHolder);
+                    if (wishesPlaceHolder.isVisible() && wishesPlaceHolder.isManaged()) {
+                        togglePlaceHolder(wishesPlaceHolder);
+                    }
                     break;
                 case "reminder":
                     resetMainPanel();
-                    togglePlaceHolder(remindersPlaceHolder);
-                    showRemindersOnMainPanel();
+                    if (remindersPlaceHolder.isVisible() && remindersPlaceHolder.isManaged()) {
+                        togglePlaceHolder(remindersPlaceHolder);
+                    }
+                    //showRemindersOnMainPanel();
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().add(this.reminderPanel.getRoot());
                     break;
                 default:
                     // Do nothing.
