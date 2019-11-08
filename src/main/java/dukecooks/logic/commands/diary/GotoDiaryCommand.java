@@ -14,7 +14,7 @@ public class GotoDiaryCommand extends GotoCommand {
 
     public static final String VARIANT_WORD = "diary";
 
-    public static final String MESSAGE_SUCCESS = "You are now at the diary";
+    public static final String MESSAGE_SUCCESS = "You are now at the diary!";
 
     private static Event event;
 

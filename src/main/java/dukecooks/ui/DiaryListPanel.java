@@ -96,10 +96,14 @@ public class DiaryListPanel extends UiPart<Region> {
 
     void refreshPages(int targetIndex) {
 
+        if (!diaryList.isEmpty()) {
+            pageListView.setVisible(true);
+        }
+
         // Empty diaryList
         if (diaryList.isEmpty()) {
             diaryHeader.setText("You have no available diaries ...");
-            pageListView.getItems().clear();
+            pageListView.setVisible(false);
         } else if (targetIndex >= diaryList.size()) {
             // Show the last possible diary entry
             refreshPages(targetIndex - 1);
