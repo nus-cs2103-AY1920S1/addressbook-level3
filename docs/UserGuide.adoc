@@ -224,7 +224,7 @@ image::WatchTheOffice.png[width="790"]
 image::Watch1.png[width="790"]
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `1`.
+3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
 
 image::WatchedTheOffice.png[width="790"]
 
