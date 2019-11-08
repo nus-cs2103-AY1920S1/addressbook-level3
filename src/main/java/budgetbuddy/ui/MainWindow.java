@@ -151,18 +151,6 @@ public class MainWindow extends UiPart<Stage> {
         OutputDisplay outputDisplay = new OutputDisplay(accountTab, transactionTab, ruleTab, loanTab, scriptTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
-        // add hotkey (Ctrl + D) to switch between primary and secondary panels (if secondary panel exists)
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            PanelTab currentTab = (PanelTab) outputDisplay.getRoot().getSelectionModel().getSelectedItem();
-            if (currentTab.hasSecondaryPanel() && event.isControlDown() && event.getCode().equals(KeyCode.D)) {
-                if (currentTab.isPrimaryPanelSelected()) {
-                    currentTab.setSecondaryPanel();
-                } else {
-                    currentTab.setPrimaryPanel();
-                }
-            }
-        });
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -176,14 +164,22 @@ public class MainWindow extends UiPart<Stage> {
         updateView(transactionTab, CommandCategory.TRANSACTION);
 
         // set focus event handler
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED,
-            event -> {
-                if (event.isShiftDown() && event.isControlDown()) {
-                    Node commandField = commandBox.getRoot().getChildrenUnmodifiable().get(0);
-                    commandField.requestFocus();
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            // hotkey (Ctrl + Shift) to switch focus to command line text box
+            if (event.isShiftDown() && event.isControlDown()) {
+                Node commandField = commandBox.getRoot().getChildrenUnmodifiable().get(0);
+                commandField.requestFocus();
+            }
+            // add hotkey (Ctrl + D) to switch between primary and secondary panels (if secondary panel exists)
+            PanelTab currentTab = (PanelTab) outputDisplay.getRoot().getSelectionModel().getSelectedItem();
+            if (currentTab.hasSecondaryPanel() && event.isControlDown() && event.getCode().equals(KeyCode.D)) {
+                if (currentTab.isPrimaryPanelSelected()) {
+                    currentTab.setSecondaryPanel();
+                } else {
+                    currentTab.setPrimaryPanel();
                 }
-            });
-
+            }
+        });
     }
 
     /**
