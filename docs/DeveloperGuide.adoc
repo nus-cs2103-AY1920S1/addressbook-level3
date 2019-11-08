@@ -439,7 +439,7 @@ These information include:
 
 The flow on how what happens when the user enters a new entry is shown in the activity diagram below.
 
-image::AddNewEntryActivityDiagram.png[]
+image::AddNewEntryActivityDiagram.png[width=60%]
 
 ==== Design Considerations
 
