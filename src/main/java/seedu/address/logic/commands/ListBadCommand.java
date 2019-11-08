@@ -4,9 +4,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
+import seedu.address.model.deadline.BadQuestions;
+import seedu.address.model.deadline.DueDate;
 
 
 /**
@@ -23,18 +23,22 @@ public class ListBadCommand extends Command {
             + "Example: " + COMMAND_WORD;
     public static final String SUCCESS_MESSAGE = "Flashcards displayed";
 
-//    private final String keyword;
+    private final DueDate date;
 
-//    public ListBadCommand() {
-////        this.keyword = k;
-//    }
+    public ListBadCommand(DueDate d) {
+        this.date = d;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        BadQuestions badQuestions = new BadQuestions();
+        //TODO: parse date
+//        DueDate d = new DueDate("12/11/2019");
+        String bad = badQuestions.showBadQuestionsList(date);
 
-        return new CommandResult(String.format(SUCCESS_MESSAGE, "hello"));
+        return new CommandResult(String.format(bad, "hello"));
     }
 
 //    @Override
