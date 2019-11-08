@@ -117,7 +117,7 @@ public class DeleteCcaCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVERSE_CCA_TO_ADD_ALREADY_EXIST, deletedCca));
         }
 
-        model.addCca(deletedCca);
+        model.addCca(targetIndex, deletedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedCca));

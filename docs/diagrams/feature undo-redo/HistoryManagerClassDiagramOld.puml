@@ -1,12 +1,10 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Interface Model <<Interface>>
-
-Package History <<Rectangle>> {
+Package HistoryManager <<Rectangle>> {
     Class HistoryManager
     Class CommandDeque
     abstract Class Command
@@ -14,6 +12,5 @@ Package History <<Rectangle>> {
 
 HistoryManager *--> "2" CommandDeque
 CommandDeque *--> "*" Command
-Command .up.> Model
 
 @enduml

@@ -2,15 +2,15 @@ package seedu.jarvis.logic.commands.finance;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTALL_NETFLIX;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTALL_SPOTIFY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_DESC_EARPHONES;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_DESC_SPOTIFY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_EARPHONES;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_SPOTIFY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTALL_NETFLIX;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTALL_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_EARPHONES;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_MONEY_EARPHONES;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_MONEY_SPOTIFY;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_INSTALLMENT;
 
@@ -123,7 +123,7 @@ public class EditInstallmentCommandTest {
     }
 
     @Test
-    public void execute_noFieldsList_failure() throws CommandException {
+    public void execute_noFieldsList_failure() {
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT,
                 new EditInstallmentDescriptor());
         Installment editedInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
@@ -142,7 +142,7 @@ public class EditInstallmentCommandTest {
     }
 
     @Test
-    public void execute_duplicateInstallmentList_failure() throws CommandException {
+    public void execute_duplicateInstallmentList_failure() {
         Installment firstInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
         EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(firstInstallment).build();

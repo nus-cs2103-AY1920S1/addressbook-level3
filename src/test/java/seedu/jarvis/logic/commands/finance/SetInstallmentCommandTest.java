@@ -12,6 +12,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.installment.InstallmentDescription;
 import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
@@ -179,6 +181,11 @@ public class SetInstallmentCommandTest {
         public void addInstallment(Installment installment) {
             requireNonNull(installment);
             installmentsAdded.add(installment);
+        }
+
+        @Override
+        public Optional<MonthlyLimit> getMonthlyLimit() {
+            return model.getMonthlyLimit();
         }
 
         @Override

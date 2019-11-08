@@ -104,12 +104,18 @@ public class CcaTracker {
 
     /**
      * Adds a cca {@code cca} to the cca list.
-     *
-     * @param cca
      */
     public void addCca(Cca cca) {
         requireNonNull(cca);
         ccaList.addCca(cca);
+    }
+
+    /**
+     * Adds a cca {@code cca} to the cca list at the specified {@code targetIndex}.
+     */
+    public void addCca(Index targetIndex, Cca cca) {
+        requireAllNonNull(targetIndex, cca);
+        ccaList.addCca(targetIndex, cca);
     }
 
     /**

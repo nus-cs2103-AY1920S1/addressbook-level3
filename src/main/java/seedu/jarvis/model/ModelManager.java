@@ -435,15 +435,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Lists all purchases and payments from this month.
-     *
-     */
-    @Override
-    public void listSpending() {
-        financeTracker.listSpending();
-    }
-
-    /**
      * Calculates total expenditure by user for this month.
      */
     @Override
@@ -511,6 +502,12 @@ public class ModelManager implements Model {
     public void addCca(Cca cca) {
         requireNonNull(cca);
         ccaTracker.addCca(cca);
+    }
+
+    @Override
+    public void addCca(Index targetIndex, Cca deletedCca) {
+        requireAllNonNull(targetIndex, deletedCca);
+        ccaTracker.addCca(targetIndex, deletedCca);
     }
 
     @Override
