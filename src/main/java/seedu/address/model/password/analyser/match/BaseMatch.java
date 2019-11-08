@@ -11,13 +11,13 @@ import java.util.Objects;
  */
 public abstract class BaseMatch implements Match {
 
-    private static final String MESSAGE_CONSTRAINTS = "start index cannot be greater than end index.";
+    private static final String MESSAGE_INVALID_TOKEN = "start index cannot be greater than end index.";
     private String token;
     private int startIndex;
     private int endIndex;
 
     /**
-     * Constructs a basic {@code Match}
+     * Constructs a basic {@code Match}.
      *
      * @param startIndex the start index in the {@code PasswordValue} which the match was found.
      * @param endIndex the end index in the {@code PasswordValue} which the match was found.
@@ -25,12 +25,15 @@ public abstract class BaseMatch implements Match {
      */
     public BaseMatch(int startIndex, int endIndex, String token) {
         requireNonNull(token);
-        checkArgument(isValidMatch(startIndex, endIndex, token), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMatch(startIndex, endIndex, token), MESSAGE_INVALID_TOKEN);
         this.token = token;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
     }
 
+    /**
+     * Returns true if {@code Match} is valid.
+     */
     protected Boolean isValidMatch(int startIndex, int endIndex, String token) {
         return startIndex < endIndex && token != "";
     }

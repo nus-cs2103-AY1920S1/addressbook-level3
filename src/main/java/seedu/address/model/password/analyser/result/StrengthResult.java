@@ -9,6 +9,13 @@ import seedu.address.model.password.Password;
  */
 public class StrengthResult extends Result {
 
+    private static final String MESSAGE_RECOMMEND_LENGTH = "[-] Try to have at least 8 character for password.\n";
+    private static final String MESSAGE_RECOMMEND_LOWER_AND_UPPER = "[-] Try to include a mix a "
+            + "both upper and lower case letters.\n";
+    private static final String MESSAGE_RECOMMEND_NUM = "[-] Try to include a numerals.\n";
+    private static final String MESSAGE_RECOMMEND_SPECIAL = "[-] Try to include a special characters.\n";
+    private static final String MESSAGE_STRONG_PASSWORD = "Password is strong.\n";
+
     private boolean hasMinimumLength = false;
     private boolean hasLower = false;
     private boolean hasUpper = false;
@@ -29,19 +36,19 @@ public class StrengthResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (!hasMinimumLength) {
-            report.append("[-] Try to have at least 8 character for password.\n");
+            report.append(MESSAGE_RECOMMEND_LENGTH);
         }
         if (!hasLower || !hasUpper) {
-            report.append("[-] Try to include a mix a both upper and lower case letters.\n");
+            report.append(MESSAGE_RECOMMEND_LOWER_AND_UPPER);
         }
         if (!hasNum) {
-            report.append("[-] Try to include a numerals.\n");
+            report.append(MESSAGE_RECOMMEND_NUM);
         }
         if (!hasSpecial) {
-            report.append("[-] Try to include a special characters.\n");
+            report.append(MESSAGE_RECOMMEND_SPECIAL);
         }
         if (hasMinimumLength && hasLower && hasUpper && hasNum && hasSpecial) {
-            report.append("Password is strong.\n");
+            report.append(MESSAGE_STRONG_PASSWORD);
         }
         return report.toString();
     }

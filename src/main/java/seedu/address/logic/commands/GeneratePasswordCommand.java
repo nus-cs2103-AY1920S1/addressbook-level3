@@ -31,23 +31,31 @@ public class GeneratePasswordCommand extends Command {
     public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
             + "and at least of length 4 to 25";
     public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "All characters sets are included by default.\n"
-            + "You are only required to input CHARACTER_SET/\"false\" for fields that you wish to customise.";
+            + "You are only required to input CHARACTER_SET/\"false\" for fields that you wish to not include.";
 
     private int length;
-    private boolean lower;
-    private boolean upper;
-    private boolean num;
-    private boolean special;
+    private boolean hasLower;
+    private boolean hasUpper;
+    private boolean hasNum;
+    private boolean hasSpecial;
     private PasswordGeneratorDescriptor configuration;
 
     public GeneratePasswordCommand(PasswordGeneratorDescriptor configuration) {
         super();
-        this.configuration = configuration;
+        this.configuration = new PasswordGeneratorDescriptor(configuration);
         this.length = configuration.getLength();
-        this.lower = configuration.getLower();
-        this.upper = configuration.getUpper();
-        this.num = configuration.getNum();
-        this.special = configuration.getSpecial();
+        this.hasLower = configuration.getLower();
+        this.hasUpper = configuration.getUpper();
+        this.hasNum = configuration.getNum();
+        this.hasSpecial = configuration.getSpecial();
+    }
+
+    /**
+     * Returns true if the user input length is valid.
+     * @param lengthNum the user input length.
+     */
+    public static boolean isValidGeneratePasswordLength(int lengthNum) {
+        return lengthNum > 3 && lengthNum <= 25;
     }
 
     /**
@@ -59,7 +67,7 @@ public class GeneratePasswordCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         isValid(configuration);
-        String password = GeneratorUtil.generateRandomPassword(length, lower, upper, num, special);
+        String password = GeneratorUtil.generateRandomPassword(length, hasLower, hasUpper, hasNum, hasSpecial);
         ClipboardUtil.copyToClipboard(password, null);
         return new CommandResult(String.format(MESSAGE_SUCCESS, password));
     }
@@ -82,59 +90,65 @@ public class GeneratePasswordCommand extends Command {
      */
     public static class PasswordGeneratorDescriptor {
         private int length;
-        private boolean lower;
-        private boolean upper;
-        private boolean num;
-        private boolean special;
-
-        public PasswordGeneratorDescriptor(int length, boolean lower, boolean upper, boolean num, boolean special) {
-            this.length = length;
-            this.lower = lower;
-            this.upper = upper;
-            this.num = num;
-            this.special = special;
-        }
+        private boolean hasLower;
+        private boolean hasUpper;
+        private boolean hasNum;
+        private boolean hasSpecial;
 
         public PasswordGeneratorDescriptor() {
             this.length = 10;
-            this.lower = true;
-            this.upper = true;
-            this.num = true;
-            this.special = true;
+            this.hasLower = true;
+            this.hasUpper = true;
+            this.hasNum = true;
+            this.hasSpecial = true;
+        }
+
+        /**
+         * Copy constructor.
+         */
+        public PasswordGeneratorDescriptor(PasswordGeneratorDescriptor toCopy) {
+            setLength(toCopy.getLength());
+            setLower(toCopy.getLower());
+            setUpper(toCopy.getUpper());
+            setNum(toCopy.getNum());
+            setSpecial(toCopy.getSpecial());
         }
 
         public void setLength(int length) {
             this.length = length;
         }
-        public void setLower(boolean lower) {
-            this.lower = lower;
+        public void setLower(boolean hasLower) {
+            this.hasLower = hasLower;
         }
-        public void setUpper(boolean upper) {
-            this.upper = upper;
+        public void setUpper(boolean hasUpper) {
+            this.hasUpper = hasUpper;
         }
-        public void setNum(boolean num) {
-            this.num = num;
+        public void setNum(boolean hasNum) {
+            this.hasNum = hasNum;
         }
-        public void setSpecial(boolean special) {
-            this.special = special;
+        public void setSpecial(boolean hasSpecial) {
+            this.hasSpecial = hasSpecial;
         }
 
         public int getLength() {
             return length;
         }
         public boolean getLower() {
-            return lower;
+            return hasLower;
         }
         public boolean getUpper() {
-            return upper;
+            return hasUpper;
         }
         public boolean getNum() {
-            return num;
+            return hasNum;
         }
         public boolean getSpecial() {
-            return special;
+            return hasSpecial;
         }
 
+        /**
+         * Creates and returns a {@code PasswordGeneratorDescriptor} with the default settings.
+         */
         public static PasswordGeneratorDescriptor getDefaultConfiguration() {
             return new PasswordGeneratorDescriptor();
         }

@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the Analysis Report formed from the {@code Result} objects from the various {@code Anlayser} Objects
+ * Represents the Analysis Report formed from the {@code List} of {@code Result} from the each {@code Anlayser}.
  */
 public class AnalysisReport {
     protected static final String MESSAGE_DIVIDER = "-------------------------------------------\n";
@@ -57,7 +57,7 @@ public class AnalysisReport {
     /**
      * Writes header message for the various analysers.
      *
-     * @param header
+     * @param header the header message of the analyser.
      */
     public void writeHeading(String header) {
         this.resultsHeader.add(header);
@@ -68,7 +68,6 @@ public class AnalysisReport {
      * Returns the results list of {@code Result} specified by index.
      *
      * @param index the index to in list to retrieve from.
-     * @return the specified type of Result.
      */
     public ObservableList<Result> getTargetResults(int index) {
         List<Result> targetList = this.results.get(index);
@@ -81,7 +80,6 @@ public class AnalysisReport {
      * Returns the header for the type of {@code Result} specified by index.
      *
      * @param index the index to in list to retrieve from.
-     * @return the specified header of the type of Result.
      */
     public String getTargetHeader(int index) {
         return this.resultsHeader.get(index);

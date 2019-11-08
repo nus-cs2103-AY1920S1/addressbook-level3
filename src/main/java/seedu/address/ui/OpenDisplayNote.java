@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -107,8 +106,7 @@ public class OpenDisplayNote extends UiPart<Region> {
      * Saves note by running Edit Command and updating all relevant fields of the note.
      */
     @FXML
-    private void saveNote() throws CommandException, ParseException,
-            DictionaryException { //TODO:Dictionary Exception unneeded?
+    private void saveNote() throws CommandException, ParseException {
         System.out.println("noteTitle:" + noteTitle.getText());
 
         mainWindow.executeCommand("edit " + index.getOneBased() + " c/"

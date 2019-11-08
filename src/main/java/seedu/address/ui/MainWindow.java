@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -364,7 +363,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     CommandResult executeCommand(String commandText) throws CommandException,
-            ParseException, DictionaryException {
+            ParseException {
         readList.setVisible(false);
         readList.setManaged(false);
         //readList.setMinWidth(0);
@@ -391,7 +390,7 @@ public class MainWindow extends UiPart<Stage> {
                 fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }
             return commandResult;
-        } catch (CommandException | ParseException | DictionaryException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
