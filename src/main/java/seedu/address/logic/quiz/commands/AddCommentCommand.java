@@ -4,15 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_COMMENT;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
 

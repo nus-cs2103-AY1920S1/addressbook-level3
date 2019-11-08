@@ -1,5 +1,9 @@
 package seedu.address.logic.quiz.commands;
 
+import static seedu.address.logic.quiz.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.quiz.commands.CommandTestUtil.deleteFirstQuestion;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +13,6 @@ import seedu.address.model.quiz.ModelQuizManager;
 import seedu.address.model.quiz.UserPrefs;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.testutil.QuestionBuilder;
-
-import static seedu.address.logic.quiz.commands.CommandTestUtil.*;
 
 public class RedoCommandTest {
     public static final Question ALICE = new QuestionBuilder().withName("What is alice favourite fruit?")
