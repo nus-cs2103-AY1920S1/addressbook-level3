@@ -75,7 +75,7 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
-Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...`
 
 
 * `[SHARE]` defines portion of bill to be paid by each person
@@ -86,17 +86,17 @@ Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
 
-Examples:
+==== Example usage:
 
-* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+* `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
 ** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
-* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/buffet dinner`
 ** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
 
 === Settling Up with a Friend : `receive`
 
 Receives money from 1 friend +
-Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
 Examples:
 
