@@ -113,6 +113,7 @@ public class StatsDisplayUtil {
 
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
         //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
+        // todo: figure out how to call getAverageScore() on the sessionList instead of also making averageScore an attribute of Deck
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
@@ -121,6 +122,4 @@ public class StatsDisplayUtil {
 
         return deckTableView;
     }
-
-    ///** Creates the TableView object representing the list of sessions for a deck. */
 }

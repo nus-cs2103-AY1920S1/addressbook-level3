@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.TestSession;
+import dream.fcard.logic.stats.TestSessionList;
 
 /**
  * Utilities for easily manipulating and getting data from SessionList objects.
@@ -81,42 +82,28 @@ public class SessionListUtil {
     }
 
     /**
-     * Given a Session, check if it is a TestSession, and whether it has a score.
-     * Returns false if the Session is not a TestSession, or if the Session is a TestSession but
-     * does not have a score.
+     * Given a TestSession, return a double representing the percentage of correct answers.
+     * Assumes that the TestSession provided has a score.
+     * @param session The TestSession whose score to get.
+     * @return A double representing the percentage of correct answers.
      */
-    public static boolean isTestSessionAndHasScore(Session session) {
-        if (!session.isTestSession()) {
-            return false;
-        }
-        TestSession testSession = (TestSession) session;
-        return testSession.hasScore();
-    }
-
-    /**
-     * Given a Session, return the String representing the percentage of correct answers.
-     * If the Session is not a TestSession or does not have a score, return 0.0.
-     */
-    public static double getScoreAsPercentageDouble(Session session) {
-        if (!SessionListUtil.isTestSessionAndHasScore(session)) {
-            return 0.0;
-        }
-        String score = ((TestSession) session).getScore();
+    public static double getScoreAsPercentageDouble(TestSession session) {
+        String score = session.getScore();
         return SessionListUtil.getScoreAsPercentageDouble(score);
     }
 
     /**
      * Calculates the average score of a list of test sessions.
-     * @param sessionList The list of test sessions, each with a score.
-     * @return The average score of a list of test sessions.
+     * @param testSessionList The list of test sessions.
+     * @return The average score of the list of test sessions, as a String.
      */
-    public static String getAverageScore(SessionList sessionList) {
-        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
+    public static String getAverageScore(TestSessionList testSessionList) {
+        ArrayList<TestSession> sessionArrayList = testSessionList.getTestSessionArrayList();
 
         double sumOfScores = 0.0;
         int numOfTestSessionsWithScore = 0;
-        for (Session session : sessionArrayList) {
-            if (!SessionListUtil.isTestSessionAndHasScore(session)) {
+        for (TestSession session : sessionArrayList) {
+            if (!session.hasScore()) {
                 continue;
             }
             sumOfScores += SessionListUtil.getScoreAsPercentageDouble(session);
