@@ -34,10 +34,15 @@ public class SavingsCard extends UiPart<Region> {
         this.savings = savings;
         if (this.savings.isWithdraw()) { // check if it is a withdrawal.
             savingsPane.setText("-$" + savings.getSavingsAmount().getAmount().abs());
+            timePane.setText(savings.getTimeStamp().getTimeAgoString());
+            savingsPane.getStyleClass().clear();
+            savingsPane.getStyleClass().add("cell_withdrawal");
+            timePane.getStyleClass().clear();
+            timePane.getStyleClass().add("cell_withdrawal");
         } else {
             savingsPane.setText("$" + savings.toString());
+            timePane.setText(savings.getTimeStamp().getTimeAgoString());
         }
-        timePane.setText(savings.getTimeStamp().getTimeAgoString());
     }
 
     @Override

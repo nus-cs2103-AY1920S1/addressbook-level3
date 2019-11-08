@@ -92,7 +92,13 @@
 .cell_savings {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 20px;
-    -fx-text-fill: #3b5998;
+    -fx-text-fill: #32CD32;
+}
+
+.cell_withdrawal {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 20px;
+    -fx-text-fill: #ff000d;
 }
 
 .cell_small_label {
