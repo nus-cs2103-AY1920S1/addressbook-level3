@@ -50,18 +50,19 @@ public class AddMeetingCommandTest {
     @Test
     public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
         MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        Index sampleTaskIndex = Index.fromZeroBased(1);
-        Meeting validMeeting = validMeetingQuery.getMeetingList().get(sampleTaskIndex.getZeroBased());
-        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, validMeeting);
-
+        Index sampleIndex = Index.fromZeroBased(1);
         Index validIndex = Index.fromZeroBased(0);
-        assert(!sampleTaskIndex.equals(validIndex));
+        Meeting sampleMeeting = validMeetingQuery.getMeetingList().get(sampleIndex.getZeroBased());
+        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, sampleMeeting);
+
+        assertEquals(sampleMeeting, modelStub.meetingsAdded.get(0));
+        assert(!sampleIndex.equals(validIndex));
 
         CommandResult commandResult = new AddMeetingCommand(validIndex).execute(modelStub);
 
-        //Commented out for assertion error
-        //assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
-        assertEquals(validMeeting, modelStub.meeting);
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -454,22 +455,33 @@ public class AddMeetingCommandTest {
      */
     private class ModelStubWithMeetingQuery extends ModelStub {
         final MeetingQuery meetingQuery;
-        final Meeting meeting;
+        final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
         private ModelStubWithMeetingQuery(MeetingQuery meetingQuery, Meeting meeting) {
             requireNonNull(meetingQuery);
             this.meetingQuery = meetingQuery;
-            this.meeting = meeting;
+            meetingsAdded.add(meeting);
         }
 
         @Override
         public boolean hasMeeting(Meeting meeting) {
-            return this.meeting.isSameMeeting(meeting);
+            requireNonNull(meeting);
+            return meetingsAdded.stream().anyMatch(meeting::isSameMeeting);
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            meetingsAdded.add(meeting);
         }
 
         @Override
         public MeetingQuery getMeetingQuery() {
             return meetingQuery;
+        }
+
+        @Override
+        public void updateFilteredMeetingsList(Predicate<Meeting> predicate) {
         }
     }
 }
