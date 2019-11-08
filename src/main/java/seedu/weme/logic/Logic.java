@@ -96,6 +96,11 @@ public interface Logic {
     Path getWemeFilePath();
 
     /**
+     * Returns the meme that the user wants to view.
+     */
+    ObservableValue<Meme> getViewableMeme();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

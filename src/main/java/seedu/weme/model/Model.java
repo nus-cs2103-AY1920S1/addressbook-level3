@@ -80,6 +80,17 @@ public interface Model {
     Path getMemeImagePath();
 
     /**
+     * Returns the meme that the user wants to view.
+     */
+    ObservableValue<Meme> getViewableMeme();
+
+    /**
+     * Sets the meme for the user to view.
+     * @param meme
+     */
+    void setViewableMeme(Meme meme);
+
+    /**
      * Sets the user prefs' meme image path.
      */
     void setMemeImagePath(Path memeImagePath);

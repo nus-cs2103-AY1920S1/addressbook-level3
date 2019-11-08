@@ -1,6 +1,7 @@
 package seedu.weme.ui;
 
 import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_TAB;
+import static seedu.weme.model.ModelContext.CONTEXT_VIEW;
 
 import java.util.logging.Logger;
 
@@ -42,7 +43,9 @@ public class TabBar extends UiPart<Region> {
         select(context.getValue()); // Select initial tab
         this.context.addListener(((observable, oldValue, newValue) -> {
             deselect(oldValue);
-            select(newValue);
+            if (!newValue.equals(CONTEXT_VIEW)) {
+                select(newValue);
+            }
         }));
     }
 
@@ -57,6 +60,7 @@ public class TabBar extends UiPart<Region> {
     private VBox getContextTab(ModelContext context) {
         switch (context) {
         case CONTEXT_MEMES:
+        case CONTEXT_VIEW:
             return memesTab;
         case CONTEXT_TEMPLATES:
             return templatesTab;

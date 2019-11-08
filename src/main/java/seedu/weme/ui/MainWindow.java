@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private MemeGridPanel exportGridPanel;
     private ImportGridPanel importGridPanel;
     private PreferencesPanel preferencesPanel;
+    private ViewPanel viewPanel;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -167,6 +168,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getStagedMemeList(), logic.getObservableLikeData(), logic.getObservableDislikeData());
         importGridPanel = new ImportGridPanel(logic.getImportMemeList());
         preferencesPanel = new PreferencesPanel(logic.getObservableUserPreferences());
+        viewPanel = new ViewPanel(logic.getViewableMeme());
 
         setAppContent(logic.getContext().getValue());
     }
@@ -206,6 +208,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case CONTEXT_PREFERENCES:
             appContentPlaceholder.getChildren().add(preferencesPanel.getRoot());
+            break;
+        case CONTEXT_VIEW:
+            appContentPlaceholder.getChildren().add(viewPanel.getRoot());
             break;
         default:
             throw new IllegalArgumentException(MESSAGE_INVALID_TAB);

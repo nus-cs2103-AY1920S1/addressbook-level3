@@ -70,6 +70,7 @@ public class ParserUtil {
         case CONTEXT_CREATE:
             return CREATE_PARSER;
         case CONTEXT_STATISTICS:
+        case CONTEXT_VIEW:
         case CONTEXT_PREFERENCES:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
