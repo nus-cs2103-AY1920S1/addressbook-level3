@@ -91,11 +91,6 @@ public class MemeAddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void importMemes() {
             throw new AssertionError("This method should not be called");
         }
@@ -119,7 +114,6 @@ public class MemeAddCommandTest {
         public boolean isStagingAreaEmpty() {
             throw new AssertionError("This method should not be called");
         }
-
 
         @Override
         public void clearExportList() {
@@ -153,6 +147,11 @@ public class MemeAddCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,12 +196,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void setWeme(ReadOnlyWeme newData) {
+        public ReadOnlyWeme getWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyWeme getWeme() {
+        public void setWeme(ReadOnlyWeme newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -297,12 +296,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void setContext(ModelContext context) {
+        public ObservableValue<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableValue<ModelContext> getContext() {
+        public void setContext(ModelContext context) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -524,13 +523,16 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void addMemeToRecords(Meme meme) {}
+        public void addMemeToRecords(Meme meme) {
+        }
 
         @Override
-        public void addTemplateToRecords(Template template) {}
+        public void addTemplateToRecords(Template template) {
+        }
 
         @Override
-        public void addMemeTextToRecords(MemeText memeText) {}
+        public void addMemeTextToRecords(MemeText memeText) {
+        }
 
     }
 

@@ -23,10 +23,10 @@ import seedu.weme.logic.parser.contextparser.MemeParser;
 import seedu.weme.logic.parser.contextparser.TemplateParser;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
-import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.ModelContext;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.path.DirectoryPath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Coordinates;
 import seedu.weme.model.template.MemeTextColor;
@@ -54,6 +54,7 @@ public class ParserUtil {
 
     /**
      * Returns a Parser depending on the given ModelContext.
+     *
      * @param modelContext Current context.
      * @return Parser to parse commands with.
      */
@@ -81,8 +82,9 @@ public class ParserUtil {
 
     /**
      * Parses {@code context} into a {@code ModelContext} that has its own tab and returns it.
-     *
+     * <p>
      * Leading and trailing whitespaces will be trimmed.
+     *
      * @throws ParseException if the specified context does not corresponds to a tab
      */
     public static ModelContext parseTab(String context) throws ParseException {
@@ -108,6 +110,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -120,6 +123,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code x} and {@code y} into a {@code Coordinates} and returns it.
+     *
      * @throws ParseException if x or y is not between 0 to 1
      */
     public static Coordinates parseCoordinates(String x, String y) throws ParseException {
@@ -132,6 +136,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code coordinate} into a float suitable for use as a coordinate for {@code Coordinates} and returns it.
+     *
      * @throws ParseException if coordinate is not between 0 to 1
      */
     public static float parseCoordinate(String coordinate) throws ParseException {
@@ -167,6 +172,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String input} into an {@code ImagePath}.
      * Leading and trailing whitespaces will be trimmed.
+     *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static ImagePath parseFilePath(String input) throws ParseException {
@@ -181,6 +187,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String input} into a {@code DirectoryPath}.
      * Leading and trailing whitespaces will be trimmed.
+     *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static DirectoryPath parseDirectoryPath(String input) throws ParseException {

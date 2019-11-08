@@ -9,11 +9,11 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
-import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.DirectoryPath;
 import seedu.weme.testutil.TestUtil;
 
 class ExportCommandTest {

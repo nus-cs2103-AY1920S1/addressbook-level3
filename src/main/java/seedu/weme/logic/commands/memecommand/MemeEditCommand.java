@@ -17,9 +17,9 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -51,7 +51,7 @@ public class MemeEditCommand extends Command {
     private final EditMemeDescriptor editMemeDescriptor;
 
     /**
-     * @param index of the meme in the filtered meme list to edit
+     * @param index              of the meme in the filtered meme list to edit
      * @param editMemeDescriptor details to edit the meme with
      */
     public MemeEditCommand(Index index, EditMemeDescriptor editMemeDescriptor) {
@@ -60,6 +60,21 @@ public class MemeEditCommand extends Command {
 
         this.index = index;
         this.editMemeDescriptor = new EditMemeDescriptor(editMemeDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Meme} with the details of {@code memeToEdit}
+     * edited with {@code editMemeDescriptor}.
+     */
+    private static Meme createEditedMeme(Meme memeToEdit, EditMemeDescriptor editMemeDescriptor) {
+        assert memeToEdit != null;
+
+        ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getImagePath());
+        Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
+        Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
+        boolean isArchived = memeToEdit.isArchived();
+
+        return new Meme(updatedPath, updatedDescription, updatedTags, isArchived);
     }
 
     @Override
@@ -89,21 +104,6 @@ public class MemeEditCommand extends Command {
         return result;
     }
 
-    /**
-     * Creates and returns a {@code Meme} with the details of {@code memeToEdit}
-     * edited with {@code editMemeDescriptor}.
-     */
-    private static Meme createEditedMeme(Meme memeToEdit, EditMemeDescriptor editMemeDescriptor) {
-        assert memeToEdit != null;
-
-        ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getImagePath());
-        Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
-        Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
-        boolean isArchived = memeToEdit.isArchived();
-
-        return new Meme(updatedPath, updatedDescription, updatedTags, isArchived);
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -131,7 +131,8 @@ public class MemeEditCommand extends Command {
         private Description description;
         private Set<Tag> tags;
 
-        public EditMemeDescriptor() {}
+        public EditMemeDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -150,28 +151,20 @@ public class MemeEditCommand extends Command {
             return CollectionUtil.isAnyNonNull(filePath, description, tags);
         }
 
-        public void setFilePath(ImagePath filePath) {
-            this.filePath = filePath;
-        }
-
         public Optional<ImagePath> getFilePath() {
             return Optional.ofNullable(filePath);
         }
 
-        public void setDescription(Description description) {
-            this.description = description;
+        public void setFilePath(ImagePath filePath) {
+            this.filePath = filePath;
         }
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
         /**
@@ -181,6 +174,14 @@ public class MemeEditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override

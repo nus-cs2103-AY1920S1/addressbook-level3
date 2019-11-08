@@ -14,9 +14,9 @@ import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.model.Model;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -46,7 +46,7 @@ public class ImportEditCommand extends Command {
     private final MemeEditCommand.EditMemeDescriptor editMemeDescriptor;
 
     /**
-     * @param index of the meme in the filtered meme list to edit
+     * @param index              of the meme in the filtered meme list to edit
      * @param editMemeDescriptor details to edit the meme with
      */
     public ImportEditCommand(Index index, MemeEditCommand.EditMemeDescriptor editMemeDescriptor) {
@@ -55,6 +55,20 @@ public class ImportEditCommand extends Command {
 
         this.index = index;
         this.editMemeDescriptor = new MemeEditCommand.EditMemeDescriptor(editMemeDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Meme} with the details of {@code memeToEdit}
+     * edited with {@code editMemeDescriptor}.
+     */
+    private static Meme createEditedMeme(Meme memeToEdit, MemeEditCommand.EditMemeDescriptor editMemeDescriptor) {
+        assert memeToEdit != null;
+
+        ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getImagePath());
+        Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
+        Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
+
+        return new Meme(updatedPath, updatedDescription, updatedTags);
     }
 
     @Override
@@ -77,20 +91,6 @@ public class ImportEditCommand extends Command {
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
 
         return result;
-    }
-
-    /**
-     * Creates and returns a {@code Meme} with the details of {@code memeToEdit}
-     * edited with {@code editMemeDescriptor}.
-     */
-    private static Meme createEditedMeme(Meme memeToEdit, MemeEditCommand.EditMemeDescriptor editMemeDescriptor) {
-        assert memeToEdit != null;
-
-        ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getImagePath());
-        Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
-        Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
-
-        return new Meme(updatedPath, updatedDescription, updatedTags);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.controlsfx.control.GridView;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.template.Template;
 
 /**

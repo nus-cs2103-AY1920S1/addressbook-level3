@@ -13,10 +13,10 @@ import java.util.Set;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.UniqueMemeList;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.records.Records;
 import seedu.weme.model.records.RecordsManager;
 import seedu.weme.model.statistics.Stats;
@@ -65,7 +65,8 @@ public class Weme implements ReadOnlyWeme {
         memeCreation = new MemeCreation();
     }
 
-    public Weme() {}
+    public Weme() {
+    }
 
     /**
      * Creates an Weme using the Memes in the {@code toBeCopied}
@@ -76,14 +77,6 @@ public class Weme implements ReadOnlyWeme {
     }
 
     //// overwrite operations
-
-    public void setStats(Stats replacement) {
-        stats.resetData(replacement);
-    }
-
-    public void setRecords(Records replacement) {
-        records.resetRecords(replacement);
-    }
 
     /**
      * Resets the existing data of this {@code Weme} with {@code newData}.
@@ -142,8 +135,6 @@ public class Weme implements ReadOnlyWeme {
         memeCreation.startWithTemplate(template);
     }
 
-    //// meme-level operations
-
     /**
      * Returns true if a meme with the same identity as {@code meme} exists in Weme.
      */
@@ -160,6 +151,8 @@ public class Weme implements ReadOnlyWeme {
     public void stageMeme(Meme meme) {
         exportList.add(meme);
     }
+
+    //// meme-level operations
 
     /**
      * Unstages a meme from the staging area.
@@ -295,7 +288,6 @@ public class Weme implements ReadOnlyWeme {
         importList.remove(key);
     }
 
-
     /**
      * Removes {@code key} from this {@code Weme}.
      * {@code key} must exist in Weme.
@@ -303,8 +295,6 @@ public class Weme implements ReadOnlyWeme {
     public void removeTemplate(Template key) {
         templates.remove(key);
     }
-
-    //// Meme Creation methods
 
     @Override
     public MemeCreation getMemeCreation() {
@@ -317,6 +307,8 @@ public class Weme implements ReadOnlyWeme {
     public void setMemeCreation(MemeCreation replacement) {
         memeCreation.resetSession(replacement);
     }
+
+    //// Meme Creation methods
 
     public void abortMemeCreation() {
         memeCreation.abort();
@@ -348,8 +340,6 @@ public class Weme implements ReadOnlyWeme {
         memeCreation.generate(path);
     }
 
-    //// util methods
-
     @Override
     public String toString() {
         return memes.asUnmodifiableObservableList().size() + " memes and "
@@ -361,6 +351,8 @@ public class Weme implements ReadOnlyWeme {
     public ObservableList<Meme> getMemeList() {
         return memes.asUnmodifiableObservableList();
     }
+
+    //// util methods
 
     @Override
     public ObservableList<Meme> getStagedMemeList() {
@@ -376,12 +368,16 @@ public class Weme implements ReadOnlyWeme {
         return templates.asUnmodifiableObservableList();
     }
 
-    // ============== Stats data Methods ===============================
-
     @Override
     public Stats getStats() {
         return stats.getStats();
     }
+
+    public void setStats(Stats replacement) {
+        stats.resetData(replacement);
+    }
+
+    // ============== Stats data Methods ===============================
 
     public int getLikesByMeme(Meme meme) {
         return stats.getLikesByMeme(meme);
@@ -423,11 +419,11 @@ public class Weme implements ReadOnlyWeme {
         stats.deleteDislikesByMeme(meme);
     }
 
-    // ============== Tag Data Methods ===============================
-
     public int getCountOfTag(Tag tag) {
         return stats.getCountOfTag(getMemeList(), tag);
     }
+
+    // ============== Tag Data Methods ===============================
 
     public List<TagWithCount> getTagsWithCountList() {
         return stats.getTagsWithCountList(getMemeList());
@@ -435,17 +431,21 @@ public class Weme implements ReadOnlyWeme {
 
     public List<TagWithDislike> getTagsWithDislikeCountList() {
         return stats.getTagsWithDislikeCountList(getMemeList());
-    };
-
-    // ============== Records Methods ===============================
+    }
 
     public List<TagWithLike> getTagsWithLikeCountList() {
         return stats.getTagsWithLikeCountList(getMemeList());
-    };
+    }
+
+    // ============== Records Methods ===============================
 
     @Override
     public Records getRecords() {
         return records;
+    }
+
+    public void setRecords(Records replacement) {
+        records.resetRecords(replacement);
     }
 
     public Set<String> getPaths() {
@@ -500,7 +500,7 @@ public class Weme implements ReadOnlyWeme {
 
         Weme otherWeme = (Weme) other;
         return memes.equals(otherWeme.memes)
-            && templates.equals(otherWeme.templates);
+                && templates.equals(otherWeme.templates);
     }
 
     @Override

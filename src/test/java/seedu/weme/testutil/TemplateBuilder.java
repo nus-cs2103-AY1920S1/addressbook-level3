@@ -1,6 +1,6 @@
 package seedu.weme.testutil;
 
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import javafx.scene.image.Image;
 
-import seedu.weme.model.DirectoryPath;
+import seedu.weme.model.path.DirectoryPath;
 
 
 /**

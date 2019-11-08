@@ -16,9 +16,9 @@ import seedu.weme.commons.util.FileUtil;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.Weme;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.records.Records;
 import seedu.weme.model.records.RecordsManager;
 import seedu.weme.model.tag.Tag;
@@ -124,8 +124,9 @@ public class SampleDataUtil {
 
     /**
      * Copies meme images from Resource folder to the Data folder.
+     *
      * @param memeFields the data for the memes in the resource folder
-     * @param userPrefs the user preferences for this instance of Weme
+     * @param userPrefs  the user preferences for this instance of Weme
      * @return a List of Memes to import
      */
     public static List<Meme> createSampleMemes(List<MemeFieldsContainer> memeFields, ReadOnlyUserPrefs userPrefs) {
@@ -150,8 +151,9 @@ public class SampleDataUtil {
 
     /**
      * Copies template images from Resource folder to the Data folder.
+     *
      * @param templateFields the data for the templates in the resource folder
-     * @param userPrefs the user preferences for this instance of Weme
+     * @param userPrefs      the user preferences for this instance of Weme
      * @return a List of {@code Templates} to import
      */
     public static List<Template> createSampleTemplates(List<TemplateFieldsContainer> templateFields,

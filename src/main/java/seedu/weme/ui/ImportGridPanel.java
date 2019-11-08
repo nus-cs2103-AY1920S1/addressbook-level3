@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 
 
 /**

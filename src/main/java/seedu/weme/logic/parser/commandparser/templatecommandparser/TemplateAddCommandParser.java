@@ -10,7 +10,7 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.parser.util.ArgumentMultimap;
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
 import seedu.weme.logic.parser.util.ParserUtil;
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 

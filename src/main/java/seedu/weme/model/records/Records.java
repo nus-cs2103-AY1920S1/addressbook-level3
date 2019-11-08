@@ -2,8 +2,8 @@ package seedu.weme.model.records;
 
 import java.util.Set;
 
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Name;
 

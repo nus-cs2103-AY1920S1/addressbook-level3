@@ -46,7 +46,7 @@ Package Tag {
 Class Tag
 }
 
-Package ImagePath {
+Package Path {
 Class ImagePath
 }
 }

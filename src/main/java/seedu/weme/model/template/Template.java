@@ -5,7 +5,7 @@ import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.weme.model.Archivable;
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 
 /**
  * Represents a meme template in Weme.
