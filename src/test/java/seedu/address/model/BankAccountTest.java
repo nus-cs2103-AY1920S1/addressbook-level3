@@ -28,8 +28,10 @@ public class BankAccountTest {
 
     @Test
     public void constructor() {
+        assertEquals(Amount.zero(), bankAccount.getBalance());
         assertEquals(Collections.emptyList(), bankAccount.getTransactionHistory());
         assertEquals(Collections.emptyList(), bankAccount.getBudgetHistory());
+        assertEquals(Collections.emptyList(), bankAccount.getProjectionHistory());
     }
 
     @Test
@@ -51,9 +53,10 @@ public class BankAccountTest {
     // }
 
     @Test
-    public void hasTransaction_nullTransaction_throwsNullPointerException() {
+    public void has_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> bankAccount.has((BankAccountOperation) null));
         assertThrows(NullPointerException.class, () -> bankAccount.has((Budget) null));
+        assertThrows(NullPointerException.class, () -> bankAccount.has((Projection) null));
     }
 
     @Test
@@ -94,9 +97,9 @@ public class BankAccountTest {
         bankAccount.setBalance(Amount.zero());
         String transactionAmountMax = "999999";
         BankAccountOperation testTransactionInMax1 = new BankOperationBuilder(ALICE)
-                .withAmount(transactionAmountMax).build();
+            .withAmount(transactionAmountMax).build();
         BankAccountOperation testTransactionInMax2 = new BankOperationBuilder(BENSON)
-                .withAmount(transactionAmountMax).build();
+            .withAmount(transactionAmountMax).build();
         bankAccount.add(testTransactionInMax1);
         bankAccount.add(testTransactionInMax2);
         assertEquals(bankAccount.getBalance(), Amount.of(2 * Integer.parseInt(transactionAmountMax)));
@@ -115,9 +118,9 @@ public class BankAccountTest {
         bankAccount.setBalance(Amount.zero());
         String transactionAmountMax = "-999999";
         BankAccountOperation testTransactionInMax1 = new BankOperationBuilder(ALICE)
-                .withAmount(transactionAmountMax).build();
+            .withAmount(transactionAmountMax).build();
         BankAccountOperation testTransactionInMax2 = new BankOperationBuilder(BENSON)
-                .withAmount(transactionAmountMax).build();
+            .withAmount(transactionAmountMax).build();
         bankAccount.add(testTransactionInMax1);
         bankAccount.add(testTransactionInMax2);
         assertEquals(bankAccount.getBalance(), Amount.of(2 * Integer.parseInt(transactionAmountMax)));
