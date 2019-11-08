@@ -164,7 +164,7 @@ class EndDateStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // EP : ArgumentMultimap without a start date prefix.
+        // EP : ArgumentMultimap without an end date prefix.
 
         List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_LOCATION);
         List<String> args = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
