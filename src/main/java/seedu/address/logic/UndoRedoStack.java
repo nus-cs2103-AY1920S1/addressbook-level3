@@ -10,7 +10,7 @@ import seedu.address.logic.commands.UndoableCommand;
 /**
  * Undo-redo Stack
  * @@author yamgent
- * Reused from https://github.com/se-edu/addressbook-level4/pull/610/files with minor modifications
+ * Reused from https://github.com/se-edu/addressbook-level4/pull/610/files with modifications
  *
  */
 public class UndoRedoStack {
@@ -35,13 +35,14 @@ public class UndoRedoStack {
      * if {@code command} is not of type {@code UndoCommand} or {@code RedoCommand}.
      */
     public void push(Command command) {
+        if (!(command instanceof UndoableCommand)) {
+            return;
+        }
+
         if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
             redoStack.clear();
         }
 
-        if (!(command instanceof UndoableCommand)) {
-            return;
-        }
 
         undoStack.addFirst((UndoableCommand) command);
     }
