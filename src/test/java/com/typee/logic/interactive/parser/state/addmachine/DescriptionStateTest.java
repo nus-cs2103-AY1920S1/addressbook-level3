@@ -7,7 +7,9 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYP
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 

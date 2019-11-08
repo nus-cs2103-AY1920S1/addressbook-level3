@@ -1,13 +1,14 @@
 package com.typee.logic.interactive.parser.state.addmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
-import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
