@@ -135,7 +135,7 @@ public class Performance implements ReadOnlyPerformance {
         events.getEvent(e).deleteRecord(p, d);
     }
 
-    public void editPerformancePersonDetails(Person target, Person editedPerson) {
+    public void editPersonPerformanceRecords(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         events.updatePerson(target, editedPerson);
     }

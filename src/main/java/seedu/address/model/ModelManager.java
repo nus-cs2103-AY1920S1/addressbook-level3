@@ -417,8 +417,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void editPerformancePersonDetails(Person target, Person editedPerson) {
-        performance.editPerformancePersonDetails(target, editedPerson);
+    public void editPersonPerformanceRecords(Person target, Person editedPerson) {
+        performance.editPersonPerformanceRecords(target, editedPerson);
     }
 
 }
