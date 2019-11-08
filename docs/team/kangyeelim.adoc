@@ -199,9 +199,7 @@ image::homeUG/HomeDeleteStep1cr.png[width = "750"]
 
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with a success message and the transaction will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
 image::homeUG/HomeDeleteStep2cr.png[width = "750"]
 
@@ -212,9 +210,7 @@ image::homeUG/HomeDeleteStep2cr.png[width = "750"]
 image::homeUG/HomeDeletePStep1cr.png[width = "750"]
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
 image::homeUG/HomeDeletePStep2cr.png[width = "750"]
 

@@ -100,8 +100,7 @@ This section will contain details on all commands available in the Home tab.
 * The Home Tab shows a list of all transactions made thus far.
 * Each column shows the date, description, category, amount spent and the person responsible for each transaction.
 * You may add, delete or edit transactions within this tab.
-* Leo, our mascot, helps give replies indicating successful addition, deletion and edit of the a transaction
-after a command has been input
+* Leo, our mascot, helps give replies indicating successful commands executed.
 * Leo will also give replies to guide you when there is a wrong input.
 * You may also sort the list of transactions by descending date, by ascending alphabetical order or descending amount.
 * The amount input for a transaction should be positive if the transaction is considered revenue to the club (that is,
@@ -111,7 +110,7 @@ from the club's funds).
 
 [WARNING]
 There is a limitation to the amount that you may enter which would be -999999.99 to 999999.99. If more decimal points
-are entered, it will be rounded off to the nearest 2 decimal point
+are entered, it will be rounded off to the nearest 2 decimal point.
 
 ====
 
@@ -142,9 +141,7 @@ to show up in the Reimbursements Tab.
 image::homeUG/HomeAddStep1cr.png[]
 
 [start = 2]
-2. Hit `Enter`.
-
-If the command is successfully added, Leo will respond with a success message and the transaction
+2. Hit `Enter`. If the command is successfully added, Leo will respond with a success message and the transaction
 will be shown in the table. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for Add Command in Home Tab
@@ -198,9 +195,7 @@ image::homeUG/HomeDeleteStep1cr.png[]
 
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with a success message and the transaction will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
 .Screenshot of a successful user input for Delete by ID Command in Home Tab
 image::homeUG/HomeDeleteStep2cr.png[]
@@ -214,9 +209,7 @@ image::homeUG/HomeDeleteStep2cr.png[]
 image::homeUG/HomeDeletePStep1cr.png[]
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
 //.Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2cr.png[]
@@ -250,6 +243,10 @@ include at least one.
 
 //.Screenshot of user input into Command Box for Edit Command in Home Tab
 image::homeUG/HomeEditStep1cr.png[]
+
+[NOTE]
+Similar to the Add Command, there is no restriction to the number of characters allowed for the description and
+category.
 
 [start = 2]
 2. Hit `Enter`.
