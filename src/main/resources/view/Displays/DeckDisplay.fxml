@@ -9,7 +9,7 @@
    <children>
       <Label fx:id="deckName" alignment="CENTER" styleClass="window-title" text="Name of deck" textAlignment="CENTER" />
       <VBox fx:id="questionList" />
-      <Label fx:id="deckSize" alignment="CENTER" prefHeight="17.0" prefWidth="620.0" text="number of cards" />
+      <Label fx:id="deckSize" alignment="CENTER" text="number of cards" />
       <HBox spacing="10.0">
          <children>
               <Button fx:id="startTest" mnemonicParsing="false" text="Start Review" />

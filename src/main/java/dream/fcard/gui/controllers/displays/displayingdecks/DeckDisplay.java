@@ -59,7 +59,7 @@ public class DeckDisplay extends VBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.deck = deck;
-            deckName.setText(deck.getDeckName());
+            deckName.setText("Deck: " + deck.getDeckName());
             renderQuestions();
             deleteDeckButton.setOnAction(e -> {
                 try {
