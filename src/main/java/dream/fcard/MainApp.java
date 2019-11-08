@@ -33,6 +33,8 @@ public class MainApp extends Application {
             VBox vbox = fxmlLoader.load();
             Scene scene = new Scene(vbox);
             stage.setScene(scene);
+            stage.setMinHeight(700);
+            stage.setMinWidth(900);
             stage.setTitle("FlashCard Pro");
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
             stage.show();
