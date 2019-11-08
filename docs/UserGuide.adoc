@@ -133,12 +133,14 @@ Searches for the book titled “Animal Farm” by the author “George Orwell”
 Searches for children mystery books that are not on loan and show the first 3 entries.
 // end::UGshiyao1[]
 
+// tag::info[]
 ==== Viewing a book: `info`
 
 Views more information about a book in the displayed list. +
 
 Format: `info INDEX`
 
+// end::info[]
 ==== Clearing all entries : `clear`
 
 Clears the most recent search from the displayed book list and displays all books. +

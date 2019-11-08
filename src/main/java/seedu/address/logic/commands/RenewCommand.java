@@ -101,8 +101,7 @@ public class RenewCommand extends ReversibleCommand {
                     model.getUserSettings().getRenewPeriod());
             Loan renewedLoan = loanToBeRenewed.renewLoan(extendedDueDate);
 
-            Book renewedBook = new Book(bookToBeRenewed.getTitle(), bookToBeRenewed.getSerialNumber(),
-                    bookToBeRenewed.getAuthor(), renewedLoan, bookToBeRenewed.getGenres());
+            Book renewedBook = bookToBeRenewed.renewBook(renewedLoan);
 
             // update Book in model to have Loan due date extended
             model.setBook(bookToBeRenewed, renewedBook);

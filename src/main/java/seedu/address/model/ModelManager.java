@@ -332,7 +332,9 @@ public class ModelManager implements Model {
      */
     private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
         String startString = DateUtil.formatDate(loan.getStartDate());
-        String endString = DateUtil.formatDate(loan.getDueDate());
+        String endString = isCurrent
+                ? DateUtil.formatDate(loan.getDueDate())
+                : DateUtil.formatDate(loan.getReturnDate());
         String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
         String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
         if (isCurrent) {

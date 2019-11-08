@@ -40,6 +40,7 @@ Denotes useful tips.
 == Summary of contributions
 This section shows a summary of my contributions in terms of coding, documentation, and other helpful contributions to the team project.
 
+---
 === *Major enhancement - Generating Loan Slip*
 This feature allows librarians to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
 
@@ -58,22 +59,26 @@ I was required to understand a great deal about file input and output in Java, w
 On top of that, this document will have to be suitably styled as a loan slip populated with information about the loans.
 
 ==== Why this is a major feature
-This feature is major as it depicts most core features of 'LiBerry' in the form of a condensed PDF, which is further explained below.
+This feature depicts most core features of 'LiBerry' in the form of a condensed PDF, which is further explained below.
 
 ****
 * *Depth*: This feature is deeply linked with the book, loan and borrower features.
-The information being displayed in the PDF document are as follows:
+The information being displayed in the PDF document are: +
+{nbsp}
 ** Borrower-related information:
 *** The borrower's name
-*** The borrower's ID
+*** The borrower's ID +
+{nbsp}
 ** Book-related information:
 *** Serial number of book being loaned out
-*** Title of book being loaned out
+*** Title of book being loaned out +
+{nbsp}
 ** Loan-related information:
 *** Date of loan
 *** List of books being loaned
 *** List of books being renewed
-*** Their respective due dates
+*** Their respective due dates +
+{nbsp}
 
 * *Completeness*: This feature is complete with the intended styling of the loan slip and is rigorously tested in many test cases.
 It was intended of the loan slip to display:
@@ -81,8 +86,8 @@ It was intended of the loan slip to display:
 ** Multiple loans in a single loan slip
 ** Renewed loans
 
-[none]
-* The generated loan slip in `v1.4` contains all the required information we had intended it to.
+The generated loan slip in `v1.4` contains all the required information we had intended it to. +
+{nbsp}
 
 * *Effort*: This feature required in-depth understanding of:
 ** How to leverage on Gradle to add libraries from the Maven Central Repository
@@ -92,8 +97,7 @@ It was intended of the loan slip to display:
 ** How to create PDFs from text.
 ** How to use the 'iText7' Library suitably for 'LiBerry' by reading and understanding the 'iText7' documentation
 
-[none]
-* These additional information are not in the scope of the course and would therefore require intensive research on my part.
+These additional information are not in the scope of the course and would therefore require intensive research on my part.
 ****
 
 This is how a generated loan slip looks like.
@@ -101,12 +105,14 @@ This is how a generated loan slip looks like.
 .Generated Loan Slip
 image::LoanSlip.png[width=350, align=center]
 {nbsp}
-In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
+In Figure 2, we can see all books loaned by 'Bill' recorded and generated in a printable loan slip.
 
 ==== Credits
 This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
 Java `File` class and the API well such that I can use it appropriately in the context of our project.
 {nbsp}
+
+---
 
 === *Secondary enhancement - Book feature*
 On top of the feature to generate loan slips, I am also primarily involved the implementation of the book-related core features.
@@ -119,10 +125,10 @@ In the Book feature, we have the following sub-features:
 * This feature allows the librarian to update the catalog when a book goes missing.
 
 ** The ability to *display information* about a book.
-* This feature aids the librarian in retrieving more information about a book when a borrower enquires about it.
+* This feature aids the librarian in retrieving more information about a book when a borrower inquires about it.
 
 ==== What the feature does
-This feature allows a librarian to manage the catalog of books in the system with the set of sub-features mentioned above.
+This feature allows the librarian to manage the catalog of books in the system using the set of sub-features mentioned above.
 
 ==== Justification
 This feature is a must have for all library management systems as it provides a foundation for all other higher-level features (such as loaning and renewing books) to work.
@@ -143,12 +149,16 @@ This makes the feature interesting as we get to implement something we have lear
 *** Author of book
 *** Genres of book, if any
 *** Loan status (if it is currently on loan or not)
-*** Loan history
-* *Completeness*: This feature is cohesively linked to the other core feature such as the Loan feature and the Borrower feature.
+*** Loan history +
+{nbsp}
+
+* *Completeness*: This feature is cohesively and completely linked to the other core feature such as the Loan feature and the Borrower feature. +
+{nbsp}
+
 * *Effort*: Considerable effort was required to assess the suitability of data structures used to store the books.
 Much thought was also put into deciding what information should be displayed in the info window and what is the best way to display these information.
 ****
-
+---
 === Code Contributed
 The following link shows the analysis of my code contributions:
 
