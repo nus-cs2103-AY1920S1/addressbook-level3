@@ -9,8 +9,9 @@ public class MoneyUtil {
 
     private static char[] suffix = new char[]{'k', 'M', 'B', 'T'};
 
+    //@@author jonathantjendana-reused
+    //Reused from https://stackoverflow.com/a/4753866 with minor modifications
     /**
-     * Reused from https://stackoverflow.com/a/4753866 with minor modifications
      * Recursive implementation, invokes itself for each factor of a thousand, increasing the class on each invocation.
      * @param n the number to format
      * @param iteration in fact this is the class from the array c
@@ -25,7 +26,7 @@ public class MoneyUtil {
                 ) + "" + suffix[iteration])
                 : format(d, iteration + 1));
     }
-
+    //@@author jonathantjendana
     /**
      * Formats a large decimal to a more readable string
      * e.g 100000 = 100k
