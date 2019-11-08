@@ -1,5 +1,6 @@
 package seedu.address.model.calendar.task;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.DateFormat;
@@ -24,7 +25,7 @@ public class TaskTime {
      * @param address A valid address.
      */
     public TaskTime(String address) {
-        // requireNonNull(address);
+        requireNonNull(address);
         checkArgument(isValidTime(address), MESSAGE_CONSTRAINTS);
         value = address;
     }

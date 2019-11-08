@@ -28,12 +28,14 @@ The implementation too was challenging as it required changes to existing comman
 
 * *Other contributions*:
 
+** Project management:
+*** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
-//** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote additional tests for existing features to increase coverage by 13.09% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/167[#167]
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])

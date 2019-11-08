@@ -1,5 +1,6 @@
 package seedu.address.model.calendar.task;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -19,7 +20,7 @@ public class TaskDescription {
      * @param description A valid description address.
      */
     public TaskDescription(String description) {
-        // requireNonNull(description);
+        requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
