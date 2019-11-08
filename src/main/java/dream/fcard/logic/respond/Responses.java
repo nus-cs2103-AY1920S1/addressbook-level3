@@ -444,7 +444,6 @@ public enum Responses {
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
-
                     //@author
 
                     return true; //if valid
