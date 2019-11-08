@@ -54,8 +54,8 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredQuestionList().size());
         Question lastPerson = model.getFilteredQuestionList().get(indexLastPerson.getZeroBased());
 
-        QuestionBuilder personInList = new QuestionBuilder(lastPerson);
-        Question editedPerson = personInList.withName(VALID_NAME_BOB).withAnswer(VALID_ANSWER_BOB)
+        QuestionBuilder questionInList = new QuestionBuilder(lastPerson);
+        Question editedPerson = questionInList.withName(VALID_NAME_BOB).withAnswer(VALID_ANSWER_BOB)
                 .withTags(VALID_TAG_LECTURE).build();
 
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
@@ -88,8 +88,8 @@ public class EditCommandTest {
         model.addQuestion(BOB);
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
 
-        Question personInFilteredList = model.getFilteredQuestionList().get(INDEX_FIRST_QUESTION.getZeroBased());
-        Question editedPerson = new QuestionBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        Question questionInFilteredList = model.getFilteredQuestionList().get(INDEX_FIRST_QUESTION.getZeroBased());
+        Question editedPerson = new QuestionBuilder(questionInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_QUESTION,
                 new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

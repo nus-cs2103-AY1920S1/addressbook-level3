@@ -21,8 +21,8 @@ public class QuestionTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Question person = new QuestionBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        Question question = new QuestionBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> question.getTags().remove(0));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class QuestionTest {
         // null -> returns false
         assertFalse(ALICE.isSameQuestion(null));
 
-        // different phone and email -> returns false
+        // different answer and category -> returns false
         Question editedAlice = new QuestionBuilder(ALICE).withAnswer(VALID_ANSWER_BOB)
                 .withCategory(VALID_CATEGORY_BOB).build();
         assertFalse(ALICE.isSameQuestion(editedAlice));
@@ -72,22 +72,22 @@ public class QuestionTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different question -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
         Question editedAlice = new QuestionBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different answer -> returns false
         editedAlice = new QuestionBuilder(ALICE).withAnswer(VALID_ANSWER_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
+        // different category -> returns false
         editedAlice = new QuestionBuilder(ALICE).withCategory(VALID_CATEGORY_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different type -> returns false
         editedAlice = new QuestionBuilder(ALICE).withType(VALID_TYPE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

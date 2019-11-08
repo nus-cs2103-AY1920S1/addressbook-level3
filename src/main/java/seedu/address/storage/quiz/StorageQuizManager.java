@@ -14,7 +14,7 @@ import seedu.address.model.quiz.UserPrefs;
 
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of AddressQuizBook data in local storage.
  */
 public class StorageQuizManager implements Storage {
 

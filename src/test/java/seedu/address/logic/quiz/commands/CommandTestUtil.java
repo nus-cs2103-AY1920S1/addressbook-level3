@@ -34,8 +34,6 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY_BOB = "Leetcode";
     public static final String VALID_TYPE_AMY = "normal";
     public static final String VALID_TYPE_BOB = "high";
-    public static final String VALID_COMMENT_AMY = "The explanation is on lecture 10";
-    public static final String VALID_COMMENT_BOB = "The explanation is on lecture 20";
     public static final String VALID_TAG_LECTURE = "lecture";
     public static final String VALID_TAG_TUTORIAL = "tutorial";
 
@@ -55,9 +53,6 @@ public class CommandTestUtil {
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY; // empty string not allowed
     public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "something"; // invalid type
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditQuestionDescriptor DESC_AMY;
     public static final EditCommand.EditQuestionDescriptor DESC_BOB;
@@ -114,7 +109,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s modulo.
      */
     public static void showQuestionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
@@ -125,4 +120,14 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredQuestionList().size());
     }
+
+    /**
+     * Deletes the first question in {@code model}'s filtered list from {@code model}'s modulo.
+     */
+    public static void deleteFirstQuestion(Model model) {
+        Question firstQuestion = model.getFilteredQuestionList().get(0);
+        model.deleteQuestion(firstQuestion);
+        model.commitQuizBook();
+    }
+
 }

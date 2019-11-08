@@ -151,6 +151,7 @@ public class SwitchOperation {
 
     /**
      * Load user's Quiz preference.
+     *
      * @param storage Quiz storage
      * @return UserPrefs
      */
@@ -167,7 +168,7 @@ public class SwitchOperation {
                     + "default user prefs");
             initializedPrefs = new seedu.address.model.quiz.UserPrefs();
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
+            System.out.println("Problem while reading from the file. Will be starting with an empty Modulo");
             initializedPrefs = new seedu.address.model.quiz.UserPrefs();
         }
 

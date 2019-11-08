@@ -21,14 +21,14 @@ public class TypeTest {
 
     @Test
     public void isValidType() {
-        // null address
+        // null type
         assertThrows(NullPointerException.class, () -> Type.isValidType(null));
 
-        // invalid addresses
+        // invalid types
         assertFalse(Type.isValidType("")); // empty string
         assertFalse(Type.isValidType(" ")); // spaces only
 
-        // valid addresses
+        // valid types
         assertTrue(Type.isValidType("low"));
         assertTrue(Type.isValidType("normal"));
         assertTrue(Type.isValidType("high"));

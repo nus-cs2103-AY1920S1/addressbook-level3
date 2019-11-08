@@ -58,8 +58,8 @@ public class EditCommand extends Command {
     private final EditQuestionDescriptor editQuestionDescriptor;
 
     /**
-     * @param index of the question in the filtered question list to edit
-     * @param editQuestionDescriptor details to edit the question with
+     * @param index of the question in the filtered question list to be edited.
+     * @param editQuestionDescriptor details of the question to edited with.
      */
     public EditCommand(Index index, EditQuestionDescriptor editQuestionDescriptor) {
         requireNonNull(index);

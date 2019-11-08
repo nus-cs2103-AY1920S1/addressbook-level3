@@ -238,6 +238,17 @@ The following activity diagram summarizes the basic question creation process:
 
 image::QuizCreationActivityDiagram.png[]
 
+===== Design Considerations
+
+====== Aspect: How to add question
+
+* **Alternative 1 (current choice):** Users add question to the last of the list.
+** Pros: Easy to implement and fast (Insertion O(1)).
+** Cons: User may not be able to position the question from the list of questions.
+* **Alternative 2:** Users insert the question to the desired position.
+** Pros: User can order the list as they desired and remember things better.
+** Cons: Not as fast as the insertion at the back of the list from alternative 1.
+
 {empty} +
 
 ==== Undo/Redo feature
@@ -255,22 +266,22 @@ These operations are exposed in the `Model` interface as `Model#commitQuizBook()
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
+*Step 1.* The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
+*Step 2.* The user executes `delete 5` command to delete the 5th person in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `comment 1 <val> NewComment` to add a new person. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
+*Step 3.* The user executes `comment 1 <val> NewComment` to add a new person. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitQuizBook()`, so the quiz book state will not be saved into the `quizBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
+*Step 4.* The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -288,11 +299,11 @@ The `redo` command does the opposite -- it calls `Model#redoQuizBook()`, which s
 [NOTE]
 If the `currentStatePointer` is at index `quizBookStateList.size() - 1`, pointing to the latest quiz book state, then there are no undone quiz book states to restore. The `redo` command uses `Model#canRedoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
+*Step 5.* The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+*Step 6.* The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
