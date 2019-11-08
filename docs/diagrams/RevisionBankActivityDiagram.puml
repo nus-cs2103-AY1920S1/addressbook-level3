@@ -11,7 +11,7 @@ if () then ([revision dont exist])
 
 endif
 
-- Retrieve of correct and\n wrong cards from statistics
+- Retrieves correct and\n wrong cards from statistics
 note left: GameStatistics
 
 if () then ([word bank played is revision bank])

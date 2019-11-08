@@ -74,10 +74,10 @@ StorageManager -> JsonWordBankListStorage : importWordBank(..)
 note right: 5.
 activate JsonWordBankListStorage
 
-JsonWordBankListStorage -> JsonWordBankListStorage : addWordBank(WordBank)
+JsonWordBankListStorage -> JsonWordBankListStorage : addWordBank(..)
 note right: 6.
 
-JsonWordBankListStorage -> JsonUtil : saveWordBank(WordBank)
+JsonWordBankListStorage -> JsonUtil : saveWordBank(..)
 activate JsonUtil
 
 
