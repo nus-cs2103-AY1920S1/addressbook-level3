@@ -502,33 +502,6 @@ Resets the scripting environment.
 Format: `script reset`
 // end::scripting[]
 
-// tag::importexport[]
-=== Import and export *(Coming in v1.4)* : `import`, `export`
-
-==== Import a file: `import`
-
-Imports transactions from the file at the given path.
-
-Format: `import [f/<format>] [p/<file path>]`
-****
-* The file path can be relative to where you launched Budget Buddy from, or absolute.
-If the path is omitted, a file browser is opened for you to select the file.
-* Format is one of dbs (DBS Bank/POSB), ocbc (OCBC Bank), sc (Standard Chartered), csv (generic comma-separated values file).
-If the format is omitted, automatic detection is attempted.
-****
-
-==== Export transactions: `export`
-
-Exports all transactions to the given path.
-
-Format: `export [p/<file path>]`
-****
-* The file path can be relative to where you launched Budget Buddy from, or absolute.
-If the path is omitted, a file browser is opened for you to select where to save the file.
-* The file is a comma-separated values file.
-****
-// end::importexport[]
-
 // tag::aliases[]
 === Aliases *(Coming in v1.4)* : `alias`
 
@@ -657,6 +630,33 @@ If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
 
+// tag::importexport[]
+=== Import and export *(Coming in v1.4)* : `import`, `export`
+
+==== Import a file: `import`
+
+Imports transactions from the file at the given path.
+
+Format: `import [f/<format>] [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select the file.
+* Format is one of dbs (DBS Bank/POSB), ocbc (OCBC Bank), sc (Standard Chartered), csv (generic comma-separated values file).
+If the format is omitted, automatic detection is attempted.
+****
+
+==== Export transactions: `export`
+
+Exports all transactions to the given path.
+
+Format: `export [p/<file path>]`
+****
+* The file path can be relative to where you launched Budget Buddy from, or absolute.
+If the path is omitted, a file browser is opened for you to select where to save the file.
+* The file is a comma-separated values file.
+****
+// end::importexport[]
+
 === Getting help with specific commands *(Coming in v2.0)*: `help`
 
 Displays detailed help for a specific command.
@@ -689,15 +689,57 @@ On the other hand, executing any command from that category will switch you over
 *Q:* How do I reset the application data?
 
 *A:* All data is stored within the same folder as your execution path, under the "data/" folder.
-Deleting that folder will reset the application data.
+Deleting that folder will reset the application data upon rebooting the application.
 
 == Command Summary
+
+=== Help
+
+* `help` - Get the link to the user guide
+
+=== Transactions
+
+* `txn out|in` - Add a new transaction
+* `txn list` - List transactions for the active account
+* `txn edit` - Edit a transaction
+* `txn delete` - Delete a transaction
+
+=== Accounts
+
+* `account add` - Add a new account
+* `account list` - List accounts
+* `account switch` - Switch the current active account
+* `account edit` - Edit an account
+* `account find` - Find accounts
+* `account report` - Print a report of an account
+* `account overview` - Export HTML overview of all accounts
+* `account delete` - Delete an account
+
+=== Loans
+
+* `loan out|in` - Add a new loan
+* `loan list` - List loans
+* `loan edit` - Edit a loan
+* `loan paid` - Mark loan(s) as paid
+* `loan unpaid` - Mark loan(s) as unpaid
+* `loan delete` - Delete loan(s)
+* `loan split` - Split a bill
 
 === Rules
 
 * `rule add` - Add a new rule
 * `rule list` - List rules
+* `rule swap` - Swap rule positions
 * `rule edit` - Edit a rule
 * `rule delete` - Delete a rule
+
+=== Script
+
+* `script eval` - Evaluate a script
+* `script add` - Add a script
+* `script list` - List scripts
+* `script run` - Run an added script
+* `script delete` - Delete a script
+* `script reset` - Reset the scripting environment
 
 
