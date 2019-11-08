@@ -48,7 +48,7 @@ public class Meeting {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Meeting Description: ")
-                .append(getDescription())
+                .append(getDescription()).append("\n")
                 .append("Meeting Time: ")
                 .append(getTime());
         return builder.toString();

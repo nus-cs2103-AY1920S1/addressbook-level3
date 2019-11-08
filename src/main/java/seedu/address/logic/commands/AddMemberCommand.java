@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.*;
@@ -30,12 +29,14 @@ public class AddMemberCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
-    public static final String MESSAGE_SUCCESS = "New member added to %2$s";
-    public static final String MESSAGE_SUCCESS_MISSING_FIELDS = MESSAGE_SUCCESS + " (Please remember to fill in remaining information for member)";
+    public static final String MESSAGE_SUCCESS = "New member %1$s added to \n"
+            + "%2$s";
+    public static final String MESSAGE_SUCCESS_MISSING_FIELDS = "New member %1$s added to \n"
+            + "%2$s\n"
+            + "(Please remember to fill in remaining information for member)";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the project";
     public static final String MESSAGE_WRONG_ADD_COMMAND = "This person already exists in the address book, "
             + "please use addFromContacts instead.";
-    public static final String MESSAGE_MISSING_FIELDS = "Please remember to fill in the proper fields later.";
     private final NewMemberDescriptor toAdd;
 
     /**
@@ -81,7 +82,7 @@ public class AddMemberCommand extends Command {
         model.setWorkingProject(editedProject);
 
         if (toAdd.isAnyFieldNotEdited()) {
-            return new CommandResult(String.format(MESSAGE_MISSING_FIELDS, personToAdd.getName().toString(), projectToEdit), COMMAND_WORD);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_MISSING_FIELDS, personToAdd.getName().toString(), projectToEdit), COMMAND_WORD);
         } else {
             return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd.getName().toString(), projectToEdit), COMMAND_WORD);
         }
@@ -126,7 +127,9 @@ public class AddMemberCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldNotEdited() {
-            return CollectionUtil.isAnyNull(name, phone, email, address);
+            return phone.value.equals("00000000")
+                    || email.value.equals("no_email@added")
+                    || address.value.equals("-none-");
         }
 
         public void setName(Name name) {

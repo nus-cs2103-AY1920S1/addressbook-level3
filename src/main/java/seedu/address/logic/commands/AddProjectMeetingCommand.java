@@ -19,7 +19,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 public class AddProjectMeetingCommand extends Command {
     public static final String COMMAND_WORD = "addProjectMeeting";
 
-    public static final String MESSAGE_SUCCESS = "Meeting added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New meeting added!\n"
+            + "%1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the project. "
             + " Parameters: "

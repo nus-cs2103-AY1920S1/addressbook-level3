@@ -23,6 +23,8 @@ public class AddFromContactsCommand extends Command {
             + "Examples: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ADD_EXISTING_SUCCESS = "Added %1$s to %2$s";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "Member already exists in the project.";
+    public static final String MESSAGE_DUPLICATE_INDEX = "Same index is specified twice.";
 
     private final List<Index> targetIndexList;
 
@@ -35,12 +37,17 @@ public class AddFromContactsCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> personsToAdd = new ArrayList<>();
-
+        List<Index> indexChecker = new ArrayList<>();
         for (Index targetIndex : targetIndexList) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
+            if (indexChecker.contains(targetIndex)) {
+                throw new CommandException(MESSAGE_DUPLICATE_INDEX + " Duplicate index: " + targetIndex.getOneBased());
+            }
+
+            indexChecker.add(targetIndex);
             personsToAdd.add(lastShownList.get(targetIndex.getZeroBased()));
         }
 
@@ -52,6 +59,12 @@ public class AddFromContactsCommand extends Command {
         String projectToEditTitle = projectToEdit.getTitle().toString();
 
         List<String> memberListToEdit = projectToEdit.getMemberNames();
+        for (String name : namesToAdd) {
+            int index = targetIndexList.get(namesToAdd.indexOf(name)).getOneBased();
+            if (memberListToEdit.contains(name)) {
+                throw new CommandException(MESSAGE_DUPLICATE_MEMBER + " Duplicate Member: " + name + " is specified by index " + index);
+            }
+        }
         List<String> editedMemberList = new ArrayList<>();
         editedMemberList.addAll(memberListToEdit);
         editedMemberList.addAll(namesToAdd);
