@@ -17,6 +17,7 @@ endif::[]
 
 By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 `EzWatchList` is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
@@ -51,6 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<UserCommands>> for details of each command.
 
+// end:: intro[]
 == Features
 
 === User-Interface
@@ -111,8 +113,44 @@ Ezwatchlist gives users the ability to navigate easily through the **Watchlist, 
 
 Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
 
-image::details_page.png[width="790"]
+// tag::advancedfeatures[]
+=== Advanced Features
 
+==== Parsing of Movie and Tv Show Information
+In Ezwatchlist, an online database is accessed so that all the information about your favourite Movies and
+Television Shows is updated, informative, and concise. What this means for you is that:
+
+* Posters of your Ezwatchlist shows,
+can be displayed in Ezwatchlist's sleek dark interface.
+
+* Moreover, your offline shows can be synced with this database allowing the application to fill in
+the minor details for you.
+
+* Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
+
+****
+You don't need to do anything other than be connected to the internet. It is that easy!
+****
+
+==== Movie and Tv Show Recommendations
+Ezwatchlist has the ability to recommend Movies and TvShows to you based on
+your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
+
+****
+Excited? Enter your statistics page to get started on your recommendations. You might
+just find your next favourite!
+****
+
+
+==== Auto-Correct (Coming in v2.0)
+Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
+corrected for you when typing in your commands.
+
+****
+Say goodbye to typing errors!
+****
+
+// end::advancedfeatures[]
 [[UserCommands]]
 === User Commands
 
@@ -214,22 +252,23 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
-==== Search for a show by name: `search`
+==== Search for a show: `search`
 ====
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
 ====
 
-Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
+Searches for shows whose names contain any of the given keywords from the watchlist, watched list and online. +
 Format:
 
-* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
-* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
-* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]`
+* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/HAS_WATCHED]`
 
 ****
 * The search is case insensitive. e.g "avengers" will match "Avengers"
 * The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
 * Not only full words will be matched. e.g. "Joke" will also match with "Joker"
+* For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
 * When searching based on actor, only shows from the watchlist will be searched.
 * When searching based on genre online, only movies will be searched.
 ****
@@ -284,43 +323,6 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
-
-// tag::advancedfeatures[]
-=== Advanced Features
-
-==== Parsing of Movie and Tv Show Information
-In Ezwatchlist, an online database is accessed so that all the information about your favourite Movies and
-Television Shows is updated, informative, and concise. What this means for you is that:
-
-* Posters of your Ezwatchlist shows,
-can be displayed in Ezwatchlist's sleek dark interface.
-
-* Moreover, your offline shows can be synced with this database allowing the application to fill in
-the minor details for you.
-
-* Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
-
-****
-You don't need to do anything other than be connected to the internet. It is that easy!
-****
-
-==== Movie and Tv Show Recommendations
-Ezwatchlist has the ability to recommend Movies and TvShows to you based on
-your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
-
-****
-Excited? Enter your statistics page to get started on your recommendations. You might
-just find your next favourite!
-****
-// end::advancedfeatures[]
-
-==== Auto-Correct (Coming in v2.0)
-Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
-corrected for you when typing in your commands.
-
-****
-Say goodbye to typing errors!
-****
 
 == FAQ
 
