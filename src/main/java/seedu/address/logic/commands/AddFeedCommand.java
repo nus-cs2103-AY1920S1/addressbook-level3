@@ -15,7 +15,7 @@ public class AddFeedCommand extends Command {
 
     public static final String COMMAND_WORD = "addfeed";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a feed to the feed list."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a feed to the feed list. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_ADDRESS + "ADDRESS "

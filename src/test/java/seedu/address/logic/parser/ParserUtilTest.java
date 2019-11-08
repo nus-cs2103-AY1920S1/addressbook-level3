@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_NO_PREFIX_JOHN;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EATERY;
@@ -166,5 +167,20 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseFile_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFile(null));
+    }
+
+    @Test
+    public void parseFile_withValidName_returnsUnchanged() {
+        assertEquals(VALID_FILE_NO_PREFIX_JOHN, ParserUtil.parseFile(VALID_FILE_NO_PREFIX_JOHN));
+    }
+
+    @Test
+    public void parseFile_withInvalidName_returnsFormatted() {
+        assertEquals(VALID_FILE_NO_PREFIX_JOHN, ParserUtil.parseFile("john"));
     }
 }
