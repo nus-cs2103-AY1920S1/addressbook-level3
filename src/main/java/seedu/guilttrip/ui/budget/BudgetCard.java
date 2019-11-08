@@ -37,7 +37,7 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label left;
+    private Label spent;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -55,13 +55,17 @@ public class BudgetCard extends UiPart<Region> {
         String fullDesc = budget.getDesc().fullDesc;
         desc.setText(fullDesc);
         date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
-        double leftAmount = budget.getAmount().value - budget.getSpent().value;
+        double spentAmount = budget.getSpent().value;
         double totalAmount = budget.getAmount().value;
-        //left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
-        left.setText("$" + leftAmount);
+        spent.setText("$" + spentAmount);
         total.setText("$" + totalAmount);
 
-        progressBar.setProgress(leftAmount / totalAmount);
+        progressBar.setProgress(spentAmount / totalAmount);
+        if (spentAmount / totalAmount >= 1) {
+            progressBar.setStyle("-fx-accent: IndianRed;");
+        } else {
+            progressBar.setStyle("-fx-accent: SteelBlue;");
+        }
 
         category.setText(budget.getCategory().toString());
 
