@@ -2,14 +2,14 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Schedule;
-
+//@@author garylyp
 /**
  * Represents a particular schedule regime event that can be redone or undone.
  */
 public class ScheduleRegimeEvent implements Event {
 
     public static final String KEY_TO_SCHEDULE = "toSchedule";
-    private static final String EVENT_DESCRIPTION = "Scheduled: Regime %1$s\nOn: %2$s";
+    private static final String EVENT_DESCRIPTION = "Scheduled: Regime %1$s on %2$s";
 
     private final Schedule toSchedule;
 

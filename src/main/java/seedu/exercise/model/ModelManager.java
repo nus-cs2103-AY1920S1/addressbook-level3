@@ -168,7 +168,8 @@ public class ModelManager implements Model {
 
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
-        exerciseBook.setResource(target, editedExercise);
+        exerciseBook.removeResource(target);
+        exerciseBook.addResource(editedExercise);
     }
 
     //===================RegimeBook==============================================================================

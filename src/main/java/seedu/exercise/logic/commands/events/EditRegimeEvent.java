@@ -2,7 +2,7 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Regime;
-
+//@@author garylyp
 /**
  * Represents a particular edit regime event that can be redone or undone. Edit regime events
  * are induced using AddRegimeCommand or DeleteRegimeCommand on an existing command.
@@ -12,7 +12,7 @@ public class EditRegimeEvent implements Event {
     public static final String KEY_IS_REGIME_EDITED = "isRegimeEdited";
     public static final String KEY_ORIGINAL_REGIME = "originalRegime";
     public static final String KEY_EDITED_REGIME = "editedRegime";
-    private static final String EVENT_DESCRIPTION = "Edit\t: %1$s\nFrom\t:%2$s\nTo\t: %3$s\"";
+    private static final String EVENT_DESCRIPTION = "Edit: %1$s from %2$s exercises to %3$s exercises";
 
     private final Regime originalRegime;
     private final Regime editedRegime;
@@ -41,8 +41,8 @@ public class EditRegimeEvent implements Event {
     public String toString() {
         return String.format(EVENT_DESCRIPTION,
                 editedRegime.getRegimeName(),
-                editedRegime,
-                originalRegime);
+                editedRegime.getRegimeExercises().asUnmodifiableObservableList().size(),
+                originalRegime.getRegimeExercises().asUnmodifiableObservableList().size());
     }
 
     @Override

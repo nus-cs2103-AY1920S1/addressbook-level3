@@ -79,6 +79,7 @@ Format: `help`
 
 === Adding exercise/regime information: `add`
 
+[[addexercise]]
 ==== Adding exercise information +
 
 Adds the relevant exercise information into ExerHealth.
@@ -185,11 +186,12 @@ Example: `select t/exercise i/1`
 === Edit exercise information: `edit`
 
 Edits the relevant exercise information in ExerHealth.
-You can edit all the possible information for exercises including custom properties.
+You can edit all the possible information for exercises including <<customproperty, Custom Properties>>.
 
 ****
-* The date entered for this command must follow the same requirements as that of `add` command.
-* Edits the exercise at the specified `INDEX`. The index refers to the index number shown in the displayed exercise list. The index *must be a positive integer* 1, 2, 3, ...
+* The date entered for this command must follow the same requirements as that of <<addexercise, Add>> command.
+* Edits the exercise at the specified `INDEX`. The index refers to the index number shown in the displayed exercise list.
+The index *must be a positive integer:* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -202,14 +204,27 @@ Example:
 
 Edits the name and the date of the 2nd exercise to `Running` and `20/09/2019` respectively.
 
-* `edit i/4 n/Swim d/21/09/2019 c/100`
+Before +
 
-Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/2019` and `100` respectively.
+image::EditExerciseBefore.png[]
 
-* `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+After +
+Exercise now appears at the bottom as the list is sorted by date. +
+
+image::EditExerciseAfter.png[]
+
+* `edit i/3 n/Bench press d/04/11/2019 c/240 q/10 u/sets m/Chest`
 
 Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
 `22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
+
+Before +
+
+image::EditExerciseBefore2.png[]
+
+After +
+
+image::EditExerciseAfter2.png[]
 
 // tag::delete[]
 === Delete health information : `delete`
@@ -276,11 +291,25 @@ image::DeleteEntireRegimeAfter.png[]
 
 === Clearing all entries : `clear`
 
-Clears all entries from the exercise tracker. +
+Clears all entries from the exercise tracker.
+
+[TIP]
+Exercise tracker must not be empty when the clear command is executed.
+
 Format: `clear`
 
-// tag::statistic[]
+Example:
 
+Initially, the exercise tracker is populated with exercises.
+
+image::ClearBefore.png[]
+
+After calling the `clear` command, all exercises are removed from the
+exercise tracker list.
+
+image::ClearAfter.png[]
+
+// tag::statistic[]
 === Display statistics : `stats`
 
 Display the statistics of exercises in completed exercise list.
@@ -317,40 +346,165 @@ image::BarChart.png[width="500"]
 
 // end::statistic[]
 
+// tag::undo[]
+[[undocommand]]
 === Undo previous command: `undo`
 
 Undo the previous successful command entered.
 
 ****
-Supported Undoable Commands: add, delete, edit, clear
-
-Example:
+Supported Undoable Commands: add, delete, edit, clear, schedule, resolve
 
 * `add t/exercise n/Push ups d/1/10/2019 c/123 q/100 u/reps`
 * `add t/regime n/Cardio i/1 i/3 i/5`
 * `delete t/exercise i/7`
 * `edit t/exercise i/3 n/Push Ups c/140 m/Chest`
 * `clear`
+* `schedule n/Regime Five d/20/11/2019`
+* `schedule i/1`
+* `resolve n/New Regime i/1 r/2`
+
 ****
+
 
 [TIP]
 If there is no previous command, undo will do nothing.
 
 Format: `undo`
+// end::undo[]
 
+
+// tag::undoredoexample[]
+Example:
+
+* Undoing a `delete t/regime [i/INDEX]...` command that deletes exercise from an existing regime. +
+**Initial**: +
+
+image::DeleteExerciseFromRegimeBeforeUndo.png[]
+
+**Step 1**: `delete t/regime n/Level 3 i/5` +
+Deletes the fifth exercise `Hiking` from the regime `Level 3` +
+
+image::DeleteExerciseFromRegimeUndo.png[]
+
+**Step 2**: `undo` +
+Adds the exercise `Hiking` back to the regime `Level 3` +
+
+image::DeleteExerciseFromRegimeUndoOutcome.png[]
+// end::undoredoexample[]
+{sp} +
+{sp} +
+
+* Undoing a <<schedulecomplete, Schedule Complete>> command and a <<scheduleregime, Schedule Regime>> command +
+**Initial**: Schedule list only contains two scheduled regimes +
+
+image::ScheduleRegimeBefore.png[]
+
+**Step 1**: `schedule n/Level 3 d/10/11/2019` +
+Schedules the regime `Level 3` on `10/11/2019` +
+
+image::ScheduleRegimeAfter.png[]
+
+**Step 2**: `schedule i/1` +
+Marks the scheduled regime at index 1, regime `Level 3`, as completed. +
+
+```
+Exercise list showing the newly completed exercises from the regime "Level 3"
+```
+image::ScheduleCompleteAfterExerciseView.png[]
+```
+Schedule list showing the updated schedule without regime "Level 3"
+```
+image::ScheduleCompleteAfterScheduleView.png[]
+
+**Step 3**: `undo` +
+Undoes the completion of regime. The regime `Level 3` appears in the schedule list again. +
+
+image::ScheduleCompleteUndo.png[]
+
+**Step 4**: `undo` +
+Undoes the scheduling of regime. The regime `Level 3` is no longer visible in the schedule list. +
+
+image::ScheduleRegimeUndo.png[]
+
+
+
+// tag::redo[]
 === Redo undone command: `redo`
 
-Redo the previous command that was undone by user.
+Redo the previous command that was undone by the user. It can only be executed after
+successful executions of the undo command. For a list of Undoable commands, refer
+to the <<undocommand, Undo Command>>.
 
 [TIP]
-If there is no command has been undone after the latest undoable command, redo command will do nothing.
+If the `Undo` command has not been executed after the execution of the last Undoable command, there will be
+no command to redo.
 
 Format: `redo`
+// end::redo[]
+Example:
+
+* Redoing a `add t/exercise` command that has just been undone. +
+**Initial**: +
+
+image::AddExerciseBeforeAdding.png[]
+
+**Step 1**: `add t/exercise n/Squats d/08/11/2019 c/200 q/150 u/reps` +
+Adds a new exercise called `Squats`. +
+
+image::AddExerciseBeforeUndo.png[]
+
+**Step 2**: `undo` +
+Undoing the command removes the `Squats` exercise from the list. +
+
+image::AddExerciseBeforeRedo.png[]
+
+**Step 3**: `redo` +
+Redoing the command returns the `Squats` exercise to the list again. +
+
+image::AddExerciseAfterRedo.png[]
+
+{sp} +
+{sp} +
+
+* Redoing a <<resolve, Resolve>> command that has just been undone. +
+**Initial**: +
+Attempts to schedule `Level 2` regime on the date of `Level 1` regime. +
+
+image::ScheduleRegimeBeforeConflict.png[]
+
+**Step 1**: `schedule n/Level 2 d/10/11/2019` +
+Resolve conflict window appears due to the conflict in date.
+The conflict can be resolved by specifying the index of exercises
+to be taken from each regime. +
+
+image::ScheduleRegimeBeforeResolve.png[]
+
+**Step 2**: `resolve n/Level 1 and 2 i/2 r/2 r/3` +
+Resolves conflict by creating a new regime `Level 1 and 2`.
+The new regime `Level 1 and 2` replaces the initial `Level 1` regime
+in the schedule. +
+
+image::ScheduleRegimeBeforeResolveUndo.png[]
+
+**Step 3**: `undo` +
+Undoing the command reverts the scheduled regime from `Level 1 and 2` to the initial
+`Level 1` regime. +
+
+image::ScheduleRegimeBeforeResolveRedo.png[]
+
+**Step 3**: `redo` +
+Redoing the command updates the scheduled regime from `Level 1` to the resolved
+`Level 1 and 2` regime. +
+
+image::ScheduleRegimeAfterResolveRedo.png[]
+
+{sp} +
 
 // tag::scheduleresolve[]
 
 === Scheduling exercises: `schedule`
-
+[[scheduleregime]]
 ==== Schedules a regime
 
 Schedules an exercise regime for a certain date. If the regime clashes with another scheduled regime, you will be prompted to resolve the conflict via a popup window. Refer to <<resolve>> for details on resolving scheduling conflicts.
@@ -379,6 +533,7 @@ image::ScheduleRegimeCardioConflict.png[]
 
 If the resolve window pops up for you, please refer to <<resolve>> for details on resolving a scheduling conflict.
 
+[[schedulecomplete]]
 ==== Completes a schedule regime
 
 Once a scheduled regime is completed, you can add that completed schedule to the exercise tracker. The schedule is then deleted from the scheduling list.

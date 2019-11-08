@@ -17,7 +17,7 @@ import seedu.exercise.logic.commands.events.ScheduleRegimeEvent;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.ui.ListResourceType;
-
+//@@author garylyp
 /**
  * Undoes the last executed command.
  */

@@ -42,7 +42,7 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         + "[" + PREFIX_CALORIES + "CALORIES] "
         + "[" + PREFIX_QUANTITY + "QUANTITY] "
         + "[" + PREFIX_UNIT + "UNIT] "
-        + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
+        + "[" + PREFIX_MUSCLE + "MUSCLE]...\t"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_INDEX + "1 "
         + PREFIX_DATE + "03/10/2019 "

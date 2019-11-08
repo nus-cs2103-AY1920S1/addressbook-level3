@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.resource.Exercise;
-
+//@@author garylyp
 public class ScheduleCompleteEventTest {
     private Model actualModel;
     private Model expectedModel;

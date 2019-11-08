@@ -2,14 +2,14 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Regime;
-
+//@@author garylyp
 /**
  * Represents a particular add regime event that can be redone or undone.
  */
 public class AddRegimeEvent implements Event {
 
     public static final String KEY_REGIME_TO_ADD = "regimeToAdd";
-    private static final String EVENT_DESCRIPTION = "Add regime: %1$s\n%2$s";
+    private static final String EVENT_DESCRIPTION = "Add regime: %1$s";
 
     private final Regime regimeToAdd;
 
@@ -36,8 +36,7 @@ public class AddRegimeEvent implements Event {
     @Override
     public String toString() {
         return String.format(EVENT_DESCRIPTION,
-                regimeToAdd.getRegimeName(),
-                regimeToAdd);
+                regimeToAdd.getRegimeName());
     }
 
     @Override

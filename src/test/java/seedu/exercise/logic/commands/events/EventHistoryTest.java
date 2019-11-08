@@ -19,7 +19,7 @@ import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
-
+//@@author garylyp
 public class EventHistoryTest {
 
     private UndoableCommand undoableCommand;

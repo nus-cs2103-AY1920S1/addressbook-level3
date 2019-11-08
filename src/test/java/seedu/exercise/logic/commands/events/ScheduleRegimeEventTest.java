@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
-
+//@@author garylyp
 public class ScheduleRegimeEventTest {
     private Model actualModel;
     private Model expectedModel;

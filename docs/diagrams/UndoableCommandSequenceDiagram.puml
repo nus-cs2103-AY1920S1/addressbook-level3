@@ -7,7 +7,7 @@ participant ":EditCommand" as EditCommand LOGIC_COLOR
 participant ":EventPayload" as EventPayload LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant ":EventHistory" as EventHistory LOGIC_COLOR
-participant ":EventFactory" as EventFactory LOGIC_COLOR
+participant "<<class>>\n:EventFactory" as EventFactory LOGIC_COLOR
 participant ":EditEvent" as EditEvent LOGIC_COLOR
 end box
 
@@ -33,7 +33,7 @@ activate EditCommand
         activate EventFactory
 
             create EditEvent
-            EventFactory -> EditEvent : editEvent(payload)
+            EventFactory -> EditEvent : EditEvent(payload)
             activate EditEvent
 
 

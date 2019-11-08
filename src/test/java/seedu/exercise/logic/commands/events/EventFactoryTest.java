@@ -36,7 +36,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
-
+//@@author garylyp
 public class EventFactoryTest {
 
     private Model model;

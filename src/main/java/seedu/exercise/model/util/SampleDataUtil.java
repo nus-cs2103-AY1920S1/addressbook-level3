@@ -27,22 +27,22 @@ import seedu.exercise.model.resource.Schedule;
 public class SampleDataUtil {
     public static Exercise[] getSampleExercises() {
         return new Exercise[]{
-            new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
+            new Exercise(new Name("Rope Skipping"), new Date("11/11/2019"), new Calories("330"),
                 new Quantity("10"), new Unit("counts"),
                 getMuscleSet("Legs"), new TreeMap<>()),
-            new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
+            new Exercise(new Name("Cycling"), new Date("10/11/2019"), new Calories("284"),
                 new Quantity("5"), new Unit("km"),
                 getMuscleSet("Legs"), new TreeMap<>()),
-            new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
+            new Exercise(new Name("Strength Training"), new Date("09/11/2019"), new Calories("341"),
                 new Quantity("20"), new Unit("counts"),
                 getMuscleSet("Chest"), new TreeMap<>()),
-            new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
+            new Exercise(new Name("Swimming"), new Date("08/11/2019"), new Calories("354"),
                 new Quantity("10"), new Unit("laps"),
                 getMuscleSet("Calves"), new TreeMap<>()),
-            new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
+            new Exercise(new Name("Bench Press"), new Date("07/11/2019"), new Calories("222"),
                 new Quantity("30"), new Unit("counts"),
                 getMuscleSet("Triceps"), new TreeMap<>()),
-            new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
+            new Exercise(new Name("Running"), new Date("06/11/2019"), new Calories("431"),
                 new Quantity("2.4"), new Unit("km"),
                 getMuscleSet("Legs"), new TreeMap<>())
         };
@@ -50,39 +50,39 @@ public class SampleDataUtil {
 
     public static Regime[] getSampleRegimes() {
         SortedUniqueResourceList<Exercise> list1 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list1.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
+        list1.add(new Exercise(new Name("Rope Skipping"), new Date("11/11/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list1.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
+        list1.add(new Exercise(new Name("Bench Press"), new Date("07/11/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
 
 
         SortedUniqueResourceList<Exercise> list2 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list2.add(new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
+        list2.add(new Exercise(new Name("Running"), new Date("06/11/2019"), new Calories("9999"),
             new Quantity("2.4"), new Unit("km"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list2.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
+        list2.add(new Exercise(new Name("Bench Press"), new Date("07/11/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
-        list2.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
+        list2.add(new Exercise(new Name("Swimming"), new Date("08/11/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves"), new TreeMap<>()));
 
         SortedUniqueResourceList<Exercise> list3 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list3.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
+        list3.add(new Exercise(new Name("Rope Skipping"), new Date("11/11/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
+        list3.add(new Exercise(new Name("Swimming"), new Date("08/11/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
+        list3.add(new Exercise(new Name("Bench Press"), new Date("07/11/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
+        list3.add(new Exercise(new Name("Cycling"), new Date("10/11/2019"), new Calories("284"),
             new Quantity("5"), new Unit("km"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
+        list3.add(new Exercise(new Name("Strength Training"), new Date("09/11/2019"), new Calories("341"),
             new Quantity("20"), new Unit("counts"),
             getMuscleSet("Chest"), new TreeMap<>()));
 
@@ -96,9 +96,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[]{
-            new Schedule(sampleRegimes[0], new Date("29/12/2019")),
-            new Schedule(sampleRegimes[1], new Date("30/12/2019")),
-            new Schedule(sampleRegimes[2], new Date("31/12/2019"))
+            new Schedule(sampleRegimes[0], new Date("12/11/2019")),
+            new Schedule(sampleRegimes[1], new Date("13/11/2019")),
+            new Schedule(sampleRegimes[2], new Date("14/11/2019"))
         };
     }
 

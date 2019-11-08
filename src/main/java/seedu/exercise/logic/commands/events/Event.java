@@ -1,7 +1,7 @@
 package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
-
+//@@author garylyp
 /**
  * Represents an Event that can be undone or redone.
  */

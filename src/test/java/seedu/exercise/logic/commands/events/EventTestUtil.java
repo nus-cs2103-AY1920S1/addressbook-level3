@@ -57,7 +57,7 @@ import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
 import seedu.exercise.testutil.builder.RegimeBuilder;
 import seedu.exercise.testutil.builder.ScheduleBuilder;
-
+//@@author garylyp
 /**
  * Contains helper methods for testing classes in the 'events' package.
  */

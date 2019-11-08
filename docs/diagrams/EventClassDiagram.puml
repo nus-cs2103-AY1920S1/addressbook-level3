@@ -31,7 +31,7 @@ package Logic {
     XYZCommand .up.|> UndoableCommand
     XYZCommand *--> "1" EventPayload
     Command .up.> Model
-    note left of XYZCommand: XYZCommand = \nAddCommand, \nDeleteCommand, \nEditCommand, \nClearCommand
+    note left of XYZCommand: XYZCommand = \nAddCommand, \nDeleteCommand, \nEditCommand, \nClearCommand, etc
 
 
     XYZEvent .up.|> Event

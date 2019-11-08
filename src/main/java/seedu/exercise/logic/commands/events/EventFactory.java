@@ -16,7 +16,7 @@ import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Schedule;
-
+//@@author garylyp
 /**
  * A utility class to generate specific Event objects depending on requirements.
  */

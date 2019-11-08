@@ -2,7 +2,7 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
-
+//@@author garylyp
 /**
  * Represents a particular edit event that can be redone or undone.
  */

@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": List items.\n"
             + "Parameters: "
-            + PREFIX_CATEGORY + "LIST_TYPE" + "\n"
+            + PREFIX_CATEGORY + "LIST_TYPE" + "\t"
             + "\t\tExample: "
             + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "schedule";

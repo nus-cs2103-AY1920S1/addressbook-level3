@@ -19,6 +19,7 @@ public class ClearCommand extends Command implements UndoableCommand, PayloadCar
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Exercise book has been cleared!";
+    public static final String MESSAGE_EMPTY_EXERCISE_LIST = "Exercise book is already empty.";
 
     private EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload;
 
@@ -27,17 +28,25 @@ public class ClearCommand extends Command implements UndoableCommand, PayloadCar
         requireNonNull(model);
         ReadOnlyResourceBook<Exercise> exerciseBookCleared =
                 new ReadOnlyResourceBook<>(model.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR);
+        if (checkIsExerciseBookEmpty(exerciseBookCleared)) {
+            throw new CommandException(MESSAGE_EMPTY_EXERCISE_LIST);
+        }
         eventPayload = new EventPayload<>();
         eventPayload.put(KEY_EXERCISE_BOOK_CLEARED, exerciseBookCleared);
         EventHistory.getInstance().addCommandToUndoStack(this);
+
         model.setExerciseBook(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR));
         model.updateStatistic();
-        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.EXERCISE);
     }
 
     @Override
     public String getUndoableCommandWord() {
         return COMMAND_WORD;
+    }
+
+    private boolean checkIsExerciseBookEmpty(ReadOnlyResourceBook<Exercise> exerciseBook) {
+        return exerciseBook.getSortedResourceList().isEmpty();
     }
 
     @Override

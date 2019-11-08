@@ -16,7 +16,7 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
 import seedu.exercise.ui.ListResourceType;
-
+//@@author garylyp
 public class RedoCommandTest {
 
     private Model actualModel;
