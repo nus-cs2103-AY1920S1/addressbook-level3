@@ -379,25 +379,25 @@ image::quiz/QuitQuizCommandResult.png[600, 600]
 
 // tag::statistics[]
 === Statistics
-You can get statistics of the questions that you have done in the app.
+After doing some quizzes, you can get statistics of the questions that you have done in the app.
 The statistics functions listed below are used to filter the type of statistics that you want to get.
 
 NOTE: To close any statistics panel, you can simply type any of the commands from the Lecture notes,
 Questions and Revision tasks features. E.g. `rlist`.
 
 NOTE: Quiz results stored in the app are not synchronised with the questions.
-If a question has been modified by the `editq` command,
+If you have modified a question using the `editq` command,
 the stored quiz result will still refer to the original question to minimise inconsistencies in the statistics.
 This is because a question that has been modified to a large extent
 might cause past answers to become irrelevant and distort the statistics.
 
 ==== Get statistics for subjects : `stats`
-Returns a panel containing a break down of the questions by its results.
-You can choose to get the statistics for a difficulty level by adding `d/` or
-get the statistics of different subjects by adding `s/`. +
+You can get a breakdown of the questions that you have done by its results.
+If you want to narrow the results down, you can also choose to get the statistics for a difficulty
+level by adding `d/` or get the statistics of different subjects by adding `s/`. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
-Example:
+Example: +
 Let's say you have answered some questions from CS2103T previously and would like
 a ballpark figure to estimate how well you have grasp the basic foundations of the subject.
 
@@ -411,27 +411,27 @@ To get this figure:
 image::statistics/stats.PNG[600, 600]
 
 ==== Get questions with correct/incorrect answers: `question`
-Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
+You can get all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
 Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`. +
 Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
 
-Example:
+Example: +
 Now that you have gotten the number of correct to incorrect answers, you want to see what questions
-you have done wrong to decide on how you can further improve.
+you have done incorrectly to decide on how you can further improve.
 
 To see the questions:
 
 . Type `question -i s/cs2103t` into the command box, and press `Enter` to execute it.
 . The result box will display the message "Here are the incorrect questions for [cs2103t]:"
 . You will be able to see a list of all your incorrectly answered questions for CS2103T and
-your past answers to it as well as a break down of the number of questions by difficulty level.
+your past answers to it as well as a breakdown of the number of questions by difficulty level.
 
 .The result of `question -i s/cs2103t`
 image::statistics/question.PNG[600, 600]
 
 ==== Get a report for individual questions: `report`
-Returns a panel containing a report of how well you have answered a particular question
-and shows all your past answers to the question. +
+You can get a report of how well you have answered a particular question
+and see all your past answers to the question. +
 Format: `report INDEX`
 
 ****
@@ -439,12 +439,12 @@ Format: `report INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Example:
+Example: +
 After getting the questions that you have done wrong, you noticed that there is one particular
-question that you have answered wrong numerous times. This just so happened to be the third
+question that you have answered incorrectly numerous times. This just so happened to be the seventh
 question in the question list. You decided to investigate further.
 
-To see a report of the question:
+To see a report of the question 7:
 
 . Type `report 7` into the command box, and press `Enter` to execute it.
 . The result box will display the message "Here is a report of question 7:"
@@ -454,7 +454,7 @@ To see a report of the question:
 image::statistics/report.PNG[600, 600]
 
 ==== Get overview of questions attempted: `overview`
-Get an overview of the types of questions that have been attempted overall.
+You can get an overview of the types of questions that you have attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
 You can also add two `dt/` fields representing a time period to get questions you did
 within that time period. The format for date is dd/MM/yyyy. +
@@ -469,15 +469,15 @@ you can use your mouse to hover above them.
 NOTE: The date in the dt field must be a valid date, if an invalid date is used i.e. 31/11/2019 it will
 be run down to the nearest valid date i.e. 30/11/2019.
 
-Example:
+Example: +
 You are finally done viewing your quiz results and want to know what questions you should attempt next.
 To be a well-rounded individual, you decided to check if you have been neglecting any subjects recently.
 
 To see an overview of your results:
 
 . Type `overview dt/20/10/2019 dt/06/11/2019` into the command box, and press `Enter` to execute it.
-. The result box will display the message "Here is an overview of the questions: (20/10/2019 to 05/11/2019)"
-. And you can see a stack bar chart of all questions that you have attempted from 20/10/2019 to 05/11/2019.
+. The result box will display the message "Here is an overview of the questions: (20/10/2019 to 06/11/2019)"
+. And you can see a stack bar chart of all questions that you have attempted from 20/10/2019 to 06/11/2019.
 
 .The result of `overview dt/20/10/2019 dt/06/11/2019` command
 image::statistics/overview.PNG[600, 600]

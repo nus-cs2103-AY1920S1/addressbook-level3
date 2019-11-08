@@ -1,65 +1,46 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AppDataParser" as AppDataParser LOGIC_COLOR
-participant ":GetStatisticsCommandParser" as GetStatisticsCommandParser LOGIC_COLOR
-participant "g:GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
-participant "c:CommandResult" as CommandResult LOGIC_COLOR
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":StatsPieChart" as StatsPieChart UI_COLOR
 end box
 
-[-> LogicManager : execute("stats s/CS2103T")
-activate LogicManager
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
 
-LogicManager -> AppDataParser : parseCommand("stats s/CS2103T")
-activate AppDataParser
+[-> MainWindow : executeCommand("stats s/CS2103T")
+activate MainWindow
 
-create GetStatisticsCommandParser
-AppDataParser -> GetStatisticsCommandParser
-activate GetStatisticsCommandParser
+MainWindow -> Logic : execute("stats s/CS2103T")
+activate Logic
 
-GetStatisticsCommandParser --> AppDataParser
-deactivate GetStatisticsCommandParser
+Logic --> MainWindow : commandResult
+deactivate Logic
 
-AppDataParser -> GetStatisticsCommandParser : parse("stats s/CS2103T")
-activate GetStatisticsCommandParser
+MainWindow -> MainWindow : showStats(commandResult.getType())
+activate MainWindow
 
-create GetStatisticsCommand
-GetStatisticsCommandParser -> GetStatisticsCommand
-activate GetStatisticsCommand
+create StatsPieChart
+MainWindow -> StatsPieChart : StatsPieChart()
+activate StatsPieChart
 
-GetStatisticsCommand --> GetStatisticsCommandParser : g
-deactivate GetStatisticsCommand
+StatsPieChart --> MainWindow
+deactivate StatsPieChart
 
-GetStatisticsCommandParser --> AppDataParser : g
-deactivate GetStatisticsCommandParser
+MainWindow -> StatsPieChart : setMouseover()
+activate StatsPieChart
+
+StatsPieChart --> MainWindow
+deactivate StatsPieChart
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-GetStatisticsCommandParser -[hidden]-> AppDataParser
-destroy GetStatisticsCommandParser
+StatsPieChart -[hidden]-> MainWindow
+destroy StatsPieChart
 
-AppDataParser --> LogicManager : g
-deactivate AppDataParser
+MainWindow --> MainWindow
+deactivate MainWindow
 
-LogicManager -> GetStatisticsCommand : execute()
-activate GetStatisticsCommand
-
-create CommandResult
-GetStatisticsCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> GetStatisticsCommand
-deactivate CommandResult
-
-GetStatisticsCommand -> CommandResult : setType(CHART)
-activate CommandResult
-
-CommandResult --> GetStatisticsCommand
-deactivate CommandResult
-
-GetStatisticsCommand --> LogicManager : c
-deactivate GetStatisticsCommand
-
-[<--LogicManager
-deactivate LogicManager
+[<--MainWindow
+deactivate MainWindow
 @enduml

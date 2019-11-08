@@ -348,7 +348,7 @@ These commands include:
 
 * `GetQnsCommand` -- Gets all questions answered correctly/incorrectly.
 * `GetReportCommand` -- Returns a report of the specified question.
-* `GetStatisticsCommand` -- Returns a panel containing a break down of the questions by its results.
+* `GetStatisticsCommand` -- Returns a pie chart containing a break down of the questions by its results.
 * `GetOverviewCommand` -- Gets an overview of the types of questions that have been attempted overall.
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
@@ -356,24 +356,24 @@ Given below is an example usage scenario and how the statistics mechanism behave
 Step 1. The user launches the application.
 The app will attempt to read past data from any quizzes done and store it internally to a `quizResults` list.
 
-Step 2. The user executes `stats s/CS2103T` command to get the statistics of all quiz questions done for CS2103T.
-The `stats` command creates a new `commandResult` setting the type of command to `STATS`.
+Step 2. The user enters `stats s/CS2103T` to get the statistics of all quiz questions done for CS2103T.
+A `GetStatisticsCommand` will be created. When it is executed from the `MainWindow`,
+it returns a new `CommandResult` with command type: `STATS`.
 
-The following class diagram shows how the `GetStatisticsCommand` and `CommandResult` class are related.
+The following class diagram shows how the `GetStatisticsCommand` and `CommandResult` classes are related.
 
 .Class diagram for `GetStatisticsCommand`
 image::statistics/StatisticsClassDiagram.png[]
 
-Step 3. When the `commandResult` is executed from the `MainWindow`, it will call a `showStats` method to filter
-the `quizResults` list by CS2103T and create the relevant outputs.
-It will then show a statistics panel, hiding all notes and tasks.
+Step 3. After `CommandResult` is returned to `MainWindow`, it will call a `showStats` method to
+create a pie chart. It will then show a statistics panel, hiding all notes, tasks and questions.
 
-The following sequence diagram shows how the statistics operation works:
+The following sequence diagram shows how the UI handles the `GetStatisticsCommand`:
 
 image::StatisticsSequenceDiagram.png[]
 
-Step 4. The user now wants to stop viewing statistics and decides to view all notes and tasks again using the `listnote` command.
-The statistics panel will now be hidden.
+Step 4. The user now wants to stop viewing statistics and decides to view all notes, tasks and questions
+again using the `listnote` command. The statistics panel will now be hidden.
 
 The following activity diagram summarizes what happens when a user executes the statistics command:
 
