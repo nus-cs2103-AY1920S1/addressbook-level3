@@ -289,13 +289,13 @@ Too stressed from all the work? Check out these features to take a short break s
 
 ==== Play a game: `game`
 
-`game` switches your list of tasks into a game of Snakes! 
+`game` switches your list of tasks into a game of Snakes!
 
 image::SnakeGame.PNG[Snake, 600, 600, float="right"]
 
 +++<u>Rules:</u>+++
 
-Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER! 
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER!
 
 Hit `ENTER` to reset the game when your snake dies.
 
