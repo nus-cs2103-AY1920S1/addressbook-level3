@@ -229,27 +229,12 @@ However, if you use the snooze command incorrectly, ELISA will first attempt to 
 Shows the specified category by switching the view to the given list. +
 Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
 
-Examples:
-
-* `show t`
-* `show T` (Note: Case _insensitive_: Upper case is allowed)
-* `show e`
-* `show E`
-* `show r`
-* `show c`
-
-
 [NOTE]
 The flag can be in either lowercase or uppercase. Eg. `show E`.
 
 ==== Scrolling the list : `up` / `down`
 
 Scrolls the list up/down
-
-Examples:
-
-* `up`
-* `down`
 
 === Visual Features
 
@@ -276,7 +261,7 @@ Although, the ESC key can close too, we do not advise doing so as ELISA may be c
 
 ==== Changing the theme : `theme`
 
-Changes the theme of Elisa!
+Screen is too dark? Switch up the theme by typing `theme white`!
 
 Examples:
 
@@ -285,8 +270,14 @@ Examples:
 
 ==== Clearing the screen : `clearscreen` and `clear`
 
+Chat box getting too cluttered? Type `clearscreen` to clear it!
+
 * `clear` - clears all lists
 * `clearscreen` - clears the chat box
+
+=== Calendar Feature
+
+Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
 
 === Undo/Redo Feature
 
