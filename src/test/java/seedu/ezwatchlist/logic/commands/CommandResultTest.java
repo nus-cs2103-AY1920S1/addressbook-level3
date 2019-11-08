@@ -33,6 +33,11 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false)));
+
+        assertTrue(commandResult.isExit() == false);
+        assertTrue(commandResult.isShowHelp() == false);
+        assertTrue(commandResult.isShortCutKey() == false);
+
     }
 
     @Test
