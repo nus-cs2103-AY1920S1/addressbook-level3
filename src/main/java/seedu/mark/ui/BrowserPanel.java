@@ -2,9 +2,6 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -133,8 +130,10 @@ public class BrowserPanel extends UiPart<Region> {
         currentPageUrl = webEngine.locationProperty();
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == State.FAILED) {
-                logger.info("browser: unable to connect to internet");
+                logger.info("browser: unable to connect to web page.\n"
+                        + "You may want to check your input address and internet connection.");
                 isConnected = false;
+
                 loadDefaultPage();
             } else if (newValue == State.SUCCEEDED) {
                 isConnected = true;
@@ -178,7 +177,8 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
+        //loadPage(DEFAULT_PAGE.toExternalForm());
+        loadPage("about:blank");
     }
 
     /**
@@ -220,6 +220,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @return true if url is valid; else false.
      */
     private boolean isValidUrl(String input) {
+        return Url.isValidUrl(input); /*
         //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
@@ -239,6 +240,7 @@ public class BrowserPanel extends UiPart<Region> {
             return false;
         }
         return false;
+        */
     }
 
     /**
