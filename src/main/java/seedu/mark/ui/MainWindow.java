@@ -2,7 +2,6 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -10,8 +9,6 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.controlsfx.control.Notifications;
 
 import javafx.application.Platform;
@@ -23,6 +20,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -35,7 +34,6 @@ import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Reminder;
 
