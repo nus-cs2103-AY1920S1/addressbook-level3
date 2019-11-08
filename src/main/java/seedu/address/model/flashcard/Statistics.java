@@ -1,5 +1,7 @@
 package seedu.address.model.flashcard;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -35,6 +37,8 @@ public class Statistics {
      * @param currentIncrement String of ScheduleIncrement
      */
     public Statistics(LocalDate lastViewed, LocalDate toViewNext, ScheduleIncrement currentIncrement) {
+        requireAllNonNull(lastViewed, toViewNext, currentIncrement);
+        assert(lastViewed.isBefore(toViewNext));
         this.lastViewed = lastViewed;
         this.toViewNext = toViewNext;
         this.currentIncrement = currentIncrement;
