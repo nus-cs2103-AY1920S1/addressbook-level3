@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Question's comment number in the address book.
+ * Represents a Question's comment number in modulo.
  * Guarantees: immutable; is valid as declared in {@link #isValidComment(String)}
  */
 public class Comment {
@@ -22,7 +22,9 @@ public class Comment {
     public Comment(String comment) {
         requireNonNull(comment);
         checkArgument(isValidComment(comment), MESSAGE_CONSTRAINTS);
+
         value = comment;
+        assert !value.contains("<val>") : "Comment should not contain instruction comment keyword";
     }
 
     /**

@@ -31,18 +31,18 @@ public class UniqueQuestionListTest {
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_questionNotInList_returnsFalse() {
         assertFalse(uniqueQuestionList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_questionInList_returnsTrue() {
         uniqueQuestionList.add(ALICE);
         assertTrue(uniqueQuestionList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_questionWithSameIdentityFieldsInList_returnsTrue() {
         uniqueQuestionList.add(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE).withType(VALID_TYPE_BOB).withTags(VALID_TAG_LECTURE)
                 .build();
@@ -117,7 +117,7 @@ public class UniqueQuestionListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsQuestionNotFoundException() {
+    public void remove_questionDoesNotExist_throwsQuestionNotFoundException() {
         assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.remove(ALICE));
     }
 
@@ -151,8 +151,8 @@ public class UniqueQuestionListTest {
     @Test
     public void setQuestions_list_replacesOwnListWithProvidedList() {
         uniqueQuestionList.add(ALICE);
-        List<Question> personList = Collections.singletonList(BOB);
-        uniqueQuestionList.setQuestions(personList);
+        List<Question> questionList = Collections.singletonList(BOB);
+        uniqueQuestionList.setQuestions(questionList);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(BOB);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);

@@ -32,14 +32,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_questionAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
         Question validQuestion = new QuestionBuilder().build();
 
         CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validQuestion), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validQuestion), modelStub.questionsAdded);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different question -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -111,7 +111,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addQuestion(Question person) {
+        public void addQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -126,7 +126,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasQuestion(Question person) {
+        public boolean hasQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,39 +203,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single question.
      */
     private class ModelStubWithQuestion extends ModelStub {
-        private final Question person;
+        private final Question question;
 
-        ModelStubWithQuestion(Question person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithQuestion(Question question) {
+            requireNonNull(question);
+            this.question = question;
         }
 
         @Override
-        public boolean hasQuestion(Question person) {
-            requireNonNull(person);
-            return this.person.isSameQuestion(person);
+        public boolean hasQuestion(Question question) {
+            requireNonNull(question);
+            return this.question.isSameQuestion(question);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the question being added.
      */
     private class ModelStubAcceptingQuestionAdded extends ModelStub {
-        final ArrayList<Question> personsAdded = new ArrayList<>();
+        final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasQuestion(Question person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSameQuestion);
+        public boolean hasQuestion(Question question) {
+            requireNonNull(question);
+            return questionsAdded.stream().anyMatch(question::isSameQuestion);
         }
 
         @Override
-        public void addQuestion(Question person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addQuestion(Question question) {
+            requireNonNull(question);
+            questionsAdded.add(question);
         }
 
         @Override

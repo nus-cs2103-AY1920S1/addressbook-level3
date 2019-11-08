@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.ModelQuizManager;
 
-
+/**
+ * Exit the application Command test.
+ */
 public class ExitCommandTest {
     private Model model = new ModelQuizManager();
     private Model expectedModel = new ModelQuizManager();

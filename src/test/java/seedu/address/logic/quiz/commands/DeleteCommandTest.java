@@ -31,13 +31,13 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         model.addQuestion(ALICE);
-        Question personToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Question questionToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete);
 
         ModelQuizManager expectedModel = new ModelQuizManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteQuestion(personToDelete);
+        expectedModel.deleteQuestion(questionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -55,13 +55,13 @@ public class DeleteCommandTest {
         model.addQuestion(ALICE);
         showQuestionAtIndex(model, INDEX_FIRST_PERSON);
 
-        Question personToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Question questionToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete);
 
         Model expectedModel = new ModelQuizManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteQuestion(personToDelete);
+        expectedModel.deleteQuestion(questionToDelete);
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -96,7 +96,7 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different question -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 

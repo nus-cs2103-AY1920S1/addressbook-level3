@@ -202,13 +202,18 @@ e.g. `clear`
 ==== Password protection [Coming in V2.0]
 Prevent unauthorised access to your grades.
 
+// tag::quizsection[]
+
 === Quiz
 
 To enter the Quiz section please enter the command: `switch quiz` +
 
+*Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
+quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
+
 *Note on UI:* You can adjust the size of the split pane by sliding the window separator
 between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
-question properly
+question properly.
 
 ==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
@@ -228,6 +233,7 @@ The keyword instructions of the question include: +
 - *`<type>` are required. The format after this command should only be: `high`, `normal`, `low`.* +
 - *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
+Note: Two questions are the same if they have the same *<qns>*, *<ans>* and *<cat>* +
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
 *<tag>* _your_tag_`
 
@@ -262,24 +268,22 @@ The details/instructions of the new questions include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- *`<qns>` word limit is 200.* +
-- *`<ans>` word limit is 125.* +
+- *`<qns>` word limit is 200. No minimum letter.* +
+- *`<ans>` word limit is 125. No minimum letter.* +
 - *`<cat>` word limit is 50.* +
 - *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
 - *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
-Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+Format: `*edit [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
 *<type>* _your_new_priority_ *<tag>* _your_tag_` +
 
-Usage: +
-- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
-- *[NUMBER]* is the index/row from that category that you want to edit. +
+Usage: *[NUMBER]* is the index/row from that category that you want to edit. +
 
 Example 1: +
-*edit CS2131, 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
+*edit 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
 
 - Remark (Please avoid this): +
-*edit CS2131, 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+*edit 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
 {empty} +
 
 ==== List all the questions
@@ -346,13 +350,15 @@ Example: showAnswer no +
 {empty} +
 
 ==== Undo:
-Undo some of the previous action.
+Undo some of the previous action. +
+Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment`
 
 Format: `undo` +
 {empty} +
 
 ==== Redo:
 Redo some of the previous action.
+Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment`
 
 Format: `redo` +
 {empty} +
@@ -372,6 +378,8 @@ To exit application (Modulo).
 
 Format: `exit` +
 {empty} +
+
+// end::quizsection[]
 
 // tag::finance1[]
 === Finances

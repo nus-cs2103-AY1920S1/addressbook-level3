@@ -7,7 +7,7 @@ import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previous state.
+ * Reverts the {@code model}'s modulo to its previous state.
  */
 public class UndoCommand extends Command {
 

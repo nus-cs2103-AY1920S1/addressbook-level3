@@ -12,7 +12,7 @@ import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.person.Question;
 
 /**
- * Adds a question to the address book.
+ * Adds a question to modulo.
  */
 public class AddCommand extends Command {
 
@@ -36,7 +36,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_STRING_LIMIT_EXCEEDED = "String limit exceeded";
     public static final String MESSAGE_TOO_SHORT = "Question name is too short";
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in modulo";
 
     private final Question toAdd;
 

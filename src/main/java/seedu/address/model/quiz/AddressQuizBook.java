@@ -9,8 +9,8 @@ import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.person.UniqueQuestionList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at modulo level
+ * Duplicates are not allowed (by .isSameQuestion comparison)
  */
 public class AddressQuizBook implements ReadOnlyQuizBook {
 
@@ -32,7 +32,7 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
     public AddressQuizBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressQuizBook using the Questions in the {@code toBeCopied}
      */
     public AddressQuizBook(ReadOnlyQuizBook toBeCopied) {
         this();
@@ -50,7 +50,7 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code AddressQuizBook} with {@code newData}.
      */
     public void resetData(ReadOnlyQuizBook newData) {
         requireNonNull(newData);
@@ -61,7 +61,7 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
     //// question-level operations
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in modulo.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -69,8 +69,8 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
     }
 
     /**
-     * Adds a question to the address book.
-     * The question must not already exist in the address book.
+     * Adds a question to modulo.
+     * The question must not already exist in modulo.
      */
     public void addQuestion(Question p) {
         questions.add(p);
@@ -78,9 +78,9 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
 
     /**
      * Replaces the given question {@code target} in the list with {@code editedQuestion}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in modulo.
      * The question identity of {@code editedQuestion} must not be the same as
-     * another existing question in the address book.
+     * another existing question in modulo.
      */
     public void setQuestion(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);
@@ -94,8 +94,8 @@ public class AddressQuizBook implements ReadOnlyQuizBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AddressQuizBook}.
+     * {@code key} must exist in modulo.
      */
     public void removeQuestion(Question key) {
         questions.remove(key);

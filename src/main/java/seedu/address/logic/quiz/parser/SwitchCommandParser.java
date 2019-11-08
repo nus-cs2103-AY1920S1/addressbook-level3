@@ -11,8 +11,8 @@ import seedu.address.logic.quiz.parser.exceptions.ParseException;
 public class SwitchCommandParser implements Parser<SwitchCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SwitchCommand
+     * and returns a SwitchCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
 
