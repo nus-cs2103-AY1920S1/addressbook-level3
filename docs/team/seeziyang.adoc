@@ -7,11 +7,11 @@
 
 == Overview
 
-LiBerry is a desktop library management application for librarians to manage their books, borrowers and loans.
+LiBerry is a desktop library management application for librarians to manage their books and borrowers.
 It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby interactions
 with the software are done through text commands. +
 
-The main features of LiBerry includes managing and searching for books, registering new borrowers,
+The main features of LiBerry include managing and searching for books, registering new borrowers,
 borrowing books and recording fines.
 
 This portfolio serves to demonstrate my proficiency in the various aspects of software engineering such as coding,
@@ -36,9 +36,9 @@ out books such that their due dates are extended, and to `pay` fines incurred fo
 ==== Justification
 
 As the main purpose of a library is to allow visitors to borrow books, this feature set is core to a library and is
-needed for a library to function. The tracking of loaned out and returned books is key to managing a library. Allowing
-librarians to renew loaned out books can help them better serve borrowers who would want to read the books for a longer
-period of time. The fine system for overdue books also tie in nicely with many libraries' policy of charging fines
+needed for a library to function. The tracking of loaned out and returned books allows the user to easily manage a library. Allowing
+librarians to renew loaned out books can help them better serve borrowers who want to read the books for a longer
+period. The fine system for overdue books also ties in nicely with many libraries' policy of charging fines
 to deter late returns.
 
 ==== Highlights
@@ -59,7 +59,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seeziyang[
 
 ==== Project management
 
-* Managed the https://github.com/AY1920S1-CS2103T-F13-1/main/issues[issues] covered for each milestone and set up their deadlines. Also added each feature as an issue and
+* Managed the https://github.com/AY1920S1-CS2103T-F13-1/main/issues[issues] covered for each milestone and set up their deadlines. I also added each feature as an issue and
 assigned them to the appropriate team member.
 
 * Set up two Github https://github.com/AY1920S1-CS2103T-F13-1/main/projects/[project boards], one to brainstorm and prioritize user stories,
@@ -94,7 +94,7 @@ count and integrated this setting to the model component.
 * Updated the user interface to reflect more borrower-related details. Done through pull request:
 
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179] - Updated panel dimensions to fit more results and
-added more borrower-related information such as total outstanding fine.
+added more borrower-related information such as the total outstanding fine.
 
 ==== Documentation
 
@@ -105,7 +105,7 @@ according to feedback received from tutor and peers.
 
 ==== Community
 
-* Gave in-depth and insightful https://github.com/AY1920S1-CS2103T-F13-1/main/pulls?q=is%3Apr+reviewed-by%3Aseeziyang+is%3Aclosed[reviews] of team members pull requests.
+* Gave in-depth and insightful https://github.com/AY1920S1-CS2103T-F13-1/main/pulls?q=is%3Apr+reviewed-by%3Aseeziyang+is%3Aclosed[reviews] of team members' pull requests.
 
 * Reviewed other team's https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pulls?q=is%3Apr+is%3Aopen+reviewed-by%3Aseeziyang[documentation],
 including their user stories, non-functional requirements and use of UML diagrams.
