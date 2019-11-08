@@ -19,8 +19,9 @@ By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 // tag::intro[]
 == Introduction
+Tired of using multiple sources on the internet to keep track of all your movies and tv shows that you want to watch? EzWatchlist is a solution to your entertainment problems!
 
-`EzWatchList` is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+`EzWatchList` is an application is for cinephiles who *prefer to use a desktop for managing movies and tv shows*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
 .  If you can type fast, `EzWatchList` works faster than traditional GUI apps.
 .  Keep track of movies and tv shows that you plan to watch or have watched.
@@ -29,8 +30,59 @@ By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 .  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `Ezwatchlist` usage.
 
 ====
-Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
+Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
 ====
+
+=== What else does EzWatchlist offer you?
+
+* Integration with an online database of shows, allowing you to search and get information about shows.
+
+* Functions and works without internet.
+
+* No installations required.
+
+* Auto-saves all data.
+
+* Dual-purpose interface, command line interface for those who prefer typing and graphical for those who prefer using a mouse.
+
+=== How do I use EzWatchlist?
+
+EzWatchlist was built with ease in mind hence our interface represents this design philosophy.
+
+.EzWatchlist graphical interface
+image::Ui.png[width="900"]
+
+==== Navigation
+
+EzWatchlist is split into four different pages:
+
+. <<Watchlist Page, *Watchlist*>>, where shows you want to watch are added.
+. <<Watched List, *Watchedlist*>>, where shows you have watched are located.
+. <<Search Page, *Search*>>, where you search for shows both online and offline.
+. <<Statistics Page, *Statistics*>>, where information about your viewing habits is shown.
+
+This pages are represented by the <<Sidebar, *sidebar panel*>> shown visibly in Figure 1. Navigate between pages by using keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] respectively or
+through a button press on the graphical interface.
+
+==== Interaction
+.EzWatchlist's command line interface.
+image::commandline.png[width="900"]
+
+EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
+Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) are the main way of interaction in the application.
+
+Steps to quickly add a movie
+
+* **`search`** `n/ip man` : Searched for movie named `ip man` in the offline and online database which will bring you to the search page automatically.
+
+.Search page for "ip man".
+image::searchIpMan.png[width='500']
+
+* **`add`** `2` : Adds "Ip Man" (2008) shown in entry 2 in Figure 3 into your watchlist.
+
+.Watchlist page after entry.
+image::watchlistIpMan.png[width='500']
+
 
 == Quick Start
 
@@ -38,16 +90,12 @@ Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 .  Download the latest `ezwatchlist.jar` link:https://github.com/AY1920S1-CS2103T-F13-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
 .  Interact with `Ezwatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`add`**`n/Titanic t/movie` : adds the `movie` named `Titanic` to the Watchlist.
-* **`search`**`n/Titanic` : Searched for movie named `Titanic` in all movies
-* **`delete`**`3` : deletes the 3rd movie shown in the current list
+* **`delete`**`3` : deletes the 3rd movie shown in either watch or watched page.
 * *`exit`* : exits the app
 
 .  Refer to <<UserCommands>> for details of each command.
@@ -224,7 +272,7 @@ image::WatchTheOffice.png[width="790"]
 image::Watch1.png[width="790"]
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `1`.
+3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
 
 image::WatchedTheOffice.png[width="790"]
 

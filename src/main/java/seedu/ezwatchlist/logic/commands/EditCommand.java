@@ -92,7 +92,7 @@ public class EditCommand extends Command {
         }
         model.setShow(showToEdit, editedShow);
         model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
-        return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow));
+        return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow), true);
     }
 
     /**

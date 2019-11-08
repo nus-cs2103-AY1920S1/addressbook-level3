@@ -57,7 +57,7 @@ public class SyncCommand extends Command {
         if (matchingShowName) {
             Show fromUnWatchedList = unWatchedList.get(matchingIndex);
             model.setShow(fromUnWatchedList, fromImdb);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
         } else {
             throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2);
         }

@@ -28,7 +28,7 @@ public class GoToCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         String pageTitle = model.getPage(shortcut);
-        return new CommandResult(pageTitle, false, false, true);
+        return new CommandResult(pageTitle, false, false, true, false);
     }
 
     @Override

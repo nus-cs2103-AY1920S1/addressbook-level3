@@ -90,7 +90,7 @@ public class AddCommand extends Command {
         }
 
         model.addShow(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**
@@ -114,7 +114,7 @@ public class AddCommand extends Command {
         }
 
         model.addShow(fromImdb);
-        return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb));
+        return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb), true);
     }
     public boolean isFromSearch() {
         return isFromSearch;
