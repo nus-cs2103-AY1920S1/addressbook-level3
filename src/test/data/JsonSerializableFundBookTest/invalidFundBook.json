@@ -1,9 +1,11 @@
 {
+  "currentRepeaterUniqueId" : "0",
+  "persons" : [],
   "transactions" : [ {
     "description" : "Allowance from Daddy",
     "amount" : "500",
     "category" : "allowance",
-    "date" :{
+    "date" : {
       "day" : "5",
       "month" : "2",
       "year" : "2019"
@@ -21,5 +23,7 @@
     },
     "transactionType" : "exp",
     "repeaterUniqueId" : ""
-  } ]
+  } ],
+  "repeaters" : [],
+  "budgets" : []
 }
