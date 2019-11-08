@@ -1,29 +1,47 @@
 @startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFFF
+
 Package AndOrNode <<Rectangle>> {
-    abstract class AndOrNode<T> {
-        # List<AndOrNode> children
-        # void insert(T)
-        # {abstract} Optional<T> getData()
-        + {abstract} AndOrNode createNode(T, String)
-        # {abstract} boolean fulfills(Collection<T>)
-        + {abstract} String toString()
-    }
-    class DataNode<T> {
-        # boolean fulfills(Collection<T>)
-        # Optional<T> getData()
-        + String toString()
-    }
-    abstract class NoDataNode<T> {
-        # Optional<T> getData()
-    }
-    class AndNode<T> {
-        # boolean fulfills(Collection<T>)
-        + String toString()
-    }
-    class OrNode<T> {
-        # boolean fulfills(Collection<T>)
-        + String toString()
-    }
+    Class "{abstract}\nAndOrNode<T>" as AndOrNode<T>
+    Class DataNode<T>
+    Class NoDataNode
+    Class AndNode
+    Class OrNode
+}
+
+
+abstract class AndOrNode<T> {
+    #children : List<AndOrNode>
+    #insert(T) : void
+    #getData() : Optional<T> {abstract}
+    +createNode(T, String) : AndOrNode {abstract}
+    #fulfills(Collection<T>) : boolean {abstract}
+    +toString() : String {abstract}
+}
+
+class DataNode<T> {
+    #fulfills(Collection<T>) : boolean
+    #getData() : Optional<T>
+    +toString() : String
+}
+
+abstract class NoDataNode<T> {
+    #getData() : Optional<T>
+}
+
+class AndNode<T> {
+    #fulfills(Collection<T>) : boolean
+    +toString() : String
+}
+
+class OrNode<T> {
+    #fulfills(Collection<T>) : boolean
+    +toString() : String
 }
 
 AndOrNode <|-- DataNode
