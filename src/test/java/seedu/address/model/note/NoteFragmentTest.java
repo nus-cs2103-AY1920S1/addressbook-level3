@@ -35,7 +35,7 @@ public class NoteFragmentTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Note noteFragment = new NoteBuilder().build();
+        NoteFragment noteFragment = new NoteBuilder().buildFragment();
         assertThrows(UnsupportedOperationException.class, () -> noteFragment.getTags().remove(0));
     }
 
@@ -48,18 +48,18 @@ public class NoteFragmentTest {
         assertFalse(SAMPLE.isSameNote(null));
 
         // different title -> returns false
-        Note differentTitle = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        NoteFragment differentTitle = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").buildFragment();
         assertFalse(SAMPLE.isSameNote(differentTitle));
 
         // same title -> returns true
-        Note sameTitle = new NoteBuilder(SAMPLE).withTitle("Sample Title").build();
+        NoteFragment sameTitle = new NoteBuilder(SAMPLE).withTitle("Sample Title").buildFragment();
         assertTrue(SAMPLE.isSameNote(sameTitle));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Note sampleCopy = new NoteBuilder(SAMPLE).build();
+        NoteFragment sampleCopy = new NoteBuilder(SAMPLE).buildFragment();
         assertTrue(SAMPLE.equals(sampleCopy));
 
         // same object -> returns true
@@ -75,7 +75,7 @@ public class NoteFragmentTest {
         assertFalse(SAMPLE.equals(PIPELINE));
 
         // different name -> returns false
-        Note editedNoteFragment = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        NoteFragment editedNoteFragment = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").buildFragment();
         assertFalse(SAMPLE.equals(editedNoteFragment));
     }
 }
