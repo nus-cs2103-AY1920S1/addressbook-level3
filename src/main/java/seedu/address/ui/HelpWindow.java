@@ -1,6 +1,7 @@
 //@@author LeonardTay748
 package seedu.address.ui;
 
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
