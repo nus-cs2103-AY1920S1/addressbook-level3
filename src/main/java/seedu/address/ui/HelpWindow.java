@@ -1,12 +1,18 @@
 //@@author LeonardTay748
 package seedu.address.ui;
 
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import seedu.address.Main;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -16,7 +22,9 @@ public class HelpWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
-
+    private static final Stage stage = new Stage();
+    private static final InputStream x = Main.class.getResourceAsStream("/images/Commands.png");
+    private final Image image = new Image(x, 637, 886, true, false);
 
     @FXML
     private ImageView imageView;
@@ -27,7 +35,7 @@ public class HelpWindow extends UiPart<Stage> {
      * @param root Stage to use as the root of the HelpWindow.
      */
     public HelpWindow(Stage root) {
-        super(FXML, root);
+        super(FXML, stage);
     }
 
     /**
@@ -57,8 +65,14 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        Image image = new Image("file:Commands.png", 637, 886, true, false);
         imageView.setImage(image);
+
+        FlowPane root = new FlowPane(Orientation.HORIZONTAL);
+        root.getChildren().addAll(imageView);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(root);
+        Scene scene = new Scene(sp, 550, 400);
+        stage.setScene(scene);
 
         getRoot().show();
         getRoot().centerOnScreen();
