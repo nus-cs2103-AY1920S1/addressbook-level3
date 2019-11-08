@@ -18,3 +18,20 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.chart-content {
+    -fx-padding: 0 0 0 10;
+}
+
+.default-color0.chart-pie { -fx-pie-color: #eb4d4b; }
+.default-color1.chart-pie { -fx-pie-color: #6ab04c; }
+
+.chart-pie-label-line {
+    -fx-stroke: #30336b;
+    -fx-fill: #30336b;
+}
+
+.chart-pie-label {
+    -fx-fill: #30336b;
+    -fx-font-size: 1em;
+}
