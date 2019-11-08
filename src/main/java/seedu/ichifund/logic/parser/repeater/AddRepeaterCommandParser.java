@@ -41,7 +41,7 @@ import seedu.ichifund.model.transaction.TransactionType;
 public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddRepeaterCommand
      * and returns an AddRepeaterCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

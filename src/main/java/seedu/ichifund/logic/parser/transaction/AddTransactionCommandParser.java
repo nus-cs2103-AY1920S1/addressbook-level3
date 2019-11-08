@@ -34,7 +34,7 @@ import seedu.ichifund.model.transaction.TransactionType;
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
      * and returns an AddTransactionCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -57,17 +57,15 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Optional<Year> year = parseYear(argMultimap);
         Optional<TransactionType> transactionType = parseTransactionType(argMultimap);
 
-        AddTransactionCommand.AddTransactionCommandBuilder builder =
-                new AddTransactionCommand.AddTransactionCommandBuilder();
-        builder.setDescription(description);
-        builder.setAmount(amount);
-        builder.setCategory(category);
-        builder.setDay(day);
-        builder.setMonth(month);
-        builder.setYear(year);
-        builder.setTransactionType(transactionType);
-
-        return builder.build();
+        return new AddTransactionCommand.AddTransactionCommandBuilder()
+                .withDescription(description)
+                .withAmount(amount)
+                .withCategory(category)
+                .withDay(day)
+                .withMonth(month)
+                .withYear(year)
+                .withTransactionType(transactionType)
+                .build();
     }
 
     /**

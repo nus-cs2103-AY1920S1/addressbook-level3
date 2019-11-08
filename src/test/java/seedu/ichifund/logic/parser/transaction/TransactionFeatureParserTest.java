@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ichifund.testutil.Assert.assertThrows;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Optional;
 
@@ -58,9 +57,9 @@ public class TransactionFeatureParserTest {
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).build();
         EditTransactionCommand command = (EditTransactionCommand) parser
                 .parseCommand(EditTransactionCommand.COMMAND_WORD,
-                        INDEX_FIRST_PERSON.getOneBased() + " "
+                        INDEX_FIRST.getOneBased() + " "
                         + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
-        assertEquals(new EditTransactionCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditTransactionCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test

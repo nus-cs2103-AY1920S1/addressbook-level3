@@ -60,6 +60,10 @@ public class JsonAdaptedTransaction {
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction.
      */
     public Transaction toModelType() throws IllegalValueException {
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
         final Date modelDate = date.toModelType();
 
         if (description == null) {

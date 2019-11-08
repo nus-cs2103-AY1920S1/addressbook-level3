@@ -76,7 +76,7 @@ public class LogicManagerTest {
 
         // Execute add command
         Transaction expectedTransaction = new TransactionBuilder().build();
-        String addTransactionCommand = TransactionUtil.getAddTransactionCommand(expectedTransaction);
+        String addTransactionCommand = TransactionUtil.getAddTransactionCommandString(expectedTransaction);
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTransaction(expectedTransaction);
         expectedModel.updateTransactionContext(expectedTransaction);
@@ -85,8 +85,23 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
+    }
+
+    @Test
+    public void getFilteredBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBudgetList().remove(0));
+    }
+
+    @Test
+    public void getDataList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getDataList().remove(0));
+    }
+
+    @Test
+    public void getFilteredRepeaterList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRepeaterList().remove(0));
     }
 
     /**

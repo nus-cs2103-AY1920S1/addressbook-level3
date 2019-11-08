@@ -12,7 +12,6 @@ import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 
@@ -51,16 +50,13 @@ public interface Logic {
      */
     ReadOnlyFundBook getFundBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered list of transactions */
     ObservableList<Transaction> getFilteredTransactionList();
 
     /** Returns an unmodifiable view of the filtered list of repeaters */
     ObservableList<Repeater> getFilteredRepeaterList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();
 
     /** Returns the current analytics view */
