@@ -1,0 +1,64 @@
+{
+  "logEntries" : [ {
+    "@type" : "AdaptedIncomeLogEntry",
+    "amount" : "800.00",
+    "categories" : [ ],
+    "logEntryType" : "income",
+    "from" : "ABCompany",
+    "tDate" : "7-11-2019",
+    "desc" : "Internship Pay",
+    "tMethod" : "Bank transfer"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "400.00",
+    "categories" : [ ],
+    "logEntryType" : "spend",
+    "place" : "-",
+    "tDate" : "07-11-2019",
+    "desc" : "Nintendo Switch",
+    "tMethod" : "Cash"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "400.00",
+    "categories" : [ ],
+    "logEntryType" : "spend",
+    "place" : "-",
+    "tDate" : "07-11-2019",
+    "desc" : "Nintendo Switch",
+    "tMethod" : "cash"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "107.70",
+    "categories" : [ "bike" ],
+    "logEntryType" : "spend",
+    "place" : "Toa Payoh Lor 4",
+    "tDate" : "5-11-2019",
+    "desc" : "bicycle",
+    "tMethod" : "cash"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "50.00",
+    "categories" : [ ],
+    "logEntryType" : "spend",
+    "place" : "Caldecott MRT",
+    "tDate" : "4-11-2019",
+    "desc" : "EzLink TopUp",
+    "tMethod" : "NETS"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "1.10",
+    "categories" : [ "kopitiam", "drink" ],
+    "logEntryType" : "spend",
+    "place" : "-",
+    "tDate" : "2-11-2019",
+    "desc" : "KopiO",
+    "tMethod" : "cash"
+  } ],
+  "budgets" : [ {
+    "amount" : "300.00",
+    "startDate" : "01-11-2019",
+    "endDate" : "30-11-2019",
+    "budgetType" : "met",
+    "budgetTypeValue" : "cash"
+  } ]
+}

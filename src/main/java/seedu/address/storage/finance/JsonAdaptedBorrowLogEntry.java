@@ -121,7 +121,7 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
         BorrowLogEntry newLogEntry = new BorrowLogEntry(modelAmount, modelTransactionDate,
                 modelDescription, modelTransactionMethod, modelLogEntryCategories, modelPerson);
 
-        if (!isRepaid.equals("true") && !isRepaid.equals("false")) {
+        if (isRepaid == null || (!isRepaid.equals("true") && !isRepaid.equals("false"))) {
             throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
         }
         if (isRepaid.equals("true")) {

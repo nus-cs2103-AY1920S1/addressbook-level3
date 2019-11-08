@@ -1,0 +1,22 @@
+{
+  "logEntries" : [ {
+    "@type" : "AdaptedIncomeLogEntry",
+    "amount" : "800.00",
+    "categories" : [ ],
+    "logEntryType" : "income",
+    "from" : "ABCompany",
+    "tDate" : "7-11-2019",
+    "desc" : "Internship Pay",
+    "tMethod" : "Bank transfer"
+  }, {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "400.00",
+    "categories" : [ ],
+    "logEntryType" : "spend",
+    "place" : "-",
+    "tDate" : "1nV@lidDAt3",
+    "desc" : "Nintendo Switch",
+    "tMethod" : "Cash"
+  } ],
+  "budgets" : [ ]
+}

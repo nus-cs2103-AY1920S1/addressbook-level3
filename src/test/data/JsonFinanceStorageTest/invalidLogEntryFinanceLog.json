@@ -1,0 +1,13 @@
+{
+  "logEntries" : [ {
+    "@type" : "AdaptedSpendLogEntry",
+    "amount" : "400.00",
+    "categories" : [ ],
+    "logEntryType" : "spend",
+    "place" : "-",
+    "tDate" : "1nV@lidDAt3",
+    "desc" : "Nintendo Switch",
+    "tMethod" : "Cash"
+  } ],
+  "budgets" : [ ]
+}

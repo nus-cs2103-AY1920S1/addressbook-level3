@@ -1,0 +1,13 @@
+{
+  "logEntries" : [ {
+    "@type" : "AdaptedIncomeLogEntry",
+    "amount" : "800.00",
+    "categories" : [ ],
+    "logEntryType" : "income",
+    "from" : "ABCompany",
+    "tDate" : "1nVaLIDd@t3",
+    "desc" : "Internship Pay",
+    "tMethod" : "Bank transfer"
+  } ],
+  "budgets" : [ ]
+}
