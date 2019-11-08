@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.TestSession;
+import dream.fcard.logic.stats.TestSessionList;
 
 public class SessionListUtilTest {
 
@@ -52,24 +53,31 @@ public class SessionListUtilTest {
         return sessionListForTest;
     }
 
-    private SessionList getTestSessionListForTest() {
-        ArrayList<Session> sessionArrayList = getSessionListForTest().getSessionArrayList();
-        SessionList testSessionList = new SessionList();
-        int i = 1;
-        for (Session session : sessionArrayList) {
-            TestSession testSession = (TestSession) session;
-            testSession.setScore(String.format("%s/20", (i * 3)));
-            testSessionList.addSession(testSession);
-        }
+    private TestSessionList getTestSessionListForTest() {
+        TestSessionList testSessionList = new TestSessionList();
+
+        TestSession testSessionOne = new TestSession(sessionOne, "3/20");
+        TestSession testSessionTwo = new TestSession(sessionTwo, "6/20");
+        TestSession testSessionThree = new TestSession(sessionThree, "9/20");
+        TestSession testSessionFour = new TestSession(sessionFour, "12/20");
+        TestSession testSessionFive = new TestSession(sessionFour, "15/20");
+
+        testSessionList.addSession(testSessionOne);
+        testSessionList.addSession(testSessionTwo);
+        testSessionList.addSession(testSessionThree);
+        testSessionList.addSession(testSessionFour);
+        testSessionList.addSession(testSessionFive);
+
         return testSessionList;
     }
 
     @Test
     void testSessionList_containsTestSessionsWithScores() {
         boolean isValid = true;
-        ArrayList<Session> testSessionArrayList = getTestSessionListForTest().getSessionArrayList();
-        for (Session session : testSessionArrayList) {
-            if (!SessionListUtil.isTestSessionAndHasScore(session)) {
+        ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
+            .getTestSessionArrayList();
+        for (TestSession testSession : testSessionArrayList) {
+            if (!testSession.hasScore()) {
                 isValid = false;
             }
         }
@@ -150,10 +158,11 @@ public class SessionListUtilTest {
 
     @Test
     void getScoreAsPercentageDouble_onSession() {
-        ArrayList<Session> testSessionArrayList = getTestSessionListForTest().getSessionArrayList();
-        Session sessionForTest = testSessionArrayList.get(3); // score is 9/20
+        ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
+            .getTestSessionArrayList();
+        TestSession sessionForTest = testSessionArrayList.get(3); // score is 12/20
 
-        double expectedDouble = 45.0;
+        double expectedDouble = 60.0;
         double obtainedDouble = SessionListUtil.getScoreAsPercentageDouble(sessionForTest);
 
         assertEquals(expectedDouble, obtainedDouble);
@@ -161,7 +170,7 @@ public class SessionListUtilTest {
 
     @Test
     void getAverageScore_allSessionsHaveScores() {
-        SessionList sessionList = getTestSessionListForTest();
+        TestSessionList sessionList = getTestSessionListForTest();
         // expected output:
         // 3/20 + 6/20 + 9/20 + 12/20 + 15/20 = 45/20
         // 45/20 / 5 = 9/20
