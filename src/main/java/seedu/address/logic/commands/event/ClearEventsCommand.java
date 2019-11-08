@@ -2,6 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,15 +17,13 @@ public class ClearEventsCommand extends Command {
 
     public static final String COMMAND_WORD = "clear_ev";
     public static final String MESSAGE_SUCCESS = "EventBook has been cleared!";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         model.setEventBook(new EventBook());

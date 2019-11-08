@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -47,8 +48,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New employee added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the AddMin+";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
-            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Employee toAdd;
 
@@ -65,7 +64,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
         }
 
         if (model.hasEmployee(toAdd)) {

@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,8 +46,6 @@ public class AddEventCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     private final Event toAdd;
 
@@ -64,7 +63,7 @@ public class AddEventCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         if (model.hasEvent(toAdd)) {

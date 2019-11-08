@@ -56,8 +56,6 @@ public class EditEventCommand extends Command {
             + PREFIX_EVENT_NAME + "Drawing Competition "
             + PREFIX_EVENT_VENUE + "Utown Student Plaza";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
     private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     private static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid Manpower Needed input."
             + " You may not state a number that is below the current number of allocated employees. \n"
@@ -85,7 +83,7 @@ public class EditEventCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);

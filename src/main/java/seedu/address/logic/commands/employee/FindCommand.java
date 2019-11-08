@@ -23,9 +23,6 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
-            + "Note: Employee Commands only works on either the Main or Finance Tab.";
-
     private final NameContainsKeywordsPredicate predicate;
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
@@ -37,7 +34,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
         }
 
         model.updateFilteredEmployeeList(predicate);

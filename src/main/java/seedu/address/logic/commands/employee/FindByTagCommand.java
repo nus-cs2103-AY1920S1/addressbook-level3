@@ -23,8 +23,6 @@ public class FindByTagCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fun hardworking";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
-            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final TagContainsKeywordsPredicate predicate;
 
@@ -37,7 +35,7 @@ public class FindByTagCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
         }
 
         model.updateFilteredEmployeeList(predicate);

@@ -24,9 +24,6 @@ public class FindEventCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " party";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
-
     private final EventNameContainsKeywordsPredicate predicate;
 
     public FindEventCommand(EventNameContainsKeywordsPredicate predicate) {
@@ -38,7 +35,7 @@ public class FindEventCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         ObservableList<Event> currentEventList = MainWindow.getUpdatedCurrentEventList(model, predicate);

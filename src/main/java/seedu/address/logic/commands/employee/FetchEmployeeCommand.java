@@ -26,8 +26,6 @@ public class FetchEmployeeCommand extends Command {
             + "Example: " + COMMAND_WORD + " on/02/12/2019";
 
     public static final String MESSAGE_SUCCESS = "Fetched Employee: %1$s";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Employee List\n"
-            + "Note: Employee Commands only works on either the Main or Finance Tab.";
 
     private final Index index;
 
@@ -40,7 +38,7 @@ public class FetchEmployeeCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
         }
 
         List<Employee> shownEmployeeList = model.getFilteredEmployeeList();

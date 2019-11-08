@@ -29,8 +29,6 @@ public class AssignDateCommand extends Command {
             + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
             + "Example: " + COMMAND_WORD + " 2 on/20/10/2019 time/0500-2000";
 
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
     private static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
     private static final String MESSAGE_SUCCESS_ALL =
             "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
@@ -65,7 +63,7 @@ public class AssignDateCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);

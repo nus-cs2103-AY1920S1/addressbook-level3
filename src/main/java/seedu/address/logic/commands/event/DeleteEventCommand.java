@@ -26,8 +26,6 @@ public class DeleteEventCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-    public static final String MESSAGE_WRONG_TAB = "Current Window does not have an Event List\n"
-            + "Note: Event Commands only works on either the Main or Schedule or Statistics Tab.";
 
     private final Index targetIndex;
 
@@ -40,7 +38,7 @@ public class DeleteEventCommand extends Command {
         requireNonNull(model);
 
         if (MainWindow.isFinanceTab()) {
-            throw new CommandException(MESSAGE_WRONG_TAB);
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);

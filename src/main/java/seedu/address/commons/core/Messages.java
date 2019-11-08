@@ -44,4 +44,21 @@ public class Messages {
             + " not allocated to event!";
     public static final String MESSAGE_WRONG_WINDOW = "Command should be executed in the Main Window since it "
             + "requires references to the Employee list.";
+    public static final String MESSAGE_WRONG_TAB_AUTO_ALLOCATE = "Current Window does not support the "
+            + "auto allocate feature\n" + "Note: Auto Allocate Commands should be executed in "
+            + "either Main, Schedule, Statistics Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_DE_ALLOCATE = "Current Window does not support the "
+            + "de-allocate feature\n" + "Note: Deallocate Commands should be executed in a Tab where "
+            + "you have an Event List.\n";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_1 = "Current Window does not support the "
+            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in either the "
+            + "Main Tab or Employee Window.\n"
+            + "You can consider using the Auto Allocate Commands instead.";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_2 = "Current Window does not support the "
+            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in either the "
+            + "Main Tab or Employee Window.\n";
+    public static final String MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST = "Current Window does not have "
+            + "an Employee List\n" + "Note: Employee Commands should be executed in either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB_MISSING_EVENT_LIST = "Current Window does not have an Event List\n"
+            + "Note: Event Commands should be executed in either the Main or Schedule or Statistics Tab.";
 }
