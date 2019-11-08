@@ -12,10 +12,6 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class CalendarStateTest {
 
-    // Wrong values for each argument
-
-    // Wrong order
-
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {
         try {
@@ -47,8 +43,8 @@ public class CalendarStateTest {
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
             transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "12/11/2019");
             State finalPostTransitionState = postTransitionState;
-            assertThrows(StateTransitionException.class,
-                    () -> finalPostTransitionState.transition(transitionArgumentMultimap));
+            assertThrows(StateTransitionException.class, ()
+                -> finalPostTransitionState.transition(transitionArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should be handled in assertThrows.
         }
@@ -63,8 +59,8 @@ public class CalendarStateTest {
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
             transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "29/02/2019");
             State finalPostTransitionState = postTransitionState;
-            assertThrows(StateTransitionException.class,
-                    () -> finalPostTransitionState.transition(transitionArgumentMultimap));
+            assertThrows(StateTransitionException.class, ()
+                -> finalPostTransitionState.transition(transitionArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should be handled in assertThrows.
         }
