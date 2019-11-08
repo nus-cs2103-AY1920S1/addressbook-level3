@@ -6,6 +6,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -82,9 +83,8 @@ class StartDateStateTest {
     @Test
     void transition_validArgumentMultiMapInvalidInput_throwsStateTransitionException() {
 
-        // EP : Invalid day for the month, invalid month, invalid year, invalid time, string that is not a date.
+        // EP : Invalid day for the month, invalid month, invalid year, invalid time, string that is not a date, null.
         // Apply at most one invalid input heuristic for the tests.
-        // null doesn't need to be tested for since ArgumentMultimap returns an empty optional in that case.
 
         List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME);
         // Invalid day of the month.
@@ -101,6 +101,9 @@ class StartDateStateTest {
 
         // String that is not a date.
         List<String> fifthArgs = List.of("appointment", "hello");
+
+        // null
+        // null can't be tested as an input since ArgumentMultimap doesn't support null arguments.
 
         State firstState = new StartDateState(ArgumentMultimapBuilder.build(
                 prefixes.subList(0, 1), firstArgs.subList(0, 1)));

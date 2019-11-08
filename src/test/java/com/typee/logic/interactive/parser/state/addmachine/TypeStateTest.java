@@ -76,11 +76,7 @@ class TypeStateTest {
 
         // EP : null
 
-        ArgumentMultimap newArgumentMultimap = new ArgumentMultimap();
-        argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, null);
-
-        State newInitialState = new TypeState(new ArgumentMultimap());
-        assertThrows(StateTransitionException.class, () -> initialState.transition(newArgumentMultimap));
+        // null can't be tested as an input value since ArgumentMultimap doesn't handle nulls.
     }
 
     @Test
