@@ -3,7 +3,7 @@
   #site-header
     nav.navbar.navbar-light.bg-light
       .container
-          - if attr? 'site-name'
+        - if attr? 'site-name'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
         ul.navbar-nav
           li.nav-item
