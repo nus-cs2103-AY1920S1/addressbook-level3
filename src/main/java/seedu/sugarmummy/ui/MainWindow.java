@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -76,6 +77,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane mainDisplayPanePlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private HBox resultDisplayPlaceholder;
@@ -238,6 +242,9 @@ public class MainWindow extends UiPart<Stage> {
         if (logic.getBackground().showDefaultBackground()) {
             setFontColour(logic.getGuiSettings());
         }
+
+        splitPane.setDividerPosition(0, 0.8);
+
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
