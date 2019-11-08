@@ -2,6 +2,7 @@ package seedu.savenus.model.savings;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +14,13 @@ import javafx.collections.ObservableList;
  * A list of the user's savings history.
  */
 public class SavingsHistoryList implements Iterable<Savings> {
-
+    private final Comparator<Savings> savingsComparator = new Comparator<Savings>() {
+        @Override
+        public int compare(Savings savings, Savings t1) {
+            return (t1.getTimeStamp().getTimeStampInLocalDateTime()
+                    .compareTo(savings.getTimeStamp().getTimeStampInLocalDateTime()));
+        }
+    };
     private final ObservableList<Savings> internalSavingsHistoryList = FXCollections.observableArrayList();
     private final ObservableList<Savings> internalUnmodifiableSavingsHistoryList =
             FXCollections.unmodifiableObservableList(internalSavingsHistoryList);
@@ -36,6 +43,7 @@ public class SavingsHistoryList implements Iterable<Savings> {
      * @return ObservableList of the unmodifiable SavingHistory.
      */
     public ObservableList<Savings> asUnmodifiableObservableList() {
+        FXCollections.sort(internalSavingsHistoryList, savingsComparator);
         return internalUnmodifiableSavingsHistoryList;
     }
 
@@ -58,7 +66,6 @@ public class SavingsHistoryList implements Iterable<Savings> {
 
     public void setSavingsHistory(List<Savings> savings) {
         requireNonNull(savings);
-
         internalSavingsHistoryList.setAll(savings);
     }
 }
