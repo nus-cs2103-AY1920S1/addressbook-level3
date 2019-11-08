@@ -118,7 +118,9 @@ If you face any issues, please check the <<Additional Notes>>. If it is not ment
 ====
 Now we are ready to jump into the features itself!
 
-=== Adding a task: `task`
+=== CLI Features
+
+==== Adding a task: `task`
 
 Adds a task to the task list +
 Format: `task DESCRIPTION [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]`
@@ -132,7 +134,7 @@ Examples:
 * `task eat my vitamins -r 5.hour.later`
 * `task eat my vitamins -d 10.hour.later -p low -t healthy`
 
-=== Adding an event: `event`
+==== Adding an event: `event`
 
 Adds an event to events list and calendar +
 Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG] [-auto PERIOD]`
@@ -144,7 +146,7 @@ Examples:
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
 * `event CS2013T Quiz -d 11/11/2019 2359 -auto week`
 
-=== Adding a reminder: `reminder`
+==== Adding a reminder: `reminder`
 
 Adds a reminder to the reminder list +
 Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
@@ -158,76 +160,7 @@ Examples:
 [NOTE]
 It is not possible to set a reminder in the past.
 
-=== Snoozing a reminder: `snooze`
-
-Snoozes a reminder that occurred since the application was open. +
-If an index is not provided, the most recently occurred reminder will be snoozed. +
-If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
-Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
-
-Examples:
-* `snooze 1`
-* `snooze 3 -s 10.min.later`
-* `snooze -s 10/10/2020 1400`
-
-[NOTE]
-1. It is possible to snooze the same reminder multiple times if you wish. +
-2. It is not possible to snooze if no reminder has occurred yet. +
-However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
-
-=== Show the specified category : `show`
-
-Shows the specified category by switching the view to the given list. +
-Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
-
-Examples:
-
-* `show t`
-* `show T` (Note: Case _insensitive_: Upper case is allowed)
-* `show e`
-* `show E`
-* `show r`
-* `show c`
-
-
-[NOTE]
-The flag can be in either lowercase or uppercase. Eg. `show E`.
-
-=== Scrolling the list : `up` / `down`
-
-Scrolls the list up/down
-
-Examples:
-
-* `up`
-* `down`
-
-=== Changing the theme : `theme`
-
-Changes the theme of Elisa!
-
-Examples:
-
-* `theme white`
-* `theme black`
-
-=== Clearing the list : `clear`
-
-Clears ALL the lists.
-
-Examples:
-
-* `clear`
-
-=== Clearing the chat box : `clearscreen`
-
-Clears the chat box.
-
-Examples:
-
-* `clearscreen`
-
-=== Editing an item : `edit`
+==== Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
 
@@ -252,7 +185,7 @@ Edits item 1 of the current list. Changes the description to `read books`, deadl
 Edits item 2 of the current list. Changes the description to `CS2103 team meeting`, reminder to `3.hour.later` and priority to `high`.
 
 // tag::delete[]
-=== Deleting a reminder/task/event : `delete`
+==== Deleting a reminder/task/event : `delete`
 
 Deletes the reminder/task/event from ELISA. +
 Format: `delete INDEX`
@@ -270,9 +203,106 @@ Examples:
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
+=== Reminder Feature
+
+==== Snoozing a reminder: `snooze`
+
+Snoozes a reminder that occurred since the application was open. +
+If an index is not provided, the most recently occurred reminder will be snoozed. +
+If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
+Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
+
+Examples:
+* `snooze 1`
+* `snooze 3 -s 10.min.later`
+* `snooze -s 10/10/2020 1400`
+
+[NOTE]
+1. It is possible to snooze the same reminder multiple times if you wish. +
+2. It is not possible to snooze if no reminder has occurred yet. +
+However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
+
+=== Navigation Features
+
+==== Show the specified category : `show`
+
+Shows the specified category by switching the view to the given list. +
+Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
+
+[NOTE]
+The flag can be in either lowercase or uppercase. Eg. `show E`.
+
+==== Scrolling the list : `up` / `down`
+
+Scrolls the list up/down
+
+=== Visual Features
+
+==== Expanding an item in the view: `open` & `close`
+Want to see all the details of an item at one glance? Lazy to go to event list or reminder list to find them? We got you!
+
+You can now open up an item to see all its details, regardless of what list you are on.
+But remember to close it before opening another item!
+
+Open format: `open INDEX` +
+Close format: `close`
+
+Example sequence:
+
+* `show T` - to switch to the task view
+* `open 2` - opens the second item on the list
+* `close` - closes the item
+* `open 3` - opens the third item on the list (Note: If you forgot to close previously, no worries as ELISA will prompt you to!)
+* `close` - closes the item
+
+[WARNING]
+Although, the ESC key can close too, we do not advise doing so as ELISA may be confused later on :(
+
+
+==== Changing the theme : `theme`
+
+Screen is too dark? Switch up the theme by typing `theme white`!
+
+Examples:
+
+* `theme white`
+* `theme black`
+
+==== Clearing the screen : `clearscreen` and `clear`
+
+Chat box getting too cluttered? Type `clearscreen` to clear it!
+
+* `clear` - clears all lists
+* `clearscreen` - clears the chat box
+
+=== Calendar Feature
+
+Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
+
+=== Entertainment Features
+
+Too stressed from all the work? Check out these features to take a short break so that you can go further!
+
+==== Play a game: `game`
+
+`game` switches you list of tasks into a game of Snakes! 
+
++++<u>Rules:</u>+++
+
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER! 
+
+Hit `ENTER` to reset the game when your snake dies.
+
+Pressing `ESC` key will exit the game and return you to your list of tasks!
+
+==== Tell a joke: `joke`
+
+Type `joke` in the command box and I will showcase my exceptional sense of humor and tell you a random joke!
+
+=== Undo/Redo Feature
 
 // tag::undo[]
-=== Undoing the latest modification(s) : `undo`
+==== Undoing the latest modification(s) : `undo`
 
 Reverts the latest commands given on the ELISA. +
 Format: `undo`
@@ -288,7 +318,7 @@ Undoes the last command
 
 
 // tag::redo[]
-=== Redoing the latest undone command(s) : `redo`
+==== Redoing the latest undone command(s) : `redo`
 
 Re-executes the latest undone commands given on the ELISA. +
 Format: `redo`
@@ -302,7 +332,9 @@ Examples:
 
 * `redo` +
 
-=== Sorting ELISA out: `sort`
+=== Sort/Find Feature
+
+==== Sorting ELISA out: `sort`
 Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
 
 ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
@@ -322,7 +354,7 @@ Examples:
 * `sort priority` - sorts the item within the panel by their priority (from high to low).
 * `sort desc` - sorts the item within the panel by their description (lexicographic order)
 
-=== Finding a task: `find`
+==== Finding a task: `find`
 Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
 
 Format: `find <keyword>`
@@ -354,27 +386,6 @@ Examples:
 * Note that this command can only be called in the task panel.
 * Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
 ****
-
-=== Expanding an item in the view: `open` & `close`
-Want to see all the details of an item at one glance? Lazy to go to event list or reminder list to find them? We got you!
-
-You can now open up an item to see all its details, regardless of what list you are on.
-But remember to close it before opening another item!
-
-Open format: `open INDEX` +
-Close format: `close`
-
-Example sequence:
-
-* `show T` - to switch to the task view
-* `open 2` - opens the second item on the list
-* `close` - closes the item
-* `open 3` - opens the third item on the list (Note: If you forgot to close previously, no worries as ELISA will prompt you to!)
-* `close` - closes the item
-
-[WARNING]
-Although, the ESC key can close too, we do not advise doing so as ELISA may be confused later on :(
-
 
 === Exiting the program : `exit`
 
