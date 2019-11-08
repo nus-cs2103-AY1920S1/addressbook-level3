@@ -133,9 +133,9 @@ image::PriorityFlashCardTestSetSequenceDiagram.png[]
 * Step 4 - 10: Return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ratio respectively.
 * Step 11: `Deck` returns the test set to `ExamRunner`.
 
-==== Design Considerations
+=== Design Considerations
 
-===== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
+==== Aspect: how to store and select the `HIGH_PRIORITY` and `LOW_PRIORITY` cards
 * **Alternative 1:** Use a priority queue to store the cards
 ** Pros: Allows the user to test the cards according to `HIGH_PRIORITY` cards first, effectively choosing only `HIGH_PRIORITY` cards first, then `LOW_PRIORITY` cards.
 ** Cons: Certain `LOW_PRIORITY` cards may not be tested if the test set size is smaller than the number of `HIGH_PRIORITY` cards
