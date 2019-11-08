@@ -60,7 +60,7 @@ CAUTION: A cautionary piece of advice
 ** Highlights: This feature does not import flashcards which the user already has. This is because
     there's no good reason for the user to have two copies of the same flashcard.
     The user will be notified if a duplicate is detected in a file while importing.
-** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library. 
+** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library.
 
 * *Code contributed*: Please click on these links to see a sample of my code:
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)

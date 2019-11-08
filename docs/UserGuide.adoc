@@ -331,7 +331,7 @@ We currently only support importing from JSON (.json) files. +
 Example: `import p>C:\Downloads\cs2105.json`
 
 Suppose your friend has kindly exported some of his FlashCards for you to use. You have download the `.json` file that he sent you,
-and it's currently located at the following path: `C:\Downloads\cs2105.json`. 
+and it's currently located at the following path: `C:\Downloads\cs2105.json`.
 Your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
 
 . Type the example command given above into the command box (`import p>C:\Downloads\cs2105.json`), as shown below.
