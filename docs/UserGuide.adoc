@@ -466,6 +466,9 @@ NOTE: If you have more than 8 different difficulty levels, the stack bar chart m
 colors for the difficulties. To differentiate between the different bars in the chart,
 you can use your mouse to hover above them.
 
+NOTE: The date in the dt field must be a valid date, if an invalid date is used i.e. 31/11/2019 it will
+be run down to the nearest valid date i.e. 30/11/2019.
+
 Example:
 You are finally done viewing your quiz results and want to know what questions you should attempt next.
 To be a well-rounded individual, you decided to check if you have been neglecting any subjects recently.
