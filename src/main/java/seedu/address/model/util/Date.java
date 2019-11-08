@@ -16,13 +16,15 @@ import java.time.temporal.ChronoField;
  */
 public class Date implements Comparable<Date> {
 
-    public static final Date TODAY = now();
     public static final String MESSAGE_FORMAT_CONSTRAINTS = "Invalid date format.\n"
         + "Date objects must adhere to the format: DDMMYYYY\n";
     public static final String MESSAGE_DATE_INVALID = "Invalid date.\n"
         + "%s is not a valid date in the (Gregorian) calendar";
     public static final String DATE_FORMAT = "\\b\\d{8}\\b";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    public static final Date TODAY = now();
+
+
 
     public final LocalDate date;
 
@@ -79,13 +81,9 @@ public class Date implements Comparable<Date> {
         return this.date.format(DATE_FORMATTER);
     }
 
-    /**
-     * TODO: remove and refactor
-     */
     private LocalDate toLocalDate() {
         return this.date;
     }
-
 
     @Override
     public int compareTo(Date date) {

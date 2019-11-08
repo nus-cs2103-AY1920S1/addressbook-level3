@@ -27,8 +27,7 @@ public class ProjectCommandParser implements Parser<ProjectCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProjectCommand.MESSAGE_USAGE));
         }
 
-        assert(argMultimap.getValue(PREFIX_DATE).isPresent());
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElseThrow(AssertionError::new));
 
         if (date.compareTo(Date.now()) <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_USAGE, ProjectCommand.MESSAGE_INVALID_DATE));

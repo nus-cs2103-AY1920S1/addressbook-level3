@@ -78,6 +78,13 @@ class ProjectCommandTest {
             requireNonNull(transaction);
             return this.transaction.isSameTransaction(transaction);
         }
+
+        @Override
+        public ReadOnlyBankAccount getBankAccount() {
+            ReadOnlyBankAccountStub stub = new ReadOnlyBankAccountStub();
+            stub.setTransactions(List.of(transaction));
+            return stub;
+        }
     }
 
     /**
