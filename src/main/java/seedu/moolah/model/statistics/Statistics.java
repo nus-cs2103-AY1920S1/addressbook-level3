@@ -78,7 +78,7 @@ public class Statistics {
 
         List<Category> validCategories = Category.getValidCategories();
         switch (command) {
-        case StatsCommand.COMMAND_WORD:
+        case StatsCommand.COMMAND_WORD://no longer in use until further refactoring
             return PieChartStatistics.run(validCategories, date1, date2, primaryBudget);
         case StatsCompareCommand.COMMAND_WORD:
             return TabularStatistics.run(validCategories, date1, date2, primaryBudget);

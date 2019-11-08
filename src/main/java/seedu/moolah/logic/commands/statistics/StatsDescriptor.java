@@ -30,9 +30,6 @@ public class StatsDescriptor {
 //        return CollectionUtil.isAnyNonNull(description, price, category, timestamp);
 //    }
 
-    public StatsDescriptor(Budget primaryBudget) {
-
-    }
 
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
@@ -53,6 +50,8 @@ public class StatsDescriptor {
 //    public boolean isAnyFieldEdited() {
 //        return CollectionUtil.isAnyNonNull(startDate, endDate);
 //    }
+
+    //not required, we work even when optional
 
     @Override
     public boolean equals(Object other) {

@@ -125,12 +125,12 @@ class StatisticsTest {
                 VALID_EARLY_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof TrendStatistics);
         assertTrue(Statistics.calculateStats(commandWord,
                 VALID_EARLY_TIMESTAMP, VALID_EARLY_TIMESTAMP, VALID_BUDGET, true) instanceof TrendStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                VALID_LATE_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof TrendStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                INVALID_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof TrendStatistics);
-        assertTrue(Statistics.calculateStats(commandWord,
-                INVALID_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof TrendStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                VALID_LATE_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof TrendStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                INVALID_TIMESTAMP, VALID_LATE_TIMESTAMP, VALID_BUDGET, true) instanceof TrendStatistics);
+//        assertTrue(Statistics.calculateStats(commandWord,
+//                INVALID_TIMESTAMP, INVALID_TIMESTAMP, VALID_BUDGET, false) instanceof TrendStatistics);
     }
 
     //Handled by parsing

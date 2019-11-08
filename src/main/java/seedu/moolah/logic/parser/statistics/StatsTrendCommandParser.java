@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
+import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
 import seedu.moolah.logic.parser.Parser;
@@ -48,6 +49,8 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
+        StatsTrendDescriptor statsTrendDescriptor = new StatsTrendDescriptor();
+
         Timestamp startDate = null;
         Timestamp endDate = null;
 
@@ -59,17 +62,20 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             checkStartBeforeEnd(argMultimap);
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsTrendCommand.createWithBothDates(startDate, endDate, mode);
+            //return StatsTrendCommand.createWithBothDates(startDate, endDate, mode);
+            statsTrendDescriptor.setStartDate(startDate);
+            statsTrendDescriptor.setEndDate(endDate);
         } else if (isStartPresent) {
 
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            return StatsTrendCommand.createOnlyWithStartDate(startDate, mode);
+            //return StatsTrendCommand.createOnlyWithStartDate(startDate, mode);
+            statsTrendDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsTrendCommand.createOnlyWithEndDate(endDate, mode);
-        } else {
-            return StatsTrendCommand.createWithNoDate(mode);
+            statsTrendDescriptor.setEndDate(endDate);
         }
+
+        return new StatsTrendCommand(statsTrendDescriptor);
     }
 
     /**

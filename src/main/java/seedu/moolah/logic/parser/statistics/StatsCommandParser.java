@@ -66,6 +66,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             statsDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            statsDescriptor.setEndDate(endDate);
             //return StatsCommand.createOnlyWithEndDate(endDate);
 //        } else {
 //            //return StatsCommand.createWithNoDate();

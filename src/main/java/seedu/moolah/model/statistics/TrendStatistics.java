@@ -67,22 +67,24 @@ public class TrendStatistics extends Statistics {
                                       Budget primaryBudget, boolean isBudgetMode) {
 
         requireNonNull(primaryBudget);
-        boolean isStartPresent = startDate != null;
-        boolean isEndPresent = endDate != null;
 
-        if (!isStartPresent && !isEndPresent) {
-            Timestamp centreDate = primaryBudget.getWindowStartDate();
-            endDate = centreDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
-                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-            startDate = centreDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
-                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-        } else if (isStartPresent && !isEndPresent) {
-            endDate = startDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
-                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-        } else if (!isStartPresent) {
-            startDate = endDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
-                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-        }
+
+//        boolean isStartPresent = startDate != null;
+//        boolean isEndPresent = endDate != null;
+//
+//        if (!isStartPresent && !isEndPresent) {
+//            Timestamp centreDate = primaryBudget.getWindowStartDate();
+//            endDate = centreDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
+//                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
+//            startDate = centreDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
+//                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
+//        } else if (isStartPresent && !isEndPresent) {
+//            endDate = startDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
+//                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
+//        } else if (!isStartPresent) {
+//            startDate = endDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
+//                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
+//        }
 
 
         TrendStatistics statistics = TrendStatistics.verify(primaryBudget.getExpenses(), validCategories,

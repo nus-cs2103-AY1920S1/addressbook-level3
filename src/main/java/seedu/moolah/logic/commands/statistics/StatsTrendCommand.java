@@ -5,12 +5,18 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.Optional;
+
 import seedu.moolah.logic.commands.Command;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
+import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.statistics.Mode;
+import seedu.moolah.model.statistics.PieChartStatistics;
+import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.model.statistics.TrendStatistics;
 import seedu.moolah.ui.StatsPanel;
 
@@ -36,17 +42,16 @@ public class StatsTrendCommand extends Command {
 
     public static final int HALF_OF_PERIOD_NUMBER = TrendStatistics.INTERVAL_COUNT / 2;
 
-    private final Timestamp startDate;
-    private final Timestamp endDate;
-    private final boolean mode;
+//    private final Timestamp startDate;
+//    private final Timestamp endDate;
+//    private final boolean mode;
+
+    private StatsTrendDescriptor statsTrendDescriptor;
 
     //made public for testing purposes?
-    public StatsTrendCommand(Timestamp date1, Timestamp date2, Mode mode) {
-        requireNonNull(mode);
-
-        this.startDate = date1;
-        this.endDate = date2;
-        this.mode = mode.isBudgetMode();
+    public StatsTrendCommand(StatsTrendDescriptor statsTrendDescriptor) {
+        requireNonNull(statsTrendDescriptor);
+        this.statsTrendDescriptor = statsTrendDescriptor;
     }
 
 
@@ -62,58 +67,91 @@ public class StatsTrendCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD , startDate, endDate, mode);
+//
+//        model.calculateStatistics(COMMAND_WORD , startDate, endDate, mode);
+        Budget primaryBudget = model.getPrimaryBudget();
+        Statistics statistics = createTrendStatistics(primaryBudget, statsTrendDescriptor);
+        model.setStatistics(statistics);
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
-    /**
-     * Creates a StatsTrendCommand that only contains a start date
-     * @param startDate The start date
-     * @param mode The mode specified by the user
-     */
-    public static StatsTrendCommand createOnlyWithStartDate(Timestamp startDate, Mode mode) {
-        requireNonNull(startDate);
-        return new StatsTrendCommand(startDate, null, mode);
+    private Statistics createTrendStatistics(Budget primaryBudget, StatsTrendDescriptor statsTrendDescriptor) {
+        requireNonNull(primaryBudget);
+        Optional<Timestamp> startDate = statsTrendDescriptor.getStartDate();
+        Optional<Timestamp> endDate = statsTrendDescriptor.getEndDate();
+        //PieChart model stats logic
+
+        boolean isStartPresent = startDate.isPresent();
+        boolean isEndPresent = endDate.isPresent();
+
+
+        if (!isStartPresent && !isEndPresent) {
+            Timestamp centreDate = primaryBudget.getWindowStartDate();
+            endDate = Optional.of(centreDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
+                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER));
+            startDate = Optional.of(centreDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
+                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER));
+        } else if (isStartPresent && !isEndPresent) {
+            endDate = Optional.of(startDate.get().createForwardTimestamp(primaryBudget.getBudgetPeriod(),
+                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER));
+        } else if (!isStartPresent) {
+            startDate = Optional.of(endDate.get().createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
+                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER));
+        }
+
+        return TrendStatistics.run(Category.getValidCategories(), startDate.get(),
+                endDate.get(), primaryBudget, statsTrendDescriptor.getMode());
     }
 
-    /**
-     * Creates a StatsTrendCommand that only contains an end date
-     * @param endDate The end date
-     * @param mode The mode specified by the user
-     */
-    public static StatsTrendCommand createOnlyWithEndDate(Timestamp endDate, Mode mode) {
-        requireNonNull(endDate);
-        return new StatsTrendCommand(null, endDate, mode);
-    }
-
-    /**
-     * Creates a StatsTrendCommand that contains a start date and an end date
-     * @param startDate The start date
-     * @param endDate The end date
-     * @param mode The mode specified by the user
-     */
-    public static StatsTrendCommand createWithBothDates(Timestamp startDate, Timestamp endDate, Mode mode) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        requireNonNull(mode);
-        return new StatsTrendCommand(startDate, endDate, mode);
-    }
-
-    /**
-     * Creates a StatsTrendCommand that does not contain a start date or end date
-     * @param mode The mode specified by the user
-     */
-    public static StatsTrendCommand createWithNoDate(Mode mode) {
-        return new StatsTrendCommand(null, null, mode);
-    }
+//    /**
+//     * Creates a StatsTrendCommand that only contains a start date
+//     * @param startDate The start date
+//     * @param mode The mode specified by the user
+//     */
+//    public static StatsTrendCommand createOnlyWithStartDate(Timestamp startDate, Mode mode) {
+//        requireNonNull(startDate);
+//        return new StatsTrendCommand(startDate, null, mode);
+//    }
+//
+//    /**
+//     * Creates a StatsTrendCommand that only contains an end date
+//     * @param endDate The end date
+//     * @param mode The mode specified by the user
+//     */
+//    public static StatsTrendCommand createOnlyWithEndDate(Timestamp endDate, Mode mode) {
+//        requireNonNull(endDate);
+//        return new StatsTrendCommand(null, endDate, mode);
+//    }
+//
+//    /**
+//     * Creates a StatsTrendCommand that contains a start date and an end date
+//     * @param startDate The start date
+//     * @param endDate The end date
+//     * @param mode The mode specified by the user
+//     */
+//    public static StatsTrendCommand createWithBothDates(Timestamp startDate, Timestamp endDate, Mode mode) {
+//        requireNonNull(startDate);
+//        requireNonNull(endDate);
+//        requireNonNull(mode);
+//        return new StatsTrendCommand(startDate, endDate, mode);
+//    }
+//
+//    /**
+//     * Creates a StatsTrendCommand that does not contain a start date or end date
+//     * @param mode The mode specified by the user
+//     */
+//    public static StatsTrendCommand createWithNoDate(Mode mode) {
+//        return new StatsTrendCommand(null, null, mode);
+//    }
 
 
     @Override
     public boolean equals(Object other) {
         return other == this //short circuit if same object
                 || (other instanceof StatsTrendCommand // instance of handles nulls
-                && startDate.equals(((StatsTrendCommand) other).startDate)
-                && endDate.equals(((StatsTrendCommand) other).endDate));
+                && statsTrendDescriptor.equals(((StatsTrendCommand) other).statsTrendDescriptor));
+//                && startDate.equals(((StatsTrendCommand) other).startDate)
+//                && endDate.equals(((StatsTrendCommand) other).endDate));
     }
 }
 

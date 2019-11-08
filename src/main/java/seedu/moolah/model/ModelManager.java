@@ -362,6 +362,7 @@ public class ModelManager implements Model {
                 getPrimaryBudget(), isBudgetMode);
         this.setStatistics(statistics);
     }
+    //the above method is brought down by StatsCommand
 
     public Statistics getStatistics() {
         return statistics;
