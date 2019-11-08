@@ -925,24 +925,78 @@ do this while Mac users can use the Terminal application.
 
 {To be added}
 
-=== Global Commands
+=== Global Commands (Can be executed in any mode)
+* *Switch* : `switch MODE` +
+e.g `switch fc`
+
+* *Filter All* : `filterall tag/TAG...` +
+e.g `filterall tag/cs2103tuml tag/difficult`
+
+* *List tags* : `taglist`
+
+* *Help* : `help`
+
+* *List* : `list`
+
+* *Exit* : `exit`
 
 === Flashcard Commands
+* *Add* : `add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...` +
+e.g. `add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter cs2103tuml`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *List* : `list`
+
+* *Show* : `show`
+
+* *Remind* : `remind`
 
 === Note Commands
 
-==== `add`: Adds a Note.
+* *Add* : `add t/TITLE c/CONTENT tag/TAG...` +
+e.g. `add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100`
 
-==== `delete`: Deletes a Note.
+* *Delete* : `delete INDEX`
+e.g `delete 1`
 
-==== `view`: Views a Note without note fragment tags.
+* *View* : `view INDEX` +
+e.g `view 1`
 
-==== `viewraw`: View a Note with note fragment tags.
+* *Viewing a raw note* : `viewraw INDEX` +
+e.g `viewraw 3`
 
-==== `list`: Views all Note titles.
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
 
-==== `filter`: Filters the list of Notes to view.
+* *List* : `list`
 
 === CheatSheet Commands
 
+* *Add* : `add t/TITLE [tag/TAG]...` +
+e.g. `add t/CS2100 Midterm CheatSheet tag/cs2100midterm`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Edit* :  `edit INDEX t/TITLE tag/TAG...` +
+e.g `edit 8 t/cs2100 final cheatsheet tag/formula`
+
+* *Show* : `show INDEX` +
+e.g `show 4`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
+
+* *List* : `list`
 
