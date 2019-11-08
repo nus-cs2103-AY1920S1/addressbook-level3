@@ -108,11 +108,12 @@ public class MainApp extends Application {
     private HistoryManager readHistoryManager(Storage storage) {
         try {
             Optional<HistoryManager> historyManager = storage.readHistoryManager();
-            if (historyManager.isEmpty()) {
+            if (historyManager.isPresent()) {
+                return historyManager.get();
+            } else {
                 logger.info("Data file not found. Will be starting with an empty History Manager");
                 return new HistoryManager();
             }
-            return historyManager.get();
         } catch (DataConversionException | IOException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty History Manager");
             return new HistoryManager();
