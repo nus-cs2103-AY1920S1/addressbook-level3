@@ -20,7 +20,7 @@ public abstract class ModCommand extends Command {
     public static final String COMMAND_WORD_REMOVE_MOD = "removemod";
     public static final String MESSAGE_USAGE_ADD_MOD = COMMAND_WORD_ADD_MOD
             + ": Adds a module to a student in MAMS. \n"
-            + "Example: "
+            + "Example: addmod "
             + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list) "
             + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list) ";
     public static final String MESSAGE_UNKNOWN_ARGUMENT_ADDMOD = "Unknown Argument given. \n"
@@ -30,7 +30,7 @@ public abstract class ModCommand extends Command {
 
     public static final String MESSAGE_USAGE_REMOVE_MOD = COMMAND_WORD_REMOVE_MOD
             + ": Remove a module from a student in MAMS. \n"
-            + "Example: "
+            + "Example: removemod "
             + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list)"
             + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list)";
 

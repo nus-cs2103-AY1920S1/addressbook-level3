@@ -23,6 +23,7 @@ import mams.commons.core.index.Index;
 
 import mams.logic.commands.exceptions.CommandException;
 
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -51,7 +52,7 @@ public class ApproveCommand extends Approve {
 
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

@@ -16,6 +16,7 @@ import mams.commons.core.Messages;
 
 import mams.logic.commands.exceptions.CommandException;
 
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -42,7 +43,7 @@ public class MassApprove extends Approve {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> fullAppealList = model.getFullAppealList();
         for (String appealId : validIds) {
             for (Appeal appeal : fullAppealList) {

@@ -20,10 +20,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_MASS_RESOLVE = new Prefix("mass/");
     public static final Prefix PREFIX_REASON = new Prefix("r/");
 
-    /* Other misc. prefix definitions. These are used for user clarity: in cases where we only need to check if the
-    * prefix is present, without needing to retrieve an associated value, we use these tags. */
-    public static final Prefix OPTION_APPEAL = new Prefix("-a");
-    public static final Prefix OPTION_MODULE = new Prefix("-m");
-    public static final Prefix OPTION_STUDENT = new Prefix("-s");
+    /* Option definitions for all classes */
+    public static final Option OPTION_APPEAL = new Option("a");
+    public static final Option OPTION_MODULE = new Option("m");
+    public static final Option OPTION_STUDENT = new Option("s");
 
 }

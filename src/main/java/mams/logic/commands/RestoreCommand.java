@@ -1,6 +1,5 @@
 package mams.logic.commands;
 
-import java.io.File;
 import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
@@ -11,31 +10,34 @@ import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
 
 /**
- * loads data from mamshistory_undo.json
+ * saves data under mamshistory_tag.json
  */
-public class RedoCommand extends StoreCommand {
+public class RestoreCommand extends StoreCommand {
+    private String tag = "";
+
+    public RestoreCommand(String tag) {
+        this.tag = tag;
+    }
 
     @Override
     public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
-        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_redo.json"));
-
+        JsonMamsStorage target = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.getTag() + ".json"));
         ReadOnlyMams mamsToReplace;
         try {
-            if (history.readMams().isPresent()) {
-                mamsToReplace = history.readMams().get();
+            if (target.readMams().isPresent()) {
+                mamsToReplace = target.readMams().get();
             } else {
-                throw new DataConversionException(new Exception("DataConversionException"));
+                throw new DataConversionException(new Exception());
             }
-            new SaveCommand("undo").privateExecute(model);
-            model.replaceMams(mamsToReplace);
-            File file = new File("data/mamshistory_redo.json");
-            file.delete();
-
         } catch (DataConversionException e) {
-            throw new CommandException("Unable to redo");
+            throw new CommandException("No backup with name found");
         }
-        return new CommandResult("Redo Successful ");
+        model.replaceMams(mamsToReplace);
+        return new CommandResult("Backup  mamshistory_" + this.getTag() + " restored!");
+    }
 
+    public String getTag() {
+        return this.tag;
     }
 
     @Override
@@ -46,6 +48,9 @@ public class RedoCommand extends StoreCommand {
         }
 
         // instanceof handles nulls
+        if (!(other instanceof UndoCommand)) {
+            return false;
+        }
         return false;
     }
 

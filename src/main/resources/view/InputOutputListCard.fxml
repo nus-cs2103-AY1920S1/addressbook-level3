@@ -31,7 +31,7 @@
                     </padding>
 
                     <VBox>
-                        <Label fx:id="commandPromptSymbol" styleClass="cell_small_label, sky-blue-text-label" text=">> " alignment="TOP_LEFT">
+                        <Label id="historyWindowText" fx:id="commandPromptSymbol" styleClass="cell_small_label, sky-blue-text-label" text=">> " alignment="TOP_LEFT">
                             <minWidth>
                                 <!-- Ensures that the label text is never truncated -->
                                 <Region fx:constant="USE_PREF_SIZE" />
@@ -41,10 +41,10 @@
                         <VBox VBox.vgrow="ALWAYS"/> <!-- Ensures that prompt symbol always aligns top left even if other Label elements in enclosing Hbox wraps -->
                     </VBox>
 
-                    <Label fx:id="input" styleClass="cell_small_label, sky-blue-text-label" text="\$input" alignment="TOP_LEFT"/>
+                    <Label id="historyWindowText" fx:id="input" styleClass="cell_small_label, sky-blue-text-label" text="\$input" alignment="TOP_LEFT"/>
                 </HBox>
 
-                <Label fx:id="output" styleClass="cell_small_label" text="\$output" alignment="TOP_LEFT"/>
+                <Label id="historyWindowText" fx:id="output" styleClass="cell_small_label" text="\$output" alignment="TOP_LEFT"/>
             </VBox>
 
             <Pane HBox.hgrow="ALWAYS" />
