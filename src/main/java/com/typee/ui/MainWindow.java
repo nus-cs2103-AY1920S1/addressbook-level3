@@ -14,6 +14,7 @@ import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.commands.CommandResult;
+import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
@@ -23,13 +24,16 @@ import com.typee.ui.report.ReportWindow;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -62,11 +66,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    //Added tab panel by Ko Gi Hun 8/10/19
     @FXML
     private StackPane tabPanelPlaceHolder;
 
-    //main window VBox
+    @FXML
+    private TabPane menuTabPane;
+
     @FXML
     private VBox mainWindow;
 
@@ -148,8 +153,9 @@ public class MainWindow extends UiPart<Stage> {
         mainWindow.getChildren().add(engagementListPanel.getRoot());
 
         //adding tab panel holder
-        tabPanel = new TabPanel(tabList);
-        tabPanelPlaceHolder.getChildren().add(tabPanel.getRoot());
+        prepareTabMenuList(menuTabPane);
+        //tabPanel = new TabPanel(tabList);
+        //tabPanelPlaceHolder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -207,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleTabSwitch(Tab tabInput) {
         currentTab.getController().handleExit();
+        logger.info(tabInput.toString());
         Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
@@ -294,7 +301,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fetches tab information from the tab menu list to the tab retrieved after {@code TabCommand}
      */
-    private Tab fetchTabInformation(String tabName) throws IOException {
+    private Tab fetchTabInformation(String tabName) {
         Tab tabToReturn = new Tab();
         for (Tab tabInList : tabList) {
             if (tabInList.getName().equals(tabName)) {
@@ -321,5 +328,30 @@ public class MainWindow extends UiPart<Stage> {
         }
         logger.info("tab after fetch: " + tabToReturn);
         return tabToReturn;
+    }
+
+    /**
+     * Populates tabListView with {@code ObservableList<Tab>}.
+     */
+    private void prepareTabMenuList(TabPane menuTabPane) {
+        menuTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        tabList.stream()
+                .forEach(x -> {
+                    javafx.scene.control.Tab tab = new javafx.scene.control.Tab(x.getName());
+                    menuTabPane.getTabs().addAll(tab);
+                });
+
+        menuTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Tab selectedTab = new Tab(menuTabPane.getSelectionModel().getSelectedItem().getText());
+                assert selectedTab != null;
+
+                logger.info("tab: " + selectedTab.getName() + " selected.");
+                selectedTab = fetchTabInformation(selectedTab.getName());
+                handleTabSwitch(selectedTab);
+                resultDisplay.setFeedbackToUser(TabCommand.MESSAGE_SUCCESS + selectedTab.getName());
+            }
+        });
     }
 }

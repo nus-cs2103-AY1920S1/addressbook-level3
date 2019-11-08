@@ -30,7 +30,7 @@
 }
 
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-padding: 0 0 0 0;
 }
 
 .tab-pane .tab-header-area {
@@ -89,8 +89,19 @@
 
 #main_window .list-view {
     -fx-background-insets: 0;
+    -fx-focus-color: transparent;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#main_window .list-view:focused {
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+#main_window .anchor-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
 }
 
 #main_window .list-cell {
