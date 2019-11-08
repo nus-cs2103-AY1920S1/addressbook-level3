@@ -1,0 +1,74 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ThriftParser" as ThriftParser LOGIC_COLOR
+participant ":ListCommandParser" as ListCommandParser LOGIC_COLOR
+participant "l:ListCommand" as ListCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> ThriftParser : parseCommand("List m/10/2019")
+activate ThriftParser
+
+create ListCommandParser
+ThriftParser -> ListCommandParser
+activate ListCommandParser
+
+ListCommandParser --> ThriftParser
+deactivate ListCommandParser
+
+ThriftParser -> ListCommandParser : parse("m/10/2019")
+activate ListCommandParser
+
+create ListCommand
+ListCommandParser -> ListCommand
+activate ListCommand
+
+ListCommand --> ListCommandParser : l
+deactivate ListCommand
+
+ListCommandParser --> ThriftParser : l
+deactivate ListCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ListCommandParser -[hidden]-> ThriftParser
+destroy ListCommandParser
+
+ThriftParser --> LogicManager : l
+deactivate ThriftParser
+
+LogicManager -> ListCommand : execute()
+activate ListCommand
+
+alt show all transactions
+    ListCommand -> Model: updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS)
+    activate Model
+
+else filter transactions by monthyear
+    ListCommand -> Model: setCurrentMonthYear()
+    ListCommand -> Model: updateFilteredTransactionListToCurrentMonth()
+
+deactivate Model
+end
+
+create CommandResult
+ListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ListCommand : r
+deactivate CommandResult
+
+ListCommand --> LogicManager : r
+deactivate ListCommand
+
+[<-- LogicManager : r
+deactivate LogicManager
+@enduml

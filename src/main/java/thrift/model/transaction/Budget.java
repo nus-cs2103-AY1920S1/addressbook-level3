@@ -12,8 +12,8 @@ import java.util.Objects;
 public class Budget {
 
     public static final SimpleDateFormat BUDGET_DATE_FORMAT = new SimpleDateFormat("MM/yyyy");
-    public static final String DATE_CONSTRAINTS = "Month should be in the following format: MM/yyyy."
-            + ", where MM is an integer between 01-12 and yyyy is between 0001-9999";
+    public static final String DATE_CONSTRAINTS = "Month should be in the following format: MM/yyyy, "
+            + "\nwhere MM is an integer between 01-12 and yyyy is between 0001-9999";
     public static final String VALIDATION_REGEX = "^(0[1-9]|10|11|12)\\/(?!0{4})[0-9]{4}$";
 
     private Calendar period;

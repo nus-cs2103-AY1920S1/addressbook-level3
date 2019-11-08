@@ -555,7 +555,7 @@ image::find/Step3.png[,550]
 
 [[ListTag]]
 === Listing transactions with the use of filters: `list`
-THRIFT allows you to list out all the transactions, and filter by month if you wish to as well.
+By using the `list` command, you are able to list out all the transactions, or filter by month if you wish to do so.
 
 ==== Command syntax
 
@@ -572,7 +572,8 @@ To execute the `list` command, you have to use the following syntax:
 ****
 
 ==== Example usage
-Imagine that you wanted to take a look at how much you spent and saved the previous month! For example, Oct 2019.
+Imagine that you wanted to take a look at how much you spent and saved the previous month! For example, you want to show
+only the transactions that occurred in Oct 2019.
 
 To `list` the transactions of Oct 2019:
 
@@ -584,7 +585,9 @@ image::list/Step1.png[,550]
 +
 image::list/Step2.png[,550]
 
-. Your transaction list will now show all transactions that were added in Oct 2019!
+. Your transaction list will now show all transactions that were added in Oct 2019. The income, expense, and balance
+values in the UI will be updated to reflect the correct values for the month as well! Lastly, the filter icon will update to
+show you what filter is currently in use, in case you are ever confused about the current list of transactions shown.
 +
 image::list/Step3.png[,550]
 

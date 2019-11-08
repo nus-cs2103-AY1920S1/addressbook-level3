@@ -820,24 +820,31 @@ image::UndoAndRedo/RunCommandActivityDiagrams.png[]
 // tag::Filtering transactions[]
 === Filtering transactions
 
-The *List* command allows the user to bring up a list of `**Transactions**`, and filter it by month or by its tags.
-This feature is implemented by using a `**Predicate<Transaction>**` to filter the `**Transactions**` by month or tags.
+The *List* command allows the user to bring up a list of `**Transactions**`, and filter it by month.
+This feature is implemented by using a `**Predicate<Transaction>**` to filter the `**Transactions**` by month.
 
 ==== Implementation
 `**ListCommand**` is instantiated by `ListCommandParser#parse(String args)`,
 which attempts to parse the various parameters supplied in `args` and return a `**ListCommand**` object.
 
+The sequence diagram below shows how the execution of the **list** is like:
+
+.Sequence diagram of how *list* command is applied at the back-end.
+image::list/ListSequenceDiagram.png[]
+
 The following conditions will cause a `**ParseException**` to be thrown by the parser:
 
-. Incorrect syntax (i.e. having a prefix that does not refer to month nor tag)
+. Incorrect syntax (i.e. having a prefix that does not refer to month)
 . Illegal values in parameters (i.e. special characters and symbols entered for a integer-only field)
 
 [NOTE]
-If the user input is incorrect due to any of the reasons above, the usage syntax will be shown.
+If the user input is incorrect due to the reasons above, the usage or parameter syntax will be shown.
 
 The scenario below shows an example of how the feature works:
 
-Step 1. The user executes *list m/01/2019* to filter the list to bring up transactions of January 2019.
+Step 1. The user executes *list m/10/2019* to filter the list to bring up transactions of October 2019.
+
+image::list/Step2.png[,650]
 
 Step 2. The `**ListCommandParser**` will parse the arguments using the method `ListCommandParser#parse(String args)`.
 
@@ -846,7 +853,10 @@ Step 3. Since user input is correct and the arguments have been parsed, a new `*
 
 Step 4. This `**ListCommand**` object will use a `**Predicate**` based on the specified month which is used to filter through each `**Transaction**`.
 
-Step 5. The final list of filtered transactions will be brought up.
+Step 5. The final list of filtered transactions will be brought up. The income, expense, and balance values in the UI will
+be updated accordingly as well, to reflect the correct values for the filtered month.
+
+image::list/OctFilter.png[,650]
 
 The activity diagram below will give an overview of what is happening when the command is executed.
 
@@ -867,6 +877,20 @@ and still be able to filter by a combination of the different arguments.
 
 Eventually we may decide to use a combination of both alternatives as it is possible that different arguments are easier to
 implement using different methods.
+
+==== Proposed extension
+In the near future, we plan to enhance the filtering feature. We want to improve the list command to take in tags as a
+possible argument similar to month, and thus allow for the possible filtering by tags as well. The design considerations mentioned
+earlier was to facilitate this proposed extension, since we would require the use of a `**Predicate**` which will be
+created using the tag in the argument as well. By doing so, we reduce the difficulty of enhancing the filtering feature in
+the future. This would benefit the simplicity of the command and further enhance the user experience, for them to be able
+to filter by a combination of both months and tags.
+
+The image below shows how a possible future implementation of this feature could look like:
+
+.Expected result of filtering by both Nov 2019 and Transport.
+image::list/TagFilter.png[,550]
+
 // end::Filtering transactions[]
 
 //tag::dataencryption[]
@@ -1773,8 +1797,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The entire list of transactions will be shown.
 .. Test case: `list m/01/2019` +
    Expected: The list of transactions for January 2019 will be shown.
-.. Test case: `list m/01/2019 t/Food` +
-   Expected: The list of transactions related to food for January 2019 will be shown.
 
 === Tagging a transaction
 
