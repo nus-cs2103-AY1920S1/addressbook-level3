@@ -25,7 +25,7 @@ public class PayCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records a salary payment to the employee identified "
             + "by the index number used in the displayed employee list. \n"
             + "The payment amount cannot exceed their pending payment, "
-            + "which is calculated by their total hours worked in the past. \n"
+            + "which is calculated by their total hours worked in the past events. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_SALARY_PAID + "PAY] "
             + "Example: " + COMMAND_WORD + " 1 "
