@@ -181,7 +181,6 @@ Task Scheduler
 Feature by
 -> Anisha Nicole Joseph
 ////
-{sp} +
 
 :sectnums:
 === Task Planner

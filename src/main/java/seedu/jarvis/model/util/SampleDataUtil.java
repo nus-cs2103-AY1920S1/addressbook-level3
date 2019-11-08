@@ -88,7 +88,7 @@ public class SampleDataUtil {
                     Status.NOT_DONE, Set.of(new Tag("track"))),
             new Deadline("geq forum posts", Priority.HIGH, Frequency.MONTHLY, Status.DONE,
                     Set.of(new Tag("school"), new Tag("geq")),
-                    LocalDate.parse("7/11/2019", Task.getDateFormat())),
+                    LocalDate.parse("8/11/2019", Task.getDateFormat())),
             new Event("workshop", null, null, Status.NOT_DONE, Set.of(),
                     LocalDate.parse("10/11/2019", Task.getDateFormat()),
                     LocalDate.parse("15/11/2019", Task.getDateFormat()))
