@@ -40,7 +40,7 @@ public class SyncCommand extends Command {
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
         model.addShow(fromImdb);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
     }
 
     @Override

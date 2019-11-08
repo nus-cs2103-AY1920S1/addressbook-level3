@@ -47,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private String currentTab;
     private Boolean isSearchLoading = false;
+    private Boolean isWatchlistChanged = false;
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container

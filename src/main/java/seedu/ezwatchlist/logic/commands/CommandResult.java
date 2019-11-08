@@ -17,21 +17,25 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The statistics should update.*/
+    private final boolean changedList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean changedList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.changedList = changedList;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, boolean changedList) {
+        this(feedbackToUser, false, false, changedList);
     }
 
     public String getFeedbackToUser() {
