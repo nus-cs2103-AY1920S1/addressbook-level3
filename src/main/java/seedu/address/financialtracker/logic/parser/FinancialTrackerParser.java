@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.financialtracker.logic.commands.AddFinCommand;
+import seedu.address.financialtracker.logic.commands.ClearCommand;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
 import seedu.address.financialtracker.logic.commands.EditFinCommand;
 import seedu.address.financialtracker.logic.commands.HelpCommand;
@@ -63,6 +64,9 @@ public class FinancialTrackerParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

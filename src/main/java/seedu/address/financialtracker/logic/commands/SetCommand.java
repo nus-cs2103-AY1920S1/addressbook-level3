@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 /**
  * Switches to another expense list with associated country.
  */
-public class SwitchCommand extends Command<Model> {
+public class SetCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "switch";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": switch to another country\n"
@@ -22,9 +22,9 @@ public class SwitchCommand extends Command<Model> {
     private final String country;
 
     /**
-     * Creates an SwitchCommand to switch between expense lists of different country.
+     * Creates an SetCommand to switch between expense lists of different country.
      */
-    public SwitchCommand(String country) {
+    public SetCommand(String country) {
         requireNonNull(country);
         this.country = country;
     }
@@ -38,7 +38,7 @@ public class SwitchCommand extends Command<Model> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SwitchCommand // instanceof handles nulls
-                && country.equals(((SwitchCommand) other).country));
+                || (other instanceof SetCommand // instanceof handles nulls
+                && country.equals(((SetCommand) other).country));
     }
 }

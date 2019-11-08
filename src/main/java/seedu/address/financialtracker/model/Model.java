@@ -26,6 +26,9 @@ public class Model {
         internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
     }
 
+    /**
+     * Initialise model with a default financial tracker.
+     */
     public Model(FinancialTracker financialTracker) {
         this.financialTracker = financialTracker;
         internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
@@ -85,6 +88,10 @@ public class Model {
 
     public HashMap<String, Double> getSummaryMap() {
         return this.financialTracker.getSummaryMap();
+    }
+
+    public void clearExpenseList() {
+        this.financialTracker.clearExpenseList();
     }
 
     /**

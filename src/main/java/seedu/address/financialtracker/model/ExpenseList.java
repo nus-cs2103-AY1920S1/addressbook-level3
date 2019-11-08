@@ -134,11 +134,22 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
+    /**
+     * Returns a total sum of this expense list;
+     */
     public double getSummary() {
         double sum = 0;
         for (Expense expense : expenses) {
             sum += expense.getAmount().numericalValue;
         }
         return sum;
+    }
+
+    /**
+     * CLear this expense list.
+     */
+    public void clearExpenseList() {
+        this.expenses.removeAll(expenses);
+        this.maximumCap = 0;
     }
 }

@@ -96,6 +96,9 @@ public class FinancialTracker {
         expenseListMap.get(currentCountry).setExpense(expenseToEdit, editedExpense);
     }
 
+    /**
+     * Return statistics of all the expense lists in a {@code HashMap} form.
+     */
     public HashMap<String, Double> getSummaryMap() {
         HashMap<String, Double> summaryMap = new HashMap<>();
         double total = 0;
@@ -108,5 +111,12 @@ public class FinancialTracker {
         }
         summaryMap.put("Total", total);
         return summaryMap;
+    }
+
+    /**
+     * Clears the expense list associated with current country.
+     */
+    public void clearExpenseList() {
+        expenseListMap.get(currentCountry).clearExpenseList();
     }
 }

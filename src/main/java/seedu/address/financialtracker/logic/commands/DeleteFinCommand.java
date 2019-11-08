@@ -10,7 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * delete a financial expense, command for Financial Tracker.
+ * Deletes a financial expense, command for Financial Tracker.
  */
 public class DeleteFinCommand extends Command<Model> {
 
