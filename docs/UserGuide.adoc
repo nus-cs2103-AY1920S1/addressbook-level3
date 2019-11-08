@@ -69,6 +69,8 @@ example in Figure 2 below.
 .Adding a non-existent course into the Course Planner will result in a display like this
 image::ErrorMessage.png[]
 
+{sp} +
+
 You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
 
 == Symbols and command format.
