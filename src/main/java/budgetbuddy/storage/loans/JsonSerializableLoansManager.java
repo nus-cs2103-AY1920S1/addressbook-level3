@@ -19,6 +19,8 @@ import budgetbuddy.model.loan.Loan;
 @JsonRootName(value = "loansmanager")
 public class JsonSerializableLoansManager {
 
+    public static final String MESSAGE_DUPLICATE_LOANS = "Loans.json contains duplicate person(s).";
+
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
     private final List<JsonAdaptedDebtor> debtors = new ArrayList<>();
 
@@ -48,6 +50,10 @@ public class JsonSerializableLoansManager {
     public LoansManager toModelType() throws IllegalValueException {
         List<Loan> loanList = new ArrayList<>();
         for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
+            Loan loan = jsonAdaptedLoan.toModelType();
+            if (loanList.contains(loan)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_LOANS);
+            }
             loanList.add(jsonAdaptedLoan.toModelType());
         }
         List<Debtor> debtorList = new ArrayList<>();
