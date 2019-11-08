@@ -74,6 +74,9 @@ public class MainWindow extends UiPart<Stage> {
     private Text remainingBudgetPlaceholder;
 
     @FXML
+    private Text savingsAccountPlaceholder;
+
+    @FXML
     private Text daysToExpirePlaceholder;
 
 
@@ -119,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         StringBinding remainingBudgetBinding = Bindings.createStringBinding(() ->
-                        String.format("$%s", logic.getWallet().getRemainingBudgetAmount().toString()),
+                        String.format("Your Wallet: $%s", logic.getWallet().getRemainingBudgetAmount().toString()),
                 logic.getWallet().getRemainingBudgetProperty());
         remainingBudgetPlaceholder.textProperty().bind(remainingBudgetBinding);
 
@@ -133,6 +136,12 @@ public class MainWindow extends UiPart<Stage> {
                         : String.format("%d days left", logic.getWallet().getNumberOfDaysToExpire()),
                 logic.getWallet().getDaysToExpireProperty());
         daysToExpirePlaceholder.textProperty().bind(daysToExpireBinding);
+
+        // Bind savings to the savings display to show the value.
+        StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
+                "Your Savings: $%s",
+                logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));
+        savingsAccountPlaceholder.textProperty().bind(savingsAccountBinding);
     }
 
     /**
@@ -319,6 +328,12 @@ public class MainWindow extends UiPart<Stage> {
 
             // Update savingsHistoryPanel after every command.
             savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
+
+            // Update savings
+            StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
+                    "Your Savings: $%s",
+                    logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));
+            savingsAccountPlaceholder.textProperty().bind(savingsAccountBinding);
 
             return commandResult;
         } catch (CommandException | ParseException e) {

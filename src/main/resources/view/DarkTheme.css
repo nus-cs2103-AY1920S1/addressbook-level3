@@ -158,8 +158,10 @@
 
 .account-balance {
     -fx-text-fill: white;
+    -fx-wrap-text: 380px;
     -fx-font-family: Monospaced;
-    -fx-font-size: 51px;
+    -fx-font-size: 30px;
+    -fx-padding: 5px;
 }
 
 .purchase-history-text {
@@ -171,7 +173,7 @@
 .account-days-left {
     -fx-fill: white;
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-size: 27px;
+    -fx-font-size: 25px;
 }
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {

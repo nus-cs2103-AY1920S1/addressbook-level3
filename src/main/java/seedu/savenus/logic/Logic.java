@@ -12,6 +12,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.wallet.Wallet;
@@ -76,4 +77,9 @@ public interface Logic {
      * Returns the user's savings history.
      */
     ReadOnlySavingsHistory getSavingsHistory();
+
+    /**
+     * Returns the user's Savings Account.
+     */
+    ReadOnlySavingsAccount getSavingsAccount();
 }
