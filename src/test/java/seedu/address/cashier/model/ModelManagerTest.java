@@ -305,12 +305,12 @@ public class ModelManagerTest {
         setInventoryList();
         Item chips = new ItemBuilder()
                 .withDescription(CHIPS.getDescription())
-                .withQuantity(9513)
+                .withQuantity(99999399)
                 .withPrice(CHIPS.getPrice())
                 .build();
         Item storybook = new ItemBuilder()
                 .withDescription(STORYBOOK.getDescription())
-                .withQuantity(9141)
+                .withQuantity(999999999)
                 .withPrice(STORYBOOK.getPrice())
                 .build();
         modelManager.addItem(chips);
@@ -507,6 +507,7 @@ public class ModelManagerTest {
 
     @Test
     public void equalsSalesList_successful() {
+        modelManager.clearSalesList();
         modelManager.addItem(CHIPS);
         modelManager.addItem(BURGER_AND_CHIPS);
 
@@ -568,7 +569,34 @@ public class ModelManagerTest {
         assertTrue(modelManager.onCashierMode());
         onCashierMode = false;
     }
+
+    @Test
+    public void isValidAmountByDescription_returnFalse() throws NoSuchItemException, AmountExceededException {
+        modelManager.clearSalesList();
+        setInventoryList2();
+        assertFalse(modelManager.isValidAmount(CHIPS.getDescription(), 99999999));
+        modelManager.clearSalesList();
+    }
+
+    @Test
+    public void isValidAmountByIndex_returnFalse() throws NoSuchItemException, AmountExceededException {
+        modelManager.clearSalesList();
+        setInventoryList2();
+        modelManager.addItem(CHIPS);
+
+        assertFalse(modelManager.isValidAmount(1, 99999999));
+        modelManager.clearSalesList();
+    }
+
+    @Test
+    public void isValidAmountByDescription_withItems_returnFalse()
+            throws NoSuchItemException, AmountExceededException {
+        modelManager.clearSalesList();
+        setInventoryList2();
+        modelManager.addItem(BURGER_AND_CHIPS);
+        assertFalse(modelManager.isValidAmount(CHIPS.getDescription(), 1959999));
+        assertThrows(AmountExceededException.class, () -> modelManager.isValidAmount(
+                CHIPS.getDescription(), 195656));
+        modelManager.clearSalesList();
+    }
 }
-
-
-

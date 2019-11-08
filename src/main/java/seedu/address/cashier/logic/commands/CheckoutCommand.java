@@ -40,7 +40,7 @@ public class CheckoutCommand extends Command {
 
     @Override
     public CommandResult execute(seedu.address.cashier.model.Model modelManager,
-                                 seedu.address.person.model.Model personModel)
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws Exception {
         Person p;
         try {

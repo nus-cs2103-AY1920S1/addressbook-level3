@@ -21,15 +21,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public double[] readFromFile() {
-        try {
-            BufferedReader bfr = new BufferedReader(new FileReader(file));
-            String line = null;
-            while ((line = bfr.readLine()) != null) {
-                readInFileLine(line);
-            }
-        } catch (IOException | NumberFormatException e) {
-            //do nothing and return blank array
+    public double[] readFromFile() throws IOException, NumberFormatException {
+        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        String line = null;
+        while ((line = bfr.readLine()) != null) {
+            readInFileLine(line);
         }
         return values;
     }
@@ -79,6 +75,17 @@ public class StorageManager implements Storage {
     void readInFileLine(String line) {
         String[] params = line.split("\\|");
 
+        if (params[0].equals("budgetTarget") || params[0].equals("expenseTarget") || params[0].equals("salesTarget")) {
+            if (!checkIfValidTarget(Double.parseDouble(params[1]))) {
+                throw new NumberFormatException("Out of bounds numbers in storage file.");
+            }
+        } else if (params[0].equals("budgetThreshold") || params[0].equals("expenseThreshold")
+                || params[0].equals("salesThreshold")) {
+            if (!checkIfValidThreshold(Double.parseDouble(params[1]))) {
+                throw new NumberFormatException("Out of bounds numbers in storage file.");
+            }
+        }
+
         if (params[0].equals("budgetTarget")) {
             values[0] = Double.parseDouble(params[1]);
         } else if (params[0].equals("expenseTarget")) {
@@ -92,6 +99,14 @@ public class StorageManager implements Storage {
         } else if (params[0].equals("salesThreshold")) {
             values[5] = Double.parseDouble(params[1]);
         }
+    }
+
+    boolean checkIfValidTarget(Double target) {
+        return target < 0 ? false : true;
+    }
+
+    boolean checkIfValidThreshold(Double threshold) {
+        return threshold < 0 || threshold > 100 ? false : true;
     }
 
 }

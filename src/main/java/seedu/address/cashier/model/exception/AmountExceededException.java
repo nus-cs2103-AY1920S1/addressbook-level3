@@ -1,7 +1,7 @@
 package seedu.address.cashier.model.exception;
 
 /**
- * Signals that the total amount has exceeded 9999.
+ * Signals that the total amount has exceeded $999999.99.
  */
 public class AmountExceededException extends Exception {
 

@@ -37,7 +37,7 @@ public class CashierTabParser {
      * @throws Exception if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput, Model model,
-                                seedu.address.person.model.Model personModel) throws Exception {
+                                seedu.address.person.model.CheckAndGetPersonByNameModel personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(CashierMessages.MESSAGE_NO_COMMAND);

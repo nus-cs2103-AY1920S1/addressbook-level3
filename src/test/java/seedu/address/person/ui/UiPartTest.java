@@ -13,6 +13,7 @@ import org.junit.jupiter.api.io.TempDir;
 import javafx.fxml.FXML;
 
 import seedu.address.MainApp;
+import seedu.address.ui.Lion;
 import seedu.address.ui.UiPart;
 
 public class UiPartTest {
@@ -30,7 +31,6 @@ public class UiPartTest {
     public void constructor_nullFileUrl_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null, new Object()));
-
     }
 
     @Test
@@ -114,6 +114,14 @@ public class UiPartTest {
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
 
-    }
+        TestUiPart(String fxmlFileName, Lion lion) {
+            super(fxmlFileName, lion);
+            assertEquals(VALID_FILE_ROOT, validFileRoot);
+        }
 
+        TestUiPart(URL fxmlFileUrl, Lion lion) {
+            super(fxmlFileUrl, lion);
+            assertEquals(VALID_FILE_ROOT, validFileRoot);
+        }
+    }
 }

@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.ClearCommand;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -22,13 +23,13 @@ public class ClearCommandParserTest {
     @Test
     public void parse_noArgs_returnsClearCommand() {
         ClearCommand clearCommand = new ClearCommand();
-        assertCommandParserSuccess(parser, "", clearCommand, model, personModel);
+        assertCommandParserSuccess(parser, "", clearCommand, model, (CheckAndGetPersonByNameModel) personModel);
     }
 
     @Test
     public void parse_redundantArgs_returnsClearCommand() {
         ClearCommand clearCommand = new ClearCommand();
-        assertCommandParserSuccess(parser, "34", clearCommand, model, personModel);
+        assertCommandParserSuccess(parser, "34", clearCommand, model, (CheckAndGetPersonByNameModel) personModel);
     }
 }
 
