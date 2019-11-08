@@ -13,6 +13,7 @@ public interface GameTimer extends Runnable {
 
     void initHintTimingQueue(int hintFormatSize, long timeAllowedPerQuestion);
 
+    /** Initializes and returns a new GameTimer instance. (Factory method)*/
     static GameTimer getInstance(String mainMessage, long totalDurationAllowed,
                                  SkipOverCallBack skipOverCallBack,
                                  UpdateTimerCallBack updateTimerCallBack,

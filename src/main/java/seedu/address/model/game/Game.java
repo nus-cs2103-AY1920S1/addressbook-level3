@@ -43,7 +43,8 @@ public class Game {
         this.currentGameDifficulty = difficulty;
 
         logger.info("----------------[GAME STARTED][Constructor]");
-        logger.info("Game session started with WordBank: " + wordBank);
+        logger.info("Game session started with WordBank: " + wordBank + ", Difficulty: "
+                + difficulty);
     }
 
     public DifficultyEnum getCurrentGameDifficulty() {

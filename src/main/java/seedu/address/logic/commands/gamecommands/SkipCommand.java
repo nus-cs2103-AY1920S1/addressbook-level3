@@ -20,9 +20,14 @@ public class SkipCommand extends GameCommand {
         }
 
         Game game = model.getGame();
+
+        /** Used for statistics purposes. */
         Card curCard = game.getCurrCard();
-        // Skip current card, move to next card.
+
+        /** Skip over to next Card in the game. */
         game.moveToNextCard();
+
+        /** Check if game is over now. */
         String msg = game.isOver()
                 ? MESSAGE_GAME_OVER
                 : game.getCurrQuestion();

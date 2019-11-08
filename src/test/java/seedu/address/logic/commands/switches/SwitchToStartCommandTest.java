@@ -42,7 +42,8 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.testutil.WordBankBuilder;
 
 class SwitchToStartCommandTest {
-
+    private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
+            + " (Use 'stop' to terminate) Guess the word:";
     private WordBank threeCardWordBank = new WordBankBuilder("threeCardWordBank")
             .withCard(ABRA).withCard(BUTTERFREE).withCard(CHARIZARD).build();
     private WordBank twoCardWordBank = new WordBankBuilder("twoCardWordBank")
@@ -154,6 +155,23 @@ class SwitchToStartCommandTest {
     }
 
     @Test
+    void execute_anotherGameInProgress_throwsCommandException() {
+        Model dummyModel = new ModelStub();
+        dummyModel.setCurrentWordBank(threeCardWordBank);
+        dummyModel.setGame(new Game(threeCardWordBank, x -> {}, DifficultyEnum.EASY));
+        SwitchToStartCommand dummySwitchToStartCommand = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
+        assertThrows(CommandException.class, () -> dummySwitchToStartCommand.execute(dummyModel));
+        try {
+            dummySwitchToStartCommand.execute(dummyModel);
+        } catch (CommandException ce) {
+            assertEquals(ce.getMessage(), MESSAGE_GAME_IN_PROGRESS
+                    + "\n" + dummyModel.getGame().getCurrQuestion());
+            return;
+        }
+        fail();
+    }
+
+    @Test
     void getDifficulty() {
         // Optional.empty() is passed into constructor
         SwitchToStartCommand dummyStartCommand = new SwitchToStartCommand(Optional.empty());
@@ -179,7 +197,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -194,7 +212,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -204,7 +222,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setWordBankFilePath(Path addressBookFilePath) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -213,13 +231,13 @@ class SwitchToStartCommandTest {
         }
 
         @Override
-        public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
-            this.wordBank = currenWordBank;
+        public void setCurrentWordBank(ReadOnlyWordBank currentWordBank) {
+            this.wordBank = currentWordBank;
         }
 
         @Override
         public void updateWordBank(String name) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -229,17 +247,17 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setWordBankStatistics(WordBankStatistics wordBankStats) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
         public void clearWordBankStatistics() {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
         public void clearWordBank() {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -254,17 +272,17 @@ class SwitchToStartCommandTest {
 
         @Override
         public void deleteCard(Card target) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
         public void addCard(Card card) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
         public void setCard(Card target, Card editedCard) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -289,7 +307,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -339,7 +357,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -349,7 +367,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setDefaultTheme(ThemeEnum themeEnum) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -359,7 +377,7 @@ class SwitchToStartCommandTest {
 
         @Override
         public void setHintsEnabled(boolean enabled) {
-
+            throw new AssertionError("Method should not be called");
         }
 
         @Override
@@ -383,7 +401,9 @@ class SwitchToStartCommandTest {
         }
 
         @Override
-        public void setAvatarId(int avatarId) {}
+        public void setAvatarId(int avatarId) {
+            throw new AssertionError("Method should not be called");
+        }
 
         @Override
         public int getAvatarId() {

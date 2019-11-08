@@ -35,6 +35,7 @@ public class ModelManager implements Model {
 
     private boolean hasBank = false;
 
+    /** Current active WordBank that the user has selected. */
     private WordBank currentWordBank = SampleDataUtil.getPokemonWordBank();
 
     private final WordBankList wordBankList;
@@ -83,27 +84,27 @@ public class ModelManager implements Model {
                 new AppSettings());
     }
 
-    // Placeholder setGame method
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     @Override
-    public Game getGame() {
-        return game;
-    }
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
 
-    @Override
-    public boolean gameIsOver() {
-        return this.game == null ? true : game.isOver();
-    }
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
 
-    @Override
-    public DifficultyEnum getCurrentGameDifficulty() {
-        return game.getCurrentGameDifficulty();
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return currentWordBank.equals(other.currentWordBank)
+                && userPrefs.equals(other.userPrefs)
+                && filteredCards.equals(other.filteredCards);
     }
 
     //=========== AppSettings ================================================================================
+
     @Override
     public AppSettings getAppSettings() {
         return appSettings;
@@ -136,7 +137,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setHintsEnabled(boolean enabled) {
-        requireNonNull(enabled);
         appSettings.setHintsEnabled(enabled);
     }
 
@@ -147,7 +147,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setAvatarId(int avatarId) {
-        requireNonNull(avatarId);
         appSettings.setAvatarId(avatarId);
     }
 
@@ -156,9 +155,31 @@ public class ModelManager implements Model {
         return appSettings.getAvatarId();
     }
 
+    //=========== Game ========================================================================================
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public Game getGame() {
+        return game;
+    }
+
+    @Override
+    public boolean gameIsOver() {
+        return this.game == null || game.isOver();
+    }
+
     @Override
     public long getTimeAllowedPerQuestion() {
         return this.game.getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public DifficultyEnum getCurrentGameDifficulty() {
+        return game.getCurrentGameDifficulty();
     }
 
     @Override
@@ -173,7 +194,6 @@ public class ModelManager implements Model {
     public int getHintFormatSizeFromCurrentGame() {
         return game.getHintFormatSizeOfCurrCard();
     }
-
 
     //=========== UserPrefs ==================================================================================
 
@@ -276,7 +296,7 @@ public class ModelManager implements Model {
         return wordBankList.getWordBankFromName(name);
     }
 
-    //=========== Filtered Card List Accessors =============================================================
+    //=========== Filtered Card List Accessors ============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
@@ -299,7 +319,7 @@ public class ModelManager implements Model {
         filteredCards.setPredicate(predicate);
     }
 
-    //=========== WordBankStatistics methods =============================================================
+    //=========== WordBankStatistics methods ==============================================================
 
     @Override
     public void clearActiveWordBankStatistics() {
@@ -336,22 +356,4 @@ public class ModelManager implements Model {
         return globalStatistics;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return currentWordBank.equals(other.currentWordBank)
-                && userPrefs.equals(other.userPrefs)
-                && filteredCards.equals(other.filteredCards);
-    }
 }
