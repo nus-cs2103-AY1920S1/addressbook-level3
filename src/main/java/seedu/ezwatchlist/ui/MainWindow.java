@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private String currentTab;
     private Boolean isSearchLoading = false;
+    private Boolean isChangedList = true;
     private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
@@ -326,6 +327,9 @@ public class MainWindow extends UiPart<Stage> {
                 if (commandResult.isShortCutKey()) {
                     handleShortCutKey(commandResult.getFeedbackToUser());
                 }
+                if (commandResult.isChangedList()) {
+                    isChangedList = true;
+                }
                 return commandResult;
             }
             return commandResult;
@@ -420,34 +424,46 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToStatistics() throws NoRecommendationsException, OnlineConnectionException {
-        try {
-            contentPanelPlaceholder.getChildren().clear();
-            contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
-
-            Task<Void> task = new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    try {
-                        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
-                                statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
-                    } catch (OnlineConnectionException e) {
-                        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
-                                null, null);
-                        resultDisplay.setFeedbackToUser("Note: You are not connected to the internet!");
-                    }
-                    return null;
-                }
-            };
-            task.setOnSucceeded(evt -> {
+        if (isChangedList) {
+            try {
                 contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
-                currentTab = STATISTICS_TAB;
-                move(currentButton, statisticsButton);
-                currentButton = statisticsButton;
-            });
-            new Thread(task).start();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
+
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try {
+                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(),
+                                    statistics.getFavouriteGenre(), statistics.getMovieRecommendations(),
+                                    statistics.getTvShowRecommendations());
+                        } catch (OnlineConnectionException e) {
+                            statisticsPanel = new StatisticsPanel(statistics.getForgotten(),
+                                    statistics.getFavouriteGenre(),
+                                    null, null);
+                            resultDisplay.setFeedbackToUser("Note: You are not connected to the internet!");
+                        }
+                        return null;
+                    }
+                };
+                task.setOnSucceeded(evt -> {
+                    contentPanelPlaceholder.getChildren().clear();
+                    contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+                    isChangedList = false;
+                    currentTab = STATISTICS_TAB;
+                    move(currentButton, statisticsButton);
+                    currentButton = statisticsButton;
+                });
+                new Thread(task).start();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        } else {
+            contentPanelPlaceholder.getChildren().clear();
+            contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+            isChangedList = false;
+            currentTab = STATISTICS_TAB;
+            move(currentButton, statisticsButton);
+            currentButton = statisticsButton;
         }
     }
 
