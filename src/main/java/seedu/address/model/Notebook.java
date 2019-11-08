@@ -218,7 +218,6 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
 
-
     /**
      * Adds a lessons to the classroom.
      * The lesson must not already exist in the classroom.

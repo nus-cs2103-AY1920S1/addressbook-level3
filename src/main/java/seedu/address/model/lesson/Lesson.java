@@ -110,7 +110,7 @@ public class Lesson {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getName() + "\n")
                 .append(getStartTime().getStringDay())
                 .append(" \nFrom: ")
                 .append(getStartTime())

@@ -151,6 +151,12 @@ public interface Model {
     void displayAssignments();
 
     /**
+     * returns lists of lessons as a string.
+     * @return list of lessons.
+     */
+    String displayLessons();
+
+    /**
      * Adds the given lesson.
      * @param lesson lesson object.
      */

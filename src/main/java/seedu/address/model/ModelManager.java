@@ -203,9 +203,24 @@ public class ModelManager implements Model {
         notebook.displayAssignments();
     }
 
+    public String displayLessons() {
+        if (filteredLessons.isEmpty()) {
+            return "";
+        } else {
+            final StringBuilder builder = new StringBuilder();
+            //builder.append(filteredLessons.get(0));
+            for (int i = 0; i < filteredLessons.size(); i++) {
+                builder.append("---------------------------------------");
+                builder.append("\n" + filteredLessons.get(i) + "\n");
+            }
+            return builder.toString();
+        }
+    }
+
     @Override
     public void addLesson(Lesson lesson) {
         notebook.addLesson(lesson);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
 
     @Override
