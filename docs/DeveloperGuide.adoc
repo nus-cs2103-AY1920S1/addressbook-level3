@@ -73,12 +73,12 @@ For the components UI, Logic, Model, Timer, Storage and Game:
 
 
 [discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+//==== How the architecture components interact with each other
+//
+//The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+//
+//.Component interactions for `delete 1` command
+//image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
@@ -201,20 +201,19 @@ link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/se
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+// end::chenhui-model[]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * contains information that the game requires at run time. They include: `WordBankList`, `WordBankStatisticsList`,
  `GlobalStatistics`, `Game`, `AppSettings`, `UserPrefs`.
-* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Storage`.
 * has a direct reference to a user selected `WordBank`.
 * exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
-* can be visualised as playing the role of a computer's RAM, while `Logic` plays the role of an operating system,
-and `Storage` plays the role of a hard disk.
 
-// end::chenhui-model[]
 
 // tag::yida-game[]
 
@@ -241,17 +240,17 @@ The `Game` component,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
+// end::chenhui-storage[]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* contains multiple types of distinct storage.
+* contains multiple types of distinct storage system.
+* does not depend on any of the higher level components. i.e. `Ui`, `Timer`, `AppManager`, `Logic`, `Model`.
 * handles function calls directly to the computer's system.
 * can save data objects in json format and read it back.
-* can be visualised as playing the role of a computer's hard disk, while `Logic` plays the role of an operating system
-, and `Model` plays the role of a RAM.
 
-// end::chenhui-storage[]
 
 // tag::jasonstats[]
 [[Design-Statistics]]
@@ -629,10 +628,10 @@ This can be split into four complimentary distinct sections.
 
 They are: +
 
-** Word Bank’s data structure and storage +
-** User Commands +
-** Revision Word Bank +
-** Drag and Drop
+** Word bank’s data structure and it's storage system
+** User Commands
+** Drag and drop
+** Revision word bank
 
 {nbsp}
 
@@ -640,9 +639,12 @@ They are: +
 
 // tag::chenhui-section1[]
 
-==== Word Bank's data structure and storage
-In the following class diagrams which details the data structure and storage of `WordBankList`,
-observe closely the attributes and methods. +
+==== Word bank's data structure and it's storage system
+Allows developers to use and extend this architecture to streamline their feature implementation. +
+Allows user to save and load their word banks. +
+
+Observe closely the attributes and methods of the following class diagrams. +
+They describe and explain word bank's data structure and storage in detail. +
 Each of them are implemented with close examination so that it is easily usable and extended upon by other
 teammates/complimentary features.
 
@@ -690,7 +692,7 @@ Cards with the same meaning are duplicates, and is disallowed.
 
 Now the second level - `WordBank`
 
-.Class diagram of `Word Bank`.
+.Class diagram of `WordBank`.
 image::WordBankDiagram.png[]
 
 A `WordBank` contains a `UniqueCardList` and a unique `name`. +
@@ -702,6 +704,8 @@ A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 `WordBank` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
 The UI can be bound to this list so that the UI automatically updates when the cards in the list
 change.
+Word banks with the same name are duplicates, and is disallowed.
+
 
 ---
 
@@ -777,7 +781,7 @@ image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
 
 Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
-To segregate cards according to their function, I distinguished the following:
+To segregate cards according to their function, we distinguished the following:
 
 //A `Card` contains a word and a unique meaning. (May contain tags) +
 `CardCommands` work on `Cards`. +
@@ -819,7 +823,7 @@ For importWordBank method, addWordBank and saveWordBank private methods are call
 
 6. Within addWordBank method, `WordBank` is added into the underlying UniqueWordBankList. +
 Two synchronisation happens here. +
-As `Model` contains the same `WordBankList`, the two list contains synchronised data. +
+Firstly, as `Model` contains the same `WordBankList`, the two list contains synchronised data. +
 Secondly, `WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
 `UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated word bank automatically.
 
@@ -872,7 +876,7 @@ image::DragAndDropSequenceDiagram.png[]
 
 
 `LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
-It only has access to an `ObservableList<WordBank>`. +
+It is deeply nested within `UI` and only has access to an `ObservableList<WordBank>`. +
 This means it has no way to perform commands, update model or update storage.
 
 1. To work around this, a functional callback is registered within LoadBankPanel.
@@ -895,7 +899,7 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
-==== Revision Word Bank
+==== Revision word bank
 Serves as a centralised bank that collects cards across different word banks through the game play.
 The update to revision word bank is done automatically after every game session. +
 
@@ -909,9 +913,8 @@ image::RevisionBankActivityDiagram.png[]
 
 Revision bank was one of the essential and dominant features we wanted to implement since early development, however
 it had to be implemented last because it required multiple components working together. +
-Basically Dukemon needed to be up and running, before revision bank can be implemented.
 
-They include:
+These components include:
 
 * AppManager
 * StorageManager
@@ -919,7 +922,13 @@ They include:
 * GameStatistics
 
 Given that well-developed methods reside in each of these components, we then require an overview of revision bank implementation.
-The activity diagram above describes my thought process.
+The activity diagram above is able to detail my thought process and implementation.
+
+1. `AppManager` gets first notification that a `Game` session has ended.
+2. `StorageManager` creates revision word bank if necessary.
+3. `GameStatistics` gives the required information: correct and wrong cards.
+4. `LogicManager` manages the processing of these cards, with some slight variance depending on situation, into revision bank.
+5. `StorageManager` saves it back into hard disk.
 
 // end::chenhui-section4[]
 
@@ -935,7 +944,7 @@ The activity diagram above describes my thought process.
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
 Data structure for WordBankList.
-| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.**: +
+| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.** +
 
 _Pros:_ +
 User's modification to their word banks and cards requires very different methods. These two data structure
@@ -985,7 +994,7 @@ Harder to read from multiple files.
 
 3+|**Why did we choose Alternative 2:** +
 This choice was based largely from the user's perspective. +
-As our app is designed to streamline learning, I figured that easy sharing of word banks file with friends is an important
+As our app is designed to streamline learning, we figured that easy sharing of word banks file with friends is an important
 aspect in our app, and cannot be compromised.
 |===
 
@@ -1009,7 +1018,7 @@ Commands that work on Cards extends the abstract
 `CardCommand` class and commands that work on `WordBank` extends the abstract `WordBankCommand` class.** +
 
 _Pros:_ +
-As I have created distinct data structure for `WordBankList` and `WordBank`, distinguished commands now
+As we have created distinct data structure for `WordBankList` and `WordBank`, distinguished commands now
 work solely on their respective data structure. It follows the Single Responsibility Principle
 and the Separation of Concerns Principle more closely, and decreases the coupling between the two component.
 
@@ -1017,8 +1026,8 @@ _Cons:_ +
 Requires tedious implementation to follow the principles.
 
 3+|**Why did we choose Alternative 2:** +
-Alternative 2 allows for easy extension of Dukemon's functionality. Implementation of the drag and
-drop feature is just a few function calls away, as all data structure and functions are well written.
+Allows for easy extension of Dukemon's functionality. Implementation of the drag and
+drop feature is now a few function calls away, as all data structure and functions are well written.
 
 |===
 
