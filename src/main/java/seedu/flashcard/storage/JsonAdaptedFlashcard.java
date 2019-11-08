@@ -137,8 +137,10 @@ public class JsonAdaptedFlashcard {
 
         if (type.equals("McqFlashcard")) {
             return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
-        } else {
+        } else if (type.equals("ShortAnswerFlashcard")) {
             return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
+        } else {
+            throw new IllegalValueException("Issue in saved file, the flashcard type is incorrect.");
         }
     }
 }
