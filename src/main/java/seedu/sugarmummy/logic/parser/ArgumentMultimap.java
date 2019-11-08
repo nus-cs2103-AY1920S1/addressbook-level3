@@ -119,6 +119,9 @@ public class ArgumentMultimap {
         return true;
     }
 
+    /**
+     * Returns a list of prefixes that contain more than one value in this ArgumentMultimap.
+     */
     public List<Prefix> getNonUniquePrefixes(Prefix... prefixes) {
         List<Prefix> nonUniquePrefixes = new ArrayList<>();
         for (Prefix prefix : prefixes) {
