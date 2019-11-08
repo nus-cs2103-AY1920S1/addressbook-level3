@@ -1,6 +1,7 @@
 package seedu.address.model.note;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -82,7 +83,7 @@ public class MultipleSortByCond {
 
     @Override
     public String toString() {
-        return multipleSortByCond.toString();
+        return String.join(",then by ",Arrays.asList(multipleSortByCond));
     }
     @Override
     public boolean equals(Object other) {
