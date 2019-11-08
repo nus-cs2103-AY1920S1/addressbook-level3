@@ -69,6 +69,7 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 ====
 
 === Logging Income : `in`
+=======
 
 Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
@@ -80,7 +81,7 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 * `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
 * `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
-
+=======
 Examples:
 
 * `in $/100 d/01012019 n/errand c/work c/drinks`
@@ -108,7 +109,7 @@ Examples:
 
 === Setting a Budget : `set`
 
-You can set a budget for a particular category until a certain date, given it is not a duplicate.
+You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
 A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
 If you attempt to do so, you will receive an error message: `This budget already exists in the bank account`. +
 
@@ -118,12 +119,12 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
 less than 1,000,000.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
-* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs.
+* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
-Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
+Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
-until the deadline. (V1.4) You will be more self-conscious of your spending and minimise your spending by setting a budget. +
+until the deadline. You will be more self-conscious of your spending and minimise your spending by setting a budget. +
 
 To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
@@ -131,12 +132,36 @@ To set a new budget: +
 3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
 4. Now you can see the newly set budget in the budget list.
 
+As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
+to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted. +
+
+If you overspend beyond a set budget, the overspent budget will be displayed in red.
+Shown below as budget index 3 is an example of an overspent budget:
+
+.Overspent Budget
+image::overspentBudget.png[]
+
+As the day you have set for the budget approaches, the countdown placeholder as well as the percentage remaining placeholder
+will turn to red when the number of remaining days reaches 3 and below.
+Shown below as budget index 4 is an example of a budget approaching its deadline:
+
+.Budget approaching deadline
+image::approachingBudget.png[]
+
+Examples:
+
+* `set $/100 d/010120120 c/BBT`
+* `set $/300 d/29022020 c/shopping`
+
+
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
-Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...`
 
-
+====
+* `DESCRIPTION` encompasses more details for the bill being split. User can make use of this
+field to determine nature of bill.
 * `[SHARE]` defines portion of bill to be paid by each person
 ** if no shares are given, `amount` will be split evenly across all people, including user
 ** user is included in the bill if number of shares is *1* more than number of people
@@ -144,22 +169,74 @@ Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
+====
 
-Examples:
+===== Ledger GUI
+.Sample Ledger Graphical User Interface
+image::LedgerUI.png[]
 
-* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
-* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+This is how the *Ledger* looks when you switch to the *Ledger* tab. +
+The left shows the people who has unresolved balances with you, while the right lists
+all transactions that have to do with the *Ledger*. +
+*Ledger*'s balance is separate from the *BankAccount*. It is displayed in the same position,
+at the bottom right corner.
+
+==== Example Usage:
+* `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
+
+ $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+
+. Enter appropriate command into the command line.
++
+.Splitting evenly
+image::SplitEven1.png[]
++
+. Result is displayed accordingly
++
+.Splitting evenly (result)
+image::SplitEven2.png[]
++
+For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
+*Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
+from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in the bottom right.
+
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
+
+ $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+
+. Enter appropriate command into the command line.
++
+.Splitting unevenly
+image::SplitUneven1.png[]
++
+. Result is displayed accordingly
++
+.Uneven split results
+image::SplitUneven2.png[]
+
 
 === Receiving Money from a Friend : `receive`
 
 Receives money from 1 friend +
-Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
-Examples:
+==== Example usage:
 
-* `receive $/2.5 n/Albert`
+* `receive $/20 n/Albert`
+
+ Transfers $20 from Albert to user. If Albert is no longer owe or is owed money, he will be removed from the Ledger.
+
+. Enter appropriate command into the command line.
++
+.Receive payment
+image::Receive1.png[]
++
+. Result is displayed accordingly.
++
+.Receive payment result
+image::Receive2.png[]
++
+Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 
 === Projecting Balance : `project`
 
