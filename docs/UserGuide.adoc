@@ -46,7 +46,7 @@ Dive into LiBerry with our simple set-up guide for a quick tour of our user inte
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Components of LiBerry's User Interface (UI)
-image::annotated-ui.png[]
+image::annotated-ui.png[align=center]
 +
 . The UI of LiBerry consists of 5 main components. +
 1. The *command box* where you input commands to interact with the software.
@@ -333,7 +333,7 @@ You loan out the book with serial number B00006 to the currently served borrower
 {empty} +
 +
 .The user interface after the book is loaned out.
-image::ug-loan-pic.png[width=850]
+image::ug-loan-pic.png[width=850, align=center]
 After this command is entered, the command results display will provide you with a summary of which book is loaned
 out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
 panel on the right. Inside the main list on the left, an on loan box would also indicate
@@ -358,7 +358,7 @@ The index *must be a positive integer* such as 1, 2 or 3, and must appear in the
 {nbsp}
 
 .Screenshot to illustrate return commands that can be entered.
-image::ug-return.png[width=850]
+image::ug-return.png[width=850, align=center]
 * Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
 However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
 would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behaves".
@@ -391,7 +391,7 @@ You receive $12.80 from the borrower to pay off his/her fine. +
 {empty} +
 +
 .The command results display after paying fines.
-image::ug-pay.png[width=500]
+image::ug-pay.png[width=500, align=center]
 As seen from the screenshot above, after a fine amount is paid, a summary can be seen. You will see any outstanding fine the
 borrower still has. If the borrower pays an amount greater than his/her total outstanding fine, you can refer to the change given line
 to see how much change you should return to the borrower.
