@@ -23,8 +23,10 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.model.exceptions.InvalidInputException;
 import dream.fcard.model.exceptions.NoDeckHistoryException;
 import dream.fcard.model.exceptions.NoUndoHistoryException;
+import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
+
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -96,8 +98,22 @@ public enum Responses {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT");
                     //@author
 
-                    return true; //if valid
-                    //return false; //if not valid
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat(
+                            "import", new String[]{"filepath/"}, i);
+                    String path = res.get(0).get(0).trim();
+                    Deck deck = StorageManager.loadDeck(path);
+                    System.out.println(path);
+                    if (deck != null) {
+                        StorageManager.writeDeck(deck);
+                        StateHolder.getState().addDeck(deck);
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        System.out.println("Successfully added " + path);
+                    } else {
+                        System.out.println("File does not exist, or file does not match schema for a deck");
+                        return false;
+                    }
+
+                    return true;
                 }
     ),
     IMPORT_ERROR(
@@ -112,13 +128,25 @@ public enum Responses {
                 }
     ),
     EXPORT(
-            RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
+            RegexUtil.commandFormatRegex("export", new String[]{"deck/", "filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
                     //@author
 
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat(
+                            "export", new String[]{"deck/", "filepath/"}, i);
+                    String pathName = res.get(1).get(0).trim();
+                    String deckName = res.get(0).get(0).trim();
+
+                    try {
+                        Deck d = StateHolder.getState().getDeck(deckName);
+                        FileReadWrite.write(FileReadWrite.resolve(
+                                pathName, "./" + d.getDeckName() + ".json"), d.toJson().toString());
+                    } catch (DeckNotFoundException e) {
+                        System.out.println("Deck does not exist");
+                    }
                     return true; //if valid
                     //return false; //if not valid
                 }
