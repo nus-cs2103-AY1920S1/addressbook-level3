@@ -11,7 +11,7 @@ import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Spending;
 
 /**
- * An UI component that displays information of a {@code Project}.
+ * An UI component that displays a pie chart for the budget of a {@code Project}.
  */
 public class BudgetPieChart extends UiPart<Region> {
 

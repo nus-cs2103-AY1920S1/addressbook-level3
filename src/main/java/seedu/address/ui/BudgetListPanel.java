@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 
 /**
- * Panel containing the list of projects.
+ * Panel containing the list of budgets.
  */
 public class BudgetListPanel extends UiPart<Region> {
     private static final String FXML = "BudgetListPanel.fxml";

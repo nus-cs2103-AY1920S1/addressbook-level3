@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+Package Model <<Rectangle>> {
+Class AddressBook
+Package Project <<Rectangle>> {
+Class Project
+Class UniqueProjectList
+Class Time
+Class Description
+Class Task {
++isDone: boolean
+}
+Class Time {
++time: String
++date: Date
+}
+Class Description {
++description: String
+}
+}
+}
+
+AddressBook *--> "1" UniqueProjectList
+UniqueProjectList o--> "*" Project
+Project *--> "*" Task
+Task *--> "1" Time
+Task *--> "1" Description
+@enduml

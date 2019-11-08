@@ -235,6 +235,88 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Task feature
+==== Description of feature
+Within every project, there are tasks to be done or milestones to be achieved within certain deadlines. The diagram below shows the class diagram of the task class and how it interacts with the model.
+
+.Class Diagram for Task
+
+image::TaskClassDiagram.png[]
+
+As shown above, each project stores multiple tasks in a list. These tasks can be stored, deleted, edited and sorted very easily.
+Here are some task related commands that can be executed by the app.
+
+. addTask - adds a task into the project model.
+. deleteTask - removes a task from the project model based on index specified by user
+. editTask - edits a task of the given index with attribute/s to edit e.g deadline/description/whether is done
+. sortTask - sorts the list of tasks based on specification given by user. (more info available in section 3.3)
+
+==== Details
+As seen in figure 9, each task consists of 3 parameters namely description, time and a boolean state to show whether the task is done/in progress.
+A typical task will look like this on the app: +
+
+image::TASK.png[]
+
+
+
+=== Sorting feature
+==== Description of feature
+
+Sorts some lists based on specifications provided by the user.
+There are 2 lists that are able to be sorted so far. +
+
+. Sort list of tasks
+. Sort list of spending
+
+The implementation is similar for these 2 methods. It makes use of `SortingOrder`, which is
+a container class that stores the current sort order as well as methods to get and set these orders.
+`SortingOrder` can be found in the `model` package.
+Currently there are 5 different methods to sort the lists.
+
+. Alphabetical order
+. Increasing order of time
+. Whether tasks are done
+. Whether tasks are done and then by increasing order of time
+. Increasing price
+
+[NOTE]
+
+Methods 3-4 are only for sorting tasks whereas method 5 is for sort spending.
+Methods 1-2 can be used to sort both lists.
+
+==== Details
+Both commands sortTask and sortSpending take in a single integer as parameter. As mentioned in the
+note above, 1-4 are valid input for sortTask, 1, 2 and 5 are valid for sortSpending.
+
+An example command would be `sortTask 1` which sorts the list of tasks by alphabetical order.
+
+The following sequence diagram shows the process of obtaining a list with the new sorting order
+and updating the current sort order in `SortingOrder` class.
+
+.Sequence Diagram for sortTask
+image::SortTaskSequenceDiagram.png[]
+
+These are the stages shown in figure 9. Stages are similar for sort spending as well.
+
+. Parses the input to obtain the index.
+. Goes to `SortingOrder` to change the current sorting order to the one linked to the given index based on the specification shown above.
+. Obtains list of tasks from model and sorts it. List now maintains this sorting order and displays a sorted list even after adding or editing elements.
+. Display the newly sorted task list.
+
+==== Design considerations
+
+===== Aspect: Data structure to support the sort commands
+
+
+* **Alternative 1 (current choice):** Store the data in list.
+** Pros: Easy to implement. Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: May have performance issues as list has to be sorted every time a new element is added or edited.
+* **Alternative 2:** Store the data in a PriorityQueue.
+** Pros: Much more efficient in terms of performance and complexity. Internal list will automatically be updated which means
+no additional sorting needed when adding or editing new elements.
+** Cons: Have to create and add all the tasks into another PriorityQueue if the sorting order were to be changed. Harder to implement.
+
+
 === Generate meeting timeslot
 ==== Description of Feature
 

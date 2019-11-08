@@ -20,7 +20,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
  */
 public class SortSpendingCommand extends Command {
     public static final String COMMAND_WORD = "sortSpending";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the spendings for each expense in the list of budgets according to given index.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the spendings for each expense in the list of budgets according to given index.\n"
             + "1 - Sorts by alphabetical order.\n"
             + "2 - Sorts by increasing date/time.\n"
             + "5 - Sorts by increasing spending.\n"
@@ -29,6 +29,7 @@ public class SortSpendingCommand extends Command {
 
 
     public static final String MESSAGE_SORT_SPENDING_SUCCESS = "Spendings sorted by%1$s";
+    public static final String MESSAGE_SAME_INDEX = "Spending already sorted in this order! Select a different ordering.";
 
 
     public final Index index;
@@ -48,11 +49,16 @@ public class SortSpendingCommand extends Command {
             throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
+        int num = index.getOneBased();
+        if (num == SortingOrder.getSpendingCurrentIndex()) {
+            throw new CommandException(MESSAGE_SAME_INDEX);
+        }
+
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMemberNames();
         String sortType = "";
 
-        switch (index.getOneBased()) {
+        switch (num) {
 
         case 1:
             sortType = " alphabetical order.";

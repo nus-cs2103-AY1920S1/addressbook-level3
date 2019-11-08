@@ -30,6 +30,7 @@ public class SortTaskCommand extends Command {
 
 
     public static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by%1$s";
+    public static final String MESSAGE_SAME_INDEX = "Tasks already sorted in this order! Select a different ordering.";
 
 
     public final Index index;
@@ -49,12 +50,16 @@ public class SortTaskCommand extends Command {
             throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
+        int num = index.getOneBased();
+        if (num == SortingOrder.getTaskCurrentIndex()) {
+            throw new CommandException(MESSAGE_SAME_INDEX);
+        }
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMemberNames();
-        List<Task> taskToEdit = projectToEdit.getTasks();
+        List<Task> tasks = projectToEdit.getTasks();
         String sortType = "";
 
-        switch (index.getOneBased()) {
+        switch (num) {
 
         case 1:
             sortType = " alphabetical order.";
@@ -67,12 +72,12 @@ public class SortTaskCommand extends Command {
             break;
 
         case 3:
-            sortType = "  whether tasks are done.";
+            sortType = " whether tasks are done.";
             SortingOrder.setCurrentTaskSortingOrderByDone();
             break;
 
         case 4:
-            sortType = "  whether tasks are done and then by increasing date/time.";
+            sortType = " whether tasks are done and then by increasing date/time.";
             SortingOrder.setCurrentTaskSortingOrderByDoneThenDate();
             break;
 
@@ -81,8 +86,8 @@ public class SortTaskCommand extends Command {
         }
 
         ArrayList<Task> taskList = new ArrayList<>();
-        taskList.addAll(taskToEdit);
-        Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
+        taskList.addAll(tasks);
+        sortTask(taskList, SortingOrder.getCurrentSortingOrderForTask());
         Finance finance = projectToEdit.getFinance();
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance, projectToEdit.getGeneratedTimetable());
@@ -92,6 +97,10 @@ public class SortTaskCommand extends Command {
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         return new CommandResult(String.format(MESSAGE_SORT_TASK_SUCCESS, sortType), COMMAND_WORD);
+    }
+
+    public void sortTask(List<Task> list, Comparator<Task> taskComparator) {
+        Collections.sort(list, taskComparator);
     }
 
 

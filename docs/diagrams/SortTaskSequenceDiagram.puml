@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SortTaskParser" as SortTaskParser LOGIC_COLOR
+participant "c:SortTaskCommand" as SortTaskCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":SortingOrder" as SortingOrder LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("sortTask 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("sortTask 1")
+activate AddressBookParser
+
+create SortTaskParser
+AddressBookParser -> SortTaskParser
+activate SortTaskParser
+
+SortTaskParser --> AddressBookParser
+deactivate SortTaskParser
+
+AddressBookParser -> SortTaskParser : parse(1)
+activate SortTaskParser
+
+create SortTaskCommand
+SortTaskParser -> SortTaskCommand
+activate SortTaskCommand
+
+SortTaskCommand --> SortTaskParser : c
+deactivate SortTaskCommand
+
+SortTaskParser --> AddressBookParser : c
+deactivate SortTaskParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortTaskParser -[hidden]-> AddressBookParser
+destroy SortTaskParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> SortTaskCommand : execute()
+activate SortTaskCommand
+
+SortTaskCommand -> SortingOrder : setCurrentTaskSortingOrder()
+activate SortingOrder
+
+SortingOrder --> SortTaskCommand
+deactivate SortingOrder
+
+SortTaskCommand -> Model : getTasks()
+activate Model
+
+Model --> SortTaskCommand : tasks
+deactivate Model
+
+SortTaskCommand -> SortTaskCommand : sortTask()
+activate SortTaskCommand
+SortTaskCommand --> SortTaskCommand
+deactivate SortTaskCommand
+
+create CommandResult
+SortTaskCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortTaskCommand : result
+deactivate CommandResult
+
+SortTaskCommand --> LogicManager : result
+deactivate SortTaskCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

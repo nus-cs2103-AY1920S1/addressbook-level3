@@ -42,19 +42,15 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 
 == Features
 
-=== Viewing help: `help`
+=== Basic Commands
+Here are some basic commands to start and navigate around the app.
 
-Shows a list of commands. +
+==== Viewing help: `help`
+
+Provides a url to this user guide for a more comprehensive list and explanation for each command. +
 Format: `help` +
 
-=== Listing Information
-
-==== List your contacts: `list`
-
-Shows you the list of contacts you have currently along with their respective information. +
-Format: `list`
-
-=== Checkout a project: `checkout`
+==== Checkout a project: `checkout`
 
 Checkout a project to begin working on the project immediately.
 
@@ -68,11 +64,31 @@ Example:
 
 * `checkout 1`
 
+==== Return to previous: `back`
+
+If you want to return to the previous view page of the app, simply type the command `back`.
+
+Format: `back`
+
+Example:
+
+. `checkout 1`
+. `back`
+
+[NOTE]
+This command is used to return to the project list page after checking out to a project.
+
+==== Exiting the app: `exit`
+
+Once you're done with using the app, you can use this command to close the app.
+
+Format: `exit`
+
 === Adding Items
 
 This section deals with adding information to the application.
 
-==== 1. Add a project: `addProject`
+==== Add a project: `addProject`
 
 Adds a new project into your list of projects. +
 Format: `addProject n/PROJECT_TITLE s/PROJECT_DESCRIPTION`
@@ -81,7 +97,7 @@ Example:
 
 * `addProject n/CS2103 project s/Software engineering project`
 
-==== 2. Add a person: `add`
+==== Add a person: `add`
 
 Adds a person to your contacts.
 When you add a person to your contacts, it will automatically change to displaying your list of contacts. +
@@ -96,12 +112,12 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 
-==== 3. Add a member to your project
+==== Add a member to your project
 
 Adding a member can be done in 2 ways, you can either add a new person to your contacts and to your current project,
 or you can simply add an existing person from your contacts to your current project.
 
-==== 3.1 Add a new member: `addMember` [Checkout]
+===== Add a new member: `addMember` [Checkout]
 
 This command is similar to adding a person to your contacts shown previously, except that you have to be
 checked out into a project. +
@@ -119,7 +135,7 @@ Example:
 * `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend t/criminal`
 
 
-==== 3.2 Add from your contacts: `addFromContacts` [Checkout]
+===== Add from your contacts: `addFromContacts` [Checkout]
 
 
 This command helps to add a person you already saved in your contacts into your project, reducing the need
@@ -134,7 +150,7 @@ Example:
 
 * `addFromContacts 1`
 
-==== 4. Add a timetable: `addTimetable`
+==== Add a timetable: `addTimetable`
 
 Need to keep track of your team members' schedule? Use this command to record down their timetable easily!
 
@@ -160,7 +176,7 @@ TUESDAY 1100 TUESDAY 1500
 Add timetable to the person with index 2 on the list of persons.
 
 
-==== 5. Add a task: `addTask` [Checkout]
+==== Add a task: `addTask` [Checkout]
 
 
 Adds an unchecked task to the list of tasks of your current working project. +
@@ -170,15 +186,13 @@ Example:
 
 * `addTask s/Finish GUI c/06/10/2019 1600`
 
-[TIP]
-Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm,
-whereby the year must be between 1900 to 2100 and the time must be between 0000 to 2359.
-
 [CAUTION]
-MyProject does not check for invalid days such as 30th February so do ensure you input
+Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm,
+whereby the year must be between 1900 to 2100 and the time must be between 0000 to 2359. +
+MyProject checks for invalid days as well such as 30th February so do ensure you input
 your dates correctly!
 
-==== 6. Add a project meeting: `addProjectMeeting`
+==== Add a project meeting: `addProjectMeeting`
 
 Adds a new project meeting to the current working project.  +
 Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
@@ -192,7 +206,7 @@ Example:
 This section deals with editing information shown on the application.
 
 
-==== 1. Edit a person : `edit`
+==== Edit a person : `edit`
 
 
 Edits an existing person in the address book. +
@@ -213,7 +227,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-==== 2. Edit a task : `editTask`
+==== Edit a task : `editTask`
 
 Edits an existing task in the task list of the current project. +
 Format: `editTask INDEX [s/DESCRIPTION] [c/dd/MM/yyyy HHmm] [d/]` +
@@ -236,7 +250,7 @@ Unchecks the task.
 This section deals with removing information within the application.
 
 
-==== 1. Deleting a person: `delete`
+==== Deleting a person: `delete`
 
 
 Deletes the specified person from your contacts. +
@@ -257,7 +271,16 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-==== 2. Remove a member: `removeMember` [Checkout]
+==== Clear the address book: `clear`
+
+Removes all persons from your address book.
+
+[CAUTION]
+This command removes ALL persons from your address book so use it with caution!
+
+Format: `clear`
+
+==== Remove a member: `removeMember` [Checkout]
 
 
 Removes the specified person from the current working project. +
@@ -270,7 +293,7 @@ Example:
 * `removeMember John Doe`
 
 
-==== 3. Delete a task: `deleteTask` [Checkout]
+==== Delete a task: `deleteTask` [Checkout]
 
 
 Deletes the specified task from the current working project.  +
@@ -283,7 +306,7 @@ Example:
 * `deleteTask 1`
 
 
-==== 4. Delete a meeting: `deleteMeeting` [Checkout]
+==== Delete a meeting: `deleteMeeting` [Checkout]
 
 
 Deletes the specified meeting from the current working project.  +
@@ -295,10 +318,17 @@ Example:
 
 * `deleteMeeting 1`
 
+=== Listing Information
+
+==== List your contacts: `list`
+
+Shows you the list of contacts you have currently along with their respective information. +
+Format: `list`
+
 === Finding
 
 
-==== 1. Find a person by name: `find`
+==== Find a person by name: `find`
 
 
 Finds persons whose names contain any of the given keywords. +
@@ -323,8 +353,9 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 For every project, you can add meetings to it, and below you will be able to find more useful commands
 associated with this functionality.
 
-==== 1. Generate meeting timing: `generate` [Checkout]
+==== Generate meeting timing: `generate` [Checkout]
 
+=======
 Generates possible meeting timeslots for which everyone is available.
 =======
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
@@ -341,8 +372,6 @@ Example:
 * `generate d/2 r/MONDAY 0900 MONDAY 1800` +
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
-=======
-
 
 === Email
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
@@ -350,7 +379,7 @@ emails right here within the application.
 
 Do keep in mind that only the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in! 
 
-==== 1. Sign in to your account: `signIn`
+==== Sign in to your account: `signIn`
 Signs in to the your email account. +
 Format: `signIn ac/ACCOUNT_EMAIL_ADDRESS pa/PASSWORD`
 
@@ -358,7 +387,7 @@ Example:
 
 * `signIn ac/example@gmail.com pa/12345678`
 
-==== 2. Log out from your account: `logOut`
+==== Log out from your account: `logOut`
 Logs out from your email account. +
 Format: `logOut`
 
@@ -366,7 +395,7 @@ Example:
 
 * `logOut`
 
-==== 3. Send an email: `sendMail`
+==== Send an email: `sendMail`
 Sends an email to the specified person in your contacts. +
 Format: `sendMail r/RECIPIENT_OF_EMAIL su/SUBJECT me/MESSAGE_BODY`
 
@@ -374,7 +403,7 @@ Example:
 
 * `sendMail r/example@gmail.com su/Test me/HelloWorld!`
 
-==== 4. Broadcast an email: `broadcastMail`
+==== Broadcast an email: `broadcastMail`
 Sends an email to all members in the current working project. +
 Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
 
@@ -382,7 +411,7 @@ Example:
 
 * `broadcastMail su/CS2103T me/added new Task`
 
-==== 5. Send reminder: `sendReminder`
+==== Send reminder: `sendReminder`
 
 Sends a reminder to all members of the upcoming Meeting and Task that is due from the current working project. +
 Format: `sendReminder`d/DURATION
@@ -408,7 +437,7 @@ All commands in this section follow this set of index/order pairing, where appli
 . Increasing price
 ****
 
-==== 1. Sort tasks: `sortTask`
+==== Sort tasks: `sortTask`
 
 Sorts the tasks in the task list of the current working project based on given specification. +
 Format: `sortTask INDEX`
@@ -419,7 +448,7 @@ Example:
 
 * `sortTask 4` (Sorts the tasks whether they are done and then by increasing date/time)
 
-==== 2. Sort spending: `sortSpending`
+==== Sort spending: `sortSpending`
 
 Sorts the spending in the budget list of the current working project based on given specification. +
 Format: `sortSpending INDEX`
