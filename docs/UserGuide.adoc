@@ -358,6 +358,15 @@ image::submitCommandWithParamsAfterScreenshot.png[width="600"]
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
 
+// tag::incidentversionhistory[]
+=== Tracking incident history `[coming in v2.0]`
+Allows user to track any changes made to an incident report throughout its lifecycle in the incident management system. +
+Format: `track [INDEX]` +
+Function: Outputs a list of timestamps and a brief summary of changes made to the specified incident report.
+
+This feature will allow the user to improve accountability in filing incident reports. As the IMS handles incident data which is very sensitive in nature, it will be crucial for users to know when exactly were what changes made to a given incident report.
+// end::incidentversionhistory[]
+
 // tag::listi[]
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
@@ -633,16 +642,6 @@ Format: `exit`
 Incident Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 // end::common[]
-
-// tag::incidentversionhistory[]
-=== Track incident history `[coming in v2.0]`
-Allows user to track any changes made to an incident report throughout its lifecycle in the incident management system. +
-Format: `track [INDEX]` +
-Function: Outputs a list of timestamps and a brief summary of changes made to the specified incident report.
-
-This feature will allow the user to improve accountability in filing incident reports. As the IMS handles incident data which is very sensitive in nature, it will be crucial for users to know when exactly were what changes made to a given incident report.
-
-// end::incidentversionhistory[]
 
 // tag::dataencryption[]
 === Decrypting data files `[coming in v2.0]`
