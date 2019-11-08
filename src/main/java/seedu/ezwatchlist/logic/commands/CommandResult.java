@@ -19,22 +19,26 @@ public class CommandResult {
 
     private final boolean shortCutKey;
 
+    private final boolean isChangedList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean shortCutKey) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean shortCutKey, boolean isChangedList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.shortCutKey = shortCutKey;
+        this.isChangedList = isChangedList;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+    public CommandResult(String feedbackToUser, boolean isChangedList) {
+        this(feedbackToUser, false, false, false, isChangedList);
     }
 
     public String getFeedbackToUser() {
@@ -51,6 +55,10 @@ public class CommandResult {
 
     public boolean isShortCutKey() {
         return shortCutKey;
+    }
+
+    public boolean isChangedList() {
+        return isChangedList;
     }
 
     @Override
