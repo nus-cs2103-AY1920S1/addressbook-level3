@@ -82,6 +82,7 @@ import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
@@ -151,6 +152,21 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDesc);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Category parseCategory(String cat, String type) throws ParseException {
+        requireNonNull(cat);
+        String trimmedCat = cat.trim();
+        if (!Category.isNotEmptyCategoryName(trimmedCat)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS_NAME_NOT_EMPTY);
+        }
+        return new Category(trimmedCat,type);
     }
 
     /**

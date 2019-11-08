@@ -3,6 +3,7 @@ package seedu.guilttrip.logic.parser.editcommandparsers;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
@@ -37,7 +38,7 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
     public EditBudgetCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG, PREFIX_PERIOD);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG, PREFIX_PERIOD);
 
         Index index;
 
@@ -49,6 +50,10 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
         }
 
         EditBudgetCommand.EditBudgetDescriptor editBudgetDescriptor = new EditBudgetDescriptor();
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editBudgetDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(), "Expense"));
+        }
+
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
             editBudgetDescriptor.setDesc(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()));
         }

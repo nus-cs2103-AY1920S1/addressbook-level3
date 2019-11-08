@@ -1,11 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.guilttrip.logic.parser.CliSyntax.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -42,6 +38,7 @@ public class EditBudgetCommand extends Command {
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_DESC + "NAME] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
@@ -232,6 +229,7 @@ public class EditBudgetCommand extends Command {
             EditBudgetDescriptor e = (EditBudgetDescriptor) other;
 
             return getDesc().equals(e.getDesc())
+                    && getCategory().equals(e.getCategory())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
                     && getPeriod().equals(e.getPeriod())
