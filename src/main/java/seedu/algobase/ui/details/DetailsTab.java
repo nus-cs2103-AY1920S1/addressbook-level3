@@ -1,8 +1,11 @@
 package seedu.algobase.ui.details;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.ui.UiPart;
@@ -16,6 +19,7 @@ import seedu.algobase.ui.action.UiActionType;
 public class DetailsTab extends UiPart<Region> {
 
     private static final String FXML = "DetailsTab.fxml";
+    private static final Logger logger = LogsCenter.getLogger(DetailsTab.class);
 
     private final Id modelId;
     private final ModelType modelType;
@@ -54,6 +58,12 @@ public class DetailsTab extends UiPart<Region> {
      */
     private void addOnCloseRequestListener(UiActionExecutor uiActionExecutor) {
         tabContentPlaceholder.setOnCloseRequest(e -> {
+            logger.info(
+                "Creating new UiActionDetails with type " + UiActionType.CLOSE_DETAILS_TAB
+                + " with model type of " + modelType.getTabName()
+                + " with ID of " + modelId.getIdValue()
+            );
+
             uiActionExecutor.execute(new UiActionDetails(
                  UiActionType.CLOSE_DETAILS_TAB,
                  modelType,

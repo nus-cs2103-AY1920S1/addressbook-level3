@@ -19,7 +19,7 @@ public class DeleteProblemUiActionParser implements UiParser<DeleteProblemUiActi
     private static final int ID_INDEX = 0;
     private static final int IS_FORCED_INDEX = 1;
 
-    private final Logger logger = LogsCenter.getLogger(DeleteProblemUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(DeleteProblemUiActionParser.class);
 
     /**
      * Parses the given {@code UiActionDetails} object

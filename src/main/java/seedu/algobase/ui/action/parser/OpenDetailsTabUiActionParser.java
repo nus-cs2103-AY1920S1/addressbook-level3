@@ -19,7 +19,7 @@ public class OpenDetailsTabUiActionParser implements UiParser<OpenDetailsTabUiAc
 
     private static final int MODEL_TYPE_INDEX = 0;
     private static final int ID_INDEX = 1;
-    private final Logger logger = LogsCenter.getLogger(OpenDetailsTabUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(OpenDetailsTabUiActionParser.class);
 
     @Override
     public OpenDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {

@@ -18,7 +18,7 @@ public class DeletePlanUiActionParser implements UiParser<DeletePlanUiAction> {
 
     private static final int ID_INDEX = 0;
 
-    private final Logger logger = LogsCenter.getLogger(DeletePlanUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(DeletePlanUiActionParser.class);
 
     /**
      * Parses the given {@code UiActionDetails} object

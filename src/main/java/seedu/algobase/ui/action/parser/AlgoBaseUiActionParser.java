@@ -15,7 +15,7 @@ import seedu.algobase.ui.action.UiActionDetails;
  */
 public class AlgoBaseUiActionParser {
 
-    private final Logger logger = LogsCenter.getLogger(AlgoBaseUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(AlgoBaseUiActionParser.class);
 
     /**
      * Parses user input into UI Action for execution.

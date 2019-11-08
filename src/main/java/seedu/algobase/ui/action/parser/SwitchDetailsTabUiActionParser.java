@@ -17,7 +17,7 @@ import seedu.algobase.ui.action.actions.SwitchDetailsTabUiAction;
 public class SwitchDetailsTabUiActionParser implements UiParser<SwitchDetailsTabUiAction> {
 
     private static final int INDEX_INDEX = 0;
-    private final Logger logger = LogsCenter.getLogger(SwitchDetailsTabUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(SwitchDetailsTabUiActionParser.class);
 
     @Override
     public SwitchDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {

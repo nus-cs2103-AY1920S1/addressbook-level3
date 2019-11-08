@@ -18,7 +18,7 @@ import seedu.algobase.ui.action.actions.SetPlanUiAction;
 public class SetPlanUiActionParser implements UiParser<SetPlanUiAction> {
 
     private static final int ID_INDEX = 0;
-    private final Logger logger = LogsCenter.getLogger(SetPlanUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(SetPlanUiActionParser.class);
 
     @Override
     public SetPlanUiAction parse(UiActionDetails uiActionDetails) throws ParseException {

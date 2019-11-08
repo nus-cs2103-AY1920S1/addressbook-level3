@@ -123,6 +123,13 @@ public class ProblemCard extends UiPart<Region> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
+
+                        logger.info(
+                            "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
+                                + " with a ModelType of " + ModelType.PROBLEM
+                                + " with ID of " + problem.getId()
+                        );
+
                         uiActionExecutor.execute(new UiActionDetails(
                             UiActionType.OPEN_DETAILS_TAB,
                             ModelType.PROBLEM,

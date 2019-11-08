@@ -1,7 +1,10 @@
 package seedu.algobase.ui.details;
 
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
@@ -11,6 +14,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.Logic;
@@ -33,6 +37,7 @@ import seedu.algobase.ui.action.UiActionType;
 public class DetailsTabPane extends UiPart<Region> {
 
     private static final String FXML = "DetailsTabPane.fxml";
+    private static final Logger logger = LogsCenter.getLogger(DetailsTabPane.class);
 
     private final ReadOnlyAlgoBase algoBase;
     private final ReadOnlyTabManager readOnlyTabManager;
@@ -43,6 +48,8 @@ public class DetailsTabPane extends UiPart<Region> {
 
     public DetailsTabPane(Logic logic, UiActionExecutor uiActionExecutor) {
         super(FXML);
+        requireAllNonNull(logic, uiActionExecutor);
+
         this.uiActionExecutor = uiActionExecutor;
 
         tabsPlaceholder.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
@@ -88,6 +95,10 @@ public class DetailsTabPane extends UiPart<Region> {
      */
     private void addListenerForIndexChange(ObservableIntegerValue detailsTabPaneIndex) {
         detailsTabPaneIndex.addListener((observable, oldValue, newValue) -> {
+            logger.info(
+                "Selected Details Tab changed to index " + Index.fromZeroBased(newValue.intValue()).getOneBased()
+            );
+
             selectTab((newValue.intValue()));
         });
     }
@@ -100,6 +111,16 @@ public class DetailsTabPane extends UiPart<Region> {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
+                    logger.info(
+                        "Details Tab with index value of "
+                        + Index.fromZeroBased(newValue.intValue()).getOneBased()
+                        + " clicked"
+                    );
+                    logger.info(
+                        "Creating new UiActionDetails with type " + UiActionType.SWITCH_DETAILS_TAB
+                            + " with index value of " + Index.fromZeroBased(newValue.intValue()).getOneBased()
+                    );
+
                     uiActionExecutor.execute(new UiActionDetails(
                         UiActionType.SWITCH_DETAILS_TAB,
                         Index.fromZeroBased(newValue.intValue())
@@ -116,6 +137,10 @@ public class DetailsTabPane extends UiPart<Region> {
         readOnlyTabManager.getTabsDataList().addListener(new ListChangeListener<TabData>() {
             @Override
             public void onChanged(Change<? extends TabData> change) {
+                logger.info(
+                    "TabData List modified with a new size of " + change.getList().size()
+                );
+
                 clearTabs();
                 addTabsToTabPane(change.getList());
                 tabsPlaceholder.requestLayout();

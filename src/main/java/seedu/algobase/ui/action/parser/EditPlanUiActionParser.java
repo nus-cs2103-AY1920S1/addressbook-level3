@@ -25,7 +25,7 @@ public class EditPlanUiActionParser implements UiParser<EditPlanUiAction> {
     private static final int START_DATE_INDEX = 3;
     private static final int END_DATE_INDEX = 4;
 
-    private final Logger logger = LogsCenter.getLogger(EditPlanUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(EditPlanUiActionParser.class);
 
     /**
      * Parses the given {@code UiActionDetails} object

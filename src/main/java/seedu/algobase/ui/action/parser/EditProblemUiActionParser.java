@@ -27,7 +27,7 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
     private static final int REMARK_INDEX = 6;
     private static final int SOURCE_INDEX = 7;
 
-    private final Logger logger = LogsCenter.getLogger(EditProblemUiActionParser.class);
+    private static final Logger logger = LogsCenter.getLogger(EditProblemUiActionParser.class);
 
     /**
      * Parses the given {@code UiActionDetails} object

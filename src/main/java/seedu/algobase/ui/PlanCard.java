@@ -95,12 +95,22 @@ public class PlanCard extends UiPart<Region> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + plan.getPlanName());
-                        logger.info("Opening new plan tab");
+                        logger.info(
+                            "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
+                                + " with a ModelType of " + ModelType.PLAN
+                                + " with ID of " + plan.getId()
+                        );
+
                         uiActionExecutor.execute(new UiActionDetails(
                             UiActionType.OPEN_DETAILS_TAB,
                             ModelType.PLAN,
                             plan.getId()
                         ));
+
+                        logger.info(
+                            "Creating new UiActionDetails with type " + UiActionType.SET_PLAN
+                                + " with ID of " + plan.getId()
+                        );
                         uiActionExecutor.execute(new UiActionDetails(
                             UiActionType.SET_PLAN,
                             plan.getId()
