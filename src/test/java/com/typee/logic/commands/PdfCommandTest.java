@@ -1,7 +1,7 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandFailure;
+import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 
 import java.io.File;
