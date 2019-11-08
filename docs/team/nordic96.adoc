@@ -7,7 +7,7 @@
 
 == Overview
 
-Typee is an engagement management application, where users can manage engagments and schedule accordingly. Our main users are targeted in corporation's receptionists and secretaries
+Typee is an engagement management application, where users can manage engagements and schedule accordingly. Our main users are targeted in corporation's receptionists and secretaries
 whose main tasks is to manage and arrange engagements.
 
 .default window of Typee upon start-up
@@ -48,15 +48,12 @@ Document template is fully customisable, hence it makes the application flexible
 
 * *Minor enhancement*: Updated the existing AB3 CSS dark theme file to customise our Typee UI color schemes; TreeListView, Functional button skins (Delete button, Refresh button, Next/Previous month button)
 
-* *Code contributed*: [https://github.com/nordic96/main[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://github.com/nordic96/main[Functional code]]
 
 * *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage by roughly 7% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -65,8 +62,8 @@ Document template is fully customisable, hence it makes the application flexible
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (iTextPdf) to the project
+*** Integrated a third party library (common-IO) to the project
 
 _{you can add/remove categories in the list above}_
 

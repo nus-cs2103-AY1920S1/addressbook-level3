@@ -323,6 +323,7 @@ Format: `pdf i/[index] to/[receiver] from/[sender]` +
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
 
+NOTE: User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names.
 
 image::pdf_1.png[width="700"]
 
@@ -352,6 +353,8 @@ Now, once system successfully deleted the selected document, system will display
 image::pdf_delete_after.png[width="800"]
 
 NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
+
+// end::pdf-command[]
 
 === Exiting the program : `exit`
 
