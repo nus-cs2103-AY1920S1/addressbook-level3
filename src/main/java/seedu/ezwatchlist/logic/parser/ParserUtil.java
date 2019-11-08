@@ -12,10 +12,10 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.show.Episode;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

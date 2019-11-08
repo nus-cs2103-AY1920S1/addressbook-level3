@@ -65,8 +65,7 @@ public class LogicManager implements Logic {
             });
             new Thread(task).start();
             return null;
-            }
-        else {
+        } else {
             commandResult[0] = command.execute(model);
         }
         try {

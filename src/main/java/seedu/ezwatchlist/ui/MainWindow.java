@@ -20,7 +20,7 @@ import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.Logic;
-import seedu.ezwatchlist.logic.commands.Command;
+
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -336,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }catch (NullPointerException | InterruptedException e) {
+        } catch (NullPointerException | InterruptedException e) {
             e.printStackTrace();
             return null;
         }
@@ -467,6 +467,11 @@ public class MainWindow extends UiPart<Stage> {
         return currentTab;
     }
 
+    /**
+     * For logic manager. If command is search, searchResultLogger will be called so logic can update this UI (Main
+     * Window)
+     * @param commandResult
+     */
     public void searchResultLogger(CommandResult commandResult) {
         logger.info("Result: " + commandResult.getFeedbackToUser());
         resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
