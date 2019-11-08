@@ -62,7 +62,7 @@ public class SampleDataUtil {
             new Person(new Name("John Doe"), new Phone("87654321"), new Email("john@example.com"),
                     getTagSet("Team-4", "Intern"), new Username("Operator-14"), new Password("password")),
             new Person(new Name("Jane Tan"), new Phone("97856342"), new Email("alexlim@example.com"),
-                    getTagSet("Team-4", "OC"), new Username("Operator04"), new Password("password")),
+                    getTagSet("Team-4", "OC"), new Username("Operator2-4"), new Password("password")),
         };
     }
 
