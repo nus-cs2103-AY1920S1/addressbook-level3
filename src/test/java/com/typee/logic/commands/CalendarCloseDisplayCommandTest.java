@@ -7,22 +7,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+
 import com.typee.commons.util.DateUtil;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
 
 public class CalendarCloseDisplayCommandTest {
 
+    private static final LocalDate TYPICAL_DATE = LocalDate.of(2019, 10, 22);
+
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
-
-    private static final LocalDate TYPICAL_DATE = LocalDate.of(2019, 10, 22);
 
     @Test
     public void execute_validCommand_assertCommandSuccess() {
         assertCommandSuccess(new CalendarCloseDisplayCommand(TYPICAL_DATE), model,
-                CalendarCloseDisplayCommand.MESSAGE_SUCCESS +
-                        DateUtil.getFormattedDateString(TYPICAL_DATE), expectedModel);
+                CalendarCloseDisplayCommand.MESSAGE_SUCCESS
+                        + DateUtil.getFormattedDateString(TYPICAL_DATE), expectedModel);
     }
 
     @Test

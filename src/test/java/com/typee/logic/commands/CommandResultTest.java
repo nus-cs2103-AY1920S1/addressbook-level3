@@ -18,6 +18,7 @@ import java.nio.file.WatchService;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.ui.Tab;
 
@@ -107,7 +108,8 @@ public class CommandResultTest {
         }
 
         @Override
-        public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
+        public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers)
+                throws IOException {
             return null;
         }
 
@@ -116,9 +118,12 @@ public class CommandResultTest {
             return 0;
         }
     };
-    private static final CommandResult TYPICAL_CALENDAR_COMMAND_RESULT = new CommandResult("Calendar command", true, localDate, calendarCommandType);
-    private static final CommandResult TYPICAL_UNDO_COMMAND_RESULT = new CommandResult("Successfully undone!", false, false);
-    private static final CommandResult TYPICAL_TAB_COMMAND_RESULT = new CommandResult("Tab command", true, tab);
+    private static final CommandResult TYPICAL_CALENDAR_COMMAND_RESULT = new CommandResult("Calendar command",
+            true, localDate, calendarCommandType);
+    private static final CommandResult TYPICAL_UNDO_COMMAND_RESULT = new CommandResult("Successfully undone!",
+            false, false);
+    private static final CommandResult TYPICAL_TAB_COMMAND_RESULT = new CommandResult("Tab command",
+            true, tab);
     private static final CommandResult TYPICAL_HELP_COMMAND_RESULT = new CommandResult("Help", true, true);
     private static final CommandResult TYPICAL_EXIT_COMMAND_RESULT = new CommandResult("Exits", false, true);
     private static final CommandResult TYPICAL_PDF_COMMAND_RESULT = new CommandResult("pdf", true, pathStub);
@@ -168,7 +173,7 @@ public class CommandResultTest {
     }
 
     @Test
-    public void IsShowHelp() {
+    public void isShowHelp() {
         assertFalse(TYPICAL_CALENDAR_COMMAND_RESULT.isShowHelp());
         assertFalse(TYPICAL_TAB_COMMAND_RESULT.isShowHelp());
         assertFalse(TYPICAL_UNDO_COMMAND_RESULT.isShowHelp());
@@ -215,7 +220,8 @@ public class CommandResultTest {
     @Test
     public void getCalendarCommandTyoe() {
         assertThrows(CommandException.class, () -> TYPICAL_EXIT_COMMAND_RESULT.getCalendarCommandType());
-        assertDoesNotThrow(()->assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarCommandType(), calendarCommandType));
+        assertDoesNotThrow(()->assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarCommandType(),
+                calendarCommandType));
     }
 
     @Test
