@@ -44,6 +44,8 @@ public interface Model {
 
     void setStyleSheet(String string);
 
+    String getStyleSheet();
+
     /**
      * Returns the user prefs' address book file path.
      */

@@ -20,7 +20,6 @@ public class SetThemeCommandParser implements Parser<SetThemeCommand> {
     @Override
     public SetThemeCommand parse(String userInput) throws ParseException {
         String styleSheet = null;
-        String color = null;
         String trimedInput = userInput.trim();
         if (trimedInput.equalsIgnoreCase("light")) {
             styleSheet = LIGHTTHEME;
