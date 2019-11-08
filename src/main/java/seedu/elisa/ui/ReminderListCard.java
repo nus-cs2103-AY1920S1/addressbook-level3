@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.Reminder;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -37,52 +39,17 @@ public class ReminderListCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label priorityLabel;
-    @FXML
-    private ImageView statusIcon;
-    @FXML
-    private ImageView eventIcon;
+    private Label time;
 
     public ReminderListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
         Reminder reminder = item.getReminder().get();
         date.setText(String.valueOf(reminder.getOccurrenceDateTime().getDayOfMonth())
                 + " " + String.valueOf(reminder.getOccurrenceDateTime().getMonth()).substring(0, 3));
-        if (item.hasTask()) {
-            if (item.getTask().get().isComplete()) {
-                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
-            } else {
-                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
-            }
-        }
-        String priority = item.getPriority().toString();
-        priorityLabel.setText(priority);
-        priorityLabel.setPadding(new Insets(5, 10, 5, 10));
-        priorityLabel.setAlignment(Pos.CENTER);
-        switch(priority) {
-        case "HIGH":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
-                    + "-fx-background-color: red; "
-                    + "-fx-background-radius: 15, 15, 15, 15");
-            break;
-        case "MEDIUM":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
-                    + "-fx-background-color: orange; "
-                    + "-fx-background-radius: 15, 15, 15, 15");
-            priorityLabel.setText("MED");
-            break;
-        case "LOW":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
-                    + "-fx-background-color: green; "
-                    + "-fx-background-radius: 15, 15, 15, 15");
-            break;
-        default:
-        }
-
+        time.setText(String.valueOf(reminder.getOccurrenceDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
     }
 
     @Override

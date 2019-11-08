@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -39,26 +41,18 @@ public class EventListCard extends UiPart<Region> {
     @FXML
     private Label priorityLabel;
     @FXML
-    private ImageView statusIcon;
-    @FXML
-    private ImageView eventIcon;
+    private Label time;
 
     public EventListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
         Event event = item.getEvent().get();
         date.setText(String.valueOf(event.getStartDateTime().getDayOfMonth())
                 + " " + String.valueOf(event.getStartDateTime().getMonth()).substring(0, 3));
-        if (item.hasTask()) {
-            if (item.getTask().get().isComplete()) {
-                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
-            } else {
-                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
-            }
-        }
+        time.setText(String.valueOf(event.getStartDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))));
+
         String priority = item.getPriority().toString();
         priorityLabel.setText(priority);
         priorityLabel.setAlignment(Pos.CENTER);
