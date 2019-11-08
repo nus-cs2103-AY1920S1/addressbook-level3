@@ -359,5 +359,8 @@ public class EventCommandTest {
         public ArrayList<Event> getAthleteEvents(Person person) {
             return null;
         }
+
+        @Override
+        public void editPersonPerformanceRecords(Person target, Person editedPerson) { }
     }
 }

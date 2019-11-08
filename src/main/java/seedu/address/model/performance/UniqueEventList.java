@@ -121,6 +121,17 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
+     * Edits an athlete's record details accordingly when the EditCommand is executed.
+     */
+    public void updatePerson(Person target, Person editedPerson) {
+        for (Event event : internalList) {
+            if (event.hasPerson(target)) {
+                event.updatePerson(target, editedPerson);
+            }
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Event> asUnmodifiableObservableList() {
