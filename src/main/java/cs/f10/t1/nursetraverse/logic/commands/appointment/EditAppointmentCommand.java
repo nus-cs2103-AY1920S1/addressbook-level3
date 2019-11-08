@@ -148,7 +148,7 @@ public class EditAppointmentCommand extends MutatorCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditAppointmentCommand)) {
             return false;
         }
 
