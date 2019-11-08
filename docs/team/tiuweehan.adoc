@@ -9,48 +9,86 @@
 
 == Overview
 
-AlgoBase is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+AlgoBase is a desktop algorithmic problem manager.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.
 
 == Summary of contributions
 
 * *Code contributed*:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tiuweehan[Code contributed]
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Implemented *features for the Graphical User Interface*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: allows the user to open problems & plans in their own separate tabs,
+where they can edit and delete said items in the GUI in a user-friendly manner.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Justifications:
+
+*** As our target users are Computer Science students preparing for technical interviews, they would likely want to manage multiple plans and problems concurrently.
+Hence, it is important to provide an avenue for them to multitask and to switch between tasks easily. After much consideration, we decided to introduce tabbing to address this need,
+as it is a convenient, intuitive and user-friendly solution – Every problem and plan is just a click away, and is self-explanatory given its prevalent in many applications today.
+
+*** Furthermore, while the command line is fast for typing short commands, it might not be ideal in certain cases.
+For example, if the user is editing large amounts of text (e.g. The description of a problem), it would be extremely tedious and time consuming to edit from the command line.
+Hence, I implemented the ability to edit a problem / plan from within the tabs. Not having to deal with cumbersome details tremendously improves the overall user experience our user – it reduces their frustration and maximises the time they spend practicing for their interviews.
+
+** Highlights: This enhancement introduces a new high level component `UiLogic`, which handle events, or `UiActions`, triggered by the user in the GUI.
+It was challenging as logic of the Command line is primarily synchronous while the GUI is event-driven, and integrating the 2 architectural styles required an in-depth evaluation of design alternatives.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/37[#37]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/85[#85]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/215[#215]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/224[#224]
+
+* *Minor enhancement*: Command Line Tab management.
+
+** What it does: allows the user to manage (i.e. switch, open and close) tabs from the Command Line.
+
+** Justification: While a GUI would make sense for tedious actions like editing, the command line is arguably faster for simpler actions like switching tabs.
+Furthermore, our target users are Computer Science students who are used to command line window / tab management (through vim and emacs).
+Hence, I decided to implement a command line version for tab management to optimize for these users, which will help improve their user experience.
+
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/66[#66]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/106[#106]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/147[#147]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2` - `v1.2.1` (2 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+*** Enhanced GUI color scheme: Pull request
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/85[#85]
+
+*** Wrote additional tests for existing features to increase coverage from 33% to 40%: Pull request
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+
+** Documentation:
+*** Added images to the User Guide that serves as visual aids.
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/200[#200]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/224[#224]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/34[#34]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=gui]
+include::../UserGuide.adoc[tag=tab]
 
 == Contributions to the Developer Guide
 
@@ -58,8 +96,5 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=uilogic]
+include::../DeveloperGuide.adoc[tag=gui]

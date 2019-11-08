@@ -1,11 +1,16 @@
 package seedu.algobase.ui.details;
 
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.ui.UiPart;
@@ -19,6 +24,7 @@ import seedu.algobase.ui.action.UiActionType;
 public class PlanDetails extends UiPart<Region> {
 
     private static final String FXML = "PlanDetails.fxml";
+    private static final Logger logger = LogsCenter.getLogger(PlanDetails.class);
 
     private final Plan plan;
 
@@ -39,6 +45,8 @@ public class PlanDetails extends UiPart<Region> {
 
     public PlanDetails(Plan plan, UiActionExecutor uiActionExecutor) {
         super(FXML);
+        requireAllNonNull(plan, uiActionExecutor);
+
         this.plan = plan;
 
         editButton.setDisable(true);
@@ -64,6 +72,16 @@ public class PlanDetails extends UiPart<Region> {
         });
 
         editButton.setOnMouseClicked((e) -> {
+            logger.info("Edit button clicked on Plan Details");
+            logger.info(
+                "Creating new UiActionDetails with type " + UiActionType.EDIT_PLAN
+                    + " with ID of " + plan.getId()
+                    + " with a plan name of " + planName.getText()
+                    + " with a plan description of " + planDescription.getText()
+                    + " with a start date of " + startDate.getValue().toString()
+                    + " with an end date of " + endDate.getValue().toString()
+            );
+
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.EDIT_PLAN,
                 plan.getId(),
@@ -72,6 +90,8 @@ public class PlanDetails extends UiPart<Region> {
                 startDate.getValue(),
                 endDate.getValue()
             ));
+
+            logger.info("Disabling the Edit button");
             editButton.setDisable(true);
             e.consume();
         });
@@ -83,6 +103,7 @@ public class PlanDetails extends UiPart<Region> {
 
             // Close the warning dialog
             if (warningDialog.isShowing()) {
+                logger.info("Closing the Warning Dialog");
                 warningDialog.hide();
             }
 
@@ -91,6 +112,12 @@ public class PlanDetails extends UiPart<Region> {
             }
 
             // Close the tab
+            logger.info(
+                "Creating new UiActionDetails with type " + UiActionType.CLOSE_DETAILS_TAB
+                    + " with model type of " + ModelType.PLAN
+                    + " with ID of " + plan.getId()
+            );
+
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.CLOSE_DETAILS_TAB,
                 ModelType.PLAN,
@@ -98,6 +125,11 @@ public class PlanDetails extends UiPart<Region> {
             ));
 
             // Delete the plan
+            logger.info(
+                "Creating new UiActionDetails with type " + UiActionType.DELETE_PLAN
+                    + " with ID of " + plan.getId()
+            );
+
             uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.DELETE_PLAN,
                 plan.getId()
@@ -106,8 +138,10 @@ public class PlanDetails extends UiPart<Region> {
 
         deleteButton.setOnMouseClicked((e) -> {
             if (!warningDialog.isShowing()) {
+                logger.info("Delete button clicked - showing warning dialog");
                 warningDialog.show();
             } else {
+                logger.info("Delete button clicked - focusing on warning dialog");
                 warningDialog.focus();
             }
             e.consume();

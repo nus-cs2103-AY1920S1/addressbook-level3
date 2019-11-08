@@ -122,6 +122,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 //@@author
 
 //@@author tiuweehan
+// tag::uilogic[]
 [[Design-UiLogic]]
 === UiLogic Component
 
@@ -142,7 +143,7 @@ link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java
 image::EditSequenceDiagram.png[]
 
 NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+// end::uilogic[]
 //@@author
 
 //@@author le0tan
@@ -537,8 +538,9 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author
 
 //@@author tiuweehan
-// tag::gui
+// tag::gui[]
 === GUI Enhancements
+// end::gui[]
 
 An intuitive GUI facilitates the overall user friendliness of the application.
 The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase.
@@ -547,6 +549,8 @@ In this case, having a GUI will be more beneficial to the user and facilitates a
 
 Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time.
 This, we introduced tabbing, which facilitates multitasking in AlgoBase, which is an important requirement for competitive programmers.
+
+// tag::gui[]
 
 ==== Editing Problems from GUI
 

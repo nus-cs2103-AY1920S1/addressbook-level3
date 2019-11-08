@@ -22,6 +22,8 @@ public class UiActionResult {
      * Constructs a {@code UiActionResult} with the specified fields.
      */
     public UiActionResult(Optional<String> feedbackToUser, boolean showHelp, boolean exit) {
+        requireNonNull(feedbackToUser);
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
