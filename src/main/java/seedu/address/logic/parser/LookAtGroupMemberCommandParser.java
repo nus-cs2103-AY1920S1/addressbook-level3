@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.commands.FilterGroupMemberCommand;
+import seedu.address.logic.commands.LookAtGroupMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
 /**
  * Parser to parse filtering of group members in a group.
  */
-public class FilterGroupMemberCommandParser implements Parser<FilterGroupMemberCommand> {
+public class LookAtGroupMemberCommandParser implements Parser<LookAtGroupMemberCommand> {
     @Override
-    public FilterGroupMemberCommand parse(String args) throws ParseException {
+    public LookAtGroupMemberCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
@@ -23,6 +23,6 @@ public class FilterGroupMemberCommandParser implements Parser<FilterGroupMemberC
         List<Name> names = namesInString.stream()
                 .map(name -> new Name(name)).collect(Collectors.toCollection(ArrayList::new));
 
-        return new FilterGroupMemberCommand(names);
+        return new LookAtGroupMemberCommand(names);
     }
 }

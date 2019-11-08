@@ -340,6 +340,25 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
+            if (commandResult.isSelect()) {
+                PersonTimeslot personTimeslot;
+                if (commandResult.getPersonTimeslotData().isPresent()) {
+                    personTimeslot = commandResult.getPersonTimeslotData().get();
+
+                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
+                    new TimeslotPopup(timeslotView.getRoot()).show();
+
+                } else {
+                    return commandResult;
+                }
+            }
+
+            if (commandResult.isPopUp()) {
+                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
+                new LocationPopup(locationsView.getRoot()).show();
+                return commandResult;
+            }
+
             ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
             if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
@@ -383,24 +402,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isSelect()) {
-                PersonTimeslot personTimeslot;
-                if (commandResult.getPersonTimeslotData().isPresent()) {
-                    personTimeslot = commandResult.getPersonTimeslotData().get();
-
-                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
-                    new TimeslotPopup(timeslotView.getRoot()).show();
-
-                } else {
-                    return commandResult;
-                }
-            }
-
-            if (commandResult.isPopUp()) {
-                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
-                new LocationPopup(locationsView.getRoot()).show();
             }
 
             return commandResult;

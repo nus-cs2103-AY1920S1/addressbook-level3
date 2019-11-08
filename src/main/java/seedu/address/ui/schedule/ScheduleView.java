@@ -17,7 +17,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
@@ -292,8 +291,8 @@ public class ScheduleView extends UiPart<Region> {
         private Region makeColouredBlock(String color) {
             Region colouredBlock = new Region();
             colouredBlock.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
-            colouredBlock.setStyle("-fx-background-color: " + getLinearGradient(color)
-                    + "-fx-background-radius: " + (BLOCK_WIDTH / (28.0 * schedulesShown.size())) + ";");
+            colouredBlock.setStyle("-fx-background-color: " + color
+                    + "; -fx-background-radius: " + (BLOCK_WIDTH / (28.0 * schedulesShown.size())) + ";");
             colouredBlock.setId("colouredBlock");
             return colouredBlock;
         }
@@ -316,14 +315,6 @@ public class ScheduleView extends UiPart<Region> {
             Tooltip.install(container, tooltip);
             container.setId("colouredBlockWithText");
             return container;
-        }
-
-        private String getLinearGradient(String color) {
-            Color lighterTone = Color.web(color).desaturate();
-            String lighterToneHex = "#" + Integer.toHexString(lighterTone.hashCode());
-            String linearGradient = "linear-gradient(" + lighterToneHex + " 0%, " + color + " 20%, "
-                    + color + " 80%, " + lighterToneHex + " 100%);";
-            return linearGradient;
         }
 
         /**

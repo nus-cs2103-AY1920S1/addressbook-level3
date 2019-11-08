@@ -24,12 +24,12 @@ import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FilterGroupMemberCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LookAtGroupMemberCommand;
 import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
@@ -185,8 +185,8 @@ public class TimeBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case FilterGroupMemberCommand.COMMAND_WORD:
-            return new FilterGroupMemberCommandParser().parse(arguments);
+        case LookAtGroupMemberCommand.COMMAND_WORD:
+            return new LookAtGroupMemberCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
