@@ -7,21 +7,21 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
-class UserDateTimeParserTest {
+class IndexParserTest {
 
-    private static final UserDateTimeParser PARSER = new UserDateTimeParser();
+    private static final IndexParser PARSER = new IndexParser();
 
     @Test
-    void parse_invalidDateTime_failure() {
-        String[] tests = { "", " ", "29/02/2019 00:00" };
+    void parse_invalidIndex_failure() {
+        String[] tests = { "", " ", "1 1", "-1", "2147483648" };
         for (String test : tests) {
             assertThrows(ParseException.class, () -> PARSER.parse(test));
         }
     }
 
     @Test
-    void parse_validDateTime_success() {
-        String[] tests = { "01/01/0001 00:00", "31/12/9999 23:59" };
+    void parse_validIndex_success() {
+        String[] tests = { "0", "2147483647" };
         for (String test : tests) {
             assertDoesNotThrow(() -> PARSER.parse(test));
         }

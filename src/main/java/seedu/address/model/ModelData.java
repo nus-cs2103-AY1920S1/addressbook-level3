@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
@@ -70,21 +71,12 @@ public class ModelData {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) { // short circuit if same object
-            return true;
-        } else {
-            if (!(other instanceof ModelData)) {
-                return false;
-            }
-            ModelData otherModel = (ModelData) other;
-            if (!events.getSet().equals(otherModel.events.getSet())) {
-                return false;
-            }
-            if (!tasks.getSet().equals(otherModel.tasks.getSet())) {
-                return false;
-            }
-            return true;
+    public boolean equals(Object o) {
+        if (o instanceof ModelData) {
+            ModelData m = (ModelData) o;
+            return Objects.equals(this.events, m.events)
+                && Objects.equals(this.tasks, m.tasks);
         }
+        return false;
     }
 }

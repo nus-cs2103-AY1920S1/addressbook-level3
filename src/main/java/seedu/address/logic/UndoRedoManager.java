@@ -9,7 +9,7 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
-import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelDataListener;
 
 /**
  * UndoRedoManager contains all EventList states
@@ -21,7 +21,7 @@ import seedu.address.model.listeners.ModelListListener;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoRedoManager implements ModelListListener {
+public class UndoRedoManager implements ModelDataListener {
 
     /**
      * Deep-copies of Model are stored to this list
@@ -117,12 +117,12 @@ public class UndoRedoManager implements ModelListListener {
      * Appends the current ModelLists, containing the current events and tasks, to undoStateList.
             */
     @Override
-    public void onModelListChange(ModelData lists) {
+    public void onModelDataChange(ModelData modelData) {
         if (listening) {
             clearFutureHistory();
             assert undoIndex >= undoStateList.size() - 1
-                    : "Pointer always points to end of list during commit; All future states must have been discarded.";
-            undoStateList.add(lists);
+                : "Pointer always points to end of list during commit; All future states must have been discarded.";
+            undoStateList.add(modelData);
             undoIndex++;
         }
     }

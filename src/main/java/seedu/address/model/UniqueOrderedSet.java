@@ -43,8 +43,12 @@ public class UniqueOrderedSet<E> implements Iterable<E> {
         return this.set.iterator();
     }
 
-    public LinkedHashSet<E> getSet() {
-        return set;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof UniqueOrderedSet) {
+            UniqueOrderedSet u = (UniqueOrderedSet) o;
+            return Objects.equals(this.set, u.set);
+        }
+        return false;
     }
-
 }

@@ -24,6 +24,7 @@ class UndoRedoManagerTest {
         ModelManager modelManager = new ModelManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager(modelManager);
         undoRedoManager.start();
+        modelManager.addModelDataListener(undoRedoManager);
         assertThrows(CommandException.class, undoRedoManager::undo);
     }
 
@@ -32,6 +33,7 @@ class UndoRedoManagerTest {
         ModelManager modelManager = new ModelManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager(modelManager);
         undoRedoManager.start();
+        modelManager.addModelDataListener(undoRedoManager);
         assertThrows(CommandException.class, undoRedoManager::redo);
 
         String description = "description";
@@ -47,8 +49,9 @@ class UndoRedoManagerTest {
         ModelManager modelManager = new ModelManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager(modelManager);
         undoRedoManager.start();
-        assertEquals(undoRedoManager.getUndoStateList().size(), 1);
-        assertEquals(undoRedoManager.getUndoIndex(), 0);
+        modelManager.addModelDataListener(undoRedoManager);
+        assertEquals(1, undoRedoManager.getUndoStateList().size());
+        assertEquals(0, undoRedoManager.getUndoIndex());
         // Test whether a deep-copied version of ModelData in ModelManager has been stored to UndoRedoManager,
         // and not the original object itself
         assertTrue(undoRedoManager.getUndoStateList().get(0) != modelManager.getModel());
@@ -59,8 +62,8 @@ class UndoRedoManagerTest {
         List<EventSource> events = new ArrayList<>(modelManager.getEvents());
         events.add(EventSource.newBuilder(description, start).build());
         modelManager.setModelData(new ModelData(events, modelManager.getTasks()));
-        assertEquals(undoRedoManager.getUndoStateList().size(), 2);
-        assertEquals(undoRedoManager.getUndoIndex(), 1);
+        assertEquals(2, undoRedoManager.getUndoStateList().size());
+        assertEquals(1, undoRedoManager.getUndoIndex());
 
         // ModelData in ModelManager should no longer match the previous version in UndoRedoManager
         assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModel()));
@@ -75,6 +78,7 @@ class UndoRedoManagerTest {
         ModelManager modelManager = new ModelManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager(modelManager);
         undoRedoManager.start();
+        modelManager.addModelDataListener(undoRedoManager);
 
         String description = "description";
         DateTime start = DateTime.now();
@@ -83,7 +87,7 @@ class UndoRedoManagerTest {
         modelManager.setModelData(new ModelData(events, modelManager.getTasks()));
 
         assertDoesNotThrow(undoRedoManager::undo);
-        assertEquals(undoRedoManager.getUndoIndex(), 0);
+        assertEquals(0, undoRedoManager.getUndoIndex());
         // ModelData in ModelManager should no longer match the latest version in UndoRedoManager
         assertFalse(undoRedoManager.getUndoStateList().get(1).equals(modelManager.getModel()));
         // Test whether ModelData in ModelManager has been updated to match the previous version in UndoRedoManager
@@ -97,6 +101,7 @@ class UndoRedoManagerTest {
         ModelManager modelManager = new ModelManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager(modelManager);
         undoRedoManager.start();
+        modelManager.addModelDataListener(undoRedoManager);
 
         String description = "description";
         DateTime start = DateTime.now();
@@ -107,7 +112,7 @@ class UndoRedoManagerTest {
         assertDoesNotThrow(undoRedoManager::undo);
 
         assertDoesNotThrow(undoRedoManager::redo);
-        assertEquals(undoRedoManager.getUndoIndex(), 1);
+        assertEquals(1, undoRedoManager.getUndoIndex());
         // ModelData in ModelManager should no longer match the previous version in UndoRedoManager
         assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModel()));
         // Test whether ModelData in ModelManager has been updated to match the previous version in UndoRedoManager

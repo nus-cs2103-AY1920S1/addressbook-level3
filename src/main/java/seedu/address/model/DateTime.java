@@ -47,8 +47,8 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTimeBuilder(instant);
     }
 
-    public static DateTimeBuilder newBuilder(int year, int month, int day, int hour, int minute, ZoneId timezone) {
-        return new DateTimeBuilder(year, month, day, hour, minute, timezone);
+    public static DateTimeBuilder newBuilder(int day, int month, int year, int hour, int minute, ZoneId timezone) {
+        return new DateTimeBuilder(day, month, year, hour, minute, timezone);
     }
 
     /**
@@ -68,6 +68,9 @@ public class DateTime implements Comparable<DateTime> {
         return USER_PARSER.parse(string);
     }
 
+    // TODO: These should be moved to another class because DateTime
+    //  has no relation to time zone information. However, doing so will
+    //  require a major refactoring of Ui.
     @JsonIgnore
     public Integer getYear() {
         return this.instant.atZone(TIME_ZONE).get(ChronoField.YEAR_OF_ERA);
@@ -94,7 +97,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     @JsonIgnore
-    private Integer getMinute() {
+    public Integer getMinute() {
         return this.instant.atZone(TIME_ZONE).getMinute();
     }
 
@@ -105,7 +108,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     @JsonProperty("epoch")
-    private long toEpochSecond() {
+    public long toEpochSecond() {
         return this.instant.getEpochSecond();
     }
 
