@@ -405,6 +405,10 @@ Creates a new meme from the current meme creation session, giving it a descripti
 // tag::export/import[]
 
 === Export Tab
+Weme supports exporting memes into the local filesystem.
+To export memes, stage them from the memes tab.
+Staged memes will appear in the export staging area in the export tab.
+You can then unstage or export them as you wish in the export tab.
 
 ==== Unstaging a meme: `unstage`
 
@@ -413,7 +417,7 @@ Format: `unstage INDEX`
 
 ==== Exporting memes: `export`
 
-Exports the memes in the export tab into a directory. The directory path can
+Exports the memes in the export staging area into a directory. The directory path can
 be either specified or not.
 
 * If the path is not specified, then the memes will
@@ -436,37 +440,40 @@ Clears all memes in the export tab. +
 Format: `clear`
 
 === Import Tab
+Weme supports batch importing memes from a local directory.
+To import a directory of images, first load the directory into the the import staging area.
+You can then edit or delete memes in the staging area before actually importing them into Weme.
 
-==== Loading memes: `load`
+==== Loading memes into the import staging area: `load`
 
-Loads memes from a specified directory into the import tab. +
+Loads memes from a specified directory into the import staging area. +
 Format: `load p/PATH`
 
-==== Editing a meme: `edit`
+****
+* Weme only loads image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
+* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
+with `.jpg` extension).
+****
 
-Edits a meme from the import tab. This allows the user
+==== Editing a meme in the import staging area: `edit`
+
+Edits a meme from the import staging area. This allows the user
 to make changes before actually importing the meme. +
 Format: `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 
 ==== Deleting a meme: `delete`
 
-Deletes an unwanted meme from the import tab. +
+Deletes an unwanted meme from the import staging area. +
 Format: `delete INDEX`
 
 ==== Importing memes: `import`
 
-Imports memes from the import tab into Weme. +
+Imports all the memes from the import staging area into Weme. +
 Format: `import`
-
-****
-* Weme only imports image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
-* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
-with `.jpg` extension).
-****
 
 ==== Clearing loaded memes: `clear`
 
-Clears all the memes in the import tab. +
+Clears all the memes in the import staging area. +
 Format: `clear`
 
 
