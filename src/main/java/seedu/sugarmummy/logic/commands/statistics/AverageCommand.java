@@ -25,7 +25,7 @@ public class AverageCommand extends Command {
             + "Format: average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
             + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
-    public static final String MESSAGE_SUCCESS = "Your %1$s averages for %2$s have been calculated successfully.";
+    public static final String MESSAGE_SUCCESS = "Your %1$s averages for %2$s have been calculated successfully!";
 
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
@@ -33,7 +33,7 @@ public class AverageCommand extends Command {
 
     public static final String MESSAGE_INVALID_RECORD_TYPE = "rt/RECORD_TYPE";
 
-    public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
+    public static final String MESSAGE_NO_RECORD = "Oops! You do not have any %1$s record.";
 
     private final AverageType averageType;
 

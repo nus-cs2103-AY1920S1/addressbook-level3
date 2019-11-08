@@ -254,13 +254,13 @@ users to self-monitor and keep their blood sugar levels and BMI in check, with a
 To enhance performance, the application internally caches the list of achievements. So long as there is no modification
 to the list of achievements, the same pane as before is displayed without retrieving images representing the
 achievements each time `achvm` is called. This means that after the first time a specific achievements page is
-displayed, subsequent loading is much faster for the user! :) Of course, this is until the next update of achievements,
+displayed, subsequent loading is much faster for the user! =) Of course, this is until the next update of achievements,
 or until the application is restarted, though loading itself is already optimised with image resolution sizes that are
 just sufficient for the page, and most of the time the user should not notice any significant differences at all whether
 the achievements are loaded for the first time. This means that regardless of the device the user is using, the pane is
 more or less guaranteed to run smoothly without any notable performance issues with efficiency. Ultimately, in short,
 measures have been taken to ensure quality in user experience, especially for a feature that focuses on
-_personalised_ user experience :)
+_personalised_ user experience =)
 
 The command word, as for all other commands, is not case-sensitive for convenience to user.
 
