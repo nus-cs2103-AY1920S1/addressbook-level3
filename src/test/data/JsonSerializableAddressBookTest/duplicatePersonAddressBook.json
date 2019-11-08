@@ -1,12 +1,12 @@
 {
   "persons": [ {
     "type": "doctor",
-    "nric": "S1234567A",
+    "nric": "F1289064T",
     "name": "Alice Pauline",
     "phone": "94351213"
   }, {
     "type": "doctor",
-    "nric": "S1234567A",
+    "nric": "F1289064T",
     "name": "Alice Pauline",
     "phone": "94351253"
   } ]

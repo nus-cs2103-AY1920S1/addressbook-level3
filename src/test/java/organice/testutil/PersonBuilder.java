@@ -11,10 +11,10 @@ import organice.model.person.Type;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_NRIC = "S1111111A";
-    public static final String DEFAULT_TYPE = "doctor";
+    private static final String DEFAULT_NAME = "Alice Pauline";
+    private static final String DEFAULT_PHONE = "85355255";
+    private static final String DEFAULT_NRIC = "T6842475A";
+    private static final String DEFAULT_TYPE = "doctor";
 
     protected Name name;
     protected Phone phone;

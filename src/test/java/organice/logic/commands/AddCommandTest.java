@@ -68,7 +68,7 @@ public class AddCommandTest {
     @Test
     public void execute_patientAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Patient validPatient = new PatientBuilder().withNric("S1234567A").build();
+        Patient validPatient = new PatientBuilder().withNric("S6295135D").build();
 
         CommandResult commandResultPatient = new AddCommand(validPatient).execute(modelStub);
 

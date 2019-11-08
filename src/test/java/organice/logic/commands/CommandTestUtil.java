@@ -46,11 +46,11 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_PATIENT_BOB = "22222222";
     public static final String VALID_PHONE_PATIENT_IRENE = "85355255";
 
-    public static final String VALID_NRIC_DOCTOR_AMY = "S1111111A";
-    public static final String VALID_NRIC_DONOR_JOHN = "T1312123P";
-    public static final String VALID_NRIC_PATIENT_BOB = "G2222222B";
-    public static final String VALID_NRIC_PATIENT_IRENE = "S1111112A";
-    public static final String VALID_NRIC_DONOR_IRENE_DONOR = "S9876543G";
+    public static final String VALID_NRIC_DOCTOR_AMY = "S8078981E";
+    public static final String VALID_NRIC_DONOR_JOHN = "S6488870F";
+    public static final String VALID_NRIC_PATIENT_BOB = "S7044112H";
+    public static final String VALID_NRIC_PATIENT_IRENE = "S9605440H";
+    public static final String VALID_NRIC_DONOR_IRENE_DONOR = "S9155102J";
 
     public static final String VALID_TYPE_DOCTOR_AMY = "doctor";
     public static final String VALID_TYPE_DONOR_JOHN = "donor";

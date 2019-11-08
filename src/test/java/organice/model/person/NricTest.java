@@ -37,35 +37,35 @@ public class NricTest {
         assertFalse(Nric.isValidNric("N1234567A")); // starts with letter other than S/T/F/G
 
         // valid nric
-        assertTrue(Nric.isValidNric("s1234512b")); // should be case insensitive
-        assertTrue(Nric.isValidNric("s1234512R")); // should be case insensitive
-        assertTrue(Nric.isValidNric("T1234512a")); // should be case insensitive
-        assertTrue(Nric.isValidNric("S1234567B")); // starts with 'S'
-        assertTrue(Nric.isValidNric("T2222222A")); // starts with 'T'
-        assertTrue(Nric.isValidNric("F3333333A")); // starts with 'F'
-        assertTrue(Nric.isValidNric("G4444444A")); // starts with 'G'
+        assertTrue(Nric.isValidNric("s2304654g")); // should be case insensitive
+        assertTrue(Nric.isValidNric("S2304654G")); // should be case insensitive
+        assertTrue(Nric.isValidNric("S2304654g")); // should be case insensitive
+        assertTrue(Nric.isValidNric("S1139237G")); // starts with 'S'
+        assertTrue(Nric.isValidNric("T4796195A")); // starts with 'T'
+        assertTrue(Nric.isValidNric("F4999805T")); // starts with 'F'
+        assertTrue(Nric.isValidNric("G7714007M")); // starts with 'G'
     }
 
     @Test
     public void toStringTest() {
-        assertEquals(new Nric("S1111111A").toString(), "S1111111A");
+        assertEquals(new Nric("S2304654G").toString(), "S2304654G");
     }
 
     @Test
     public void equals() {
-        Nric nric = new Nric("S1111111A");
+        Nric nric = new Nric("S2304654G");
 
         assertFalse(nric.equals(null));
-        assertFalse(nric.equals(new Nric("S1111111B")));
+        assertFalse(nric.equals(new Nric("S1139237G")));
         assertTrue(nric.equals(nric));
-        assertTrue(nric.equals(new Nric("S1111111A")));
+        assertTrue(nric.equals(new Nric("S2304654G")));
     }
 
     @Test
     public void hashCodeTest() {
-        Nric nric = new Nric("S1111111A");
+        Nric nric = new Nric("S2304654G");
 
-        assertEquals(nric.hashCode(), new Nric("S1111111A").hashCode());
-        assertNotEquals(nric.hashCode(), new Nric("S1111111B").hashCode());
+        assertEquals(nric.hashCode(), new Nric("S2304654G").hashCode());
+        assertNotEquals(nric.hashCode(), new Nric("S1139237G").hashCode());
     }
 }

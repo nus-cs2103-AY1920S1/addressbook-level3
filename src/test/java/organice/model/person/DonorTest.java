@@ -131,7 +131,7 @@ public class DonorTest {
     public void toStringTest() {
         Donor john = new DonorBuilder(DONOR_JOHN).build();
         assertEquals(john.toString().trim(),
-            "John Person Type: donor Nric: T1312123P Phone: 81230942 Age: 60 "
+            "John Person Type: donor Nric: S6488870F Phone: 81230942 Age: 60 "
                         + "Blood Type: A+ Tissue Type: 1,2,3,4,5,6 Organ: kidney Organ "
                                 + "Expiry Date: 20-Jan-2020 Status: not processing");
     }
