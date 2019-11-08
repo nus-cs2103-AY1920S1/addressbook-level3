@@ -7,16 +7,41 @@ import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
 import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
-import static io.xpire.testutil.TypicalIndexes.*;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
-import static io.xpire.testutil.TypicalItemsFields.*;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_EXPIRED_MILK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BISCUIT;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_CHOCOLATE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_EXPIRED_MILK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_CADBURY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_COCOA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_PROTEIN;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_SWEET;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-import io.xpire.testutil.ItemBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +56,7 @@ import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
+import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.XpireItemBuilder;
 
 /**
@@ -225,7 +251,7 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DELETE_QUANTITY_FAILURE);
     }
 
-    //---------------- Tests for Replenish List --------------------------------------------------------------------------
+    //---------------- Tests for Replenish List -----------------------------------------------------------------------
     @Test
     public void execute_validIndexUnfilteredReplenishList_success() {
         model.setCurrentList(REPLENISH);
