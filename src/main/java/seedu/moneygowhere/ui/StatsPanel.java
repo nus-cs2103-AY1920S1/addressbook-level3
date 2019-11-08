@@ -36,8 +36,8 @@ public class StatsPanel extends UiPart<Region> {
 
         for (Map.Entry<String, Double> i : statsData.entrySet()) {
             double newCost = currency.rate * i.getValue();
-            pieChartData.add(new PieChart.Data(String.format("%s (%s%s)", i.getKey(), currency.symbol, MoneyUtil.format(newCost)),
-                Math.round(i.getValue())));
+            pieChartData.add(new PieChart.Data(String.format("%s (%s%s)", i.getKey(), currency.symbol,
+                MoneyUtil.format(newCost)), Math.round(i.getValue())));
         }
         PieChart pieChart = new PieChart(pieChartData);
         Text text = new Text();
