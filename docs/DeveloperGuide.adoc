@@ -547,9 +547,7 @@ XYSeries  public CommandResult execute(Model model) throws CommandException {
 
 *Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
 
-*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded and ready to display for the next user input.
-
-
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded by the methods `FinSecParser#getCommandList().keySet()` and `SuggestionsStorage#getSuggestions()` and ready to display for the next user input.
 
 
 === Budget feature
