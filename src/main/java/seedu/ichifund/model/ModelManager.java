@@ -127,31 +127,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return fundBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        fundBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        fundBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        fundBook.setPerson(target, editedPerson);
-    }
-
-
-    @Override
     public void deleteTransaction(Transaction target) {
         fundBook.removeTransaction(target);
     }

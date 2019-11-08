@@ -72,30 +72,6 @@ public interface Model {
      */
     void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId);
 
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the fund book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the fund book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the fund book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the fund book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the fund book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

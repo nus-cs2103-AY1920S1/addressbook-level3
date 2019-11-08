@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.ichifund.testutil.Assert.assertThrows;
+import static seedu.ichifund.testutil.TypicalFundBook.BUDGET_ANIME;
 import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
 import static seedu.ichifund.testutil.TypicalFundBook.PERSON_BENSON;
 
@@ -73,24 +74,29 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasBudget_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasBudget(null));
     }
 
     @Test
-    public void hasPerson_personNotInFundBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(PERSON_ALICE));
+    public void hasBudget_budgetNotInFundBook_returnsFalse() {
+        assertFalse(modelManager.hasBudget(BUDGET_ANIME));
     }
 
     @Test
-    public void hasPerson_personInFundBook_returnsTrue() {
-        modelManager.addPerson(PERSON_ALICE);
-        assertTrue(modelManager.hasPerson(PERSON_ALICE));
+    public void hasBudget_budgetInFundBook_returnsTrue() {
+        modelManager.addBudget(BUDGET_ANIME);
+        assertTrue(modelManager.hasBudget(BUDGET_ANIME));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredBudgetList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredBudgetList().remove(0));
+    }
+
+    @Test
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTransactionList().remove(0));
     }
 
     @Test
