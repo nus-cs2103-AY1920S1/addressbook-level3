@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -10,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -21,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 
+//@@ author shaoyi1997
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -38,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReadOnlyAddressBook readOnlyAddressBook;
     private double xOffset = 0;
     private double yOffset = 0;
+    private boolean isDim = false;
 
     // Independent Ui parts residing in this Ui container
     private WorkerListPanel workerListPanel;
@@ -175,20 +180,52 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setMenuBarHandlers() {
+        // determines the horizontal and vertical positions of the window relative to its origin
         menuBar.setOnMousePressed((event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
+        // changes the window position according to the offset
         menuBar.setOnMouseDragged((event) -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
+        // set handler when user double clicks on the menubar
+        menuBar.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                maximizeRestore(event);
+            }
+        });
+
+        // sets the handlers for the respective buttons
         setMaximiseButtonHandler();
         setMinimiseButtonHandler();
+
+        // allows the window to be draggable and resizable
         ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
                 Double.MAX_VALUE, Double.MAX_VALUE);
+
+    }
+
+    /**
+     * Enables the maximization and restoration of the window.
+     */
+    private void maximizeRestore(MouseEvent evt) {
+        if (primaryStage.isMaximized()) {
+            primaryStage.setMaximized(false);
+            if (primaryStage.getScene().getWindow().getY() < 0) {
+                primaryStage.getScene().getWindow().setY(0);
+            }
+            maximiseButton.setId("maximiseButton");
+        } else {
+            Rectangle windowBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            primaryStage.setMaximized(true);
+            primaryStage.setHeight(windowBounds.height);
+            primaryStage.setWidth(windowBounds.width);
+            maximiseButton.setId("restoreButton");
+        }
     }
 
     /**
@@ -224,14 +261,8 @@ public class MainWindow extends UiPart<Stage> {
      * Change button images respectively via css.
      */
     private void setMaximiseButtonHandler() {
-        maximiseButton.setOnMouseClicked(click -> {
-            primaryStage.setMaximized(true);
-            maximiseButton.setId("restoreButton");
-        });
-
         maximiseButton.setOnMousePressed(click -> {
-            primaryStage.setMaximized(false);
-            maximiseButton.setId("maximiseButton");
+            maximizeRestore(click);
         });
     }
 
@@ -293,3 +324,4 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 }
+//@@ author

@@ -64,51 +64,31 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Label fx:id="sex" styleClass="cell_big_label" text="\$sex" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Label>
+            <Label fx:id="sex" styleClass="cell_big_label" text="\$sex" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone No.:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Label fx:id="phoneNumber" styleClass="cell_small_label" text="\$phoneNumber" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Label>
+            <Label fx:id="phoneNumber" styleClass="cell_small_label" text="\$phoneNumber" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Joined:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-         <Label fx:id="dateJoined" styleClass="cell_small_label" text="\$dateJoined" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Label>
+         <Label fx:id="dateJoined" styleClass="cell_small_label" text="\$dateJoined" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Label>
+            <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <Text id="workerLessImptInfoHeaders" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Employment Status:" wrappingWidth="80.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                <font>
                   <Font size="10.0" />
                </font>
             </Text>
-            <Label fx:id="employmentStatus" styleClass="cell_small_label" text="\$employmentStatus" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Label>
+            <Label fx:id="employmentStatus" styleClass="cell_small_label" text="\$employmentStatus" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets />

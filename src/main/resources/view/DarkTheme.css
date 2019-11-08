@@ -625,7 +625,7 @@
 
 #fridgeListPlaceholder .label {
     -fx-text-fill: white;
-    -fx-font-size: 9;
+    -fx-font-size: 10;
 }
 
 #bodyIdInFridge {

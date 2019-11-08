@@ -244,7 +244,7 @@ public class ParserUtil {
             return Arrays.asList(new String[0]);
         }
         String trimmedOrgans = stringOfOrgans.trim();
-        String[] arrayOforgans = trimmedOrgans.split("\\s*,\\s*");
+        String[] arrayOforgans = trimmedOrgans.split(" ");
         return Arrays.asList(arrayOforgans);
     }
 

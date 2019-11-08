@@ -31,7 +31,7 @@ public class FridgeGridView extends UiPart<Region> {
         fridgeGridView.setItems(fridgeList);
         fridgeGridView.setCellFactory(gridview -> new FridgeGridCell());
         fridgeGridView.setCellWidth(70);
-        fridgeGridView.setCellHeight(70);
+        fridgeGridView.setCellHeight(80);
         fridgeGridView.setHorizontalCellSpacing(5);
     }
 

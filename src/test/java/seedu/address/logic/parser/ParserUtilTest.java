@@ -45,7 +45,7 @@ public class ParserUtilTest {
     private static final String VALID_SEX = "male";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_ID = "F01";
-    private static final String VALID_ORGANS_FOR_DONATION = "kidney, cornea";
+    private static final String VALID_ORGANS_FOR_DONATION = "kidney cornea";
 
     private static final String WHITESPACE = " \t\r\n";
 
