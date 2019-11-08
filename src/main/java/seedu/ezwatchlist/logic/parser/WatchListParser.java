@@ -43,7 +43,6 @@ public class WatchListParser {
 
     public Command parseCommand(String userInput, String currentTab) throws ParseException, OnlineConnectionException {
         if (shortCutKey(userInput)) {
-            System.err.println("HERE");
             return new GoToParser().parse(userInput, currentTab);
         }
 
