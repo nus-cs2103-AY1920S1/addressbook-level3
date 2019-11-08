@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #919191;
     -fx-opacity: 0.9;
 }
 
@@ -38,6 +38,8 @@
     -fx-min-height: 0;
     -fx-max-height: 0;
 }
+
+.tab-pane .tab-header-background { -fx-background-color: #3e3e3e; }
 
 .table-view {
     -fx-base: #1d1d1d;
@@ -151,7 +153,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#4f556b, 20%);
+     -fx-background-color: derive(#3b3a3d, 20%);
 }
 
 .pane-with-border {
@@ -166,8 +168,8 @@
 
 .template-item-display {
     -fx-background-color: black;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 11pt;
     -fx-text-fill: gray;
     -fx-min-width: 1000;
 }
@@ -340,7 +342,7 @@
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #f70313;
 }
 
 #commandTextField {
@@ -359,7 +361,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #4e5766, transparent, #4e5766;
+    -fx-background-color: transparent, #3b3a3d, transparent, #3b3a3d;
     -fx-background-radius: 0;
 }
 

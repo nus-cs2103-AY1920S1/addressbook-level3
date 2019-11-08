@@ -50,6 +50,9 @@ public class ShoppingItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(shoppingItem.getName().fullName);
         amount.setText(shoppingItem.getAmount().fullAmt);
+        name.setWrapText(true);
+        id.setWrapText(true);
+        amount.setWrapText(true);
         Text urgentText = new Text("Urgent!");
         urgentText.setFill(Color.RED);
         if (shoppingItem.isUrgent()) {

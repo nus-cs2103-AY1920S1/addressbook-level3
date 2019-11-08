@@ -35,6 +35,8 @@ public class TemplateListCard extends UiPart<Region> {
         this.template = template;
         id.setText(displayedIndex + ". ");
         name.setText(template.getName().fullName);
+        name.setWrapText(true);
+        id.setWrapText(true);
     }
 
     @Override
