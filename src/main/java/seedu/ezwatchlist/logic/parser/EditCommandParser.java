@@ -13,11 +13,14 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.ezwatchlist.Main;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.EditCommand;
+import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -36,6 +39,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_IS_WATCHED, PREFIX_RUNNING_TIME, PREFIX_ACTOR);
 
         Index index;
+
+        if (currentPanel.equals(MainWindow.SEARCH_TAB) || currentPanel.equals(MainWindow.STATISTICS_TAB)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND);
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
