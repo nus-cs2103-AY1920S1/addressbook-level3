@@ -1,28 +1,27 @@
-package seedu.ichifund.model.repeater;
+package seedu.ichifund.model.loan;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Unique Id for a Repeater in IchiFund.
+ * Represents a Unique Id for a Loan in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class RepeaterUniqueId {
+public class LoanId {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Repeater unique ids should either be empty or only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS = "Loan ID must only be integers";
     public static final String VALIDATION_REGEX = "[0-9]*";
 
     public final Integer id;
 
     /**
-     * Constructs a {@code RepeaterUniqueId}.
+     * Constructs a {@code LoanId}.
      *
      * @param id A valid id.
      */
-    public RepeaterUniqueId(String id) {
+    public LoanId(String id) {
         requireNonNull(id);
-        checkArgument(isValidRepeaterUniqueId(id), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidLoanId(id), MESSAGE_CONSTRAINTS);
         if (!id.equals("")) {
             this.id = Integer.parseInt(id);
         } else {
@@ -31,9 +30,9 @@ public class RepeaterUniqueId {
     }
 
     /**
-     * Returns true if a given string is a valid repeater unique id.
+     * Returns true if a given string is a valid loan ID.
      */
-    public static boolean isValidRepeaterUniqueId(String test) {
+    public static boolean isValidLoanId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,13 +44,13 @@ public class RepeaterUniqueId {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (other instanceof RepeaterUniqueId) {
-            if (id == null && ((RepeaterUniqueId) other).id == null) {
+        } else if (other instanceof LoanId) {
+            if (id == null && ((LoanId) other).id == null) {
                 return true;
-            } else if (id == null || ((RepeaterUniqueId) other).id == null) {
+            } else if (id == null || ((LoanId) other).id == null) {
                 return false;
             } else {
-                return id.equals(((RepeaterUniqueId) other).id);
+                return id.equals(((LoanId) other).id);
             }
         } else {
             return false;
@@ -77,4 +76,5 @@ public class RepeaterUniqueId {
             return id.toString();
         }
     }
+
 }

@@ -1,12 +1,13 @@
-package seedu.ichifund.model.loans;
+package seedu.ichifund.model.loan;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
 /**
- * Name type for Loans.
+ * Represents a Person's name in the fund book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-    public static final String NAMEREGEX = "()"; // '.' followed by exactly two numerical digits
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -16,13 +17,27 @@ public class Name {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
     public final String fullName;
 
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+    /**
+     * Constructs a {@code Name}.
+     *
+     * @param name A valid name.
+     */
+    public Name(String loanname) {
+        requireNonNull(loanname);
+        checkArgument(isValidName(loanname), MESSAGE_CONSTRAINTS);
+        this.fullName = loanname;
     }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
 
     @Override
     public String toString() {
@@ -36,26 +51,9 @@ public class Name {
                 && fullName.equals(((Name) other).fullName)); // state check
     }
 
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    @Override
+    public int hashCode() {
+        return fullName.hashCode();
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    /**
-     * To check if boolean condition is fulfilled.
-     *
-     * @param condition
-     * @param errorMessage
-     */
-    public static void checkArgument(Boolean condition, String errorMessage) {
-        if (!condition) {
-            throw new IllegalArgumentException(errorMessage);
-        }
-    }
 }
