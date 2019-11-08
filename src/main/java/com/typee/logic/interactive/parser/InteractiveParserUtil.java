@@ -25,6 +25,7 @@ import com.typee.model.util.EngagementComparator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
+ * The methods should be invoked only after input validation, unless specified otherwise.
  */
 public class InteractiveParserUtil {
 
@@ -89,7 +90,6 @@ public class InteractiveParserUtil {
      *
      * @param engagementType {@code String} representing the type of engagement.
      * @return corresponding {@code EngagementType}.
-     * @throws ParseException if the given {@code String engagementType} is invalid.
      */
     public static EngagementType parseType(String engagementType) {
         requireNonNull(engagementType);
@@ -104,7 +104,6 @@ public class InteractiveParserUtil {
      *
      * @param location location.
      * @return a corresponding {@code Location} object.
-     * @throws ParseException if the {@code String location} is invalid.
      */
     public static Location parseLocation(String location) {
         requireNonNull(location);
@@ -116,7 +115,6 @@ public class InteractiveParserUtil {
      *
      * @param priority {@code String} representing priority.
      * @return the corresponding {@code Priority}.
-     * @throws ParseException if the {@code String priority} is invalid.
      */
     public static Priority parsePriority(String priority) {
         requireNonNull(priority);
@@ -132,6 +130,7 @@ public class InteractiveParserUtil {
 
     /**
      * Parses a {@code String order} and returns a {@code EngagementComparator}.
+     *
      * @param order the sorting order.
      * @return the PersonPropertyComparator representing the comparator for that property.
      * @throws ParseException if the given {@code personProperty} is invalid.
@@ -152,7 +151,6 @@ public class InteractiveParserUtil {
      *
      * @param time time.
      * @return a {@code LocalDateTime} object.
-     * @throws ParseException if the {@code String time} is invalid.
      */
     public static LocalDateTime parseTime(String time) {
         requireNonNull(time);
@@ -175,9 +173,9 @@ public class InteractiveParserUtil {
     /**
      * Parses the {@code String date} input by the user.
      * Returns a {@code LocalDate} object representing the date.
+     *
      * @param date The {@code String date} input by the user.
      * @return A {@code LocalDate} object.
-     * @throws ParseException
      */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
@@ -193,6 +191,7 @@ public class InteractiveParserUtil {
 
     /**
      * Converts a {@code String} to its corresponding {@code LocalDate} object.
+     *
      * @param date date.
      * @return the corresponding {@code LocalDate} object.
      */
@@ -208,9 +207,9 @@ public class InteractiveParserUtil {
 
     /**
      * Validates and returns the description of an engagement.
-     * @param description the description of an engagement.
+     *
+     * @param description Description of an engagement.
      * @return the description if its valid.
-     * @throws ParseException if the description is blank.
      */
     public static String parseDescription(String description) {
         return description;
@@ -219,7 +218,7 @@ public class InteractiveParserUtil {
     /**
      * Parses a {@code String} representing a list of attendees into an {@code AttendeeList}.
      *
-     * @param attendees string representing list of attendees.
+     * @param attendees String representing list of attendees.
      * @return corresponding {@code AttendeeList}.
      */
     public static AttendeeList parseAttendees(String attendees) {
@@ -231,6 +230,12 @@ public class InteractiveParserUtil {
         return new AttendeeList(attendeesList);
     }
 
+    /**
+     * Returns true if the entered {@code String} represents a valid date-time.
+     *
+     * @param dateTime {@code String} that represents a date-time.
+     * @return true if valid.
+     */
     public static boolean isValidDateTime(String dateTime) {
         try {
             makeDateTimeFromPattern(dateTime);
@@ -240,6 +245,13 @@ public class InteractiveParserUtil {
         }
     }
 
+    /**
+     * Returns a {@code LocalDateTime} object that represents the entered {@code String}.
+     *
+     * @param dateTime {@code String} that represents a date-time value.
+     * @return {@code LocalDateTime}.
+     * @throws DateTimeException If the {@code String} is an invalid date-time valid.
+     */
     private static LocalDateTime makeDateTimeFromPattern(String dateTime) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)
                 .withResolverStyle(ResolverStyle.STRICT);
@@ -247,12 +259,28 @@ public class InteractiveParserUtil {
         return localDateTime;
     }
 
+    /**
+     * Returns true if the entered strings representing start and end date-times are valid.
+     * The strings are valid if end time occurs after the start time.
+     * This method should only be called if the {@code Strings} represent valid date-time values.
+     *
+     * @param startDate {@code String} that represents the start date-time.
+     * @param endDate {@code String} that represents the end date-time.
+     * @return true if the time-slot is valid.
+     */
     public static boolean isValidTimeSlot(String startDate, String endDate) {
         LocalDateTime start = makeDateTimeFromPattern(startDate);
         LocalDateTime end = makeDateTimeFromPattern(endDate);
         return start.isBefore(end);
     }
 
+    /**
+     * Parses the entered {@code String} that represents a date that conforms to the entered pattern.
+     *
+     * @param date Date.
+     * @param pattern Date-pattern.
+     * @return {@code LocalDate} representing the date.
+     */
     public static LocalDate parseLocalDate(String date, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         LocalDate localDate = LocalDate.parse(date, formatter);
