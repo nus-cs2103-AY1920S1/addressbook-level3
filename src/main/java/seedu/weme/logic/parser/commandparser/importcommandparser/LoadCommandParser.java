@@ -8,7 +8,7 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.parser.util.ArgumentMultimap;
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
 import seedu.weme.logic.parser.util.ParserUtil;
-import seedu.weme.model.DirectoryPath;
+import seedu.weme.model.path.DirectoryPath;
 
 /**
  * Parses input arguments and creates a new LoadCommand object

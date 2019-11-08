@@ -11,17 +11,16 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-
 import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.util.FileUtil;
-import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.DirectoryPath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.util.ImageUtil;
 
@@ -60,6 +59,22 @@ class ImportCommandTest extends ApplicationTest {
         return new MemeStub(new ImagePath(newPath.toString()), toCopy.getDescription(), toCopy.getTags());
     }
 
+    @Test
+    public void equals() {
+        final ImportCommand standardCommand = new ImportCommand();
+
+        // same values -> returns true
+        ImportCommand commandWithSameValues = new ImportCommand();
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+    }
+
     /**
      * A meme stub that checks for equality without checking for filePath to
      * bypass the random UUID generation issue.
@@ -85,22 +100,6 @@ class ImportCommandTest extends ApplicationTest {
                     && otherMeme.getTags().equals(getTags())
                     && otherMeme.isArchived() == isArchived();
         }
-    }
-
-    @Test
-    public void equals() {
-        final ImportCommand standardCommand = new ImportCommand();
-
-        // same values -> returns true
-        ImportCommand commandWithSameValues = new ImportCommand();
-        assertTrue(standardCommand.equals(commandWithSameValues));
-
-        // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
-
-        // null -> returns false
-        assertFalse(standardCommand.equals(null));
-
     }
 
 

@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import seedu.weme.commons.util.FileUtil;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.template.Template;
 
 /**
@@ -34,7 +34,7 @@ public class ImageUtil {
      * Copies the image of {@code toCopy} to {@code ImagePath}, and returns a new {@code Template} whose
      * {@code ImagePath} points to that location.
      *
-     * @param toCopy       the {@code Template} to copy
+     * @param toCopy           the {@code Template} to copy
      * @param templateLocation the template image location
      * @return a new {@code Template} with the new {@code ImagePath}.
      */
@@ -64,7 +64,7 @@ public class ImageUtil {
      * Generates a random image path in the destination directory.
      *
      * @param destination destination directory
-     * @param extension file extension of the image
+     * @param extension   file extension of the image
      * @return the Path for the image to be copied to
      */
     public static Path getNewImagePath(Path destination, String extension) {
@@ -77,6 +77,7 @@ public class ImageUtil {
 
     /**
      * Returns a copy of {@code toCopy}.
+     *
      * @param toCopy the {@code BufferedImage} to copy
      * @return the copied {@code BufferedImage}
      */

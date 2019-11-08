@@ -13,8 +13,8 @@ import seedu.weme.commons.util.FileUtil;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
-import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.Model;
+import seedu.weme.model.path.DirectoryPath;
 
 /**
  * Exports memes from staging area to a specified path.

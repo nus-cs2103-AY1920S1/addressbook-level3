@@ -6,7 +6,7 @@ import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
-import seedu.weme.model.DirectoryPath;
+import seedu.weme.model.path.DirectoryPath;
 import seedu.weme.testutil.TestUtil;
 
 class ExportCommandParserTest {

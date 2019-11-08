@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.weme.model.Archivable;
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**

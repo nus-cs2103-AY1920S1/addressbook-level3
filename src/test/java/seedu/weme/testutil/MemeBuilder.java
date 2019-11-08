@@ -3,9 +3,9 @@ package seedu.weme.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.util.SampleDataUtil;
 
@@ -42,13 +42,14 @@ public class MemeBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Meme} that we are building.
      */
-    public MemeBuilder withTags(String ... tags) {
+    public MemeBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
      * Sets the {@code Description} of the {@code Meme} that we are building.
+     *
      * @param description
      */
     public MemeBuilder withDescription(String description) {
@@ -58,6 +59,7 @@ public class MemeBuilder {
 
     /**
      * Sets the {@code ImageUrl} of the {@code Meme} that we are building.
+     *
      * @param filePath
      */
     public MemeBuilder withFilePath(String filePath) {
@@ -67,6 +69,7 @@ public class MemeBuilder {
 
     /**
      * Sets the {@code isArchived} of the {@code Meme} that we are building.
+     *
      * @param isArchived
      */
     public MemeBuilder withIsArchived(boolean isArchived) {

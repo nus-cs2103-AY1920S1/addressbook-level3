@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Name;
 
@@ -80,7 +80,7 @@ public class RecordsManager implements Records {
 
     @Override
     public void addTags(Set<Tag> tags) {
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             tagRecords.add(tag.getTagName());
         }
     }
@@ -119,23 +119,23 @@ public class RecordsManager implements Records {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("All paths: \n");
-        for (String path: pathRecords) {
+        for (String path : pathRecords) {
             sb.append(path + "\n");
         }
         sb.append("All descriptions: \n");
-        for (String description: getDescriptions()) {
+        for (String description : getDescriptions()) {
             sb.append(description + "\n");
         }
         sb.append("All tags: \n");
-        for (String tag: tagRecords) {
+        for (String tag : tagRecords) {
             sb.append(tag + "\n");
         }
         sb.append("All names: \n");
-        for (String name: nameRecords) {
+        for (String name : nameRecords) {
             sb.append(name + "\n");
         }
         sb.append("All texts: \n");
-        for (String text: textRecords) {
+        for (String text : textRecords) {
             sb.append(text + "\n");
         }
         return sb.toString();

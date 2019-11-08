@@ -13,9 +13,9 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.parser.util.ArgumentMultimap;
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
 import seedu.weme.logic.parser.util.ParserUtil;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -26,6 +26,7 @@ public class MemeAddCommandParser implements Parser<MemeAddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the MemeAddCommand
      * and returns an MemeAddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public MemeAddCommand parse(String args) throws ParseException {

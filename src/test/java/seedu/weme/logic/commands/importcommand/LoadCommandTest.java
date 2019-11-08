@@ -8,14 +8,13 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
 import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.util.FileUtil;
-import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
+import seedu.weme.model.path.DirectoryPath;
 
 class LoadCommandTest extends ApplicationTest {
 

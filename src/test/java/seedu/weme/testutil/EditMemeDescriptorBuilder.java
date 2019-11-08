@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
@@ -38,6 +38,7 @@ public class EditMemeDescriptorBuilder {
 
     /**
      * Sets the {@code Description} of the {@code EditMemeDescriptor} that we are building.
+     *
      * @param description
      */
     public EditMemeDescriptorBuilder withDescription(String description) {
@@ -47,6 +48,7 @@ public class EditMemeDescriptorBuilder {
 
     /**
      * Sets the {@code ImageUrl} of the {@code EditMemeDescriptor} that we are building.
+     *
      * @param filePath
      */
     public EditMemeDescriptorBuilder withFilePath(String filePath) {

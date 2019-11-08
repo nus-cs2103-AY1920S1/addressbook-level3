@@ -2,7 +2,7 @@ package seedu.weme.model.meme;
 
 import java.util.function.Predicate;
 
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 
 /**
  * Tests that a {@code Meme}'s {@code Path} matches a path given.

@@ -1,4 +1,4 @@
-package seedu.weme.model;
+package seedu.weme.model.path;
 
 import static java.util.Objects.requireNonNull;
 

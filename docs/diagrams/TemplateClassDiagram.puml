@@ -17,7 +17,7 @@ Class Name
 Class UniqueTemplateList
 }
 
-Package ImagePath {
+Package Path {
 Class ImagePath
 }
 }

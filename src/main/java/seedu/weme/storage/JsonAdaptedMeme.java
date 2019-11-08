@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**

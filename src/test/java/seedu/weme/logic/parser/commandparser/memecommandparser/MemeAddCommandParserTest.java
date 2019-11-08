@@ -22,8 +22,8 @@ import static seedu.weme.testutil.TypicalMemes.JOKER;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.memecommand.MemeAddCommand;
-import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.MemeBuilder;
 
@@ -84,7 +84,7 @@ public class MemeAddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + FILEPATH_DESC_JOKER
-                + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER + TAG_DESC_CHARMANDER,
+                        + DESCRIPTION_DESC_JOKER + TAG_DESC_JOKER + TAG_DESC_CHARMANDER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemeAddCommand.MESSAGE_USAGE));
     }
 }

@@ -11,7 +11,7 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
-import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 
