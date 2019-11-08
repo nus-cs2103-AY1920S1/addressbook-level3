@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
+import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 
@@ -47,19 +47,19 @@ public class CalendarCommandParserTest {
     public void parse_validOpenDisplayArgs_returnsCalendarDateDisplayEngagementsCommand() {
         LocalDate date = LocalDate.of(2019, 10, 22);
         CommandParserTestUtil.assertParseSuccess(parser, "opendisplay 22/10/2019",
-                new CalendarDateDisplayEngagementsCommand(date));
+                new CalendarOpenDisplayCommand(date));
     }
 
     @Test
     public void parse_tooFewOpenDisplayArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser, "opendisplay",
-                CalendarDateDisplayEngagementsCommand.INVALID_COMMAND_FORMAT);
+                CalendarOpenDisplayCommand.INVALID_COMMAND_FORMAT);
     }
 
     @Test
     public void parse_tooManyOpenDisplayArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser, "opendisplay 22/10/2019 hi",
-                CalendarDateDisplayEngagementsCommand.INVALID_COMMAND_FORMAT);
+                CalendarOpenDisplayCommand.INVALID_COMMAND_FORMAT);
     }
 
     @Test

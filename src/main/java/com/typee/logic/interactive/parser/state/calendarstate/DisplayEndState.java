@@ -5,7 +5,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
+import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
@@ -29,7 +29,7 @@ public class DisplayEndState extends EndState {
     public Command buildCommand() throws CommandException {
         String dateString = soFar.getValue(PREFIX_DATE).get();
         LocalDate date = fetchDate(dateString);
-        return new CalendarDateDisplayEngagementsCommand(date);
+        return new CalendarOpenDisplayCommand(date);
     }
 
     private LocalDate fetchDate(String dateString) throws CommandException {

@@ -2,17 +2,24 @@ package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.itextpdf.text.DocumentException;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
+import com.typee.commons.util.PdfUtil;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.report.Report;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -185,6 +192,34 @@ public class ModelManager implements Model {
     @Override
     public void redoEngagementList() throws NullRedoableActionException {
         historyManager.redo();
+    }
+
+    @Override
+    public void saveReport(Path fileDir, Report report) throws DocumentException, IOException,
+            GenerateExistingReportException {
+        if (PdfUtil.checkIfDocumentExists(fileDir,
+                report.getTo().getName().fullName,
+                report.getFrom().getName().fullName,
+                report.getEngagement().getTimeSlot().getStartTime(),
+                report.getEngagement().getDescription())) {
+            throw new GenerateExistingReportException();
+        } else {
+            PdfUtil.generateReport(fileDir, report);
+        }
+    }
+
+    @Override
+    public boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException {
+        String to = report.getTo().getName().fullName;
+        String from = report.getFrom().getName().fullName;
+        LocalDateTime start = report.getEngagement().getTimeSlot().getStartTime();
+        String desc = report.getEngagement().getDescription();
+
+        boolean isExisting = PdfUtil.checkIfDocumentExists(fileDir, to, from, start, desc);
+        if (isExisting) {
+            return PdfUtil.deleteDocument(fileDir, to, from, start, desc);
+        }
+        throw new DeleteDocumentException();
     }
 
     @Override

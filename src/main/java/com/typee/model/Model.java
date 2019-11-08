@@ -1,13 +1,18 @@
 package com.typee.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import com.itextpdf.text.DocumentException;
 import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.report.Report;
 
 import javafx.collections.ObservableList;
 
@@ -108,4 +113,8 @@ public interface Model {
     void redoEngagementList() throws NullRedoableActionException;
 
     void setComparator(Comparator<Engagement> comparator);
+
+    void saveReport(Path fileDir, Report report) throws DocumentException, IOException, GenerateExistingReportException;
+
+    boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException;
 }

@@ -214,7 +214,8 @@ image::redo-result.png[width="450"]
 --
 
 === Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of engagements per day, and more commands can be used to see what those engagements are.
+Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
+engagements per day. More commands are provided for interaction with the calendar window.
 
 Format: `tab calendar`
 
@@ -222,21 +223,33 @@ Format: `tab calendar`
 image::calendar-view.png[width="450"]
 
 === Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
-Opens a window displaying the list of engagements for the specified date. This command does not work if the application
-is in another tab (view) or the specified date is invalid.
+Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
+This means that nothing will happen if this command is used with a date which already has an open engagements list window.
 
 Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
 
+If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
+
+All engagement list windows will be closed if something is done to change the displayed calendar month
+(e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.
+
+Example: The calendar is currently displaying information for October 2019 and there are engagement list windows open for three dates
+in the display. If `calendar opendisplay 11/11/2019` is entered into the input box, then all three engagement list windows will be closed.
+The calendar's display then switches to November 2019 and the engagement list window for 11 November 2019 is opened up.
+
+This command does not work if the application is in another tab (view) or the specified date is invalid.
+
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
-
-
-Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
-for that date.
-
+{empty} +
 After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
 above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
 2019, albeit at the end of the grid.
+
+Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+for that date.
 
 === Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
@@ -246,10 +259,11 @@ Format: `calendar nextmonth`
 
 .Changing to the next month from October 2019
 image::calendar-next-month.png[width="450"]
-
-
+{empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
 
 === Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
@@ -259,10 +273,11 @@ Format: `calendar previousmonth`
 
 .Changing to the previous month from October 2019
 image::calendar-previous-month.png[width="450"]
-
-
+{empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month.
+
+This command closes any open engagement windows from the current month before updating the display to the previous month.
 
 === Typing game : `tab game`
 Changes the current window to the start window with a kbd:[Start] button.
