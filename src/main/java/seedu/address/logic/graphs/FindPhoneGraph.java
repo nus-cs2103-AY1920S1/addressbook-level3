@@ -12,13 +12,7 @@ import seedu.address.model.phone.Phone;
 
 public class FindPhoneGraph extends Graph {
 
-    private List<String> identityNumberList;
-    private List<String> serialNumberList;
-    private List<String> costList;
-    private List<String> brandList;
-    private List<String> capacityList;
-    private List<String> colourList;
-    private List<String> nameList;
+    List<Phone> phoneList;
 
     public FindPhoneGraph(Model model) {
         super(model);
@@ -26,33 +20,33 @@ public class FindPhoneGraph extends Graph {
 
     @Override
     protected void build(Model model) {
-        List<Phone> phoneList = model.getPhoneBook().getList();
-        identityNumberList = phoneList.stream()
-                .map(phone -> phone.getIdentityNumber().toString())
-                .collect(Collectors.toList());
-        serialNumberList = phoneList.stream()
-                .map(phone -> phone.getSerialNumber().toString())
-                .collect(Collectors.toList());
-        costList = phoneList.stream()
-                .map(phone-> phone.getCost().toString())
-                .collect(Collectors.toList());
-        brandList = phoneList.stream()
-                .map(phone-> phone.getBrand().toString())
-                .collect(Collectors.toList());
-        capacityList = phoneList.stream()
-                .map(phone-> phone.getCapacity().toString())
-                .collect(Collectors.toList());
-        colourList = phoneList.stream()
-                .map(phone-> phone.getColour().toString())
-                .collect(Collectors.toList());
-        nameList = phoneList.stream()
-                .map(phone-> phone.getPhoneName().toString())
-                .collect(Collectors.toList());
+        phoneList = model.getPhoneBook().getList();
     }
 
     @Override
     protected AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
+        List<String> identityNumberList = phoneList.stream()
+                .map(phone -> phone.getIdentityNumber().toString())
+                .collect(Collectors.toList());
+        List<String> serialNumberList = phoneList.stream()
+                .map(phone -> phone.getSerialNumber().toString())
+                .collect(Collectors.toList());
+        List<String> costList = phoneList.stream()
+                .map(phone-> phone.getCost().toString())
+                .collect(Collectors.toList());
+        List<String> brandList = phoneList.stream()
+                .map(phone-> phone.getBrand().toString())
+                .collect(Collectors.toList());
+        List<String> capacityList = phoneList.stream()
+                .map(phone-> phone.getCapacity().toString())
+                .collect(Collectors.toList());
+        List<String> colourList = phoneList.stream()
+                .map(phone-> phone.getColour().toString())
+                .collect(Collectors.toList());
+        List<String> nameList = phoneList.stream()
+                .map(phone-> phone.getPhoneName().toString())
+                .collect(Collectors.toList());
         values.addAll(identityNumberList);
         values.addAll(serialNumberList);
         values.addAll(costList);

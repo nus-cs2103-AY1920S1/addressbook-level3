@@ -8,33 +8,37 @@ import java.util.stream.Collectors;
 import seedu.address.logic.AutoCompleteResult;
 import seedu.address.logic.Graph;
 import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 
-public class FindCustomerGraph extends Graph {
+public class FindOrderGraph extends Graph {
 
-    private List<Customer> customerList;
+    private List<Order> orderList;
 
-    public FindCustomerGraph(Model model) {
+    public FindOrderGraph(Model model) {
         super(model);
     }
 
     @Override
     protected void build(Model model) {
-        customerList = model.getCustomerBook().getList();
+        orderList = model.getOrderBook().getList();
 
     }
 
     @Override
     protected AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
-        List<String> contactNumberList = customerList.stream()
-                .map(customer -> customer.getContactNumber().toString())
+        List<String> idList = orderList.stream()
+                .map(order -> order.getId().toString())
                 .collect(Collectors.toList());
-        List<String> emailList = customerList.stream()
-                .map(customer -> customer.getEmail().toString())
+        List<String> priceList = orderList.stream()
+                .map(order -> order.getPrice().toString())
                 .collect(Collectors.toList());
-        values.addAll(contactNumberList);
-        values.addAll(emailList);
+        List<String> statusList = orderList.stream()
+                .map(order -> order.getStatus().toString())
+                .collect(Collectors.toList());
+        values.addAll(idList);
+        values.addAll(priceList);
+        values.addAll(statusList);
         String stringToCompare;
         if (input.endsWith(" ")) {
             stringToCompare = "";

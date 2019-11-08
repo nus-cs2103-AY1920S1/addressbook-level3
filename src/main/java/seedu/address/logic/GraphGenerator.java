@@ -25,6 +25,7 @@ import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
 import seedu.address.logic.graphs.EditScheduleGraph;
 import seedu.address.logic.graphs.FindCustomerGraph;
+import seedu.address.logic.graphs.FindOrderGraph;
 import seedu.address.logic.graphs.FindPhoneGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.model.Model;
@@ -71,7 +72,7 @@ class GraphGenerator {
         // Order commands
         graphs.put("switch-o", Graph.emptyGraph(model));
         graphs.put("add-o", new AddOrderGraph(model));
-        graphs.put("find-o", Graph.emptyGraph(model)); //TODO LAST
+        graphs.put("find-o", new FindOrderGraph(model));
         graphs.put("complete", new CompleteOrderGraph(model));
         graphs.put("cancel", new CancelOrderGraph(model));
         graphs.put("list-o", Graph.emptyGraph(model));
