@@ -73,6 +73,7 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 ====
 
 === Logging Income : `in`
+=======
 
 Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
@@ -84,7 +85,7 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 * `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
 * `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
-
+=======
 Examples:
 
 * `in $/100 d/01012019 n/errand c/work c/drinks`
@@ -190,7 +191,6 @@ Examples:
 
 === Projecting Balance : `project`
 
-<<<<<<< HEAD
 =======
 Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
@@ -205,7 +205,6 @@ Examples:
 
 * `project d/22072020`
 * `project d/01012020`
->>>>>>> c15a4df2a77c4beddac0264be9b5e210c00b1822
 
 // tag::view[]
 === Displaying View : `view`
