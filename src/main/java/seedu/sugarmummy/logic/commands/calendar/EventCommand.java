@@ -36,7 +36,7 @@ public class EventCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the calendar";
     public static final String MESSAGE_SUCCESS_WITH_OVERLAP = MESSAGE_SUCCESS
             + "\nHowever, it overlaps with the following events: %2$s";
-    public static final String MESSAGE_SUCCESS_WITH_REMINDER = "With auto reminder added: %1$s";
+    public static final String MESSAGE_SUCCESS_WITH_REMINDER = "\nWith auto reminder added: %2$s";
     public static final String MESSAGE_SUCCESS_REMINDER_EXISTED = "Reminder already existed";
 
     private final Event toAdd;
@@ -67,7 +67,7 @@ public class EventCommand extends Command {
             try {
                 model.addCalendarEntry(toAdd.getAutoReminder().get());
                 model.schedule();
-                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd.getAutoReminder().get());
+                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd, toAdd.getAutoReminder().get());
             } catch (DuplicateCalendarEntryException e) {
                 feedbackToUser += MESSAGE_SUCCESS_REMINDER_EXISTED;
             }
@@ -77,7 +77,12 @@ public class EventCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.NONE;
+        return DisplayPaneType.CALENDAR_ENTRY;
+    }
+
+    @Override
+    public boolean isToCreateNewPane() {
+        return true;
     }
 
     @Override

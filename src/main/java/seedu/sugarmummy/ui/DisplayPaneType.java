@@ -19,5 +19,6 @@ public enum DisplayPaneType {
     BACKGROUND,
     COLOUR_AND_BACKGROUND,
     CALENDAR_MONTH,
+    CALENDAR_ENTRY,
     NONE;
 }

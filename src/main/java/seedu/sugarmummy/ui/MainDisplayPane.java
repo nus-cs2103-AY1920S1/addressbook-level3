@@ -17,6 +17,7 @@ import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
 import seedu.sugarmummy.ui.achievements.AchievementsPane;
 import seedu.sugarmummy.ui.biography.BioPane;
+import seedu.sugarmummy.ui.calendar.CalendarEntryRawList;
 import seedu.sugarmummy.ui.calendar.CalendarMonthScrollPanel;
 import seedu.sugarmummy.ui.recmf.FoodFlowPanel;
 import seedu.sugarmummy.ui.records.RecordListPanel;
@@ -98,6 +99,9 @@ public class MainDisplayPane {
         case AVERAGE:
             return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
                     logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
+        case CALENDAR_ENTRY:
+            return getMappedPane(displayPaneType, () -> new CalendarEntryRawList(logic.getFilteredCalendarEntryList()),
+                    newPaneIsToBeCreated);
         case NONE:
             return null;
         default:
