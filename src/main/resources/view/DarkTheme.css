@@ -136,6 +136,15 @@
     -fx-text-fill: #010504;
 }
 
+.cell_folder {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-background-color: #00009c;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -459,4 +468,8 @@
 #splitPane {
     -fx-border-color: #820263 #383838 -fx-cyan-line-color #383838;
     -fx-border-width: 2;
+}
+
+#annotationListView {
+    -fx-background-color: transparent;
 }

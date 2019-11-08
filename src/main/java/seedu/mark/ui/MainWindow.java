@@ -221,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
         timer.cancel();
         timer.purge();
         Platform.exit();
+        
         System.exit(0);
     }
 
