@@ -25,7 +25,13 @@
     -fx-padding: 1;
 }
 
+.tab-pane.floating > .tab-header-area .tab:selected {
+    -fx-background-radius: 5;
+    -fx-background-color: linear-gradient(to left, #52667d, #3f556f);
+}
+
 .tab-pane.floating > .tab-header-area .tab .label {
+    -fx-text-alignment: center;
     -fx-text-fill: #3f556f;
     -fx-border-width: 2;
     -fx-border-color: transparent transparent #3f556f transparent;
@@ -33,7 +39,7 @@
 
 .tab-pane.floating > .tab-header-area .tab:selected .label {
     -fx-text-fill: #e5ddd5;
-    -fx-border-width: 0;
+    -fx-border-color: transparent;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -84,6 +90,10 @@
     -fx-border-color: #aa9f94;
     -fx-border-radius: 5;
     -fx-border-width: 2;
+}
+
+.account-active {
+    -fx-background-color: #282547 !important;
 }
 
 .cell_big_label {
