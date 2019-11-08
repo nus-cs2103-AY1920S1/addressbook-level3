@@ -100,14 +100,14 @@ public class CalendarCommandParserTest {
     public void parse_invalidCloseDisplayArgs_throwsParseException() {
         String invalidArgs = "abcde";
         CommandParserTestUtil.assertParseFailure(parser, "closedisplay " + invalidArgs,
-                ParserUtil.MESSAGE_INVALID_DATE_STRING);
+                InteractiveParserUtil.MESSAGE_INVALID_DATE_STRING);
     }
 
     @Test
     public void parse_invalidCloseDisplayDateArgs_throwsParseException() {
         String invalidDate = "29/02/2019";
         CommandParserTestUtil.assertParseFailure(parser, "closedisplay " + invalidDate,
-                String.format(ParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
+                String.format(InteractiveParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
     }
 
 }
