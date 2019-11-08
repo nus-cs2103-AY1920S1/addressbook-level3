@@ -63,6 +63,17 @@ public class SessionListUtil {
     }
 
     /**
+     * Given a TestSession, return a double representing the percentage of correct answers.
+     * Assumes that the TestSession provided has a score.
+     * @param session The TestSession whose score to get.
+     * @return A double representing the percentage of correct answers.
+     */
+    public static double getScoreAsPercentageDouble(TestSession session) {
+        String score = session.getScore();
+        return SessionListUtil.getScoreAsPercentageDouble(score);
+    }
+
+    /**
      * Given the score of a test as a String, convert it to a String representing the percentage
      * of correct answers, rounded to 2 decimal places.
      * @param score The score to be converted, as a String.
@@ -79,17 +90,6 @@ public class SessionListUtil {
      */
     public static String convertScoreDoubleToString(double score) {
         return score + ("%");
-    }
-
-    /**
-     * Given a TestSession, return a double representing the percentage of correct answers.
-     * Assumes that the TestSession provided has a score.
-     * @param session The TestSession whose score to get.
-     * @return A double representing the percentage of correct answers.
-     */
-    public static double getScoreAsPercentageDouble(TestSession session) {
-        String score = session.getScore();
-        return SessionListUtil.getScoreAsPercentageDouble(score);
     }
 
     /**

@@ -1,6 +1,7 @@
 package dream.fcard;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import dream.fcard.core.Main;
 import dream.fcard.core.commons.core.LogsCenter;
@@ -8,7 +9,6 @@ import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateHolder;
 
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

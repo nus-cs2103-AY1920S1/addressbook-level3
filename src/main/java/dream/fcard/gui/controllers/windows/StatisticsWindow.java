@@ -1,6 +1,7 @@
 package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.Session;
@@ -11,7 +12,6 @@ import dream.fcard.model.Deck;
 import dream.fcard.util.stats.SessionListUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

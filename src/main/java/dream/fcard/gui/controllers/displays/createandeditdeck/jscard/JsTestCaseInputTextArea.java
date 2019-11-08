@@ -11,7 +11,7 @@ import javafx.scene.control.TextArea;
 /**
  * A file uploader for Js card creating.
  */
-public class JsTestCaseInputTextArea extends ScrollPane {
+public class JsTestCaseInputTextArea extends TextArea {
     @FXML
     private TextArea testCaseTextArea;
 
