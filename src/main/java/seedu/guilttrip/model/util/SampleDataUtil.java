@@ -21,31 +21,31 @@ import seedu.guilttrip.model.tag.Tag;
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[] {
-            new Expense(new Category("Food", "Expense"), new Description("mala at deck"),
+            new Expense(new Category("Food", CategoryType.EXPENSE), new Description("mala at deck"),
                     new Date("2019 09 09"), new Amount("5.40"), getTagSet("mala")),
-            new Expense(new Category("Food", "Expense"), new Description("chicken rice"),
+            new Expense(new Category("Food", CategoryType.EXPENSE), new Description("chicken rice"),
                     new Date("2019 09 09"), new Amount("3.50"), getTagSet("mala")),
-            new Income(new Category("Work", "Income"), new Description("october salary"),
+            new Income(new Category("Work", CategoryType.INCOME), new Description("october salary"),
                     new Date("2019 10 11"), new Amount("3000"), getTagSet("salary"))
         };
     }
 
     public static Category[] getSampleCategories() {
         return new Category[] {
-            new Category("Food", "Expense"),
-            new Category("Travel", "Expense"),
-            new Category("Family", "Expense"),
-            new Category("Bills", "Expense"),
-            new Category("Entertainment", "Expense"),
-            new Category("Transport", "Expense"),
-            new Category("Shopping", "Expense"),
-            new Category("HealthCare", "Expense"),
-            new Category("Groceries", "Expense"),
-            new Category("Rent", "Expense"),
-            new Category("Business", "Income"),
-            new Category("Salary", "Income"),
-            new Category("Gifts", "Income"),
-            new Category("Loans", "Income")
+            new Category("Food", CategoryType.EXPENSE),
+            new Category("Travel", CategoryType.EXPENSE),
+            new Category("Family", CategoryType.EXPENSE),
+            new Category("Bills", CategoryType.EXPENSE),
+            new Category("Entertainment", CategoryType.EXPENSE),
+            new Category("Transport", CategoryType.EXPENSE),
+            new Category("Shopping", CategoryType.EXPENSE),
+            new Category("HealthCare", CategoryType.EXPENSE),
+            new Category("Groceries", CategoryType.EXPENSE),
+            new Category("Rent", CategoryType.EXPENSE),
+            new Category("Business", CategoryType.INCOME),
+            new Category("Salary", CategoryType.INCOME),
+            new Category("Gifts", CategoryType.INCOME),
+            new Category("Loans", CategoryType.INCOME)
         };
     }
 

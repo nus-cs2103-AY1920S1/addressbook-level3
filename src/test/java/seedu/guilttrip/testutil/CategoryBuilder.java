@@ -1,17 +1,18 @@
 package seedu.guilttrip.testutil;
 
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A utility class to help with building Category objects.
  */
 public class CategoryBuilder {
 
-    public static final String DEFAULT_CATEGORY_TYPE = "Expense";
+    public static final CategoryType DEFAULT_CATEGORY_TYPE = CategoryType.EXPENSE;
     public static final String DEFAULT_CATEGORY_NAME = "Food";
 
     private String categoryName;
-    private String categoryType;
+    private CategoryType categoryType;
 
     public CategoryBuilder() {
         this.categoryType = DEFAULT_CATEGORY_TYPE;
@@ -30,7 +31,7 @@ public class CategoryBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public CategoryBuilder withCatType(String desc) {
-        this.categoryType = desc;
+        this.categoryType = CategoryType.parse(desc);
         return this;
     }
 

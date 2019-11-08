@@ -22,6 +22,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Parses input argument and creates a new AddWishCommand object.
@@ -48,7 +49,7 @@ public class AddWishCommandParser implements Parser<AddWishCommand> {
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Wish wish = new Wish(new Category(categoryName, "Expense"), desc, date, amt, tagList);
+        Wish wish = new Wish(new Category(categoryName, CategoryType.EXPENSE), desc, date, amt, tagList);
 
         return new AddWishCommand(wish);
     }

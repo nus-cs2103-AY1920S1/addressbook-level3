@@ -47,8 +47,9 @@ public class AddIncomeCommandParser implements Parser<AddIncomeCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Category category = ParserUtil.parseCategory(categoryName, "Income");
 
-        Income income = new Income(new Category(categoryName, "Income"), desc, date, amt, tagList);
+        Income income = new Income(category, desc, date, amt, tagList);
 
         return new AddIncomeCommand(income);
     }

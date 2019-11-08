@@ -30,10 +30,9 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
         ParserUtil.errorIfCompulsoryPrefixMissing(AddCategoryCommand.MESSAGE_USAGE, argMultimap, false,
                 PREFIX_CATEGORY, PREFIX_DESC);
-
-        String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
-        Category categoryToCreate = new Category(categoryName, categoryType);
+        String catType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        Category categoryToCreate = ParserUtil.parseCategory(categoryName, catType);
 
         return new AddCategoryCommand(categoryToCreate);
     }

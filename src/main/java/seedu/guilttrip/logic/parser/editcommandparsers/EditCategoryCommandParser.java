@@ -13,6 +13,7 @@ import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Category;
@@ -40,11 +41,11 @@ public class EditCategoryCommandParser implements Parser<EditCategoryCommand> {
         String categoryName = argMultimap.getValue(PREFIX_OLD_NAME).get().toLowerCase();
         String newCategoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
 
-        Category categoryToEdit = new Category(categoryName, typeOfCategory);
+        Category categoryToEdit = ParserUtil.parseCategory(categoryName, typeOfCategory);
 
         EditCategoryDescriptor editCategoryDescriptor = new EditCategoryDescriptor();
         editCategoryDescriptor.setCategoryName(newCategoryName);
-        editCategoryDescriptor.setCategoryType(typeOfCategory);
+        editCategoryDescriptor.setCategoryType(ParserUtil.parseCategoryType(typeOfCategory));
 
         return new EditCategoryCommand(categoryToEdit, editCategoryDescriptor);
     }

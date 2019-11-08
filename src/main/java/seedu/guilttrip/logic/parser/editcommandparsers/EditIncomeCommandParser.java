@@ -63,7 +63,8 @@ public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
 
         // TODO: allow category of income to be edited
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            Category editedCategory = new Category(argMultimap.getValue(PREFIX_CATEGORY).get(), "Income");
+            Category editedCategory = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    "INCOME");
             editIncomeDescriptor.setCategory(editedCategory);
         }
 

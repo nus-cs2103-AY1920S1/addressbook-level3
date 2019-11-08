@@ -40,7 +40,7 @@ public class MonthList {
         this.listOfIncomeCategories = listOfCategories.getInternalListForIncome();
         this.filteredListForExpense = new FilteredList<>(filteredListOfExpenses,
                 new EntryContainsMonthYearPredicate(month.getValue(), year));
-        this.filteredListForIncome =  new FilteredList<>(filteredListOfIncome,
+        this.filteredListForIncome = new FilteredList<>(filteredListOfIncome,
                 new EntryContainsMonthYearPredicate(month.getValue(), year));
         mapOfExpenseCategories = FXCollections.observableHashMap();
         mapOfIncomeCategories = FXCollections.observableHashMap();

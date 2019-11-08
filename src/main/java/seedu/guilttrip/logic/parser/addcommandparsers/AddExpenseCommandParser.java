@@ -44,12 +44,13 @@ public class AddExpenseCommandParser implements Parser<AddExpenseCommand> {
                 PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE);
 
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
+        Category category = ParserUtil.parseCategory(categoryName, "Expense");
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expense expense = new Expense(new Category(categoryName, "Expense"), desc, date, amt, tagList);
+        Expense expense = new Expense(category, desc, date, amt, tagList);
 
         return new AddExpenseCommand(expense);
     }

@@ -17,6 +17,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Jackson-friendly version of {@link Budget}.
@@ -87,7 +88,7 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
-        final Category modelCategory = new Category(category, "Expense");
+        final Category modelCategory = new Category(category, CategoryType.EXPENSE);
 
         final Description modelDesc = new Description(desc);
 

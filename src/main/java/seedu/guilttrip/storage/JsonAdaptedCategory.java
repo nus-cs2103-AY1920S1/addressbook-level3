@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Jackson-friendly version of {@link Tag}.
@@ -51,7 +52,8 @@ class JsonAdaptedCategory {
         if (!Category.isValidCategoryType(categoryType)) {
             throw new IllegalValueException(String.format(WRONG_CATEGORY_TYPE_MESSAGE_FORMAT, categoryName));
         }
-        return new Category(categoryName, categoryType);
+        CategoryType categoryTyp = CategoryType.parse(categoryType);
+        return new Category(categoryName, categoryTyp);
     }
 
 }

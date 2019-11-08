@@ -12,6 +12,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Edits a category from guilttrip();
@@ -86,7 +87,7 @@ public class EditCategoryCommand extends Command {
                                                  EditCategoryDescriptor editCategoryDescriptor) {
         assert categoryToEdit != null;
         String newCategoryName = editCategoryDescriptor.getCategoryName();
-        String newCategoryType = editCategoryDescriptor.getCategoryType();
+        CategoryType newCategoryType = editCategoryDescriptor.getCategoryType();
         return new Category(newCategoryName, newCategoryType);
     }
 
@@ -114,7 +115,7 @@ public class EditCategoryCommand extends Command {
      */
     public static class EditCategoryDescriptor {
         private String categoryName;
-        private String categoryType;
+        private CategoryType categoryType;
 
         public EditCategoryDescriptor() {}
 
@@ -135,7 +136,7 @@ public class EditCategoryCommand extends Command {
             this.categoryName = catName;
         }
 
-        public void setCategoryType(String catType) {
+        public void setCategoryType(CategoryType catType) {
             this.categoryType = catType;
         }
 
@@ -143,7 +144,7 @@ public class EditCategoryCommand extends Command {
             return categoryName;
         }
 
-        public String getCategoryType() {
+        public CategoryType getCategoryType() {
             return categoryType;
         }
 
@@ -162,7 +163,7 @@ public class EditCategoryCommand extends Command {
             // state check
             EditCategoryDescriptor e = (EditCategoryDescriptor) other;
             return getCategoryName().equals(e.getCategoryName())
-                    && getCategoryType().equalsIgnoreCase(e.getCategoryType());
+                    && getCategoryType().equals(e.getCategoryType());
         }
     }
 }

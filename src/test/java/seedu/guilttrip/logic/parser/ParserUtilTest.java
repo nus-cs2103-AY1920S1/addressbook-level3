@@ -4,7 +4,7 @@
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.guilttrip.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 //import static seedu.guilttrip.testutil.Assert.assertThrows;
-//import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+//import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 //
 //import java.util.Arrays;
 //import java.util.Collections;
@@ -14,23 +14,14 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.guilttrip.logic.parser.exceptions.ParseException;
-//import seedu.guilttrip.model.entry.Address;
 //import seedu.guilttrip.model.entry.Description;
-//import seedu.guilttrip.model.entry.Email;
-//import seedu.guilttrip.model.entry.Phone;
 //import seedu.guilttrip.model.tag.Tag;
 //
 //public class ParserUtilTest {
-//    private static final String INVALID_NAME = "R@chel";
-//    private static final String INVALID_PHONE = "+651234";
-//    private static final String INVALID_ADDRESS = " ";
-//    private static final String INVALID_EMAIL = "example.com";
+//    private static final String INVALID_NAME = "";
 //    private static final String INVALID_TAG = "#friend";
 //
-//    private static final String VALID_NAME = "Rachel Walker";
-//    private static final String VALID_PHONE = "123456";
-//    private static final String VALID_ADDRESS = "123 Main Street #0505";
-//    private static final String VALID_EMAIL = "rachel@example.com";
+//    private static final String VALID_NAME = "treat Rachel Walker";
 //    private static final String VALID_TAG_1 = "friend";
 //    private static final String VALID_TAG_2 = "neighbour";
 //
@@ -50,10 +41,10 @@
 //    @Test
 //    public void parseIndex_validInput_success() throws Exception {
 //        // No whitespaces
-//        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+//        assertEquals(INDEX_FIRST_ENTRY, ParserUtil.parseIndex("1"));
 //
 //        // Leading and trailing whitespaces
-//        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+//        assertEquals(INDEX_FIRST_ENTRY, ParserUtil.parseIndex("  1  "));
 //    }
 //
 //    @Test
@@ -173,7 +164,7 @@
 //
 //    @Test
 //    public void parseTags_null_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+//        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(Arrays.asList(null)));
 //    }
 //
 //    @Test

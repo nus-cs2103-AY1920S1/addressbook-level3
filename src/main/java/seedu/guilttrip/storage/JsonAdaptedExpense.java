@@ -16,6 +16,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Jackson-friendly version of {@link Entry}.
@@ -97,7 +98,7 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS_FOR_ENTRIES);
         }
 
-        final Category modelCategory = new Category(category, "Expense");
+        final Category modelCategory = new Category(category, CategoryType.EXPENSE);
 
         final Description modelDesc = new Description(desc);
 

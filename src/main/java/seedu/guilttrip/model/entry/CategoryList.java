@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.CategoryNotFoundException;
 import seedu.guilttrip.model.entry.exceptions.DuplicateCategoryException;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A list of categories that enforces uniqueness between its elements and does not
@@ -37,9 +38,9 @@ public class CategoryList {
     /**
      * Determines whether the category belongs to the expense list or the income category list.
      */
-    public ObservableList<Category> determineWhichList(String input) {
+    public ObservableList<Category> determineWhichList(CategoryType input) {
         ObservableList<Category> typeOfCategory;
-        if (input.equalsIgnoreCase("Income")) {
+        if (input.equals(CategoryType.INCOME)) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -52,7 +53,7 @@ public class CategoryList {
      */
     public boolean contains(Category toCheck) {
         requireNonNull(toCheck);
-        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType.getCatType());
+        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType);
         return typeOfCategory.stream().anyMatch(toCheck::equals);
     }
 
@@ -80,7 +81,7 @@ public class CategoryList {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.categoryType.getCatType());
+        ObservableList internalList = determineWhichList(target.categoryType);
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new CategoryNotFoundException();
