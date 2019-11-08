@@ -2,60 +2,60 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.FreeCommand;
+import seedu.address.model.person.Driver;
+import seedu.address.model.task.Task;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+public class NotificationWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-f14-4.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    private static final Logger logger = LogsCenter.getLogger(NotificationWindow.class);
+    private static final String FXML = "NotificationWindow.fxml";
 
-    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String FXML = "HelpWindow.fxml";
+    private Logic logic;
 
-    private DriverListPanel driverListPanel;
     private IncompleteTaskListPanel incompleteTaskListPanel;
 
     @FXML
-    private StackPane driverListPanelPlaceholder;
-
-    @FXML
-    private Button copyButton;
-
-    @FXML
-    private Label helpMessage;
-
-    @FXML
     private StackPane incompleteTaskListPanelPlaceholder;
+
+    @FXML
+    private Button okayButton;
+
+    @FXML
+    private StackPane okayButtonPlaceholder;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root) {
+    public NotificationWindow(Stage root, Logic logic) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        this.logic = logic;
+
+        incompleteTaskListPanel = new IncompleteTaskListPanel(this.logic.getIncompleteTaskList());
+        incompleteTaskListPanelPlaceholder.getChildren().add(incompleteTaskListPanel.getRoot());
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public HelpWindow() {
-        this(new Stage());
+    public NotificationWindow(Logic logic) {
+        this(new Stage(), logic);
     }
 
     /**
-     * Shows the help window.
+     * Shows the notification window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -73,7 +73,7 @@ public class HelpWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing page about the incomplete task from the previous day.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -100,13 +100,15 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Copies the URL to the user guide to the clipboard.
+     * Frees driver's schedule from tasks in the past
      */
     @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
+    private void freeDriver() {
+        ObservableList<Task> tasksToBeCleared = logic.getIncompleteTaskList();
+        for (Task task: tasksToBeCleared) {
+            Driver driver = task.getDriver().orElseThrow();
+            FreeCommand.freeDriverFromTask(driver, task);
+        }
+        this.hide();
     }
 }

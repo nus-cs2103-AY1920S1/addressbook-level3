@@ -52,6 +52,11 @@ public interface Logic {
     ObservableList<Customer> getFilteredCustomerList();
 
     /**
+     * Returns a list of incomplete tasks from previous days
+     */
+    ObservableList<Task> getIncompleteTaskList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

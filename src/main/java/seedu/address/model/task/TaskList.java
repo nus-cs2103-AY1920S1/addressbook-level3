@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -125,6 +126,10 @@ public class TaskList {
                     .stream()
                     .filter(predicate)
                     .collect(Collectors.toList());
+    }
+
+    public Iterator<Task> getIterator() {
+        return tasks.iterator();
     }
 
     public void setTaskList(List<Task> savedTasks) {

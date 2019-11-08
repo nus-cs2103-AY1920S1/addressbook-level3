@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import javafx.collections.ObservableList;
 
+
 /**
  * Manages the task list.
  * It contains the minimal set of list operations.

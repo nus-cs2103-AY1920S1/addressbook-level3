@@ -82,6 +82,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Task> getIncompleteTaskList() {
+        return model.getIncompleteTaskList();
+    }
+
+    @Override
     public ObservableList<Driver> getFilteredDriverList() {
         return model.getFilteredDriverList();
     }

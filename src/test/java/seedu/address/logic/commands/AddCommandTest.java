@@ -240,6 +240,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getIncompleteTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void refreshFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }

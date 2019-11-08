@@ -146,7 +146,6 @@ public class Schedule {
         return schedule.remove(eventTime);
     }
 
-
     private boolean isOutsideWorkingHours(EventTime eventTime) {
         return (eventTime.getEnd().compareTo(eventTime.getStart()) <= 0)
                 || (eventTime.getStart().compareTo(workingHours.getStart()) < 0)

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<fx:root resizable="false" title="Notification" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/help_icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <VBox alignment="CENTER">
+                <children>
+                    <StackPane>
+                    <VBox fx:id="incompleteTaskListPanel" styleClass="pane-with-border" minWidth="800" prefWidth="800"
+                          minHeight="520" VBox.vgrow="ALWAYS" >
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10" />
+                        </padding>
+                        <StackPane fx:id="incompleteTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                    </StackPane>
+                    <StackPane>
+                    <Button fx:id="okayButton" mnemonicParsing="false" onAction="#freeDriver" text="Okay">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10" />
+                        </padding>
+                        <StackPane fx:id="okayButtonPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </Button>
+                    </StackPane>
+                </children>
+                <opaqueInsets>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </padding>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>
