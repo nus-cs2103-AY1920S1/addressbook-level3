@@ -112,4 +112,9 @@ public abstract class State {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return soFar.hashCode();
+    }
+
 }
