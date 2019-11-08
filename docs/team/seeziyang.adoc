@@ -25,12 +25,12 @@ assist users and other developers to understand these features.
 
 This section summarizes the contributions I have made to the team project.
 
-=== Main enhancement - Borrowing feature +
+=== Main enhancement - Loaning feature +
 I implemented the commands and functionality related to the loaning and returning of books.
 
 ==== What it does
 
-This set of features allow our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
+This set of feature allow our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
 out books such that their due dates are extended, and to `pay` fines incurred for overdue books. +
 
 ==== Justification

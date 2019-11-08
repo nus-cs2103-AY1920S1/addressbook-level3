@@ -518,7 +518,7 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 // tag::bookLoaningFeatures[]
 
-=== Book Loaning Features
+=== Book Loaning Feature
 
 ==== Functionalities
 The functionalities and commands associated with the book loaning feature are:
@@ -527,54 +527,33 @@ The functionalities and commands associated with the book loaning feature are:
 
 ** Loans out a book based on its serial number.
 
-* `return INDEX [-all]`
+* `return INDEX` or `return -all`
 
-** Returns a book based on the index of that book shown on the GUI.
+** Return a book based on its index or all of the borrower's loaned out book.
 
-* `renew INDEX [-all]`
+* `renew INDEX` or `renew -all`
 
-** Renews a book based on the index of that book shown on the GUI.
-
-* `reserve sn/BOOK_SN` or `reserve INDEX`
-
-** Reserves a book based on its serial number or index of that book shown on the GUI.
+** Renews a book based on its index or all of the borrower's renewable book.
 
 * `pay AMOUNT`
 
-** Pay a fine amount for overdue books.
-
-The rationale for the different types of arguments for the loan, return, renew and reserve may not be apparent at first,
-but it is actually very simple.
-
-* When borrowers come to the librarian (our user) to borrow a book, the book itself would have
-a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using the find
-command to locate that book in LiBerry to use its index.
-
-* Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
-the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
-its index shown in the GUI list. Likewise, the same idea is applied to renewing books
-
-* When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
-the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
+** Pay a fine amount incurred by overdue books.
 
 ==== Implementation
 
 This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
-just after a book is loaned out can be seen below.
+at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
-image::LoanObjectDiagram.png[width="880"]
+image::LoanObjectDiagram.png[width="800"]
 {nbsp} +
 
 In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
 The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
-
 Both the `Book` and `Borrower` objects also have access to this `Loan` object.
 
 In each `Loan` object, only the `BorrowerId` of the `Borrower` and `SerialNumber` of the `Book` is stored to reduce
-circular dependency.
-
-The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
+circular dependency. The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
 
 Immutability of each object is supported to ensure correctness of undo and redo functionality.
 
@@ -583,7 +562,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
 .Activity diagram when a loan command is entered
-image::LoaningActivityDiagram.png[width="650"]
+image::LoaningActivityDiagram.png[width="580"]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -606,7 +585,7 @@ Similarly, the new book object replaces the old book object in the `Catalog` obj
 The following activity diagram summarizes what happens when a user enters a return command:
 
 .Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width="820"]
+image::ReturningActivityDiagram.png[width="700"]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -624,13 +603,6 @@ methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrow
 
 When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
 and its `dueDate` is also increased by the renew period set in the user settings.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
-
-===== Reserving
-
-When a book is successfully reserved by a borrower, the `Book` object is marked as reserved and is added to the borrower's
-`reservedBookList`.
 
 Similarly, the creation of new objects for replacement are also done to support immutability.
 
