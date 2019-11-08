@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.GeneratorUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
@@ -298,7 +298,8 @@ public class ParserUtil {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!PasswordDescription.isValidDescription(trimmedDescription)) {
-            throw new ParseException(PasswordDescription.MESSAGE_CONSTRAINTS);
+            throw new ParseException(
+            PasswordDescription.MESSAGE_CONSTRAINTS + PasswordDescription.ADDITIONAL_INFORMATION);
         }
         return new PasswordDescription(trimmedDescription);
     }
@@ -354,15 +355,15 @@ public class ParserUtil {
      *
      * @throws ParseException if the given length is invalid.
      */
-    public static int parseLength(String length) throws ParseException {
+    public static int parsePasswordLength(String length) throws ParseException {
         try {
             int lengthNum = Integer.parseInt(length);
-            if (lengthNum <= 3) {
-                throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            if (lengthNum <= 3 || lengthNum > 25) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
             }
             return lengthNum;
         } catch (NumberFormatException e) {
-            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
         }
     }
 
@@ -373,8 +374,8 @@ public class ParserUtil {
      * @throws ParseException if the given length is invalid.
      */
     public static boolean parseBool(String bool) throws ParseException {
-        if (!(bool.equals("true") || bool.equals("false"))) {
-            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_BOOLEAN);
+        if (!(bool.equals("false"))) {
+            throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_BOOLEAN);
         }
         return Boolean.valueOf(bool);
     }

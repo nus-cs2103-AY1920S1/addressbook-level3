@@ -16,6 +16,7 @@ import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListFileCommand;
 import seedu.address.logic.commands.MoveFileCommand;
+import seedu.address.logic.commands.PreviewFileCommand;
 import seedu.address.logic.commands.RemoveFileCommand;
 import seedu.address.logic.commands.RenameFileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -62,6 +63,9 @@ public class FileBookParser {
 
         case DecryptFileCommand.COMMAND_WORD:
             return new DecryptFileCommandParser().parse(arguments, password);
+
+        case PreviewFileCommand.COMMAND_WORD:
+            return new PreviewFileCommandParser().parse(arguments, password);
 
         case AddFileCommand.COMMAND_WORD:
             return new AddFileCommandParser().parse(arguments);

@@ -7,19 +7,21 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.Dictionary;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.DictionaryAnalyser;
+import seedu.address.model.password.analyser.KeyboardAnalyser;
 import seedu.address.model.password.analyser.SequenceAnalyser;
 import seedu.address.model.password.analyser.SimilarityAnalyser;
 import seedu.address.model.password.analyser.StrengthAnalyser;
 import seedu.address.model.password.analyser.UniqueAnalyser;
 import seedu.address.model.password.analyser.report.AnalysisReport;
+import seedu.address.model.password.analyser.resources.Dictionary;
 import seedu.address.model.password.analyser.result.Result;
+
 
 /**
  * Analyses passwords in the password book.
@@ -64,6 +66,7 @@ public class AnalysePasswordCommand extends Command {
         analyserList.add(new SimilarityAnalyser());
         analyserList.add(new DictionaryAnalyser(Dictionary.build(DICTIONARY_PASSWORD)));
         analyserList.add(new SequenceAnalyser());
+        analyserList.add(new KeyboardAnalyser());
 
         return analyserList;
     }

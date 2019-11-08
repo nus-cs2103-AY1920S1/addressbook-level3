@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.password.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.password.PasswordDescription;
 
 /**
  * Finds and lists all password in password book whose description contains any of the argument keywords.
@@ -16,8 +17,8 @@ public class FindPasswordCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all passwords whose description contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " Gmail";
+            + "Parameters: DESCRIPTION \n"
+            + PasswordDescription.MESSAGE_CONSTRAINTS;
     private final DescriptionContainsKeywordsPredicate predicate;
 
     public FindPasswordCommand(DescriptionContainsKeywordsPredicate predicate) {

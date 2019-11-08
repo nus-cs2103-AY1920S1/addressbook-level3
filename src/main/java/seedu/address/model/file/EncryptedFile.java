@@ -19,9 +19,9 @@ public class EncryptedFile {
 
     private final FileName fileName;
     private final FilePath filePath;
+    private final FileStatus status;
     private EncryptedAt encryptedAt;
     private ModifiedAt modifiedAt;
-    private FileStatus status;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -73,10 +73,6 @@ public class EncryptedFile {
         return status;
     }
 
-    public void setFileStatus(FileStatus value) {
-        status = value;
-    }
-
     public void setEncryptedAt(EncryptedAt value) {
         encryptedAt = value;
     }
@@ -114,6 +110,13 @@ public class EncryptedFile {
     public String getEncryptedPath() {
         return Path.of(getFilePath().value)
                 .resolve(FileNameUtil.getFileNameWithPrefix(getFileName().value)).toString();
+    }
+
+    /**
+     * Returns the file extension of the encrypted file.
+     */
+    public String getFileExtension() {
+        return fileName.getExtension();
     }
 
     @Override
