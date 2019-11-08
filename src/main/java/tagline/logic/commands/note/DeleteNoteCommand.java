@@ -2,6 +2,7 @@
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class DeleteNoteCommand extends NoteCommand {
         Note noteToDelete = noteFound.get();
 
         model.deleteNote(noteToDelete);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete), CommandResult.ViewType.NOTE);
     }
 

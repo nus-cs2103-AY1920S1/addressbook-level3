@@ -1,10 +1,10 @@
 // @@author shiweing
 package tagline.logic.commands.note;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.commands.CommandResult.ViewType;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.NoteCommandTestUtil.NON_EXISTING_NOTE_ID;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
@@ -42,6 +42,7 @@ class DeleteNoteCommandTest {
 
         Model expectedModel = new ModelManager(model.getNoteBook(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
+        expectedModel.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
 
         assertCommandSuccess(deleteNoteCommand, model, expectedMessage, DELETE_NOTE_COMMAND_VIEW_TYPE, expectedModel);
     }
@@ -56,9 +57,6 @@ class DeleteNoteCommandTest {
         Model expectedModel = new ModelManager(model.getNoteBook(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
 
-        showNoNote(model);
-        showNoNote(expectedModel);
-
         assertCommandSuccess(deleteNoteCommand, model, expectedMessage, DELETE_NOTE_COMMAND_VIEW_TYPE, expectedModel);
     }
 
@@ -68,14 +66,5 @@ class DeleteNoteCommandTest {
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(nonExistingNoteId);
 
         NoteCommandTestUtil.assertCommandFailure(deleteNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_INDEX);
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoNote(Model model) {
-        model.updateFilteredNoteList(p -> false);
-
-        assertTrue(model.getFilteredNoteList().isEmpty());
     }
 }
