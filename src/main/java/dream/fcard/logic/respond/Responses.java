@@ -237,7 +237,7 @@ public enum Responses {
             "^((?i)(add)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct "
                             + "format of the Add command, type 'help command/add'");
                     return true;
                 }
@@ -245,14 +245,11 @@ public enum Responses {
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
                 "deck/",
-                "index/",
-                "front/",
-                "back/",
-                "choiceIndex/",
-                "choice/"}),
+                "index/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                    System.out.println("Enters EDIT_CARD RESPONSE");
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("edit",
                             new String[]{
                                 "deck/",
                                 "index/",
@@ -261,6 +258,15 @@ public enum Responses {
                                 "choiceIndex/",
                                 "choice/"},
                             i);
+
+                    // @@author PhireHandy
+                    boolean hasAnEditField = res.get(2).size() > 0 || res.get(3).size() > 0 || res.get(4).size() > 0
+                            || res.get(5).size() > 0;
+
+                    if (hasAnEditField) {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                    }
+                    //@@author
 
                     //@@author huiminlim
                     boolean hasDeckName = res.get(0).size() == 1;
@@ -312,8 +318,6 @@ public enum Responses {
                                 + "Front Back card has no choices.");
                     }
 
-                    ArrayList<Deck> currDecks = StateHolder.getState().getDecks();
-
                     boolean hasFront = res.get(3).size() == 1;
                     if (hasFront) {
                         String front = res.get(3).get(0);
@@ -347,10 +351,6 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
                                 + "Choice index provided is invalid.'");
                         return true;
-                    }
-
-                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
-                        StateHolder.getState().addDecksToDeckHistory(currDecks);
                     }
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
@@ -402,7 +402,7 @@ public enum Responses {
                         }
 
                          */
-
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         deck.removeCard(index);
                     } catch (DeckNotFoundException d) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
@@ -547,7 +547,7 @@ public enum Responses {
                     try {
                         StateHolder.getState().undoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
-                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                         return true;
                     } catch (NoDeckHistoryException ndhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, ndhExc.getMessage());
@@ -563,7 +563,6 @@ public enum Responses {
                         StateHolder.getState().redoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
                         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
-
                         return true;
                     } catch (NoUndoHistoryException nuhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, nuhExc.getMessage());

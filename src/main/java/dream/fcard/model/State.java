@@ -1,13 +1,16 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.NoDeckHistoryException;
 import dream.fcard.model.exceptions.NoUndoHistoryException;
+import dream.fcard.util.DeepCopy;
 
 /**
  * State stores data representing the state of the running program
@@ -167,11 +170,25 @@ public class State {
      */
     public void addCurrDecksToDeckHistory() {
         @SuppressWarnings("unchecked")
-        ArrayList<Deck> currDeck = (ArrayList<Deck>) this.decks.clone();
+        ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
 
-        if (deckHistory.empty() || !currDeck.equals(deckHistory.peek())) {
-            deckHistory.push(currDeck);
+        System.out.println("Adding Deck to deckHistory");
+
+        System.out.println("CHECKING CURR DECKS START");
+        for (Deck d : this.decks) {
+            printCardsInDeck(d);
         }
+        System.out.println("CHECKING CURR DECKS END");
+
+        //if (deckHistory.empty() || !this.decks.equals(deckHistory.peek()) || !completelyEquals(deckHistory.peek())) {
+            deckHistory.push(currDeck);
+        //}
+
+        System.out.println("CHECKING NEW DECKHISTORY START");
+        for (Deck d : deckHistory.peek()) {
+            printCardsInDeck(d);
+        }
+        System.out.println("CHECKING NEW DECKHISTORY END");
     }
 
     /**
@@ -179,8 +196,8 @@ public class State {
      */
     public void addCurrDecksToUndoHistory() {
         @SuppressWarnings("unchecked")
-        ArrayList<Deck> currDeck = (ArrayList<Deck>) this.decks.clone();
-        if (undoHistory.empty() || !currDeck.equals(undoHistory.peek())) {
+        ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
+        if (undoHistory.empty() || !completelyEquals(undoHistory.peek())) {
             undoHistory.push(currDeck);
         }
     }
@@ -215,13 +232,23 @@ public class State {
     /**
      * Used for debugging.
      */
-    // For Debugging
     public void printDecks() {
         System.out.println("DECKS SIZE: " + this.decks.toArray().length);
         for (Deck d : this.decks) {
             System.out.println(d.getDeckName());
         }
         System.out.println("DECKS END");
+    }
+
+    /**
+     * Used for debugging.
+     */
+    public void printCardsInDeck(Deck deck) {
+        System.out.println("DECK " + deck.getDeckName() + " SIZE: " + deck.getCards().size());
+        for (FlashCard c : deck.getCards()) {
+            System.out.println(c.getFront());
+        }
+        System.out.println("DECK " + deck.getDeckName() + " END");
     }
 
     /**
@@ -233,16 +260,18 @@ public class State {
         if (deckHistory.empty()) {
             throw new NoDeckHistoryException("There is no action to undo!");
         }
+        System.out.println("START OF UNDO COMMAND");
+
+        for (Deck d : deckHistory.peek()) {
+            printCardsInDeck(d);
+        }
 
         // Adds the current deck to the stack of undos
         addCurrDecksToUndoHistory();
 
         // Remove the last deck from history and makes it the curr list of Decks
-        ArrayList<Deck> newCurr = deckHistory.pop();
+        ArrayList<Deck> newCurr = (ArrayList<Deck>) deckHistory.pop().clone();
         this.decks = newCurr;
-        for (Deck d : this.decks) {
-            System.out.println(d.getDeckName());
-        }
     }
 
     /**
@@ -256,15 +285,11 @@ public class State {
         }
 
         // Adds the current deck to the stack of deckHistory
-        ArrayList<Deck> curr = decks;
         addCurrDecksToDeckHistory();
 
         // Remove the last deck from history and makes it the curr list of Decks
         ArrayList<Deck> newCurr = undoHistory.pop();
         this.decks = newCurr;
-        for (Deck d : decks) {
-            System.out.println(d.getDeckName());
-        }
     }
 
     /**
@@ -277,10 +302,14 @@ public class State {
     public boolean completelyEquals(ArrayList<Deck> currDecks) {
         boolean isEquals = true;
 
+        //ArrayList<Deck> sortedCurrCopy = Collections.sort( currDecks.clone());
+
         if (decks.equals(currDecks)) {
             for (Deck d : decks) {
                 for (Deck cD : currDecks) {
-                    d.equals(cD);
+                    if (d.equals(cD)) {
+                        isEquals = false;
+                    }
                 }
             }
         }

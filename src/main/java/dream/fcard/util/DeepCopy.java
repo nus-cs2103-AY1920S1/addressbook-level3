@@ -2,6 +2,7 @@ package dream.fcard.util;
 
 import java.util.ArrayList;
 
+import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
 
@@ -31,6 +32,17 @@ public class DeepCopy {
     public static ArrayList<TestCase> duplicateTestCases(ArrayList<TestCase> toClone) {
         ArrayList<TestCase> newList = new ArrayList<>();
         toClone.forEach(testCase -> newList.add(testCase.duplicate()));
+        return newList;
+    }
+
+    /**
+     * An array to duplicate the decks.
+     * @param toClone the array list of test cases.
+     * @return an array of a replica of test cases.
+     */
+    public static ArrayList<Deck> duplicateDecks(ArrayList<Deck> toClone) {
+        ArrayList<Deck> newList = new ArrayList<>();
+        toClone.forEach(deck -> newList.add(deck.duplicate()));
         return newList;
     }
 }

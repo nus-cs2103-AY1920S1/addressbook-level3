@@ -359,4 +359,13 @@ public class Deck implements JsonInterface {
     //    return this.deckStats.getAverageScore();
     //}
     //@@author
+
+    public Deck duplicate() {
+        ArrayList<FlashCard> duplicated = new ArrayList<>();
+
+        for (FlashCard f : cards) {
+            duplicated.add(f.duplicate());
+        }
+        return new Deck(duplicated, deckName);
+    }
 }
