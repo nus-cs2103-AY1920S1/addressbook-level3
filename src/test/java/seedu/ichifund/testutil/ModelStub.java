@@ -13,7 +13,6 @@ import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -60,16 +59,6 @@ public class ModelStub implements Model {
 
     @Override
     public void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

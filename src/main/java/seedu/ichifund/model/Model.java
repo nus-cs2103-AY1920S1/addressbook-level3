@@ -10,7 +10,6 @@ import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -20,7 +19,6 @@ import seedu.ichifund.model.transaction.Transaction;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Repeater> PREDICATE_SHOW_ALL_REPEATERS = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
@@ -71,15 +69,6 @@ public interface Model {
      * Sets current repeater unique id to {@code uniqueId}.
      */
     void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Adds the given transaction. Changes the view of the list to show the new transaction.

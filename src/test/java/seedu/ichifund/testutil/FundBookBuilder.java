@@ -1,12 +1,12 @@
 package seedu.ichifund.testutil;
 
 import seedu.ichifund.model.FundBook;
-import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * A utility class to help with building FundBook objects.
  * Example usage: <br>
- *     {@code FundBook ab = new FundBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code FundBook ab = new FundBookBuilder().withTransaction("John", "Doe").build();}
  */
 public class FundBookBuilder {
 
@@ -21,10 +21,10 @@ public class FundBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code FundBook} that we are building.
+     * Adds a new {@code Transaction} to the {@code FundBook} that we are building.
      */
-    public FundBookBuilder withPerson(Person person) {
-        fundBook.addPerson(person);
+    public FundBookBuilder withTransaction(Transaction transaction) {
+        fundBook.addTransaction(transaction);
         return this;
     }
 

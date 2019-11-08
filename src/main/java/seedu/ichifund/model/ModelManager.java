@@ -264,24 +264,6 @@ public class ModelManager implements Model {
         fundBook.setBudget(target, editedBudget);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedFundBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-
 
     //=========== Filtered Transaction List Accessors =============================================================
 
@@ -318,7 +300,7 @@ public class ModelManager implements Model {
 
     public ObservableValue<TransactionContext> getTransactionContextProperty() {
         return transactionContext;
-    };
+    }
 
     //=========== Filtered Repeater List Accessors =============================================================
 

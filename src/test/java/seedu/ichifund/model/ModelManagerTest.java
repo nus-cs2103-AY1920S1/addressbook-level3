@@ -3,20 +3,17 @@ package seedu.ichifund.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ichifund.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.ichifund.testutil.Assert.assertThrows;
 import static seedu.ichifund.testutil.TypicalFundBook.BUDGET_ANIME;
-import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
-import static seedu.ichifund.testutil.TypicalFundBook.PERSON_BENSON;
+import static seedu.ichifund.testutil.TypicalFundBook.TRANSACTION_ALLOWANCE;
+import static seedu.ichifund.testutil.TypicalFundBook.TRANSACTION_BUS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ichifund.commons.core.GuiSettings;
-import seedu.ichifund.model.person.NameContainsKeywordsPredicate;
 import seedu.ichifund.testutil.FundBookBuilder;
 
 public class ModelManagerTest {
@@ -101,7 +98,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        FundBook fundBook = new FundBookBuilder().withPerson(PERSON_ALICE).withPerson(PERSON_BENSON).build();
+        FundBook fundBook = new FundBookBuilder().withTransaction(TRANSACTION_ALLOWANCE)
+                .withTransaction(TRANSACTION_BUS).build();
         FundBook differentFundBook = new FundBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -121,14 +119,6 @@ public class ModelManagerTest {
 
         // different fundBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentFundBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = PERSON_ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(fundBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
