@@ -190,6 +190,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
+        closeResources();
         PageManager.closeWindows();
     }
 

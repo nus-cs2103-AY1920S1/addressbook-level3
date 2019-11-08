@@ -124,6 +124,7 @@ public class CalendarPage extends UiPart<Region> implements Page {
 
     @FXML
     private void handleExit() {
+        closeResources();
         PageManager.closeWindows();
     }
 

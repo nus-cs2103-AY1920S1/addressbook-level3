@@ -157,6 +157,7 @@ public class MainPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
+        closeResources();
         PageManager.closeWindows();
     }
 
