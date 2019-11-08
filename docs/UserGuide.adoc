@@ -207,11 +207,9 @@ Prevent unauthorised access to your grades.
 
 To enter the Quiz section please enter the command: `switch quiz` +
 
-// end::quizsection1[]
 *Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
 quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
 
-// tag::quizsection2[]
 *Note on UI:* You can adjust the size of the split pane by sliding the window separator
 between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
 question properly.
@@ -220,7 +218,7 @@ question properly.
 Users can add new quiz questions with the details in it. The details of the question should
 be added with the following requirements.
 
-The keyword instructions of the question include: +
+*The keyword instructions of the question include:* +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
 - `<ans>` Indicate that the next several phrases will be the answer to the question. +
 - `<cat>` Indicate that the next several phrases will be the category of the question. +
@@ -228,11 +226,11 @@ The keyword instructions of the question include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
-- *`<ans>` are required. The word limit is 125.* +
-- *`<cat>` are required. The word limit is 50.* +
-- *`<type>` are required. The format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
+- `<qns>` are required. The word limit is 200 and minimum 3 letters. +
+- `<ans>` are required. The word limit is 125. +
+- `<cat>` are required. The word limit is 50. +
+- `<type>` are required. The format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
 Note: Two questions are the same if they have the same *<qns>*, *<ans>* and *<cat>* +
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
@@ -261,7 +259,7 @@ Example 1: +
 ==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
 
-The details/instructions of the new questions include: +
+*The details/instructions of the new questions include:* +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
 - `<ans>` Indicate that the next several phrases will be the answer to the question. +
 - `<cat>` Indicate that the next several phrases will be the category of the question. +
@@ -269,11 +267,11 @@ The details/instructions of the new questions include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- *`<qns>` word limit is 200. No minimum letter.* +
-- *`<ans>` word limit is 125. No minimum letter.* +
-- *`<cat>` word limit is 50.* +
-- *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
+- `<qns>` word limit is 200. No minimum letter. +
+- `<ans>` word limit is 125. No minimum letter. +
+- `<cat>` word limit is 50. +
+- `<type>` format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
 Format: `*edit [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
 *<type>* _your_new_priority_ *<tag>* _your_tag_` +
@@ -299,12 +297,12 @@ Find the quiz questions from the list of questions.
 Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
 Note: The [KEYWORDS] is the list of keywords that I want to search.
 
-The expected details/instructions for [INSTRUCTION] keyword are:  +
-- `question` Indicate that I want to include the name of the question in my search. +
-- `answer` Indicate that I want to include the answer to the question in my search. +
-- `category` Indicate that I want to include the category of the question in my search. +
-- `type` Indicate that I want to include the priority/importance level of the question in my search. +
-- `tag` Indicate that I want to include the customized tag of the question in my search.
+*The expected details/instructions for [INSTRUCTION] keyword are:*  +
+- `question` - Indicate that I want to include the name of the question in my search. +
+- `answer` - Indicate that I want to include the answer to the question in my search. +
+- `category` - Indicate that I want to include the category of the question in my search. +
+- `type` - Indicate that I want to include the priority/importance level of the question in my search. +
+- `tag` - Indicate that I want to include the customized tag of the question in my search.
 
 *Note:* +
 • To search for everything, leave the [INSTRUCTION] field blank. +
@@ -333,7 +331,7 @@ Example: detail 1 +
 ==== Add Comment of a question:
 Users can add a comment/explanation of a particular questions.
 
-Format: `comment [INDEX] <val> _your_comment_ +
+Format: `comment [INDEX] <val> _your_comment_` +
 Usage: *[INDEX]* is the index/row from the question that you want to comment. +
 Example: comment 1 <val> The explanation is in pg 194 textbook. +
 {empty} +
@@ -358,15 +356,15 @@ Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `redo` +
 {empty} +
 
-// end::quizsection2[]
-
-==== Help:
-Format : `help` +
-{empty} +
-
 ==== Clear all data:
 To remove all of the current data in quiz book. +
 Format: `clear` +
+{empty} +
+
+// end::quizsection1[]
+
+==== Help:
+Format : `help` +
 {empty} +
 
 ==== Exit application:
