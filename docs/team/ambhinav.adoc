@@ -9,46 +9,48 @@
 
 == Overview
 
-+Work is a project management tool for NUS students, to track members and
++Work is a command line (CLI) project management tool for NUS students, to help manage project details. This application was morphed
+from the existing Address Book 3 (AB3) application developed by the CS2103 teaching team.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability for users to customise the appearance in +Work*
-** What it does: allows the user to toggle the theme of the app between light and dark. Also, allows the user to toggle the
+* *Major enhancement*: +Work now has the ability for users to *customise the appearance* of +Work to suit their viewing preferences.
+a settings panel.
+** What it does: This feature allows the user to toggle the theme of the entire application between light and dark. Also, it allows the user to toggle the
 deadline display format of the app between 24hr and 12hr.
-** Justification: This feature improves the product significantly as +Work can adapt to their preferences. Furthermore, as +Work scales to `v2.0`, it would be easier for users and developers alike to
-handle the complexity in may bring.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. +
+** Justification: This feature improves the current product as +Work can adapt to users viewing preferences. Furthermore, as +Work scales to `v2.0` and beyond, it would be easier for users and developers alike to
+handle the increasing complexity additional features may bring. For example, in our proposed `v2.0`, developers can extend the functionality of settings commands to help users choose which
+of the many popular cloud platforms to integrate their project with.
+** Highlights: As of the latest release, this enhancement affects any command that deals with time sensitive data. It required an in-depth analysis of design alternatives. +
 The implementation was moderately difficult as I was able to adapt the integration of the
-settings component based on the implementation of the existing `UserPrefs` component. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
+`UserSettings` component based on the implementation of the existing `UserPrefs` component in AB3. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
 in the event more user settings are to be added. I tried to incorporate as much of the OOP principles as possible so as to
 make the feature more robust.
-** Credits: _Adapted the code to do responsive highlighting for the settings page from a course mate.
+** Credits: _Adapted the code to do responsive highlighting for the settings view in +Work from a course mate.
 {mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: Added the ability for users to add, edit, remove and set status for tasks.
+* *Minor enhancement*: Added a responsive dashboard to +Work, that enables users to track their various tasks by status, upcoming deadlines and
+upcoming meetings.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` and `v1.2.1` (3 releases) on GitHub
+*** Managed releases `v1.1`, `v1.2.1` and `v1.4` (3 releases) on GitHub
 *** Tracked and helped to fix bugs found during developer testing using issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
-*** Added additional tests for the repository to bump coverage up ....
+*** Added additional tests for the repository to bump coverage up from 37% to 39% (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/166[#166])
 ** Enhancements to existing features:
 *** Created a modular framework in `Ui` to make it easier for teammates to add different user screens for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
 *** Added an "Upcoming deadlines" sidebar to help users keep track of tasks that are due soon. (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63[#63] )
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T12-1/main/pull/152[#152]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-1/main/pull/55[#55]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the module (examples:  https://github.com/ambhinav/ped/issues/6[1], https://github.com/ambhinav/ped/issues/5[2], https://github.com/ambhinav/ped/issues/3[3])
 ** Tools:
 *** Added test coverage tool Coveralls to the team repo (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/149[#149])
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
