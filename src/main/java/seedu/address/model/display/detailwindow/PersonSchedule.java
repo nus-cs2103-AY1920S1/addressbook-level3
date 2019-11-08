@@ -48,8 +48,8 @@ public class PersonSchedule {
                 ArrayList<PersonTimeslot> personTimeslots = scheduleDisplay.getScheduleForWeek(j).get(DayOfWeek.of(i));
                 output += DayOfWeek.of(i) + ":\n";
                 for (PersonTimeslot d : personTimeslots) {
-                    String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
-                    output += timeSlotDetails + "\n";
+                    //String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
+                    output += d.toString() + "\n";
                 }
             }
         }

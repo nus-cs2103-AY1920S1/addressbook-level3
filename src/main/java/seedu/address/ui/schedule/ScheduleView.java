@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -132,6 +134,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates a cell with a day header of the date given.
+     *
      * @param date The date to be placed inside the cell.
      * @return VBox. The cell that contains the date.
      */
@@ -150,6 +153,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates a cell with the given time.
+     *
      * @param header String representation of the time.
      * @return StackPane. The cell that contains this time;
      */
@@ -164,6 +168,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates an empty table cell for the table to have dashed lines and solid lines.
+     *
      * @return VBox. The empty table cell.
      */
     private VBox createEmptyTableCell() {
@@ -179,6 +184,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates half a cell for offset purposes.
+     *
      * @return VBox. The offset cell.
      */
     private VBox createHalfTableCell() {
@@ -190,8 +196,9 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Method to create a block that represents the occupied/busy time slots of an individual for a particular day.
+     *
      * @param daySchedule List that contains all occupied time slots of the individual on a particular day.
-     * @param color Color that the block should be.
+     * @param color       Color that the block should be.
      * @return VBox that represents the individual's busy time slots for this particular day.
      */
     private VBox getDayVBoxOfIndividualSchedule(ArrayList<PersonTimeslot> daySchedule, String color) {
@@ -210,7 +217,7 @@ public class ScheduleView extends UiPart<Region> {
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
             Region busyTimeslot = new Block(TimeUtil.getTimeDifference(startTime, endTime))
-                    .makeColouredBlockWithText(color, timeslot.getEventName(),
+                    .makeColouredBlockWithText(timeslot.getColor(), timeslot.getDisplayString(),
                             ToolTipFormatter.formatTooltipMessage(timeslot));
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
@@ -220,6 +227,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Method to append the free times of a group into the group schedule.
+     *
      * @param schedule A schedule that contains the available time for all group members.
      */
     public void setFreeTime(FreeSchedule schedule) {
@@ -236,6 +244,7 @@ public class ScheduleView extends UiPart<Region> {
     /**
      * Method to create a block that represents free time in groups on a particular day.
      * Only called for group schedules. Free time is shown by a translucent green rectangle on the UI.
+     *
      * @param freeSchedule The common free time among groups for a particular day.
      * @return VBox that represents the free time block.
      */
@@ -278,6 +287,7 @@ public class ScheduleView extends UiPart<Region> {
     class Block {
         private int duration;
         private double heightOfTimeslot;
+
         public Block(int duration) {
             this.duration = duration;
             int hours = duration / 60;
@@ -298,12 +308,8 @@ public class ScheduleView extends UiPart<Region> {
         }
 
         /**
-         * Creates a coloured block with the given color and places a text at the centre of the block. Binds a tooltip
-         * to the block.
-         * @param color The color of the block.
-         * @param text The text to be placed at the centre of the block.
-         * @param tooltipMessage The message for the tool tip to show.
-         * @return StackPane.
+         * Creates a coloured block with the given color and places an ID and text at the top left of the block.
+         * Binds a tooltip to the block.
          */
         private StackPane makeColouredBlockWithText(String color, String text, String tooltipMessage) {
             //Ensure that the block must be greater than 10px in height otherwise block will become distorted.
@@ -312,12 +318,15 @@ public class ScheduleView extends UiPart<Region> {
             StackPane container = new StackPane();
             Region colouredBlock = makeColouredBlock(color);
             Label textLabel = new Label(text);
+            textLabel.setPadding(new Insets(0, 5, 0, 5));
             container.getChildren().addAll(colouredBlock, textLabel);
+            container.setAlignment(textLabel, Pos.TOP_LEFT);
             Tooltip tooltip = new Tooltip(tooltipMessage);
             Tooltip.install(container, tooltip);
             container.setId("colouredBlockWithText");
             return container;
         }
+
 
         private String getLinearGradient(String color) {
             Color lighterTone = Color.web(color).desaturate();
@@ -329,6 +338,7 @@ public class ScheduleView extends UiPart<Region> {
 
         /**
          * Method to create a transparent block in the table view to indicate free time.
+         *
          * @return Region that represents the free time in the schedule.
          */
         private Region makeEmptyBlock() {
@@ -339,6 +349,7 @@ public class ScheduleView extends UiPart<Region> {
 
         /**
          * Method to create a free time slot block with an id.
+         *
          * @param text The id to be set in the block.
          * @return StackPane.
          */

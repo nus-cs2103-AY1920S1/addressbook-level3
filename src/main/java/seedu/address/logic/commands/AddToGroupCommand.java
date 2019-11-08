@@ -78,7 +78,7 @@ public class AddToGroupCommand extends Command {
             model.addPersonToGroupMapping(mapping);
 
             // updates main window
-            model.updateScheduleWindowDisplay(group.getGroupName(),
+            model.updateDisplayWithGroup(group.getGroupName(),
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
             // updates side panel
@@ -91,7 +91,7 @@ public class AddToGroupCommand extends Command {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE));
         } catch (AlreadyInGroupException e) {
 
-            model.updateScheduleWindowDisplay(group.getGroupName(),
+            model.updateDisplayWithGroup(group.getGroupName(),
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
             return new CommandResult(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString()));

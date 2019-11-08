@@ -278,6 +278,10 @@ public class ParserUtil {
      * @return Timeslot object
      */
     public static Timeslot parseTimeslot(String timeslot) throws ParseException {
+
+        LocalTime startTimeCutOff = LocalTime.of(8, 0);
+        LocalTime endTimeCutOff = LocalTime.of(20, 0);
+
         try {
             String[] tokens = timeslot.split("-", 4);
 
@@ -291,6 +295,13 @@ public class ParserUtil {
 
             if (endTime.isBefore(startTime) || endTime.compareTo(startTime) == 0) {
                 throw new ParseException("End time cannot be before start time.");
+            }
+
+            if (startTime.isBefore(startTimeCutOff)
+                    || startTime.isAfter(endTimeCutOff)
+                    || endTime.isBefore(startTimeCutOff)
+                    || endTime.isAfter(endTimeCutOff)) {
+                throw new ParseException("An event has can only be added if it is between 0800 - 2000 hrs");
             }
 
             Venue venue;

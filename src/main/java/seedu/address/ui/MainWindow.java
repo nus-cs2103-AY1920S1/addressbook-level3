@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -163,10 +162,7 @@ public class MainWindow extends UiPart<Stage> {
 
         //setting up default detailsview
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
-                .getPersonSchedules().get(0)
-                .getScheduleDisplay()
-                .getScheduleForWeek(0)
-                .get(LocalDate.now().getDayOfWeek()))
+                .getPersonSchedules().get(0))
                 .getRoot());
     }
 
@@ -358,8 +354,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
-                        .getPersonSchedules().get(0)
-                        .getScheduleDisplay().getScheduleForWeek(0).get(LocalDate.now().getDayOfWeek()))
+                        .getPersonSchedules().get(0))
                         .getRoot());
                 handleChangeToTabsPanel();
                 break;

@@ -56,7 +56,7 @@ public class AddPersonCommand extends Command {
             Person addedPerson = model.addPerson(personDescriptor);
 
             // update main window
-            model.updateScheduleWindowDisplay(addedPerson.getName(), LocalDateTime.now(),
+            model.updateDisplayWithPerson(addedPerson.getName(), LocalDateTime.now(),
                     ScheduleWindowDisplayType.PERSON);
 
             // update side panel
