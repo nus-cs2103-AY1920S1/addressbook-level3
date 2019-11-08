@@ -64,7 +64,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         if (appointment.getFrequency().isRecurringFrequency()) {
             recurDateTime.getChildren().add(new Label("recurring"));
-            frequency.getChildren().add(new Label("Every " + appointment.getFrequency().toUiString()));
+            frequency.getChildren().add(new Label("Every " + appointment.getFrequency().toString()));
         }
 
         Text startDateTimePre = new Text("Starts: ");
@@ -73,7 +73,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         Text endDateTimePre = new Text("Ends: ");
         endDateTimePre.setStyle("-fx-font-weight: bold");
-        Text endDateTimePost = new Text(appointment.getStartDateTime().toUiString());
+        Text endDateTimePost = new Text(appointment.getEndDateTime().toUiString());
 
         startDateTime.getChildren().addAll(startDateTimePre, startDateTimePost);
         endDateTime.getChildren().addAll(endDateTimePre, endDateTimePost);

@@ -85,10 +85,10 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyPatientBook> patientBookOptional;
-        ReadOnlyPatientBook initialDataPatients;
+        ReadOnlyPatientBook initialPatientData;
 
         Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
-        ReadOnlyAppointmentBook initialDataAppointments;
+        ReadOnlyAppointmentBook initialAppointmentData;
         try {
             patientBookOptional = storage.readPatientBook();
             appointmentBookOptional = storage.readAppointmentBook();
@@ -96,25 +96,25 @@ public class MainApp extends Application {
             if (!patientBookOptional.isPresent() || !appointmentBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample PatientBook "
                         + "and AppointmentBook");
-                initialDataPatients = SampleDataUtil.getSamplePatientBook();
-                initialDataAppointments = SampleDataUtil.getSampleAppointmentBook();
+                initialPatientData = SampleDataUtil.getSamplePatientBook();
+                initialAppointmentData = SampleDataUtil.getSampleAppointmentBook();
             } else {
-                initialDataPatients = patientBookOptional.get();
-                initialDataAppointments = appointmentBookOptional.get();
+                initialPatientData = patientBookOptional.get();
+                initialAppointmentData = appointmentBookOptional.get();
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty PatientBook "
                     + "and AppointmentBook");
-            initialDataPatients = new PatientBook();
-            initialDataAppointments = new AppointmentBook();
+            initialPatientData = new PatientBook();
+            initialAppointmentData = new AppointmentBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty PatientBook "
                     + "and AppointmentBook");
-            initialDataPatients = new PatientBook();
-            initialDataAppointments = new AppointmentBook();
+            initialPatientData = new PatientBook();
+            initialAppointmentData = new AppointmentBook();
         }
 
-        return new ModelManager(initialDataPatients, userPrefs, initialDataAppointments);
+        return new ModelManager(initialPatientData, userPrefs, initialAppointmentData);
     }
 
     private void initLogging(Config config) {

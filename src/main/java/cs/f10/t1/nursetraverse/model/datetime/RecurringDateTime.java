@@ -115,20 +115,6 @@ public class RecurringDateTime {
     }
 
     /**
-     * Converts recurring date time to a string to be displayed in the staged appointments.
-     * @return String
-     */
-    public String toUiString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))
-                .append(months == 0 ? "" : ", " + months + (months == 1 ? " month" : ", months"))
-                .append(days == 0 ? "" : ", " + days + (days == 1 ? ", day" : ", days"))
-                .append(hours == 0 ? "" : ", " + hours + (hours == 1 ? ", hour" : ", hours"))
-                .append(minutes == 0 ? "" : ", " + minutes + (minutes == 1 ? " minute" : " minutes"));
-        return builder.toString();
-    }
-
-    /**
      * Gets recurring appointment's next date and time based on current one
      */
     public String getNextAppointmentDateTime(DateTime currentAppointmentDateTime) {
@@ -166,5 +152,20 @@ public class RecurringDateTime {
                 && otherFrequency.getDays().equals(getDays())
                 && otherFrequency.getHours().equals(getHours())
                 && otherFrequency.getMinutes().equals(getMinutes());
+    }
+
+    /**
+     * Converts recurring date time to a string to be displayed in the staged appointments.
+     * @return String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))
+                .append(months == 0 ? "" : ", " + months + (months == 1 ? " month" : ", months"))
+                .append(days == 0 ? "" : ", " + days + (days == 1 ? ", day" : ", days"))
+                .append(hours == 0 ? "" : ", " + hours + (hours == 1 ? ", hour" : ", hours"))
+                .append(minutes == 0 ? "" : ", " + minutes + (minutes == 1 ? " minute" : " minutes"));
+        return builder.toString();
     }
 }

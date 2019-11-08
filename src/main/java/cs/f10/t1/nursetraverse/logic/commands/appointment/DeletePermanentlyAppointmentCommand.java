@@ -15,7 +15,7 @@ import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 /**
  * Deletes permanently a recurring appointment identified using it's displayed index from the appointment book.
  */
-public class DeletePermanentAppointmentCommand extends MutatorCommand {
+public class DeletePermanentlyAppointmentCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "appt-delete-permanent";
 
@@ -29,7 +29,7 @@ public class DeletePermanentAppointmentCommand extends MutatorCommand {
 
     private final Index targetIndex;
 
-    public DeletePermanentAppointmentCommand(Index targetIndex) {
+    public DeletePermanentlyAppointmentCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,7 +50,7 @@ public class DeletePermanentAppointmentCommand extends MutatorCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeletePermanentAppointmentCommand // instanceof handles nulls
-                && targetIndex.equals(((DeletePermanentAppointmentCommand) other).targetIndex)); // state check
+                || (other instanceof DeletePermanentlyAppointmentCommand // instanceof handles nulls
+                && targetIndex.equals(((DeletePermanentlyAppointmentCommand) other).targetIndex)); // state check
     }
 }
