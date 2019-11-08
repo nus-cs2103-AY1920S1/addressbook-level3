@@ -296,7 +296,7 @@ Examples:
 * `edittagcolor 1 c/RED`
 
 [NOTE]
-Tag color can only be "RED" "ORANGE" "YELLOW" "GREEN" "BLUE" "PURPLE" and "BLACK".
+Tag color can only be "RED" "ORANGE" "YELLOW" "GREEN" "BLUE" "PURPLE" "TEAL" "BLACK" and "DEFAULT".
 
 === Training Plans
 

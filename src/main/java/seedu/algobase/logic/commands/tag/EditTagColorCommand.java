@@ -34,7 +34,7 @@ public class EditTagColorCommand extends Command {
             + "INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG_COLOR + "TAGCOLOR] \n"
             + "Tags colors should be one of \"RED\", \"ORANGE\", \"YELLOW\", "
-            + "\"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\". \n"
+            + "\"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\", \"TEAL\", \"DEFAULT\". \n"
             + "Example: "
             + COMMAND_WORD + " 1 "
             + PREFIX_TAG_COLOR + "BULE";
@@ -67,7 +67,12 @@ public class EditTagColorCommand extends Command {
         }
 
         Tag tagToEdit = lastShownList.get(index.getZeroBased());
-        Tag editedTag = createEditedTag(tagToEdit, color);
+        Tag editedTag;
+        if (color.equalsIgnoreCase("DEFAULT")) {
+            editedTag = createEditedTag(tagToEdit, "#3e7b91");
+        } else {
+            editedTag = createEditedTag(tagToEdit, color);
+        }
 
         model.setTag(tagToEdit, editedTag);
         model.setTags(tagToEdit, editedTag);
@@ -79,8 +84,8 @@ public class EditTagColorCommand extends Command {
 
     /**
      * @param tagToEdit tag that need to edit
-     * @param color new tag name for tagToEdit
-     * @return Tag with updated name.
+     * @param color new tag color for tagToEdit
+     * @return Tag with updated color.
      */
     private static Tag createEditedTag(Tag tagToEdit, String color) {
         requireAllNonNull(tagToEdit, color);

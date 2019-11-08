@@ -87,13 +87,16 @@ public class Tag {
      */
     public static boolean isValidTagColor(String color) {
         boolean isValid = false;
-        if (color.equalsIgnoreCase("BLUE")
-            || color.equalsIgnoreCase("GREEN")
-            || color.equalsIgnoreCase("RED")
-            || color.equalsIgnoreCase("YELLOW")
+        if (color.equalsIgnoreCase("RED")
             || color.equalsIgnoreCase("ORANGE")
+            || color.equalsIgnoreCase("YELLOW")
+            || color.equalsIgnoreCase("GREEN")
+            || color.equalsIgnoreCase("BLUE")
+            || color.equalsIgnoreCase("PURPLE")
             || color.equalsIgnoreCase("BLACK")
-            || color.equalsIgnoreCase("PURPLE")) {
+            || color.equalsIgnoreCase("TEAL")
+            || color.equalsIgnoreCase("DEFAULT")
+            || color.equalsIgnoreCase("#3e7b91")) {
             isValid = true;
         }
         return isValid;
