@@ -14,7 +14,7 @@ import seedu.address.model.util.Date;
 /**
  * Handles Budget of a BankAccount.
  */
-public class Budget  implements Comparable<Budget> {
+public class Budget implements Comparable<Budget> {
     private Amount initialAmount;
     private Amount amount;
     private Date start = Date.now();

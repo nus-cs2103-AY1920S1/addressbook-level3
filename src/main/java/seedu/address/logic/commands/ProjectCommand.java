@@ -40,7 +40,7 @@ public class ProjectCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "12122103 09:00";
     public static final String MESSAGE_WARNING = "[WARNING] %1$s";
-    public static final String  MESSAGE_SUCCESS = "Projected balance: %s\n%s";
+    public static final String MESSAGE_SUCCESS = "Projected balance: %s\n%s";
     public static final String MESSAGE_BUDGET_SUCCESS =
             "You are on track to meeting your budget of %s, with a surplus of %s!\n";
     public static final String MESSAGE_BUDGET_CAUTION =
@@ -94,7 +94,7 @@ public class ProjectCommand extends Command {
         model.commitUserState();
 
         if (transactionHistory.size() < RECOMMENDED_MINIMUM_TRANSACTIONS
-                && Math.abs(Date.daysBetween(Date.now(), this.date)) >  RECOMMENDED_MAXIMUM_DAYS_TO_PROJECT) {
+                && Math.abs(Date.daysBetween(Date.now(), this.date)) > RECOMMENDED_MAXIMUM_DAYS_TO_PROJECT) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString(),
                     projection.getAllBudgetForecastText()),
                     String.format(MESSAGE_WARNING, SMALL_SAMPLE_SIZE),

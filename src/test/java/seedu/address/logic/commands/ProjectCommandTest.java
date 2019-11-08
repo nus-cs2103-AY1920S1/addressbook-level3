@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -105,16 +103,16 @@ public class ProjectCommandTest {
         }
 
         @Override
-        public boolean has(Projection projection) { return false; };
+        public boolean has(Projection projection) {
+            return false;
+        };
     }
 
     private class ReadOnlyBankAccountStub extends BankAccountStub {
         private UniqueTransactionList transactions;
-
         ReadOnlyBankAccountStub() {
             this.transactions = new UniqueTransactionList();
         }
-
         void setTransactions(List<BankAccountOperation> transactions) {
             this.transactions.setTransactions(transactions);
         }

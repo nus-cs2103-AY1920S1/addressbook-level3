@@ -110,28 +110,28 @@ public class TypicalTransactions {
 
     public static List<BankAccountOperation> getOneToTenTypicalTransactions(int size) {
         switch(size) {
-            case 1:
-                return new ArrayList<>(Arrays.asList(ALICE));
-            case 2:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON));
-            case 3:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL));
-            case 4:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
-            case 5:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE));
-            case 6:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
-            case 7:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-            case 8:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON));
-            case 9:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA));
-            case 10:
-                return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA, JANE));
-            default:
-                return new ArrayList<>();
+        case 1:
+            return new ArrayList<>(Arrays.asList(ALICE));
+        case 2:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON));
+        case 3:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL));
+        case 4:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
+        case 5:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE));
+        case 6:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
+        case 7:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        case 8:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON));
+        case 9:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA));
+        case 10:
+            return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA, JANE));
+        default:
+            return new ArrayList<>();
         }
     }
 
