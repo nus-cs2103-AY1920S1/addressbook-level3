@@ -13,11 +13,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.ezwatchlist.Main;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.EditCommand;
-import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.ui.MainWindow;
