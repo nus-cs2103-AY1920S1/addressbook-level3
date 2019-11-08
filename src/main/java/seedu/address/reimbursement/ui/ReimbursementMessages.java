@@ -4,7 +4,7 @@ package seedu.address.reimbursement.ui;
  * Stores the messages to be printed as a response to the user.
  */
 public class ReimbursementMessages {
-    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please input the correct "
             + "command format:\n";
 
     public static final String BACK_COMMAND = "Here are all the reimbursements.";
