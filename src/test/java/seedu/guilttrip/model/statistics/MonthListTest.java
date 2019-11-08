@@ -10,11 +10,12 @@ import static seedu.guilttrip.testutil.TypicalStatistics.YEAR_2019;
 
 import java.time.Month;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
@@ -22,6 +23,7 @@ import seedu.guilttrip.model.UserPrefs;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
+
 
 public class MonthListTest {
 

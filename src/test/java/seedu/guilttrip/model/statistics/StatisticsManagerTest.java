@@ -12,9 +12,10 @@ import static seedu.guilttrip.testutil.TypicalStatistics.START_DATE;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.transformation.FilteredList;
 
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;

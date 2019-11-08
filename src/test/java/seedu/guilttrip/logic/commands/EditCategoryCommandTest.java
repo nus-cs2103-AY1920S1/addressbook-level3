@@ -2,40 +2,26 @@ package seedu.guilttrip.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_STRING;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_CATEGORY_EXPENSE_FOOD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_CATEGORY_INCOME_BUSINESS;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_CLOTHING_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_FOOD_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_CLOTHING_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_FOOD_EXPENSE;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.guilttrip.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
-import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_THIRD_ENTRY;
 
 import org.junit.jupiter.api.Test;
-import seedu.guilttrip.commons.core.Messages;
-import seedu.guilttrip.commons.core.index.Index;
+
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
-import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
 import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.UserPrefs;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.testutil.CategoryBuilder;
 import seedu.guilttrip.testutil.EditCategoryDescriptorBuilder;
-import seedu.guilttrip.testutil.EditExpenseDescriptorBuilder;
-import seedu.guilttrip.testutil.ExpenseBuilder;
+
 
 public class EditCategoryCommandTest {
     private Model model = new ModelManager(getTypicalGuiltTrip(), new UserPrefs());
