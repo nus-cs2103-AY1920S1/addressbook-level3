@@ -32,7 +32,7 @@ public class ExportCommand extends Command {
             formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index - 1).toString()));
             formattedOutput.append(BORDER);
         }
-        byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), 500);
+        byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), 800);
         return new CommandResult(SHOWING_EXPORT_MESSAGE, true, pngData);
     }
 }
