@@ -69,7 +69,7 @@ public class Budget extends Entry {
     }
 
     public void setSpent(FilteredList<Expense> filteredExpenses) {
-        this.filteredExpenses = filteredExpenses;
+        this.filteredExpenses = new FilteredList<>(filteredExpenses);
         expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
         this.filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
     }
@@ -94,6 +94,24 @@ public class Budget extends Entry {
         Category newCategory = new Category(newName, super.getCategory().categoryType);
         return new Budget(newCategory, super.getDesc(), super.getDate(), this.getPeriod(),
                 this.getAmount(), super.getTags(), this.spent);
+    }
+
+    /**
+     * Returns true if both entries of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
+    public boolean isSameBudget(Budget otherEntry) {
+        if (otherEntry == this) {
+            return true;
+        }
+
+        return otherEntry != null
+                && otherEntry.getCategory().equals(getCategory())
+                && otherEntry.getDesc().equals(getDesc())
+                && otherEntry.getAmount().equals(getAmount())
+                && otherEntry.getTags().equals(getTags())
+                && otherEntry.getDate().equals(getDate())
+                && otherEntry.getPeriod().equals(getPeriod());
     }
 
     /**
