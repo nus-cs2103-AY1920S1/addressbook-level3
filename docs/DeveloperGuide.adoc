@@ -56,11 +56,12 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component for the feature Cap
 image::LogicClassDiagram.png[]
 
+// tag::rationale[]
 [discrete]
 ==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
 
-The features in _Modulo_ are quite distinct, and essentially do not share the commands and dalexibility of implementing each feature. The same command word `add` is now able to be executete the features to form _Modulo_ with less overlaps when coding. Each time the user switches tover the previous feature's classes.
-
+The features in _Modulo_ are quite distinct and having minimal overlaps, each feature has its own data file to read and modify. The logic to execute commands are also handled differently in each feature. As such, our decision to have 4 components for each feature was to reduce coupling and allow flexibility in our implementations. This means that the same `add` command is now able to trigger a different sequence of actions depending on the feature the user is currently in. This architecture style allows each feature to be developed independently, free from the constraints set by other features. Each time a user switches to another feature, the `Ui`, `Logic`, `Model` and `Storage` classes will be replaced by that of the new feature.
+// end::rationale[]
 
 [discrete]
 ==== How the architecture components interact with each other
