@@ -807,11 +807,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-<<<<<<< HEAD
 [discrete]
-
-=======
->>>>>>> f2c7855ac0d554b3c5224532678e0ae03602e223
 // tag::mergingusecase[]
 === Use case: Merging a duplicate person with different fields
 
