@@ -75,7 +75,7 @@ public class MovingWord extends UiPart<Pane> {
         } else if (player.getInputText().equals(word)) {
             stopAnimation();
             player.incrementScore(word.length() * SCORE_MULTIPLIER);
-            player.setInputAs("");
+            player.setInputTextAs("");
             disappear();
         }
     }
