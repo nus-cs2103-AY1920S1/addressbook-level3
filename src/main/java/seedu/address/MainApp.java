@@ -85,7 +85,6 @@ public class MainApp extends Application {
      * Returns a {@code ModelManager} with the data from {@code storage}'s catalog, borrower records, loan records
      * and {@code userPrefs}. <br>
      *
-     *     TODO edit this
      * The data from the sample catalog will be used instead if {@code storage}'s catalog is not found,
      * or an empty catalog will be used instead if errors occur when reading {@code storage}'s catalog.
      */
@@ -100,48 +99,37 @@ public class MainApp extends Application {
 
         try {
             loanRecordsOptional = storage.readLoanRecords();
-            if (!loanRecordsOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample LoanRecord");
+            if (loanRecordsOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with sample library records");
+                return getSampleModelManager(userPrefs);
             }
-            initialLoanRecords = loanRecordsOptional.orElseGet(SampleDataUtil::getSampleLoanRecords);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty LoanRecord");
-            initialLoanRecords = new LoanRecords();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty LoanRecord");
-            initialLoanRecords = new LoanRecords();
-        }
-
-        try {
+            initialLoanRecords = loanRecordsOptional.get();
             catalogOptional = storage.readCatalog(initialLoanRecords);
-            if (!catalogOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Catalog");
-            }
-            initialCatalog = catalogOptional.orElse(SampleDataUtil.getSampleCatalog(initialLoanRecords));
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Catalog");
-            initialCatalog = new Catalog();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Catalog");
-            initialCatalog = new Catalog();
-        }
-
-        try {
             borrowerRecordsOptional = storage.readBorrowerRecords(initialLoanRecords);
-            if (!borrowerRecordsOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
+
+            if (catalogOptional.isEmpty() || borrowerRecordsOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with sample library records");
+                return getSampleModelManager(userPrefs);
             }
-            initialBorrowerRecords = borrowerRecordsOptional.orElse(
-                    SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords));
+            initialCatalog = catalogOptional.get();
+            initialBorrowerRecords = borrowerRecordsOptional.get();
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty BorrowerRecords");
-            initialBorrowerRecords = new BorrowerRecords();
+            logger.warning("Data file not in the correct format. Will be starting with sample library records");
+            return getSampleModelManager(userPrefs);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty BorrowerRecords");
-            initialBorrowerRecords = new BorrowerRecords();
+            logger.warning("Problem while reading from the file. Will be starting with sample library records");
+            return getSampleModelManager(userPrefs);
         }
 
         return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs);
+    }
+
+    private Model getSampleModelManager(ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyLoanRecords initialLoanRecords = SampleDataUtil.getSampleLoanRecords();
+        return new ModelManager(
+            SampleDataUtil.getSampleCatalog(initialLoanRecords), initialLoanRecords,
+            SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords), userPrefs);
     }
 
     private void initLogging(Config config) {
