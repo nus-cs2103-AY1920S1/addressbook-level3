@@ -159,39 +159,39 @@ This section describes some noteworthy details on how certain features are imple
 === Undo and Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by `Caretaker`, with each classroom state saved as a `Memento`.
-It extends `Classroom` with an undo/redo history, stored internally as an `mementos` and `statePointer`.
+The undo/redo mechanism is facilitated by `Caretaker`, with each notebook state saved as a `Memento`.
+It extends `Notebook` with an undo/redo history, stored internally as an `mementos` and `statePointer`.
 Additionally, it implements the following operations:
 
-* `Caretaker#saveState()` -- Saves the current classroom state in its history.
-* `Caretaker#undo()` -- Restores the previous classroom state from its history by undoing the previous command.
-* `Caretaker#redo()` -- Restores a previously undone classroom state from its history by redoing the previously undone command.
+* `Caretaker#saveState()` -- Saves the current notebook state in its history.
+* `Caretaker#undo()` -- Restores the previous notebook state from its history by undoing the previous command.
+* `Caretaker#redo()` -- Restores a previously undone notebook state from its history by redoing the previously undone command.
 
 These operations are exposed in the `Model` interface as `Model#saveState()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `Caretaker` will be initialized with the initial classroom state, and the `statePointer` pointing to that single classroom state.
+Step 1. The user launches the application for the first time. The `Caretaker` will be initialized with the initial notebook state, and the `statePointer` pointing to that single notebook state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `deletestudent 5` command to delete the 5th student in the classroom. The `delete` command calls `Model#saveState()`, causing the modified state of the classroom after the `delete 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted classroom state.
+Step 2. The user executes `deletestudent 5` command to delete the 5th student in the current classroom. The `deletestudent` command calls `Model#saveState()`, causing the modified state of the notebook after the `deletestudent 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted notebook state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified classroom state to be saved into the `mementos`.
+Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified notebook state to be saved into the `mementos`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#saveState()`, so the classroom state will not be saved into the `mementos`.
+If a command fails its execution, it will not call `Model#saveState()`, so the notebook state will not be saved into the `mementos`.
 
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous classroom state, and restores the classroom to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous notebook state, and restores the notebook to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `statePointer` is at index 0, pointing to the initial classroom state, then there are no previous classroom states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `statePointer` is at index 0, pointing to the initial notebook state, then there are no previous notebook states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -199,16 +199,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `statePointer` once to the right, pointing to the previously undone state, and restores the classroom to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `statePointer` once to the right, pointing to the previously undone state, and restores the notebook to that state.
 
 [NOTE]
-If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest classroom state, then there are no undone classroom states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest notebook state, then there are no undone notebook states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `liststudents`. Commands that do not modify the classroom, such as `liststudents`, will usually not call `Model#saveState()`, `Model#undo()` or `Model#redo()`. Thus, the `mementos` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#saveState()`. Since the `statePointer` is not pointing at the end of the `mementos`, all classroom states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveState()`. Since the `statePointer` is not pointing at the end of the `mementos`, all notebook states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addstudent n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 
 image::UndoRedoState5.png[]
@@ -221,7 +221,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire classroom.
+* **Alternative 1 (current choice):** Saves the entire notebook.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -231,9 +231,9 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of classroom states.
+* **Alternative 1 (current choice):** Use a list to store the history of notebook states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedClassroom`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Caretaker`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
