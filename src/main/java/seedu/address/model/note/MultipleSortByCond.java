@@ -14,7 +14,8 @@ public class MultipleSortByCond {
 
     public static final String MESSAGE_CONSTRAINTS = "Sort condition must have at least one " + SortByCond.DATEADDED
             + ", or "
-            + SortByCond.DATEMODIFIED + " or " + SortByCond.NUMOFACCESS + " separated by a whitespace each";
+            + SortByCond.DATEMODIFIED + " or " + SortByCond.NUMOFACCESS + " separated by a whitespace each."
+            + "\nDuplicate conditions are not allowed.";
 
     public final String[] multipleSortByCond;
     public final Comparator<Note> multipleSortComparator;
@@ -65,9 +66,9 @@ public class MultipleSortByCond {
         //true by default
         boolean isDuplicate = false;
         boolean isCorrectCond = true;
+        Set<String> checkDuplicate = new HashSet<>();
         for (String cond : sortConditions) {
             String currentCond = cond.toLowerCase();
-            Set<String> checkDuplicate = new HashSet<>();
             if (checkDuplicate.contains(currentCond)) {
                 isDuplicate = true;
             } else {
