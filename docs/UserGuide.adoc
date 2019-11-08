@@ -53,9 +53,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == Features
 
-=== User-Interface
+[[UserCommands]]
 
-==== Watchlist Page
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
+* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [s/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
+* Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
+====
+
+=== Watchlist Page
 
 The watchlist is the default page that is opened upon start-up of ezwatchlist.
 It shows the user’s unwatched movies and television series.
@@ -74,60 +83,6 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 * Checkbox to indicate if the show has been watched
 
 image::Ui.png[width="790"]
-
-
-==== Watched List
-
-The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
-
-==== Search Page
-
-The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
-[NOTE]
-The search function may require some time to load the data from the API.
-
-image::search_page.png[width="790"]
-
-
-==== Statistics Page
-
-The user can navigate to the statistics page to find a summary of his watching habits,
-preferences and history according to what is present in his lists.
-Examples include: movies he added but might have forgotten to watch,
-up to 3 most favourite genres of the user and recommendations etc.
-
-[NOTE]
-The statistics function may require some time to load the data from the API.
-
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
-
-image::statistics_page.png[width="790"]
-
-==== Sidebar
-
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
-
-==== Details Page (Coming in v2.0)
-
-Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
-
-image::details_page.png[width="790"]
-
-[[UserCommands]]
-=== User Commands
-
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
-* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [s/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
-* Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
-====
-
-==== Viewing help : `help`
-
-Format: `help`
 
 ==== Adding a show: `add`
 
@@ -150,34 +105,15 @@ Examples:
 * `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
-==== Adding a show from search result page: `add`
+==== Mark as watched : `watch`
 
-Adds a show from search result page after user has already search for show +
-
-Format: `add INDEX`
-
-[TIP]
-This add command can only be used if user has already search for show using the search online command.
-
-Examples:
-
-* `add 2`
-
-==== Clear the WatchList: `clear`
-
-
-Clear the WatchList +
-Format: `clear`
-
-==== Mark/Unmark as watched : `watch`
-
-Marks an unwatched show in the watchlist as watched. Also un-marks a watched show as watched. +
+Marks an unwatched show in the watchlist as watched. +
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 ****
 * Marks the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * Any number of the optional fields may be provided.
-* Having only the index of the show will mark/unmark the show as watched.
+* Having only the index of the show will mark the show as watched.
 * Having the index and the episode number of the show will update the cumulative number of episodes of the show that are watched.
 * Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
 * Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
@@ -214,6 +150,108 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
+// tag::delete[]
+==== Deleting a show : `delete`
+
+Deletes the specified show from the watchlist. +
+Format: `delete INDEX`
+
+****
+* Deletes the show at the specified `INDEX`.
+* The index refers to the index number shown in the displayed watchlist.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd show in the watchlist.
+* `search Angry` +
+`delete 1` +
+Deletes the 1st show in the results of the `search` command.
+
+// end::delete[]
+
+=== Watched List Page
+
+The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
+
+==== Unmark as watched : `watch`
+
+Un-marks a watched show as watched. +
+Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
+
+****
+* Marks the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
+* Any number of the optional fields may be provided.
+* Having only the index of the show will unmark the show as watched.
+* Having the index and the episode number of the show will update the cumulative number of episodes of the show that are watched.
+* Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
+* Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
+****
+
+Examples:
+
+* `watch 1` +
+Marks/un-marks the first show of the list as watched.
+* `watch 2 e/20` +
+Marks the first 20 episodes of the second show of the list as watched.
+* `watch 2 s/5` +
+Marks all episodes of the first 5 seasons of the second show as watched.
+* `watch 3 s/5 e/2` +
+Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
+
+
+==== Editing a show's details : `edit`
+
+Edits an existing show in the list +
+Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
+
+****
+* Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing actors, the existing actors of the show will be removed i.e adding of actors is not cumulative.
+* You can remove all the show's actors by typing `a/` without specifying any actors after it.
+****
+
+Examples:
+
+* `edit 1 n/Joker a/Joaquin Phoenix` +
+Edits the name and actor name of the 1st show in the list to be `Joker` and `Joaquin Phoenix` respectively.
+* `edit 2 a/` +
+Clears all existing actors of the 2nd show in the list.
+
+// tag::delete[]
+==== Deleting a show : `delete`
+
+Deletes the specified show from the watchlist. +
+Format: `delete INDEX`
+
+****
+* Deletes the show at the specified `INDEX`.
+* The index refers to the index number shown in the displayed watchlist.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd show in the watchlist.
+* `search Angry` +
+`delete 1` +
+Deletes the 1st show in the results of the `search` command.
+
+// end::delete[]
+
+=== Search Page
+
+The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+[NOTE]
+The search function may require some time to load the data from the API.
+
+image::search_page.png[width="790"]
+
 ==== Search for a show: `search`
 ====
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
@@ -249,42 +287,67 @@ Returns movies with the genre "Action"
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
 
-// tag::delete[]
-==== Deleting a show : `delete`
+==== Adding a show from search result page: `add`
 
-Deletes the specified show from the watchlist. +
-Format: `delete INDEX`
+Adds a show from search result page after user has already search for show +
 
-****
-* Deletes the show at the specified `INDEX`.
-* The index refers to the index number shown in the displayed watchlist.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `add INDEX`
+
+[TIP]
+This add command can only be used if user has already search for show using the search online command.
 
 Examples:
 
-* `delete 2` +
-Deletes the 2nd show in the watchlist.
-* `search Angry` +
-`delete 1` +
-Deletes the 1st show in the results of the `search` command.
+* `add 2`
 
-// end::delete[]
-==== Exiting the program : `exit`
+=== Statistics Page
+
+The user can navigate to the statistics page to find a summary of his watching habits,
+preferences and history according to what is present in his lists.
+Examples include: movies he added but might have forgotten to watch,
+up to 3 most favourite genres of the user and recommendations etc.
+
+[NOTE]
+The statistics function may require some time to load the data from the API.
+
+The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
+
+image::statistics_page.png[width="790"]
+
+=== Details Page (Coming in v2.0)
+
+Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
+
+image::details_page.png[width="790"]
+
+=== Sidebar
+
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+
+=== Clear the WatchList: `clear`
+
+Clear the WatchList +
+Format: `clear`
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-==== Saving the data
+=== Saving the data
 
 Ezwatchlist data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
+//tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+//end::dataencryption[]
 
 // tag::advancedfeatures[]
 === Advanced Features

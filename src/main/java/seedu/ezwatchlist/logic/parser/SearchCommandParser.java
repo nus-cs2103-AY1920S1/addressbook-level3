@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -28,10 +30,15 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args) throws ParseException {
-        checkSyntaxError(args);
+        //checkSyntaxError(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED, PREFIX_FROM_ONLINE);
+
+        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENRE, PREFIX_ACTOR)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE));
+        }
 
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
@@ -55,25 +62,30 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param args User input to be checked for the correct syntax
      * @throws ParseException if the user input does not conform the expected format
      */
-    private void checkSyntaxError(String args) throws ParseException {
+    /*private void checkSyntaxError(String args) throws ParseException {
         String[] keywordsArray = args.split(" ");
         int length = keywordsArray.length;
+        if (length == 1) {
+            throw new ParseException(SearchMessages.MESSAGE_USAGE);
+        }
         for (int i = 1; i < length; i++) {
             String s = keywordsArray[i].trim();
-            if (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
+            if (s.length() <=2 || (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
                     && !s.substring(0, 2).equals("g/") && !s.substring(0, 2).equals("t/")
-                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/"))) {
+                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/")))) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
-    }
+    }*/
 
     /**
      * Parses the names to be searched.
      * @param nameList List of names to be searched.
      */
     private void parseNameToBeSearched(List<String> nameList) {
-        searchShowsHashMap.put(SearchKey.KEY_NAME, nameList);
+        if (!nameList.isEmpty()) {
+            searchShowsHashMap.put(SearchKey.KEY_NAME, nameList);
+        }
     }
 
     /**
@@ -81,7 +93,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param typeOptional Type to be searched.
      */
     private void parseTypeToBeSearched(Optional<String> typeOptional) {
-        ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
+        ArrayList<String> listOfType = new ArrayList<String>();
         if (typeOptional.isPresent()) {
             String type = typeOptional.get().trim().toLowerCase();
             listOfType.add(type);
@@ -137,5 +149,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      */
     public HashMap<SearchKey, List<String>> getSearchShowsHashMap() {
         return searchShowsHashMap;
+    }
+
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
