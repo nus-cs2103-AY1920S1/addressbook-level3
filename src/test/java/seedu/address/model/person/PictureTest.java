@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class AddressTest {
+public class PictureTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -14,23 +14,29 @@ public class AddressTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidPicture_throwsIllegalArgumentException() {
         String invalidPicture = "";
         assertThrows(IllegalArgumentException.class, () -> new Picture(invalidPicture));
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
+    public void constructor_invalidPictureFormat_throwsIllegalArgumentException() {
+        String invalidPicture = "test.tif";
+        assertThrows(IllegalArgumentException.class, () -> new Picture(invalidPicture));
+    }
+
+    @Test
+    public void isValidPicture() {
+        // null picture
         assertThrows(NullPointerException.class, () -> Picture.isValidPicture(null));
 
-        // invalid addresses
+        // invalid pictures
         assertFalse(Picture.isValidPicture("")); // empty string
         assertFalse(Picture.isValidPicture(" ")); // spaces only
 
-        // valid addresses
+        // valid pictures
         assertTrue(Picture.isValidPicture("test.jpg"));
         assertTrue(Picture.isValidPicture("123.jpg"));
-        assertTrue(Picture.isValidPicture("21!.jpg")); // long address
+        assertTrue(Picture.isValidPicture("21!.jpg"));
     }
 }

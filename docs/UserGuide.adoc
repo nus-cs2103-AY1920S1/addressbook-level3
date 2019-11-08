@@ -230,6 +230,11 @@ Examples:
 
 * `update_earnings 2 d/14/04/2020 type/lab`
 
+****
+* Not allowed to update earnings claim status through `update_earnings` method. Only can use `claim_earnings`
+method.
+****
+
 ==== Delete Earnings: `delete_earnings`
 
 Delete Earnings in the list of earnings. +
@@ -256,12 +261,17 @@ Examples:
 
 ==== Claim Earnings: `claim_earnings`
 
-Tick off that user has claimed Earnings in the list of earnings. +
-Format: `claim_earnings d/DATE c/CLASSID`
+Changes the user the earnings status in the list of earnings. +
+Format: `claim_earnings INDEX c/CLASSID`
 
 Examples:
 
-* `claim_earnings k/CS2103T, c/CS1231`
+* `claim_earnings 2 claim/rejected`
+
+****
+* Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
+* Only one status is allowed at a time.
+****
 
 === Notes
 ==== Add Note: `addnote`
@@ -309,6 +319,7 @@ Format: `listnote`
 
 // end::delete[]
 
+// tag::studentProfile[]
 === Student List
 
 ==== Add a student: 'add'
@@ -345,6 +356,9 @@ Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATIO
 [NOTE]
 User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
 
+[NOTE]
+Result of a student can be assigned using this command. e.g. `edit 1 r/79`
+
 Examples:
 
 * `edit 1 r/20 att/10 part/10 c/CS2030`
@@ -353,6 +367,11 @@ Examples:
 
 List all students in TutorAid.
 Format: `list`
+
+image::list.png[width="500", align="left"]
+
+[NOTE]
+`list` command does not take any arguments.
 
 ==== Find a student: 'find'
 
@@ -398,6 +417,9 @@ Examples:
 Marks attendance of students currently displayed.
 Format: `mark_attendance INDEXES`
 
+[NOTE]
+`mark_attendance` increases attendance of all selected students by exactly 1.
+
 Examples:
 
 * `mark_attendance 1,2,3`
@@ -407,6 +429,9 @@ Examples:
 Marks participation of students currently displayed.
 Format: `mark_participation INDEXES`
 
+[NOTE]
+`mark_participation` increases participation of all selected students by exactly 1.
+
 Examples:
 
 * `mark_participation 1,2,3`
@@ -414,11 +439,10 @@ Examples:
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
 Displays list of all students who have not met the set threshold in terms of attendance.
+Format: `absentees THRESHOLD_PERCENTAGE`
 
 [NOTE]
 Calculation will be done from start of semester to the current date.
-
-Format: `absentees THRESHOLD_PERCENTAGE`
 
 Examples:
 
@@ -427,30 +451,89 @@ Examples:
 ==== Check on status of student: 'check_status' [Coming in v2.0]
 
 Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+Format: `check_status`
 
 [NOTE]
 To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
 
-Format: `check_status`
 
 ==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
 
 Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
 The picture will be assigned to the indicated student and be displayed in TutorAid.
+Format: `upload_pic INDEX`
 
 [NOTE]
 Replaces current picture, if any.
-
-Format: `upload_pic INDEX`
 
 Examples:
 
 * `upload_pic 1`
 
+==== Learn wrong commands
+
+Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
+command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
+
+image::customCommandError.png[width="500", align="left"]
+
+[NOTE]
+You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
+
+// end::studentProfile[]
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
+
+=== Undoing previous command : `undo`
+
+Restores the Tutor Aid to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the Tutor Aid's content (`add`, `delete`, `edit` ...).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `list_task` +
+`find_earnings` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`edit_task 1 mark/N` +
+`undo` (reverses the `edit_task 1 mark/N` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`edit_task 1 mark/N` +
+`undo` (reverses the `edit_task 1 mark/N` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `edit_task 1 mark/N` command) +
 
 === Exiting the program : `exit`
 
@@ -528,6 +611,8 @@ _{explain how the user can enable/disable data encryption}_
 `deletenote 1` +
 `findnote [KEYWORD]` +
 `listnote`
+* *Undo* : `undo`
+* *Redo* : `redo`
 * *Clear* : `clear`
 * *Exit* : `exit`
 

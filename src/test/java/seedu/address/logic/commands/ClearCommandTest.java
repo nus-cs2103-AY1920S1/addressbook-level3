@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalTutorAid;
+import static seedu.address.testutil.TypicalTutorAid.getTypicalTutorAid;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class ClearCommandTest {
     public void execute_emptyTutorAid_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -24,8 +24,8 @@ public class ClearCommandTest {
     public void execute_nonEmptyTutorAid_success() {
         Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalTutorAid(), new UserPrefs());
-        expectedModel.setTutorAid(new TutorAid());
-
+        expectedModel.setVersionedTutorAid(new TutorAid());
+        expectedModel.commitTutorAid();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

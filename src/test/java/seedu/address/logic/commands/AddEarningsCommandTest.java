@@ -201,7 +201,7 @@ public class AddEarningsCommandTest {
         }
 
         @Override
-        public void setTutorAid(ReadOnlyTutorAid newData) {
+        public void setVersionedTutorAid(ReadOnlyTutorAid newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -282,7 +282,7 @@ public class AddEarningsCommandTest {
 
         @Override
         public void addTask(Task task) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
 
@@ -303,7 +303,7 @@ public class AddEarningsCommandTest {
 
 
         public void setTask(Task target, Task editedTask) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -328,13 +328,39 @@ public class AddEarningsCommandTest {
 
         @Override
         public boolean hasTask(Task task) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteTask(Task target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitTutorAid() {
 
         }
+
+        @Override
+        public boolean canUndoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

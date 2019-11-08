@@ -71,8 +71,11 @@ public class AssignClassCommand extends Command {
             model.setPerson(personToEdit, editedPerson);
 
         }
+        model.commitTutorAid();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS),
+                false, false, false, false,
+                true, true, false, false);
     }
 
     /**

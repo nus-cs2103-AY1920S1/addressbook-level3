@@ -13,8 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_EARNINGS_C
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_EARNINGS_CS1231_T05;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -72,7 +72,7 @@ public class UpdateEarningsCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + DATE_DESC_CS1231 + AMOUNT_DESC_CS2100;
 
         EditEarningsDescriptor descriptor = new UpdateEarningsDescriptorBuilder()
@@ -86,7 +86,7 @@ public class UpdateEarningsCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // date
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + DATE_DESC_CS1231;
         EditEarningsDescriptor descriptor =
                 new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS1231_T05).build();

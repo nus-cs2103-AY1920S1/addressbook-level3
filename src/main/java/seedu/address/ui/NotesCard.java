@@ -35,7 +35,7 @@ public class NotesCard extends UiPart<Region> {
         this.notes = notes;
         id.setText(displayedIndex + ". ");
         index = displayedIndex;
-        classId.setText("ClassId: " + notes.getCode().moduleCode);
+        classId.setText("ClassId: " + notes.getCode().value);
         content.setText("Notes: " + notes.getContent().content);
     }
 

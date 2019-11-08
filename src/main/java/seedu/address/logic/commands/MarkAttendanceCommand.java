@@ -46,18 +46,22 @@ public class MarkAttendanceCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        //Check through all indexes are valid before executing
         for (Index index : this.index) {
             if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_PEOPLE_DISPLAYED_INDEX);
             }
+        }
 
+        for (Index index : this.index) {
             Person personToEdit = lastShownList.get(index.getZeroBased());
             Person editedPerson = createEditedPerson(personToEdit, personToEdit.getAttendance());
 
             model.setPerson(personToEdit, editedPerson);
-
         }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_MARK_SUCCESS),
                 false, false, false, false, false,
                 true, false, false);
