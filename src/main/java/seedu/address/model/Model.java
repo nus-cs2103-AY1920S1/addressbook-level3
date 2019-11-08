@@ -60,9 +60,17 @@ public interface Model {
      */
     void setClassroom(ReadOnlyClassroom classroom);
 
-    /** Returns the Classroom */
+    /**
+     * Gets the current classroom of the notebook.
+     * @return current classroom
+     */
     Classroom getCurrentClassroom();
 
+    /**
+     * Finds the classroom with the same name from the notebook.
+     * @param classroom class room to find
+     * @return classroom from notebook
+     */
     Classroom getClassroom(Classroom classroom);
 
     /**
@@ -122,8 +130,6 @@ public interface Model {
     void updateFilteredLessonList(Predicate<Lesson> predicate);
 
     void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate);
-
-    //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
 
     ReadOnlyNotebook undo();
 

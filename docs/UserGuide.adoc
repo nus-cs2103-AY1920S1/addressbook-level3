@@ -114,8 +114,8 @@ The index provided must be valid.
 
 ==== Uploading: upload
 
-Uploads a PNG file to set as the display picture of the student at the specified index in the student list of the current class. +
-This will prompt the user to select a PNG file from their computer to set as the new display picture of the student. +
+Uploads a PNG or JPG file to set as the display picture of the student at the specified index in the student list of the current class. +
+This will prompt the user to select a PNG or JPG file from their computer to set as the new display picture of the student. +
 Format: `upload STUDENT_INDEX`
 
 Example:
