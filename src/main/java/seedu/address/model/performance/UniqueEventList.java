@@ -120,6 +120,9 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.setAll(events);
     }
 
+    /**
+     * Edits an athlete's record details accordingly when the EditCommand is executed.
+     */
     public void updatePerson(Person target, Person editedPerson) {
         for (Event event : internalList) {
             if (event.hasPerson(target)) {

@@ -135,6 +135,9 @@ public class Performance implements ReadOnlyPerformance {
         events.getEvent(e).deleteRecord(p, d);
     }
 
+    /**
+     * Edits an athlete's record details accordingly when the EditCommand is executed.
+     */
     public void editPersonPerformanceRecords(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         events.updatePerson(target, editedPerson);
