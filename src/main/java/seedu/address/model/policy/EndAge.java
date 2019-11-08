@@ -44,7 +44,7 @@ public class EndAge {
      * Returns true if a given string is a valid coverage declaration.
      */
     public static boolean isValidAge(String test) {
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) < Integer.parseInt(AGE_INFINITY);
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) <= Integer.parseInt(AGE_INFINITY);
     }
 
     @Override
