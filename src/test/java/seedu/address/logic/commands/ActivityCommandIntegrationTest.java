@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.ArrayList;
@@ -49,12 +50,12 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+        expectedModel.setContext(newContext);
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 
     @Test
@@ -68,7 +69,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 2);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
@@ -77,11 +79,12 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+        expectedModel.setContext(newContext);
+
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 
     @Test
@@ -95,7 +98,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 0);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
@@ -104,11 +108,11 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
-        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
+        expectedModel.setContext(newContext);
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 }

@@ -53,7 +53,6 @@ tasks.withType(Test) {
     testLogging {
         // set options for log level LIFECYCLE
         events TestLogEvent.FAILED,
-               TestLogEvent.PASSED,
                TestLogEvent.SKIPPED,
                TestLogEvent.STANDARD_OUT
         exceptionFormat TestExceptionFormat.FULL
@@ -65,7 +64,6 @@ tasks.withType(Test) {
         debug {
             events TestLogEvent.STARTED,
                    TestLogEvent.FAILED,
-                   TestLogEvent.PASSED,
                    TestLogEvent.SKIPPED,
                    TestLogEvent.STANDARD_ERROR,
                    TestLogEvent.STANDARD_OUT
@@ -111,7 +109,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'splitwiser.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -197,3 +195,7 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'hooks', 'clean', 'test', 'coverage', 'asciidoctor'
+
+run {
+    enableAssertions = true
+}
