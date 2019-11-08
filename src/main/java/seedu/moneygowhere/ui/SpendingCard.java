@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.moneygowhere.commons.util.DateUtil;
+import seedu.moneygowhere.commons.util.MoneyUtil;
 import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -43,6 +45,9 @@ public class SpendingCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private VBox labelVbox;
+
     public SpendingCard(Spending spending, Currency currency, int displayedIndex) {
         super(FXML);
         this.spending = spending;
@@ -51,13 +56,23 @@ public class SpendingCard extends UiPart<Region> {
         date.setText(DateUtil.prettyFormatDate(spending.getDate().value));
 
         double newRate = currency.rate * Double.parseDouble(spending.getCost().value);
-        String formattedCost = String.format("%s%.2f", currency.symbol, newRate);
+        String formattedCost = String.format("%s %s", currency.symbol, MoneyUtil.format(newRate));
         cost.setText(formattedCost);
 
-        remark.setText(spending.getRemark().value);
-        spending.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (spending.getRemark().value.isEmpty()) {
+            labelVbox.getChildren().remove(remark);
+        } else {
+            remark.setText(spending.getRemark().value);
+        }
+
+        if (spending.getTags().size() == 0) {
+            labelVbox.getChildren().remove(tags);
+        } else {
+            spending.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        }
+
     }
 
     @Override
