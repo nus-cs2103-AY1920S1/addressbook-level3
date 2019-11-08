@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.model.Athletick;
+import seedu.address.model.Attendance;
 import seedu.address.model.Model;
+import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.training.Training;
@@ -32,26 +35,44 @@ public class HistoryManager {
         this.trainingLists.push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         this.performances.push(model.getPerformanceDeepCopy(model.getPerformance()));
     }
-    public Command getLatestCommand() {
-        return commands.peek();
-    }
     public Stack<Command> getCommands() {
         return this.commands;
     }
     public Stack<ReadOnlyAthletick> getAddressBooks() {
         return this.addressBooks;
     }
-    public Stack<Command> getUndoneCommands() {
-        return this.undoneCommands;
+    public Command getLatestCommand() {
+        return commands.peek();
     }
-    public Stack<ReadOnlyAthletick> getUndoneAddressBooks() {
-        return this.undoneAddressBooks;
+    public Command popLatestCommand() {
+        return commands.pop();
     }
-    public Stack<List<Training>> getTrainingLists() {
-        return this.trainingLists;
+    public Command popLatestUndoneCommand() {
+        return undoneCommands.pop();
     }
-    public Stack<List<Training>> getUndoneTrainingLists() {
-        return this.undoneTrainingLists;
+    public void pushCommand(Command command) {
+        commands.push(command);
+    }
+    public void pushUndoneCommand(Command undoneCommand) {
+        undoneCommands.push(undoneCommand);
+    }
+    public ReadOnlyAthletick popLatestAthletick() {
+        return addressBooks.pop();
+    }
+    public ReadOnlyAthletick popLatestUndoneAthletick() {
+        return undoneAddressBooks.pop();
+    }
+    public void pushAthletick(ReadOnlyAthletick athletick) {
+        addressBooks.push(athletick);
+    }
+    public void pushUndoneAthletick(ReadOnlyAthletick undoneAthletick) {
+        undoneAddressBooks.push(undoneAthletick);
+    }
+    public void pushTrainingList(List<Training> trainingList) {
+        trainingLists.push(trainingList);
+    }
+    public void pushPerformances(ReadOnlyPerformance performance) {
+        performances.push(performance);
     }
     public boolean isUndoneEmpty() {
         return this.commands.empty();
@@ -59,10 +80,63 @@ public class HistoryManager {
     public boolean isRedoneEmpty() {
         return this.undoneCommands.empty();
     }
-    public Stack<ReadOnlyPerformance> getPerformances() {
-        return this.performances;
+    /**
+     * reset the athletick state to the state after undo command
+     * @param athletick single athletick class of the application
+     */
+    public void undoAthletickStack(Athletick athletick) {
+        ReadOnlyAthletick afterUndoneState = this.addressBooks.peek();
+        athletick.resetData(afterUndoneState);
     }
-    public Stack<ReadOnlyPerformance> getUndonePerformances() {
-        return this.undonePerformances;
+    /**
+     * After undo, pops the latest training list from the stack of training lists
+     * and push it to the undone stack of training list.
+     * Then, resets the state of attendance from the latest training list after undone.
+     * @param attendance single attendance class of the application
+     * @param model single model class of the application
+     */
+    public void undoTrainingStack(Attendance attendance, Model model) {
+        List<Training> undoneTrainingList = this.trainingLists.pop();
+        this.undoneTrainingLists.push(undoneTrainingList);
+        List<Training> afterUndoneTrainingList = this.trainingLists.peek();
+        attendance.resetTrainingList(model.getTrainingsDeepCopy(afterUndoneTrainingList));
+    }
+    /**
+     * After undo, pops the latest performance from the stack of performance
+     * and push it to the undone stack of performance.
+     * Then, resets the state of performance from the latest performance after undone.
+     * @param performance single performance class of the application
+     * @param model single model class of application
+     */
+    public void undoPerformanceStack(Performance performance, Model model) {
+        ReadOnlyPerformance undonePerformance = this.performances.pop();
+        this.undonePerformances.push(undonePerformance);
+        ReadOnlyPerformance afterUndonePerformance = this.performances.peek();
+        performance.resetData(model.getPerformanceDeepCopy(afterUndonePerformance));
+    }
+    /**
+     * After redo, pops the latest undone training lists from the stack
+     * of undone training lists and push it to the stack of training lists.
+     * Then, resets the state of attendance from the latest training list after redo.
+     * @param attendance single attendance class of the application
+     * @param model single model class of application
+     */
+    public void redoTrainingStack(Attendance attendance, Model model) {
+        List<Training> redoneTrainingLists = model.getTrainingsDeepCopy(this.undoneTrainingLists.pop());
+        this.trainingLists.push(redoneTrainingLists);
+        attendance.resetTrainingList(model.getTrainingsDeepCopy(redoneTrainingLists));
+    }
+    /**
+     * After redo, pops the latest undone performance from the stack
+     * of undone performance and push it to the stack of performance.
+     * Then, resets the state of performance from the latest performance after redo.
+     * @param performance single performance class of the application
+     * @param model single model class of the application
+     */
+    public void redoPerformanceStack(Performance performance, Model model) {
+        ReadOnlyPerformance redonePerformance = this.undonePerformances.pop();
+        this.performances.push(redonePerformance);
+        performance.resetData(model.getPerformanceDeepCopy(redonePerformance));
     }
 }
+
