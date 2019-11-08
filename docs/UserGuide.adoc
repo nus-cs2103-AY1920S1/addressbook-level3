@@ -327,6 +327,7 @@ image::filter3.png[]
 
 // end::filter[]
 
+// tag::undo[]
 === Undoing the Last Command : `undo`
 
 Did you accidentally delete a transaction? Do not panic! PalPay lets you undo your previous commands with just one
@@ -358,7 +359,7 @@ Suppose you want to update your allowance you received in October 2019 to $800 b
 ride instead. Without going through the trouble of updating the same transaction again, you can simply perform the
 `undo` command. Just follow these three simple steps.
 
-. Here, you see the wrong update you just made.
+. Here, you can see the wrong update you just made.
 +
 image::undo1.png[]
 +
@@ -369,11 +370,40 @@ image::undo2.png[]
 . As you wish, your command has been undone.
 +
 image::undo3.png[]
+// end::undo[]
 
+// tag::redo[]
 === Redoing the Last Command : `redo`
 
-Redo the last command +
+Made an extra `undo` by mistake? Do not worry! PalPay lets you redo your previous undo(s) with just one word, `redo`.
+
+==== Command Syntax
+
 Format: `redo`
+
+****
+* You can only redo `undo` commands.
+* Once you exit PalPay, you cannot redo the previous undo(s).
+****
+
+==== Example Usage:
+
+Suppose you want to undo your last update but you accidentally undo twice instead.
+You can simply perform the `redo` command to revert the changes. Just follow these three simple steps.
+
+. Here, you can see the extra undo you just made and the GrabTaxi ride is back at $800.
++
+image::redo1.png[]
++
+. Simply type *redo* in the command box and press kbd:[Enter].
++
+image::redo2.png[]
++
+. Great! Your transaction is back to normal.
++
+image::redo3.png[]
+
+// end::redo[]
 
 === Clearing All Entries : `clear`
 
