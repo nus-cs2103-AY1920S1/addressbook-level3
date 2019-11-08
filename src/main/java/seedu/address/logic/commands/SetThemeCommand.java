@@ -13,15 +13,17 @@ import seedu.address.ui.MainWindow;
 public class SetThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
+    public static final String THEME_FORMAT = "view/%s.css";
 
-    public static final String DARKTHEME = "view/DarkTheme.css";
-    public static final String LIGHTTHEME = "view/LightTheme.css";
-    public static final String PINKTHEME = "view/PinkTheme.css";
-    public static final String BLUETHEME = "view/BlueTheme.css";
-    public static final String HACKERTHEME = "view/HackerTheme.css";
-    public static final String NUSTHEME = "view/NUSTheme.css";
+    public static final String DARKTHEME = "DarkTheme";
+    public static final String LIGHTTHEME = "LightTheme";
+    public static final String PINKTHEME = "PinkTheme";
+    public static final String BLUETHEME = "BlueTheme";
+    public static final String HACKERTHEME = "HackerTheme";
+    public static final String NUSTHEME = "NUSTheme";
 
     public static final String MESSAGE_SUCCESS = "Theme changed to %s";
+    public static final String MESSAGE_SAME_STYLESHEET = "The current theme is already %s";
 
     private String styleSheet;
     /**
@@ -33,37 +35,21 @@ public class SetThemeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        /* todo: gui version
-        System.out.println(Main.class.getResourceAsStream("/images/Light.png"));
-        Image light = new Image(Main.class.getResourceAsStream("/images/Light.png"));
-        Image dark = new Image(Main.class.getResourceAsStream("/images/Dark.png"));
-        System.out.println(light.getUrl());
-        ImageView iv = new ImageView();
-        AnchorPane an = new AnchorPane();
-        an.getChildren().add(iv);
-        Scene scene = new Scene(an);
-        Scene scene = new Scene(new ThemeWindow().getView());
-        Stage stage = new Stage();
-        stage.setTitle("Theme");
-        stage.show();
-
-        GuiSettings guiSettings = model.getGuiSettings();
-        GuiSettings newGuiSettings = new GuiSettings(guiSettings.getWindowWidth(),
-                guiSettings.getWindowHeight(), guiSettings.getWindowCoordinates().x,
-                guiSettings.getWindowCoordinates().y, styleSheet);
-        model.setGuiSettings(newGuiSettings);
-
-        */
         requireNonNull(model);
-        MainWindow.setStylesheet(styleSheet);
-        model.setStyleSheet(styleSheet);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, getStyleSheetName(styleSheet)));
+        String stylesheet = String.format(THEME_FORMAT, styleSheet);
+        String previousStylesheet = model.getStyleSheet();
+        if (isSameStyleSheet(stylesheet, previousStylesheet)) {
+            throw new CommandException(String.format(MESSAGE_SAME_STYLESHEET, styleSheet));
+        }
+
+        MainWindow.setStylesheet(stylesheet);
+        model.setStyleSheet(stylesheet);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, styleSheet));
     }
 
-    private String getStyleSheetName(String styleSheet) {
+    private boolean isSameStyleSheet(String styleSheet, String preStyleSheet) {
         requireNonNull(styleSheet);
-        String temp = styleSheet.split("view/")[1];
-        temp = temp.split(".css")[0];
-        return temp;
+        requireNonNull(preStyleSheet);
+        return styleSheet.equals(preStyleSheet);
     }
 }

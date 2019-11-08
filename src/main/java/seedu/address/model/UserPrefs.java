@@ -50,6 +50,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setStyleSheet(String styleSheet) {
         guiSettings.setStyleSheet(styleSheet);
     }
+
+    public String getStyleSheet() {
+        return guiSettings.getStyleSheets();
+    }
+
     public Path getKeyboardFlashCardsFilePath() {
         return keyboardFlashCardsFilePath;
     }
