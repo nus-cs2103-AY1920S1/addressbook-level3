@@ -9,6 +9,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
 import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.logic.parser.ArgumentMultimap;
@@ -19,7 +20,6 @@ import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.statistics.Mode;
-import seedu.moolah.model.statistics.Statistics;
 
 /**
  * Parses input arguments and creates a new StatsTrendCommand object
@@ -62,19 +62,17 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             checkStartBeforeEnd(argMultimap);
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            //return StatsTrendCommand.createWithBothDates(startDate, endDate, mode);
             statsTrendDescriptor.setStartDate(startDate);
             statsTrendDescriptor.setEndDate(endDate);
         } else if (isStartPresent) {
-
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            //return StatsTrendCommand.createOnlyWithStartDate(startDate, mode);
             statsTrendDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
             statsTrendDescriptor.setEndDate(endDate);
         }
-
+        //should be changed to enum for better code quality
+        statsTrendDescriptor.setMode(mode.isBudgetMode());
         return new StatsTrendCommand(statsTrendDescriptor);
     }
 
@@ -88,7 +86,7 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
         Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
         Timestamp endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
         if (endDate.isBefore(startDate)) {
-            throw new ParseException(Statistics.MESSAGE_CONSTRAINTS_END_DATE);
+            throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
         }
     }
 

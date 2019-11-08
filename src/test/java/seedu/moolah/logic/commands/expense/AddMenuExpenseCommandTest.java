@@ -403,12 +403,6 @@ public class AddMenuExpenseCommandTest {
         }
 
         @Override
-        public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
-                                        boolean isBudgetMode) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }

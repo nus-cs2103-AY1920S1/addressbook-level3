@@ -2,32 +2,19 @@ package seedu.moolah.logic.commands.statistics;
 
 import java.util.Optional;
 
-import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Timestamp;
 
-
+/**
+ * Stores the details of StatsTrendCommand. Each non-empty field value will
+ * lead to a different interaction to construct the final interval of interest for the statistics
+ */
 public class StatsTrendDescriptor {
-    //a class with no direct constructor but only setters
-    //the default value it gets empty from is the other expense it is copying
-    //it has access to a model object that is pulled from the index and then in the #execute can fetch alrdy
 
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean mode;
 
     public StatsTrendDescriptor() {};
-
-    //public StatsTrendDescriptor(St) Dont have a checking class
-//    /**
-//     * Returns true if at least one field is edited.
-//     */
-//    public boolean isAnyFieldEdited() {
-//        return CollectionUtil.isAnyNonNull(description, price, category, timestamp);
-//    }
-
-    public StatsTrendDescriptor(Budget primaryBudget) {
-
-    }
 
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
@@ -52,8 +39,6 @@ public class StatsTrendDescriptor {
     public boolean getMode() {
         return mode;
     }
-
-
 
 
     @Override

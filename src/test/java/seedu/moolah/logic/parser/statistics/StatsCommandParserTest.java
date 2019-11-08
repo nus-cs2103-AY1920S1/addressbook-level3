@@ -8,6 +8,7 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseFailure
 
 import org.junit.jupiter.api.Test;
 
+import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.CommandTestUtil;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
@@ -50,7 +51,7 @@ class StatsCommandParserTest {
                 Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         assertParseFailure(parser, CommandTestUtil.STATS_INVALID_PREFIX,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_HIGHER_END_DATE, Statistics.MESSAGE_CONSTRAINTS_END_DATE);
+        assertParseFailure(parser, CommandTestUtil.STATS_HIGHER_END_DATE, Messages.MESSAGE_CONSTRAINTS_END_DATE);
     }
 }
         /*

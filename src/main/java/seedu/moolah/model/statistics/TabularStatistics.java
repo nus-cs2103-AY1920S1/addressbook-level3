@@ -1,14 +1,10 @@
 package seedu.moolah.model.statistics;
 
-import static java.util.Objects.requireNonNull;
-
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
@@ -16,7 +12,7 @@ import seedu.moolah.model.expense.Timestamp;
 /**
  * Represents the Statistics class that provides a table as its Visual Representation method
  */
-public class TabularStatistics extends Statistics {
+public class TabularStatistics implements Statistics {
 
     private Timestamp firstStartDate;
 
@@ -32,41 +28,42 @@ public class TabularStatistics extends Statistics {
 
     private ObservableList<Expense> expenses;
 
-    private TabularStatistics(ObservableList<Expense> expenses, List<Category> validCategories,
+    private String title;
+
+    public TabularStatistics(ObservableList<Expense> expenses,
                               Timestamp firstStartDate, Timestamp firstEndDate,
                               Timestamp secondStartDate, Timestamp secondEndDate) {
 
-        super(expenses, validCategories);
+        this.expenses = expenses;
         this.firstStartDate = firstStartDate;
         this.firstEndDate = firstEndDate;
         this.secondStartDate = secondStartDate;
         this.secondEndDate = secondEndDate;
-        this.categorySize = getCategorySize();
-        this.expenses = getExpenses();
+        this.categorySize = Category.getNumValidCategory();
     }
 
-    TabularStatistics(ObservableList<Expense> expenses, List<Category> validCategories,
+    TabularStatistics(ObservableList<Expense> expenses,
                       Timestamp firstStartDate, Timestamp firstEndDate) {
 
-        super(expenses, validCategories);
+        this.expenses = expenses;
         this.firstStartDate = firstStartDate;
         this.firstEndDate = firstEndDate;
-        this.categorySize = getCategorySize();
-        this.expenses = getExpenses();
+        this.categorySize = Category.getNumValidCategory();
     }
 
     public List<FiveElementTableEntry> getUnionDifferenceTable() {
         return unionDifferenceTable;
     }
 
-    /**
+
+    /*
      * Compares the difference in basic statistics across 2 time periods
      *
      * @param validCategories List of allowed categories in MooLah
      * @param firstStartDate The starting date meant for the first period to be compared
      * @param secondStartDate The starting date meant for the second period to be compared
      * @param primaryBudget The primary budget whose statistics is taken
-     */
+
     public static TabularStatistics run(List<Category> validCategories,
                                         Timestamp firstStartDate, Timestamp secondStartDate, Budget primaryBudget) {
         requireNonNull(firstStartDate);
@@ -78,12 +75,13 @@ public class TabularStatistics extends Statistics {
         Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period)).minusDays(1);
         Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period)).minusDays(1);
 
-        TabularStatistics statistics = new TabularStatistics(primaryBudget.getExpenses(), validCategories,
+        TabularStatistics statistics = new TabularStatistics(primaryBudget.getExpenses(),
                 firstStartDate, firstEndDate,
                 secondStartDate, secondEndDate);
         statistics.generateTableData();
         return statistics;
     }
+    */
 
     /**
      * Gathers the data to be used for the elements of the table
@@ -131,7 +129,7 @@ public class TabularStatistics extends Statistics {
      */
     private ArrayList<ThreeElementTableEntry> createEmptyTableWithoutPercentage() {
         ArrayList<ThreeElementTableEntry> table = new ArrayList<>();
-        for (int i = 0; i < getValidCategories().size() + 1; i++) {
+        for (int i = 0; i < Category.getNumValidCategory() + 1; i++) {
             table.add(ThreeElementTableEntry.createEmptyEntry());
         }
         return table;
@@ -199,7 +197,7 @@ public class TabularStatistics extends Statistics {
                 entryNumber++;
             }
             ThreeElementTableEntry changes = new ThreeElementTableEntry(
-                    getValidCategories().get(i), categoricalTotal, entryNumber);
+                    Category.getValidCategories().get(i), categoricalTotal, entryNumber);
             table.set(i, changes);
             entryForTotal = entryForTotal.add(changes);
         }
@@ -271,8 +269,20 @@ public class TabularStatistics extends Statistics {
     }
 
 
+    @Override
+    public String getTitle() {
+        return title;
+    }
 
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    @Override
+    public void populateData() {
+        generateTableData();
+    }
 }
 
 

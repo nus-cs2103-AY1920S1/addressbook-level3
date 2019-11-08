@@ -34,6 +34,7 @@ public class Category {
         this.categoryName = categoryName.toUpperCase();
     }
 
+    //should be converted to Enum for better code quality
     public String getCategoryName() {
         return categoryName;
     }
@@ -55,6 +56,10 @@ public class Category {
                 .stream()
                 .map(Category::new)
                 .collect(Collectors.toList());
+    }
+
+    public static int getNumValidCategory() {
+        return getValidCategories().size();
     }
 
     @Override

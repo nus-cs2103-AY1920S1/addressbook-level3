@@ -102,14 +102,14 @@ class PieChartStatisticsTest {
 //        assertEquals(statistics.getFormattedCategories(), MONTH_BUDGET_RESULTS);
 //    }
 
-    @Test
-    void pieChart_yearPeriodWithBothDates_correctOutput() {
-        Budget budget = TypicalMooLah.getPopulatedYearBudget();
-        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-                YEAR_BUDGET_START_DATE, YEAR_BUDGET_END_DATE, budget);
-        assertEquals(statistics.getTitle(), YEAR_BUDGET_TITLE);
-        assertEquals(statistics.getFormattedCategories(), YEAR_BUDGET_RESULTS);
-    }
+//    @Test
+//    void pieChart_yearPeriodWithBothDates_correctOutput() {
+//        Budget budget = TypicalMooLah.getPopulatedYearBudget();
+//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
+//                YEAR_BUDGET_START_DATE, YEAR_BUDGET_END_DATE, budget);
+//        assertEquals(statistics.getTitle(), YEAR_BUDGET_TITLE);
+//        assertEquals(statistics.getFormattedCategories(), YEAR_BUDGET_RESULTS);
+//    }
 
 //    @Test
 //    void pieChart_futureWeekPeriodWithOnlyStartDate_correctOutput() {

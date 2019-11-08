@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
 import seedu.moolah.model.expense.Category;
@@ -16,7 +15,7 @@ import seedu.moolah.model.expense.Timestamp;
 /**
  * Represents the Statistics class that provides a trend line as its Visual Representation method
  */
-public class TrendStatistics extends Statistics {
+public class TrendStatistics implements Statistics {
 
     public static final int INTERVAL_COUNT = 34;
 
@@ -38,30 +37,36 @@ public class TrendStatistics extends Statistics {
 
     private List<ArrayList<Double>> periodicCategoricalExpenses = new ArrayList<>();
 
-    private TrendStatistics(ObservableList<Expense> expenses, List<Category> validCategories,
-                            Timestamp startDate, Timestamp endDate, Budget primaryBudget, boolean isBudgetMode) {
+    private String title;
 
-        super(expenses, validCategories);
+    public TrendStatistics(ObservableList<Expense> expenses, Timestamp startDate,
+                           Timestamp endDate, Budget primaryBudget, boolean isBudgetMode) {
+
+        requireNonNull(expenses);
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(primaryBudget);
+
+        this.expenses = expenses;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.expenses = getExpenses();
         this.primaryBudget = primaryBudget;
         this.budgetLimitMode = isBudgetMode;
         if (!budgetLimitMode) {
-            for (int i = 0; i < validCategories.size(); i++) {
+            for (int i = 0; i < Category.getNumValidCategory(); i++) {
                 periodicCategoricalExpenses.add(new ArrayList<>());
             }
         }
     }
 
-    /**
+    /*
      * Creates 2 trend lines to provide visual aid on the occurrence of total expenses relative to the budget limit
      *
      * @param validCategories List of allowed categories in MooLah
      * @param startDate The start date of the tracking period
      * @param endDate The end date of the tracking period
      * @param primaryBudget The primary budget whose statistics is taken
-     */
+
     public static TrendStatistics run(List<Category> validCategories,
                                       Timestamp startDate, Timestamp endDate,
                                       Budget primaryBudget, boolean isBudgetMode) {
@@ -94,27 +99,8 @@ public class TrendStatistics extends Statistics {
         return statistics;
 
     }
+    */
 
-    /**
-     * A method to practise defensive programming
-     * @param expenses List of expenses
-     * @param validCategories List of allowed categories in MooLah
-     * @param startDate The start date of the tracking period
-     * @param endDate The end date of the tracking period
-     * @param primaryBudget The primary budget whose statistics is taken
-     * @param isBudgetMode The condition to determine which mode is used
-     */
-    private static TrendStatistics verify(ObservableList<Expense> expenses, List<Category> validCategories,
-                                             Timestamp startDate, Timestamp endDate,
-                                          Budget primaryBudget, boolean isBudgetMode) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        requireNonNull(expenses);
-        requireNonNull(validCategories);
-
-        return new TrendStatistics(expenses, validCategories,
-                startDate, endDate, primaryBudget, isBudgetMode);
-    }
 
     /**
      * Gathers the data to be used for the elements of the trend line
@@ -186,7 +172,7 @@ public class TrendStatistics extends Statistics {
     }
 
     private ArrayList<ArrayList<Expense>> getCategorisedPeriodicExpenses(Timestamp startDate, Timestamp endDate) {
-        TabularStatistics statistics = new TabularStatistics(expenses, getValidCategories(), startDate, endDate);
+        TabularStatistics statistics = new TabularStatistics(expenses, startDate, endDate);
         ArrayList<ArrayList<Expense>> dataWithTotal = statistics.extractRelevantExpenses(startDate, endDate);
         dataWithTotal.remove(dataWithTotal.size() - 1);
         return dataWithTotal;
@@ -242,6 +228,21 @@ public class TrendStatistics extends Statistics {
 
     public String toString() {
         return String.format("%s\n%s", getTitle(), getPeriodicTotalExpenditure());
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public void populateData() {
+        generateTrendLine();
     }
 }
 

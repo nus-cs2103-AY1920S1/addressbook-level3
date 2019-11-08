@@ -301,11 +301,6 @@ public class ModelSupportingAliasStub implements Model {
     }
 
     @Override
-    public void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudget) {
-        throw new AssertionError("Method should not be called.");
-    }
-
-    @Override
     public Statistics getStatistics() {
         throw new AssertionError("Method should not be called.");
     }
