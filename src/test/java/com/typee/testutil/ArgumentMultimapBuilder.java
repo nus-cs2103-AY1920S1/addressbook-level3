@@ -8,32 +8,14 @@ import com.typee.logic.interactive.parser.Prefix;
 
 public class ArgumentMultimapBuilder {
 
-    private final List<Prefix> prefixList;
-    private final List<String> arguments;
+    public static ArgumentMultimap build(List<Prefix> prefixes, List<String> arguments) {
+        assert prefixes.size() == arguments.size();
+        int numberOfArguments = arguments.size();
 
-    public ArgumentMultimapBuilder() {
-        this.prefixList = new ArrayList<>();
-        this.arguments = new ArrayList<>();
-    }
-
-    public void addPrefixes(Prefix... prefixes) {
-        for (Prefix p : prefixes) {
-            prefixList.add(p);
-        }
-    }
-
-    public void addArguments(String... strings) {
-        for (String s : strings) {
-            arguments.add(s);
-        }
-    }
-
-    public ArgumentMultimap build() {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
-        int parameters = prefixList.size();
 
-        for (int i = 0; i < parameters; i++) {
-            argumentMultimap.put(prefixList.get(i), arguments.get(i));
+        for (int i = 0; i < numberOfArguments; i++) {
+            argumentMultimap.put(prefixes.get(i), arguments.get(i));
         }
 
         return argumentMultimap;

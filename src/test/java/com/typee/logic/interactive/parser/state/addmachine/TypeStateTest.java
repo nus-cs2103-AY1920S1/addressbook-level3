@@ -48,16 +48,12 @@ class TypeStateTest {
             List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME);
             List<String> arguments = List.of("interview", "11/11/2019/1500", "11/11/2019/1600");
 
-            ArgumentMultimapBuilder argumentMultimapBuilder = new ArgumentMultimapBuilder();
-            argumentMultimapBuilder.addPrefixes(prefixes.toArray(Prefix[]::new));
-            argumentMultimapBuilder.addArguments(arguments.toArray(String[]::new));
-
-            ArgumentMultimap argumentMultimap = argumentMultimapBuilder.build();
+            ArgumentMultimap argumentMultimap = ArgumentMultimapBuilder.build(prefixes, arguments);
 
             State initialState = new TypeState(new ArgumentMultimap());
             State postTransitionState = initialState.transition(argumentMultimap);
 
-            ArgumentMultimap newArgs = argumentMultimapBuilder.build();
+            ArgumentMultimap newArgs = ArgumentMultimapBuilder.build(prefixes, arguments);
             newArgs.clearValues(PREFIX_START_TIME);
             newArgs.clearValues(PREFIX_END_TIME);
 
