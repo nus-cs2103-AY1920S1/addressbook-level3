@@ -42,7 +42,6 @@ public class HomeCommand implements Command {
     public CommandResult execute() {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram latestUserProgram = this.programSubmissionLogic.getUserProgramFromSubmissionChannel();
-        questionsLogic.filterQuestionsList(unused->true);
         if (currentlyAttemptingQuestion.isPresent()) {
             Question oldQuestion = currentlyAttemptingQuestion.get();
             String loggerMessage = "Latest question attempt : " + oldQuestion.getTitle()
