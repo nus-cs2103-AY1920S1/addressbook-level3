@@ -1,7 +1,6 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Stack;
 
 import dream.fcard.core.commons.core.LogsCenter;
@@ -172,23 +171,26 @@ public class State {
         @SuppressWarnings("unchecked")
         ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
 
-        System.out.println("Adding Deck to deckHistory");
+        /*System.out.println("Adding Deck to deckHistory");
 
         System.out.println("CHECKING CURR DECKS START");
         for (Deck d : this.decks) {
             printCardsInDeck(d);
         }
         System.out.println("CHECKING CURR DECKS END");
+        */
 
         //if (deckHistory.empty() || !this.decks.equals(deckHistory.peek()) || !completelyEquals(deckHistory.peek())) {
-            deckHistory.push(currDeck);
+        deckHistory.push(currDeck);
         //}
 
-        System.out.println("CHECKING NEW DECKHISTORY START");
+        /*System.out.println("CHECKING NEW DECKHISTORY START");
         for (Deck d : deckHistory.peek()) {
             printCardsInDeck(d);
         }
         System.out.println("CHECKING NEW DECKHISTORY END");
+
+         */
     }
 
     /**
@@ -260,17 +262,18 @@ public class State {
         if (deckHistory.empty()) {
             throw new NoDeckHistoryException("There is no action to undo!");
         }
-        System.out.println("START OF UNDO COMMAND");
+        /*System.out.println("START OF UNDO COMMAND");
 
         for (Deck d : deckHistory.peek()) {
             printCardsInDeck(d);
         }
+        */
 
         // Adds the current deck to the stack of undos
         addCurrDecksToUndoHistory();
 
         // Remove the last deck from history and makes it the curr list of Decks
-        ArrayList<Deck> newCurr = (ArrayList<Deck>) deckHistory.pop().clone();
+        ArrayList<Deck> newCurr = DeepCopy.duplicateDecks(deckHistory.pop());
         this.decks = newCurr;
     }
 
