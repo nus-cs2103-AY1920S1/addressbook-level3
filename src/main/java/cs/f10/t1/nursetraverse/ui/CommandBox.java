@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private ArrayList<ObserverUi> observerUis = new ArrayList<>();
+    private ArrayList<UiObserver> uiObservers = new ArrayList<>();
     private DataSender dataSender;
 
     @FXML
@@ -36,6 +36,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        setKeyPressListener();
     }
 
     /**
@@ -84,7 +85,7 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
-    public void setOnButtonPressedListener() {
+    public void setKeyPressListener() {
         commandTextField.setOnKeyPressed(event -> {
             switch (event.getCode()) {
             case UP:
@@ -122,8 +123,8 @@ public class CommandBox extends UiPart<Region> {
         });
     }
 
-    public void addObserver(ObserverUi observerUi) {
-        observerUis.add(observerUi);
+    public void addObserver(UiObserver uiObserver) {
+        uiObservers.add(uiObserver);
     }
 
     public void setDataSender(DataSender dataSender) {
@@ -131,14 +132,14 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void notifyObserversKeyPressed(KeyCode keyCode) {
-        for (ObserverUi observerUi : observerUis) {
-            observerUi.update(keyCode);
+        for (UiObserver uiObserver : uiObservers) {
+            uiObserver.update(keyCode);
         }
     }
 
     private void notifyObserversToChange(KeyCode keyCode, String resultString) {
-        for (ObserverUi observerUi : observerUis) {
-            observerUi.update(keyCode, resultString);
+        for (UiObserver uiObserver : uiObservers) {
+            uiObserver.update(keyCode, resultString);
         }
     }
 

@@ -81,8 +81,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import java.util.List;
-
 /**
  * Class that initialise and stores all list
  */

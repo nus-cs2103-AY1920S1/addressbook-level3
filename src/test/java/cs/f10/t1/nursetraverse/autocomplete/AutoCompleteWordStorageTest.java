@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
@@ -29,9 +30,10 @@ class AutoCompleteWordStorageTest {
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedPatients));
     private FilteredList<Appointment> testFilteredAppointments =
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedAppointments));
+    private ObservableList<HistoryRecord> testHistoryList = FXCollections.observableArrayList();
 
     private AutoCompleteWordStorage autoCompleteWordStorage =
-            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments);
+            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments, testHistoryList);
 
     @Test
     public void getOListAllCommandWord() {

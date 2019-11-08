@@ -10,6 +10,7 @@ import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
@@ -31,9 +32,10 @@ class AutoCompleteListHandlerTest {
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedPatients));
     private FilteredList<Appointment> testFilteredAppointments =
             new FilteredList<>(FXCollections.unmodifiableObservableList(testStagedAppointments));
+    private ObservableList<HistoryRecord> testHistoryList = FXCollections.observableArrayList();
 
     private AutoCompleteWordStorage autoCompleteWordStorage =
-            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments);
+            new AutoCompleteWordStorage(testFilteredPatients, testFilteredAppointments, testHistoryList);
     private AutoCompleteListHandler autoCompleteListHandler = new AutoCompleteListHandler(autoCompleteWordStorage);
 
     @Test

@@ -20,7 +20,7 @@ public class MatchedWordUpdater {
     /**
      * Update matchedAutoCompleteWords list given userinput
      *
-     * @param segments segments of the userinputs
+     * @param segments segments of the userinputs splited by " "
      * @param firstSegmentParts parts of the first segment of userinput
      */
     public void updateMatchedWords(String[] segments, LinkedList<String> firstSegmentParts) {
