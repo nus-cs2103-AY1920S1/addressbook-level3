@@ -313,6 +313,7 @@ public class ModelManager implements Model {
             sb.append("No loan history!");
         } else {
             target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+            Collections.sort(loanStream);
             Collections.reverse(loanStream); // To make latest loan go on top
             loanStream.stream()
                     .map(loan -> singleLoanHistoryString(
@@ -331,7 +332,9 @@ public class ModelManager implements Model {
      */
     private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
         String startString = DateUtil.formatDate(loan.getStartDate());
-        String endString = DateUtil.formatDate(loan.getDueDate());
+        String endString = isCurrent
+                ? DateUtil.formatDate(loan.getDueDate())
+                : DateUtil.formatDate(loan.getReturnDate());
         String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
         String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
         if (isCurrent) {

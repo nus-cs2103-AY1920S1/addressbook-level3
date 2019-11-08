@@ -41,7 +41,7 @@ class ReturnCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build().addToLoanHistory(LOAN_7);
         catalog.addBook(onLoan);
 
         LoanRecords loanRecords = new LoanRecords();
@@ -52,7 +52,7 @@ class ReturnCommandTest {
 
         ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
 
-        Book returnedBook = onLoan.returnBook();
+        Book returnedBook = onLoan.returnBook().addToLoanHistory(LOAN_7);
 
         String actualMessage;
         try {

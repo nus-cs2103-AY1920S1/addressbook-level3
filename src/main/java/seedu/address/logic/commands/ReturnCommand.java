@@ -88,7 +88,10 @@ public class ReturnCommand extends ReversibleCommand {
             int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
                     * model.getUserSettings().getFineIncrement();
             Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
-            Book returnedBook = bookToBeReturned.returnBook();
+            Book returnedBook = bookToBeReturned
+                    .deleteFromLoanHistory(loanToBeReturned)
+                    .addToLoanHistory(returnedLoan)
+                    .returnBook();
 
             // update Book in model to have Loan removed
             model.setBook(bookToBeReturned, returnedBook);
