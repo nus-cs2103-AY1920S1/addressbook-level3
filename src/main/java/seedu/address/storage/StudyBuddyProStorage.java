@@ -13,7 +13,7 @@ import seedu.address.model.StudyBuddyPro;
  */
 
 public interface StudyBuddyProStorage {
-    // TO RENAME THE INTERFACE NAME
+
     /**
      * Returns the file path of the data file.
      */
@@ -22,31 +22,42 @@ public interface StudyBuddyProStorage {
     Path getNoteFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyStudyBuddyPro}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns StudyBuddyPro data as a {@link ReadOnlyStudyBuddyPro}.
+     * Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyStudyBuddyPro> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * Reads data from filepaths provided.
+     * @param flashcardFilePath Flashcard JSON file Path
+     * @param noteFilePath Notes JSON file Path
+     * @param cheatsheetFilePath Cheatsheet JSON file Path
+     * @return Returns {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyStudyBuddyPro> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                    Path cheatsheetFilePath)
+    Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro(Path flashcardFilePath, Path noteFilePath,
+                                                      Path cheatsheetFilePath)
             throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyStudyBuddyPro} to the storage.
-     * @param addressBook cannot be null.
+     * @param studyBuddyPro cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyStudyBuddyPro addressBook) throws IOException;
+    void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyStudyBuddyPro)
+     * Saves the given {@link ReadOnlyStudyBuddyPro} to the storage from filepaths provided.
+     * @param studyBuddyPro cannot be null.
+     * @param flashcardFilePath cannot be null.
+     * @param noteFilePath cannot be null.
+     * @param cheatsheetFilePath cannot be null.
+     * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyStudyBuddyPro addressBook, Path flashcardFilePath, Path noteFilePath,
-                         Path cheatsheetFilePath) throws IOException;
+    void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro, Path flashcardFilePath, Path noteFilePath,
+                           Path cheatsheetFilePath) throws IOException;
 }
 

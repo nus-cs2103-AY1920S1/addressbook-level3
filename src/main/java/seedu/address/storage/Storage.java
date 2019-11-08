@@ -30,8 +30,8 @@ public interface Storage extends StudyBuddyProStorage, UserPrefsStorage {
     Path getNoteFilePath();
 
     @Override
-    Optional<ReadOnlyStudyBuddyPro> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyStudyBuddyPro addressBook) throws IOException;
+    void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException;
 }

@@ -18,7 +18,6 @@ import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,7 +28,6 @@ public class ModelManager implements Model {
 
     private final StudyBuddyPro studyBuddyPro;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Flashcard> filteredFlashcards;
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<CheatSheet> filteredCheatSheets;
@@ -46,7 +44,6 @@ public class ModelManager implements Model {
 
         this.studyBuddyPro = new StudyBuddyPro(studyBuddyPro);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.studyBuddyPro.getPersonList());
         filteredFlashcards = new FilteredList<>(this.studyBuddyPro.getFlashcardList());
         filteredNotes = new FilteredList<>(this.studyBuddyPro.getNoteList());
         filteredCheatSheets = new FilteredList<>(this.studyBuddyPro.getCheatSheetList());
@@ -102,31 +99,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
         return studyBuddyPro;
-    }
-
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return studyBuddyPro.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        studyBuddyPro.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        studyBuddyPro.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        studyBuddyPro.setPerson(target, editedPerson);
     }
 
     @Override
@@ -185,23 +157,6 @@ public class ModelManager implements Model {
         filteredTags.setPredicate(predicate);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     //=========== Filtered Flashcard List Accessors =============================================================
 
     /**
@@ -250,7 +205,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return studyBuddyPro.equals(other.studyBuddyPro)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+                && filteredFlashcards.equals(other.filteredFlashcards)
+                && filteredCheatSheets.equals(other.filteredCheatSheets)
                 && filteredNotes.equals(other.filteredNotes);
     }
 
@@ -320,7 +276,7 @@ public class ModelManager implements Model {
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {
         studyBuddyPro.addCheatSheet(cheatSheet);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
     }
 
     @Override

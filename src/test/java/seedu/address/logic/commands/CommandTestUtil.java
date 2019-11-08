@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;

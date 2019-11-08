@@ -28,11 +28,14 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
 
     /**
      * New constructor to now take in 3 filepaths, one for each mode
-     * @param flashcardFilePath
-     * @param noteFilePath
-     * @param cheatSheetFilePath
+     * @param flashcardFilePath cannot be null.
+     * @param noteFilePath cannot be null.
+     * @param cheatSheetFilePath cannot be null.
      */
     public JsonStudyBuddyStorage(Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) {
+        requireNonNull(flashcardFilePath);
+        requireNonNull(noteFilePath);
+        requireNonNull(cheatSheetFilePath);
         this.cheatSheetFilePath = cheatSheetFilePath;
         this.flashcardFilePath = flashcardFilePath;
         this.noteFilePath = noteFilePath;
@@ -51,20 +54,20 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
     }
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readAddressBook() throws DataConversionException {
-        return readAddressBook(flashcardFilePath, noteFilePath, cheatSheetFilePath);
+    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException {
+        return readStudyBuddyPro(flashcardFilePath, noteFilePath, cheatSheetFilePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readStudyBuddyPro()}.
      *
      * @param flashcardFilePath location of the data. Cannot be null.
      * @param noteFilePath location of the data. Cannot be null.
      * @param cheatSheetFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyStudyBuddyPro> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                           Path cheatSheetFilePath) throws DataConversionException {
+    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro(Path flashcardFilePath, Path noteFilePath,
+                                                             Path cheatSheetFilePath) throws DataConversionException {
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
@@ -93,20 +96,19 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook) throws IOException {
-        saveAddressBook(addressBook, flashcardFilePath, noteFilePath, cheatSheetFilePath);
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException {
+        saveStudyBuddyPro(studyBuddyPro, flashcardFilePath, noteFilePath, cheatSheetFilePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyStudyBuddyPro)}.
-     *
+     * Similar to {@link #saveStudyBuddyPro(ReadOnlyStudyBuddyPro)}.
      * @param flashcardFilePath location of the data. Cannot be null.
      * @param noteFilePath location of the data. Cannot be null.
      * @param cheatSheetFilePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook, Path flashcardFilePath,
-                                Path noteFilePath, Path cheatSheetFilePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro, Path flashcardFilePath,
+                                  Path noteFilePath, Path cheatSheetFilePath) throws IOException {
+        requireNonNull(studyBuddyPro);
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
@@ -114,8 +116,8 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
         FileUtil.createIfMissing(flashcardFilePath);
         FileUtil.createIfMissing(noteFilePath);
         FileUtil.createIfMissing(cheatSheetFilePath);
-        JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), flashcardFilePath);
-        JsonUtil.saveJsonFile(new JsonSerializableNote(addressBook), noteFilePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCheatSheet(addressBook), cheatSheetFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFlashcard(studyBuddyPro), flashcardFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNote(studyBuddyPro), noteFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCheatSheet(studyBuddyPro), cheatSheetFilePath);
     }
 }

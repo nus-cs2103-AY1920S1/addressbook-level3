@@ -52,8 +52,8 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         AddressBook original = getTypicalStudyBuddyPro();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        storageManager.saveStudyBuddyPro(original);
+        ReadOnlyAddressBook retrieved = storageManager.readStudyBuddyPro().get();
         assertEquals(original, new AddressBook(retrieved));
     }
     */

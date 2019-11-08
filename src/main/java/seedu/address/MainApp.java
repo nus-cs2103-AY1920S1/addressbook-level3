@@ -72,23 +72,23 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * The data from the sample StudyBuddyPro will be used instead if {@code storage}'s StudyBuddyPro is not found,
+     * or if errors occur when reading {@code storage}'s StudyBuddyPro.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyStudyBuddyPro> addressBookOptional;
+        Optional<ReadOnlyStudyBuddyPro> studyBuddyProOptional;
         ReadOnlyStudyBuddyPro initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            studyBuddyProOptional = storage.readStudyBuddyPro();
+            if (!studyBuddyProOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample StudyBuddyPro");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = studyBuddyProOptional.orElseGet(SampleDataUtil::getSampleStudyBuddyPro);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty StudyBuddyPro");
             initialData = new StudyBuddyPro();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty StudyBuddyPro");
             initialData = new StudyBuddyPro();
         }
 

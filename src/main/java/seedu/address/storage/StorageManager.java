@@ -49,32 +49,32 @@ public class StorageManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(studyBuddyProStorage.getFlashcardFilePath(), studyBuddyProStorage.getNoteFilePath(),
+    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException, IOException {
+        return readStudyBuddyPro(studyBuddyProStorage.getFlashcardFilePath(), studyBuddyProStorage.getNoteFilePath(),
                 studyBuddyProStorage.getCheatSheetFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                           Path cheatsheetFilePath)
+    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro(Path flashcardFilePath, Path noteFilePath,
+                                                             Path cheatsheetFilePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from files: " + flashcardFilePath
                 + ", " + noteFilePath + ", " + cheatsheetFilePath);
-        return studyBuddyProStorage.readAddressBook(flashcardFilePath, noteFilePath, cheatsheetFilePath);
+        return studyBuddyProStorage.readStudyBuddyPro(flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook) throws IOException {
-        saveAddressBook(addressBook, studyBuddyProStorage.getFlashcardFilePath(),
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException {
+        saveStudyBuddyPro(studyBuddyPro, studyBuddyProStorage.getFlashcardFilePath(),
                 getNoteFilePath(), getCheatSheetFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook, Path flashcardFilePath, Path noteFilePath,
-                                Path cheatsheetFilePath) throws IOException {
+    public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro, Path flashcardFilePath, Path noteFilePath,
+                                  Path cheatsheetFilePath) throws IOException {
         logger.fine("Attempting to write to data files: " + flashcardFilePath
                 + ", " + noteFilePath + ", " + cheatsheetFilePath);
-        studyBuddyProStorage.saveAddressBook(addressBook, flashcardFilePath, noteFilePath, cheatsheetFilePath);
+        studyBuddyProStorage.saveStudyBuddyPro(studyBuddyPro, flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 
     // ================ CheatSheet methods ==============================
