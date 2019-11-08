@@ -488,10 +488,6 @@ The following _figure_ shows a class diagram of the relevant classes of the time
 
 image::jrImages/TimeTrialClassDiagram.png[]
 
-The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
-
-image::jrImages/TimeTrialActivityDiagram.png[]
-
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
 c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
 d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
@@ -500,10 +496,13 @@ e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowControll
 2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
 3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
 
-
-The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed.
+The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed:
 
 image::jrImages/TimeTrialSequenceDiagram.png[]
+
+The following _figure_ is an activity diagram that summarizes the flow of events when a user attempts to start a time trial as described above:
+
+image::jrImages/TimeTrialActivityDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
