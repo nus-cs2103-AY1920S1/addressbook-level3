@@ -2,16 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ReceiveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
@@ -27,7 +25,7 @@ public class ReceiveCommandParser implements Parser<ReceiveCommand> {
     @Override
     public ReceiveCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_DESC);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -38,6 +36,7 @@ public class ReceiveCommandParser implements Parser<ReceiveCommand> {
         Person person = new Person(name);
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).orElse("receive"));
 
         Date date;
         if (argMultimap.getValue(PREFIX_DATE).isEmpty()) {
@@ -46,10 +45,7 @@ public class ReceiveCommandParser implements Parser<ReceiveCommand> {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         }
 
-        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
-
-        // TODO: separate description from name
-        ReceiveMoney transaction = new ReceiveMoney(person, amount, date, new Description("stub"));
+        ReceiveMoney transaction = new ReceiveMoney(person, amount, date, description);
 
         return new ReceiveCommand(transaction);
 

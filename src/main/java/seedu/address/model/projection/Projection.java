@@ -2,7 +2,6 @@ package seedu.address.model.projection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import javafx.collections.ObservableList;
@@ -26,9 +25,12 @@ public class Projection {
 
     private final ObservableList<BankAccountOperation> transactionHistory;
     private final Date date;
-    private ObservableList<Budget> budgets;
-    private List<Amount> budgetProjections;
+    private List<Budget> budgets = new ArrayList<>();
+    private List<Amount> budgetProjections = new ArrayList<>();
+    private List<Amount> budgetStartValues = new ArrayList<>();
+    private List<Amount> budgetThresholds = new ArrayList<>();
     private Amount projection;
+    private Amount cumulativeBalance;
     private GradientDescent projector;
     private Category category;
 
@@ -36,38 +38,34 @@ public class Projection {
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
         this.transactionHistory = transactionHistory;
         this.date = date;
+        this.category = Category.GENERAL;
         this.project();
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      ObservableList<Budget> budgets, Category category) {
+                      List<Budget> budgets) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
+        this.category = Category.GENERAL;
+        this.project();
+    }
+
+    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
+                      List<Budget> budgets, Category category) {
+        this.transactionHistory = transactionHistory.sorted(new DateComparator());
+        this.date = date;
+        this.budgets = budgets;
         this.category = category;
         this.project();
     }
 
-    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      ObservableList<Budget> budgets) {
-        this.transactionHistory = transactionHistory.sorted(new DateComparator());
-        this.date = date;
-        this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
-        this.project();
-    }
-
     public Projection(ObservableList<BankAccountOperation> transactionHistory,
-                      Amount amount, Date date, ObservableList<Budget> budgets) {
+                      Amount amount, Date date, Category category) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.projection = amount;
         this.date = date;
-        this.budgets = budgets;
-        this.budgetProjections = new ArrayList<>();
-        this.budgets.forEach(x -> {
-            this.budgetProjections.add(this.projection.subtractAmount(x.getBudget()));
-        });
+        this.category = category;
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory,
@@ -78,17 +76,9 @@ public class Projection {
         this.budgets = budgets;
         this.budgetProjections = new ArrayList<>();
         this.category = category;
-        this.budgets.forEach(x -> {
-            this.budgetProjections.add(this.projection.subtractAmount(x.getBudget()));
-        });
+        this.project();
     }
 
-    public Projection(ObservableList<BankAccountOperation> transactionHistory,
-                      Amount amount, Date date) {
-        this.transactionHistory = transactionHistory.sorted(new DateComparator());
-        this.projection = amount;
-        this.date = date;
-    }
 
     /**
      * Computes projection for specified date based on transactionHistory
@@ -98,22 +88,25 @@ public class Projection {
         double [] dates = extractDates();
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
+        this.budgets.forEach(x -> {
+            int daysToBudgetStart = Date.daysBetween(Date.now(), x.getStart());
+            Amount budgetStartValue = new Amount((int) Math.round(this.projector.predict(daysToBudgetStart)));
+            Amount budgetThreshold = budgetStartValue.subtractAmount(x.getInitialBudget());
+            int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
+            this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
+                    .subtractAmount(budgetThreshold));
+            this.budgetStartValues.add(budgetStartValue);
+            this.budgetThresholds.add(budgetThreshold);
+        });
         this.projection = new Amount((int) Math.round(projector.predict(daysToProject)));
-        if (this.budgets != null) {
-            this.budgets.forEach(x -> {
-                int daysToBudgetDeadline = Date.daysBetween(Date.now(), x.getDeadline());
-                this.budgetProjections.add(new Amount((int) Math.round(this.projector.predict(daysToBudgetDeadline)))
-                        .subtractAmount(x.getBudget()));
-            });
-        }
     }
 
     GradientDescent getProjector() {
         return this.projector;
     }
 
-    public Optional<ObservableList<Budget>> getBudgets() {
-        return Optional.ofNullable(this.budgets);
+    public List<Budget> getBudgets() {
+        return this.budgets;
     }
 
     public Amount getProjection() {
@@ -132,6 +125,10 @@ public class Projection {
         return this.category;
     }
 
+    public boolean isGeneral() {
+        return this.category.equals(Category.GENERAL);
+    }
+
     /**
      * Populates an array with the number of days from each transaction till the date which this projection is
      * initialized
@@ -148,25 +145,19 @@ public class Projection {
         return this.projection.toString();
     }
 
-    public String getBudgetForecastText(int idx) {
-        if (this.getBudgets().isEmpty()) {
-            return "";
-        }
-        return this.budgetProjections.get(idx).getIntegerValue() > 0
-                ? String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString())
-                : String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
-                this.budgets.toString(), this.budgetProjections.get(idx).toString());
-    }
-
     public Amount getBudgetProjection(int idx) {
         return this.budgetProjections.get(idx);
     }
 
+    public Amount getBudgetStartValue(int idx) {
+        return this.budgetStartValues.get(idx);
+    }
+
+    public Amount getBudgetThreshold(int idx) {
+        return this.budgetThresholds.get(idx);
+    }
+
     public String getAllBudgetForecastText() {
-        if (this.getBudgets().isEmpty()) {
-            return "";
-        }
         StringBuilder text = new StringBuilder();
         IntStream.range(0, budgetProjections.size()).forEach(x -> {
             if (this.budgetProjections.get(x).getIntegerValue() > 0) {
@@ -180,6 +171,9 @@ public class Projection {
         return text.toString();
     }
 
+    /**
+     * @return an abbreviated description on the projected status of a budget
+     */
     public String getBudgetForecastAbbreviatedText(int idx) {
         if (this.budgets == null || this.budgets.get(idx) == null) {
             return "";

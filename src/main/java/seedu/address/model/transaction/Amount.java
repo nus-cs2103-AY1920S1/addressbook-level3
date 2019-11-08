@@ -64,7 +64,7 @@ public class Amount implements Comparable<Amount> {
     }
 
     public static double format(double value) {
-        return Double.valueOf(AMOUNT_DOUBLE_FORMAT.format(value));
+        return Double.parseDouble(AMOUNT_DOUBLE_FORMAT.format(value));
     }
 
     /**
@@ -149,6 +149,20 @@ public class Amount implements Comparable<Amount> {
      */
     public Amount makeNegative() {
         if (amount < 0) {
+            return new Amount(this.amount);
+        }
+        final int newAmount = this.amount * -1;
+        return new Amount(newAmount);
+    }
+
+    /**
+     * Make amount positive.
+     *
+     * @param
+     * @return positive amount
+     */
+    public Amount makePositive() {
+        if (amount >= 0) {
             return new Amount(this.amount);
         }
         final int newAmount = this.amount * -1;
