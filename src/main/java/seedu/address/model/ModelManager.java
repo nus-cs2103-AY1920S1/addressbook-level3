@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteRecordCommand;
@@ -208,13 +209,21 @@ public class ModelManager implements Model {
             attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
         } else if (undoneCommand instanceof EventCommand || undoneCommand instanceof PerformanceCommand
             || undoneCommand instanceof DeleteEventCommand || undoneCommand instanceof DeleteRecordCommand) {
-            System.out.println("initial: " + this.history.getPerformances());
             ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
-            System.out.println("popped: " + undonePerformance);
             this.history.getUndonePerformances().push(undonePerformance);
             ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
-            System.out.println("peek: " + afterUndonePerformance);
             this.performance.resetData(this.getPerformanceDeepCopy(afterUndonePerformance));
+        } else if (undoneCommand instanceof ClearCommand) {
+            ReadOnlyPerformance undonePerformance = this.history.getPerformances().pop();
+            this.history.getUndonePerformances().push(undonePerformance);
+            ReadOnlyPerformance afterUndonePerformance = this.history.getPerformances().peek();
+            this.performance.resetData(this.getPerformanceDeepCopy(afterUndonePerformance));
+            ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
+            athletick.resetData(afterUndoneState);
+            List<Training> undoneTrainingList = this.history.getTrainingLists().pop();
+            this.history.getUndoneTrainingLists().push(undoneTrainingList);
+            List<Training> afterUndoneTrainingList = this.history.getTrainingLists().peek();
+            attendance.resetTrainingList(this.getTrainingsDeepCopy(afterUndoneTrainingList));
         } else {
             ReadOnlyAthletick afterUndoneState = this.history.getAddressBooks().peek();
             athletick.resetData(afterUndoneState);
@@ -241,6 +250,14 @@ public class ModelManager implements Model {
             ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
             this.history.getPerformances().push(redonePerformance);
             this.performance.resetData(this.getPerformanceDeepCopy(redonePerformance));
+        } else if (redoneCommand instanceof ClearCommand) {
+            ReadOnlyPerformance redonePerformance = this.history.getUndonePerformances().pop();
+            this.history.getPerformances().push(redonePerformance);
+            this.performance.resetData(this.getPerformanceDeepCopy(redonePerformance));
+            List<Training> redoneTrainingLists = getTrainingsDeepCopy(this.history.getUndoneTrainingLists().pop());
+            this.history.getTrainingLists().push(redoneTrainingLists);
+            attendance.resetTrainingList(getTrainingsDeepCopy(redoneTrainingLists));
+            athletick.resetData(redoneAthletick);
         } else {
             athletick.resetData(redoneAthletick);
         }

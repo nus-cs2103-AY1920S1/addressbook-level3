@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteEventCommand;
@@ -59,6 +60,10 @@ public class LogicManager implements Logic {
         if (command instanceof EventCommand || command instanceof PerformanceCommand
             || command instanceof DeleteEventCommand || command instanceof DeleteRecordCommand) {
             history.getPerformances().push(model.getPerformanceDeepCopy(model.getPerformance()));
+        }
+        if (command instanceof ClearCommand) {
+            history.getPerformances().push(model.getPerformanceDeepCopy(model.getPerformance()));
+            history.getTrainingLists().push(model.getTrainingsDeepCopy(model.getAttendance().getTrainings()));
         }
         history.getCommands().push(command);
         history.getAddressBooks().push(model.getAthletickDeepCopy());
