@@ -24,12 +24,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
  * The display for a user to review cards.
  */
-public class TimedTestDisplay extends AnchorPane {
+public class TimedTestDisplay extends VBox {
     @FXML
     private AnchorPane cardDisplay;
     @FXML
