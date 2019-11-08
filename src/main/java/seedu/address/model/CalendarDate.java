@@ -4,7 +4,8 @@ import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-import seedu.address.logic.parser.CalendarDateParser;
+import seedu.address.logic.parser.CalendarDayParser;
+import seedu.address.logic.parser.CalendarMonthParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -12,13 +13,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CalendarDate {
 
-    public static final String DAY_MONTH_YEAR_PATTERN = "dd/MM/yyyy";
-    public static final String MONTH_YEAR_PATTERN = "MM/yyyy";
+    public static final String CALENDAR_DAY_PATTERN = "dd/MM/uuuu";
+    public static final String USER_CALENDAR_MONTH_PATTERN = "MM/uuuu";
 
-    private static final CalendarDateParser DAY_MONTH_YEAR_PARSER =
-            new CalendarDateParser(DAY_MONTH_YEAR_PATTERN);
-    private static final CalendarDateParser MONTH_YEAR_PARSER =
-            new CalendarDateParser(MONTH_YEAR_PATTERN);
+    private static final CalendarDayParser CALENDAR_DAY_PARSER = new CalendarDayParser();
+    private static final CalendarMonthParser CALENDAR_MONTH_PARSER = new CalendarMonthParser();
 
     private final LocalDate localDate;
 
@@ -27,11 +26,11 @@ public class CalendarDate {
     }
 
     public static CalendarDate fromDayMonthYearString(String string) throws ParseException {
-        return DAY_MONTH_YEAR_PARSER.parse(string);
+        return CALENDAR_DAY_PARSER.parse(string);
     }
 
     public static CalendarDate fromMonthYearString(String string) throws ParseException {
-        return MONTH_YEAR_PARSER.parse(string);
+        return CALENDAR_MONTH_PARSER.parse(string);
     }
 
     public static CalendarDate now() {
@@ -118,9 +117,6 @@ public class CalendarDate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
         if (obj instanceof CalendarDate) {
             CalendarDate calendarDate = (CalendarDate) obj;
             return sameDate(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());

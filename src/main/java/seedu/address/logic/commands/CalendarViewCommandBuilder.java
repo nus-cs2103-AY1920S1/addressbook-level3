@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.UiManager;
-import seedu.address.logic.commands.arguments.MonthYearArgument;
+import seedu.address.logic.commands.arguments.CalendarMonthArgument;
 import seedu.address.logic.commands.arguments.list.ArgumentList;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
@@ -26,15 +26,15 @@ class CalendarViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return null;
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
                 OPTION_CALENDAR_SCREEN_DATE, ArgumentList.optional()
-                        .addArgument(MonthYearArgument.newBuilder(
+                        .addArgument(CalendarMonthArgument.newBuilder(
                 ARGUMENT_CALENDAR_SCREEN_DATE, v -> this.calendarDate = v))
         );
     }
@@ -48,7 +48,7 @@ class CalendarViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new CalendarViewCommand(this);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.DateTime;
-import seedu.address.model.ModelLists;
+import seedu.address.model.ModelData;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
@@ -50,9 +50,9 @@ class UiManagerTest {
         tasks.add(task);
         tasks.add(task1);
 
-        ModelLists modelLists = new ModelLists(events, tasks);
+        ModelData modelLists = new ModelData(events, tasks);
         assertDoesNotThrow(() -> {
-            ModelLists lists = uiManager.overrideOnModelListChange(modelLists);
+            ModelData lists = uiManager.overrideOnModelListChange(modelLists);
             assertEquals(lists.getEvents().get(0), event1);
             assertEquals(lists.getEvents().get(1), event);
             assertEquals(lists.getTasks().get(0), task);

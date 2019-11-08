@@ -33,18 +33,18 @@ public class ExportIcsCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return null;
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(OPTION_DIRECTORY, ArgumentList.optional()
             .addArgument(StringArgument.newBuilder(ARGUMENT_DIRECTORY, o -> this.optionDirectory = o)));
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new ExportIcsCommand(this);
     }
 }

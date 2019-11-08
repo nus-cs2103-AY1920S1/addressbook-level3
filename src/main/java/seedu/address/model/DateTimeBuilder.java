@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +18,11 @@ public class DateTimeBuilder {
 
     DateTimeBuilder(Instant instant) {
         this.instant = instant;
+    }
+
+    DateTimeBuilder(int day, int month, int year, int hour, int minute, ZoneId timezone) {
+        this.instant = ZonedDateTime.of(year, month, day, hour, minute, 0 , 0, timezone)
+            .toInstant();
     }
 
     @JsonCreator

@@ -62,12 +62,14 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
+    // https://mvnrepository.com/artifact/org.skyscreamer/jsonassert
+    testCompile group: 'org.skyscreamer', name: 'jsonassert', version: '1.2.3'
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'Horo.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

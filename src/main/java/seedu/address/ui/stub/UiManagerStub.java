@@ -6,7 +6,7 @@ import java.util.List;
 
 import seedu.address.logic.UiManager;
 import seedu.address.model.CalendarDate;
-import seedu.address.model.ModelLists;
+import seedu.address.model.ModelData;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskDateComparator;
@@ -48,13 +48,13 @@ public class UiManagerStub extends UiManager {
      * @param lists The given model lists.
      * @return The sorted model lists.
      */
-    public ModelLists overrideOnModelListChange(ModelLists lists) {
+    public ModelData overrideOnModelListChange(ModelData lists) {
         List<EventSource> sortedDateEventList = sortDateEventList(lists.getEvents());
         List<TaskSource> sortedDateTaskList = sortDateTaskList(lists.getTasks());
         HashMap<EventSource, Integer> eventHash = addEventIndex(lists.getEvents());
         HashMap<TaskSource, Integer> taskHash = addTaskIndex(lists.getTasks());
 
-        return new ModelLists(sortedDateEventList, sortedDateTaskList);
+        return new ModelData(sortedDateEventList, sortedDateTaskList);
     }
 
     /**

@@ -91,23 +91,19 @@ The UI consists of a `MainWindow` that is contains 3 main view parts - `Calendar
 
 The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-
-
-
 The `UI` component does the following:
 
 * Executes user two different types commands using the `Logic` component.
 ** One command, when executed, affect the actual Events.
 ** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
-* It listens for any changes in the list of events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/EventListListener.java[`EventListListener`].
-* It also listens for the output to the user with another listener: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/listeners/UserOutputListener.java[`UserOutputListener`].
+* Listens for any changes in both lists of Tasks and Events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/ModelDataListener.java[`ModelDataListener`].
 
 ==== Calendar UI View
 
 .Structure of the Calendar UI View
 image::UiCalendarClassDiagram.png[]
 
-The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays two UI parts of the Calendar: `CalendarScreen` and `TimelineView`.
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays three different UI parts of the Calendar: `CalendarScreen`, `TimelineView` and `UpcomingView`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
 
@@ -117,7 +113,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/Timelin
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
 
-Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of EventCards for displaying the event name and date.
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of `Card` for displaying the event name and date. The details of `Card` will be explained in the one of the next few sections.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/UpcomingView.java[`UpcomingView`] represents a miniature list of Events and Tasks that has a start date or due date in the same month as the user's system current month, but not before the date as the user's date. This list will then hold up to a certain amount of `UpcomingEventCard` and `UpcomingTaskCard` which will be explained together with `Card` as well.
 
 ==== List UI View
 
@@ -128,18 +126,47 @@ The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/a
 
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
 
-* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task. [__To be implemented__]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task.
 
-Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card`, but it will not be held in the `CardHolder`.
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card` to display the information.
 
 ==== Log UI View
 
 .Structure of the Log UI View
 image::UiLogClassDiagram.png[]
 
-The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains several instances of `LogBox`.
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains the list of `LogBox`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/PopUpBox.java[`PopUpBox`] is rather similar to LogBox. It holds up to the same amount of information, as much until the size of the application window, and collapses the rest. It represents the pop up that animates and displays for a few seconds to the user about the given command.
+
+==== Card UI ====
+
+Firstly, there are two types of ways to display information to the user regarding a Event or Task.
+
+* For Events, it is `EventCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingEventCard`
+
+* For Tasks, it is `TaskCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingTaskCard`.
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/EventCard.java[`EventCard`] may display the following information:
+
+. Event Description
+. Event Start Date
+. Event End Date (Optional)
+. Event Reminder Date (Optional)
+. Event Tags (Optional)
+. Event Index (For deleting or editing)
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/TaskCard.java[`TaskCard`] may display the following information:
+
+. Task Description
+. Task Due Date (Optional)
+. Task Reminder Date (Optional)
+. Task Tags (Optional)
+. Task Index (For deleting or editing)
+
+As for link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingEventCard.java[`UpcomingEventCard`] and link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingTaskCard.java[`UpcomingTaskCard`], they only hold the Description of the Event or Task.
 
 [[Design-Logic]]
 === Logic component
@@ -210,48 +237,60 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Implementation Details
 
-The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
+The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `ModelLists`. Each `ModelList` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. `UndoRedoManager` also contains a `undoIndex`, which keeps track of the index of the `ModelList` being used presently.
 
-A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `UndoRedoStates` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `UndoRedoState` in the list of duplicates.
+A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `ModelLists` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `ModelList` in the list of duplicates.
 
 `UndoRedoManager` also implements the following operations:
 
-* `UndoRedoManager#commit(UndoRedoState state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
-* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
-* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
-* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `UndoRedoState` that occur in `undoStateList` after the index given by the `currentStateIndex`
+* `UndoRedoManager#commit(ModelList state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
+* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `ModelListListener`
+* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `ModelListListener`
+* `UndoRedoManager#clearFutureHistory()` -- Delete all `ModelList` states that occur in `undoStateList` after the index given by the `undoIndex`
 
 The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands (such as adding or deleting tasks) will interact only with `ModelManager`.
 
-There are three key *Listener* interfaces that help us achieve the desired undo-redo functionality:
+There are two key *Listener* interfaces that help us achieve the desired undo-redo functionality:
 
-* `EventListListener`
-* `TaskListListener`
-* `UndoRedoListener`
+* `ModelListListener`
+* `ModelResetListener`
 
-The `UndoRedoManager` implements the `EventListListener` interface’s method `onEventListChange(List<EventSource> events)` to “listen” for any changes to `ModelManager`’s `eventList`. (e.g. when an event is added or deleted) If such a change exists, it will be handled by first calling `UndoRedoManager#clearFutureHistory()`, instantiating a `UndoRedoState` with a deep-copied version of the `taskList` and the modified `eventList`, and calling `UndoRedoManager#commit(UndoRedoState state)` to commit this state. `UndoRedoManager` also implements `TaskListListener` in the same fashion, except that changes to the `taskList` are “listened” to rather than the `eventList`.
+These listener interfaces each contain a single method, `ModelListListener` contains `onModelListChange(ModelList list)` and `ModelResetListener`
+contains `onModelReset(ModelList state, Object caller)`.
 
-The `ModelManager` implements the `UndoRedoListener` interface’s method `onUndoRedo(UndoRedoState state)` to “listen” for any undo or redo being executed. This will be handled by updating `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
+The `UndoRedoManager` implements the `ModelListListener` interface’s method `onModelListChange(ModelList list)` to “listen” for any changes to `ModelManager`’s lists (`eventList` or `taskList`). (e.g. when an event or task is added or deleted)
+If such a change exists, it will be handled by first instantiating a `ModelList` with a deep-copied version of the `taskList` and the modified `eventList`, calling `UndoRedoManager#clearFutureHistory()`, and calling `UndoRedoManager#commit(ModelList state)` to commit the state.
+
+The `ModelManager` implements the `ModelResetListener` interface’s method `onModelReset(ModelList state, Object caller)` to “listen” for any undo or redo being executed. This will be handled by resetting `ModelManager`’s `eventList` and `taskList` data to match the data of the `ModelList` with index `undoIndex` in `undoStateList`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. An `UndoRedoState` will be added to `undoStateList` and the `currentStateIndex` will point to that single `undoRedoState` in the list.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. A `ModelList` will be added to `undoStateList` and the `undoIndex` will point to that single `ModelList` in the list.
 
-image::UndoRedoState0.png[]
+image::ModelList0.png[]
 
-Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`.
+Then, `UndoRedoManager#onModelListChange(ModelList list)` will be called (as there has been a change to the `eventList`),
+deep-copying the modified `eventList` and `taskList` and instantiating a new state `ModelList` with these copies.
+All future states beyond the `undoIndex` will be cleared as they are no longer useful. In this particular case, there are no future states to be cleared. Finally, the new `ModelList` state will be committed; added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model list state.
 
-image::UndoRedoState1.png[]
-
-[NOTE]
-If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`. Hence, there is no change to trigger the listener methods and thus no `UndoRedoState` will be saved to `undoStateList`.
-
-Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will decrement the `currentStateIndex` by one to contain the index of the previous undo redo state, thereafter triggering the `UndoRedoListener#onUndoRedo` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
-
-image::UndoRedoState2.png[]
+image::ModelList1.png[]
 
 [NOTE]
-If the `currentStateIndex` is 0, pointing to the initial undo redo state, then there are no previous undo redo states to restore. The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`.
+Hence, there is no change to trigger the listener methods and thus no `ModelList` will be saved to `undoStateList`.
+
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error.
+The undo command will decrement the `undoIndex` by one to contain the index of the previous undo redo state, thereafter triggering the
+`ModelManager#onModelReset` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the
+`ModelList` with index `undoIndex` in `undoStateList`.
+
+image::ModelList2.png[]
+
+[NOTE]
+If the `undoIndex` is 0, pointing to the initial model list state, then there are no previous model list states to restore.
+The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -259,18 +298,25 @@ image::UndoSequenceDiagram.png[width=100%]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `currentStateIndex` by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `undoIndex` by one to contain the index of the previously undone state.
+The `ModelResetListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
 
 [NOTE]
-If the `currentStateIndex` is at index `undoStateList.size() - 1`, pointing to the latest undo redo state, then there are no undone undo redo states to restore. The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `undoIndex` is at index `undoStateList.size() - 1`, pointing to the latest model list state, then there are no undone model list states to restore.
+The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data.
+Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `ModelList` will be saved to `undoStateList`.
+Thus, the `undoStateList` remains unchanged.
 
-image::UndoRedoState3.png[]
+image::ModelList3.png[]
 
-Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
+Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onModelListChange(ModelList list)`
+will be called (as there has been a change to the `eventList`), purging all future states beyond the `undoIndex` as they are no longer useful.
+The modified `eventList` and `taskList` will be deep-copied and a new `ModelList` containing the deep-copies will also be added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model list state.
 
-image::UndoRedoState4.png[]
+image::ModelList4.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -403,12 +449,132 @@ and keep all code relevant to converting objects to ICS Strings in the same clas
 This further makes it easier for future debugging,
 and makes adding new exportable objects a lot easier as there are common functions that can be used.
 
-== Implementation
+=== UI Component
 
-[[Implementation-Configuration]]
-=== Configuration
+==== Implementation during change in Events and Tasks
+.A general Sequence Diagram during a change in the Event and Task Lists model.
+image::UiSequenceDiagram.png[]
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The UI system is managed by the `UiManager`, that is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which is the bsae of the UI and holds every other smaller components and views of the rest of the UI. Here is the sequence of a change in Events and Tasks for the UI.
+
+Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterwards, two HashMaps, `eventHash` and `taskHash` is created to deal with the indexing of the Ui later on.
+
+Step 2. `MainWindow` will be called by `UiManager` using `onModelListChange(events, tasks, eventHash, taskHash)`, which will in turn proceed to call the methods that will update the different views represented by:
+
+* `CalendarPanel` - `onModelListChange(events, tasks, eventHash, taskHash)`
+* `ListPanel` - `onEventListChange(events, eventHash)` and `onTaskListChange(tasks, taskHash)`
+
+Step 3. `UiManager` will also be called using `onUserOutput(output, colorTheme)`, which will in turn call `onUserOutput(output, colorTheme)` for MainWindow.
+
+As for these 3 main panels, each of them will be explained further below
+
+.Sequence Diagram for `CalendarPanel`
+image::UiCalendarPanelSequenceDiagram.png[]
+
+Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two list into a single list for sorting purpose.
+
+Step 2.2. Afterwards, it will call `onChange` for the 3 smaller components:
+
+* `TimelineView` - When called, it will reset the current timeline using `resetTimeline()`
+
+* `CalendarScreen` - When called, it will change the calendar to the given date, as well as calling `changeColor(eventTaskList)` to change the color of a day in the calendar.
+
+* `UpcomingView` - When called, it will simply reset the view to input the correct events and tasks.
+
+.Sequence Diagram for `ListPanel`
+image::UiListPanelSequenceDiagram.png[]
+
+Step 2.3. `ListPanel` will be called with `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
+
+Step 2.4. `ListPanel` will also be called with `onTaskListChange(tasks, taskHash)`. It will afterwards call `TaskListPanel` to change the list accordingly as well.
+
+.Sequence Diagram for `LogPanel`
+image::UiLogPanelSequenceDiagram.png[]
+
+Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme, and create 2 different boxes to display the output.
+
+Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedbackToUser, color)` to display the output to the user in `LogPanel`
+
+Step 3.3. Next, it create `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterwards.
+
+==== Implementation when changing the date of timeline
+
+.Sequence Diagram for changing the timeline date
+image::UiViewDaySequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `DayViewCommand` is executed to change the date of the timeline.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewDay(calendarDate)`, which in turn will call `MainWindow` and subsequently `CalendarPanel`.
+
+Step 2. `CalendarPanel` will proceed to execute `changeCalendarScreenDate(calendarDate)`, which will create an instance of `CalendarScreen` to display the calendar.
+
+Step 3. Afterwards, a new instance of `TimelineDayView` will be created to display the timeline.
+
+Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, so as to allow `CalendarPanel` to be visible while the other panels are not.
+
+==== Implementation when changing views
+.Sequence Diagram for changing to Calendar View
+image::UiViewCalendarSequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `CalendarViewCommand` is executed.
+
+Step 1. When command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null, or a date. The validity check is previously check in the parser.
+
+Step 2. If calendarDate is null, the `UiManager` will simply call `MainWindow` to switch the view with the method `viewCalendar()`.
+
+Step 3. `MainWindow` will obtain the `Region` of the 3 panels: `CalendarPanel`, `ListPanel` and `LogPanel`, and proceed to set only `CalendarPanel` to be visible.
+
+Step 4. If calendarDate is not null, `UiManager` will then call `MainWindow` using `changeCalendarScreenDate(calendarDate)`, to change the `CalendarScreen` to the given date.
+
+Step 5. Afterwards, it will proceed to repeat step 3 again, which is simply calling `viewCalendar()` again.
+
+Since the sequence for `CalendarViewCommand` is roughly similar, or in fact, more complicated than `ListViewCommand` and `LogViewCommand`, it will not be further explained.
+
+==== Design Considerations
+
+The design considerations are more towards how the UI would have look like, as well as how the architecture of the code would have change if depending on the arrangement of the UI.
+
+.Old design of the UI
+image::OldUI.png[]
+
+.Current design of the UI
+image::Ui.png[]
+
+===== Aspect: Design of the `CalendarPanel`
+* Alternative 1: The `CalendarPanel` is of an actual calendar, depicting a number events and tasks on each day of the month.
+
+** **Pros**: It will provide a better representation of a calendar, allowing people to judge how much is going on in a day of that month in one look.
+
+** **Cons**: Due to the nature of how limited in size a calendar can be, the user will be required to either check `ListPanel` for the details of an event or tasks, or have an extra screen beside the calendar for the user to check the details.
+
+** **Cons**: Similarly, a calendar can only input up to a fix amount of events or tasks there are on a particular day.
+
+* Alternative 2 (current choice): The `CalendarPanel` consists of a mini-calendar as well as a timeline. An additional slot for upcoming events and tasks was later designed with the increase in space.
+
+** **Pros**: There is a much more greater space to show how much events or tasks one can have in a day, week or month.
+
+** **Pros**: The user can easily managed and check the Events and Tasks of a certain day.
+
+** **Cons**: Even though it is a timeline, it is still rather similar to list view, just with the timeline added to limit the amount of events seen on that day, week or month.
+
+** **Cons**: :The user will not be able to know what Events or Tasks there are easily, unless they change the view to month view. However, the increase space allows a small section for the upcoming events and tasks which tackles this problem.
+
+==== Aspect: Design of the `LogPanel`
+* Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
+
+** **Pros**: The users can always have a visualization of the success of their commands
+
+** **Cons**: A large portion of the space is used for the `LogPane`, even if the it is scaled down compared to the other panels.
+
+** **Cons**: Appearance-wise, it looks extremely clunky due to most of the users' time will be looking at the calendar or list itself instead of the log.
+
+* Alternative 2 (current choice): The `LogPanel` is placed separately as a different panel which can be access at any time from other panels. After each command is typed, a pop-up box will appear to indicate the success or failure of the command.
+
+** **Pros**: Since the user most of the time would only want to know if their command is successful or not, the pop-up box will be sufficient for such indication.
+
+** **Cons**: The user will have to check the `LogPanel`
+
+The initial design is as of the image above showing the old UI. However, we decided to scrape it and did an overhaul of the UI using alternative 2 instead. This is due to our decision of wanting a better-looking and minimalist UI instead of one packed with information.
 
 == Documentation
 
