@@ -95,4 +95,21 @@ public abstract class State {
         newArgs.clearValues(prefix);
     }
 
+    /**
+     * Returns true if this state is equal to the specified object.
+     *
+     * @param other The specified object.
+     * @return True if this state is equal to the specified object.
+     */
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof State)) {
+            return false;
+        } else {
+            State otherState = (State) other;
+            return this.soFar.equals(((State) other).soFar);
+        }
+    }
+
 }

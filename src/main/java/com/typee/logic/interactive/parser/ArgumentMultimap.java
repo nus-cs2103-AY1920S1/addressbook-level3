@@ -91,4 +91,23 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Returns true if this {@code ArgumentMultiMap} is equal to the specified object.
+     *
+     * @param other The specified object.
+     * @return True if this {@code ArgumentMultiMap} is equal to the specified object.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof ArgumentMultimap)) {
+            return false;
+        } else {
+            ArgumentMultimap otherArgumentMultiMap = (ArgumentMultimap) other;
+            return this.argMultimap.equals(otherArgumentMultiMap.argMultimap);
+        }
+    }
+
 }

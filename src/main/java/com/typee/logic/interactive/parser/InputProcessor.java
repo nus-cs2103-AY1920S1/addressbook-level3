@@ -1,6 +1,7 @@
 package com.typee.logic.interactive.parser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +16,7 @@ public class InputProcessor {
 
     private static final String REGEX_PATTERN_COMMAND_WORD = "[a-zA-Z]+";
     private static final String REGEX_PATTERN_PREFIX = "[a-z]/";
+    private static final String MESSAGE_DUPLICATE_PREFIX = "Invalid input. You've entered duplicate prefixes!";
 
     /**
      * Extracts and returns the list of prefixes in the user entered input.
@@ -22,11 +24,13 @@ public class InputProcessor {
      *
      * @param commandText User entered input.
      * @return array of prefixes in their order of appearance.
+     * @throws ParseException If prefixes are duplicated.
      */
-    public Prefix[] extractPrefixes(String commandText) {
+    public Prefix[] extractPrefixes(String commandText) throws ParseException {
         Pattern pattern = Pattern.compile("[a-zA-z]/");
         Matcher matcher = pattern.matcher(commandText);
         List<Prefix> prefixes = getMatches(matcher);
+        disallowDuplicatePrefixes(prefixes);
 
         // Convert to an array to allow the values to be processed by varargs.
         return prefixes.toArray(Prefix[]::new);
@@ -44,6 +48,20 @@ public class InputProcessor {
             prefixes.add(new Prefix(matcher.group()));
         }
         return prefixes;
+    }
+
+    /**
+     * Checks the input list of prefixes to ensure that no duplicates are present.
+     *
+     * @param prefixes List of prefixes.
+     * @throws ParseException If duplicates are present.
+     */
+    private void disallowDuplicatePrefixes(List<Prefix> prefixes) throws ParseException {
+        HashSet<Prefix> setOfPrefixes = new HashSet<>();
+        setOfPrefixes.addAll(prefixes);
+        if (setOfPrefixes.size() < prefixes.size()) {
+            throw new ParseException(MESSAGE_DUPLICATE_PREFIX);
+        }
     }
 
     /**
