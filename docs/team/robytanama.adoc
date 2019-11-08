@@ -116,7 +116,13 @@ up a new window which I have decided that would be much more detailed and conven
 
 The improved `help` command causes the app to require internet connection in order to open the user guide which was
 a point of discussion for our group at a certain point. I have decided to go through with it as copying URL would still
-require internet connection to open up the user guide nevertheless.
+require internet connection to open up the user guide nevertheless. The ability to automatically open the system's
+default browser would definitely make it much more convenient for the user.
+
+=== Code contributions
+
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=robytanama&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-05[Project Code Dashboard]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Arobytanama+is%3Aclosed[Pull Request]
 
 === Other contributions
 
