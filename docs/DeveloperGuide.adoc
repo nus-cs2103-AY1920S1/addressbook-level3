@@ -348,7 +348,8 @@ These commands include:
 
 * `GetQnsCommand` -- Gets all questions answered correctly/incorrectly.
 * `GetReportCommand` -- Returns a report of the specified question.
-* `GetStatisticsCommand` -- Returns a general overview of how well the user has answered quiz questions.
+* `GetStatisticsCommand` -- Returns a panel containing a break down of the questions by its results.
+* `GetOverviewCommand` -- Gets an overview of the types of questions that have been attempted overall.
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
@@ -356,36 +357,48 @@ Step 1. The user launches the application.
 The app will attempt to read past data from any quizzes done and store it internally to a `quizResults` list.
 
 Step 2. The user executes `stats s/CS2103T` command to get the statistics of all quiz questions done for CS2103T.
-The `stats` command creates a new `commandResult` setting the type of command to `CHART`.
+The `stats` command creates a new `commandResult` setting the type of command to `STATS`.
 
 The following class diagram shows how the `GetStatisticsCommand` and `CommandResult` class are related.
 
-image::StatisticsClassDiagram.png[]
+.Class diagram for `GetStatisticsCommand`
+image::statistics/StatisticsClassDiagram.png[]
 
-Step 3. The `commandResult` will call the relevant methods to filter the `quizResults` list and create the relevant outputs.
+Step 3. When the `commandResult` is executed from the `MainWindow`, it will call a `showStats` method to filter
+the `quizResults` list by CS2103T and create the relevant outputs.
 It will then show a statistics panel, hiding all notes and tasks.
 
 The following sequence diagram shows how the statistics operation works:
 
 image::StatisticsSequenceDiagram.png[]
 
-Step 4. The user now decides to stop viewing statistics and decides to view all notes and tasks again using the `listnote` command.
+Step 4. The user now wants to stop viewing statistics and decides to view all notes and tasks again using the `listnote` command.
 The statistics panel will now be hidden.
 
 The following activity diagram summarizes what happens when a user executes the statistics command:
 
-image::StatisticsActivityDiagram.png[]
+.Statistics activity diagram
+image::statistics/StatisticsActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How statistics are shown
+===== Aspect: Where statistics are shown
 * **Alternative 1 (current choice):** Hide all other panels and only show statistics.
 ** Pros: Less scrolling needed, more information can be shown in one panel.
 ** Cons: More methods are needed to deal with hiding and showing the different panels leading to more room for errors.
-* **Alternative 2:** Place statistics in the main window with notes and tasks.
+* **Alternative 2:** Allocate a spot in the main window with the notes, tasks and questions for statistics to be displayed.
 ** Pros: Easy to implement.
-** Cons: The number of notes and tasks that can be seen without scrolling will be decreased.
+** Cons: The number of notes, tasks and questions that can be seen without scrolling will be decreased.
 The charts will be small and condensed making it difficult to see the data at first glance.
+
+===== Aspect: How statistics are represented
+* **Alternative 1 (current choice):** Use a pie chart
+** Pros: Easy to read at a glance
+** Cons: Pie chart slices may get too small to see if there are too little correct/incorrect questions done.
+* **Alternative 2:** Use a grouped bar chart
+** Pros: The questions done are sorted by subjects, is more informative.
+** Cons: As the number of subjects increases, the bars get thinner making it more difficult to see the data.
+This is also more difficult to implement.
 // end::stats[]
 
 === Add revision task
@@ -529,15 +542,15 @@ Priorities:
 
 |`*`|student|get statistics of the change of difficulty levels I have made to a question|I can understand my improvement in understanding the content|Xueting
 
-|`* * *`|student|see how well I am able to answer questions for different topics/subjects|focus more on topics/subjects that I need to improve on|Irene
+|`* * *`|student|see how well I am able to answer questions for different subjects|focus more on subjects that I need to improve on|Irene
 
 |`* * *`|student|check my past responses to different questions|compare with my current response and improve on it if necessary/check if I am making the same mistakes twice|Irene
 
 |`* *`|student|have a graphical report of my progress|get an overview of my progress with a glimpse|Irene
 
-|`* *`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
+|`* *`|student|get an overview to see the number of questions I have done for the different subjects/difficulties|I can see which subjects/difficulties I need to attempt more questions of|Irene
 
-|`*`|student|get an overview to see the number of notes added for each topic/subject|I can see which topic/subject I need to make more notes on|Irene
+|`*`|student|check the questions that I have attempted for a specific time period|I can skip questions that I have already done during that time period|Irene
 
 |`*`|student|mark and store the questions I have made mistakes on|I can get a better understanding of which part I need to put more time to study|Dongjun
 
@@ -700,31 +713,26 @@ Use case ends.
 
 *MSS*
 
-1. Student gives the command to get the statistics for a subject `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
-2. Application returns a piechart with number of questions answered correctly and incorrectly
+1. Student gives the command to get the statistics for a difficulty and some subjects `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
+2. Application returns a pie chart with number of questions answered correctly and incorrectly
 
 Use case ends
 
 *Extensions*
 [none]
-* 1a. Student provides an invalid subject
+* 1a. Student provides an invalid difficulty or invalid subjects
 [none]
-** 1a1. Application will return a list of subjects that are in the database
-** 1a2. Student will re-enter the command with a valid subject
+** 1a1. Application will inform students that there are no statistics for that difficulty/subject
+** 1a2. Student will re-enter the command with a valid difficulty/subject
 * Use case resumes from step 2
 
-* 1b. Student provides more than one subject
-[none]
-** 1b1. Application returns a piechart totaling the statistics of question answered correctly and incorrectly for all subjects as well as a list of the individual statistics for each subject
-* Use case ends
-
 [discrete]
-=== Use case: get statistics for individual questions (Irene)
+=== Use case: get report of individual questions (Irene)
 
 *MSS*
 
-1. Student gives the command to get statistics for a question `stats INDEX`
-2. Application returns past responses to the question, the subject and/or topic associated with the question and statistics of how well the question has been answered
+1. Student gives the command to get report of a question `report INDEX`
+2. Application returns past attempts of the question and statistics of how well the question has been answered
 
 Use case ends
 
@@ -732,9 +740,16 @@ Use case ends
 [none]
 * 1a. Student gives an out-of-range index
 [none]
-** 1a1. Application displays the range of questions available
+** 1a1. Application displays a message indicating that the index is invalid
 ** 1a2. Student re-enters the command
 ** Repeat 1a1 and 1a2 until a valid index is provided
+* Use case resumes from step 2
+
+[none]
+* 1b. Student does not provide an index
+[none]
+** 1b1. Application displays a message indicating that the command format is invalid
+** 1b2. Student re-enters the command
 * Use case resumes from step 2
 
 // tag::usecasew[]

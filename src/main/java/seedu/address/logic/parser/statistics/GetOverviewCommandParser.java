@@ -33,8 +33,8 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
         List<String> dates = new ArrayList<>();
-        LocalDate startDate;
-        LocalDate endDate;
+        LocalDate startDate = null;
+        LocalDate endDate = null;
         String timePeriod = "";
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
@@ -59,7 +59,7 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
         }
 
         if (!dates.isEmpty()) {
-            timePeriod = "\n(" + dates.get(0) + " to " + dates.get(1) + ")";
+            timePeriod = "\n(" + startDate.format(formatter) + " to " + endDate.format(formatter) + ")";
         }
 
         return new GetOverviewCommand(quizResultFilter, timePeriod);

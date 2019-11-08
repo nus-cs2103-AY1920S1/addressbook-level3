@@ -378,21 +378,23 @@ image::quiz/QuitQuizCommandResult.png[600, 600]
 // end::quiz[]
 
 // tag::statistics[]
-=== Get statistics
+=== Statistics
 You can get statistics of the questions that you have done in the app.
 The statistics functions listed below are used to filter the type of statistics that you want to get.
 
+NOTE: To close any statistics panel, you can simply type any of the commands from the Lecture notes,
+Questions and Revision tasks features. E.g. `rlist`.
+
 NOTE: Quiz results stored in the app are not synchronised with the questions.
-If a question has been modified by the editq command,
-the stored quiz result will still refer to the original question
-to minimise inconsistencies in the statistics. This is because a question that has been modified to a large extent
+If a question has been modified by the `editq` command,
+the stored quiz result will still refer to the original question to minimise inconsistencies in the statistics.
+This is because a question that has been modified to a large extent
 might cause past answers to become irrelevant and distort the statistics.
 
 ==== Get statistics for subjects : `stats`
 Returns a panel containing a break down of the questions by its results.
 You can choose to get the statistics for a difficulty level by adding `d/` or
-get the statistics of different subjects by adding `s/`.
-Typing any other non-statistics command will close this panel. +
+get the statistics of different subjects by adding `s/`. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
 Example:
@@ -405,12 +407,12 @@ To get this figure:
 . The result box will display the message "Here are the statistics: [easy] [cs2103t]"
 . And you can see a pie chart of the number of correctly and incorrectly answered questions.
 
-image::statistics/stats.png[]
+.The result of `stats d/easy s/cs2103t` command
+image::statistics/stats.PNG[600, 600]
 
 ==== Get questions with correct/incorrect answers: `question`
 Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
-Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`.
-Typing any other non-statistics command will close this panel. +
+Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`. +
 Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
 
 Example:
@@ -424,13 +426,18 @@ To see the questions:
 . You will be able to see a list of all your incorrectly answered questions for CS2103T and
 your past answers to it as well as a break down of the number of questions by difficulty level.
 
-image::statistics/question.png[]
+.The result of `question -i s/cs2103t`
+image::statistics/question.PNG[600, 600]
 
 ==== Get a report for individual questions: `report`
 Returns a panel containing a report of how well you have answered a particular question
-and shows all your past answers to the question.
-Typing any other non-statistics command will close this panel. +
+and shows all your past answers to the question. +
 Format: `report INDEX`
+
+****
+* The index refers to the question number in the displayed question list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
 
 Example:
 After getting the questions that you have done wrong, you noticed that there is one particular
@@ -443,14 +450,14 @@ To see a report of the question:
 . The result box will display the message "Here is a report of question 7:"
 . And you can see all your attempts at the question as well as a pie chart of your results.
 
-image::statistics/report.png[]
+.The result of `report 7` command
+image::statistics/report.PNG[600, 600]
 
 ==== Get overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
 You can also add two `dt/` fields representing a time period to get questions you did
-within that time period. The format for date is dd/MM/yyyy. Typing any other non-statistics
-command will close this panel. +
+within that time period. The format for date is dd/MM/yyyy. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 
 NOTE: For `DATE` input constraints, you may refer to <<Add a revision task for a note: `rn`>>.
@@ -459,17 +466,21 @@ NOTE: If you have more than 8 different difficulty levels, the stack bar chart m
 colors for the difficulties. To differentiate between the different bars in the chart,
 you can use your mouse to hover above them.
 
+NOTE: The date in the dt field must be a valid date, if an invalid date is used i.e. 31/11/2019 it will
+be run down to the nearest valid date i.e. 30/11/2019.
+
 Example:
 You are finally done viewing your quiz results and want to know what questions you should attempt next.
 To be a well-rounded individual, you decided to check if you have been neglecting any subjects recently.
 
 To see an overview of your results:
 
-. Type `overview dt/20/10/2019 dt/05/11/2019` into the command box, and press `Enter` to execute it.
+. Type `overview dt/20/10/2019 dt/06/11/2019` into the command box, and press `Enter` to execute it.
 . The result box will display the message "Here is an overview of the questions: (20/10/2019 to 05/11/2019)"
 . And you can see a stack bar chart of all questions that you have attempted from 20/10/2019 to 05/11/2019.
 
-image::statistics/overview.png[]
+.The result of `overview dt/20/10/2019 dt/06/11/2019` command
+image::statistics/overview.PNG[600, 600]
 // end::statistics[]
 
 === Revision tasks
