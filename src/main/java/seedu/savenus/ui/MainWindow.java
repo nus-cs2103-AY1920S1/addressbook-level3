@@ -326,10 +326,16 @@ public class MainWindow extends UiPart<Stage> {
             // Update purchaseListPanel after every command.
             purchaseListPanel.updatePurchaseList(logic.getPurchaseHistoryList());
 
-            // Update savingsHistoryPanel after every command.
-            savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
+            // Update savingsHistoryPanel after every command, depending on what the user wants to see.
+            if (commandResult.isShowSavingsOnly()) {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsOnly());
+            } else if (commandResult.isShowWithdrawOnly()) {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getWithdrawalsOnly());
+            } else {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
+            }
 
-            // Update savings
+            // Update current savings each time a command is executed.
             StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
                     "Your Savings: $%s",
                     logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));

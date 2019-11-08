@@ -39,12 +39,40 @@ public class SavingsHistoryList implements Iterable<Savings> {
     }
 
     /**
-     * Returns the backing list as an unmodifiable {@code SavingHistory).}
+     * Returns the backing list as an unmodifiable {@code SavingHistory}.
      * @return ObservableList of the unmodifiable SavingHistory.
      */
-    public ObservableList<Savings> asUnmodifiableObservableList() {
+    ObservableList<Savings> asUnmodifiableObservableList() {
         FXCollections.sort(internalSavingsHistoryList, savingsComparator);
         return internalUnmodifiableSavingsHistoryList;
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code SavingsHistory}
+     * @return ObservableList of unmodifiable SavingsHistory with savings only.
+     */
+    ObservableList<Savings> getSavingsUnmodifiableOnly() {
+        ObservableList<Savings> onlySavingsList = FXCollections.observableArrayList();
+        for (Savings savings : internalSavingsHistoryList) {
+            if (!savings.isWithdraw()) {
+                onlySavingsList.add(savings);
+            }
+        }
+        return FXCollections.unmodifiableObservableList(onlySavingsList);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code SavingsHistory}
+     * @return ObservableList of unmodifiable SavingsHistory with withdrawals only.
+     */
+    ObservableList<Savings> getWithdrawalsUnmodifiableOnly() {
+        ObservableList<Savings> onlyWithdrawalsList = FXCollections.observableArrayList();
+        for (Savings savings : internalSavingsHistoryList) {
+            if (savings.isWithdraw()) {
+                onlyWithdrawalsList.add(savings);
+            }
+        }
+        return FXCollections.unmodifiableObservableList(onlyWithdrawalsList);
     }
 
     @Override
