@@ -650,9 +650,9 @@ Use case ends.
 * Use case ends.
 
 [none]
-* 3a. Spend entry is included under budget and budget is close to being exceeded.
+* 3b. Spend entry is included under budget and budget is close to being exceeded.
 [none]
-** 3a1. Modulo notifies that budget is close to exceeding.
+** 3b1. Modulo notifies that budget is close to exceeding.
 * Use case ends.
 
 [discrete]
