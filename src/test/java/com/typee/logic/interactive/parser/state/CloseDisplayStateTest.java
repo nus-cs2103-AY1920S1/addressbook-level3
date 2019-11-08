@@ -13,7 +13,7 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class CloseDisplayStateTest {
 
-    State closeDisplayState;
+    private State closeDisplayState;
 
     @BeforeEach
     public void setup() {
@@ -52,7 +52,7 @@ public class CloseDisplayStateTest {
             transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "12/11/2019");
             State finalPostTransitionState = postTransitionState;
             assertThrows(StateTransitionException.class, ()
-                    -> finalPostTransitionState.transition(transitionArgumentMultimap));
+                -> finalPostTransitionState.transition(transitionArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }
@@ -64,7 +64,7 @@ public class CloseDisplayStateTest {
         transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "29/02/2019");
         State finalPostTransitionState = closeDisplayState;
         assertThrows(StateTransitionException.class, ()
-                -> finalPostTransitionState.transition(transitionArgumentMultimap));
+            -> finalPostTransitionState.transition(transitionArgumentMultimap));
     }
 
     @Test
