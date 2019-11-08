@@ -1,15 +1,15 @@
+//@@author dalsontws
+
 package seedu.address.model.deadline;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-//@@author dalsontws
 /**
  * Represents a Deadline's Due Date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
