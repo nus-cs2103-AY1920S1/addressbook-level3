@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,12 +59,13 @@ public class AddCommand extends UndoableCommand {
 
         if (toAdd instanceof Body) {
             Body body = (Body) toAdd;
-
             //@@author ambervoong
             if (getCommandState().equals(UndoableCommandState.REDOABLE)) {
                 toAdd.getIdNum().addMapping(toAdd); // Add mapping again since this is not a new Body.
-                notifCommand.addNotif(model);
             } else {
+                if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
+                    notifCommand.addNotif(model); // adds ONLY notif when status of the added body is contact police
+                }
                 NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
                 this.notifCommand = notifCommand;
                 notifCommand.execute(model);

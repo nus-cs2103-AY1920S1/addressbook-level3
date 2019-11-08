@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,8 @@ public class DeleteCommandParserTest {
                 new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()),
                         "W"));
 
-        // todo add test for fridge!!
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "f 1",
+                new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "F"));
     }
 
     @Test

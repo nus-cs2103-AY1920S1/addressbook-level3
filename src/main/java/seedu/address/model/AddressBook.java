@@ -212,7 +212,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 + entities.asUnmodifiableObservableListBody().size() + " bodies\n"
                 + entities.asUnmodifiableObservableListFridge().size() + " fridges\n"
                 + notifs.asUnmodifiableObservableListNotif().size() + " notifs";
-        // TODO: refine later
     }
 
     @Override

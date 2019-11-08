@@ -1,0 +1,91 @@
+= Voong Yu Xuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Mortago
+
+== Overview
+
+This project portfolio showcases the contributions I have made to the software project, Mortago.
+
+Purpose
+Team
+As a team of 5 software engineering students
+Project
+
+Description of what it can do,
+
+Mortago is a mortuary management application for Singaporean mortuaries.
+It was our brainchild for the software engineering project in CS2103T.
+
+The project requires that we use base code from AddressBook Level 3 (AB3).
+The user interacts with Mortago using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about [10 kLoC].
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo commands*
+
+** What it does: allows the user to undo all previous commands one at a time.
+Previously undone commands can be reversed by using the redo command.
+
+** Justification: This feature improves the product significantly because a user can
+make mistakes and needs a convenient way of undoing them. Undo and redo are utility functions that many users have come to expect.
+
+** Highlights: This feature affects existing commands and has to support future commands.
+It required a careful analysis of design choices. Among the different alternatives, the chosen design is more difficult to implement but provides much better scalability.
+*** Undo/redo implemented through saving state was given as an example of a feature deserving an 'A' grade in the module.
+*** The current implementation requires an individual command to have undo/redo functionality, which is more challenging to implement than the example given by the module.
+
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: morphed the `edit` command in AB3 to an `update` command.
+* *Minor enhancement*: added the `Body` class, a foundational class in Mortago.
+
+*Code contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Maintained the issue tracker on GitHub
+*** Managed release `v1.2` on GitHub. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88]
+** Enhancements to existing features: [to add more]
+*** Wrote additional tests for existing features to increase coverage from []% to []% (Pull requests https://github.com[#00], https://github.com[#00])
+** Documentation:
+*** Wrote the UG and DG for the `undo` and `update` features.
+*** Updated all parts of the User Guide that are not feature-specific. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22]
+*** Added tags to the User Guide for all features. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#00]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/88[88], https://github.com/nus-cs2103-AY1920S1/forum/issues/135[135])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[114 (AddMin+)], https://github.com[2], https://github.com[3])
+** Tools:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=update]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=update]
+
+
+== PROJECT: Isextreme
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

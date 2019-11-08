@@ -38,8 +38,7 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        String expectedError = String.format(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
-                + "positive non-zero number.");
+        String expectedError = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
         // no index specified
         assertParseFailure(parser, DEFAULT_NAME, expectedError);
 
@@ -137,20 +136,21 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidId_failure() {
-        String expectedError = String.format(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
+        String expectedIndex = String.format(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
                 + "positive non-zero number.");
+        String expectedError = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " -1 "
                         + PREFIX_SEX + " male",
                 expectedError);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 0 "
                         + PREFIX_SEX + " male",
-                expectedError);
+                expectedIndex);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " abc "
                         + PREFIX_SEX + " male",
-                expectedError);
+                expectedIndex);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " "
                         + PREFIX_SEX + " male",
-                expectedError);
+                expectedIndex);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + ""
                         + PREFIX_SEX + " male",
                 expectedError);

@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://AY1920S1-CS2103T-T13-2.github.io/docs/Team.html[AY1920S1-CS2103T-T13-2] team. +
+Mortago was developed by the https://AY1920S1-CS2103T-T13-2.github.io/docs/Team.html[AY1920S1-CS2103T-T13-2] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Voong Yu Xuan
 image::ambervoong.png[width="150", align="left"]
-{empty}[https://github.com/ambervoong[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ambervoong[github]] [<<ambervoong#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Undo/Redo
@@ -24,13 +24,13 @@ image::arjavibahety.png[width="150", align="left"]
 {empty}[http://github.com/arjavibahety[github]] [<<arjavibahety#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Alerts
+Responsibilities: Notification
 
 '''
 
 === Bernice Chio Hui Yin
 image::bernicechio.png[width="150", align="left"]
-{empty}[http://github.com/bernicechio[github]]
+{empty}[http://github.com/bernicechio[github]] [<<bernicechio#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Generate PDF
@@ -42,13 +42,13 @@ image::dalisc.png[width="150", align="left"]
 {empty}[http://github.com/dalisc[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Sort
+Responsibilities: Statistics
 
 '''
 
 === Hong Shao Yi
 image::shaoyi1997.png[width="150", align="left"]
-{empty}[http://github.com/shaoyi1997[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/shaoyi1997[github]] [<<hongshaoyi#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dashboard GUI
