@@ -11,6 +11,7 @@ import com.typee.commons.core.LogsCenter;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -209,6 +210,23 @@ public class CalendarWindow extends UiPart<Region> {
                 calendarDateCell.displayEngagements();
             }
         }
+    }
+
+
+    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarCloseDisplayException {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)
+                    && calendarDateCell.hasOpenEngagementsDisplay()) {
+                calendarDateCell.closeDisplayedEngagements();
+                return;
+            }
+        }
+        String dayString = String.format("%02d", date.getDayOfMonth());
+        String monthString = String.format("%02d", date.getMonthValue());
+        String yearString = String.format("%04d", date.getYear());
+        String formattedDateString = String.format("%s/%s/%s", dayString, monthString, yearString);
+        throw new CalendarCloseDisplayException("There is no open engagements display window for "
+                + formattedDateString);
     }
 
     /**

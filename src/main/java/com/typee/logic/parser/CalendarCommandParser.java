@@ -1,8 +1,10 @@
 package com.typee.logic.parser;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.typee.commons.core.Messages;
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
@@ -33,6 +35,8 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         switch (calendarCommandType) {
         case CalendarOpenDisplayCommand.COMMAND_WORD:
             return prepareCalendarOpenDisplayCommand(individualArgs);
+        case CalendarCloseDisplayCommand.COMMAND_WORD:
+            return prepareCalendarCloseDisplayCommand(individualArgs);
         case CalendarNextMonthCommand.COMMAND_WORD:
             return prepareCalendarNextMonthCommand(individualArgs);
         case CalendarPreviousMonthCommand.COMMAND_WORD:
@@ -55,6 +59,15 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         }
         LocalDate date = ParserUtil.parseDate(individualArgs[1]);
         return new CalendarOpenDisplayCommand(date);
+    }
+
+    private CalendarCloseDisplayCommand prepareCalendarCloseDisplayCommand(
+            String[] individualArgs) throws ParseException {
+        if (individualArgs.length != 2) {
+            throw new ParseException(CalendarCloseDisplayCommand.INVALID_COMMAND_FORMAT);
+        }
+        LocalDate date = ParserUtil.parseDate(individualArgs[1]);
+        return new CalendarCloseDisplayCommand(date);
     }
 
     /**

@@ -105,4 +105,12 @@ public class CalendarDateCell extends UiPart<Region> {
         }
     }
 
+    /**
+     * Returns true if this calendar date cell has an open engagements display window.
+     * @return True if this calendar date cell has an open engagements display window.
+     */
+    public boolean hasOpenEngagementsDisplay() {
+        return engagementsDisplayWindow.isShowing();
+    }
+
 }
