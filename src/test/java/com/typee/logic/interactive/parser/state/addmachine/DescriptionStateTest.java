@@ -48,9 +48,9 @@ class DescriptionStateTest {
 
 
             assertEquals(firstState.transition(firstNewArgs),
-                    new PriorityState(ArgumentMultimapBuilder.build(prefixes, firstArgs)));
+                    new AttendeesState(ArgumentMultimapBuilder.build(prefixes, firstArgs)));
             assertEquals(secondState.transition(secondNewArgs),
-                    new PriorityState(ArgumentMultimapBuilder.build(prefixes, secondArgs)));
+                    new AttendeesState(ArgumentMultimapBuilder.build(prefixes, secondArgs)));
 
         } catch (StateTransitionException e) {
             fail();
@@ -81,9 +81,9 @@ class DescriptionStateTest {
             State secondPostTransitionState = secondInitialState.transition(ArgumentMultimapBuilder.build(
                     prefixes.subList(4, 7), secondArgs.subList(4, 7)));
 
-            assertEquals(firstPostTransitionState, new PriorityState(ArgumentMultimapBuilder.build
+            assertEquals(firstPostTransitionState, new AttendeesState(ArgumentMultimapBuilder.build
                     (prefixes.subList(0, 5), firstArgs.subList(0, 5))));
-            assertEquals(secondPostTransitionState, new PriorityState(ArgumentMultimapBuilder.build
+            assertEquals(secondPostTransitionState, new AttendeesState(ArgumentMultimapBuilder.build
                     (prefixes.subList(0, 5), secondArgs.subList(0, 5))));
 
         } catch (StateTransitionException e) {
