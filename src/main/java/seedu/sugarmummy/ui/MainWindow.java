@@ -48,7 +48,7 @@ import seedu.sugarmummy.ui.motivationalquotes.MotivationalQuotesLabel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
+    private static final double SPLITPANE_RATIO = 0.8;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -243,7 +243,7 @@ public class MainWindow extends UiPart<Stage> {
             setFontColour(logic.getGuiSettings());
         }
 
-        splitPane.setDividerPosition(0, 0.8);
+        splitPane.setDividerPosition(0, SPLITPANE_RATIO);
 
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
