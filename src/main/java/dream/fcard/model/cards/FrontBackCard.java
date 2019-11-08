@@ -23,7 +23,6 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString) {
         back = backString;
         front = frontString;
-        // Default priority is 1
         priority = LOW_PRIORITY;
         this.cardResult = -1;
     }

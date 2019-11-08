@@ -11,6 +11,7 @@ import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.DeepCopy;
 import dream.fcard.util.json.JsonInterface;
@@ -155,6 +156,12 @@ public class Deck implements JsonInterface {
      */
     public void addNewCard(FlashCard newCard) {
         cards.add(newCard);
+        int priority = newCard.getPriority();
+        if (priority == Priority.LOW_PRIORITY) {
+            lowPriorityQueue.add(newCard);
+        } else {
+            highPriorityQueue.add(newCard);
+        }
     }
 
     /**
@@ -170,7 +177,35 @@ public class Deck implements JsonInterface {
             throw new IndexNotFoundException(errorMessage);
         }
 
-        cards.remove(indexProvided - 1);
+        FlashCard card = cards.remove(indexProvided - 1);
+        int priorityLevel = card.getPriority();
+        if (priorityLevel == Priority.LOW_PRIORITY) {
+            removeCardFromQueue(lowPriorityQueue, card);
+        } else {
+            removeCardFromQueue(highPriorityQueue, card);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param queue
+     */
+    private void removeCardFromQueue(ArrayList<FlashCard> queue, FlashCard toRemove) {
+        for (int i = 0; i < queue.size(); i++) {
+            FlashCard card = queue.get(i);
+
+            String front = card.getFront();
+            String back = card.getBack();
+
+            // todo: a better solution
+            boolean isMatchFront = front.equals(toRemove.getFront());
+            boolean isMatchBack = back.equals(toRemove.getBack());
+            if (isMatchBack && isMatchFront) {
+                queue.remove(i);
+                break;
+            }
+        }
     }
 
     /**
