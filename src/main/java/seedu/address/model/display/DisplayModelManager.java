@@ -173,6 +173,7 @@ public class DisplayModelManager {
                         ColorGenerator.generateColor(i + 1));
                 personSchedules.add(personSchedule);
             }
+
             for (int h = 0; h < 4; h++) {
                 final int finalH = h;
                 FreeSchedule freeSchedule = generateFreeSchedule(personSchedules
@@ -187,6 +188,45 @@ public class DisplayModelManager {
         } catch (GroupNotFoundException | MappingNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Update with a schedule of an ArrayList of Persons.
+     */
+    public void updateScheduleWindowDisplay(ArrayList<Person> persons,
+                                            LocalDateTime now,
+                                            ScheduleWindowDisplayType type,
+                                            TimeBook timeBook) {
+
+        GroupDisplay groupDisplay = new GroupDisplay(persons);
+
+        ArrayList<FreeSchedule> freeScheduleForMonth = new ArrayList<>();
+        ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+
+        //Add all schedules.
+        for (int i = 0; i < persons.size(); i++) {
+            Person person = persons.get(i);
+            Role role = Role.emptyRole();
+
+            PersonSchedule personSchedule = generatePersonSchedule(person.getName().toString(),
+                    now,
+                    person,
+                    role,
+                    ColorGenerator.generateColor(i));
+            personSchedules.add(personSchedule);
+        }
+
+        for (int h = 0; h < 4; h++) {
+            final int finalH = h;
+            FreeSchedule freeSchedule = generateFreeSchedule(personSchedules
+                    .stream().map(sch -> sch.getScheduleDisplay().getScheduleForWeek(finalH))
+                    .collect(Collectors.toCollection(ArrayList::new)), now);
+            freeScheduleForMonth.add(freeSchedule);
+        }
+        ScheduleWindowDisplay scheduleWindowDisplay =
+                new ScheduleWindowDisplay(personSchedules, freeScheduleForMonth, groupDisplay, type);
+        updateScheduleWindowDisplay(scheduleWindowDisplay);
+
     }
 
     /**
@@ -224,7 +264,6 @@ public class DisplayModelManager {
 
         sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
         updateSidePanelDisplay(sidePanelDisplay);
-
     }
 
     /**

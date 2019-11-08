@@ -312,6 +312,11 @@ public interface Model {
     void updateScheduleWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
+     * Updates the current main window display with an Array of Person's schedule.
+     */
+    void updateScheduleWindowDisplay(ArrayList<Person> persons, LocalDateTime time, ScheduleWindowDisplayType type);
+
+    /**
      * Updates the current side panel display.
      */
     void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay);

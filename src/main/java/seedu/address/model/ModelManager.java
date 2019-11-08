@@ -422,6 +422,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateScheduleWindowDisplay(ArrayList<Person> persons,
+                                            LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateScheduleWindowDisplay(persons, time, type, timeBook);
+    }
+
+    @Override
     public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
         displayModelManager.updateSidePanelDisplay(sidePanelDisplay);
     }
