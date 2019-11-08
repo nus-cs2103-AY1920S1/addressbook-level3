@@ -367,6 +367,29 @@ Changes the x-coordinate of the text at index 2 to 0.5.
 * `edit 3 c/#FC1423 s/5 S/bold` +
 Edits the text at index 3, changing its color to #FC1423, size to 5 and style to bold.
 
+==== Moving text: `move`
+
+Moves the specified text. +
+Format: `move INDEX [x/X_CHANGE] [y/Y_CHANGE]`
+
+****
+* The move is relative to the current position of the specified text.
+* At least one of `X_CHANGE` and `Y_CHANGE` must be specified.
+****
+
+Examples:
+
+* `move 1 x/-0.1` +
+Moves the text at index 1 to the left by 10% of the image width.
+* `move 2 y/0.3` +
+Moves the text at index 2 down by 30% of the image height.
+* `move 3 x/0.2 y/-0.3` +
+Moves the text at index 3 to the right by 20% of the image width and up by 30% of the image height.
+
+[TIP]
+You can type `move INDEX` and use arrow keys to move the specified text. +
+Hold kbd:[Shift] while pressing arrow keys to make the text move faster.
+
 ==== Deleting text: `delete`
 
 Deletes the text at the specified index. +
@@ -549,6 +572,7 @@ e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
 ** *Add text* : `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
 ** *Edit text* : `edit INDEX [t/TEXT] [x/X_COORDINATE] [y/Y_COORDINATE] [c/COLOR] [s/SIZE] [S/STYLE]...`
 ** *Delete text* : `delete INDEX`
+** *Move text* : `move INDEX [x/X_CHANGE] [y/Y_CHANGE]`
 ** *Abort creation* : `abort`
 ** *Finish creation* : `create [d/DESCRIPTION] [t/TAG]...`
 
