@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SendReminderCommandParser" as SendReminderCommandParser LOGIC_COLOR
+participant ":SendReminderCommand" as SendReminderCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Mailer" as Mailer LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("SendReminder 3")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("SendReminder 3")
+activate AddressBookParser
+
+create SendReminderCommandParser
+AddressBookParser -> SendReminderCommandParser
+activate SendReminderCommandParser
+
+SendReminderCommandParser --> AddressBookParser
+deactivate SendReminderCommandParser
+
+AddressBookParser -> SendReminderCommandParser : parse(3)
+activate SendReminderCommandParser
+
+create SendReminderCommand
+SendReminderCommandParser -> SendReminderCommand
+activate SendReminderCommand
+
+SendReminderCommand --> SendReminderCommandParser : c
+deactivate SendReminderCommand
+
+SendReminderCommandParser --> AddressBookParser : c
+deactivate SendReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SendReminderCommandParser -[hidden]-> AddressBookParser
+destroy SendReminderCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> SendReminderCommand : execute()
+activate SendReminderCommand
+
+SendReminderCommand -> Model : getListOfMeetings()
+activate Model
+
+Model--> SendReminderCommand : meetingsList
+deactivate Model
+
+SendReminderCommand -> Model : getTasks()
+activate Model
+
+Model --> SendReminderCommand : tasks
+deactivate Model
+
+SendReminderCommand -> Model : getMembers()
+activate Model
+
+Model --> SendReminderCommand : Members
+deactivate Model
+
+loop for each members in the project
+
+   SendReminderCommand -> Mailer : sendMail()
+   activate Mailer
+   Mailer -> SendReminderCommand
+   deactivate Mailer
+
+end
+
+create CommandResult
+SendReminderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SendReminderCommand : result
+deactivate CommandResult
+
+SendReminderCommand --> LogicManager : result
+deactivate SendReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
