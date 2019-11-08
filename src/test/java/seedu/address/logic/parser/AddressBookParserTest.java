@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_EATBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_EATBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_EATBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_EATBOOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EATERY;
 
@@ -35,7 +36,7 @@ import seedu.address.logic.commands.SaveTodoCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Eatery;
-import seedu.address.model.eatery.NameContainsKeywordsPredicate;
+import seedu.address.model.eatery.EateryAttributesContainsKeywordsPredicate;
 import seedu.address.model.feed.Feed;
 import seedu.address.testutil.EateryBuilder;
 import seedu.address.testutil.EateryUtil;
@@ -82,7 +83,8 @@ public class AddressBookParserTest {
         assertEquals(new CloseCommand(INDEX_FIRST_EATERY), command);
     }
 
-    @Test public void parseCommand_reopen() throws Exception {
+    @Test
+    public void parseCommand_reopen() throws Exception {
         ReopenCommand command = (ReopenCommand) parser.parseCommand(
                 ReopenCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased(), true);
         assertEquals(new ReopenCommand(INDEX_FIRST_EATERY), command);
@@ -97,9 +99,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")), true);
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " "
+                + keywords.stream().map(k -> String.format("%s %s", PREFIX_NAME, k))
+                .collect(Collectors.joining(" ")), true);
+        assertEquals(new FindCommand(new EateryAttributesContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -123,7 +126,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_saveTodo() throws Exception {
         SaveTodoCommand command = (SaveTodoCommand) parser.parseCommand(
-            SaveTodoCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased(), false);
+                SaveTodoCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased(), false);
         assertEquals(new SaveTodoCommand(INDEX_FIRST_EATERY), command);
     }
 

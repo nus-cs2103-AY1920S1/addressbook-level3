@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.eatery.NameContainsKeywordsPredicate;
+import seedu.address.model.eatery.EateryAttributesContainsKeywordsPredicate;
 
 /**
  * Finds and lists all eateries in address book whose name contains any of the argument keywords.
@@ -14,14 +18,18 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all eateries whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " wanton mee";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all eateries whose attributes contain all of "
+            + "the specified constraints (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + " NAME] "
+            + "[" + PREFIX_ADDRESS + " ADDRESS] "
+            + "[" + PREFIX_CATEGORY + " CATEGORY] "
+            + "[" + PREFIX_TAG + " TAG]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + " chinese " + PREFIX_TAG + " delicious";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final EateryAttributesContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(EateryAttributesContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

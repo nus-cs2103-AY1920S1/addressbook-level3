@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.eatery.NameContainsKeywordsPredicate;
+import seedu.address.model.eatery.EateryAttributesContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -30,10 +30,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        EateryAttributesContainsKeywordsPredicate firstPredicate =
+                new EateryAttributesContainsKeywordsPredicate(Collections.singletonList("first"));
+        EateryAttributesContainsKeywordsPredicate secondPredicate =
+                new EateryAttributesContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -58,7 +58,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noEateryFound() {
         String expectedMessage = String.format(MESSAGE_EATERIES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        EateryAttributesContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredEateryList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleEateriesFound() {
         String expectedMessage = String.format(MESSAGE_EATERIES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("McDonald Kentucky Texas");
+        EateryAttributesContainsKeywordsPredicate predicate = preparePredicate("McDonald Kentucky Texas");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredEateryList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -76,9 +76,9 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code EateryAttributesContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private EateryAttributesContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new EateryAttributesContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
