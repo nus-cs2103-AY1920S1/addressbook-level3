@@ -45,6 +45,9 @@ import seedu.address.ui.queue.QueueListPanel;
 public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanelManager {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String HELP_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features";
+    private static final String UPDATES_URI = "https://github.com/AY1920S1-CS2103T-T09-3/main/releases";
+    private static final String ABOUT_US_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -120,12 +123,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> deferredDropSelectors.forEach(Runnable::run));
 
         upperPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            switch (keyEvent.getCode()) {
-            case TAB:
+            if (keyEvent.getCode() == KeyCode.TAB) {
                 keyEvent.consume();
                 commandBox.getRoot().requestFocus();
-                break;
-            default:
             }
         });
 
@@ -192,6 +192,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         int screenHeight = gd.getDisplayMode().getHeight();
 
         if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
+            logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
+                    + " Window Sizing.");
             return;
         }
 
@@ -201,6 +203,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         if (guiSettings.getWindowCoordinates() == null
                 || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
                 || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
+            logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
+                    + " Window Sizing.");
             return;
         }
 
@@ -218,9 +222,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleHelp() {
         try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
+            getDesktop().browse(URI.create(HELP_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + HELP_URI);
         }
     }
 
@@ -230,9 +234,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleCheckForUpdates() {
         try {
-            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
+            getDesktop().browse(URI.create(UPDATES_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + UPDATES_URI);
         }
     }
 
@@ -242,9 +246,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleAboutUs() {
         try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
+            getDesktop().browse(URI.create(ABOUT_US_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + ABOUT_US_URI);
         }
     }
 
@@ -378,6 +382,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             region = dutyShiftListPanel.getRoot();
             break;
         default:
+            logger.warning("There is an OmniPanelTab that is not implemented.");
             return;
         }
         Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));

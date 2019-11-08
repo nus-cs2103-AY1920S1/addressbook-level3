@@ -2,21 +2,19 @@
 package seedu.address.ui;
 
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.Event;
 
 /**
  * Panel containing the list of events.
  */
 public class EventListPanel extends OmniPanel<Event> {
-    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
+
     private final boolean displayStatus;
 
     @FXML

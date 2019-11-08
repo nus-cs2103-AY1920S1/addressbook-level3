@@ -50,21 +50,4 @@ public class RoomCard extends UiPart<Region> {
 
         patientName.setText(patient.map(p -> " " + p.getName().toString()).orElse(" Not serving any patients"));
     }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof RoomCard)) {
-            return false;
-        }
-
-        // state check
-        RoomCard card = (RoomCard) other;
-        return doctor.equals(card.doctor) && patient.equals(card.patient);
-    }
 }
