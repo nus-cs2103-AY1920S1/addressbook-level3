@@ -110,7 +110,9 @@ it adds money to the club's funds).
 from the club's funds).
 
 [WARNING]
-There is a limitation to the amount that you may enter which would be -999999.99 to 999999.
+There is a limitation to the amount that you may enter which would be -999999.99 to 999999.99. If more decimal points
+are entered, it will be rounded off to the nearest 2 decimal point
+
 ====
 
 ==== To Add a Transaction in the Home Tab
@@ -123,7 +125,7 @@ This command allows you to add a transaction to the table and saves it into the 
 ** [blue]`add dt/24-Aug-2019 d/Printer ink c/Miscellaneous a/3.50 p/Alex Yeoh`
 
 [NOTE]
-The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+The format of the date has to be in dd-MMM-yyyy format and is case-sensitive. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person must be someone recorded in the Members Tab and is case-sensitive.
 
 [WARNING]
