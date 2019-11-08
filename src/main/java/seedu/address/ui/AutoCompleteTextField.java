@@ -87,7 +87,7 @@ public class AutoCompleteTextField extends TextField {
             wholeText.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
             return new TextFlow(wholeText);
         } else {
-            int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+            int filterIndex = text.indexOf(filter);
             Text textBefore = new Text(text.substring(0, filterIndex));
             Text textAfter = new Text(text.substring(filterIndex + filter.length()));
             Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
