@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.RevisionToolBuilder;
+import seedu.revision.testutil.builder.RevisionToolBuilder;
 
 public class ModelManagerTest {
 

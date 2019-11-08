@@ -12,9 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.revision.logic.commands.quiz.McqInputCommand;
+import seedu.revision.logic.commands.quiz.TfInputCommand;
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.testutil.builder.SaqBuilder;
+import seedu.revision.testutil.builder.TrueFalseBuilder;
 
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
@@ -61,6 +64,14 @@ public class TypicalAnswerables {
             .withDifficulty("1").withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST).build();
 
+
+    public static final Answerable J_ANSWERABLE = new TrueFalseBuilder().build();
+    public static final TfInputCommand J_TF_COMMAND = new TfInputCommand("False", J_ANSWERABLE);
+
+    public static final Answerable K_ANSWERABLE = new SaqBuilder().build();
+    public static final TfInputCommand K_SAQ_COMMAND = new TfInputCommand(
+            "The statement is untrue", K_ANSWERABLE);
+
     // Manually added - Answerable's details found in {@code CommandTestUtil}
     public static final Answerable MCQ_A = new McqBuilder().withQuestion(VALID_QUESTION_ALPHA)
             .withDifficulty(VALID_DIFFICULTY_ALPHA).withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
@@ -69,6 +80,8 @@ public class TypicalAnswerables {
             .withDifficulty(VALID_DIFFICULTY_BETA).withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST)
             .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
+
+
 
     private TypicalAnswerables() {} // prevents instantiation
 

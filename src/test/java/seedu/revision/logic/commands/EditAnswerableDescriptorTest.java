@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 public class EditAnswerableDescriptorTest {
 

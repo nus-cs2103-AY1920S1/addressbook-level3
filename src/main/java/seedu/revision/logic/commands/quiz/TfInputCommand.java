@@ -51,5 +51,11 @@ public class TfInputCommand extends Command {
         return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TfInputCommand // instanceof handles nulls
+                && tfInput.equals(((TfInputCommand) other).tfInput));
+    }
 
 }

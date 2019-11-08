@@ -1,4 +1,4 @@
-package seedu.revision.testutil;
+package seedu.revision.testutil.builder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -89,5 +89,4 @@ public abstract class AnswerableBuilder<T extends Answerable> {
      * @return the subclass of answerable.
      */
     public abstract T build();
-
 }

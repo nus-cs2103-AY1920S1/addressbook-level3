@@ -35,7 +35,7 @@ import seedu.revision.logic.parser.main.EditCommandParser;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 public class EditCommandParserTest {
 

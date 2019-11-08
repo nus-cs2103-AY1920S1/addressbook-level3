@@ -51,7 +51,6 @@ public abstract class Answerable {
         combinedList.addAll(wrongAnswerList);
         combinedList.addAll(0, correctAnswerList);
         this.combinedAnswerList = combinedList;
-        //System.out.println(combinedList);
         this.difficulty = new Difficulty("1");
         this.categories.add(new Category("cat"));
     }

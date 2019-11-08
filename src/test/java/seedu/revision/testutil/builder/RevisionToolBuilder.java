@@ -1,4 +1,4 @@
-package seedu.revision.testutil;
+package seedu.revision.testutil.builder;
 
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answerable;

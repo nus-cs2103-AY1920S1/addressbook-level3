@@ -30,8 +30,8 @@ import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
-import seedu.revision.testutil.AnswerableBuilder;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.builder.AnswerableBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.McqBuilder;
 
 /**

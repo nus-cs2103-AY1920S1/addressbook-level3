@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.testutil.builder.AnswerableBuilder;
 
 /** Factory class to create {@code Mcq} objects. **/
 public class McqBuilder extends AnswerableBuilder<Mcq> {
@@ -12,9 +13,9 @@ public class McqBuilder extends AnswerableBuilder<Mcq> {
     public McqBuilder() {
         super();
         wrongAnswerList = new ArrayList<>();
-        wrongAnswerList.add(new Answer("Wrong answer A"));
         wrongAnswerList.add(new Answer("Wrong answer B"));
         wrongAnswerList.add(new Answer("Wrong answer C"));
+        wrongAnswerList.add(new Answer("Wrong answer D"));
     }
 
     public McqBuilder(Answerable answerableToCopy) {
