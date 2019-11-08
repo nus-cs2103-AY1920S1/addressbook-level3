@@ -25,10 +25,10 @@ public class Name {
      *
      * @param name A valid name.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+    public Name(String loanname) {
+        requireNonNull(loanname);
+        checkArgument(isValidName(loanname), MESSAGE_CONSTRAINTS);
+        this.fullName = loanname;
     }
 
     /**
