@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AppDataParser" as AppDataParser LOGIC_COLOR
 participant ":QuizModeCommandParser" as QuizModeCommandParser LOGIC_COLOR
-participant "d:QuizModeCommand" as QuizModeCommand LOGIC_COLOR
+participant "q:QuizModeCommand" as QuizModeCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -56,13 +56,13 @@ activate Model
 Model -> AppData : setQuizQuestionList(quizQuestionList)
 activate AppData
 
-AppData -> QuizQuestionList : setQuizQuestionList(quizQuestionList)
+AppData -> QuizQuestionList : setQuizQuestionList(quizQuestionList）
 activate QuizQuestionList
 
-QuizQuestionList -> AppData
+QuizQuestionList --> AppData
 deactivate QuizQuestionList
 
-AppData -> Model
+AppData --> Model
 deactivate AppData
 
 Model --> QuizModeCommand
