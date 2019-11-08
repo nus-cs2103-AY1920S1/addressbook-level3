@@ -20,7 +20,6 @@ import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.MultipleSortByCond;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordValue;

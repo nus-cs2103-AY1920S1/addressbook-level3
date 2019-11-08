@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 
 
 

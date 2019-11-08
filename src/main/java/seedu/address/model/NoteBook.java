@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.UniqueNoteList;
 
 

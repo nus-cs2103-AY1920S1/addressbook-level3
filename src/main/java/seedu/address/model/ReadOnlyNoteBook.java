@@ -3,7 +3,6 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 
 /**
  * Unmodifiable view of an address book

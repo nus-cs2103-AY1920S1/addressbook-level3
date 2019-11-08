@@ -9,8 +9,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.SortNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.MultipleSortByCond;
-import seedu.address.model.note.SortByCond;
-
 
 
 /**

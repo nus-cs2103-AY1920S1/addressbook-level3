@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Represents a Note's Sorting condition.
  */
@@ -28,6 +26,12 @@ public class MultipleSortByCond {
         this.multipleSortComparator = buildComparator(sortConditions);
     }
 
+    /**
+     * Builds a comparator based on the sort conditions provided.
+     * @param sortConditions decreasing precedence of the sorting condition as the index number
+     * of the sort condition increases in the String array.
+     * @return
+     */
     public Comparator<Note> buildComparator(String[] sortConditions) {
         ArrayList<Comparator<Note>> noteComparators = new ArrayList<>();
         for (String sortCond : sortConditions) {
