@@ -18,6 +18,9 @@ import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
+/**
+ * Represents the end state of the state machine that builds the {@code PdfCommand}.
+ */
 public class PdfEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Generating PDF.";
@@ -34,6 +37,12 @@ public class PdfEndState extends EndState {
         return new PdfCommand(index.getOneBased(), sender, receiver);
     }
 
+    /**
+     * Returns an index from its {@code String} representation.
+     *
+     * @return Index.
+     * @throws CommandException If the index is invalid.
+     */
     private Index fetchIndex() throws CommandException {
         String oneBasedIndex = soFar.getValue(PREFIX_LIST_INDEX).get();
         try {

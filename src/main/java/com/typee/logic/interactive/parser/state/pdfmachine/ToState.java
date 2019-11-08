@@ -12,6 +12,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.person.Name;
 
+/**
+ * Represents the penultimate state in the state machine that builds the {@code PdfCommand}.
+ * Accepts the receiver.
+ */
 public class ToState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Sender name stored. Please enter the name of the receiver,"
@@ -42,8 +46,14 @@ public class ToState extends PenultimateState {
         enforceValidity(from);
     }
 
-    private void enforceValidity(Optional<String> from) throws StateTransitionException {
-        String name = from.get();
+    /**
+     * Ensures that the receiver is valid.
+     *
+     * @param to Receiver.
+     * @throws StateTransitionException If the receiver is invalid.
+     */
+    private void enforceValidity(Optional<String> to) throws StateTransitionException {
+        String name = to.get();
         if (!Name.isValidName(name)) {
             throw new StateTransitionException(Name.MESSAGE_CONSTRAINTS);
         }

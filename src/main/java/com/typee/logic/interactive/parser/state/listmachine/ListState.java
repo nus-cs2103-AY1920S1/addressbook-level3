@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the final state of the state machine that builds a {@code ListCommand}.
+ */
 public class ListState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Listed all commands.";

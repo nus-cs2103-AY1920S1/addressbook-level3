@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the final state of the state machine that builds a {@code RedoCommand}.
+ */
 public class RedoState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "The last undone command will be redone.";

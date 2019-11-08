@@ -13,6 +13,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.logic.parser.exceptions.ParseException;
 
+/**
+ * Represents the initial state of the state machine that builds the {@code PdfCommand}.
+ */
 public class PdfIndexState extends State {
     private static final String MESSAGE_CONSTRAINTS = "PDF command initiated. Please enter the index of the"
             + " engagement you would like to generate a report for. The index should be prefixed by \"i/\".";
@@ -40,6 +43,12 @@ public class PdfIndexState extends State {
         enforceValidity(index);
     }
 
+    /**
+     * Ensures that the entered index is valid.
+     *
+     * @param index Index.
+     * @throws StateTransitionException If the index is invalid.
+     */
     private void enforceValidity(Optional<String> index) throws StateTransitionException {
         try {
             Index listIndex = InteractiveParserUtil.parseIndex(index.get());

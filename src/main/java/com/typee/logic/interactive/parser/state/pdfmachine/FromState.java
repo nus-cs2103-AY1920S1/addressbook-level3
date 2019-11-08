@@ -11,6 +11,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.person.Name;
 
+/**
+ * Represents a state in the state machine that builds the {@code PdfCommand}.
+ * Accepts the sender.
+ */
 public class FromState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Index stored. Please enter the name of the sender,"
@@ -39,6 +43,12 @@ public class FromState extends State {
         enforceValidity(from);
     }
 
+    /**
+     * Ensures that the sender is valid.
+     *
+     * @param from Sender.
+     * @throws StateTransitionException If the sender is invalid.
+     */
     private void enforceValidity(Optional<String> from) throws StateTransitionException {
         String name = from.get();
         if (!Name.isValidName(name)) {
