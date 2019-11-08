@@ -28,7 +28,7 @@ The Incident Management System (IMS) is a desktop app made for emergency call op
 .  Copy the file to the folder you want to use as the home folder for your Incident Manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  You will first need to `register` an account, or `login` with one of the pre-made accounts.
-.  Logging in with an account that has the `Admin` tag gives you admin access to the system.
+.  Logging in with an account that has the `Admin` tag (e.g. Agent01) gives you admin access to the system. The default password is 'password'.
 +
 image::Ui.png[width="790"]
 +
@@ -271,50 +271,44 @@ For manual dispatchment of vehicle, the index of the chosen vehicle must be from
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
+[NOTE]
+The user can only fill the draft incident reports that have been created by them.
+
 This command works in two modes:
 
+****
 *1. No parameter mode* +
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+****
 
-[NOTE]
-The user can only fill the draft incident reports that have been created by them.
+* Usage and Outcome:
+Usage: `fill`
+Outcome:
 
-* Example usage:
-
-image::fillCommandNoParamsBeforeScreenshot.png[FillExample1][width="500"]
-.Fig X. Incident panel GUI shows all incidents before executing `fill` in no-parameter mode.
-
-* Expected outcome:
-
-image::fillCommandNoParamsAfterScreenshot.png[]
-.Fig X. Incident panel GUI shows all draft incidents after executing `fill` in no-parameter mode.
-
-*2. Parameter mode* +
-Format: `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` +
-Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
+image::fillCommandNoParamsAfterScreenshot.png[width="500"]
 
 ****
+*2. Parameter mode* +
+Format: `fill [INDEX] [p/CALLER_NUMBER] [desc/DESCRIPTION]` +
+Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
+
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Both incomplete and complete drafts can be filled.
 ** Fields of complete drafts will be overwritten.
-** Executing this command changes incident `status` to `COMPLETE_DRAFT`.
+** Executing this command changes incident `status` to 'Complete Draft'.
 * Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
 * The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
 ****
 
-* Example usage:
+* Usage and outcome:
+Usage: `fill 1 p/90309049 desc/Traffic accident reported at FKU hospital junction` +
+Outcome:
 
-image::fillCommandWithParamsBeforeScreenshot.png[]
-.Fig X. After using `fill` in no parameter mode, this screenshot shows how to fill the 2nd incident in the displayed list.
-
-* Expected outcome:
-
-image::fillCommandWithParamsAfterScreenshot.png[]
-.Fig X. After using `fill` in parameter mode, this screenshot shows that the description of the specified incident has been updated while the caller number has been overwritten with the new value. The status of the draft has changed from `INCOMPLETE_DRAFT` to `COMPLETE_DRAFT`.
+image::fillCommandWithParamsAfterScreenshot.png[width="500"]
 
 Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
@@ -329,35 +323,36 @@ The user can only submit the completed incident reports that have been created b
 
 Similar to `fill`, this command also works in two modes:
 
+****
 *1. No parameter mode* +
 Format: `submit` +
 Lists all completed draft incident reports ready for submission.
 
-****
 * This command only lists complete drafts.
 ** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
 ****
 
-* Expected outcome of `submit`:
+* Usage and outcome:
+Usage: `submit`
+Outcome:
+image::submitCommandNoParamsAfterScreenshot.png[width="500"]
 
-image::submitCommandNoParamsAfterScreenshot.png[]
-.Fig X. Executing `submit` in no parameter mode lists all completed drafts ready for submission.
-
+****
 *2. Parameter mode* +
 Format: `submit [INDEX]` +
 Submits the completed draft incident report corresponding to the specified index.
 
-****
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Only complete drafts can be submitted.
 ** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
 * The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
 ****
 
-* Expected outcome of `submit 2`:
+* Usage and outcome:
+Usage: `submit 1`
+Outcome:
 
-image::submitCommandWithParamsAfterScreenshot.png[]
-.Fig X. The incident filled using the `fill` command above has been submitted. The newly submitted incident is listed at the top and its status changes from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`.
+image::submitCommandWithParamsAfterScreenshot.png[width="500"]
 
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
@@ -689,8 +684,8 @@ e.g. `delete-a 3`
 * *New* `new dist/DISTRICT auto/Y`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
-2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
-e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in district 3.`
+2. `fill [INDEX] [p/CALLER_NUMBER] [desc/DESCRIPTION]` (to fill specified incident report) +
+e.g. `fill 1 p/98984932 desc/This is a sample description for incident 1 in district 3.`
 * *Submit*
 1. `submit` (to list all completed draft incidents ready for submission)
 2. `submit` [INDEX] (to submit specified incident report) +

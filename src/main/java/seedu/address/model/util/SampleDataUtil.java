@@ -72,88 +72,88 @@ public class SampleDataUtil {
         Vehicle[] sampleVehicles = getSampleVehicles();
 
         Incident[] sampleIncidents = new Incident[] {
-            new Incident(samplePersons[6], new District(2), sampleIncidentDateTimes[6],
-                    new IncidentId(sampleIncidentDateTimes[6].getMonth(), sampleIncidentDateTimes[6].getYear()),
+            new Incident(samplePersons[6], new District(2), sampleIncidentDateTimes[0],
+                    new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
                     new CallerNumber("98984545"), new Description("Fight reported at District 2 intersection"),
                     Incident.Status.COMPLETE_DRAFT, sampleVehicles[1]), // 01
 
-            new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[0],
-                new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
+            new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[1],
+                new IncidentId(sampleIncidentDateTimes[1].getMonth(), sampleIncidentDateTimes[1].getYear()),
                 new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall"),
                 Incident.Status.SUBMITTED_REPORT, sampleVehicles[0]), // 02
 
-            new Incident(samplePersons[0], new District(2), sampleIncidentDateTimes[1],
-                new IncidentId(sampleIncidentDateTimes[1].getMonth(), sampleIncidentDateTimes[1].getYear()),
+            new Incident(samplePersons[0], new District(2), sampleIncidentDateTimes[2],
+                new IncidentId(sampleIncidentDateTimes[2].getMonth(), sampleIncidentDateTimes[2].getYear()),
                 new CallerNumber("98098765"), new Description("PMD accident in District 2 park"),
                 Incident.Status.COMPLETE_DRAFT, sampleVehicles[19]), // 03
 
-            new Incident(samplePersons[0], new District(3), sampleIncidentDateTimes[2],
-                new IncidentId(sampleIncidentDateTimes[2].getMonth(), sampleIncidentDateTimes[2].getYear()),
-                new CallerNumber("87595849"), new Description("Tiger spotted in District 3 courthouse."),
+            new Incident(samplePersons[0], new District(3), sampleIncidentDateTimes[3],
+                new IncidentId(sampleIncidentDateTimes[3].getMonth(), sampleIncidentDateTimes[3].getYear()),
+                new CallerNumber("87595849"), new Description("Tiger spotted in District 3 courthouse"),
                 Incident.Status.COMPLETE_DRAFT, sampleVehicles[2]), // 04
 
-            new Incident(samplePersons[3], new District(4), sampleIncidentDateTimes[3],
-                new IncidentId(sampleIncidentDateTimes[3].getMonth(), sampleIncidentDateTimes[3].getYear()),
+            new Incident(samplePersons[3], new District(4), sampleIncidentDateTimes[4],
+                new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
                 new CallerNumber("89090908"), new Description("Minor traffic accident in District 4 highway"),
                 Incident.Status.SUBMITTED_REPORT, sampleVehicles[12]), // 05
 
-            new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[4],
-                new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
-                new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
-                Incident.Status.COMPLETE_DRAFT, sampleVehicles[4]), // 06
-
-            new Incident(samplePersons[11], new District(27), sampleIncidentDateTimes[15],
-                new IncidentId(sampleIncidentDateTimes[15].getMonth(), sampleIncidentDateTimes[15].getYear()),
+            new Incident(samplePersons[11], new District(27), sampleIncidentDateTimes[6],
+                new IncidentId(sampleIncidentDateTimes[6].getMonth(), sampleIncidentDateTimes[6].getYear()),
                 new CallerNumber("00000000"), new Description("[TO BE FILLED]]"),
-                    Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[20]), // 07
+                    Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[20]), // 06
 
-            new Incident(samplePersons[0], new District(4), sampleIncidentDateTimes[14],
-                new IncidentId(sampleIncidentDateTimes[14].getMonth(), sampleIncidentDateTimes[14].getYear()),
+            new Incident(samplePersons[0], new District(4), sampleIncidentDateTimes[7],
+                new IncidentId(sampleIncidentDateTimes[7].getMonth(), sampleIncidentDateTimes[7].getYear()),
                 new CallerNumber("00000000"), new Description("[TO BE FILLED]"),
-                Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[3]), // 08
+                Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[3]), // 07
 
-            new Incident(samplePersons[9], new District(21), sampleIncidentDateTimes[13],
-                    new IncidentId(sampleIncidentDateTimes[13].getMonth(), sampleIncidentDateTimes[13].getYear()),
+            new Incident(samplePersons[9], new District(21), sampleIncidentDateTimes[8],
+                    new IncidentId(sampleIncidentDateTimes[8].getMonth(), sampleIncidentDateTimes[8].getYear()),
                     new CallerNumber("00000000"), new Description("[TO BE FILLED]"),
-                    Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[21]), // 09
+                    Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[21]), // 08
 
-            new Incident(samplePersons[0], new District(11), sampleIncidentDateTimes[12],
-                    new IncidentId(sampleIncidentDateTimes[12].getMonth(), sampleIncidentDateTimes[12].getYear()),
+            new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[5],
+                    new IncidentId(sampleIncidentDateTimes[5].getMonth(), sampleIncidentDateTimes[5].getYear()),
+                    new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
+                    Incident.Status.COMPLETE_DRAFT, sampleVehicles[4]), // 09
+
+            new Incident(samplePersons[0], new District(11), sampleIncidentDateTimes[9],
+                    new IncidentId(sampleIncidentDateTimes[9].getMonth(), sampleIncidentDateTimes[9].getYear()),
                     new CallerNumber("00000000"), new Description("[TO BE FILLED]"),
                     Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[22]), // 10
 
-            new Incident(samplePersons[5], new District(23), sampleIncidentDateTimes[11],
-                    new IncidentId(sampleIncidentDateTimes[11].getMonth(), sampleIncidentDateTimes[11].getYear()),
+            new Incident(samplePersons[5], new District(23), sampleIncidentDateTimes[10],
+                    new IncidentId(sampleIncidentDateTimes[10].getMonth(), sampleIncidentDateTimes[10].getYear()),
                     new CallerNumber("93340229"),
                     new Description("3 people injured in a barfight in Club Pomelo"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[9]), // 11
 
-            new Incident(samplePersons[7], new District(13), sampleIncidentDateTimes[10],
-                    new IncidentId(sampleIncidentDateTimes[10].getMonth(), sampleIncidentDateTimes[10].getYear()),
+            new Incident(samplePersons[7], new District(13), sampleIncidentDateTimes[11],
+                    new IncidentId(sampleIncidentDateTimes[11].getMonth(), sampleIncidentDateTimes[11].getYear()),
                     new CallerNumber("98330495"),
-                    new Description("Four cats were stuck on a tree and had to be rescued."),
+                    new Description("Four cats were stuck on a tree and had to be rescued"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[7]), // 12
 
-            new Incident(samplePersons[10], new District(17), sampleIncidentDateTimes[9],
-                    new IncidentId(sampleIncidentDateTimes[9].getMonth(), sampleIncidentDateTimes[9].getYear()),
+            new Incident(samplePersons[10], new District(17), sampleIncidentDateTimes[12],
+                    new IncidentId(sampleIncidentDateTimes[12].getMonth(), sampleIncidentDateTimes[12].getYear()),
                     new CallerNumber("78394893"),
-                    new Description("Traffic accident involving two speeding cars at the District 17 junction."),
+                    new Description("Traffic accident involving two speeding cars at the District 17 junction"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[11]), // 13
 
-            new Incident(samplePersons[0], new District(7), sampleIncidentDateTimes[8],
-                    new IncidentId(sampleIncidentDateTimes[8].getMonth(), sampleIncidentDateTimes[8].getYear()),
+            new Incident(samplePersons[0], new District(7), sampleIncidentDateTimes[13],
+                    new IncidentId(sampleIncidentDateTimes[13].getMonth(), sampleIncidentDateTimes[13].getYear()),
                     new CallerNumber("89079609"),
-                    new Description("Suicide attempt at condo 7, block 16 by a middle-aged man."),
+                    new Description("Suicide attempt at condo 7, block 16 by a middle-aged man"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[10]), // 14
 
-            new Incident(samplePersons[2], new District(15), sampleIncidentDateTimes[8],
-                    new IncidentId(sampleIncidentDateTimes[8].getMonth(), sampleIncidentDateTimes[8].getYear()),
+            new Incident(samplePersons[2], new District(15), sampleIncidentDateTimes[14],
+                    new IncidentId(sampleIncidentDateTimes[14].getMonth(), sampleIncidentDateTimes[14].getYear()),
                     new CallerNumber("95049504"),
-                    new Description("Cyclists crash into jaywalking pedestrian late at night at Dickson road."),
+                    new Description("Cyclists crash into jaywalking pedestrian late at night at Dickson road"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[10]), // 15
 
-            new Incident(samplePersons[7], new District(7), sampleIncidentDateTimes[7],
-                    new IncidentId(sampleIncidentDateTimes[7].getMonth(), sampleIncidentDateTimes[7].getYear()),
+            new Incident(samplePersons[7], new District(7), sampleIncidentDateTimes[15],
+                    new IncidentId(sampleIncidentDateTimes[15].getMonth(), sampleIncidentDateTimes[15].getYear()),
                     new CallerNumber("77898977"),
                     new Description("High-speed chase along the pan-continental expressway ended in a crash"),
                     Incident.Status.SUBMITTED_REPORT, sampleVehicles[12]) // 16
@@ -169,17 +169,17 @@ public class SampleDataUtil {
             new IncidentDateTime("2014-05-01T01:00:00"),
             new IncidentDateTime("2015-06-16T14:00:00"),
             new IncidentDateTime("2016-09-01T21:00:00"),
-            new IncidentDateTime("2017-11-02T22:30:00"),
-            new IncidentDateTime("2016-03-22T16:30:00"),
-            new IncidentDateTime("2018-07-24T04:15:43"),
-            new IncidentDateTime("2018-12-02T18:47:04"),
-            new IncidentDateTime("2018-04-09T05:10:00"),
-            new IncidentDateTime("2019-06-16T09:32:44"),
-            new IncidentDateTime("2019-09-21T11:43:56"),
-            new IncidentDateTime("2019-11-11T13:37:14"),
-            new IncidentDateTime("2019-12-29T19:26:16"),
-            new IncidentDateTime("2019-01-23T21:53:07"),
-            new IncidentDateTime("2019-06-01T23:14:10"),
+            new IncidentDateTime("2017-03-02T22:30:00"),
+            new IncidentDateTime("2017-11-22T16:30:00"),
+            new IncidentDateTime("2018-01-24T04:15:43"),
+            new IncidentDateTime("2018-04-02T18:47:04"),
+            new IncidentDateTime("2018-12-09T05:10:00"),
+            new IncidentDateTime("2019-02-16T09:32:44"),
+            new IncidentDateTime("2019-05-21T11:43:56"),
+            new IncidentDateTime("2019-06-11T13:37:14"),
+            new IncidentDateTime("2019-09-29T19:26:16"),
+            new IncidentDateTime("2019-11-23T21:53:07"),
+            new IncidentDateTime("2019-12-01T23:14:10"),
         };
     }
 
