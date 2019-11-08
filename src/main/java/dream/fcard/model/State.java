@@ -171,7 +171,8 @@ public class State {
         @SuppressWarnings("unchecked")
         ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
 
-        /*System.out.println("Adding Deck to deckHistory");
+        /*
+        System.out.println("Adding Deck to deckHistory");
 
         System.out.println("CHECKING CURR DECKS START");
         for (Deck d : this.decks) {
@@ -180,24 +181,22 @@ public class State {
         System.out.println("CHECKING CURR DECKS END");
         */
 
-        //if (deckHistory.empty() || !this.decks.equals(deckHistory.peek()) || !completelyEquals(deckHistory.peek())) {
-        deckHistory.push(currDeck);
-        //}
-
-        /*System.out.println("CHECKING NEW DECKHISTORY START");
+        if (deckHistory.empty() || !completelyEquals(deckHistory.peek())) {
+            deckHistory.push(currDeck);
+        }
+        /*
+        System.out.println("CHECKING NEW DECKHISTORY START");
         for (Deck d : deckHistory.peek()) {
             printCardsInDeck(d);
         }
         System.out.println("CHECKING NEW DECKHISTORY END");
-
-         */
+        */
     }
 
     /**
      * Adds the current deck to the undoHistory for Redo command
      */
     public void addCurrDecksToUndoHistory() {
-        @SuppressWarnings("unchecked")
         ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
         if (undoHistory.empty() || !completelyEquals(undoHistory.peek())) {
             undoHistory.push(currDeck);
@@ -208,8 +207,7 @@ public class State {
      * Adds the current deck to the deckHistory for Undo command
      */
     public void addDecksToDeckHistory(ArrayList<Deck> newDecks) {
-        @SuppressWarnings("unchecked")
-        ArrayList<Deck> currDeck = (ArrayList<Deck>) newDecks.clone();
+        ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(newDecks);
 
         if (deckHistory.empty() || !currDeck.equals(deckHistory.peek())) {
             deckHistory.push(currDeck);
@@ -310,7 +308,7 @@ public class State {
         if (decks.equals(currDecks)) {
             for (Deck d : decks) {
                 for (Deck cD : currDecks) {
-                    if (d.equals(cD)) {
+                    if (!d.equals(cD)) {
                         isEquals = false;
                     }
                 }

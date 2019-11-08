@@ -69,7 +69,7 @@ public enum Responses {
 
                     if (!validCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command! "
-                                + "Type 'help' for the UserGuide'.");
+                                + "Type 'help' for all available commands'.");
                     }
                     return true;
                 }
@@ -83,8 +83,7 @@ public enum Responses {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
                     //@author
 
-
-                    //TODO open a window to UserGuide.html (by Taha)
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, HelpCommand.generalHelp());
                     return true;
                 }
     ),
@@ -248,7 +247,6 @@ public enum Responses {
                 "index/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    System.out.println("Enters EDIT_CARD RESPONSE");
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("edit",
                             new String[]{
                                 "deck/",
@@ -260,10 +258,10 @@ public enum Responses {
                             i);
 
                     // @@author PhireHandy
-                    boolean hasAnEditField = res.get(2).size() > 0 || res.get(3).size() > 0 || res.get(4).size() > 0
-                            || res.get(5).size() > 0;
+                    boolean hasValidEditField = res.get(2).size() == 1 || res.get(3).size() == 1
+                            || res.get(4).size() == 1 || res.get(5).size() == 1;
 
-                    if (hasAnEditField) {
+                    if (hasValidEditField) {
                         StateHolder.getState().addCurrDecksToDeckHistory();
                     }
                     //@@author
@@ -274,7 +272,7 @@ public enum Responses {
 
                     // Checks if "deck/" and "index" are supplied.
                     if (!hasDeckName || !hasIndex) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct "
                                 + "format of the Edit command, type 'help command/Edit'");
                         return true;
                     }
@@ -318,10 +316,11 @@ public enum Responses {
                                 + "Front Back card has no choices.");
                     }
 
-                    boolean hasFront = res.get(3).size() == 1;
+                    boolean hasFront = res.get(2).size() == 1;
                     if (hasFront) {
-                        String front = res.get(3).get(0);
+                        String front = res.get(2).get(0);
                         card.setFront(front);
+                        deck.replaceCard(card, index);
                     }
 
                     boolean hasBack = res.get(3).size() == 1;
@@ -353,7 +352,7 @@ public enum Responses {
                         return true;
                     }
 
-                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
                     //@author
 
