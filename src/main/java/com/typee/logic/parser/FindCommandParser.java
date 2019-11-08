@@ -67,7 +67,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     InteractiveParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
-        if (!engagementPredicate.isValid()) {
+        if (!engagementPredicate.hasEditedFields()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
