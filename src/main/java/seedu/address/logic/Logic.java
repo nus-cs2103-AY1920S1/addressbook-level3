@@ -18,12 +18,6 @@ public interface Logic extends GuiSettingsLogic {
 
     Storage getStorage();
 
-    AddressBookLogic getAddressBookLogic();
-
-    AchievementsLogic getAchievementsLogic();
-
-    Storage getStorage();
-
     /**
      * Gets address book logic.
      *
