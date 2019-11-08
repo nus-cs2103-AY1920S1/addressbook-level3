@@ -49,7 +49,7 @@ public class ProcessLocationGraph {
         for (int i = 0; i <= validLocationList.size() / 10; i++) {
             ArrayList<Location> locationRowString = new ArrayList<Location>(validLocationList
                     .subList(i * 10 , Math.min((i + 1) * 10, validLocationList.size())));
-            for (int j = 0; j < validLocationList.size() / 10; j++) {
+            for (int j = 0; j <= validLocationList.size() / 10; j++) {
                 ArrayList<Location> locationColumnString = new ArrayList<Location>(validLocationList
                         .subList(j * 10 , Math.min((j + 1) * 10, validLocationList.size())));
                 JSONObject apiResponse = Cache.loadDistanceMatrix(locationRowString, locationColumnString);

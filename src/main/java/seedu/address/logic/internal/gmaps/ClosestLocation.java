@@ -126,8 +126,12 @@ public class ClosestLocation {
             Long thirdClosestTime = Long.MAX_VALUE;
             for (int i = 0; i < totalDistance.size(); i++) {
                 Location currValidLocation = validLocationList.get(i);
-                if (closestLocations.contains(currValidLocation)) {
-                    continue;
+                for (int j = 0; j < closestLocations.size(); j++) {
+                    String addedLocation = closestLocations.get(j).getValidLocation();
+                    if (addedLocation.contains(currValidLocation.getLocationName())
+                            || currValidLocation.getValidLocation().contains(addedLocation)) {
+                        continue;
+                    }
                 }
                 if (totalDistance.get(i) < firstClosestTime) {
                     firstClosestIndex = i;

@@ -97,7 +97,7 @@ class ClosestLocationTest {
         String expectedResult = "\n"
                 + "First closest location: LT17 | Average travelling distance/meters Avg distance: 0(meters)\n"
                 + "Second closest location: LT19 | Average travelling distance/meters Avg distance: 11(meters)\n"
-                + "Third closest location: LT8 | Average travelling distance/meters Avg distance: 224(meters)\n";
+                + "Third closest location: SH | Average travelling distance/meters Avg distance: 403(meters)\n";
         assertEquals(expectedResult, result);
     }
 
@@ -108,7 +108,7 @@ class ClosestLocationTest {
         String expectedResult = "\n"
                 + "First closest location: LT17 | Average travelling distance/meters Avg distance: 0(meters)\n"
                 + "Second closest location: LT19 | Average travelling distance/meters Avg distance: 7(meters)\n"
-                + "Third closest location: LT8 | Average travelling distance/meters Avg distance: 149(meters)\n"
+                + "Third closest location: SH | Average travelling distance/meters Avg distance: 268(meters)\n"
                 + "Could not recognise these locations:\n"
                 + "BIAP\n";
         assertEquals(expectedResult, result);

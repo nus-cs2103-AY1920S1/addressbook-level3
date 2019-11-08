@@ -44,6 +44,22 @@ public class GmapsJsonUtils {
         return (String) firstCandidate.get("place_id");
     }
 
+    public static double getLatPlacesApi(JSONObject apiResponse) {
+        JSONArray candidates = (JSONArray) apiResponse.get("candidates");
+        JSONObject firstCandidate = (JSONObject) candidates.get(0);
+        JSONObject geometry = (JSONObject) firstCandidate.get("geometry");
+        JSONObject location = (JSONObject) geometry.get("location");
+        return (double) location.get("lat");
+    }
+
+    public static double getLngPlacesApi(JSONObject apiResponse) {
+        JSONArray candidates = (JSONArray) apiResponse.get("candidates");
+        JSONObject firstCandidate = (JSONObject) candidates.get(0);
+        JSONObject geometry = (JSONObject) firstCandidate.get("geometry");
+        JSONObject location = (JSONObject) geometry.get("location");
+        return (double) location.get("lng");
+    }
+
     public static double getLat(JSONObject apiResponse) {
         JSONObject result = (JSONObject) apiResponse.get("result");
         JSONObject geometry = (JSONObject) result.get("geometry");
