@@ -241,13 +241,10 @@ public class ModelManager implements Model {
             this.history.undoTrainingStack(attendance, this);
         } else if (commandUnderPerformance(undoneCommand)) {
             this.history.undoPerformanceStack(performance, this);
-        } else if (undoneCommand instanceof EditCommand) {
+        } else if (undoneCommand instanceof EditCommand || undoneCommand instanceof ClearCommand) {
             this.history.undoAthletickStack(athletick);
             this.history.undoTrainingStack(attendance, this);
-        } else if (undoneCommand instanceof ClearCommand) {
             this.history.undoPerformanceStack(performance, this);
-            this.history.undoAthletickStack(athletick);
-            this.history.undoTrainingStack(attendance, this);
         } else {
             this.history.undoAthletickStack(athletick);
         }
@@ -261,14 +258,11 @@ public class ModelManager implements Model {
         this.history.getAddressBooks().push(redoneAthletick);
         if (commandUnderTraining(redoneCommand)) {
             this.history.redoTrainingStack(attendance, this);
-        } else if (redoneCommand instanceof EditCommand) {
-            this.history.redoTrainingStack(attendance, this);
-            athletick.resetData(redoneAthletick);
         } else if (commandUnderPerformance(redoneCommand)) {
             this.history.redoPerformanceStack(performance, this);
-        } else if (redoneCommand instanceof ClearCommand) {
-            this.history.redoPerformanceStack(performance, this);
+        } else if (redoneCommand instanceof EditCommand || redoneCommand instanceof ClearCommand) {
             this.history.redoTrainingStack(attendance, this);
+            this.history.redoPerformanceStack(performance, this);
             athletick.resetData(redoneAthletick);
         } else {
             athletick.resetData(redoneAthletick);
