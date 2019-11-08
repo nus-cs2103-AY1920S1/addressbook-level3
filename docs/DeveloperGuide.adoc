@@ -259,7 +259,7 @@ Given below is an example usage scenario on how to add a question properly and t
 *Step 1.* The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
 
 *Step 2.* The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
-command to add a question with the question name: _What is always coming, but never arrives?_, answer: _Tomorrow_, category: CS2131 and type: _high_ in the quiz book.
+command to add a question with the question name: _What is always coming, but never arrives?_ and answer: _Tomorrow_, category: CS2131, type: _high_ in the quiz book.
 The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
 
 *Step 3.* If the user realized that they have typed the wrong answer for a particular question, then the user can executes
