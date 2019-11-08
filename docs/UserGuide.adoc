@@ -417,7 +417,6 @@ which can be checked using the command `loan list` or by pressing the hotkey men
 // tag::rules[]
 === Automating with rules: `rule`
 
-// TODO: Some information here to show users perspective
 *Introducing the _Rule Engine_.*
 A way for you to automate certain actions based on a certain predicate.
 Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
@@ -459,7 +458,8 @@ Refer to <<Scripting>> for script usage.
 *** `<` , `\<=`  , `>=` , `>` : Inequality comparison operators
 *** `contains` : Substring check operator (Cannot be used on dates)
 ** A value can be a number or a string of length not more than 180 characters
-It can contain the following special characters: _!#$%&'*+=?`/[{|}]~^.-_
+It can contain the following special characters: +
+!#$%&'*+=?`/[{|}]~^.-
 
 * **Action**: In the order of `<action operator> [<value>]`
 ** An action operator can be one of the following:
@@ -475,9 +475,24 @@ It can contain the following special characters: _!#$%&'*+=?`/[{|}]~^.-_
 and is not required for `set_in`, `set_out` and `switch_direct`
 ****
 
+Examples:
+
+* `rule add pred/outamt >= 100 act/prep_desc [Large Spending]` +
+Adds a new rule that specifies that if an outward transaction has an amount more
+or equal to $100, prepend the transaction's description with "[Large Spending]".
+
+* `rule add pred/desc contains food act/set_cat Food` +
+Adds a new rule that specifies that if a transaction description contains "food",
+add the category "Food" to that transaction.
+
+* `rule add pred/desc = m act/set_desc Monthly Allowance` +
+Adds a new rule that specifies that if a transaction description is exactly "m",
+change its description to "Monthly Allowance".
+
 ==== List rules: `rule list`
 
-Displays the list of all existing rules, sorted by the order in which a rule was added.
+Displays the list of all existing rules in the Rule Engine.
+Rules are sorted by the order in which they were added.
 
 Format: `rule list`
 
@@ -488,11 +503,26 @@ Both the predicate and action can be modified.
 
 Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]`
 
+Examples:
+
+* `rule edit 1 pred/inamt \<= 10` +
+Edits the predicate of the first rule in the list to check if an
+inward transaction has an amount less than or equal to 10.
+
+* `rule edit 4 act/set_in` +
+Edits the action of the 4th rule in the list to set the direction of
+a transaction to be inwards.
+
 ==== Delete a rule: `rule delete`
 
 Deletes a rule with the specified rule ID.
 
 Format: `rule delete <rule ID>`
+
+Examples:
+
+* `rule delete 5` +
+Deletes the 5th rule in the list.
 
 ==== Swap two rules: `rule swap`
 
@@ -503,6 +533,10 @@ Swaps the position of two specified rules in the Rule Engine.
 
 Format: `rule swap <rule 1 ID> <rule 2 ID>
 
+Examples:
+
+* `rule swap 2 4` +
+Swaps the ordering of the 2nd rule and the 4th rule.
 // end::rules[]
 
 // tag::scripting[]
