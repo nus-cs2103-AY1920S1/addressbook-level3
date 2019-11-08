@@ -347,23 +347,28 @@ Example: showAnswer no +
 ==== Undo:
 Undo some of the previous action. +
 Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment` +
-Format: `undo`
+Format: `undo` +
+{empty} +
 
 ==== Redo:
 Redo some of the previous action. +
 Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
-Format: `redo`
+Format: `redo` +
+{empty} +
 
 ==== Help:
-Format : `help`
+Format : `help` +
+{empty} +
 
 ==== Clear all data:
 To remove all of the current data in quiz book. +
-Format: `clear`
+Format: `clear` +
+{empty} +
 
 ==== Exit application:
 To exit application (Modulo). +
 Format: `exit` +
+
 // end::quizsection[]
 {empty} +
 
