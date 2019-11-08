@@ -11,10 +11,7 @@ import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.model.transaction.TransactionCategoryPredicate;
-import seedu.ichifund.model.transaction.TransactionDatePredicate;
 import seedu.ichifund.model.transaction.TransactionType;
-import seedu.ichifund.model.transaction.TransactionTypePredicate;
 
 /**
  * Unmodifiable context for filtering a list of transactions.
@@ -141,15 +138,15 @@ public class TransactionContext implements Context<Transaction> {
 
     @Override
     public Predicate<Transaction> getPredicate() {
-        Predicate<Transaction> predicate = new TransactionDatePredicate(month, year);
+        Predicate<Transaction> predicate = transaction -> transaction.isIn(month) && transaction.isIn(year);
         if (category.isPresent() && category.get() != Category.CATEGORY_ALL) {
             predicate = predicate
-                    .and(new TransactionCategoryPredicate(category.get()));
+                    .and(transaction -> transaction.getCategory().equals(category.get()));
         }
 
         if (transactionType.isPresent() && transactionType.get() != TransactionType.TRANSACTION_TYPE_ALL) {
             predicate = predicate
-                    .and(new TransactionTypePredicate(transactionType.get()));
+                    .and(transaction -> transaction.getTransactionType().equals(transactionType.get()));
         }
 
         return predicate;
