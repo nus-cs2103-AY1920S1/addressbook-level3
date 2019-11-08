@@ -68,4 +68,23 @@ public class ModelData {
         }
         return result;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) { // short circuit if same object
+            return true;
+        } else {
+            if (!(other instanceof ModelData)) {
+                return false;
+            }
+            ModelData otherModel = (ModelData) other;
+            if (!events.getSet().equals(otherModel.events.getSet())) {
+                return false;
+            }
+            if (!tasks.getSet().equals(otherModel.tasks.getSet())) {
+                return false;
+            }
+            return true;
+        }
+    }
 }

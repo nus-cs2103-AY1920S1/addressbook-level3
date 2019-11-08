@@ -42,4 +42,9 @@ public class UniqueOrderedSet<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         return this.set.iterator();
     }
+
+    public LinkedHashSet<E> getSet() {
+        return set;
+    }
+
 }

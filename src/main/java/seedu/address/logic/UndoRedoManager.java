@@ -115,13 +115,13 @@ public class UndoRedoManager implements ModelListListener {
 
     /**
      * Appends the current ModelLists, containing the current events and tasks, to undoStateList.
-     */
+            */
     @Override
     public void onModelListChange(ModelData lists) {
         if (listening) {
             clearFutureHistory();
             assert undoIndex >= undoStateList.size() - 1
-                : "Pointer always points to end of list during commit; All future states must have been discarded.";
+                    : "Pointer always points to end of list during commit; All future states must have been discarded.";
             undoStateList.add(lists);
             undoIndex++;
         }
@@ -153,4 +153,13 @@ public class UndoRedoManager implements ModelListListener {
             return true;
         }
     }
+
+    public List<ModelData> getUndoStateList() {
+        return undoStateList;
+    }
+
+    public int getUndoIndex() {
+        return undoIndex;
+    }
+
 }
