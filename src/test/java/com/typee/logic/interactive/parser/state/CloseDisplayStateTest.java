@@ -74,7 +74,7 @@ public class CloseDisplayStateTest {
         ArgumentMultimap invalidArgumentMultimap = new ArgumentMultimap();
         invalidArgumentMultimap.put(new Prefix("hi"), "11/11/2019");
         assertThrows(StateTransitionException.class, ()
-                -> closeDisplayState.transition(invalidArgumentMultimap));
+            -> closeDisplayState.transition(invalidArgumentMultimap));
     }
 
     @Test

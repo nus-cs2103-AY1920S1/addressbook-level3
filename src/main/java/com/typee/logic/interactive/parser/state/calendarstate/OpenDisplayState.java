@@ -40,7 +40,7 @@ public class OpenDisplayState extends PenultimateState {
 
         enforceNoExcessiveArguments(newArgs);
 
-        return new DisplayEndState(soFar);
+        return new OpenDisplayEndState(soFar);
     }
 
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> date)

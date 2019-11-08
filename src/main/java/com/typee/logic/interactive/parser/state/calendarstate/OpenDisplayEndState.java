@@ -18,13 +18,13 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 /**
  * Represents the end state(accepting state) of the state machine that builds the open display command.
  */
-public class DisplayEndState extends EndState {
+public class OpenDisplayEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Displayed engagements on the entered date.";
     private static final String DATE_PATTERN = "dd/MM/uuuu";
     private static final String MESSAGE_INVALID_INPUT = "Invalid command! Please enter a valid date.";
 
-    protected DisplayEndState(ArgumentMultimap soFar) {
+    protected OpenDisplayEndState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
