@@ -258,7 +258,7 @@ Finds customers whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
-* The search looks for partial matches e.g. `ha` will match `hans`.
+* The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
 ****
@@ -334,6 +334,11 @@ Copies a customer in SML to clipboard +
 . `find-c Lee`
 . `copy-c 1`
 
+==== Email customer : `email-c` `[coming in v2.0]`
+Emails a customer in SML. Opens Gmail on web browser and drafts an email to customer. +
+
+[underline]#Format#: `email-c INDEX`
+
 
 // end::customer[]
 
@@ -399,7 +404,7 @@ Finds phones whose fields contain any of the given keywords. +
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The search looks for partial matches e.g. `ha` will match `hans`.
+* The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * The search matches anywhere for name, contact number, email and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
@@ -550,6 +555,10 @@ Copies an order field to clipboard. +
 Format: `copy-o <field>`
 
 
+==== Print orders : `print-o` `[coming in v2.0]`
+Prints the order lists with formatting that is appropriate for stock-take or order tracking. +
+Format: `print-o`
+
 === Schedule Commands
 Commands that work on schedules you have.
 
@@ -635,28 +644,28 @@ Clears every archived order in SML. +
 
 [underline]#Format#: `clear-a`
 
-==== Find Archived Order: `find-a` [coming in v2.0]
+==== Find Archived Order: `find-a` `[coming in v2.0]`
 
 Finds archived orders whose fields contain any of the given keywords. +
 
 [underline]#Format#: `find-a KEYWORD [MORE_KEYWORDS]...`
 
 
-==== List Archived Order: `list-a` [coming in v2.0]
+==== List Archived Order: `list-a` `[coming in v2.0]`
 List every archived order in SML. Acts as a switch archived order command as well. +
 
 [underline]#Format#: `list-a`
 
 - `list-a`
 
-==== Delete Archived Order: `delete-a` [coming in v2.0]
+==== Delete Archived Order: `delete-a` `[coming in v2.0]`
 
 Deletes an archived order in SML.
 
 [underline]#Format#: `delete-c INDEX`
 
 
-=== Copy Archived Order: `copy-a` [coming in v2.0]
+=== Copy Archived Order: `copy-a` `[coming in v2.0]`
 Copies an archived order field to clipboard. +
 Format: `copy-a INDEX`
 
