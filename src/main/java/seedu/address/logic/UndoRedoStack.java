@@ -9,8 +9,7 @@ import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * Undo-redo Stack
- * @@author yamgent
- * Reused from https://github.com/se-edu/addressbook-level4/pull/610/files with modifications
+ * Solution adapted from https://github.com/se-edu/addressbook-level4/pull/610/files with modifications / bug fixes
  *
  */
 public class UndoRedoStack {
