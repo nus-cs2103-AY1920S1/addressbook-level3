@@ -1,9 +1,7 @@
 package seedu.savenus.ui;
 
-import java.util.Comparator;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
