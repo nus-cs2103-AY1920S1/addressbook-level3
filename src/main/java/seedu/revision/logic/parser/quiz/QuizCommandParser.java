@@ -47,6 +47,10 @@ public class QuizCommandParser {
             default:
                 break;
             }
+        } else if (currentAnswerable instanceof Saq) {
+            if (userInput.toLowerCase().trim().equals(ExitCommand.COMMAND_WORD)) {
+                return new ExitCommand();
+            }
         }
 
         if (currentAnswerable instanceof Mcq) {

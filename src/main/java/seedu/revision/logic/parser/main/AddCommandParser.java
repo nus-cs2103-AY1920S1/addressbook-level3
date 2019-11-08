@@ -75,6 +75,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             answerable = new TrueFalse(question, correctAnswerList, difficulty, categories);
             break;
         case "saq":
+            areSaqAnswersValid(correctAnswerList);
             answerable = new Saq(question, correctAnswerList, difficulty, categories);
             break;
         default:
@@ -160,6 +161,21 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the answers is 'exit'
+     * @param answerList the list of correct answers
+     * @return a boolean to determine if saq answer is valid. True if valid. False otherwise.
+     * @throws ParseException exception is thrown if answer is 'exit'.
+     */
+    private boolean areSaqAnswersValid(ArrayList<Answer> answerList) throws ParseException {
+        for (Answer answer : answerList) {
+            if (answer.getAnswer().toLowerCase().trim().equals("exit")) {
+                throw new ParseException(Saq.MESSAGE_EXIT_ERROR);
+            }
+        }
+        return true;
     }
 
 }
