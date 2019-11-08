@@ -2,6 +2,8 @@ package seedu.address.model.date;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.model.Athletick;
+
 /**
  * Represents date used in attendance and performance recording.
  */
@@ -53,6 +55,16 @@ public class AthletickDate {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public static int compareDate(AthletickDate firstDate, AthletickDate secondDate) {
+        if (!(firstDate.getYear() == secondDate.getYear())) {
+            return firstDate.getYear() - secondDate.getYear();
+        } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
+            return firstDate.getMonth() - secondDate.getMonth();
+        } else {
+            return firstDate.getDay() - secondDate.getDay();
+        }
     }
 
     /**

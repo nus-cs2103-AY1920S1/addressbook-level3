@@ -159,22 +159,9 @@ public class Event {
         athleteRecords.sort(new Comparator<Record>() {
             @Override
             public int compare(Record first, Record second) {
-                return compareDate(first.getDate(), second.getDate());
+                return AthletickDate.compareDate(first.getDate(), second.getDate());
             }
         });
-    }
-
-    /**
-     * Helper function to determine the order of dates by comparing the individual elements.
-     */
-    private int compareDate(AthletickDate firstDate, AthletickDate secondDate) {
-        if (!(firstDate.getYear() == secondDate.getYear())) {
-            return firstDate.getYear() - secondDate.getYear();
-        } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
-            return firstDate.getMonth() - secondDate.getMonth();
-        } else {
-            return firstDate.getDay() - secondDate.getDay();
-        }
     }
 
     /**
