@@ -5,9 +5,7 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_LOCATION_DESC;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.deliverymans.logic.commands.CommandTestUtil.LOCATION_DESC_ONE;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.LOCATION_DESC_TWO;
-import static seedu.deliverymans.logic.commands.CommandTestUtil.NAME_DESC_ONE;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.NAME_DESC_TWO;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.TAG_DESC_ONE;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.TAG_DESC_TWO;
