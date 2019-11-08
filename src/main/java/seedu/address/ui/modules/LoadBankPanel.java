@@ -13,12 +13,15 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.Storage;
 import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Panel containing the list of word banks.
@@ -27,7 +30,8 @@ public class LoadBankPanel extends UiPart<Region> {
     private static final String FXML = "LoadBankPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LoadBankPanel.class);
     private Storage storage;
-    private ModularDisplay.ModularDisplayExecuteCallBack commandExecutor;
+    private LoadBankPanelDisplayExecuteCallBack importCommandExecutor;
+    private WordBankCard.WordBankCardExecuteCallBack exportCommandExecutor;
 
     @FXML
     private ListView<WordBank> loadBankView;
@@ -52,7 +56,7 @@ public class LoadBankPanel extends UiPart<Region> {
             } else {
                 WordBankCard wbc = new WordBankCard(wordBank, getIndex() + 1);
                 setGraphic(wbc.getRoot());
-                wbc.registerDragAndDropCallBack(commandExecutor);
+                wbc.registerDragAndDropCallBack(exportCommandExecutor);
             }
         }
     }
@@ -86,7 +90,7 @@ public class LoadBankPanel extends UiPart<Region> {
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
 
             try {
-                commandExecutor.execute("import w/" + wordBankName
+                importCommandExecutor.execute("import w/" + wordBankName
                         + " f/" + p.getParent().toString());
             } catch (CommandException | ParseException e) {
                 e.printStackTrace();
@@ -124,17 +128,28 @@ public class LoadBankPanel extends UiPart<Region> {
     private String getFileNameWithoutExtension(File file) {
         String fileName = file.toString();
         String ext = getExtension(file);
-        String fileNameWithoutExtension = fileName.substring(0, fileName.length() - ext.length());
-        return fileNameWithoutExtension;
+        return fileName.substring(0, fileName.length() - ext.length());
     }
 
     /**
      * Registers a method that will be called by the ModularDisplay to simulate an Import or Export command as though
      * it were a user.
      *
-     * @param commandExecutor Method to register.
+     * @param importCommandExecutor for import.
+     * @param exportCommandExecutor for export.
      */
-    public void registerDragAndDropCallBack(ModularDisplay.ModularDisplayExecuteCallBack commandExecutor) {
-        this.commandExecutor = commandExecutor;
+    public void registerDragAndDropCallBack(LoadBankPanel.LoadBankPanelDisplayExecuteCallBack importCommandExecutor,
+                                     WordBankCard.WordBankCardExecuteCallBack exportCommandExecutor) {
+        requireAllNonNull(importCommandExecutor, exportCommandExecutor);
+        this.importCommandExecutor = importCommandExecutor;
+        this.exportCommandExecutor = exportCommandExecutor;
+    }
+    /**
+     * Call-back functional interface from ModularDisplay to MainWindow, represents the ModularDisplay sending
+     * a command to the app as though it were another user.
+     */
+    @FunctionalInterface
+    public interface LoadBankPanelDisplayExecuteCallBack {
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 }

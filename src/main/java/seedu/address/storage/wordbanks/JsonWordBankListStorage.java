@@ -95,13 +95,22 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         }
 
         if (!isSampleInitiated) {
-            WordBank pokemonWb = SampleDataUtil.getPokemonWordBank();
-            WordBank arithmeticWb = SampleDataUtil.getArithmeticWordBank();
-            WordBank getTriviaWordBank = SampleDataUtil.getTriviaWordBank();
-            saveWordBank(pokemonWb);
-            saveWordBank(arithmeticWb);
-            saveWordBank(getTriviaWordBank);
+            loadDefaultData();
         }
+    }
+
+    private void loadDefaultData() {
+        WordBank pokemonWb = SampleDataUtil.getPokemonWordBank();
+        WordBank arithmeticWb = SampleDataUtil.getArithmeticWordBank();
+        WordBank triviaWb = SampleDataUtil.getTriviaWordBank();
+        WordBank cs2103tWb = SampleDataUtil.getCS2103tWordBank();
+        WordBank graphWb = SampleDataUtil.getGraphWordBank();
+
+        saveWordBank(pokemonWb);
+        saveWordBank(arithmeticWb);
+        saveWordBank(triviaWb);
+        saveWordBank(cs2103tWb);
+        saveWordBank(graphWb);
     }
 
     /**

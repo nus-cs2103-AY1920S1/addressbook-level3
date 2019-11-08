@@ -13,6 +13,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
@@ -44,7 +47,7 @@ public class WordBankCard extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    private ModularDisplay.ModularDisplayExecuteCallBack commandExecutor;
+    private  WordBankCardExecuteCallBack commandExecutor;
 
     /**
      * Card containing the details of the word bank.
@@ -109,8 +112,17 @@ public class WordBankCard extends UiPart<Region> {
      *
      * @param commandExecutor Method to register.
      */
-    void registerDragAndDropCallBack(ModularDisplay.ModularDisplayExecuteCallBack commandExecutor) {
+    public void registerDragAndDropCallBack(WordBankCardExecuteCallBack commandExecutor) {
         this.commandExecutor = commandExecutor;
+    }
+
+    /**
+     * Call-back functional interface from ModularDisplay to MainWindow, represents the ModularDisplay sending
+     * a command to the app as though it were another user.
+     */
+    @FunctionalInterface
+    public interface WordBankCardExecuteCallBack {
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
 }

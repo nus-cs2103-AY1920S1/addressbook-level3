@@ -15,14 +15,7 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.CardListPanel;
-import seedu.address.ui.modules.GameResultPanel;
-import seedu.address.ui.modules.HintLabel;
-import seedu.address.ui.modules.LoadBankPanel;
-import seedu.address.ui.modules.MainTitlePanel;
-import seedu.address.ui.modules.QuestionLabel;
-import seedu.address.ui.modules.SettingsPanel;
-import seedu.address.ui.modules.WordBankStatisticsPanel;
+import seedu.address.ui.modules.*;
 
 
 /**
@@ -158,23 +151,17 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(createQuestionHints().getRoot());
     }
 
-    /**
+     /**
      * Registers a method that will be called by the ModularDisplay to simulate an Import or Export command as though
      * it were a user.
-     * @param commandExecutor Method to register.
+      *
+     * @param importCommandExecutor for import.
+     * @param exportCommandExecutor for export.
      */
-    void registerDragAndDropCallBack(ModularDisplayExecuteCallBack commandExecutor) {
-        requireAllNonNull(commandExecutor);
-        loadBankPanel.registerDragAndDropCallBack(commandExecutor);
+     void registerDragAndDropCallBack(LoadBankPanel.LoadBankPanelDisplayExecuteCallBack importCommandExecutor,
+                                     WordBankCard.WordBankCardExecuteCallBack exportCommandExecutor) {
+        requireAllNonNull(importCommandExecutor, exportCommandExecutor);
+        loadBankPanel.registerDragAndDropCallBack(importCommandExecutor, exportCommandExecutor);
     }
 
-
-    /**
-     * Call-back functional interface from ModularDisplay to MainWindow, represents the ModularDisplay sending
-     * a command to the app as though it were another user.
-     */
-    @FunctionalInterface
-    public interface ModularDisplayExecuteCallBack {
-        CommandResult execute(String commandText) throws CommandException, ParseException;
-    }
 }
