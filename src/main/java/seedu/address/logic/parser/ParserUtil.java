@@ -175,7 +175,7 @@ public class ParserUtil {
         try {
             return format.parse(date);
         } catch (java.text.ParseException e) {
-            throw new ParseException("Wrong date format"); // todo: abstract out message
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
     }
 
