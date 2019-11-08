@@ -289,7 +289,7 @@ Lists all draft incident reports ready to be filled.
 Usage: `fill`
 Outcome:
 
-image::fillCommandNoParamsAfterScreenshot.png[width="500"]
+image::fillCommandNoParamsAfterScreenshot.png[width="600"]
 
 ****
 *2. Parameter mode* +
@@ -308,7 +308,7 @@ Fills the draft incident report corresponding to the specified index with the ph
 Usage: `fill 1 p/90309049 desc/Traffic accident reported at FKU hospital junction` +
 Outcome:
 
-image::fillCommandWithParamsAfterScreenshot.png[width="500"]
+image::fillCommandWithParamsAfterScreenshot.png[width="600"]
 
 Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
@@ -335,7 +335,8 @@ Lists all completed draft incident reports ready for submission.
 * Usage and outcome:
 Usage: `submit`
 Outcome:
-image::submitCommandNoParamsAfterScreenshot.png[width="500"]
+
+image::submitCommandNoParamsAfterScreenshot.png[width="600"]
 
 ****
 *2. Parameter mode* +
@@ -352,7 +353,7 @@ Submits the completed draft incident report corresponding to the specified index
 Usage: `submit 1`
 Outcome:
 
-image::submitCommandWithParamsAfterScreenshot.png[width="500"]
+image::submitCommandWithParamsAfterScreenshot.png[width="600"]
 
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
