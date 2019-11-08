@@ -101,7 +101,10 @@ E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/f
 
 === General rules for all commands
 
-* All commands are written in English with alphanumeric characters.
+* All commands are written in English.
+
+* Some command parameters are restricted to purely alphanumeric characters, while others are just required to not be
+blank.
 
 * Any indexes provided (denoted by '(index)' ) must be a positive integer (e.g. 1, 2, 3, ...).
 
@@ -465,7 +468,7 @@ IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the forma
 'tag/'.
 
 WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will
-still be added). StudyBuddyPro will assume that the user typed the tags correctly.
+still be added). StudyBuddyPro will assume that the user has typed the tags correctly.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
@@ -490,6 +493,10 @@ Note fragment tags detected:
 
 * This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
 "highlighted" and two tags "cs2100" and "important".
+
+NOTE: The spaces around the syntax elements of '/\*', 'C/' etc are part of the syntax. For example, if a note
+fragment tag looks like this: '/* C/highlighted TAG/important */if needed', then the resultant Note will look like
+this: 'highlightedif needed'.
 
 * Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
