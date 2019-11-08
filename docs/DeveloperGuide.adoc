@@ -357,7 +357,7 @@ This feature adds transaction to the table and data file. All fields in the tran
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
 
-Thus, this feature requires access to the `ModelManager#getPersonByName` method of the `ModelManager` inside the
+Thus, this feature requires access to the `CheckAndGetPersonByNameOnlyModel#getPersonByName` inside the
 person package which contains the `AddressBook` implementation to check for the validity of the name entered when inside `AddCommandParser` which
 creates the `Transaction` object. The following sequence diagram shows how the `Transaction` object is created from `AddCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 as a generic parser:
@@ -379,10 +379,10 @@ image::HomeAddCommandSD.png[]
 
 This is the definition of the methods shown above:
 [[resetPredicate]]
-* `ModelManager#resetPredicate()`: It resets the `Predicate` object in `ModelManager` to evaluate all `Transaction` objects to true.
-* `ModelManager#addTransaction(transaction): It adds the given `Transaction` object to its `TransactionList` objects attributes.
+* `Model#resetPredicate()`: It resets the `Predicate` object in `ModelManager` to evaluate all `Transaction` objects to true.
+* `Model#addTransaction(transaction): It adds the given `Transaction` object to its `TransactionList` objects attributes.
 
-Thus, when the `ModelManager#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full
+Thus, when the `Model#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full
 transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
 then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
 the full list of transactions would be shown.
@@ -451,11 +451,11 @@ The following sequence diagram shows how the delete by name command works after 
 
 image::HomeDeleteNameCommand.png[]
 
-In addition, the `ModelManager#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
+In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
 Find Command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
 To view the full transaction list, the user would be required to enter the
-Back Command where `BackCommand` calls `ModelManager#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+Back Command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
@@ -493,7 +493,7 @@ image::HomeTabSortSD.png[]
 When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, the `ModelManager#resetPredicate()` method is not called. If the UI table is showing a filtered
+Similar to the Delete Command, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
 list of transactions, the Back Command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== Overall Design Considerations
@@ -518,7 +518,7 @@ to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
-|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would beuse frequently in `ModelManager`.
+|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would frequently used in `ModelManager`.
 |===
 
 [[lists]]
