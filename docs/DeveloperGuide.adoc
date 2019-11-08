@@ -23,6 +23,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+// tag::architectureDiagram[]
+
 [[Design-Architecture]]
 === Architecture
 
@@ -51,7 +53,7 @@ The rest of the App consists of five components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts.
+* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts. (The use of this module is covered in the Statistic Section)
 
 Each of the five components
 
@@ -59,6 +61,8 @@ Each of the five components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+// end::architectureDiagram[]
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -72,6 +76,8 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+
+// tag::UiUG[]
 
 [[Design-Ui]]
 === UI component
@@ -94,6 +100,8 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Different changes in each tab or panel is controlled via the enum `UiChange`
+
+// end::UiUG[]
 
 [[Design-Logic]]
 === Logic component
@@ -167,7 +175,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::statisticsCommand[]
+
 === Statistics Calculation and Chart generation feature
+
+
 ==== Implementation
 
 This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
@@ -193,6 +205,7 @@ Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
 image::StatisticsCalculationAcitvityDiagram.png[]
 
+[[Design-Statistics]]
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
@@ -200,20 +213,20 @@ analogous to the output mode, there are 2 types of methods in this module, one t
 
 * Methods that return a `String`:
 
-** `calculateTotalProfitOnCompleted()`
-** `calculateTotalRevenueOnCompleted()`
-** `calculateTotalCostOnCompleted()`
+** `calculateTotalProfitOnCompleted(...)`
+** `calculateTotalRevenueOnCompleted(...)`
+** `calculateTotalCostOnCompleted(...)`
 
 * Methods that return a `XYChart.Series<String,Number>`:
 
-** `calculateTotalProfitOnCompletedGraph()`
-** `calculateTotalRevenueOnCompletedGraph()`
-** `calculateTotalCostOnCompletedGraph()`
+** `calculateTotalProfitOnCompletedGraph(...)`
+** `calculateTotalRevenueOnCompletedGraph(...)`
+** `calculateTotalCostOnCompletedGraph(...)`
 
 All methods were written using java8 Stream() feature. This is such that there are no loops in the code to make it
 more readable and maintainable.
 
-`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]` .
+`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]`  (primitive double array).
 While the current `v1.4` only use `sum` to calculate the exact `profit` , `revenue` and `cost` , `v2.0` implementation
 will make use of the `linear regression` / `average` methods inside the library to generate more advanced statistics.
 
@@ -222,27 +235,30 @@ will make use of the `linear regression` / `average` methods inside the library 
 Given that the number of orders in a seller database might be scaled to be very large in the future
 the main focus of this feature was to *calculate statistics only when needed*.
 
-One way that was initially considered was actually to maintain a running statistic
-counter upon loading of the main app, update this counter when calculation is needed ,
-and then display it. This implementation would be much easier to implement within the existing AB3 code
+* Alternative design considered :
+** To implement statistics, maintain a few running statistic
+counter upon loading of the main app, update these counters/values when calculation is needed
+and then display it. This implementation would have been easy to implement within the existing AB3 code
 since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
-this value *However, we dropped this due to the consideration
-mentioned in the previous paragraph*
+this value.
+*** Pros: Easy to implement on top of AB3
+*** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere, since any change in the database / models will cause the values to change
+*** cons: Will bloat the UI since there will be extra details to be displayed
 
-====== Decision 1:
+====== Design Decision 1:
 
 Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
 and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
 `Logic` for the respective data
 
-One of the motivation for this approach was to maintain the architecture that is already in place in AB3.
+One of the motivation for this approach was to, as much as possible, maintain the architecture that is already in place in AB3.
 
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
 with the actual changes on data done with a call to model during `execute(model)`.
 
 
-====== Decision 2:
+====== Design Decision 2:
 
 We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
@@ -257,12 +273,14 @@ All `statsCommand` type will have call the constructor of `commandResult` class 
 
 The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
 single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
-`mainWindow` class in SMLJ and subsequently the data is passed to the  `statistic` module.
+`mainWindow` class in the application and subsequently the data is passed to the  `statistic` module.
 
 
 A high level view of the packages working together:
 
 image::statsOverallClassDiagram.png[]
+
+==== Current Implementation
 
 ====== Step-by-step breakdown
 
@@ -303,14 +321,36 @@ form or string form. With this the feature has finished executing! Attached belo
 
 image::StatisticsCalculationUI.png[]
 
-Limitations:
+==== Current Version `v1.4`:
 
-Below are some limitations that we have put in place for `v1.4` of SMLJ:
+Here are some screenshots of the current product:
 
-*Date range starts from 1970 onwards
-** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+image::StatsExampleGraph.png[width="600"]
+
+image::StatsExampleDefault.png[width="600"]
+
+==== Limitations / note to developers:
+
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SMLJ:
 
 
+* Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards.
+This is enough to fit our use case.
+Anything lower will be rejected.
+
+* Extension of additional Calculation methods
+** To easily extend the behaviour with additional
+methods to calculate, reference the current
+implementation in `StatisticsManager`;
+There are utility methods to help you with
+extracting the relevant information from your data.
+
+* UI Changes
+** Any additional Ui Changes should be handled by the controllers for the UI classes `StatisticWindow` and `DefaultStatisticWindow`
+class.
+
+// end::statisticsCommand[]
 
 === Autocomplete feature
 ==== Current Implementation

@@ -4,12 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_MONDAY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHEDULE_MONDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PHONE;
+import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -24,22 +29,28 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddOrderCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
+import seedu.address.logic.commands.addcommand.AddScheduleCommand;
+import seedu.address.logic.commands.clearcommand.ClearArchivedOrderCommand;
 import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.clearcommand.ClearOrderCommand;
 import seedu.address.logic.commands.clearcommand.ClearPhoneCommand;
 import seedu.address.logic.commands.clearcommand.ClearScheduleCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCustomerCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
+import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.editcommand.EditOrderCommand;
 import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
+import seedu.address.logic.commands.editcommand.EditScheduleCommand;
+import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.commands.findcommand.FindCustomerCommand;
 import seedu.address.logic.commands.findcommand.FindOrderCommand;
 import seedu.address.logic.commands.findcommand.FindPhoneCommand;
@@ -59,16 +70,20 @@ import seedu.address.model.order.Price;
 import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.CustomerUtil;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
+import seedu.address.testutil.EditScheduleDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
 import seedu.address.testutil.PhoneBuilder;
 import seedu.address.testutil.PhoneUtil;
+import seedu.address.testutil.ScheduleBuilder;
+import seedu.address.testutil.ScheduleUtil;
 
 public class SellerManagerParserTest {
 
@@ -100,6 +115,15 @@ public class SellerManagerParserTest {
     }
 
     @Test
+    public void parseCommand_addSchedule() throws Exception {
+        Schedule schedule = new ScheduleBuilder().build();
+        Index orderIndex = INDEX_FIRST_ORDER;
+        boolean canClash = false;
+        AddScheduleCommand command = (AddScheduleCommand) parser.parseCommand(ScheduleUtil.getAddCommand(schedule));
+        assertEquals(new AddScheduleCommand(schedule, orderIndex, canClash), command);
+    }
+
+    @Test
     public void parseCommand_clearCustomer() throws Exception {
         assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_WORD) instanceof ClearCustomerCommand);
         assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_WORD + " 3") instanceof ClearCustomerCommand);
@@ -124,6 +148,13 @@ public class SellerManagerParserTest {
     }
 
     @Test
+    public void parseCommand_clearArchivedOrder() throws Exception {
+        assertTrue(parser.parseCommand(ClearArchivedOrderCommand.COMMAND_WORD) instanceof ClearArchivedOrderCommand);
+        assertTrue(parser.parseCommand(ClearArchivedOrderCommand.COMMAND_WORD + " 3")
+                instanceof ClearArchivedOrderCommand);
+    }
+
+    @Test
     public void parseCommand_deleteCustomer() throws Exception {
         DeleteCustomerCommand command = (DeleteCustomerCommand) parser.parseCommand(
                 DeleteCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
@@ -135,6 +166,13 @@ public class SellerManagerParserTest {
         DeletePhoneCommand command = (DeletePhoneCommand) parser.parseCommand(
                 DeletePhoneCommand.COMMAND_WORD + " " + INDEX_FIRST_PHONE.getOneBased());
         assertEquals(new DeletePhoneCommand(INDEX_FIRST_PHONE), command);
+    }
+
+    @Test
+    public void parseCommand_deleteSchedule() throws Exception {
+        DeleteScheduleCommand command = (DeleteScheduleCommand) parser.parseCommand(
+                DeleteScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new DeleteScheduleCommand(INDEX_FIRST_ORDER), command);
     }
 
     @Test
@@ -184,6 +222,16 @@ public class SellerManagerParserTest {
     }
 
     @Test
+    public void parseCommand_editSchedule() throws Exception {
+        Schedule schedule = new ScheduleBuilder(MONDAY_SCHEDULE).build();
+        EditScheduleDescriptor descriptor = new EditScheduleDescriptorBuilder(schedule).build();
+        EditScheduleCommand command = (EditScheduleCommand) parser.parseCommand(EditScheduleCommand.COMMAND_WORD
+                + " " + INDEX_FIRST_ORDER.getOneBased() + " "
+                + ScheduleUtil.getEditScheduleDescriptorDetails(descriptor));
+        assertEquals(new EditScheduleCommand(INDEX_FIRST_ORDER, descriptor, false), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
@@ -214,6 +262,14 @@ public class SellerManagerParserTest {
                 FindOrderCommand.COMMAND_WORD + " " + keywords.stream()
                         .collect(Collectors.joining(" ")));
         assertEquals(new FindOrderCommand(new OrderContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_schedule() throws Exception {
+        Calendar calendar = VALID_SCHEDULE_MONDAY;
+        ScheduleCommand command = (ScheduleCommand) parser.parseCommand(ScheduleCommand.COMMAND_WORD
+                + " " + PREFIX_DATE + VALID_DATE_MONDAY);
+        assertEquals(new ScheduleCommand(calendar), command);
     }
 
     @Test
