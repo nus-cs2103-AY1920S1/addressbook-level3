@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'PalPay-v1.3.1.jar'
+    archiveName = 'PalPay-v1.4-alpha.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
