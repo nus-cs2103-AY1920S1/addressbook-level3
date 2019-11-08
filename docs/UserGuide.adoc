@@ -630,7 +630,7 @@ Examples:
 * `*cache-delete* 2` +
 Deletes the offline copy of the second bookmark.
 
-=== Viewing an offline copy: *`offline`*
+==== Viewing an offline copy: *`offline`*
 
 Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
@@ -939,17 +939,17 @@ Examples:
 If reminder 1 points to bookmark 5, this command is equivalent to
 `*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
-=== Automatically completing partially typed commands `[coming in v2.0]`
+==== Automatically completing partially typed commands `[coming in v2.0]`
 
 Automatically fills in partially typed commands if the command is unique.
 
-=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+==== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
 
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
 
-*How do I transfer my data to another Computer?*
+=== How do I transfer my data to another Computer?
 
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous Mark folder.
