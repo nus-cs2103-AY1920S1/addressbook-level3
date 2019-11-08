@@ -7,16 +7,19 @@ import javafx.scene.layout.Region;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.ui.UiPart;
 
+/**
+ * An UI component that displays information of a {@code CalendarEntry}.
+ */
 public class CalendarEntryRawCard extends UiPart<Region> {
     private static final String FXML = "CalendarEntryRawCard.fxml";
     @FXML
-    HBox rawCard;
+    private HBox rawCard;
     @FXML
-    Label index;
+    private Label index;
     @FXML
-    Label type;
+    private Label type;
     @FXML
-    Label description;
+    private Label description;
 
     public CalendarEntryRawCard(CalendarEntry calendarEntry, int index) {
         super(FXML);

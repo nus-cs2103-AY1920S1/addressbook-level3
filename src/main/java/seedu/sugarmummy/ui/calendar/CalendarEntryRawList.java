@@ -10,10 +10,13 @@ import javafx.scene.layout.Region;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.ui.UiPart;
 
+/**
+ * Panel containing a list of calendar entries.
+ */
 public class CalendarEntryRawList extends UiPart<Region> {
     private static final String FXML = "CalendarEntryRawList.fxml";
     @FXML
-    ListView<CalendarEntry> calendarEntryListView;
+    private ListView<CalendarEntry> calendarEntryListView;
 
     public CalendarEntryRawList(ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
