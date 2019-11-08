@@ -66,6 +66,13 @@ public class DocumentExportUtil {
         addRun(paragraph, answer.toString(), false);
     }
 
+    /**
+     * Adds a run to the given XWPFParagraph, containing the specified text and with the specified boldface.
+     *
+     * @param paragraph Paragraph that we will add a run to.
+     * @param text Text to add in paragraph
+     * @param isBold Whether the run should be bold
+     */
     private static void addRun(XWPFParagraph paragraph, String text, boolean isBold) {
         requireAllNonNull(paragraph, text);
 
@@ -74,6 +81,11 @@ public class DocumentExportUtil {
         run.setBold(isBold);
     }
 
+    /**
+     * Adds a line break to the given XWPFParagraph.
+     *
+     * @param paragraph XWPFParagraph to add line break to.
+     */
     private static void addLineBreak(XWPFParagraph paragraph) {
         requireNonNull(paragraph);
 
