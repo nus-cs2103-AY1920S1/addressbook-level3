@@ -42,12 +42,14 @@ public class ClearCommandTest {
                 ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-   /*@Test
+    @Test
     public void execute_nonEmptyReplenishList_success() {
         Model model = new ModelManager(getTypicalLists(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
         expectedModel.setReplenishList(new ReplenishList());
+        model.setCurrentList(REPLENISH);
+        expectedModel.setCurrentList(REPLENISH);
         CommandTestUtil.assertCommandSuccess(new ClearCommand(REPLENISH), model,
                 ClearCommand.MESSAGE_SUCCESS, expectedModel);
-    }*/
+    }
 }

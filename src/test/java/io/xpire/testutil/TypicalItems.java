@@ -127,6 +127,10 @@ public class TypicalItems {
             edt.addItem(copyXpireItem);
         }
         ReplenishList replenishList = new ReplenishList();
+        for (Item replenishItem : getTypicalReplenishListItems()) {
+            Item copyReplenishItem = new Item(replenishItem);
+            replenishList.addItem(copyReplenishItem);
+        }
         return new ReadOnlyListView[]{edt, replenishList};
     }
 
@@ -154,7 +158,7 @@ public class TypicalItems {
 
     }
 
-    public static List<Item> getTypicalItems() {
+    public static List<Item> getTypicalReplenishListItems() {
         return new ArrayList<>(Arrays.asList(BAGEL, CHOCOLATE));
     }
 

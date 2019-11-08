@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
+import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
@@ -40,5 +41,21 @@ public class ViewCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
         assertCommandSuccess(new ViewCommand(XPIRE), model, String.format(ViewCommand.MESSAGE_SUCCESS, "main"),
             expectedModel);
+    }
+
+    //---------------- Tests for Replenish List -----------------------------------------------------------------------
+    @Test
+    public void execute_replenishListIsNotFiltered_showsSameList() {
+        expectedModel.setCurrentList(REPLENISH);
+        assertCommandSuccess(new ViewCommand(REPLENISH), model, String.format(ViewCommand.MESSAGE_SUCCESS, "replenish"),
+                expectedModel);
+    }
+
+    @Test
+    public void execute_replenishListIsFiltered_showsEverything() {
+        showItemAtIndex(model, INDEX_FIRST_ITEM);
+        expectedModel.setCurrentList(REPLENISH);
+        assertCommandSuccess(new ViewCommand(REPLENISH), model, String.format(ViewCommand.MESSAGE_SUCCESS, "replenish"),
+                expectedModel);
     }
 }
