@@ -85,11 +85,11 @@ public class PersonDisplay extends Display {
      * @param person The other PersonDisplay that is being compared.
      * @return True if it the other PersonDisplay is equivalent to this PersonDisplay.
      */
-    public boolean isSamePerson(PersonDisplay person) {
+    public boolean equals(PersonDisplay person) {
         if (person == this) {
             return true;
-        } else if (person instanceof PersonDisplay) {
-            PersonDisplay p = (PersonDisplay) person;
+        } else if (person != null) {
+            PersonDisplay p = person;
             return this.name.equals(p.name)
                     && this.phone.equals(p.phone)
                     && this.email.equals(p.email)

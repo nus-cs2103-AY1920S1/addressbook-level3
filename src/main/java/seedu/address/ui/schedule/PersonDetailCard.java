@@ -92,6 +92,6 @@ public class PersonDetailCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return person.isSamePerson(card.person);
+        return person.equals(card.person);
     }
 }

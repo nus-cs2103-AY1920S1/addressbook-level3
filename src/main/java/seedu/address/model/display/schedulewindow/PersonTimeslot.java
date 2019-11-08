@@ -1,8 +1,9 @@
-package seedu.address.model.display.detailwindow;
+package seedu.address.model.display.schedulewindow;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.person.schedule.Venue;
 
 /**
@@ -43,10 +44,6 @@ public class PersonTimeslot {
         this.venue = venue;
         this.color = color;
         this.locationData = locationData;
-    }
-
-    public boolean isInGroup() {
-        return isInGroup;
     }
 
     public String getDisplayString() {

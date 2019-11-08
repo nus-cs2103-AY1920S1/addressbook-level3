@@ -6,7 +6,5 @@ package seedu.address.model.display.exceptions;
 public class PersonTimeslotNotFoundException extends Exception {
 
     public PersonTimeslotNotFoundException() {
-
     }
-
 }

@@ -1,6 +1,6 @@
 package seedu.address.ui.util;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 
 /**
  * Utility class to format messages for Tooltips.

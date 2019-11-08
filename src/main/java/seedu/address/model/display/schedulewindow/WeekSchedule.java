@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 
 /**
