@@ -4,12 +4,27 @@
 }
 
 .window-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }
 
 .window-subtitle {
    -fx-font-size: 16px;
+   -fx-font-weight: bold;
 }
 
 .helper-text {
+}
+
+.window-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.code {
+    -fx-font-family: Inconsolata;
+}
+
+.light-background {
+    -fx-background-color: #e3e3e3;
 }

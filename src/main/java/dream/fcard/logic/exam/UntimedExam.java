@@ -14,7 +14,9 @@ import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
-import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Untimed Exam mode.
@@ -100,7 +102,7 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public AnchorPane getCardDisplayFront() {
+    public Pane getCardDisplayFront() {
         FlashCard cardOnDisplay = getCurrentCard();
         String typeOfCard = cardOnDisplay.getClass().getSimpleName();
         switch (typeOfCard) {
@@ -115,12 +117,12 @@ public class UntimedExam implements Exam {
             Consumers.doTask("CLEAR_CARD_DISPLAY", true);
             return new JavaFront((JavaCard) cardOnDisplay);
         default:
-            return new AnchorPane();
+            return new VBox();
         }
     }
 
     @Override
-    public AnchorPane getCardDisplayBack() {
+    public Pane getCardDisplayBack() {
         FlashCard card = getCurrentCard();
         Consumers.doTask("CLEAR_DECK_DISPLAY", true);
         String typeOfCard = card.getClass().getSimpleName();
@@ -130,7 +132,7 @@ public class UntimedExam implements Exam {
         } else if (typeOfCard.equals("MultipleChoiceCard")) {
             return new McqCardBack((MultipleChoiceCard) card);
         } else {
-            return new AnchorPane();
+            return new VBox();
         }
     }
 }

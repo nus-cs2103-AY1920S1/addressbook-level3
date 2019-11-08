@@ -14,13 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  * The front view of the multiple choice card.
  */
-public class McqCard extends AnchorPane {
+public class McqCard extends VBox {
     @FXML
     private Label questionLabel;
     @FXML

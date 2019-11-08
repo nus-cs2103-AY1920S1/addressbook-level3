@@ -15,8 +15,16 @@ public class TestSession extends Session {
     /** The Result of this particular session. */
     private String score;
 
+    /** Creates a TestSession with all attributes supplied. */
     public TestSession(LocalDateTime start, LocalDateTime end, String score) {
         super(start, end);
+        this.score = score;
+    }
+
+    /** Creates a TestSession from a given Session and score. */
+    public TestSession(Session session, String score) {
+        this.sessionStart = session.getSessionStart();
+        this.sessionEnd = session.getSessionEnd();
         this.score = score;
     }
 

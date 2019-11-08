@@ -13,13 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * A front view of the JS Card.
  */
-public class JsCard extends AnchorPane {
+public class JsCard extends VBox {
     @FXML
     private Label questionTextLabel;
     @FXML

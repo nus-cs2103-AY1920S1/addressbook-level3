@@ -1,7 +1,9 @@
 package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
 import dream.fcard.util.stats.SessionListUtil;
@@ -32,8 +34,11 @@ public class DeckStatisticsWindow extends ScrollPane {
     private Deck deck;
     private SessionList testSessionList;
 
+    private Logger logger = LogsCenter.getLogger(DeckStatisticsWindow.class);
+
     /** Creates a new instance of DeckStatisticsWindow. */
     public DeckStatisticsWindow(Deck deck) {
+        logger.info("Opening a statistics window for " + deck.getDeckName());
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                 .getResource("/view/Windows/DeckStatisticsWindow.fxml"));

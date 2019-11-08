@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
@@ -20,7 +20,7 @@ public class McqOptionInputRow extends HBox {
     @FXML
     private Label optionValue;
     @FXML
-    private TextField optionText;
+    private TextArea optionText;
     @FXML
     private Button deleteButton;
     @FXML
