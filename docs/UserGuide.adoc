@@ -500,7 +500,7 @@ If you want to add a new annotation on the offline copy of a bookmark,
 you can do so using the `annotate` command.
 With this command, you can highlight a paragraph on the offline document and
 optionally attach a supplementary note to said paragraph. You can add notes
-to justify the highlight or as content-relevant notes to refer to in future.
+to explain the highlight or as content-relevant notes to refer to in future.
 
 If you are looking to add a general note not pertaining to any specific paragraph, you
 can also use this command to add it to the bottom of the page, hereby known as the _General notes section_.
@@ -509,15 +509,15 @@ Upon annotating, the your view will be switched to the offline tab
 showing the results of your command.
 
 NOTE: A general note is not attached to any paragraph of the original web page. Instead, when adding general notes, they are attached
-to newly created paragraphs that do not have any content displayed.
+to invisible at the bottom of the document.
 General notes are found at the bottom of the page, referred to as the _General notes section_.
 
-You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
+You can choose to use this command to overwrite any existing note. However, note that when you highlight
 the paragraph of a general note, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
 
 NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `G`. You can refer to the
 numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
-Paragraphs of general notes are identified using numbered identifiers that begin with `G`, as opposed to paragraphs originating from the original web page, whose identifiers begin with `P`.
+Paragraphs of general notes have identifiers that begin with `G`, while paragraphs from the original web page have identifiers that begin with `P`.
 
 Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
