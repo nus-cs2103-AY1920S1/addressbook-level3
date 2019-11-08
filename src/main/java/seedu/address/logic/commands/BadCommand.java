@@ -17,7 +17,7 @@ import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 
 /**
  * Set certain FlashCards as 'Bad'
@@ -36,6 +36,7 @@ public class BadCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "FlashCard has been added into Deadlines!";
     public static final String DUPLICATE_DEADLINE = "FlashCard has been added into an existing deadline!";
+    public static final String DUPLICATE_BAD_FLASHCARD = "FlashCard has already been indicated as 'bad' !";
 
     private final Index index;
 
@@ -59,12 +60,14 @@ public class BadCommand extends Command {
         Deadline deadline = new Deadline(task, d);
 
         //TODO: add questions and due date into filtered bad flashcards list
-        Question q = badFlashcard.getQuestion();
 
         BadQuestions badQuestions = new BadQuestions();
 
-        badQuestions.addBadQuestion(d, q);
-
+        try {
+            badQuestions.addBadQuestion(d, badFlashcard);
+        } catch (DuplicateFlashCardException err) {
+            return new CommandResult(DUPLICATE_BAD_FLASHCARD);
+        }
         badQuestions.saveAsJson(badQuestions);
 
         try {

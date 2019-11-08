@@ -3,16 +3,23 @@
 package seedu.address.model.deadline;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 
 /**
  * BadQuestions class.
@@ -22,23 +29,44 @@ import seedu.address.model.flashcard.Question;
  */
 public class BadQuestions {
 
-    private HashMap<String, String> internalMap = new HashMap<String, String>();
+    private static HashMap<String, Set<FlashCard>> internalMap;
     //private JsonBadDeadlines jsonBadDeadlines;
 
     public BadQuestions() {
-    //TODO: add initialisation of bad deadline list - load json
+        //TODO: add initialisation of bad deadline list - load json
+        internalMap = loadFromJson();
+        if (internalMap.isEmpty()) {
+            HashMap<String, Set<FlashCard>> map = new HashMap<>();
+            internalMap = map;
+        }
     }
 
-    public HashMap<String, String> getBadQuestionsList() {
+    public HashMap<String, Set<FlashCard>> getBadQuestionsList() {
         return internalMap;
     }
 
-    public void setBadQuestionsList(HashMap<String, String> map) {
+    public void setBadQuestionsList(HashMap<String, Set<FlashCard>> map) {
         internalMap = map;
     }
 
-    public void addBadQuestion(DueDate d, Question q) {
-        internalMap.put(d.toString(), q.toString());
+    /**
+     * Add bad rated flashcards into set.
+     * For each due date, there will be a set of bad flashcards
+     *
+     * @param d the duedate of bad rated flashcards
+     * @param f the flashcard that is rated bad
+     */
+    public void addBadQuestion(DueDate d, FlashCard f) {
+        String dateStr = d.toString();
+        Set<FlashCard> set = internalMap.get(dateStr);
+        if (set == null) {
+            set = new HashSet<>();
+        }
+        if (set.contains(f)) {
+            throw new DuplicateFlashCardException();
+        }
+        set.add(f);
+        internalMap.put(d.toString(), set);
     }
 
     public void loadBadQuestions() throws FileNotFoundException {
@@ -69,11 +97,31 @@ public class BadQuestions {
         String json = gson.toJson(badQuestions.getBadQuestionsList());
         try {
             //TODO: fix load and save json, json save replace file instead of appending
-            FileWriter writer = new FileWriter("data/BadDeadlines.json", true);
+            FileWriter writer = new FileWriter("data/BadFlashCards.json");
             writer.write(json);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Load HashMap from json file that contains all flashcards that are rated 'bad'.
+     *
+     * @throws FileNotFoundException the file not found exception
+     */
+    public HashMap<String, Set<FlashCard>> loadFromJson() {
+        Gson gson = new Gson();
+        try {
+            Type type = new TypeToken<HashMap<String, Set<FlashCard>>>() {
+            }.getType();
+            JsonReader reader = new JsonReader(new FileReader("data/BadFlashCards.json"));
+            HashMap<String, Set<FlashCard>> data = gson.fromJson(reader, type);
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HashMap<String, Set<FlashCard>> map = new HashMap<>();
+        return map;
     }
 }
