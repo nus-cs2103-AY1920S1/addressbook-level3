@@ -339,7 +339,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return notebook.equals(other.notebook)
-                && userPrefs.equals(other.userPrefs);
+                && userPrefs.equals(other.userPrefs)
+                && filteredStudents.equals(other.filteredStudents)
+                && filteredAssignments.equals(other.filteredAssignments)
+                && filteredLessonLists.equals(other.filteredLessonLists);
     }
 
 }

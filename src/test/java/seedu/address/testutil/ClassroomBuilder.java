@@ -5,6 +5,8 @@ import seedu.address.model.classroom.Classroom;
 //import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
+import java.util.List;
+
 /**
  * A utility class to help with building Classroom objects.
  * Example usage: <br>
@@ -23,30 +25,20 @@ public class ClassroomBuilder {
     }
 
     /**
-     * Adds a new {@code Student} to the {@code Classroom} that we are building.
+     * Adds a list of new {@code Student} to the {@code Classroom} that we are building.
      */
-    public ClassroomBuilder withStudent(Student student) {
-        classroom.addStudent(student);
+    public ClassroomBuilder withStudents(List<Student> students) {
+        classroom.setStudents(students);
         return this;
     }
 
     /**
-     * Adds a new {@code Assignment} to the {@code Classroom} that we are building.
+     * Adds a list of new {@code Assignment} to the {@code Classroom} that we are building.
      */
-    public ClassroomBuilder withAssignment(Assignment assignment) {
-        classroom.addAssignment(assignment);
+    public ClassroomBuilder withAssignments(List<Assignment> assignments) {
+        classroom.setAssignments(assignments);
         return this;
     }
-
-    /**
-     * Adds a new {@code Lesson} to the {@code Classroom} that we are building.
-     */
-    /*
-    public ClassroomBuilder withLesson(Lesson lesson) {
-        classroom.addLesson(lesson);
-        return this;
-    }
-     */
 
     public Classroom build() {
         return classroom;
