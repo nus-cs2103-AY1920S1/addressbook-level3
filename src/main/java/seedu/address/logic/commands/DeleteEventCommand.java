@@ -48,11 +48,11 @@ public class DeleteEventCommand extends Command {
 
             if (name == null) {
                 model.deleteEvent(eventName);
-                model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
             } else {
                 model.deleteEvent(name, eventName);
-                model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
             }
 

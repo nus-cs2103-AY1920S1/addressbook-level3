@@ -41,7 +41,7 @@ public class DeleteGroupCommand extends Command {
             model.deleteGroup(groupName);
 
             // update main window display
-            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);

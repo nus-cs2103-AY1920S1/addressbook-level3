@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -61,18 +60,18 @@ public class ScheduleStub {
      * Stub to create a list of day timeslots to show the events that is happening on this day.
      * @return List of DayTimeslot.
      */
-    public List<PersonTimeslot> eventStubs() {
-        PersonTimeslot event1 = new PersonTimeslot("Test run1!",
-                startTime1.toLocalTime(), endTime1.toLocalTime(), venue);
-        PersonTimeslot event2 = new PersonTimeslot("Test run2!",
-                startTime2.toLocalTime(), endTime2.toLocalTime(), venue);
-        PersonTimeslot event3 = new PersonTimeslot("Test run3!",
-                startTime3.toLocalTime(), endTime3.toLocalTime(), venue);
-        PersonTimeslot event4 = new PersonTimeslot("Test run4!",
-                startTime4.toLocalTime(), endTime4.toLocalTime(), venue);
-        PersonTimeslot event5 = new PersonTimeslot("Test run5!",
-                startTime5.toLocalTime(), endTime5.toLocalTime(), venue);
+    /*public List<PersonTimeslot> eventStubs() {
+        PersonTimeslot event1 = new PersonTimeslot("Test run1!", startTime1.toLocalDate(),
+                startTime1.toLocalTime(), endTime1.toLocalTime(), venue, ColorGenerator.generateColor(0));
+        PersonTimeslot event2 = new PersonTimeslot("Test run2!", startTime2.toLocalDate(),
+                startTime2.toLocalTime(), endTime2.toLocalTime(), venue, ColorGenerator.generateColor(0));
+        PersonTimeslot event3 = new PersonTimeslot("Test run3!", startTime3.toLocalDate(),
+                startTime3.toLocalTime(), endTime3.toLocalTime(), venue, ColorGenerator.generateColor(0));
+        PersonTimeslot event4 = new PersonTimeslot("Test run4!", startTime4.toLocalDate(),
+                startTime4.toLocalTime(), endTime4.toLocalTime(), venue, ColorGenerator.generateColor(0));
+        PersonTimeslot event5 = new PersonTimeslot("Test run5!", startTime5.toLocalDate(),
+                startTime5.toLocalTime(), endTime5.toLocalTime(), venue, ColorGenerator.generateColor(0));
 
         return List.of(event1, event2, event3, event4, event5);
-    }
+    }*/
 }

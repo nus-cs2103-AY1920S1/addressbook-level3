@@ -32,6 +32,7 @@ public class GmapsModelManager {
         }
     }
 
+
     /**
      * This method is used to get the suggestions for valid locations.
      * @param prefix
@@ -83,4 +84,5 @@ public class GmapsModelManager {
         ArrayList<ArrayList<Long>> distanceMatrix = new ProcessLocationGraph(validLocationList).getDistanceMatrix();
         locationGraph = new LocationGraph(locations, validLocationList, distanceMatrix);
     }
+
 }
