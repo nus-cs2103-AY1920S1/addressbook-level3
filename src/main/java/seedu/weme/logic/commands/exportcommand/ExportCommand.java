@@ -1,6 +1,5 @@
 package seedu.weme.logic.commands.exportcommand;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
@@ -8,6 +7,7 @@ import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.logic.commands.Command;
@@ -37,7 +37,7 @@ public class ExportCommand extends Command {
             "Invalid Default Export Path set. "
                     + "Configure it in preferences.json and restart the application";
 
-    private final DirectoryPath exportPath;
+    private final Optional<DirectoryPath> exportPath;
     private boolean isApplicationPath;
 
     /**
@@ -45,14 +45,14 @@ public class ExportCommand extends Command {
      */
     public ExportCommand(DirectoryPath path) {
         requireNonNull(path);
-        exportPath = path;
+        exportPath = Optional.of(path);
     }
 
     /**
      * Creates an ExportCommand to export memes into the default directory path.
      */
     public ExportCommand(boolean isApplicationPath) {
-        exportPath = null;
+        exportPath = Optional.empty();
         this.isApplicationPath = isApplicationPath;
     }
 
@@ -71,7 +71,7 @@ public class ExportCommand extends Command {
     }
 
     public Path getExportPath(Model model) throws CommandException, IOException {
-        if (isNull(exportPath)) {
+        if (exportPath.isEmpty()) {
             assert nonNull(isApplicationPath) : "isApplicationExportPath is null";
             if (isApplicationPath) {
                 return FileUtil.getApplicationFolderPath(EXPORT_FOLDER_NAME);
@@ -84,14 +84,15 @@ public class ExportCommand extends Command {
                 }
             }
         }
-        return exportPath.toPath();
+        return exportPath.get().toPath();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExportCommand // instanceof handles nulls
-                && exportPath.equals(((ExportCommand) other).exportPath));
+                && exportPath.equals(((ExportCommand) other).exportPath))
+                && isApplicationPath == ((ExportCommand) other).isApplicationPath;
     }
 
 }

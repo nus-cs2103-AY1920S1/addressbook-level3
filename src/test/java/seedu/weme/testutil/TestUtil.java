@@ -22,6 +22,10 @@ public class TestUtil {
      */
     private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
+    private static final Path SANDBOX_FOLDER_2 = Paths.get("src", "test", "data", "sandbox2");
+
+    private static final Path SANDBOX_FOLDER_3 = Paths.get("src", "test", "data", "sandbox3");
+
     /**
      * Appends {@code fileName} to the sandbox folder path and returns the resulting path.
      * Creates the sandbox folder if it doesn't exist.
@@ -33,6 +37,32 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
         return SANDBOX_FOLDER.resolve(fileName);
+    }
+
+    /**
+     * Returns the sandbox folder path.
+     * Creates the sandbox folder if it doesn't exist.
+     */
+    public static Path getSandboxFolder() {
+        try {
+            Files.createDirectories(SANDBOX_FOLDER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return SANDBOX_FOLDER;
+    }
+
+    public static Path getSecondSandboxFolder() {
+        try {
+            Files.createDirectories(SANDBOX_FOLDER_2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return SANDBOX_FOLDER_2;
+    }
+
+    public static Path getInvalidSandboxFolder() {
+        return SANDBOX_FOLDER_3;
     }
 
     /**

@@ -16,7 +16,6 @@ object "__:ExportCommand__" as ExportCommand
 
 LoadCommand --> model
 StageCommand --> model
-StageCommand --> model
 UnstageCommand --> model
 ExportCommand --> model
 ImportCommand --> model

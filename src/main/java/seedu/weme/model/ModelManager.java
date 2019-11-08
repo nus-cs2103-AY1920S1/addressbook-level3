@@ -524,6 +524,8 @@ public class ModelManager implements Model {
         return versionedWeme.equals(other.versionedWeme)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
+                && stagedMemeList.equals(other.stagedMemeList)
+                && importMemeList.equals(other.importMemeList)
                 && context.getValue().equals(other.context.getValue());
     }
 

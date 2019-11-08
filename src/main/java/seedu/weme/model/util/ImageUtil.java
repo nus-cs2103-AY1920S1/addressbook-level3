@@ -53,7 +53,7 @@ public class ImageUtil {
      * @return the new {@code Path} of the copied image
      * @throws IOException if an error occurred during IO
      */
-    private static Path copyImageFile(Path originalPath, Path destinationDir) throws IOException {
+    public static Path copyImageFile(Path originalPath, Path destinationDir) throws IOException {
         String extension = FileUtil.getExtension(originalPath).orElse("");
         Path newPath = getNewImagePath(destinationDir, extension);
         FileUtil.copy(originalPath, newPath);
