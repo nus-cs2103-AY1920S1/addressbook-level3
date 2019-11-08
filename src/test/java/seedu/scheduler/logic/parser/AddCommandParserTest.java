@@ -155,6 +155,18 @@ public class AddCommandParserTest {
     }
 
     @Test
+    public void parse_intervieweeDuplicateSlots_failure() {
+        // exact same slots - fails
+    }
+
+    @Test
+    public void parse_intervieweeDuplicateDepartments_failure() {
+        // exact same string - fails
+
+        // same string when we ignore case - fails
+    }
+
+    @Test
     public void parse_interviewerAllFieldsPresent_success() {
         Interviewer expectedInterviewer = new InterviewerBuilder(AMY_INTERVIEWER_MANUAL).withTags(VALID_TAG_FRIEND)
                 .build();

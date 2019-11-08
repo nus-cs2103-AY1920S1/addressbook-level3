@@ -98,7 +98,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         if (CollectionUtil.collectionHasDuplicate(departmentChoices)) {
-
+            throw new ParseException(AddCommand.MESSAGE_DUPLICATE_DEPARTMENT);
         }
 
         // Build the interviewee
