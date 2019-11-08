@@ -112,6 +112,7 @@ image::add_2.png[width="800"]
 Lists all appointments. +
 Format: `list`
 
+//tag::sort[]
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
@@ -136,6 +137,7 @@ image::after-sort.png[width="450"]
 
 [TIP]
 After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
+//end::sort[]
 
 === Deleting an appointment : `delete`
 
@@ -162,6 +164,7 @@ Deletes the 1st appointment in the results of the `find` command.
 Clears all appointments from the appointment manager. +
 Format: `clear`
 
+//tag:undo-redo[]
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
@@ -212,6 +215,7 @@ image::undo-result.png[width="450", float="left"]
 .Engagement list after the command `redo`
 image::redo-result.png[width="450"]
 --
+//end::undo-redo[]
 
 === Changing to calendar view : `tab calendar`
 Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of engagements per day, and more commands can be used to see what those engagements are.
