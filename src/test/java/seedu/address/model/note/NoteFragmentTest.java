@@ -15,27 +15,28 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
 
-public class NoteTest {
+public class NoteFragmentTest {
 
     @Test
     public void toString_format_success() {
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("sampleTag"));
-        Note note = new Note(new Title("this is a title"), new Content("this is a content"), tags);
-        assertEquals(note.toString(), "\n\tTitle: this is a title\n\tContent: this is a content"
+        NoteFragment noteFragment = new NoteFragment(new Title("this is a title"), new Content("this is a content"),
+                tags);
+        assertEquals(noteFragment.toString(), "\n\tTitle: this is a title\n\tContent: this is a content"
                 + "\n\tTags: [sampletag]");
     }
 
     @Test
     public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
-        assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
+        assertThrows(IllegalArgumentException.class, () -> new NoteFragment(new Title("title"),
                 new Content(""), null));
     }
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Note note = new NoteBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> note.getTags().remove(0));
+        Note noteFragment = new NoteBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> noteFragment.getTags().remove(0));
     }
 
     @Test
@@ -70,11 +71,11 @@ public class NoteTest {
         // different type -> returns false
         assertFalse(SAMPLE.equals(5));
 
-        // different note -> returns false
+        // different noteFragment -> returns false
         assertFalse(SAMPLE.equals(PIPELINE));
 
         // different name -> returns false
-        Note editedNote = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
-        assertFalse(SAMPLE.equals(editedNote));
+        Note editedNoteFragment = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        assertFalse(SAMPLE.equals(editedNoteFragment));
     }
 }
