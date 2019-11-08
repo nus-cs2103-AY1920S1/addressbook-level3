@@ -131,6 +131,16 @@ public class EditCommand extends Command {
         }
     }
 
+    /**
+     * createEditedShowTest is a public method to access the private createEditedShow.
+     * This method is used to testing to retrieve information from private createEditedShow.
+     * @param showToEdit
+     * @param editShowDescriptor
+     * @return
+     */
+    public Show createEditedShowTest(Show showToEdit, EditShowDescriptor editShowDescriptor) {
+        return createEditedShow(showToEdit, editShowDescriptor);
+    }
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
