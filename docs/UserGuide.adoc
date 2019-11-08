@@ -666,7 +666,7 @@ Deletes an archived order in SML.
 [underline]#Format#: `delete-c INDEX`
 
 
-=== Copy Archived Order: `copy-a` `[coming in v2.0]`
+==== Copy Archived Order: `copy-a` `[coming in v2.0]`
 Copies an archived order field to clipboard. +
 Format: `copy-a INDEX`
 
