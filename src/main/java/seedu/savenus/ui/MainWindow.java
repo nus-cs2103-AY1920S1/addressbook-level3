@@ -337,7 +337,7 @@ public class MainWindow extends UiPart<Stage> {
 
             // Update current savings each time a command is executed.
             StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
-                    "Your Savings: $%s",
+                    "Savings: $%s",
                     logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));
             savingsAccountPlaceholder.textProperty().bind(savingsAccountBinding);
 
