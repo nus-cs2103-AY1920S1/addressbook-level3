@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
@@ -49,6 +50,8 @@ public class CommandTestUtil {
     public static final String TASKTIME_DESC_BOB = " " + PREFIX_TASKTIME + VALID_TASKTIME_BOB;
     public static final String TASKDESCRIPTION_DESC_AMY = " " + PREFIX_TASKDESCRIPTION + VALID_TASKDESCRIPTION_AMY;
     public static final String TASKDESCRIPTION_DESC_BOB = " " + PREFIX_TASKDESCRIPTION + VALID_TASKDESCRIPTION_BOB;
+    public static final String TASKDEADLINE_DESC_AMY = " " + PREFIX_TASKDEADLINE + VALID_TASKDEADLINE_AMY;
+    public static final String TASKDEADLINE_DESC_BOB = " " + PREFIX_TASKDEADLINE + VALID_TASKDEADLINE_BOB;
     public static final String TASKDAY_DESC_AMY = " " + PREFIX_TASKDAY + VALID_TASKDAY_AMY;
     public static final String TASKDAY_DESC_BOB = " " + PREFIX_TASKDAY + VALID_TASKDAY_BOB;
     public static final String TASKTAG_DESC_FRIEND = " " + PREFIX_TASKTAG + VALID_TASKTAG_FRIEND;

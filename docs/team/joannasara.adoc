@@ -1,4 +1,4 @@
-= Toh Chooi Ern, Jasmine - Project Portfolio
+= Joanna Sara - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -14,21 +14,17 @@ Modulo is a NUS student life application specially designed for busy and motivat
 As busy students in NUS, we understand that it can be daunting to keep track of various tasks and concurrently do well for exams. Modulo features a one-stop application to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
 
 The user interacts with Modulo using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 35 kLoC.
-
 == Summary of contributions
 
-* *Major enhancement*: added *finance* feature
-1. Allow 4 different types of entries (**spend**, **income**, **borrow**, **lend**)
-2. Added *budget* component
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+* *Major enhancement*: create *weekly calendar*
+** What it does: allows the user to manage their schedule in a weekly calendar view.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-3. **Enhancement**: added *stats* component
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tohcejasmine[Functional code]]
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
@@ -52,13 +48,14 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=delete]
 
-include::../UserGuide.adoc[tag=finance]
+include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -66,37 +63,13 @@ include::../UserGuide.adoc[tag=finance]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=rationale]
+include::../DeveloperGuide.adoc[tag=undoredo]
 
-=== Class diagrams
+include::../DeveloperGuide.adoc[tag=dataencryption]
 
-.Structure of the Model Component for the feature Finance
-image::FinanceModelClassDiagram.png[]
 
-.Structure of the Storage Component for the feature _Finance_
-image::FinanceStorageClassDiagram.png[]
+== PROJECT: PowerPointLabs
 
-=== Implementation
+---
 
-include::../DeveloperGuide.adoc[tag=budget]
-
-=== User Stories
-
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |student with basic finance literacy | keep a record of my finances | understand my spending habits
-
-|`* * *` | cash-strapped student | set a budget for the month | limit my spending
-
-|`*` |student who often lends money to people | keep track of the people who have not returned my money | chase after them for their unpaid debt or refuse to lend to people who consistently borrow but don't return
-
-|`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
-|=======================================================================
-
-=== Use Cases
-
-include::../DeveloperGuide.adoc[tag=financeMSS]
-
+_{Optionally, you may include other projects in your portfolio.}_

@@ -1,4 +1,4 @@
-package seedu.address.model.finance.logentry;
+package seedu.address.model.finance.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.SpendLogEntry;
 
 /**
  * Has more information on a {@code Budget} regarding the status

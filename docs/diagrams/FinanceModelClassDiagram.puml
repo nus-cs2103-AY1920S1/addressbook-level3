@@ -25,6 +25,12 @@ Class SpendLogEntry
 Class LogEntryList
 }
 
+Package Budget {
+Class Budget
+Class BudgetData
+Class BudgetList
+}
+
 Package Attributes {
 Class Amount
 Class Category
@@ -83,4 +89,13 @@ TransactionDate -[hidden]right-> Category
 Amount -[hidden]right-> Category
 
 ModelFinanceManager -down->"1" LogEntry : filtered list
+
+FinanceLog *-left-> "1" BudgetList
+BudgetList -[hidden]right-> Budget
+BudgetList -[hidden]right-> Budget
+BudgetList o--> "*" Budget
+BudgetData --> "1" Budget
+
+
+
 @enduml

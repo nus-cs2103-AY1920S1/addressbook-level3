@@ -19,6 +19,7 @@ Class JsonAdaptedSpendLogEntry
 Class JsonFinanceStorage
 Class JsonFinanceUserPrefsStorage
 Class JsonSerializableFinanceLog
+Class JsonAdaptedBudget
 
 FinanceStorageManager .left.|> Storage
 FinanceStorageManager o-right-> UserPrefsStorage
@@ -28,6 +29,7 @@ JsonFinanceUserPrefsStorage .left.|> UserPrefsStorage
 JsonFinanceStorage .left.|> FinanceStorage
 JsonFinanceStorage .down.> JsonSerializableFinanceLog
 JsonSerializableFinanceLog .right.> JsonAdaptedLogEntry
+JsonSerializableFinanceLog .left.> JsonAdaptedBudget
 JsonAdaptedLogEntry .right.> JsonAdaptedCategory
 JsonAdaptedBorrowLogEntry -up-|> JsonAdaptedLogEntry
 JsonAdaptedIncomeLogEntry -up-|> JsonAdaptedLogEntry

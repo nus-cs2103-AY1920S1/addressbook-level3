@@ -13,8 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.finance.logentry.Budget;
-import seedu.address.model.finance.logentry.BudgetData;
+import seedu.address.model.finance.budget.Budget;
+import seedu.address.model.finance.budget.BudgetData;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**

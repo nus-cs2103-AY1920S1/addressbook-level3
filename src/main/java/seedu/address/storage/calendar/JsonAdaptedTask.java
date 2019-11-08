@@ -128,7 +128,6 @@ class JsonAdaptedTask {
         final TaskTime modelTaskTime = new TaskTime(time);
 
         final Set<TaskTag> modelTaskTags = new HashSet<>(personTaskTags);
-        // TODO: change to Task
         return new Task(modelTaskTitle, modelTaskDay, modelTaskDescription, modelTaskDeadline,
             modelTaskTime, modelTaskTags, week, isPersistent) {
         };

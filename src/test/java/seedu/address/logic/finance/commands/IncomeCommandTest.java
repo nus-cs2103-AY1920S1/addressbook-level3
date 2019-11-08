@@ -20,8 +20,8 @@ import seedu.address.model.finance.GraphicsData;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.ReadOnlyUserPrefs;
-import seedu.address.model.finance.logentry.Budget;
-import seedu.address.model.finance.logentry.BudgetData;
+import seedu.address.model.finance.budget.Budget;
+import seedu.address.model.finance.budget.BudgetData;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.testutil.LogEntryBuilder;
 
