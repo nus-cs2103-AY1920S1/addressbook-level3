@@ -28,6 +28,8 @@ public class ReminderCard extends UiPart<Region> {
     @FXML
     private Label className;
     @FXML
+    private Label day;
+    @FXML
     private Label startTime;
     @FXML
     private Label endTime;
@@ -43,6 +45,7 @@ public class ReminderCard extends UiPart<Region> {
         className.setText(lesson.getName().className);
         startTime.setText(lesson.getStartTime().getStringTime());
         endTime.setText(lesson.getEndTime().getStringTime());
+        day.setText(lesson.getStartTime().getStringDay());
     }
 
     @Override

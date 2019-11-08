@@ -111,6 +111,7 @@ public class Lesson {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(getStartTime().getStringDay())
                 .append(" \nFrom: ")
                 .append(getStartTime())
                 .append(" To: ")
