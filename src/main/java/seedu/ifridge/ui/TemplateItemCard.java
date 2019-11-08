@@ -38,6 +38,9 @@ public class TemplateItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(templateItem.getName().fullName);
         amount.setText(templateItem.getAmount().fullAmt);
+        name.setWrapText(true);
+        id.setWrapText(true);
+        amount.setWrapText(true);
     }
 
     @Override
