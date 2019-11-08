@@ -1,8 +1,10 @@
 package seedu.algobase.ui.action.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_UI_ACTION_PROPERTY;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Id;
 import seedu.algobase.ui.action.UiActionDetails;
@@ -16,29 +18,23 @@ public class DeletePlanUiActionParser implements UiParser<DeletePlanUiAction> {
 
     private static final int ID_INDEX = 0;
 
+    private final Logger logger = LogsCenter.getLogger(DeletePlanUiActionParser.class);
+
     /**
      * Parses the given {@code UiActionDetails} object
      * and returns an DeletePlanUiAction object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePlanUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
-        requireNonNull(uiActionDetails);
+        logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
+            + " and size " + uiActionDetails.size());
 
-        Id id = parseId(uiActionDetails.get(ID_INDEX));
+        requireNonNull(uiActionDetails);
+        assert uiActionDetails.size() == 1;
+        assert uiActionDetails.get(ID_INDEX) instanceof Id;
+
+        Id id = UiParserUtil.parseId(uiActionDetails.get(ID_INDEX));
 
         return new DeletePlanUiAction(id);
-    }
-
-    /**
-     * Converts an id of type {@Object} into an id of type {@Id}
-     *
-     * @throws ParseException if given object is not of type {@Id}
-     */
-    private Id parseId(Object id) throws ParseException {
-        if (!(id instanceof Id)) {
-            throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION_PROPERTY);
-        }
-
-        return (Id) id;
     }
 }

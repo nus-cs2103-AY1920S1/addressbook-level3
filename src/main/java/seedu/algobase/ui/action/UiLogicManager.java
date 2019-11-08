@@ -1,9 +1,13 @@
 package seedu.algobase.ui.action;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.logic.LogicManager;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.storage.Storage;
@@ -16,15 +20,15 @@ import seedu.algobase.ui.action.parser.AlgoBaseUiActionParser;
 public class UiLogicManager implements UiLogic {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AlgoBaseUiActionParser algoBaseUiActionParser;
 
-    private final Logger logger = LogsCenter.getLogger(UiLogicManager.class);
-
-
     public UiLogicManager(Model model, Storage storage) {
+        requireAllNonNull(model, storage);
+
         this.model = model;
         this.storage = storage;
         algoBaseUiActionParser = new AlgoBaseUiActionParser();
@@ -32,6 +36,10 @@ public class UiLogicManager implements UiLogic {
 
     @Override
     public UiActionResult execute(UiActionDetails uiActionDetails) throws UiActionException, ParseException {
+        logger.info("----------------[USER COMMAND][" + uiActionDetails + "]");
+
+        requireNonNull(uiActionDetails);
+
         UiAction uiAction = algoBaseUiActionParser.parseCommand(uiActionDetails);
         UiActionResult uiActionResult = uiAction.execute(model);
 
