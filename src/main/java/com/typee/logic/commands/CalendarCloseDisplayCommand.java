@@ -8,18 +8,18 @@ import com.typee.commons.util.DateUtil;
 import com.typee.model.Model;
 
 /**
- * Displays the engagements list for a particular date in the calendar window.
+ * Closes the engagements list for a particular date in the calendar window.
  */
-public class CalendarOpenDisplayCommand extends CalendarCommand {
+public class CalendarCloseDisplayCommand extends CalendarCommand {
 
-    public static final String COMMAND_WORD = "opendisplay";
-    public static final String MESSAGE_SUCCESS = "Displaying engagements for ";
-    public static final String INVALID_COMMAND_FORMAT = "Invalid calendar open display command format.\n"
+    public static final String COMMAND_WORD = "closedisplay";
+    public static final String MESSAGE_SUCCESS = "Closing display for ";
+    public static final String INVALID_COMMAND_FORMAT = "Invalid calendar close display command format.\n"
             + "Usage: calendar opendisplay DD/MM/YYYY\n";
 
     private LocalDate date;
 
-    public CalendarOpenDisplayCommand(LocalDate date) {
+    public CalendarCloseDisplayCommand(LocalDate date) {
         requireNonNull(date);
         this.date = date;
     }
@@ -34,12 +34,12 @@ public class CalendarOpenDisplayCommand extends CalendarCommand {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof CalendarOpenDisplayCommand)) {
+        } else if (!(other instanceof CalendarCloseDisplayCommand)) {
             return false;
         } else {
-            CalendarOpenDisplayCommand otherCalendarOpenDisplayCommand =
-                    (CalendarOpenDisplayCommand) other;
-            return this.date.equals(otherCalendarOpenDisplayCommand.date);
+            CalendarCloseDisplayCommand otherCalendarCloseDisplayCommand =
+                    (CalendarCloseDisplayCommand) other;
+            return this.date.equals(otherCalendarCloseDisplayCommand.date);
         }
     }
 

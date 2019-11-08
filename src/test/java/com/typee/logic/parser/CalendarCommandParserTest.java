@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
@@ -43,7 +44,7 @@ public class CalendarCommandParserTest {
     }
 
     @Test
-    public void parse_validOpenDisplayArgs_returnsCalendarDateDisplayEngagementsCommand() {
+    public void parse_validOpenDisplayArgs_returnsCalendarOpenDisplayCommand() {
         LocalDate date = LocalDate.of(2019, 10, 22);
         CommandParserTestUtil.assertParseSuccess(parser, "opendisplay 22/10/2019",
                 new CalendarOpenDisplayCommand(date));
@@ -72,6 +73,39 @@ public class CalendarCommandParserTest {
     public void parse_invalidOpenDisplayDateArgs_throwsParseException() {
         String invalidDate = "29/02/2019";
         CommandParserTestUtil.assertParseFailure(parser, "opendisplay " + invalidDate,
+                String.format(ParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
+    }
+
+    @Test
+    public void parse_validCloseDisplayArgs_returnsCalendarCloseDisplayCommand() {
+        LocalDate date = LocalDate.of(2019, 10, 22);
+        CommandParserTestUtil.assertParseSuccess(parser, "closedisplay 22/10/2019",
+                new CalendarCloseDisplayCommand(date));
+    }
+
+    @Test
+    public void parse_tooFewCloseDisplayArgs_throwsParseException() {
+        CommandParserTestUtil.assertParseFailure(parser, "closedisplay",
+                CalendarCloseDisplayCommand.INVALID_COMMAND_FORMAT);
+    }
+
+    @Test
+    public void parse_tooManyCloseDisplayArgs_throwsParseException() {
+        CommandParserTestUtil.assertParseFailure(parser, "closedisplay 22/10/2019 hi",
+                CalendarCloseDisplayCommand.INVALID_COMMAND_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidCloseDisplayArgs_throwsParseException() {
+        String invalidArgs = "abcde";
+        CommandParserTestUtil.assertParseFailure(parser, "closedisplay " + invalidArgs,
+                ParserUtil.MESSAGE_INVALID_DATE_STRING);
+    }
+
+    @Test
+    public void parse_invalidCloseDisplayDateArgs_throwsParseException() {
+        String invalidDate = "29/02/2019";
+        CommandParserTestUtil.assertParseFailure(parser, "closedisplay " + invalidDate,
                 String.format(ParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
     }
 
