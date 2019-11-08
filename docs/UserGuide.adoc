@@ -737,6 +737,7 @@ Currently, the following commands are undoable and redoable. +
 
 [underline]#Examples#:
 
+// tag::statisticsCommand[]
 * Redo clear Customer Book
 . `clear-c`
 . `undo`
@@ -756,12 +757,34 @@ Views the command history of all your previous commands.
 image::ug-command/ug-history.png[width="800"]
 
 // tag::statisticsCommand[]
-==== Generate stats : `generate-s`
+* Redo clear Customer Book
+. `clear-c`
+. `undo`
+. `redo`
+
+image::ug-command/ug-redo.png[width="800"]
+
+
+=== History: `history`
+
+Views the command history of all your previous commands.
+
+[underline]#Format#: `history`
+
+[underline]#Example#:
+
+image::ug-command/ug-history.png[width="800"]
+
+// tag::statisticsCommandUG[]
+=== Generate stats : `generate-s`
 
 `v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
 
 This function calculates the three type of
 statistics as shown below.
+
+All statistics that are calculated are only on orders in the `archived panel` that has been `completed` and with valid `schedule`.
+Lacking any of this will cause its non-inclusion into the statistics calculation.
 
 Accepts two types of input: Without date input and with date input +
 
@@ -786,6 +809,16 @@ Shown below:
 
 image::StatsExampleGraph.png[width="600"]
 
+[TIP]
+Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+[TIP]
+For dates in YYYY.MM.DD, the MM and DD argument can omit the leading 0 e.g `2019.1.1` is valid
+as long as the date is valid
+[TIP]
+Accuracy is guaranteed up to $0.01 *only*
+[TIP]
+Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
+
 Limitations:
 
 * Range of dates affecting chart display:
@@ -793,8 +826,21 @@ Limitations:
 certain threshold the gap between the months will change, depending on how large of a range you are calculating.
 This behaviour is intentional and not a bug.
 
-*Date range starts from 1970 onwards
+* Date range starts from 1970 onwards
 ** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+
+* Auto truncation of labels
+** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
+flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
+will decrease e.g 2 months
+
+* Stats window data not updating
+** If you already have a stats window open and you complete an order,
+you will have to re enter the statistic command to update that value in another window.
+
+* Manually Close the Statistic window before typing `exit` on the main app
+** If you already have a stats window open before you enter the `exit` command, the application will only stop running
+when the remaining statistic windows are closed manually.
 
 * Load time:
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
@@ -811,7 +857,7 @@ Coming in `V2.0`:
 * Export Chart to PDF
 ** User will be able to export their charts to pdf with a click of a button.
 
-// end:statisticsCommand[]
+// end::statisticsCommandUG[]
 
 ==== Exiting the program : `exit`
 
