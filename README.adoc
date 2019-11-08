@@ -18,7 +18,7 @@ https://coveralls.io/github/AY1920S1-CS2103T-F13-4/main?branch=master[image:http
 Tired of using multiple sources on the internet to keep track of all your movies and tv shows that you want to watch? EzWatchlist is a solution to your entertainment problems!
 
 EzWatchlist is a desktop application for cinepliles to manage their favourite movies and tv series with a clean and intuitive interface.
-It was built for users who enjoy using a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+It was built for users who enjoy using a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 === Features
 
