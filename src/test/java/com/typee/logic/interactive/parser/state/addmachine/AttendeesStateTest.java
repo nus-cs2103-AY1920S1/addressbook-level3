@@ -37,7 +37,7 @@ class AttendeesStateTest {
 
             // EP : More than one attendees
             List<String> secondArgs = List.of("interview", "19/02/2019/0300", "01/03/2020/0100",
-                    "My house", "Team meeting", "Adam | Smith | John Blair");
+                    "My house", "Team meeting", "Adam | Will Ma Man Smith | John Blair");
 
             State firstState = new AttendeesState(ArgumentMultimapBuilder.build(
                     prefixes.subList(0, 5), firstArgs.subList(0, 5)));
@@ -80,7 +80,7 @@ class AttendeesStateTest {
 
             // EP : More than one attendee.
             List<String> thirdArgs = List.of("meeting", "29/02/2016/1400", "29/02/2016/1600", "What is this",
-                    "Desc", "Jon|Snow", "none");
+                    "Desc", "Jon Snow Den", "none");
 
             State firstInitialState = new AttendeesState(ArgumentMultimapBuilder.build(
                     prefixes.subList(0, 5), firstArgs.subList(0, 5)));
@@ -130,7 +130,7 @@ class AttendeesStateTest {
 
         // EP : Invalid name
         List<String> fourthArgs = List.of("meeting", "28/02/2015/1500", "28/02/2015/1600", "FASS",
-                "Desc", "What is Love");
+                "Desc", "What is Love |");
 
         // EP : Invalid name
         List<String> fifthArgs = List.of("meeting", "28/02/2015/1500", "28/02/2015/1600", "FASS",
@@ -146,36 +146,60 @@ class AttendeesStateTest {
 
         // EP : Invalid format
         List<String> eighthArgs = List.of("meeting", "28/02/2015/1500", "28/02/2015/1600", "FASS",
-                "Desc", "Baby don't | Hurt Me | No More");
+                "Desc", "Baby don't | Hurt Me | No More |");
 
         // null
         // null can't be tested as an input since ArgumentMultimap doesn't support null arguments.
 
-        State firstState = new DescriptionState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 4), firstArgs.subList(0, 4)));
-        State secondState = new DescriptionState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 4), secondArgs.subList(0, 4)));
+        State firstState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), firstArgs.subList(0, 5)));
+        State secondState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), secondArgs.subList(0, 5)));
+        State thirdState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), thirdArgs.subList(0, 5)));
+        State fourthState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), fourthArgs.subList(0, 5)));
+        State fifthState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), fifthArgs.subList(0, 5)));
+        State sixthState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), sixthArgs.subList(0, 5)));
+        State seventhState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), seventhArgs.subList(0, 5)));
+        State eighthState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), eighthArgs.subList(0, 5)));
 
         assertThrows(StateTransitionException.class, () -> firstState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(4, 5), firstArgs.subList(4, 5))));
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), firstArgs.subList(5, 6))));
         assertThrows(StateTransitionException.class, () -> secondState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(4, 5), secondArgs.subList(4, 5))));
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), secondArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> thirdState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), thirdArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> fourthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), fourthArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> fifthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), fifthArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> sixthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), sixthArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> seventhState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), seventhArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> eighthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(5, 6), eighthArgs.subList(5, 6))));
 
     }
 
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // Equivalence Partition : ArgumentMultimap without a description prefix.
+        // Equivalence Partition : ArgumentMultimap without an attendees prefix.
 
         List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_LOCATION,
-                PREFIX_PRIORITY);
-        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "low");
+                PREFIX_DESCRIPTION, PREFIX_PRIORITY);
+        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "desc", "low");
 
-        State initialState = new DescriptionState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 4), args.subList(0, 4)));
+        State initialState = new AttendeesState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 5), args.subList(0, 5)));
         assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(4, 5), args.subList(4, 5))));
+                prefixes.subList(5, 6), args.subList(5, 6))));
     }
 
     @Test
