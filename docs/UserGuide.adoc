@@ -137,35 +137,70 @@ Creates a new activity with title 'Chalet' John Doe as participants.
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
 
-=== Add contacts to an activity: `invite`
+// tag::invite[]
+=== Inviting contacts to an activity: `invite`
+This command invites the contacts specified to the current viewed activity.
 
-Adds a contact in the contact list to the currently viewed activity. Multiple contacts can also be added at once.
-If there is no current viewed activity, then the contact cannot be added and there will be an error.
-If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message indicating non-unique search result will be shown instead.
+Example: +
+Suppose you have already created an activity with Alice, Bob and Carl in it.
 
-Format: `invite p/PERSON ...`
+image::Activity.png[]
 
-Examples:
+And you have friends that wants to join an activity midway.
 
-* `invite p/John Doe p/Mary` +
-Adds both John Doe and Mary to the current viewed activity.
+To invite:
 
-* `invite p/Mary p/David p/Alex` +
-Adds David and Alex to the current viewed activity if they are found in the contact list. Mary will not be added into the activity again since she in already in the activity, a message indicating her existence in the activity will be shown instead.
+Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-=== Remove contacts from an activity: `disinvite`
+image::../images/InviteExample.png[]
 
-Removes a contact from the currently viewed activity. Multiple contacts can also be removed at once.
-If there is no current viewed activity, then the contact cannot be removed and there will be an error.
-If the specified contact does not exist in the current activity, a warning message indicating that the contact does not exist in the current activity will be shown instead.
-If the specified contact is involved in an expense, he cannot be removed since he does not owe money to anyone and no one else owes him money and a warning message indicating that he is involved in an expense will be shown instead.
+Step 2: Observe the output in result box and the activity details box.
 
-Format: `disinvite p/PERSON ...`
+image::InviteOutput.png[]
 
-Examples:
+NOTE: *The `invite` command only invites to current viewed activity.* +
+if there is no current viewed activity, there will be an error. +
+ +
+*The `invite` command only invites contact that exist in the contact list.* +
+If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message will be shown. +
+ +
+*Multiple contacts can be invited at once.* +
+ +
+*Contacts that already exist in activity cannot be invited again.*
+// end::invite[]
 
-* `disinvite p/John Doe p/Mary` +
-Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
+// tag::disinvite[]
+=== Disinviting contacts from an activity: `disinvite`
+This command disinvites the contacts specified from the current viewed activity.
+
+Example: +
+Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
+
+image::DisinviteExample.png[]
+
+And you feel that the activity has too many participants that do not participate in any event, thus having no shared expense and you decided to remove them.
+
+To disinvite:
+
+Step 1: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
+
+image::DisinviteCommand.png[]
+
+Step 2: Observe the output in result box and the activity details box.
+
+image::DisinviteOutput.png[]
+
+NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
+if there is no current viewed activity, there will be an error. +
+ +
+*The `disinvite` command only disinvites contact that exist in the activity.* +
+If the specified contact does not exist in the activity, then a warning message will be shown. +
+ +
+*Multiple contacts can be disinvited at once.* +
+ +
+*Contacts that involves in expenses cannot be disinvited.* +
+If a contact is involved in any expense, he cannot be disinvited.
+// end::disinvite[]
 
 // tag::expense[]
 === Add expenses to an activity : `expense`
@@ -242,7 +277,8 @@ Examples:
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
-=== Deleting a contact, activity or expense (v1.4) : `delete`
+// tag::delete[]
+=== Deleting a contact, activity or expense: `delete`
 
 Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.
 
@@ -271,6 +307,8 @@ If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st entry (either a contact or activity) in the results of the `find` command.
+
+// end::delete[]
 
 === Assign an activity as a sub-activity: `assign` (*v2.0 only*)
 
