@@ -241,11 +241,16 @@ The `Model` API is responsible for interacting with the data in JARVIS including
 the various aspects such as user's preferences, command history,
 finance management, cca information, courses and schedule information.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+
+The `Model` API acts as a facade that handles interaction with the data of Jarvis.
+
 Below is a class diagram involving the `Model` interface, which inherits
 from the feature specific model interfaces.
 
 .Model Interface
-image::model/ModelInterfaceClassDiagram.png[]
+image::ModelInterfaceClassDiagram.png[]
 
 The `Model` component,
 
@@ -256,8 +261,38 @@ The `Model` component,
 * Stores the `CoursePlanner` Data
 * Stores the `Planner` data
 
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+The concrete class `ModelManager` implements `Model` and manages the data
+for Jarvis. `ModelManager` contains `UserPrefs`, `HistoryManager`, `CcaTracker`,
+`CoursePlanner`, `FinanceTracker` and `Planner`. These classes manages the
+data related to their specific features.
+
+Below is a class diagram for `ModelManager`.
+
+.`ModelManager` class
+image::UpdatedModelClassDiagram.png[]
+
+Each feature has a class managing the data related to that feature as mentioned
+earlier.
+
+Below are the class diagrams of these classes.
+
+.`UserPrefs`
+image::ModelUserPrefsClassDiagram.png[]
+
+.`HistoryManager`
+image::ModelHistoryManagerClassDiagram.png[]
+
+.`CcaTracker`
+image::ModelCcaTrackerClassDiagram.png[]
+
+.`CoursePlanner`
+image::ModelCoursePlannerClassDiagram.png[]
+
+.`FinanceTracker`
+image::ModelFinanceTrackerClassDiagram.png[]
+
+.`Planner`
+image::ModelPlannerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -265,6 +300,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
 The `Storage` API is responsible for reading and writing data in json format.
 This allows the application is remember information in json format when the
 user closes the application.
+
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
 
 The `Storage` API acts as a facade that handles interaction regarding
 storage related components.
@@ -310,9 +348,6 @@ image::FinanceTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializablePlanner`
 image::PlannerStorageClassDiagram.png[600,400]
-
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
 
 [[Design-Commons]]
 === Commons Component
