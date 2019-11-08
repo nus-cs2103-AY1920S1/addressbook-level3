@@ -110,4 +110,9 @@ public class ArgumentMultimap {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return argMultimap.hashCode();
+    }
+
 }

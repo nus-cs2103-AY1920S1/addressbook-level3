@@ -4,7 +4,7 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
@@ -30,7 +30,7 @@
 }
 
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-padding: 0 0 0 0;
 }
 
 .tab-pane .tab-header-area {
@@ -89,14 +89,25 @@
 
 #main_window .list-view {
     -fx-background-insets: 0;
+    -fx-focus-color: transparent;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#main_window .list-view:focused {
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+#main_window .anchor-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
 }
 
 #main_window .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 5 0 0 5;
 }
 
 #main_window .list-cell:filled:even {
@@ -197,7 +208,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;

@@ -1,5 +1,7 @@
 package com.typee.logic.commands.exceptions;
 
+import com.typee.logic.commands.Command;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */
