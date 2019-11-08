@@ -68,7 +68,7 @@ public class NoteBuilder {
     public Note build() {
         return new Note(title, content, tags);
     }
-    
+
     public NoteFragment buildFragment() {
         return new NoteFragment(title, content, tags);
     }
