@@ -26,12 +26,6 @@ import seedu.mark.model.bookmark.Url;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    /**
-     * Default html page to be loaded when not connected to internet.
-     */
-    public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class
-                    .getResource(FXML_FILE_FOLDER + "defaultOfflinePage.html"));
     public static final String HOME_PAGE_URL = "https://google.com.sg";
 
     /**
@@ -134,7 +128,7 @@ public class BrowserPanel extends UiPart<Region> {
                         + "You may want to check your input address and internet connection.");
                 isConnected = false;
 
-                loadDefaultPage();
+                loadNoConnectionPage();
             } else if (newValue == State.SUCCEEDED) {
                 isConnected = true;
                 showAddressOnAddressBar(currentPageUrl.getValue());
@@ -173,11 +167,7 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> webEngine.load(validUrl));
     }
 
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        //loadPage(DEFAULT_PAGE.toExternalForm());
+    private void loadNoConnectionPage() {
         loadPage("about:blank");
     }
 
@@ -220,27 +210,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @return true if url is valid; else false.
      */
     private boolean isValidUrl(String input) {
-        return Url.isValidUrl(input); /*
-        //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
-        //check if have protocol in front
-        //if true then test out by creating a url and catching malinformedurlexception?
-        //return Url.isValidUrl(url); //dummy code
-        try {
-            final URL url = new URL(input);
-
-            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-            huc.setRequestMethod("HEAD");
-            if (huc.getResponseCode() == 200) {
-                //SUCCESS
-                return true;
-            }
-        } catch (MalformedURLException e) {
-            return false;
-        } catch (IOException e) {
-            return false;
-        }
-        return false;
-        */
+        return Url.isValidUrl(input);
     }
 
     /**
