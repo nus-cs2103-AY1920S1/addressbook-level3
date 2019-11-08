@@ -25,7 +25,7 @@ public class QuizCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Flashcard flashcardToQuiz = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        QuizCommand quizCommand = new QuizCommand(INDEX_FIRST_FLASHCARD);
+        QuizCommand quizCommand = new QuizCommand(INDEX_FIRST_FLASHCARD, 1);
 
         String expectedMessage = QuizCommand.MESSAGE_RESULT_SUCCESS;
         String expectedFlashcard = flashcardToQuiz.toString();
@@ -43,7 +43,7 @@ public class QuizCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        QuizCommand quizCommand = new QuizCommand(outOfBoundIndex);
+        QuizCommand quizCommand = new QuizCommand(outOfBoundIndex, 1);
 
         assertCommandFailure(quizCommand, model, QuizCommand.MESSAGE_INVALID_FLASHCARD_INDEX, commandHistory);
     }

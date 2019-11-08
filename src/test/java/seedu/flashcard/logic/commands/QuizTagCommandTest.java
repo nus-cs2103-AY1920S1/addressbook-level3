@@ -33,7 +33,7 @@ public class QuizTagCommandTest {
     public void execute_validTagWithCards_success() {
         Tag testTag = new Tag(VALID_TAG_CIVIL_ENGINEERING);
         Set<Tag> testTagSet = Collections.singleton(testTag);
-        QuizTagCommand quizTagCommand = new QuizTagCommand(testTagSet);
+        QuizTagCommand quizTagCommand = new QuizTagCommand(testTagSet, 1);
 
         Model expectedModel = new ModelManager(model.getFlashcardList(), new UserPrefs());
         List<Flashcard> taggedList = new ArrayList<>(Arrays.asList(MOUNT_BLANC, DAXING_AIRPORT, CHANGI_AIRPORT));
@@ -52,7 +52,7 @@ public class QuizTagCommandTest {
     public void execute_validTagWithNoCards_throwsCommandException() {
         Tag testTag = new Tag(VALID_TAG_LONG);
         Set<Tag> testTagSet = Collections.singleton(testTag);
-        QuizTagCommand quizTagCommand = new QuizTagCommand(testTagSet);
+        QuizTagCommand quizTagCommand = new QuizTagCommand(testTagSet, 1);
 
         Model expectedModel = new ModelManager(model.getFlashcardList(), new UserPrefs());
         expectedModel.updateFilteredFlashcardList(expectedModel.getHasTagPredicate(testTagSet));

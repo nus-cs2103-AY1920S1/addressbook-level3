@@ -27,7 +27,7 @@ public class QuizTagCommandParserTest {
         Tag firstTag = new Tag(VALID_TAG_ROUND);
         Tag secondTag = new Tag(VALID_TAG_LONG);
         Set<Tag> inputTags = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(firstTag, secondTag)));
-        assertParseSuccess(parser, inputMessage, new QuizTagCommand(inputTags));
+        assertParseSuccess(parser, inputMessage, new QuizTagCommand(inputTags, 1));
     }
 
     @Test

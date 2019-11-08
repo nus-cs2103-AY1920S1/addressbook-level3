@@ -15,7 +15,7 @@ public class QuizCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsQuizCommand() {
-        assertParseSuccess(parser, "1", new QuizCommand(INDEX_FIRST_FLASHCARD));
+        assertParseSuccess(parser, "1", new QuizCommand(INDEX_FIRST_FLASHCARD, 1));
     }
 
     @Test
