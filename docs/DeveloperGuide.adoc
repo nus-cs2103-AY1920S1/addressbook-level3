@@ -302,6 +302,7 @@ The approve claim feature is facilitated by the `RejectClaimCommandParser` and t
 The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
 components of our application.
 
+// tag::shortcutfeature[]
 === Income feature
 
 The `add_income` command allows for users to register new `Income` objects into FinSec.
@@ -503,6 +504,7 @@ We considered between two alternatives.
 
 We have decided to opt for the first option primarily because it significantly improves the performance of the application.
 
+// end::shortcutfeature[]
 
 === Autocorrect feature
 

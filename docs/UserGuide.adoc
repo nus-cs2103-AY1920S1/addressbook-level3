@@ -253,6 +253,7 @@ image::warning.png[width = "20", float = "left"]
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
+// tag::shortcutfeature[]
 === Adding an income : `add_income`
 
 You can add an income to the incomes list by using the add income command by entering the keyword `add_income` followed by the required fields of an income.
@@ -378,6 +379,7 @@ image::warning.png[width = "20", float = "left"]
 * The index *must be a positive integer* 1, 2, 3, ...
 
 ====
+
 
 === Creating a shortcut
 
@@ -516,6 +518,7 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
+// end::shortcutfeature[]
 
 //@@author {lawncegoh}
 ---
