@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import calofit.logic.commands.AddCommand;
-import calofit.logic.commands.ClearCommand;
 import calofit.logic.commands.DeleteCommand;
 import calofit.logic.commands.EditCommand;
 import calofit.logic.commands.ExitCommand;
@@ -38,12 +37,6 @@ public class CommandParserTest {
         Dish dish = new DishBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(DishUtil.getAddCommand(dish));
         assertEquals(new AddCommand(dish), command);
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test

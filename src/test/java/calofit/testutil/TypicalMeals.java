@@ -38,6 +38,15 @@ public class TypicalMeals {
             TypicalDishes.CHENDOL,
             new Timestamp(LocalDateTime.now().minusYears(1)));
 
+    //Manually added
+    public static final Meal CEREAL = new Meal(
+            TypicalDishes.CEREAL,
+            new Timestamp(LocalDateTime.now().minusMonths(8)));
+
+    public static final Meal STEAK = new Meal(
+            TypicalDishes.STEAK,
+            new Timestamp(LocalDateTime.now().minusMonths(9)));
+
 
     public static ObservableList<Meal> getTypicalMealsObservableList() {
         return FXCollections.observableList(new ArrayList<>(Arrays.asList(

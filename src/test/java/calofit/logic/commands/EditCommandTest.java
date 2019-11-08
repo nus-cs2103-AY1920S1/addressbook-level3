@@ -168,9 +168,6 @@ public class EditCommandTest {
         // null -> returns false
         assertFalse(standardCommand.equals(null));
 
-        // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
-
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_MEAL,
                 CommandTestUtil.DESC_DUCK_RICE)));

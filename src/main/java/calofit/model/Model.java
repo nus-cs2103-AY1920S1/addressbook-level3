@@ -107,7 +107,7 @@ public interface Model {
     void setMeal(Meal target, Meal editedMeal);
 
     /**
-     * Returns the MealLog that wraps around the list of meals input by the user.
+     * Returns the {@code MealLog} that wraps around the list of meals input by the user.
      */
     MealLog getMealLog();
 
