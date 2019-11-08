@@ -78,8 +78,21 @@ public class StatsDisplayUtil {
         return getSessionsTableView(userSessionList);
     }
 
-    //public static TableView<Session> getTestSessionsTableView(Deck deck)
-    // todo
+    /**
+     * Creates the TableView object for the user's test sessions involving the given deck.
+     * @param deck The deck whose test sessions are to be displayed.
+     * @return The TableView object showing the user's test sessions.
+     */
+    public static TableView<Session> getTestSessionsTableView(Deck deck) {
+        SessionList testSessionList = deck.getTestSessionList();
+        TableView<Session> testSessionTableView = getSessionsTableView(testSessionList);
+
+        TableColumn<Session, String> scoreColumn = new TableColumn<>("Score");
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        testSessionTableView.getColumns().add(scoreColumn);
+
+        return testSessionTableView;
+    }
 
     /** Creates the TableView object representing the list of decks. */
     public static TableView<Deck> getDeckTableView() {
