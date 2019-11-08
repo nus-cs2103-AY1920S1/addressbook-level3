@@ -93,6 +93,10 @@ public class DeckDisplay extends VBox {
      */
     private void renderQuestions() {
         questionList.getChildren().clear();
+        Label subtitle = new Label("Cards in deck");
+        subtitle.getStyleClass().add("window-subtitle");
+        questionList.getChildren().add(subtitle);
+
         ArrayList<FlashCard> cards = deck.getCards();
         int numCards = cards.size();
         deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
