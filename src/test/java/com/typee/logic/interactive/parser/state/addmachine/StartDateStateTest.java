@@ -143,4 +143,22 @@ class StartDateStateTest {
                 prefixes.subList(1, 3), args.subList(1, 3))));
     }
 
+    @Test
+    void getStateConstraints_valid_returnsConstraints() {
+        State state = new StartDateState(new ArgumentMultimap());
+        assertEquals(state.getStateConstraints(), "Please enter a start date and time prefixed by \"s/\"."
+                + " The start time must conform to the dd/mm/yyyy/hhmm format.");
+    }
+
+    @Test
+    void isEndState_valid_returnsFalse() {
+        State state = new StartDateState(new ArgumentMultimap());
+        assertEquals(state.isEndState(), false);
+    }
+
+    @Test
+    void getPrefix_valid_returnsPrefix() {
+        State state = new StartDateState(new ArgumentMultimap());
+        assertEquals(PREFIX_START_TIME, state.getPrefix());
+    }
 }

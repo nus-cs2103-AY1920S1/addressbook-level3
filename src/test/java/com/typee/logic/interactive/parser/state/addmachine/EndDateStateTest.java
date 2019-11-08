@@ -152,4 +152,22 @@ class EndDateStateTest {
                 prefixes.subList(2, 3), args.subList(2, 3))));
     }
 
+    @Test
+    void getStateConstraints_valid_returnsConstraints() {
+        State state = new EndDateState(new ArgumentMultimap());
+        assertEquals(state.getStateConstraints(), "Please enter an end date and time prefixed by \"e/\"."
+                + " The start time must conform to the dd/mm/yyyy/hhmm format.");
+    }
+
+    @Test
+    void isEndState_valid_returnsFalse() {
+        State state = new EndDateState(new ArgumentMultimap());
+        assertEquals(state.isEndState(), false);
+    }
+
+    @Test
+    void getPrefix_valid_returnsPrefix() {
+        State state = new EndDateState(new ArgumentMultimap());
+        assertEquals(state.getPrefix(), PREFIX_END_TIME);
+    }
 }

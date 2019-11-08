@@ -25,15 +25,22 @@ class TypeStateTest {
 
             // EP : Argument multimap contains valid input and nothing else.
 
-            ArgumentMultimap argumentMultimap = new ArgumentMultimap();
-            argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, "meeting");
-            ArgumentMultimap transitionArgs = new ArgumentMultimap();
-            transitionArgs.put(PREFIX_ENGAGEMENT_TYPE, "meeting");
+            List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE);
+            List<String> firstArgs = List.of("interview");
+            List<String> secondArgs = List.of("Appointment");
+            List<String> thirdArgs = List.of("meEtIng");
 
-            State state = new TypeState(new ArgumentMultimap());
-            State postTransitionState = state.transition(argumentMultimap);
+            State firstState = new TypeState(new ArgumentMultimap());
+            State secondState = new TypeState(new ArgumentMultimap());
+            State thirdState = new TypeState(new ArgumentMultimap());
 
-            assertEquals(postTransitionState, new StartDateState(transitionArgs));
+            assertEquals(firstState.transition(ArgumentMultimapBuilder.build(prefixes, firstArgs)),
+                    new StartDateState(ArgumentMultimapBuilder.build(prefixes, firstArgs)));
+            assertEquals(secondState.transition(ArgumentMultimapBuilder.build(prefixes, secondArgs)),
+                    new StartDateState(ArgumentMultimapBuilder.build(prefixes, secondArgs)));
+            assertEquals(thirdState.transition(ArgumentMultimapBuilder.build(prefixes, thirdArgs)),
+                    new StartDateState(ArgumentMultimapBuilder.build(prefixes, thirdArgs)));
+
         } catch (StateTransitionException e) {
             fail();
         }
@@ -66,7 +73,7 @@ class TypeStateTest {
     @Test
     void transition_validArgumentMultimapInvalidInput_throwsStateTransitionException() {
 
-        // EP : Regular invalid input.
+        // EP : Regular invalid input
 
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
         argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, "This is invalid.");
@@ -89,5 +96,24 @@ class TypeStateTest {
 
         State initialState = new TypeState(new ArgumentMultimap());
         assertThrows(StateTransitionException.class, () -> initialState.transition(argumentMultimap));
+    }
+
+    @Test
+    void getStateConstraints_valid_returnsConstraints() {
+        State typeState = new TypeState(new ArgumentMultimap());
+        assertEquals("Add Command initiated. Please enter a valid engagement type"
+                + " after the prefix \"t/\".", typeState.getStateConstraints());
+    }
+
+    @Test
+    void isEndState_valid_returnsFalse() {
+        State typeState = new TypeState(new ArgumentMultimap());
+        assertEquals(false, typeState.isEndState());
+    }
+
+    @Test
+    void getPrefix_valid_returnsPrefix() {
+        State typeState = new TypeState(new ArgumentMultimap());
+        assertEquals(PREFIX_ENGAGEMENT_TYPE, typeState.getPrefix());
     }
 }
