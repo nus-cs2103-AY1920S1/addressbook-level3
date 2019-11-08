@@ -143,12 +143,15 @@ public class ModelManager implements Model {
     public Person selectPerson() {
         return selectedPerson;
     }
+
     public void storePerson(Person person) {
         selectedPerson = person;
     }
+
     public void sortAthletickByName() {
         this.athletick.sortByName();
     }
+
     //=========== HistoryManager ========================================================================
     @Override
     public HistoryManager getHistory() {
@@ -412,4 +415,10 @@ public class ModelManager implements Model {
     public ArrayList<Event> getAthleteEvents(Person athlete) {
         return performance.getAthleteEvent(athlete);
     }
+
+    @Override
+    public void editPerformancePersonDetails(Person target, Person editedPerson) {
+        performance.editPerformancePersonDetails(target, editedPerson);
+    }
+
 }

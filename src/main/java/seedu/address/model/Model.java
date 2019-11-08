@@ -231,4 +231,6 @@ public interface Model {
 
     ArrayList<Event> getAthleteEvents(Person athlete);
 
+    void editPerformancePersonDetails(Person target, Person editedPerson);
+
 }

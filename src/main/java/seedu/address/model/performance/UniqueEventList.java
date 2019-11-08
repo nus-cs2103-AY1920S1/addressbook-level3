@@ -120,6 +120,14 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.setAll(events);
     }
 
+    public void updatePerson(Person target, Person editedPerson) {
+        for (Event event : internalList) {
+            if (event.hasPerson(target)) {
+                event.updatePerson(target, editedPerson);
+            }
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

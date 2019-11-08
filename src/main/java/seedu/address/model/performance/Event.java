@@ -176,6 +176,45 @@ public class Event {
     }
 
     /**
+     * Checks if the athlete has any record under this event.
+     */
+    public boolean hasPerson(Person athlete) {
+        requireNonNull(athlete);
+        AtomicBoolean hasPerson = new AtomicBoolean(false);
+        records.forEach((person, recordList) -> {
+            if (person.equals(athlete)) {
+                hasPerson.set(true);
+            }
+        });
+        return hasPerson.get();
+    }
+
+    /**
+     * Updates the person details for this event with the edited person details.
+     */
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        assert(hasPerson(target));
+        List<Record> recordsCopy = copyAthleteRecords(target);
+        records.remove(target);
+        records.put(editedPerson, recordsCopy);
+    }
+
+    /**
+     * Makes a copy of the athlete's records.
+     */
+    private List<Record> copyAthleteRecords(Person target) {
+        List<Record> athleteRecordsToCopy = getAthleteRecords(target);
+        List<Record> athleteRecordsCopy = new ArrayList<>();
+        for (Record record : athleteRecordsToCopy) {
+            Record recordCopy = new Record(record.getDate(), record.getTiming());
+            athleteRecordsCopy.add(recordCopy);
+        }
+        assert(athleteRecordsCopy.size() == athleteRecordsToCopy.size());
+        return athleteRecordsCopy;
+    }
+
+    /**
      * Returns true if both events have the same names.
      */
     @Override
