@@ -13,14 +13,14 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing the list of accounts.
  */
-public class AccountListPanel extends DisplayPanel {
+public class AccountPanel extends DisplayPanel {
     private static final String FXML = "AccountPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(AccountListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(AccountPanel.class);
 
     @FXML
     private ListView<Account> accountListView;
 
-    public AccountListPanel(ObservableList<Account> accountList) {
+    public AccountPanel(ObservableList<Account> accountList) {
         super(FXML);
         accountListView.setItems(accountList);
         accountListView.setCellFactory(listView -> new AccountListViewCell());

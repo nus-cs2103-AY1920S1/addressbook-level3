@@ -13,14 +13,14 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing the list of scripts.
  */
-public class ScriptListPanel extends DisplayPanel {
-    private static final String FXML = "ScriptListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ScriptListPanel.class);
+public class ScriptPanel extends DisplayPanel {
+    private static final String FXML = "ScriptPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ScriptPanel.class);
 
     @FXML
     private ListView<Script> scriptListView;
 
-    public ScriptListPanel(ObservableList<Script> scriptList) {
+    public ScriptPanel(ObservableList<Script> scriptList) {
         super(FXML);
         scriptListView.setItems(scriptList);
         scriptListView.setCellFactory(listView -> new ScriptListViewCell());

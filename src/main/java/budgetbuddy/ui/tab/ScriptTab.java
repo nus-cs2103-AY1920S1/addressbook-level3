@@ -1,7 +1,7 @@
 package budgetbuddy.ui.tab;
 
 import budgetbuddy.model.script.Script;
-import budgetbuddy.ui.panel.ScriptListPanel;
+import budgetbuddy.ui.panel.ScriptPanel;
 import javafx.collections.ObservableList;
 
 /**
@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class ScriptTab extends PanelTab {
 
     public ScriptTab(ObservableList<Script> scriptList) {
-        super(new ScriptListPanel(scriptList), "Script");
+        super(new ScriptPanel(scriptList), "Script");
     }
 }

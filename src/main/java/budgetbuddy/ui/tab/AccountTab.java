@@ -1,7 +1,7 @@
 package budgetbuddy.ui.tab;
 
 import budgetbuddy.model.account.Account;
-import budgetbuddy.ui.panel.AccountListPanel;
+import budgetbuddy.ui.panel.AccountPanel;
 import javafx.collections.ObservableList;
 
 /**
@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class AccountTab extends PanelTab {
 
     public AccountTab(ObservableList<Account> accountList) {
-        super(new AccountListPanel(accountList), "Account");
+        super(new AccountPanel(accountList), "Account");
     }
 }

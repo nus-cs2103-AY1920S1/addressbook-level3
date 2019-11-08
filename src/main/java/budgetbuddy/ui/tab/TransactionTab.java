@@ -1,7 +1,7 @@
 package budgetbuddy.ui.tab;
 
 import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.ui.panel.TransactionListPanel;
+import budgetbuddy.ui.panel.TransactionPanel;
 import javafx.collections.ObservableList;
 
 /**
@@ -10,6 +10,6 @@ import javafx.collections.ObservableList;
 public class TransactionTab extends PanelTab {
 
     public TransactionTab(ObservableList<Transaction> transactionList) {
-        super(new TransactionListPanel(transactionList), "Transaction");
+        super(new TransactionPanel(transactionList), "Transaction");
     }
 }

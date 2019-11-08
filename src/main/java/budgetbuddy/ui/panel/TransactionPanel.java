@@ -13,14 +13,14 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing a list of transactions.
  */
-public class TransactionListPanel extends DisplayPanel {
+public class TransactionPanel extends DisplayPanel {
     private static final String FXML = "TransactionPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TransactionListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TransactionPanel.class);
 
     @FXML
     private ListView<Transaction> transactionListView;
 
-    public TransactionListPanel(ObservableList<Transaction> transactionList) {
+    public TransactionPanel(ObservableList<Transaction> transactionList) {
         super(FXML);
         this.transactionListView.setItems(transactionList);
         this.transactionListView.setCellFactory(listView -> new TransactionListViewCell());
