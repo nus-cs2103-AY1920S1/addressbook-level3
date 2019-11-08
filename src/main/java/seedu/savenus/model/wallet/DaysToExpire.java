@@ -31,8 +31,19 @@ public class DaysToExpire {
     public DaysToExpire(String newDaysToExpireString) {
         requireNonNull(newDaysToExpireString);
         checkArgument(isValidDaysToExpire(newDaysToExpireString), MESSAGE_CONSTRAINTS);
-        daysToExpireProperty = new SimpleIntegerProperty(Integer.parseInt(newDaysToExpireString));
-        expirationDateTime = LocalDateTime.now().plusDays(Integer.parseInt(newDaysToExpireString));
+        boolean isOutOfRange = false;
+        try {
+            Integer.parseInt(newDaysToExpireString);
+        } catch (NumberFormatException e) {
+            isOutOfRange = true;
+        }
+        if (!isOutOfRange) {
+            daysToExpireProperty = new SimpleIntegerProperty(Integer.parseInt(newDaysToExpireString));
+            expirationDateTime = LocalDateTime.now().plusDays(Integer.parseInt(newDaysToExpireString));
+        } else {
+            daysToExpireProperty = new SimpleIntegerProperty(Integer.MAX_VALUE);
+            expirationDateTime = LocalDateTime.now();
+        }
     }
 
     /**
