@@ -5,12 +5,14 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AppDataParser" as AppDataParser LOGIC_COLOR
 participant ":QuizModeCommandParser" as QuizModeCommandParser LOGIC_COLOR
-participant "d:QuizModeCommand" as QuizModeCommand LOGIC_COLOR
+participant "q:QuizModeCommand" as QuizModeCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":AppData" as AppData MODEL_COLOR
+participant ":QuizQuestionList" as QuizQuestionList MODEL_COLOR
 end box
 
 [-> LogicManager : execute("quiz n/N d/D s/S")
@@ -48,8 +50,20 @@ deactivate AppDataParser
 LogicManager -> QuizModeCommand : execute()
 activate QuizModeCommand
 
-QuizModeCommand -> Model : model.setQuizQuestionList(quizQuestionList)
+QuizModeCommand -> Model : setQuizQuestionList(quizQuestionList)
 activate Model
+
+Model -> AppData : setQuizQuestionList(quizQuestionList)
+activate AppData
+
+AppData -> QuizQuestionList : setQuizQuestionList(quizQuestionList）
+activate QuizQuestionList
+
+QuizQuestionList --> AppData
+deactivate QuizQuestionList
+
+AppData --> Model
+deactivate AppData
 
 Model --> QuizModeCommand
 deactivate Model

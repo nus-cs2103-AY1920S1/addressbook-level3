@@ -12,7 +12,7 @@ interface for use input.We decided to morph it in to a study management applicat
 university students. NUStudy is used to manage students' lecture notes, test questions and revision tasks. It also
 allows students to do mock quiz and view the statistics for better revision.
 
-This is the interface of our project.
+This is the interface of our project：
 
 .The interface of NUStudy
 image::../images/Ui.png[]
@@ -20,7 +20,7 @@ image::../images/Ui.png[]
 I am responsible for designing and writing codes for quiz feature. The following sections will describe my contributions
 to the feature and relevant documentations in detail.
 
-Here are some explanations of the icons and formatting used in this portfolio.
+Here are some explanations of the icons and formatting used in this portfolio：
 
 ****
 * A highlighted `monospace` implies that this is a command that can be inputted and executed by the application.
@@ -64,6 +64,10 @@ could refer to the template for modification and further development (https://gi
 ** I designed and implemented the basic architecture of quiz result so that my teammate could use it to support the
 report feature (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/74[#74]).
+* Identify problems in application for other teams:
+** I helped to discover some of the bugs in the application for another team so that they can fix them and improve the
+quality of the product (https://github.com/Auxinnn/ped/issues/2[#2]
+https://github.com/Auxinnn/ped/issues/6[#6]).
 
 == User guide contributions
 
@@ -80,7 +84,7 @@ include::../UserGuide.adoc[tag=quizFuture]
 
 == Developer guide contributions
 
-We also updated the Developer Guide so that the style and architecture fits our project. The following part shows my
+We also updated the Developer Guide so that the style and architecture fit our project. The following part shows my
 contribution to the modification of *NUStudy Developer Guide* for quiz feature.
 
 NOTE: In this sections, `monospace` indicates both user command and class objects and methods.

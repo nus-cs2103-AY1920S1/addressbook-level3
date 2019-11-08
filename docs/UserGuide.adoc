@@ -299,7 +299,7 @@ graph specifies how you can input the command. +
 image::quiz/QuizModeCommand.png[600, 600]
 
 Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
-on the third column. The following graph shows the result of your `quiz` command. +
+on the right column. The following graph shows the result of your `quiz` command. +
 
 .Result of `quiz` command
 image::quiz/QuizModeCommandResult.png[600, 600]
@@ -317,7 +317,7 @@ of how to answer question. +
 .Typing answer in the command line
 image::quiz/QuizAnswer.png[600, 600]
 
-Step 2: The result of your answer will reflect your correctness and the next question will be displayed. The following
+Step 2: The result will show the correctness of your answer  and the next question will be displayed. The following
 graph simulates the situation after you answer the question. +
 
 .The result after answer
@@ -325,9 +325,10 @@ image::quiz/QuizAnswerResult.png[600, 600]
 
 ==== Showing an answer: `show`
 
-You can check the answer for the current quiz question using this command. You can use it as reference and please do
-not use it to cheat. +
+You can check the answer for the current quiz question using this command. +
 Format: `show`
+
+NOTE: You can use it as reference and please do not use it to cheat.
 
 _**Example:**_
 
@@ -362,7 +363,7 @@ image::quiz/SkipCommandResult.png[600, 600]
 You can exit from the quiz mode using this command. +
 Format: `quit`
 
-NOTE: You need to `quit` the quiz mode every time after you finish quiz. +
+NOTE: You need to `quit` the quiz mode every time after you finish the quiz. +
 You can `quit` the quiz mode anytime you want.
 
 _**Example:**_
