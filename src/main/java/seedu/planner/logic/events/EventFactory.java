@@ -50,7 +50,7 @@ public class EventFactory {
             return generateClearEvent(model);
 
         case(ScheduleCommand.COMMAND_WORD):
-            return generateScheduleEvent((ScheduleCommand) command, model);
+            return generateScheduleEvent((ScheduleCommand) command);
 
         case(UnscheduleCommand.COMMAND_WORD):
             return generateUnscheduleEvent((UnscheduleCommand) command, model);
