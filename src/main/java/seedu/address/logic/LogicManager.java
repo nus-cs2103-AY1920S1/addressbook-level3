@@ -49,6 +49,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
         if (model.commandUnderTraining(command) || command instanceof EditCommand) {
             history.pushTrainingList(model.getTrainingsDeepCopy(model.getTrainingManager().getTrainings()));
+            history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
         }
         if (model.commandUnderPerformance(command)) {
             history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
