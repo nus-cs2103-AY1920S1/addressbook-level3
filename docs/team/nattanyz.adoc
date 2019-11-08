@@ -6,7 +6,7 @@
 == PROJECT: FlashCard Pro
 == Overview
 
-FlashCard Pro is an application designed for students who prefer to use a desktop app for managing flashcards. It is optimised for users who are comfortable with Command Line Interface-based interaction. 
+FlashCard Pro is an application designed for students who prefer to use a desktop app for managing flashcards. It is optimised for users who are comfortable with Command Line Interface-based interaction.
 
 FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
@@ -14,13 +14,13 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 * *Major enhancement*: added the *ability for user to view their statistics*.
 ** What it does:
-*** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*. 
+*** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*.
 *** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
 *** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
-** Justification: 
-*** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive. 
+** Justification:
+*** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive.
 *** Users can also see their improvement over time and feel encouraged by it.
-** Highlights: 
+** Highlights:
 *** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
 *** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
 *** My team's decision to make `State` non-static influenced me to decouple `UserStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
@@ -28,13 +28,13 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 * *Major enhancement*: contributions to the GUI of the app.
 ** What I've done:
-*** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern. 
+*** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern.
 // todo: attach screenshot here
-*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since. 
+*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since.
 ** Justification:
 ** Planned future enhancements:
 ** Highlights:
-*** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library. 
+*** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library.
 *** I can now build a JavaFX GUI (albeit a simpler one) programmatically, without using SceneBuilder, as I have done in the earlier stages of the project.
 *** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
 
@@ -42,9 +42,9 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 * *Other contributions*:
 ** Project management:
-*** Wrote issues upon discovering bugs and assigned them to respective team members. 
+*** Wrote issues upon discovering bugs and assigned them to respective team members.
 ** Documentation:
-*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project. 
+*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project.
 *** Subsequently, I made non-trivial improvements to the clarity of the writing throughout the User Guide. In particular, I abstracted out the What is a flashcard? and Interacting with flashcards sections from the Introduction.
 *** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they abided by a consistent format.
 ** Community:
@@ -56,13 +56,14 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have 
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have
 |===
 
 include::../UserGuide.adoc[tag=introduction]
 include::../UserGuide.adoc[tag=whatis]
 include::../UserGuide.adoc[tag=interacting]
 include::../UserGuide.adoc[tag=stats]
+=======
 
 == Contributions to the Developer Guide
 

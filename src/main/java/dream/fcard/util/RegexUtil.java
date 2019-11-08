@@ -19,14 +19,22 @@ public class RegexUtil {
      * @return ArrayList of each argument's ArrayList of values
      */
     public static ArrayList<ArrayList<String>> parseCommandFormat(String command, String[] args, String input) {
-        ArrayList<String> inp = new ArrayList<>(Arrays
-                .asList(command.length() == 0 ? input
-                        : input.split("^" + ignoreCase(command) + "\\s*")[1]));
-        ArrayList<Integer> ain = new ArrayList<>(Arrays.asList(-1));
         ArrayList<ArrayList<String>> res = new ArrayList<>();
-
         for (int i = 0; i < args.length; i++) {
             res.add(new ArrayList<>());
+        }
+
+        String[] iSplit = input.split("^" + ignoreCase(command) + "\\s*");
+        if (iSplit.length < 2) {
+            return res;
+        }
+
+        ArrayList<String> inp = new ArrayList<>(Arrays
+                .asList(command.length() == 0 ? input
+                        : iSplit[1]));
+        ArrayList<Integer> ain = new ArrayList<>(Arrays.asList(-1));
+
+        for (int i = 0; i < args.length; i++) {
             for (int j = 0; j < inp.size(); j++) {
                 String[] sub = inp.get(j).split(args[i]);
                 for (int l = 0; l < sub.length; l++) {
