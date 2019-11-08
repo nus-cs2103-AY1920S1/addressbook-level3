@@ -373,7 +373,7 @@ To exit application (Modulo).
 Format: `exit` +
 {empty} +
 
-// tag::finance[]
+// tag::finance1[]
 === Finances
 
 To enter the Finances section, please enter the command: `switch finance`
@@ -390,6 +390,7 @@ Record down an entry of spending with relevant information associated with it. I
 
 Format: `*spend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD [<place>PLACE] [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
 e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
+// end::finance1[]
 
 ==== Add an entry of income: `income`
 
@@ -436,6 +437,7 @@ List out all entries in recorded down. All entries will be ordered chronological
 
 Format: `*list*`
 
+// tag::finance2[]
 ==== Edit an entry: `edit`
 
 Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
@@ -503,13 +505,13 @@ Example Format 1: `*budget* <amt>AMOUNT <start>START_DATE <end>END_DATE [<met>TR
 Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS [<cat>CATEGORY_NAME]` +
 Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
 e.g. `budget <amt> 300 <month>11-2019 <met>cash`
+// end::finance2[]
 
 ==== List out all budgets: `listb`
 
 List out all budgets in recorded down.
 
 Format: `*listb*`
-// end::finance[]
 
 === Saving the data
 
