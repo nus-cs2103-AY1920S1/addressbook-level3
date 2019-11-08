@@ -9,7 +9,7 @@ public enum Priority {
     HIGH,
     NONE;
 
-    private static final String MESSAGE_CONSTRAINTS = "Priority can only be low, medium or high!";
+    private static final String MESSAGE_CONSTRAINTS = "Priority can only be low, medium, high or none!";
 
     /**
      * Returns the corresponding {@code Priority} value from the input {@code String}.

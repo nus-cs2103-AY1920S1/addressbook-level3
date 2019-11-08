@@ -195,7 +195,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void saveReport(Path fileDir, Report report) throws DocumentException, IOException,
+    public Path saveReport(Path fileDir, Report report) throws DocumentException, IOException,
             GenerateExistingReportException {
         if (PdfUtil.checkIfDocumentExists(fileDir,
                 report.getTo().getName().fullName,
@@ -204,7 +204,7 @@ public class ModelManager implements Model {
                 report.getEngagement().getDescription())) {
             throw new GenerateExistingReportException();
         } else {
-            PdfUtil.generateReport(fileDir, report);
+            return PdfUtil.generateReport(fileDir, report);
         }
     }
 

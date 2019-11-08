@@ -1,4 +1,4 @@
-package com.typee.logic.parser;
+package com.typee.logic.interactive.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,6 +6,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +25,9 @@ import com.typee.model.util.EngagementComparator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
+ * The methods should be invoked only after input validation, unless specified otherwise.
  */
-public class ParserUtil {
+public class InteractiveParserUtil {
 
     public static final String MESSAGE_INVALID_DATE_STRING = "Please stick to the DD/MM/YYYY format.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "%s is not a valid date "
@@ -35,6 +38,7 @@ public class ParserUtil {
             + "in the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_DESCRIPTION = "The description cannot be empty.";
     public static final String MESSAGE_INVALID_ATTENDEES = "There can't be no attendees.";
+    private static final String FORMAT_DATE_TIME = "dd/MM/uuuu/HHmm";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -86,17 +90,13 @@ public class ParserUtil {
      *
      * @param engagementType {@code String} representing the type of engagement.
      * @return corresponding {@code EngagementType}.
-     * @throws ParseException if the given {@code String engagementType} is invalid.
      */
-    public static EngagementType parseType(String engagementType) throws ParseException {
+    public static EngagementType parseType(String engagementType) {
         requireNonNull(engagementType);
         String trimmedType = engagementType.trim();
-        try {
-            EngagementType type = EngagementType.of(trimmedType);
-            return type;
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(EngagementType.getMessageConstraints());
-        }
+        EngagementType type = EngagementType.of(trimmedType);
+        return type;
+
     }
 
     /**
@@ -104,13 +104,9 @@ public class ParserUtil {
      *
      * @param location location.
      * @return a corresponding {@code Location} object.
-     * @throws ParseException if the {@code String location} is invalid.
      */
-    public static Location parseLocation(String location) throws ParseException {
+    public static Location parseLocation(String location) {
         requireNonNull(location);
-        if (!Location.isValid(location)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
-        }
         return new Location(location);
     }
 
@@ -119,26 +115,22 @@ public class ParserUtil {
      *
      * @param priority {@code String} representing priority.
      * @return the corresponding {@code Priority}.
-     * @throws ParseException if the {@code String priority} is invalid.
      */
-    public static Priority parsePriority(String priority) throws ParseException {
+    public static Priority parsePriority(String priority) {
         requireNonNull(priority);
         String trimmedString = priority.trim();
-        try {
-            Priority parsedPriority;
-            if (trimmedString.isBlank()) {
-                parsedPriority = Priority.NONE;
-            } else {
-                parsedPriority = Priority.of(trimmedString);
-            }
-            return parsedPriority;
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(Priority.getMessageConstraints());
+        Priority parsedPriority;
+        if (trimmedString.isBlank()) {
+            parsedPriority = Priority.NONE;
+        } else {
+            parsedPriority = Priority.of(trimmedString);
         }
+        return parsedPriority;
     }
 
     /**
      * Parses a {@code String order} and returns a {@code EngagementComparator}.
+     *
      * @param order the sorting order.
      * @return the PersonPropertyComparator representing the comparator for that property.
      * @throws ParseException if the given {@code personProperty} is invalid.
@@ -159,18 +151,12 @@ public class ParserUtil {
      *
      * @param time time.
      * @return a {@code LocalDateTime} object.
-     * @throws ParseException if the {@code String time} is invalid.
      */
-    public static LocalDateTime parseTime(String time) throws ParseException {
+    public static LocalDateTime parseTime(String time) {
         requireNonNull(time);
-        try {
-            LocalDateTime localDateTime = convertStringToDateTime(time);
-            return localDateTime;
-        } catch (DateTimeException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TIME_FORMAT, time));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_INVALID_TIME_STRING);
-        }
+        LocalDateTime localDateTime = convertStringToDateTime(time);
+        return localDateTime;
+
     }
 
     /**
@@ -180,23 +166,16 @@ public class ParserUtil {
      * @return the corresponding {@code LocalDateTime} object.
      */
     private static LocalDateTime convertStringToDateTime(String time) {
-        if (time.length() > 15) {
-            throw new StringIndexOutOfBoundsException();
-        }
-        int year = Integer.parseInt(time.substring(6, 10));
-        Month month = Month.of(Integer.parseInt(time.substring(3, 5)));
-        int day = Integer.parseInt(time.substring(0, 2));
-        int hours = Integer.parseInt(time.substring(11, 13));
-        int minutes = Integer.parseInt(time.substring(13, 15));
-        return LocalDateTime.of(year, month, day, hours, minutes);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy/HHmm");
+        return LocalDateTime.parse(time, formatter);
     }
 
     /**
      * Parses the {@code String date} input by the user.
      * Returns a {@code LocalDate} object representing the date.
+     *
      * @param date The {@code String date} input by the user.
      * @return A {@code LocalDate} object.
-     * @throws ParseException
      */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
@@ -212,6 +191,7 @@ public class ParserUtil {
 
     /**
      * Converts a {@code String} to its corresponding {@code LocalDate} object.
+     *
      * @param date date.
      * @return the corresponding {@code LocalDate} object.
      */
@@ -227,33 +207,83 @@ public class ParserUtil {
 
     /**
      * Validates and returns the description of an engagement.
-     * @param description the description of an engagement.
+     *
+     * @param description Description of an engagement.
      * @return the description if its valid.
-     * @throws ParseException if the description is blank.
      */
-    public static String parseDescription(String description) throws ParseException {
-        if (description.isBlank()) {
-            throw new ParseException(MESSAGE_INVALID_DESCRIPTION);
-        }
+    public static String parseDescription(String description) {
         return description;
     }
 
     /**
      * Parses a {@code String} representing a list of attendees into an {@code AttendeeList}.
      *
-     * @param attendees string representing list of attendees.
+     * @param attendees String representing list of attendees.
      * @return corresponding {@code AttendeeList}.
      */
-    public static AttendeeList parseAttendees(String attendees) throws ParseException {
-        if (attendees.isBlank()) {
-            throw new ParseException(MESSAGE_INVALID_ATTENDEES);
-        }
-        List<Person> attendeesList = Arrays.stream(attendees.split(","))
+    public static AttendeeList parseAttendees(String attendees) {
+        List<Person> attendeesList = Arrays.stream(attendees.split("\\|"))
                 .map(name -> name.trim())
-                .map(name -> new Person(ParserUtil.parseNameDeterministic(name)))
+                .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
                 .filter(name -> name != null)
                 .collect(Collectors.toList());
         return new AttendeeList(attendeesList);
     }
 
+    /**
+     * Returns true if the entered {@code String} represents a valid date-time.
+     *
+     * @param dateTime {@code String} that represents a date-time.
+     * @return true if valid.
+     */
+    public static boolean isValidDateTime(String dateTime) {
+        try {
+            makeDateTimeFromPattern(dateTime);
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a {@code LocalDateTime} object that represents the entered {@code String}.
+     *
+     * @param dateTime {@code String} that represents a date-time value.
+     * @return {@code LocalDateTime}.
+     * @throws DateTimeException If the {@code String} is an invalid date-time value.
+     */
+    private static LocalDateTime makeDateTimeFromPattern(String dateTime) throws DateTimeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        return localDateTime;
+    }
+
+    /**
+     * Returns true if the entered strings representing start and end date-times are valid.
+     * The strings are valid if end time occurs after the start time.
+     * This method should only be called if the {@code Strings} represent valid date-time values.
+     *
+     * @param startDate {@code String} that represents the start date-time.
+     * @param endDate {@code String} that represents the end date-time.
+     * @return true if the time-slot is valid.
+     */
+    public static boolean isValidTimeSlot(String startDate, String endDate) {
+        LocalDateTime start = makeDateTimeFromPattern(startDate);
+        LocalDateTime end = makeDateTimeFromPattern(endDate);
+        return start.isBefore(end);
+    }
+
+    /**
+     * Parses the entered {@code String} that represents a date that conforms to the entered pattern.
+     *
+     * @param date Date.
+     * @param pattern Date-pattern.
+     * @return {@code LocalDate} representing the date.
+     */
+    public static LocalDate parseLocalDate(String date, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
+    }
 }

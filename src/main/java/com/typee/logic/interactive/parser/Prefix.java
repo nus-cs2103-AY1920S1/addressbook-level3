@@ -1,4 +1,4 @@
-package com.typee.logic.parser;
+package com.typee.logic.interactive.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
