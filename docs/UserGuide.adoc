@@ -423,10 +423,10 @@ Format: `clear`
 === _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
-==== Resetting the statistics.
+==== Resetting the statistics: `reset`
 Resets the statistics of the open _WordBank_ to an empty statistics.
 
-Format: reset
+Format: `reset`
 
 // end::jasonstatscommand[]
 
