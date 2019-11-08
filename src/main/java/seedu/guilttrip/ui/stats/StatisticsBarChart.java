@@ -68,6 +68,7 @@ public class StatisticsBarChart extends UiPart<Region> {
         barChart.setTitle("Statistics Daily Summary");
         barChart.setLegendSide(Side.BOTTOM);
         barChart.setAnimated(false);
+
         dateOfRecord.setLabel("Date");
         statisticsForDay.setLabel("Daily Expense and Income");
         this.listOfDays = FXCollections.observableArrayList();

@@ -37,6 +37,13 @@ public class StatisticsTable extends UiPart<Region> {
         super(FXML);
         this.statsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         totalLabel.setText(type);
+        if (type.equals("Income")) {
+            totalLabel.setStyle("-fx-text-fill: MediumSeaGreen");
+        }
+        if (type.equals("Expense")) {
+            totalLabel.setStyle("-fx-text-fill: LightSalmon");
+        }
+
         statsMap.addListener(new ListChangeListener<CategoryStatistics>() {
             @Override
             public void onChanged(Change<? extends CategoryStatistics> change) {

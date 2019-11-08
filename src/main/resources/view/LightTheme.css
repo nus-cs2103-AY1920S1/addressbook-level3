@@ -241,6 +241,68 @@
     -fx-background-color: black;
 }
 
+.table-view {
+    -fx-base: white;
+    -fx-control-inner-background: white;
+    -fx-background-color: white;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: grey;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 30;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        grey
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent transparent transparent;
+}
+
+.split-pane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: black;
+}
+
+/* For expense bar*/
+.default-color0.chart-bar {
+    -fx-bar-fill: MediumSeaGreen;
+}
+
+/* For income bar */
+.default-color1.chart-bar {
+    -fx-bar-fill: LightSalmon;
+}
+
+.chart-pie-label {
+    -fx-fill: black;
+    -fx-font-size: 12px;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
