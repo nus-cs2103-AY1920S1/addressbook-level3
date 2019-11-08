@@ -31,7 +31,7 @@ public class ProjectDashboardView extends UiPart<Region> {
     @FXML
     private ListView<Task> taskListViewUpcomingDeadlines;
     @FXML
-    private ListView<IndivMeetingCard> meetingListView;
+    private ListView<Meeting> meetingListView;
 
     public ProjectDashboardView(ObservableList<Task> taskListNotStarted, ObservableList<Task> taskListDoing,
                                 ObservableList<Task> taskListDone, ObservableList<Task> taskListDeadline,
@@ -91,6 +91,8 @@ public class ProjectDashboardView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
+                meetingCard.getRoot().getStyleClass().clear();
+                meetingCard.getRoot().getStyleClass().add(CARD_STYLE);
                 setGraphic(meetingCard.getRoot());
             }
         }
