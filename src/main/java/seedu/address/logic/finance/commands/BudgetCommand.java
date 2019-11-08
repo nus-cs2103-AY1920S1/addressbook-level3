@@ -12,7 +12,7 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSAC
 
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.budget.Budget;
 
 /**
  * Adds an entry of expenditure to the finance log.

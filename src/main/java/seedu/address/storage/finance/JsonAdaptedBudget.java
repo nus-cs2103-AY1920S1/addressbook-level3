@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Amount;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.budget.Budget;
 
 /**
  * Jackson-friendly version of {@link Budget}.

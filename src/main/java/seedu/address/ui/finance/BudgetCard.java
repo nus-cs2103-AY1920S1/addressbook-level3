@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.finance.logentry.Budget;
-import seedu.address.model.finance.logentry.BudgetData;
+import seedu.address.model.finance.budget.Budget;
+import seedu.address.model.finance.budget.BudgetData;
 
 /**
  * An UI component that displays information of a {@code Budget}.

@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.BorrowLogEntry;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.budget.Budget;
 import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LendLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;

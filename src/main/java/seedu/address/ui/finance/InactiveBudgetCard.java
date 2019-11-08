@@ -1,6 +1,6 @@
 package seedu.address.ui.finance;
 
-import seedu.address.model.finance.logentry.BudgetData;
+import seedu.address.model.finance.budget.BudgetData;
 
 /**
  * An UI component that displays information of a {@code Budget}

@@ -1,7 +1,7 @@
 package seedu.address.model.finance;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.budget.Budget;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
