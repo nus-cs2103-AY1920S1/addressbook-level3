@@ -22,13 +22,13 @@ public class ListWasteCommand extends Command {
             + "Optional Parameters: " + PREFIX_MONTH + "MONTH_OF_YEAR"
             + "Example: wlist " + COMMAND_WORD + " " + PREFIX_MONTH + "Sep 2019\n";
 
-    private static final String MESSAGE_MONTH_RESTRICTION = "The given month must not"
+    public static final String MESSAGE_MONTH_RESTRICTION = "The given month must not"
             + " be after the current month";
 
-    private static final String MESSAGE_NO_WASTE_LIST_FOUND = "There is no record found in our waste archive for the "
+    public static final String MESSAGE_NO_WASTE_LIST_FOUND = "There is no record found in our waste archive for the "
             + "month of %1$s";
 
-    private static final String MESSAGE_SUCCESS = "Listed all waste items for the month %1$s.";
+    public static final String MESSAGE_SUCCESS = "Listed all waste items for the month %1$s.";
 
     private WasteMonth wasteMonth;
 
@@ -47,13 +47,15 @@ public class ListWasteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         WasteMonth currentWasteMonth = WasteMonth.getCurrentWasteMonth();
+        if (this.wasteMonth.isAfter(currentWasteMonth)) {
+            throw new CommandException(MESSAGE_MONTH_RESTRICTION);
+        }
+
         boolean hasWasteListInArchive = model.hasWasteMonth(this.wasteMonth);
         if (!hasWasteListInArchive) {
             throw new CommandException(String.format(MESSAGE_NO_WASTE_LIST_FOUND, this.wasteMonth));
         }
-        if (this.wasteMonth.isAfter(currentWasteMonth)) {
-            throw new CommandException(MESSAGE_MONTH_RESTRICTION);
-        }
+
         model.updateFilteredWasteItemList(this.wasteMonth);
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, this.wasteMonth));

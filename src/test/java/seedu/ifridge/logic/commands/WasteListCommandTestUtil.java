@@ -16,14 +16,12 @@ public class WasteListCommandTestUtil {
     public static final String VALID_MONTH_MAR_RELAXED = "Mar 2019";
     public static final String VALID_MONTH_SEP_RELAXED = "Sep 2019";
     public static final String VALID_MONTH_OCT_RELAXED = "Oct 2019";
-    public static final String VALID_MONTH_SEP_FORMAL = "09/2019";
     public static final String VALID_MONTH_RELATIVE = "last month";
 
     public static final String INVALID_MONTH = "invalid";
 
     // Waste List Parsing
     public static final String MONTH_SEP_RELAXED = " " + PREFIX_MONTH + VALID_MONTH_SEP_RELAXED;
-    public static final String MONTH_SEP_FORMAL = " " + PREFIX_MONTH + VALID_MONTH_SEP_FORMAL;
     public static final String MONTH_RELATIVE_LAST_MONTH = " " + PREFIX_MONTH + VALID_MONTH_RELATIVE;
     public static final String MONTH_OCT_RELAXED = " " + PREFIX_MONTH + VALID_MONTH_OCT_RELAXED;
     public static final String MONTH_INVALID = " " + PREFIX_MONTH + INVALID_MONTH;
@@ -43,5 +41,8 @@ public class WasteListCommandTestUtil {
     public static final WasteMonth WASTE_MONTH_OCT2019 = new WasteMonth(10, 2019);
     public static final WasteMonth WASTE_MONTH_OCT2018 = new WasteMonth(10, 2018);
     public static final WasteMonth WASTE_MONTH_CURRENT_MONTH_LAST_YEAR = WASTE_MONTH_CURRENT_MONTH.minusWasteMonth(12);
+
+    public static final WasteMonth WASTE_MONTH_NOT_IN_ARCHIVE = new WasteMonth(1, 2018);
+    public static final WasteMonth WASTE_MONTH_NEXT_MONTH = new WasteMonth(LocalDate.now()).nextWasteMonth();
 
 }

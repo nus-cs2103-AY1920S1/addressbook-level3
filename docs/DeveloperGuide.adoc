@@ -478,7 +478,6 @@ a|Changing the original unit of item to the one input by user.
 
 //end::usegroceryfeature[]
 
-=== WasteList Feature
 //tag::editTemplateItemfeature[]
 
 === Edit Template Item Feature
