@@ -162,9 +162,11 @@ Examples:
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
-Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
+Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...`
 
-
+====
+* `DESCRIPTION` encompasses more details for the bill being split. User can make use of this
+field to determine nature of bill.
 * `[SHARE]` defines portion of bill to be paid by each person
 ** if no shares are given, `amount` will be split evenly across all people, including user
 ** user is included in the bill if number of shares is *1* more than number of people
@@ -172,26 +174,77 @@ Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
+====
 
-Examples:
+===== Ledger GUI
+.Sample Ledger Graphical User Interface
+image::LedgerUI.png[]
 
-* `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
-* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+This is how the *Ledger* looks when you switch to the *Ledger* tab. +
+The left shows the people who has unresolved balances with you, while the right lists
+all transactions that have to do with the *Ledger*. +
+*Ledger*'s balance is separate from the *BankAccount*. It is displayed in the same position,
+at the bottom right corner.
+
+==== Example Usage:
+* `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
+
+ $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+
+. Enter appropriate command into the command line.
++
+.Splitting evenly
+image::SplitEven1.png[]
++
+. Result is displayed accordingly
++
+.Splitting evenly (result)
+image::SplitEven2.png[]
++
+For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
+*Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
+from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in the bottom right.
+
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
+
+ $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
+
+. Enter appropriate command into the command line.
++
+.Splitting unevenly
+image::SplitUneven1.png[]
++
+. Result is displayed accordingly
++
+.Uneven split results
+image::SplitUneven2.png[]
+
 
 === Receiving Money from a Friend : `receive`
 
 Receives money from 1 friend +
-Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
+Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
-Examples:
+==== Example usage:
 
-* `receive $/2.5 n/Albert`
+* `receive $/20 n/Albert`
+
+ Transfers $20 from Albert to user. If Albert is no longer owe or is owed money, he will be removed from the Ledger.
+
+. Enter appropriate command into the command line.
++
+.Receive payment
+image::Receive1.png[]
++
+. Result is displayed accordingly.
++
+.Receive payment result
+image::Receive2.png[]
++
+Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 
 === Projecting Balance : `project`
 
-=======
 Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
 
