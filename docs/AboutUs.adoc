@@ -47,7 +47,7 @@ Responsibilities: Git Expert, In charge of ‘Alias’ Component
 
 === Zheng Shi Qiao
 image::sqwq.png[width="150", align="left"]
-{empty}[http://github.com/SQwQ[github]] [<<SQwQ#, portfolio>>]
+{empty}[http://github.com/SQwQ[github]] [<<sqwq#, portfolio>>]
 
 Role: Developer +
 Responsibilities: IntelliJ Expert, Documentation, In charge of `Visit` Component

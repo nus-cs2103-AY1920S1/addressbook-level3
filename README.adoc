@@ -61,8 +61,8 @@ Run the program then, try typing the following commands:
 # Adds a Patient with details
 $ add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 
-# Adds a visitation report
-$ addVisit n/Betsy Crowe t/12/12/12 e/Betsy@example.com
+# Adds a visitation report for patient at position 1 on 12th December 2019
+$ addvisit 1 v/12/12/2019
 
 # Find all patients matched to the query 'Betsy'
 $ find Betsy

@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class AddressBook
+Class ReadOnlyAddressBook
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package Person {
+Class Person
+Class Address
+Class Email
+Class Name
+Class Phone
+Class UniquePersonList
+Class VisitList
+}
+
+Package Appointment {
+Class Appointment
+Class AppointmentTable
+}
+
+Package Alias {
+Class AliasTable
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AddressBook .up.|> ReadOnlyAddressBook
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" AddressBook
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+UserPrefs *--> "1" AppointmentTable
+UserPrefs *--> "1" AliasTable
+AppointmentTable *--> "*" Appointment
+
+AddressBook *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *--> VisitList
+Person *--> "*" Tag
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+Email -[hidden]right-> VisitList
+
+ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Appointment : filtered list
+@enduml
