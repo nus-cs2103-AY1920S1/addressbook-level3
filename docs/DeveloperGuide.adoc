@@ -38,7 +38,7 @@ In order to cater to beginner and experienced users of Athletick, we have provid
 
 . **Optimised Performance**
 +
-Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable sluggishness in performance for typical usage. To achieve this, we used optimal data structures for storing and retrieval of data.
+Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing and retrieval of data.
 
 
 . **Designer Friendly**
