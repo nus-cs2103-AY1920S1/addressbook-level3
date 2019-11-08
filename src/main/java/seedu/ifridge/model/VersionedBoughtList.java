@@ -53,4 +53,11 @@ public class VersionedBoughtList extends GroceryList {
     public void add(ReadOnlyGroceryList boughtList) {
         boughtListStateList.add(boughtList);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof VersionedBoughtList // instanceof handles nulls
+                && boughtListStateList.equals(((VersionedBoughtList) other).boughtListStateList));
+    }
 }
