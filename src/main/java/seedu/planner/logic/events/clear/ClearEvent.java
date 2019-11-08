@@ -35,6 +35,6 @@ public class ClearEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new ClearCommand();
+        return new ClearCommand(true);
     }
 }

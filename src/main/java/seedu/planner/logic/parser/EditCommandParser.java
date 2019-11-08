@@ -103,7 +103,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditAccommodationCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditAccommodationCommand(index, editAccommodationDescriptor);
+        return new EditAccommodationCommand(index, editAccommodationDescriptor, false);
     }
 
     /**
@@ -152,7 +152,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditActivityCommand(index, editActivityDescriptor);
+        return new EditActivityCommand(index, editActivityDescriptor, false);
     }
 
     /**
@@ -194,7 +194,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditContactCommand(index, editContactDescriptor);
+        return new EditContactCommand(index, editContactDescriptor, false);
     }
 
     /**

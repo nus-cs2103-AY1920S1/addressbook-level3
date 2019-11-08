@@ -15,6 +15,7 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
@@ -22,6 +23,8 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
@@ -64,15 +67,17 @@ public class ScheduleCommand extends UndoableCommand {
     private final Index activityIndex;
     private final LocalTime startTime;
     private final Index dayIndex;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an ScheduleCommand to schedule the specified {@Activity} into the day.
      */
-    public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex) {
+    public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex, boolean isUndoRedo) {
         requireAllNonNull(activityIndex, startTime, dayIndex);
         this.activityIndex = activityIndex;
         this.startTime = startTime;
         this.dayIndex = dayIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public Index getActivityIndex() {
@@ -121,8 +126,14 @@ public class ScheduleCommand extends UndoableCommand {
         if (dayToEdit.getListOfActivityWithTime().contains(activityWithTimeToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY_SCHEDULED);
         }
-        model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
 
+        if (!isUndoRedo) {
+            //Not due to undo method of UnscheduleEvent
+            Event scheduleEvent = EventFactory.parse(this, model);
+            CommandHistory.addToUndoStack(scheduleEvent);
+            CommandHistory.clearRedoStack();
+        }
+        model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
                 new UiFocus[]{UiFocus.AGENDA});

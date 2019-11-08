@@ -32,6 +32,11 @@ public class ClearCommand extends UndoableCommand {
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD);
+    private final boolean isUndoRedo;
+
+    public ClearCommand(boolean isUndoRedo) {
+        this.isUndoRedo = isUndoRedo;
+    }
 
     @Override
     public String getCommandWord() {
@@ -42,9 +47,11 @@ public class ClearCommand extends UndoableCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        Event clearEvent = EventFactory.parse((UndoableCommand) this, model);
-        CommandHistory.addToUndoStack(clearEvent);
-        CommandHistory.clearRedoStack();
+        if (!isUndoRedo) {
+            Event clearEvent = EventFactory.parse((UndoableCommand) this, model);
+            CommandHistory.addToUndoStack(clearEvent);
+            CommandHistory.clearRedoStack();
+        }
 
         model.setAccommodations(new AccommodationManager());
         model.setActivities(new ActivityManager());

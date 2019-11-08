@@ -24,7 +24,7 @@ public class DeleteAccommodationEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new DeleteAccommodationCommand(index);
+        return new DeleteAccommodationCommand(index, true);
     }
 
 }

@@ -84,14 +84,17 @@ public class EditActivityCommand extends EditCommand {
     private final Index index;
     private final EditActivityDescriptor editActivityDescriptor;
     private final Activity activity;
+    private final boolean isUndoRedo;
+
     /**
      * @param index of the activity in the filtered activity list to edit
      */
-    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor) {
+    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, boolean isUndoRedo) {
         requireAllNonNull(index, editActivityDescriptor);
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
         activity = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo or generate EditAccommodationEvent
@@ -100,6 +103,7 @@ public class EditActivityCommand extends EditCommand {
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
         this.activity = activity;
+        this.isUndoRedo = true;
     }
 
     public Index getIndex() {
@@ -145,7 +149,7 @@ public class EditActivityCommand extends EditCommand {
             throw new CommandException(e.toString());
         }
 
-        if (activity == null) {
+        if (activity == null && !isUndoRedo) {
             //Not due to undo method
             EditActivityCommand newCommand = new EditActivityCommand(index, editActivityDescriptor, activityToEdit);
             Event editActivityEvent = EventFactory.parse(newCommand, model);

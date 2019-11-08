@@ -21,13 +21,17 @@ import java.util.stream.IntStream;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
+import seedu.planner.model.ModelManager;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.ActivityWithCount;
 import seedu.planner.model.day.ActivityWithTime;
@@ -71,12 +75,15 @@ public class AutoScheduleCommand extends UndoableCommand {
     private List<NameOrTagWithTime> draftSchedule;
     private Optional<Address> address;
     private List<Index> days;
+    private final boolean isUndoRedo;
 
-    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days) {
+    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days,
+                               boolean isUndoRedo) {
         requireNonNull(draftSchedule);
         this.draftSchedule = draftSchedule;
         this.address = address;
         this.days = days;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public List<NameOrTagWithTime> getDraftSchedule() {
@@ -110,6 +117,9 @@ public class AutoScheduleCommand extends UndoableCommand {
         if (days.size() == 0) {
             days = daysToSchedule(editDays.size());
         }
+
+        Model initialModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
+                model.getItinerary(), model.getUserPrefs());
         //Generate schedule for specified day(s)
         for (Index dayIndex : days) {
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
@@ -140,10 +150,16 @@ public class AutoScheduleCommand extends UndoableCommand {
                     timeSchedule.set(nextIndex, Optional.ofNullable(currentTime.plusMinutes(duration)));
                 }
             }
+
             Day editedDay = new Day(activitiesForTheDay);
             editDays.set(dayIndex.getZeroBased(), editedDay);
             model.setDays(editDays);
             model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
+        }
+        if (!isUndoRedo) {
+            Event autoScheduleEvent = EventFactory.parse(this, initialModel);
+            CommandHistory.addToUndoStack(autoScheduleEvent);
+            CommandHistory.clearRedoStack();
         }
         return new CommandResult(Messages.MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }

@@ -75,14 +75,17 @@ public class EditAccommodationCommand extends EditCommand {
     private final Index index;
     private final EditAccommodationDescriptor editAccommodationDescriptor;
     private final Accommodation accommodation;
+    private final boolean isUndoRedo;
+
     /**
      * @param index of the accommodation in the filtered accommodation list to edit
      */
-    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor) {
-        requireAllNonNull(index, editAccommodationDescriptor);
+    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor, boolean isUndoRedo) {
+        requireAllNonNull(index, editAccommodationDescriptor, isUndoRedo);
         this.index = index;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
         accommodation = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo or generate EditAccommodationEvent
@@ -92,6 +95,7 @@ public class EditAccommodationCommand extends EditCommand {
         this.index = index;
         this.accommodation = accommodation;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
+        this.isUndoRedo = true;
     }
 
     public Index getIndex() {
@@ -132,7 +136,7 @@ public class EditAccommodationCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
         }
 
-        if (accommodation == null) {
+        if (accommodation == null && !isUndoRedo) {
             //Not due to undo method
             EditAccommodationCommand newCommand = new EditAccommodationCommand(index, editAccommodationDescriptor, accommodationToEdit);
             Event editAccommodationEvent = EventFactory.parse(newCommand, model);

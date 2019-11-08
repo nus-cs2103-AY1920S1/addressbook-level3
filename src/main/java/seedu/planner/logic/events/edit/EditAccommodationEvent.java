@@ -26,7 +26,7 @@ public class EditAccommodationEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new EditAccommodationCommand(index, editInfo);
+        return new EditAccommodationCommand(index, editInfo, true);
     }
 
 }

@@ -26,7 +26,7 @@ public class EditActivityEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new EditActivityCommand(index, editInfo);
+        return new EditActivityCommand(index, editInfo, true);
     }
 
 }

@@ -39,13 +39,14 @@ public class DeleteDayCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_DAY_SUCCESS = "Deleted day: %1$d";
 
     private final Index targetIndex;
-
     private final Day toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteDayCommand(Index targetIndex) {
+    public DeleteDayCommand(Index targetIndex, boolean isUndoRedo) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
         toDelete = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to create DeleteDayEvent
@@ -53,6 +54,7 @@ public class DeleteDayCommand extends DeleteCommand {
         requireNonNull(day);
         toDelete = day;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
@@ -80,10 +82,12 @@ public class DeleteDayCommand extends DeleteCommand {
 
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
-        Event deleteDayEvent = EventFactory.parse(newCommand, model);
-        CommandHistory.addToUndoStack(deleteDayEvent);
-        CommandHistory.clearRedoStack();
+        if (!isUndoRedo) {
+            DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
+            Event deleteDayEvent = EventFactory.parse(newCommand, model);
+            CommandHistory.addToUndoStack(deleteDayEvent);
+            CommandHistory.clearRedoStack();
+        }
 
         model.deleteDay(dayToDelete);
         return new CommandResult(

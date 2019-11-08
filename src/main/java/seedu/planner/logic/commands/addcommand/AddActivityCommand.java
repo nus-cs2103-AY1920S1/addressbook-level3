@@ -65,20 +65,24 @@ public class AddActivityCommand extends AddCommand {
 
     private final Index index;
     private final Activity toAdd;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an AddActivityCommand to add the specified {@Activity}
      */
-    public AddActivityCommand(Activity activity) {
+    public AddActivityCommand(Activity activity, boolean isUndoRedo) {
         requireNonNull(activity);
         toAdd = activity;
         index = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    //Constructor used to undo DeleteActivityEvent
     public AddActivityCommand(Index index, Activity activity) {
         requireAllNonNull(index, activity);
         toAdd = activity;
         this.index = index;
+        this.isUndoRedo = true;
     }
 
     public Activity getToAdd() {
@@ -107,16 +111,19 @@ public class AddActivityCommand extends AddCommand {
             activityAdded = toAdd;
         }
 
-        if (index == null) {
-            //Not due to undo method
-            AddActivityCommand newCommand = new AddActivityCommand(activityAdded);
+        if (index == null && !isUndoRedo) {
+            //Not due to undo or redo method
+            AddActivityCommand newCommand = new AddActivityCommand(activityAdded, isUndoRedo);
             Event addActivityEvent = EventFactory.parse(newCommand, model);
             CommandHistory.addToUndoStack(addActivityEvent);
             CommandHistory.clearRedoStack();
             model.addActivity(activityAdded);
-        } else {
-            //Due to undo method
+        } else if (isUndoRedo && index != null) {
+            //Due to undo method of DeleteActivityEvent
             model.addActivityAtIndex(index, activityAdded);
+        } else {
+            //Due to redo method of AddActivityEvent
+            model.addActivity(activityAdded);
         }
 
         return new CommandResult(

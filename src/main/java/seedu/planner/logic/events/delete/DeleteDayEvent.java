@@ -24,7 +24,7 @@ public class DeleteDayEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new DeleteDayCommand(index);
+        return new DeleteDayCommand(index, true);
     }
 
 }

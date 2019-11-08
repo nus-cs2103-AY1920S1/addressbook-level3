@@ -79,16 +79,18 @@ public class EditContactCommand extends EditCommand {
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
     private final Contact contact;
+    private final boolean isUndoRedo;
 
     /**
      * @param index of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
-    public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
+    public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor, boolean isUndoRedo) {
         requireAllNonNull(index, editContactDescriptor);
         this.index = index;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
         contact = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo or generate EditAccommodationEvent
@@ -97,6 +99,7 @@ public class EditContactCommand extends EditCommand {
         this.index = index;
         this.editContactDescriptor = editContactDescriptor;
         this.contact = contact;
+        this.isUndoRedo = true;
     }
 
     public Index getIndex() {
@@ -134,7 +137,7 @@ public class EditContactCommand extends EditCommand {
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
-        if (contact == null) {
+        if (contact == null && !isUndoRedo) {
             //Not due to undo method
             EditContactCommand newCommand = new EditContactCommand(index, editContactDescriptor, contactToEdit);
             Event editContactEvent = EventFactory.parse(newCommand, model);

@@ -29,7 +29,7 @@ public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
         try {
             Index activityIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
-            return new UnscheduleCommand(activityIndex, dayIndex);
+            return new UnscheduleCommand(activityIndex, dayIndex, false);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnscheduleCommand.MESSAGE_USAGE), pe);

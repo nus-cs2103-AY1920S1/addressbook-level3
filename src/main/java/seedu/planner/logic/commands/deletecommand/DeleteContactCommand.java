@@ -43,10 +43,12 @@ public class DeleteContactCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Contact toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteContactCommand(Index targetIndex) {
+    public DeleteContactCommand(Index targetIndex, boolean isUndoRedo) {
         toDelete = null;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo AddContactEvent and DeleteContactEvent
@@ -54,6 +56,7 @@ public class DeleteContactCommand extends DeleteCommand {
         requireNonNull(contact);
         toDelete = contact;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
@@ -85,7 +88,7 @@ public class DeleteContactCommand extends DeleteCommand {
         }
         Index indexOfContact = findIndexOfContact(model, contactToDelete);
 
-        if (toDelete == null) {
+        if (toDelete == null && !isUndoRedo) {
             //Not due to undo method
             DeleteContactCommand newCommand = new DeleteContactCommand(indexOfContact, contactToDelete);
             Event deleteContactEvent = EventFactory.parse(newCommand, model);

@@ -37,7 +37,7 @@ public class ScheduleCommandParser {
             LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
             Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
-            return new ScheduleCommand(activityIndex, startTime, dayIndex);
+            return new ScheduleCommand(activityIndex, startTime, dayIndex, false);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE), pe);

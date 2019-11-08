@@ -24,7 +24,7 @@ public class DeleteActivityEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new DeleteActivityCommand(index);
+        return new DeleteActivityCommand(index, true);
     }
 
 }

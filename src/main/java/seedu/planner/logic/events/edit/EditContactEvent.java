@@ -26,7 +26,7 @@ public class EditContactEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new EditContactCommand(index, editInfo);
+        return new EditContactCommand(index, editInfo, true);
     }
 
 }

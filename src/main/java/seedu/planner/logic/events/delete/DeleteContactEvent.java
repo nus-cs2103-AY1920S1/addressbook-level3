@@ -24,7 +24,7 @@ public class DeleteContactEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new DeleteContactCommand(index);
+        return new DeleteContactCommand(index, true);
     }
 }
 

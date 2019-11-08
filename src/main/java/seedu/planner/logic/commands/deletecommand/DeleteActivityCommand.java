@@ -43,10 +43,12 @@ public class DeleteActivityCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Activity toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteActivityCommand(Index targetIndex) {
+    public DeleteActivityCommand(Index targetIndex, boolean isUndoRedo) {
         this.targetIndex = targetIndex;
         toDelete = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo AddActivityEvent and create DeleteActivityEvent
@@ -54,6 +56,7 @@ public class DeleteActivityCommand extends DeleteCommand {
         requireNonNull(activity);
         toDelete = activity;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
@@ -84,7 +87,7 @@ public class DeleteActivityCommand extends DeleteCommand {
         }
         Index indexOfActivity = findIndexOfActivity(model, activityToDelete);
 
-        if (toDelete == null) {
+        if (toDelete == null && !isUndoRedo) {
             //Not due to undo method
             DeleteActivityCommand newCommand = new DeleteActivityCommand(indexOfActivity,
                     activityToDelete);

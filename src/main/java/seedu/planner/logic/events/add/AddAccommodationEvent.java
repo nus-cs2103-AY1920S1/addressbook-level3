@@ -21,6 +21,6 @@ public class AddAccommodationEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new AddAccommodationCommand(accommodationAdded);
+        return new AddAccommodationCommand(accommodationAdded, true);
     }
 }

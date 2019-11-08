@@ -11,12 +11,15 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
@@ -51,22 +54,27 @@ public class UnscheduleCommand extends UndoableCommand {
     private Index activityIndexToUnschedule;
     private final Index dayIndex;
     private final ActivityWithTime activityToUnschedule;
+    private final boolean isUndoRedo;
+
     /**
      * @param activityIndex of the {@code ActivityWithTime} in the {@code Day} to edit
      * @param dayIndex      of the {@code Day} in the {@code Itinerary} to edit
      */
-    public UnscheduleCommand(Index activityIndex, Index dayIndex) {
+    public UnscheduleCommand(Index activityIndex, Index dayIndex, boolean isUndoRedo) {
         requireAllNonNull(activityIndex, dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
         this.activityToUnschedule = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    //Constructor used to undo ScheduleEvent
     public UnscheduleCommand(ActivityWithTime activityToUnschedule, Index dayIndex) {
         requireAllNonNull(activityToUnschedule, dayIndex);
         this.activityToUnschedule = activityToUnschedule;
         this.dayIndex = dayIndex;
         this.activityIndexToUnschedule = null;
+        this.isUndoRedo = true;
     }
 
     public Index getActivityIndexToUnschedule() {
@@ -98,8 +106,13 @@ public class UnscheduleCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
+        if (!isUndoRedo) {
+            //Not due to undo method
+            Event unscheduleEvent = EventFactory.parse(this, model);
+            CommandHistory.addToUndoStack(unscheduleEvent);
+            CommandHistory.clearRedoStack();
+        }
         model.unscheduleActivity(dayToEdit, activityIndexToUnschedule);
-
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, activityIndexToUnschedule.getOneBased(),
                 dayIndex.getOneBased()), new UiFocus[]{UiFocus.AGENDA});

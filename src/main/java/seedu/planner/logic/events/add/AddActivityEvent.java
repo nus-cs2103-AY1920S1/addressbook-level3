@@ -21,6 +21,6 @@ public class AddActivityEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new AddActivityCommand(activityAdded);
+        return new AddActivityCommand(activityAdded, true);
     }
 }

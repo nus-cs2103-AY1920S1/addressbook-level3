@@ -14,7 +14,6 @@ import java.util.Arrays;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
-import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
@@ -58,20 +57,24 @@ public class AddAccommodationCommand extends AddCommand {
 
     private final Index index;
     private final Accommodation toAdd;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an AddAccommodationCommand to add the specified {@Accommodation}
      */
-    public AddAccommodationCommand(Accommodation accommodation) {
+    public AddAccommodationCommand(Accommodation accommodation, boolean isUndoRedo) {
         requireNonNull(accommodation);
         toAdd = accommodation;
         index = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    //Constructor used to undo DeleteAccommodationEvent
     public AddAccommodationCommand(Index index, Accommodation accommodation) {
         requireAllNonNull(index, accommodation);
         toAdd = accommodation;
         this.index = index;
+        this.isUndoRedo = true;
     }
 
     public Accommodation getToAdd() {
@@ -99,16 +102,19 @@ public class AddAccommodationCommand extends AddCommand {
             accommodationAdded = toAdd;
         }
 
-         if (index == null) {
-             //Not due to undo method
-             AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded);
+         if (index == null && !isUndoRedo) {
+             //Not due to undo or redo method
+             AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded, isUndoRedo);
              Event addAccommodationEvent = EventFactory.parse(newCommand, model);
              CommandHistory.addToUndoStack(addAccommodationEvent);
              CommandHistory.clearRedoStack();
              model.addAccommodation(accommodationAdded);
-         } else {
-             //Due to undo method
+         } else if (isUndoRedo && index != null) {
+             //Due to undo method DeleteAccommodationEvent
              model.addAccommodationAtIndex(index, accommodationAdded);
+         } else {
+             //Due to redo method AddAccommodationEvent
+             model.addAccommodation(accommodationAdded);
          }
 
         return new CommandResult(

@@ -45,11 +45,13 @@ public class DeleteAccommodationCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Accommodation toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteAccommodationCommand(Index targetIndex) {
+    public DeleteAccommodationCommand(Index targetIndex, boolean isUndoRedo) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
         toDelete = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
     //Constructor used to undo AddAccommodationEvent and create DeleteAccommodationEvent
@@ -57,6 +59,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         requireNonNull(accommodation);
         toDelete = accommodation;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
@@ -87,7 +90,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         }
         Index indexOfAccommodation = findIndexOfAccommodation(model, accommodationToDelete);
 
-        if (toDelete == null) {
+        if (toDelete == null && !isUndoRedo) {
             //Not due to undo method
             DeleteAccommodationCommand newCommand = new DeleteAccommodationCommand(indexOfAccommodation,
                     accommodationToDelete);

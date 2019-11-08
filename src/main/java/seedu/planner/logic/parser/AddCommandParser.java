@@ -102,10 +102,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Contact contact = new Contact(name, phone, null, null, new HashSet<Tag>());
             Accommodation accommodation = new Accommodation(name, address, contact, tagList);
-            return new AddAccommodationCommand(accommodation);
+            return new AddAccommodationCommand(accommodation, false);
         } else {
             Accommodation accommodation = new Accommodation(name, address, null, tagList);
-            return new AddAccommodationCommand(accommodation);
+            return new AddAccommodationCommand(accommodation, false);
         }
     }
 
@@ -143,7 +143,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
         }
         Activity activity = new Activity(name, address, contact, cost, tagList, duration, priority);
-        return new AddActivityCommand(activity);
+        return new AddActivityCommand(activity, false);
     }
 
     /**
@@ -168,15 +168,15 @@ public class AddCommandParser implements Parser<AddCommand> {
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
             if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                 Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                return new AddContactCommand(new Contact(name, phone, email, address, tagList));
+                return new AddContactCommand(new Contact(name, phone, email, address, tagList), false);
             } else {
-                return new AddContactCommand(new Contact(name, phone, email, null, tagList));
+                return new AddContactCommand(new Contact(name, phone, email, null, tagList), false);
             }
         } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            return new AddContactCommand(new Contact(name, phone, null, address, tagList));
+            return new AddContactCommand(new Contact(name, phone, null, address, tagList), false);
         } else {
-            return new AddContactCommand(new Contact(name, phone, null, null, tagList));
+            return new AddContactCommand(new Contact(name, phone, null, null, tagList), false);
         }
     }
 
@@ -188,6 +188,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private AddDayCommand parseDay(String args) throws ParseException {
         int numDays = ParserUtil.parseDays(args.trim());
-        return new AddDayCommand(numDays);
+        return new AddDayCommand(numDays, false);
     }
 }

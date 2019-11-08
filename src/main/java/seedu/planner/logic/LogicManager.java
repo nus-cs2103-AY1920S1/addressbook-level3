@@ -8,11 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.Command;
-import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.logic.parser.PlannerParser;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
@@ -50,7 +47,6 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = plannerParser.parseCommand(commandText);
-
         commandResult = command.execute(model);
 
         try {

@@ -27,6 +27,6 @@ public class OptimiseBudgetEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new OptimiseCommand(dayIndex);
+        return new OptimiseCommand(dayIndex, true);
     }
 }
