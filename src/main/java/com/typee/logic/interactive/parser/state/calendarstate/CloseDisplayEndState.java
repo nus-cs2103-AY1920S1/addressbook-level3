@@ -53,7 +53,7 @@ public class CloseDisplayEndState extends EndState {
 
     @Override
     public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
-        return null;
+        throw new StateTransitionException(EndState.MESSAGE_END_STATE);
     }
 
     @Override
