@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
+import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
@@ -56,7 +56,7 @@ public class CalendarState extends PenultimateState {
     private boolean isValid(String operationString) {
         return operationString.equalsIgnoreCase(CalendarNextMonthCommand.COMMAND_WORD)
                 || operationString.equalsIgnoreCase(CalendarPreviousMonthCommand.COMMAND_WORD)
-                || operationString.equalsIgnoreCase(CalendarDateDisplayEngagementsCommand.COMMAND_WORD);
+                || operationString.equalsIgnoreCase(CalendarOpenDisplayCommand.COMMAND_WORD);
     }
 
     private State nextState(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException {
@@ -73,7 +73,7 @@ public class CalendarState extends PenultimateState {
             enforceNoExcessiveArguments(newArgs);
             return new PreviousMonthState(soFar);
 
-        case CalendarDateDisplayEngagementsCommand.COMMAND_WORD:
+        case CalendarOpenDisplayCommand.COMMAND_WORD:
             return new OpenDisplayState(soFar);
 
         default:
