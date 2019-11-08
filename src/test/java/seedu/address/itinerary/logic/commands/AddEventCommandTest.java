@@ -1,13 +1,18 @@
 package seedu.address.itinerary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.transformation.SortedList;
+
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
@@ -29,8 +34,8 @@ class AddEventCommandTest {
     private Description descTest = new Description("My awesome description");
     private Time timeTest = new Time("2000");
     private Tag tagTest = new Tag("Priority: High");
-    private Event eventTest = new Event(titleTest, dateTest, locationTest
-            , descTest, timeTest, tagTest);
+    private Event eventTest = new Event(titleTest, dateTest, locationTest,
+            descTest, timeTest, tagTest);
 
     private Title titleTest2 = new Title("Another Cool Title");
     private Date dateTest2 = new Date("13071997");
@@ -38,8 +43,8 @@ class AddEventCommandTest {
     private Description descTest2 = new Description("My cool description");
     private Time timeTest2 = new Time("0000");
     private Tag tagTest2 = new Tag("Priority: Medium");
-    private Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2
-            , descTest2, timeTest2, tagTest2);
+    private Event eventTest2 = new Event(titleTest2, dateTest2, locationTest2,
+            descTest2, timeTest2, tagTest2);
 
 
     @Test
@@ -125,6 +130,7 @@ class AddEventCommandTest {
     public void equals() {
         AddEventCommand addEventCommand = new AddEventCommand(eventTest);
         AddEventCommand addEventCommand1 = new AddEventCommand(eventTest2);
+        GreetCommand greetCommand = new GreetCommand();
 
         // same object -> returns true
         assertTrue(addEventCommand.equals(addEventCommand));
@@ -136,10 +142,13 @@ class AddEventCommandTest {
         // different types -> returns false
         assertFalse(addEventCommand.equals(1));
 
+        // different types of command -> returns false
+        assertFalse(addEventCommand.equals(greetCommand));
+
         // null -> returns false
         assertFalse(addEventCommand.equals(null));
 
-        // different person -> returns false
+        // different add event command -> returns false
         assertFalse(addEventCommand.equals(addEventCommand1));
     }
 }

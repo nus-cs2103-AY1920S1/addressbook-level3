@@ -1,24 +1,24 @@
 package seedu.address.diaryfeature.ui;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 
@@ -44,13 +44,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private DiaryHelpWindow helpWindow;
     private CodeWindow codeWindow;
 
-
-
-
-
-    @FXML
-    private Scene diaryScene;
-
     @FXML
     private VBox diaryPane;
 
@@ -67,11 +60,9 @@ public class DiaryPage extends UiPart<Region> implements Page {
     public DiaryPage(DiaryBookLogic logic) {
         super(FXML);
         this.parser = new DiaryBookParser();
-        diaryScene = new Scene(diaryPane);
         this.helpWindow = new DiaryHelpWindow();
         this.logicHandler = logic;
-
-
+        this.codeWindow = new CodeWindow();
         fillInnerParts();
     }
 
@@ -94,7 +85,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
      * Executes the command and returns the result.
      *
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws ParseException, CommandException, EmptyArgumentException {
         try {
             CommandResult commandResult = logicHandler.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -107,7 +98,11 @@ public class DiaryPage extends UiPart<Region> implements Page {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | NullPointerException e) {
+        } catch (ParseException | EmptyArgumentException e) {
+            logger.info("Invalid command: " + commandText + e);
+            resultDisplay.setFeedbackToUser(e.toString());
+             throw e;
+        } catch (CommandException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -119,16 +114,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        TimerTask myDelay = new TimerTask() {
-            @Override
-            public void run() {
-                System.exit(0);
-                diaryScene.getWindow().hide();
-
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(myDelay,350);
+        PageManager.closeWindows();
     }
 
     /**
@@ -155,14 +141,13 @@ public class DiaryPage extends UiPart<Region> implements Page {
         }
     }
 
-
-    @Override
-    public Scene getScene() {
-        return diaryScene;
-    }
-
     @Override
     public PageType getPageType() {
         return pageType;
+    }
+
+    @Override
+    public Parent getParent() {
+        return super.getRoot();
     }
 }

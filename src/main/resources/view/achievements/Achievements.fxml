@@ -25,10 +25,15 @@
                </padding>
             </VBox>
          </content>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
     </ScrollPane>
   </center>
   <bottom>
     <VBox>
+         <HBox minHeight="10.0" prefHeight="10.0" />
+         <HBox fx:id="border" minHeight="5.0" prefHeight="5.0" VBox.vgrow="NEVER" />
       <HBox>
         <children>
           <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER">
@@ -50,7 +55,7 @@
     </VBox>
   </bottom>
    <top>
-      <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="0.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <children>
        <MenuBar fx:id="menuBar" prefHeight="33.0" prefWidth="440.0">
          <Menu mnemonicParsing="false" text="File">
@@ -63,6 +68,7 @@
            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
          </Menu>
        </MenuBar>
+            <HBox minHeight="3.0" prefHeight="3.0" VBox.vgrow="NEVER" />
             <HBox id="header" alignment="CENTER" prefWidth="460.0">
                <children>
                   <VBox alignment="CENTER">
@@ -74,13 +80,14 @@
                   </VBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
-            <HBox fx:id="border" prefHeight="10.0" prefWidth="440.0">
+            <HBox fx:id="border" minHeight="5.0" prefHeight="5.0" prefWidth="440.0">
                <VBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </VBox.margin></HBox>
+            <HBox minHeight="10.0" prefHeight="10.0" />
          </children>
       </VBox>
    </top>

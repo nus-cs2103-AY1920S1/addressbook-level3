@@ -11,7 +11,8 @@ import seedu.address.logic.commands.Command;
  */
 public class FindCommandParser {
     private static final String FIND_USAGE = "In particular, input your find command like this: \n" +
-            "find target Eg: find birthday. \n Note that the input cant be empty, and has to be at least 1 character";
+            "find TARGET | EG: find birthday. \n Note that the input cant be empty, and has to be at least 1 character\n" +
+            "Remember to type the command list to go back to your original list";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

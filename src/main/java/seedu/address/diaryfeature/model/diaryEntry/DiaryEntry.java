@@ -37,14 +37,6 @@ public class DiaryEntry {
         return title;
     }
 
-    public String getDateAsString() {
-        return DateFormatter.convertToStringPrint(date);
-    }
-
-    public String getDateAsStringtoStore() {
-        return DateFormatter.convertToStringStore(date);
-    }
-
     public Date getDate() {
         return date;
     }
@@ -57,13 +49,12 @@ public class DiaryEntry {
         return memory;
     }
 
-    public void setPrivacy(Boolean input) {
-        isPrivate = input;
-        if(input) {
-            setPrivate();
-        } else {
-            unPrivate();
-        }
+    public String getDateAsString() {
+        return DateFormatter.convertToStringPrint(date);
+    }
+
+    public String getDateAsStringtoStore() {
+        return DateFormatter.convertToStringStore(date);
     }
 
     public void setPrivate() {
@@ -78,18 +69,6 @@ public class DiaryEntry {
 
     public boolean getPrivacy() {
         return isPrivate;
-    }
-
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameEntry(DiaryEntry otherDiaryEntry) {
-        if (otherDiaryEntry == this) {
-            return true;
-        }
-        return otherDiaryEntry != null
-                && otherDiaryEntry.getTitle().equals(getTitle());
     }
 
     /**

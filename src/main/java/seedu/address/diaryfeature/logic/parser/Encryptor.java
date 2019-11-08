@@ -14,7 +14,7 @@ public class Encryptor {
         char[] myHolder = new char[input.length()];
         for(int i = 0; i<input.length(); i++) {
             //for each char, turn into ASCII and add one
-            int temp = input.charAt(i) + 1;
+            int temp = (input.charAt(i) + 1) * 5;
             //turn the ASCII back to char
             myHolder[i] = (char)temp;
         }
@@ -32,7 +32,7 @@ public class Encryptor {
         char[] myHolder = new char[input.length()];
         for(int i = 0; i<input.length(); i++) {
             //for each char, turn into ASCII and add one
-            int temp = input.charAt(i) - 1;
+            int temp = (input.charAt(i))/5 - 1;
             //turn the ASCII back to char
             myHolder[i] = (char)temp;
         }

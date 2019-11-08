@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox prefHeight="450" prefWidth="552" stylesheets="@CalendarPage.css">
+    <VBox prefHeight="450" prefWidth="552" stylesheets="@CalendarPage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <VBox prefHeight="41.0" prefWidth="552.0">
                 <children>
@@ -111,4 +110,3 @@
             <VBox fx:id="resultDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
             <StackPane fx:id="commandBoxPlaceholder" prefHeight="42.0" prefWidth="552.0" style="-fx-padding: 5 10;" />
         </children></VBox>
-</Scene>

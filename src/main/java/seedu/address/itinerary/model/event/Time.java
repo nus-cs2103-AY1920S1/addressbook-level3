@@ -9,7 +9,7 @@ public class Time {
             + "Valid formats: 0000, 0900, 1700, 2359 ✓\n"
             + "Invalid formats: 00:00, 900, 9999 ✗";
 
-    public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
+    public static final String VALIDATION_REGEX = "([01][0-9]|2[0-3])[0-5][0-9]";
     public final String time;
     public final String oldTime;
 

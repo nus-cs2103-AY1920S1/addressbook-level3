@@ -59,7 +59,7 @@ public class FinancialTracker {
     /**
      * Adds an expense into the expense list associated with current country key.
      */
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws CommandException {
         assert expenseListMap.get(currentCountry) != null;
         expense.setCountry(new Country(currentCountry));
         expenseListMap.get(currentCountry).addExpense(expense);
@@ -68,7 +68,7 @@ public class FinancialTracker {
     /**
      * Adds an expense into the expense list associated with another country key.
      */
-    public void addExpense(Expense expense, Country country) {
+    public void addExpense(Expense expense, Country country) throws CommandException {
         expenseListMap.get(country.value).addExpense(expense);
     }
 

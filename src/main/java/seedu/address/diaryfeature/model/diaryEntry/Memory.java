@@ -1,7 +1,5 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
-
-
 public class Memory {
 
 
@@ -32,14 +30,11 @@ public class Memory {
     public void setPrivate() {
         isPrivate = true;
         showMemory = HIDDEN_MESSAGE;
-        System.out.println("private" + showMemory);
-
     }
 
     public void unPrivate() {
         isPrivate = false;
         showMemory = memory;
-        System.out.println("unprivate" + showMemory);
     }
 
 

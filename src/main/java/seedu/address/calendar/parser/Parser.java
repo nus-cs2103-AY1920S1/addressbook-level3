@@ -1,6 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;

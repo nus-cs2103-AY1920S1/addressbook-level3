@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -14,9 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.achievements.logic.AchievementsLogic;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,6 +23,7 @@ import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
@@ -41,14 +40,9 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private Scene achievementsScene;
-
-    @FXML
     private BorderPane achievementsPane;
 
     private AchievementsLogic achievementsLogic;
-
-    private Stage primaryStage;
 
     private ResultDisplay resultDisplay;
 
@@ -71,12 +65,10 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     @FXML
     private Label test;
 
-    public AchievementsPage(Stage primaryStage, AchievementsLogic achievementsLogic) {
+    public AchievementsPage(AchievementsLogic achievementsLogic) {
         super(FXML, new BorderPane());
-        this.primaryStage = primaryStage;
         this.achievementsLogic = achievementsLogic;
         this.helpWindow = new HelpWindow();
-        this.achievementsScene = new Scene(achievementsPane);
         fillInnerParts();
         setAccelerators();
     }
@@ -108,7 +100,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
          * help window purposely so to support accelerators even when focus is in
          * CommandBox or ResultDisplay.
          */
-        achievementsScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        achievementsPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
@@ -196,23 +188,16 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
-                primaryStage.getHeight(),
-                (int) primaryStage.getX(),
-                (int) primaryStage.getY());
-        achievementsLogic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    @Override
-    public Scene getScene() {
-        refreshUi();
-        return achievementsScene;
+        PageManager.closeWindows();
     }
 
     @Override
     public PageType getPageType() {
         return pagetype;
+    }
+
+    @Override
+    public Parent getParent() {
+        refreshUi(); return super.getRoot();
     }
 }

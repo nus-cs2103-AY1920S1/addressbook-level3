@@ -11,28 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="itineraryPane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <left>
-    <VBox prefWidth="50">
-    </VBox>
-  </left>
   <center>
       <VBox>
          <children>
-            <StackPane fx:id="eventPlaceHolder" />
+            <StackPane fx:id="eventPlaceHolder">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin></StackPane>
          </children>
       </VBox>
   </center>
-  <right>
-    <VBox prefWidth="50">
-    </VBox>
-  </right>
   <bottom>
     <VBox>
+         <VBox id="border" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="100.0" VBox.vgrow="NEVER" />
       <HBox>
         <children>
           <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER">
             <padding>
-              <Insets bottom="5" left="50" right="50" top="5" />
+              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
             </padding>
           </StackPane>
         </children>
@@ -40,9 +36,9 @@
       <HBox fillHeight="true">
         <children>
           <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-            <padding>
-              <Insets bottom="5" left="50" right="50" top="5" />
-            </padding>
+                  <padding>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  </padding>
           </StackPane>
         </children>
       </HBox>
@@ -76,7 +72,7 @@
                   <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
                </VBox.margin>
             </HBox>
-            <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0">
+            <HBox id="border" fx:id="header" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="440.0" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>

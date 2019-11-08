@@ -10,22 +10,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.logic.LogicManager;
 import seedu.address.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.model.UserPrefsModelManager;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     @TempDir
@@ -63,8 +63,7 @@ public class LogicManagerTest {
         //no changes to address book logic
         AddressBookLogic addressBookLogic = logicManager.getAddressBookLogic();
         assertEquals(Paths.get("addressbook.json"), logicManager.getAddressBookLogic().getAddressBookFilePath());
-        assertEquals(new GuiSettings(90, 45, 30, 15),
-                logicManager.getAddressBookLogic().getGuiSettings());
+
         assertEquals(1, logicManager.getAddressBookLogic().getFilteredPersonList().size());
         assertEquals(new AddressBookBuilder().withPerson(new PersonBuilder().build()).build(),
                 logicManager.getAddressBookLogic().getAddressBook());

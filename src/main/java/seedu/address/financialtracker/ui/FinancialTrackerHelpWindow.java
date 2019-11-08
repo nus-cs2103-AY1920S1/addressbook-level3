@@ -28,6 +28,8 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     private static final String DELETE_MESSAGE = "delete INDEX";
     private static final String EDIT_MESSAGE = "edit INDEX a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] "
             + "[date/DATE] [time/TIME]";
+    private static final String SORT_MESSAGE = "sort amount";
+    private static final String SWITCH_MESSAGE = "switch Japan";
     private static final Logger logger = LogsCenter.getLogger(FinancialTrackerHelpWindow.class);
     private static final String FXML = "FinancialTrackerHelpWindow.fxml";
 
@@ -54,6 +56,12 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
 
     @FXML
     private Button editCommand;
+
+    @FXML
+    private Button sortCommand;
+
+    @FXML
+    private Button switchCommand;
 
     @FXML
     private Label helpMessage;
@@ -205,6 +213,28 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
         url.putString(EDIT_MESSAGE);
+        clipboard.setContent(url);
+    }
+
+    /**
+     * Copies the sort command template to the clipboard.
+     */
+    @FXML
+    private void copySort() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent url = new ClipboardContent();
+        url.putString(SORT_MESSAGE);
+        clipboard.setContent(url);
+    }
+
+    /**
+     * Copies the switch command template to the clipboard.
+     */
+    @FXML
+    private void copySwitch() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent url = new ClipboardContent();
+        url.putString(SWITCH_MESSAGE);
         clipboard.setContent(url);
     }
 }

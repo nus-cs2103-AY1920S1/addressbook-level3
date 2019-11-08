@@ -22,7 +22,7 @@
   </icons>
   <scene>
     <Scene>
-         <VBox prefHeight="322.0" prefWidth="496.0">
+         <VBox prefHeight="360.0" prefWidth="496.0">
             <children>
                <HBox alignment="CENTER">
                   <children>
@@ -44,7 +44,7 @@
                      <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                   </padding>
                </HBox>
-               <TabPane prefHeight="267.0" prefWidth="496.0" tabClosingPolicy="UNAVAILABLE">
+               <TabPane prefHeight="314.0" prefWidth="496.0" tabClosingPolicy="UNAVAILABLE">
                  <tabs>
                      <Tab text="Basic">
                         <content>
@@ -89,7 +89,7 @@
                      </Tab>
                    <Tab text="Commands">
                      <content>
-                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="496.0">
+                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="496.0">
                               <children>
                                  <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the commands which requires parameters in the financial tracker:" />
                                  <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
@@ -98,23 +98,37 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                <items>
-                                                   <Label prefHeight="54.0" prefWidth="382.0" text="Add expense: add a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
+                                                   <Label prefHeight="41.0" prefWidth="382.0" text="Add expense: add a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
                                                    <Region prefHeight="13.0" prefWidth="14.0" />
                                                  <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
                                                </items>
                                              </ToolBar>
-                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                             <ToolBar prefHeight="59.0" prefWidth="498.0">
                                                <items>
                                                    <Label text="Delete expense: delete INDEX" />
-                                                   <Region prefHeight="33.0" prefWidth="240.0" />
+                                                   <Region prefHeight="17.0" prefWidth="240.0" />
                                                  <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
                                                </items>
                                              </ToolBar>
-                                             <ToolBar prefHeight="40.0" prefWidth="591.0">
+                                             <ToolBar prefHeight="37.0" prefWidth="498.0">
                                                 <items>
                                                    <Label prefHeight="52.0" prefWidth="330.0" text="Edit expense: edit INDEX a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
-                                                   <Region prefHeight="60.0" prefWidth="68.0" />
+                                                   <Region prefHeight="30.0" prefWidth="68.0" />
                                                    <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="46.0" prefWidth="498.0">
+                                                <items>
+                                                   <Label prefHeight="34.0" prefWidth="383.0" text="Sort expense: sort amount | sort date | sort time | sort type | sort default" wrapText="true" />
+                                                   <Region prefHeight="38.0" prefWidth="13.0" />
+                                                   <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="46.0" prefWidth="498.0">
+                                                <items>
+                                                   <Label prefHeight="34.0" prefWidth="383.0" text="Switch expense list: switch COUNTRY" wrapText="true" />
+                                                   <Region prefHeight="38.0" prefWidth="13.0" />
+                                                   <Button fx:id="switchCommand" mnemonicParsing="false" onAction="#copySwitch" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                           </children>

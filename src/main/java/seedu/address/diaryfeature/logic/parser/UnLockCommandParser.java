@@ -24,13 +24,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class UnLockCommandParser {
     public static final String UNLOCK_USAGE = "In particular, input your unlock command like this: \n" +
-            "unprivate target Eg: unprivate 1. \n Note that the input has to be more than or equal to 1";
+            "unlock TARGET user/USERNAME password/PASSWORD \nEG: unlock 1 user/myusername password/mypassword " +
+            "\nNote that the input has to be a number and more than or equal to 1";
 
     /**
      * Parses the given {@code String} of arguments in the context of theUnLockCommand
      * and returns a UnLockCommand object for execution.    *
      * @param args is the user input
-     * @return an UnlockCOmmand to execute
+     * @return an UnlockCommand to execute
      * @throws EmptyArgumentException if the user input does not conform the expected format
      * @throws DetailParseException if the Detail is invalid
      */
@@ -52,7 +53,6 @@ public class UnLockCommandParser {
          }
         username = new Username (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),
                 UnLockCommand.COMMAND_WORD));
-
         password = new Password (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),
                 UnLockCommand.COMMAND_WORD));
 

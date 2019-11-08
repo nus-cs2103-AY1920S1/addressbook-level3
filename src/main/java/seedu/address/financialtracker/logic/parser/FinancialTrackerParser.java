@@ -10,6 +10,7 @@ import seedu.address.financialtracker.logic.commands.EditFinCommand;
 import seedu.address.financialtracker.logic.commands.HelpCommand;
 import seedu.address.financialtracker.logic.commands.SortFinCommand;
 import seedu.address.financialtracker.logic.commands.SummaryCommand;
+import seedu.address.financialtracker.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
@@ -59,6 +60,9 @@ public class FinancialTrackerParser {
 
         case SortFinCommand.COMMAND_WORD:
             return new SortFinCommandParser().parse(arguments);
+
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

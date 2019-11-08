@@ -1,6 +1,7 @@
 package seedu.address.financialtracker.logic;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,6 +13,8 @@ import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
+import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
+import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,9 +31,9 @@ public class FinancialTrackerLogic {
     private final FinancialTrackerStorage storage;
     private final FinancialTrackerParser financialTrackerParser;
 
-    public FinancialTrackerLogic(Model financialTrackerModel, FinancialTrackerStorage storage) {
-        this.financialTrackerModel = financialTrackerModel;
-        this.storage = storage;
+    public FinancialTrackerLogic() {
+        this.financialTrackerModel = new Model();
+        this.storage = new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
         financialTrackerParser = new FinancialTrackerParser();
         try {
             Optional<FinancialTracker> financialTrackerOptional = storage.readFinancialTracker();
@@ -40,6 +43,13 @@ public class FinancialTrackerLogic {
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty Financial Tracker");
         }
+    }
+
+    /**
+     * Link dependencies to Financial Tracker model.
+     */
+    public void addDependencies(CountriesDropdown countriesDropdown) {
+        this.financialTrackerModel.addDependencies(countriesDropdown);
     }
 
     /**

@@ -1,10 +1,9 @@
 package seedu.address.financialtracker.ui;
 
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -13,9 +12,6 @@ import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
-import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.storage.FinancialTrackerStorage;
-import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -47,9 +43,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private HelpWindow helpMenuWindow;
 
     @FXML
-    private Scene financialTrackerScene;
-
-    @FXML
     private VBox financialTrackerPane;
 
     @FXML
@@ -64,16 +57,12 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public FinancialTrackerPage() {
+    public FinancialTrackerPage(FinancialTrackerLogic logic) {
         super(FXML);
         this.helpMenuWindow = new HelpWindow();
         this.codeWindow = new CodeWindow();
-        Model model = new Model();
-        FinancialTrackerStorage financialTrackerStorage =
-                new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
-        this.financialTrackerLogic = new FinancialTrackerLogic(model, financialTrackerStorage);
+        this.financialTrackerLogic = logic;
         this.helpWindow = new FinancialTrackerHelpWindow();
-        financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();
     }
 
@@ -170,12 +159,12 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     }
 
     @Override
-    public Scene getScene() {
-        return financialTrackerScene;
+    public PageType getPageType() {
+        return pageType;
     }
 
     @Override
-    public PageType getPageType() {
-        return pageType;
+    public Parent getParent() {
+        return super.getRoot();
     }
 }
