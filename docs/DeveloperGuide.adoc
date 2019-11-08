@@ -597,10 +597,10 @@ any point, all changes made by the command should be rolled back. This is
 reflected in the Activity Diagrams below.
 
 .Activity Diagram for undo command
-image::undoredo/UndoCommandActivityDiagram.png[]
+image::UndoCommandActivityDiagram.png[]
 
 .Activity Diagram for redo command
-image::undoredo/RedoCommandActivityDiagram.png[]
+image::RedoCommandActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the
 `Model`. Commands that just render a view without actually changing the
@@ -624,7 +624,7 @@ The following activity diagram illustrates how commands are remembered when a
 user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
-image::undoredo/InverseCommandActivityDiagram.png[]
+image::InverseCommandActivityDiagram.png[]
 
 The section below will discuss in more detail how undo/redo is implemented.
 
@@ -694,7 +694,7 @@ Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
 `CommandDeque` and `Command`.
 
 .Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
-image::undoredo/HistoryManagerModelClassDiagram.png[]
+image::HistoryManagerModelClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
 These commands store an integer value referencing the number of commands to
@@ -703,7 +703,7 @@ undo or redo, represented by `UndoCommand#numberOfTimes` and
 `UndoCommand` and `RedoCommand`.
 
 .Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
-image::undoredo/CommandClassDiagram.png[]
+image::CommandClassDiagram.png[]
 
 Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
 executes in the program. The sequence diagrams below show the process of undo
@@ -713,13 +713,13 @@ Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
 executes in the program.
 
 .Sequence Diagram for `UndoCommand` (undo a single command)
-image::undoredo/UndoSequenceDiagramNew.png[]
+image::UndoSequenceDiagramNew.png[]
 
 Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
 executes in the program.
 
 .Sequence Diagram for `RedoCommand` (redo a single command)
-image::undoredo/RedoSequenceDiagramNew.png[]
+image::RedoSequenceDiagramNew.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
