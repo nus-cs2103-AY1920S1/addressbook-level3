@@ -353,13 +353,13 @@ image::tag/TagActivityDiagram.png[]
 
 === Find Problem Feature
 
-Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `find` command to determine the exact set of problems the user wants to include in a training plan.
+Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `findprob` command to determine the exact set of problems the user wants to include in a training plan.
 
 This section will describe in detail the current implementation and design considerations of the find problem feature (i.e. search feature) of AlgoBase.
 
 The following activity diagram summarizes what happens when a user executes the find command:
 
-.Activity Diagram for the Execution of `find` Command
+.Activity Diagram for the Execution of `findprob` Command
 image::find/FindCommandActivityDiagram.png[]
 
 ==== Current Implementation
@@ -434,7 +434,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
-.Sequence Diagram for the Execution of `find` Command
+.Sequence Diagram for the Execution of `findprob` Command
 image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 ==== Design Considerations
@@ -448,12 +448,12 @@ image::find/FindCommandSequenceDiagram.png[width="70%"]
 ** Pros: The implementation would be more straightforward as the logic can update the displayed list directly.
 ** Cons: Leaves room for potential unexpected changes on the displayed problem list as the observable list is open to any kind of operation.
 
-===== Aspect: How to deal with the case where no search restriction is provided (i.e. user types in `find` with no arguments given)
+===== Aspect: How to deal with the case where no search restriction is provided (i.e. user types in `findprob` with no arguments given)
 
 * **Alternative 1 (current choice):** Treat it as an exception and notify the user to provide at least one constraint.
-** Pros: Makes the meaning of `find` command clear - you can’t search for problems without giving any conditions.
+** Pros: Makes the meaning of `findprob` command clear - you can’t search for problems without giving any conditions.
 ** Cons: Has to check there is at least one predicate provided, making the implementation a bit more complicated.
-* **Alternative 2:** Treat it as no restriction (i.e. `find` is equivalent to `list` in this case)
+* **Alternative 2:** Treat it as no restriction (i.e. `findprob` is equivalent to `list` in this case)
 ** Pros: Easier implementation (if all predicates are always-true predicates, using `.and` method to chain them together would naturally result in an always-true predicate).
 ** Cons: Confusing definition of a search function.
 
@@ -472,7 +472,7 @@ image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 === Save Find Rules Feature
 
-AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `find` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
+AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `findprob` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
 
 This section will describe in detail the current implementation and design considerations of the save find rules (or problem search rules) feature of AlgoBase.
 

@@ -22,7 +22,7 @@ public class DeleteFindRuleCommand extends Command {
     public static final String SHORT_COMMAND_WORD = "dfr";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the find rule identified by the index number "
-            + "used in the displayed Find Rules list.\n"
+            + "in the current list of find rules.\n"
             + "Parameters:\n"
             + "INDEX (must be a positive integer)\n"
             + "Example:\n"
