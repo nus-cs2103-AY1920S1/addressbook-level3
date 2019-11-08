@@ -20,4 +20,4 @@ my group and I felt that...
 This section acts as a summary of my contributions to SecureIT.
 
 * Major enhancement: I added the ability to analyse passwords.
-** f
+**
