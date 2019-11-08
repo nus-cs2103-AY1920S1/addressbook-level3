@@ -21,6 +21,7 @@ import seedu.address.ui.UiPart;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
 
+//@@author Kyzure
 /**
  * Represents an abstract class for the different timelines placed in the CalendarPanel.
  * Currently there are 3 types of timeline - day, week and month.

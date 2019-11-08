@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.events.EventSource;
 
-
+//@@author Kyzure
 /**
  * An UI component that displays information of a {@code Event}.
  */
