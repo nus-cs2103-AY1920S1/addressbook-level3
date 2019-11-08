@@ -2,11 +2,11 @@ package com.typee.logic.interactive.parser.state.addmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
-import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ORDER;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;

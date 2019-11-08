@@ -4,9 +4,10 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -116,16 +117,16 @@ class StartDateStateTest {
         State fifthState = new StartDateState(ArgumentMultimapBuilder.build(
                 prefixes.subList(0, 1), fifthArgs.subList(0, 1)));
 
-        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.
-                build(prefixes.subList(1, 2), firstArgs.subList(1, 2))));
-        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.
-                build(prefixes.subList(1, 2), secondArgs.subList(1, 2))));
-        assertThrows(StateTransitionException.class, () -> thirdState.transition(ArgumentMultimapBuilder.
-                build(prefixes.subList(1, 2), thirdArgs.subList(1, 2))));
-        assertThrows(StateTransitionException.class, () -> fourthState.transition(ArgumentMultimapBuilder.
-                build(prefixes.subList(1, 2), fourthArgs.subList(1, 2))));
-        assertThrows(StateTransitionException.class, () -> fifthState.transition(ArgumentMultimapBuilder.
-                build(prefixes.subList(1, 2), fifthArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> firstState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), firstArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), secondArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> thirdState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), thirdArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> fourthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), fourthArgs.subList(1, 2))));
+        assertThrows(StateTransitionException.class, () -> fifthState.transition(
+                ArgumentMultimapBuilder.build(prefixes.subList(1, 2), fifthArgs.subList(1, 2))));
 
     }
 
