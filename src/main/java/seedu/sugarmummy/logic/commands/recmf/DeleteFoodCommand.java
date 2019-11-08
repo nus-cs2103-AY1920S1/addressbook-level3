@@ -3,17 +3,12 @@ package seedu.sugarmummy.logic.commands.recmf;
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
 
-import java.util.List;
-
-import seedu.sugarmummy.commons.core.Messages;
-import seedu.sugarmummy.commons.core.index.Index;
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.recmf.FoodName;
 import seedu.sugarmummy.model.recmf.exceptions.FoodNotFoundException;
-import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -28,8 +23,8 @@ public class DeleteFoodCommand extends Command {
             + "Parameters: " + PREFIX_FOOD_NAME + "FOOD_NAME (case-insensitive)\n"
             + "Example: " + COMMAND_WORD + " fn/Chicken";
 
-    public static final String MESSAGE_SUCCESS = "%1$s has been deleted!";
-    public static final String MESSAGE_CANNOT_FIND_FOOD = "Cannot find any food that matches %1$s";
+    public static final String MESSAGE_SUCCESS = "I've successfully deleted Food: %1$s";
+    public static final String MESSAGE_CANNOT_FIND_FOOD = "Oops! I'm unable to find any food that matches %1$s";
     private final FoodName foodName;
 
     public DeleteFoodCommand(FoodName foodName) {

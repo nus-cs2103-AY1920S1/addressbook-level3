@@ -13,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main
+:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main/tree/master
 
 By: `Team CS2103-T16-1`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -176,19 +176,18 @@ Delete an event that you do not want to keep track anymore.
 === PERSONALISED USER EXPERIENCE
 
 //tag::personalisedUserExperienceAchvmPppPart1[]
-==== Show a list of all achievements the user has attained: `achvm`
+==== Shows all the achievements that the user has attained: `achvm`
 
 Format: `achvm`
 
-Displays the current list of achievements attained by the user, categorised by record type.
-
-Each achievement has a picture that represents it, a title, level, state and requirement required to attain
-the achievement. All these information are available upon the entering of the `achvm` command. However, the user
+Displays the current list of achievements attained by the user, categorised by record type. Each achievement has a picture that represents it, a title, level, state and requirement required to attain
+the achievement.
+//end::personalisedUserExperienceAchvmPppPart1[]
+All these information are available upon the entering of the `achvm` command. However, the user
 would only be able to see, for each achievement, the corresponding picture that represents the current state of the
 achievement (eg. if a user has yet to achieve the achievement, he / she will only see a silhouette image of the
 character in the picture rather than the actual image. Achieving the achievement will allow the user to "unlock" its
 coloured image).
-//end::personalisedUserExperienceAchvmPppPart1[]
 
 For each record type, there are five levels of achievements available:
 
@@ -255,18 +254,18 @@ users to self-monitor and keep their blood sugar levels and BMI in check, with a
 To enhance performance, the application internally caches the list of achievements. So long as there is no modification
 to the list of achievements, the same pane as before is displayed without retrieving images representing the
 achievements each time `achvm` is called. This means that after the first time a specific achievements page is
-displayed, subsequent loading is much faster for the user! :) Of course, this is until the next update of achievements,
+displayed, subsequent loading is much faster for the user! =) Of course, this is until the next update of achievements,
 or until the application is restarted, though loading itself is already optimised with image resolution sizes that are
 just sufficient for the page, and most of the time the user should not notice any significant differences at all whether
 the achievements are loaded for the first time. This means that regardless of the device the user is using, the pane is
 more or less guaranteed to run smoothly without any notable performance issues with efficiency. Ultimately, in short,
 measures have been taken to ensure quality in user experience, especially for a feature that focuses on
-_personalised_ user experience :)
+_personalised_ user experience =)
 
 The command word, as for all other commands, is not case-sensitive for convenience to user.
 
 //tag::personalisedUserExperienceBioPppPart1[]
-==== Shows a page displaying the user profile of the user: `bio`
+==== Displays the user's biography': `bio`
 
 Format: `bio`
 
@@ -338,15 +337,15 @@ The command word, as for all all other commands, is not case-sensitive for conve
 //end::personalisedUserExperienceBioPart1[]
 
 //tag::personalisedUserExperienceAddBioPppPart1[]
-==== Adds a biography for the user using specified fields: `addbio`
+==== Adds the user's biography: `addbio`
 
 Format: `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
-//end::personalisedUserExperienceAddBioPppPart1[]
 
 A user may add a biography if there isn't already an existing one stored in the application. This could occur if the
 storage file is corrupted (refer to above sub-section on `bio`), or if the user decides to clear the biography (refer to
-following sub-section on `clrbio` command). A user may add *at most one* biography. If a user attempts to add a
-biography when one already exists, an error message will be shown for the user to either `editbio` instead or `clrbio`
+following sub-section on `clrbio` command). A user may add *at most one* biography.
+//end::personalisedUserExperienceAddBioPppPart1[]
+If a user attempts to add a biography when one already exists, an error message will be shown for the user to either `editbio` instead or `clrbio`
 before adding a new one. Support for multiple user biographies is presently not available nor intended, as the
 application is meant to be fully experienced solely by a single user for maximised personalised user experience. As the
 fields used by `addbio` and `editbio` commands are identical and can appear in any order, a user who attempts to edit
@@ -444,13 +443,13 @@ Examples of *VALID* `addbio` commands, provided that a biography does not yet ex
 //end::personalisedUserExperienceAddBioPppPart4[]
 
 //tag::personalisedUserExperienceEditBioPppPart1[]
-==== Edits a biography for the user using specified fields: `editbio`
+==== Edits the user's biography: `editbio`
 
 Format: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
 
-A biography can be edited only if one already exists. An error message will be shown to a user who attempts to use the
-`editbio` command to edit fields before a biography is added.
+A biography can be edited only if one already exists.
 //end::personalisedUserExperienceEditBioPppPart1[]
+An error message will be shown to a user who attempts to use the `editbio` command to edit fields before a biography is added.
 As the fields used by `addbio` and `editbio` commands are
 identical and can appear in any order, a user who attempts to add a biography that does not yet exist using the `editbio`
 command, after receiving the error message, can simply amend `editbio` to `addbio` before re-entering the line of
@@ -476,7 +475,6 @@ that the field should not be blank. The only way to remove compulsory fields is 
 (see `clrbio` section below) completely. Otherwise, so long as a biography exists, at least one value must be present
 for each compulsory field.
 
-//tag::personalisedUserExperienceEditBioPppPart2[]
 A key aspect of the `editbio` feature is that for fields that can take multiple values
 (i.e. phone numbers, medical conditions and goals, as described in the `addbio` section above),
 indices may be specified to edit (a) particular value(s) of the field.
@@ -487,7 +485,8 @@ Take for instance the following phone numbers that are displayed in the user's b
 . `98765432`
 . `81234567`
 
-If the user intends to edit the second number in the list, he or she may input `editbio p/2/1234567` to change the second
+//tag::personalisedUserExperienceEditBioPppPart2[]
+If the user intends to edit the second of three phone numbers in a list, he or she may input `editbio p/2/1234567` to change the second
 number in the list of phone numbers.
 //end::personalisedUserExperienceEditBioPppPart2[]
 Similarly, if he or she wishes to edit the first and third number,
@@ -559,12 +558,12 @@ Examples of *VALID* `editbio` commands, provided that a biography exists, includ
 * `editbio n/John Doe`
 
 //tag::personalisedUserExperienceClearBioPppPart1[]
-==== Clears the biography of the user using: `clrbio`
+==== Clears the user's biography: `clrbio`
 
 Format: `clrbio`
 
 A user may clear his or her biography using the `clrbio` command. If a biography exists, all data from all biography
-fields will be removed. If a biography does not exist, the user will be displayed a message that the biography is
+fields will be removed. Otherwise, if a biography does not exist, the user will be displayed a message that the biography is
 already empty and there is no biography information to clear.
 //end::personalisedUserExperienceClearBioPppPart1[]
 If a biography is successfully cleared, the
@@ -581,7 +580,7 @@ and as such pose no issue.
 The command word, as for all all other commands, is not case-sensitive for convenience to user.
 
 //tag::personalisedUserExperienceFontColourPppPart1[]
-==== Sets the font color of the text: `fontcolour` or `fontcolor`
+==== Sets the font color of the application: `fontcolour` or `fontcolor`
 
 Formats:
 
@@ -602,7 +601,7 @@ names recognised by CSS, the colours will be set accordingly on the user's appli
 the program attempts to interpret it as a hexadecimal value colour. Note that `transparent` is NOT a valid colour.
 
 //tag::personalisedUserExperienceFontColourPppPart3[]
-A colour may be set using its hexadecimal value provided it follows format beginning with a '#' followed byt six valid
+A colour may be set using its hexadecimal value provided it follows format beginning with a '#' followed by six valid
 alphanumeric characters representing a hexadecimal colour. For instance, one may enter: `fontcolour #FFFF00`
 or `fontcolor #FFFF3A`.
 //end::personalisedUserExperienceFontColourPppPart3[]
@@ -681,7 +680,7 @@ Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 
 //tag::personalisedUserExperienceBgPppPart1[]
-==== Sets the background picture using a specified file path: `bg`
+==== Sets the background image or colour of the application: `bg`
 
 Formats:
 
@@ -896,7 +895,7 @@ Displays a cartoon that represents the user by observing the user's data such as
 * As the user's records such as BMI changes, the users' avatar automatically changes accordingly (eg. size, width,
 height of avatar)
 
-==== Follow up on user's goals: `[coming in v2.0]`
+==== Follows up on the user's goals: `[coming in v2.0]`
 
 Allows users to save goals in a certain format such the program will be able to follow-up on the user's goals. eg.
 Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they

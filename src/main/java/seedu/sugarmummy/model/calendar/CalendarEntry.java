@@ -3,6 +3,8 @@ package seedu.sugarmummy.model.calendar;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.sugarmummy.model.time.DateTime;
 
@@ -85,5 +87,9 @@ public abstract class CalendarEntry implements Comparable<CalendarEntry> {
     @Override
     public int compareTo(CalendarEntry calendarEntry) {
         return this.getTime().compareTo(calendarEntry.getTime());
+    }
+
+    public static String listToString(List<CalendarEntry> calendarEntries) {
+        return calendarEntries.stream().map(CalendarEntry::toString).collect(Collectors.joining(", "));
     }
 }

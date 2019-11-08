@@ -30,7 +30,8 @@ public class CalendarCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR_MONTH + "2019-12";
 
-    public static final String MESSAGE_SUCCESS = "Calendar of %1$s shown";
+    public static final String MESSAGE_SUCCESS = "Here's the calendar of %1$s that I'm showing you! Any reminders "
+            + "that you've added will be indicated here.";
 
     private final YearMonth yearMonth;
     private final Optional<YearMonthDay> yearMonthDay;

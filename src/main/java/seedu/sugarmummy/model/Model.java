@@ -26,6 +26,7 @@ import seedu.sugarmummy.model.records.Record;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.records.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
+import seedu.sugarmummy.model.time.Today;
 
 /**
  * The API of the Model component.
@@ -236,6 +237,7 @@ public interface Model {
      */
     void updateFilteredUserList(Predicate<User> predicate);
 
+    //========Calendar==================================
     /**
      * Returns the Calendar.
      */
@@ -309,6 +311,11 @@ public interface Model {
      * Stop all upcoming reminders.
      */
     void stopAllReminders();
+
+    /**
+     * Returns a Today object represents the date of today.
+     */
+    Today getToday();
 
     //=========== Aesthetics =============================================================
 

@@ -47,7 +47,7 @@
                     </padding>
                 </HBox>
 
-                <SplitPane dividerPositions="0.8" VBox.vgrow="ALWAYS">
+                <SplitPane fx:id="splitPane" dividerPositions="0.8" VBox.vgrow="ALWAYS">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>

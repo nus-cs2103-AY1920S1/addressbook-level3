@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALENDAR_REPETITION;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.sugarmummy.model.calendar.CalendarEntry.listToString;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
@@ -32,12 +32,13 @@ public class ReminderCommand extends Command {
             + PREFIX_DATETIME + "2020-05-31 16:00 "
             + PREFIX_CALENDAR_REPETITION + "daily";
 
-    public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
-    public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists in the calendar";
+    public static final String MESSAGE_SUCCESS = "I've successfully added this new reminder: %1$s";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Oops! This reminder already exists in the calendar";
     public static final String MESSAGE_SUBSET_REMINDER = "This reminder is covered by %1$s ";
-    public static final String MESSAGE_CONFLICTED_REMINDER = "This reminder and the following reminder(s) conflict: ";
+    public static final String MESSAGE_CONFLICTED_REMINDER = "Oops! This reminder and the following reminder(s) "
+            + "conflict: ";
     public static final String MESSAGE_SUPERSET_REMINDER = MESSAGE_SUCCESS
-            + ". The following reminder(s) are removed because they are covered by the new reminder:\n%2$s.";
+            + ". The following reminder(s) were removed because they are covered by the new reminder:\n%2$s.";
     private final Reminder toAdd;
 
     /**
@@ -74,10 +75,6 @@ public class ReminderCommand extends Command {
         model.addCalendarEntry(toAdd);
         model.schedule();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
-    }
-
-    private String listToString(List<CalendarEntry> calendarEntries) {
-        return calendarEntries.stream().map(CalendarEntry::toString).collect(Collectors.joining(", "));
     }
 
     @Override

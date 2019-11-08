@@ -38,7 +38,7 @@ public class BackgroundCommand extends Command {
 
     public static final String MESSAGE_NO_CHANGE = "The colour, path, or wrap settings you've keyed in is "
             + "no different from what has already been set in your current settings! As such, there's nothing "
-            + "for me to update :)";
+            + "for me to update =)";
 
     public static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The background you have keyed in has dominant "
             + "colours that are too close to the current font colour. Please try changing your font colour first or "

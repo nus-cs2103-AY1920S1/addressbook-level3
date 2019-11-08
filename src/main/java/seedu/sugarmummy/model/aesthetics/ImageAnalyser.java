@@ -22,18 +22,18 @@ import javax.imageio.stream.ImageInputStream;
 // and mhshams via https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string
 
 /**
- * Class to test to test for dominant colour in an image file.
+ * Class that analyses image files and is able to determine the dominant colour in an image.
  */
-public class ImageTester {
+public class ImageAnalyser {
 
     /**
-     * Returns a hexadecimal colour representing the dominant colour in a given background image.
+     * Returns a hexadecimal colour representing the dominant colour in a given image.
      *
-     * @param backgroundPath File path of background image of which dominant colour is to be obtained
-     * @return Hexadecimal colour representing the dominant colour in given background image.
+     * @param imagePath File path of an image of which dominant colour is to be obtained
+     * @return Hexadecimal colour representing the dominant colour in given image.
      */
-    public static String getDominantColour(String backgroundPath) {
-        File file = new File(backgroundPath);
+    public static String getDominantColour(String imagePath) {
+        File file = new File(imagePath);
 
         try {
             ImageInputStream is = ImageIO.createImageInputStream(file);
