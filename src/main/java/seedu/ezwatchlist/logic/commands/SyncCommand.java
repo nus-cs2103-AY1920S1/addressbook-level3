@@ -25,7 +25,8 @@ public class SyncCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SHOW = "?"; //"This show already exists in the watchlist";
 
     public static final String MESSAGE_UNSUCCESSFUL = "No matching name found in local internal storage.";
-
+    public static final String MESSAGE_UNSUCCESFUL2 = "You may use the add INDEX command to add searched-online shows"
+            + " into Watchlist.";
     private Index toSync;
 
     public SyncCommand(Index toSync) {
@@ -62,7 +63,7 @@ public class SyncCommand extends Command {
             model.setShow(fromUnWatchedList, fromImdb);
             return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
         } else {
-            throw new CommandException(MESSAGE_UNSUCCESSFUL);
+            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2);
         }
     }
 
