@@ -39,10 +39,11 @@ import seedu.address.model.loan.LoanList;
 public class SampleDataUtil {
 
     private static final int DAYS_AGO_30 = 30;
+    private static final int DAYS_AGO_28 = 28;
     private static final int DAYS_AGO_15 = 15;
     private static final int DAYS_AGO_14 = 14;
-    private static final int DAYS_AGO_10 = 10;
-    private static final int DAYS_AGO_28 = 28;
+    private static final int DAYS_AGO_9 = 9;
+    private static final int DAYS_AGO_1 = 1;
 
     public static Book[] getSampleBooks() {
         SerialNumberGenerator.setCatalog(new Catalog());
@@ -132,16 +133,14 @@ public class SampleDataUtil {
             getDefaultLoan(3, 3, DAYS_AGO_30, 20, false),
             getDefaultLoan(4, 4, DAYS_AGO_30, -1, true),
             getDefaultLoan(5, 5, DAYS_AGO_30, -1, false),
-            getDefaultLoan(2, 3, DAYS_AGO_28, 28, true),
+            getDefaultLoan(1, 3, DAYS_AGO_28, 28, true),
             getDefaultLoan(6, 4, DAYS_AGO_28, 25, false),
-            getDefaultLoan(2, 1, DAYS_AGO_15, 15, true),
-            getDefaultLoan(6, 2, DAYS_AGO_15, 15, true),
-            getDefaultLoan(3, 2, DAYS_AGO_15, -1, false),
+            getDefaultLoan(7, 2, DAYS_AGO_15, -1, false),
             getDefaultLoan(8, 1, DAYS_AGO_14, -1, false),
             getDefaultLoan(9, 1, DAYS_AGO_14, -1, true),
-            getDefaultLoan(1, 2, DAYS_AGO_14, 5, false),
-            getDefaultLoan(7, 2, DAYS_AGO_10, -1, true),
-            getDefaultLoan(5, 1, DAYS_AGO_10, 8, false)
+            getDefaultLoan(2, 2, DAYS_AGO_9, -1, true),
+            getDefaultLoan(3, 1, DAYS_AGO_9, 8, false),
+            getDefaultLoan(6, 3, DAYS_AGO_1, 8, false)
         ));
     }
 
