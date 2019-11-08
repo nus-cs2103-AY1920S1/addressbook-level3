@@ -513,7 +513,7 @@ to newly created paragraphs that do not have any content displayed.
 General notes are found at the bottom of the page, referred to as the _General notes section_.
 
 You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
-a phantom paragraph, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
+the paragraph of a general note, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
 
 NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `G`. You can refer to the
 numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
@@ -539,7 +539,7 @@ image::AddAnnotationCommandUi2.png[]
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
  * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
- `PARA_NUM` must be `NULL` or it must begin with `P` or `G` (e.g. `P3`).
+ `PARA_NUM` must be `NULL` or it must begin with `P` or `G` (e.g. `P3`). `PARA_NUM` is case-insensitive.
  If `PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
@@ -578,7 +578,7 @@ on the offline copy to revert it to a clean slate. You can also choose to remove
 <<stray-notes,_General notes section_>>.
 
 If the given paragraph does not have any annotations to remove, nothing is performed.
-Also, you cannot choose to remove only the highlight from a phantom paragraph since it does not display a highlight in the first place.
+Also, you cannot choose to remove only the highlight from the paragraph of a general note since it does not display a highlight in the first place.
 
 Upon deleting an annotation, your view will be switched to the offline tab showing the results of your command.
 
@@ -599,9 +599,9 @@ image::DeleteAnnotationCommandUi2.png[]
 ****
 * `INDEX` is the bookmark that you want to remove annotations of.
  If `INDEX` is invalid, a warning message will be displayed.
-* `PARA_NUM` is the numbered identifier of the paragraph to remove annotation(s) from. `PARA_NUM` must be either `all` or begin with `P` or `S`.
+* `PARA_NUM` is the numbered identifier of the paragraph to remove annotation(s) from. `PARA_NUM` must be either `all` or begin with `P` or `S`. `PARA_NUM` is case-insensitive.
  If you entered `all` for this parameter, all annotations will be cleared regardless of other options, reverting the offline document to a clean slate.
- If you specified a phantom paragraph instead, the phantom paragraph will be deleted if `n/KEEP_NOTES` parameter is set to `false`.
+ If you specified the paragraph of a general note instead, it will be deleted if `n/KEEP_NOTES` parameter is set to `false`.
  If `PARA_NUM` is invalid or there is no annotation to delete, a warning message will be displayed.
 * `KEEP_NOTES` is _boolean_ (either `true` or `false`). If `true`, the notes of the paragraph will not be deleted. Otherwise,
 the notes will be removed. `KEEP_NOTES` is `false` by default.
@@ -620,7 +620,7 @@ This removes both the note and highlight from paragraph 2 in the offline copy of
 This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving the highlight untouched.
 
 * `*annotate-delete* 2 p/g1` +
-This deletes the general note from phantom paragraph `G1` in the offline copy of bookmark 2.
+This deletes the general note `G1` in the offline copy of bookmark 2.
 
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
@@ -657,10 +657,10 @@ image::EditAnnotationCommandUi2.png[]
 ****
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
- * `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of.
+ * `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of. `PARA_NUM` is case-insensitive.
  If `PARA_NUM` is invalid or the corresponding paragraph does not have existing annotations, a warning message will be displayed.
- * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to. If `NEW_PARA_NUM` is the same as `PARA_NUM` or
-is invalid, a warning message will be displayed.
+ * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to. `NEW_PARA_NUM` is also case-insensitive.
+If `NEW_PARA_NUM` is the same as `PARA_NUM` or is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to change to. Whenever notes is given, it
  replaces any pre-existing note to paragraph `PARA_NUM`, if applicable.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
@@ -686,7 +686,7 @@ This replaces the content of the note for paragraph 1 with "new notes" in the of
 This changes the highlight colour to yellow for paragraph 1 in the offline copy of bookmark 1.
 
 * `*annotate-edit* 1 p/g2 to/p1` +
-This moves the general note of phantom paragraph `S2` to paragraph 1 in the offline copy of bookmark 1.
+This moves the general note `G2` to paragraph 1 in the offline copy of bookmark 1.
 
 * `*annotate-edit* 1 p/p2 to/p3 n/changing and moving notes` +
 This annotates paragraph 3 with the highlight of paragraph 2 and
