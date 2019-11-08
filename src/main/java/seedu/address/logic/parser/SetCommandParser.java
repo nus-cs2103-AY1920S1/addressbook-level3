@@ -38,12 +38,15 @@ public class SetCommandParser implements Parser<SetCommand> {
             throw new ParseException(String.format(SetCommand.MESSAGE_DATE_PAST));
         }
 
-        if (arePrefixesPresent(argMultimap, PREFIX_CATEGORY)) {
-            Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
-            return new SetCommand(new Budget(budget, date, categoryList));
-        }
+        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        return new SetCommand(new Budget(budget, date));
+        if (categoryList.isEmpty()) {
+            Budget newBudget = new Budget(budget, date);
+            return new SetCommand(newBudget);
+        } else {
+            Budget newBudget = new Budget(budget, date, categoryList);
+            return new SetCommand(newBudget);
+        }
     }
 
     /**
