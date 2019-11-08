@@ -22,22 +22,22 @@
         <Insets bottom="5" left="5" right="5" top="5" />
       </padding>
       <Label fx:id="id" styleClass="cell_big_label" />
-      <ImageView fx:id="display" cache="true" fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="display" cache="true" cacheHint="SPEED" fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
       <FlowPane fx:id="tags" alignment="CENTER" />
       <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" text="\$description" />
         <Pane prefHeight="24.0" prefWidth="240.0">
           <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="240.0">
               <children>
-                <ImageView fx:id="likeIcon" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="likeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/like_icon.png"/>
+                    <Image url="@../images/like_icon.png" smooth="true" requestedHeight="11.0" requestedWidth="13.0"/>
                   </image>
                 </ImageView>
                 <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
-                <ImageView fx:id="dislikeIcon" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="dislikeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/dislike_icon.png"/>
+                    <Image url="@../images/dislike_icon.png" smooth="true" requestedHeight="11.0" requestedWidth="13.0"/>
                   </image>
                 </ImageView>
                 <Label fx:id="dislikes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />

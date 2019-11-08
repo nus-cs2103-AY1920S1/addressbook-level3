@@ -43,8 +43,22 @@ public class ImportMemeCard extends UiPart<Region> {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + "");
-        display.setImage(new Image(meme.getImagePath().toUrl().toString()));
+        display.setImage(new Image(meme.getImagePath().toUrl().toString(), 200, 200, true, true, true));
         description.setText(meme.getDescription().value);
+        meme.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * Updates the card content except for the meme image.
+     * @param meme the meme this card is for
+     * @param newIndex the new index of the this card
+     */
+    public void update(Meme meme, int newIndex) {
+        id.setText(newIndex + "");
+        description.setText(meme.getDescription().value);
+        tags.getChildren().clear();
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -1,5 +1,7 @@
 package seedu.weme.ui;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.GridCell;
@@ -11,6 +13,7 @@ import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
 
 
@@ -20,12 +23,12 @@ import seedu.weme.model.meme.Meme;
 public class MemeGridPanel extends UiPart<Region> {
     private static final String FXML = "MemeGridPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(MemeGridPanel.class);
+    private final ObservableMap<String, SimpleIntegerProperty> likeData;
+    private final ObservableMap<String, SimpleIntegerProperty> dislikeData;
+    private final Map<ImagePath, MemeCard> memeCardMap = new HashMap<>();
 
     @FXML
     private GridView<Meme> memeGridView;
-
-    private ObservableMap<String, SimpleIntegerProperty> likeData;
-    private ObservableMap<String, SimpleIntegerProperty> dislikeData;
 
     public MemeGridPanel(ObservableList<Meme> memeList,
                          ObservableMap<String, SimpleIntegerProperty> likeData,
@@ -48,10 +51,19 @@ public class MemeGridPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                String filePath = meme.getImagePath().toString();
-                SimpleIntegerProperty likes = likeData.get(filePath);
-                SimpleIntegerProperty dislikes = dislikeData.get(filePath);
-                setGraphic(new MemeCard(meme, getIndex() + 1, likes, dislikes).getRoot());
+                // Cache the meme card to improve performance
+                ImagePath imagePath = meme.getImagePath();
+                MemeCard card = memeCardMap.get(imagePath);
+                int newIndex = getIndex() + 1;
+                SimpleIntegerProperty likes = likeData.get(imagePath.toString());
+                SimpleIntegerProperty dislikes = dislikeData.get(imagePath.toString());
+                if (card == null) {
+                    card = new MemeCard(meme, newIndex, likes, dislikes);
+                    memeCardMap.put(imagePath, card);
+                } else {
+                    card.update(meme, newIndex, likes, dislikes);
+                }
+                setGraphic(card.getRoot());
             }
         }
     }

@@ -1,11 +1,15 @@
 package seedu.weme.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.template.Template;
 
 /**
@@ -13,6 +17,7 @@ import seedu.weme.model.template.Template;
  */
 public class TemplateGridPanel extends UiPart<Region> {
     private static final String FXML = "TemplateGridPanel.fxml";
+    private final Map<ImagePath, TemplateCard> templateCardMap = new HashMap<>();
 
     @FXML
     private GridView<Template> templateGridView;
@@ -35,7 +40,16 @@ public class TemplateGridPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TemplateCard(template, getIndex() + 1).getRoot());
+                ImagePath imagePath = template.getImagePath();
+                TemplateCard card = templateCardMap.get(imagePath);
+                int newIndex = getIndex() + 1;
+                if (card == null) {
+                    card = new TemplateCard(template, newIndex);
+                    templateCardMap.put(imagePath, card);
+                } else {
+                    card.update(template, newIndex);
+                }
+                setGraphic(card.getRoot());
             }
         }
     }

@@ -18,7 +18,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <Label fx:id="id" styleClass="cell_big_label"/>
-      <ImageView fx:id="display" fitHeight="200" fitWidth="200" cache="true" pickOnBounds="true" preserveRatio="true"/>
+      <ImageView fx:id="display" fitHeight="200" fitWidth="200" cache="true" cacheHint="SPEED" pickOnBounds="true" preserveRatio="true"/>
       <Label fx:id="name" styleClass="cell_big_label" text="\$name"/>
     </VBox>
   </GridPane>
