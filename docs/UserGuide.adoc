@@ -96,7 +96,7 @@ Examples:
 
 === Generating a Report: `report`
 
-To create a report that displays the data in CaloFit: +
+To create your report that displays your progress over this month: +
 
 1. Type the word "report" in the command box. A picture is shown below highlighting the command box.
 
@@ -108,13 +108,13 @@ image::UserGuideReportStep2.png[]
 
 The report displays:
 
-1. Maximum, Minimum and Average calorie intake per day of the current month.
+1. Your Maximum, Minimum and Average calorie intake per day of the current month.
 [NOTE]
 Average value is rounded down.
-2. Number of days where calorie intake exceeded calorie budget of the month.
-3. List of most consumed dishes of the month.
-4. Calorie intake per day over the entire month.
-5. Quantity of each type of dish consumed in that month.
+2. The number of days where calorie intake exceeded calorie budget of the month.
+3. Your list of most consumed dishes of the month.
+4. Your calorie intake per day over the entire month.
+5. The quantity of each type of dish consumed in that month.
 
 Below is a picture of the report showing where each type of information mentioned above can be found.
 
