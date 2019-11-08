@@ -39,7 +39,6 @@
         <HBox>
             <Label styleClass="cell_big_label" text="Finance" />
             <VBox id="bar-chart" fx:id="wrapper" VBox.vgrow="ALWAYS">
-
             </VBox>
         </HBox>
     </VBox>

@@ -20,6 +20,8 @@ Team: *T17-1*
 
 *Content*
 
+:imagesDir: images
+
 == Introduction:
 
 MyProject (MP) is for team leaders who prefer to use a desktop app for managing their projects.
@@ -39,6 +41,9 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 .. list : lists all contacts
 .. exit : exits the app
 . Refer to Section 3, “Features” for details of each command.
+
+.The home page of MyProject listing all the projcts you have
+image::home-page.png[]
 
 == Features
 
@@ -64,6 +69,9 @@ Example:
 
 * `checkout 1`
 
+.After you have checked out to a project, an overview of the project will be shown.
+image::checkout-command.png[]
+=======
 ==== Return to previous: `back`
 
 If you want to return to the previous view page of the app, simply type the command `back`.
@@ -508,3 +516,6 @@ Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM
 ==== View budgets
 See the summary of all budget which shows how much money is left with that budget and where is this budget used. +
 Format: `listBudget`
+
+.Present budget in a pie chart depicting all expenses under the budget and the remaining amount.
+image::listbudget-command.png[]
