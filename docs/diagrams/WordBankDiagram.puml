@@ -9,6 +9,7 @@ hide empty members
 
 Package WordBank <<Rectangle>>{
 Interface ReadOnlyWordBank <<Interface>> {
+hasCard(Card)
 getName()
 getCard(Index)
 getCardList()
@@ -19,7 +20,6 @@ class WordBank {
    +addCard(Card)
    +removeCard(Card)
    +setCard(Card, Card)
-   +hasCard(Card)
    +resetData(ReadOnlyWordBank)
 }
 Class UniqueCardList
@@ -27,6 +27,6 @@ Class Card
 }
 
 WordBank .left.|> ReadOnlyWordBank
-WordBank o-down-> "1" UniqueCardList
-UniqueCardList -down-> "*" Card
+WordBank *-down-> "1" UniqueCardList
+UniqueCardList o-down-> "*" Card
 @enduml

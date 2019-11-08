@@ -32,7 +32,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":WordBankList" as WordBankList MODEL_COLOR
+participant ":WordBank" as WordBank MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
@@ -44,32 +44,38 @@ box Commons COMMONS_COLOR_T1
 participant ":JsonUtil" as JsonUtil COMMONS_COLOR
 end box
 
-[-> LogicManager : create bank1
+[-> LogicManager : add w/.. m/..
 activate LogicManager
 LogicManager -> ParserManager : parseCommand("...")
 
 activate ParserManager
-ParserManager --> LogicManager : CreateCommand
+ParserManager --> LogicManager : addCommand
 deactivate ParserManager
 
-LogicManager --> ModelManager : command.execute(model)
+LogicManager -> ModelManager : command.execute(model)
 activate ModelManager
-ModelManager --> WordBankList : hasWordBank("bank1")
-activate WordBankList
+ModelManager -> WordBank : hasCard(..)
+activate WordBank
 
-WordBankList --> ModelManager : false
-deactivate WordBankList
+WordBank --> ModelManager : false
+deactivate WordBank
 
-ModelManager -> LogicManager : CreateCommandResult
+ModelManager -> WordBank : addCard(..)
+note right: Card is added through WordBank's method., so that \ndata is synchronised in Model and UI.
+activate WordBank
+
+WordBank --> ModelManager :
+deactivate WordBank
+
+ModelManager --> LogicManager : CardCommandResult
 deactivate ModelManager
 
-LogicManager -> StorageManager : commandResult.updateStorage(storage)
+LogicManager -> StorageManager : commandResult.updateStorage(..)
 activate StorageManager
 
-StorageManager -> JsonWordBankListStorage : createWordBank("bank1")
+StorageManager -> JsonWordBankListStorage : updateWordBank(..)
 activate JsonWordBankListStorage
 
-JsonWordBankListStorage -> JsonWordBankListStorage : addWordBank(WordBank)
 JsonWordBankListStorage -> JsonUtil : saveWordBank(WordBank)
 activate JsonUtil
 
@@ -81,10 +87,10 @@ deactivate JsonUtil
 JsonWordBankListStorage --> StorageManager
 deactivate JsonWordBankListStorage
 
-StorageManager --> ModelManager
+StorageManager --> LogicManager
 deactivate StorageManager
-ModelManager --> LogicManager
-deactivate ModelManager
+'ModelManager --> LogicManager
+'deactivate ModelManager
 
 
 
