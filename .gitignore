@@ -24,3 +24,4 @@ src/main/resources/docs/
 /test/data/sandbox/serialize.json
 /test/data/sandbox/invalidList.json
 
+src/test/data/sandbox/serialize.json

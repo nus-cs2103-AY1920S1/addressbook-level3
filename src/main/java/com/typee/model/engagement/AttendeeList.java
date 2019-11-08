@@ -46,7 +46,10 @@ public class AttendeeList {
      * @return true if all the names are valid.
      */
     public static boolean areValidNames(String stringWithoutBrackets) {
-        return Arrays.stream(stringWithoutBrackets.split("\\|"))
+        if (stringWithoutBrackets.isBlank()) {
+            return false;
+        }
+        return Arrays.stream(stringWithoutBrackets.split("\\|\\s*[^\\|]"))
                 .map(person -> person.trim())
                 .allMatch(name -> Name.isValidName(name));
     }
