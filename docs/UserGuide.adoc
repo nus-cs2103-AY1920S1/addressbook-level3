@@ -145,6 +145,7 @@ The first character should be a alphanumeric character.
 must be provided.
 * `PRICE` should start off with "$" and contain only numbers, and should not be blank
 * `START_AGE` and `END_AGE` should contain only numbers, and should not be blank. `START_AGE` must not exceed `END_AGE`.
+Maximum value of `START_AGE` and `END_AGE` is 120.
 ****
 Examples:
 
@@ -170,11 +171,6 @@ Format: `listpolicy`
 
 Shows a list of all items in the bin. +
 Format: `listbin`
-
-=== Listing command history : `history`
-
-Shows a list of all previously entered (valid) commands. +
-Format: `history`
 
 === Expanding a profile: `expandperson`
 Expands the person details on the right panel.
@@ -212,13 +208,13 @@ Displays details of policy at index 1 on the right panel.
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]`
+Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH] [g/GENDER]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* If editing a person's date of birth results in him being ineligible for a policy/multiple policies he currently possesses, they will be unassigned from him.
+* If editing a person's details results in him being ineligible for a policy/multiple policies he currently possesses, they will be unassigned from him.
 ****
 [NOTE]
 To edit tags, use `addTag` or `deleteTag`
@@ -237,6 +233,9 @@ Format: `editpolicy INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/M
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* If editing a policy's details results in it being ineligible for person(s), the policy is *not* unassigned from the corresponding people.
+The reason behind this is that the relevant people signed the policy before the terms were changed, hence they should still be holding
+the previous version of the policies they signed.
 ****
 [NOTE]
 To edit policy tags, use `addPolicyTag` or `deletePolicyTag`
@@ -496,10 +495,9 @@ Assigns a policy to the person at the specified index. +
 Format: `assignpolicy INDEX pol/POLICY NAME`
 
 ****
-* Adds the policies to the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The policy refers to the name of the policy.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The policy name refers to the name of the policy.
+* A policy already assigned cannot be assigned again.
 * Each policy name must match the policy exactly as it appears in the absolute policy list.
 * Any number of policies can be added as long as the person is eligible for the policy.
 ****
@@ -519,11 +517,10 @@ Removes a policy from the person at the specified index. +
 Format: `unassignpolicy INDEX pol/POLICY NAME`
 
 ****
-* Removes the policies to the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The policy refers to the index number of the policy in the absolute list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Each policy *must be a positive integer* 1, 2, 3, ...
+* The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The policy name refers to the name of the policy.
+* A policy already unassigned cannot be unassigned again.
+* Each policy name must match the policy exactly as it appears in the absolute policy list.
 ****
 
 Examples:
@@ -654,7 +651,7 @@ dlete is not recognised. Did you mean: delete 2?
 
 The input will automatically be updated to the suggested command.
 
-=== Turning Command Suggestions On and off
+=== Turning Command Suggestions On and off : `suggestion`
 
 Switches suggestions for invalid commands on or off.
 
@@ -809,29 +806,47 @@ Changed bin item expiry time! Items in the Bin will be removed permanently 30 da
 ```
 // end::binitemexpiry[]
 
-=== Undo recently entered commands
-User can simply enter the command `undo` to undo the most recent address book change.
+=== Undo recently entered commands : `undo`
+User can simply enter the command `undo` to undo the most recent address book data change. An undo does not work for
+commands which do not make a change in the address book data (like `listpeople` for instance).
 
-Example:
-
-`undo`
+Format: `undo`
 
 Expected Output:
 ```
 An undo has been performed!
 ```
 
-=== Redo recently undone commands
-User can simply enter the command `redo` to redo the most recent undone address book change.
+=== Redo recently undone commands : `redo`
+User can simply enter the command `redo` to redo the most recent address book data change. A redo is possible only when
+an undo has been previously performed. Moreover, a redo does not work for commands which do not make a change in the
+address book data (like `listpeople` for instance).
 
-Example:
-
-`redo`
+Format: `redo`
 
 Expected Output:
 ```
 A redo has been performed!
 ```
+
+=== Listing command history : `history`
+
+Shows a list of all previously entered (valid) commands in the right panel. Commands entered during the merging
+period are not included. `history` itself is taken as a valid command too. +
+Format: `history`
+
+Expected Output:
+```
+Listed all previously entered commands (from most recent).
+```
+
+=== Navigating command history by pressing up/down keys
+
+Previously entered commands can be navigated in the `CommandBox` without explicity entering them by pressing
+UP/DOWN keyboard keys. This is different from the above mentioned `history` command, since it also displays commands
+entered which were invalid.
+
+Format: No command, simply press up/down keyboard keys.
 
 === Exiting the program : `exit`
 
