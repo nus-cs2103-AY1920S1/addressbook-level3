@@ -98,7 +98,7 @@ public class ProcessingMarkDoneCommand extends Command {
         requireNonNull(model);
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)
-                && taskNumber < donor.getProcessingList(patientNric).size()) {
+                && taskNumber < donor.getProcessingList(patientNric).size() + 1) {
                 model.getFilteredPersonList();
                 donor.markTaskAsDone(taskNumber);
                 return new CommandResult(donor.getProcessingList(patientNric).display());
