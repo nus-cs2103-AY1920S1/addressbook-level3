@@ -44,7 +44,7 @@ public class LedgerOperationBuilder {
      * Initializes the LedgerOperationBuildre with the data of {@code toCopy}.
      */
     public LedgerOperationBuilder(LedgerOperation toCopy) {
-        amount = toCopy.getAmount();
+        amount = toCopy.getAmount().makePositive();
         description = toCopy.getDescription();
         date = toCopy.getDate();
         people = toCopy.getPeopleInvolved();
@@ -133,8 +133,9 @@ public class LedgerOperationBuilder {
 
     /**
      * Builds ReceiveMoney Transaction
+     * @return
      */
-    public LedgerOperation asReceiveMoney() {
+    public ReceiveMoney asReceiveMoney() {
         return new ReceiveMoney(person, amount, date, description);
     }
 
