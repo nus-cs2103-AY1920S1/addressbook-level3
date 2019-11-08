@@ -25,40 +25,40 @@ public class DateTest {
         String missingDDD = ", 31 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingDDD));
         // only DD
-        String onlyDD = "Sa, 31 October 2019";
+        String onlyDD = "Th, 31 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(onlyDD));
         // with DDDD
-        String DDDD = "Satu, 31 October 2019";
+        String DDDD = "Thur, 31 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(DDDD));
 
         // missing comma
-        String missingComma = "Sat 31 October 2019";
+        String missingComma = "Thu 31 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingComma));
         // missing spacing
-        String missingSpacing = "Sat,31 October 2019";
+        String missingSpacing = "Thu,31 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingSpacing));
         // missing dd
-        String missingDd = "Sat, October 2019";
+        String missingDd = "Thu, October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingDd));
         // ddd
         String Ddd = "Tue, 001 October 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(Ddd));
 
         // missing MMM
-        String missingMMM = "Sat, 31 2019";
+        String missingMMM = "Thu, 31 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingMMM));
         // only MM
-        String onlyMM = "Sat, 31 Oc 2019";
+        String onlyMM = "Thu, 31 Oc 2019";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(onlyMM));
 
         // missing yyyy
-        String missingYyyy = "Sat, 31 October ";
+        String missingYyyy = "Thu, 31 October ";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(missingYyyy));
         // only yyy
-        String onlyYyy = "Sat, 31 October 201";
+        String onlyYyy = "Thu, 31 October 201";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(onlyYyy));
         // extra y
-        String extraY = "Sat, 31 October 20190";
+        String extraY = "Thu, 31 October 20190";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(extraY));
 
         // random string
@@ -69,7 +69,7 @@ public class DateTest {
         String illegalDayOfWeek = "Foo, 31 October 2019";
         String illegalDayOfWeek1 = "foo, 31 October 2019";
         String illegalDayOfWeekAndMissingInfo = "Foo, October 2019";
-        String illegalDayOfWeekLong = "Saturday, 31 October 2019";
+        String illegalDayOfWeekLong = "Thursday, 31 October 2019";
         String illegalDayOfWeekNonAlphaNumeric = "S!1, 31 October 2019";
         String illegalDayOfWeekNumeric= "132, 31 October 2019";
         String illegalDayOfWeekNonAlphaNumeric2 = "^!), 31 October 2019";
@@ -83,7 +83,7 @@ public class DateTest {
 
 
         // invalid month string
-        String invalidMonth = "Sat, 31 Octopus 2019";
+        String invalidMonth = "Thu, 31 Octopus 2019";
         String invalidMonth1 = "Sat, 4 Mai 2019";
         String invalidMonth2 = "Sat, 4 5 2019";
         String invalidMonth3 = "Sat, 4 555 2019";
@@ -98,10 +98,10 @@ public class DateTest {
         String invalidYear = "Mon, 1 January 1979";
         String invalidYear1 = "Thu, 1 January 2201";
         String invalidYear2 = "Mon, 31 December 1979";
-        String invalidYear3 = "Sat, 31 October 0000";
-        String invalidYear4 = "Sat, 31 October twen";
-        String invalidYear5 = "Sat, 31 October -001";
-        String invalidYear6 = "Sat, 31 October -0001";
+        String invalidYear3 = "Thu, 31 October 0000";
+        String invalidYear4 = "Thu, 31 October twen";
+        String invalidYear5 = "Thu, 31 October -001";
+        String invalidYear6 = "THu, 31 October -0001";
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(invalidYear));
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(invalidYear1));
         assertThrows(IllegalValueException.class, () -> Date.getInstanceFromString(invalidYear2));
@@ -167,20 +167,20 @@ public class DateTest {
     @Test
     public void getInstanceFromString() throws IllegalValueException {
         // with trailing spaces
-        String spacingBefore = " Sat, 31 October 2019";
-        String spacingAfter = "Sat, 31 December 2019 ";
-        Date octDate = new Date(new Day(DayOfWeek.SAT, 31, MonthOfYear.OCTOBER, new Year(2019)),
+        String spacingBefore = " Thu, 31 October 2019";
+        String spacingAfter = "Thu, 31 October 2019 ";
+        Date octDate = new Date(new Day(DayOfWeek.THU, 31, MonthOfYear.OCTOBER, new Year(2019)),
                 MonthOfYear.OCTOBER, new Year(2019));
         assertEquals(octDate, Date.getInstanceFromString(spacingBefore));
         assertEquals(octDate, Date.getInstanceFromString(spacingAfter));
 
         // with incomplete month that is still recognisable
-        String shortMonth = "Sat, 31 Octo 2019";
+        String shortMonth = "Thu, 31 Octo 2019";
         String shortMonth1 = "Tue, 28 Feb 2023";
         String shortMonth2 = "Thu, 29 Febr 2024";
         String shortMonth3 = "Wed, 13 Jun 2012";
 
-        Date monthDate = new Date(new Day(DayOfWeek.SAT, 31, MonthOfYear.OCTOBER, new Year(2019)),
+        Date monthDate = new Date(new Day(DayOfWeek.THU, 31, MonthOfYear.OCTOBER, new Year(2019)),
                 MonthOfYear.OCTOBER, new Year(2019));
         Date monthDate1 = new Date(new Day(DayOfWeek.TUE, 28, MonthOfYear.FEBRUARY, new Year(2023)),
                 MonthOfYear.FEBRUARY, new Year(2023));
@@ -195,7 +195,7 @@ public class DateTest {
         assertEquals(monthDate3, Date.getInstanceFromString(shortMonth3));
 
         // with complete month
-        String completeMonth = "Sat, 31 October 2019";
+        String completeMonth = "Thu, 31 October 2019";
         String completeMonth1 = "Tue, 28 February 2023";
         String completeMonth2 = "Thu, 29 February 2024";
         String completeMonth3 = "Wed, 13 June 2012";
@@ -260,24 +260,24 @@ public class DateTest {
     @Test
     public void getNextDate() {
         // thirty-first of dec
-        Date currDate = new Date(new Day(DayOfWeek.THU, 31, MonthOfYear.DECEMBER, new Year(2025)),
+        Date currDate = new Date(new Day(DayOfWeek.WED, 31, MonthOfYear.DECEMBER, new Year(2025)),
                 MonthOfYear.DECEMBER, new Year(2025));
-        Date expectedNextDate = new Date(new Day(DayOfWeek.FRI, 1, MonthOfYear.JANUARY, new Year(2026)),
+        Date expectedNextDate = new Date(new Day(DayOfWeek.THU, 1, MonthOfYear.JANUARY, new Year(2026)),
                 MonthOfYear.JANUARY, new Year(2026));
         // thirty of June
-        Date currDate2 = new Date(new Day(DayOfWeek.SUN, 30, MonthOfYear.JUNE, new Year(2046)),
+        Date currDate2 = new Date(new Day(DayOfWeek.SAT, 30, MonthOfYear.JUNE, new Year(2046)),
                 MonthOfYear.JUNE, new Year(2046));
-        Date expectedNextDate2 = new Date(new Day(DayOfWeek.MON, 1, MonthOfYear.JULY, new Year(2046)),
+        Date expectedNextDate2 = new Date(new Day(DayOfWeek.SUN, 1, MonthOfYear.JULY, new Year(2046)),
                 MonthOfYear.JULY, new Year(2046));
         // twenty-eight of feb (non-leap year)
         Date currDate3 = new Date(new Day(DayOfWeek.THU, 28, MonthOfYear.FEBRUARY, new Year(2047)),
-                MonthOfYear.FEBRUARY, new Year(2046));
+                MonthOfYear.FEBRUARY, new Year(2047));
         Date expectedNextDate3 = new Date(new Day(DayOfWeek.FRI, 1, MonthOfYear.MARCH, new Year(2047)),
                 MonthOfYear.MARCH, new Year(2047));
         // twenty-nine of feb (leap year)
-        Date currDate4 = new Date(new Day(DayOfWeek.SUN, 29, MonthOfYear.FEBRUARY, new Year(2048)),
+        Date currDate4 = new Date(new Day(DayOfWeek.SAT, 29, MonthOfYear.FEBRUARY, new Year(2048)),
                 MonthOfYear.FEBRUARY, new Year(2048));
-        Date expectedNextDate4 = new Date(new Day(DayOfWeek.MON, 1, MonthOfYear.MARCH, new Year(2048)),
+        Date expectedNextDate4 = new Date(new Day(DayOfWeek.SUN, 1, MonthOfYear.MARCH, new Year(2048)),
                 MonthOfYear.MARCH, new Year(2048));
         // sun to mon
         Date currDate5 = new Date(new Day(DayOfWeek.SUN, 26, MonthOfYear.SEPTEMBER, new Year(2027)),
