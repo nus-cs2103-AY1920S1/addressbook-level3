@@ -70,6 +70,11 @@ public class ReplenishParser implements Parser {
         case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser(REPLENISH).parse(arguments);
 
+        case TagCommand.COMMAND_WORD:
+            //fallthrough
+        case TagCommand.COMMAND_SHORTHAND:
+            return new TagCommandParser(REPLENISH).parse(arguments);
+
         case ViewCommand.COMMAND_WORD:
             //fallthrough
         case ViewCommand.COMMAND_SHORTHAND:
@@ -110,8 +115,6 @@ public class ReplenishParser implements Parser {
         case CheckCommand.COMMAND_WORD:
             //fallthrough
         case SetReminderCommand.COMMAND_WORD:
-            //fallthrough
-        case TagCommand.COMMAND_WORD:
             throw new ParseException(MESSAGE_XPIRE_COMMAND_ONLY);
 
         default:

@@ -100,20 +100,29 @@ public class TagCommand extends Command {
             if (this.index.getZeroBased() >= currentList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
-            XpireItem xpireItemToTag = (XpireItem) currentList.get(this.index.getZeroBased());
-            this.item = xpireItemToTag;
-            XpireItem taggedXpireItem = createTaggedItem(xpireItemToTag, this.tagItemDescriptor);
+
+            Item itemToTag = currentList.get(this.index.getZeroBased());
+            this.item = itemToTag;
+            Item taggedItem;
+            if (itemToTag instanceof XpireItem) {
+                taggedItem = createTaggedItem((XpireItem) itemToTag, this.tagItemDescriptor);
+
+            } else {
+                taggedItem = createTaggedReplenishItem(itemToTag, this.tagItemDescriptor);
+            }
+            stateManager.saveState(new ModifiedState(model));
+            model.setItem(this.listType, itemToTag, taggedItem);
+
             if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
                 this.containsLongTags = true;
             }
-            stateManager.saveState(new ModifiedState(model));
-            model.setItem(this.listType, xpireItemToTag, taggedXpireItem);
+
             if (containsLongTags) {
-                this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem);
+                this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedItem);
                 setShowInHistory(true);
                 return new CommandResult(this.result);
             }
-            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem);
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
 
@@ -165,13 +174,13 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code XpireItem} with the details of {@code xpireItemToTag}
+     * Creates and returns a {@code Item} with the details of {@code replenishItemToTag}
      * edited with {@code tagItemDescriptor}.
      */
-    private static Item createTaggedReplenishItem(Item xpireItemToTag, TagItemDescriptor tagItemDescriptor) {
-        assert xpireItemToTag != null;
-        Set<Tag> updatedTags = updateTags(xpireItemToTag, tagItemDescriptor);
-        return new Item(xpireItemToTag.getName(), updatedTags);
+    private static Item createTaggedReplenishItem(Item replenishItemToTag, TagItemDescriptor tagItemDescriptor) {
+        assert replenishItemToTag != null;
+        Set<Tag> updatedTags = updateTags(replenishItemToTag, tagItemDescriptor);
+        return new Item(replenishItemToTag.getName(), updatedTags);
     }
 
     /**
