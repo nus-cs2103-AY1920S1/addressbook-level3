@@ -54,10 +54,10 @@ Added the ability for the application to integrate with an *online database of m
 
 *What it does*:
 
-. Allows the user to see images in the application
-. Retrieve information about movies and tv shows
-. Search for movies and tv shows from a large database
-. Access reviews, ratings and other online centric data.
+. Allows the user to see images in the application.
+. Retrieve information about movies and tv shows.
+. Search for movies and tv shows from a large up-to-date database.
+. Access reviews, ratings, recommendations, collections of movies and tv shows, genre information, and much more.
 
 *Justification*:
 
@@ -69,6 +69,9 @@ appealing images, comprehensive information and up-to-date data.
 This feature required a robust knowledge on how to set up third party libraries in a Java application.
 Json conversion is also another key element when considering the API used.
 
+Moreover, I had to integrate this external data with our own internal systems. Meaning my teammates had to use my implementations easily. Hence, data handling and conversion had to be designed in an understandable manner.
+
+
 *Credits*:
 
 We are using The Movie Database (TMDB) API to retrieve information on movies and tv shows. As well as
@@ -77,50 +80,74 @@ using a java wrapper for the TMDB api implemented by Holger Brandl.
 
 === *Minor enhancement*:
 
-added ability to get recommendations based on the user's personal movies and tv shows.
+Added ability to *store and retrieve images* in the application.
+
+** Justification: This feature improves the visual interface, and provides movies and tv shows a more potent identity compared to just words.
+** Highlights: A lot of consideration had to
+be placed in the retrieval and presentation of images. I had to integrate the image portrayal with the `JavaFX`-based interface,
+consider how to store images and retrieve them when needed.
+
+=== *Minor enhancement*:
+
+Added ability to get *recommendations* based on the user's personal movies and tv shows.
 
 ** Justification: This feature improves the product because a user can gain the added benefit of getting more suggestions for Movies and Tv Shows, which
-makes the application more robust. Moreover, it might increase the usage of the application improving it's value proposition.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+makes the application more robust. Moreover, it improves the value of the application encouraging usage of the application.
+** Highlights: This design for this enhancement had considerable thought into the efficiency of this feature due to the large amount of processing required from parsing the user's data.
 ** Credits: The Movie Database (TMDB) API
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=heze8&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
+
+*Code contributed*:
+
+All of my contributions to the application can  be found in the following link: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=heze8&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[My Code Contribution]]
 [https://github.com[Test code]]
 
-* *Other contributions*:
+*Other contributions*:
 
-** Project management:
+Project management:
+
+*** I am the Project lead, thus my job consisted of making sure the team coordinated, the overall vision of the application was reached, and handling all the issues that arose in the development.
+
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-*** Project lead, making sure the team coordinated and overall vision of the application was reached.
-** Enhancements to existing features:
-*** Updated the Model to be null-friendly, and added Poster and Genre class (Pull requests https://github.com[#33], https://github.com[#34])
+
+*** Managed and assigned the issues, milestones and project board on Github.
+
+Enhancements to existing features:
+
+*** Updated the application's model to integrate seamlessly with the external library's data. This meant that each internal model class had to be error-friendly due to the unpredictable manner of the online database.
+*** Added more internal classes such as `Poster` and `Genre` to be used in the application. (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 *** Helped to integrate the API code with the rest of the application.
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed : https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (TMDB) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (Java wrapper) to the team repo
 
-_{you can add/remove categories in the list above}_
+Documentation:
+
+*** Did cosmetic tweaks to our website. https://github.com[#14]
+
+Community:
+
+*** Reviewed Pull Request : https://github.com[#107], https://github.com[#30], https://github.com[#73], https://github.com[#51], https://github.com[#78]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S1-CS2103T-T11-3/main/issues[T11-3 team], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/20[F12-4 team]
+
+Tools:
+
+*** Integrated a third party library (TMDB) to the project (https://www.themoviedb.org/documentation/api[TMDB Api])
+*** Integrated a new Github plugin (Java wrapper) to the team repo.
+*** Added a successfully merged pull request to the Java Wrapper we are using in our application to fix their issue of not supporting recommendations. (https://github.com/holgerbrandl/themoviedbapi/pull/111[Pull request merged])
+
 
 == 3. Contributions to the User Guide
-We had to update the original Ezwatchlist User Guide with instructions for the enhancements that
-we had added. SHowcasing my ability to write to target user. The following is an excerpt from our OASIS User Guide, showing additions that I have
+Our Ezwatchlist user guide consists of instructions to the user on how to use our application. Thus, the following showcase my ability to write to target user in an intuitive and understandable format.
+The following is an excerpt from our Ezwatchlist User Guide, showing additions that I have
 made for the undo and redo features.
 This section also contains an excerpt for the data file encryption feature that I have planned for the
 next version (v2.0) of OASIS. What I can do>
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
+include::../UserGuide.adoc[tag=intro]
 include::../UserGuide.adoc[tag=advancedfeatures]
 
-include::../UserGuide.adoc[tag=dataencryption]
+
 
 == Contributions to the Developer Guide
 
