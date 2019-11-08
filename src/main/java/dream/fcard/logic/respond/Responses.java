@@ -433,16 +433,6 @@ public enum Responses {
                     try {
                         Deck deck = StateHolder.getState().getDeck(deckName);
                         int index = Integer.parseInt(res.get(1).get(0));
-
-                        /*
-                        boolean isIndexValid = index > 0 && index <= deck.getSize();
-                        if (!isIndexValid) {
-                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
-                                    + "Index is invalid");
-                        }
-
-                         */
-
                         deck.removeCard(index);
                     } catch (DeckNotFoundException d) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
