@@ -263,6 +263,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Delete command:\n" + this.result;
+        return "Delete command";
     }
 }

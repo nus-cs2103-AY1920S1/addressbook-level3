@@ -8,8 +8,8 @@ import java.util.Stack;
  */
 public class StackManager implements StateManager {
 
+    public static final int MAXIMUM_STATES = 10;
     private static State current;
-    private final int maximum = 10;
     private final ArrayDeque<State> undoStack = new ArrayDeque<>();
     private final Stack<State> redoStack = new Stack<>();
 
@@ -52,7 +52,7 @@ public class StackManager implements StateManager {
     public void saveState(State currentState) {
         redoStack.clear();
         undoStack.push(currentState);
-        if (undoStack.size() > maximum) {
+        if (undoStack.size() > MAXIMUM_STATES) {
             undoStack.removeLast();
         }
     }

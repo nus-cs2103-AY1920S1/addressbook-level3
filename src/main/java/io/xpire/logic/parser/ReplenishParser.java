@@ -96,9 +96,13 @@ public class ReplenishParser implements Parser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+            //fallthrough
+        case UndoCommand.COMMAND_SHORTHAND:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+            //fallthrough
+        case RedoCommand.COMMAND_SHORTHAND:
             return new RedoCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
@@ -119,6 +123,7 @@ public class ReplenishParser implements Parser {
             //fallthrough
         case SetReminderCommand.COMMAND_WORD:
             throw new ParseException(MESSAGE_XPIRE_COMMAND_ONLY);
+
 
         default:
             return parseUnknownCommandWord(commandWord);

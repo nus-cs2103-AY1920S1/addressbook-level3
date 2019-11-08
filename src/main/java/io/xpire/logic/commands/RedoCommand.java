@@ -14,7 +14,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String COMMAND_SHORTHAND = "r";
-    public static final String MESSAGE_REDO_SUCCESS = "Redo %s";
+    public static final String MESSAGE_REDO_SUCCESS = "Redo %s\nUser Input: %s";
     public static final String MESSAGE_REDO_FAILURE = "There are no commands to redo.";
 
     @Override

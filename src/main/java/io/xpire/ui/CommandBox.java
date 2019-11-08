@@ -7,7 +7,7 @@ import io.xpire.logic.Logic;
 import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.ui.history.HistoryManager;
+import io.xpire.ui.history.InputHistoryManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -32,7 +32,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private ResultDisplay resultDisplay;
-    private HistoryManager historyManager = HistoryManager.getHistoryManager();
+    private InputHistoryManager<String> inputHistoryManager = new InputHistoryManager<>();
 
     @FXML
     private TextField commandTextField;
@@ -54,7 +54,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         String input = commandTextField.getText();
         if (!input.isBlank()) {
-            historyManager.save(input);
+            inputHistoryManager.save(input);
         }
         try {
             commandExecutor.execute(input);
@@ -88,13 +88,13 @@ public class CommandBox extends UiPart<Region> {
      * Handles an up key event by retrieving the previous entered command.
      */
     private void handleUpKey() {
-        String previousInput = historyManager.previous();
+        String previousInput = inputHistoryManager.previous();
         if (previousInput == null) {
             resultDisplay.setFeedbackToUser(MESSAGE_MAXIMUM_INPUT_RETRIEVAL_REACHED);
         } else {
             resultDisplay.setFeedbackToUser("");
             if (isStyleFailure()) {
-                previousInput = historyManager.previous();
+                previousInput = inputHistoryManager.previous();
             }
             commandTextField.setText(previousInput);
         }
@@ -105,7 +105,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles a down key event by retrieving the next entered command after the current command.
      */
     private void handleDownKey() {
-        String nextInput = historyManager.next();
+        String nextInput = inputHistoryManager.next();
         resultDisplay.setFeedbackToUser("");
         commandTextField.setText(Objects.requireNonNullElse(nextInput, ""));
         commandTextField.end();

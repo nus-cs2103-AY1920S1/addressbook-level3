@@ -71,6 +71,6 @@ public class ShiftToMainCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Shift command:\n" + this.result;
+        return "Shift command";
     }
 }

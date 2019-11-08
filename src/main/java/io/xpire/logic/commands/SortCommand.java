@@ -60,6 +60,6 @@ public class SortCommand extends Command {
 
     @Override
     public String toString() {
-        return "Sort by " + this.method;
+        return "Sort command";
     }
 }

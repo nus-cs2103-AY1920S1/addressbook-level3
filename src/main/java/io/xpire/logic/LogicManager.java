@@ -20,7 +20,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
-import io.xpire.model.history.CommandHistory;
+import io.xpire.model.history.UndoableHistoryManager;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.StackManager;
@@ -41,7 +41,8 @@ public class LogicManager implements Logic {
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
     private final StateManager stateManager = new StackManager();
-    private final CommandHistory commandHistory = new CommandHistory();
+    private final UndoableHistoryManager<Command> commandHistory = new UndoableHistoryManager<>();
+    private final UndoableHistoryManager<String> inputHistory = new UndoableHistoryManager<>();
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -70,13 +71,18 @@ public class LogicManager implements Logic {
         }
 
         if (command instanceof UndoCommand) {
-            Command previousCommand = commandHistory.retrievePreviousCommand();
-            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), previousCommand));
+            Command previousCommand = commandHistory.previous();
+            String previousInput = inputHistory.previous();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(),
+                    previousCommand, previousInput));
         } else if (command instanceof RedoCommand) {
-            Command nextCommand = commandHistory.retrieveNextCommand();
-            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), nextCommand));
+            Command nextCommand = commandHistory.next();
+            String nextInput = inputHistory.next();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(),
+                    nextCommand, nextInput));
         } else if (command.isShowInHistory()) {
-            commandHistory.addCommand(command);
+            commandHistory.save(command);
+            inputHistory.save(commandText);
         }
         return commandResult;
     }

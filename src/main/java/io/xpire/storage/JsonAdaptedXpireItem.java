@@ -47,12 +47,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         this.expiryDate = expiryDate;
         this.quantity = quantity;
         this.reminderThreshold = reminderThreshold;
-        if (tags != null) {
-            this.tags.addAll(tags);
-            while (this.tags.size() > 5) {
-                this.tags.remove(5);
-            }
-        }
+        this.tags.addAll(tags);
     }
 
     /**
@@ -148,6 +143,9 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
         final List<Tag> itemTags = new ArrayList<>();
         for (JsonAdaptedTag tag : this.tags) {
             itemTags.add(tag.toModelType());
+            if (itemTags.size() >= 5) {
+                break;
+            }
         }
         final Set<Tag> modelTags = new TreeSet<>(new TagComparator());
         modelTags.addAll(itemTags);
