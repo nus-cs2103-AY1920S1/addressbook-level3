@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.question.Question;
@@ -77,6 +78,11 @@ public class SlideshowWindow extends UiPart<Stage> {
      * Hides the slideshow window.
      */
     public void hide() {
+        /*
+         * Note: it is important to disable fullscreen before hiding else application
+         * might hang.
+         */
+        getRoot().setFullScreen(false);
         getRoot().hide();
     }
 
