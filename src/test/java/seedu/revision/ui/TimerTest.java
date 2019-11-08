@@ -38,6 +38,7 @@ class TimerTest {
     }
 
     /**
+     * Timer should count down to zero and not below zero.
      * @param robot - Will be injected by the test runner.
      */
     @Test
@@ -49,6 +50,7 @@ class TimerTest {
     }
 
     /**
+     * Timer should stop when the Timer#stopTimer is called.
      * @param robot - Will be injected by the test runner.
      */
     @Test
@@ -62,6 +64,7 @@ class TimerTest {
 
 
     /**
+     * Timer should display the starting time when reset.
      * @param robot - Will be injected by the test runner.
      */
     @Test

@@ -36,18 +36,20 @@ class LevelLabelTest {
     }
 
     /**
+     * Default after intialiser should show level 1.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void defaultLevel1Label_shouldDisplayLevel1(FxRobot robot) {
+    public void levelLabel_default_shouldDisplayLevelOne(FxRobot robot) {
         FxAssert.verifyThat(levelLabel.getLevelLabel(), LabeledMatchers.hasText("Level 1"));
     }
 
     /**
+     * Update level to 2 should show Level 2.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void updateLevelLabel_level2_shouldShowLevel2(FxRobot robot) {
+    public void updateLevelLabel_validLevel_shouldDisplayUpdatedLevel(FxRobot robot) {
         Platform.runLater(() -> {
             levelLabel.updateLevelLabel(2);
             assertEquals("Level 2", levelLabel.getLevelLabel().getText());
@@ -55,10 +57,11 @@ class LevelLabelTest {
     }
 
     /**
+     * Update level to invalid level should not show level.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void udpateLevelLabel_level4_failure(FxRobot robot) {
+    public void udpateLevelLabel_invalidLevel_shouldNotDisplayLevel(FxRobot robot) {
         levelLabel.updateLevelLabel(4);
         assertFalse(levelLabel.getLevelLabel().getText().equals("Level 4"));
 

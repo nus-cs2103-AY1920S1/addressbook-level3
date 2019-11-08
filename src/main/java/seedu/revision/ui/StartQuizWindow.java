@@ -181,10 +181,8 @@ public class StartQuizWindow extends ParentWindow {
             previousAnswerable = currentAnswerable;
             currentAnswerable = answerableIterator.next();
 
-            if (previousAnswerable != null && answerableIterator.hasNext()) {
-                if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
-                    handleNextLevel(previousAnswerable, currentAnswerable);
-                }
+            if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
+                handleNextLevel(previousAnswerable, currentAnswerable);
             }
 
             answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
@@ -240,7 +238,6 @@ public class StartQuizWindow extends ParentWindow {
             } else {
                 //Reset UI in the window
                 levelLabel.updateLevelLabel(nextLevel);
-
                 currentProgressIndex.set(0);
                 progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                         getSizeOfCurrentLevel(nextAnswerable),
@@ -328,4 +325,31 @@ public class StartQuizWindow extends ParentWindow {
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
+    public StackPane getLevelPlaceholder() {
+        return levelPlaceholder;
+    }
+
+    public CommandBox getCommandBox() {
+        return commandBox;
+    }
+
+    public LevelLabel getLevelLabel() {
+        return levelLabel;
+    }
+
+    public ResultDisplay getQuestionDisplay() {
+        return questionDisplay;
+    }
+
+    public AnswersGridPane getAnswersGridPane() {
+        return answersGridPane;
+    }
+
+    public ProgressIndicatorBar getProgressIndicatorBar() {
+        return progressIndicatorBar;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
 }
