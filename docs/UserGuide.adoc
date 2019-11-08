@@ -49,8 +49,8 @@ AddMin+ is an app that is mainly used through the Command Line Interface (CLI), 
 . Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends` : adds a contact named `John Doe` to the Employee List.
-* **`delete`**`3` : deletes the 3rd Employee shown in the current list
+* **`add_em`**`add_em n/John Doe g/Male p/20 no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends` : adds a contact named `John Doe` to the Employee List.
+* **`delete_em`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
 . Refer to <<Features>> for details of each command.
@@ -243,6 +243,7 @@ Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/E
 ****
 * Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
 * An employee's identity is uniquely identified by his/her name, phone number and email. You cannot edit an employee whose identity is the same as another employee already inside the Employee List.
+* Any switch of an Employee's gender will result in duo gender tags being displayed if the tags were not cleared.
 ****
 
 Event: Edits an existing event in the event list.
@@ -254,7 +255,9 @@ Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED
 * Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
 * An events's identity is uniquely identified by its name, start date, and end date. You cannot edit an event which is identical to another event already inside the Event List.
 * This command will flush the current manpower allocated list and replace it with a new allocation list.
-* The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
+* The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is
+modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
+
 ****
 
 [TIP]
@@ -324,6 +327,7 @@ Event Format: `delete_ev INDEX`
 ****
 * `INDEX` refers to the index number shown in the displayed entity list.
 * Note the <<Constraints>> for *INDEX*.
+* Deletion of an Employee will result in its de-allocation from all the Events.
 ****
 
 Examples:
@@ -427,11 +431,13 @@ as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch
 Manually chooses and allocates a single employee to an event.
 
 Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
+Format: `allocatem EVENT_INDEX id/EMPLOYEE_ID`
 
 ****
-* Allocates an employee with `EMPLOYEE_INDEX` to the event at the specified `EVENT_INDEX`.
+* Allocates an employee with `EMPLOYEE_INDEX` or `EMPLOYEE_ID` to the event at the specified `EVENT_INDEX`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
+* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
 * Note the <<Constraints>> for *INDEX*.
 ****
 
@@ -439,6 +445,9 @@ Examples:
 
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
+
+* `allocatem 1 id/002` +
+Allocates the employee with id:"002" to the 1st event on the event list.
 
 Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
 
@@ -464,7 +473,7 @@ Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * Note the <<Constraints>> for *INDEX*.
 * if `EMPLOYEE_ID` is not specified, all employees allocated to the event will be removed.
-* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the displayed employee list.
+* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
 ****
 
 Examples:
@@ -851,10 +860,15 @@ such as the location, budget, and date.
 `list`
 
 | *Allocate a specified number of Employees with Filter requirements to an Event*
-| `allocate EVENT_INDEX [t/FILTER TAGS]...`
+| `allocate EVENT_INDEX [n/NUMBER][t/FILTER_TAGS]...`
 | `allocate 1 n/2 t/female`
-| *Allocate one specified Employee to an Event*| `allocate EVENT_INDEX [n/EMPLOYEE_INDEX]`
+| *Allocate one specified Employee to an Event*|
+`allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
+
+`allocatem EVENT_INDEX id/EMPLOYEE_ID`
 | `allocatem 1 n/2`
+
+`allocatem 1 id/002`
 | *De-allocate one/all Employees from an Event* | `free EVENT_INDEX [id/EMPLOYEE_ID]`
 
 | `free 2`

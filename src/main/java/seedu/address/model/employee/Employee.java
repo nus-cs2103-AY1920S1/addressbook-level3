@@ -41,7 +41,6 @@ public class Employee {
         this.employeeAddress = employeeAddress;
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
-        //this.employeeJoinDate = employeeJoinDate;
         this.employeePay = employeePay;
         this.employeeSalaryPaid = employeeSalaryPaid;
         this.tags.add(new Tag(employeeGender.gender));
@@ -167,7 +166,7 @@ public class Employee {
                 .append(getEmployeeGender())
                 .append(" EmployeePay: ")
                 .append(getEmployeePay())
-                .append(" EmployeePhone: ")
+                .append(" Phone: ")
                 .append(getEmployeePhone())
                 .append(" Email: ")
                 .append(getEmployeeEmail())

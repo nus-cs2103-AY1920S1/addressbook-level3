@@ -122,9 +122,11 @@ public class EditCommand extends Command {
                 .orElse(employeeToEdit.getEmployeeAddress());
         Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
                 .orElse(employeeToEdit.getTags());
+
         EmployeeId updatedEmployeeId = employeeToEdit.getEmployeeId();
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
                 .orElse(employeeToEdit.getEmployeePay());
+
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
 
