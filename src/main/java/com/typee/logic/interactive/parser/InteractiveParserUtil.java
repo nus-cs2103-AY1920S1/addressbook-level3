@@ -282,7 +282,7 @@ public class InteractiveParserUtil {
      * @return {@code LocalDate} representing the date.
      */
     public static LocalDate parseLocalDate(String date, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withResolverStyle(ResolverStyle.STRICT);
         LocalDate localDate = LocalDate.parse(date, formatter);
         return localDate;
     }
