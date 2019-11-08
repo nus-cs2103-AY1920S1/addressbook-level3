@@ -917,7 +917,7 @@ The hash tag represents the length of the valid input for the primary key.
 
 ==== Add fields to a new product `[coming in v2.0]`
 
-This command is to allow users to add a field to their product.
+This command allow users to add a field to their product.
 Users have to first key in the field name.
 This will be followed by the data type of the field.
 The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
@@ -925,6 +925,10 @@ The hash tag represents the length of the valid input for the primary key.
 
 
 [underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE `
+
+=== Autocorrect `[coming in v2.0]`
+
+Corrects any typos that you may have while typing the commands.
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
