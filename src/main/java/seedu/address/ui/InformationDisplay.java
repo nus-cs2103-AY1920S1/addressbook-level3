@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.performance.Event;
@@ -27,6 +28,8 @@ public class InformationDisplay extends UiPart<Region> {
 
     @FXML
     private FlowPane tags;
+    @FXML
+    private GridPane informationBlock;
     @FXML
     private ImageView photo;
     @FXML
@@ -61,10 +64,10 @@ public class InformationDisplay extends UiPart<Region> {
     /**
      * Resize the image when window size changes
      */
-    public void resizeImage() {
-        photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(40));
-        photo.fitWidthProperty().bind(imageHolder.widthProperty());
-    }
+//    public void resizeImage() {
+//        photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(40));
+//        photo.fitWidthProperty().bind(imageHolder.widthProperty());
+//    }
 
     /**
      * Displays the personal information of the selected person
@@ -84,7 +87,6 @@ public class InformationDisplay extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add((new TagLayout(tag.tagName)).getRoot()));
         attendanceRate.setText(attendance);
-        resizeImage();
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -317,6 +318,9 @@ public class ParserUtil {
         String trimmedPath = imageFilePath.trim();
         if (!Photo.isValidFilePath(trimmedPath)) {
             throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+        }
+        if (!Photo.isFileExist(trimmedPath)) {
+            throw new ParseException(Photo.NO_FILE_EXIST_MESSAGE);
         }
         return new Photo(trimmedPath);
     }
