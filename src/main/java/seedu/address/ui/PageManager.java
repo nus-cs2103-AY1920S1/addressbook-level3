@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -78,7 +79,10 @@ public class PageManager {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         guiSettingsLogic.setGuiSettings(guiSettings);
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> primaryStage.hide());
+        delay.setOnFinished(event -> {
+            primaryStage.hide();
+            Platform.exit();
+        });
         delay.play();
     }
 

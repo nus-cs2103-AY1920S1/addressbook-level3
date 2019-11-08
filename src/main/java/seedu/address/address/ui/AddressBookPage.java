@@ -153,7 +153,6 @@ public class AddressBookPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        helpWindow.hide();
         PageManager.closeWindows();
     }
 
