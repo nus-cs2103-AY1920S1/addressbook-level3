@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.commands.DeleteCommand;
+import io.xpire.model.ListType;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
@@ -25,11 +26,11 @@ import io.xpire.model.tag.TagComparator;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private DeleteCommandParser parser = new DeleteCommandParser(ListType.XPIRE);
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertEqualsParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
+        assertEqualsParseSuccess(parser, "1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM));
     }
 
     @Test
@@ -47,7 +48,7 @@ public class DeleteCommandParserTest {
     public void parse_deleteSingleTagMode_returnsDeleteCommand() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
-        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM, set));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class DeleteCommandParserTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
         set.add(new Tag("Tag2"));
-        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM, set));
     }
 
     @Test
@@ -66,7 +67,8 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_deleteValidQuantity_returnsDeleteCommand() {
         Quantity validQuantity = new Quantity("1");
-        assertEqualsParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
+        assertEqualsParseSuccess(parser, "1|1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
+                validQuantity));
     }
 
     //invalid Quantity

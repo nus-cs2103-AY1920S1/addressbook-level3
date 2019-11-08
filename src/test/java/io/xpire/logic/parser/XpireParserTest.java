@@ -56,7 +56,7 @@ public class XpireParserTest {
     public void parse_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parse(
                 DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_ITEM), command);
+        assertEquals(new DeleteCommand(XPIRE, INDEX_FIRST_ITEM), command);
     }
 
     @Test

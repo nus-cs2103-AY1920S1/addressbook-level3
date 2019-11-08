@@ -66,7 +66,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, xpireItemToDelete);
 
@@ -78,7 +78,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -88,7 +88,7 @@ public class DeleteCommandTest {
         showItemAtIndex(model, INDEX_FIRST_ITEM);
 
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, xpireItemToDelete);
 
@@ -107,7 +107,7 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLists()[0].getItemList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -119,7 +119,7 @@ public class DeleteCommandTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
         set.add(new Tag(VALID_TAG_PROTEIN));
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_DUCK)
                                              .withExpiryDate(VALID_EXPIRY_DATE_DUCK)
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
     public void execute_deleteTagsFromItemNotAllFields_throwsCommandException() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_DRINK));
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SIXTH_ITEM, set);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
     }
 
@@ -145,7 +145,7 @@ public class DeleteCommandTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
 
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIFTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
 
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
@@ -163,7 +163,7 @@ public class DeleteCommandTest {
     public void execute_deleteNoTagsFromItemAllFields_success() {
         XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIFTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
                                              .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
@@ -180,7 +180,7 @@ public class DeleteCommandTest {
     public void execute_deleteTagsFromItemAllFields_throwsCommandException() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRUIT));
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SEVENTH_ITEM, set);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
     }
 
@@ -189,7 +189,7 @@ public class DeleteCommandTest {
         //All xpireItem fields present
         XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SECOND_ITEM.getZeroBased());
         Quantity quantityToDeduct = new Quantity("2");
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND_ITEM, quantityToDeduct);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SECOND_ITEM, quantityToDeduct);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_BANANA)
                 .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
@@ -204,7 +204,7 @@ public class DeleteCommandTest {
         //Not all xpireItem fields present
         targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
         quantityToDeduct = new Quantity("1");
-        deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, quantityToDeduct);
+        deleteCommand = new DeleteCommand(XPIRE, INDEX_SIXTH_ITEM, quantityToDeduct);
         expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_EXPIRED_MILK)
                 .withExpiryDate(VALID_EXPIRY_DATE_EXPIRED_MILK)
@@ -219,7 +219,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_deleteQuantityEqualsToItemQuantityFromItem_success() {
         Quantity quantityToDeduct = new Quantity("1");
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_ITEM, quantityToDeduct);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, quantityToDeduct);
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
         Name itemName = xpireItemToDelete.getName();
         Set<Tag> itemTags = xpireItemToDelete.getTags();
@@ -237,20 +237,20 @@ public class DeleteCommandTest {
     public void execute_deleteQuantityMoreThanItemQuantityFromItem_throwsCommandException() {
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
         Quantity quantityToDeduct = new Quantity("3");
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_ITEM, quantityToDeduct);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, quantityToDeduct);
         assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DELETE_QUANTITY_FAILURE);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_ITEM);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_ITEM);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(XPIRE, INDEX_SECOND_ITEM);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_ITEM);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
