@@ -16,26 +16,26 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Athletick;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AthletickStorage;
-import seedu.address.storage.AttendanceStorage;
 import seedu.address.storage.ImageStorage;
 import seedu.address.storage.JsonAthletickStorage;
-import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
+import seedu.address.storage.JsonTrainingManagerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.PerformanceStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TrainingManagerStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -54,6 +54,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing Athletick ]===========================");
@@ -66,9 +67,10 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AthletickStorage athletickStorage = new JsonAthletickStorage(userPrefs.getAthletickFilePath());
         PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getPerformanceFilePath());
-        AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
+        TrainingManagerStorage trainingManagerStorage =
+                new JsonTrainingManagerStorage(userPrefs.getAttendanceFilePath());
         ImageStorage imageStorage = new ImageStorage(userPrefs.getImageFilePath());
-        storage = new StorageManager(athletickStorage, performanceStorage, attendanceStorage, userPrefsStorage);
+        storage = new StorageManager(athletickStorage, performanceStorage, trainingManagerStorage, userPrefsStorage);
 
         imageStorage.createImageFile();
 
@@ -118,29 +120,30 @@ public class MainApp extends Application {
             }
             initialEventsList = performanceOptional.orElseGet(SampleDataUtil::getSamplePerformance);
         } catch (DataConversionException e) {
-            logger.warning("Data file for EventList not in the correct format. Will be starting with empty EventList");
+            logger.warning(
+                    "Data file for EventList not in the correct format. Will be starting with empty EventList");
             initialEventsList = new Performance();
         } catch (IOException e) {
             logger.warning("Problem while reading from EventList file. Will be starting with an empty EventList");
             initialEventsList = new Performance();
         }
 
-        Optional<Attendance> attendanceOptional;
-        Attendance initialAttendance;
+        Optional<TrainingManager> attendanceOptional;
+        TrainingManager initialTrainingManager;
         try {
-            attendanceOptional = storage.readAttendance();
+            attendanceOptional = storage.readTrainingManager();
             if (!attendanceOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Attendance");
             }
-            initialAttendance = attendanceOptional.orElse(new Attendance());
+            initialTrainingManager = attendanceOptional.orElse(new TrainingManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Attendance");
-            initialAttendance = new Attendance();
+            initialTrainingManager = new TrainingManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
-            initialAttendance = new Attendance();
+            initialTrainingManager = new TrainingManager();
         }
-        return new ModelManager(initialAthletick, initialEventsList, initialAttendance, userPrefs, history);
+        return new ModelManager(initialAthletick, initialEventsList, initialTrainingManager, userPrefs, history);
     }
 
     private void initLogging(Config config) {

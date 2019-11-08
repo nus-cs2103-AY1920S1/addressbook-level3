@@ -16,9 +16,9 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -28,10 +28,10 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
 
-    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(),
             new UserPrefs(), new HistoryManager());
-    private Model expectedModel = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
-            new UserPrefs(), new HistoryManager());
+    private Model expectedModel = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
+            new TrainingManager(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void equals() {

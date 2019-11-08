@@ -29,8 +29,8 @@ import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAthletickStorage;
-import seedu.address.storage.JsonAttendanceStorage;
 import seedu.address.storage.JsonPerformanceStorage;
+import seedu.address.storage.JsonTrainingManagerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -49,7 +49,8 @@ public class LogicManagerTest {
         JsonAthletickStorage athletickStorage =
                 new JsonAthletickStorage(temporaryFolder.resolve("Athletick.json"));
         JsonPerformanceStorage eventStorage = new JsonPerformanceStorage(temporaryFolder.resolve(("events.json")));
-        JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve("attendance.json"));
+        JsonTrainingManagerStorage attendanceStorage = new JsonTrainingManagerStorage(temporaryFolder.resolve(
+                "attendance.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(athletickStorage, eventStorage,
                 attendanceStorage, userPrefsStorage);
@@ -81,7 +82,7 @@ public class LogicManagerTest {
                 new JsonAthletickIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAthletick.json"));
         JsonPerformanceStorage eventStorage =
                 new JsonPerformanceStorage(temporaryFolder.resolve("ioException.json"));
-        JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve(
+        JsonTrainingManagerStorage attendanceStorage = new JsonTrainingManagerStorage(temporaryFolder.resolve(
                 "ioExceptionAttendance.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -109,10 +110,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -120,6 +122,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -128,6 +131,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -136,12 +140,13 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs(), model.getHistory());
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -150,10 +155,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }

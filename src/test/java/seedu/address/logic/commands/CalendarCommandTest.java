@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
@@ -21,7 +21,7 @@ import seedu.address.testutil.AthletickDateBuilder;
 
 public class CalendarCommandTest {
 
-    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(),
             new UserPrefs(), new HistoryManager());
 
     @Test

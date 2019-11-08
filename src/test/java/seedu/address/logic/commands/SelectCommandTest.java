@@ -14,16 +14,16 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 
 class SelectCommandTest {
 
-    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(),
             new UserPrefs(), new HistoryManager());
 
     @Test
@@ -34,7 +34,7 @@ class SelectCommandTest {
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, personToSelect);
 
         ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs(), model.getHistory());
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.selectPerson();
 

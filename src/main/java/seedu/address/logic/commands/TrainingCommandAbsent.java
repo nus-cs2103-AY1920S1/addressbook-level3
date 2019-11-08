@@ -40,9 +40,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
     public TrainingCommandAbsent(AthletickDate date, List<Index> indexList) {
         super(date, indexList);
     }
-    public Training getTrainingToAdd() {
-        return this.trainingToAdd;
-    }
+
     /**
      * Executes the TrainingCommandAbsent which adds a training to the Attendance in
      * model. People in indexList are marked as absent while everyone else is marked
@@ -103,6 +101,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
         }
         return new Training(date, trainingAttendance);
     }
+
     @Override
     public String toString() {
         return "'Add " + trainingToAdd + "' Command";

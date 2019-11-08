@@ -12,18 +12,18 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.Attendance;
+import seedu.address.model.TrainingManager;
 
 /**
  * A class to access Attendance data stored as a json file on the hard disk.
  */
-public class JsonAttendanceStorage implements AttendanceStorage {
+public class JsonTrainingManagerStorage implements TrainingManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAthletickStorage.class);
 
     private Path path;
 
-    public JsonAttendanceStorage(Path path) {
+    public JsonTrainingManagerStorage(Path path) {
         this.path = path;
     }
 
@@ -33,15 +33,15 @@ public class JsonAttendanceStorage implements AttendanceStorage {
     }
 
     @Override
-    public Optional<Attendance> readAttendance() throws DataConversionException {
-        return readAttendance(this.path);
+    public Optional<TrainingManager> readTrainingManager() throws DataConversionException {
+        return readTrainingManager(this.path);
     }
 
     @Override
-    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException {
+    public Optional<TrainingManager> readTrainingManager(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonAttendance> jsonAttendance = JsonUtil.readJsonFile(filePath, JsonAttendance.class);
+        Optional<JsonTrainingManager> jsonAttendance = JsonUtil.readJsonFile(filePath, JsonTrainingManager.class);
         if (!jsonAttendance.isPresent()) {
             return Optional.empty();
         }
@@ -55,16 +55,16 @@ public class JsonAttendanceStorage implements AttendanceStorage {
     }
 
     @Override
-    public void saveAttendance(Attendance attendance) throws IOException {
-        saveAttendance(attendance, this.path);
+    public void saveTrainingManager(TrainingManager trainingManager) throws IOException {
+        saveTrainingManager(trainingManager, this.path);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance, Path filePath) throws IOException {
-        requireNonNull(attendance);
+    public void saveTrainingManager(TrainingManager trainingManager, Path filePath) throws IOException {
+        requireNonNull(trainingManager);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonAttendance(attendance), filePath);
+        JsonUtil.saveJsonFile(new JsonTrainingManager(trainingManager), filePath);
     }
 }
