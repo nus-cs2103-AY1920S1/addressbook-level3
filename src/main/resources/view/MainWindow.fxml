@@ -36,11 +36,6 @@
         <HBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
             <StackPane id="main_window" fx:id="tabPanelPlaceHolder" VBox.vgrow="ALWAYS" />
-            <ToggleButton styleClass="toggle-button" mnemonicParsing="false" text="Switch Theme">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </ToggleButton>
           </VBox>
           <VBox HBox.hgrow="ALWAYS">
             <VBox id="window_title">
