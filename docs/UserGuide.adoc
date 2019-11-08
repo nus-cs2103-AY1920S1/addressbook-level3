@@ -314,9 +314,7 @@ image::homeUG/HomeFindStep1cr.png[]
 
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with the number of matching transactions, and the table will show only
+2. Hit `Enter`. Leo will respond with the number of matching transactions, and the table will show only
 transactions matching the keywords. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for find command in Home tab
