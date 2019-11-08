@@ -71,14 +71,37 @@ public class SampleDataUtil {
             new Purchase(new PurchaseDescription("Gongcha"), new PurchaseMoneySpent("2.80"),
                     LocalDate.of(2019, 10, 31)),
             new Purchase(new PurchaseDescription("Lunch at Deck"), new PurchaseMoneySpent("4.50"),
-                    LocalDate.of(2019, 10, 31))
+                    LocalDate.of(2019, 10, 31)),
+            new Purchase(new PurchaseDescription("Lunch at Utown"), new PurchaseMoneySpent("4.00"),
+                    LocalDate.of(2019, 11, 2)),
+            new Purchase(new PurchaseDescription("Stuffd Kebab for Dinner"), new PurchaseMoneySpent("5.80"),
+                    LocalDate.of(2019, 11, 2)),
+            new Purchase(new PurchaseDescription("Herschel Bag on Taobao"), new PurchaseMoneySpent("69.50"),
+                    LocalDate.of(2019, 11, 4)),
+            new Purchase(new PurchaseDescription("Laptop case on Taobao"), new PurchaseMoneySpent("16.00"),
+                    LocalDate.of(2019, 11, 4)),
+            new Purchase(new PurchaseDescription("Clothes at Editors Market"), new PurchaseMoneySpent("80"),
+                    LocalDate.of(2019, 11, 5)),
+            new Purchase(new PurchaseDescription("Dinner at PGP"), new PurchaseMoneySpent("7"),
+                    LocalDate.of(2019, 11, 7)),
+            new Purchase(new PurchaseDescription("Hot tea"), new PurchaseMoneySpent("0.8"),
+                    LocalDate.of(2019, 11, 8))
         };
     }
 
     public static Installment[] getSampleInstallments() {
         return new Installment[] {
-            new Installment(new InstallmentDescription("Spotify"), new InstallmentMoneyPaid("9.5")),
-            new Installment(new InstallmentDescription("Transport fees"), new InstallmentMoneyPaid("60"))
+            new Installment(new InstallmentDescription("Spotify subscription"), new InstallmentMoneyPaid("9.5")),
+            new Installment(new InstallmentDescription("Transport fees"), new InstallmentMoneyPaid("84.50")),
+            new Installment(new InstallmentDescription("OCBC credit card fees"),
+                    new InstallmentMoneyPaid("20")),
+            new Installment(new InstallmentDescription("Netflix subscription"),
+                    new InstallmentMoneyPaid("60")),
+            new Installment(new InstallmentDescription("Singtel phone bill"), new InstallmentMoneyPaid("40")),
+            new Installment(new InstallmentDescription("Photoshop subscription"),
+                    new InstallmentMoneyPaid("12.50")),
+            new Installment(new InstallmentDescription("Standard Chartered bank fees"),
+                    new InstallmentMoneyPaid("60"))
         };
     }
 

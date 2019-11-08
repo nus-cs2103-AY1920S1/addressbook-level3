@@ -65,6 +65,12 @@ public class FindPurchaseCommand extends Command {
         model.updateFilteredPurchaseList(predicate);
         model.setViewStatus(ViewType.LIST_FINANCE);
 
+        if (model.getFilteredPurchaseList().size() == 0) {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_NO_PURCHASES_FOUND, model.getFilteredPurchaseList().size()),
+                    true);
+        }
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW, model.getFilteredPurchaseList().size()),
                 true);

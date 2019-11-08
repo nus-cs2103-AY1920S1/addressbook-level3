@@ -435,15 +435,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Lists all purchases and payments from this month.
-     *
-     */
-    @Override
-    public void listSpending() {
-        financeTracker.listSpending();
-    }
-
-    /**
      * Calculates total expenditure by user for this month.
      */
     @Override
