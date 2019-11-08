@@ -387,7 +387,8 @@ Moves the text at index 2 down by 30% of the image height.
 Moves the text at index 3 to the right by 20% of the image width and up by 30% of the image height.
 
 [TIP]
-You can type `move INDEX` and use arrow keys to move the specified text.
+You can type `move INDEX` and use arrow keys to move the specified text. +
+Hold kbd:[Shift] while pressing arrow keys to make the text move faster.
 
 ==== Deleting text: `delete`
 

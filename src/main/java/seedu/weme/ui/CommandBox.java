@@ -196,7 +196,7 @@ public class CommandBox extends UiPart<Region> {
         final String arguments = matcher.group(WemeParser.ARGUMENTS).trim();
         if (commandWord.equals(TextMoveCommand.COMMAND_WORD) && arguments.matches("\\d+")) {
             try {
-                float distance = TextMoveCommand.DEFAULT_MOVE_DISTANCE;
+                float distance = TextMoveCommand.DEFAULT_MOVE_DISTANCE * (event.isShiftDown() ? 5 : 1);
                 switch (event.getCode()) {
                 case UP:
                     commandExecutor.execute(commandTextField.getText() + " y/-" + distance);
