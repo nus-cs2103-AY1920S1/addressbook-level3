@@ -39,19 +39,6 @@ public class StringUtil {
     }
 
     /**
-     * Truncates a string and adds ellipses at the back (...).
-     * @param str The string to truncate.
-     * @param len The desired length of the final string.
-     */
-    public static String truncateAndEllipses(String str, int len) {
-        if (str.length() < len || len <= 3) {
-            return str;
-        }
-        len -= 3;
-        return str.substring(0, len) + "...";
-    }
-
-    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

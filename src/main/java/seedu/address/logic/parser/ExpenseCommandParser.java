@@ -38,9 +38,6 @@ public class ExpenseCommandParser implements Parser<ExpenseCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpenseCommand.MESSAGE_USAGE));
         }
         Amount amount = amounts.get(0);
-        if (amount.value == 0) {
-            throw new ParseException(ExpenseCommand.MESSAGE_ZERO_EXPENSE);
-        }
 
         String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse(""));
         return new ExpenseCommand(persons, amount, description);
