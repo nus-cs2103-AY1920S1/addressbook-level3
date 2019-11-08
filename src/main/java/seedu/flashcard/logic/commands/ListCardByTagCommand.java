@@ -5,6 +5,8 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
@@ -36,5 +38,12 @@ public class ListCardByTagCommand extends Command {
         requireNonNull(model);
         model.updateFilteredFlashcardList(model.getHasTagPredicate(target));
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListCardByTagCommand // instanceof handles nulls
+                && target.equals(((ListCardByTagCommand) other).target));
     }
 }
