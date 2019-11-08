@@ -72,8 +72,8 @@ public class ReminderListPanel extends UiPart<Region> {
         for (int i = 0; i < reminders.size(); i++) {
             String index = String.format("%d. ", i + 1);
             Label reminder = new Label(index + reminders.get(i).toString());
-            reminder.setStyle("-fx-text-fill: white; -fx-padding: 2px;");
-            reminder.setFont(new Font("Arial", 18));
+            reminder.getStyleClass().clear();
+            reminder.getStyleClass().add("reminder-cell");
             reminder.setMinWidth(Region.USE_PREF_SIZE);
             reminderItems.add(reminder);
         }

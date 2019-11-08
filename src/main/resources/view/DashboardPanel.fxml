@@ -15,7 +15,7 @@
     </HBox>
     <HBox VBox.vgrow="ALWAYS">
         <VBox HBox.hgrow="ALWAYS">
-            <Label text="Folders" textFill="ivory" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefWidth="650.0" fx:id="title" style="-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"/>
+            <Label text="Folders" textFill="ivory" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefWidth="700.0" fx:id="title" style="-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"/>
             <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
         </VBox>
         <HBox maxWidth="400">

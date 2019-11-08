@@ -220,9 +220,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
         timer.cancel();
         timer.purge();
-        Platform.exit();
-        
-        System.exit(0);
     }
 
     /**
@@ -398,10 +395,7 @@ public class MainWindow extends UiPart<Stage> {
                     for (int i = 0; i < reminders.size(); i++) {
                         Reminder reminder = reminders.get(i);
                         LocalDateTime remindTime = reminder.getRemindTime();
-                        System.out.println(compareHour(now, remindTime));
-                        System.out.println(now.isBefore(remindTime) && compareHour(now, remindTime) < 5);
                         if (now.isBefore(remindTime) && compareHour(now, remindTime) < 5 && !reminder.getShow()) {
-                            System.out.println("show notice");
                             Notifications noti = getNotification(reminder);
 
                             Platform.runLater(() -> {
@@ -416,7 +410,6 @@ public class MainWindow extends UiPart<Stage> {
                             }
 
                         } else if (compareMinute(now, remindTime) == 0 && !reminder.getDue()) {
-                            System.out.println("show notice");
                             Notifications noti = getNotification(reminder);
 
                             Platform.runLater(() -> {
