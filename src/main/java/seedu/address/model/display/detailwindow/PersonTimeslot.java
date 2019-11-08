@@ -13,6 +13,7 @@ public class PersonTimeslot {
     private Integer id;
     private String color;
     private String eventName;
+    private boolean isInGroup;
 
     private String displayString;
 
@@ -23,15 +24,18 @@ public class PersonTimeslot {
 
     private ClosestCommonLocationData locationData;
 
+
     public PersonTimeslot(String eventName,
                           LocalDate date,
                           LocalTime startTime,
                           LocalTime endTime,
                           Venue venue,
                           String color,
+                          boolean isInGroup,
                           ClosestCommonLocationData locationData) {
         this.id = 0;
         this.eventName = eventName;
+        this.isInGroup = isInGroup;
         this.displayString = "-";
         this.date = date;
         this.startTime = startTime;
@@ -39,6 +43,10 @@ public class PersonTimeslot {
         this.venue = venue;
         this.color = color;
         this.locationData = locationData;
+    }
+
+    public boolean isInGroup() {
+        return isInGroup;
     }
 
     public String getDisplayString() {
@@ -65,13 +73,17 @@ public class PersonTimeslot {
         return date;
     }
 
-    public void setId(int id) {
-        this.id = id;
-        this.displayString = Integer.toString(id);
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+        if (isInGroup) {
+            displayString = Integer.toString(id);
+        } else {
+            displayString = id + ": " + eventName;
+        }
     }
 
     public String getColor() {

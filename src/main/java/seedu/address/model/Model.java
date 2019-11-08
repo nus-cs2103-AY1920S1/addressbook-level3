@@ -299,22 +299,22 @@ public interface Model {
     /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateScheduleWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current main window display with the User's schedule.
      */
-    void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateScheduleWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current main window display with an Array of Person's schedule.
      */
-    void updateScheduleWindowDisplay(ArrayList<Person> persons, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current side panel display.

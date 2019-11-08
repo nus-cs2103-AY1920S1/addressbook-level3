@@ -38,7 +38,7 @@ public class FindPersonCommand extends Command {
             Person person = model.findPerson(name);
 
             // update main window
-            model.updateScheduleWindowDisplay(person.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithPerson(person.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);

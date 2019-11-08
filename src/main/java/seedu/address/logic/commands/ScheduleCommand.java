@@ -46,7 +46,7 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateScheduleWindowDisplay(persons, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);

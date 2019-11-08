@@ -38,7 +38,7 @@ public class FindGroupCommand extends Command {
             Group group = model.findGroup(groupName);
 
             // update main window
-            model.updateScheduleWindowDisplay(group.getGroupName(), LocalDateTime.now(),
+            model.updateDisplayWithGroup(group.getGroupName(), LocalDateTime.now(),
                     ScheduleWindowDisplayType.GROUP);
 
             //update side panel display

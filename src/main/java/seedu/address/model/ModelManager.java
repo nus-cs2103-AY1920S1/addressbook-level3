@@ -407,24 +407,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateScheduleWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(name, time, type, timeBook);
+    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateDisplayWithPerson(name, time, type, timeBook);
     }
 
     @Override
-    public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(time, type, timeBook);
+    public void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateDisplayWithUser(time, type, timeBook);
     }
 
     @Override
-    public void updateScheduleWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(groupName, time, type, timeBook);
+    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateDisplayWithGroup(groupName, time, type, timeBook);
     }
 
     @Override
-    public void updateScheduleWindowDisplay(ArrayList<Person> persons,
-                                            LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateScheduleWindowDisplay(persons, time, type, timeBook);
+    public void updateDisplayWithPersons(ArrayList<Person> persons,
+                                         LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateDisplayWithPersons(persons, time, type, timeBook);
     }
 
     @Override
@@ -438,7 +438,7 @@ public class ModelManager implements Model {
     }
 
     public void initialiseDefaultWindowDisplay() {
-        displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+        displayModelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
     }
 
     public ScheduleWindowDisplayType getState() {

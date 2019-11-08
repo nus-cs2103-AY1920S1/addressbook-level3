@@ -55,9 +55,9 @@ public class ShowCommand<T> extends Command {
             }
 
             if (person.get().equals(model.getUser())) {
-                model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             } else {
-                model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
                     false, false);
@@ -75,11 +75,11 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
                     false, false);
         } else {
-            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             return new CommandResult(String.format(MESSAGE_SUCCESS, "Your schedule",
                     false, false));
         }
