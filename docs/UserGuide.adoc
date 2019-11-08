@@ -875,7 +875,7 @@ The hash tag represents the length of the valid input for the primary key.
 
 [underline]#Format#: `create PRODUCT_NAME PRIMARY_KEY_NAME DATA_TYPE `
 
-=== Add fields to a new product `[coming in v2.0]`
+==== Add fields to a new product `[coming in v2.0]`
 
 This command is to allow users to add a field to their product.
 Users have to first key in the field name.
