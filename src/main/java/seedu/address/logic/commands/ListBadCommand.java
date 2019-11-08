@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 import seedu.address.model.deadline.BadQuestions;
 import seedu.address.model.deadline.DueDate;
+import seedu.address.model.flashcard.exceptions.NoBadFlashCardException;
 
 
 /**
@@ -21,7 +22,8 @@ public class ListBadCommand extends Command {
             + "labeled as bad flashcards that to remind the users to revise for these flashcards.\n"
             + "at a later date.\n"
             + "Example: " + COMMAND_WORD + " d>12/11/2019";
-    public static final String SUCCESS_MESSAGE = "Flashcards displayed";
+
+    public static final String NO_BAD_FLASHCARDS = "No 'Bad' rated FlashCards for the date specified!";
 
     private final DueDate date;
 
@@ -34,15 +36,11 @@ public class ListBadCommand extends Command {
         requireNonNull(model);
 
         BadQuestions badQuestions = new BadQuestions();
-        String bad = badQuestions.showBadQuestionsList(date);
-
-        return new CommandResult(String.format(bad, "hello"));
+        try {
+            String bad = badQuestions.showBadQuestionsList(date);
+            return new CommandResult(String.format(bad));
+        } catch (NoBadFlashCardException e) {
+            return new CommandResult(NO_BAD_FLASHCARDS);
+        }
     }
-
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof ListBadCommand // instanceof handles nulls
-//                && predicate.equals(((ListBadCommand) other).predicate)); // state check
-//    }
 }
