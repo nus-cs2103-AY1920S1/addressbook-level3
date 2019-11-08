@@ -12,10 +12,6 @@ public class Messages {
             + "index! Please input another valid index from the list on the left under the Finance tab.";
     public static final String MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX = "Jarvis does not have an installment "
             + "with this index! Please input another valid index from the list on the right under the Finance tab.";
-    public static final String MESSAGE_PURCHASES_LISTED_OVERVIEW = "Here you go, Jarvis has found %1$d purchases with "
-            + "that keyword! \nIf you wish to return your list of purchases, type 'list-finances' in the command box.";
-    public static final String MESSAGE_NO_PURCHASES_FOUND = "Sorry, Jarvis did not find any purchases with that "
-            + "keyword. \nIf you wish to return your list of purchases, type 'list-finances' in the command box.";
 
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index is not in the range of "
                                                                        + "task items in the list";
