@@ -1,6 +1,6 @@
 package calofit.logic;
 
-import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX;
+import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_INDEX;
 import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -60,7 +60,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, String.format(MESSAGE_INVALID_MEAL_INDEX, 9));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called for DishDatabase.
+     * A stub class to throw an {@code IOException} when the save method is called for {@code DishDatabase}.
      */
     private static class JsonDishDatabaseIoExceptionThrowingStub extends JsonDishDatabaseStorage {
         private JsonDishDatabaseIoExceptionThrowingStub(Path filePath) {

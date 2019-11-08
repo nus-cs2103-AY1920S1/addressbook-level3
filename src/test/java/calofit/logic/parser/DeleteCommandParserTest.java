@@ -2,6 +2,8 @@ package calofit.logic.parser;
 
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import calofit.logic.commands.DeleteCommand;
@@ -20,12 +22,14 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL));
+        ArrayList<Integer> typicalIndexFirstMeal = new ArrayList<Integer>();
+        typicalIndexFirstMeal.add(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        CommandParserTestUtil.assertParseSuccess(parser, " 1", new DeleteCommand(typicalIndexFirstMeal));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser, "a",
+        CommandParserTestUtil.assertParseFailure(parser, " a",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

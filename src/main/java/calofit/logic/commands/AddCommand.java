@@ -7,8 +7,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
+import calofit.commons.core.Messages;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Calorie;
@@ -27,14 +29,19 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a dish to the dish database. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meals to the meal list below. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_CALORIES + "CALORIES] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "OR \n"
+            + "INDEX (must be a positive integer between 1 and 2 billion that is in the suggested meal list) \n"
+            + "Example: \n" + COMMAND_WORD + " "
             + PREFIX_NAME + "Carbonara "
-            + PREFIX_CALORIES + "low calorie "
-            + PREFIX_TAG + "salty";
+            + PREFIX_CALORIES + "300 "
+            + PREFIX_TAG + "salty \n"
+            + "OR \n"
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "New meal added to meal log: %1$s";
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database";
@@ -46,6 +53,9 @@ public class AddCommand extends Command {
 
     private Dish toAdd;
     private int dishNumber;
+    private boolean isNumber = false;
+    private LinkedList<Integer> dishIntList;
+    private boolean isList = false;
 
     /**
      * Creates an AddCommand to add the specified {@code Dish}
@@ -55,9 +65,18 @@ public class AddCommand extends Command {
         toAdd = dish;
     }
 
+    public AddCommand() {}
+
     public AddCommand(int dishNumber) {
         requireNonNull(dishNumber);
         this.dishNumber = dishNumber;
+        this.isNumber = true;
+    }
+
+    public AddCommand(LinkedList<Integer> dishIntList) {
+        requireNonNull(dishIntList);
+        this.dishIntList = dishIntList;
+        this.isList = true;
     }
 
     @Override
@@ -65,23 +84,35 @@ public class AddCommand extends Command {
         requireNonNull(model);
         MealLog mealLog = model.getMealLog();
 
-        if (dishNumber != 0) {
-            Dish wantToAdd = model.getFilteredDishList().get(dishNumber - 1);
-            Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
-            mealLog.addMeal(toAddMeal);
+        if (isList) {
+            String addedDishesToString = "";
+            LinkedList<Meal> toBeAddedMealList = new LinkedList<Meal>();
+            for (int i = 0; i < dishIntList.size(); i++) {
+                int dishInt = dishIntList.get(i);
+                if (dishInt <= 0 || dishInt > model.getFilteredDishList().size()) {
+                    throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEAL_INDEX, dishInt));
+                } else {
+                    Dish wantToAdd = model.getFilteredDishList().get(dishInt - 1);
+                    Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                    toBeAddedMealList.add(toAddMeal);
+                    //mealLog.addMeal(toAddMeal);
+                    addedDishesToString = addedDishesToString + "\n" + (i + 1) + ". " + wantToAdd.toString();
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+                }
+            }
+
+            mealLog.addListOfMeals(toBeAddedMealList);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, addedDishesToString));
 
         } else {
             Dish wantToAdd = toAdd;
 
             if (model.hasDish(wantToAdd)) {
-                wantToAdd = model.getDishByName(toAdd.getName());
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
-                //throw new CommandException(MESSAGE_DUPLICATE_MEAL);
             } else {
                 if (model.hasDishName(wantToAdd.getName())
                         && !wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
@@ -98,7 +129,7 @@ public class AddCommand extends Command {
                     try {
                         model.addDish(wantToAdd);
                     } catch (DuplicateDishException e) {
-                        System.out.println("There is another Dish with the same name");
+                        System.out.println("There is a duplicate dish");
                     }
                     Set<Tag> combineNewAndOldTags = new HashSet<Tag>();
                     combineNewAndOldTags.addAll(wantToAdd.getTags());

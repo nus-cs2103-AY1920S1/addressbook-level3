@@ -1,8 +1,10 @@
 package calofit.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 
 import calofit.commons.core.GuiSettings;
@@ -105,7 +107,7 @@ public interface Model {
     void setMeal(Meal target, Meal editedMeal);
 
     /**
-     * Returns the MealLog that wraps around the list of meals input by the user.
+     * Returns the {@code MealLog} that wraps around the list of meals input by the user.
      */
     MealLog getMealLog();
 
@@ -139,4 +141,6 @@ public interface Model {
      * @return the remaining calories.
      */
     int getRemainingCalories();
+
+    ObjectProperty<LocalDateTime> nowProperty();
 }

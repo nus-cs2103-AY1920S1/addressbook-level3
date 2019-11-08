@@ -39,8 +39,8 @@ public class DishUtil {
     public static String getEditDishDescriptorDetails(EditCommand.EditDishDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getCalories().ifPresent(calo -> sb.append(CliSyntax.PREFIX_CALORIES)
-                .append(calo.toString()).append(" "));
+        descriptor.getCalories().ifPresent(calories -> sb.append(CliSyntax.PREFIX_CALORIES)
+                .append(calories.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

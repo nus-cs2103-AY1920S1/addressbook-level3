@@ -156,16 +156,22 @@ This section describes some noteworthy details on how certain features are imple
 
 === Add feature
 ==== Implementation
+===== Addition though flags (e.g add n/Chicken c/200 t/dry)
+
+The `add` feature is implemented through the `AddCommand` class that extends the abstract `Command` class.
+It interacts with other objects through the `Model` interface to manipulate the meal log and dish database to add meals.
+
+The addition of meals is done through `Model#addMeal()` which would add the meal from the meal log list.
 
 The `add` feature uses the Model to check if the dish is already in the database.
-If the dish is already in the database, the meal will be added to the meal log only.
+If the dish is already in the database, the meal will be added to the meal log only through the `Model#addMeal()` method.
 If the dish the user wants to add is not in the database,
-then the dish will be added to both the meal log and the dish database so that the user
-can conveniently add it the next time.
+then the dish will be added to both the meal log and the dish database through the `Model#addMeal()` and
+`Model#addDish()` methods respectively.
 
 There are a few cases to take note:
 
-* If the dish is in the dish database:
+* If the dish name is in the dish database:
 ** The user inserts the calorie information that is the same as the one in the dish database
 *** The dish will be added to the meal log only.
 
@@ -176,7 +182,7 @@ There are a few cases to take note:
 ** The user does not insert the calorie information
 *** The program will look through the dish database and get the calorie information from that dish.
 
-* If the dish is not in the dish database
+* If the dish name is not in the dish database
 ** The user inserts the calorie information
 *** A new dish is created with that name and calorie information
 *** The dish will then be added to both the dish database as well as the meal log.
@@ -192,10 +198,80 @@ image::AddSequenceDiagram.png[]
 To detect whether the calorie tag is used in the user input, we use an UNKNOWN_CALORIE in the Calorie class.
 This will trigger either search for the dish in the dish database or create a new dish and input it into the dish database.
 
-
 The input by the user and the dish in the dish database is considered equal only if both the name and the calorie information are the same.
 
-Addition of tags are supported. However, they are not crucial to the implementation of the add function as tags are not considered when deciding equality of dishes.
+Addition of tags are supported. However, they are not crucial to the implementation of the add
+function as tags are not considered when deciding equality of dishes.
+
+===== Addition though indexes in suggested/find meal list (e.g add 1 2 3)
+The `add` feature also supports the addition of meals through indexes in the suggested meal list.
+This is done to improve the user experience as they do not have to always enter the long commands.
+
+This feature is also implemented through the `AddCommand` class that extends the abstract `Command` class.
+
+The `add` command in this case takes in a list of numbers pass to it through the `AddCommandParser`. The checking of valid
+indexes is done by the `AddCommandParser`. Once the list is passed to the `AddCommand`, it calls `Model#getFilteredDishlist()`
+which returns the filtered dish list. The add command will then loop through
+the list of indexes and get the respective dishes from the filtered dish list.
+
+We cannot add the meal immediately to the meal log as the filtered dish list would change when the calorie count changes. Hence the
+meals are first added to separate a `toBeAddedMealList` and once all the indexes are added to that list,
+`MealLog#addListOfMeals(toBeAddedMealList)` is called to add all the meals in to the meal log at once.
+
+==== Design Consideration
+===== Aspect: What is considered the same meal
+* **Alternative 1 (Current choice):** Compare name and calorie only
+** Pros: More precise compared to just comparing names.
+** Cons: Complications when adding meals.
+
+* **Alternative 2:** Compare name only
+** Pros: Easy comparison. Reduces complications when adding meals.
+** Cons: High collision.
+
+* **Explanation of choice:** As a calorie counter, the calories is an important
+part of the meal. Hence we need to consider it when comparing meals. Certain meals
+with the same name may not have the same amount of calories. Hence we decided to go
+with alternative 1.
+
+=== Delete feature
+==== Implementation
+The `delete` feature is implemented through the `DeleteCommand` class that extends the abstract `Command` class.
+It interacts with other objects through the `Model` interface to manipulate the meal log and remove meals.
+
+The `delete` command allows for removal of multiple dishes with a single command.
+The `delete` command takes in a `listOfIndex` passed to it by the `DeleteCommandParser`. The checking of valid integers
+is done by the `DeleteCommandParser`. Once the listOfIndex is passed to the `DeleteCommand`, it sorts the list from largest index
+to smallest index using the `Collections.sort(listOfIndex, Comparator.reverseOrder())`. The `DeleteCommand` then loops through
+the sorted list and checks if the index is within the size of the meal log. If the index is valid, `DeleteCommand` will
+remove the respective meal from the meal log.
+
+The removal of meals is done through the `Model#removeMeal(meal)` which would remove the meal from the meal log list.
+
+The following sequence diagram shows how the `delete` operation works when index 1 is deleted:
+
+image::DeleteSequenceDiagram.png[]
+
+Below is the activity diagram that summarises the scenario when "delete 1" is called by the user.
+
+image::DeleteActivityDiagram.png[]
+
+==== Design Consideration
+===== Aspect: How is the meal removed
+
+* **Alternative 1 (Current Choice):** Removed after the listOfIndex is sorted.
+** Pros: Prevent the reordering of the meal log causing the larger indexes to correspond to a different meal or
+out of bounds. (e.g delete 1 2 for a meal log with 2 meals. If we delete 1 first, the meal log will change to having 1 meal.
+The meal previously at index 2 is now at index 1. When doing delete 2, the meal at index 2 is now out of bounds as the meal log
+only has 1 meal.)
+** Cons: The command may take some time when handling large amounts of input. This is due to the sorting required.
+
+* **Alternative 2:** Loop through the indexes in the `DeleteCommandParser` and create a new `DeleteCommand` for every index.
+** Pros: Simple morphing of previous delete method.
+** Cons: Have to change other parts of the model breaking abstraction.
+
+* ** Explanation of Choice:** The command is for the deletion of meals for that day. A person on average consumes 3 - 4 meals a day.
+Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant. Also,
+
 
 
 === Budget Bar display
@@ -254,9 +330,11 @@ Simpler implementation and better performance outweighs the cost of using an ext
 
 // tag::suggest[]
 === Suggest feature
+The suggest feature displays the suggested automatically to the user accordingly to the remaining calorie budget.
+
 ==== Implementation
 
-The suggest mechanism is implemented through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
+The suggest mechanism is toggled when the application starts up. It will always display the suggested meals for the user in the right pane. The feature can be can be toggled back by typing the "suggest" command. Through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
 
 Additionally, it implements the following operation:
 
@@ -591,3 +669,4 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 ////
+

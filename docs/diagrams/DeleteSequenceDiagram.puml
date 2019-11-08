@@ -48,7 +48,7 @@ deactivate AddressBookParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deleteDish(1)
+DeleteCommand -> Model : removeMeal()
 activate Model
 
 Model --> DeleteCommand

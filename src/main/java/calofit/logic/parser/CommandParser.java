@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import calofit.logic.commands.AddCommand;
-import calofit.logic.commands.ClearCommand;
 import calofit.logic.commands.Command;
 import calofit.logic.commands.DeleteCommand;
 import calofit.logic.commands.EditCommand;
@@ -54,9 +53,6 @@ public class CommandParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
