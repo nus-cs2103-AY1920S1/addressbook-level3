@@ -459,7 +459,7 @@ Accessing note directory : `goto note`
 
 Adds a note to the app.
 
-Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
+Format: `add ti/TITLE d/DESCRIPTION t/TAG [c/CONTENT] `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
@@ -471,6 +471,7 @@ image::warning.png[width = "20", float = "left"]
 
 * You are not allowed to add notes with the same title.
 * Title, description and tag fields must not be empty.
+* Content field with c/ prefix is optional.
 ====
 
 ==== Accessing a note : `open`
@@ -540,17 +541,26 @@ image::tip.png[width = "20", float = "left"]
 
 Sorts notes in ways specified by the user.
 
-Format: `sort by/SORTBYCONDITION`
+Format: `sort by/SORTBYCONDITION1 SORTBYCONDITION2`
 
 Example: `sort by/DateModified`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
+* You can sort by multiple conditions separated by a whitespace.
+* The leftmost condition takes the greatest precedence in sorting.
+====
 ====
 --
 image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
+* At least one SORTBYCONDITION is required following the by/ prefix.
+* SORTBYCONDITION must be either "DateModified", "DateAdded" and "NumOfAccess".
 * SORTBYCONDITION is not case-sensitive.
 ====
 
