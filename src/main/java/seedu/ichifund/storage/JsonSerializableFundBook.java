@@ -12,7 +12,6 @@ import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
