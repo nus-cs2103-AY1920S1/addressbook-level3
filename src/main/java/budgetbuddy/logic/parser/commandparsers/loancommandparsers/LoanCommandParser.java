@@ -44,8 +44,30 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PERSON, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
 
+        checkArgumentMultimap(argMultimap);
+
+        Direction direction = parseDirection(argMultimap.getPreamble().toUpperCase());
+        Person person = parsePerson(argMultimap.getValue(PREFIX_PERSON).get());
+        Amount amount = parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        LocalDate date = parseDate(argMultimap.getValue(PREFIX_DATE));
+        Description description = parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION));
+
+        Loan toAdd = new Loan(person, direction, amount, date, description, Status.UNPAID);
+        return new LoanCommand(toAdd);
+    }
+
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks if the given {@code ArgumentMultimap} is valid for parsing into a {@code LoanCommand}.
+     * @throws ParseException If the {@code argMultimap} is invalid.
+     */
+    private void checkArgumentMultimap(ArgumentMultimap argMultimap) throws ParseException {
         String directionString = argMultimap.getPreamble().toUpperCase();
-        if (!(directionString.equals(Direction.IN.toString()) || directionString.equals(Direction.OUT.toString()))) {
+        if (!(directionString.equals(Direction.IN.toString())
+                || directionString.equals(Direction.OUT.toString()))) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
@@ -59,33 +81,59 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
                 || argMultimap.getValueCount(PREFIX_DATE) > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
         }
+    }
 
-        Direction direction = Direction.valueOf(directionString.toUpperCase());
-        Person person = new Person(CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get()));
-        Amount amount = CommandParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+    /**
+     * Parses the given string into a {@code Person} object.
+     * @return The parsed {@code Person}.
+     * @throws ParseException If the string cannot be parsed into a {@code Person}.
+     */
+    private Person parsePerson(String personName) throws ParseException {
+        return new Person(CommandParserUtil.parseName(personName));
+    }
+
+    /**
+     * Parses the given string into a {@code Direction}.
+     * @return The parsed {@code Direction}.
+     * @throws ParseException If the string cannot be parsed into a {@code Direction}.
+     */
+    private Direction parseDirection(String directionString) throws ParseException {
+        return Direction.valueOf(directionString);
+    }
+
+    /**
+     * Parses the given string into a {@code Amount} object.
+     * @return The parsed {@code Amount}.
+     * @throws ParseException If the string cannot be parsed into a {@code Amount},
+     * or if the parsed {@code Amount} has a value of zero dollars.
+     */
+    private Amount parseAmount(String amountStr) throws ParseException {
+        Amount amount = CommandParserUtil.parseAmount(amountStr);
         if (amount.toLong() == 0) {
             throw new ParseException(Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT);
         }
-
-        Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
-        Description description = optionalDescription.isPresent()
-                ? CommandParserUtil.parseDescription(optionalDescription.get())
-                : new Description("");
-
-        Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
-        LocalDate date = LocalDate.now();
-        if (optionalDate.isPresent()) {
-            date = CommandParserUtil.parseDate(optionalDate.get());
-        }
-
-        Status status = Status.UNPAID;
-
-        Loan loan = new Loan(person, direction, amount, date, description, status);
-
-        return new LoanCommand(loan);
+        return amount;
     }
 
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    /**
+     * Parses the given {@code Optional} string into a {@code Description} object.
+     * If the {@code Optional} is empty, a blank {@code Description} is returned.
+     * @return The parsed {@code Description}.
+     * @throws ParseException If the string cannot be parsed into a {@code Description}.
+     */
+    private Description parseDescription(Optional<String> optionalDescription) throws ParseException {
+        return optionalDescription.isPresent()
+                ? CommandParserUtil.parseDescription(optionalDescription.get())
+                : new Description("");
+    }
+
+    /**
+     * Parses the given {@code Optional} string into a {@code LocalDate} object.
+     * If the {@code Optional} is empty, the current {@code LocalDate} is returned.
+     * @return The parsed {@code LocalDate}.
+     * @throws ParseException If the string cannot be parsed into a {@code LocalDate}.
+     */
+    private LocalDate parseDate(Optional<String> optionalDate) throws ParseException {
+        return optionalDate.isPresent() ? CommandParserUtil.parseDate(optionalDate.get()) : LocalDate.now();
     }
 }
