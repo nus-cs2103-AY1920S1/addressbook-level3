@@ -273,7 +273,7 @@ image::questionCommandsDemo/clearcommand.png[width = "600"]
 image::questionCommandsDemo/clearresult.png[width = "600"]
 // end::question[]
 
-// tag::quizStart[]
+// tag::quiz[]
 === Quiz mode
 
 There is a built-in quiz mode in NUStudy for you to take a revision quiz. You can indicate the number of questions,
@@ -320,7 +320,6 @@ graph simulates the situation after you answer the question. +
 
 .The result after answer
 image::quiz/QuizAnswerResult.png[600, 600]
-// end::quizStart[]
 
 ==== Show an answer : `show`
 
@@ -356,7 +355,6 @@ Step 2: The current question is skipped and next question will be displayed. +
 .The result of `skip` command
 image::quiz/SkipCommandResult.png[600, 600]
 
-// tag::quizQuit[]
 ==== Exit quiz mode : `quit`
 
 You can exit from the quiz mode using this command. +
@@ -377,7 +375,7 @@ explains what would happen after you `quit` from the quiz mode. +
 
 .The result of `quit` command
 image::quiz/QuitQuizCommandResult.png[600, 600]
-// end::quizQuit[]
+// end::quiz[]
 
 // tag::statistics[]
 === Get statistics
