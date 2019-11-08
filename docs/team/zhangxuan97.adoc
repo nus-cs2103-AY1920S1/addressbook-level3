@@ -66,6 +66,8 @@ include::../UserGuide.adoc[tag=wastelistfuture]
 |_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To illustrate my contributions to the Developers' Guide, I have once again only included the more notable excerpts._
 |===
 
+include::../DeveloperGuide.adoc[tag=modelcomponent]
+
 include::../DeveloperGuide.adoc[tag=reportwastefeature]
 
 
