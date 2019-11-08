@@ -10,7 +10,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label styleClass="window-title" text="Add a new card" />
+        <Label styleClass="window-subtitle" text="Add a new card" />
         <Label text="Enter your question" />
         <TextField fx:id="questionField" />
         <Label fx:id="addAnswerLabel" text="Enter your answers" />

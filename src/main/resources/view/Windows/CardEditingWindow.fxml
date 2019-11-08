@@ -10,7 +10,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="windowTitle" layoutX="22.0" layoutY="22.0" styleClass="window-title" text="Edit Card" />
+        <Label fx:id="windowTitle" layoutX="22.0" layoutY="22.0" styleClass="window-subtitle" text="Edit Card" />
       <HBox spacing="10.0">
          <children>
               <Label text="Type of Card" />
