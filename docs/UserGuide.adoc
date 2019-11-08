@@ -385,7 +385,7 @@ image::viewperformance_wyss.png[width=450]
 
 To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
 
-. Provides an overview of training and performance records in a selected month (see <<Viewing the calendar : `view calendar`>> and <<Navigating the calendar to a specific month : `calendar MMYYYY`>>).
+. Displays an overview of training and performance records in a selected month (see <<Viewing the calendar : `view calendar`>> and <<Navigating the calendar to a specific month : `calendar MMYYYY`>>).
 
 . Displays training and performance records entered on a specific date (see <<Viewing training / performance details for a specific date : `calendar DDMMYYYY`>>).
 
@@ -475,6 +475,8 @@ Format: `calendar DDMMYYYY`
 [NOTE]
 ====
 `MM` provided has to be within the range `01` to `12` (`0` must be included in front of single-digit numbers) and `YYYY` provided has to be within the range 0001 to 9999 for the command to execute successfully.
+
+You should have either training or attendance records on the specified date entered into **Athletick**, otherwise no records will be displayed.
 ====
 
 Example: `calendar 31102019`
@@ -491,9 +493,9 @@ Additionally, the feature box (yellow box) will display the training and perform
 
 image::calendar10.png[width=450]
 
-In the event the list of attendance and performance records exceeds the size of the window, the blue vertical scrollbar on the right of the feature box may be used to scroll down.
+In the event your list of attendance and performance records exceeds the size of the window, you may use the blue vertical scrollbar on the right of the feature box to scroll down.
 
-With reference to the diagram below, **Attendance Pie Chart** indicates the overall team attendance percentage and the number of present and absent team members. **Attendance Table** displays your team list and whether a team member was present or absent. **Performance Statistic** indicates the total number of records and **Performance Table** displays the records for each event.
+With reference to the diagram below, **Attendance Pie Chart** indicates the overall team attendance percentage and the number of present and absent team members. **Attendance Table** displays your team members and whether they were present or absent. **Performance Statistic** indicates the total number of performance records and **Performance Table** displays the records for each event.
 
 image::calendar11.png[width=450]
 
@@ -556,7 +558,7 @@ image::sort1.png[width=450]
 
 If successfully executed, the message "Sorted your team list in alphabetical order." will be displayed in the result box (red box).
 
-Additionally, the newly added athletes (Aaron and Bala) are now in their correct positions and the index numbers of all athletes in the list have been updated.
+Additionally, your newly added athletes (Aaron and Bala) are now in their correct positions and the index numbers of all your athletes in the list have been updated.
 
 
 image::sort2.png[width=450]
