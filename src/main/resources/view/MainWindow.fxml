@@ -107,7 +107,7 @@
                                                    <Image url="@../images/Wallet.png" />
                                                 </image>
                                              </ImageView>
-                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" layoutX="197.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="386.0">
+                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" layoutX="202.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="386.0">
                                                           <font>
                                                               <Font name="Monospaced Regular" size="15.0" />
                                                           </font>
