@@ -202,14 +202,16 @@ e.g. `clear`
 ==== Password protection [Coming in V2.0]
 Prevent unauthorised access to your grades.
 
-// tag::quizsection[]
+// tag::quizsection1[]
 === Quiz
 
 To enter the Quiz section please enter the command: `switch quiz` +
 
+// end::quizsection1[]
 *Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
 quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
 
+// tag::quizsection2[]
 *Note on UI:* You can adjust the size of the split pane by sliding the window separator
 between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
 question properly.
@@ -356,6 +358,8 @@ Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `redo` +
 {empty} +
 
+// end::quizsection2[]
+
 ==== Help:
 Format : `help` +
 {empty} +
@@ -368,8 +372,6 @@ Format: `clear` +
 ==== Exit application:
 To exit application (Modulo). +
 Format: `exit` +
-
-// end::quizsection[]
 {empty} +
 
 
