@@ -35,6 +35,8 @@ MainWindow -> PopUpBox : PopUpBox()
 activate PopUpBox
 PopUpBox --> MainWindow : popUpBox
 deactivate PopUpBox
+PopUpBox -[hidden]-> PopUpBox
+destroy PopUpBox
 MainWindow --> MainWindow
 deactivate MainWindow
 

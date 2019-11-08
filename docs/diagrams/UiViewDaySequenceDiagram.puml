@@ -40,6 +40,11 @@ deactivate TimelineDayView
 
 CalendarPanel --> MainWindow
 deactivate CalendarPanel
+
+MainWindow -> CalendarPanel : viewCalendar()
+activate CalendarPanel
+CalendarPanel --> MainWindow
+deactivate CalendarPanel
 MainWindow --> UiManager
 deactivate MainWindow
 UiManager -->[

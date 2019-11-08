@@ -449,12 +449,90 @@ and keep all code relevant to converting objects to ICS Strings in the same clas
 This further makes it easier for future debugging,
 and makes adding new exportable objects a lot easier as there are common functions that can be used.
 
-== Implementation
+=== UI Component
 
-[[Implementation-Configuration]]
-=== Configuration
+==== Implementation during change in Events and Tasks
+.A general Sequence Diagram during a change in the Event and Task Lists model.
+image::UiSequenceDiagram.png[]
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The UI system is managed by the `UiManager`, that is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which is the bsae of the UI and holds every other smaller components and views of the rest of the UI. Here is the sequence of a change in Events and Tasks for the UI.
+
+Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterwards, two HashMaps, `eventHash` and `taskHash` is created to deal with the indexing of the Ui later on.
+
+Step 2. `MainWindow` will be called by `UiManager` using `onModelListChange(events, tasks, eventHash, taskHash)`, which will in turn proceed to call the methods that will update the different views represented by:
+
+* `CalendarPanel` - `onModelListChange(events, tasks, eventHash, taskHash)`
+* `ListPanel` - `onEventListChange(events, eventHash)` and `onTaskListChange(tasks, taskHash)`
+
+Step 3. `UiManager` will also be called using `onUserOutput(output, colorTheme)`, which will in turn call `onUserOutput(output, colorTheme)` for MainWindow.
+
+As for these 3 main panels, each of them will be explained further below
+
+.Sequence Diagram for `CalendarPanel`
+image::UiCalendarPanelSequenceDiagram.png[]
+
+Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two list into a single list for sorting purpose.
+
+Step 2.2. Afterwards, it will call `onChange` for the 3 smaller components:
+
+* `TimelineView` - When called, it will reset the current timeline using `resetTimeline()`
+
+* `CalendarScreen` - When called, it will change the calendar to the given date, as well as calling `changeColor(eventTaskList)` to change the color of a day in the calendar.
+
+* `UpcomingView` - When called, it will simply reset the view to input the correct events and tasks.
+
+.Sequence Diagram for `ListPanel`
+image::UiListPanelSequenceDiagram.png[]
+
+Step 2.3. `ListPanel` will be called with `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
+
+Step 2.4. `ListPanel` will also be called with `onTaskListChange(tasks, taskHash)`. It will afterwards call `TaskListPanel` to change the list accordingly as well.
+
+.Sequence Diagram for `LogPanel`
+image::UiLogPanelSequenceDiagram.png[]
+
+Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme, and create 2 different boxes to display the output.
+
+Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedbackToUser, color)` to display the output to the user in `LogPanel`
+
+Step 3.3. Next, it create `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterwards.
+
+==== Implementation when changing the date of timeline
+
+.Sequence Diagram for changing the timeline date
+image::UiViewDaySequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `DayViewCommand` is executed to change the date of the timeline.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewDay(calendarDate)`, which in turn will call `MainWindow` and subsequently `CalendarPanel`.
+
+Step 2. `CalendarPanel` will proceed to execute `changeCalendarScreenDate(calendarDate)`, which will create an instance of `CalendarScreen` to display the calendar.
+
+Step 3. Afterwards, a new instance of `TimelineDayView` will be created to display the timeline.
+
+Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, so as to allow `CalendarPanel` to be visible while the other panels are not.
+
+==== Implementation when changing views
+.Sequence Diagram for changing to Calendar View
+image::UiViewCalendarSequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `CalendarViewCommand` is executed.
+
+Step 1. When command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null, or a date. The validity check is previously check in the parser.
+
+Step 2. If calendarDate is null, the `UiManager` will simply call `MainWindow` to switch the view with the method `viewCalendar()`.
+
+Step 3. `MainWindow` will obtain the `Region` of the 3 panels: `CalendarPanel`, `ListPanel` and `LogPanel`, and proceed to set only `CalendarPanel` to be visible.
+
+Step 4. If calendarDate is not null, `UiManager` will then call `MainWindow` using `changeCalendarScreenDate(calendarDate)`, to change the `CalendarScreen` to the given date.
+
+Step 5. Afterwards, it will proceed to repeat step 3 again, which is simply calling `viewCalendar()` again.
+
+Since the sequence for `CalendarViewCommand` is roughly similar, or in fact, more complicated than `ListViewCommand` and `LogViewCommand`, it will not be further explained.
+
+==== Design Considerations
+
+
 
 == Documentation
 

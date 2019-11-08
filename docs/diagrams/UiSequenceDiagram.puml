@@ -17,25 +17,25 @@ activate UiManager
 
 UiManager -> UiManager : sortDateEventList(events)
 activate UiManager #0000A2
-UiManager -> UiManager : events
+UiManager --> UiManager : events
 deactivate UiManager
 UiManager -[hidden]-> UiManager
 
 UiManager -> UiManager : sortDateTaskList(tasks)
 activate UiManager #0000A2
-UiManager -> UiManager : tasks
+UiManager --> UiManager : tasks
 deactivate UiManager
 UiManager -[hidden]-> UiManager
 
 UiManager -> UiManager : addEventIndex(events)
 activate UiManager #0000A2
-UiManager -> UiManager : eventHash
+UiManager --> UiManager : eventHash
 deactivate UiManager
 UiManager -[hidden]-> UiManager
 
 UiManager -> UiManager : addTaskIndex(tasks)
 activate UiManager #0000A2
-UiManager -> UiManager : taskHash
+UiManager --> UiManager : taskHash
 deactivate UiManager
 UiManager -[hidden]-> UiManager
 
