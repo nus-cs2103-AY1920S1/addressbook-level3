@@ -311,7 +311,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveReport(Path fileDir, Report report) {
+        public Path saveReport(Path fileDir, Report report) {
             throw new AssertionError("This method should not be called.");
         }
 

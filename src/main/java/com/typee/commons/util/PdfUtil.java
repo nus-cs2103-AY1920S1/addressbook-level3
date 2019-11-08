@@ -1,5 +1,6 @@
 package com.typee.commons.util;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class PdfUtil {
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
      */
-    public static void generateReport(Path fileDir, Report report) throws DocumentException, IOException {
+    public static Path generateReport(Path fileDir, Report report) throws DocumentException, IOException {
         docProp = FileUtil.loadProperties();
         Engagement engagement = report.getEngagement();
 
@@ -72,6 +73,7 @@ public class PdfUtil {
         addConclusion(document, report.getFrom());
         document.close();
         logger.info("Document: " + fileName + " generated");
+        return Paths.get(fileName);
     }
 
     /**
@@ -92,6 +94,17 @@ public class PdfUtil {
                 .count() == 1;
         logger.info("Check if document exists: " + fileName + ": " + isExisting);
         return isExisting;
+    }
+
+    /**
+     * Opens a document that only accepts pdf format.
+     */
+    public static boolean openDocument(Path documentPath) throws IOException {
+        if (FilenameUtils.getExtension(documentPath.toFile().getName()).equals("pdf")) {
+            Desktop.getDesktop().open(documentPath.toFile());
+            return true;
+        }
+        return false;
     }
 
     /**

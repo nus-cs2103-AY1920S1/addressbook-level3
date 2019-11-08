@@ -41,6 +41,8 @@ public class PdfCommand extends Command {
 
     private Path fileDir;
 
+    private Path docPath;
+
     public PdfCommand(int engagementListIndex, Person to, Person from) {
         this.engagementListIndex = engagementListIndex;
         this.to = to;
@@ -65,11 +67,12 @@ public class PdfCommand extends Command {
             Engagement engagement = engagementList.get(engagementListIndex - 1);
             report = new Report(engagement, to, from);
             try {
-                model.saveReport(fileDir, report);
+                Path docPath = model.saveReport(fileDir, report);
+                this.docPath = docPath;
             } catch (IOException | DocumentException | GenerateExistingReportException e) {
                 throw new CommandException(MESSAGE_DOCUMENT_INVALID + e.getMessage());
             }
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS, true, docPath);
         }
         throw new CommandException(MESSAGE_INDEX_INVALID);
     }

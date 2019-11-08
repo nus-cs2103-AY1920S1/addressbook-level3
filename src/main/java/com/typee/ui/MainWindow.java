@@ -1,11 +1,13 @@
 package com.typee.ui;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
+import com.typee.commons.util.PdfUtil;
 import com.typee.logic.Logic;
 import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
@@ -244,6 +246,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void handlePdf(Path docPath) throws IOException {
+        PdfUtil.openDocument(docPath);
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -268,6 +274,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isCalendarCommand()) {
                 handleCalendarInteraction(commandResult);
+            }
+
+            if (commandResult.isPdfCommand()) {
+                handlePdf(commandResult.getDocPath());
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
