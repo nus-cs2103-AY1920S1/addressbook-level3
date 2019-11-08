@@ -204,7 +204,6 @@ You can see a list of accounts with the word 'trip' contained in their names.
 ==== Add a new loan: `loan out|in`
 
 Adds a new loan out/in entry.
-Each loan has a unique ID.
 If a date is not given, it is set to the current date. The description is also optional.
 
 Format: `loan out|in p/<person> x/<amount> [w/<date>] [d/<description>]`
@@ -220,12 +219,17 @@ Displays a list of all loans. Optionally, filters and/or sorts the list.
 
 Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w/<date> ...] [d/<description> ...] [s/w|x|p]`
 ****
-* Filter loans using one or more of the `out`, `in`, `unpaid`, `paid` filters.
-* Filter loans persons, amounts, dates and descriptions by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
+* Filter loans using one or two of the `out`, `in`, `unpaid`, `paid` filters.
+If two are used, they should not be duplicates.
+Contrasting filters can be used (e.g. `out in`) but they will be joined with logical `AND`,
+so the resulting list would be empty.
+* Filter loans by persons, amounts, dates and descriptions
+by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
 * If more than one filter is used, filters will be joined using logical `AND`.
 For example, `loan list out p/Duke` will result in the filter: `loans out AND loans with Duke`.
 * Sort loans by date, amount, or persons' names using `s/w`, `s/x`, or `s/p` respectively.
-** Sorting the list using the same method when it is already sorted will reverse the order of sorting (e.g. descending to ascending).
+** Sorting the list using the same method when it is already sorted will reverse the order of sorting
+(e.g. newest date first to oldest date first).
 ****
 
 [NOTE]
@@ -241,12 +245,14 @@ Lists all loans sorted by persons in alphabetical order. Then lists all loans ag
 
 ==== Edit loan: `loan edit`
 
-Edits the specified field of the loan entry with the specified index.
+Edits the specified field(s) of the loan entry with the specified index.
 
 Format: `loan edit <index> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
 
 ****
-* Edits the loan with the specified index. The index refers to the index number shown in the displayed loan list. The index must be a positive integer 1, 2, 3...
+* Edits the loan with the specified index.
+The index refers to the index number shown in the currently displayed loan list.
+The index must be a positive integer (e.g. 1, 2, 3...).
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -260,9 +266,16 @@ Lists all loans, then edits the amount and description of the first person in th
 ==== Mark loan(s) as paid: `loan paid`
 
 Marks the specified loan(s) as paid.
-If a person's name is specified, all their loans are also marked as paid.
 
-Format: `loan paid <index ...> [<p/person ...>]`
+Format: `loan paid [<index ...>] [<p/person ...>]`
+
+****
+* If a person's name is specified, all their loans are marked as paid.
+* At least one index or person must be specified.
+* Marking an already paid loan will re-mark the loan as paid (to no visible effect).
+* If multiple indices and/or persons are targeted but an index or person cannot be found in the currently displayed list,
+the indices and/or persons that can be found will still be marked.
+****
 
 Examples:
 
@@ -270,30 +283,23 @@ Examples:
 `loan paid 1 2 3` +
 Lists all loans, then marks the first three loans in the list as *paid*.
 * `loan paid p/John p/Adam` +
-Marks all loans in from and out to John and Adam as *paid*.
+Marks all loans pertaining to John and Adam as *paid*.
 
 ==== Mark loan(s) as unpaid: `loan unpaid`
 
 Marks the specified loan(s) as unpaid.
-If a person's name is specified, all their loans are marked as unpaid.
-This feature works identically to `loan paid`, except the command word is `unpaid` instead of `paid`.
+This feature works identically to `loan paid`, except the command word is `unpaid` instead of `paid`
+and the loans are marked as *unpaid* instead of *paid*.
 
-Format: `loan unpaid <index ...> <p/person ...>`
+Format: `loan unpaid [<index ...>] [<p/person ...>]`
 
 ==== Delete loan(s): `loan delete`
 
 Deletes the loan(s) with the specified loan index/indices.
-If a person's name is specified, all of that person's loans are deleted.
+This feature works identically to `loan paid`, except the command word is `delete` instead of `paid`
+and the loans are deleted from the list instead of being marked.
 
-Format: `loan delete <index ...> <p/person ...>`
-
-Example:
-
-* `loan list` +
-`loan delete 1` +
-Lists all loans, then deletes the first loan in the list.
-* `loan delete p/John` +
-Deletes all loans in from and out to John.
+Format: `loan delete [<index ...>] [<p/person ...>]`
 
 ==== Calculate loans: `loan split`
 
@@ -306,7 +312,8 @@ The order of each `person` should match the order of their `amount paid`.
 * The final amount a `person` ends up paying can be restricted to a `<limit>`.
 Persons with limits should be placed at the *head* of the list of persons,
 and the order of all `limits` should match the order of `persons` (as with `amount paid`).
-This is to allow you to enter limits only for those persons who require them. +
+This is to allow you to enter limits only for those persons who require them.
++
 The sum of all limits cannot exceed the total amount already paid by all persons.
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
 +
