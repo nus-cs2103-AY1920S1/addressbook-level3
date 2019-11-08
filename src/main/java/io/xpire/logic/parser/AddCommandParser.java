@@ -23,6 +23,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
         Quantity quantity;

@@ -35,6 +35,7 @@ public class CollectionUtil {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
 
+    //@@author JermyTan
     /**
      * Converts a collection of objects into its string representation.
      * Optional mapper functions can be provided to mutate the string representation.
@@ -45,6 +46,8 @@ public class CollectionUtil {
      */
     @SafeVarargs
     public static Collection<String> stringifyCollection(Collection<?> items, Function<String, String>... mappers) {
+        requireAllNonNull(items);
+
         Function<String, String> finalMapper = Function.identity();
         for (Function<String, String> mapper : mappers) {
             finalMapper = finalMapper.andThen(mapper);

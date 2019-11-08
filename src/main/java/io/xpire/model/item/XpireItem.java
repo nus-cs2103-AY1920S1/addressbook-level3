@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import io.xpire.commons.util.CollectionUtil;
-import io.xpire.commons.util.DateUtil;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -75,10 +74,6 @@ public class XpireItem extends Item {
         this.reminderThreshold = xpireItem.getReminderThreshold();
     }
 
-    public Item remodel() {
-        return new Item(this.name, this.tags);
-    }
-
     public ExpiryDate getExpiryDate() {
         return this.expiryDate;
     }
@@ -114,10 +109,6 @@ public class XpireItem extends Item {
         this.reminderThreshold = reminderThreshold;
     }
 
-    public boolean isItemExpired() {
-        return this.expiryDate.isExpired();
-    }
-
     public Set<Tag> getNewTagSet(Tag tag) {
         Set<Tag> newTagSet = new TreeSet<>(new TagComparator());
         newTagSet.addAll(this.getTags());
@@ -125,12 +116,11 @@ public class XpireItem extends Item {
         return newTagSet;
     }
 
-
     /**
      * Returns {@Code true} if the item has expired.
      */
     public boolean isExpired() {
-        return this.getExpiryDate().isExpired();
+        return this.expiryDate.isExpired();
     }
 
     /**
@@ -139,7 +129,6 @@ public class XpireItem extends Item {
     public boolean hasReminderThreshold() {
         return !this.reminderThreshold.equals(new ReminderThreshold(DEFAULT_THRESHOLD));
     }
-
 
     /**
      * Returns true if both items of the same name have at least one other identity field that is the same.
@@ -162,6 +151,16 @@ public class XpireItem extends Item {
         }
     }
 
+    //@@author JermyTan
+    /**
+     * Returns a new {@code Item} with the name and tags of the current item.
+     *
+     * @return New {@code Item}.
+     */
+    public Item remodel() {
+        return new Item(this.name, this.tags);
+    }
+
     /**
      * Returns true if both items have the same identity and data fields.
      * This defines a stronger notion of equality between two items.
@@ -174,9 +173,8 @@ public class XpireItem extends Item {
             return false;
         } else {
             XpireItem other = (XpireItem) obj;
-            return this.name.equals(other.name)
+            return super.equals(other)
                     && this.expiryDate.equals(other.expiryDate)
-                    && this.getTags().equals(other.getTags())
                     && this.quantity.equals(other.quantity)
                     && this.reminderThreshold.equals(other.reminderThreshold);
         }
@@ -185,7 +183,7 @@ public class XpireItem extends Item {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.name, this.expiryDate, this.tags, this.quantity, this.reminderThreshold);
+        return Objects.hash(super.hashCode(), this.expiryDate, this.quantity, this.reminderThreshold);
     }
 
     @Override
@@ -193,15 +191,13 @@ public class XpireItem extends Item {
         final StringBuilder builder = new StringBuilder();
         if (!this.getTags().isEmpty()) {
             builder.append(this.name).append("\n")
-                    .append(String.format("Expiry date: %s (%s)\n",
-                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
+                    .append(String.format("Expiry date: %s\n", this.expiryDate.toStringWithCountdown()))
                     .append(String.format("Quantity: %s\n", this.quantity))
                     .append("Tags: ");
             this.getTags().forEach(builder::append);
         } else {
             builder.append(this.name).append("\n")
-                    .append(String.format("Expiry date: %s (%s)\n",
-                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
+                    .append(String.format("Expiry date: %s\n", this.expiryDate.toStringWithCountdown()))
                     .append(String.format("Quantity: %s", this.quantity));
         }
         return builder.toString();

@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,8 +19,9 @@ import io.xpire.model.state.State;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+//@@author JermyTan
 /**
- * Represents the in-memory model of Xpire data.
+ * Represents the in-memory model of Xpire app data.
  */
 public class ModelManager implements Model {
 
@@ -53,66 +55,107 @@ public class ModelManager implements Model {
 
     //=========== UserPrefs =========================================================================================
 
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
+    /**
+     * Returns the user prefs.
+     */
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return this.userPrefs;
     }
 
+    /**
+     * Returns the user prefs' GUI settings.
+     */
     @Override
     public GuiSettings getGuiSettings() {
         return this.userPrefs.getGuiSettings();
     }
 
+    /**
+     * Sets the user prefs' GUI settings.
+     */
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.userPrefs.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Returns the user prefs' xpire file path.
+     */
     @Override
     public Path getListFilePath() {
         return this.userPrefs.getListFilePath();
     }
 
+    /**
+     * Sets the user prefs' xpire file path.
+     */
     @Override
     public void setListFilePath(Path xpireFilePath) {
         requireNonNull(xpireFilePath);
         this.userPrefs.setListFilePath(xpireFilePath);
     }
 
+    /**
+     * Returns an array containing xpire and replenish list.
+     */
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
         return new ReadOnlyListView<?>[]{this.getXpire(), this.getReplenishList()};
     }
 
-    //=========== Model methods ================================================================================
-
+    /**
+     * Returns the {@code Xpire}.
+     */
     @Override
     public Xpire getXpire() {
         return this.xpire;
     }
 
+    /**
+     * Returns the {@code ReplenishList}
+     */
     @Override
     public ReadOnlyListView<Item> getReplenishList() {
         return this.replenishList;
     }
 
+    /**
+     * Overrides the current {@code Xpire}'s data with another existing {@code Xpire}.
+     *
+     * @param xpire Another existing {@code Xpire}.
+     */
     @Override
     public void setXpire(ReadOnlyListView<XpireItem> xpire) {
         this.xpire.resetData(xpire);
     }
 
+    /**
+     * Overrides the current {@code ReplenishList}'s data with another existing {@code ReplenishList}.
+     *
+     * @param replenishList Another existing {@code ReplenishList}.
+     */
     @Override
     public void setReplenishList(ReadOnlyListView<Item> replenishList) {
         this.replenishList.resetData(replenishList);
     }
 
+    /**
+     * Returns the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @return Item list belonging to either {@code Xpire} or {@code ReplenishList}.
+     */
     @Override
     public ObservableList<? extends Item> getItemList(ListType listType) {
         requireNonNull(listType);
@@ -129,6 +172,13 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Checks if an item exists in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be checked.
+     * @return {@code true} if item already exists in the list else {@code false}.
+     */
     @Override
     public boolean hasItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
@@ -150,6 +200,12 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Deletes an item in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be deleted.
+     */
     @Override
     public void deleteItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
@@ -168,10 +224,15 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
-            return;
         }
     }
 
+    /**
+     * Adds an item to the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be added.
+     */
     @Override
     public void addItem(ListType listType, Item item) {
         requireAllNonNull(listType, item);
@@ -195,6 +256,13 @@ public class ModelManager implements Model {
         this.setCurrentList(this.currentView);
     }
 
+    /**
+     * Replaces an existing item with the new item in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param currentItem Existing item in the list to be replaced.
+     * @param newItem New item to replace the existing item.
+     */
     @Override
     public void setItem(ListType listType, Item currentItem, Item newItem) {
         requireAllNonNull(listType, currentItem, newItem);
@@ -213,10 +281,14 @@ public class ModelManager implements Model {
         default:
             logger.warning("Unknown list type");
             assert false;
-            return;
         }
     }
 
+    /**
+     * Updates the sorting method of the list in {@code Xpire}.
+     *
+     * @param method Sorting method.
+     */
     @Override
     public void sortXpire(XpireMethodOfSorting method) {
         requireNonNull(method);
@@ -224,7 +296,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the current viewing list of {@code Item} backed by the internal list of
+     * Returns the current view list of {@code Item} backed by the internal list of
      * {@code Xpire} or {@code ReplenishList}.
      */
     @Override
@@ -232,6 +304,11 @@ public class ModelManager implements Model {
         return this.currentList;
     }
 
+    /**
+     * Updates the current view list to the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     */
     @Override
     public void setCurrentList(ListType listType) {
         requireAllNonNull(listType);
@@ -252,6 +329,12 @@ public class ModelManager implements Model {
         this.currentList.setPredicate(PREDICATE_SHOW_ALL_ITEMS);
     }
 
+    /**
+     * Adds a new filtering constraint to the existing current view list.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param predicate Filtering constraint.
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void filterCurrentList(ListType listType, Predicate<? extends Item> predicate) {
@@ -280,6 +363,32 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Update the entire state of Xpire.
+     *
+     * @param state New state.
+     */
+    @Override
+    public void update(State state) {
+        CloneModel clone = state.getCloneModel();
+        this.setXpire(clone.getXpire());
+        this.xpire.setMethodOfSorting(state.getMethod());
+        this.setReplenishList(clone.getReplenishList());
+        this.setUserPrefs(clone.getUserPrefs());
+        this.setCurrentList(state.getListType());
+        this.filterCurrentList(this.currentView, state.getPredicate());
+    }
+
+    /**
+     * Returns the identifier of which list the current view list is showing.
+     *
+     * @return Either {@code XPIRE} or {@code REPLENISH}.
+     */
+    @Override
+    public ListType getCurrentView() {
+        return this.currentView;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -296,22 +405,9 @@ public class ModelManager implements Model {
         }
     }
 
-    // =========== Undo/Redo Methods =============================================================
-
     @Override
-    public void update(State state) {
-        CloneModel clone = state.getCloneModel();
-        this.setXpire(clone.getXpire());
-        this.xpire.setMethodOfSorting(state.getMethod());
-        this.setReplenishList(clone.getReplenishList());
-        this.setUserPrefs(clone.getUserPrefs());
-        this.setCurrentList(state.getListType());
-        this.filterCurrentList(this.currentView, state.getPredicate());
-    }
-
-    @Override
-    public ListType getCurrentView() {
-        return this.currentView;
+    public int hashCode() {
+        return Objects.hash(this.xpire, this.replenishList, this.userPrefs, this.currentList, this.currentView);
     }
 
 }

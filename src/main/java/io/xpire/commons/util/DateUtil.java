@@ -1,6 +1,7 @@
 package io.xpire.commons.util;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 
 import io.xpire.model.item.ExpiryDate;
 
+//@@author JermyTan
 /**
  * Helper functions for handling dates.
  */
@@ -26,7 +28,7 @@ public class DateUtil {
      * @return Date in string if conversion is successful, else empty string.
      */
     public static String convertDateToString(LocalDate date) {
-        requireAllNonNull(date);
+        requireNonNull(date);
         try {
             return date.format(DATE_TIME_FORMATTER);
         } catch (IllegalArgumentException | DateTimeException e) {
@@ -46,7 +48,6 @@ public class DateUtil {
         try {
             return LocalDate.parse(dateInString, DATE_TIME_FORMATTER);
         } catch (IllegalArgumentException | DateTimeException e) {
-            System.out.println(e);
             return null;
         }
     }
@@ -68,11 +69,12 @@ public class DateUtil {
 
     /**
      * Retrieves the difference in the number of days between the {@code earlierDate} and the {@code laterDate}.
-     * If earlierDate is later than laterDate, 0 is returned.
+     * If earlierDate is later than laterDate, the negative of the difference is returned.
      *
      * @param earlierDate The earlier date.
      * @param laterDate The later date.
-     * @return Difference in number of days between the 2 dates. 0 is returned when earlierDate is later than laterDate.
+     * @return Difference in number of days between the 2 dates.
+     * Negative of the difference is returned when earlierDate is later than laterDate.
      */
     public static long getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
@@ -86,6 +88,7 @@ public class DateUtil {
      * @return Earlier date.
      */
     public static LocalDate getPreviousDate(LocalDate date, int offsetDays) {
+        requireNonNull(date);
         return date.minusDays(offsetDays);
     }
 

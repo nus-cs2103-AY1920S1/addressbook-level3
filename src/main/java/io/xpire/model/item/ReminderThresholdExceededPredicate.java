@@ -4,8 +4,9 @@ import java.util.function.Predicate;
 
 import io.xpire.commons.util.DateUtil;
 
+//@@author xiaoyu-nus
 /**
- * Tests that a {@code XpireItem}'s {@code ExpiryDate} falls within the date given.
+ * Tests if a {@code XpireItem}'s {@code ReminderThreshold} is exceeded given the current date.
  */
 public class ReminderThresholdExceededPredicate implements Predicate<XpireItem> {
 

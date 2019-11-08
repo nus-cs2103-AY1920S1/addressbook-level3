@@ -18,7 +18,7 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Displayed all items in %s list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views all items in tracking or toReplenish list.\n"
-            + "If key is 'replenish', items in the toReplenish list will be displayed.\n"
+            + "If key is 'replenish', items in the to-buy list will be displayed.\n"
             + "If key is 'main', items in the main list will be displayed.\n"
             + "Format: view|<key> (where key is 'main' or 'replenish')\n"
             + "Example: " + COMMAND_WORD + "|main";

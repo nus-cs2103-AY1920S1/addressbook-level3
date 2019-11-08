@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+//@@author JermyTan
 /**
  * Controller for a export screen.
  */
@@ -31,7 +32,7 @@ public class ExportWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new ExportWindow.
      */
     public ExportWindow() {
         this(new Stage());
@@ -48,7 +49,7 @@ public class ExportWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the export window.
      * @throws IllegalStateException
      * <ul>
      *     <li>

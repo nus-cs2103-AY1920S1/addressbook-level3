@@ -11,7 +11,6 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
-import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
@@ -156,12 +155,14 @@ public class ParserUtil {
         return new XpireMethodOfSorting(trimmedMethodOfSorting);
     }
 
-    //@@author
+    //@@author JermyTan
     /**
-     * Parses a {@code String reminderThreshold} into an {@code }.
+     * Parses a {@code String reminderThreshold} into an {@code ReminderThreshold} object.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code reminderThreshold} is invalid.
+     * @param reminderThreshold A number in string.
+     * @return A valid reminder threshold.
+     * @throws ParseException If the given {@code reminderThreshold} is invalid.
      */
     public static ReminderThreshold parseReminderThreshold(String reminderThreshold) throws ParseException {
         requireNonNull(reminderThreshold);
@@ -192,24 +193,5 @@ public class ParserUtil {
         }
         set = ParserUtil.parseTags(Arrays.asList(copiedTags));
         return set;
-    }
-
-    //@@author febee99
-    /**
-     * Parses a {@code String list} into a {@code ListToView}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code list} is invalid.
-     */
-    public static ListToView parseListToView(String list) throws ParseException {
-        requireNonNull(list);
-        String trimmedListToView = list.trim();
-        if (!ListToView.isValidListToView(trimmedListToView)) {
-            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(
-                    ListToView.VIEW_MAIN, ListToView.VIEW_REPLENISH));
-            String output = StringUtil.findSimilar(list, allowedArgs, 1);
-            throw new ParseException(ListToView.MESSAGE_CONSTRAINTS + output);
-        }
-        return new ListToView(trimmedListToView);
     }
 }

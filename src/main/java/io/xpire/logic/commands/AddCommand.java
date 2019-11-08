@@ -1,5 +1,6 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
 
@@ -58,9 +59,9 @@ public class AddCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws ParseException {
-        requireNonNull(model);
-        requireNonNull(stateManager);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new ModifiedState(model));
+
         if (model.hasItem(XPIRE, this.toAdd)) {
             XpireItem itemToReplace = retrieveXpireItem(this.toAdd, model.getItemList(XPIRE));
             XpireItem itemWithUpdatedQuantity = increaseItemQuantity(new XpireItem(itemToReplace), this.quantity);
