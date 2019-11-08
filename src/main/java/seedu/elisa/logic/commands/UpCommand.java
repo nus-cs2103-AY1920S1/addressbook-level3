@@ -12,7 +12,7 @@ public class UpCommand extends ScrollCommand {
 
     public static final String COMMAND_WORD = "up";
     public static final String MESSAGE_SUCCESS = "Scrolling up...";
-    public static final String MESSAGE_USAGE = "up L / up R";
+    public static final String MESSAGE_USAGE = "up";
 
     public UpCommand() {
         super();
