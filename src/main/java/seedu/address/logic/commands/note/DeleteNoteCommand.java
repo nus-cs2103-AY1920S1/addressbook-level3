@@ -6,7 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_ARE_YOU_SURE_WANT_TO_D
 import static seedu.address.commons.core.Messages.MESSAGE_CONFIRM_DELETE;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -30,6 +32,8 @@ public class DeleteNoteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted Note: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteNoteCommand.class);
 
     private final Index targetIndex;
 
@@ -65,6 +69,7 @@ public class DeleteNoteCommand extends Command {
                     model.deleteNote(noteToDelete);
 
                     assert (model.getFilteredNoteList().size() - noteListSize == -1);
+                    logger.info("Current list size: " + model.getFilteredNoteList().size());
 
                     commandResult = new NoteCommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
                 }

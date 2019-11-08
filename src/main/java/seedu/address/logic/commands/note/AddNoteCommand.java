@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -54,7 +53,7 @@ public class AddNoteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
     public static final String MESSAGE_DUPLICATE_NOTE = "This note title already exists in Notes.";
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(AddNoteCommand.class);
 
     private final Note toAdd;
 
@@ -77,6 +76,7 @@ public class AddNoteCommand extends Command {
         int noteListSize = model.getFilteredNoteList().size();
         model.addNote(toAdd);
         assert (model.getFilteredNoteList().size() - noteListSize == 1);
+        logger.info("Current list size: " + model.getFilteredNoteList().size());
 
         return new NoteCommandResult(String.format(MESSAGE_SUCCESS, toAdd.toStringWithNoteFragments()));
     }

@@ -1,7 +1,9 @@
 package seedu.address.model.note;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -9,11 +11,14 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class NoteFragment extends Note {
+    private static final Logger logger = LogsCenter.getLogger(NoteFragment.class);
+
     /**
      * Every field must be present and not null, except for tags.
      */
     public NoteFragment(Title title, Content content, Set<Tag> tags) {
         super(title, content, tags);
+        logger.info("A new Note Fragment has been created, with title: " + title.toString());
     }
 
     /**
