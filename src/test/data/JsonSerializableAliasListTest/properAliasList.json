@@ -83,5 +83,8 @@
   }, {
     "commandWord" : "withdraw",
     "aliasWord" : ""
+  }, {
+    "commandWord" : "show",
+    "aliasWord" : ""
   } ]
 }

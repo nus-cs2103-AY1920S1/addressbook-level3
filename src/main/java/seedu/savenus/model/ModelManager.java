@@ -297,7 +297,6 @@ public class ModelManager implements Model {
                 .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
-
     @Override
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);

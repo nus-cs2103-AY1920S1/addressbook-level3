@@ -12,4 +12,14 @@ public interface ReadOnlySavingsHistory {
      * Returns an unmodifiable view of the SavingsHistory.
      */
     ObservableList<Savings> getSavingsHistory();
+
+    /**
+     * Returns an unmodifiable view of the SavingsHistory with only savings.
+     */
+    ObservableList<Savings> getSavingsOnly();
+
+    /**
+     * Returns an unmodifiable view of the SavingsHistory with only savings.
+     */
+    ObservableList<Savings> getWithdrawalsOnly();
 }
