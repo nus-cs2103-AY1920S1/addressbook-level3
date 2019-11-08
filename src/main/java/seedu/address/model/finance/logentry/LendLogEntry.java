@@ -84,7 +84,8 @@ public class LendLogEntry extends LogEntry {
                 && otherLogEntry.getCategories().equals(getCategories())
                 && otherLogEntry.getTo().equals(getTo())
                 && (otherLogEntry.isRepaid() == isRepaid())
-                && (otherLogEntry.getRepaidDate().equals(getRepaidDate()));
+                && ((otherLogEntry.getRepaidDate() == null && getRepaidDate() == null)
+                || otherLogEntry.getRepaidDate().equals(getRepaidDate()));
     }
 
     @Override

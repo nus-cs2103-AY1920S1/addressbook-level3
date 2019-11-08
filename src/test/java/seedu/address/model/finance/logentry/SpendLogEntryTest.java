@@ -51,8 +51,8 @@ public class SpendLogEntryTest {
     @Test
     public void equals() {
         // same values -> returns true
-        LogEntry logCopy02 = new LogEntryBuilder(LOG05).buildSpend();
-        assertTrue(LOG05.equals(logCopy02));
+        LogEntry logCopy05 = new LogEntryBuilder(LOG05).buildSpend();
+        assertTrue(LOG05.equals(logCopy05));
 
         // same object -> returns true
         assertTrue(LOG05.equals(LOG05));

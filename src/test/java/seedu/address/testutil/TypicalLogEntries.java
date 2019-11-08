@@ -110,7 +110,7 @@ public class TypicalLogEntries {
             .withTransactionMethod(VALID_TMET_LOG2)
             .withCats(VALID_CAT_FOOD, VALID_CAT_PRESENT)
             .withPlace(VALID_PLACE_LOG2)
-            .withPerson(VALID_FROM_LOG1).buildIncome();
+            .withPerson(VALID_FROM_LOG2).buildIncome();
     public static final LogEntry LOG03 = new LogEntryBuilder().withAmount(VALID_AMOUNT_LOG1)
             .withTransactionDate(VALID_TDATE_LOG1)
             .withDescription(VALID_DESC_LOG2)
