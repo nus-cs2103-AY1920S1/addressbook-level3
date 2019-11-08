@@ -292,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see //Logic#execute(String)
+     * @see Logic#execute(String, MainWindow, String)
      */
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
@@ -314,7 +314,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             }
 
-            CommandResult commandResult = logic.execute(commandText, this);
+            CommandResult commandResult = logic.execute(commandText, this, currentTab);
             if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());

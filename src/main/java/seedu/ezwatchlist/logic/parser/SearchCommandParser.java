@@ -35,7 +35,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * and returns a SearchCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SearchCommand parse(String args) throws ParseException {
+
+    public SearchCommand parse(String args, String currentPanel) throws ParseException {
         // checkSyntaxError(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(

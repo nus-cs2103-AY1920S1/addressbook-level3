@@ -80,8 +80,6 @@ public class CommandBox extends UiPart<Region> {
     public interface CommandExecutor {
         /**
          * Executes the command and returns the result.
-         *
-         * //@see Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException, OnlineConnectionException,
                 NoRecommendationsException;

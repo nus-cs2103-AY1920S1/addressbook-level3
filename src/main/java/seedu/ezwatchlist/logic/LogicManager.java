@@ -40,12 +40,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, MainWindow mainWindow)
+    public CommandResult execute(String commandText, MainWindow mainWindow, String currentTab)
             throws CommandException, ParseException, OnlineConnectionException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         final CommandResult[] commandResult = new CommandResult[1];
-        Command command = watchListParser.parseCommand(commandText);
+        Command command = watchListParser.parseCommand(commandText, currentTab);
 
         if (command instanceof SearchCommand) {
             mainWindow.setIsSearchLoading();
