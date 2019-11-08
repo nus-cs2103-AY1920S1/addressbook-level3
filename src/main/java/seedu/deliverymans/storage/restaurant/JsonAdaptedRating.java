@@ -8,7 +8,7 @@ import seedu.deliverymans.model.restaurant.Rating;
 /**
  * Jackson-friendly version of {@link Rating}.
  */
-class JsonAdaptedRating {
+public class JsonAdaptedRating {
 
     private final int numberOfRatings;
     private final String rating;
