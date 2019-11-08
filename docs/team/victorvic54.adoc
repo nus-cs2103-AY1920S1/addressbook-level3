@@ -1,9 +1,7 @@
-= Victor Varian - Project Portfolio
+= Victor Varian - Project Portfolio (Modulo)
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: Modulo Quiz
 
 == Overview
 
