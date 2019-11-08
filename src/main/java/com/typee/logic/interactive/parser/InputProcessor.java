@@ -9,7 +9,7 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a helper class that handles processing of text inputs.
+ * Processes input {@code Strings} to find prefixes and command words.
  */
 public class InputProcessor {
 
@@ -19,6 +19,7 @@ public class InputProcessor {
     /**
      * Extracts and returns the list of prefixes in the user entered input.
      * Returns the prefixes in their order of appearance.
+     *
      * @param commandText User entered input.
      * @return array of prefixes in their order of appearance.
      */
@@ -97,5 +98,5 @@ public class InputProcessor {
         }
         return trimmedCommandText.length();
     }
-    
+
 }

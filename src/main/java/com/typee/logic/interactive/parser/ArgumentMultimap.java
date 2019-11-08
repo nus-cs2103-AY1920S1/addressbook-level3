@@ -52,10 +52,22 @@ public class ArgumentMultimap {
         return new ArrayList<>(argMultimap.get(prefix));
     }
 
+    /**
+     * Removes the argument mapped to the input {@code Prefix}.
+     *
+     * @param prefix Prefix to be removed from the multimap.
+     */
     public void clearValues(Prefix prefix) {
         argMultimap.remove(prefix);
     }
 
+    /**
+     * Returns true if the input {@code ArgumentMultimap} is disjoint with the calling {@code ArgumentMultimap}.
+     * If the {@code ArgumentMultimaps} have no {@code Prefixes} in common, they are considered to be disjoint.
+     *
+     * @param argumentMultimap {@code ArgumentMultimap} to check exclusivity with.
+     * @return true if the {@code ArgumentMultimaps} are disjoint.
+     */
     public boolean isDisjointWith(ArgumentMultimap argumentMultimap) {
         HashMap<Prefix, List<String>> copy = new HashMap<>(argMultimap);
         Set<Prefix> keys = copy.keySet();
@@ -64,6 +76,11 @@ public class ArgumentMultimap {
         return keys.isEmpty();
     }
 
+    /**
+     * Returns true if the {@code ArgumentMultimap} is empty.
+     *
+     * @return true if empty.
+     */
     public boolean isEmpty() {
         return argMultimap.isEmpty();
     }
