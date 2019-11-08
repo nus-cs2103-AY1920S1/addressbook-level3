@@ -402,12 +402,12 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult.isUnknown()) {
+                setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isUnknown()) {
-                setUnknownTrue();
+            } else if (commandResult.isShowHelp()) {
+                handleHelp();
             } else if (commandResult.isPersons()) {
                 UiManager.startStudentProfile();
             } else if (commandResult.isTasks()) {
