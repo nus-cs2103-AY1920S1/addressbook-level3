@@ -50,7 +50,7 @@ public class StartCommand extends Command {
         keyboardFlashCardsParser.startTestMode();
         String question = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
-        return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question));
+        return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question), false, false, false);
     }
 
     @Override

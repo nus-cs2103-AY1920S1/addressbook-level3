@@ -79,6 +79,11 @@ public class StatsWindow extends UiPart<Stage> {
         xAxisC.setLabel("Test Number");
         yAxisC.setLabel("Percentage");
 
+//        yAxisA.setTickUnit(1);
+//        yAxisA.setMinorTickVisible(false);
+//        yAxisB.setMinorTickVisible(false);
+//        yAxisC.setMinorTickVisible(false);
+
         model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
         int numGood = model.getFilteredFlashCardList().size();
         model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
@@ -172,6 +177,14 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Update stats window.
+     */
+    public void update() {
+        getRoot().hide();
+        getRoot().show();
     }
 
 }
