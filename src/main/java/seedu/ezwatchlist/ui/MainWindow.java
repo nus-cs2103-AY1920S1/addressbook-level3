@@ -20,6 +20,7 @@ import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.Logic;
+
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -291,10 +292,10 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see Logic#execute(String, MainWindow, String)
      */
     public CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, OnlineConnectionException {
+            throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
         try {
             switch (currentTab) {
             case (MAIN_TAB):
@@ -312,52 +313,62 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 break;
             }
-            if (commandText.split(" ")[0].toLowerCase().equals("search")) {
-                isSearchLoading = true;
-                contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(loadingPanel.getRoot());
-                Task<CommandResult> task = new Task<CommandResult>() {
-                    @Override
-                    protected CommandResult call() throws Exception {
-                        return logic.execute(commandText);
-                    }
-                };
-                task.setOnSucceeded(evt -> {
-                    isSearchLoading = false;
-                    contentPanelPlaceholder.getChildren().clear();
-                    contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
-                    currentTab = SEARCH_TAB;
-                    move(currentButton, searchButton);
-                    currentButton = searchButton;
-                    CommandResult commandResult = task.getValue();
-                    System.out.println(commandResult);
-                    logger.info("Result: " + commandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                });
-                new Thread(task).start();
-                return null;
-            } else {
-                CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, this, currentTab);
+            if (!isSearchLoading) {
                 logger.info("Result: " + commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 if (commandResult.isShowHelp()) {
                     handleHelp();
                 }
-
                 if (commandResult.isExit()) {
                     handleExit();
                 }
-
+                if (commandResult.isShortCutKey()) {
+                    handleShortCutKey(commandResult.getFeedbackToUser());
+                }
                 return commandResult;
             }
+            return commandResult;
+
         //catch ParseException here to implement spellcheck
-        } catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException | NoRecommendationsException e) {
+
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | InterruptedException e) {
             e.printStackTrace();
-            throw e;
+            return null;
+        }
+    }
+
+    /**
+     * execute short cut key on UI
+     * @param feedbackToUser
+     * @throws NoRecommendationsException
+     * @throws OnlineConnectionException
+     */
+    private void handleShortCutKey(String feedbackToUser) throws NoRecommendationsException, OnlineConnectionException {
+        switch (feedbackToUser) {
+
+        case "Watchlist":
+            goToWatchlist();
+            return;
+
+        case "Watchedlist":
+            goToWatched();
+            return;
+
+        case "Search":
+            goToSearch();
+            return;
+
+        case "Statistics":
+            goToStatistics();
+            return;
+
+        default:
+            return;
         }
     }
 
@@ -455,4 +466,21 @@ public class MainWindow extends UiPart<Stage> {
     public String getCurrentTab() {
         return currentTab;
     }
+
+    /**
+     * For logic manager. If command is search, searchResultLogger will be called so logic can update this UI (Main
+     * Window)
+     * @param commandResult
+     */
+    public void searchResultLogger(CommandResult commandResult) {
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+    }
+
+    public void setIsSearchLoading() {
+        isSearchLoading = !isSearchLoading;
+    }
+
+
 }

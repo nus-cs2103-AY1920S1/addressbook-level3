@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -67,8 +65,8 @@ public class AddCommandTest {
         AddCommand addAvengerCommand = new AddCommand(avenger);
         AddCommand addBobCommand = new AddCommand(bobthebuilder);
 
-        AddCommand addIndex0 = new AddCommand(INDEX_FIRST_SHOW);
-        AddCommand addIndex1 = new AddCommand(INDEX_SECOND_SHOW);
+        AddCommand addIndex0 = new AddCommand(1);
+        AddCommand addIndex1 = new AddCommand(2);
 
         // same object -> returns true
         assertTrue(addAvengerCommand.equals(addAvengerCommand));
@@ -227,6 +225,11 @@ public class AddCommandTest {
         @Override
         public void syncMovie(List<Movie> syncMovie) {
 
+        }
+
+        @Override
+        public String getPage(String shortCutKey) {
+            return null;
         }
     }
 

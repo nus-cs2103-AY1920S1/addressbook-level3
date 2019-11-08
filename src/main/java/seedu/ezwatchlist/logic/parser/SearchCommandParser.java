@@ -29,7 +29,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * and returns a SearchCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SearchCommand parse(String args) throws ParseException {
+    public SearchCommand parse(String args, String currentPanel) throws ParseException {
         //checkSyntaxError(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
@@ -65,14 +65,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     /*private void checkSyntaxError(String args) throws ParseException {
         String[] keywordsArray = args.split(" ");
         int length = keywordsArray.length;
-        if (length == 1) {
-            throw new ParseException(SearchMessages.MESSAGE_USAGE);
-        }
         for (int i = 1; i < length; i++) {
             String s = keywordsArray[i].trim();
-            if (s.length() <=2 || (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
+            if (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
                     && !s.substring(0, 2).equals("g/") && !s.substring(0, 2).equals("t/")
-                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/")))) {
+                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/"))) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
@@ -83,9 +80,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @param nameList List of names to be searched.
      */
     private void parseNameToBeSearched(List<String> nameList) {
-        if (!nameList.isEmpty()) {
-            searchShowsHashMap.put(SearchKey.KEY_NAME, nameList);
-        }
+        searchShowsHashMap.put(SearchKey.KEY_NAME, nameList);
     }
 
     /**

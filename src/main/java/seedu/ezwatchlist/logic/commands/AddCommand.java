@@ -11,8 +11,6 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
 
-import seedu.ezwatchlist.commons.core.index.Index;
-import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
@@ -51,8 +49,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist";
     public static final String MESSAGE_SUCCESS2 = "Sync movie: %1$s";
 
+    public static final String UNSUCCESSFUL_INDEX = "Search Result Page is currently empty.";
+    public static final String UNSUCCESSFUL_LARGER = "The index is larger than the total number"
+            + " of shows in search page.";
+    public static final String NOT_AT_SEARCH_LIST_PAGE = "'Add Index' command is only available in Search Panel";
+
     private final Show toAdd;
-    private final Index index;
+    private final int index;
     private final boolean isFromSearch;
 
     /**
@@ -61,11 +64,11 @@ public class AddCommand extends Command {
     public AddCommand(Show show) {
         requireNonNull(show);
         toAdd = show;
-        index = null;
+        index = -1;
         isFromSearch = false;
     }
 
-    public AddCommand(Index index) {
+    public AddCommand(int index) {
         requireNonNull(index);
         this.index = index;
         toAdd = null;
@@ -77,18 +80,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (isFromSearch) {
-            List<Show> searchResultList = model.getSearchResultList();
-            if (index.getZeroBased() >= searchResultList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
-            }
-            Show fromImdb = searchResultList.get(index.getZeroBased());
-
-            if (model.hasShow(fromImdb)) {
-                throw new CommandException(MESSAGE_DUPLICATE_SHOW);
-            }
-
-            model.addShow(fromImdb);
-            return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb));
+            return fromSearch(model);
         }
         if (model.hasShow(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
@@ -98,12 +90,36 @@ public class AddCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Retrieve movies from searchlist found in model.
+     * @param model
+     * @return
+     * @throws CommandException
+     */
+
+    public CommandResult fromSearch(Model model) throws CommandException {
+        List<Show> searchResultList = model.getSearchResultList();
+        if (searchResultList.isEmpty()) {
+            throw new CommandException(UNSUCCESSFUL_INDEX);
+        }
+        if (index > searchResultList.size()) {
+            throw new CommandException(UNSUCCESSFUL_LARGER);
+        }
+        Show fromImdb = searchResultList.get(index - 1);
+        if (model.hasShow(fromImdb)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SHOW);
+        }
+
+        model.addShow(fromImdb);
+        return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb));
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd)
-                && index.equals(((AddCommand) other).index)
+                && index == (((AddCommand) other).index)
                 && isFromSearch == ((AddCommand) other).isFromSearch);
     }
 }
