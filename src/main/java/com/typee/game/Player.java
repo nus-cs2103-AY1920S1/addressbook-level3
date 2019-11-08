@@ -79,7 +79,7 @@ public class Player {
      */
     public Player incrementScore(int score) {
         requireNonNull(score);
-        checkArgument(score > 0);
+        checkArgument(score >= 0);
         if (isGameOver.get()) {
             return this;
         }
@@ -94,13 +94,13 @@ public class Player {
      */
     public Player decrementHealth(int health) {
         requireNonNull(health);
-        checkArgument(health > 0);
         if (isGameOver.get()) {
             return this;
         }
-        if (this.health <= 0) {
+        if (this.health - health <= 0) {
             isGameOver.set(true);
             this.health = 0;
+            healthProperty.set(0);
             return this;
         }
         this.health -= health;

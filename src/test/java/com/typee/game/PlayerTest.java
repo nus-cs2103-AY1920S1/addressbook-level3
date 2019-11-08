@@ -6,6 +6,7 @@ import static com.typee.testutil.TypicalPlayers.MID_GAME;
 import static com.typee.testutil.TypicalPlayers.START_OF_GAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,27 +51,34 @@ class PlayerTest {
     }
 
     @Test
-    void testIncrementScore1() {
+    public void incrementScore_invalidInput_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, () -> player.incrementScore(-1));
+        Assert.assertThrows(IllegalArgumentException.class, () -> player.incrementScore(Integer.MIN_VALUE));
     }
 
     @Test
-    void testDecrementHealth1() {
+    void incrementScore_validScore_incrementScore() {
+        assertEquals(player.incrementScore(1).getScore(), new PlayerBuilder().withScore(1).build().getScore());
+        assertEquals(player.incrementScore(757).getScore(), player.getScore());
+        assertEquals(END_GAME.incrementScore(1).getScoreProperty(), END_GAME.getScoreProperty());
     }
 
     @Test
-    void testGetScoreProperty1() {
+    public void decrementHealth_healthLessThanZero_setGameOVer() {
+        assertEquals(MID_GAME.decrementHealth(50).getGameOverProperty().get(), END_GAME.getGameOverProperty().get());
     }
 
     @Test
-    void testGetHealthProperty1() {
+    void decrementHealth_validHealth_decrementHealth() {
+        assertEquals(player.decrementHealth(1).getHealth(), new PlayerBuilder().withHealth(99).build().getHealth());
+        assertEquals(player.decrementHealth(757).getHealth(), player.getHealth());
+        assertEquals(END_GAME.decrementHealth(1).getHealthProperty(), END_GAME.getHealthProperty());
     }
 
     @Test
-    void testGetGameOverProperty1() {
-    }
-
-    @Test
-    void testIsSamePlayer() {
+    void isSamePlayer_inputSamePlayer_returnsTrue() {
+        assertTrue(MID_GAME.isSamePlayer(MID_GAME));
+        assertTrue(player.isSamePlayer(START_OF_GAME));
     }
 
     @Test
