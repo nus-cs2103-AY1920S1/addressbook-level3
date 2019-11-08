@@ -14,7 +14,7 @@ import com.typee.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data" , "typee.json");
     private Path tabMenusFilePath = Paths.get("data", "tabMenus.json");
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -58,10 +58,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getTabMenusFilePath() {
         return tabMenusFilePath;
-    }
-
-    public void setTabMenusFilePath(Path tabMenusFilePath) {
-        this.tabMenusFilePath = tabMenusFilePath;
     }
 
     @Override

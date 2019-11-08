@@ -247,6 +247,18 @@
     -fx-text-fill: white;
 }
 
+#btn-next-l {
+    -fx-background-image: url('../images/btn_next_l.png');
+    -fx-min-width: 25px;
+    -fx-min-height: 25px;
+ }
+
+#btn-next-r {
+    -fx-background-image: url('../images/btn_next_r.png');
+    -fx-min-width: 25px;
+    -fx-min-height: 25px;
+}
+
 .button:default {
     -fx-background-color: -fx-focus-color;
     -fx-text-fill: #ffffff;

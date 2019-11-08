@@ -28,7 +28,7 @@ public class EngagementListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of an {@code Engagement} using an {@code EngagementCard}.
      */
     class EngagementListViewCell extends ListCell<Engagement> {
         @Override

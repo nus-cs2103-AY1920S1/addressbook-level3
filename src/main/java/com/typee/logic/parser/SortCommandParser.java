@@ -2,6 +2,7 @@ package com.typee.logic.parser;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.SortCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
@@ -18,7 +19,7 @@ public class SortCommandParser implements Parser<SortCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        return new SortCommand(ParserUtil.parseComparator(parseOrder()));
+        return new SortCommand(InteractiveParserUtil.parseComparator(parseOrder()));
     }
 
     /**
@@ -28,7 +29,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     private String parseOrder() throws ParseException {
         try {
-            switch (Order.valueOf(trimmedArgs.toUpperCase())) {
+            switch (Order.valueOf(trimmedArgs.toUpperCase().replace(" ", "_"))) {
 
             case START_ASCENDING:
                 return "START_TIME";
@@ -55,7 +56,7 @@ public class SortCommandParser implements Parser<SortCommand> {
                 return "PRIORITY_REVERSE";
 
             default:
-                return "Not supposed to reach here";
+                throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));

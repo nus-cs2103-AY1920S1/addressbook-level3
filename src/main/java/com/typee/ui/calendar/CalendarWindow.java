@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
-import com.typee.logic.Logic;
+import com.typee.commons.util.DateUtil;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -26,9 +30,8 @@ import javafx.scene.text.Text;
 public class CalendarWindow extends UiPart<Region> {
 
     public static final String FXML = "CalendarWindow.fxml";
-    private static final String FIRST_DAY_TO_DISPLAY = "SUNDAY";
     private static final int FIRST_DATE_OF_MONTH = 1;
-    private static final int MAXIMUM_NUMBER_OF_DAYS_PER_MONTH = 5;
+    private static final int MAXIMUM_NUMBER_OF_WEEKS_PER_MONTH = 5;
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -39,110 +42,210 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     private Text calendarTitle;
 
-    private List<Engagement> engagementList;
-    private List<StackPane> allCalendarDays;
-    private Logic logic;
+    private List<CalendarDateCell> calendarDateCells;
+    private ObservableList<Engagement> engagements;
     private YearMonth currentDisplayedYearMonth;
 
     /**
-     * Constructs a calendar window.
+     * Constructs a calendar window with the current month as reference.
      */
-    public CalendarWindow() {
+    public CalendarWindow(ObservableList<Engagement> engagements) {
         super(FXML);
-        allCalendarDays = new ArrayList<>();
-        engagementList = new ArrayList<>();
-    }
-
-    /**
-     * Returns this calendar window's logic component.
-     * @return This calendar window's logic component.
-     */
-    public Logic getLogic() {
-        return logic;
-    }
-
-    /**
-     * Sets this calendar window's logic component to the specified logic instance.
-     * @param logic The specified logic instance.
-     */
-    public void setLogic(Logic logic) {
-        this.logic = logic;
-    }
-
-    /**
-     * Populates the calendar with the information to be displayed.
-     */
-    public void populateCalendar() {
-        for (Engagement engagement : logic.getFilteredEngagementList()) {
-            engagementList.add(engagement);
-        }
+        calendarDateCells = new ArrayList<>();
+        this.engagements = engagements;
+        engagements.addListener((ListChangeListener<? super Engagement>) change -> populateCalendar());
         currentDisplayedYearMonth = YearMonth.now();
-        initializeDateDisplayGrid();
-        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
+        initializeUiDisplay();
+        populateCalendar();
     }
 
     /**
-     * Initializes the date display grid with the current month.
+     * Initializes the UI elements of the calendar window to be displayed.
      */
-    private void initializeDateDisplayGrid() {
-        for (int i = 0; i < MAXIMUM_NUMBER_OF_DAYS_PER_MONTH; i++) {
+    private void initializeUiDisplay() {
+        for (int i = 0; i < MAXIMUM_NUMBER_OF_WEEKS_PER_MONTH; i++) {
             for (int j = 0; j < NUMBER_OF_DAYS_IN_A_WEEK; j++) {
-                StackPane individualDateStackPane = new IndividualDatePane().getIndividualDateStackPane();
-                dateDisplayGrid.add(individualDateStackPane, j, i);
-                allCalendarDays.add(individualDateStackPane);
+                CalendarDateCell calendarDateCell = new CalendarDateCell();
+                calendarDateCells.add(calendarDateCell);
+                StackPane calendarDateStackPane = calendarDateCell.getCalendarDateStackPane();
+                dateDisplayGrid.add(calendarDateStackPane, j, i);
             }
         }
     }
 
     /**
-     * Populates the calendar based on the specified {@code YearMonth}
-     * @param yearMonth The specified {@code YearMonth}
+     * Populates the calendar based on the currently displayed year and month.
      */
-    private void populateCalendarWithSpecifiedMonth(YearMonth yearMonth) {
-        LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(),
-                FIRST_DATE_OF_MONTH);
-        while (!calendarDate.getDayOfWeek().toString().equals(FIRST_DAY_TO_DISPLAY)) {
-            calendarDate = calendarDate.minusDays(1);
-        }
-        for (StackPane individualDateStackPane : allCalendarDays) {
-            if (individualDateStackPane.getChildren().size() > 0) {
-                individualDateStackPane.getChildren().clear();
-            }
-            Text dateText = new Text(calendarDate.getDayOfMonth() + "");
-            StackPane.setAlignment(dateText, Pos.TOP_LEFT);
-            individualDateStackPane.getChildren().add(dateText);
-            for (Engagement engagement : engagementList) {
-                LocalDateTime startDateTime = engagement.getTimeSlot().getStartTime();
-                if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
-                        && startDateTime.getMonth().equals(calendarDate.getMonth())
-                        && startDateTime.getYear() == calendarDate.getYear()) {
-                    Text appointmentDescription = new Text(engagement.getDescription());
-                    StackPane.setAlignment(appointmentDescription, Pos.CENTER);
-                    individualDateStackPane.getChildren().add(appointmentDescription);
-                }
-            }
+    private void populateCalendar() {
+        updateCalendarTitle();
+        LocalDate calendarDate = getDateOfFirstSundayToBeDisplayed();
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            setDate(calendarDateCell, calendarDate);
+            addAllEngagementsForDate(calendarDateCell, calendarDate);
+            updateEngagementCountDisplay(calendarDateCell);
             calendarDate = calendarDate.plusDays(1);
         }
-        calendarTitle.setText(currentDisplayedYearMonth.getMonth().toString() + " "
-                + currentDisplayedYearMonth.getYear());
+    }
+
+    /**
+     * Updates the calendar's title to reflect the current displayed month and year.
+     */
+    private void updateCalendarTitle() {
+        String calendarTitleText = String.format("%s %04d", currentDisplayedYearMonth.getMonth().toString(),
+                currentDisplayedYearMonth.getYear());
+        calendarTitle.setText(calendarTitleText);
+    }
+
+    /**
+     * Returns a {@code LocalDate} instance representing the first Sunday to be displayed.
+     * This Sunday is defined as the Sunday before or on the first day of the month.
+     * @return A {@code LocalDate} instance representing the first Sunday to be displayed.
+     */
+    private LocalDate getDateOfFirstSundayToBeDisplayed() {
+        LocalDate dateOfFirstSundayToBeDisplayed = LocalDate.of(currentDisplayedYearMonth.getYear(),
+                currentDisplayedYearMonth.getMonth(), FIRST_DATE_OF_MONTH);
+        while (!dateOfFirstSundayToBeDisplayed.getDayOfWeek().toString().equals("SUNDAY")) {
+            dateOfFirstSundayToBeDisplayed = dateOfFirstSundayToBeDisplayed.minusDays(1);
+        }
+        return dateOfFirstSundayToBeDisplayed;
+    }
+
+    /**
+     * Sets the openSingleDayEngagementsDisplayWindow date of the specified {@code CalendarDateCell} to the
+     * date represented by the specified {@code LocalDate}.
+     * @param calendarDateCell The specified {@code CalendarDateCell}.
+     * @param calendarDate The specified {@code LocalDate}.
+     */
+    private void setDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
+        StackPane calendarDateStackPane = calendarDateCell.getCalendarDateStackPane();
+        calendarDateStackPane.getChildren().clear();
+        Text dateText = new Text(String.format("%02d", calendarDate.getDayOfMonth()));
+        StackPane.setAlignment(dateText, Pos.TOP_LEFT);
+        calendarDateStackPane.getChildren().add(dateText);
+        calendarDateCell.setDate(calendarDate);
+    }
+
+    /**
+     * Adds all engagements which occur on the date represented by the specified {@code LocalDate}
+     * to the specified {@code CalendarDateCell}.
+     * @param calendarDateCell The specified {@CalendarDate}.
+     * @param calendarDate The specified {@CalendarDateCell}.
+     */
+    private void addAllEngagementsForDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
+        calendarDateCell.clearEngagements();
+        for (Engagement engagement : engagements) {
+            if (isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
+                calendarDateCell.addEngagement(engagement);
+            }
+        }
+    }
+
+    /**
+     * Returns true if the specified calendar date is within the specified time slot.
+     * @param calendarDate The specified calendar date.
+     * @param timeSlot The specified time slot.
+     * @return True if the specified calendar date is within the specified time slot.
+     */
+    private boolean isWithinTimeSlot(LocalDate calendarDate, TimeSlot timeSlot) {
+        LocalDateTime startDateTime = timeSlot.getStartTime();
+        LocalDateTime endDateTime = timeSlot.getEndTime();
+        return (startDateTime.getDayOfMonth() <= calendarDate.getDayOfMonth()
+                && calendarDate.getDayOfMonth() <= endDateTime.getDayOfMonth())
+                && (startDateTime.getMonthValue() <= calendarDate.getMonthValue()
+                && calendarDate.getMonthValue() <= endDateTime.getMonthValue())
+                && (startDateTime.getYear() <= calendarDate.getYear()
+                && calendarDate.getYear() <= endDateTime.getYear());
+    }
+
+    /**
+     * Updates the specified {@code CalendarDatePane} to openSingleDayEngagementsDisplayWindow the number of engagements
+     * in the specified {@code CalendarDateCell}.
+     * @param calendarDateCell The specified {@code CalendarDateCell}.
+     */
+    private void updateEngagementCountDisplay(CalendarDateCell calendarDateCell) {
+        if (calendarDateCell.getNumberOfEngagements() > 0) {
+            Text engagementCountDisplay;
+            if (calendarDateCell.getNumberOfEngagements() == 1) {
+                engagementCountDisplay = new Text("1 engagement");
+            } else {
+                engagementCountDisplay = new Text(calendarDateCell.getNumberOfEngagements() + " engagements");
+            }
+            StackPane.setAlignment(engagementCountDisplay, Pos.CENTER);
+            calendarDateCell.getCalendarDateStackPane().getChildren().add(engagementCountDisplay);
+        }
     }
 
     /**
      * Populates the calendar with information about the next month.
      */
     @FXML
-    private void populateCalendarWithNextMonth() {
+    public void populateCalendarWithNextMonth() {
+        closeAllDisplayedEngagementWindows();
         currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
-        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
+        populateCalendar();
     }
 
     /**
      * Populates the calendar with information about the previous month.
      */
     @FXML
-    private void populateCalendarWithPreviousMonth() {
+    public void populateCalendarWithPreviousMonth() {
+        closeAllDisplayedEngagementWindows();
         currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
-        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
+        populateCalendar();
+    }
+
+    /**
+     * Opens a window which displays the engagements on the specified date.
+     * @param date The specified date.
+     */
+    public void openSingleDayEngagementsDisplayWindow(LocalDate date) {
+        if (!(date.getYear() == currentDisplayedYearMonth.getYear()
+                && date.getMonthValue() == currentDisplayedYearMonth.getMonthValue())) {
+            closeAllDisplayedEngagementWindows();
+        }
+        currentDisplayedYearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
+        populateCalendar();
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)) {
+                calendarDateCell.displayEngagements();
+            }
+        }
+    }
+
+    /**
+     * Closes the single day engagements window for the specified date.
+     * @param date The specified date.
+     * @throws CalendarCloseDisplayException If there is no open window for the specified date.
+     */
+    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarCloseDisplayException {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)
+                    && calendarDateCell.hasOpenEngagementsDisplay()) {
+                calendarDateCell.closeDisplayedEngagements();
+                return;
+            }
+        }
+        String formattedDateString = DateUtil.getFormattedDateString(date);
+        throw new CalendarCloseDisplayException("There is no open engagements display window for "
+                + formattedDateString);
+    }
+
+    /**
+     * Handles the exit process for this calendar window.
+     */
+    @Override
+    public void handleExit() {
+        closeAllDisplayedEngagementWindows();
+    }
+
+    /**
+     * Closes all displayed engagement windows.
+     */
+    private void closeAllDisplayedEngagementWindows() {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            calendarDateCell.closeDisplayedEngagements();
+        }
     }
 
 }

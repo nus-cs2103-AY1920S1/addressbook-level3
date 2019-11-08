@@ -1,16 +1,23 @@
 package com.typee.ui;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
+import com.typee.commons.util.PdfUtil;
 import com.typee.logic.Logic;
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
+import com.typee.logic.commands.CalendarNextMonthCommand;
+import com.typee.logic.commands.CalendarOpenDisplayCommand;
+import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 import com.typee.ui.game.StartWindow;
 import com.typee.ui.report.ReportWindow;
 
@@ -44,6 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     //Tab related attributes.
     private TabPanel tabPanel;
     private ObservableList<Tab> tabList;
+    private Tab currentTab;
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -86,6 +94,9 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        currentTab = new Tab("Engagement");
+        currentTab.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
 
         helpWindow = new HelpWindow();
     }
@@ -182,26 +193,61 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() {
+    public void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        currentTab.getController().handleExit();
         primaryStage.hide();
     }
 
     /**
      * Switch the window to the {@code Tab} specified.
      */
-    private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
+    private void handleTabSwitch(Tab tabInput) {
+        currentTab.getController().handleExit();
         Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
+        currentTab = tabInput;
     }
 
-    public EngagementListPanel getEngagementListPanel() {
-        return engagementListPanel;
+    /**
+     * Handles the calendar interaction represented by the specified {@code CommandResult}.
+     * @param commandResult The specified {@code CommandResult}.
+     */
+    private void handleCalendarInteraction(CommandResult commandResult) throws CommandException {
+        if (currentTab == null || !(currentTab.getController() instanceof CalendarWindow)) {
+            throw new CommandException("Calendar commands can only be used in the calendar window.");
+        }
+        CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
+        String calendarCommandType = commandResult.getCalendarCommandType();
+        switch (calendarCommandType) {
+        case CalendarOpenDisplayCommand.COMMAND_WORD:
+            calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
+            break;
+        case CalendarCloseDisplayCommand.COMMAND_WORD:
+            try {
+                calendarWindow.closeSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
+                break;
+            } catch (CalendarCloseDisplayException e) {
+                throw new CommandException(e.getMessage());
+            }
+        case CalendarNextMonthCommand.COMMAND_WORD:
+            calendarWindow.populateCalendarWithNextMonth();
+            break;
+        case CalendarPreviousMonthCommand.COMMAND_WORD:
+            calendarWindow.populateCalendarWithPreviousMonth();
+            break;
+        default:
+            throw new CommandException("Invalid calendar command.");
+        }
+    }
+
+    private void handlePdf(Path docPath) throws IOException {
+        PdfUtil.openDocument(docPath);
     }
 
     /**
@@ -212,8 +258,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -228,6 +272,17 @@ public class MainWindow extends UiPart<Stage> {
                 handleTabSwitch(fetchTabInformation(tab.getName()));
             }
 
+            if (commandResult.isCalendarCommand()) {
+                handleCalendarInteraction(commandResult);
+            }
+
+            if (commandResult.isPdfCommand()) {
+                handlePdf(commandResult.getDocPath());
+            }
+
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
@@ -237,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fetches tab information from the tab menu list to the tab retrived after {@code TabCommand}
+     * Fetches tab information from the tab menu list to the tab retrieved after {@code TabCommand}
      */
     private Tab fetchTabInformation(String tabName) throws IOException {
         Tab tabToReturn = new Tab();
@@ -250,10 +305,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         switch (tabName) {
         case "Calendar":
-            CalendarWindow calendarWindow = new CalendarWindow();
-            calendarWindow.setLogic(logic);
-            calendarWindow.populateCalendar();
-            tabToReturn.setController(calendarWindow);
+            tabToReturn.setController(new CalendarWindow(logic.getFilteredEngagementList()));
             break;
         case "TypingGame":
             tabToReturn.setController(new StartWindow());

@@ -1,12 +1,15 @@
 package com.typee.logic.commands;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.itextpdf.text.DocumentException;
 import com.typee.commons.util.PdfUtil;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
@@ -36,10 +39,22 @@ public class PdfCommand extends Command {
 
     private Report report;
 
+    private Path fileDir;
+
+    private Path docPath;
+
     public PdfCommand(int engagementListIndex, Person to, Person from) {
         this.engagementListIndex = engagementListIndex;
         this.to = to;
         this.from = from;
+        this.fileDir = Paths.get(PdfUtil.FOLDER_PATH);
+    }
+
+    public PdfCommand(int engagementListIndex, Person to, Person from, Path fileDir) {
+        this.engagementListIndex = engagementListIndex;
+        this.to = to;
+        this.from = from;
+        this.fileDir = fileDir;
     }
 
     @Override
@@ -52,11 +67,12 @@ public class PdfCommand extends Command {
             Engagement engagement = engagementList.get(engagementListIndex - 1);
             report = new Report(engagement, to, from);
             try {
-                PdfUtil.generateReport(report);
-            } catch (IOException | DocumentException e) {
+                Path docPath = model.saveReport(fileDir, report);
+                this.docPath = docPath;
+            } catch (IOException | DocumentException | GenerateExistingReportException e) {
                 throw new CommandException(MESSAGE_DOCUMENT_INVALID + e.getMessage());
             }
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS, true, docPath);
         }
         throw new CommandException(MESSAGE_INDEX_INVALID);
     }

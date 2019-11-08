@@ -27,7 +27,7 @@ public class TabCommandParser implements Parser<TabCommand> {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
             case "engagement":
                 return new TabCommand(new Tab("Engagement"));
-            case "typinggame":
+            case "game":
                 return new TabCommand(new Tab("TypingGame"));
             case "report":
                 return new TabCommand(new Tab("Report"));

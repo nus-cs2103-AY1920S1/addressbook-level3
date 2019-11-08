@@ -27,7 +27,7 @@ package util {
 UiPart <|-- Tab
 UiPart <|-- MainWindow
 UiPart <|-- ReportWindow
-MainWindow *-- Tab
+MainWindow *--> Tab
 MainWindow ..> ReportWindow
 MainWindow ..> TypeeParser
 Command <|-- PdfCommand

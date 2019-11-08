@@ -1,18 +1,39 @@
 package com.typee.model;
 
-//import static com.typee.testutil.TypicalPersons.ALICE;
-//import static com.typee.testutil.TypicalPersons.BENSON;
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT;
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT_DIFF;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.itextpdf.text.DocumentException;
+import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
 
 public class ModelManagerTest {
 
-    /*
+    @TempDir
+    public File tempDir;
+
     private ModelManager modelManager = new ModelManager();
+
+    @BeforeEach
+    public void setUp() throws DocumentException, GenerateExistingReportException, IOException {
+        modelManager.saveReport(tempDir.toPath(), TYPICAL_REPORT);
+    }
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new EngagementList(), new EngagementList(modelManager.getHistoryManager()));
+        assertEquals(new EngagementList(), new EngagementList(modelManager.getEngagementList()));
     }
 
     @Test
@@ -20,6 +41,24 @@ public class ModelManagerTest {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
 
+    @Test
+    public void saveReport_repeating() {
+        assertThrows(GenerateExistingReportException.class, () -> modelManager.saveReport(tempDir.toPath(),
+                TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport() throws DeleteDocumentException {
+        assertEquals(true, modelManager.deleteReport(tempDir.toPath(), TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport_invalid() {
+        assertThrows(DeleteDocumentException.class, () -> modelManager.deleteReport(tempDir.toPath(),
+                TYPICAL_REPORT_DIFF));
+    }
+
+    /*
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-         title="TypingGame" onCloseRequest="#handleExit">
+
+<fx:root onCloseRequest="#handleExit" resizable="false" title="TypingGame" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <AnchorPane fx:id="gamePlay" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0">
                 <children>
-                    <TextField fx:id="playerInputArea" prefHeight="600.0" prefWidth="800.0" onAction="#handlePlayerInput" opacity="0.0"/>
-                    <Label styleClass="userOut" layoutX="350.0" layoutY="550" text="${playerInputArea.text}"/>
-                    <Label fx:id="gameOver" prefHeight="600.0" prefWidth="800.0" text="GAME OVER" layoutX="350.0"/>
+                    <TextField fx:id="playerInput" onKeyPressed="#handleClear" opacity="0.0" prefHeight="600.0" prefWidth="750.0" />
+                    <Label layoutX="310.0" layoutY="540.0" prefHeight="17.0" prefWidth="400.0" styleClass="whiteText" text="${playerInput.text}" textAlignment="CENTER" textOverrun="CLIP" />
+                    <Label layoutX="251.0" layoutY="560.0" styleClass="whiteText" text="Press SPACEBAR to clear" />
+                    <Label fx:id="gameOver" alignment="CENTER" layoutX="275.0" layoutY="0.0" text="GAME OVER" textAlignment="CENTER" />
                 </children>
             </AnchorPane>
         </Scene>
     </scene>
 </fx:root>
-

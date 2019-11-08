@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.EditCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
@@ -25,7 +26,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = InteractiveParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE), pe);
@@ -33,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditCommand.EditEngagementDescriptor editPersonDescriptor = new EditCommand.EditEngagementDescriptor();
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+            editPersonDescriptor.setName(InteractiveParserUtil
+                    .parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
         }
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

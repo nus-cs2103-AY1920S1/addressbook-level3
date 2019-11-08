@@ -19,10 +19,13 @@ public class CalendarNextMonthCommandTest {
         assertCommandSuccess(new CalendarNextMonthCommand(), model, expectedCommandResult, expectedModel);
     }
 
+<<<<<<< HEAD
     @Test
     public void equals_identicalInstance_returnTrue() {
         final CalendarNextMonthCommand typicalInstance = new CalendarNextMonthCommand();
         assert(typicalInstance.equals(typicalInstance));
     }
 
+=======
+>>>>>>> 6cad22334ac04d02b3fb283714773a4db0717070
 }

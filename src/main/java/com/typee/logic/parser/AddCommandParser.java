@@ -9,13 +9,12 @@ import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
@@ -24,7 +23,6 @@ import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.engagement.TimeSlot;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
-import com.typee.model.person.Person;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -43,13 +41,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        EngagementType engagementType = ParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
-        LocalDateTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
-        LocalDateTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
-        AttendeeList attendees = parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        EngagementType engagementType = InteractiveParserUtil
+                .parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
+        LocalDateTime startTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        LocalDateTime endTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
+        AttendeeList attendees = InteractiveParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
+        Location location = InteractiveParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        String description = InteractiveParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Priority priority = InteractiveParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
 
         return makeAddCommand(engagementType, startTime, endTime, attendees, location, description, priority);
     }
@@ -103,21 +102,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         return ArgumentTokenizer.tokenize(args, PREFIX_ENGAGEMENT_TYPE,
                 PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY);
-    }
-
-    /**
-     * Parses a {@code String} representing a list of attendees into an {@code AttendeeList}.
-     *
-     * @param attendees string representing list of attendees.
-     * @return corresponding {@code AttendeeList}.
-     */
-    private AttendeeList parseAttendees(String attendees) {
-        List<Person> attendeesList = Arrays.stream(attendees.split(","))
-                .map(name -> name.trim())
-                .map(name -> new Person(ParserUtil.parseNameDeterministic(name)))
-                .filter(name -> name != null)
-                .collect(Collectors.toList());
-        return new AttendeeList(attendeesList);
     }
 
     /**
