@@ -328,9 +328,10 @@ Examples:
 
 * `loan sn/B00006` +
 Loans the book with serial number B00006 to the currently served borrower. +
+{empty} +
 +
 .User interface after book is loaned out.
-image::ug-loan-pic.png[width=700]
+image::ug-loan-pic.png[width=850]
 After this command is entered, the command result display will provide a short summary of which book is loaned
 out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
 panel on the right. Inside the main list on the left, an on loan box would also indicate
@@ -351,12 +352,11 @@ Format: `return INDEX` or `return -all` +
 * Returns the book at the specified `INDEX` in the *borrower panel* or `-all` of the currently served borrower's loaned out books.
 * `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
 The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
-* `-all` indicates all the books currently loaned out by the borrower.
-
+* `-all` indicates all the books currently loaned out by the borrower. +
 {nbsp}
 
 .Screenshot to illustrate return commands that can be entered.
-image::ug-return.png[width=750]
+image::ug-return.png[width=850]
 * Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
 However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
 would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behaves".
@@ -388,9 +388,10 @@ Examples:
 
 * `pay $12.80` +
 Receive $12.80 to pay off borrower's total outstanding fine. +
+{empty} +
 +
 .The command result display after paying fines.
-image::ug-pay.png[width=400]
+image::ug-pay.png[width=500]
 As seen from the screenshot above, after a fine amount is paid, a short summary can be seen. The remaining outstanding fine
 will be shown. If the borrower pays an amount greater than his/her total outstanding fine, the amount of change to
 be given back to the borrower is also shown.

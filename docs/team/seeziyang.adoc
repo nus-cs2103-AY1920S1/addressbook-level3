@@ -11,30 +11,26 @@ LiBerry is a desktop library management application for librarians to manage the
 It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby interactions
 with the software are done through text commands. +
 
-Main features of LiBerry:
-
-* Manage and search for books
-* Register new borrowers
-* Handle loaning and returning of books
-* Record overdue fines payment
+The main features of LiBerry includes managing and searching for books, registering new borrowers,
+borrowing books and recording fines.
 
 This portfolio serves to demonstrate my proficiency in the various aspects of software engineering such as coding,
 project management and technical writing skills in crafting documentation that fits the target user. +
 
-My role was to design and implement the code for the loan-related features. The following sections further elaborates on these
-enhancements I have made. Also included are the details of the relevant documentation I have written in the user and developer guide to
+My role was to design and implement the code for the loan feature, which will be further elaborated in the following sections.
+Also included are the details of the relevant documentation I have written in the user and developer guide to
 assist users and other developers to understand these features.
 
 == Summary of Contributions
 
 This section summarizes the contributions I have made to the team project.
 
-=== Main enhancement - Borrowing features +
-I have added features related to the loaning and returning of books in our library management software, LiBerry.
+=== Main enhancement - Borrowing feature +
+I implemented the commands and functionality related to the loaning and returning of books.
 
 ==== What it does
 
-This set of features allow our users, librarians, to `loan` out books to borrowers, `return` loaned out books, `renew` loaned
+This set of features allow our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
 out books such that their due dates are extended, and to `pay` fines incurred for overdue books. +
 
 ==== Justification
