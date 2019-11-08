@@ -250,7 +250,7 @@ public class InteractiveParserUtil {
      *
      * @param dateTime {@code String} that represents a date-time value.
      * @return {@code LocalDateTime}.
-     * @throws DateTimeException If the {@code String} is an invalid date-time valid.
+     * @throws DateTimeException If the {@code String} is an invalid date-time value.
      */
     private static LocalDateTime makeDateTimeFromPattern(String dateTime) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)
