@@ -14,6 +14,9 @@ import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the penultimate state of the state machine that builds a close display command.
+ */
 public class CloseDisplayState extends PenultimateState {
 
     private static final String DATE_PATTERN = "dd/MM/uuuu";
@@ -48,6 +51,12 @@ public class CloseDisplayState extends PenultimateState {
         enforceValidity(date);
     }
 
+    /**
+     * Enforces the validity of the {@code String} input.
+     *
+     * @param date {@code String} that represents a date.
+     * @throws StateTransitionException If the {@code String} is not a valid date.
+     */
     private void enforceValidity(Optional<String> date) throws StateTransitionException {
         String dateString = date.get();
         if (!isValid(dateString)) {
@@ -55,6 +64,12 @@ public class CloseDisplayState extends PenultimateState {
         }
     }
 
+    /**
+     * Returns true if the {@code String} is a valid date.
+     *
+     * @param date {@code String} representing a date.
+     * @return true if the {@code String} is a valid date.
+     */
     private boolean isValid(String date) {
         try {
             LocalDate localDate = InteractiveParserUtil.parseLocalDate(date, DATE_PATTERN);

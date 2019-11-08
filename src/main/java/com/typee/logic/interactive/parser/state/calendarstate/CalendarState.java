@@ -15,6 +15,9 @@ import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the initial state of the finite state machine that builds a {@code CalendarCommand}.
+ */
 public class CalendarState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "What would you like to do with the calendar? Please enter"
@@ -47,6 +50,12 @@ public class CalendarState extends PenultimateState {
         enforceValidity(operation);
     }
 
+    /**
+     * Enforces that the entered operation is a valid {@code CalendarCommand}.
+     *
+     * @param operation Calendar operation.
+     * @throws StateTransitionException If no such operation exists.
+     */
     private void enforceValidity(Optional<String> operation) throws StateTransitionException {
         String operationString = operation.get();
         if (!isValid(operationString)) {
@@ -54,12 +63,27 @@ public class CalendarState extends PenultimateState {
         }
     }
 
+    /**
+     * Returns true if the operation is a valid {@code CalendarCommand}.
+     *
+     * @param operationString Calendar operation.
+     * @return true if the entered operation is valid.
+     */
     private boolean isValid(String operationString) {
         return operationString.equalsIgnoreCase(CalendarNextMonthCommand.COMMAND_WORD)
                 || operationString.equalsIgnoreCase(CalendarPreviousMonthCommand.COMMAND_WORD)
-                || operationString.equalsIgnoreCase(CalendarOpenDisplayCommand.COMMAND_WORD);
+                || operationString.equalsIgnoreCase(CalendarOpenDisplayCommand.COMMAND_WORD)
+                || operationString.equalsIgnoreCase(CalendarCloseDisplayCommand.COMMAND_WORD);
     }
 
+    /**
+     * Returns the next state of the finite state machine depending on the operation entered by the user.
+     *
+     * @param soFar Arguments processed so far.
+     * @param newArgs Unprocessed arguments.
+     * @return the next state.
+     * @throws StateTransitionException If the entered operation is invalid.
+     */
     private State nextState(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException {
         String operation = soFar.getValue(PREFIX_CALENDAR).get();
         String operationLowerCase = operation.toLowerCase();

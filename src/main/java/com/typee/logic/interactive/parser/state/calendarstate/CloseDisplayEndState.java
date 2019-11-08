@@ -6,7 +6,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import com.typee.logic.commands.CalendarCloseDisplayCommand;
-import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
@@ -16,6 +15,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state (accepting state) of the state machine that builds the close display command.
+ */
 public class CloseDisplayEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Displayed engagements on the entered date.";
@@ -33,6 +35,13 @@ public class CloseDisplayEndState extends EndState {
         return new CalendarCloseDisplayCommand(date);
     }
 
+    /**
+     * Makes and returns a date from the entered {@code String}.
+     *
+     * @param dateString String that represents a date.
+     * @return {@code LocalDate}.
+     * @throws CommandException If the date is invalid.
+     */
     private LocalDate fetchDate(String dateString) throws CommandException {
         try {
             LocalDate date = InteractiveParserUtil.parseLocalDate(dateString, DATE_PATTERN);

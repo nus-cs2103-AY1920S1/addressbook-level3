@@ -14,6 +14,9 @@ import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the penultimate state of the state machine that builds the open display command.
+ */
 public class OpenDisplayState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a valid date in the dd/mm/yyyy format, prefixed"
@@ -47,6 +50,12 @@ public class OpenDisplayState extends PenultimateState {
         enforceValidity(date);
     }
 
+    /**
+     * Enforces that the entered {@code String} is a valid date.
+     *
+     * @param date {@code String} that represents a date.
+     * @throws StateTransitionException If the {@code String} is not a valid date.
+     */
     private void enforceValidity(Optional<String> date) throws StateTransitionException {
         String dateString = date.get();
         if (!isValid(dateString)) {
@@ -54,6 +63,12 @@ public class OpenDisplayState extends PenultimateState {
         }
     }
 
+    /**
+     * Returns true if the {@code String} is a valid date.
+     *
+     * @param date {@code String} that represents a date.
+     * @return true if the {@code String} is a valid date.
+     */
     private boolean isValid(String date) {
         try {
             LocalDate localDate = InteractiveParserUtil.parseLocalDate(date, DATE_PATTERN);

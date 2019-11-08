@@ -72,7 +72,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         if (individualArgs.length != 2) {
             throw new ParseException(CalendarCloseDisplayCommand.INVALID_COMMAND_FORMAT);
         }
-        LocalDate date = ParserUtil.parseDate(individualArgs[1]);
+        LocalDate date = InteractiveParserUtil.parseDate(individualArgs[1]);
         return new CalendarCloseDisplayCommand(date);
     }
 

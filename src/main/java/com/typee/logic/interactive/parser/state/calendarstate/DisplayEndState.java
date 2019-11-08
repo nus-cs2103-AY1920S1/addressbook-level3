@@ -15,6 +15,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state(accepting state) of the state machine that builds the open display command.
+ */
 public class DisplayEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Displayed engagements on the entered date.";
@@ -32,6 +35,13 @@ public class DisplayEndState extends EndState {
         return new CalendarOpenDisplayCommand(date);
     }
 
+    /**
+     * Makes and returns a {@code LocalDate} object from the entered {@code String}.
+     *
+     * @param dateString String that represents a date.
+     * @return {@code LocalDate}.
+     * @throws CommandException If the {@code String} is not a valid date.
+     */
     private LocalDate fetchDate(String dateString) throws CommandException {
         try {
             LocalDate date = InteractiveParserUtil.parseLocalDate(dateString, DATE_PATTERN);

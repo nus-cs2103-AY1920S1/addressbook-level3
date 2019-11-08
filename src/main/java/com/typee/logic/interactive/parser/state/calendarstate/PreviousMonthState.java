@@ -9,6 +9,9 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the end state (accepting state) of the state machine that builds the previous month command.
+ */
 public class PreviousMonthState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Previous month displayed.";
