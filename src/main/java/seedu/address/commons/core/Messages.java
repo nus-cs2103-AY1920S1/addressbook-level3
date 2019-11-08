@@ -31,5 +31,7 @@ public class Messages {
             + "the day %1$s.";
     public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of %1$s.";
     public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the year %1$s.";
+    public static final String MESSAGE_INVALID_SIGNATURE_FORMAT = "Invalid signature format! " +
+            "Signature should not contain numbers and must be less than 40 characters.";
 
 }

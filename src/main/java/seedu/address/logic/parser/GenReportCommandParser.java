@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SIGNATURE_FORMAT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.GenReportCommand;
@@ -29,6 +30,9 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
             String sign = "";
             if (argArray.length == 2) {
                 sign = argArray[1];
+                if (args.matches(".*\\d.*") || args.length() > 40) {
+                    throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
+                }
             }
             if (index.matches("[0-9]+")) {
                 Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
