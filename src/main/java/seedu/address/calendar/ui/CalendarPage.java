@@ -12,6 +12,7 @@ import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.storage.CalendarStorage;
 import seedu.address.calendar.storage.JsonCalendarStorage;
 import seedu.address.commons.exceptions.DataConversionException;

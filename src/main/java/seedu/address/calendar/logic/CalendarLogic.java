@@ -4,6 +4,7 @@ import seedu.address.calendar.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.event.exceptions.ClashException;
+import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.parser.AlternativeCalendarParser;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.calendar.parser.Option;
@@ -66,4 +67,13 @@ public class CalendarLogic {
         calendar.completeVisibleUpdates();
     }
 
+    /**
+     * Gets statistics of calendar. In particular, the no. of days of vacations (school breaks and holidays),
+     * no. of days of trips, no. of trips and the percentage of vacation that is spent on trips.
+     *
+     * @return Statistics of {@code this} calendar
+     */
+    public CalendarStatistics getStatistics() {
+        return calendar.getStatistics();
+    }
 }
