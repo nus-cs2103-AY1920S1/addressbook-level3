@@ -5,13 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.transaction.Amount;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
+
+
+    @BeforeEach
+    public void setUp() {
+
+    }
 
     @Test
     public void isSamePerson() {
@@ -56,44 +64,47 @@ public class PersonTest {
 
     @Test
     public void spend() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
         Amount amount = new Amount(100.00);
-        ALICE.spend(amount);
+        georgeCopy.spend(amount);
 
-        // 200 - 100 = 100 -> return true
-        assertTrue(ALICE.getBalance().equals(new Amount(100.00)));
+        // 500 - 100 = 400 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(400.00)));
 
         Amount zeroAmount = Amount.zero();
-        ALICE.spend(zeroAmount);
-        // 100 - 0 = 100 -> return true
-        assertTrue(ALICE.getBalance().equals(new Amount(100.00)));
+        georgeCopy.spend(zeroAmount);
+        // 400 - 0 = 400 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(400.00)));
     }
 
     @Test
     public void receive() {
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
         Amount amount = new Amount(100.00);
-        ALICE.receive(amount);
-        // 200 + 100 = 300 -> return true
-        assertTrue(ALICE.getBalance().equals(new Amount(300.00)));
+        georgeCopy.receive(amount);
+        // 500 + 100 = 600 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(600.00)));
 
         Amount zeroAmount = Amount.zero();
-        ALICE.receive(zeroAmount);
-        // 100 + 0 = 100 -> return true
-        assertTrue(ALICE.getBalance().equals(new Amount(300.00)));
+        georgeCopy.receive(zeroAmount);
+        // 600 + 0 = 600 -> return true
+        assertTrue(georgeCopy.getBalance().equals(new Amount(600.00)));
     }
 
     @Test
     public void resetBalance() {
-        ALICE.resetBalance();
+        Person georgeCopy = new PersonBuilder(GEORGE).build();
+        georgeCopy.resetBalance();
         // 0 dollars -> return true
-        assertTrue(ALICE.getBalance().equals(Amount.zero()));
+        assertTrue(georgeCopy.getBalance().equals(Amount.zero()));
     }
 
     @Test
     public void testToString() {
         // same values -> return true
-        assertTrue(ALICE.toString().equals("Alice Pauline Balance: 200.00"));
+        assertTrue(GEORGE.toString().equals("George Best Balance: 500.00"));
 
         // same object -> return true
-        assertTrue(ALICE.toString().equals(ALICE.toString()));
+        assertTrue(GEORGE.toString().equals(GEORGE.toString()));
     }
 }
