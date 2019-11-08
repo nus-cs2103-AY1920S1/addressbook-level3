@@ -13,7 +13,7 @@ import seedu.address.model.TrainingManager;
 public interface TrainingManagerStorage {
 
     /**
-     * Returns the file path of the Attendance data file.
+     * Returns the file path of the TrainingManager data file.
      */
     Path getAthletickFilePath();
 

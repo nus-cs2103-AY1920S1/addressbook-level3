@@ -25,8 +25,7 @@ public class StorageManager implements Storage {
     private TrainingManagerStorage trainingManagerStorage;
 
 
-    public StorageManager(AthletickStorage athletickStorage,
-                          PerformanceStorage performanceStorage,
+    public StorageManager(AthletickStorage athletickStorage, PerformanceStorage performanceStorage,
                           TrainingManagerStorage trainingManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.athletickStorage = athletickStorage;

@@ -17,7 +17,7 @@ public class JsonTrainingManager {
     private final List<JsonAdaptedTraining> jsonTrainings;
 
     /**
-     * Constructs a {@code JsonAttendance} with the given attendance details.
+     * Constructs a {@code JsonTrainingManager} with the given training manager details.
      */
     @JsonCreator
     public JsonTrainingManager(@JsonProperty("jsonTrainings") List<JsonAdaptedTraining> jsonTrainings) {
@@ -25,7 +25,7 @@ public class JsonTrainingManager {
     }
 
     /**
-     * Converts a given {@code Attendance} into this class for Jackson use.
+     * Converts a given {@code TrainingManger} into this class for Jackson use.
      */
     public JsonTrainingManager(TrainingManager trainingManager) {
         List<JsonAdaptedTraining> jsonTrainings = new ArrayList<>();
