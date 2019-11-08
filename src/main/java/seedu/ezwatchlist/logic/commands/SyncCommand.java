@@ -25,7 +25,7 @@ public class SyncCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SHOW = "?"; //"This show already exists in the watchlist";
 
     public static final String MESSAGE_UNSUCCESSFUL = "No matching name found in local internal storage.";
-    public static final String MESSAGE_UNSUCCESFUL2 = "You may use the add INDEX command to add searched-online shows."
+    public static final String MESSAGE_UNSUCCESFUL2 = "You may use the add INDEX command to add searched-online shows.";
     private Index toSync;
 
     public SyncCommand(Index toSync) {
