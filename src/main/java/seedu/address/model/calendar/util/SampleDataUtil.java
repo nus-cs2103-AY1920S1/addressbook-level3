@@ -32,7 +32,7 @@ public class SampleDataUtil {
                 new TaskTime("12:35"), getTagSet("BUG"), 0),
             new ModuleTask(new TaskTitle("CS2100 Lab"), new TaskDay("wednesday"),
                 new TaskDescription("Prepare diagram"),
-                new TaskDeadline("12-10-2015"),
+                new TaskDeadline("12-12-9999"),
                 new TaskTime("15:00"), getTagSet("CS2100"), 0),
             new ToDoTask(new TaskTitle("ZZ2100 Assignment"), new TaskDay("thursday"),
                 new TaskDescription("Submit hardcopy"),
@@ -48,7 +48,7 @@ public class SampleDataUtil {
                 new TaskTime("09:00"), getTagSet("CS2100"), 0),
             new ModuleTask(new TaskTitle("CS2109 Lab"), new TaskDay("thursday"),
                 new TaskDescription("Bring calculator"),
-                new TaskDeadline("12-10-2013"),
+                new TaskDeadline("12-12-9999"),
                 new TaskTime("09:00"), getTagSet("CS2109"), 0)
         };
     }

@@ -16,8 +16,8 @@ Class CalendarUserPrefs
 Class ReadOnlyCalendarUserPrefs
 
 Package Task {
-Class Task
-Class TaskPlace
+Class "{abstract}\nTask" as Task
+Class TaskTime
 Class TaskDescription
 Class TaskTitle
 Class TaskDay
@@ -28,7 +28,7 @@ Class ModuleTask
 }
 
 Package Tag {
-Class Tag
+Class TaskTag
 }
 }
 
@@ -48,13 +48,13 @@ UniqueTaskList o--> "*" Task
 Task *--> TaskTitle
 Task *--> TaskDay
 Task *--> TaskDescription
-Task *--> TaskPlace
+Task *--> TaskTime
 Task *--> TaskDeadline
-Task *--> "*" Tag
+Task *--> "*" TaskTag
 
 TaskTitle -[hidden]right-> TaskDay
-TaskDay -[hidden]right-> TaskPlace
-TaskPlace -[hidden]right-> TaskDescription
+TaskDay -[hidden]right-> TaskTime
+TaskTime -[hidden]right-> TaskDescription
 TaskDescription -[hidden]right-> TaskDeadline
 
 ToDoTask -right-|> Task

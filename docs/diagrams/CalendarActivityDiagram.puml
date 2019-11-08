@@ -1,0 +1,15 @@
+@startuml
+start
+:User inputs command to go to another week;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([week number is valid])
+    :Remove all tasks from the calendar view;
+    :Get and show tasks for the new week;
+else ([else])
+    :Show error message;
+endif
+stop
+@enduml

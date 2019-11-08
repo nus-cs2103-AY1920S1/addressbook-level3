@@ -7,18 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents a Task's address in the address book.
+ * Represents a Task's time.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class TaskTime {
 
     public static final String MESSAGE_CONSTRAINTS = "Time should be in format HH:mm in 24-hour format from "
         + "00:00 to 23:59";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;

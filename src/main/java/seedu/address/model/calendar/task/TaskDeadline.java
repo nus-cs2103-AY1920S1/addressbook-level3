@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents the date when the Task occurs.
+ * Represents the Task's deadline.
  */
 public class TaskDeadline {
 

@@ -20,7 +20,7 @@ import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Represents the in-memory calendarModel of the address book data.
+ * Represents the in-memory CalendarModel of Modulo data.
  */
 public class CalendarModelManager implements CalendarModel {
     private static final Logger logger = LogsCenter.getLogger(CalendarModelManager.class);
@@ -28,27 +28,21 @@ public class CalendarModelManager implements CalendarModel {
     private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private FilteredList<Task> filteredTasksByTitle;
-    private FilteredList<Task> filteredTasksByDeadline;
-    private FilteredList<Task> filteredTasksByTime;
 
     private String currentSortType;
 
     /**
-     * Initializes a CalendarModelManager with the given calendarAddressBook and userPrefs.
+     * Initializes a CalendarModelManager with the given CalendarAddressBook and UserPrefs.
      */
-    public CalendarModelManager(ReadOnlyCalendarAddressBook addressBook, ReadOnlyCalendarUserPrefs userPrefs) {
+    public CalendarModelManager(ReadOnlyCalendarAddressBook calendarAddressBook, ReadOnlyCalendarUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(calendarAddressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with modulo : " + calendarAddressBook + " and user prefs " + userPrefs);
 
-        this.calendarAddressBook = new CalendarAddressBook(addressBook);
+        this.calendarAddressBook = new CalendarAddressBook(calendarAddressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
-        filteredTasksByTitle = getFilteredListByTitle();
-        filteredTasksByDeadline = getFilteredListByDeadline();
-        filteredTasksByTime = getFilteredListByTime();
         currentSortType = "time";
     }
 
@@ -145,9 +139,6 @@ public class CalendarModelManager implements CalendarModel {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
-        filteredTasksByTitle.setPredicate(predicate);
-        filteredTasksByDeadline.setPredicate(predicate);
-        filteredTasksByTime.setPredicate(predicate);
     }
 
     @Override
@@ -171,12 +162,13 @@ public class CalendarModelManager implements CalendarModel {
 
     @Override
     public void switchSortType(String sortType) {
+        currentSortType = sortType;
         if (sortType.equals("deadline")) {
-            filteredTasks = filteredTasksByDeadline;
+            filteredTasks = getFilteredListByDeadline();
         } else if (sortType.equals("title")) {
-            filteredTasks = filteredTasksByTitle;
+            filteredTasks = getFilteredListByTitle();
         } else {
-            filteredTasks = filteredTasksByTime;
+            filteredTasks = getFilteredListByTime();
         }
         calendarAddressBook.setTasks(filteredTasks);
 
@@ -206,7 +198,8 @@ public class CalendarModelManager implements CalendarModel {
             new Comparator<Task>() {
                 @Override
                 public int compare(Task x, Task y) {
-                    return x.getTaskTitle().toString().compareTo(y.getTaskTitle().toString());
+                    return x.getTaskTitle().toString().toLowerCase()
+                        .compareTo(y.getTaskTitle().toString().toLowerCase());
                 }
             }));
     }
@@ -230,25 +223,23 @@ public class CalendarModelManager implements CalendarModel {
     }
 
     /**
-     * Update lists
+     * Update lists according to the current sort type
      */
     public void updateLists() {
-        filteredTasksByDeadline = getFilteredListByDeadline();
-        filteredTasksByTitle = getFilteredListByTitle();
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
         switch (currentSortType) {
         case "deadline":
-            filteredTasks = filteredTasksByDeadline;
+            filteredTasks = getFilteredListByDeadline();
             break;
         case "title":
-            filteredTasks = filteredTasksByTitle;
+            filteredTasks = getFilteredListByTitle();
             break;
         case "time":
         default:
-            filteredTasks = filteredTasksByTime;
+            filteredTasks = getFilteredListByTime();
             break;
         }
         calendarAddressBook.setTasks(filteredTasks);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }
