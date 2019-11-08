@@ -493,11 +493,11 @@ public enum Responses {
                 } //todo
     ),
     STATS(
-            RegexUtil.commandFormatRegex("stats", new String[]{"deck/"}),
+            RegexUtil.commandFormatRegex("stats", new String[]{}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res =
-                            RegexUtil.parseCommandFormat("test", new String[]{"deck/"}, i);
+                            RegexUtil.parseCommandFormat("stats", new String[]{"deck/"}, i);
 
                     //Checks if a deckName is supplied.
                     boolean hasDeckName = res.get(0).size() > 0;
@@ -509,7 +509,13 @@ public enum Responses {
 
                     if (hasDeckName) {
                         // todo: @PhireHandy where should I get the name of the deck?
-                        //StatsDisplayUtil.openDeckStatisticsWindow(deck);
+                        try {
+                            StatsDisplayUtil
+                                    .openDeckStatisticsWindow(StateHolder.getState().getDeck(
+                                            res.get(0).get(0).trim()));
+                        } catch(DeckNotFoundException e) {
+                            return false;
+                        }
                         return true;
                     } else {
                         // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
