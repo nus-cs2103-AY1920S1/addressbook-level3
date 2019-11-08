@@ -1,5 +1,9 @@
 package seedu.mark.logic.commands;
 
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -9,10 +13,6 @@ import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.Storage;
-
-import java.util.List;
-
-import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Uses a reminder to open a bookmark.
