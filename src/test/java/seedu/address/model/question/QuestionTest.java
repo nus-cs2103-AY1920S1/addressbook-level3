@@ -2,6 +2,7 @@ package seedu.address.model.question;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,25 @@ public class QuestionTest {
     private final Question mcqQuestion = new QuestionBuilder().withQuestion("What is 1+1?")
         .withAnswer("2").withType("mcq").withOptionA("A").withOptionB("B").withOptionC("C")
         .withOptionD("D").build();
+
+    @Test
+    public void initialise_nullQuestion_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new OpenEndedQuestion(null, null));
+        assertThrows(NullPointerException.class, ()
+            -> new McqQuestion(null, null, null, null, null, null));
+    }
+
+    @Test
+    public void getQuestion_validQuestion_returnTrue() {
+        assertTrue(mcqQuestion.getQuestion().equals("What is 1+1?"));
+        assertTrue(openEndedQuestion.getQuestion().equals("What is 1+1?"));
+    }
+
+    @Test
+    public void getAnswer_validQuestion_returnTrue() {
+        assertTrue(mcqQuestion.getAnswer().equals("2"));
+        assertTrue(openEndedQuestion.getAnswer().equals("2"));
+    }
 
     @Test
     public void duplicate_sameQuestionType_returnTrue() {

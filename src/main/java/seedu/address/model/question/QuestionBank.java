@@ -22,6 +22,9 @@ import seedu.address.model.question.exceptions.QuestionNotFoundException;
  */
 public class QuestionBank implements Iterable<Question> {
 
+    public static final String SEARCH_RESULT_SUCCESS =
+        "Displaying results for \'%1$s\' and similar terms.\n"
+            + "Found %2$s results";
     private final ObservableList<Question> questions = FXCollections.observableArrayList();
     private final ObservableList<Question> questionsFiltered = FXCollections.observableArrayList();
     private final ObservableList<Question> questionsUnmodifiableList =
@@ -33,7 +36,7 @@ public class QuestionBank implements Iterable<Question> {
      */
     public void setQuestions(List<Question> questions) {
         requireAllNonNull(questions);
-        if (!isRepeated(questions)) {
+        if (isRepeated(questions)) {
             throw new DuplicateQuestionException();
         }
         this.questions.setAll(questions);
@@ -173,6 +176,7 @@ public class QuestionBank implements Iterable<Question> {
      * @return Summary of questions searched.
      */
     public String searchQuestions(String textToFind) {
+        requireNonNull(textToFind);
         questionsFiltered.clear();
         int textToFindSize = textToFind.length();
         int similarityThreshold = (int) (textToFindSize * 0.4); // 40% match
@@ -201,8 +205,7 @@ public class QuestionBank implements Iterable<Question> {
         questionsFiltered.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
         questionsFiltered.addAll(similarAl);
 
-        return "Displaying results for \'" + textToFind + "\' and similar terms.\n"
-            + "Found " + questionsFiltered.size() + " results";
+        return String.format(SEARCH_RESULT_SUCCESS, textToFind, questionsFiltered.size());
     }
 
     /**
@@ -241,11 +244,11 @@ public class QuestionBank implements Iterable<Question> {
         for (int i = 0; i < questions.size() - 1; i++) {
             for (int j = i + 1; j < questions.size(); j++) {
                 if (questions.get(i).equals(questions.get(j))) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**

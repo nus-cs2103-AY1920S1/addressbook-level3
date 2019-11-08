@@ -134,6 +134,19 @@ public class QuestionEditCommandTest {
     }
 
     @Test
+    public void execute_editQuestionWithBlank_throwsCommandException() {
+        Index index = Index.fromOneBased(1);
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("question", "");
+        fields.put("answer", "");
+        fields.put("type", "");
+        QuestionEditCommand editCommand = new QuestionEditCommand(index, fields);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_QUESTION, ()
+            -> editCommand.execute(model));
+    }
+
+    @Test
     public void equals() {
         HashMap<String, String> fields = new HashMap<>();
         fields.put("question", "Test Edit");
