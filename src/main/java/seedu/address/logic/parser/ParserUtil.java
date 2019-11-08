@@ -103,7 +103,8 @@ public class ParserUtil {
         requireNonNull(time);
 
         String trimmedDateAndTime = time.trim();
-        if (trimmedDateAndTime.split(" ").length < 2 || time == null || time.equals("")) {
+        boolean checkLength = trimmedDateAndTime.split(" ").length < 2;
+        if (checkLength || time == null || time.equals("")) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
 
