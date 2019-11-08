@@ -1,15 +1,10 @@
 package seedu.planner.logic.events.delete;
 
-import java.util.List;
-
-import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteAccommodationCommand;
 import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.exceptions.EventException;
-import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
 /**
@@ -19,9 +14,9 @@ public class DeleteAccommodationEvent implements Event {
     private final Index index;
     private final Accommodation deletedAccommodation;
 
-    public DeleteAccommodationEvent(Index index, Model model) throws EventException {
+    public DeleteAccommodationEvent(Index index, Accommodation deletedAccommodation) {
         this.index = index;
-        this.deletedAccommodation = generateDeletedAccommodation(model);
+        this.deletedAccommodation = deletedAccommodation;
     }
 
     public UndoableCommand undo() {
@@ -32,19 +27,4 @@ public class DeleteAccommodationEvent implements Event {
         return new DeleteAccommodationCommand(index);
     }
 
-    /**
-     * A method to retrieve the Accommodation object that is going to be deleted.
-     * @param model Current model in the application.
-     * @return Accommodation to be deleted.
-     */
-    private Accommodation generateDeletedAccommodation(Model model) throws EventException {
-        List<Accommodation> lastShownList = model.getFilteredAccommodationList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new EventException(Messages.MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX);
-        }
-
-        Accommodation accommodationToDelete = lastShownList.get(index.getZeroBased());
-        return accommodationToDelete;
-    }
 }

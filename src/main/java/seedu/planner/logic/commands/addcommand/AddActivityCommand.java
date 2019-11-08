@@ -15,12 +15,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
+import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
@@ -89,52 +93,42 @@ public class AddActivityCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        Activity activityAdded;
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
-        if (toAdd.getContact().isPresent()) {
-            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
-                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
-                Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
-                Activity linkedActivity = new Activity(toAdd.getName(), toAdd.getAddress(), contact,
-                        cost, toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
-                model.addActivity(linkedActivity);
-                return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, linkedActivity),
-                    new ResultInformation[]{
+
+        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
+            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+            Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
+            activityAdded = new Activity(toAdd.getName(), toAdd.getAddress(), contact, cost, toAdd.getTags(),
+                    toAdd.getDuration(), toAdd.getPriority());
+        } else {
+            activityAdded = toAdd;
+        }
+
+        if (index == null) {
+            //Not due to undo method
+            AddActivityCommand newCommand = new AddActivityCommand(activityAdded);
+            Event addActivityEvent = EventFactory.parse(newCommand, model);
+            CommandHistory.addToUndoStack(addActivityEvent);
+            CommandHistory.clearRedoStack();
+            model.addActivity(activityAdded);
+        } else {
+            //Due to undo method
+            model.addActivityAtIndex(index, activityAdded);
+        }
+
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd),
+                new ResultInformation[]{
                         new ResultInformation(
-                                linkedActivity,
-                                findIndexOfActivity(model, linkedActivity),
+                                toAdd,
+                                findIndexOfActivity(model, toAdd),
                                 String.format(MESSAGE_SUCCESS, "")
                         )
-                    },
-                    new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
-                );
-            } else {
-                if (index == null) {
-                    model.addActivity(toAdd);
-                } else {
-                    model.addActivityAtIndex(index, toAdd);
-                }
-            }
-        } else {
-            if (index == null) {
-                model.addActivity(toAdd);
-            } else {
-                model.addActivityAtIndex(index, toAdd);
-            }
-        }
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, toAdd),
-            new ResultInformation[]{
-                new ResultInformation(
-                        toAdd,
-                        findIndexOfActivity(model, toAdd),
-                        String.format(MESSAGE_SUCCESS, "")
-                )
-            },
-            new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+                },
+                new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
 

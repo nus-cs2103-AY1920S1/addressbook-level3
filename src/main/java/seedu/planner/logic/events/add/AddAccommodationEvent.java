@@ -17,7 +17,7 @@ public class AddAccommodationEvent implements Event {
     }
 
     public UndoableCommand undo() {
-        return new DeleteAccommodationCommand(accommodationAdded);
+        return new DeleteAccommodationCommand(null, accommodationAdded);
     }
 
     public UndoableCommand redo() {

@@ -1,15 +1,10 @@
 package seedu.planner.logic.events.delete;
 
-import java.util.List;
-
-import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
 import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.exceptions.EventException;
-import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
 /**
@@ -19,9 +14,9 @@ public class DeleteContactEvent implements Event {
     private final Index index;
     private final Contact deletedContact;
 
-    public DeleteContactEvent(Index index, Model model) throws EventException {
+    public DeleteContactEvent(Index index, Contact deletedContact) {
         this.index = index;
-        this.deletedContact = generateDeletedContact(model);
+        this.deletedContact = deletedContact;
     }
 
     public UndoableCommand undo() {
@@ -30,22 +25,6 @@ public class DeleteContactEvent implements Event {
 
     public UndoableCommand redo() {
         return new DeleteContactCommand(index);
-    }
-
-    /**
-     * A method to retrieve the Contact object that is going to be deleted.
-     * @param model Current model in the application.
-     * @return Contact to be deleted.
-     */
-    private Contact generateDeletedContact(Model model) throws EventException {
-        List<Contact> lastShownList = model.getFilteredContactList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new EventException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
-        }
-
-        Contact contactToDelete = lastShownList.get(index.getZeroBased());
-        return contactToDelete;
     }
 }
 

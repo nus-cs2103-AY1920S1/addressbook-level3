@@ -1,6 +1,7 @@
 package seedu.planner.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.commands.util.CommandUtil.findIndexOfContact;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -20,12 +21,15 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.contact.Email;
@@ -74,17 +78,25 @@ public class EditContactCommand extends EditCommand {
 
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
+    private final Contact contact;
 
     /**
      * @param index of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editContactDescriptor);
-
+        requireAllNonNull(index, editContactDescriptor);
         this.index = index;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
+        contact = null;
+    }
+
+    //Constructor used to undo or generate EditAccommodationEvent
+    public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor, Contact contact) {
+        requireAllNonNull(index, contact);
+        this.index = index;
+        this.editContactDescriptor = editContactDescriptor;
+        this.contact = contact;
     }
 
     public Index getIndex() {
@@ -93,6 +105,10 @@ public class EditContactCommand extends EditCommand {
 
     public EditContactDescriptor getEditContactDescriptor() {
         return editContactDescriptor;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     @Override
@@ -111,10 +127,19 @@ public class EditContactCommand extends EditCommand {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
         Index contactToEditIndex = findIndexOfContact(model, contactToEdit);
-        Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
+
+        Contact editedContact;
+        editedContact = (contact == null) ? createEditedContact(contactToEdit, editContactDescriptor) : contact;
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+        }
+        if (contact == null) {
+            //Not due to undo method
+            EditContactCommand newCommand = new EditContactCommand(index, editContactDescriptor, contactToEdit);
+            Event editContactEvent = EventFactory.parse(newCommand, model);
+            CommandHistory.addToUndoStack(editContactEvent);
+            CommandHistory.clearRedoStack();
         }
 
         model.setContact(contactToEdit, editedContact);

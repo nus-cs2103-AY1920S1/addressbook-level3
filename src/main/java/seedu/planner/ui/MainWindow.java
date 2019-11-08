@@ -15,7 +15,6 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
@@ -136,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.planner.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, EventException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -152,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
             commandResult.getUiFocus().ifPresent(this::applyUiFocusChange);
 
             return commandResult;
-        } catch (CommandException | ParseException | EventException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             feedbackDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
             throw e;
