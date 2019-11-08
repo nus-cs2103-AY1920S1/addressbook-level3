@@ -7,30 +7,30 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Attendance;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Athletick data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private AthletickStorage athletickStorage;
     private PerformanceStorage performanceStorage;
     private UserPrefsStorage userPrefsStorage;
-    private AttendanceStorage attendanceStorage;
+    private TrainingManagerStorage trainingManagerStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, PerformanceStorage performanceStorage,
-                          AttendanceStorage attendanceStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AthletickStorage athletickStorage, PerformanceStorage performanceStorage,
+                          TrainingManagerStorage trainingManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.athletickStorage = athletickStorage;
         this.performanceStorage = performanceStorage;
-        this.attendanceStorage = attendanceStorage;
+        this.trainingManagerStorage = trainingManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,33 +52,34 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Athletick methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getAthletickFilePath() {
+        return athletickStorage.getAthletickFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAthletick> readAthletick() throws DataConversionException,
+            IOException {
+        return readAthletick(athletickStorage.getAthletickFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAthletick> readAthletick(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return athletickStorage.readAthletick(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveAthletick(ReadOnlyAthletick athletick) throws IOException {
+        saveAthletick(athletick, athletickStorage.getAthletickFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAthletick(ReadOnlyAthletick athletick, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        athletickStorage.saveAthletick(athletick, filePath);
     }
 
     // ================ Performance methods ==============================
@@ -113,22 +114,22 @@ public class StorageManager implements Storage {
     // ================ Attendance methods ==============================
 
     @Override
-    public Optional<Attendance> readAttendance() throws DataConversionException, IOException {
-        return attendanceStorage.readAttendance();
+    public Optional<TrainingManager> readTrainingManager() throws DataConversionException, IOException {
+        return trainingManagerStorage.readTrainingManager();
     }
 
     @Override
-    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException, IOException {
-        return attendanceStorage.readAttendance(filePath);
+    public Optional<TrainingManager> readTrainingManager(Path filePath) throws DataConversionException, IOException {
+        return trainingManagerStorage.readTrainingManager(filePath);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance) throws IOException {
-        attendanceStorage.saveAttendance(attendance);
+    public void saveTrainingManager(TrainingManager trainingManager) throws IOException {
+        trainingManagerStorage.saveTrainingManager(trainingManager);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance, Path filePath) throws IOException {
-        attendanceStorage.saveAttendance(attendance, filePath);
+    public void saveTrainingManager(TrainingManager trainingManager, Path filePath) throws IOException {
+        trainingManagerStorage.saveTrainingManager(trainingManager, filePath);
     }
 }

@@ -38,7 +38,7 @@
               </VBox>
                   <VBox maxHeight="1.7976931348623157E308" prefWidth="400.0" HBox.hgrow="ALWAYS">
                      <children>
-                          <StackPane fx:id="commandBoxPlaceholder" alignment="TOP_CENTER" minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #95AFC0;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
+                          <StackPane fx:id="commandBoxPlaceholder" alignment="TOP_CENTER" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #95AFC0;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100.0" prefHeight="100.0" style="-fx-background-color: #FFFFFF;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
                         <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
                      </children>
@@ -46,7 +46,7 @@
                </children>
             </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" alignment="TOP_LEFT" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

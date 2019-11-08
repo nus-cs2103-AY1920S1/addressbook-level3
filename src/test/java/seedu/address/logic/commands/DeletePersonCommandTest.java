@@ -8,16 +8,17 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -26,8 +27,8 @@ import seedu.address.model.person.Person;
  */
 public class DeletePersonCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(),
-            new Attendance(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
+            new TrainingManager(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -36,8 +37,8 @@ public class DeletePersonCommandTest {
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.deletePerson(personToDelete);
 
@@ -61,8 +62,8 @@ public class DeletePersonCommandTest {
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
@@ -76,7 +77,7 @@ public class DeletePersonCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAthletick().getPersonList().size());
 
         DeletePersonCommand deletePersonCommand = new DeletePersonCommand(outOfBoundIndex);
 

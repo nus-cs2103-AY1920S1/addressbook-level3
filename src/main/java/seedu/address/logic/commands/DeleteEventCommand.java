@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_EVENT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Deletes a event identified using its name in performance.
@@ -41,5 +41,9 @@ public class DeleteEventCommand extends DeleteCommand {
         return other == this // short circuit if same object
             || (other instanceof DeleteEventCommand // instanceof handles nulls
             && targetEvent.equals(((DeleteEventCommand) other).targetEvent)); // state check
+    }
+    @Override
+    public String toString() {
+        return "'Delete " + targetEvent + "' Command";
     }
 }

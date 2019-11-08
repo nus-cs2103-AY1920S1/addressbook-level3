@@ -16,12 +16,17 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.sortAddressBookByName();
+        model.sortAthletickByName();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public boolean isUndoable() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Sort Command";
     }
 }

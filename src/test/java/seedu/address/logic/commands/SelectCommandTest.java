@@ -8,22 +8,23 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 
 class SelectCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
-            new UserPrefs());
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(),
+            new UserPrefs(), new HistoryManager());
 
     @Test
     public void execute_validIndexUnfliteredList_success() {
@@ -32,8 +33,8 @@ class SelectCommandTest {
 
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, personToSelect);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
-                model.getAttendance(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAthletick(), model.getPerformance(),
+                model.getTrainingManager(), new UserPrefs(), model.getHistory());
 
         expectedModel.selectPerson();
 
@@ -54,7 +55,7 @@ class SelectCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
 
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAthletick().getPersonList().size());
 
         SelectCommand selectCommand = new SelectCommand(outOfBoundIndex);
 

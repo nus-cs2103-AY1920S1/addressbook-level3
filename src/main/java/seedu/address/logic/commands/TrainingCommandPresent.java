@@ -17,19 +17,22 @@ import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 
 /**
- * Adds a training session of players specified by the indexes on the specified date.
+ * Adds a training session of players specified by the indexes on the specified
+ * date.
  */
 public class TrainingCommandPresent extends TrainingCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds training session of people identified by the index numbers used in the displayed person list at"
-            + " the specified date.\nIf no date is specified, the current date is used.\n"
-            + "Parameters: " + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT_TYPE_ONE
-            + "\n" + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20102019 "
-            + PREFIX_INDEXES + " 1 5 7";
+            + " the specified date.\nIf no date is specified, the current date is used.\n" + "Parameters: "
+            + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT_TYPE_ONE + "\n"
+            + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20102019 "
+            + PREFIX_INDEXES + " 1 4 5";
 
+    private Training trainingToAdd;
     /**
-     * Creates a TrainingCommandPresent to add a training session on {@code date} using the {@code indexList}.
+     * Creates a TrainingCommandPresent to add a training session on {@code date}
+     * using the {@code indexList}.
      *
      * @param date      Date of training.
      * @param indexList List of index indicating those who were present.
@@ -39,8 +42,9 @@ public class TrainingCommandPresent extends TrainingCommand {
     }
 
     /**
-     * Executes the TrainingCommandPresent which adds a training to the Attendance in model. People in indexList are
-     * marked as present while everyone else is marked as absent.
+     * Executes the TrainingCommandPresent which adds a training to the Attendance
+     * in model. People in indexList are marked as present while everyone else is
+     * marked as absent.
      *
      * @param model {@code Model} where Training is saved.
      * @return Outcome of executed command.
@@ -57,6 +61,7 @@ public class TrainingCommandPresent extends TrainingCommand {
 
         // Create training
         Training training = createTrainingByPresent(date, model, indexes);
+        this.trainingToAdd = training;
 
         CommandResult result;
         if (model.hasTrainingOnDate(super.getDate())) {
@@ -72,13 +77,13 @@ public class TrainingCommandPresent extends TrainingCommand {
 
     /**
      * Creates a training session using a list of indexes and marks them as present.
-     * @param date Date of training.
+     * @param date    Date of training.
      * @param indexes Indexes of those who attended.
      * @return Created training session.
      */
     private static Training createTrainingByPresent(AthletickDate date, Model model, List<Index> indexes) {
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> allPeople = model.getAddressBook().getPersonList();
+        List<Person> allPeople = model.getAthletick().getPersonList();
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to did not attend
         for (Person person : allPeople) {
@@ -95,5 +100,9 @@ public class TrainingCommandPresent extends TrainingCommand {
             trainingAttendance.put(person, true);
         }
         return new Training(date, trainingAttendance);
+    }
+    @Override
+    public String toString() {
+        return "'Add " + trainingToAdd + "' Command";
     }
 }

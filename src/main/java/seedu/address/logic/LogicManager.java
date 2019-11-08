@@ -8,13 +8,15 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.AthletickParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
@@ -29,12 +31,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final AthletickParser athletickParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        athletickParser = new AthletickParser();
     }
 
     @Override
@@ -42,15 +44,25 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = athletickParser.parseCommand(commandText);
+        HistoryManager history = model.getHistory();
         commandResult = command.execute(model);
-        HistoryManager.getCommands().push(command);
-        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
-
+        if (model.commandUnderTraining(command) || command instanceof EditCommand) {
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getTrainingManager().getTrainings()));
+        }
+        if (model.commandUnderPerformance(command)) {
+            history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
+        }
+        if (command instanceof ClearCommand) {
+            history.pushPerformances(model.getPerformanceDeepCopy(model.getPerformance()));
+            history.pushTrainingList(model.getTrainingsDeepCopy(model.getTrainingManager().getTrainings()));
+        }
+        history.pushCommand(command);
+        history.pushAthletick(model.getAthletickDeepCopy());
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAthletick(model.getAthletick());
             storage.saveEvents(model.getPerformance());
-            storage.saveAttendance(model.getAttendance());
+            storage.saveTrainingManager(model.getTrainingManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -58,8 +70,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyAthletick getAthletick() {
+        return model.getAthletick();
     }
 
     @Override
@@ -74,7 +86,7 @@ public class LogicManager implements Logic {
 
     @Override
     public String getPersonAttendance() {
-        return model.getAttendance().getPersonAttendanceRateString(getPerson());
+        return model.getTrainingManager().getPersonAttendanceRateString(getPerson());
     }
 
     @Override
@@ -84,7 +96,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getAthletickFilePath();
     }
 
     @Override

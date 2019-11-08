@@ -8,7 +8,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
@@ -44,40 +46,90 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' Athletick file path.
      */
-    Path getAddressBookFilePath();
+    Path getAthletickFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' Athletick file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAthletickFilePath(Path athletickFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces Athletick data with the data in {@code athletick}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-    ReadOnlyAddressBook getAddressBookDeepCopy();
-    void undo();
-    void redo();
-
+    void setAthletick(ReadOnlyAthletick athletick);
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns Athletick
+     */
+    ReadOnlyAthletick getAthletick();
+    /**
+     * Returns HistoryManager
+     */
+    HistoryManager getHistory();
+    /**
+     * Returns deep copy of Athletick
+     */
+    ReadOnlyAthletick getAthletickDeepCopy();
+    /**
+     * Returns deep copy of Trainings under Attendance
+     */
+    List<Training> getTrainingsDeepCopy(List<Training> trainingsList);
+    /**
+     * Returns deep copy of HashMap under Training
+     */
+    HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy);
+    /**
+     * Returns deep copy of Performance
+     */
+    ReadOnlyPerformance getPerformanceDeepCopy(ReadOnlyPerformance originalPerformance);
+    /**
+     * Returns deep copy of Events under Performance
+     */
+    List<Event> getEventsDeepCopy(List<Event> originalEvents);
+    /**
+     * Returns deep copy of HashMap under Event
+     */
+    Event getEventDeepCopy(Event originalEvent);
+    /**
+     * Returns deep copy of List of Record under Event
+     */
+    List<Record> getRecordsDeepCopy(List<Record> originalRecords);
+    /**
+     * Returns deep copy of Record under Event
+     */
+    Record getRecordDeepCopy(Record originalRecord);
+    /**
+     * Returns whether command is instanceof TrainingCommand or DeleteTrainingCommand
+     */
+    boolean commandUnderTraining(Command command);
+    /**
+     * Returns whether command is instanceof EventCommand/PerformanceCommand/DeleteEventCommand or
+     * DeleteRecordCommand
+     */
+    boolean commandUnderPerformance(Command command);
+    /**
+     * Returns Command that is being undone
+     */
+    Command undo();
+    /**
+     * Returns Command that is being redone
+     */
+    Command redo();
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in Athletick.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in Athletick.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in Athletick.
      */
     void addPerson(Person person);
 
@@ -87,15 +139,16 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in Athletick.
+     * The person identity of {@code editedPerson} must not be the same as another existing
+     * person in Athletick.
      */
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Reorders the address book in alphabetical order according to person's name.
+     * Reorders Athletick in alphabetical order according to person's name.
      */
-    void sortAddressBookByName();
+    void sortAthletickByName();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -107,19 +160,19 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds {@code training} to the Attendance class.
+     * Adds {@code training} to the TrainingManager class.
      */
     void addTraining(Training training);
 
     /**
-     * Replaces all occurences of person at {@code target} with {@code editedPerson} in training records.
+     * Replaces all occurrences of person at {@code target} with {@code editedPerson} in training records.
      */
     void editPersonTrainingRecords(Person target, Person editedPerson);
 
     /**
-     * Removes training on {@code date}
+     * Removes training on {@code date} from the TrainingManager.
      */
-    void deleteTrainingOnDate(AthletickDate date);
+    Training deleteTrainingOnDate(AthletickDate date);
 
     /**
      * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.
@@ -134,14 +187,15 @@ public interface Model {
     List<AttendanceRateEntry> getAttendanceRateOfAll();
 
     /**
-     * Returns the Attendance.
+     * Returns the Training Manager.
      */
-    Attendance getAttendance();
+    TrainingManager getTrainingManager();
 
     /**
-     * Resets all data in Attendance.
+     * Resets all data in the TrainingManager.
      */
-    void resetAttendance();
+    void resetTrainingManager();
+
     /**
      * Checks with Attendance if there was a Training on {@code date}.
      * @param date Date of training.
@@ -158,6 +212,8 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+    Event getEvent(String eventName);
+
     /**
      * Deletes the given event.
      * The event must exist in performance.
@@ -168,10 +224,14 @@ public interface Model {
 
     void addRecord(String eventName, Person person, Record record);
 
+    void deleteRecord(String eventName, Person person, AthletickDate date);
+
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 
     boolean hasPerformanceOn(AthletickDate date);
 
     ArrayList<Event> getAthleteEvents(Person athlete);
+
+    void editPersonPerformanceRecords(Person target, Person editedPerson);
 
 }

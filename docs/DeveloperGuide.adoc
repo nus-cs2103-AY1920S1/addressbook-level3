@@ -276,7 +276,7 @@ The calendar feature serves 2 primary functions:
 
 ==== Implementation
 
-The implementation of the above functions will be described seperately.
+The implementation of the above functions will be described separately.
 
 The first function is facilitated by `CalendarPanel`. It extends `UiPart<Region>` and represents the calendar via a `GridPane` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
 
@@ -341,164 +341,181 @@ The following activity diagram summarises what happens when a user executes the 
 * **Alternative 2:** Have two separate commands to view attendance and performance separately on the specified date.
 
 === Select feature
+The `select` feature allows user to view the profile of a selected athlete.
+
 ==== Implementation
-The select feature is facilitated by `SelectCommand` class. It extends `Command` and parses the arguments using
-`SelectCommandParser`. It implements the one operation:
+The implementation of the `select` feature consists of two parts, mainly the implementation of the command and the
+implementation of the UI.
 
-* `CommandResult#execute()` -- Executes the selectCommand which returns the person selected to be displayed in the UI.
+The implementation of the command is facilitated by `SelectCommand` class. It extends
+`Command` and parses the arguments using `SelectCommandParser`. It implements one operation:
 
-Other operations that were implemented to aid the `SelectCommand` feature are:
+* `CommandResult#execute()` -- Executes the selectCommand which returns the athlete selected to be displayed in the UI.
 
-* `Model#selectPerson()` -- Returns the person that was stored.
-* `Model#storePerson(Person)` -- Stores the person that was selected.
-* `Logic#getPerson()` -- Retrieves the person that was selected to display their personal information in the UI.
+The implementation of the UI portion for the `select` feature  is facilitated by `InformationDisplay`. It extends
+`UiPart<Region>` and displays the personal information of the selected athlete. Additionally, it implements the
+following operations:
 
-These operations are exposed in the Model interface as `Model#selectPerson()` and `Model#storePerson
-(Person)` and in the Logic interface as `Logic#getPerson()`.
+* `InformationDisplay#displayPersonalInfo()` -- Displays the personal information of the selected athlete such as the
+name, email, address, phone number and other personal details.
 
-An example usage scenario is given below which elaborates how the select command works at each step.
+* `InformationDisplay#performanceDisplay()` -- Displays the performance of the selected athlete, which includes the
+event, best performance and most recent performance.
 
-Step 1. The user executes the `select 3` command to display the personal information of the 3rd person in the address
-book. When the command is executed, the person selected at the specified index will be stored in ModelManager as
+An example usage scenario is given below which elaborates how the `select` feature behaves at each step.
+
+Step 1. The user executes the `select 3` command. The command is then parsed by `SelectCommandParser` which creates
+an instance of `SelectCommand`. `SelectCommand` retrieves the athlete based on the index of the list panel on the left.
+When the command is executed, the athlete selected at the specified index will be stored in ModelManager as
 `selectedPerson` using the operation `Model#storePerson(Person)`.
-//image
 
-Step 2. After the command has been executed, the selected person is retrieved in the MainWindow class. It checks
-whether a person has been selected and displays the selected person's personal information.
-//snippet and image
+Step 2. After the command has been executed, the selected athlete is retrieved in the MainWindow class. It checks
+whether an athlete has been selected and displays the selected athlete's personal information.
+
+The diagram below summarises the steps of the example scenario when a user executes the `select` command:
+
+.Activity diagram of `select` command execution
+image::SelectActivityDiagram.png[]
 
 The implementation was done this way because the Ui component interacts with both the Logic and Model component.
-Firstly, the Ui component takes in the input from the user and allows the Logic component to parse the argument.
-After the argument has been parsed, the person is stored in the Model component which houses most of the data of the
-app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected person.
+Firstly, the Ui component takes in the input from the user and allows `SelectCommandParser` in Logic component to parse
+the argument.
+After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
+app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.
+
+The following sequence diagram shows the `select` feature works:
+
+.Sequence Diagram of `select` Command
+image::SelectCommandSequenceDiagram.png[]
 
 ==== Design considerations
+There were some decisions that I had to make as I was designing the `select` feature and had to compare which methods
+would better suit the application. The following consists of the design considerations for the `select` feature.
 
-===== Aspect: In what way is the personal information of the selected person going to be displayed
+===== Aspect: How the personal information of the selected athlete will be displayed
+There were a few ways how the personal information of the selected athlete could be displayed and the following
+alternatives are some of the considerations I had when implementing.
 
-* Alternative 1 (current choice): Displaying it in a feature box.
+* *Alternative 1 (current choice)*: Displaying it in a feature box.
 ** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
 ** Cons: Aesthetic is not as good compared to the other alternatives.
-* Alternative 2: Displaying it in a tab form.
+* *Alternative 2*: Displaying it in a tab form.
 ** Pros: Looks more organised compared to the other alternatives
 ** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
-* Alternative 3: Displaying via a pop-up.
+* *Alternative 3*: Displaying via a pop-up.
 ** Pros: Looks neater and organised.
 ** Cons: Increase the use of mouse to close the window and may be distracting to user.
 
-===== Aspect: How to select a person
+Reason: Alternative 1 was chosen because it utilises more of the command line interface and we wanted to steer away
+from the use of the mouse. Even those the aesthetic might not be as good as alternative 2 and 3, I felt that it was a
+better choice as it was in line with the other features that my group mates were going to implement.
+
+===== Aspect: How to select an athlete
+There were two ways on how an athlete could be selected and it was between choosing by index or by name which I had
+to consider.
 
 * Alternative 1 (current choice): Choosing by the index number.
 ** Pros: Intuitive to use and can be used with other commands such as `FindCommand` and `FilterCommand` to narrow
 down the list of people.
-** Cons: Additional step of filtering before selecting a person.
+** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
 * Alternative 2: Choosing by name.
-** Pros: Can omit the filtering step and select the person directly.
+** Pros: Can omit the filtering step and select the athlete directly.
 ** Cons: There may be 2 people with the same name and thus result in an error.
 
+Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
+other functions such as `DeleteCommand` or `FindCommand` which also uses index. It also reduces the need to type out
+the full name of the selected athlete.
+
 === Undo / Redo feature
-==== Proposed Implementation
+The undo command enables users to undo their previous commands while the redo feature enables users to redo their undone commands.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Undo Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The undo feature is facilitated by the `HistoryManager`. The `commands` stack and the `addressBooks` stack in the `HistoryManager` class are used to govern the undo feature.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The static `commands` stack keeps track of all the commands that have been executed by the user while the static `addressBooks` stack keeps track of the corresponding state of the address book following the executed command.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `HistoryManager` will be initialised with the
+initial address book state pushed to the `addressBooks` stack.
 
-image::UndoRedoState0.png[]
+image::initialStack.png[width=450]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes the delete 3 command to delete the 3rd person in the Athletick list. The delete command will be pushed into the `commands` stack in and the new state of the address book (after executing the delete command) will be pushed to the `addressBooks` stack as well.
 
-image::UndoRedoState1.png[]
+image::afterUndoStack.png[width=450]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action by executing the `undo` command. The `undo` command calls the undo method in the `ModelManager` which pops the latest Command from the `commands` stack and
+the latest Address Book from the `addressBooks` stack. This removes the latest action caused by the command that wants to be undone. It then continues to peek at the `addressBooks` stack to retrieve the Address Book state before the undone Command was executed.
 
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+image::initialStack.png[width=450]
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSQ.png[width=450]
+Figure 1. Sequence diagram for undo feature
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+==== Redo Implementation
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo feature is also facilitated by the `HistoryManager`. The `undoneCommands` stack and the `undoneAddressBooks` stack in the `HistoryManager` class are used to govern the redo feature.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The `undoneCommands` stack keeps track of commands that have been undone by the user while the `undoneAddressBooks` stack keeps track of the corresponding state of the address book following the undone command.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+How the redo feature works is very similar to how the undo feature works. The difference is that redo utilises the
+`undoneCommands` stack and the `undoneAddressBooks` stack. As such, you can also refer to the diagrams in the
+link:https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-feature[Undo
+Implementation.]
 
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
+This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+* **Alternative 1 (current choice):** Saves a deep copy of the entire address book after each command into a stack.
+** Pros:  Easy to implement, and easy for developers to understand.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+====== Reason why we chose alternative 1:
+Even though the memory usage of Alternative 2 is lesser, we do not feel this benefit of lesser memory usage
+outweighs the tedious cost of implementing the alternative.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+Furthermore, as we realise that each time the application starts, the memory of the address books states
+are cleared.
+This means that the cost of having alternative 1 is significantly lesser, as the memory of the address
+book states does not accumulate. As such, we
+decided to
+go with the first alternative.
+
 
 === Adding/editing photo feature
 ==== Implementation
-The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for a person. The sub feature is
+The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for an athlete. The sub feature is
 facilitated by `Photo`.
 
-This sub feature is similar to the other features such as `Name` and `Phone` which has a prefix `i/` followed by the
-file name (e.g. `i/default.png`). Prior to adding the photo of a person, the image file that is going to be used has to
-be in the `\src\main\resources\images` directory. `Photo` takes in the file name as a `String` and retrieves the
-photo to be added or edited from the directory that was mentioned previously.
+This sub feature is similar to the other features such as `Name` and `Phone` which uses a prefix `i/` followed by the
+file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
+has to be in the `images` folder which will be generated when the jar file is executed. `Photo` takes in the file name as a
+`String` and retrieves the photo to be added or edited from the `images` folder.
 
-*File name restriction*
-The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`. This
-is done to keep the file name simple.
+NOTE: The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
+This is done to keep the file name simple.
 
 ==== Design Consideration
+The following consists of some of the design consideration when I was designing this sub-feature.
+
 ===== Aspect: Regular expression for the file name
 * **Alternative 1 (current choice):** To use alphanumerics only.
 ** Pros: Keeps it simple without the confusion of special characters.
-** Cons:
 * **Alternative 2:** Alphanumerics and special characters.
-** Pros
-** Cons
+** Cons: These special characters are reserved used by operation systems such as Windows.
+
+Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
+have if special characters were included.
 
 === Filter feature
 

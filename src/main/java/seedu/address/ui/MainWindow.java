@@ -63,9 +63,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -181,62 +179,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (!(commandResult.getFeature() == null)) {
-                switch (commandResult.getFeature().toString()) {
-                case "calendar":
-                    showCalendar(commandResult.getModel());
-                    break;
-                case "attendance":
-                    showAttendancePanel(commandResult.getModel());
-                    break;
-                case "performance":
-                    showPerformancePanel(commandResult.getModel());
-                    break;
-                default:
-                    break;
-                }
-            }
-
-            if (!(commandResult.getPerson() == null)) {
-                InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson(),
-                                                                               logic.getPersonAttendance(),
-                                                                               logic.getAthleteEvents());
-                featureBoxPlaceholder.getChildren().clear();
-                featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
-            }
-
-            if (!(commandResult.getDate() == null)) {
-                Model model = commandResult.getModel();
-                switch (commandResult.getDate().getType()) {
-                case 1:
-                    CalendarDetailPanel calendarDetailPanel =
-                            new CalendarDetailPanel(commandResult.getDate(), model);
-                    featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
-                    break;
-                case 2:
-                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate(), model);
-                    featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
-                    break;
-                default:
-                    break;
-                }
-            }
-
-            if (commandResult.isClear()) {
-                showCalendar(commandResult.getModel());
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
+            updateMainWindow(commandResult);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -245,21 +188,128 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Updates the view of {@code MainWindow}
+     * @param commandResult Command result from executing user command
+     */
+    private void updateMainWindow(CommandResult commandResult) {
+        if (!(commandResult.getFeature() == null)) {
+            updateFeatureBox(commandResult);
+        }
+        if (!(commandResult.getPerson() == null)) {
+            displayInformationDisplay();
+        }
+        if (!(commandResult.getDate() == null)) {
+            displayCalendar(commandResult);
+        }
+        if (commandResult.isClear()) {
+            showCalendar(commandResult.getModel());
+        }
+        if (commandResult.isShowHelp()) {
+            handleHelp();
+        }
+        if (commandResult.isExit()) {
+            handleExit();
+        }
+    }
+
+    /**
+     * Updates the view of the feature box.
+     * @param commandResult Command result from executing user command
+     */
+    private void updateFeatureBox(CommandResult commandResult) {
+        switch (commandResult.getFeature().getName()) {
+        case "calendar":
+            showCalendar(commandResult.getModel());
+            break;
+        case "attendance":
+            showAttendancePanel(commandResult.getModel());
+            break;
+        case "performance":
+            showPerformancePanel(commandResult.getModel());
+            break;
+        case "records":
+            showRecordsPanel(commandResult.getModel(), commandResult.getEventName());
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Displays {@code CalendarPanel} in the feature box.
+     * @param model Represents state of data in Athletick
+     */
     private void showCalendar(Model model) {
         CalendarPanel calendarPanel = new CalendarPanel(model);
         featureBoxPlaceholder.getChildren().clear();
         featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
+    /**
+     * Displays {@code AttendancePanel} in the feature box.
+     * @param model Represents state of data in Athletick
+     */
     private void showAttendancePanel(Model model) {
         AttendancePanel attendance = new AttendancePanel(model);
         featureBoxPlaceholder.getChildren().clear();
         featureBoxPlaceholder.getChildren().add(attendance.getRoot());
     }
 
+    /**
+     * Displays {@code PerformancePanel} in the feature box.
+     * @param model Represents state of data in Athletick
+     */
     private void showPerformancePanel(Model model) {
         PerformancePanel performance = new PerformancePanel(model);
         featureBoxPlaceholder.getChildren().clear();
         featureBoxPlaceholder.getChildren().add(performance.getRoot());
+    }
+
+    /**
+     * Displays {@code RecordsPanel} for particular event in the feature box.
+     * @param model Represents state of data in Athletick
+     * @param eventName Name of event.
+     */
+    private void showRecordsPanel(Model model, String eventName) {
+        RecordsPanel recordsPanel =
+                new RecordsPanel(model, eventName);
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(recordsPanel.getRoot());
+    }
+
+    /**
+     * Displays {@code InformationDisplay} when user selects a person.
+     */
+    private void displayInformationDisplay() {
+        InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson(),
+                logic.getPersonAttendance(),
+                logic.getAthleteEvents());
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
+    }
+
+    /**
+     * Displays {@code CalendarPanel} or {@code CalendarDetailPanel} depending on type of date
+     * provided in {@code commandResult}.
+     * @param commandResult Command result from executing user command
+     */
+    private void displayCalendar(CommandResult commandResult) {
+        Model model = commandResult.getModel();
+        switch (commandResult.getDate().getType()) {
+        case 1:
+            CalendarDetailPanel calendarDetailPanel =
+                    new CalendarDetailPanel(commandResult.getDate(), model);
+            featureBoxPlaceholder.getChildren().clear();
+            featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
+            break;
+        case 2:
+            CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate(), model);
+            featureBoxPlaceholder.getChildren().clear();
+            featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
+            break;
+        default:
+            break;
+        }
     }
 }

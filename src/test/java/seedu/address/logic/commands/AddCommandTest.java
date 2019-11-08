@@ -18,14 +18,15 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Attendance;
+import seedu.address.model.Athletick;
 import seedu.address.model.AttendanceRateEntry;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAthletick;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
@@ -110,12 +111,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getAthletickFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setAthletickFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -135,15 +136,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAthletick(ReadOnlyAthletick newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAthletick getAthletick() {
             throw new AssertionError("This method should not be called.");
         }
-
+        @Override
+        public HistoryManager getHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -160,7 +164,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortAddressBookByName() {
+        public void sortAthletickByName() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -185,7 +189,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteTrainingOnDate(AthletickDate date) {
+        public Training deleteTrainingOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -200,24 +204,60 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBookDeepCopy() {
+        public ReadOnlyAthletick getAthletickDeepCopy() {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void undo() {
+        public List<Training> getTrainingsDeepCopy(List<Training> trainingsList) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void redo() {
+        public HashMap<Person, Boolean> deepCopyHashMap(HashMap<Person, Boolean> mapToCopy) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public Attendance getAttendance() {
+        public ReadOnlyPerformance getPerformanceDeepCopy(ReadOnlyPerformance originalPerformance) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Event> getEventsDeepCopy(List<Event> originalEvents) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Event getEventDeepCopy(Event originalEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Record> getRecordsDeepCopy(List<Record> originalRecords) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Record getRecordDeepCopy(Record originalRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean commandUnderTraining(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean commandUnderPerformance(Command command) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Command undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Command redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public TrainingManager getTrainingManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void resetAttendance() {
+        public void resetTrainingManager() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -239,6 +279,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Event getEvent(String eventName) {
+            return null;
+        }
+
+        @Override
         public void deleteEvent(Event target) { }
 
         @Override
@@ -247,9 +292,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addRecord(String eventName, Person person, Record record) {
+        public void addRecord(String eventName, Person person, Record record) { }
 
-        }
+        @Override
+        public void deleteRecord(String eventName, Person person, AthletickDate date) { }
 
         @Override
         public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
@@ -265,6 +311,9 @@ public class AddCommandTest {
         public ArrayList<Event> getAthleteEvents(Person person) {
             return null;
         }
+
+        @Override
+        public void editPersonPerformanceRecords(Person target, Person editedPerson) { }
     }
 
     /**
@@ -304,8 +353,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAthletick getAthletick() {
+            return new Athletick();
         }
     }
 

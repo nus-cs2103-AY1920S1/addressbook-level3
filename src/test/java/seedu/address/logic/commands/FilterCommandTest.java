@@ -9,17 +9,18 @@ import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAthletick;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TrainingManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.TagMatchesPredicate;
 
 /**
@@ -27,10 +28,10 @@ import seedu.address.model.person.TagMatchesPredicate;
  */
 public class FilterCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
-            new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
-            new UserPrefs());
+    private Model model = new ModelManager(getTypicalAthletick(), getTypicalPerformance(), new TrainingManager(),
+            new UserPrefs(), new HistoryManager());
+    private Model expectedModel = new ModelManager(getTypicalAthletick(), getTypicalPerformance(),
+            new TrainingManager(), new UserPrefs(), new HistoryManager());
 
     @Test
     public void equals() {

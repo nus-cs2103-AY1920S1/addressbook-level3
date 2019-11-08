@@ -97,18 +97,20 @@ attendance and performance.
 
 Type the athlete's particulars in the format given below.
 
-Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
+Format : `add n/NAME p/PHONE e/EMAIL g/GENDER a/ADDRESS [t/TAG]... [i/IMAGE]`
 
 [NOTE]
 ====
 Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
-the image is in the `images` folder. Refer to the *"FAQ"* section on how to add your images to the folder.
+the image is in `.png` format and that it is included in the `images` folder. Refer to the *"FAQ"* section on how to
+add your images
+to the folder.
 
 You can include any number of tags (zero tags are also allowed) to an athlete and the addition of an image
 is optional.
 ====
 
-Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+Example: `add n/John Doe p/98765432 e/johnd@example.com g/male a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
 
 image::beforeAdd.png[width=450]
 
@@ -120,18 +122,18 @@ If successfully added, the details of the added athlete will be displayed in the
 
 The added athlete will be shown at the bottom of the team list.
 
-==== Deleting an athlete : `delete`
+==== Deleting an athlete : `delete -p`
 
 This command deletes an athlete from the list by their index.
 
 *What you should do*
 
-Let's say you want to remove Irfan from Athletick as he is no longer in the team. Type the delete command, followed by
-the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
+Let's say you want to remove Sun Yang from Athletick as he is no longer in the team. Type the delete command,
+followed by the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
 
-Format: `delete INDEX`
+Format: `delete -p INDEX`
 
-Example: `delete 5`
+Example: `delete -p 5`
 
 [NOTE]
 ====
@@ -140,11 +142,12 @@ The index refers to the index number shown in the displayed person list.
 The index must be a positive integer 1, 2, 3, …​
 ====
 
-image::delete_before.png[width=450]
+image::deleteperson_wsyd.png[width=450]
 
 *What you should see*
 
-image::delete_after.png[width=350]
+.Notice that Sun Yang is no longer in the athlete list on the left sidebar.
+image::deleteperson_wsys.png[width=450]
 
 If successfully removed, the details of the removed athlete will be displayed in the result box.
 
@@ -180,7 +183,8 @@ When editing tags, the existing tags of the person will be removed i.e adding of
 
 You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
-When editing the image, make sure that the image you are replacing with is in the `images` folder.
+When editing the image, make sure that the image you are replacing with is in the `images` folder and the format is
+in `.png`.
 ====
 
 *What you should see*
@@ -274,9 +278,9 @@ If the command is successful, the athlete's name and attendance will be displaye
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
 
-All you have to is add an event (see <<Adding an event : `event`>>),
-and then add records from timed trials under the event
-(see <<Recording an athlete’s performance : `performance`>>).
+// reference section
+First, you will have to add an event.
+After that, you can add records from timed trials under the event to start tracking their performance.
 
 ==== Adding an event : `event`
 
@@ -284,10 +288,10 @@ This command adds an event to *Athletick*, and will be used for storing your ath
 
 *What you should do*
 
-Let's say that you want to start recording performances for the freestyle 50m.
-You will need to add the freestyle 50m event to *Athletick* first.
+Let's say that you want to start recording performances for the `freestyle 50m` event. You will need to add
+the `freestyle 50m` event to *Athletick* first.
 
-Type the event command in the following format and press `Enter` to execute it.
+Type the command in the following format and press `Enter` to execute it.
 
 Format : `event NAME_OF_EVENT`
 
@@ -298,11 +302,37 @@ Example: `event freestyle 50m`
 
 *What you should see*
 
+If successfully added, the result box will display the added event name as shown below.
+
 image::addevent.png[width="350"]
 
-If successfully added, the result box will display the event name as shown above.
+==== Deleting an event : `delete -e`
 
-==== Recording an athlete’s performance : `performance`
+This command removes an event from *Athletick*.
+Records stored under this event will be deleted as well.
+
+*What you should do*
+
+Let's say that your team is no longer participating in the `backstroke 100m` event, and you want to remove it
+from *Athletick*.
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `delete -e NAME_OF_EVENT`
+
+Example: `delete -e backstroke 100m`
+
+image::deleteevent_wysd.png[width="250"]
+
+*What you should see*
+
+If successfully deleted, the result box will display the deleted event name as shown below.
+The event should no longer be in *Athletick*.
+
+.Notice that the backstroke 100m event is no longer listed.
+image::deleteevent_wyss.png[width="150"]
+
+==== Adding an athlete's record : `performance`
 
 This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
 
@@ -490,7 +520,7 @@ If the image of the selected athlete is not appearing as shown below, take note 
 `images` folder. You may refer to the *"FAQ"* section to know more on where to include the image files
 which are going to be used and *Section 4.1.3. "Editing an athlete"* to understand further how to edit the image of an athlete.
 
-image::emptyImage.png[width=450]
+image::noImage.png[width=450]
 
 ==== Sorting athletes alphabetically : `sort`
 
@@ -636,7 +666,7 @@ This command restores Athletick to the state before the previous command was exe
 [NOTE]
 ====
 Take note that the `undo` feature only applies to undoable commands.
-Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
+Undoable commands include: `add`, `delete`, `edit`, `clear` and `training`.
 
 The `undo` command will not be able to undo commands that cannot be undone.
 Let’s say you have executed a `list` command to list out all the athletes information in Athletick.
@@ -644,18 +674,20 @@ If you were to execute the `undo` command now, the `undo` command will fail beca
 and that no doable commands were executed before this.
 
 The `undo` command reverses previous commands in reverse chronological order.
-Let’s say you have executed the `edit` command, followed by the `delete` command.
-Executing `undo` now will first reverse the `delete` command.
-Executing `undo` again will reverse the `edit` command.
+Let’s say you have executed the `edit` command, followed by the `delete` command. If you were
+to execute `undo` command now, you will reverse the `delete` command. Executing `undo` again
+will then reverse the `edit` command.
 
 The `undo` command will reverse the latest command that can be undone.
 Let’s say you have executed the `delete` command, followed by the `list` command.
-Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
+Since `list` command is not an undoable command, if you were to execute `undo`
+command now, you will thus reverse the `delete` command.
 ====
 
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
-you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
+you can easily restore all of Mohamad Ali’s details by executing the command `undo` to
+undo the `delete` command that you have just entered.
 
 *What you should do*
 
@@ -664,6 +696,7 @@ Type `undo` into the command box, and press Enter to execute it.
 Format : `undo`
 
 image::undo.png[width=450]
+
 
 *What you should see*
 
@@ -686,12 +719,16 @@ The `redo` command reverses previous `undo` commands in reverse chronological or
 Let’s say that you have executed the `clear` command, followed by the `add` command.
 Executing the `undo` command now will reverse the `add` command.
 Executing the `undo` command again will reverse the `clear` command as well.
-Following this, executing the `redo` command will reverse the last `undo` command and re-execute the `clear` command.
-Executing the `redo` command again will reverse the second-last `undo` command and re-execute the `add` command.
+Following this, executing the `redo` command will reverse the most recent `undo` command and re-execute the `clear`
+command.
+Executing the `redo` command again will reverse the second most recent `undo` command and re-execute the `add` command.
+
+The `redo` command can only be executed immediately after a `undo` command.
 ====
 
 Let’s say you have executed the `delete` command to delete Mohamad Ali from your list.
 You may undo this action and restore Mohamad Ali’s information by executing the `undo` command. (See Undoing a previous command.)
+
 
 Then, if you decide that you want the contact to remain deleted after all,
 you may very quickly do so by executing the `redo` command to reverse the `undo` command that you had just executed.
@@ -707,7 +744,7 @@ image::redo.png[width=450]
 
 The result box will display the message “Redo Command Success” and Mohamad Ali is once again gone from the list!
 
-image::afterUndo.png[width=450]
+image::afterRedo.png[width=450]
 
 === Upcoming features
 

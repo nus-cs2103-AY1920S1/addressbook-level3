@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +42,7 @@ public class Performance implements ReadOnlyPerformance {
         this();
         resetData(toBeCopied);
     }
-
     //// list overwrite operations
-
     /**
      * Replaces the contents of the events list with {@code events}.
      * {@code events} must not contain duplicate events.
@@ -62,7 +61,6 @@ public class Performance implements ReadOnlyPerformance {
     }
 
     //// event-level operations
-
     /**
      * Retrieves Calendar-compatible records for all events.
      */
@@ -93,10 +91,19 @@ public class Performance implements ReadOnlyPerformance {
     }
 
     /**
+     * Retrieves an instance of an event by the event name.
+     */
+    public Event getEvent(String eventName) {
+        requireNonNull(eventName);
+        return events.getEvent(eventName);
+    }
+
+    /**
      * Adds an event to the events list.
      * The event must not already exist in the events list.
      */
     public void addEvent(Event e) {
+        requireNonNull(e);
         events.add(e);
     }
 
@@ -105,6 +112,7 @@ public class Performance implements ReadOnlyPerformance {
      * The event must already exist in the events list.
      */
     public void removeEvent(Event e) {
+        requireNonNull(e);
         events.remove(e);
     }
 
@@ -115,7 +123,24 @@ public class Performance implements ReadOnlyPerformance {
      * @param r Record to be added.
      */
     public void addRecord(String e, Person p, Record r) {
-        events.getEvent(e).addPerformance(p, r);
+        requireAllNonNull(e, p, r);
+        events.getEvent(e).addRecord(p, r);
+    }
+
+    /**
+     * Removes an athlete's record for a certain event, on a certain day.
+     */
+    public void deleteRecord(String e, Person p, AthletickDate d) {
+        requireAllNonNull(e, p, d);
+        events.getEvent(e).deleteRecord(p, d);
+    }
+
+    /**
+     * Edits an athlete's record details accordingly when the EditCommand is executed.
+     */
+    public void editPersonPerformanceRecords(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        events.updatePerson(target, editedPerson);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.PersonComparator;
+import seedu.address.model.person.PersonNameComparator;
 
 /**
  * Class containing comparators used for sorting the list of Persons to be used in tests.
  */
 public class Comparators {
 
-    public static final PersonComparator NAME_COMPARATOR = new PersonComparator();
+    public static final PersonNameComparator NAME_COMPARATOR = new PersonNameComparator();
 }

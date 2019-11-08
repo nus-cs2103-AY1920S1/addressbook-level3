@@ -53,7 +53,7 @@ public abstract class TrainingCommand extends Command {
     }
 
     /**
-     * Executes the TrainingCommand which adds a training to the Attendance in model.
+     * Executes the TrainingCommand which adds a training to the TrainingManger in model.
      * @param model {@code Model} where Training is saved.
      * @return Outcome of executed command.
      * @throws CommandException Thrown when specified indexes are invalid.
@@ -70,6 +70,10 @@ public abstract class TrainingCommand extends Command {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Add Training Command";
+    }
     /**
      * Checks with the model if person indexes are valid.
      */

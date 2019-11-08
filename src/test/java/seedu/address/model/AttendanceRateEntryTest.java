@@ -18,43 +18,46 @@ import org.junit.jupiter.api.Test;
 
 class AttendanceRateEntryTest {
 
-    private static Attendance attendance = new Attendance();
+    private static TrainingManager trainingManager = new TrainingManager();
 
     static {
-        attendance.addTraining(FIRST_TRAINING);
-        attendance.addTraining(SECOND_TRAINING);
-        attendance.addTraining(THIRD_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
+        trainingManager.addTraining(FIRST_TRAINING);
+        trainingManager.addTraining(SECOND_TRAINING);
+        trainingManager.addTraining(THIRD_TRAINING);
+        trainingManager.addTraining(FOURTH_TRAINING);
     }
 
     @Test
     void constructorTest() {
-        AttendanceRateEntry entry = new AttendanceRateEntry(ALICE, attendance.getPersonAttendanceRateString(ALICE));
+        AttendanceRateEntry entry = new AttendanceRateEntry(ALICE,
+                trainingManager.getPersonAttendanceRateString(ALICE));
         assertNotNull(entry);
     }
 
     @Test
     void getPersonTest() {
-        AttendanceRateEntry entry = new AttendanceRateEntry(BENSON, attendance.getPersonAttendanceRateString(BENSON));
+        AttendanceRateEntry entry = new AttendanceRateEntry(BENSON,
+                trainingManager.getPersonAttendanceRateString(BENSON));
         assertEquals(entry.getPerson(), BENSON);
         assertNotEquals(entry.getPerson(), ALICE);
     }
 
     @Test
     void getAttendanceRateString() {
-        AttendanceRateEntry entry = new AttendanceRateEntry(CARL, attendance.getPersonAttendanceRateString(CARL));
-        assertEquals(entry.getAttendanceRateString(), attendance.getPersonAttendanceRateString(CARL));
+        AttendanceRateEntry entry = new AttendanceRateEntry(CARL, trainingManager.getPersonAttendanceRateString(CARL));
+        assertEquals(entry.getAttendanceRateString(), trainingManager.getPersonAttendanceRateString(CARL));
     }
 
     @Test
     void testEquals() {
         AttendanceRateEntry firstEntry = new AttendanceRateEntry(DANIEL,
-                attendance.getPersonAttendanceRateString(DANIEL));
+                trainingManager.getPersonAttendanceRateString(DANIEL));
         AttendanceRateEntry firstEntryCopy = new AttendanceRateEntry(DANIEL,
-                attendance.getPersonAttendanceRateString(DANIEL));
-        AttendanceRateEntry secondEntry = new AttendanceRateEntry(ELLE, attendance.getPersonAttendanceRateString(ELLE));
+                trainingManager.getPersonAttendanceRateString(DANIEL));
+        AttendanceRateEntry secondEntry = new AttendanceRateEntry(ELLE,
+                trainingManager.getPersonAttendanceRateString(ELLE));
         AttendanceRateEntry secondEntryInvalid = new AttendanceRateEntry(ELLE,
-                attendance.getPersonAttendanceRateString(GEORGE));
+                trainingManager.getPersonAttendanceRateString(GEORGE));
         assertEquals(firstEntry, firstEntry);
         assertEquals(firstEntry, firstEntryCopy);
         assertNotEquals(firstEntry, secondEntry);
