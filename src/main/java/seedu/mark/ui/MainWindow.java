@@ -93,7 +93,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private ObservableList<Reminder> reminders;
     private Timer timer = new Timer();
-    private boolean isShutDown = false;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);

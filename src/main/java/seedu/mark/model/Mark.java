@@ -426,7 +426,7 @@ public class Mark implements ReadOnlyMark {
         System.out.println("close mark reminder");
         timer.cancel();
         timer.purge();
-        return;
+
     }
 
     @Override
