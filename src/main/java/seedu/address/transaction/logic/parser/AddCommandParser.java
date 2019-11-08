@@ -65,9 +65,9 @@ public class AddCommandParser implements CommandParserWithPersonModel {
         String amountString = argMultimap.getValue(PREFIX_AMOUNT).get();
         try {
             double amount = Double.parseDouble(amountString);
-            if (amount >= MAX_AMOUNT_ACCEPTED) {
+            if (amount > MAX_AMOUNT_ACCEPTED) {
                 throw new ParseException(MESSAGE_AMOUNT_TOO_LARGE);
-            } else if (amount <= MIN_AMOUNT_ACCEPTED) {
+            } else if (amount < MIN_AMOUNT_ACCEPTED) {
                 throw new ParseException(MESSAGE_AMOUNT_TOO_SMALL);
             } else if (amount == ZERO) {
                 throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);
