@@ -1,6 +1,11 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.*;
+import seedu.address.calendar.commands.AddCommand;
+import seedu.address.calendar.commands.AddCommitmentCommand;
+import seedu.address.calendar.commands.AddHolidayCommand;
+import seedu.address.calendar.commands.AddSchoolBreakCommand;
+import seedu.address.calendar.commands.AddTripCommand;
+import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.Commitment;
 import seedu.address.calendar.model.event.EventQuery;
