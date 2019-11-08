@@ -12,6 +12,7 @@ import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.ifridge.logic.commands.wastelist.ListWasteCommand;
 
 public class ListWasteCommandParserTest {

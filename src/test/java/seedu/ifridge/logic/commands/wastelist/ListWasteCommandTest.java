@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
 import seedu.ifridge.model.UnitDictionary;
@@ -33,8 +34,8 @@ public class ListWasteCommandTest {
 
     @Test
     public void execute_wasteMonthInArchive_success() {
-        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-                model.getWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
+                model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(),
                 new UnitDictionary(new HashMap<String, String>()));
         expectedModel.updateFilteredWasteItemList(WASTE_MONTH_CURRENT_MONTH);
         assertCommandSuccess(new ListWasteCommand(WASTE_MONTH_CURRENT_MONTH), model,

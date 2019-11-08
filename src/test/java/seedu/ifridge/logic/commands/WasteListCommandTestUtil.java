@@ -44,5 +44,7 @@ public class WasteListCommandTestUtil {
 
     public static final WasteMonth WASTE_MONTH_NOT_IN_ARCHIVE = new WasteMonth(1, 2018);
     public static final WasteMonth WASTE_MONTH_NEXT_MONTH = new WasteMonth(LocalDate.now()).nextWasteMonth();
+    public static final WasteMonth WASTE_MONTH_TWO_MONTHS_AGO = new WasteMonth(LocalDate.now()).minusWasteMonth(2);
+    public static final WasteMonth WASTE_MONTH_THREE_MONTHS_AGO = new WasteMonth(LocalDate.now()).minusWasteMonth(3);
 
 }
