@@ -17,15 +17,15 @@
             <top>
                <HBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                   <children>
-                     <PieChart fx:id="accuracy" animated="false" />
-                     <PieChart fx:id="completion" animated="false" />
+                     <PieChart fx:id="accuracy" animated="false" stylesheets="@PieChart.css" />
+                     <PieChart fx:id="completion" animated="false" stylesheets="@PieChart.css" />
                   </children>
                </HBox>
             </top>
             <center>
                <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                   <content>
-                     <StackedBarChart fx:id="individualCards" animated="false" legendSide="LEFT" minWidth="1000.0" prefHeight="200.0">
+                     <StackedBarChart fx:id="individualCards" animated="false" categoryGap="4.0" legendSide="LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" prefHeight="400.0" stylesheets="@StackedBarChart.css">
                        <xAxis>
                          <CategoryAxis animated="false" side="BOTTOM" fx:id="xAxis" />
                        </xAxis>

@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 
@@ -21,16 +22,19 @@ public class QuizCommand extends Command {
         + ": Quiz the flashcard identified by the index number used in the displayed flashcard list.\n"
         + "Only the choices with the flashcard will be shown but the answer will not.\n"
         + "The quiz command should be preceded by a flip command to answer the flashcard. \n"
-        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Parameters: INDEX (must be a positive integer) DURATION(must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
+    public static final String MESSAGE_INVALID_DURATION = "The duration you entered is invalid!";
     public static final String MESSAGE_RESULT_SUCCESS = "Please answer the flashcard below with the flip command.";
     private final Index targetIndex;
+    private final Integer duration;
 
-    public QuizCommand(Index targetIndex) {
+    public QuizCommand(Index targetIndex, Integer duration) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.duration = duration;
     }
 
     /**
@@ -44,12 +48,15 @@ public class QuizCommand extends Command {
         requireNonNull(model);
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            FlashcardListParser.setQuizMode(false);
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
+
         Flashcard cardToView = lastShownList.get(targetIndex.getZeroBased());
         List<Flashcard> quizList = new ArrayList<>();
         quizList.add(cardToView);
         model.setQuiz(quizList);
+        model.setQuizDuration(duration);
         return new CommandResult(MESSAGE_RESULT_SUCCESS, true, cardToView.toString());
     }
 

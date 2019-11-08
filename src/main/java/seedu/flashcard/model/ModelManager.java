@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -203,6 +204,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setQuizDuration(Integer duration) {
+        quiz.setDuration(duration);
+    }
+
+    @Override
     public boolean canUndoFlashcardList() {
         return versionedFlashcardList.canUndo();
     }
@@ -225,6 +231,21 @@ public class ModelManager implements Model {
     @Override
     public void commitFlashcardList() {
         versionedFlashcardList.commit();
+    }
+
+    @Override
+    public IntegerProperty getDurationProperty() {
+        return quiz.getDurationProperty();
+    }
+
+    @Override
+    public IntegerProperty getTotalCardsProperty() {
+        return quiz.totalCardsProperty();
+    }
+
+    @Override
+    public IntegerProperty getRemainingCardsProperty() {
+        return quiz.remainingCardsProperty();
     }
 
     /**

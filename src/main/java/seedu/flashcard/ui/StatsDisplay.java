@@ -77,6 +77,7 @@ public class StatsDisplay extends UiPart<Stage> {
         individualCards.getData().addAll(statistics.getCorrectSeries(), statistics.getWrongSeries());
         individualCards.setTitle("Statistics by card");
 
+
         scrollPane.setFitToHeight(true);
 
     }

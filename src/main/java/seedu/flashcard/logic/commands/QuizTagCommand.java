@@ -30,10 +30,12 @@ public class QuizTagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Quiz mode has started.";
     public static final String TAG_INVALID = "There are no quizable flashcards in this tag.";
     private final Set<Tag> target;
+    private final Integer duration;
 
-    public QuizTagCommand(Set<Tag> inputTag) {
+    public QuizTagCommand(Set<Tag> inputTag, Integer duration) {
         requireNonNull(inputTag);
         this.target = inputTag;
+        this.duration = duration;
     }
 
     /**
@@ -55,6 +57,7 @@ public class QuizTagCommand extends Command {
             FlashcardListParser.setQuizMode(false);
             throw new CommandException(TAG_INVALID);
         }
+        model.setQuizDuration(duration);
         model.setQuiz(taggedList);
         Flashcard firstCard = model.getQuiz().quizCard();
         return new CommandResult(MESSAGE_SUCCESS, true, firstCard.toString());
