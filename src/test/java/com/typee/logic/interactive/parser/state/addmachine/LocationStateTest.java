@@ -1,6 +1,7 @@
 package com.typee.logic.interactive.parser.state.addmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
@@ -92,65 +93,44 @@ class LocationStateTest {
     @Test
     void transition_validArgumentMultiMapInvalidInput_throwsStateTransitionException() {
 
-        // EP : Invalid day for the month, invalid month, invalid year, invalid time, string that is not a date,
-        // null, end date after start date.
+        // Equivalence Partitions : Blank locations, null.
         // Apply at most one invalid input heuristic for the tests.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME);
-        // Invalid day of the month.
-        List<String> firstArgs = List.of("appointment", "28/02/2015/1500", "31/02/2015/1600");
+        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_LOCATION);
 
-        // Invalid month.
-        List<String> secondArgs = List.of("appointment", "13/12/2018/1600", "13/13/2018/1600");
+        // EP : Blank location.
+        List<String> firstArgs = List.of("appointment", "28/02/2015/1500", "28/02/2015/1600", "  ");
 
-        // Invalid year.
-        List<String> thirdArgs = List.of("appointment", "13/12/2004/1454", "13/12/20004/1600");
-
-        // Invalid time.
-        List<String> fourthArgs = List.of("appointment", "13/11/2018/2300", "13/11/2018/2400");
-
-        // String that is not a date.
-        List<String> fifthArgs = List.of("appointment", "13/11/2018/2359", "hello");
+        // EP : Blank location.
+        List<String> secondArgs = List.of("meeting", "28/02/2015/1500", "28/02/2015/1600", "");
 
         // null
         // null can't be tested as an input since ArgumentMultimap doesn't support null arguments.
 
-        State firstState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), firstArgs.subList(0, 2)));
-        State secondState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), secondArgs.subList(0, 2)));
-        State thirdState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), thirdArgs.subList(0, 2)));
-        State fourthState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), fourthArgs.subList(0, 2)));
-        State fifthState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), fifthArgs.subList(0, 2)));
+        State firstState = new LocationState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 3), firstArgs.subList(0, 3)));
+        State secondState = new LocationState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 3), secondArgs.subList(0, 3)));
 
         assertThrows(StateTransitionException.class, () -> firstState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(2, 3), firstArgs.subList(2, 3))));
+                ArgumentMultimapBuilder.build(prefixes.subList(3, 4), firstArgs.subList(3, 4))));
         assertThrows(StateTransitionException.class, () -> secondState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(2, 3), secondArgs.subList(2, 3))));
-        assertThrows(StateTransitionException.class, () -> thirdState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(2, 3), thirdArgs.subList(2, 3))));
-        assertThrows(StateTransitionException.class, () -> fourthState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(2, 3), fourthArgs.subList(2, 3))));
-        assertThrows(StateTransitionException.class, () -> fifthState.transition(
-                ArgumentMultimapBuilder.build(prefixes.subList(2, 3), fifthArgs.subList(2, 3))));
+                ArgumentMultimapBuilder.build(prefixes.subList(3, 4), secondArgs.subList(3, 4))));
 
     }
 
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // EP : ArgumentMultimap without a start date prefix.
+        // Equivalence Partition : ArgumentMultimap without a start date prefix.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_LOCATION);
-        List<String> args = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
+        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION);
+        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description");
 
-        State initialState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), args.subList(0, 2)));
+        State initialState = new LocationState(ArgumentMultimapBuilder.build(
+                prefixes.subList(0, 3), args.subList(0, 3)));
         assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(2, 3), args.subList(2, 3))));
+                prefixes.subList(3, 4), args.subList(3, 4))));
     }
 
     @Test
