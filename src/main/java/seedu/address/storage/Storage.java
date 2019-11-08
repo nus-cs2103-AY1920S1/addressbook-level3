@@ -4,8 +4,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.CheatSheetDataConversionException;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.FlashcardDataConversionException;
+import seedu.address.commons.exceptions.NoteDataConversionException;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -30,7 +36,16 @@ public interface Storage extends StudyBuddyProStorage, UserPrefsStorage {
     Path getNoteFilePath();
 
     @Override
-    Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException, IOException;
+    Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards()
+            throws FlashcardDataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes()
+            throws NoteDataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets()
+            throws CheatSheetDataConversionException, IOException;
 
     @Override
     void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException;

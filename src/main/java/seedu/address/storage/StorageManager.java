@@ -6,8 +6,14 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.CheatSheetDataConversionException;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.FlashcardDataConversionException;
+import seedu.address.commons.exceptions.NoteDataConversionException;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -46,22 +52,47 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ StudyBuddyPro methods ==============================
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException, IOException {
-        return readStudyBuddyPro(studyBuddyProStorage.getFlashcardFilePath(), studyBuddyProStorage.getNoteFilePath(),
-                studyBuddyProStorage.getCheatSheetFilePath());
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards()
+            throws FlashcardDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProFlashcards(studyBuddyProStorage.getFlashcardFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro(Path flashcardFilePath, Path noteFilePath,
-                                                             Path cheatsheetFilePath)
-            throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from files: " + flashcardFilePath
-                + ", " + noteFilePath + ", " + cheatsheetFilePath);
-        return studyBuddyProStorage.readStudyBuddyPro(flashcardFilePath, noteFilePath, cheatsheetFilePath);
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards(Path flashcardFilePath)
+            throws FlashcardDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + flashcardFilePath);
+        return studyBuddyProStorage.readStudyBuddyProFlashcards(flashcardFilePath);
     }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes()
+            throws NoteDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProNotes(studyBuddyProStorage.getNoteFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes(Path noteFilePath)
+            throws NoteDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + noteFilePath);
+        return studyBuddyProStorage.readStudyBuddyProNotes(noteFilePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets()
+            throws CheatSheetDataConversionException, IOException {
+        return studyBuddyProStorage.readStudyBuddyProCheatSheets(studyBuddyProStorage.getCheatSheetFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets(Path cheatSheetFilePath)
+            throws CheatSheetDataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + cheatSheetFilePath);
+        return studyBuddyProStorage.readStudyBuddyProCheatSheets(cheatSheetFilePath);
+    }
+
 
     @Override
     public void saveStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro) throws IOException {

@@ -8,15 +8,21 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.CheatSheetDataConversionException;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.FlashcardDataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.NoteDataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.StudyBuddyPro;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access StudyBuddyPro data stored as a json file on the hard disk.
  */
 public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
 
@@ -54,44 +60,94 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
     }
 
     @Override
-    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro() throws DataConversionException {
-        return readStudyBuddyPro(flashcardFilePath, noteFilePath, cheatSheetFilePath);
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards()
+            throws FlashcardDataConversionException {
+        return readStudyBuddyProFlashcards(flashcardFilePath);
     }
 
-    /**
-     * Similar to {@link #readStudyBuddyPro()}.
-     *
-     * @param flashcardFilePath location of the data. Cannot be null.
-     * @param noteFilePath location of the data. Cannot be null.
-     * @param cheatSheetFilePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyStudyBuddyPro> readStudyBuddyPro(Path flashcardFilePath, Path noteFilePath,
-                                                             Path cheatSheetFilePath) throws DataConversionException {
+    @Override
+    public Optional<ReadOnlyStudyBuddyProFlashcards> readStudyBuddyProFlashcards(Path flashcardFilePath)
+            throws FlashcardDataConversionException {
         requireNonNull(flashcardFilePath);
-        requireNonNull(noteFilePath);
-        requireNonNull(cheatSheetFilePath);
-
-        Optional<JsonSerializableFlashcard> jsonFlashcard = JsonUtil.readJsonFile(
-                flashcardFilePath, JsonSerializableFlashcard.class);
-        Optional<JsonSerializableNote> jsonNote = JsonUtil.readJsonFile(
-                noteFilePath, JsonSerializableNote.class);
-        Optional<JsonSerializableCheatSheet> jsonCheatSheet = JsonUtil.readJsonFile(
-                cheatSheetFilePath, JsonSerializableCheatSheet.class);
-
-        if (!jsonFlashcard.isPresent() && !jsonNote.isPresent() && !jsonCheatSheet.isPresent()) {
-            return Optional.empty();
-        }
-        StudyBuddyPro studyBuddyPro = new StudyBuddyPro();
+        Optional<JsonSerializableFlashcard> jsonFlashcard;
         try {
-            Optional.of(jsonFlashcard.get().toModelType(studyBuddyPro));
-            Optional.of(jsonNote.get().toModelType(studyBuddyPro));
-            Optional.of(jsonCheatSheet.get().toModelType(studyBuddyPro));
-            return Optional.of(studyBuddyPro);
-        } catch (IllegalValueException ive) {
-            //Todo refactor code and create proper logger message
-            //logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
+            jsonFlashcard = JsonUtil.readJsonFile(
+                    flashcardFilePath, JsonSerializableFlashcard.class);
+        } catch (DataConversionException ex) {
+            throw new FlashcardDataConversionException(ex);
+        }
+        if (!jsonFlashcard.isPresent()) {
+            return Optional.empty();
+        } else {
+            try {
+                StudyBuddyPro studyBuddyProWithReadFlashcards = new StudyBuddyPro();
+                jsonFlashcard.get().toModelType(studyBuddyProWithReadFlashcards);
+                return Optional.of(studyBuddyProWithReadFlashcards);
+            } catch (IllegalValueException ive) {
+                logger.info("Illegal values found in " + flashcardFilePath + ": " + ive.getMessage());
+                throw new FlashcardDataConversionException(ive);
+            }
+        }
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes() throws NoteDataConversionException {
+        return readStudyBuddyProNotes(noteFilePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProNotes> readStudyBuddyProNotes(Path notesFilePath)
+            throws NoteDataConversionException {
+        requireNonNull(notesFilePath);
+        Optional<JsonSerializableNote> jsonNote;
+        try {
+            jsonNote = JsonUtil.readJsonFile(
+                    notesFilePath, JsonSerializableNote.class);
+        } catch (DataConversionException ex) {
+            throw new NoteDataConversionException(ex);
+        }
+        if (!jsonNote.isPresent()) {
+            return Optional.empty();
+        } else {
+            try {
+                StudyBuddyPro studyBuddyProWithReadNotes = new StudyBuddyPro();
+                jsonNote.get().toModelType(studyBuddyProWithReadNotes);
+                return Optional.of(studyBuddyProWithReadNotes);
+            } catch (IllegalValueException ive) {
+                logger.info("Illegal values found in " + notesFilePath + ": " + ive.getMessage());
+                throw new NoteDataConversionException(ive);
+            }
+        }
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets()
+            throws CheatSheetDataConversionException {
+        return readStudyBuddyProCheatSheets(cheatSheetFilePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyStudyBuddyProCheatSheets> readStudyBuddyProCheatSheets(Path cheatSheetsFilePath)
+            throws CheatSheetDataConversionException {
+        requireNonNull(cheatSheetsFilePath);
+        Optional<JsonSerializableCheatSheet> jsonCheatSheet;
+        try {
+            jsonCheatSheet = JsonUtil.readJsonFile(
+                    cheatSheetsFilePath, JsonSerializableCheatSheet.class);
+        } catch (DataConversionException ex) {
+            throw new CheatSheetDataConversionException(ex);
+        }
+        if (!jsonCheatSheet.isPresent()) {
+            return Optional.empty();
+        } else {
+            try {
+                StudyBuddyPro studyBuddyProWithReadCheatSheets = new StudyBuddyPro();
+                jsonCheatSheet.get().toModelType(studyBuddyProWithReadCheatSheets);
+                return Optional.of(studyBuddyProWithReadCheatSheets);
+            } catch (IllegalValueException ive) {
+                logger.info("Illegal values found in " + cheatSheetsFilePath + ": " + ive.getMessage());
+                throw new CheatSheetDataConversionException(ive);
+            }
         }
     }
 

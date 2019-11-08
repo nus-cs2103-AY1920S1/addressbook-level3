@@ -56,11 +56,22 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
     public StudyBuddyPro() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a StudyBuddyPro using the data in the {@code toBeCopied}
      */
     public StudyBuddyPro(ReadOnlyStudyBuddyPro toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    /**
+     * Creates a StudyBuddyPro using the data in the {@code flashcardsToBeCopied}, {@code notesToBeCopied} and
+     * {@code cheatSheetsToBeCopied}
+     */
+    public StudyBuddyPro(ReadOnlyStudyBuddyProFlashcards flashcardsToBeCopied,
+                         ReadOnlyStudyBuddyProNotes notesToBeCopied,
+                         ReadOnlyStudyBuddyProCheatSheets cheatSheetsToBeCopied) {
+        this();
+        resetData(flashcardsToBeCopied, notesToBeCopied, cheatSheetsToBeCopied);
     }
 
     /**
@@ -73,6 +84,21 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         setFlashcards(newData.getFlashcardList());
         setCheatSheets(newData.getCheatSheetList());
         setTags(newData.getTagList());
+    }
+
+    /**
+     * Resets the existing data of this {@code StudyBuddyPro} with {@code newFlashcards}, {@code newNotes} and
+     * {@code newCheatSheets}.
+     */
+    public void resetData(ReadOnlyStudyBuddyProFlashcards newFlashcards, ReadOnlyStudyBuddyProNotes newNotes,
+                          ReadOnlyStudyBuddyProCheatSheets newCheatSheets) {
+        requireNonNull(newFlashcards);
+        requireNonNull(newNotes);
+        requireNonNull(newCheatSheets);
+
+        setFlashcards(newFlashcards.getFlashcardList());
+        setNotes(newNotes.getNoteList());
+        setCheatSheets(newCheatSheets.getCheatSheetList());
     }
 
     @Override

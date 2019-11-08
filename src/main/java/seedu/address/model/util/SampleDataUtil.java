@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.StudyBuddyPro;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Title;
+import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,12 +60,14 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyStudyBuddyPro getSampleStudyBuddyPro() {
-        StudyBuddyPro sampleSbp = new StudyBuddyPro();
-        for (Flashcard sampleFlashcard : getSampleFlashcards()) {
-            sampleSbp.addFlashcard(sampleFlashcard);
-        }
-        return sampleSbp;
+    public static Note[] getSampleNotes() {
+        return new Note[] {
+            new Note(new seedu.address.model.note.Title("Pipelining Notes"),
+                    new seedu.address.model.note.Content("Pipelining is the process of accumulating instruction from "
+                            + "the processor through a pipeline. It allows storing and executing instructions in "
+                            + "an orderly process."),
+                    getTagSet("CS2100"))
+        };
     }
 
     /**

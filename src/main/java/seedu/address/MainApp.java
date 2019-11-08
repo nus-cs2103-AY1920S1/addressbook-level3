@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -10,7 +11,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.exceptions.CheatSheetDataConversionException;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.FlashcardDataConversionException;
+import seedu.address.commons.exceptions.NoteDataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -18,6 +22,9 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
+import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
+import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.UserPrefs;
@@ -73,26 +80,100 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
      * The data from the sample StudyBuddyPro will be used instead if {@code storage}'s StudyBuddyPro is not found,
-     * or if errors occur when reading {@code storage}'s StudyBuddyPro.
+     * or if errors occur when reading {@code storage}'s StudyBuddyPro. TO CHANGE
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyStudyBuddyPro> studyBuddyProOptional;
-        ReadOnlyStudyBuddyPro initialData;
-        try {
-            studyBuddyProOptional = storage.readStudyBuddyPro();
-            if (!studyBuddyProOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample StudyBuddyPro");
-            }
-            initialData = studyBuddyProOptional.orElseGet(SampleDataUtil::getSampleStudyBuddyPro);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty StudyBuddyPro");
-            initialData = new StudyBuddyPro();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty StudyBuddyPro");
-            initialData = new StudyBuddyPro();
-        }
+
+        StudyBuddyPro initialData = new StudyBuddyPro();
+        initialData = initModelManagerFlashcardHelper(storage, initialData);
+        initialData = initModelManagerNoteHelper(storage, initialData);
+        initialData = initModelManagerCheatSheetHelper(storage, initialData);
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     *
+     * @param storage
+     * @param initialData
+     * @return
+     */
+    private StudyBuddyPro initModelManagerFlashcardHelper(Storage storage, StudyBuddyPro initialData) {
+        Optional<ReadOnlyStudyBuddyProFlashcards> studyBuddyProFlashcardsOptional;
+        try {
+            studyBuddyProFlashcardsOptional = storage.readStudyBuddyProFlashcards();
+            if (studyBuddyProFlashcardsOptional.isEmpty()) {
+                logger.info("Flashcards data file not found. Will be starting with sample flashcards");
+                initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
+            } else {
+                initialData.setFlashcards(studyBuddyProFlashcardsOptional.get().getFlashcardList());
+            }
+        } catch (FlashcardDataConversionException e) {
+            logger.warning("Flashcards data file not in the correct format. Will be starting with sample "
+                    + "flashcards and continue checking for notes and cheatsheet data files");
+            initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
+        } catch (IOException e) {
+            logger.warning("Problem while reading from flashcard data file. Will be starting with sample "
+                    + "flashcards and continue checking for notes and cheatsheet data files");
+            initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
+        } finally {
+            return initialData;
+        }
+    }
+
+    /**
+     *
+     * @param storage
+     * @param initialData
+     * @return
+     */
+    private StudyBuddyPro initModelManagerNoteHelper(Storage storage, StudyBuddyPro initialData) {
+        Optional<ReadOnlyStudyBuddyProNotes> studyBuddyProNotesOptional;
+        try {
+            studyBuddyProNotesOptional = storage.readStudyBuddyProNotes();
+            if (studyBuddyProNotesOptional.isEmpty()) {
+                logger.info("Notes data file not found. Will be starting with sample notes");
+                initialData.setNotes(Arrays.asList(SampleDataUtil.getSampleNotes()));
+            } else {
+                initialData.setNotes(studyBuddyProNotesOptional.get().getNoteList());
+            }
+        } catch (NoteDataConversionException e) {
+            logger.warning("Notes data file not in the correct format. Will be starting with sample "
+                    + "notes and continue checking for cheatsheet data file");
+            initialData.setNotes(Arrays.asList(SampleDataUtil.getSampleNotes()));
+        } catch (IOException e) {
+            logger.warning("Problem while reading from notes data file. Will be starting with sample "
+                    + "notes and continue checking for cheatsheet data file");
+            initialData.setNotes(Arrays.asList(SampleDataUtil.getSampleNotes()));
+        } finally {
+            return initialData;
+        }
+    }
+
+    /**
+     *
+     * @param storage
+     * @param initialData
+     * @return
+     */
+    private StudyBuddyPro initModelManagerCheatSheetHelper(Storage storage, StudyBuddyPro initialData) {
+        Optional<ReadOnlyStudyBuddyProCheatSheets> studyBuddyProCheatSheetsOptional;
+        try {
+            studyBuddyProCheatSheetsOptional = storage.readStudyBuddyProCheatSheets();
+            if (studyBuddyProCheatSheetsOptional.isEmpty()) {
+                logger.info("Cheatsheets data file not found. Will be starting with empty cheatsheets");
+            } else {
+                initialData.setCheatSheets(studyBuddyProCheatSheetsOptional.get().getCheatSheetList());
+            }
+        } catch (CheatSheetDataConversionException e) {
+            logger.warning("Cheatsheets data file not in the correct format. Will be starting with empty "
+                    + "cheatsheets");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from cheatsheet data file. Will be starting with empty "
+                    + "cheatsheets");
+        } finally {
+            return initialData;
+        }
     }
 
     private void initLogging(Config config) {
