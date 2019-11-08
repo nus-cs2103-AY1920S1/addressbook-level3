@@ -310,7 +310,7 @@ public class Deck implements JsonInterface {
         }
 
         int sizeOfHighPrioritySet = 6;
-        if (highPriorityQueue.size() < 6){
+        if (highPriorityQueue.size() < 6) {
             sizeOfHighPrioritySet = highPriorityQueue.size();
         }
         int sizeOfLowPrioritySet = 10 - sizeOfHighPrioritySet;
