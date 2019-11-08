@@ -13,7 +13,6 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.events.Event;
 import seedu.planner.logic.events.EventFactory;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.parser.PlannerParser;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
@@ -46,7 +45,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, EventException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -54,11 +53,6 @@ public class LogicManager implements Logic {
 
         commandResult = command.execute(model);
 
-        if (command instanceof UndoableCommand) {
-            Event undoableEvent = EventFactory.parse((UndoableCommand) command, model);
-            CommandHistory.addToUndoStack(undoableEvent);
-            CommandHistory.clearRedoStack();
-        }
         try {
             storage.setAccommodationFilePath(model.getAccommodationFilePath());
             storage.setActivityFilePath(model.getActivityFilePath());

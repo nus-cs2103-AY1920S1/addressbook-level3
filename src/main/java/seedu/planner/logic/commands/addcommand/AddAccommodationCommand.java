@@ -12,12 +12,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
+import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
@@ -82,42 +86,31 @@ public class AddAccommodationCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        Accommodation accommodationAdded;
         if (model.hasAccommodation(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
         }
 
-        if (toAdd.getContact().isPresent()) {
-            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
-                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
-                Accommodation linkedAccommodation = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
-                        toAdd.getTags());
-                model.addAccommodation(linkedAccommodation);
-                return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, linkedAccommodation),
-                    new ResultInformation[] {
-                        new ResultInformation(
-                                linkedAccommodation,
-                                findIndexOfAccommodation(model, linkedAccommodation),
-                                String.format(MESSAGE_SUCCESS, "")
-                        )
-                    },
-                    new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
-                );
-            } else {
-                if (index == null) {
-                    model.addAccommodation(toAdd);
-                } else {
-                    model.addAccommodationAtIndex(index, toAdd);
-                }
-            }
+        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
+            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+            accommodationAdded = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
+                    toAdd.getTags());
         } else {
-            if (index == null) {
-                model.addAccommodation(toAdd);
-            } else {
-                model.addAccommodationAtIndex(index, toAdd);
-            }
+            accommodationAdded = toAdd;
         }
+
+         if (index == null) {
+             //Not due to undo method
+             AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded);
+             Event addAccommodationEvent = EventFactory.parse(newCommand, model);
+             CommandHistory.addToUndoStack(addAccommodationEvent);
+             CommandHistory.clearRedoStack();
+             model.addAccommodation(accommodationAdded);
+         } else {
+             //Due to undo method
+             model.addAccommodationAtIndex(index, accommodationAdded);
+         }
+
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, toAdd),
             new ResultInformation[]{

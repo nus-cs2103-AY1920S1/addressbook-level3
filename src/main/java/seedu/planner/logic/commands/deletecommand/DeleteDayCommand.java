@@ -6,11 +6,14 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.Day;
 
@@ -37,12 +40,27 @@ public class DeleteDayCommand extends DeleteCommand {
 
     private final Index targetIndex;
 
+    private final Day toDelete;
+
     public DeleteDayCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+        this.targetIndex = targetIndex;
+        toDelete = null;
+    }
+
+    //Constructor used to create DeleteDayEvent
+    public DeleteDayCommand(Index targetIndex, Day day) {
+        requireNonNull(day);
+        toDelete = day;
         this.targetIndex = targetIndex;
     }
 
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    public Day getToDelete() {
+        return toDelete;
     }
 
     @Override
@@ -52,6 +70,7 @@ public class DeleteDayCommand extends DeleteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        //Not due to undo method
         requireNonNull(model);
         List<Day> lastShownList = model.getFilteredItinerary();
 
@@ -60,6 +79,12 @@ public class DeleteDayCommand extends DeleteCommand {
         }
 
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
+        Event deleteDayEvent = EventFactory.parse(newCommand, model);
+        CommandHistory.addToUndoStack(deleteDayEvent);
+        CommandHistory.clearRedoStack();
+
         model.deleteDay(dayToDelete);
         return new CommandResult(
             String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()),

@@ -15,7 +15,6 @@ import seedu.planner.logic.events.add.AddEventFactory;
 import seedu.planner.logic.events.clear.ClearEvent;
 import seedu.planner.logic.events.delete.DeleteEventFactory;
 import seedu.planner.logic.events.edit.EditEventFactory;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.events.optimise.OptimiseBudgetEvent;
 import seedu.planner.logic.events.schedule.AutoScheduleEvent;
 import seedu.planner.logic.events.schedule.ScheduleEvent;
@@ -26,18 +25,14 @@ import seedu.planner.model.Model;
  * A factory class to generate the corresponding events according to the command input.
  */
 public class EventFactory {
-    private static final String MESSAGE_COMMAND_ERROR = "\'%1$s\' command is not undoable.";
 
     /**
      * A static method to parse the command and generate the corresponding event.
      * @param command Command to be parsed.
-     * @param model Current model of the application.
      * @return Corresponding event for the command parsed.
-     * @throws EventException
      */
-    public static Event parse(UndoableCommand command, Model model) throws EventException {
+    public static Event parse(UndoableCommand command, Model model) {
         requireNonNull(command);
-        requireNonNull(model);
 
         String commandWord = command.getCommandWord();
 
@@ -46,16 +41,16 @@ public class EventFactory {
             return AddEventFactory.parse((AddCommand) command);
 
         case (DeleteCommand.COMMAND_WORD):
-            return DeleteEventFactory.parse((DeleteCommand) command, model);
+            return DeleteEventFactory.parse((DeleteCommand) command);
 
         case (EditCommand.COMMAND_WORD):
-            return EditEventFactory.parse((EditCommand) command, model);
+            return EditEventFactory.parse((EditCommand) command);
 
         case (ClearCommand.COMMAND_WORD):
             return generateClearEvent(model);
 
         case(ScheduleCommand.COMMAND_WORD):
-            return generateScheduleEvent((ScheduleCommand) command, model);
+            return generateScheduleEvent((ScheduleCommand) command);
 
         case(UnscheduleCommand.COMMAND_WORD):
             return generateUnscheduleEvent((UnscheduleCommand) command, model);
@@ -67,7 +62,7 @@ public class EventFactory {
             return generateOptimizeBudgetEvent((OptimiseCommand) command, model);
 
         default:
-            throw new EventException(String.format(MESSAGE_COMMAND_ERROR, commandWord));
+            return null;
         }
     }
 
@@ -75,11 +70,11 @@ public class EventFactory {
         return new ClearEvent(model);
     }
 
-    private static Event generateScheduleEvent(ScheduleCommand command, Model model) throws EventException {
+    private static Event generateScheduleEvent(ScheduleCommand command, Model model) {
         return new ScheduleEvent(command.getActivityIndex(), command.getStartTime(), command.getDayIndex(), model);
     }
 
-    private static Event generateUnscheduleEvent(UnscheduleCommand command, Model model) throws EventException {
+    private static Event generateUnscheduleEvent(UnscheduleCommand command, Model model) {
         return new UnscheduleEvent(command.getActivityIndexToUnschedule(), command.getDayIndex(), model);
     }
 

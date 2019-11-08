@@ -20,12 +20,15 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
@@ -71,7 +74,7 @@ public class EditAccommodationCommand extends EditCommand {
 
     private final Index index;
     private final EditAccommodationDescriptor editAccommodationDescriptor;
-    private final boolean isUndo;
+    private final Accommodation accommodation;
     /**
      * @param index of the accommodation in the filtered accommodation list to edit
      */
@@ -79,15 +82,16 @@ public class EditAccommodationCommand extends EditCommand {
         requireAllNonNull(index, editAccommodationDescriptor);
         this.index = index;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
-        isUndo = false;
+        accommodation = null;
     }
 
+    //Constructor used to undo or generate EditAccommodationEvent
     public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor,
-                                    boolean isUndo) {
-        requireAllNonNull(index, editAccommodationDescriptor, isUndo);
+                                    Accommodation accommodation) {
+        requireAllNonNull(index, accommodation);
         this.index = index;
+        this.accommodation = accommodation;
         this.editAccommodationDescriptor = editAccommodationDescriptor;
-        this.isUndo = isUndo;
     }
 
     public Index getIndex() {
@@ -96,6 +100,10 @@ public class EditAccommodationCommand extends EditCommand {
 
     public EditAccommodationDescriptor getEditAccommodationDescriptor() {
         return editAccommodationDescriptor;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
     }
 
     @Override
@@ -115,12 +123,21 @@ public class EditAccommodationCommand extends EditCommand {
         Accommodation accommodationToEdit = lastShownList.get(index.getZeroBased());
         Index accommodationToEditIndex = findIndexOfAccommodation(model, accommodationToEdit);
 
-        Accommodation editedAccommodation = createEditedAccommodation(accommodationToEdit,
-                editAccommodationDescriptor, model, isUndo);
+        Accommodation editedAccommodation;
+        editedAccommodation = (accommodation == null) ? createEditedAccommodation(accommodationToEdit,
+                editAccommodationDescriptor, model) : accommodation;
 
         if (!accommodationToEdit.isSameAccommodation(editedAccommodation)
                 && model.hasAccommodation(editedAccommodation)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
+        }
+
+        if (accommodation == null) {
+            //Not due to undo method
+            EditAccommodationCommand newCommand = new EditAccommodationCommand(index, editAccommodationDescriptor, accommodationToEdit);
+            Event editAccommodationEvent = EventFactory.parse(newCommand, model);
+            CommandHistory.addToUndoStack(editAccommodationEvent);
+            CommandHistory.clearRedoStack();
         }
 
         model.setAccommodation(accommodationToEdit, editedAccommodation);
@@ -149,21 +166,19 @@ public class EditAccommodationCommand extends EditCommand {
      */
     private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
                                                            EditAccommodationDescriptor editAccommodationDescriptor,
-                                                           Model model,
-                                                           boolean isUndo) {
+                                                           Model model) {
         assert accommodationToEdit != null;
 
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
-        Contact updatedContact = !editAccommodationDescriptor.getPhone().isPresent() && isUndo
-                ? null
-                : editAccommodationDescriptor.getPhone().isPresent()
-                ? model.hasPhone(editAccommodationDescriptor.getPhone().get())
-                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
-                : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
-                : accommodationToEdit.getContact().isPresent()
+        Contact updatedContact = !editAccommodationDescriptor.getPhone().isPresent()
+                ? accommodationToEdit.getContact().isPresent()
                 ? accommodationToEdit.getContact().get()
-                : null;
+                : null
+                : model.hasPhone(editAccommodationDescriptor.getPhone().get())
+                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
+                : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>());
+
         Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(accommodationToEdit.getTags());
 
         return new Accommodation(updatedName, updatedAddress, updatedContact, updatedTags);

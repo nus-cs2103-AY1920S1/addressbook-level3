@@ -4,11 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
+import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.Day;
 
@@ -54,7 +59,7 @@ public class AddDayCommand extends AddCommand {
         requireAllNonNull(index, dayToAdd);
         this.index = index;
         this.dayToAdd = dayToAdd;
-        toAdd = 0;
+        toAdd = 1;
     }
 
     public int getToAdd() {
@@ -74,8 +79,13 @@ public class AddDayCommand extends AddCommand {
             throw new CommandException(MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED);
         }
         if (index == null && dayToAdd == null) {
+            //Not due to undo method
+            Event addDayEvent = EventFactory.parse(this, model);
+            CommandHistory.addToUndoStack(addDayEvent);
+            CommandHistory.clearRedoStack();
             model.addDays(toAdd);
         } else {
+            //Due to undo method
             model.addDayAtIndex(index, dayToAdd);
         }
         return new CommandResult(

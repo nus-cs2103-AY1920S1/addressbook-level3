@@ -23,7 +23,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.planner.logic.commands.exceptions.CommandException;
 //import seedu.planner.logic.commands.listcommand.ListContactCommand;
 import seedu.planner.logic.commands.result.CommandResult;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 import seedu.planner.model.Model;
@@ -129,7 +128,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException, EventException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);

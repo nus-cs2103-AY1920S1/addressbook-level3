@@ -6,7 +6,6 @@ import seedu.planner.logic.commands.addcommand.AddCommand;
 import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
@@ -15,15 +14,12 @@ import seedu.planner.model.contact.Contact;
  * A factory class to generate the corresponding add Events according to the add Commands parsed.
  */
 public class AddEventFactory {
-    public static final String MESSAGE_NOT_UNDOABLE = "The following command \'%1$s\' \'%2$s\' is not undoable";
-
     /**
      * A static method to generate the add events based on the add commands parsed.
      * @param command Add Command to be parsed.
      * @return Corresponding event representing the add command parsed.
-     * @throws EventException
      */
-    public static Event parse(AddCommand command) throws EventException {
+    public static Event parse(AddCommand command) {
         String secondCommandWord = command.getSecondCommandWord();
 
         switch(secondCommandWord) {
@@ -43,9 +39,7 @@ public class AddEventFactory {
             AddDayCommand tempCommand4 = (AddDayCommand) command;
             return generateAddDayEvent(tempCommand4.getToAdd());
         default:
-            throw new EventException(
-                    String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
-            );
+            return null;
         }
     }
 
