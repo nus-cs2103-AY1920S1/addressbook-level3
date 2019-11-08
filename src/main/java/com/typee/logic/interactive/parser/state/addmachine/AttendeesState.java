@@ -11,6 +11,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.AttendeeList;
 
+/**
+ * Represents the state of the finite state machine that builds the {@code AddCommand}.
+ * Handles input of the list of attendees.
+ */
 public class AttendeesState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the list of attendees separated by vertical lines"

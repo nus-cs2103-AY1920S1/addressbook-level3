@@ -11,6 +11,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.EngagementType;
 
+/**
+ * Represents the initial state of the finite state machine that builds the {@code AddCommand}.
+ */
 public class TypeState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Add Command initiated. Please enter a valid engagement type"
@@ -61,11 +64,4 @@ public class TypeState extends State {
         return PREFIX_ENGAGEMENT_TYPE;
     }
 
-    /*
-    private void collateArguments(ArgumentMultimap newArgs) {
-        String engagementType = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE).get();
-        soFar.put(PREFIX_ENGAGEMENT_TYPE, engagementType);
-        newArgs.clearValues(PREFIX_ENGAGEMENT_TYPE);
-    }
-     */
 }

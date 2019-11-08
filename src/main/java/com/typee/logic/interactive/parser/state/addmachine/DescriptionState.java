@@ -10,6 +10,10 @@ import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the state of the finite state machine that builds the {@code AddCommand}.
+ * Handles input of the description.
+ */
 public class DescriptionState extends State {
 
     private static final String MESSAGE_INVALID_DESCRIPTION = "The description of an engagement cannot be empty.";

@@ -12,6 +12,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.Priority;
 
+/**
+ * Represents the penultimate state of the finite state machine that builds the {@code AddCommand}.
+ * Handles input of the priority level.
+ */
 public class PriorityState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "The priority of an engagement can be LOW, MEDIUM, HIGH or NONE."

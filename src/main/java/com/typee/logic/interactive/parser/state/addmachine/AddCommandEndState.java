@@ -27,6 +27,10 @@ import com.typee.model.engagement.Priority;
 import com.typee.model.engagement.TimeSlot;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
 
+/**
+ * Represents the end state (accepting state) of the finite state machine that builds the {@code AddCommand}.
+ * Builds the {@code AddCommand} from the input parameters.
+ */
 public class AddCommandEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Engagement successfully added!";

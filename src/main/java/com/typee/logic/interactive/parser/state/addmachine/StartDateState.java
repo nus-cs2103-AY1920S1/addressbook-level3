@@ -11,6 +11,10 @@ import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
+/**
+ * Represents the state of the finite state machine that builds the {@code AddCommand}.
+ * Handles input of the start date.
+ */
 public class StartDateState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter a start date and time prefixed by \"s/\"."

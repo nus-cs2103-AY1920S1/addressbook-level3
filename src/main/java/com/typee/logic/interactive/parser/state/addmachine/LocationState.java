@@ -11,6 +11,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.Location;
 
+/**
+ * Represents the state of the finite state machine that builds the {@code AddCommand}.
+ * Handles input of the location.
+ */
 public class LocationState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Please enter the location of the meeting,"
