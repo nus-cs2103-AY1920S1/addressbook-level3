@@ -8,18 +8,18 @@
 == Overview
 
 LiBerry is a desktop library management application for librarians to manage their books, borrowers and loans.
-It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby commands are typed into the software. +
+It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby interactions
+with the software are done through text commands. +
 
 Main features of LiBerry:
 
-* Add and remove books
-* Comprehensive search system to look for books
+* Manage and search for books
 * Register new borrowers
-* Manage loaning and returning of books
-* Track overdue fines payment
+* Handle loaning and returning of books
+* Record overdue fines payment
 
 This portfolio serves to demonstrate my proficiency in the various aspects of software engineering such as coding,
-technical writing skills in crafting documentation that fits the target user and also, my project management capabilities. +
+project management and technical writing skills in crafting documentation that fits the target user. +
 
 My role was to design and implement the code for the loan-related features. The following sections further elaborates on these
 enhancements I have made. Also included are the details of the relevant documentation I have written in the user and developer guide to
@@ -48,12 +48,10 @@ to deter late returns.
 ==== Highlights
 
 The implementation of these features was challenging as a whole new set of code had to be written to model each loan occurrence
-and to store these information. The book, borrower and the loan object had to be linked efficiently to reduce duplicated information stored. +
-
+and to store these information. The book, borrower and the loan object had to be linked efficiently to reduce duplicated information stored.
 Moreover, a great deal of defensive programming was applied as there were many bounds to each of these features. For
 example, these features should only work when certain conditions are met, such as when the user is currently serving borrowers
-and the inputs correspond to a book that is not on loan. +
-
+and the inputs correspond to a book that is not on loan.
 Additionally, I also created utility classes like `DateUtil` and `FineUtil` to centralize utility functions that dealt with
 dates and fines respectively.
 
@@ -68,10 +66,10 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seeziyang[
 * Managed the https://github.com/AY1920S1-CS2103T-F13-1/main/issues[issues] covered for each milestone and set up their deadlines. Also added each feature as an issue and
 assigned them to the appropriate team member.
 
-* Set up two Github https://github.com/AY1920S1-CS2103T-F13-1/main/projects/[project boards], one used to brainstorm and prioritize user stories,
-and one to keep track of the features and commands..
+* Set up two Github https://github.com/AY1920S1-CS2103T-F13-1/main/projects/[project boards], one to brainstorm and prioritize user stories,
+and another to keep track of the features and commands.
 
-* Updated developer guide to include user stories, use cases and non-functional requirements. Done through pull requests:
+* Updated the developer guide to include user stories, use cases and non-functional requirements. Done through pull requests:
 
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/81[#81] - Included user stories and non-functional requirements specific to LiBerry.
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157] - Updated non-functional requirements and use cases and added a general use case diagram.
@@ -126,10 +124,6 @@ test coverage of our team's code.
 == Contributions to the User Guide
 
 Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
-
-include::../UserGuide.adoc[tag=quickStart]
-
-'''
 
 include::../UserGuide.adoc[tag=loanRelated]
 
