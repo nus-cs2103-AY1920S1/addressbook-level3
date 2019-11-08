@@ -101,20 +101,26 @@ public class CommandTestUtil {
     public static final String TAG_DESC_MODULE = " " + PREFIX_TAG + VALID_TAG_MODULE;
 
     public static final String VALID_TITLE_SAMPLE = "Sample title";
-    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition";
+    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition.";
     public static final String VALID_CONTENT_SAMPLE = "Sample Content";
     public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
             + "multiple instructions simultaneously.";
+    public static final String VALID_TITLE_FRAGMENT = "Fragment Title?";
+    public static final String VALID_CONTENT_FRAGMENT = "/* C/This TAG/test */is a /* C/Note Fragment TAG/test */. "
+            + "It discusses all the possible /* C/probabilities TAG/test */??? of things that you might /* C/do. "
+            + "TAG/test */";
     public static final String VALID_TAG_CS2100 = "CS2100";
     public static final String VALID_TAG_MIDTERMS = "Midterms";
 
     public static final String VALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + VALID_TITLE_PIPELINE;
     public static final String VALID_NOTE_CONTENT_PIPELINE = SPACE + PREFIX_CONTENT + VALID_CONTENT_PIPELINE;
+    public static final String VALID_NOTE_TITLE_FRAGMENT = SPACE + PREFIX_TITLE + VALID_TITLE_FRAGMENT;
+    public static final String VALID_NOTE_CONTENT_FRAGMENT = SPACE + PREFIX_CONTENT + VALID_CONTENT_FRAGMENT;
     public static final String VALID_NOTE_TAG_1_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_CS2100;
     public static final String VALID_NOTE_TAG_2_PIPELINE = SPACE + PREFIX_TAG + VALID_TAG_MIDTERMS;
 
-    public static final String INVALID_NOTE_TITLE = "*";
-    public static final String INVALID_NOTE_CONTENT = " ";
+    public static final String INVALID_NOTE_TITLE = " \t\r\n";
+    public static final String INVALID_NOTE_CONTENT = " \t\r\n";
     public static final String INVALID_NOTE_TAG = "Two words";
 
     public static final String INVALID_NOTE_TITLE_PIPELINE = SPACE + PREFIX_TITLE + INVALID_NOTE_TITLE;
@@ -123,9 +129,13 @@ public class CommandTestUtil {
 
     public static final String EXPECTED_VIEW_SAMPLE = "Viewing note: \n\tTitle: Sample Title\n\tContent: Sample "
             + "Content\n\tTags: [sampletag2][sampletag1]";
-    public static final String EXPECTED_VIEW_PIPELINE = "\nTitle: Pipelining Definition\nContent: Pipelining is the "
-            + "process of making a single processor run multiple instructions simultaneously.\nTags: [CS2100] "
-            + "[Midterms]";
+    public static final String EXPECTED_VIEW_FRAGMENT = "Viewing note: \n\tTitle: Fragment Title?\n\tContent: This"
+            + "is a Note Fragment. It discusses all the possible probabilities??? of things that you might do."
+            + "\n\tTags: [cs2100][midterms]";
+    public static final String EXPECTED_RAW_VIEW_FRAGMENT = "Viewing raw note: \n\tTitle: Fragment Title?\n\tContent: "
+            + "/* C/This TAG/test */is a /* C/Note Fragment TAG/test */. It discusses all the possible /* "
+            + "C/probabilities TAG/test */??? of things that you might /* C/do. TAG/test */\n\tTags: "
+            + "[cs2100][midterms]";
     public static final String EXPECTED_LIST_RESULT = "1. Sample Title - Sample Content\n2. Pipelining Definition - "
             + "Pipelining is the process of making a single processor run multiple instructions simultaneously.\n3. "
             + "Potatoes - I really like potatoes.";
@@ -171,10 +181,11 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-
             logger.info("expectedCommandResult\n" + expectedCommandResult.getFeedbackToUser());
             logger.info("result\n" + result.getFeedbackToUser());
-
+            logger.info("Are the CommandResults equal: " + expectedCommandResult.equals(result));
+            logger.info("Are the CommandResult feedbacks equal: " + expectedCommandResult.getFeedbackToUser()
+                    .equals(result.getFeedbackToUser()));
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

@@ -55,20 +55,22 @@ public class DeleteCheatSheetCommand extends Command {
                 + "\n" + cheatsheetToDelete
                 + "\n" + String.format(MESSAGE_CONFIRM_DELETE, this.targetIndex.getOneBased())));
 
-        if (CommandHistory.getLastCommand().get() instanceof DeleteCheatSheetCommand) {
-            if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
-                    .equals(this.targetIndex)) {
-                // correct. allow delete
-                int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+        if (CommandHistory.getLastCommand().isPresent()) {
+            if (CommandHistory.getLastCommand().get() instanceof DeleteCheatSheetCommand) {
+                if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
+                        .equals(this.targetIndex)) {
+                    // correct. allow delete
+                    int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
 
-                model.deleteCheatSheet(cheatsheetToDelete);
+                    model.deleteCheatSheet(cheatsheetToDelete);
 
-                int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
-                // to assert that one cheatsheet got deleted
-                assert(newAmountOfCheatSheets == currentAmountOfCheatSheets - 1);
+                    int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+                    // to assert that one cheatsheet got deleted
+                    assert (newAmountOfCheatSheets == currentAmountOfCheatSheets - 1);
 
-                commandResult = new CheatSheetCommandResult(String.format
-                        (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+                    commandResult = new CheatSheetCommandResult(String.format
+                            (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+                }
             }
         }
         return commandResult;
