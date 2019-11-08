@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -22,7 +22,7 @@ Event -up-|> Task
 Deadline -up-|> Task
 Todo -up-|> Task
 Task *-left-> "*" Tag
-Task *-right-> "0...1" Priority
-Task *-up-> "0...1" Frequency
+Task *-right-> "0..1" Priority
+Task *-right-> "0..1" Frequency
 
 @enduml

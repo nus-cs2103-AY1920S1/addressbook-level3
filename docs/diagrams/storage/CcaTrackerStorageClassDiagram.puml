@@ -9,8 +9,8 @@ Class JsonAdaptedCca
 Class JsonAdaptedEquipment
 Class JsonAdaptedCcaProgress
 
-JsonSerializableCcaTracker o-down-> JsonAdaptedCca
-JsonAdaptedCca o-down-> JsonAdaptedEquipment
-JsonAdaptedCca -down-> JsonAdaptedCcaProgress
+JsonSerializableCcaTracker o-down-> "*" JsonAdaptedCca
+JsonAdaptedCca o-down-> "*" JsonAdaptedEquipment
+JsonAdaptedCca -down-> "1" JsonAdaptedCcaProgress
 
 @enduml

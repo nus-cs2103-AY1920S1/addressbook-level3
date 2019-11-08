@@ -34,7 +34,7 @@ import seedu.jarvis.model.viewstatus.ViewStatus;
 import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Jarvis.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -511,6 +511,12 @@ public class ModelManager implements Model {
     public void addCca(Cca cca) {
         requireNonNull(cca);
         ccaTracker.addCca(cca);
+    }
+
+    @Override
+    public void addCca(Index targetIndex, Cca deletedCca) {
+        requireAllNonNull(targetIndex, deletedCca);
+        ccaTracker.addCca(targetIndex, deletedCca);
     }
 
     @Override

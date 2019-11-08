@@ -91,8 +91,6 @@ public class CcaList {
 
     /**
      * Adds an cca to the cca list.
-     *
-     * @param cca
      */
     public void addCca(Cca cca) {
         requireNonNull(cca);
@@ -101,6 +99,18 @@ public class CcaList {
         }
 
         internalCcaList.add(cca);
+    }
+
+    /**
+     * Adds a cca {@code cca} to the cca list at the specified {@code targetIndex}.
+     */
+    public void addCca(Index targetIndex, Cca cca) {
+        requireAllNonNull(targetIndex, cca);
+        if (internalCcaList.contains(cca)) {
+            throw new DuplicateCcaException();
+        }
+
+        internalCcaList.add(targetIndex.getZeroBased(), cca);
     }
 
     /**

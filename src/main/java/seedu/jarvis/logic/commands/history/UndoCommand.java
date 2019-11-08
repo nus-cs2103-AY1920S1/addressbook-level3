@@ -1,5 +1,7 @@
 package seedu.jarvis.logic.commands.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
@@ -17,8 +19,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": undo actions. "
-            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
-            + "invalid numbers will set UNDO to default value of 1) "
+            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number, "
             + "Example: " + COMMAND_WORD
             + ", " + COMMAND_WORD + " " + "5";
 
@@ -88,6 +89,10 @@ public class UndoCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        assert numberOfTimes > 0 : "numberOfTimes should not be less than 1";
+
         if (!model.canRollback()) {
             throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
         }
@@ -115,6 +120,8 @@ public class UndoCommand extends Command {
      * @return The number of successful rollbacks made.
      */
     private int rollbackCommands(Model model) {
+        requireNonNull(model);
+
         int numberOfRollbacks = 0;
         while (numberOfRollbacks < numberOfTimes && model.rollback()) {
             ++numberOfRollbacks;
