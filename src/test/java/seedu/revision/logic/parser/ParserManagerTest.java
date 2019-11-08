@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
 
 import java.util.ArrayList;
 import java.util.Arrays;

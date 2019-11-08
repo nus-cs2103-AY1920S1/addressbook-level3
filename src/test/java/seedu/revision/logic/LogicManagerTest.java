@@ -10,7 +10,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DES
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_A;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_A;
 
 import java.io.IOException;
 import java.nio.file.Path;

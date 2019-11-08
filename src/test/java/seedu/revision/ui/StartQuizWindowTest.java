@@ -1,7 +1,7 @@
 package seedu.revision.ui;
 
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.Test;
 

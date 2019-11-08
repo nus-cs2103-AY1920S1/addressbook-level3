@@ -20,7 +20,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BET
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_B;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
 
 import org.junit.jupiter.api.Test;
 
