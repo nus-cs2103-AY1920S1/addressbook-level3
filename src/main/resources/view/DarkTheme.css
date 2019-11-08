@@ -41,6 +41,15 @@
     -fx-border-width: 0 0 2 0;
 }
 
+.label-header-title {
+	-fx-font-size: 18pt;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-style: italic;
+    -fx-text-fill: #53aaf1;
+    -fx-opacity: 1;
+    -fx-background-color: derive(#121924, 20%);
+}
+
 .text-area-profile {
     -fx-font-family: "Gill Sans MT";
     -fx-text-inner-colour: #ffffff;
