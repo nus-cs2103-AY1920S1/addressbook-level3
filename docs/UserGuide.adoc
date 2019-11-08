@@ -280,7 +280,11 @@ The undo sort command allows you to view the table of transactions in the order 
 [[findCommandHome]]
 ==== To Find Transactions that Match Keywords in the Home Tab
 This command transactions matching the specified keywords for viewing and for carrying out of subsequent commands,
-based on the filtered table of transactions shown.
+based on the filtered table of transactions shown. The subsequent commands will include: delete, edit and sort.
+
+[NOTE]
+An add command after a find command will cause the table to show all transactions. A find command will always
+find from the full list transactions and show the results.
 
 * Command:
 `find KEYWORDS`
