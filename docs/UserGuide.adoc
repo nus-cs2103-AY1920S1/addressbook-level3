@@ -378,11 +378,9 @@ The index *must be a positive integer* such as 1, 2 or 3, and must appear in the
 
 ==== Paying fines: `pay`
 
-Receive AMOUNT (in dollars) from the currently served borrower to pay off his/her outstanding fines. +
+Receive AMOUNT (in dollars and up to 2 decimal places) from the currently served borrower to pay off his/her outstanding fines. +
 
 Format: `pay $AMOUNT`
-
-IMPORTANT: `AMOUNT` can only have up to 2 decimal places.
 
 Examples:
 
