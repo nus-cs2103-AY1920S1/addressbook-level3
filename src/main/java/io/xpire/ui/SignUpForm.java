@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//@@author JermyTan
 /**
  * User sign up form.
  */
@@ -53,7 +54,7 @@ public class SignUpForm implements Initializable {
 
     @FXML
     void handleSignUp(ActionEvent event) {
-
+        System.out.println("Signed up!");
     }
 
     @Override

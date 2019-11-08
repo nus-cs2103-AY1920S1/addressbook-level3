@@ -13,7 +13,7 @@ import io.xpire.commons.util.StringUtil;
 
 //@@author JermyTan
 /**
- * Tests that a {@code Item}'s {@code Name} or {@code Tag} matches any of the keywords given.
+ * Tests if an {@code Item}'s {@code Name} or {@code Tag} matches any of the keywords given.
  */
 public class ContainsKeywordsPredicate implements Predicate<Item> {
     private final List<String> keywords;
@@ -52,6 +52,10 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
         return false;
     }
 
+    public List<String> getKeywords() {
+        return this.keywords;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -67,9 +71,5 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
     @Override
     public int hashCode() {
         return this.keywords.hashCode();
-    }
-
-    public List<String> getKeywords() {
-        return this.keywords;
     }
 }

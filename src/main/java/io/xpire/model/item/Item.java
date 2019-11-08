@@ -50,10 +50,20 @@ public class Item {
         this.tags = item.getTags();
     }
 
+    //@@author JermyTan
+    /**
+     * Returns a new {@code XpireItem} with the name and tags of the current item
+     * and the specified expiry date and quantity.
+     *
+     * @param expiryDate Expiry date of new {@code XpireItem}.
+     * @param quantity Quantity of new {@code XpireItem}.
+     * @return New {@code XpireItem}.
+     */
     public XpireItem remodel(ExpiryDate expiryDate, Quantity quantity) {
         return new XpireItem(this.name, expiryDate, quantity, this.tags);
     }
 
+    //@@author
     public Name getName() {
         return this.name;
     }
