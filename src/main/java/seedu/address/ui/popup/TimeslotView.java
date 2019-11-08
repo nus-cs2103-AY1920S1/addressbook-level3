@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**

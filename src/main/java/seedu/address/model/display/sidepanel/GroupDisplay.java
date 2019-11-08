@@ -8,7 +8,7 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Person;
 
 /**
- * Group display model
+ * Group display model.
  */
 public class GroupDisplay extends Display {
     private final GroupName groupName;
@@ -27,7 +27,7 @@ public class GroupDisplay extends Display {
     public GroupDisplay(ArrayList<Person> persons) {
         this.groupName = new GroupName("Temporary Group");
         String description = "A group of:\n";
-        for (Person person: persons) {
+        for (Person person : persons) {
             description += person.getName().toString() + "\n";
         }
         this.groupDescription = new GroupDescription(description);
@@ -40,5 +40,19 @@ public class GroupDisplay extends Display {
 
     public GroupDescription getGroupDescription() {
         return groupDescription;
+    }
+
+    /**
+     * Checks if this GroupDisplay is equal to another.
+     */
+    public boolean equals(GroupDisplay other) {
+        if (other == this) {
+            return true;
+        } else if (other != null) {
+            return this.groupName.equals(other.groupName)
+                    && this.groupDescription.equals(other.groupDescription);
+        } else {
+            return false;
+        }
     }
 }

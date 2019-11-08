@@ -4,8 +4,6 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import seedu.address.model.display.detailwindow.PersonSchedule;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -38,7 +36,7 @@ public class ScheduleWindowDisplay {
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
     }
 
-    public ScheduleWindowDisplay() {
+    /*public ScheduleWindowDisplay() {
         this.personSchedules = new ArrayList<>();
         this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
@@ -52,7 +50,7 @@ public class ScheduleWindowDisplay {
         this.groupDisplay = null;
 
         this.freeScheduleWeeks = null;
-    }
+    }*/
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
         return scheduleWindowDisplayType;
@@ -125,37 +123,6 @@ public class ScheduleWindowDisplay {
         PersonTimeslot personTimeslot = currentWeekSchedule.getPersonTimeslotForToday(id);
         return personTimeslot;
     }
-
-    /*public PersonTimeslot getPersonTimeslot(int week, Name name, int day, int id)
-            throws PersonNotFoundException, InvalidTimeslotException {
-
-        // week must be 0 - 3
-        //ArrayList<PersonSchedule> personSchedules = this.personSchedules.get(week);
-
-        // find the schedule of the person with the given name
-        PersonSchedule selectedPersonSchedule = null;
-        for (int i = 0; i < personSchedules.size(); i++) {
-            if (personSchedules.get(i).getPersonDisplay().getName().equals(name)) {
-                selectedPersonSchedule = personSchedules.get(i);
-            }
-        }
-
-        if (selectedPersonSchedule == null) {
-            throw new PersonNotFoundException();
-        }
-
-        // select the day of week
-        ArrayList<PersonTimeslot> personTimeslots = selectedPersonSchedule.getScheduleDisplay()
-                .getScheduleForWeek(week).get(DayOfWeek.of(day));
-
-        // select specific timeslot
-        try {
-            PersonTimeslot selectedPersonTimeslot = personTimeslots.get(id);
-            return selectedPersonTimeslot;
-        } catch (IndexOutOfBoundsException iobe) {
-            throw new InvalidTimeslotException();
-        }
-    }*/
 
     /**
      * For debugging purposes only.

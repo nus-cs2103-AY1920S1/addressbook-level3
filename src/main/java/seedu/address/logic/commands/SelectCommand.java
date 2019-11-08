@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;

@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.detailwindow.PersonSchedule;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.PersonSchedule;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
@@ -71,7 +71,6 @@ public class DisplayModelManager {
         return scheduleWindowDisplay.getScheduleWindowDisplayType();
     }
 
-
     /**
      * Updates with a schedule of a person specified by name.
      */
@@ -111,6 +110,8 @@ public class DisplayModelManager {
                     .findPersonsOfGroup(group.getGroupId());
 
             ArrayList<Person> persons = new ArrayList<>();
+
+            persons.add(timeBook.getPersonList().getUser());
 
             for (PersonId personId : personIds) {
                 persons.add(timeBook.getPersonList().findPerson(personId));
@@ -191,10 +192,8 @@ public class DisplayModelManager {
     private void updateScheduleWindowDisplay(Person person, LocalDateTime time, ScheduleWindowDisplayType type) {
         ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-        if (!type.equals(ScheduleWindowDisplayType.PERSON)
-                && !type.equals(ScheduleWindowDisplayType.HOME)) {
-            return;
-        }
+        assert(type.equals(ScheduleWindowDisplayType.PERSON)
+                        || type.equals(ScheduleWindowDisplayType.HOME));
 
         PersonSchedule personSchedule = generatePersonSchedule(
                 person.getName().toString(),

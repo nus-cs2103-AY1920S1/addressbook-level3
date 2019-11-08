@@ -21,7 +21,7 @@ import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
