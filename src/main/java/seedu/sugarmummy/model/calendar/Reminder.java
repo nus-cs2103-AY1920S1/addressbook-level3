@@ -51,9 +51,6 @@ public class Reminder extends CalendarEntry {
             return otherReminder.isOnDate(getDate());
         case Daily:
             switch (otherReminder.getRepetition()) {
-            case Once:
-            case Weekly:
-                return false;
             case Daily:
                 return otherReminder.isOnDate(getDate());
             default:
@@ -61,8 +58,6 @@ public class Reminder extends CalendarEntry {
             }
         case Weekly:
             switch (otherReminder.getRepetition()) {
-            case Once:
-                return false;
             case Daily:
             case Weekly:
                 return otherReminder.isOnDate(getDate());
@@ -141,8 +136,7 @@ public class Reminder extends CalendarEntry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Reminder: ")
-                .append(getDescription());
+        builder.append(getDescription());
         if (repetition.equals(Repetition.Once)) {
             builder.append(" On ")
                     .append(getDateTime());

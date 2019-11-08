@@ -67,7 +67,7 @@ public class EventCommand extends Command {
             try {
                 model.addCalendarEntry(toAdd.getAutoReminder().get());
                 model.schedule();
-                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd.getAutoReminder().get());
+                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd, toAdd.getAutoReminder().get());
             } catch (DuplicateCalendarEntryException e) {
                 feedbackToUser += MESSAGE_SUCCESS_REMINDER_EXISTED;
             }
@@ -77,7 +77,12 @@ public class EventCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.NONE;
+        return DisplayPaneType.CALENDAR_ENTRY;
+    }
+
+    @Override
+    public boolean isToCreateNewPane() {
+        return true;
     }
 
     @Override
