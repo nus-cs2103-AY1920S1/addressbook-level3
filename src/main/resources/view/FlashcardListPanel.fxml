@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" minWidth="300" prefWidth="500" minHeight="755" maxHeight="Infinity" maxWidth="Infinity">
-  <ListView fx:id="flashcardListView" VBox.vgrow="ALWAYS" minWidth="300" prefWidth="500" minHeight="755" maxHeight="Infinity" maxWidth="Infinity"/>
-</StackPane>
+
+<ListView fx:id="flashcardListView" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />

@@ -51,6 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION`, `QUESTION` is a parameter which can be used as `add q/How long is Mount Blanc Tunnel?`.
+* All commands are case sensitive and should be in its lowercase.
 * Items in square brackets are optional e.g `q/QUESTION [t/TAG]` can be used as `q/How long is Mount Blanc Tunnel? t/geography` or as `q/How long is Mount Blanc Tunnel?`.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/geography`, `t/geography t/civil engineering` etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
@@ -204,7 +205,7 @@ Format: `end`
 ****
 * Used to end a quiz if the user wants to stop the quiz without answering the flashcard
 ****
-
+// tag::stat[]
 === Display current progress
 Shows the current progress of a set of flashcards. +
 Format: `stats [t/TAG]...`
@@ -218,6 +219,8 @@ Format: `stats [t/TAG]...`
 Examples:
 
 * `stats t/biology` : Displays the progress of a the flashcards tagged with Biology.
+
+// end::stat[]
 
 === Delete a flashcard
 Deletes the specified flashcard from the list of all flashcards. +
