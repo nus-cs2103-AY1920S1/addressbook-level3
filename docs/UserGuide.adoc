@@ -219,10 +219,18 @@ Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE
 [NOTE]
 To edit tags, use `addTag` or `deleteTag`
 
-Examples:
+Example:
+```
+edit 1 p/91234567 e/johndoe@example.com
+```
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+Considering the first person is `Alex Yeoh`, sample output is:
+```
+Edited Person: Alex Yeoh
+NRIC: S0000001A; Phone: 91234567; Email: johndoe@example.com; Address: Blk 30 Geylang Street 29, #06-40; Date of Birth: 12 December 1998; Gender: Male
+Policies: [Teenage]
+Tags: [diabetic]
+```
 
 === Editing a policy : `editpolicy`
 
@@ -240,10 +248,18 @@ the previous version of the policies they signed.
 [NOTE]
 To edit policy tags, use `addPolicyTag` or `deletePolicyTag`
 
-Examples:
+Example:
+```
+editpolicy 1 d/Honda Insurance p/$10000 sa/25 ea/80
+```
 
-* `editpolicy 1 n/Seniors` +
-Edits the name of the 1st policy to `Seniors`.
+Considering the first policy is `Car Insurance`, sample output is:
+```
+Edited Policy: Car Insurance
+Description: Honda Insurance; Coverage: 12 years, 11 months, 10 days; Price: $10000; Start Age: 25; End Age: 80
+Criteria: [diabetic]
+Tags: [sample]
+```
 
 === Locating persons by name: `find`
 
@@ -807,8 +823,7 @@ Changed bin item expiry time! Items in the Bin will be removed permanently 30 da
 // end::binitemexpiry[]
 
 === Undo recently entered commands : `undo`
-User can simply enter the command `undo` to undo the most recent address book data change. An undo does not work for
-commands which do not make a change in the address book data (like `listpeople` for instance).
+User can simply enter the command `undo` to undo the most recent address book data change.
 
 Format: `undo`
 
@@ -817,10 +832,13 @@ Expected Output:
 An undo has been performed!
 ```
 
+[NOTE]
+An undo does not work for commands which do not make a change in the address book data (like `listpeople` for instance).
+
+
 === Redo recently undone commands : `redo`
 User can simply enter the command `redo` to redo the most recent address book data change. A redo is possible only when
-an undo has been previously performed. Moreover, a redo does not work for commands which do not make a change in the
-address book data (like `listpeople` for instance).
+an undo has been previously performed.
 
 Format: `redo`
 
@@ -829,16 +847,30 @@ Expected Output:
 A redo has been performed!
 ```
 
+[NOTE]
+A redo does not work for commands which do not make a change in the address book data (like `listpeople` for instance).
+
 === Listing command history : `history`
 
 Shows a list of all previously entered (valid) commands in the right panel. Commands entered during the merging
-period are not included. `history` itself is taken as a valid command too. +
+period are not included. `history` itself is taken as a valid command too.
+
 Format: `history`
 
+Example:
+```
+# input commands
+>> listpeople
+>> listpolicy
+>> assignpolicy 1 pol/Motor Insurance
+>> undo
+>> delete 2
+>> history
+```
+
 Expected Output:
-```
-Listed all previously entered commands (from most recent).
-```
+
+image::HistoryCommandExample.png[]
 
 === Navigating command history by pressing up/down keys
 
@@ -887,7 +919,6 @@ e.g. `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
 * *List Bin Items* : `listbin`
-* *List Command History*: `history`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [pr/PRICE]` +
@@ -924,8 +955,9 @@ e.g. `expandperson 1`
 e.g. `expandpolicy 1`
 * *Display*: `display i/INDICATOR f/FORMAT` +
 e.g. `display i/policy-popularity-breakdown f/piechart`
-* *Undo the most recent command*: `undo`
-* *Redo the most recent undone command*: `redo`
+* *List Command History*: `history`
+* *Undo the most recent data change*: `undo`
+* *Redo the most recent data change*: `redo`
 * *Set expiry time of bin items*: `binitemexpiry` +
 e.g. `binitemexpiry days/30`
 * *Clear* : `clear`
