@@ -35,7 +35,7 @@ public class CollectionUtil {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
 
-    //@@ JermyTan
+    //@@author JermyTan
     /**
      * Converts a collection of objects into its string representation.
      * Optional mapper functions can be provided to mutate the string representation.
