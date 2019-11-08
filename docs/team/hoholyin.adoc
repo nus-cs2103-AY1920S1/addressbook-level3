@@ -81,7 +81,8 @@ It was intended of the loan slip to display:
 ** Multiple loans in a single loan slip
 ** Renewed loans
 
-The generated loan slip in `v1.4` completely displayed the required information we had intended it to.
+[none]
+* The generated loan slip in `v1.4` contains all the required information we had intended it to.
 
 * *Effort*: This feature required in-depth understanding of:
 ** How to leverage on Gradle to add libraries from the Maven Central Repository
@@ -91,7 +92,8 @@ The generated loan slip in `v1.4` completely displayed the required information 
 ** How to create PDFs from text.
 ** How to use the 'iText7' Library suitably for 'LiBerry' by reading and understanding the 'iText7' documentation
 
-These additional information are not in the scope of the course and would therefore require intensive research on my part.
+[none]
+* These additional information are not in the scope of the course and would therefore require intensive research on my part.
 ****
 
 This is how a generated loan slip looks like.
@@ -105,11 +107,6 @@ In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generat
 This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
 Java `File` class and the API well such that I can use it appropriately in the context of our project.
 {nbsp}
-
-=== Code Contributed
-The following link shows the analysis of my code contributions:
-
-* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense link for Code Contributions]
 
 === *Secondary enhancement - Book feature*
 On top of the feature to generate loan slips, I am also primarily involved the implementation of the book-related core features.
@@ -128,7 +125,7 @@ In the Book feature, we have the following sub-features:
 This feature allows a librarian to manage the catalog of books in the system with the set of sub-features mentioned above.
 
 ==== Justification
-This feature is a must have for all library management systems as it provides a foundation for all other higher-level features (such as loaning and renewing books) to work
+This feature is a must have for all library management systems as it provides a foundation for all other higher-level features (such as loaning and renewing books) to work.
 
 ==== Highlights
 The main difficulty of this feature is the ability to display information about a book.
@@ -151,6 +148,11 @@ This makes the feature interesting as we get to implement something we have lear
 * *Effort*: Considerable effort was required to assess the suitability of data structures used to store the books.
 Much thought was also put into deciding what information should be displayed in the info window and what is the best way to display these information.
 ****
+
+=== Code Contributed
+The following link shows the analysis of my code contributions:
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense link for Code Contributions]
 
 === *Other contributions*:
 

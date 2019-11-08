@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_IS_OVERDUE;
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_RENEW_IMMEDIATELY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;

@@ -299,6 +299,10 @@ We can see that the book holds a `Optional<Loan>` in order to have either *0 or 
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
+We have decided to go with Alternative 2. In contrast to the original AddressBook3, there is much more retrieval of
+book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
+outweigh the additional memory costs to maintain the HashMap.
+
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
 number using the number of books or the largest serial number.
@@ -928,35 +932,6 @@ image::UseCases.png[width="330"]
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
 [discrete]
-==== Use case: Delete a book
-
-*MSS*
-
-1.  User searches for books by name, genre or author
-2.  LiBerry shows a list of books
-3.  User requests to delete a specific book in the list
-4.  LiBerry deletes the book
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-[none]
-Use case ends
-+
-{empty} +
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. LiBerry shows an error message.
-+
-Use case resumes at step 2.
-
-
-[discrete]
 ==== Use case: Add a book
 
 *MSS*
@@ -973,10 +948,73 @@ Use case ends.
 +
 Use case ends.
 
-* 1b. Serial Number is not provided.
+*Extensions*
+[none]
+* 1b. The mandatory arguments are not provided.
 +
 [none]
-** 1b1. Serial Number is auto-generated.
+** 1b1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1c. Serial Number is not provided.
++
+[none]
+** 1c1. Serial Number is auto-generated.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Delete a book
+
+*MSS*
+
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to delete a specific book in the list
+4.  LiBerry deletes the book
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends
++
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. LiBerry shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Get information of a book
+
+*MSS*
+
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to view the information of a specific book from the list
+4.  Information regarding the book is displayed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+[none]
+Use case ends
++
+{empty} +
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. LiBerry shows an error message.
 +
 Use case resumes at step 2.
 
@@ -1056,7 +1094,7 @@ Use case ends.
 *MSS*
 
 1.  User enters unregister command for borrower by borrower ID
-3.  LiBerry unregisters the borrower
+2.  LiBerry unregisters the borrower
 +
 Use case ends.
 
