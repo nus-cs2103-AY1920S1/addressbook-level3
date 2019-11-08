@@ -18,6 +18,7 @@ import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
+import seedu.jarvis.logic.commands.history.ListHistoryCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -36,6 +37,13 @@ public class JarvisParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_listHistory() throws Exception {
+        assertTrue(parser.parseCommand(ListHistoryCommand.COMMAND_WORD) instanceof ListHistoryCommand);
+        assertTrue(parser.parseCommand(ListHistoryCommand.COMMAND_WORD + " 5")
+                instanceof ListHistoryCommand);
     }
 
     /**

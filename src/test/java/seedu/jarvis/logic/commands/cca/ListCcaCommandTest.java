@@ -39,8 +39,8 @@ public class ListCcaCommandTest {
      */
     @Test
     public void hasInverseExecution() {
-        ListCcaCommand listAddressCommand = new ListCcaCommand();
-        assertFalse(listAddressCommand.hasInverseExecution());
+        ListCcaCommand listCcaCommand = new ListCcaCommand();
+        assertFalse(listCcaCommand.hasInverseExecution());
     }
 
     @Test
@@ -55,8 +55,8 @@ public class ListCcaCommandTest {
      */
     @Test
     public void inverseExecute_throwsCommandException() {
-        ListCcaCommand listAddressCommand = new ListCcaCommand();
+        ListCcaCommand listCcaCommand = new ListCcaCommand();
         assertThrows(CommandException.class,
-                ListCcaCommand.MESSAGE_NO_INVERSE, () -> listAddressCommand.executeInverse(model));
+                ListCcaCommand.MESSAGE_NO_INVERSE, () -> listCcaCommand.executeInverse(model));
     }
 }

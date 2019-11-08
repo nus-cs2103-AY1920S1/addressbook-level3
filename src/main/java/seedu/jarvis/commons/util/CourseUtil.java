@@ -89,20 +89,22 @@ public class CourseUtil {
      * @return a {@code String}
      */
     private static String getCourseJsonString(String courseCode) throws CourseNotFoundException {
-        String coursePrefix = getCoursePrefix(courseCode);
-        String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
+        String upperCasedCourseCode = courseCode.toUpperCase();
+        String coursePrefix = getCoursePrefix(courseCode).toUpperCase();
+        String intermediateFilePath = getFilePath(coursePrefix, upperCasedCourseCode);
+        String finalFilePath = intermediateFilePath.contains(".json")
+            ? intermediateFilePath
+            : intermediateFilePath + ".json";
 
-        String filePath = getFilePath(coursePrefix, fileName);
-        InputStream is = CourseUtil.class.getResourceAsStream(filePath);
+        InputStream is = CourseUtil.class.getResourceAsStream(finalFilePath);
 
         if (isNull(is)) {
             throw new CourseNotFoundException();
-        } else {
-            String ret = new BufferedReader(new InputStreamReader(is))
-                .lines()
-                .collect(Collectors.joining("\n"));
-            return removeSpacesNotWithinQuotes(ret);
         }
+        String ret = new BufferedReader(new InputStreamReader(is))
+            .lines()
+            .collect(Collectors.joining("\n"));
+        return removeSpacesNotWithinQuotes(ret);
     }
 
     /**

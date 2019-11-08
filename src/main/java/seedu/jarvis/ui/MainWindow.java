@@ -38,9 +38,9 @@ import seedu.jarvis.ui.template.View;
 public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
     private static final int PLANNER_INDEX = 0;
-    private static final int MODULES_INDEX = 1;
+    private static final int FINANCES_INDEX = 1;
     private static final int CCAS_INDEX = 2;
-    private static final int FINANCES_INDEX = 3;
+    private static final int MODULES_INDEX = 3;
     private static final String MESSAGE_VIEW_NOT_IMPLEMENTED = "View not yet implemented.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -126,14 +126,14 @@ public class MainWindow extends UiPart<Stage> {
                 SingleSelectionModel<Tab> selectionModel = tabPanePlaceHolder.getSelectionModel();
                 if (selectionModel.isSelected(PLANNER_INDEX)) {
                     selectionModel.selectNext();
-                    helpDeskWindow.setCourseText();
-                } else if (selectionModel.isSelected(MODULES_INDEX)) {
+                    helpDeskWindow.setFinanceText();
+                } else if (selectionModel.isSelected(FINANCES_INDEX)) {
                     selectionModel.selectNext();
                     helpDeskWindow.setCcaText();
                 } else if (selectionModel.isSelected(CCAS_INDEX)) {
                     selectionModel.selectNext();
-                    helpDeskWindow.setFinanceText();
-                } else if (selectionModel.isSelected(FINANCES_INDEX)) {
+                    helpDeskWindow.setCourseText();
+                } else if (selectionModel.isSelected(MODULES_INDEX)) {
                     selectionModel.selectFirst();
                     helpDeskWindow.setPlannerText();
                 }
@@ -363,14 +363,14 @@ public class MainWindow extends UiPart<Stage> {
             helpDeskWindow.setFinanceText();
             break;
 
-        case "moduleContentPlaceholder":
-            tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
-            helpDeskWindow.setCourseText();
-            break;
-
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
             helpDeskWindow.setCcaText();
+            break;
+
+        case "moduleContentPlaceholder":
+            tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
+            helpDeskWindow.setCourseText();
             break;
 
         default:
