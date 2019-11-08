@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -14,12 +15,15 @@ import seedu.address.model.budget.BudgetList;
 
 public class ClearCommandTest {
 
+    private CommandHistory commandHistory = new CommandHistory();
+
     @Test
     public void execute_emptyExpenseList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_CLEAR_EXPENSES_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_CLEAR_EXPENSES_SUCCESS, expectedModel,
+            commandHistory);
     }
 
     @Test
@@ -30,7 +34,7 @@ public class ClearCommandTest {
             getTypicalExchangeData(), new UserPrefs());
         expectedModel.setExpenseList(new ExpenseList());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_CLEAR_EXPENSES_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_CLEAR_EXPENSES_SUCCESS, expectedModel,
+            commandHistory);
     }
-
 }

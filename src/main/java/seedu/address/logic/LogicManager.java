@@ -29,11 +29,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final CommandHistory history;
     private final MymParser mymParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        history = new CommandHistory();
         mymParser = new MymParser();
     }
 
@@ -42,8 +44,12 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = mymParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        try {
+            Command command = mymParser.parseCommand(commandText);
+            commandResult = command.execute(model, history);
+        } finally {
+            history.add(commandText);
+        }
 
         try {
             storage.saveExpenseList(model.getExpenseList());
