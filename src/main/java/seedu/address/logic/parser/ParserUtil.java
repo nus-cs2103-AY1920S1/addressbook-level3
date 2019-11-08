@@ -379,9 +379,9 @@ public class ParserUtil {
      */
     public static boolean parseBool(String bool) throws ParseException {
         requireNonNull(bool);
-        if (!(bool.equals("false"))) {
+        if (!(bool.toLowerCase().equals("false"))) {
             throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_BOOLEAN);
         }
-        return Boolean.valueOf(bool);
+        return Boolean.valueOf(bool.toLowerCase());
     }
 }
