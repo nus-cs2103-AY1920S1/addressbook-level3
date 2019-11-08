@@ -3,7 +3,6 @@ package dream.fcard.model;
 import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
