@@ -1,6 +1,7 @@
 package seedu.billboard.logic.parser;
 
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_GROUPING;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_INTERVAL;
 
 import seedu.billboard.commons.core.date.DateInterval;
@@ -35,7 +36,11 @@ public class DisplayStatsCommandParser implements Parser<DisplayStatsCommand> {
                 .flatMap(DateInterval::intervalFromName)
                 .orElse(null);
 
-        StatisticsFormatOptions newOptions = StatisticsFormatOptions.withOptions(newInterval);
+        StatisticsFormatOptions.Grouping expenseGrouping = argMultimap.getValue(PREFIX_GROUPING)
+                .flatMap(StatisticsFormatOptions.Grouping::groupingFromName)
+                .orElse(null);
+
+        StatisticsFormatOptions newOptions = StatisticsFormatOptions.withOptions(newInterval, expenseGrouping);
         return new DisplayStatsCommand(formatChosen, newOptions);
     }
 }

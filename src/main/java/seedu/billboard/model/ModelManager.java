@@ -52,7 +52,8 @@ public class ModelManager implements Model {
         this.statsFormat = new ObservableData<>();
         this.statsFormat.setValue(StatisticsFormat.TIMELINE); // default stats type
         this.statsOptions = new ObservableData<>();
-        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH)); // default interval
+        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH,
+                        StatisticsFormatOptions.Grouping.NONE)); // default values
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives

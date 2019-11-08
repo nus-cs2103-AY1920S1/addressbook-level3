@@ -1,5 +1,6 @@
 package seedu.billboard.model.statistics.formats;
 
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_GROUPING;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_INTERVAL;
 
 import java.util.HashMap;
@@ -12,9 +13,9 @@ import seedu.billboard.logic.parser.Prefix;
  * Enum representing the supported statistics formats.
  */
 public enum StatisticsFormat {
-    TIMELINE("timeline", PREFIX_INTERVAL),
+    TIMELINE("timeline", PREFIX_INTERVAL, PREFIX_GROUPING),
     BREAKDOWN("breakdown"),
-    HEAT_MAP("heatmap");
+    HEAT_MAP("heatmap", PREFIX_GROUPING);
 
     private static Map<String, StatisticsFormat> nameToFormatMap;
     private final String name;

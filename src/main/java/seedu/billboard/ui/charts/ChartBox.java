@@ -26,18 +26,22 @@ public class ChartBox extends UiPart<Region> {
     private AnchorPane chartContainer;
 
     private ObservableList<Expense> expenses;
-    private ObservableData<DateInterval> dateInterval;
+    private DateInterval dateInterval;
+    private StatisticsFormatOptions.Grouping expenseGrouping;
     private ExpenseChart currentChart;
 
     public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
                     ObservableData<StatisticsFormatOptions> statsOptions) {
         super(FXML);
         this.expenses = expenses;
-        this.dateInterval = new ObservableData<>();
-        dateInterval.setValue(DateInterval.MONTH);
+        this.dateInterval = DateInterval.MONTH;
+        this.expenseGrouping = StatisticsFormatOptions.Grouping.NONE;
 
         statsType.observe(this::onStatsTypeChanged);
-        statsOptions.observe(options -> options.getNewDateInterval().ifPresent(dateInterval::setValue));
+        statsOptions.observe(options -> {
+            options.getNewDateInterval().ifPresent(value -> dateInterval = value);
+            options.getGrouping().ifPresent(value -> expenseGrouping = value);
+        });
     }
 
     /**
@@ -51,7 +55,7 @@ public class ChartBox extends UiPart<Region> {
 
         switch (type) {
         case TIMELINE:
-            currentChart = new ExpenseTimelineChart(expenses, dateInterval, new TimelineGenerator());
+            currentChart = new ExpenseTimelineChart(expenses, dateInterval, expenseGrouping, new TimelineGenerator());
             break;
         case BREAKDOWN:
             currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());

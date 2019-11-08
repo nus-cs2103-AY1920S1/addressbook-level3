@@ -4,9 +4,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.time.DayOfWeek;
 
-import javafx.util.Pair;
-
-import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
 
 /**

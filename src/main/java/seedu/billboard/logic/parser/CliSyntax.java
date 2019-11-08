@@ -16,4 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
     public static final Prefix PREFIX_INTERVAL = new Prefix("interval/");
+    public static final Prefix PREFIX_GROUPING = new Prefix("groupby/");
 }
