@@ -62,7 +62,15 @@ public class AccountDeleteCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AccountDeleteCommand);
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AccountDeleteCommand)) {
+            return false;
+        }
+
+        AccountDeleteCommand otherCommand = (AccountDeleteCommand) other;
+        return targetIndex.equals(otherCommand.targetIndex);
     }
 }

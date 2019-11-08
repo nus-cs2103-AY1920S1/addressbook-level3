@@ -133,6 +133,10 @@ public class AccountsManager {
             throw new EmptyAccountListException();
         }
 
+        if (accounts.size() < toDelete.getOneBased()) {
+            throw new AccountNotFoundException();
+        }
+
         Account accountToDelete = filteredAccounts.get(toDelete.getZeroBased());
         boolean isActiveAccount = accountToDelete.isActive();
         accounts.remove(accountToDelete);
