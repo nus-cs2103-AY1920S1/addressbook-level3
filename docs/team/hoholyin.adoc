@@ -5,8 +5,6 @@
 
 == PROJECT: LiBerry
 
----
-
 == Overview
 This portfolio aims to highlight my contributions to our team project, 'LiBerry'.
 
@@ -21,7 +19,7 @@ This library management system is able to:
 * Loan and return books to borrowers
 * Calculate loan periods and fines for any overdue loans
 
-I was in charge of implementing the book related features.
+I was in charge of implementing the Generate loan slip feature and the Book feature.
 Additionally, I am responsible for the code quality and testability of the team's code base throughout the entire development phase.
 In this portfolio, I will illustrate my contributions in documenting the user guide and developer guide.
 These documentations serve to aid librarians and developers in understanding the features of the software.
@@ -43,24 +41,8 @@ Denotes useful tips.
 This section shows a summary of my contributions in terms of coding, documentation, and other helpful contributions to the team project.
 
 === *Major enhancement - Generating Loan Slip*
-The ability to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
+This feature allows librarians to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
 
-****
-* *Depth*: This feature is deeply linked with the loan features.
-Not only does it generate viewable information about a new loan, it also syncs up with the renew feature and generates information about a loan renewal as well.
-Furthermore, the implementation has to support the undo/redo features.
-
-* *Completeness*: This feature is complete with the intended styling of the loan slip and is rigorously tested in many test cases. It fully behaves the way it was conceived to be.
-
-* *Effort*: This feature required in-depth understanding of:
-** How to add libraries from the Maven Central Repository
-** How to handle file input
-** How to handle file output
-** How to create PDFs from text.
-** How to use the 'iText7' Library suitably for 'LiBerry' by reading the 'iText7' documentation
-
-These additional information are not in the scope of the course and would therefore require intensive research on my part.
-****
 
 ==== What the feature does
 This feature generates loan slips so that the librarian can immediately print the loan slip for the borrower.
@@ -75,10 +57,42 @@ This feature is challenging to implement as it will require us to create a new P
 I was required to understand a great deal about file input and output in Java, which is something out of the scope of the course.
 On top of that, this document will have to be suitably styled as a loan slip populated with information about the loans.
 
-==== Credits
-This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
-Java `File` class and the API well such that I can use it appropriately in the context of our project.
-{nbsp}
+==== Why this is a major feature
+This feature is major as it depicts most core features of 'LiBerry' in the form of a condensed PDF, which is further explained below.
+
+****
+* *Depth*: This feature is deeply linked with the book, loan and borrower features.
+The information being displayed in the PDF document are as follows:
+** Borrower-related information:
+*** The borrower's name
+*** The borrower's ID
+** Book-related information:
+*** Serial number of book being loaned out
+*** Title of book being loaned out
+** Loan-related information:
+*** Date of loan
+*** List of books being loaned
+*** List of books being renewed
+*** Their respective due dates
+
+* *Completeness*: This feature is complete with the intended styling of the loan slip and is rigorously tested in many test cases.
+It was intended of the loan slip to display:
+** Borrower's information
+** Multiple loans in a single loan slip
+** Renewed loans
+
+The generated loan slip in `v1.4` completely displayed the required information we had intended it to.
+
+* *Effort*: This feature required in-depth understanding of:
+** How to leverage on Gradle to add libraries from the Maven Central Repository
+** How to get resources when the application in a `.jar` format
+** How to handle file input
+** How to handle file output
+** How to create PDFs from text.
+** How to use the 'iText7' Library suitably for 'LiBerry' by reading and understanding the 'iText7' documentation
+
+These additional information are not in the scope of the course and would therefore require intensive research on my part.
+****
 
 This is how a generated loan slip looks like.
 
@@ -87,37 +101,55 @@ image::LoanSlip.png[width=350, align=center]
 {nbsp}
 In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
 
+==== Credits
+This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
+Java `File` class and the API well such that I can use it appropriately in the context of our project.
+{nbsp}
+
 === Code Contributed
 The following link shows the analysis of my code contributions:
 
 * https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense link for Code Contributions]
 
-=== *Other enhancements* - Book-related features
-On top of the feature to generate loan slips, I am also primarily involved the implementation of the basic book-related core features.
-These features include:
+=== *Secondary enhancement - Book feature*
+On top of the feature to generate loan slips, I am also primarily involved the implementation of the book-related core features.
+In the Book feature, we have the following sub-features:
 
-==== The ability to *add books*
+** The ability to *add books*
 * This feature allows the librarian to start tracking the movement of books using the system.
-****
-* *Depth*: This is a basic core feature of the system and is therefore.
-* *Completeness*: This is a basic core feature of the system and is therefore.
-* *Effort*: This is a basic core feature of the system and is therefore.
-****
 
-==== The ability to *delete books*.
+** The ability to *delete books*.
 * This feature allows the librarian to update the catalog when a book goes missing.
-****
-* *Depth*: This is a basic core feature of the system and is therefore.
-* *Completeness*: This is a basic core feature of the system and is therefore.
-* *Effort*: This is a basic core feature of the system and is therefore.
-****
 
-==== The ability to *display information* about a book.
+** The ability to *display information* about a book.
 * This feature aids the librarian in retrieving more information about a book when a borrower enquires about it.
+
+==== What the feature does
+This feature allows a librarian to manage the catalog of books in the system with the set of sub-features mentioned above.
+
+==== Justification
+This feature is a must have for all library management systems as it provides a foundation for all other higher-level features (such as loaning and renewing books) to work
+
+==== Highlights
+The main difficulty of this feature is the ability to display information about a book.
+This sub-feature requires the use of an `Observer` pattern that observes the loan history of the book.
+Subsequently, it gets updated with every new loan/renew.
+This makes the feature interesting as we get to implement something we have learnt from this course.
+
 ****
-* *Depth*: This is a basic core feature of the system and is therefore.
-* *Completeness*: This is a basic core feature of the system and is therefore.
-* *Effort*: This is a basic core feature of the system and is therefore.
+* *Depth*: The Book feature is a representation of the cohesive Book component, which supports the ability to:
+** Add a book to the catalog
+** Delete a book from the catalog
+** Display information about a book in the catalog, which includes:
+*** Serial number of book
+*** Title of book
+*** Author of book
+*** Genres of book, if any
+*** Loan status (if it is currently on loan or not)
+*** Loan history
+* *Completeness*: This feature is cohesively linked to the other core feature such as the Loan feature and the Borrower feature.
+* *Effort*: Considerable effort was required to assess the suitability of data structures used to store the books.
+Much thought was also put into deciding what information should be displayed in the info window and what is the best way to display these information.
 ****
 
 === *Other contributions*:

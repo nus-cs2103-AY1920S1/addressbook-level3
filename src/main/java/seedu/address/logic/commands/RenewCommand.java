@@ -114,7 +114,7 @@ public class RenewCommand extends ReversibleCommand {
             model.updateLoan(loanToBeRenewed, renewedLoan);
 
             try {
-                LoanSlipUtil.mountLoan(renewedLoan, renewedBook, model.getServingBorrower());
+                LoanSlipUtil.mountLoan(renewedLoan, renewedBook, servingBorrower);
             } catch (LoanSlipException e) {
                 e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
             }
