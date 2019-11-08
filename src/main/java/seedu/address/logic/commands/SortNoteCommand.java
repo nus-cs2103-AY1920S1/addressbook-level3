@@ -41,13 +41,12 @@ public class SortNoteCommand extends Command {
     public SortNoteCommand(MultipleSortByCond sortByConds, String commandArgs) {
         requireNonNull(sortByConds);
         this.sortByConds = sortByConds;
-        this.command = COMMAND_WORD + " " + commandArgs;
+        this.command = COMMAND_WORD + commandArgs;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.commitNote(command);
         Predicate<Note> notePredicate = model.getFilteredNoteListPred();
         model.editNoteSortByCond(sortByConds);
         model.sortNoteBook();
