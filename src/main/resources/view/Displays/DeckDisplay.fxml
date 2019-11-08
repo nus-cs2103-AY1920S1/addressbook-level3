@@ -2,30 +2,20 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root id="Content" fx:id="deckDisplay" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-      <VBox layoutX="2.0" layoutY="5.0" styleClass="main-content-window">
+<fx:root id="Content" fx:id="deckDisplay" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="deckName" alignment="CENTER" styleClass="window-title" text="Name of deck" textAlignment="CENTER" />
+      <VBox fx:id="questionList" />
+      <Label fx:id="deckSize" alignment="CENTER" prefHeight="17.0" prefWidth="620.0" text="number of cards" />
+      <HBox spacing="10.0">
          <children>
-              <Label fx:id="deckName" alignment="CENTER" styleClass="window-title" text="Name of deck" textAlignment="CENTER" />
-              <ScrollPane prefHeight="314.0" prefWidth="556.0">
-                  <content>
-                      <VBox fx:id="questionList" />
-                  </content>
-              </ScrollPane>
-              <Label fx:id="deckSize" alignment="CENTER" prefHeight="17.0" prefWidth="620.0" text="number of cards" />
-            <HBox spacing="10.0">
-               <children>
-                    <Button fx:id="startTest" mnemonicParsing="false" text="Start Review" />
-                    <Button fx:id="addQuestionButton" mnemonicParsing="false" text="Change Name/Add Question" />
-                    <Button fx:id="deleteDeckButton" mnemonicParsing="false" text="Delete Deck" textFill="RED" underline="true" />
-               </children>
-            </HBox>
+              <Button fx:id="startTest" mnemonicParsing="false" text="Start Review" />
+              <Button fx:id="addQuestionButton" mnemonicParsing="false" text="Change Name/Add Question" />
+              <Button fx:id="deleteDeckButton" mnemonicParsing="false" text="Delete Deck" textFill="RED" underline="true" />
          </children>
-      </VBox>
-    </children>
+      </HBox>
+   </children>
 </fx:root>
