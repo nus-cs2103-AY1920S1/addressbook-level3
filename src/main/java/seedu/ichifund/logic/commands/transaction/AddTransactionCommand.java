@@ -65,7 +65,7 @@ public class AddTransactionCommand extends Command {
     private final Optional<TransactionType> transactionType;
 
     /**
-     * Creates an AddCommand to add the specified {@code Transaction}
+     * Creates an AddTransactionCommand to add the specified {@code Transaction}
      */
     public AddTransactionCommand(Description description, Amount amount, Optional<Category> category,
                                  Optional<Day> day, Optional<Month> month, Optional<Year> year,

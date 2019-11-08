@@ -34,7 +34,7 @@ import seedu.ichifund.model.transaction.TransactionType;
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
      * and returns an AddTransactionCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

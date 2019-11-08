@@ -62,7 +62,7 @@ public class AddRepeaterCommand extends Command {
     private final Repeater toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Repeater}
+     * Creates an AddRepeaterCommand to add the specified {@code Repeater}
      */
     public AddRepeaterCommand(Repeater repeater) {
         requireNonNull(repeater);
