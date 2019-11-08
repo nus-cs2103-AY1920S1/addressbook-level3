@@ -43,10 +43,10 @@ Double click the _{jarName}_ file to launch Budget Buddy.
 ====
 *Launching for the first time*
 
-* A default account will created.
+* A default account will be created.
 * Type `txn dn/out x/100 d/This is my first transaction!` to add a new spending.
 * To view your accounts, type `account list`
-* To view available commands, type `help`
+* To view other available commands, type `help`
 ====
 
 If the application does not run, follow the instructions below based on your operating system:
@@ -63,21 +63,24 @@ If the application does not run, follow the instructions below based on your ope
 
 == Getting Started
 
-Welcome to the Budget Buddy User Guide! You can scroll down to start looking at the in-depth features of Budget Buddy,
-or select a topic from the _Table of Contents_ above.
+Welcome to the Budget Buddy User Guide! You can scroll down to get an in-depth look at each of Budget Buddy's features,
+or jump straight to a specific section from the _Table of Contents_ above.
 
 [[Features]]
 == Features
 
-Budget Buddy comes with many tools to help you manage your expenses better! You can create multiple accounts,
-add and remove transactions that you have made, and even track any outstanding loans that you may have.
+Budget Buddy comes with many tools to help you manage your expenses better!
+You can create different accounts, record your transactions,
+track money you owe people or that people owe to you,
+and even instantly split a bill between you and your friends!
 
-What's more? Automate processes by using rules. Typing repetitive descriptions? Set the description of a transaction
-automatically by using a keyword! Set a Food category automatically each time you make a food
-transaction! Automate everything!
+What's more? Automate processes with rules. Typing the same description for transactions again and again?
+Set the description of a transaction automatically by using a keyword!
+Sort your spendings on food into a Food category automatically! Automate everything!
 
-If you know how to code in JavaScript, great news for you too. Write and evaluate your own scripts within the application,
-do complicated things in a snap. And even use your script in rules!
+If you know how to code in JavaScript, there's great news for you too.
+Write and evaluate your own scripts within Budget Buddy.
+Do complicated things in a snap. You can even integrate your scripts into your custom rules!
 
 ====
 *Command Format*
