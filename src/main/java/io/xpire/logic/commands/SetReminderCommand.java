@@ -101,12 +101,6 @@ public class SetReminderCommand extends Command {
 
     @Override
     public String toString() {
-        if (this.threshold.getValue() == 0) {
-            return "the following Set Reminder command:\nThe Item " + this.item.getName()
-                    + "'s reminder has been disabled";
-        } else {
-            return "the following Set Reminder command:\nThe Item " + this.item.getName() + "'s reminder "
-                    + "has been set for " + this.threshold + " day(s)";
-        }
+        return "Set Reminder command";
     }
 }

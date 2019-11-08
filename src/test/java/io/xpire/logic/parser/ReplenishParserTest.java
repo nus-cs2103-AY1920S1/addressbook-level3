@@ -2,6 +2,7 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.commons.core.Messages.MESSAGE_XPIRE_COMMAND_ONLY;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -29,23 +30,12 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
-import io.xpire.model.item.Quantity;
 
-public class XpireParserTest {
+//@@author febee99
 
-    private final XpireParser parser = new XpireParser();
+public class ReplenishParserTest {
 
-    @Test
-    public void parse_add() throws Exception {
-        assertTrue(parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI
-                + "|" + VALID_EXPIRY_DATE_KIWI) instanceof AddCommand);
-    }
-
-    @Test
-    public void parse_check() throws Exception {
-        assertTrue(parser.parse(CheckCommand.COMMAND_WORD) instanceof CheckCommand);
-        assertTrue(parser.parse(CheckCommand.COMMAND_WORD + "|5") instanceof CheckCommand);
-    }
+    private final ReplenishParser parser = new ReplenishParser();
 
     @Test
     public void parse_clear() throws Exception {
@@ -59,11 +49,6 @@ public class XpireParserTest {
         DeleteCommand deleteItemCommand = (DeleteCommand) parser.parse(
                 DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased());
         assertEquals(new DeleteCommand(XPIRE, INDEX_FIRST_ITEM), deleteItemCommand);
-
-        //delete quantity
-        DeleteCommand deleteQuantityCommand = (DeleteCommand) parser.parse(
-                DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased() + "|1");
-        assertEquals(new DeleteCommand(XPIRE, INDEX_FIRST_ITEM, new Quantity("1")), deleteQuantityCommand);
     }
 
     @Test
@@ -87,21 +72,6 @@ public class XpireParserTest {
     }
 
     @Test
-    public void parse_setReminder() throws Exception {
-        assertTrue(parser.parse(SetReminderCommand.COMMAND_WORD
-                + "|" + INDEX_FIRST_ITEM.getOneBased()
-                + "|10") instanceof SetReminderCommand);
-    }
-
-    @Test
-    public void parse_sort() throws Exception {
-        assertTrue(parser.parse(SortCommand.COMMAND_WORD
-                + "|name") instanceof SortCommand);
-        assertTrue(parser.parse(SortCommand.COMMAND_WORD
-                + "|date") instanceof SortCommand);
-    }
-
-    @Test
     public void parse_tag() throws Exception {
         assertTrue(parser.parse(TagCommand.COMMAND_WORD) instanceof TagCommand);
         assertTrue(parser.parse(TagCommand.COMMAND_WORD + "|1|#"
@@ -114,6 +84,43 @@ public class XpireParserTest {
         assertTrue(parser.parse(ViewCommand.COMMAND_WORD + "|replenish") instanceof ViewCommand);
     }
 
+    //---------------- Tests for Forbidden commands --------------------------------------------------------------
+    @Test
+    public void parse_add_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI));
+    }
+
+    @Test
+    public void parse_check_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(CheckCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(CheckCommand.COMMAND_WORD + "|5"));
+    }
+
+    @Test
+    public void parse_setReminder_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(SetReminderCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased() + "|10"));
+    }
+
+    @Test
+    public void parse_sort_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(SortCommand.COMMAND_WORD + "|name"));
+        assertThrows(ParseException.class, MESSAGE_XPIRE_COMMAND_ONLY, () ->
+            parser.parse(SortCommand.COMMAND_WORD + "|date"));
+    }
+
+    @Test
+    public void parse_deleteQuantity_throwsParseException() {
+        //delete quantity
+        assertThrows(ParseException.class, DeleteCommandParser.MESSAGE_DELETE_QUANTITY_INVALID_USAGE, () ->
+            parser.parse(DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased() + "|1"));
+    }
+
+    //---------------- Tests for unrecognised input --------------------------------------------------------------
     @Test
     public void parse_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
@@ -124,4 +131,5 @@ public class XpireParserTest {
     public void parse_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parse("unknownCommand"));
     }
+
 }

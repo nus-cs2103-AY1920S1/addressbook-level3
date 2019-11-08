@@ -70,6 +70,9 @@ class JsonAdaptedItem implements JsonAdapted {
         final List<Tag> itemTags = new ArrayList<>();
         for (JsonAdaptedTag tag : this.tags) {
             itemTags.add(tag.toModelType());
+            if (itemTags.size() >= 5) {
+                break;
+            }
         }
         final Set<Tag> modelTags = new TreeSet<>(new TagComparator());
         modelTags.addAll(itemTags);

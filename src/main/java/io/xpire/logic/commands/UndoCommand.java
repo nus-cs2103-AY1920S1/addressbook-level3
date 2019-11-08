@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_SHORTHAND = "u";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo %s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo %s\nUser Input: %s";
     public static final String MESSAGE_UNDO_FAILURE = "There are no previous commands to undo.";
 
     @Override

@@ -41,7 +41,6 @@ public class ClearCommand extends Command {
         //remove list dependency on xpire/replenish internal list
         ObservableList<? extends Item> currentList = FXCollections.observableArrayList(model.getCurrentList());
         currentList.forEach(item -> model.deleteItem(this.listType, item));
-
         setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }

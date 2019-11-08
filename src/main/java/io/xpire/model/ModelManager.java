@@ -111,7 +111,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
-        return new ReadOnlyListView<?>[]{this.xpire, this.replenishList};
+        return new ReadOnlyListView<?>[]{this.getXpire(), this.getReplenishList()};
     }
 
     /**
@@ -325,8 +325,8 @@ public class ModelManager implements Model {
             assert false;
             return;
         }
-        this.currentList.setPredicate(PREDICATE_SHOW_ALL_ITEMS);
         this.currentView = listType;
+        this.currentList.setPredicate(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     /**
@@ -401,7 +401,7 @@ public class ModelManager implements Model {
                     && this.replenishList.equals(other.replenishList)
                     && this.userPrefs.equals(other.userPrefs)
                     && this.currentList.equals(other.currentList)
-                    && this.currentView == other.currentView;
+                    && this.currentView.equals(other.currentView);
         }
     }
 

@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.item.ExpiryDate;
@@ -54,9 +53,9 @@ public class AddCommand extends Command {
      * Executes {@code AddCommand}.
      *
      * @param model {@code Model} which the command should operate on.
-     * @param stateManager
+     * @param stateManager {@code StackManager} which manages the state of each command.
      * @return success message from {@code CommandResult} if xpireItem is successfully added.
-     * @throws CommandException if xpireItem added is a duplicate.
+     * @throws ParseException if xpireItem added is a duplicate.
      */
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws ParseException {
@@ -96,11 +95,12 @@ public class AddCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Add command:\n" + result;
+        return "Add command";
     }
 
     /**
      * Retrieves item that is the same as item inputted by user.
+     *
      * @param item existing in the tracking list.
      * @param list where item is retrieved from.
      * @return exact item which is the same as input item.
@@ -118,10 +118,11 @@ public class AddCommand extends Command {
 
     /**
      * Increases the item quantity for any duplicate items.
-     * @param targetItem
-     * @param quantity
-     * @return
-     * @throws ParseException
+     *
+     * @param targetItem the target item to increase the quantity of.
+     * @param quantity how much to increase the item quantity by.
+     * @return The new item with revised quantity.
+     * @throws ParseException if
      */
     private XpireItem increaseItemQuantity(XpireItem targetItem, Quantity quantity) throws ParseException {
         Quantity prevQuantity = targetItem.getQuantity();

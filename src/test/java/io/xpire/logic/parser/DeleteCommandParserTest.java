@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.commands.DeleteCommand;
+import io.xpire.model.ListType;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
@@ -25,21 +26,32 @@ import io.xpire.model.tag.TagComparator;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private DeleteCommandParser xpireParser = new DeleteCommandParser(ListType.XPIRE);
+    private DeleteCommandParser replenishParser = new DeleteCommandParser(ListType.REPLENISH);
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertEqualsParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
+        assertEqualsParseSuccess(xpireParser, "1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM));
+
+        assertEqualsParseSuccess(replenishParser, "1", new DeleteCommand(ListType.REPLENISH,
+                INDEX_FIRST_ITEM));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
 
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(xpireParser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
 
         //invalid trailing arguments
-        assertParseFailure(parser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(xpireParser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        assertParseFailure(replenishParser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        //invalid trailing arguments
+        assertParseFailure(replenishParser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
 
@@ -47,7 +59,10 @@ public class DeleteCommandParserTest {
     public void parse_deleteSingleTagMode_returnsDeleteCommand() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
-        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(xpireParser, "1|#Tag1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
+                set));
+        assertEqualsParseSuccess(replenishParser, "1|#Tag1", new DeleteCommand(ListType.REPLENISH,
+                INDEX_FIRST_ITEM, set));
     }
 
     @Test
@@ -55,26 +70,36 @@ public class DeleteCommandParserTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
         set.add(new Tag("Tag2"));
-        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(xpireParser, "1|#Tag1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
+                set));
+        assertEqualsParseSuccess(replenishParser, "1|#Tag1", new DeleteCommand(ListType.REPLENISH,
+                INDEX_FIRST_ITEM, set));
     }
 
     @Test
     public void parse_deleteBlankTagMode_throwsParseException() {
-        assertParseFailure(parser, "1|#", Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(xpireParser, "1|#", Tag.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(replenishParser, "1|#", Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parse_deleteValidQuantity_returnsDeleteCommand() {
+    public void parse_deleteValidQuantityInXpire_returnsDeleteCommand() {
         Quantity validQuantity = new Quantity("1");
-        assertEqualsParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
+        assertEqualsParseSuccess(xpireParser, "1|1", new DeleteCommand(ListType.XPIRE, INDEX_FIRST_ITEM,
+                validQuantity));
     }
 
     //invalid Quantity
     @Test
-    public void parse_deleteInvalidQuantity_throwsParseException() {
-        assertParseFailure(parser, "1|-2", Quantity.MESSAGE_CONSTRAINTS);
+    public void parse_deleteInvalidQuantityInXpire_throwsParseException() {
+        assertParseFailure(xpireParser, "1|-2", Quantity.MESSAGE_CONSTRAINTS);
     }
 
-
-
+    //deleting of Quantity not allowed in replenish list as replenish items have no quantity
+    @Test
+    public void parse_deleteQuantityInReplenishList_throwsParseException() {
+        Quantity invalidQuantity = new Quantity("1");
+        assertParseFailure(replenishParser, "1|1", DeleteCommandParser.MESSAGE_DELETE_QUANTITY_INVALID_USAGE);
+    }
 }

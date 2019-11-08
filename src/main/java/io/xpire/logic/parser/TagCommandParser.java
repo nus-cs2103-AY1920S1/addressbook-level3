@@ -56,7 +56,4 @@ public class TagCommandParser implements Parser<TagCommand> {
     private static boolean hasTags(String[] arguments) {
         return arguments.length > 1 && arguments[1].trim().split("#").length > 1;
     }
-
-
-
 }

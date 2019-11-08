@@ -16,14 +16,17 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddCommand parse(String args) throws ParseException {
         String[] arguments = args.split("\\|", 3);
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79d7b26f6f6f5fde0e2ac8f1fd3f0c788779f1ae
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
         Quantity quantity;

@@ -115,6 +115,14 @@ public class TypicalItems {
     public static final Item CHOCOLATE = new ItemBuilder().withName("Chocolate")
                                             .withTags("Cadbury", "Cocoa").build();
 
+    public static final Item COOKIE = new ItemBuilder().withName("Cookie")
+                                                          .withTags("Sweet").build();
+
+    public static final Item BISCUIT = new ItemBuilder().withName("Biscuit")
+                                                       .withTags("Sweet").build();
+
+    public static final Item PAPAYA = new ItemBuilder().withName("Papaya").build();
+
     private TypicalItems() {} // prevents instantiation
 
     /**
@@ -127,6 +135,10 @@ public class TypicalItems {
             edt.addItem(copyXpireItem);
         }
         ReplenishList replenishList = new ReplenishList();
+        for (Item replenishItem : getTypicalReplenishListItems()) {
+            Item copyReplenishItem = new Item(replenishItem);
+            replenishList.addItem(copyReplenishItem);
+        }
         return new ReadOnlyListView[]{edt, replenishList};
     }
 
@@ -154,8 +166,8 @@ public class TypicalItems {
 
     }
 
-    public static List<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(BAGEL, CHOCOLATE));
+    public static List<Item> getTypicalReplenishListItems() {
+        return new ArrayList<>(Arrays.asList(BAGEL, CHOCOLATE, COOKIE, BISCUIT));
     }
 
 }
