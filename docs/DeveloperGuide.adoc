@@ -201,6 +201,8 @@ link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/se
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+// end::chenhui-model[]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
@@ -212,7 +214,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
 
-// end::chenhui-model[]
 
 // tag::yida-game[]
 
@@ -239,6 +240,8 @@ The `Game` component,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
+// end::chenhui-storage[]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
@@ -248,7 +251,6 @@ The `Storage` component,
 * handles function calls directly to the computer's system.
 * can save data objects in json format and read it back.
 
-// end::chenhui-storage[]
 
 // tag::jasonstats[]
 [[Design-Statistics]]
