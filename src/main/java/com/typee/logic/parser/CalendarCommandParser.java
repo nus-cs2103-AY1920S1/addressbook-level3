@@ -3,6 +3,7 @@ package com.typee.logic.parser;
 import java.time.LocalDate;
 
 import com.typee.commons.core.Messages;
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
@@ -34,6 +35,8 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         switch (calendarCommandType) {
         case CalendarOpenDisplayCommand.COMMAND_WORD:
             return prepareCalendarOpenDisplayCommand(individualArgs);
+        case CalendarCloseDisplayCommand.COMMAND_WORD:
+            return prepareCalendarCloseDisplayCommand(individualArgs);
         case CalendarNextMonthCommand.COMMAND_WORD:
             return prepareCalendarNextMonthCommand(individualArgs);
         case CalendarPreviousMonthCommand.COMMAND_WORD:
@@ -56,6 +59,21 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         }
         LocalDate date = InteractiveParserUtil.parseDate(individualArgs[1]);
         return new CalendarOpenDisplayCommand(date);
+    }
+
+    /**
+     * Prepares a {@code CalendarCloseDisplayCommand} based on the specified arguments.
+     * @param individualArgs The specified arguments.
+     * @return A {@code CalendarCloseDisplayCommand} based on the specified arguments.
+     * @throws ParseException If the specified arguments are invalid.
+     */
+    private CalendarCloseDisplayCommand prepareCalendarCloseDisplayCommand(
+            String[] individualArgs) throws ParseException {
+        if (individualArgs.length != 2) {
+            throw new ParseException(CalendarCloseDisplayCommand.INVALID_COMMAND_FORMAT);
+        }
+        LocalDate date = ParserUtil.parseDate(individualArgs[1]);
+        return new CalendarCloseDisplayCommand(date);
     }
 
     /**

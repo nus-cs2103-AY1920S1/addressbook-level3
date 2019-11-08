@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.util.DateUtil;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -209,6 +211,24 @@ public class CalendarWindow extends UiPart<Region> {
                 calendarDateCell.displayEngagements();
             }
         }
+    }
+
+    /**
+     * Closes the single day engagements window for the specified date.
+     * @param date The specified date.
+     * @throws CalendarCloseDisplayException If there is no open window for the specified date.
+     */
+    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarCloseDisplayException {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)
+                    && calendarDateCell.hasOpenEngagementsDisplay()) {
+                calendarDateCell.closeDisplayedEngagements();
+                return;
+            }
+        }
+        String formattedDateString = DateUtil.getFormattedDateString(date);
+        throw new CalendarCloseDisplayException("There is no open engagements display window for "
+                + formattedDateString);
     }
 
     /**

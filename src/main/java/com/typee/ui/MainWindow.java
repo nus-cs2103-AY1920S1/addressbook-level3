@@ -1,16 +1,23 @@
 package com.typee.ui;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
+import com.typee.commons.util.PdfUtil;
 import com.typee.logic.Logic;
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
+import com.typee.logic.commands.CalendarNextMonthCommand;
+import com.typee.logic.commands.CalendarOpenDisplayCommand;
+import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 import com.typee.ui.game.StartWindow;
 import com.typee.ui.report.ReportWindow;
 
@@ -218,18 +225,29 @@ public class MainWindow extends UiPart<Stage> {
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
         String calendarCommandType = commandResult.getCalendarCommandType();
         switch (calendarCommandType) {
-        case "opendisplay":
+        case CalendarOpenDisplayCommand.COMMAND_WORD:
             calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
             break;
-        case "nextmonth":
+        case CalendarCloseDisplayCommand.COMMAND_WORD:
+            try {
+                calendarWindow.closeSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
+                break;
+            } catch (CalendarCloseDisplayException e) {
+                throw new CommandException(e.getMessage());
+            }
+        case CalendarNextMonthCommand.COMMAND_WORD:
             calendarWindow.populateCalendarWithNextMonth();
             break;
-        case "previousmonth":
+        case CalendarPreviousMonthCommand.COMMAND_WORD:
             calendarWindow.populateCalendarWithPreviousMonth();
             break;
         default:
             throw new CommandException("Invalid calendar command.");
         }
+    }
+
+    private void handlePdf(Path docPath) throws IOException {
+        PdfUtil.openDocument(docPath);
     }
 
     /**
@@ -256,6 +274,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isCalendarCommand()) {
                 handleCalendarInteraction(commandResult);
+            }
+
+            if (commandResult.isPdfCommand()) {
+                handlePdf(commandResult.getDocPath());
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
