@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -152,6 +153,7 @@ class RenewCommandTest {
         model.setServingBorrower(borrower);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
+        LoanSlipUtil.clearSession();
 
         String actualMessage;
         try {
