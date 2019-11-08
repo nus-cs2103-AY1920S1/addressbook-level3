@@ -1161,12 +1161,12 @@ e.g. `find James Jake`
 
 === Reimbursement
 * *Add deadline*: `deadline p/NAME dt/dd-mmm-yyyy`
-* *Find Reimbursement by Person*: `find p/NAME`
+* *Find reimbursement by person*: `find p/NAME`
 * *Display full list after find/add deadline*: `back`
 * *Mark as done*: `done p/NAME`
 * *Sort by amount*: `sort amount`
 * *Sort by name*: `sort name`
-* *Sort by deadline*: `sort deadline`
+* *Sort by deadline*: `sort date`
 
 === Inventory
 * *Add*: `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
