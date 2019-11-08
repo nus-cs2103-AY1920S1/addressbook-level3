@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -45,8 +46,18 @@ public class BadQuestions {
         return internalMap;
     }
 
-    public void setBadQuestionsList(HashMap<String, Set<FlashCard>> map) {
-        internalMap = map;
+    /**
+     *
+     */
+    public String showBadQuestionsList(DueDate d) {
+        Set<FlashCard> set = internalMap.get(d.toString());
+        Iterator<FlashCard> itr = set.iterator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("For Deadline: " + d.toString() + "\n");
+        while (itr.hasNext()) {
+            sb.append(itr.next().getQuestion().toString() + "\n");
+        }
+        return sb.toString();
     }
 
     /**
@@ -68,6 +79,27 @@ public class BadQuestions {
         set.add(f);
         internalMap.put(d.toString(), set);
     }
+
+    //TODO: remove bad question
+//    /**
+//     * Add bad rated flashcards into set.
+//     * For each due date, there will be a set of bad flashcards
+//     *
+//     * @param d the duedate of bad rated flashcards
+//     * @param f the flashcard that is rated bad
+//     */
+//    public void removeBadQuestion(DueDate d, FlashCard f) {
+//        String dateStr = d.toString();
+//        Set<FlashCard> set = internalMap.get(dateStr);
+//        if (set == null) {
+//            set = new HashSet<>();
+//        }
+//        if (set.contains(f)) {
+//            throw new DuplicateFlashCardException();
+//        }
+//        set.add(f);
+//        internalMap.put(d.toString(), set);
+//    }
 
     public void loadBadQuestions() throws FileNotFoundException {
         //internalMap = jsonBadDeadlines.loadJsonBadDeadlines();

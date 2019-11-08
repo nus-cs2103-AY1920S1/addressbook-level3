@@ -20,7 +20,7 @@ public class ListBadCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all FlashCard(s) which have been "
             + "labeled as bad flashcards that to remind the users to revise for these flashcards.\n"
             + "at a later date.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + " d>12/11/2019";
     public static final String SUCCESS_MESSAGE = "Flashcards displayed";
 
     private final DueDate date;
@@ -35,7 +35,6 @@ public class ListBadCommand extends Command {
 
         BadQuestions badQuestions = new BadQuestions();
         //TODO: parse date
-//        DueDate d = new DueDate("12/11/2019");
         String bad = badQuestions.showBadQuestionsList(date);
 
         return new CommandResult(String.format(bad, "hello"));
