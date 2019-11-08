@@ -39,7 +39,7 @@ public class FindEventCommand extends Command {
                 : Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
 
         return new CommandResult(
-                String.format(resultMessage, currentEventList.size()));
+                String.format(resultMessage, currentEventList.size()), "List");
     }
 
     @Override

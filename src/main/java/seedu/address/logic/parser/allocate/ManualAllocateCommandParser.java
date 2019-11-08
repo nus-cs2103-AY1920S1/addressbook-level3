@@ -11,6 +11,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.employee.EmployeeId;
 
 /**
  * Parses input arguments and creates a new ManualAllocateCommand object
@@ -26,28 +27,27 @@ public class ManualAllocateCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEE_NUMBER, PREFIX_EMPLOYEE_ID);
 
-        Index index;
         Index eventIndex;
+        Index index = null;
+        EmployeeId employeeId = null;
 
-        if (argMultimap.getValue(PREFIX_EMPLOYEE_ID).isPresent()) { //internal call by UI, guaranteed no exceptions
-            eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-            String employeeId = argMultimap.getValue(PREFIX_EMPLOYEE_ID).get();
-            return new ManualAllocateCommand(eventIndex, employeeId);
-        }
         try {
             eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
 
+            if (argMultimap.getValue(PREFIX_EMPLOYEE_ID).isPresent()) {
+                employeeId = ParserUtil.parseEmployeeId(argMultimap.getValue(PREFIX_EMPLOYEE_ID).get());
+            }
+
             if (argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER).isPresent()) {
                 index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER).get());
-            } else {
-                throw new ParseException("Invalid Employee Index!");
             }
+
 
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ManualAllocateCommand.MESSAGE_USAGE), pe);
         }
 
-        return new ManualAllocateCommand(eventIndex, index);
+        return new ManualAllocateCommand(eventIndex, index, employeeId);
     }
 }
