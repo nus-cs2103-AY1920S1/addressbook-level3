@@ -8,7 +8,7 @@
 
 My team of 4 software engineering students and I were tasked with enhancing a basic https://searchwindowsserver.techtarget.com/definition/command-line-interface-CLI[Command Line Interface (CLI)] desktop addressbook application for our Software Engineering project. Our constraint is that we have to target users who are able to type fast and prefer typing over other means of input.
 
-With the stated constraint in mind, we choose to morph the given addressbook application into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and much more. This enhanced application allows users who love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel. We ensured that the users have to type commands and instructions for all of the added features.
+With the stated constraint in mind, we choose to morph the given addressbook application into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and achievement. This enhanced application allows users who love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel. We ensured that the users have to type commands and instructions for all of the added features.
 
 This is what our project looks like: +
 
@@ -46,8 +46,8 @@ Code contributed: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96], ht
 
 Project management:
 
-* Started implementing Ui components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt.
-* Modify Command Class to be generic so that the class can take in various Model classes.
+* Started implementing Ui components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt with.
+* Modified command Command class to be generic so that the other Command classes in other features can take in their own Model classes.
 
 Enhancements to existing features:
 

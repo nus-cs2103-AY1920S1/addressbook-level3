@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -13,6 +14,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class Model {
 
+    // UI dependencies
+    private CountriesDropdown countriesDropdown;
+
+    //financial tracker components
     private FinancialTracker financialTracker;
     private ObservableMap<String, ExpenseList> internalUnmodifiableExpenseListMap;
 
@@ -24,7 +29,7 @@ public class Model {
     /**
      * Adds an expense into the financial tracker.
      */
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws CommandException {
         this.financialTracker.addExpense(expense);
     }
 
@@ -85,4 +90,21 @@ public class Model {
     public HashMap<String, Double> getSummaryMap() {
         return this.financialTracker.getSummaryMap();
     }
+
+    /**
+     * Introduce Ui dependencies using model.
+     * Purpose is to modify the countries dropdown menu based on user input.
+     * @param countriesDropdown from financial tracker page
+     */
+    public void addDependencies(CountriesDropdown countriesDropdown) {
+        this.countriesDropdown = countriesDropdown;
+    }
+
+    /**
+     * Update countries drop down menu from user input {@Code SwitchCommand}.
+     */
+    public void updateDropDownMenu(String country) throws CommandException {
+        countriesDropdown.handleUpdateFromUserInput(country);
+    }
+
 }

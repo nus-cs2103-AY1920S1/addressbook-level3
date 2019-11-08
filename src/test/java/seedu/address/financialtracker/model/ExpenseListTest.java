@@ -9,11 +9,12 @@ import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 class ExpenseListTest {
 
     @Test
-    void addExpense() {
+    void addExpense() throws CommandException {
         ExpenseList expenses = new ExpenseList("Singapore");
         Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"));
@@ -22,7 +23,7 @@ class ExpenseListTest {
     }
 
     @Test
-    void deleteExpense() {
+    void deleteExpense() throws CommandException {
         ExpenseList expenses = new ExpenseList("Singapore");
         Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"));
@@ -32,7 +33,7 @@ class ExpenseListTest {
     }
 
     @Test
-    void contains() {
+    void contains() throws CommandException {
         ExpenseList expenses = new ExpenseList("Singapore");
         Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"));

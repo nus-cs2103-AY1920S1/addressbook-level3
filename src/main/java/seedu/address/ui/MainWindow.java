@@ -74,9 +74,11 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        helpWindow = new HelpWindow();
+        codeWindow = new CodeWindow();
+        calendarPage = new CalendarPage(logic.getCalendarLogic());
         achievementsPage = new AchievementsPage(logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(logic.getAddressBookLogic());
-        calendarPage = new CalendarPage();
         diaryPage = new DiaryPage(logic.getDiaryLogic());
         financialTrackerPage = new FinancialTrackerPage(logic.getFinancialTrackerLogic());
         itineraryPage = new ItineraryPage(logic.getItineraryLogic());
@@ -105,15 +107,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Quit after letting user read the ByeResponse.
-     *
-     */
-
-    public void exit() {
-        primaryStage.hide();
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -123,9 +116,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        exit();
+        PageManager.closeWindows();
     }
 }

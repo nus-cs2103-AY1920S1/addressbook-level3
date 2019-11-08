@@ -6,6 +6,7 @@ import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.Interval;
 import seedu.address.calendar.model.util.IntervalSearchTree;
+import seedu.address.calendar.model.util.exceptions.NoVacationException;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -480,6 +481,58 @@ public class EventManager {
         vacationSchedule = new IntervalSearchTree<>();
         engagements = new HashMap<>();
         vacations = new HashMap<>();
+    }
+
+    /**
+     * Gets the number of days of vacation (i.e. school breaks and holidays)
+     *
+     * @return Number of days of vacation (i.e. school breaks and holidays)
+     */
+    public long getNumDaysVacation() {
+        return vacations.values()
+                .stream()
+                .flatMap(events ->  events.stream()
+                        .map(event -> DateUtil.daysBetween(event.getStart(), event.getEnd()) + 1))
+                .reduce((long) 0, Long::sum);
+
+    }
+
+    /**
+     * Gets the number of days spent on trips
+     *
+     * @return Number of days spent on trips
+     */
+    public long getNumDaysTrip() {
+        return engagements.values()
+                .stream()
+                .flatMap(events ->  events.stream()
+                        .filter(event -> event.getEventType().equals(EventType.TRIP))
+                        .map(event -> DateUtil.daysBetween(event.getStart(), event.getEnd()) + 1))
+                .reduce((long) 0, Long::sum);
+    }
+
+    /**
+     * Gets the number of trips.
+     *
+     * @return Absolute number of trips
+     */
+    public long getNumTrip() {
+        return engagements.values()
+                .stream()
+                .map(events -> events.stream()
+                        .filter(event -> event.getEventType().equals(EventType.TRIP))
+                        .count())
+                .reduce((long) 0, Long::sum);
+    }
+
+    /**
+     * Gets the percentage of vacation that is spent on trips.
+     *
+     * @return Percentage of vacation that is spent on trips
+     * @throws NoVacationException If there is no vacation
+     */
+    public double getPercentageTrip() throws NoVacationException {
+        return (double) getNumDaysTrip() / getNumDaysVacation();
     }
 }
 
