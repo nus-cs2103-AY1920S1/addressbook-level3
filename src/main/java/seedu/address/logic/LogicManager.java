@@ -52,7 +52,6 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     private final ParserManager parserManager;
 
-
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -98,6 +97,18 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
+    public Storage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
+
+    // <------------------------------ WordBank ------------------------------------------------------------>
+
+    @Override
     public ReadOnlyWordBank getCurrentWordBank() {
         return model.getCurrentWordBank();
     }
@@ -115,37 +126,6 @@ public class LogicManager implements Logic, UiLogicHelper {
     @Override
     public Path getWordBanksFilePath() {
         return model.getWordBankFilePath();
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public void updateStatistics(GameStatistics gameStatistics) throws CommandException {
-        try {
-            WordBankStatistics currWbStats;
-            if (model.getWordBankStatistics() == null) {
-                currWbStats = WordBankStatistics.getEmpty("sample");
-            } else {
-                currWbStats = model.getWordBankStatistics();
-            }
-            currWbStats.update(gameStatistics, model.getCurrentGameDifficulty());
-
-            Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",
-                    currWbStats.getWordBankName() + ".json");
-
-            storage.saveWordBankStatistics(currWbStats, targetPath);
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-        incrementPlay();
     }
 
     /**
@@ -196,6 +176,8 @@ public class LogicManager implements Logic, UiLogicHelper {
         }
     }
 
+    // <------------------------------ Statistics ---------------------------------------------------------->
+
     /**
      * Increments the number of play in global statistics.
      */
@@ -208,6 +190,27 @@ public class LogicManager implements Logic, UiLogicHelper {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+    }
+
+    @Override
+    public void updateStatistics(GameStatistics gameStatistics) throws CommandException {
+        try {
+            WordBankStatistics currWbStats;
+            if (model.getWordBankStatistics() == null) {
+                currWbStats = WordBankStatistics.getEmpty("sample");
+            } else {
+                currWbStats = model.getWordBankStatistics();
+            }
+            currWbStats.update(gameStatistics, model.getCurrentGameDifficulty());
+
+            Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",
+                    currWbStats.getWordBankName() + ".json");
+
+            storage.saveWordBankStatistics(currWbStats, targetPath);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+        incrementPlay();
     }
 
     @Override
@@ -225,9 +228,16 @@ public class LogicManager implements Logic, UiLogicHelper {
         return model.getGlobalStatistics();
     }
 
+    // <------------------------------ Game Related -------------------------------------------------------->
+
     @Override
     public ReadOnlyWordBank getActiveWordBank() {
         return model.getCurrentWordBank();
+    }
+
+    @Override
+    public String getCurrentQuestion() {
+        return model.getGame().getCurrQuestion();
     }
 
     @Override
@@ -245,10 +255,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         return this.model.getHintFormatSizeFromCurrentGame();
     }
 
-    @Override
-    public boolean hintsAreEnabled() {
-        return model.getHintsEnabled();
-    }
+    // <------------------------------ Parser related ------------------------------------------------------>
 
     @Override
     public List<AutoFillAction> getMenuItems(String text) {
@@ -265,23 +272,26 @@ public class LogicManager implements Logic, UiLogicHelper {
         return parserManager.getModes();
     }
 
+    // <------------------------------ AppSettings and UserPrefs ------------------------------------------->
+
     @Override
     public AppSettings getAppSettings() {
         return this.model.getAppSettings();
     }
 
     @Override
-    public String getCurrentQuestion() {
-        return model.getGame().getCurrQuestion();
+    public GuiSettings getGuiSettings() {
+        return model.getGuiSettings();
     }
 
     @Override
-    public Storage getStorage() {
-        return storage;
+    public void setGuiSettings(GuiSettings guiSettings) {
+        model.setGuiSettings(guiSettings);
     }
 
     @Override
-    public Model getModel() {
-        return model;
+    public boolean hintsAreEnabled() {
+        return model.getHintsEnabled();
     }
+
 }

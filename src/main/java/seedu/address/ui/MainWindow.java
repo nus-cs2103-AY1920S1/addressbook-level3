@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
@@ -29,7 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String FIRST_MESSAGE_SELECT_BANK = "Welcome to Dukemon!\n"
+    private static final String MESSAGE_INIT_BANK = "Welcome to Dukemon!\n"
             + "Start by creating or selecting a bank:\n"
             + "Eg. create mybank\n"
             + "Eg. select sample";
@@ -56,23 +55,26 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Scene scene;
 
+    /** CommandBox placeholder.*/
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
+    /** ResultDisplay placeholder.*/
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    //One size fits all stackpane
+    /** ModularDisplay placeholder.*/
     @FXML
     private StackPane modularDisplayPlaceholder;
 
-    //TimerDisplay placeholder
+    /** TimerDisplay placeholder.*/
     @FXML
     private AnchorPane timerDisplayPlaceholder;
 
+    /** StatusBar placeholder.*/
     @FXML
     private StackPane statusbarPlaceholder;
 
@@ -148,27 +150,33 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Give user instruction to load a bank when first starting up the app.
-        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_SELECT_BANK);
+        resultDisplay.setFeedbackToUser(MESSAGE_INIT_BANK);
 
         //Set up timer display
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
+
         //Set up callback function in AppManager to update TimerDisplay
         appManager.registerTimerDisplayCallBack(this::updateTimerDisplay);
+
         //Set up callback function in AppManager to update HintDisplay
         appManager.registerHintDisplayCallBack(this::updateHintDisplay);
+
         //Set up callback function in AppManager to update QuestionDisplay
         appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
+
         //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.registerMainWindowExecuteCallBack(this::executeCommand);
-        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getWordBanksFilePath());
+
+        //Set up status bar footer
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         //Set up command box
         commandBox = new CommandBox(this::executeCommand, uiLogicHelper);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        //Assigns only after initialisation.
+        //Set up UpdateUI
         updateUi = new UpdateUi(modularDisplay);
         updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
@@ -245,6 +253,7 @@ public class MainWindow extends UiPart<Stage> {
             updateUi.updateModularDisplay(uiLogicHelper.getMode(), modularDisplayPlaceholder);
 
             updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
+
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

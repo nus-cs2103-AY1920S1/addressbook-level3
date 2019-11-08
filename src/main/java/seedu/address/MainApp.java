@@ -52,7 +52,7 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-    private static final Version VERSION = new Version(1, 3, 0, true);
+    private static final Version VERSION = new Version(1, 4, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -212,7 +212,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-        logger.info("Successfully completed initPrefs method");
+
         return initializedPrefs;
     }
 

@@ -13,48 +13,49 @@
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="660.0" minWidth="1310.0" onCloseRequest="#handleExit" title="Dukemon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene fx:id="scene">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene fx:id="scene">
 
-      <VBox>
-            <HBox VBox.vgrow="NEVER">
-               <children>
-              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS">
-                <Menu mnemonicParsing="false" text="File">
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                </Menu>
-              </MenuBar>
-                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="500" prefHeight="35.0" HBox.hgrow="NEVER">
+            <VBox>
+                <HBox VBox.vgrow="NEVER">
+                    <children>
+                        <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS">
+                            <Menu mnemonicParsing="false" text="File">
+                                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Help">
+                                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                            </Menu>
+                        </MenuBar>
+                        <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="500" prefHeight="35.0" HBox.hgrow="NEVER">
 
-                    </AnchorPane>
-               </children>
-            </HBox>
+                        </AnchorPane>
+                    </children>
+                </HBox>
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
+                </StackPane>
 
-                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="110.0" minHeight="110.0" prefHeight="110.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-            <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
-            <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="status-bar" VBox.vgrow="NEVER">
-               <children>
-              <StackPane fx:id="statusbarPlaceholder" HBox.hgrow="ALWAYS" />
-                  <StackPane fx:id="currentModePlaceholder" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-      </VBox>
-    </Scene>
-  </scene>
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="110.0" minHeight="110.0" prefHeight="110.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="status-bar" VBox.vgrow="NEVER">
+                    <children>
+                        <StackPane fx:id="statusbarPlaceholder" HBox.hgrow="ALWAYS" />
+                        <StackPane fx:id="currentModePlaceholder" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>

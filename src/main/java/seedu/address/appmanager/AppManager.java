@@ -3,6 +3,7 @@ package seedu.address.appmanager;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.appmanager.timer.GameTimer;
 import seedu.address.commons.core.GuiSettings;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,6 +38,12 @@ import seedu.address.storage.Storage;
  */
 public class AppManager {
 
+    /** Timer message to pass into GameTimer. */
+    private static final String MESSAGE_TIME_LEFT = "Time Left";
+
+    /** Logger to track important events. */
+    private final Logger logger = LogsCenter.getLogger(AppManager.class);
+
     /** Internal Logic component that handles bulk of each Command's execution.*/
     private Logic logic;
 
@@ -48,8 +56,8 @@ public class AppManager {
     private MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private QuestionDisplayCallBack questionDisplayCallBack;
 
+    /** Statistics builder*/
     private GameStatisticsBuilder gameStatisticsBuilder;
-
 
     public AppManager(Logic logic) {
         requireAllNonNull(logic);
@@ -58,21 +66,31 @@ public class AppManager {
 
     /**
      * Sets the gameTimer instance to be a new GameTimer object with the appropriate {@code timeAllowedPerQuestion}
-     * based on the requested Difficulty setting.
+     * based on the requested Difficulty setting. Registers AppManager's callback methods with gameTimer instance.
      *
      * If hints are enabled, the {@code hintFormatSize} of the current
      * question will be used to initialize the HintTimingQueue in the GameTimer.
      */
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
-        gameTimer = GameTimer.getInstance("Time Left", timeAllowedPerQuestion,
+        abortAnyExistingGameTimer();
+
+        logger.info("Initializing a GameTimer with duration: " + logic.getTimeAllowedPerQuestion());
+
+        /* Initializing gameTimer and registering callback methods. */
+        gameTimer = GameTimer.getInstance(
+                MESSAGE_TIME_LEFT,
+                timeAllowedPerQuestion,
                 this::skipOverToNextQuestion,
                 this::updateTimerDisplay,
                 this::updateHints);
 
+        /* Initialize HintTimingQueue if hints are enabled. */
         if (logic.hintsAreEnabled()) {
             gameTimer.initHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         }
 
+        logger.info("Hints enabled? : "
+                + String.valueOf(logic.hintsAreEnabled()).toUpperCase());
     }
 
     /**
@@ -106,6 +124,7 @@ public class AppManager {
 
         /** Initialize and start GameTimer if command is prompting User's guess. */
         if (commandResult.isPromptingGuess()) {
+
             setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
 
             Platform.runLater(() -> {
@@ -152,10 +171,6 @@ public class AppManager {
                     gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                     gameCommandResult.getCard().get());
         }
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        logic.setGuiSettings(guiSettings);
     }
 
     /**
@@ -210,7 +225,7 @@ public class AppManager {
         return logic.getGlobalStatistics();
     }
 
-    // <---------------------------------------- Getting Settings ----------------------------------------------->
+    // <---------------------------------------- Settings Related ----------------------------------------------->
 
     public AppSettings getAppSettings() {
         return logic.getAppSettings();
@@ -218,6 +233,10 @@ public class AppManager {
 
     public GuiSettings getGuiSettings() {
         return logic.getGuiSettings();
+    }
+
+    public void setGuiSettings(GuiSettings guiSettings) {
+        logic.setGuiSettings(guiSettings);
     }
 
     // <------------------------------------- Callbacks to Pass Into GameTimer ---------------------------------->
