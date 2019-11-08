@@ -124,7 +124,7 @@ Format: `clearnote`
 NUStudy can also store different sets of questions and answers;
 at your command, the system will prompt you to answer those questions.
 
-==== Adding Questions : `addq`
+==== Adding Questions: `addq`
 
 You can add a question and its answer together with the necessary fields to the app. +
 Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
@@ -223,7 +223,7 @@ image::questionCommandsDemo/deleteqresult.png[width = "600"]
 
 Deletes the 1st question in the results of `findq` command.
 
-==== Filter by difficulty: `difficulty`
+==== Filtering by difficulty: `difficulty`
 
 You can view the list of all questions filtered by the specific difficulty. +
 Format: `difficulty DIFFICULTY`
@@ -243,7 +243,7 @@ Returns a list of `hard` questions.
 
 image::questionCommandsDemo/difficultyresult.png[width = "600"]
 
-==== Filter by subject: `subject`
+==== Filtering by subject: `subject`
 
 You can view the list of all questions from a specific subject. +
 Format: `subject SUBJECT`
@@ -263,7 +263,7 @@ Returns a list of questions of `CS2103T`.
 
 image::questionCommandsDemo/subjectresult.png[width = "600"]
 
-==== Clear all questions: `clearq`
+==== Clearing all questions: `clearq`
 
 You can delete all questions from the app. +
 Format: `clearq`
@@ -280,7 +280,7 @@ There is a built-in quiz mode in NUStudy for you to take a revision quiz. You ca
 subject and difficulty and the quiz will randomly select questions for you according to your requirement. You will
 answer the question one by one and your result will be given.
 
-==== Enter quiz mode : `quiz`
+==== Entering quiz mode: `quiz`
 
 You can enter the quiz mode using this command. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
@@ -302,7 +302,7 @@ on the third column. The following graph shows the result of your `quiz` command
 .Result of `quiz` command
 image::quiz/QuizModeCommandResult.png[600, 600]
 
-==== Answer the quiz question
+==== Answering the quiz question
 You can type your `answer` in the command box to answer the question.
 
 NOTE: The `answer` is case sensitive.
@@ -321,7 +321,7 @@ graph simulates the situation after you answer the question. +
 .The result after answer
 image::quiz/QuizAnswerResult.png[600, 600]
 
-==== Show an answer : `show`
+==== Showing an answer: `show`
 
 You can check the answer for the current quiz question using this command. You can use it as reference and please do
 not use it to cheat. +
@@ -336,7 +336,7 @@ Step 2: The answer of current question will be displayed. +
 .Typing `show` command and its result
 image::quiz/ShowAnswerCommand.png[600, 600]
 
-==== Skip a question : `skip`
+==== Skipping a question: `skip`
 
 You can skip current question and go to the next one using this command. +
 Format: `skip`
@@ -355,7 +355,7 @@ Step 2: The current question is skipped and next question will be displayed. +
 .The result of `skip` command
 image::quiz/SkipCommandResult.png[600, 600]
 
-==== Exit quiz mode : `quit`
+==== Exiting quiz mode: `quit`
 
 You can exit from the quiz mode using this command. +
 Format: `quit`
@@ -391,7 +391,7 @@ the stored quiz result will still refer to the original question to minimise inc
 This is because a question that has been modified to a large extent
 might cause past answers to become irrelevant and distort the statistics.
 
-==== Get statistics for subjects : `stats`
+==== Getting statistics for subjects: `stats`
 Returns a panel containing a break down of the questions by its results.
 You can choose to get the statistics for a difficulty level by adding `d/` or
 get the statistics of different subjects by adding `s/`. +
@@ -410,7 +410,7 @@ To get this figure:
 .The result of `stats d/easy s/cs2103t` command
 image::statistics/stats.PNG[600, 600]
 
-==== Get questions with correct/incorrect answers: `question`
+==== Getting questions with correct/incorrect answers: `question`
 Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
 Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`. +
 Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
@@ -429,7 +429,7 @@ your past answers to it as well as a break down of the number of questions by di
 .The result of `question -i s/cs2103t`
 image::statistics/question.PNG[600, 600]
 
-==== Get a report for individual questions: `report`
+==== Getting a report for individual questions: `report`
 Returns a panel containing a report of how well you have answered a particular question
 and shows all your past answers to the question. +
 Format: `report INDEX`
@@ -453,14 +453,14 @@ To see a report of the question:
 .The result of `report 7` command
 image::statistics/report.PNG[600, 600]
 
-==== Get overview of questions attempted: `overview`
+==== Getting overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
 You can also add two `dt/` fields representing a time period to get questions you did
 within that time period. The format for date is dd/MM/yyyy. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 
-NOTE: For `DATE` input constraints, you may refer to <<Add a revision task for a note: `rn`>>.
+NOTE: For date input constraints, you may refer to <<Add a revision task for a note: `rn`>>.
 
 NOTE: If you have more than 8 different difficulty levels, the stack bar chart may repeat
 colors for the difficulties. To differentiate between the different bars in the chart,
@@ -490,23 +490,21 @@ and questions.
 
 The diagram below shows how a revision task looks like:
 
-image::UserGuideRes/TaskUI.png[]
+image::UserGuideRes/TaskUI.png[600, 600]
 
-NOTE: The revision tasks are not synchronised with the note and the question. Once created, the task content will not
-change if you modify the corresponding note or question. For example, if you have added a task for note "An AVL Tree"
-and then you delete the note or change the title of the note, the task still exist with the heading unchanged. We adopt
-this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
-we disassociate the task from notes and questions once created.
+NOTE: The revision tasks are not synchronised with the note or the question. Once created, the task content will not
+change if you modify the corresponding note or question. We deliberately disassociate the task from notes and questions once created
+because we would like to allow you to customise the task headings in *version v2.0* of the app.
 
-NOTE: Revision tasks with the same heading, same date and same time are considered duplicate tasks and cannot co-exist
+NOTE: Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist
 in the revision task list. Even if they have different status, they still cannot co-exist
 because it does not make sense to have same tasks but different status.
 
-==== Add a revision task for a note: `rn`
+==== Adding a revision task for a note: `rn`
 You can add a revision task for a note to the current revision task list with this command.
-The heading will copy the title and the GUI will display all tasks upon completing the command.
-An invalid date will be interpreted as the nearest valid date. +
-Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+The heading will copy the title. +
+The GUI will display all tasks upon completing the command. +
+Format: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
 
 NOTE: `TITLE_OF_NOTE` is case sensitive.
 
@@ -514,17 +512,17 @@ Example: +
 
 1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it.
 +
-image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
+image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[600, 600]
 +
 2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
 The task is added to the task list shown in the middle panel.
 +
-image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[]
+image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[600, 600]
 +
 
 ====
 
-*Constrains for `DATE` (yyyy : `YEAR`, MM : `MONTH`, dd : `DAY`), `TIME` (HH : `HOUR` , mm : `MINUTE`) input:*
+*Constraints for `DATE` (yyyy : `YEAR`, MM : `MONTH`, dd : `DAY`), `TIME` (HH : `HOUR` , mm : `MINUTE`) input:*
 
 * All numerical inputs must be integers.
 * `DATE` input format should follow Singapore local date convention (i.e. dd/MM/yyyy).
@@ -544,17 +542,17 @@ NOTE: "2400" and "0000" for `TIME` are both considered valid and represent 12am 
 
 ====
 
-==== Add a revision task for a question: `rq`
-You can add a revision task for a question to the current revision task list with this command. +
+==== Adding a revision task for a question: `rq`
+You can add a revision task for a question to the current revision task list with this command.
 The heading will copy the question body. +
 The GUI will display all tasks upon completing the command. +
-Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+Format: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
 Example: +
 `rq i/1 dt/11/11/2019 tm/1500`
 
 NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Add a revision task for a note: `rn`>>.
 
-==== Remove revision task: `rdelete`
+==== Removing revision task: `rdelete`
 You can remove a particular revision task from current list with this command. +
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdelete INDEX_OF_TASK` +
@@ -562,15 +560,15 @@ Example: +
 
 1. Type `rdelete 2` in the command input box, and press `Enter` to execute it.
 +
-image::UserGuideRes/TaskCommands/DeleteTaskCommand.png[]
+image::UserGuideRes/TaskCommands/DeleteTaskCommand.png[600, 600]
 +
 2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list.
 +
-image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[]
+image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[600, 600]
 +
 
-==== Mark the revision task as done: `rdone`
-You can mark a task as done once you finished it.
+==== Marking the revision task as done: `rdone`
+You can mark a task as done once you finished it. +
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdone INDEX` +
 
@@ -578,53 +576,54 @@ Example: +
 
 1. Type `rdone 1` in the command input box, and press `Enter` to execute it.
 +
-image::UserGuideRes/TaskCommands/DoneTaskCommand.png[]
+image::UserGuideRes/TaskCommands/DoneTaskCommand.png[600, 600]
 +
 2. The result box will display the message "Revision task marked as done: [Y] ..." with the task details. The status icon
 of the task turns from "[N]" (not done) to "[Y]" (done).
 +
-image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[]
+image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[600, 600]
 +
 
-NOTE: You cannot use "undone" (marking a task as not done) feature as we believe that the chance of accidentally marking
-an unfinished task as done is fairly low by command line input. So the app should not support a "undo" action for `rdone`.
+NOTE: You cannot use "undone" (marking a task as not done) feature.
 People usually "undone" a task because they realise that some parts of the task are not fully completed. In this case, you
 should create a new task with a new date or time (same as "re-scheduling" in the real world).
 
-==== Edit a revision task: `redit`
+==== Editing a revision task: `redit`
 You can edit a revision task with this command. You need to provide non-empty arguments with prefix `h/`, `dt/` and `tm/`
-as you would do with `rn`, but only those fields you want to change. + Please take note that *at least one field* must be provided. +
+as you would do with `rn`, but only those fields you want to change. Please take note that *at least one field* must be provided. +
 Format: `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
 Example: +
 `redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200`
 
 NOTE: Please note that the prefix for the heading of a task is no longer `t/` (for note task) or `i/` (for question task).
 Instead, the prefix becomes `h/` for both types of tasks. `HEADING` can be the title of a note or the question body of a question.
-The edited `HEADING` must be an existing title or question body. + `HEADING` is case sensitive.
+The edited `HEADING` must be an existing title or question body.
 
-NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may want to use `rdone` if you want to mark a
-task as done. You cannot do "undone" operation as explained in `rdone` feature.
+NOTE: `HEADING` is case sensitive.
 
-==== View all revision tasks: `rlist`
-This command displays the whole revision task list. +
+NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may use `rdone`.
+You cannot do "undone" operation as explained in `rdone` feature.
+
+==== Viewing all revision tasks: `rlist`
+You may view the whole revision task list using this command. +
 Format: `rlist`
 
-==== View completed revision tasks: `finished`
-This command displays the list of revision tasks that you have completed. +
+==== Viewing completed revision tasks: `finished`
+You may use this command to view the list of revision tasks that you have completed. +
 Format: `finished`
 
-==== View uncompleted revision task: `unfinished`
-This command displays the list of revision tasks that you have not completed. +
+==== Viewing uncompleted revision task: `unfinished`
+You may use this command to the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
-==== View overdue revision tasks: `overdue`
-This command displays the revision tasks which you have not done but having passed the start time. +
+==== Viewing overdue revision tasks: `overdue`
+You may use this command to view the revision tasks which you have not done but having passed the scheduled time. +
 Format: `overdue`
 
-==== Find tasks with specified details: `rfind`
+==== Finding tasks with specified details: `rfind`
 You may use this command to search for tasks with specified details. You may key in keyword(s) of the heading, or the date, or the time,
-with prefix `h/` `dt/` `tm/` respectively.
-The GUI will display a task list of all tasks with field (heading or date or time) that matches your input. +
+with prefix `h/` `dt/` `tm/` respectively. +
+The GUI will display a task list of all tasks with the field (heading or date or time) that matches your input. +
 Format:
 `rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
 
@@ -638,24 +637,25 @@ Example: +
 NOTE: The priority of the fields are `h/` > `dt/` > `tm/`. When multiple prefixes (fields) are provided for search, only
 the field with the highest priority will be considered. The rest will be ignored.
 
-NOTE: When searching according to keywords in the heading, NUStudy will return tasks with headings containing any one of
-the words (*not characters*). For example, if you search by "hello world", tasks whose headings contain "hello", "world", "hello world", "world hello",
-or "hello world blablabla..." will all appear in the GUI. Our rationale is to provide you with as many matching tasks as
-possible in case you cannot remember every word of the headings. Please note that the minimum matching unit is a word in
-the heading. For instance, if you key in "he" or "word" while the full task list has tasks with headings "hello", "hello world",
-no task will be retrieved because "he" and "word" are not complete words contained in the headings.
+NOTE: A heading is considered matching with the keywords as long as one of the words in the heading is the same as one of the words in the input keywords.
+Please note that the minimum matching unit is a word (*not characters*) in the heading. Words in the headings are separated by a space. +
 
-//[width="70%",cols="50%,<50%",options="header",]
-//|=======================================================================
-//|Input|Task shown
-//
-//|rfind h/hello|"hello" +
-//"hello world"
-//
-//
-//|=======================================================================
+====
+For example, suppose we have a task list with tasks of headings {"hello", "hello?", "Hello", "helloworld", "hello world", "HelloWorld"},
+here are the use cases:
+[width="90%",cols="30%,50%",options="header"]
+|=======================================================================
+|Input `WORD`|Tasks shown
 
-==== Clear current revision plan: `rclear`
+|hello|{"hello", "Hello", "hello world"}
+|hello?|{"hello?"}
+|helloworld|{"helloworld", "HelloWorld"}
+|hello world|{"hello", "Hello", "hello world"}
+|he|No task shown
+|=======================================================================
+====
+
+==== Clearing current revision plan: `rclear`
 You can remove all revision tasks with this command. +
 Format: `rclear`
 
@@ -665,27 +665,27 @@ Format: `rclear`
 NUStudy will automatically complete the command as you type, just like how it behaves in most IDEs.
 
 // tag::quizFuture[]
-==== Set a timer for quiz mode
+==== Setting a timer for quiz mode
 You can set a time limit before you start a quiz to train yourself under exam conditions. NUStudy will automatically end the quiz when time is up. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT tl/TIME_LIMIT`
 // end::quizFuture[]
 
-==== Enable push notification: `notify -e`
+==== Enabling push notification: `notify -e`
 You can enable the push notification feature to send a desktop reminder when the task is about to start. +
 Format: `notify -e [-A]`
 
-==== Disable push notification: `notify -d`
+==== Disabling push notification: `notify -d`
 You can disable the push notification with this command. +
 Format: `notify -d [-A]`
 
-==== Sort revision tasks: `sort`
+==== Sorting revision tasks: `sort`
 You can sort the revision tasks based on certain fields with ascending/descending order. +
 Format: `sort o/ORDER f/FIELD` +
 Example: +
 `sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
 `sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
 
-==== Share notes and questions with other users
+==== Sharing notes and questions with other users
 You can share your notes and questions with other NUStudy users with Internet connection.
 
 ==== Login using email and password
@@ -699,23 +699,98 @@ NUStudy will intelligently suggest groupings of lecture notes based on their con
 
 == Command summary
 
-*Add a revision task for note*: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
-eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900`
+*Adding lecture notes:* `addnote t/TITLE c/CONTENT [i/]` +
+eg. `addnote t/Order-7 triangular tiling c/{3,7} i/` +
 
-*Add a revision task for question*: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
-eg. `rq 1 dt/11/11/2019 tm/1500`
+*Editing lecture notes:* `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]` +
+eg. `editnote 1 t/An AVL Tree` +
 
-*Remove a revision task*: `rdelete INDEX_OF_TASK` +
-eg. `rdelete 2`
+*Viewing lecture notes:* `findnote WORD [WORD]…` +
+eg. `findnote AVL` +
 
-*Mark the revision task as done*: `rdone INDEX` +
-eg. `rdone 1`
+*Listing all lecture notes:* `listnote` +
 
-*View all revision tasks*:
+*Deleting lecture notes:* `deletenote INDEX` +
+eg. `deletenote 1` +
 
+*Clearing all lecture notes:* `clearnote` +
 
+*Adding Questions:* `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY` +
+eg. `addq q/How to represent 85 in binary? a/1010101 s/CS2100 d/medium` +
 
+*Listing all questions:* `listq` +
 
+*Editing a question:* `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]` +
+eg. `editq 7 a/16 d/easy` +
+
+*Locating questions by keyword:* `findq KEYWORD [MORE KEYWORDS]` +
+eg. `findq UDP` +
+
+*Deleting a question:* `deleteq INDEX` +
+eg. `listq` then `deleteq 3` +
+
+*Filtering by difficulty:* `difficulty DIFFICULTY` +
+eg. `difficulty hard` +
+
+*Filtering by subject:* `subject SUBJECT` +
+eg. `subject CS2103T` +
+
+*Clearing all questions:* `clearq`
+
+*Entering quiz mode:* `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT` +
+eg. `quiz n/2 d/Easy s/CS2040` +
+
+*Answering the quiz question:* type your answer in the text input box +
+
+*Showing an answer:* `show` +
+
+*Skipping a question:* `skip` +
+
+*Exiting quiz mode:* `quit` +
+
+*Getting statistics for subjects:* `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...` +
+eg. `stats d/easy s/cs2103t` +
+
+*Getting questions with correct/incorrect answers:* `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...` +
+eg. `question -i s/cs2103t` +
+
+*Getting a report for individual questions:* `report INDEX` +
+eg. `report 7` +
+
+*Getting overview of questions attempted:* `overview [dt/START_DATE dt/END_DATE]` +
+eg. `overview dt/20/10/2019 dt/06/11/2019` +
+
+*Adding a revision task for note*: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
+eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900`+
+
+*Adding a revision task for question*: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
+eg. `rq 1 dt/11/11/2019 tm/1500` +
+
+*Removing a revision task*: `rdelete INDEX_OF_TASK` +
+eg. `rdelete 2` +
+
+*Marking the revision task as done*: `rdone INDEX` +
+eg. `rdone 1` +
+
+*Editing a revision task:* `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
+eg. `redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200` +
+
+*Viewing all revision tasks:* `rlist` +
+
+*Viewing completed revision tasks:* `finished` +
+
+*Viewing uncompleted revision task:* `unfinished` +
+
+*Viewing overdue revision tasks:* `overdue` +
+
+*Finding tasks with specified details:* `rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME` +
+eg. `rfind h/hello world` or `rfind dt/01/11/2019` or `rfind tm/1200` +
+
+*Clearing current revision plan:* `rclear` +
+
+*Exitting the app:* `exit` +
+
+*Opening help window:* `help`
 
 == FAQ
 
