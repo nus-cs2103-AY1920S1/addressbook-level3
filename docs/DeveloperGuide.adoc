@@ -762,7 +762,7 @@ image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
 
 Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
-To segregate cards according to their function, I distinguished the following:
+To segregate cards according to their function, we distinguished the following:
 
 //A `Card` contains a word and a unique meaning. (May contain tags) +
 `CardCommands` work on `Cards`. +
@@ -975,7 +975,7 @@ Harder to read from multiple files.
 
 3+|**Why did we choose Alternative 2:** +
 This choice was based largely from the user's perspective. +
-As our app is designed to streamline learning, I figured that easy sharing of word banks file with friends is an important
+As our app is designed to streamline learning, we figured that easy sharing of word banks file with friends is an important
 aspect in our app, and cannot be compromised.
 |===
 
@@ -999,7 +999,7 @@ Commands that work on Cards extends the abstract
 `CardCommand` class and commands that work on `WordBank` extends the abstract `WordBankCommand` class.** +
 
 _Pros:_ +
-As I have created distinct data structure for `WordBankList` and `WordBank`, distinguished commands now
+As we have created distinct data structure for `WordBankList` and `WordBank`, distinguished commands now
 work solely on their respective data structure. It follows the Single Responsibility Principle
 and the Separation of Concerns Principle more closely, and decreases the coupling between the two component.
 
