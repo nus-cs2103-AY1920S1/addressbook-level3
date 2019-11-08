@@ -24,6 +24,7 @@ import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
 import seedu.address.logic.graphs.EditScheduleGraph;
+import seedu.address.logic.graphs.FindCustomerGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.model.Model;
 
@@ -50,7 +51,7 @@ class GraphGenerator {
         graphs.put("switch-c", Graph.emptyGraph(model));
         graphs.put("add-c", new AddCustomerGraph(model));
         graphs.put("delete-c", new DeleteCustomerGraph(model));
-        graphs.put("find-c", Graph.emptyGraph(model)); //TODO LAST
+        graphs.put("find-c", new FindCustomerGraph(model));
         graphs.put("list-c", Graph.emptyGraph(model));
         graphs.put("clear-c", Graph.emptyGraph(model));
         graphs.put("edit-c", new EditCustomerGraph(model));
