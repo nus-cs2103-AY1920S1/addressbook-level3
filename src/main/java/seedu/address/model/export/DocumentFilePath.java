@@ -38,6 +38,7 @@ public class DocumentFilePath {
      * Returns true if a given string is a valid document file path.
      */
     public static boolean isValid(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -1,0 +1,27 @@
+@startuml
+start
+:User executes import command, with a specified file path;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([file path is valid and represents a JSON file])
+    :Open JSON file;
+    if () then ([JSON file is valid\nand non-empty])
+            repeat
+            :Read next FlashCard from file;
+            if () then ([User already has a\ncopy of this FlashCard])
+            else ([else])
+                :Copy FlashCard into user's data;
+            endif
+            repeat while () is ([there are more\nFlashCards to read])
+            ->[else];
+        :Display success message;
+    else ([else])
+        :Display error message;
+    endif
+else ([else])
+    :Display error message;
+endif
+stop
+@enduml

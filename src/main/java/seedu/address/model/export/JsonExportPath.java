@@ -8,7 +8,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +52,7 @@ public class JsonExportPath extends ExportPath {
      * Returns true if a given string is a valid json export path.
      */
     public static boolean isValid(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -64,13 +64,10 @@ public class JsonExportPath extends ExportPath {
      * relative to its immediate parent directory
      */
     private static JsonExportFilePath extractJsonExportFilePath(String jsonExportPathString) {
-        Path fullPath = Paths.get(jsonExportPathString);
-        int nameCount = fullPath.getNameCount();
+        requireNonNull(jsonExportPathString);
 
         return new JsonExportFilePath(
-                fullPath
-                .subpath(nameCount - 1, nameCount)
-                .toString()
+                ExportPath.extractFilePathNoDirectoryString(jsonExportPathString)
         );
     }
 
@@ -89,6 +86,8 @@ public class JsonExportPath extends ExportPath {
 
     @Override
     public void export(List<FlashCard> list) throws IOException {
+        requireNonNull(list);
+
         try {
             directoryPath.createIfNotPresent();
             JsonExportUtil.exportFlashCardsToJson(list, this);

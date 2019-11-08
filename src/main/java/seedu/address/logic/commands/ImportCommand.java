@@ -83,8 +83,8 @@ public class ImportCommand extends Command {
      * @throws CommandException If the Optional List turns out to be empty.
      */
     private CommandResult applyImport(Model model, Optional<List<FlashCard>> optionalList) throws CommandException {
-
         verifyOptionalFlashCardListPresent(optionalList, MESSAGE_IMPORT_EMPTY_OPTIONAL);
+        requireNonNull(model);
 
         int successCount = 0;
         int duplicateCount = 0;
@@ -112,7 +112,7 @@ public class ImportCommand extends Command {
      */
     private void verifyOptionalFlashCardListPresent(Optional<List<FlashCard>> optionalList, String message)
             throws CommandException {
-        if (optionalList.isEmpty()) {
+        if (optionalList == null || optionalList.isEmpty()) {
             throw new CommandException(
                 message
             );
@@ -127,6 +127,9 @@ public class ImportCommand extends Command {
      * @return String representing the formatted success message
      */
     private String formatCommandResultString(int successCount, int duplicateCount) {
+        assert successCount >= 0;
+        assert duplicateCount >= 0;
+
         if (successCount == 0) {
             return MESSAGE_IMPORT_ALL_DUPLICATES;
         }

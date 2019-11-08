@@ -3,6 +3,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 
@@ -96,6 +97,8 @@ public class ExportCommand extends Command {
      * @return ObservableList of the FlashCards in the model that match the Category.
      */
     public static ObservableList<FlashCard> getFlashCardsByCategory(Model model, Category category) {
+        requireAllNonNull(model, category);
+
         return model.getFilteredFlashCardListNoCommit(
                 categoryToPredicate(
                         category
@@ -110,6 +113,8 @@ public class ExportCommand extends Command {
      * @return CategoryContainsAnyKeywordsPredicate representing the Category.
      */
     public static CategoryContainsAnyKeywordsPredicate categoryToPredicate(Category category) {
+        requireNonNull(category);
+
         return new CategoryContainsAnyKeywordsPredicate(
                 categoryToKeywordList(
                         category
@@ -124,6 +129,8 @@ public class ExportCommand extends Command {
      * @return Singleton List containing the given Category.
      */
     public static List<String> categoryToKeywordList(Category category) {
+        requireNonNull(category);
+
         String categoryName = category.categoryName;
         List<String> categoryKeywordList = Collections.singletonList(categoryName);
         return categoryKeywordList;
@@ -131,7 +138,7 @@ public class ExportCommand extends Command {
 
     private static void verifyNonEmptyFlashCardList(List<FlashCard> flashCardList, String message)
             throws CommandException {
-        if (flashCardList.size() == 0) {
+        if (flashCardList == null || flashCardList.size() == 0) {
             throw new CommandException(message);
         }
     }
@@ -147,6 +154,9 @@ public class ExportCommand extends Command {
      * @return A List of FlashCards with the transient data wiped
      */
     private static List<FlashCard> wipeTransientData(List<FlashCard> flashCardList, Category category) {
+        assert flashCardList.size() > 0;
+        requireAllNonNull(flashCardList, category);
+
         return flashCardList.stream().map(
             flashCard -> new FlashCard(
                     flashCard.getQuestion(),

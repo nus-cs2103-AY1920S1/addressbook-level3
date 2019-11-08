@@ -2,6 +2,7 @@
 
 package seedu.address.model.export;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class DirectoryPath {
      * Returns true if a given string is a valid DirectoryPath.
      */
     public static boolean isValid(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
