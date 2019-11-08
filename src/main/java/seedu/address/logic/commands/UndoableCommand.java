@@ -16,6 +16,7 @@ import seedu.address.model.schedule.Schedule;
 
 /**
  * Represents a command which can be undone and redone.
+ * Solution adapted from https://github.com/se-edu/addressbook-level4/pull/610/files with modifications / bug fixes
  */
 public abstract class UndoableCommand extends Command {
     private ReadOnlyDataBook<Customer> previousCustomerBook;

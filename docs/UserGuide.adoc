@@ -258,7 +258,7 @@ Finds customers whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
-* The search looks for partial matches e.g. `ha` will match `hans`.
+* The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
 ****
@@ -334,6 +334,11 @@ Copies a customer in SML to clipboard +
 . `find-c Lee`
 . `copy-c 1`
 
+==== Email customer : `email-c` `[coming in v2.0]`
+Emails a customer in SML. Opens Gmail on web browser and drafts an email to customer. +
+
+[underline]#Format#: `email-c INDEX`
+
 
 // end::customer[]
 
@@ -399,7 +404,7 @@ Finds phones whose fields contain any of the given keywords. +
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The search looks for partial matches e.g. `ha` will match `hans`.
+* The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * The search matches anywhere for name, contact number, email and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
@@ -550,6 +555,11 @@ Copies an order field to clipboard. +
 Format: `copy-o <field>`
 
 
+==== Print orders : `print-o` `[coming in v2.0]`
+Prints the order lists with formatting that is appropriate for stock-take or order tracking.
+Order list is converted into PDF format before being printed. +
+Format: `print-o`
+
 === Schedule Commands
 Commands that work on schedules you have.
 
@@ -635,28 +645,28 @@ Clears every archived order in SML. +
 
 [underline]#Format#: `clear-a`
 
-==== Find Archived Order: `find-a` [coming in v2.0]
+==== Find Archived Order: `find-a` `[coming in v2.0]`
 
 Finds archived orders whose fields contain any of the given keywords. +
 
 [underline]#Format#: `find-a KEYWORD [MORE_KEYWORDS]...`
 
 
-==== List Archived Order: `list-a` [coming in v2.0]
+==== List Archived Order: `list-a` `[coming in v2.0]`
 List every archived order in SML. Acts as a switch archived order command as well. +
 
 [underline]#Format#: `list-a`
 
 - `list-a`
 
-==== Delete Archived Order: `delete-a` [coming in v2.0]
+==== Delete Archived Order: `delete-a` `[coming in v2.0]`
 
 Deletes an archived order in SML.
 
 [underline]#Format#: `delete-c INDEX`
 
 
-=== Copy Archived Order: `copy-a` [coming in v2.0]
+==== Copy Archived Order: `copy-a` `[coming in v2.0]`
 Copies an archived order field to clipboard. +
 Format: `copy-a INDEX`
 
@@ -804,30 +814,71 @@ Coming in `V2.0`:
 // end:statisticsCommand[]
 
 ==== Exiting the program : `exit`
+
 Exits the program. +
-Format: `exit`
+
+[underline]#Format#: `exit`
 
 === Export data : `export`
 Exports application data into csv file. +
 If csv file of the input file name exists, the application data will be exported to the existing file. +
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
-Format: `export <file name>` +
 
-=== Saving the data
+[underline]#Format#: `export FILE_NAME` +
+
+=== Other commands
+
+==== Import data : `import` `[coming in v2.0]`
+Imports csv file into application. +
+If csv file of the input file exists, the file will be imported. +
+If csv file of the input file does not exist, command will not be executed. +
+
+[underline]#Format#: `import FILE_NAME`
+
+==== Saving the data
 SML data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Encrypting data files `[coming in v2.0]`
-Explain how the user can enable/disable data encryption
+==== Encrypting data files `[coming in v2.0]`
+All data files will be password-protected with a unique password of at least 8 characters long.
 
-=== Autocomplete  `[coming in v2.0]`
-Press kbd:[Tab] to autocomplete the line. (like in command line)
+[underline]#Format#: `encrypt PASSWORD`
 
-=== Notification for reminders/alerts  `[coming in v2.0]`
-Notification page to show any notifications of reminders or alerts.
 
-=== Export data to PDF  `[coming in v2.0]`
-Export any of the data in SML to PDF format.
+==== Autocomplete v2.0  `[coming in v2.0]`
+Press kbd:[Tab] to autocomplete the line.
+
+
+==== Notification for reminders/alerts  `[coming in v2.0]`
+Notification page to show reminders or alerts of upcoming schedules.
+
+==== Export data to PDF  `[coming in v2.0]`
+Export the application data in SML to PDF format.
+
+[underline]#Format#: `export pdf`
+
+==== Add a new product `[coming in v2.0]`
+
+This command is to allow users to define their own product (e.g. Tablet) with its own fields.
+Users have to first key in the primary key name.
+The primary key is used to uniquely identify all records. (e.g. for Tablet, the primary key could be the Serial Number)
+This will be followed by the data type of the primary key.
+The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
+The hash tag represents the length of the valid input for the primary key.
+
+
+[underline]#Format#: `create PRODUCT_NAME PRIMARY_KEY_NAME DATA_TYPE `
+
+==== Add fields to a new product `[coming in v2.0]`
+
+This command is to allow users to add a field to their product.
+Users have to first key in the field name.
+This will be followed by the data type of the field.
+The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
+The hash tag represents the length of the valid input for the primary key.
+
+
+[underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE `
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
