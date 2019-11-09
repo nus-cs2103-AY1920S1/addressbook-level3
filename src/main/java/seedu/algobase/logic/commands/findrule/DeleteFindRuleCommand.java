@@ -32,6 +32,7 @@ public class DeleteFindRuleCommand extends Command {
     private final Index targetIndex;
 
     public DeleteFindRuleCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

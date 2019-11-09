@@ -449,10 +449,10 @@ public class ParserUtil {
         } catch (NumberFormatException | NullPointerException nfe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage), nfe);
-        } catch (IllegalArgumentException ire) {
+        } catch (IllegalArgumentException iae) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
-                ire);
+                iae);
         }
     }
 

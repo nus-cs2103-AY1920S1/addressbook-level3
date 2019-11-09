@@ -33,6 +33,7 @@ public class ApplyCommand extends Command {
     private final Index targetIndex;
 
     public ApplyCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

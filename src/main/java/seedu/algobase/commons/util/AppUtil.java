@@ -41,13 +41,14 @@ public class AppUtil {
     }
 
     public static String getClassStringField(Class targetClass, String fieldName) {
+        requireNonNull(targetClass);
+        requireNonNull(fieldName);
         try {
-            String result = (String) targetClass.getField(fieldName).get("");
-            return result;
-        } catch (NoSuchFieldException e) {
+            return (String) targetClass.getField(fieldName).get("");
+        } catch (NoSuchFieldException | IllegalArgumentException e) {
             throw new AssertionError("Class " + targetClass.getName()
                 + "doesn't have " + fieldName + " field.");
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | SecurityException e) {
             throw new AssertionError("Class " + targetClass.getName()
                 + "has non-public " + fieldName + ".");
         }
@@ -55,15 +56,17 @@ public class AppUtil {
 
     /**
      * Returns true if two lists have the same content with the same order.
-     * @param first list to compare
-     * @param second list to compare
+     * @param firstList list to compare
+     * @param secondList list to compare
      */
-    public static boolean compareTwoLists(List first, List second) {
-        if (first.size() != second.size()) {
+    public static boolean compareTwoLists(List firstList, List secondList) {
+        requireNonNull(firstList);
+        requireNonNull(secondList);
+        if (firstList.size() != secondList.size()) {
             return false;
         } else {
-            for (int i = 0; i < first.size(); i = i + 1) {
-                if (!first.get(i).equals(second.get(i))) {
+            for (int i = 0; i < firstList.size(); i = i + 1) {
+                if (!firstList.get(i).equals(secondList.get(i))) {
                     return false;
                 }
             }
@@ -77,6 +80,8 @@ public class AppUtil {
      * @param second optional object
      */
     public static boolean optionalEquals(Optional first, Optional second) {
+        requireNonNull(first);
+        requireNonNull(second);
         if (first.isPresent()) {
             return second.isPresent() && first.get().equals(second.get());
         } else {
