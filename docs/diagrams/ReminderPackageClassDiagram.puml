@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Reminder {
+Class Reminder
+Class Note
+Class ReminderAssociation
+}
+
+Package Bookmark {
+Class Bookmark
+Class Url
+}
+
+Mark *--> "1" ReminderAssociation
+
+Bookmark --> "1" Url
+
+ReminderAssociation o--> "*" Bookmark
+ReminderAssociation o--> "*" Reminder
+Reminder --> "1" Url
+Reminder --> Note
+
+@enduml

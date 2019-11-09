@@ -112,21 +112,16 @@ https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is a sample section that I contributed to the User Guide. It showcases my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=autotags]
 
-//include::../UserGuide.adoc[tag=exportcommand]
-
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is a sample section I contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=autotag]
-
-//include::../DeveloperGuide.adoc[tag=import]
