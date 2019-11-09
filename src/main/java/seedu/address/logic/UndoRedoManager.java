@@ -7,58 +7,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ModelLists;
-import seedu.address.model.listeners.ModelListListener;
-import seedu.address.model.listeners.ModelResetListener;
+import seedu.address.model.ModelData;
+import seedu.address.model.ModelManager;
+import seedu.address.model.listeners.ModelDataListener;
+
+//@@author bruceskellator
 
 /**
- * UndoRedoManager contains all EventList states
- * at different points of time in its eventListStateList
- * as well as a currentStateIndex that stores the index of the
- * current EventList state in the list.
- * It also contains a mainEventList that represents the current EventList
- * state. Duplicates of this mainEventList are stored in the eventListStateList.
- * Whenever an undo or redo command is executed, mainEventList restores itself to a
- * past/future state by copying the data in its duplicate over to itself.
+ * UndoRedoManager keeps track of the different versions of ModelData, which are duplicated
+ * and stored to its undoStateList every time event or task data is manipulated by a command.
+ * It contains the ModelManager, as well as an undoIndex which marks the current version of the
+ * ModelData in undoStateList in use.
+ * Whenever an undo or redo command is executed, undoIndex is decremented or incremented respectively.
+ * The current version of ModelData in undoStateList will then be deep-copied to replace ModelManager's
+ * ModelData.
  */
-public class UndoRedoManager implements ModelListListener {
+public class UndoRedoManager implements ModelDataListener {
 
     /**
-     * Deep-copies of Model are stored to this list
+     * Deep-copies of ModelData are stored to this list
      * every time a state-changing command is executed.
-     * This allows mainEventList to retrieve its data
+     * This allows ModelManager's ModelData to retrieve its data
      * from any of these past or future states when an
      * undo or redo command is called.
      */
-    private final List<ModelLists> undoStateList;
-    private final List<ModelResetListener> modelResetListeners;
+    private final List<ModelData> undoStateList;
+    private final ModelManager model;
 
-    private boolean start;
+    private boolean listening;
     private int undoIndex;
 
-    public UndoRedoManager() {
-        undoStateList = new ArrayList<>();
-        modelResetListeners = new ArrayList<>();
-    }
-
-    public void addModelResetListener(ModelResetListener listener) {
-        this.modelResetListeners.add(listener);
+    public UndoRedoManager(ModelManager model) {
+        this.undoStateList = new ArrayList<>();
+        this.model = model;
     }
 
     /**
      * This method should be called first.
-     * Initializes the UndoRedoManager with an initial ModelList.
-     * Allows UndoRedoManager to start listening to ModelList changes.
-     * @param modelLists the starting ModelList
+     * Initializes the UndoRedoManager with the Model's initial data.
+     * Allows UndoRedoManager to start listening to ModelData changes.
      */
-    public void start(ModelLists modelLists) {
-        undoStateList.add(modelLists);
-        start = true;
+    public void start() {
+        undoStateList.add(this.model.getModelData());
+        listening = true;
         undoIndex = 0;
     }
 
     /**
-     * Restores the previous ModelList from UndoRedoManager.
+     * Restores the previous ModelData from UndoRedoManager.
      */
     public void undo() throws CommandException {
         if (!canUndo()) {
@@ -69,7 +65,7 @@ public class UndoRedoManager implements ModelListListener {
     }
 
     /**
-     * Restores the previously undone ModelList from UndoRedoManager.
+     * Restores the previously undone ModelData from UndoRedoManager.
      */
     public void redo() throws CommandException {
         if (!canRedo()) {
@@ -80,16 +76,16 @@ public class UndoRedoManager implements ModelListListener {
     }
 
     /**
-     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
+     * Clears all future model data states in undoStateList beyond the index given by undoIndex.
      */
     private void clearFutureHistory() {
-        List<ModelLists> subList = new ArrayList<>(undoStateList.subList(0, undoIndex + 1));
+        List<ModelData> subList = new ArrayList<>(undoStateList.subList(0, undoIndex + 1));
         undoStateList.clear();
         undoStateList.addAll(subList);
     }
 
     /**
-     * Returns true if there are previous event list states to restore, and false otherwise.
+     * Returns true if there are previous model data states to restore, and false otherwise.
      *
      * @return boolean
      */
@@ -98,7 +94,7 @@ public class UndoRedoManager implements ModelListListener {
     }
 
     /**
-     * Returns true if there are future event list states to reset to, and false otherwise.
+     * Returns true if there are future model data states to reset to, and false otherwise.
      *
      * @return boolean
      */
@@ -106,17 +102,15 @@ public class UndoRedoManager implements ModelListListener {
         return undoIndex < undoStateList.size() - 1;
     }
 
-    private ModelLists getCurrentState() {
-        return undoStateList.get(undoIndex);
-    }
-
     /**
-     * Notify all UndoRedoListeners that undo/redo was called, and provide them with the current UndoState.
+     * Reset ModelManager's ModelData to the current version of ModelData.
      */
     private void notifyModelResetListeners() {
-        ModelLists state = getCurrentState();
-        for (ModelResetListener listener : modelResetListeners) {
-            listener.onModelReset(state, this);
+        if (listening) {
+            // Disable listening to prevent feedback loop from model manager
+            listening = false;
+            model.setModelData(undoStateList.get(undoIndex));
+            listening = true;
         }
     }
 
@@ -124,12 +118,12 @@ public class UndoRedoManager implements ModelListListener {
      * Appends the current ModelLists, containing the current events and tasks, to undoStateList.
      */
     @Override
-    public void onModelListChange(ModelLists lists) {
-        if (start) {
+    public void onModelDataChange(ModelData modelData) {
+        if (listening) {
             clearFutureHistory();
             assert undoIndex >= undoStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";
-            undoStateList.add(lists);
+            undoStateList.add(modelData);
             undoIndex++;
         }
     }
@@ -160,4 +154,13 @@ public class UndoRedoManager implements ModelListListener {
             return true;
         }
     }
+
+    public List<ModelData> getUndoStateList() {
+        return undoStateList;
+    }
+
+    public int getUndoIndex() {
+        return undoIndex;
+    }
+
 }

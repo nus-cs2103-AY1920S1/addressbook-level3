@@ -6,8 +6,10 @@ import seedu.address.logic.UndoRedoManager;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 
+//@@author bruceskellator
+
 /**
- * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
+ * Represents a CommandBuilder responsible for creating {@link UndoCommand}.
  */
 class UndoCommandBuilder extends CommandBuilder {
 
@@ -18,12 +20,12 @@ class UndoCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return null;
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return null;
     }
 
@@ -32,7 +34,7 @@ class UndoCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new UndoCommand(this);
     }
 }

@@ -28,7 +28,7 @@ public abstract class CommandBuilder {
     /**
      * This method must be called first.
      */
-    CommandBuilder init() {
+    protected CommandBuilder init() {
         RequiredArgumentList arguments = this.defineCommandArguments();
         Map<String, OptionalArgumentList> options = this.defineCommandOptions();
 
@@ -88,9 +88,9 @@ public abstract class CommandBuilder {
         return this.commandBuild();
     }
 
-    abstract RequiredArgumentList defineCommandArguments();
+    protected abstract RequiredArgumentList defineCommandArguments();
 
-    abstract Map<String, OptionalArgumentList> defineCommandOptions();
+    protected abstract Map<String, OptionalArgumentList> defineCommandOptions();
 
-    abstract Command commandBuild();
+    protected abstract Command commandBuild();
 }

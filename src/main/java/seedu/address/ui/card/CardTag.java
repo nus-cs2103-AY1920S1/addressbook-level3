@@ -12,12 +12,18 @@ import seedu.address.ui.UiPart;
 public class CardTag extends UiPart<Region> {
 
     private static final String FXML = "CardTag.fxml";
+    private static final double LETTER_LENGTH = 1.0;
+
+    private double tagWidth = 0;
+
+    private String tag;
 
     @FXML
     private Label cardTag;
 
     public CardTag(String tag) {
         super(FXML);
+        this.tag = tag;
         cardTag.setText(tag);
     }
 
@@ -27,5 +33,9 @@ public class CardTag extends UiPart<Region> {
      */
     public void changeColor(String color) {
         cardTag.setStyle("-fx-background-color: " + color);
+    }
+
+    public double getWidth() {
+        return tag.length() * LETTER_LENGTH;
     }
 }

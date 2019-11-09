@@ -1,12 +1,13 @@
 package seedu.address;
 
 import java.nio.file.Paths;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
 import seedu.address.logic.CommandManager;
 import seedu.address.logic.NotificationManager;
 import seedu.address.logic.StorageManager;
@@ -38,7 +39,10 @@ import seedu.address.model.ModelManager;
  */
 public class MainApp extends Application {
 
-    private static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Locale LOCALE = Locale.ENGLISH;
+    public static final ZoneId TIME_ZONE = ZoneId.systemDefault();
+
+    private static final String VERSION = "1.4";
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     private static final String COMMAND_ADD_EVENT = "add_event";
@@ -70,17 +74,17 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Horo ]===========================");
         super.init();
 
         commandManager = new CommandManager();
         modelManager = new ModelManager();
         notificationManager = new NotificationManager(modelManager);
-        storageManager = new StorageManager();
+        storageManager = new StorageManager(modelManager);
         storageManager.setEventsFile(Paths.get("data", "events.json"));
         storageManager.setTasksFile(Paths.get("data", "tasks.json"));
         uiManager = new UiManager();
-        undoRedoManager = new UndoRedoManager();
+        undoRedoManager = new UndoRedoManager(modelManager);
 
         registerCommands();
         addListeners();
@@ -120,22 +124,17 @@ public class MainApp extends Application {
     private void addListeners() {
         commandManager.addUserOutputListener(uiManager);
 
-        modelManager.addEventListListener(uiManager);
-        modelManager.addTaskListListener(uiManager);
-        modelManager.addModelListListener(uiManager);
+        modelManager.addModelDataListener(uiManager);
 
-        modelManager.addModelListListener(storageManager);
-        modelManager.addModelListListener(undoRedoManager);
-
-        storageManager.addModelResetListener(modelManager);
+        modelManager.addModelDataListener(storageManager);
+        modelManager.addModelDataListener(undoRedoManager);
 
         uiManager.addCommandInputListener(commandManager);
-        undoRedoManager.addModelResetListener(modelManager);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Horo v" + VERSION);
 
         // Start UiManager
         uiManager.start(primaryStage);
@@ -144,12 +143,12 @@ public class MainApp extends Application {
         storageManager.load();
 
         // Start UndoRedoManager
-        undoRedoManager.start(modelManager.getModelList());
+        undoRedoManager.start();
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Horo ] =============================");
         System.exit(0);
     }
 }

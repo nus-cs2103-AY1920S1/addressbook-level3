@@ -22,18 +22,17 @@ public abstract class Argument<T> {
     private final Consumer<T> promise;
 
     Argument(ArgumentBuilder<T> builder) {
-        this.description = builder.getDescription();
+        this.description = Objects.requireNonNull(builder.getDescription());
         this.promise = builder.getPromise();
     }
 
     /**
-     * Accepts user input.
+     * Accepts user input, cannot be null.
      * @param userInput the user input
      * @return this instance
      */
     public Argument<T> accept(String userInput) {
-        Objects.requireNonNull(userInput);
-        this.userInput = userInput;
+        this.userInput = Objects.requireNonNull(userInput);
         return this;
     }
 
