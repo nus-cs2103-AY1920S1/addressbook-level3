@@ -14,7 +14,7 @@ import seedu.address.model.util.Date;
 /**
  * Handles Budget of a BankAccount.
  */
-public class Budget {
+public class Budget implements Comparable<Budget> {
     private Amount initialAmount;
     private Amount amount;
     private Date start = Date.now();
@@ -252,5 +252,10 @@ public class Budget {
 
     public String toLabelText() {
         return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
+    }
+
+    @Override
+    public int compareTo(Budget o) {
+        return o.getInitialBudget().compareTo(this.getInitialBudget());
     }
 }

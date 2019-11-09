@@ -30,7 +30,7 @@ public class ProjectionCard extends UiPart<Region> {
     @FXML
     private FlowPane budgetInfo;
 
-    public ProjectionCard(Projection projection, int displayedIndex) {
+    ProjectionCard(Projection projection, int displayedIndex) {
         super(FXML);
         this.projection = projection;
         id.setText(displayedIndex + ". ");
