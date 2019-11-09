@@ -1,6 +1,7 @@
 package seedu.address.achievements.logic;
 
-import javafx.scene.chart.XYChart;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,15 +19,5 @@ public interface AchievementsLogic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Get statistics of number of total contacts in Address Book.
-     * @return total number of contacts in Address Book
-     */
-    int getTotalPersons();
-
-    /**
-     * Horizontal bar chart data for Address Book.
-     * @return horizontal bar chart data for Address Book
-     */
-    XYChart.Series<Integer, String> getAddressChartData();
+    ObservableList<Node> getStatisticsView();
 }

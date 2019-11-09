@@ -2,13 +2,18 @@ package seedu.address.diaryfeature.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.MonthData;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
@@ -106,6 +111,20 @@ public class DiaryModel {
 
     public DiaryBook getDiaryBook() {
         return  this.diaryBook;
+    }
+
+    //=========== Statistics =================================================================================
+
+    public int getTotalDiaryEntries() {
+        return filteredDiaryBook.size();
+    }
+
+
+    public XYChart.Series<String, Number> getDiaryBarChart() {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-yyyy");
+        Function<DiaryEntry, MonthData> toMonthDataFunction =
+                diaryEntry -> new MonthData(0, dateFormatter.format(diaryEntry.getDate()));
+        return StatisticsUtil.getMonthDataSeries(filteredDiaryBook, toMonthDataFunction);
     }
 
     @Override

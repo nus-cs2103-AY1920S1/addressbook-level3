@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.ReadOnlyAddressBook;
 import seedu.address.address.model.person.Person;
+import seedu.address.address.model.util.AddressBookStatistics;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,5 +38,10 @@ public interface AddressBookLogic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Get total number of persons from address book.
+     */
+    AddressBookStatistics getStatistics();
 
 }

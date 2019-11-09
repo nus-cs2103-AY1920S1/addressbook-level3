@@ -2,13 +2,6 @@ package seedu.address.calendar.model.event;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
-import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.IntervalSearchTree;
-import seedu.address.calendar.model.util.exceptions.NoVacationException;
-
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
@@ -19,9 +12,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-/**
- * Manages all events.
- */
+import seedu.address.calendar.model.date.Date;
+import seedu.address.calendar.model.event.exceptions.ClashException;
+import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.IntervalSearchTree;
+import seedu.address.calendar.model.util.exceptions.NoVacationException;
+
 public class EventManager {
     private IntervalSearchTree<Date, Event> engagedSchedule = new IntervalSearchTree<>();
     private IntervalSearchTree<Date, Event> vacationSchedule = new IntervalSearchTree<>();

@@ -6,12 +6,15 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.util.FinancialTrackerStatistics;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.financialtracker.ui.CountriesDropdown;
@@ -90,7 +93,27 @@ public class FinancialTrackerLogic {
         this.financialTrackerModel.setCountry(field);
     }
 
-    //public GuiSettings getGuiSettings() { return userPrefsModel.getGuiSettings(); }
+    public FinancialTrackerStatistics getStatistics() {
+        return new FinancialStatisticsManager();
+    }
 
-    //public void setGuiSettings(GuiSettings guiSettings) { userPrefsModel.setGuiSettings(guiSettings); }
+    /**
+     * Local class for {@link FinancialTrackerStatistics}
+     */
+    private class FinancialStatisticsManager implements FinancialTrackerStatistics {
+
+        @Override
+        public ObservableList<PieChart.Data> getFinancialPieChartData() {
+            return financialTrackerModel.getFinancialPieChartData();
+        }
+
+        @Override
+        public XYChart.Series<String, Number> getFinancialBarChartData() {
+            return financialTrackerModel.getFinancialBarChartData();
+        }
+    }
+
+//    public GuiSettings getGuiSettings() { return userPrefsModel.getGuiSettings(); }
+//
+//    public void setGuiSettings(GuiSettings guiSettings) { userPrefsModel.setGuiSettings(guiSettings); }
 }

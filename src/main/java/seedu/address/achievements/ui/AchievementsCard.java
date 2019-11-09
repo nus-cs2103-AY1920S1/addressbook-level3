@@ -2,10 +2,11 @@ package seedu.address.achievements.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
@@ -21,22 +22,8 @@ public class AchievementsCard extends UiPart<Region> {
     @FXML
     private VBox cardPlaceholder;
 
-    public AchievementsCard(AchievementsLogic logic) {
+    public AchievementsCard(ObservableList<Node> statisticsView) {
         super(FXML);
-        logger.info("" + logic.getTotalPersons());
-        cardPlaceholder.getChildren().addAll(
-                                             new AchievementsTitleLabel("Address Book").getRoot(),
-                                             new AchievementsDataLabel("Total Contacts: ", ""
-                                                     + logic.getTotalPersons(), "200").getRoot(),
-                                             new AchievementsProgressBar(logic.getTotalPersons() / 200.0).getRoot(),
-                                             new AchievementsHorizontalBarChart("Contacts",
-                                                                                "Countries",
-                                                                                "Number",
-                                                                                logic.getAddressChartData()).getRoot()
-                                            //new AchievementsVerticalBarChart("Contacts",
-                                            //                                 "Countries",
-                                            //                                 "Number").getRoot(),
-                                            //new AchievementsPieChart("Countries").getRoot()
-        );
+        cardPlaceholder.getChildren().addAll(statisticsView);
     }
 }
