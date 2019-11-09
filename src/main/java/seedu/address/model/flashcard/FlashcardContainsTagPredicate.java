@@ -33,6 +33,10 @@ public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
         return hasMatchingTags;
     }
 
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

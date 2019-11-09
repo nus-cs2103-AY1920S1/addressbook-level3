@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -20,11 +21,9 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class FlashcardTabWindowController {
 
-    private static final String TIME_TRIAL_END_FEEDBACK = "The time trial has ended!";
     private static final Integer TIMER_DURATION = 5;
     private static final Integer SHOW_ANSWER_DURATION = 3;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
-
     private static Optional<Flashcard> currFlashcard;
     private static boolean isAnswerShown;
 
@@ -64,6 +63,8 @@ public class FlashcardTabWindowController {
         ansTextArea.setText(flashcard.getAnswer().toString());
         ansTextArea.setVisible(false);
         timerLabel.setVisible(true);
+        currFlashcard = Optional.of(flashcard);
+        isAnswerShown = false;
         startTimer();
     }
 
@@ -77,6 +78,7 @@ public class FlashcardTabWindowController {
         ansTextArea.setVisible(false);
         currFlashcard = Optional.of(flashcard);
         isAnswerShown = false;
+        assert (currFlashcard.isPresent());
     }
 
     /**
@@ -89,6 +91,12 @@ public class FlashcardTabWindowController {
         isAnswerShown = true;
     }
 
+    public void terminateTimeTrial() {
+        System.out.println("TRYING TO TERMINATE PLS HEP");
+        timeline.stop();
+        timeline = null;
+    }
+
     /**
      * Hides the timer and flashes the answer of the flashcard.
      */
@@ -97,8 +105,6 @@ public class FlashcardTabWindowController {
         timerLabel.setVisible(false);
         isAnswerShown = true;
     }
-
-
 
     /**
      * Starts the timer countdown.
@@ -140,15 +146,17 @@ public class FlashcardTabWindowController {
     /**
      * Empties the qnsTextArea and ansTextArea.
      */
-    private void resetTexts() {
+    private void resetTextsAfterTimeTrial() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
+        currFlashcard = Optional.empty();
+        MainWindow.isTimeTrialOngoing = false;
     }
 
     /**
-     * Empties the qnsTextArea and ansTextArea.
+     * Empties the qnsTextArea and ansTextArea after a time trial.
      */
-    private void resetTextsAfterTimeTrial() {
+    private void resetTexts() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
     }

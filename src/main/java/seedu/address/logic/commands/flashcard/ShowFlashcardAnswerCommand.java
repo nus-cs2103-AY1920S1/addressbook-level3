@@ -3,6 +3,9 @@ package seedu.address.logic.commands.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.SHOW;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -15,6 +18,7 @@ import seedu.address.ui.FlashcardTabWindowController;
  * Deletes a person identified using it's displayed index from the address book.
  */
 public class ShowFlashcardAnswerCommand extends Command {
+    private static final Logger logger = LogsCenter.getLogger(ShowFlashcardAnswerCommand.class);
 
     public static final String COMMAND_WORD = SHOW;
 
@@ -30,6 +34,9 @@ public class ShowFlashcardAnswerCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.info("Executing ShowFlashcardAnswerCommand for flashcard: " +
+            FlashcardTabWindowController.getCurrFlashcard().get().getTitle());
+
         requireNonNull(model);
 
         if (FlashcardTabWindowController.getCurrFlashcard().isEmpty()) {
@@ -39,6 +46,8 @@ public class ShowFlashcardAnswerCommand extends Command {
         if (FlashcardTabWindowController.isAnswerShown()) {
             throw new CommandException(Messages.MESSAGE_ANSWER_ALREADY_LOADED);
         }
+
+        assert (!FlashcardTabWindowController.getCurrFlashcard().get().getAnswer().fullAnswer.isEmpty());
 
         return new FlashcardCommandResult(SHOW_FLASHCARD_ANSWER_SUCCESS, true);
     }
