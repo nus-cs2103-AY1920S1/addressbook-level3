@@ -26,7 +26,7 @@ The following are icons and symbols that I will be using for the Project Portfol
 [NOTE]
 This symbol indicates a note to the user.
 
-`This indicates a component, class or object in code representation.`
+`This indicates a component, class or object of Njoy or other external softwares.`
 
 *This indicates important text.*
 
@@ -34,21 +34,21 @@ This symbol indicates a note to the user.
 
 This section details a summary of my specific enhancements, code contributions and other tasks.
 
-I implemented the notes commands which include: *Creating*, *Editing*, *Deleting*, *Listing*, *Sorting* notes.
+I implemented the notes commands which include: *Creating*, *Editing*, *Deleting*, *Listing*, *Sorting* notes. +
+Another feature I implemented was the ability to *generate and store Statistics reports*.
 
 === Enhancements
 
 ==== Creating, Editing and Deleting Notes
 
 * *What it does:* Users can add notes with a title, description and an optional priority.
-The default priority is unmarked and different priorities are color coded. The features can be edited by specifying their index and the fields to edit.
+The default priority is unmarked and different priorities are color coded. The features can be edited/deleted by specifying their index and the fields to edit.
 
 * *Justification:* Teachers often have a dizzying array of tasks to handle. The notes feature allows teachers to deal with work and other worries and allows them to handle the most pressing issues. Editing and deleting
 gives the flexibility of shifting priorities, typing errors and task completion.
 
-* *Highlights:* This enhancement works with existing as well as future commands. The implementation for this
-feature required contemplation in terms of UX. While additional features such as re-doing, un-doing was considered, I decided that the main principle of the notes was being
-lightweight and easy to use. I decided to give the simplest set of commands while making prioritising on optional utility. Validation for the input command
+* *Highlights:* The implementation for this feature required contemplation in terms of UX. While additional features such as re/un-doing was considered, the main principle of the notes UX is to be
+lightweight and easy to use. I decided to give the simplest set of commands while making prioritising optional. Validation for the input command
 was also challenging, in particular for the edit command.
 
 ==== Sorting Notes
@@ -61,6 +61,14 @@ was also challenging, in particular for the edit command.
 
 * *What it does:* Shows the list of notes in the command result box. This feature is an alternative solution to the issue of notes having
 content length that exceed its allocated space in the User Interface.
+
+==== Generating and Storing Statistics
+
+* *What it does:* Read student score data from excel file and process it to generate some descriptive statistics on performance. Store as optionally specified image file.
+
+* *Justification:* Give teachers the ability to see class performance at a glance and identify weaker students to help.
+
+* *Highlights:* The implementation for this feature required contemplation on the decision of storing and rendering formats for the report.
 
 === Code contributed
 
@@ -101,11 +109,11 @@ The following are some portions of the NJoy Assistant's User Guide that I have s
 
 *The following is an example of Creating Notes*:
 
-include::../UserGuide.adoc[lines=985..1014]
+include::../UserGuide.adoc[lines=1056..1085]
 
 *The following is an example of Statistics Generation*:
 
-include::../UserGuide.adoc[lines=1086..1155]
+include::../UserGuide.adoc[lines=1157..1226]
 
 == Contributions to the Developer Guide
 
@@ -116,10 +124,10 @@ the portions that demonstrate the depth of my technical capacities as a represen
 
 *The following is an example of Adding Notes*:
 
-include::../DeveloperGuide.adoc[lines=1110..1134]
+include::../DeveloperGuide.adoc[lines=1112..1135]
 
 {nbsp} +
 
 *The following is an example of Statistics Generation*:
 
-include::../DeveloperGuide.adoc[lines=1220..1261]
+include::../DeveloperGuide.adoc[lines=1222..1263]

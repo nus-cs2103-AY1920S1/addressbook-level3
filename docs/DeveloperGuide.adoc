@@ -1241,7 +1241,7 @@ The following is an example usage scenario where the Actor/User asks Njoy for a 
 
 4. Execution of this command results in the processed data being passed to the `ModelManager` using `StatisticsAddCommand#execute`.
 
-*Step 5*. The success result of the Statistics command is shown on the GUI and the execution call has returned to `MainWindow#executeCommand(String commandText)`. It
+5. The success result of the Statistics command is shown on the GUI and the execution call has returned to `MainWindow#executeCommand(String commandText)`. It
 recognises the command was a valid Statistics command and opens window to show the processed data.
 
 [NOTE]
