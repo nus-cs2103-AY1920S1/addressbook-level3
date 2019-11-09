@@ -57,7 +57,8 @@ public class JsonGroceryListStorageTest {
 
     @Test
     public void readGroceryList_invalidAndValidGroceryItemGroceryList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readGroceryList("invalidAndValidGroceryItemGroceryList.json"));
+        assertThrows(DataConversionException.class, () ->
+                readGroceryList("invalidAndValidGroceryItemGroceryList.json"));
     }
 
     @Test
