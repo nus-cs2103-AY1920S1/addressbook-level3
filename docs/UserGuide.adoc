@@ -532,6 +532,8 @@ Command Format and Example: +
 
 {empty} +
 
+// tag:notification[]
+// tag:cgppp[]
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
@@ -579,6 +581,7 @@ image::NotificationOnCommandBoxScreenShot.png[]
 image::NotificationOnFeedbackScreenShot.png[]
 
 {empty} +
+// end:cgppp[]
 
 ==== Switch notifications off
 The `notif_off` command switches notifications off. +
@@ -599,6 +602,7 @@ image::NotificationOffCommandBoxScreenShot.png[]
 image::NotificationOffFeedbackScreenShot.png[]
 
 {empty} +
+// end:notification[]
 
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
