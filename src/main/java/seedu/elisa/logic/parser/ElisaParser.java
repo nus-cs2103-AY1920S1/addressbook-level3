@@ -133,7 +133,7 @@ public class ElisaParser {
             return new SnoozeCommandParser().parse(description, flags);
 
         case GameCommand.COMMAND_WORD:
-            return new GameCommand();
+            return new GameCommandParser().parse(description, "");
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
