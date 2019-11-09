@@ -286,7 +286,8 @@ public class ModelManager implements Model {
             contactActivityMap.get(oldContact).remove(oldAct);
 
             //checks whether the contact only existed for old activity. If yes, safe to delete from contact list
-            if (contactActivityMap.get(oldContact).isEmpty() && !contactAccommodationMap.containsKey(oldContact)) {
+            if (contactActivityMap.get(oldContact).isEmpty() && !contactAccommodationMap.containsKey(oldContact)
+                    && !hasContact(newContact)) {
                 contactActivityMap.remove(oldContact);
                 setContact(oldContact, newContact);
             }
@@ -328,7 +329,8 @@ public class ModelManager implements Model {
             contactAccommodationMap.get(oldContact).remove(oldAcc);
 
             //checks whether contact only exist for old accommodation. If yes, safe to delete
-            if (contactAccommodationMap.get(oldContact).isEmpty() && !contactActivityMap.containsKey(oldContact)) {
+            if (contactAccommodationMap.get(oldContact).isEmpty() && !contactActivityMap.containsKey(oldContact)
+                    && !hasContact(newContact)) {
                 contactAccommodationMap.remove(oldContact);
                 setContact(oldContact, newContact);
             }
