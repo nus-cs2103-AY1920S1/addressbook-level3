@@ -3,45 +3,56 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Insurelytics
 
 ---
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Insurelytics is a desktop client management application for insurance agents.
+Insurelytics facilitates the tracking of client and policies, and also generate statistical analytics to provide insights for the agent.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 85 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added *Bin Feature*
+** What it does: Added a bin to store all deleted items. When deleting either persons or policies, instead of being
+removed permanently, deleted items are shifted to the bin instead. Just like a recycling bin on a typical computer, items
+inside the bin can be restored as long as they have not exceeded their expiry date.
+** Justification: This allows for the user to restore persons or policies that could have been wrongly deleted in
+previous sessions. Additionally, this is also useful in the case when the user wants to restore an item that was
+deleted at the start of the session, where it is too troublesome to undo cleanly.
+** Highlights:
+*** The bin is persistent across different sessions. Its items are saved into a json file, as with persons and policies.
+*** Once the deleted items have exceeded their expiry date, they will be automatically deleted on restart of the
+application.
+*** The amount of time an item stays in the bin before it is deleted can be set by the user as a user setting,
+through the command `binitemexpiry`. This is a global setting and applies for all items in the bin.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+*** Redesigned User Interface to give a cleaner, sleek look. [Pull Request https://github.com/AY1920S1-CS2103-F09-4/main/pull/209[#209]]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ybchen97[tp Code
+Dashboard]]
+[https://github.com[Test code]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Implemented command to delete and edit policies. [Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/84[#84]]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
+*** Fixed bugs from PE Dry run [Pull request https://github.com/AY1920S1-CS2103-F09-4/main/pull/196[#196]]
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -52,7 +63,11 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=delete]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=deletepolicy]
+
+include::../UserGuide.adoc[tag=restore]
+
+include::../UserGuide.adoc[tag=binitemexpiry]
 
 == Contributions to the Developer Guide
 
@@ -60,9 +75,11 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=bin]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=deleteperson]
+
+include::../DeveloperGuide.adoc[tag=restore]
 
 
 == PROJECT: PowerPointLabs
