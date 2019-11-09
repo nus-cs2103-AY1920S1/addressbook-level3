@@ -108,10 +108,9 @@ public class SequenceAnalyser implements Analyser {
     }
 
     /**
-     * Checks that both current and next character are within the same ASCII range type.
+     * Returns true if both current and next character are within the same ASCII range type.
      * @param curr the current character
      * @param next the next character
-     * @return true if both current and next character are within the same ASCII range type, else false
      */
     private static boolean inSameRange(Character curr, Character next) {
         if (curr >= 65 && curr <= 90) { //ALPHA_UPPER

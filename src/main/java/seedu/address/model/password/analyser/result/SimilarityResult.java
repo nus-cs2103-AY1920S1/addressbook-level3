@@ -10,6 +10,7 @@ import seedu.address.model.password.analyser.match.SimilarityMatch;
  */
 public class SimilarityResult extends Result {
 
+    private static final String MESSAGE_NO_SIMILAR_ACC_FOUND = "No accounts with similar passwords were found\n";
     private List<SimilarityMatch> matches;
 
     public SimilarityResult(Password password, String description, List<SimilarityMatch> matches) {
@@ -21,10 +22,11 @@ public class SimilarityResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            return report.append("No accounts with similar passwords were found\n").toString();
+            return report.append(MESSAGE_NO_SIMILAR_ACC_FOUND).toString();
         }
+        report.append("The following accounts share similar password: \n");
         for (SimilarityMatch m : matches) {
-            report.append(m); //TODO implement AccountMatches
+            report.append(m);
         }
         return report.toString();
     }

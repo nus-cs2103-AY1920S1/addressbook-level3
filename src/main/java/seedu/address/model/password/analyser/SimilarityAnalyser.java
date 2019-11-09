@@ -14,7 +14,7 @@ import seedu.address.model.password.analyser.result.SimilarityResult;
 
 public class SimilarityAnalyser implements Analyser {
 
-    private static final String MESSAGE_HEADER = "Analyzing password for similarity: \n";
+    private static final String MESSAGE_HEADER = "Analysing passwords for similarity: \n";
 
     @Override
     public List<Result> analyse(List<Password> passwordList) {

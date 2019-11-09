@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
+import seedu.address.model.file.ViewableFile;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.report.AnalysisReport;
@@ -51,6 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private ExpiryDisplay expiryDisplay;
     private ReadDisplayPasswordReport readDisplayPasswordReport;
+    private FilePreviewPanel filePreviewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -117,7 +118,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        //readListPanelPlaceholder.setVisible(false);
         readList.setVisible(false);
+        readList.setManaged(false);
         expiryDisplay = new ExpiryDisplay(logic.getExpiringCardList());
     }
 
@@ -209,11 +212,13 @@ public class MainWindow extends UiPart<Stage> {
     @SuppressWarnings("unchecked")
     void fillReadParts(Object object, Index index) {
         if (object instanceof Password) {
+            readList.setMaxWidth(420);
             readDisplayPassword = new ReadDisplayPassword();
             readDisplayPassword.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
             readDisplayPassword.setFeedbackToUser((Password) object, index);
         } else if (object instanceof Note) {
+            readList.setMaxWidth(420);
             openDisplayNote = new OpenDisplayNote();
             openDisplayNote.setLogic(logic);
             //TODO bad coupling? how else to implement though?
@@ -221,16 +226,25 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(openDisplayNote.getRoot());
             openDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
-            readList.setMinWidth(600);
+            readList.setMaxWidth(Double.MAX_VALUE);
+            //readList.setMinWidth(600);
+            //readList.setMaxWidth(10000);
+            //readList.getParent().
             readDisplayPasswordReport = new ReadDisplayPasswordReport();
             readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
             //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
-            readDisplayPasswordReport.setFeedbackToUser(object.toString());
+            readDisplayPasswordReport.setFeedbackToUser(object);
         } else if (object instanceof Card) {
+            readList.setMaxWidth(420);
             readDisplayCard = new ReadDisplayCard();
             readDisplayCard.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayCard.getRoot());
             readDisplayCard.setFeedbackToUser((Card) object);
+        } else if (object instanceof ViewableFile) {
+            readList.setMaxWidth(420);
+            filePreviewPanel = new FilePreviewPanel();
+            readListPanelPlaceholder.getChildren().add(filePreviewPanel.getRoot());
+            filePreviewPanel.setFeedbackToUser((ViewableFile) object);
         }
     }
 
@@ -349,9 +363,10 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     CommandResult executeCommand(String commandText) throws CommandException,
-            ParseException, DictionaryException {
+            ParseException {
         readList.setVisible(false);
-        readList.setMinWidth(0);
+        readList.setManaged(false);
+        //readList.setMinWidth(0);
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -369,13 +384,13 @@ public class MainWindow extends UiPart<Stage> {
             }
             if (commandResult.isRead()) {
                 readList.setVisible(true);
-
+                readList.setManaged(true);
                 readListPanelPlaceholder.getChildren().clear();
-                readList.setMinWidth(420);
+                //readList.setMinWidth(420);
                 fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }
             return commandResult;
-        } catch (CommandException | ParseException | DictionaryException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

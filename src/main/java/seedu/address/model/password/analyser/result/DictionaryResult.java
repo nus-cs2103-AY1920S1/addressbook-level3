@@ -7,9 +7,11 @@ import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.match.Match;
 
 /**
- * Represents a result produced from dictionary analyser.
+ * Represents a dictionary {@code Result} produced from {@code DictionaryAnalyser}.
  */
 public class DictionaryResult extends Result {
+    private static final String MESSAGE_NO_COMMON_PASSWORD_FOUND =
+            "No passwords were found to have contained commonly used passwords\n";
     private List<DictionaryMatch> matches;
 
 
@@ -22,7 +24,7 @@ public class DictionaryResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common passwords");
+            report.append(MESSAGE_NO_COMMON_PASSWORD_FOUND);
             return report.toString();
         }
         for (Match m : matches) {

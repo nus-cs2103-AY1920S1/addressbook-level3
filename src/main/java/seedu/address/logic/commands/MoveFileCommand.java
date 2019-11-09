@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -43,21 +41,31 @@ public class MoveFileCommand extends Command {
         this.newFilePath = newFilePath;
     }
 
+    private void checkIfTargetFileExists(EncryptedFile newFile) throws CommandException {
+        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
+            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
+        }
+    }
+
+    private void checkIfTargetFileDuplicated(EncryptedFile newFile, Model model) throws CommandException {
+        if (model.hasFile(newFile)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FILE);
+        }
+    }
+
+    private void checkIfParamIsDirectory(String param) throws CommandException {
+        if (!Files.isDirectory(Path.of(param))) {
+            throw new CommandException(MESSAGE_IS_NOT_DIRECTORY);
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<EncryptedFile> lastShownList = model.getFilteredFileList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_DISPLAYED_INDEX);
-        }
-
-        EncryptedFile fileToMove = lastShownList.get(targetIndex.getZeroBased());
+        EncryptedFile fileToMove = FileCommandUtil.getFileWithIndex(targetIndex, model);
         FileCommandUtil.checkIfFileExists(fileToMove, model);
 
-        if (!Files.isDirectory(Path.of(newFilePath.value))) {
-            throw new CommandException(MESSAGE_IS_NOT_DIRECTORY);
-        }
+        checkIfParamIsDirectory(newFilePath.value);
         EncryptedFile newFile = new EncryptedFile(
                 fileToMove.getFileName(),
                 newFilePath,
@@ -66,12 +74,8 @@ public class MoveFileCommand extends Command {
                 fileToMove.getEncryptedAt(),
                 fileToMove.getModifiedAt()
         );
-        if (Files.exists(Path.of(newFile.getEncryptedPath()))) {
-            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, newFile.getEncryptedPath()));
-        }
-        if (model.hasFile(newFile)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FILE);
-        }
+        checkIfTargetFileExists(newFile);
+        checkIfTargetFileDuplicated(newFile, model);
         try {
             Files.move(Path.of(fileToMove.getEncryptedPath()), Path.of(newFile.getEncryptedPath()));
         } catch (IOException e) {

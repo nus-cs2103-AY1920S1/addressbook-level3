@@ -9,8 +9,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
@@ -275,13 +275,13 @@ public interface Model {
 
     void sortNoteBook();
 
-    void editNoteSortByCond(SortByCond sortByCond);
+    void editNoteSortByCond(MultipleSortByCond sortByCond);
 
-    void undoNote();
+    String undoNote();
 
-    void redoNote();
+    String redoNote();
 
-    void commitNote();
+    void commitNote(String command);
 
     Index getNoteIndex(Note note);
 

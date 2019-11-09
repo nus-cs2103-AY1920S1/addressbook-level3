@@ -2,7 +2,10 @@ package seedu.address.model.util;
 
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyPasswordBook;
@@ -12,6 +15,7 @@ import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.Website;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code PasswordBook} with sample data.
@@ -43,5 +47,14 @@ public class SampleDataPasswordUtil {
             samplePb.addPassword(samplePassword);
         }
         return samplePb;
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
     }
 }

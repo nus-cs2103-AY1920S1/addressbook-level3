@@ -265,21 +265,100 @@ Format: `add d/DESCRIPTION c/CARDNUMBER v/CVC e/EXPIRY [t/TAG]`
 
 Example: `add d/VisaPOSB c/5203123458392748 v/456 e/12/25 t/groceries`
 
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Format:*
+
+* Description entered is *case sensitive*.
+* Card numbers can be entered with or without dashes.
+** With dashes: 1234-5678-1234-5678
+** Without dashes: 1234567812345678
+* Card expiry is of the format MM/YY.
+* You can include up to 5 tags.
+====
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Note:*
+
+* SecureIT does not support cards types that are not MasterCard or Visa.
+* All card numbers entered must have 16 digits.
+====
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* After adding your cards, a card's description and its index in the list are interchangeable with each other. In other words, the following commands accept either *description* or *index*, but not both.
+* If you know exactly which card you need, you can easily type the description without needing to scroll through the list.
+* When your card is about the expire, SecureIT warns you with a notification upon start up. On top of that, you can easily see which cards are expiring or expired in the cards list.
+====
+
 ==== Reading a card : `read`
 
-You can also obtain the details of a card easily, just by its description.
+If you already have a card in mind and want to view its details, you can easily do so by entering the card description and its CVC.
 
 Format: `read d/DESCRIPTION v/CVC`
 
 Example: `read d/VisaPOSB v/456`
 
-==== Deleting a card: `delete`
+You can also obtain the same result by using a card's index in the list with the correct CVC.
 
-If your card has expired, you can easily remove it from the application, by its description.
+Format: `read INDEX v/CVC`
+
+Example: `read 1 v/456`
+
+==== Copying a card : `copy`
+
+You can copy a specific card's card number to your clipboard as well.
+
+You can choose to copy the card number using its description:
+
+Format: `copy d/DESCRIPTION v/CVC`
+
+Example: `copy d/VisaPOSB v/456`
+
+Alternatively, you can also perform the command with the card's index in the list.
+
+Format: `copy INDEX v/CVC`
+
+Example: `copy 1 v/456`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Note:*
+
+* This command *only* copies the specified card number, and not the CVC. This is because users are expected to remember their CVC so that their card security is not compromised.
+====
+
+==== Deleting a card: `delete`
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Deleted cards are not recoverable
+====
+
+If your card has expired, you can easily remove it from the application.
+
+Again, you could do this by the card's description:
 
 Format: `delete DESCRIPTION`
 
 Example: `delete VisaPOSB`
+
+Or by its index:
+
+Format: `delete INDEX`
+
+Example: `delete 1`
 
 === File
 
@@ -459,7 +538,7 @@ Accessing note directory : `goto note`
 
 Adds a note to the app.
 
-Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
+Format: `add ti/TITLE d/DESCRIPTION t/TAG [c/CONTENT] `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
@@ -471,6 +550,7 @@ image::warning.png[width = "20", float = "left"]
 
 * You are not allowed to add notes with the same title.
 * Title, description and tag fields must not be empty.
+* Content field with c/ prefix is optional.
 ====
 
 ==== Accessing a note : `open`
@@ -540,17 +620,26 @@ image::tip.png[width = "20", float = "left"]
 
 Sorts notes in ways specified by the user.
 
-Format: `sort by/SORTBYCONDITION`
+Format: `sort by/SORTBYCONDITION1 SORTBYCONDITION2`
 
 Example: `sort by/DateModified`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
+* You can sort by multiple conditions separated by a whitespace.
+* The leftmost condition takes the greatest precedence in sorting.
+====
 ====
 --
 image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
+* At least one SORTBYCONDITION is required following the by/ prefix.
+* SORTBYCONDITION must be either "DateModified", "DateAdded" and "NumOfAccess".
 * SORTBYCONDITION is not case-sensitive.
 ====
 

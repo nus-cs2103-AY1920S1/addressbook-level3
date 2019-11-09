@@ -1,8 +1,6 @@
 package seedu.address.model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.Stack;
 
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.note.exceptions.InvalidRedoException;
@@ -13,8 +11,8 @@ import seedu.address.model.note.exceptions.InvalidUndoException;
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class VersionedNoteBook extends NoteBook {
-    private List<ReadOnlyNoteBook> noteBookStateList = new LinkedList<>();
-    private ListIterator<ReadOnlyNoteBook> currentStatePointer = noteBookStateList.listIterator();
+    private Stack<NoteBookWithCommand> undoStack = new Stack<>();
+    private Stack<NoteBookWithCommand> redoStack = new Stack<>();
 
     public VersionedNoteBook(ReadOnlyNoteBook noteBook) {
         super(noteBook);
@@ -27,72 +25,119 @@ public class VersionedNoteBook extends NoteBook {
     /**
      * Commits the current state of the application into the list of state as the latest state.
      */
-    public void commit() {
-        if (!currentStatePointer.hasPrevious()) {
-            UniqueNoteList newUniqueNoteList = new UniqueNoteList();
-            newUniqueNoteList.setNotes(getNotes());
-            currentStatePointer.add(new NoteBook(newUniqueNoteList, getSortByCond()));
+    public void commit(String command) {
+        UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
+        currentUniqueNoteList.setNotes(getNotes());
+        if (undoStack.empty()) {
+            ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
+            undoStack.push(new NoteBookWithCommand(currentNoteBookState, command));
         } else {
-            ReadOnlyNoteBook previousNoteBookState = currentStatePointer.previous();
-            if (!(previousNoteBookState.getNoteList().equals(getNoteList())
-                    && previousNoteBookState.getSortByCond().equals(getSortByCond()))) {
-                UniqueNoteList newUniqueNoteList = new UniqueNoteList();
-                newUniqueNoteList.setNotes(getNotes());
-                currentStatePointer.next();
-                currentStatePointer.add(new NoteBook(newUniqueNoteList, getSortByCond()));
-            } else {
-                currentStatePointer.next();
+            ReadOnlyNoteBook previousNoteBookState = undoStack.peek().getNoteBook();
+            if (!isSameNoteBook(previousNoteBookState)) {
+                ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
+                undoStack.push(new NoteBookWithCommand(currentNoteBookState, command));
             }
         }
-        while (currentStatePointer.hasNext()) {
-            currentStatePointer.next();
-            currentStatePointer.remove();
+        while (!redoStack.empty()) {
+            redoStack.pop();
         }
     }
+
 
     /**
      * Undo by changing the state of the NoteBook to the previous state.
      */
-    public void undo() {
-        if (currentStatePointer.hasPrevious()) {
-            if (!currentStatePointer.hasNext()) {
-                ReadOnlyNoteBook previousNoteBookState = currentStatePointer.previous();
-                if (!(previousNoteBookState.getNoteList().equals(getNoteList())
-                        && previousNoteBookState.getSortByCond().equals(getSortByCond()))) {
-                    UniqueNoteList newUniqueNoteList = new UniqueNoteList();
-                    newUniqueNoteList.setNotes(getNotes());
-                    currentStatePointer.next();
-                    currentStatePointer.add(new NoteBook(newUniqueNoteList, getSortByCond()));
-                    currentStatePointer.previous();
-                }
+    public String undo() {
+        if (!undoStack.empty()) {
+            ReadOnlyNoteBook previousNoteBookState = undoStack.peek().getNoteBook();
+            String previousCommand = undoStack.peek().getCommand();
+            if (!isSameNoteBook(previousNoteBookState)) {
+                updateRedoStack(previousCommand);
+                updateCurrentState(previousNoteBookState);
+                undoStack.pop();
+                return previousCommand;
+            } else {
+                undoStack.pop();
+                return undo();
             }
-            ReadOnlyNoteBook previousStateNoteBook = currentStatePointer.previous();
-            setNotes(previousStateNoteBook.getNoteList());
-            setSortByCond(previousStateNoteBook.getSortByCond());
         } else {
             throw new InvalidUndoException();
         }
     }
 
+
     /**
      * Redo by changing the state of the NoteBook to the next state.
      */
-    public void redo() {
+    public String redo() {
         //TODO: refactor this to make it cleaner
-        if (currentStatePointer.hasNext()) {
-            currentStatePointer.next();
-            if (currentStatePointer.hasNext()) {
-                ReadOnlyNoteBook nextStateNoteBook = currentStatePointer.next();
-                setNotes(nextStateNoteBook.getNoteList());
-                setSortByCond(nextStateNoteBook.getSortByCond());
-                currentStatePointer.previous();
-            } else {
-                currentStatePointer.previous();
-                throw new InvalidRedoException();
-            }
+        if (!redoStack.empty()) {
+            ReadOnlyNoteBook nextNoteBookState = redoStack.peek().getNoteBook();
+            String nextCommand = redoStack.peek().getCommand();
+            updateUndoStack(nextCommand);
+            updateCurrentState(nextNoteBookState);
+            redoStack.pop();
+            return nextCommand;
         } else {
             throw new InvalidRedoException();
         }
     }
 
+    /**
+     * Couples the undoable command with the Notebook state.
+     */
+    private class NoteBookWithCommand {
+        private ReadOnlyNoteBook notebook;
+        private String command;
+
+        public NoteBookWithCommand(ReadOnlyNoteBook notebook, String command) {
+            this.notebook = notebook;
+            this.command = command;
+        }
+
+        public ReadOnlyNoteBook getNoteBook() {
+            return this.notebook;
+        }
+
+        public String getCommand() {
+            return this.command;
+        }
+    }
+
+    /**
+     * Checks if current NoteBook state is the same as previous NoteBook state.
+     */
+    private boolean isSameNoteBook(ReadOnlyNoteBook previousNoteBookState) {
+        return previousNoteBookState.getNoteList().equals(getNoteList())
+                && previousNoteBookState.getSortByConds().equals(getSortByConds());
+    }
+
+    /**
+     * Updates redo stack on undo command call.
+     */
+    private void updateRedoStack(String previousCommand) {
+        UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
+        currentUniqueNoteList.setNotes(getNotes());
+        ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
+        redoStack.push(new NoteBookWithCommand(currentNoteBookState, previousCommand));
+    }
+
+    /**
+     * Updates undo stack on redo command call.
+     */
+    private void updateUndoStack(String nextCommand) {
+        UniqueNoteList currentUniqueNoteList = new UniqueNoteList();
+        currentUniqueNoteList.setNotes(getNotes());
+        ReadOnlyNoteBook currentNoteBookState = new NoteBook(currentUniqueNoteList, getSortByConds());
+        undoStack.push(new NoteBookWithCommand(currentNoteBookState, nextCommand));
+    }
+
+    /**
+     * Updates current state of NoteBook.
+     * @param noteBookState state of NoteBook to be updated to.
+     */
+    private void updateCurrentState(ReadOnlyNoteBook noteBookState) {
+        setNotes(noteBookState.getNoteList());
+        setSortByCond(noteBookState.getSortByConds());
+    }
 }

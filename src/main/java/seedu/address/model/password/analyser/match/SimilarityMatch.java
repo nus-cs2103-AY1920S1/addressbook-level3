@@ -35,7 +35,15 @@ public class SimilarityMatch extends BaseMatch implements Comparable<SimilarityM
     public String toString() {
         return super.toString() + "Type : Similarity Match\n"
                 + "Account : " + this.password
-                + "Similarity : " + this.similarity + "\n";
+                + "Similarity : " + convertToPercentage(this.similarity) + "\n";
+    }
+
+    /**
+     * Converts the similarity decimal into a percentage.
+     * @param similarity the similarity decimal
+     */
+    private String convertToPercentage(double similarity) {
+        return String.format("%.3f", similarity * 100) + "%";
     }
 
     @Override
