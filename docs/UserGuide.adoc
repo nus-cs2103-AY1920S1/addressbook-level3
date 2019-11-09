@@ -47,10 +47,21 @@ the category *mother* and the description *allowance*.
 the category *food* and the description *pie*.
 * `exit` : exits the app
 
-. Refer to <<Features>> for details of each command.
+. Refer to <<Commands>> for details of each command.
 
 [[Features]]
 == Features
+
+=== Transactions
+
+=== Budgets
+
+=== Ledgers
+
+=== Projections
+
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
@@ -68,7 +79,9 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 ====
 
+[[In]]
 === Logging Income : `in`
+
 =======
 
 Adds an income of your personal finance +
@@ -82,12 +95,14 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 * `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
 =======
+
 Examples:
 
 * `in $/100 d/01012019 n/errand c/work c/drinks`
 * `in $/200 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/work`
 
+[[Out]]
 === Logging Expense : `out`
 
 Adds an expenditure of your personal finance +
@@ -107,6 +122,7 @@ Examples:
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
+[[Set]]
 === Setting a Budget : `set`
 
 You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
@@ -153,7 +169,7 @@ Examples:
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
 
-
+[[Split]]
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
@@ -172,6 +188,7 @@ field to determine nature of bill.
 ====
 
 ===== Ledger GUI
+
 .Sample Ledger Graphical User Interface
 image::LedgerUI.png[]
 
@@ -182,6 +199,7 @@ all transactions that have to do with the *Ledger*. +
 at the bottom right corner.
 
 ==== Example Usage:
+
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
 
  $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
@@ -214,7 +232,7 @@ image::SplitUneven1.png[]
 .Uneven split results
 image::SplitUneven2.png[]
 
-
+[[Receive]]
 === Receiving Money from a Friend : `receive`
 
 Receives money from 1 friend +
@@ -238,6 +256,7 @@ image::Receive2.png[]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 
+[[Project]]
 === Projecting Balance : `project`
 
 Projects future balance based on past In or Out transactions +
@@ -254,6 +273,7 @@ Examples:
 * `project d/22072020`
 * `project d/01012020`
 
+[[View]]
 // tag::view[]
 === Displaying View : `view`
 
@@ -285,6 +305,7 @@ image::view3.png[]
 
 // end::view[]
 
+[[Delete]]
 // tag::delete[]
 === Deleting Finance : `delete`
 
@@ -304,6 +325,7 @@ Examples:
 * `delete t1`
 * `delete b3`
 
+[[Update]]
 === Updating Finance : `update`
 
 Updates the specified income or expenditure from the finance manager. +
@@ -330,6 +352,7 @@ Examples:
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
 
+[[Sort]]
 // tag::sort[]
 === Sorting Transactions : `sort`
 
@@ -367,6 +390,8 @@ image::sort3.png[]
 
 // end::sort[]
 
+
+[[Filter]]
 // tag::filter[]
 === Filtering Transactions : `filter`
 
@@ -404,6 +429,7 @@ image::filter3.png[]
 
 // end::filter[]
 
+[[Undo]]
 // tag::undo[]
 === Undoing the Last Command : `undo`
 
@@ -449,6 +475,7 @@ image::undo2.png[]
 image::undo3.png[]
 // end::undo[]
 
+[[Redo]]
 // tag::redo[]
 === Redoing the Last Command : `redo`
 
@@ -482,21 +509,25 @@ image::redo3.png[]
 
 // end::redo[]
 
+[[Clear]]
 === Clearing All Entries : `clear`
 
 Clears all entries from your Bank Account. +
 Format: `clear`
 
+[[List]]
 === Listing All Entries : `list`
 
 Lists all entries from your Bank Account. +
 Format: `list`
 
+[[Help]]
 === Viewing Help : `help`
 
 Opens help page for the list of usable commands +
 Format: `help`
 
+[[Exit]]
 === Exiting the Application : `exit`
 
 Exits the program. +
@@ -514,29 +545,31 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Split* `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
-Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
-* *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
-Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
-* *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+* <<In, *In*>> : `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `in $/100 n/allowance d/11112019 c/income`
-* *Set* : `set $/AMOUNT d/DATE c/CATEGORY` +
+* <<Out, *Out*>> : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
+* <<Set, *Set*>> : `set $/AMOUNT d/DATE c/CATEGORY` +
 Example: `set $/100 d/10102019 c/food`
-* *View* : `view TAB` +
-Example: `view transaction`
-* *Delete* : `delete TYPE+INDEX` +
-Example: `delete t1`
-* *Update* : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
-Example: `update b1 $/100 c/transport`
-* *Sort* : `sort PREDICATE` +
-Example: `sort amount`
-* *Filter* : `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...` +
-Example: `filter c/transport c/allowance y/2019`
-* *Project* : `project DURATION` +
+* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
+Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* <<Receive, *Receive*>> : `receive $/AMOUNT n/NAME` +
+Example:  `receive $/20 n/Albert`
+* <<Project, *Project*>> : `project DURATION` +
 Example: `project d/22072020`
-* *Redo* : `redo`
-* *Undo* : `undo`
-* *Clear* : `clear`
-* *List* : `list`
-* *Help* : `help`
-* *Exit* : `exit`
+* <<View, *View*>> : `view TAB` +
+Example: `view transaction`
+* <<Delete, *Delete*>> : `delete TYPE+INDEX` +
+Example: `delete t1`
+* <<Update, *Update*>> : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
+Example: `update b1 $/100 c/transport`
+* <<Sort, *Sort*>> : `sort PREDICATE` +
+Example: `sort amount`
+* <<Filter, *Filter*>> : `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...` +
+Example: `filter c/transport c/allowance y/2019`
+* <<Undo, *Undo*>> : `undo`
+* <<Redo, *Redo*>> : `redo`
+* <<Clear, *Clear*>> : `clear`
+* <<List, *List*>> : `list`
+* <<Help, *Help*>> : `help`
+* <<Exit, *Exit*>> : `exit`
