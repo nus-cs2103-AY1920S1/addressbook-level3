@@ -11,6 +11,7 @@ import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.tag.Tag;
 
+//@@author{weigenie}
 /**
  * Represent a Claim in the Financial Planner
  */
@@ -103,10 +104,7 @@ public abstract class Claim {
         }
 
         return otherClaim != null
-                && otherClaim.getDescription().equals(getDescription())
-                && (otherClaim.getName().equals(getName())
-                        || otherClaim.getAmount().equals(getAmount()))
-                        || otherClaim.getDate().equals((getDate()));
+                && otherClaim.getDescription().equals(getDescription());
     }
 
     /**
