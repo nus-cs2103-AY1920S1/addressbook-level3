@@ -415,7 +415,7 @@ exposed to `AppData#addTask(Task)`.
 
 The following process illustrates the mechanism of adding a revision task to the task list.
 
-Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command will be parsed by `AddTaskForNoteCommandParser`.
+Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command is parsed by `AddTaskForNoteCommandParser`.
 `AddTaskForNoteParser` then creates an `AddTaskForNoteCommand`. The high-level logic of *parsing* and *creating the command*
 is similar to the process of deleting a note from the note list as illustrated by the <<DeleteSequenceDiagram, *sequence diagram for deleting a note*>>.
 However, the execution stage of `AddTaskForNoteCommand` differs from that of deleting a note.
@@ -423,6 +423,24 @@ However, the execution stage of `AddTaskForNoteCommand` differs from that of del
 Step 2. The `Logic Manager` calls `Command#execute(Model)` which essentially calls `AddTaskForNoteCommand#execute(Model)`
 because of polymorphism.
 
+Step 3. `AddTaskForNoteCommand` calls its own private method `hasValidNote(Model)` which checks if
+the note title input by the user exists in `Model`. If not, a `CommandException` will be thrown and `execute(Model)` stops because non-existing note
+title is not allowed to be the heading of any tasks.
+
+Step 4. `AddTaskForNoteCommand` calls `Model#hasTask(Task)` to check whether the `Model` has a task identical to the one
+the user is adding. If there is an existing identical task, a `CommandException` will be thrown and `execute(Model)` stops to avoid duplicate tasks.
+
+Step 5. `AddTaskForNoteCommand` calls `Model#addTask(Task)` to add the new task to the `Model`. `Model` calls
+`AppData#addTask(Task)` to add the task to `AppData` which keeps track of all data of the app. `AppData` then calls `TaskList#add(Task)`
+to add the task to `TaskList`, which is the underlying data structure storing tasks.
+
+Step 6. A `CommandResult` is created and returned to the `LogicManager` to inform the user of successful addition of a new
+task to the revision plan.
+
+The following sequence diagram illustrates the interaction between classes when calling `AddTaskForNoteCommand#execute(Model)`.
+
+.Sequence diagram for `execute(Model)` of `AddTaskForNoteCommand`
+image::task/AddTaskForNoteCommandExecuteSequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect: Design of `Task`
@@ -435,7 +453,7 @@ Hence we need to write more pieces of code.
 
 The class diagram below illustrates how `Task` class is designed:
 
-.Design for `Task` class
+.Design of `Task` class
 image::task/TaskClassDiagram.png[]
 
 * **Alternative 2:** design `Task` as an interface to be implemented by two different classes.

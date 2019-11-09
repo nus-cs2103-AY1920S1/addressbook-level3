@@ -2,7 +2,7 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant "a:AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
+participant ":AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
 participant ":CommandException" as CommandException LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -18,7 +18,7 @@ activate AddTaskForNoteCommand
 
 opt !hasValidNoteForTask(model)
     create CommandException
-    AddTaskForNoteCommand -> CommandException
+    AddTaskForNoteCommand -> CommandException : CommandException()
     activate CommandException
     CommandException --> AddTaskForNoteCommand
     deactivate CommandException
@@ -26,7 +26,7 @@ end
 
 opt model.hasTask(toAdd)
     create CommandException
-    AddTaskForNoteCommand -> CommandException
+    AddTaskForNoteCommand -> CommandException : CommandException()
     activate CommandException
     CommandException ---> AddTaskForNoteCommand
     deactivate CommandException
@@ -48,7 +48,7 @@ TaskList --> AppData
 deactivate TaskList
 
 create CommandResult
-AddTaskForNoteCommand -> CommandResult
+AddTaskForNoteCommand -> CommandResult : CommandResult()
 activate CommandResult
 CommandResult --> AddTaskForNoteCommand : r
 deactivate CommandResult
