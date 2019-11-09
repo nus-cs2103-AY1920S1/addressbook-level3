@@ -103,7 +103,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_missingEntities_throwsCommandExceptionAndCorrectCauseGiven() {
+    public void execute_missingEntities_throwsCommandExceptionAndCorrectCauseGiven() throws CommandException {
         File missingEntity = TestUtil.getFilePathInCsvUtilTestFolder("MissingEntity.csv").toFile();
 
         String expected = String.join(
@@ -143,7 +143,7 @@ public class ImportCommandTest {
 
     @Test
     public void execute_pathToInvalidFileAndErrorFilePathPassedIn_errorFileCreatedWithCommandException()
-            throws IOException {
+            throws IOException, CommandException {
         Model actualModel = new ModelManagerStub();
         File invalidFile = TestUtil.getFilePathInCsvUtilTestFolder("MissingEntity.csv").toFile();
         String errorFilePath = TestUtil.getFilePathInSandboxFolder("MissingEntity_Errors.csv").toString();

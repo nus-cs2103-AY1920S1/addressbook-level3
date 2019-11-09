@@ -13,6 +13,8 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.commons.util.PrefixUtil;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Entity;
@@ -26,10 +28,7 @@ import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
-import seedu.address.model.entitylist.MentorList;
-import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.ReadOnlyEntityList;
-import seedu.address.model.entitylist.TeamList;
 
 /**
  * Helper functions to facilitate interactions between {@code Alfred} and a CSV file.
@@ -56,6 +55,30 @@ public class CsvUtil {
     // =================================== Parser Methods ================================================
 
     /**
+     * Parses given line of data into corresponding {@code Entity}.
+     *
+     * @see #parseToMentor(String[])
+     * @see #parseToParticipant(String[])
+     * @see #parseToTeam(String[], Model)
+     */
+    public static Entity parseToEntity(String line, Model model)
+            throws IllegalArgumentException, MissingEntityException {
+        String[] data = line.split(CSV_SEPARATOR_REGEX);
+        String entityType = data[0].toUpperCase();
+        switch (entityType) {
+        case CliSyntax.PREFIX_ENTITY_MENTOR:
+            return parseToMentor(data);
+        case CliSyntax.PREFIX_ENTITY_PARTICIPANT:
+            return parseToParticipant(data);
+        case CliSyntax.PREFIX_ENTITY_TEAM:
+            return parseToTeam(data, model);
+        default:
+            // If Entity CommandType is incorrect
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
      * Parses given line of data (split by commas) into relevant fields of a {@code Mentor}.
      * <b>Precondition: </b> {@code data} contains attribute data as {@code String}s in the order of
      * {@code EntityType(T), ID, Name, Phone, Email, Organization, SubjectName}. {@code ID} may be left
@@ -74,7 +97,7 @@ public class CsvUtil {
         if (!data[0].toUpperCase().equals("M")) {
             throw new IllegalArgumentException();
         }
-        Id mentorId = retrieveId(data[1], PrefixType.M);
+        Id mentorId = PrefixUtil.retrieveId(data[1], PrefixType.M);
         Name mentorName = new Name(data[2]);
         Phone mentorPhone = new Phone(data[3]);
         Email mentorEmail = new Email(data[4]);
@@ -129,7 +152,7 @@ public class CsvUtil {
         if (!data[0].toUpperCase().equals("P")) {
             throw new IllegalArgumentException();
         }
-        Id participantId = retrieveId(data[1], PrefixType.P);
+        Id participantId = PrefixUtil.retrieveId(data[1], PrefixType.P);
         Name participantName = new Name(data[2]);
         Phone participantPhone = new Phone(data[3]);
         Email participantEmail = new Email(data[4]);
@@ -160,7 +183,7 @@ public class CsvUtil {
         if (!data[0].toUpperCase().equals("T")) {
             throw new IllegalArgumentException();
         }
-        Id teamId = retrieveId(data[1], PrefixType.T);
+        Id teamId = PrefixUtil.retrieveId(data[1], PrefixType.T);
         Name teamName = new Name(data[2]);
         List<Participant> participants = parseToParticipants(data[3], model);
         Optional<Mentor> mentor = parseToMentor(data[4], model);
@@ -219,42 +242,6 @@ public class CsvUtil {
             ));
         }
         return participants;
-    }
-
-
-    /**
-     * Retrieves the {@code Id} from give {@code strId}.
-     * If {@code strId} is invalid, generate a valid {@code Id} from respective {@code EntityList}.
-     *
-     * @param strId {@code String Id} to parse into {@code Id}.
-     * @param prefixType {@code PrefixType} to indicate the {@code Entity} type of the {@code Id} to be generated.
-     * @return Generated {@code Id}.
-     */
-    private static Id retrieveId(String strId, PrefixType prefixType) {
-        // A valid Id can be just a number (i.e. 1, 2, 3) or a String form of an Id (i.e. M-1, P-1, T-1)
-        Id entityId;
-        try {
-            if (!Id.isValidString(strId)) {
-                strId = prefixType.toString() + "-" + strId;
-            }
-            entityId = Id.toId(strId);
-        } catch (IllegalValueException ive) {
-            switch (prefixType) {
-            case M:
-                entityId = MentorList.generateId();
-                break;
-            case P:
-                entityId = ParticipantList.generateId();
-                break;
-            case T:
-                entityId = TeamList.generateId();
-                break;
-            default:
-                // Should never reach here
-                throw new RuntimeException();
-            }
-        }
-        return entityId;
     }
 
     // =================================== Writer Methods ================================================

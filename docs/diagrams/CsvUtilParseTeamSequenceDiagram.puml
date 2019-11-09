@@ -1,0 +1,152 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+end box
+
+box Util UTIL_COLOR_T1
+participant ":PrefixUtil" as PrefixUtil UTIL_COLOR
+end box
+
+box Entity MODEL_COLOR_T1
+participant "id:Id" as Id MODEL_COLOR
+participant "name:Name" as Name MODEL_COLOR
+participant "<<enumeration>>\nsubject:SubjectName" as Subject MODEL_COLOR
+participant "score:Score" as Score MODEL_COLOR
+participant "pName:Name" as ProjectName MODEL_COLOR
+participant "loc:Location" as Location MODEL_COLOR
+participant "t:Team" as Team MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+end box
+
+[->CsvUtil : parseToEntity("T,1,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1", model)
+activate CsvUtil
+CsvUtil -> CsvUtil ++ : parseToTeam()
+    CsvUtil -> PrefixUtil ++ : <<static>>\nretrieveId("1", PrefixType.T)
+        PrefixUtil -> Id ++ : <<static>>\ntoId("T-1")
+            Id -> Id ++ : <<create>>
+            deactivate Id
+            return id
+        return id
+
+    create Name
+    CsvUtil -> Name ++ : <<create>> with "Justice League"
+    return name
+
+    CsvUtil -> CsvUtil ++ : parseToParticipants("[P-1|P-2]", model)
+        CsvUtil -> Model ++ : getParticipant() - with Id P-1
+        return p1
+        CsvUtil -> Model ++ : getParticipant() - with Id P-2
+        return p2
+    return pList (with p1 and p2)
+
+    CsvUtil -> CsvUtil ++ : parseToMentor("M-1", model)
+        CsvUtil -> Model ++ : getMentor() - with Id M-1
+        return m
+    return optM (Optional.of(m))
+
+    create Subject
+    CsvUtil -> Subject ++ : retrieve SubjectName of "Social"
+    return subject
+
+    create Score
+    CsvUtil -> Score ++ : <<create>> with 100
+    return score
+
+    create ProjectName
+    CsvUtil -> ProjectName ++ : <<create>> with "Save the Earth"
+    return pName
+
+    create Location
+    CsvUtil -> Location ++ : <<create>> with 1
+    return loc
+
+    create Team
+    CsvUtil -> Team ++ : <<create>> with name, pList, optM, subject, score, pName, loc
+    return t
+return t
+
+[<-CsvUtil : t
+deactivate CsvUtil
+
+@enduml
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+end box
+
+box Util UTIL_COLOR_T1
+participant ":PrefixUtil" as PrefixUtil UTIL_COLOR
+end box
+
+box Entity MODEL_COLOR_T1
+participant "id:Id" as Id MODEL_COLOR
+participant "name:Name" as Name MODEL_COLOR
+participant "<<enumeration>>\nsubject:SubjectName" as Subject MODEL_COLOR
+participant "score:Score" as Score MODEL_COLOR
+participant "pName:Name" as ProjectName MODEL_COLOR
+participant "loc:Location" as Location MODEL_COLOR
+participant "t:Team" as Team MODEL_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+end box
+
+[->CsvUtil : parseToEntity("T,1,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1", model)
+activate CsvUtil
+CsvUtil -> CsvUtil ++ : parseToTeam()
+    CsvUtil -> PrefixUtil ++ : <<static>>\nretrieveId("1", PrefixType.T)
+        PrefixUtil -> Id ++ : <<static>>\ntoId("T-1")
+            Id -> Id ++ : <<create>>
+            deactivate Id
+            return id
+        return id
+
+    create Name
+    CsvUtil -> Name ++ : <<create>> with "Justice League"
+    return name
+
+    CsvUtil -> CsvUtil ++ : parseToParticipants("[P-1|P-2]", model)
+        CsvUtil -> Model ++ : getParticipant() - with Id P-1
+        return p1
+        CsvUtil -> Model ++ : getParticipant() - with Id P-2
+        return p2
+    return pList (with p1 and p2)
+
+    CsvUtil -> CsvUtil ++ : parseToMentor("M-1", model)
+        CsvUtil -> Model ++ : getMentor() - with Id M-1
+        return m
+    return optM (Optional.of(m))
+
+    create Subject
+    CsvUtil -> Subject ++ : retrieve SubjectName of "Social"
+    return subject
+
+    create Score
+    CsvUtil -> Score ++ : <<create>> with 100
+    return score
+
+    create ProjectName
+    CsvUtil -> ProjectName ++ : <<create>> with "Save the Earth"
+    return pName
+
+    create Location
+    CsvUtil -> Location ++ : <<create>> with 1
+    return loc
+
+    create Team
+    CsvUtil -> Team ++ : <<create>> with name, pList, optM, subject, score, pName, loc
+    return t
+return t
+
+[<-CsvUtil : t
+deactivate CsvUtil
+
+@enduml

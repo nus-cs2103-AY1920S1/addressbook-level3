@@ -39,6 +39,7 @@ public class ImportCommand extends Command implements TrackableState {
     public static final String MESSAGE_SUCCESS = "Successfully imported CSV file into Alfred";
     public static final String MESSAGE_PARTIAL_SUCCESS = "Following line(s) were unable to be imported into Alfred\n"
              + "Possible reasons include incorrect formatting or adding of duplicate Entity:";
+    public static final String MESSAGE_INVALID_FILE_PATH = "%s is not a valid file path";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found at %s"; // %s -> this.csvFileName
     public static final String MESSAGE_IO_EXCEPTION =
             "Something went wrong while accessing your file! Please try again...";
@@ -69,19 +70,27 @@ public class ImportCommand extends Command implements TrackableState {
     private Queue<String> teamBuffers;
     private ErrorTracker errors;
 
-    public ImportCommand(String csvFilePath) {
+    public ImportCommand(String csvFilePath) throws CommandException {
         assert csvFilePath.toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
 
+        if (!FileUtil.isValidPath(csvFilePath)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH, csvFilePath));
+        }
         this.csvFilePath = Paths.get(csvFilePath);
         this.shouldCreateErrorFile = false;
         this.teamBuffers = new LinkedList<>();
         this.errors = new ErrorTracker();
     }
 
-    public ImportCommand(String csvFilePath, String errorFilePath) {
+    public ImportCommand(String csvFilePath, String errorFilePath) throws CommandException {
         assert csvFilePath.toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
         assert errorFilePath.toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
 
+        if (!FileUtil.isValidPath(csvFilePath)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH, csvFilePath));
+        } else if (!FileUtil.isValidPath(errorFilePath)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH, errorFilePath));
+        }
         this.csvFilePath = Paths.get(csvFilePath);
         this.shouldCreateErrorFile = true;
         this.errorFilePath = Paths.get(errorFilePath);
@@ -91,7 +100,6 @@ public class ImportCommand extends Command implements TrackableState {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // Details must not be empty (except for ID)
         if (!FileUtil.isFileExists(this.csvFilePath)) {
             throw new CommandException(String.format(MESSAGE_FILE_NOT_FOUND, this.csvFilePath));
         }
@@ -162,31 +170,19 @@ public class ImportCommand extends Command implements TrackableState {
      *
      * @param lineNumber Line number of given line in the CSV file.
      * @param line Line in the CSV file.
+     * @param shouldBufferTeam Boolean value representing whether teams should be buffered for later or not.
      * @return Corresponding {@code Entity}.
      */
     private Entity parseLineToEntity(Model model, int lineNumber, String line, boolean shouldBufferTeam) {
         if (CsvUtil.isCsvHeader(line)) {
             return null;
         }
-        String[] data = line.split(CsvUtil.CSV_SEPARATOR_REGEX);
-        data[0] = data[0].toUpperCase();
         try {
-            switch (data[0]) {
-            case CliSyntax.PREFIX_ENTITY_MENTOR:
-                return CsvUtil.parseToMentor(data);
-            case CliSyntax.PREFIX_ENTITY_PARTICIPANT:
-                return CsvUtil.parseToParticipant(data);
-            case CliSyntax.PREFIX_ENTITY_TEAM:
-                // Buffer teams to add them after Mentors and Participants
-                if (shouldBufferTeam) {
-                    this.teamBuffers.offer(lineNumber + CsvUtil.CSV_SEPARATOR + line);
-                    return null;
-                }
-                return CsvUtil.parseToTeam(data, model);
-            default:
-                // If Entity CommandType is incorrect
-                this.errors.add(new Error(lineNumber, line, CAUSE_INVALID_DATA));
+            if (line.startsWith(CliSyntax.PREFIX_ENTITY_TEAM) && shouldBufferTeam) {
+                this.teamBuffers.offer(lineNumber + CsvUtil.CSV_SEPARATOR + line);
+                return null;
             }
+            return CsvUtil.parseToEntity(line, model);
         } catch (IllegalArgumentException iae) {
             this.errors.add(new Error(lineNumber, line, CAUSE_INVALID_DATA));
         } catch (MissingEntityException mee) {

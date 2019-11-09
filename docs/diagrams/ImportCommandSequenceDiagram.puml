@@ -1,0 +1,174 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "i:ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import fp/data/Alfred.csv")
+activate LogicManager
+
+LogicManager -> AlfredParser : parseCommand("import fp/data/Alfred.csv")
+activate AlfredParser
+
+create ImportCommandParser
+AlfredParser -> ImportCommandParser
+activate ImportCommandParser
+
+ImportCommandParser --> AlfredParser
+deactivate ImportCommandParser
+
+AlfredParser -> ImportCommandParser : parse(" fp/data/Alfred.csv")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand : <<create>>\n  with file path "data/Alfred/csv"
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser : i
+deactivate ImportCommand
+
+ImportCommandParser --> AlfredParser : i
+deactivate ImportCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportCommandParser -[hidden]-> AlfredParser
+destroy ImportCommandParser
+
+AlfredParser --> LogicManager : i
+deactivate AlfredParser
+
+LogicManager -> ImportCommand : execute()
+activate ImportCommand
+    ImportCommand -> ImportCommand ++ : parseFile()
+        ImportCommand -> ImportCommand ++ : parseLineToEntity()
+            ImportCommand -> CsvUtil : parseToEntity()
+            activate CsvUtil
+            return e
+        return e
+        'hidden arrow to spread out
+        ImportCommand -[hidden]-> Model
+        ImportCommand -> ImportCommand ++ : addEntity()
+            alt entity to add is a Mentor
+                ImportCommand -> Model : addMentor()
+                activate Model
+                deactivate Model
+            else entity to add is a Participant
+                ImportCommand -> Model : addParticipant()
+                activate Model
+                deactivate Model
+            else entity to add is a Team
+                ImportCommand -> Model : addTeam()
+                activate Model
+                deactivate Model
+            end
+        deactivate ImportCommand
+        'hidden arrow to spread out
+        ImportCommand -[hidden]-> ImportCommand
+    deactivate ImportCommand
+    create CommandResult
+    ImportCommand -> CommandResult
+        activate CommandResult
+    return r
+return r
+
+[<--LogicManager : r
+deactivate LogicManager
+
+@enduml
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "i:ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import fp/data/Alfred.csv")
+activate LogicManager
+
+LogicManager -> AlfredParser : parseCommand("import fp/data/Alfred.csv")
+activate AlfredParser
+
+create ImportCommandParser
+AlfredParser -> ImportCommandParser
+activate ImportCommandParser
+
+ImportCommandParser --> AlfredParser
+deactivate ImportCommandParser
+
+AlfredParser -> ImportCommandParser : parse(" fp/data/Alfred.csv")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand : <<create>>\n  with file path "data/Alfred/csv"
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser : i
+deactivate ImportCommand
+
+ImportCommandParser --> AlfredParser : i
+deactivate ImportCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportCommandParser -[hidden]-> AlfredParser
+destroy ImportCommandParser
+
+AlfredParser --> LogicManager : i
+deactivate AlfredParser
+
+LogicManager -> ImportCommand : execute()
+activate ImportCommand
+    ImportCommand -> ImportCommand ++ : parseFile()
+        ImportCommand -> ImportCommand ++ : parseLineToEntity()
+            ImportCommand -> CsvUtil : parseToEntity()
+            activate CsvUtil
+            return e
+        return e
+        'hidden arrow to spread out
+        ImportCommand -[hidden]-> Model
+        ImportCommand -> ImportCommand ++ : addEntity()
+            alt entity to add is a Mentor
+                ImportCommand -> Model : addMentor()
+                activate Model
+                deactivate Model
+            else entity to add is a Participant
+                ImportCommand -> Model : addParticipant()
+                activate Model
+                deactivate Model
+            else entity to add is a Team
+                ImportCommand -> Model : addTeam()
+                activate Model
+                deactivate Model
+            end
+        deactivate ImportCommand
+        'hidden arrow to spread out
+        ImportCommand -[hidden]-> ImportCommand
+    deactivate ImportCommand
+    create CommandResult
+    ImportCommand -> CommandResult
+        activate CommandResult
+    return r
+return r
+
+[<--LogicManager : r
+deactivate LogicManager
+
+@enduml

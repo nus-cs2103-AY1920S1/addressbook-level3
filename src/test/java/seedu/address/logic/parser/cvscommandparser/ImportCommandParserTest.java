@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.csvcommand.ImportCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.csvcommandparser.ImportCommandParser;
 import seedu.address.testutil.TestUtil;
@@ -17,7 +18,7 @@ public class ImportCommandParserTest {
     private final Parser parser = new ImportCommandParser();
 
     @Test
-    public void parse_validParameterPassedIn_validCommandReturned() {
+    public void parse_validParameterPassedIn_validCommandReturned() throws CommandException {
         String path = TestUtil.getFilePathInSandboxFolder("Alfred.csv").toString();
         assertParseSuccess(parser, " " + PREFIX_FILE_PATH + path, new ImportCommand(path));
 

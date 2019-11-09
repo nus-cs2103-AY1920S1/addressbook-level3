@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+
+package "commons.util" {
+    Class FileUtil UTIL_COLOR
+}
+
+package "logic.commands" {
+    Abstract Class "{Abstract}\nCommand" as Command LOGIC_COLOR
+    Class ImportCommand LOGIC_COLOR
+    package "csvutil" {
+        Class CsvUtil LOGIC_COLOR
+        Class ErrorTracker LOGIC_COLOR
+        Class Error LOGIC_COLOR
+        ErrorTracker +- "*" Error LOGIC_COLOR
+    }
+    ImportCommand -up-|> Command LOGIC_COLOR
+    ImportCommand .-right-> CsvUtil LOGIC_COLOR : uses >
+    ImportCommand .-> "1" ErrorTracker LOGIC_COLOR : uses >
+}
+logic.commands -[hidden]-> commons.util
+
+ImportCommand --> FileUtil LOGIC_COLOR : uses >
+
+package "model" {
+    Interface Model <<interface>> MODEL_COLOR
+    Class ModelManager MODEL_COLOR
+    ModelManager .-up|> Model
+}
+logic.commands -[hidden]-> model
+
+ImportCommand -down-> Model LOGIC_COLOR : adds entities >
+CsvUtil -down> Model LOGIC_COLOR : retrieves entities >
+
+@enduml

@@ -296,6 +296,73 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 To best address the numerous and varying needs of Hackathon organizers, we have packed Alfred with a multitude of different features, each of which seeks to provide the user with the optimal means of tending to their hackathon organising needs. However, with a host of features comes a sizable codebase which can make it daunting for new programmers, and often even veteran Alfred programmers, to understand how certain features have been implemented. This section aims to empower you by introducing you to some of the noteworthy features currently present within Alfred, along with few that hope to add in the future, so that you may better grasp the implementation of these features in a bid to contribute new features and improvements to existing features within Alfred. Despite our best efforts to make the explanations of Alfred's features' as comprehensive as possible, we do advice not to solely rely on this guide for understanding and encourage you to experiment with each feature's code in order to truly grasp it.
 
+=== Bulk Registration
+
+The Bulk Registration feature, referred as the import command, allows you to add multiple entities into Alfred at once through a CSV file. The file must be stored locally as Alfred will attempt to retrieve it through the file path provided by the user. In order for the import command to successfully execute, it is required that the CSV file is formatted according to Alfred's requirements, which you can read more about in our <<UserGuide#, user guide>>.
+
+This feature will be explained further in the following subsections.
+
+==== Implementation Overview
+
+Since this feature manages data from a CSV file, import command relies on the `CsvUtil` class. The `CsvUtil` class handles reading from and writing data to a CSV file. Below shows the relationships between different classes in Alfred.
+
+[[ImportCommandClassDiagram]]
+.Import Command Class Diagram
+image::ImportCommandClassDiagram.png[]
+[caption="Import Command Sequence Diagram"]
+
+In the above class diagram, you can see that
+
+[none]
+* 1. The `ImportCommand` uses the `FileUtil` class, and this is so for a number of reasons. First is to validate whether user inputted file path is, in fact, a valid file path. Once it is verified, another check is done to see if the file exists at the given file path. If the file is not able to be located, the `ImportCommand` will not complete its execution.
+
+* 2. In addition to the `CsvUtil` class, the `ImportCommand` also utilizes an `ErrorTracker` class. This class will store any lines in the CSV file that is invalid along with the reason why it is so. Each `Error` object referenced by the `ErrorTracker` will correspond to one line in the CSV file and the cause of the error.
+
+Now, the sections below will give a detailed explanation of different portions of this feature.
+
+==== Implementation: `ImportCommand`
+
+Once a valid user input is parsed and passed into the `ImportCommand`, the command will open the file and read its content line by line. Each line is then parsed into the corresponding entity by the `CsvUtil` class. This will be explained further <<Implementation: Parsing of Entities by `CsvUtil`, below>>. The following sequence diagram shows the steps involved in mass importing data into Alfred.
+
+.Import Command Sequence Diagram
+image::ImportCommandSequenceDiagram.png[]
+
+`FileUtil` shown in the <<ImportCommandClassDiagram, class diagram>> was omitted from the above sequence diagram for simplicity as it adds little to the overall flow of execution.
+
+As the above figure shows, the file path from the user input is extracted and passed as a field for `ImportCommand`. Then, Alfred proceeds to convert file content into relevant entities.
+
+When `ImportCommand` parses and adds entities to `Model`, it is crucial that teams are the last entities to be added. In the above sequence diagram, this process of buffering teams was also omitted for simplicity. Basically, in the `parseLineToEntity()` method, if a line in CSV file corresponds to a team, the line will be buffered to be parsed after all the other lines have been parsed. The reason for this is because teams may have dependencies on other participants and mentors. It is required that all of the participants and mentors associated with a team, say Team A, exist inside the `Model` before Team A can be added.
+
+So as `ImportCommand` accesses the CSV file line by line, the line representing a team will be stored in a `Queue<String>` for later use. When the end of file is reached and all other participants and mentors are parsed and added to `Model`, the `ImportCommand` will poll from the `Queue`, parse into a relevant team, and add it to the `Model` until the `Queue` is empty.
+
+==== Implementation: Parsing of Entities by `CsvUtil`
+
+As mentioned before, the `CsvUtil` class is used to aid in parsing of CSV lines into entities. The process in which `CsvUtil` parses each entity is heavily dependent on the different fields each entity has. If you are not familiar with this yet, please check out our <<UserGuide.adoc#Parameter-Constraints-and-Additional-Information, user guide>>.
+
+The process of parsing a line into a mentor or a participant is very similar, so two entities - participant and team - will be explained.
+
+First, the following is a sequence diagram for parsing a CSV line into a participant. The line to be parsed is `"P,ID,Bruce Wayne,12345678,\wbruce@wayne.ent"`.
+
+.`CsvUtil`: Parsing to Participant Sequence Diagram
+image::CsvUtilParseParticipantSequenceDiagram.png[]
+
+Given CSV line is first split by commas (also allows commas surrounded by arbitrary number of spaces). Then, each `String` in the array is (attempted to be) converted into corresponding fields of a Participant. As the diagram shows, each field class has its own method for checking if the given `String` argument is valid - in the form of `isValidField()` method, where `Field` is replaced by its respective class name. Once each field is successfully converted, a Participant is created with the parsed fields. The process of parsing into a Mentor is practically equivalent of that of a Participant. The only change is in the fields being parsed.
+
+Next is a sequence diagram for parsing a CSV line into a team. The line to be parsed is `"T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1"`.
+
+.`CsvUtil`: Parsing to Team Sequence Diagram
+image::CsvUtilParseTeamSequenceDiagram.png[]
+
+Also for teams, each corresponding `String` is converted to its field counterpart just like participants and mentors. Hence, `isValidField()` method was omitted from the diagram. The difference lies in the fact that for teams, Alfred must check if any participants or mentors it makes a reference to actually exists in `Model`. Thus, `CsvUtil` calls `getParticipant()` and `getMentor()` methods exposed by the `Model` class. If there are any exceptions raised while retrieving the participants and mentors, that line in CSV will not be loaded onto Alfred.
+
+==== Implementation: Outputting Error File
+
+==== Design Considerations
+
+=== Export Feature
+
+The export feature will be used to unload the data in Alfred to an external CSV file. This functionality will prove useful when you or the user wishes to share the aggregate data of a particular hackathon event with other people or organization or wishes to keep a record of past hackathons for future references.
+
 === Undo/Redo feature
 
 The Undo/Redo feature, as the name suggests, allows you to undo and redo commands. Only commands that alter the state of the data
@@ -843,15 +910,15 @@ Refer to the guide <<DevOps#, here>>.
 * has a need to keep track of the competition winners and prizes won
 * has a need to search for specific Mentor, Team or Participant at times
 * prefer desktop apps over other types
-* can commandType fast
+* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
 
-* manage contacts faster than a typical mouse/GUI driven app
-* keep track of the relationship between Participant, Team and Mentor, such that it can be referenced at times
-* store a significant number of contacts in an organised, readable manner
+* manages different entities faster than a typical mouse/GUI driven app
+* keeps track of the relationship between Participant, Team and Mentor, such that it can be referenced at times
+* stores a significant number of entities in an organised, readable manner
 
 [appendix]
 == User Stories

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import java.util.List;
 
 import seedu.address.logic.commands.csvcommand.ImportCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -33,10 +34,14 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
 
-        if (fileNames.size() == 1) {
-            return new ImportCommand(fileNames.get(0));
+        try {
+            if (fileNames.size() == 1) {
+                return new ImportCommand(fileNames.get(0));
+            }
+            return new ImportCommand(fileNames.get(0), fileNames.get(1));
+        } catch (CommandException ce) {
+            throw new ParseException(ce.getMessage());
         }
-        return new ImportCommand(fileNames.get(0), fileNames.get(1));
     }
 
     private boolean areInvalid(List<String> fileNames) {

@@ -69,8 +69,8 @@ public class ExportCommandTest {
     public void equals_differentCommands_returnFalse() {
         // Different class returns false
         ExportCommand command1 = new ExportCommand("src/main/test/Alfred.csv");
-        ImportCommand loadCommand = new ImportCommand("Alfred.csv");
-        assertNotEquals(command1, loadCommand);
+        ExportMentorCommand exportMentorCommand = new ExportMentorCommand("Alfred.csv");
+        assertNotEquals(command1, exportMentorCommand);
 
         // Different parameters returns false
         ExportCommand command2 = new ExportCommand("src/main/test/Alfred1.csv");
