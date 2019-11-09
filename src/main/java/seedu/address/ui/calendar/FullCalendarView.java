@@ -1,18 +1,25 @@
+//@author dalsontws
+
 package seedu.address.ui.calendar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import seedu.address.logic.Logic;
+import seedu.address.model.Model;
+import seedu.address.model.deadline.Deadline;
 
-//@author dalsontws
 /**
  * Create FullCalendarView GUI
  * TODO: Replace calendar placeholder
@@ -23,12 +30,15 @@ public class FullCalendarView {
     private VBox view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
+    private Logic logic;
+    private Model model;
 
     /**
      * Create a calendar view
      * @param yearMonth year month to create the calendar
      */
-    public FullCalendarView(YearMonth yearMonth) {
+    public FullCalendarView(YearMonth yearMonth, Model model) {
+        this.model = model;
         currentYearMonth = yearMonth;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
@@ -82,16 +92,30 @@ public class FullCalendarView {
         while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY")) {
             calendarDate = calendarDate.minusDays(1);
         }
-        // Populate the calendar with day numbers
+
         for (CalendarPane ap : allCalendarDays) {
             if (ap.getChildren().size() != 0) {
                 ap.getChildren().remove(0);
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             ap.setDate(calendarDate);
+
             ap.setTopAnchor(txt, 5.0);
             ap.setLeftAnchor(txt, 5.0);
             ap.getChildren().add(txt);
+
+            List<Deadline> deadlineList = model.getFilteredDeadlineList();
+            Iterator<Deadline> itr = deadlineList.iterator();
+            while (itr.hasNext()) {
+                Deadline d = itr.next();
+                if (calendarDate.equals(d.getDueDate().getLocalDate())) {
+                    String task = "\t•Deadline";
+                    Label taskText = new Label(task);
+                    ap.setTopAnchor(taskText, 8.0);
+                    ap.setLeftAnchor(taskText, 2.0);
+                    ap.getChildren().add(taskText);
+                }
+            }
             calendarDate = calendarDate.plusDays(1);
         }
         // Change the title of the calendar
