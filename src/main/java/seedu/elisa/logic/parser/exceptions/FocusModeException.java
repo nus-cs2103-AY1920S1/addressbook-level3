@@ -5,6 +5,6 @@ package seedu.elisa.logic.parser.exceptions;
  */
 public class FocusModeException extends ParseException {
     public FocusModeException() {
-        super("Hey, stay focus on your task!");
+        super("Hey, stay focused on your task!");
     }
 }
