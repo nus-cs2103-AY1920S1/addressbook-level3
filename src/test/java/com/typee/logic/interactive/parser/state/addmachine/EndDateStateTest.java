@@ -174,7 +174,6 @@ class EndDateStateTest {
         // EP : Duplicate prefix.
         List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_ENGAGEMENT_TYPE);
-        
         List<String> firstArgs = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
         List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "meeting");
 
