@@ -37,35 +37,35 @@ public class DoctorInChargeTest {
         assertFalse(DoctorInCharge.isValidDoctorInCharge("N1234567A")); // starts with letter other than S/T/F/G
 
         // valid doctor in charge
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("s1234512b")); // should be case insensitive
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("s1234512R")); // should be case insensitive
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("T1234512a")); // should be case insensitive
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("S1234567B")); // starts with 'S'
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("T2222222A")); // starts with 'T'
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("F3333333A")); // starts with 'F'
-        assertTrue(DoctorInCharge.isValidDoctorInCharge("G4444444A")); // starts with 'G'
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("f1289064t")); // should be case insensitive
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("F1289064T")); // should be case insensitive
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("F1289064t")); // should be case insensitive
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("S4681130E")); // starts with 'S'
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("T3685500I")); // starts with 'T'
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("F9418981X")); // starts with 'F'
+        assertTrue(DoctorInCharge.isValidDoctorInCharge("G1146086R")); // starts with 'G'
     }
 
     @Test
     public void toStringTest() {
-        assertEquals(new DoctorInCharge("S1111111A").toString(), "S1111111A");
+        assertEquals(new DoctorInCharge("S6906071D").toString(), "S6906071D");
     }
 
     @Test
     public void equals() {
-        DoctorInCharge doctorInCharge = new DoctorInCharge("S1111111A");
+        DoctorInCharge doctorInCharge = new DoctorInCharge("S6906071D");
 
         assertFalse(doctorInCharge.equals(null));
-        assertFalse(doctorInCharge.equals(new DoctorInCharge("S1111111B")));
+        assertFalse(doctorInCharge.equals(new DoctorInCharge("S0038935H")));
         assertTrue(doctorInCharge.equals(doctorInCharge));
-        assertTrue(doctorInCharge.equals(new DoctorInCharge("S1111111A")));
+        assertTrue(doctorInCharge.equals(new DoctorInCharge("S6906071D")));
     }
 
     @Test
     public void hashCodeTest() {
-        DoctorInCharge doctorInCharge = new DoctorInCharge("S1111111A");
+        DoctorInCharge doctorInCharge = new DoctorInCharge("S6906071D");
 
-        assertEquals(doctorInCharge.hashCode(), new DoctorInCharge("S1111111A").hashCode());
-        assertNotEquals(doctorInCharge.hashCode(), new DoctorInCharge("S1111111B").hashCode());
+        assertEquals(doctorInCharge.hashCode(), new DoctorInCharge("S6906071D").hashCode());
+        assertNotEquals(doctorInCharge.hashCode(), new DoctorInCharge("S0038935H").hashCode());
     }
 }

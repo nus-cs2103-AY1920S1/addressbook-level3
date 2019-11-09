@@ -88,7 +88,7 @@ public class DoctorTest {
     public void toStringTest() {
         Doctor alice = new DoctorBuilder(DOCTOR_ALICE).build();
         assertEquals(alice.toString().trim() , "Alice Pauline Person Type: doctor"
-                + " Nric: S1532142A Phone: 94351253");
+                + " Nric: F1289064T Phone: 94351253");
     }
 
     @Test

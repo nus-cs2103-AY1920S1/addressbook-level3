@@ -93,9 +93,9 @@ public class PersonContainsPrefixesPredicateTest {
 
         // Keywords match type, phone, nric and address, but does not match name
         predicate = new PersonContainsPrefixesPredicate(ArgumentTokenizer
-                .tokenize(ExactFindCommand.COMMAND_WORD + " n/Benson t/doctor ic/S1111111A p/12345",
+                .tokenize(ExactFindCommand.COMMAND_WORD + " n/Benson t/doctor ic/S9155102J p/12345",
                         PREFIX_NAME, PREFIX_TYPE, PREFIX_NRIC, PREFIX_PHONE));
-        assertFalse(predicate.test(new PersonBuilder().withType("doctor").withNric("S1111111A").withName("Alice")
+        assertFalse(predicate.test(new PersonBuilder().withType("doctor").withNric("S9155102J").withName("Alice")
                 .withPhone("12345").build()));
 
     }

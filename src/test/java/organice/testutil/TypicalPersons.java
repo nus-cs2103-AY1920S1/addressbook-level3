@@ -46,18 +46,18 @@ import organice.model.person.Person;
 public class TypicalPersons {
 
     //Sample Doctors
-    public static final Doctor DOCTOR_ALICE = new DoctorBuilder().withNric("S1532142A")
+    public static final Doctor DOCTOR_ALICE = new DoctorBuilder().withNric("F1289064T")
             .withName("Alice Pauline").withPhone("94351253").build();
 
     //Sample Patients
-    public static final Patient PATIENT_CARL = new PatientBuilder().withAge("22").withNric("G5642431P")
+    public static final Patient PATIENT_CARL = new PatientBuilder().withAge("22").withNric("S1048607F")
             .withName("Carl Kurz").withPhone("95352563").withPriority("high")
             .withBloodType("A+").withTissueType("1,2,3,4,5,6").withOrgan("kidney")
-            .withDoctorInCharge("S1532142A").build();
-    public static final Patient PATIENT_DANIEL = new PatientBuilder().withAge("34").withNric("F6423467F")
+            .withDoctorInCharge("F1289064T").build();
+    public static final Patient PATIENT_DANIEL = new PatientBuilder().withAge("34").withNric("G7977893T")
             .withName("Daniel Meier").withPhone("87652533").withPriority("low")
             .withBloodType("O-").withTissueType("10,5,3,1,6,8").withOrgan("kidney")
-            .withDoctorInCharge("T5231426Q").build();
+            .withDoctorInCharge("F1289064T").build();
     public static final Patient PATIENT_IRENE = new PatientBuilder().withAge(VALID_AGE_PATIENT_IRENE)
             .withName(VALID_NAME_PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_IRENE).withPhone(VALID_PHONE_PATIENT_IRENE)
             .withBloodType(VALID_BLOOD_TYPE_PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_IRENE)
@@ -65,13 +65,13 @@ public class TypicalPersons {
             .withStatus(VALID_STATUS_PATIENT_IRENE).build();
 
     //Sample Donors
-    public static final Donor DONOR_ELLE = new DonorBuilder().withAge("13").withNric("S9374923S")
+    public static final Donor DONOR_ELLE = new DonorBuilder().withAge("13").withNric("F8258118U")
             .withName("Elle Meyer").withPhone("9482224").withBloodType("O+")
             .withTissueType("10,5,3,1,6,8").withOrgan("kidney").withOrganExpiryDate("10-May-2020").build();
-    public static final Donor DONOR_FIONA = new DonorBuilder().withAge("25").withNric("F9183156L")
+    public static final Donor DONOR_FIONA = new DonorBuilder().withAge("25").withNric("F5171921L")
             .withName("Fiona Kunz").withPhone("9482427").withBloodType("AB-")
             .withTissueType("7,2,3,9,6,8").withOrgan("kidney").withOrganExpiryDate("10-Jun-2020").build();
-    public static final Donor DONOR_GEORGE = new DonorBuilder().withAge("44").withNric("S1234567A")
+    public static final Donor DONOR_GEORGE = new DonorBuilder().withAge("44").withNric("T6860546B")
             .withName("George Best").withPhone("9482442").withBloodType("B+")
             .withTissueType("9,4,1,6,8,2").withOrgan("kidney").withOrganExpiryDate("10-Dec-2030").build();
     public static final Donor DONOR_IRENE_DONOR = new DonorBuilder().withAge(VALID_AGE_PATIENT_IRENE)

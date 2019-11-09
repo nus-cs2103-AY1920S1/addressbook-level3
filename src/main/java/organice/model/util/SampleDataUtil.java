@@ -1,5 +1,7 @@
 package organice.model.util;
 
+import static organice.model.person.Nric.calculateChecksumLetter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -40,7 +42,6 @@ public class SampleDataUtil {
                 "Martinez", "Brady", "Weiss", "Belladonna", "Rose", "Tennant", "Perry", "Davidson"})
             .map(Name::new).toArray(Name[]::new);
     private static final char[] NRIC_LETTERS = "STFG".toCharArray();
-    private static final char[] NRIC_CHECKSUMS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     private static final BloodType[] BLOODTYPES = BloodType.BLOOD_TYPES.stream()
             .map(BloodType::new).toArray(BloodType[]::new);
     private static final Priority[] PRIORITIES = Arrays.stream(
@@ -49,7 +50,7 @@ public class SampleDataUtil {
     private static final String[] TISSUETYPE_VALUES =
             new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 
-    public static Person[] getSamplePersons() {
+    private static Person[] getSamplePersons() {
         int numDoctors = 10;
         int numPatients = 20;
         int numDonors = 20;
@@ -57,6 +58,7 @@ public class SampleDataUtil {
         int nricMin = 1000000;
         int nricMax = 9999999;
         int nricIncrementMax = (nricMax - nricMin) / numPersons;
+        char dummyChecksum = 'A';
 
         // To cycle back, % array.length
         int iterator = 0;
@@ -65,10 +67,10 @@ public class SampleDataUtil {
         ArrayList<Doctor> doctorList = new ArrayList<>();
         // Create Doctors
         for (; iterator < numDoctors; iterator++, nricBody += Math.random() * (nricIncrementMax + 1)) {
+            String nricLessChecksum = NRIC_LETTERS[iterator % NRIC_LETTERS.length] + String.valueOf(nricBody);
             Doctor newDoctor = new Doctor(
                     new Type("doctor"),
-                    new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
-                            + String.valueOf(nricBody) + NRIC_CHECKSUMS[iterator % NRIC_CHECKSUMS.length]),
+                    new Nric(nricLessChecksum + calculateChecksumLetter(nricLessChecksum + dummyChecksum)),
                     new Name(NAMES_FIRST[iterator % NAMES_FIRST.length]
                             + " " + NAMES_LAST[iterator % NAMES_LAST.length]),
                     new Phone((String.valueOf((int) (Math.random() * ((99999999 - 80000000) + 1) + 80000000))))
@@ -80,11 +82,11 @@ public class SampleDataUtil {
         ArrayList<Patient> patientList = new ArrayList<>();
         for (; iterator < numDoctors + numPatients;
              iterator++, nricBody += Math.random() * (nricIncrementMax + 1)) {
+            String nricLessChecksum = NRIC_LETTERS[iterator % NRIC_LETTERS.length] + String.valueOf(nricBody);
             // NOTE TissueType not random.
             Patient newPatient = new Patient(
                     new Type("patient"),
-                    new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
-                            + String.valueOf(nricBody) + NRIC_CHECKSUMS[iterator % NRIC_CHECKSUMS.length]),
+                    new Nric(nricLessChecksum + calculateChecksumLetter(nricLessChecksum + dummyChecksum)),
                     new Name(NAMES_FIRST[iterator % NAMES_FIRST.length]
                             + " " + NAMES_LAST[iterator % NAMES_LAST.length]),
                     new Phone((String.valueOf((int) (Math.random() * ((99999999 - 80000000) + 1) + 80000000)))),
@@ -116,10 +118,10 @@ public class SampleDataUtil {
             // Random date within +[30, 150) days
             calendar.add(Calendar.DATE,
                     (int) (Math.random() * ((maxDateIncrement - minDateIncrement) + 1) + minDateIncrement));
+            String nricLessChecksum = NRIC_LETTERS[iterator % NRIC_LETTERS.length] + String.valueOf(nricBody);
             Donor newDonor = new Donor(
                     new Type("donor"),
-                    new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
-                            + String.valueOf(nricBody) + NRIC_CHECKSUMS[iterator % NRIC_CHECKSUMS.length]),
+                    new Nric(nricLessChecksum + calculateChecksumLetter(nricLessChecksum + dummyChecksum)),
                     new Name(NAMES_FIRST[iterator % NAMES_FIRST.length]
                             + " " + NAMES_LAST[iterator % NAMES_LAST.length]),
                     new Phone((String.valueOf((int) (Math.random() * ((99999999 - 80000000) + 1) + 80000000)))),

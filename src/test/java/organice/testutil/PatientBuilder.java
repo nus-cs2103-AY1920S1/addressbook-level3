@@ -22,7 +22,7 @@ public class PatientBuilder extends PersonBuilder {
     public static final String DEFAULT_BLOOD_TYPE = "A+";
     public static final String DEFAULT_TISSUE_TYPE = "1,2,3,4,5,6";
     public static final String DEFAULT_ORGAN = "kidney";
-    public static final String DEFAULT_DOCTOR_IN_CHARGE = "S1111111A";
+    public static final String DEFAULT_DOCTOR_IN_CHARGE = "S9878206J";
     public static final String DEFAULT_STATUS = "not processing";
 
     private Age age;

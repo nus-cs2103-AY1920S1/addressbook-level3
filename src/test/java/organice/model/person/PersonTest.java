@@ -90,7 +90,7 @@ public class PersonTest {
     @Test
     public void toStringTest() {
         Person alice = new PersonBuilder(DOCTOR_ALICE).build();
-        assertEquals(alice.toString().trim() , "Alice Pauline Person Type: doctor Nric: S1532142A Phone: 94351253");
+        assertEquals(alice.toString().trim() , "Alice Pauline Person Type: doctor Nric: F1289064T Phone: 94351253");
     }
 
     @Test

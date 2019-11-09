@@ -12,7 +12,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="ORGANice" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="ORGANice" minWidth="600" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/organice.png" />
   </icons>
