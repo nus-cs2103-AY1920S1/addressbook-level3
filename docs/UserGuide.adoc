@@ -330,9 +330,6 @@ Examples:
 List all note. +
 Format: `listnote`
 
-// end::delete[]
-
-// tag::addStudentProfile[]
 === Student List
 
 ==== Add a student: 'add'
@@ -352,7 +349,6 @@ Examples:
 
 * `add n/Caesar,James,Todd c/CS2030`
 
-// end::addStudentProfile[]
 ==== Delete a student: 'delete'
 
 Deletes a student from TutorAid.
@@ -370,7 +366,6 @@ Format: `find NAME`
 Examples:
 
 * `find Tom`
-
 
 ==== List all students in a class: 'list_class'
 
@@ -405,6 +400,15 @@ Examples:
 
 * `mark_participation 1,2,3`
 
+==== Assign students to a class: 'assign_class'
+
+Assigns a class to a student or a group of students.
+Format: `assign_class INDEXES c/CLASSID`
+
+Examples:
+
+* `assign_class 1,2,3 c/CS2030`
+
 // tag::includeStudentProfile[]
 ==== Edit a student: 'edit'
 
@@ -412,10 +416,7 @@ Edits a Student's fields.
 Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
 
 [NOTE]
-User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
-
-[NOTE]
-Result of a student can be assigned using this command. e.g. `edit 1 r/79`
+User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example). As such, result of a student can be assigned using this command. e.g. `edit 1 r/79`
 
 Examples:
 
@@ -426,7 +427,7 @@ Examples:
 List all students in TutorAid.
 Format: `list`
 
-image::list.png[width="600", align="left"]
+image::list.png[width="500", align="left"]
 
 [NOTE]
 `list` command does not take any arguments.
@@ -442,15 +443,6 @@ The picture specified must be in either .jpg, .png or .bmp format. It must also 
 Examples:
 
 * `set_pic 2 pic/Tom.jpg`
-
-==== Assign students to a class: 'assign_class'
-
-Assigns a class to a student or a group of students.
-Format: `assign_class INDEXES c/CLASSID`
-
-Examples:
-
-* `assign_class 1,2,3 c/CS2030`
 
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
@@ -472,7 +464,6 @@ Format: `check_status`
 [NOTE]
 To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
 
-
 ==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
 
 Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
@@ -491,7 +482,7 @@ Examples:
 Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
 command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
 
-image::customCommandError.png[width="600", align="left"]
+image::customCommandError.png[width="500", align="left"]
 
 [NOTE]
 You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
@@ -510,8 +501,6 @@ Format: `deleteCustomCommand CUSTOMCOMMAND`
 Examples:
 
 * `deleteCustomCommand insertPreviouslyAddedCommandHere`
-
-// end::studentProfile[]
 
 === Clearing all entries : `clear`
 
