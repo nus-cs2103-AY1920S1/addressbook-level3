@@ -76,6 +76,11 @@ class JsonAdaptedExpense {
                     Description.class.getSimpleName()));
         }
 
+        if (amt == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
+        }
+
         if (category == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Category.class.getSimpleName()));

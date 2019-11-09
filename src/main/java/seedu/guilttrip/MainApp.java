@@ -11,6 +11,7 @@ import seedu.guilttrip.commons.core.Config;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.Version;
 import seedu.guilttrip.commons.exceptions.DataConversionException;
+import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.commons.util.ConfigUtil;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.commons.util.TimeUtil;

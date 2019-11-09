@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.exceptions.CategoryNotFoundException;
 import seedu.guilttrip.model.entry.exceptions.DuplicateCategoryException;
 import seedu.guilttrip.model.util.CategoryType;
@@ -25,6 +27,9 @@ public class CategoryList {
 
     public static final String LIST_IS_EMPTY =
             "Unable to remove category from the category empty list!. ";
+
+    private static final Logger logger = LogsCenter.getLogger(CategoryList.class);
+
     /*
      * The first character of the guilttrip must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
@@ -84,10 +89,12 @@ public class CategoryList {
         ObservableList internalList = determineWhichList(target.categoryType);
         int index = internalList.indexOf(target);
         if (index == -1) {
+            logger.info("Category isn't contained in GuiltTrip.");
             throw new CategoryNotFoundException();
         }
 
         if (target.equals(editedCategory) && contains(editedCategory)) {
+            logger.info("Category is a duplicate in GuiltTrip.It already exists.");
             throw new DuplicateCategoryException();
         }
 

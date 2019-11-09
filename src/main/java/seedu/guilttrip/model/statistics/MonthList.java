@@ -28,8 +28,6 @@ public class MonthList {
     private FilteredList<Expense> filteredListForExpense;
     private FilteredList<Income> filteredListForIncome;
     private YearMonth yearMonth;
-    private double totalExpense;
-    private double totalIncome;
 
     /**
      * Contains the FilteredList of entries for the month.
@@ -47,8 +45,6 @@ public class MonthList {
         listOfDailyStatistics = FXCollections.observableArrayList();
         mapOfDailyLists = FXCollections.observableHashMap();
         this.yearMonth = YearMonth.of(year, month);
-        totalExpense = 0.00;
-        totalIncome = 0.00;
         initRecords();
     }
 
@@ -68,6 +64,7 @@ public class MonthList {
      * Initiates the MonthList Record in guilttrip.
      */
     private void initRecords() {
+        //Initiates the list of categories for expense
         for (int i = 0; i < this.listOfExpenseCategories.size(); i++) {
             Category toFilterCategory = this.listOfExpenseCategories.get(i);
             FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
@@ -75,6 +72,7 @@ public class MonthList {
             mapOfExpenseCategories.put(toFilterCategory, filteredByCategory);
         }
 
+        //Initiates the list of categories for income
         for (int k = 0; k < this.listOfIncomeCategories.size(); k++) {
             Category toFilterCategory = this.listOfIncomeCategories.get(k);
             FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
@@ -82,6 +80,7 @@ public class MonthList {
             mapOfIncomeCategories.put(toFilterCategory, filteredByCategory);
         }
 
+        //Initiates the list of stats for daily
         for (int j = 1; j <= this.yearMonth.lengthOfMonth(); j++) {
             FilteredList<Expense> dailyExpense = new FilteredList<Expense> (filteredListForExpense,
                     new EntryContainsDayPredicate(j, yearMonth.getMonthValue(), yearMonth.getYear()));

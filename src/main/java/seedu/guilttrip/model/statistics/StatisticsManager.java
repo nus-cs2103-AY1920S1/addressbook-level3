@@ -12,6 +12,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
 import seedu.guilttrip.model.entry.Date;
@@ -37,8 +38,8 @@ public class StatisticsManager implements Statistics {
      */
     public StatisticsManager(FilteredList<Expense> listOfFilteredExpenses, FilteredList<Income> listOfFilteredIncomes,
                              CategoryList listOfCategories) {
-        this.modelTotalFilteredExpenses = new FilteredList(listOfFilteredExpenses);
-        this.modelTotalFilteredIncomes = new FilteredList(listOfFilteredIncomes);
+        this.modelTotalFilteredExpenses = new FilteredList<Expense>(listOfFilteredExpenses);
+        this.modelTotalFilteredIncomes = new FilteredList<Income>(listOfFilteredIncomes);
         listOfCategories.getInternalListForOtherEntries().addListener(new ListChangeListener<Category>() {
             @Override
             public void onChanged(Change<? extends Category> change) {

@@ -115,7 +115,7 @@ public class StatisticsBarChart extends UiPart<Region> {
                     incomeChart);
             this.expenseChart.setData(dataForExpense);
             this.incomeChart.setData(dataForIncome);
-            barChart.getData().addAll(seriesList);
+            barChart.getData().add(seriesList);
             barChart.setVisible(true);
             noEntryLabel.setVisible(false);
         }

@@ -85,6 +85,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
             for (Category sampleCategory : listOfCategories) {
                 this.addCategory(sampleCategory);
             }
+            Entry[] listOfEntries = SampleDataUtil.getSampleEntries();
+            for (Entry sampleEntry : listOfEntries) {
+                this.addEntry(sampleEntry);
+            }
         }
     }
 
