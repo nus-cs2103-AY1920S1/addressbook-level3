@@ -117,7 +117,8 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        resultDisplay.setFeedbackToUser("Welcome to FinSec! An all in one application for your financial planning needs.");
+        resultDisplay.setFeedbackToUser("Welcome to FinSec! An all in one application" +
+                " for your financial planning needs.");
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
