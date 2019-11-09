@@ -22,8 +22,7 @@ public class ScrollCommand extends Command {
 
         ScheduleWindowDisplayType status = model.getState();
         if (status == ScheduleWindowDisplayType.PERSON
-                || status == ScheduleWindowDisplayType.GROUP
-                || status == ScheduleWindowDisplayType.NONE) {
+                || status == ScheduleWindowDisplayType.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
             return new CommandResultBuilder(MESSAGE_FAILURE).build();

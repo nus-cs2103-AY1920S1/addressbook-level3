@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
  * Group display model.
  */
 public class GroupDisplay extends Display {
+
     private final GroupName groupName;
     private final GroupDescription groupDescription;
 

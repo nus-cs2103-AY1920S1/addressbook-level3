@@ -31,7 +31,7 @@ public class LookAtGroupMemberCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         ScheduleWindowDisplayType status = model.getState();
-        if (!status.equals(ScheduleWindowDisplayType.GROUP) && !status.equals(ScheduleWindowDisplayType.NONE)) {
+        if (!status.equals(ScheduleWindowDisplayType.GROUP)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 

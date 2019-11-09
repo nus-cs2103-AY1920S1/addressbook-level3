@@ -43,7 +43,7 @@ public class DeletePersonCommand extends Command {
             model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
 
             // update side panel display
-            model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
             return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, name.toString())).build();
 

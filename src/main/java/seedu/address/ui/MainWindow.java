@@ -381,9 +381,6 @@ public class MainWindow extends UiPart<Stage> {
                         scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
                         SidePanelDisplayType.GROUP);
                 break;
-            case DEFAULT:
-                // do nothing
-                break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
                         .getPersonSchedules().get(0))

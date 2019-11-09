@@ -77,6 +77,7 @@ public class DisplayModelManager {
     public void updateDisplayWithPerson(Name name, LocalDateTime time,
                                         ScheduleWindowDisplayType type,
                                         TimeBook timeBook) {
+
         try {
             Person person = timeBook.getPersonList().findPerson(name);
             updateScheduleWindowDisplay(person, time, type);

@@ -6,7 +6,5 @@ package seedu.address.model.display.schedulewindow;
 public enum ScheduleWindowDisplayType {
     GROUP,
     PERSON,
-    DEFAULT,
     HOME,
-    NONE
 }

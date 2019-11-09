@@ -24,8 +24,7 @@ public class ToggleNextWeekCommand extends Command {
 
         ScheduleWindowDisplayType status = model.getState();
         if (status == ScheduleWindowDisplayType.PERSON
-                || status == ScheduleWindowDisplayType.GROUP
-                || status == ScheduleWindowDisplayType.NONE) {
+                || status == ScheduleWindowDisplayType.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setToggleNextWeek().build();
         } else {
             return new CommandResultBuilder(MESSAGE_FAILURE).build();
