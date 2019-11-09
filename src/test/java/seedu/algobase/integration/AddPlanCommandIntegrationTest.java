@@ -1,5 +1,6 @@
 package seedu.algobase.integration;
 
+import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
 import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
 import java.nio.file.Path;
@@ -40,6 +41,6 @@ public class AddPlanCommandIntegrationTest {
     @Test
     public void addplan_allConstraints() throws CommandException, ParseException {
         logicManager.execute("addplan n/test d/test start/2019-01-01 end/2019-01-01\n");
-        logicManager.execute("addplan n/test1 d/test start/2018-01-01 end/2018-02-28\n");
+        assertProcessedPlanListOfLength(logicManager, 3);
     }
 }

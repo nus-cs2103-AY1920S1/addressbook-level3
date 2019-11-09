@@ -20,7 +20,8 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class DeletePlanCommandIntegrationTest {
+
+public class ListPlanCommandIntegrationTest {
     @TempDir
     public Path testFolder;
 
@@ -39,10 +40,8 @@ public class DeletePlanCommandIntegrationTest {
     }
 
     @Test
-    public void deleteplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("deleteplan 1\n");
-        assertProcessedPlanListOfLength(logicManager, 1);
-        logicManager.execute("deleteplan 1\n");
-        assertProcessedPlanListOfLength(logicManager, 0);
+    public void listplan_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("listplan\n");
+        assertProcessedPlanListOfLength(logicManager, 2);
     }
 }

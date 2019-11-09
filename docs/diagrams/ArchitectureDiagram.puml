@@ -13,9 +13,9 @@ Package " "<<Rectangle>>{
     Class Main MODEL_COLOR_T1
     Class Commons LOGIC_COLOR_T2
     Class "Log Center" as Logs UI_COLOR_T2
-    Class Hidden #FFFFFF
-    Class HiddenUI #FFFFFF
-    Class HiddenModel #FFFFFF
+    Class Hidden #000000
+    Class HiddenUI #000000
+    Class HiddenModel #000000
 
 
 }
@@ -36,8 +36,6 @@ UILogic -> Storage
 Logic -down-> Model
 
 Logs -right- Commons
-Hidden .down.> Commons
-Hidden .down.> Commons
 Hidden .down.> Commons
 
 Storage .right.>File
