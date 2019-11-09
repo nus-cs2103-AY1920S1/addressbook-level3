@@ -1,6 +1,5 @@
 package seedu.address.model.entity;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
@@ -13,10 +12,8 @@ public class Location {
 
     // Constants
     public static final String MESSAGE_CONSTRAINTS_INVALID_TABLE_NUMBER = "Table number should be an integer "
-            + "and adhere to the following constraints:\n"
-            + "1. The tableNumber can be any number from 0 to 1000\n";
-
-    private static final String TABLE_NUMBER_REGEX = "^\\d+$";
+            + "and adhere to the following constraint:\n"
+            + "1. The tableNumber can be any number from 1 to 1000\n";
 
     // Data fields
     private final int tableNumber;
@@ -27,7 +24,6 @@ public class Location {
      * @param tableNumber Table that team is seated on.
      */
     public Location(int tableNumber) {
-        requireNonNull(tableNumber);
         checkArgument(isValidLocation(tableNumber), MESSAGE_CONSTRAINTS_INVALID_TABLE_NUMBER);
         this.tableNumber = tableNumber;
     }
@@ -39,13 +35,7 @@ public class Location {
      * @return boolean indicating whether the table number is valid.
      */
     public static boolean isValidLocation(int tableNumber) {
-        if (tableNumber < 0) {
-            return false;
-        }
-        if (tableNumber > 1000) {
-            return false;
-        }
-        return Integer.toString(tableNumber).matches(TABLE_NUMBER_REGEX);
+        return tableNumber >= 1 && tableNumber <= 1000;
     }
 
     public int getTableNumber() {
@@ -65,8 +55,14 @@ public class Location {
      */
     @Override
     public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Location)) {
+            return false;
+        }
         Location otherLocation = ((Location) other);
-        return otherLocation == this | otherLocation.getTableNumber() == this.getTableNumber();
+        return otherLocation.getTableNumber() == this.getTableNumber();
     }
 
     /**
@@ -77,7 +73,7 @@ public class Location {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(" Table Number: ").append(getTableNumber());
+        builder.append(" Table ").append(getTableNumber());
         return builder.toString();
     }
 

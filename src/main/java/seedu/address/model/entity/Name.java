@@ -19,12 +19,12 @@ public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should adhere to the following constraints:\n"
-                    + "1. The first character is an alphabet.\n"
-                    + "2. It should contain alphabets, spaces, and these special characters, excluding "
-                    + "the parentheses (" + SPECIAL_CHARACTERS + "). \n"
-                    + "3.Contain at least one character";
+                    + "\t1. The first character is an alphabet.\n"
+                    + "\t2. It should only contain alphabets, spaces, and these special characters, excluding "
+                    + "the parentheses (" + SPECIAL_CHARACTERS + ").\n"
+                    + "\t3. Contains at least one character";
 
-    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}" + SPECIAL_CHARACTERS + " ]*";
+    private static final String VALIDATION_REGEX = "^\\p{Alpha}[\\p{Alnum}][\\p{Alnum}" + SPECIAL_CHARACTERS + " ]*";
 
     // Data fields
     public final String fullName;

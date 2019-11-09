@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -115,6 +116,8 @@ public class EntityCard extends UiPart<Region> {
         this.idIcon.setImage(getImage(MENTOR_ICON));
         Mentor mentor = (Mentor) entity;
         labels.getChildren().add(new Label(mentor.getOrganization().toString()));
+        labels.getChildren().add(new Label(mentor.getPhone().value));
+        labels.getChildren().add(new Label(mentor.getEmail().value));
         Label subjectLabel = new Label("Subject: " + mentor.getSubject().toString());
         subjectLabel.setStyle("-fx-background-color: #58427c");
         labels.getChildren().add(subjectLabel);
@@ -156,7 +159,8 @@ public class EntityCard extends UiPart<Region> {
         membersPane.getChildren().add(new Label("Members: "));
 
         logger.info("Size of membersPane before adding Participants: " + membersPane.getChildren().size());
-        participants.stream().forEach(p -> membersPane.getChildren().add(new Label(p.getName().toString() + " | ")));
+        String members = participants.stream().map(p -> p.getName().toString()).collect(Collectors.joining(" | "));
+        membersPane.getChildren().add(new Label(members));
         this.type = PrefixType.T;
         addScoreIcon(team);
     }

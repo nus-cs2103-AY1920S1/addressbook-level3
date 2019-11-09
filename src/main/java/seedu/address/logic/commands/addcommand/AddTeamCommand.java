@@ -52,8 +52,8 @@ public class AddTeamCommand extends AddCommand {
             model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
-            logger.severe("The same team already exist in model");
-            throw new CommandException(MESSAGE_DUPLICATE_TEAM);
+            logger.severe("Adding team failed. " + e.getMessage());
+            throw new CommandException(e.getMessage());
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.team.toString()), CommandType.T);

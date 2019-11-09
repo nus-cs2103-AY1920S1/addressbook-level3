@@ -78,24 +78,35 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-== Parameters
+== Parameter Constraints and Additional Information
+
 ****
-`EntityType` - single capital letter representing the entity type
 
-* **Mentor:** M
-* **Participant:** P
-* **Team:** T
+**`Entity Type`**
 
-`ID` - the ID of the entity (optional)
+* **Mentor**
 
-* **Mentor:** M-d, where d can be any positive integer
-* **Participant:** P-d, where d can be any positive integer
-* **Team:** T-d, where d can be any positive integer
-** You can also express `ID` as only a positive integer.
+** A mentor has a name, phone number, email address, an organization, and a specialty (i.e. subject name) which must take on values mentioned below under "Parameters."
+** Two mentors are considered as the same mentor if and only if they have the same names along with one of their phone numbers or emails.
+
+* **Participant**
+
+** A participant has a name, phone number, and an email address.
+** Two participants are considered as the same participant if and only if they have the same names along with one of their phone numbers or emails.
+
+* **Team**
+
+** A team has a team name, a subject to focus on, score, its project name, and its location (table number).
+** A team may also contain one mentor and an arbitrary number of participants (setting of restrictions coming in v2.0).
+** Two teams are considered as the same team if and only if they have the same team names or project names.
+
+All entities will also receive a unique ID, which means no two entity will share the same ID. That is, entities with same ID will also be considered as a same entity. This is to be considered for specific commands such as the <<CSV File Formatting>> under the <<Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`, Bulk Registration>> command.
+
+**`Parameters`**
 
 `Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
 
-`Phone` - can be any combination of numbers, space and special characters (-), excluding bracket and country code may be included. Country code `+65` will be automatically included if it is not added.
+`Phone` - can be any combination of numbers (at least three digits), space, hyphens (-), and periods (.) with or without a country code. Country code of Singapore (`+65`) will be automatically included if it is not added.
 
 `Email` - must include an address and an email domain. It can include special characters (-,.), excluding bracket.
 
@@ -111,25 +122,29 @@ Must be one of the values below:
 
 `Score` - must be an integer ranging from 0 to 100.
 
-`Location` - must be an integer ranging from 0 to 1000. This indicates table number.
+`Location` - must be an integer ranging from 1 to 1000, indicating a table number. Only one team is allowed per table
+
 ****
 
 [[Features]]
 == Features
 
 ====
+
 *Prelude - Command Format*
 
 * Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
 `NAME` is a parameter which you need to specify as the mentor's name (i.e. `add mentor n/John Doe`).
-* You can input the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
-you may input `p/PHONE_NUMBER n/NAME` and Alfred will still consider it as an acceptable command.
+* You can input the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`, you may input `p/PHONE_NUMBER n/NAME` and Alfred will still consider it as an acceptable command.
 * Words in {curly braces} indicate values for the command that you need to select and provide.
 ** For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
 * Words in [brackets] indicate values that are optional for the command.
 ** For example, in the case of `export [CSV_FILE_PATH]`, you can choose to leave out the file path.
 * Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the type of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
 * Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press kbd:[Enter] on your keyboard to execute the command.
+
+Also, please refer to <<Parameter Constraints and Additional Information>> for more information on the different restrictions for each parameter.
+
 ====
 
 === Saving the data:
@@ -159,7 +174,7 @@ Use this command to add a new entity for Alfred to keep track of. +
 ****
 * Creates an Entity as specified by you. Each Entity object will have a unique ID automatically assigned to it.
 * As of version 1.1, you must provide all the fields. There are no optional fields.
-* Note that the Specialisation and Subject fields can only take on the values specified in `SubjectName` in <<Parameters>>:
+* Note that the Specialisation and Subject fields can only take on the values specified in `SubjectName` in <<Parameter Constraints and Additional Information>>:
 ****
 
 ==== Adding a Participant: `add participant PARAMETERS`
@@ -182,9 +197,10 @@ Examples:
 Use this command to add a new Mentor to Alfred to keep track of for your Hackathon.
 
 ****
-* Mentors have the fields "Name", "Phone number" and "Email address" which you must provide.
+* Mentors have the fields "Name", "Phone number" and "Email address."
 * Mentors also have a field called "Organization", which refers to the organization for which they work.
-* Mentors also have a field called "Specialisation", which refers to the field of work they specialise in. The Specialisation can only take on the values specified in `SubjectName` in <<Parameters>>.
+* Mentors also have a field called "Specialisation", which refers to the field of work they specialise in. The Specialisation can only take on the values specified in `SubjectName` in <<Parameter Constraints and Additional Information>>.
+* All of these fields must be specified in order to successfully add a mentor.
 ****
 
 Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
@@ -200,7 +216,7 @@ Examples:
 Use this command to add a new Team to Alfred to keep track of for your Hackathon.
 ****
 * Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
-* Teams also have a field called "Subject", which refers the area the team's project focuses on, and must be chosen from the predetermined list of subjects described in `SubjectName` in <<Parameters>>.
+* Teams also have a field called "Subject", which refers the area the team's project focuses on, and must be chosen from the predetermined list of subjects described in `SubjectName` in <<Parameter Constraints and Additional Information>>.
 ****
 
 Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME l/TABLE_NUMBER`
@@ -211,7 +227,7 @@ Examples:
 
 * `add team n/HackathonWinners4Sure s/Environmental pn/Path-ify l/3`
 
-=== Updating an Entity: `edit {mentor/participant/team} ENTITIY_ID [PARAMETERS]`
+=== Updating an Entity: `edit {mentor/participant/team} ENTITY_ID [PARAMETERS]`
 
 Edits an entity based on the parameter values you supply. Use this command in case you want to make changes to an entity you have already created within Alfred.
 
@@ -521,32 +537,15 @@ In order for the contents of the CSV file to be correctly loaded into Alfred, th
 * **Participant:** P
 * **Team:** T
 
-`ID` - the ID of the entity (optional)
+`[ID]` - the ID of the entity (optional)
 
 * **Mentor:** M-d, where d can be any positive integer
 * **Participant:** P-d, where d can be any positive integer
 * **Team:** T-d, where d can be any positive integer
 ** You can also express `ID` as only a positive integer.
 
-`Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
+For the rest of the parameters, please refer to <<Parameter Constraints and Additional Information>>.
 
-`Phone` - can be any combination of numbers, space and special characters (-), excluding bracket and country code may be included. Country code `+65` will be automatically included if it is not added.
-
-`Email` - must include an address and an email domain. It can include special characters (-,.), excluding bracket.
-
-`SubjectName` - the subject a mentor or team will be focusing on in the Hackathon +
-Must be one of the values below:
-
-* Environmental
-* Social
-* Health
-* Education
-* Entertainment
-* Other
-
-`Score` - must be an integer ranging from 0 to 100.
-
-`Location` - must be an integer ranging from 0 to 1000. This indicates table number.
 ****
 
 ===== Mentor Data
@@ -571,13 +570,13 @@ Example:
 Header: `EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location`
 
 ****
-`Participants` - A list of participant IDs in the team. +
+`[Participants]` - A list of participant IDs in the team. +
 This field is optional, but if it is included, participants with given ID must exist in Alfred.
 
-`Mentor` - An ID of the mentor associated with the team. +
+`[Mentor]` - An ID of the mentor associated with the team. +
 This field is also optional, but if it is included, mentor with given ID must exist in Alfred.
 
-If you are importing multiple entity data at once, don't worry! Alfred will make sure Participant and Mentor data are loaded before Team data.
+If you are importing multiple entity data at once, don't worry! Alfred will make sure Participant and Mentor data are loaded before Team data to ensure that all of them are present in Alfred before checking whether they exist or not.
 
 See example usage down below.
 ****
@@ -586,7 +585,7 @@ Example:
 
 * T,T-1,Justice League,,,Social,100,Save the Earth,1
 * T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
-* T,,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
+* T,,Justice League,[P-1|P-2|P-3],1,Social,100,Save the Earth,1
 
 ***
 
@@ -635,7 +634,7 @@ P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
 ***
 
 === Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
-You may export Alfred data to an external CSV file. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).
+You may export Alfred data to an external CSV file. If the entity type is specified, Alfred will export all the data corresponding to that entity type only. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).
 
 Example:
 

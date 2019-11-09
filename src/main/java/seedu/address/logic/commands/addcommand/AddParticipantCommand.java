@@ -20,7 +20,7 @@ public class AddParticipantCommand extends AddCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a participant to Alfred.\n"
             + "Format: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "NAME "
-            + CliSyntax.PREFIX_PHONE + "PHONE"
+            + CliSyntax.PREFIX_PHONE + "PHONE "
             + CliSyntax.PREFIX_EMAIL + "EMAIL\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "Arthur Fleck "

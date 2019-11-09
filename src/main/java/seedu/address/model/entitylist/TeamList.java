@@ -91,7 +91,11 @@ public class TeamList extends EntityList {
         for (Team t : this.teams) {
             if (t.isSameTeam(team)) {
                 logger.severe("The same team already exist in TeamList of Model." + this.teams);
-                throw new AlfredModelException("Team to add already exists.");
+                throw new AlfredModelException("This team already exists in this Hackathon");
+            }
+            if (t.getLocation().equals(team.getLocation())) {
+                logger.severe("Trying to assign a team to a table that is already designated to another team.");
+                throw new AlfredModelException("Location (table number) is assigned to team " + t.getId());
             }
         }
         this.teams.add(team);

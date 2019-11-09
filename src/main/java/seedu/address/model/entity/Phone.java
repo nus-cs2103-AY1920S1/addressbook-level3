@@ -18,16 +18,13 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers be of the format (optional)country-code + phone-number "
                     + "and should adhere to the following constraints:\n"
-                    + "1. The country code, if it is not existent in constructor, "
-                    + "the country code '+65' will be added.\n"
-                    + "2. The phone number should be at least three digit long.\n "
-                    + "The phone number must:\n"
-                    + "    -contain numbers\n"
-                    + "    -contain these special characters only, excluding parentheses,"
-                    + "(" + SPECIAL_CHARACTERS + ").";
+                    + "\t1. Only contain numbers, spaces, hyphens, and periods (" + SPECIAL_CHARACTERS + ").\n"
+                    + "\t2. The phone number should be at least three digit long.\n"
+                    + "\t3. The special characters (" + SPECIAL_CHARACTERS + ") "
+                    + "must be surrounded by at least two digits.";
     public static final String COUNTRY_CODE_REGEX = "(\\+" + DIGITS + ")?";
-    public static final String PHONE_NUMBER_PART_REGEX = "[" + SPECIAL_CHARACTERS + "]" + "?" + DIGITS;
-    public static final String PHONE_NUMBER_REGEX = "(" + PHONE_NUMBER_PART_REGEX + ")" + "*";
+    public static final String PHONE_NUMBER_PART_REGEX = DIGITS + "[" + SPECIAL_CHARACTERS + DIGITS + "]?";
+    public static final String PHONE_NUMBER_REGEX = "(" + PHONE_NUMBER_PART_REGEX + ")" + "{3,}";
     public static final String VALIDATION_REGEX = COUNTRY_CODE_REGEX + PHONE_NUMBER_REGEX;
 
     // Data fields
