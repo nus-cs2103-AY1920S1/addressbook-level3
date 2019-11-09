@@ -1419,6 +1419,7 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
 .. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
    Expected: Error details shown in the status message, indicating corrupted data file.
 
+//@@author tiuweehan
 === Switching tabs
 . Switching between Display Tabs
 .. Prerequisites: Currently at the first display tab (Problem).
@@ -1457,24 +1458,95 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
    Expected: No tabs are changed. Error message is shown.
 
 === Opening a new tab
-. Opening a new Details Tabs for a Problem
-.. Prerequisites: At least 1 problem exists.
-.. Test case: `opentab m/problem i/1`
-.. Test case: `ot m/1 i/1`
-.. Test case: `opentab m/problem i/0`
-.. Test case: `ot m/1 i/0`
-.. Test case: `opentab m/problem i/4` (Assuming only 3 problems exist)
-.. Test case: `ot m/1 i/4` (Assuming only 3 problems exist)
+. Opening a new Details Tab for a Problem
+.. Prerequisites: At least 1 problem exists in the current problem display tab.
+.. Test case: `opentab m/problem i/1` +
+   Expected: A new details tab containing the problem at index 1 of the currently displayed problem list is opened. The tab is selected as well.
+.. Test case: `ot m/1 i/1` +
+   Expected: A new details tab containing the problem at index 1 of the currently displayed problem list is opened. The tab is selected as well.
+.. Test case: `opentab m/problem i/0` +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `ot m/1 i/0` +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `opentab m/problem i/4` (Assuming only 3 problems exist) +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `ot m/1 i/4` (Assuming only 3 problems exist) +
+   Expected: No details tab are opened. Error message is shown.
 
 . Opening an existing Details Tabs for a Problem
+.. Prerequisites: At least 1 problem exists and the problem is already in a details tab.
+.. Test case: `opentab m/problem i/1` (Assuming the first problem is in a Details Tab) +
+   Expected: The existing details tab containing the problem is selected.
+.. Test case: `ot m/1 i/1` (Assuming the first problem is in a Details Tab) +
+   Expected: The existing details tab containing the problem is selected.
 
-. Opening a Details Tabs for a Plan
+. Opening a new Details Tab for a Plan
 .. Prerequisites: At least 1 plan exist.
+.. Test case: `opentab m/plan i/1` +
+   Expected: A new details tab containing the plan at index 1 of the currently displayed problem list is opened. The tab is selected as well.
+             The plan tab also updates to display the selected plan.
+.. Test case: `ot m/2 i/1` +
+   Expected: A new details tab containing the plan at index 1 of the currently displayed problem list is opened. The tab is selected as well.
+             The plan tab also updates to display the selected plan.
+.. Test case: `opentab m/plan i/0` +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `ot m/2 i/0` +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `opentab m/plan i/4` (Assuming only 3 plans exist) +
+   Expected: No details tab are opened. Error message is shown.
+.. Test case: `ot m/1 i/4` (Assuming only 3 plans exist) +
+   Expected: No details tab are opened. Error message is shown.
 
 . Opening an existing Details Tabs for a Plan
+.. Prerequisites: At least 1 plan exists and the plan is already in a details tab.
+.. Test case: `opentab m/plan i/1` (Assuming the first plan is in a Details Tab)
+   Expected: The existing details tab containing the plan is selected.
+   The plan tab also updates to display the selected plan.
+.. Test case: `ot m/2 i/1` (Assuming the first plan is in a Details Tab) +
+   Expected: The existing details tab containing the plan is selected.
+   The plan tab also updates to display the selected plan.
+
+. Opening a non-existent Tab Type index
+.. Test case: `opentab tt/0 i/1` +
+   Expected: No tabs are opened. Error message is shown.
+.. Test case: `ot tt/3 i/1` +
+   Expected: No tabs are opened. Error message is shown.
 
 === Closing an existing tab
 . Closing a Details Tab
+.. Prerequisites: At least one Details Tab exist.
+.. Test case: `closetab i/1` while first tab is selected (Assuming there are 3 details tabs) +
+   Expected: The first tab is closed and the new first tab (previously second tab) is selected.
+.. Test case: `ct i/1` while first tab is selected (Assuming there are 3 details tabs) +
+   Expected: The first tab is closed and the new first tab (previously second tab) is selected.
+.. Test case: `closetab i/1` while last tab is selected (Assuming there are 3 details tabs) +
+   Expected: The first tab is closed and the last tab is still selected.
+.. Test case: `ct i/1` while last tab is selected (Assuming there are 3 details tabs) +
+   Expected: The first tab is closed and the last tab is still selected.
+.. Test case: `closetab i/3` while first tab is selected (Assuming there are 3 details tabs) +
+   Expected: The last tab is closed and the new first tab (previously second tab) is selected.
+.. Test case: `ct i/3` while first tab is selected (Assuming there are 3 details tabs) +
+   Expected: The last tab is closed and the new first tab (previously second tab) is selected.
+.. Test case: `closetab i/3` while last tab is selected (Assuming there are 3 details tabs) +
+   Expected: The last tab is closed and the new last tab (previously second tab) is selected.
+.. Test case: `ct i/3` while last tab is selected (Assuming there are 3 details tabs) +
+   Expected: The last tab is closed and the new last tab (previously second tab) is selected.
+.. Test case: `closetab i/2` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: The second tab is closed and the tab before (the first tab) is selected.
+.. Test case: `ct i/2` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: The second tab is closed and the tab before (the first tab) is selected.
+.. Test case: `closetab i/1` while first tab is selected (Assuming there is only 1 details tabs) +
+   Expected: There are no tabs left and no tabs are selected.
+.. Test case: `ct i/1` while first tab is selected (Assuming there is only 1 details tabs) +
+   Expected: There are no tabs left and no tabs are selected.
+.. Test case: `closetab i/0` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: No details tab are closed. Error message is shown.
+.. Test case: `ct i/0` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: No details tab are closed. Error message is shown.
+.. Test case: `closetab i/4` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: No details tab are closed. Error message is shown.
+.. Test case: `ct i/4` while current tab is selected (Assuming there are 3 details tabs) +
+   Expected: No details tab are closed. Error message is shown.
 
 === Editing Problem from GUI
 
@@ -1489,7 +1561,7 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
 
 === Deleting Problem from GUI
 
-. Editing a Problem from GUI
+. Deleting a Problem from GUI
 .. Prerequisites: At least one problem exists and it is opened in a Details Tab.
 .. Test case: User clicks on the Delete button. +
    Expected: A warning dialog shows up with a _Confirm_ and _Cancel_ button.
@@ -1500,7 +1572,7 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
 
 === Editing Plan from GUI
 
-. Editing a Plan from GUI
+. Deleting a Plan from GUI
 .. Prerequisites: At least one plan exists and it is opened in a Details Tab.
 .. Test case: No changes are made to the Plan. +
    Expected: The _Edit Plan_ button should be disabled and not clickable.
@@ -1531,6 +1603,36 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
 .. Test case: Click on `Findrules` Tab +
    Expected: The display tab is now at the `Findrules` tab.
 
+. Switching between Details Tabs
+.. Prerequisites: At least 2 Details Tabs are opened. Currently at the first details tab.
+.. Test case: Click on the same Tab +
+   Expected: No changes are made.
+.. Test case: Click on a different tab +
+   Expected: The display tab is now at the tab that is clicked on.
+
 === Opening a new tab from GUI
+. Opening a new Details Tabs for a Problem
+.. Prerequisites: There is at least 1 problem in the Display Tab currently.
+.. Test case: The user double clicks on a problem in the display tab. +
+   Expected: The problem is added as the last tab of the Details Tabs and is selected.
+
+. Opening an existing Details Tabs for a Problem
+.. Prerequisites: At least 1 problem exists and the problem is already in a details tab.
+.. Test case: The user double clicks on a problem in the display tab that is already in a details tab.
+   Expected: The tab is switched to details tab containing the problem.
+
+. Opening a new Details Tabs for a Plan
+.. Prerequisites: There is at least 1 problem in the Display Tab currently.
+.. Test case: The user double clicks on a problem in the display tab. +
+   Expected: The plan is added as the last tab of the Details Tabs and is selected. The content of the plan tab is likewise changed to the planned being clicked on.
+
+. Opening an existing Details Tabs for a Plan
+.. Prerequisites: At least 1 plan exists and the plan is already in a details tab.
+.. Test case: The user double clicks on a plan in the display tab that is already in a details tab.
+   Expected: The tab is switched to details tab containing the plan.
 
 === Closing an existing tab from GUI
+.. Prerequisites: At least one Details Tab exist.
+.. Test case: User clicks on the `x` button next to the tab. +
+   Expected: The Details tab corresponding to that tab is closed.
+//author
