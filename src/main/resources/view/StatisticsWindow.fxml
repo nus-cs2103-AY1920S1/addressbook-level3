@@ -22,10 +22,10 @@
                 <URL value="@SMLTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <HBox alignment="CENTER" minHeight="500" minWidth="650">
+            <HBox alignment="CENTER" minHeight="500" minWidth="650" HBox.hgrow="ALWAYS"  >
                 <children>
-                    <VBox alignment="CENTER" minHeight="500" minWidth="650" styleClass="cell_big_label">
-                        <LineChart fx:id="testChart"  styleClass="pane-with-border">
+                    <VBox alignment="CENTER"  styleClass="cell_big_label" VBox.vgrow="ALWAYS">
+                        <LineChart fx:id="testChart"  styleClass="pane-with-border" minHeight="500" minWidth="650"  >
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                             </xAxis>
@@ -33,7 +33,7 @@
                                 <NumberAxis fx:id="yAxis" side="LEFT" />
                             </yAxis>
                         </LineChart>
-                  <HBox alignment="CENTER" prefHeight="200.0" prefWidth="550">
+                  <HBox alignment="CENTER" >
                      <children>
                          <VBox>
                              <children>
@@ -53,7 +53,7 @@
                                  </HBox>
                                  <HBox alignment="CENTER">
                                      <Label fx:id="summaryLabel"/>
-                                     <Label fx:id="summaryValue"/>
+                                     <Label fx:id="summaryValue" wrapText="false" textOverrun="CLIP" />
                                      <padding>
                                          <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                      </padding>
