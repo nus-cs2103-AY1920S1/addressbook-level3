@@ -1,32 +1,23 @@
 package seedu.address.logic;
 
-import seedu.address.logic.parser.Prefix;
-
 /**
- * Represents an edge in {@code Graph} with {@code Prefix} as edge weights.
+ * Represents an edge.
+ * @param <T> The type of weight.
+ * @param <U> The type of source node.
+ * @param <V> The type of destination node.
  */
-class Edge {
+public interface Edge<T, U, V> {
 
-    private final Prefix weight;
-    private final Node<?> source;
-    private final Node<?> destination;
+    T getWeight();
 
-    Edge(Prefix weight, Node<?> source, Node<?> destination) {
-        this.weight = weight;
-        this.source = source;
-        this.destination = destination;
-    }
+    Node<U> getSource();
 
-    Prefix getWeight() {
-        return weight;
-    }
+    Node<V> getDestination();
 
-    Node<?> getSource() {
-        return source;
-    }
+    boolean hasWeight(T weight);
 
-    Node<?> getDestination() {
-        return destination;
-    }
+    boolean hasSource(Node<?> node);
+
+    boolean hasDestination(Node<?> node);
 
 }
