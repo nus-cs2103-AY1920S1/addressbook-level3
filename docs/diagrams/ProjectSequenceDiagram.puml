@@ -17,10 +17,10 @@ participant "pr:Projection" as Projection MODEL_COLOR
 
 end box
 
-[-> LogicManager : execute("project d/22112019")
+[-> LogicManager : execute("project d/DATE")
 activate LogicManager
 
-LogicManager -> MainParser : parseCommand("project d/22112019")
+LogicManager -> MainParser : parseCommand("project d/DATE [c/CATEGORY]")
 activate MainParser
 
 create ProjectCommandParser
@@ -30,11 +30,11 @@ activate ProjectCommandParser
 ProjectCommandParser --> MainParser
 deactivate ProjectCommandParser
 
-MainParser -> ProjectCommandParser : parse("d/22112019")
+MainParser -> ProjectCommandParser : parse("d/DATE [c/CATEGORY]")
 activate ProjectCommandParser
 
 create ProjectCommand
-ProjectCommandParser -> ProjectCommand : 22112019
+ProjectCommandParser -> ProjectCommand : DATE, CATEGORY
 activate ProjectCommand
 
 ProjectCommand --> ProjectCommandParser : p
@@ -52,7 +52,7 @@ deactivate MainParser
 LogicManager -> ProjectCommand : execute()
 activate ProjectCommand
 
-ProjectCommand -> ProjectCommand : ensureDateToProjectionIsWithinRange(22112019)
+ProjectCommand -> ProjectCommand : ensureDateToProjectionIsWithinRange(DATE)
 
 ProjectCommand -> Model : getBankAccount()
 activate Model
@@ -73,26 +73,44 @@ activate ReadOnlyBankAccount
 ReadOnlyBankAccount --> ProjectCommand : th
 deactivate ReadOnlyBankAccount
 
-create Projection
-ProjectCommand --> Projection : th, 22112019
-activate Projection
+ProjectCommand --> Model : getFilteredBudgetList()
+    activate Model
+    Model --> ProjectCommand : budgets
+    deactivate Model
 
-Projection --> ProjectCommand
-deactivate Projection
-
+alt has specified category
+    ProjectCommand --> ProjectCommand : th.filtered(CATEGORY)
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(CATEGORY);
+    create Projection
+    ProjectCommand --> Projection : th, DATE, CATEGORY
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+else no category specified
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(Category.GENERAL)
+    create Projection
+    ProjectCommand --> Projection : th, DATE
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+end
 ProjectCommand --> Model : add(pr)
+activate Model
 
 ProjectCommand --> Model : commitUserState()
+deactivate Model
 
-    create CommandResult
-    ProjectCommand --> CommandResult :pr
-    activate CommandResult
+create CommandResult
+ProjectCommand --> CommandResult :pr
+activate CommandResult
 
-    CommandResult --> ProjectCommand
-    deactivate CommandResult
+CommandResult --> ProjectCommand
+deactivate CommandResult
 
-    ProjectCommand --> LogicManager : result
-    deactivate ProjectCommand
+ProjectCommand --> LogicManager : result
+deactivate ProjectCommand
 
 [<--LogicManager
 deactivate LogicManager

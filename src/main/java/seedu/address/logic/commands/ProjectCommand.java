@@ -105,12 +105,14 @@ public class ProjectCommand extends Command {
             throws CommandException {
         if (this.category.equals(Category.GENERAL)) {
             ensureMinimumTransactions(transactionHistory);
-            return new Projection(transactionHistory, date);
+            ObservableList<Budget> budgets = model.getFilteredBudgetList()
+                    .filtered(x -> x.getCategories().contains(Category.GENERAL));
+            return new Projection(transactionHistory, date, budgets);
         } else {
             transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
+            ensureMinimumTransactions(transactionHistory);
             ObservableList<Budget> budgets = model.getFilteredBudgetList()
                     .filtered(x -> x.getCategories().contains(this.category));
-            ensureMinimumTransactions(transactionHistory);
             return new Projection(transactionHistory, date, budgets, this.category);
         }
     }

@@ -33,14 +33,6 @@ public class Projection {
     private GradientDescent projector;
     private Category category;
 
-
-    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
-        this.transactionHistory = transactionHistory;
-        this.date = date;
-        this.category = Category.GENERAL;
-        this.project();
-    }
-
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
                       ObservableList<Budget> budgets) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());

@@ -536,28 +536,45 @@ Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
 [[Implementation-Projection]]
 === Project Balance Feature: `project`
 
-This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+This feature allows users to _project_ their balance status based on past income and outflows
+as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 
 ==== Current Implementation
 
-The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
+The `project` command is facilitated by the Logic and Model components of the application, _PalPay_.
 
-The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
+The sequence diagram below demonstrates how the `project DATE [CATEGORY]` command is handled by the application.
+Do note that if a `CATEGORY` is not specified by the user, it will be set as `GENERAL` by default.
 
 .Sequence Diagram of Project Command
-image::Project.png[ProjectCommand Sequence Diagram]
+image::ProjectSequenceDiagram.png[ProjectCommand Sequence Diagram]
 
-==== Future Enhancements
+===== Projection by Date
+
+When projecting by date alone, all transactions in the _user_'s transaction list will be taken into account,
+regardless of their categories. On the other hand, only budgets without categories (thus belonging to the
+`GENERAL` category by default) will be projected upon.
+
+===== Projection by Date and Category
+
+When projecting by date and category, transactions tagged by the specified category will be taken into account.
+Similarly, all budgets tagged with the specified category will be projected upon.
+
+===== Budget Projections
+Projections on budgets are made by first projecting the _user_'s balance amount at the point when the budget was set.
+Then, it compares the _user_'s projected balance amount at the point of the budget's deadline, with the budget's amount.
+A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
+than the latter.
+
+===== Activity Diagram
+The activity diagram below depicts how a projection is made.
+
+image::ProjectActivityDiagram.png[]
 
 ===== Graphical Representation
+A graphical representation of the _user_'s projections may be rendered using the `display` command.
 
-In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until the date specified by the user in the command.
-
-===== Projection by Category
-
-In future updates, the _user_ will be able to customise projections beyond specifying a single date.
-Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered projections based on _categories_.
-For instance, `project d/22112019 c/Food -o` will project the _user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag) up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
+==== Future Enhancements
 
 ==== Design Considerations
 
@@ -578,6 +595,8 @@ https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20i
 algorithm in finding a best fit projection line for the user's balance.
 However, this will increase the computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
 // end::project[]
+
+=== Display Feature `display`
 
 === Logging
 
@@ -697,7 +716,7 @@ Use case ends.
 
 [none]
 * 1a.
-User speicified days passed since.
+User specified days passed since.
 +
 [none]
 ** 1a1. PalPay shows the list of expenses since the time period specified.

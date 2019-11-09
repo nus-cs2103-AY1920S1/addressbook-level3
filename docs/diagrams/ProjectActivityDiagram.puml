@@ -1,0 +1,21 @@
+@startuml
+(*)  --> "User executes Project command"
+if "" then
+--> [Date is too far away] "Display error message"
+else
+--> [Date is within range] "Get user's transaction history"
+--> "Get user's budget list"
+if "" then
+--> [Category specified by user] "Filter user's transaction history"
+--> "Filter user's budget list"
+--> "Get number of transactions"
+else
+--> [Category not specified by user] "Get number of transactions"
+if "" then
+--> [Minimum number of transactions met] "Display Success Message"
+-->(*)
+else
+--> [Minimum number of transactions not met] "Display error message"
+Endif
+-->(*)
+@enduml
