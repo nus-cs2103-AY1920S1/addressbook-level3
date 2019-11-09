@@ -36,7 +36,7 @@
 }
 
 .tab-bar:focused {
-    -fx-border-width: 1;
+    -fx-border-width: 2;
     -fx-border-radius: 5;
     -fx-border-color: -fx-focus-color;
 }
@@ -64,6 +64,14 @@
     -fx-text-fill: white;
 }
 
+.context-menu {
+    -fx-background-color: linear-gradient(black, slategrey);
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
 .list-view {
     -fx-background-color: -fx-base;
     -fx-background-insets: 0;
@@ -71,9 +79,18 @@
     -fx-focus-traversable: false;
 }
 
-.list-view .scroll-bar:vertical .track {
+.list-view .scroll-bar .track {
     -fx-background-color: -fx-base;
     -fx-border-color : -fx-base;
+}
+
+.list-view .scroll-bar .thumb {
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.list-view .scroll-bar .thumb:hover {
+    -fx-background-color: white;
 }
 
 .list-cell:empty {
@@ -135,7 +152,7 @@
 }
 
 .status-bar .label {
-    -fx-background-color: darkgreen;
+    -fx-background-color: linear-gradient(to top right, green, black);
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-padding: 4px;
@@ -248,6 +265,12 @@
 
 #commandTextField {
     -fx-background-color: #222;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+#commandTextField:focused {
+    -fx-border-color: -fx-focus-color;
 }
 
 #filterField, #personListPanel, #personWebpage {

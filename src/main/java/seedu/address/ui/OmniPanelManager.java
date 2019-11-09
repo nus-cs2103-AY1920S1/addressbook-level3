@@ -3,7 +3,7 @@ package seedu.address.ui;
 import seedu.address.commons.core.OmniPanelTab;
 
 /**
- * Manages OmniPanel of MainWindow.
+ * Managing Interface of OmniPanel.
  */
 public interface OmniPanelManager {
 

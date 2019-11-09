@@ -5,5 +5,5 @@
 
 
 <ListView fx:id="autoCompleteOverlay" fixedCellSize="20.0" focusTraversable="false" maxHeight="Infinity"
-          maxWidth="Infinity" onMouseClicked="#handleMouseClicked" translateX="25.0"
-          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>
+          maxWidth="Infinity" onMouseClicked="#handleMouseClicked" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"/>
