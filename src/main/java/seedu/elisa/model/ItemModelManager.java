@@ -46,7 +46,7 @@ public class ItemModelManager implements ItemModel {
     private boolean systemToggle = false;
     private PriorityExitStatus priorityExitStatus = null;
     private PriorityQueue<Item> sortedTask = null;
-    private boolean focusMode = false;
+    private SimpleBooleanProperty focusMode = new SimpleBooleanProperty(false);
 
     //Bryan Reminder
     //These three lists must be synchronized
@@ -379,7 +379,9 @@ public class ItemModelManager implements ItemModel {
 
         if (priorityMode.getValue()) {
             sortedTask.remove(item);
-            sortedTask.offer(newItem);
+            if (newItem.hasTask()) {
+                sortedTask.offer(newItem);
+            }
             getNextTask();
         }
     }
@@ -511,7 +513,7 @@ public class ItemModelManager implements ItemModel {
     /**
      * Method to close the priority mode thread.
      */
-    public void offPriorityMode() {
+    public void closePriorityModeThread() {
         if (timer != null) {
             timer.cancel();
             timer = null;
@@ -522,10 +524,10 @@ public class ItemModelManager implements ItemModel {
      * Turns off the priority mode.
      */
     private void toggleOffPriorityMode() {
-        offPriorityMode();
+        closePriorityModeThread();
 
         sortedTask = null;
-        focusMode = false;
+        focusMode.set(false);
         if (visualList instanceof TaskList) {
             this.visualList = taskList;
         }
@@ -540,24 +542,11 @@ public class ItemModelManager implements ItemModel {
         priorityExitStatus = null;
         priorityMode.setValue(true);
 
-        sortedTask = new PriorityQueue<Item>((item1, item2) -> {
-            int result;
-            if ((result = TaskList.COMPARATOR.compare(item1, item2)) != 0) {
-                return result;
-            } else {
-                int index1 = taskList.indexOf(item1);
-                int index2 = taskList.indexOf(item2);
-                return index1 > index2 ? 1 : -1;
-            }
-        });
+        populateQueue();
 
-        for (int i = 0; i < taskList.size(); i++) {
-            Item item = taskList.get(i);
-            if (!item.getTask().get().isComplete()) {
-                sortedTask.add(item);
-            }
-        }
-        if (sortedTask.size() == 0) {
+        // should not be null as it is populated by the previous method
+        requireNonNull(sortedTask);
+        if (sortedTask.isEmpty()) {
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             priorityMode.setValue(false);
         } else {
@@ -566,43 +555,40 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
-     * Mark an item with a task as done.
-     * @param index the index of the item to be marked as done.
-     * @return the item that is marked as done.
-     * @throws IllegalListException if the operation is not done on a task list.
+     * Helper method to create the priority queue and fill it up.
      */
-    public Item markComplete(int index) throws IllegalListException {
-        Item item;
-        Item newItem;
-        if (!(visualList instanceof TaskList)) {
-            throw new IllegalListException();
-        } else {
-            item = visualList.get(index);
-            Task task = item.getTask().get();
-            Task newTask = task.markComplete();
-            newItem = item.changeTask(newTask);
-            editItem(item, newItem);
-        }
-        return newItem;
+    private void populateQueue() {
+        sortedTask = new PriorityQueue<Item>((item1, item2) -> {
+            int result;
+            if ((result = TaskList.COMPARATOR.compare(item1, item2)) != 0) {
+                return result;
+            } else {
+                int index1 = taskList.indexOf(item1);
+                int index2 = taskList.indexOf(item2);
+                return Integer.compare(index1, index2);
+            }
+        });
+
+        sortedTask.addAll(taskList.filtered(x -> !x.getTask().get().isComplete()));
     }
 
     /**
-     * mark a given task as not completed
-     * */
-
-    public Item markIncomplete(int index) throws IllegalListException {
-        Item item;
-        Item newItem;
+     * Mark an item with a task as done or not done.
+     * @param index the index of the item to be marked as done or not done
+     * @param status the status of the item. True means that it is done and false mean it is not done.
+     * @return the item that is marked as done or not done.
+     * @throws IllegalListException if the operation is not done on a task list.
+     */
+    public Item markComplete(int index, boolean status) throws IllegalListException {
         if (!(visualList instanceof TaskList)) {
             throw new IllegalListException();
-        } else {
-            item = visualList.get(index);
-            Task task = item.getTask().get();
-            Task newTask = task.markIncomplete();
-            newItem = item.changeTask(newTask);
-            editItem(item, newItem);
         }
 
+        Item item = visualList.get(index);
+        Task task = item.getTask().get();
+        Task newTask = status ? task.markComplete() : task.markIncomplete();
+        Item newItem = item.changeTask(newTask);
+        editItem(item, newItem);
         return newItem;
     }
 
@@ -631,10 +617,14 @@ public class ItemModelManager implements ItemModel {
     }
 
     public void toggleOnFocusMode() {
-        focusMode = true;
+        focusMode.set(true);
     }
 
     public boolean isFocusMode() {
+        return focusMode.get();
+    }
+
+    public SimpleBooleanProperty getFocusMode() {
         return focusMode;
     }
 }

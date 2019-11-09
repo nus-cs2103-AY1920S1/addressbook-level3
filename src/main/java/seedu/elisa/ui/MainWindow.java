@@ -46,7 +46,7 @@ import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
-import seedu.elisa.logic.commands.exceptions.FocusModeException;
+import seedu.elisa.logic.parser.exceptions.FocusModeException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;

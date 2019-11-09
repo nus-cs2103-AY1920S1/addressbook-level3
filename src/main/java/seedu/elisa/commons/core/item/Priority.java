@@ -11,6 +11,6 @@ public enum Priority {
      * @return the Priority object that is created
      */
     public static Priority fromJson(String priorityString) {
-        return valueOf(priorityString);
+        return valueOf(priorityString.toUpperCase());
     }
 }

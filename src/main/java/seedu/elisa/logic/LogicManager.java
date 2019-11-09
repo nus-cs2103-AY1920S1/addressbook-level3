@@ -15,6 +15,7 @@ import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.ElisaParser;
+import seedu.elisa.logic.parser.FocusElisaParser;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoRescheduleManager;
 import seedu.elisa.model.ItemModel;
@@ -32,20 +33,33 @@ public class LogicManager implements Logic {
 
     private final ItemModel model;
     private final Storage storage;
-    private final ElisaParser addressBookParser;
+    private ElisaParser addressBookParser;
+    private final ElisaParser normalParser;
+    private final ElisaParser focusParser;
     private final ScheduledThreadPoolExecutor checker;
     private final AutoRescheduleManager autoRescheduleManager;
 
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
-        addressBookParser = new ElisaParser(model.getElisaCommandHistory());
+        normalParser = new ElisaParser(model.getElisaCommandHistory());
+        addressBookParser = normalParser;
+        focusParser = new FocusElisaParser(model.getElisaCommandHistory());
         autoRescheduleManager = AutoRescheduleManager.getInstance();
         autoRescheduleManager.initStorageEvents(model.getEventList(), model);
 
         Runnable checkTask = new CheckTaskRunnable(model);
         checker = new ScheduledThreadPoolExecutor(1);
         checker.scheduleAtFixedRate(checkTask, 0, 5, TimeUnit.SECONDS);
+
+        // Changing of parser in focus mode
+        model.getFocusMode().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                addressBookParser = focusParser;
+            } else {
+                addressBookParser = normalParser;
+            }
+        });
     }
 
     public final ListPropertyBase<Item> getActiveRemindersListProperty() {
@@ -58,7 +72,7 @@ public class LogicManager implements Logic {
     public final void shutdown() {
         checker.shutdown();
         autoRescheduleManager.shutdown();
-        model.offPriorityMode();
+        model.closePriorityModeThread();
     }
 
     @Override

@@ -8,33 +8,29 @@ import static seedu.elisa.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.elisa.commons.core.GuiSettings;
-import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
-import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.EventList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
+import seedu.elisa.testutil.TypicalItems;
 
 public class ItemModelManagerTest {
     private ItemModelManager testModel = new ItemModelManager(new ItemStorage(),
             new UserPrefs(), new ElisaCommandHistoryManager());
+    private Item task = TypicalItems.ITEM_WITH_TASK;
+    private Item event = TypicalItems.ITEM_WITH_EVENT;
+    private Item reminder = TypicalItems.ITEM_WITH_REMINDER;
     private Item.ItemBuilder template = new Item.ItemBuilder().setItemDescription(new ItemDescription("test"));
-    private Item validItem = new Item.ItemBuilder()
-            .setItemDescription(new ItemDescription("test"))
-            .setTask(new Task(false))
-            .setEvent(new Event(LocalDateTime.now(), Duration.ZERO))
-            .setReminder(new Reminder(LocalDateTime.now())).build();
+    private Item validItem = TypicalItems.ITEM_WITH_ALL;
 
     @Test
     public void testConstructor() {
@@ -102,8 +98,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void addToSeparateList_validTask_addedToTaskList() {
-        Item validTask = template.setTask(new Task(false)).build();
-        testModel.addToSeparateList(validTask);
+        testModel.addToSeparateList(task);
         try {
             testModel.setVisualList("T");
         } catch (IllegalValueException e) {
@@ -115,8 +110,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void addToSeparateList_validEvent_addedToEventList() {
-        Item validEvent = template.setEvent(new Event(LocalDateTime.now(), Duration.ZERO)).build();
-        testModel.addToSeparateList(validEvent);
+        testModel.addToSeparateList(event);
         try {
             testModel.setVisualList("E");
         } catch (IllegalValueException e) {
@@ -128,8 +122,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void addToSeparateList_validReminder_addedToReminderList() {
-        Item validReminder = template.setReminder(new Reminder(LocalDateTime.now())).build();
-        testModel.addToSeparateList(validReminder);
+        testModel.addToSeparateList(reminder);
         try {
             testModel.setVisualList("R");
         } catch (IllegalValueException e) {
@@ -141,14 +134,13 @@ public class ItemModelManagerTest {
 
     @Test
     public void addToSeparateList_itemDoesNotBelongInVisualList_visualListEmpty() {
-        Item validReminder = template.setReminder(new Reminder(LocalDateTime.now())).build();
         try {
             testModel.setVisualList("T");
         } catch (IllegalValueException e) {
             // should not reach this loop as it is already tested above
             fail(e);
         }
-        testModel.addItem(validReminder);
+        testModel.addItem(reminder);
         assertEquals(0, testModel.getVisualList().size());
     }
 
@@ -196,13 +188,12 @@ public class ItemModelManagerTest {
         testModel.addItem(validItem);
         Item newItem = template.setTask(new Task(true)).build();
         testModel.replaceItem(validItem, newItem);
-        System.out.println(testModel.hasItem(newItem));
         assertTrue(testModel.hasItem(newItem));
     }
 
     @Test
     public void togglePriorityMode_priorityModeCurrentlyOff_priorityModeOn() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         try {
             assertTrue(testModel.togglePriorityMode());
         } catch (IllegalListException e) {
@@ -212,7 +203,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void togglePriorityMode_priorityModeCurrentlyOn_priorityModeOff() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         try {
             testModel.togglePriorityMode();
             assertFalse(testModel.togglePriorityMode());
@@ -254,9 +245,9 @@ public class ItemModelManagerTest {
 
     @Test
     public void markComplete_incompleteTask_markTaskAsComplete() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         try {
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertTrue(testModel.getItem(0).getTask().get().isComplete());
         } catch (IllegalListException e) {
             fail(e);
@@ -265,10 +256,10 @@ public class ItemModelManagerTest {
 
     @Test
     public void done_inPriorityMode_finishAllTask() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         try {
             testModel.togglePriorityMode();
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertFalse(testModel.getPriorityMode().getValue());
         } catch (IllegalListException e) {
             fail(e);
@@ -277,7 +268,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void delete_inPriorityMode_finishAllTask() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         try {
             testModel.togglePriorityMode();
             testModel.deleteItem(0);
@@ -289,7 +280,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void done_inPriorityMode_getNextTask() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         Item lowPriority = new Item.ItemBuilder()
                 .setItemPriority(Priority.LOW)
                 .setItemDescription(new ItemDescription("Low priority"))
@@ -298,7 +289,7 @@ public class ItemModelManagerTest {
         testModel.addItem(lowPriority);
         try {
             testModel.togglePriorityMode();
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertEquals(lowPriority, testModel.getVisualList().get(0));
         } catch (IllegalListException e) {
             fail(e);
@@ -307,7 +298,7 @@ public class ItemModelManagerTest {
 
     @Test
     public void delete_inPriorityMode_getNextTask() {
-        testModel.addItem(template.setTask(new Task(false)).build());
+        testModel.addItem(task);
         Item lowPriority = new Item.ItemBuilder()
                 .setItemPriority(Priority.LOW)
                 .setItemDescription(new ItemDescription("Low priority"))
