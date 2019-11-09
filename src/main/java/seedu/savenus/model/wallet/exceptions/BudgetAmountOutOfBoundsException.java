@@ -7,6 +7,6 @@ import seedu.savenus.model.wallet.RemainingBudget;
  */
 public class BudgetAmountOutOfBoundsException extends RuntimeException {
     public BudgetAmountOutOfBoundsException () {
-        super(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
+        super(RemainingBudget.BUDGET_AMOUNT_CONSTRAINTS);
     }
 }

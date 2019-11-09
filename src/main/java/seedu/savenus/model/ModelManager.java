@@ -264,8 +264,14 @@ public class ModelManager implements Model {
     public void setWallet(Wallet newWallet)
             throws BudgetDurationOutOfBoundsException, BudgetAmountOutOfBoundsException {
         requireNonNull(newWallet);
-        wallet.setRemainingBudget(newWallet.getRemainingBudget());
-        wallet.setDaysToExpire(newWallet.getDaysToExpire());
+        if (newWallet.getRemainingBudget().isOutOfBounds()) {
+            throw new BudgetAmountOutOfBoundsException();
+        } else if (newWallet.getDaysToExpire().isOutOfBounds()) {
+            throw new BudgetDurationOutOfBoundsException();
+        } else {
+            wallet.setRemainingBudget(newWallet.getRemainingBudget());
+            wallet.setDaysToExpire(newWallet.getDaysToExpire());
+        }
     }
 
     @Override

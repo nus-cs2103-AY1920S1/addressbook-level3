@@ -5,7 +5,7 @@ import seedu.savenus.model.util.TimeStamp;
 /**
  * Class to create TimeOfPurchase.
  */
-public class TimeOfPurchase extends TimeStamp {
+public class TimeOfPurchase extends TimeStamp implements Comparable<TimeOfPurchase> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "TimeOfPurchase should be a long, and in milliseconds since epoch";
@@ -20,6 +20,12 @@ public class TimeOfPurchase extends TimeStamp {
      */
     public static TimeOfPurchase generate() {
         return new TimeOfPurchase(TimeStamp.generateCurrentTimeStamp());
+    }
+
+    @Override
+    public int compareTo(TimeOfPurchase other) {
+        return getTimeStampInLocalDateTime()
+                .compareTo(other.getTimeStampInLocalDateTime());
     }
 
     @Override

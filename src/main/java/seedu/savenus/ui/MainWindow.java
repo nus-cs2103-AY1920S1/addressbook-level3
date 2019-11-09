@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         StringBinding remainingBudgetBinding = Bindings.createStringBinding(() ->
-                        String.format("Wallet: $%s", logic.getWallet().getRemainingBudgetAmount().toString()),
+                        String.format("Budget: $%s", logic.getWallet().getRemainingBudgetAmount().toString()),
                 logic.getWallet().getRemainingBudgetProperty());
         remainingBudgetPlaceholder.textProperty().bind(remainingBudgetBinding);
 

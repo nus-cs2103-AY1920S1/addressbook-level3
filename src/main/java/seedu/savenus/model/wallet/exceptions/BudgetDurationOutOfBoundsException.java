@@ -8,6 +8,6 @@ import seedu.savenus.model.wallet.DaysToExpire;
  */
 public class BudgetDurationOutOfBoundsException extends IllegalValueException {
     public BudgetDurationOutOfBoundsException() {
-        super(DaysToExpire.INTEGER_CONSTRAINTS);
+        super(DaysToExpire.BUDGET_DURATION_CONTRAINTS);
     }
 }
