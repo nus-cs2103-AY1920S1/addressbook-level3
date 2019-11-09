@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DateTest {
     @Test
@@ -264,41 +265,92 @@ public class DateTest {
                 MonthOfYear.DECEMBER, new Year(2025));
         Date expectedNextDate = new Date(new Day(DayOfWeek.THU, 1, MonthOfYear.JANUARY, new Year(2026)),
                 MonthOfYear.JANUARY, new Year(2026));
+        assertEquals(expectedNextDate, currDate.getNextDate());
+
         // thirty of June
         Date currDate2 = new Date(new Day(DayOfWeek.SAT, 30, MonthOfYear.JUNE, new Year(2046)),
                 MonthOfYear.JUNE, new Year(2046));
         Date expectedNextDate2 = new Date(new Day(DayOfWeek.SUN, 1, MonthOfYear.JULY, new Year(2046)),
                 MonthOfYear.JULY, new Year(2046));
+        assertEquals(expectedNextDate2, currDate2.getNextDate());
+
         // twenty-eight of feb (non-leap year)
         Date currDate3 = new Date(new Day(DayOfWeek.THU, 28, MonthOfYear.FEBRUARY, new Year(2047)),
                 MonthOfYear.FEBRUARY, new Year(2047));
         Date expectedNextDate3 = new Date(new Day(DayOfWeek.FRI, 1, MonthOfYear.MARCH, new Year(2047)),
                 MonthOfYear.MARCH, new Year(2047));
+        assertEquals(expectedNextDate3, currDate3.getNextDate());
+
         // twenty-nine of feb (leap year)
         Date currDate4 = new Date(new Day(DayOfWeek.SAT, 29, MonthOfYear.FEBRUARY, new Year(2048)),
                 MonthOfYear.FEBRUARY, new Year(2048));
         Date expectedNextDate4 = new Date(new Day(DayOfWeek.SUN, 1, MonthOfYear.MARCH, new Year(2048)),
                 MonthOfYear.MARCH, new Year(2048));
+        assertEquals(expectedNextDate4, currDate4.getNextDate());
+
         // sun to mon
         Date currDate5 = new Date(new Day(DayOfWeek.SUN, 26, MonthOfYear.SEPTEMBER, new Year(2027)),
                 MonthOfYear.SEPTEMBER, new Year(2027));
+        Date expectedNextDate5 = new Date(new Day(DayOfWeek.MON, 27, MonthOfYear.SEPTEMBER,
+                new Year(2027)), MonthOfYear.SEPTEMBER, new Year(2027));
+        assertEquals(expectedNextDate5, currDate5.getNextDate());
+
         // friday to sat
+        Date currDate6 = new Date(new Day(DayOfWeek.FRI, 7, MonthOfYear.JANUARY, new Year(2050)),
+                MonthOfYear.JANUARY, new Year(2050));
+        Date expectedNextDate6 = new Date(new Day(DayOfWeek.SAT, 8, MonthOfYear.JANUARY, new Year(2050)),
+                MonthOfYear.JANUARY, new Year(2050));
+        assertEquals(expectedNextDate6, currDate6.getNextDate());
+
         // sat to sun
-        // fifteen of march
-    }
+        Date currDate7 = new Date(new Day(DayOfWeek.SAT, 26, MonthOfYear.MARCH, new Year(2050)),
+                MonthOfYear.MARCH, new Year(2050));
+        Date expectedNextDate7 = new Date(new Day(DayOfWeek.SUN, 27, MonthOfYear.MARCH, new Year(2050)),
+                MonthOfYear.MARCH, new Year(2050));
+        assertEquals(expectedNextDate7, currDate7.getNextDate());
 
-    @Test
-    public void toJavaDate() {
-
-    }
-
-    @Test
-    public void fromJavaDate() {
-
+        // fifteen of November
+        Date currDate8 = new Date(new Day(DayOfWeek.TUE, 15, MonthOfYear.NOVEMBER, new Year(2050)),
+                MonthOfYear.NOVEMBER, new Year(2050));
+        Date expectedNextDate8 = new Date(new Day(DayOfWeek.WED, 16, MonthOfYear.NOVEMBER, new Year(2050)),
+                MonthOfYear.NOVEMBER, new Year(2050));
+        assertEquals(expectedNextDate8, currDate8.getNextDate());
     }
 
     @Test
     public void compareTo() {
+        // Thu, 19 Aug 2060
+        Date date = new Date(new Day(DayOfWeek.THU, 19, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
+        Date dateBefore = new Date(new Day(DayOfWeek.WED, 18, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
+        Date dateAfter = new Date(new Day(DayOfWeek.FRI, 20, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
+        Date monthBefore = new Date(new Day(DayOfWeek.MON, 19, MonthOfYear.JULY, new Year(2060)),
+                MonthOfYear.JULY, new Year(2060));
+        Date monthAfter = new Date(new Day(DayOfWeek.SUN, 19, MonthOfYear.SEPTEMBER, new Year(2060)),
+                MonthOfYear.SEPTEMBER, new Year(2060));
+        Date yearBefore = new Date(new Day(DayOfWeek.TUE, 19, MonthOfYear.AUGUST, new Year(2059)),
+                MonthOfYear.AUGUST, new Year(2059));
+        Date yearAfter = new Date(new Day(DayOfWeek.FRI, 19, MonthOfYear.AUGUST, new Year(2061)),
+                MonthOfYear.AUGUST, new Year(2061));
+        Date sameDate = new Date(new Day(DayOfWeek.THU, 19, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
 
+        assertEquals(0, date.compareTo(sameDate));
+        assertEquals(0, date.compareTo(date));
+        assertTrue(date.compareTo(dateBefore) > 0);
+        assertTrue(date.compareTo(dateAfter) < 0);
+        assertTrue(date.compareTo(monthBefore) > 0);
+        assertTrue(date.compareTo(monthAfter) < 0);
+        assertTrue(date.compareTo(yearBefore) > 0);
+        assertTrue(date.compareTo(yearAfter) < 0);
+    }
+
+    @Test
+    public void to_string() {
+        Date date = new Date(new Day(DayOfWeek.THU, 19, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
+        assertEquals("Thu, 19 August 2060", date.toString());
     }
 }

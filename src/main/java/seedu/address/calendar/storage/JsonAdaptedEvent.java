@@ -17,7 +17,6 @@ public class JsonAdaptedEvent {
     private final String name;
     private final String startDate;
     private final String endDate;
-    private final String info;
     private final String eventType;
 
     /**
@@ -25,12 +24,10 @@ public class JsonAdaptedEvent {
      */
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("name") String name, @JsonProperty("startDate") String startDate,
-                            @JsonProperty("endDate") String endDate, @JsonProperty("info") String info,
-                            @JsonProperty("eventType") String eventType) {
+                            @JsonProperty("endDate") String endDate, @JsonProperty("eventType") String eventType) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.info = info;
         this.eventType = eventType;
     }
 
@@ -41,7 +38,6 @@ public class JsonAdaptedEvent {
         name = source.getNameStr();
         startDate = source.getStartDateStr();
         endDate = source.getEndDateStr();
-        info = source.getInfoStr();
         eventType = source.getEventTypeStr();
     }
 
@@ -66,13 +62,6 @@ public class JsonAdaptedEvent {
         }
         final Date endDate = Date.getInstanceFromString(this.endDate);
 
-        final Optional<Info> info;
-        if (this.info == null) {
-            info = Optional.empty();
-        } else {
-            info = Optional.of(new Info(this.info));
-        }
-
         if (eventType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "event type"));
         }
@@ -80,14 +69,14 @@ public class JsonAdaptedEvent {
         final EventType eventType = EventType.getInstanceFromString(this.eventType);
 
         if (eventType.equals(EventType.COMMITMENT)) {
-            return new Commitment(eventName, startDate, endDate, info);
+            return new Commitment(eventName, startDate, endDate);
         } else if (eventType.equals(EventType.HOLIDAY)) {
-            return new Holiday(eventName, startDate, endDate, info);
+            return new Holiday(eventName, startDate, endDate);
         } else if (eventType.equals(EventType.SCHOOL_BREAK)) {
-            return new SchoolBreak(eventName, startDate, endDate, info);
+            return new SchoolBreak(eventName, startDate, endDate);
         } else {
             assert eventType.equals(EventType.TRIP) : "There are only 4 types of events permitted";
-            return new Trip(eventName, startDate, endDate, info);
+            return new Trip(eventName, startDate, endDate);
         }
     }
 }

@@ -12,6 +12,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_MONTH = new Prefix("M/");
     public static final Prefix PREFIX_END_YEAR = new Prefix("Y/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_INFO = new Prefix("i/");
     public static final Prefix PREFIX_PERIOD = new Prefix("p/");
 }

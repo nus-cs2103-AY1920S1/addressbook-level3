@@ -1,12 +1,16 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.*;
+import seedu.address.calendar.commands.AddCommand;
+import seedu.address.calendar.commands.AddCommitmentCommand;
+import seedu.address.calendar.commands.AddHolidayCommand;
+import seedu.address.calendar.commands.AddSchoolBreakCommand;
+import seedu.address.calendar.commands.AddTripCommand;
+import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.Commitment;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.model.event.EventType;
 import seedu.address.calendar.model.event.Holiday;
-import seedu.address.calendar.model.event.Info;
 import seedu.address.calendar.model.event.Name;
 import seedu.address.calendar.model.event.SchoolBreak;
 import seedu.address.calendar.model.event.Trip;
@@ -15,13 +19,11 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.Optional;
-
 class AddCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect add command format. %s";
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
-            CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_INFO };
+            CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_NAME };
 
     AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
@@ -62,25 +64,24 @@ class AddCommandParser {
         }
 
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();
-        Optional<Info> info = new InfoParser().parse(argMultimap.getValue(CliSyntax.PREFIX_INFO));
 
-        return parse(eventType, name, startDate, endDate, info);
+        return parse(eventType, name, startDate, endDate);
     }
 
-    AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate, Optional<Info> info) {
+    AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate) {
         switch (eventType) {
         case COMMITMENT:
-            Commitment commitment = new Commitment(name, startDate, endDate, info);
+            Commitment commitment = new Commitment(name, startDate, endDate);
             return new AddCommitmentCommand(commitment);
         case HOLIDAY:
-            Holiday holiday = new Holiday(name, startDate, endDate, info);
+            Holiday holiday = new Holiday(name, startDate, endDate);
             return new AddHolidayCommand(holiday);
         case SCHOOL_BREAK:
-            SchoolBreak schoolBreak = new SchoolBreak(name, startDate, endDate, info);
+            SchoolBreak schoolBreak = new SchoolBreak(name, startDate, endDate);
             return new AddSchoolBreakCommand(schoolBreak);
         default:
             assert eventType.equals(EventType.TRIP) : "There are only 4 valid types of add commands.";
-            Trip trip = new Trip(name, startDate, endDate, info);
+            Trip trip = new Trip(name, startDate, endDate);
             return new AddTripCommand(trip);
         }
     }
