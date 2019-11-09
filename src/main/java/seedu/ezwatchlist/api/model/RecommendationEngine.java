@@ -177,7 +177,7 @@ public class RecommendationEngine {
                 TvResultsPage tvDbs = tmdbApi.getSearch().searchTv(tvShowName, null, 1);
                 List<TvSeries> tvResults = tvDbs.getResults();
 
-                if(tvResults.isEmpty()) {
+                if (tvResults.isEmpty()) {
                     continue;
                 }
 
@@ -212,7 +212,7 @@ public class RecommendationEngine {
                         .searchMovie(movieName, null, null, true, 1);
                 List<MovieDb> movieDbsResults = movieDbs.getResults();
 
-                if(movieDbsResults.isEmpty()) {
+                if (movieDbsResults.isEmpty()) {
                     continue;
                 }
 
