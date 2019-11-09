@@ -36,7 +36,7 @@ In particular, the intended audience of this document is the students taking the
 
 === Description
 
-_PalPay_ is a CLI application targeted for users who have poor financial management skills.
+_PalPay_ is a CLI application targeted for users who have poor financial management skills. The users should also prefer typing over mouse inputs.
 It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success.
 Not only that, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
 
@@ -80,7 +80,6 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-//TODO: Update class diagram
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -89,7 +88,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete t1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -612,8 +611,8 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant number of transactions
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps

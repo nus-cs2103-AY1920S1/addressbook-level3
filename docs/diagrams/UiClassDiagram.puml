@@ -8,15 +8,22 @@ package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
-Class MainWindow
+Class MainWindow LOGIC_COLOR
 Class HelpWindow
 Class ResultDisplay
+Class StatusBarFooter
+Class CommandBox
+
+package {
 Class TransactionListPanel
 Class TransactionCard
 Class BudgetListPanel
 Class BudgetCard
-Class StatusBarFooter
-Class CommandBox
+Class LedgerListPanel
+Class LedgerCard
+Class ProjectionListPanel
+Class ProjectionCard
+}
 }
 
 package Model <<Rectangle>> {
@@ -37,10 +44,17 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> TransactionListPanel
 MainWindow *-down-> BudgetListPanel
+MainWindow *-down-> LedgerListPanel
+MainWindow *-down-> ProjectionListPanel
 MainWindow *-down-> StatusBarFooter
+
+StatusBarFooter -[hidden]down-> CommandBox
+ResultDisplay -[hidden]down-> HelpWindow
 
 TransactionListPanel -down-> TransactionCard
 BudgetListPanel -down-> BudgetCard
+ProjectionListPanel -down-> ProjectionCard
+LedgerListPanel -down-> LedgerCard
 
 MainWindow -left-|> UiPart
 
@@ -48,15 +62,20 @@ ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 TransactionListPanel --|> UiPart
 BudgetListPanel --|> UiPart
-TransactionCard --|> UiPart
-BudgetCard --|> UiPart
+LedgerListPanel --|> UiPart
+ProjectionListPanel --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-TransactionCard ..> Model
-BudgetCard ..> Model
+
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
+
+BudgetCard ..down-> Model
+TransactionCard ..down-> Model
+LedgerCard ..down-> Model
+ProjectionCard ..down-> Model
+
 
 TransactionListPanel -[hidden]left- HelpWindow
 BudgetListPanel -[hidden]left- HelpWindow
