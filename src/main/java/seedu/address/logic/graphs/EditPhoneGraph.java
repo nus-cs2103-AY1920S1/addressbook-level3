@@ -100,7 +100,7 @@ public class EditPhoneGraph extends GraphWithStartNodeAndPreamble {
                 new AutoCompleteEdge<>(PREFIX_SERIAL_NUM, phoneBrandNode, phoneSerialNumberNode),
                 new AutoCompleteEdge<>(PREFIX_COST, phoneBrandNode, phoneCostNode),
                 new AutoCompleteEdge<>(PREFIX_CAPACITY, phoneBrandNode, phoneCapacityNode),
-                new AutoCompleteEdge<>(PREFIX_BRAND, phoneBrandNode, phoneBrandNode)
+                new AutoCompleteEdge<>(PREFIX_BRAND, phoneBrandNode, phoneBrandNode),
                 new AutoCompleteEdge<>(PREFIX_COLOUR, phoneBrandNode, phoneColourNode),
                 new AutoCompleteEdge<>(PREFIX_TAG, phoneBrandNode, phoneTagNode),
                 new AutoCompleteEdge<>(PREFIX_PHONE_NAME, phoneBrandNode, phoneNameNode),

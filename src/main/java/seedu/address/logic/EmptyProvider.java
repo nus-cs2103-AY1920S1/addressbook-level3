@@ -2,6 +2,9 @@ package seedu.address.logic;
 
 import java.util.Collections;
 
+/**
+ * Represents a {@code AutoCompleteResultProvider} that returns no results.
+ */
 public class EmptyProvider implements AutoCompleteResultProvider {
 
     private static EmptyProvider theOne;

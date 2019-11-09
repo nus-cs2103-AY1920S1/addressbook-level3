@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+/**
+ * Classes that implement this interface can provide a final {@code AutoCompleteResult} for autocomplete suggestions.
+ */
 public interface AutoCompleteResultProvider {
     /**
      * Processes an input string and returns suggestions for autocompletion.

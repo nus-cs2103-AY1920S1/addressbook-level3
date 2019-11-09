@@ -6,14 +6,14 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.AutoCompleteResult;
-import seedu.address.logic.Graph;
+import seedu.address.logic.GraphBuiltFromModel;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
 /**
  * Represents a {@code Graph} used to support autocomplete for {@code FindOrderCommand}.
  */
-public class FindOrderGraph extends Graph {
+public class FindOrderGraph extends GraphBuiltFromModel {
 
     private List<Order> orderList;
 
@@ -27,7 +27,7 @@ public class FindOrderGraph extends Graph {
     }
 
     @Override
-    protected AutoCompleteResult process(String input) {
+    public AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
         List<String> idList = orderList.stream()
                 .map(order -> order.getId().toString())

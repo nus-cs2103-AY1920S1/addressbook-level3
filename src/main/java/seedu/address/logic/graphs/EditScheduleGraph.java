@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.AutoCompleteNode;
 import seedu.address.logic.AutoCompleteEdge;
+import seedu.address.logic.AutoCompleteNode;
 import seedu.address.logic.GraphWithStartNodeAndPreamble;
 import seedu.address.logic.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.nodes.schedule.ScheduleDateNode;

@@ -12,21 +12,10 @@ import seedu.address.logic.graphs.AddCustomerGraph;
 import seedu.address.logic.graphs.AddOrderGraph;
 import seedu.address.logic.graphs.AddPhoneGraph;
 import seedu.address.logic.graphs.AddScheduleGraph;
-import seedu.address.logic.graphs.CancelOrderGraph;
-import seedu.address.logic.graphs.CompleteOrderGraph;
-import seedu.address.logic.graphs.CopyCustomerGraph;
-import seedu.address.logic.graphs.CopyOrderGraph;
-import seedu.address.logic.graphs.CopyPhoneGraph;
-import seedu.address.logic.graphs.DeleteCustomerGraph;
-import seedu.address.logic.graphs.DeletePhoneGraph;
-import seedu.address.logic.graphs.DeleteScheduleGraph;
 import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
 import seedu.address.logic.graphs.EditScheduleGraph;
-import seedu.address.logic.graphs.FindCustomerGraph;
-import seedu.address.logic.graphs.FindOrderGraph;
-import seedu.address.logic.graphs.FindPhoneGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.logic.graphs.ViewScheduleGraph;
 import seedu.address.model.Model;
@@ -98,7 +87,7 @@ class AutoCompleteResultGenerator {
         providers.put("generate-s", new GenerateStatsGraph(model));
         providers.put("exit", EmptyProvider.getInstance());
         providers.put("help", EmptyProvider.getInstance());
-        providers.put("export", EmptyProvider.getInstance()); //TODO SPECIAL
+        providers.put("export", EmptyProvider.getInstance());
     }
 
     private Optional<AutoCompleteResultProvider> getProvider(String commandWord) {

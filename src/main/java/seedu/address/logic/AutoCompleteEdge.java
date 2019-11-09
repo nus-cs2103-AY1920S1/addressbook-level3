@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+/**
+ * Represents an {@code Edge} that has {@code AutoCompleteNode} as source and destination nodes.
+ */
 public class AutoCompleteEdge<T, U, V> implements Edge<T, U, V> {
 
     private final T weight;

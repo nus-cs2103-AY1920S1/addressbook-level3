@@ -5,9 +5,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.AutoCompleteGraph;
 import seedu.address.logic.AutoCompleteResult;
-import seedu.address.logic.Graph;
 import seedu.address.logic.GraphBuiltFromModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
