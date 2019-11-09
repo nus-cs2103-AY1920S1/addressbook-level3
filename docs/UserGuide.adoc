@@ -32,15 +32,17 @@ Jump to <<Quick Start>> to get started now! Enjoy!
 
 == Legend
 
-[TIP]
-Denotes useful tips.
+
+TIP: Denotes useful tips.
+
+IMPORTANT: Denotes important details to take note of.
 
 // tag::quickStart[]
 == Quick Start
 Dive into LiBerry with our simple set-up guide for a quick tour of our user interface and features!
 // need to elaborate here, add more egs
 
-.  Ensure you have Java `11` or above installed in your Computer.
+.  Ensure you have `Java 11` or above installed in your Computer.
 .  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your LiBerry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -85,11 +87,24 @@ The following table shows the format used to describe each command.
 
 Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. Normal Mode also provides some utility commands to help the librarian use LiBerry. However, it is important to note that commands specific to Serve Mode cannot be used while in Normal Mode.
 
+// tag::UGHelp[]
+
 ==== Viewing help : `help`
 
-Opens the help window, which includes a list of possible commands. +
+Opens up a help window, which shows a summary of the list
+possible commands that you can execute. +
+
+.Screenshot of Help Window
+image::HelpWindow.png[]
+
+The figure above shows a screenshot of the help window.
+The left side of the window shows the command while the
+right side of the window gives a description of the command
+and a usage example.
 
 Format: `help`
+
+// end::UGHelp[]
 
 // tag::UGshiyao1[]
 
@@ -119,10 +134,10 @@ Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdu
 ** `[-new]` will list the 10 newest books ** - Coming in v2.0**
 ****
 
-[TIP]
-Inputs for `g/GENRE` is automatically capitalized.
-[TIP]
-`t/TITLE` and `a/AUTHOR` are matched by partial spellings. Search `t/phil` if you forgot how to spell 'Philosopher'!
+
+TIP: Inputs for `g/GENRE` is automatically capitalized.
+
+TIP: `t/TITLE` and `a/AUTHOR` are matched by partial spellings. Search `t/phil` if you forgot how to spell 'Philosopher'!
 
 Examples:
 
@@ -180,11 +195,9 @@ Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 * `BOOK_SN`, if provided, must be a valid serial number that starts with the prefix 'B' followed by 5 digits. They should be unique.
 ****
 
-[TIP]
-A book can have up to 5 genres (but can have no genres as well).
+TIP: A book can have up to 5 genres (but can have no genres as well).
 
-[TIP]
-You do not need to specify the serial number if you wish so. +
+TIP: You do not need to specify the serial number if you wish so. +
 LiBerry will then auto-generate a valid serial number for the new book.
 
 Examples:
@@ -244,30 +257,90 @@ Deletes the borrower with the borrower ID `id/K0001`
 
 // end::UGyuting[]
 
-==== Undoing: `undo`
+// tag::UGUndo[]
 
-Undoes the previous command/action. +
+==== Undoing mistakes: `undo`
+
+Undoes the previous command/action.
+This command only works for commands that modifies the
+catalog, loan records and borrower records.
+
+Undoable Commands:
+
+* `add`, `delete`, `edit`, `loan`, `register`, `renew`,
+`return`, `set`, `toggleui` and `unregister`.
+
+IMPORTANT: After every `serve`, `done` or `pay` command, all previous
+state would be cleared. This means that you would not be able
+to undo to the state before the `serve`, `done` or `pay` command.
+
+TIP: Check the commands you made and ensure that they are correct
+before entering a `serve`, `done` or `pay` command.
+
 Format: `undo`
 
-==== Redoing: redo
+// end::UGUndo[]
+// tag::UGRedo[]
 
-Redoes the most recent undo should there be no more commands/actions after the most recent undo. +
+==== Redoing undone commands : redo
+
+Redoes the most recent command that was undone. This
+command only works if there are undone commands. +
+
+IMPORTANT: Once a new undoable command is entered, you
+may not redo previously undone commands.
+
 Format: `redo`
 
+// end::UGRedo[]
+// start::UGSet[]
 
 ==== Setting User Settings: `set`
 
 Sets the user settings for loan period (in days), renew period (in days), fine increment (in cents) and maximum renews allowed. +
 
-Format: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS] }`
+Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS] `
+
+****
+* Updates the user settings with the specified `LOAN_PERIOD`,
+`RENEW_PERIOD`, `FINE_INCREMENT` and `MAX_RENEW`.
+* All the fields that are specified must be a positive integer.
+* If none of the fields are specified, the current user settings
+would be displayed.
+* `LOAN_PERIOD` refers to the number of days that a book can be
+loaned out for.
+* `RENEW_PERIOD` refers to the number of days that the loan can be
+extended for.
+* `FINE_INCREMENT` refers to the amount of cents charged per day for each
+overdue book.
+* `MAX_RENEWS` refers to the maximum amount renewals that can be made
+per loaned out book.
+****
 
 Examples:
 
-*  `set lp/30 rp/10` +
-Sets the loan period to 30 days and renew period to 10 days.
+*  `set` +
+Shows the current user settings.
 
-*  `set rp/10 fi/5 lp/10 mr/2` +
-Sets the renew period to 10 days, fine increment to 5 cents per day, loan period to 10 days and maximum renews allowed to 2.
+*  `set lp/7 rp/7 fi/5 mr/2` +
+Sets the loan period to 7 days, renew period to 7 days,
+fine increment to 5 cents per day and maximum renews allowed to 2.
+
+.User interface before set command is executed.
+image::BeforeSetCommand.png[width=850]
+
+The figure above shows the user interface before the set
+command is executed. The yellow box shows the set command that
+is being entered.
+
+.User interface after set command is executed.
+image::AfterSetCommand.png[width=850]
+
+After entering the set command, the user settings would be updated.
+The updated user settings will then be displayed in the result display
+as shown in the figure above.
+
+// end::UGSet[]
 
 ==== Toggling dark mode : `toggleui`
 
@@ -482,7 +555,7 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Unregister a borrower* : `unregister id/BORROWER_ID`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Set user settings*: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
+* *Set user settings*: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
 * *Toggle UI theme*: `toggleui`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 * *Exit* : `exit`
