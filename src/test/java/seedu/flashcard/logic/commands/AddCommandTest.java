@@ -15,6 +15,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.IntegerProperty;
+
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.logic.CommandHistory;
@@ -211,6 +213,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setQuizDuration(Integer duration) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoFlashcardList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -232,6 +239,21 @@ public class AddCommandTest {
 
         @Override
         public void commitFlashcardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public IntegerProperty getDurationProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public IntegerProperty getTotalCardsProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public IntegerProperty getRemainingCardsProperty() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -5,8 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
@@ -14,38 +14,45 @@
 <fx:root onCloseRequest="#handleExit" title="Flashmind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-            <BorderPane prefHeight="304.0" prefWidth="493.0" styleClass="background">
-            <top>
-               <MenuBar fx:id="MenuBar" BorderPane.alignment="CENTER">
-                 <menus>
-                   <Menu mnemonicParsing="false" text="Action">
-                     <items>
-                       <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
-                     </items>
-                   </Menu>
-                   <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                       <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Show Help" />
-                     </items>
-                   </Menu>
-                 </menus>
-               </MenuBar>
-            </top>
-            <bottom>
-               <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" BorderPane.alignment="CENTER" />
-            </bottom>
-            <right>
-               <ScrollPane fx:id="flashcardListPanelPlaceholder" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="259.0" BorderPane.alignment="CENTER" />
-            </right>
-            <center>
-               <VBox fx:id="test" alignment="CENTER" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200" prefWidth="200">
+            <children>
+               <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" />
-                     <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
-                     <StackPane fx:id="statisticsDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                     <MenuBar VBox.vgrow="ALWAYS">
+                       <menus>
+                         <Menu mnemonicParsing="false" text="File">
+                           <items>
+                             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
+                           </items>
+                         </Menu>
+                         <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="About" />
+                           </items>
+                         </Menu>
+                       </menus>
+                     </MenuBar>
+                     <HBox VBox.vgrow="ALWAYS">
+                        <children>
+                           <VBox HBox.hgrow="ALWAYS">
+                              <children>
+                                 <StackPane fx:id="commandBoxPlaceholder" />
+                                 <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="flashcardDisplayPlaceholder" VBox.vgrow="ALWAYS" />
+                              </children>
+                           </VBox>
+                           <VBox minWidth="300.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <StackPane fx:id="flashcardListPanelPlaceholder" minWidth="300.0" VBox.vgrow="ALWAYS" />
+                                 <StackPane fx:id="timerDisplayPlaceHolder" />
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                     <StackPane fx:id="statusbarPlaceholder" />
                   </children>
                </VBox>
-            </center></BorderPane>
+            </children></AnchorPane>
          <stylesheets>
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />

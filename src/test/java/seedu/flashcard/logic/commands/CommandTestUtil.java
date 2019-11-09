@@ -1,21 +1,26 @@
 package seedu.flashcard.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.flashcard.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.FlashcardContainsKeywordsPredicate;
 import seedu.flashcard.testutil.EditFlashcardDescriptorBuilder;
 
 
@@ -30,6 +35,7 @@ public class CommandTestUtil {
     public static final String VALID_DEFINITION_BANANA = "It is a curly sweet fruit, not so juicy";
     public static final String VALID_TAG_ROUND = "round";
     public static final String VALID_TAG_LONG = "long";
+    public static final String VALID_TAG_CIVIL_ENGINEERING = "Civil Engineering";
     public static final String VALID_ANSWER_APPLE = "Red";
     public static final String VALID_ANSWER_BANANA = "Yellow";
     public static final String VALID_CHOICE_RED = "Red";
@@ -113,11 +119,26 @@ public class CommandTestUtil {
         FlashcardList expectedFlashcardList = new FlashcardList(actualModel.getFlashcardList());
         List<Flashcard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashcardList());
 
-        //assertThrows(seedu.flashcard.logic.commands.exceptions.
+        // assertThrows(seedu.flashcard.logic.commands.exceptions.
         // CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
         assertEquals(expectedFlashcardList, actualModel.getFlashcardList());
         assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
     }
+
+    /**
+     * Executes the given code and test whether command fail.
+     * @param command command to be tested
+     * @param actualModel the actual model manager
+     * @param expectedMessage expected message to be displayed
+     * @param expectedModel the expected model manager
+     * @param commandHistory command history
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel, CommandHistory commandHistory) {
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
+        assertEquals(actualModel, expectedModel);
+    }
+
 
     /**
      * Deletes the first flashcard in {@code model}'s filtered list from {@code model}'s flashcard list.
@@ -126,5 +147,19 @@ public class CommandTestUtil {
         Flashcard firstFlashcard = model.getFilteredFlashcardList().get(0);
         model.deleteFlashcard(firstFlashcard);
         model.commitFlashcardList();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showFlashcardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
+
+        Flashcard flashcard = model.getFilteredFlashcardList().get(targetIndex.getZeroBased());
+        final String[] splitAns = flashcard.getAnswer().toString().split("\\s+");
+        model.updateFilteredFlashcardList(new FlashcardContainsKeywordsPredicate(Arrays.asList(splitAns[0])));
+
+        assertEquals(1, model.getFilteredFlashcardList().size());
     }
 }

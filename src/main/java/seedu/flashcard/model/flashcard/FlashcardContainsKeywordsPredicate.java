@@ -3,7 +3,7 @@ package seedu.flashcard.model.flashcard;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.flashcard.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Flashcard}'s {@code Question}, {@code Definition}, {@code Answer}

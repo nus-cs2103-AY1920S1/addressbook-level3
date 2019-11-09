@@ -24,6 +24,9 @@ public class CommandResult {
     /** Tell the system if it is a flip command.*/
     private final boolean flip;
 
+    /** Tell the system if it is a quiz command.*/
+    private final boolean quiz;
+
     private final String flashcardToDisplay;
 
     /**
@@ -35,11 +38,12 @@ public class CommandResult {
         this.exit = exit;
         this.showStats = false;
         this.flip = false;
-        this.flashcardToDisplay = null;
+        this.quiz = false;
+        this.flashcardToDisplay = "";
     }
 
     /**
-     *Construct a {@Code CommandResult} with all fields specified.
+     *Construct a {@Code CommandResult} with all fields specified for show stats.
      * to be merged with the above method
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStats) {
@@ -48,7 +52,8 @@ public class CommandResult {
         this.exit = exit;
         this.showStats = showStats;
         this.flip = false;
-        this.flashcardToDisplay = null;
+        this.quiz = false;
+        this.flashcardToDisplay = "";
     }
 
     /**
@@ -62,6 +67,7 @@ public class CommandResult {
         this.showStats = false;
         this.flip = flip;
         this.flashcardToDisplay = flashcardToDisplay;
+        this.quiz = false;
     }
 
     /**
@@ -96,6 +102,10 @@ public class CommandResult {
         return flip;
     }
 
+    public boolean isQuiz() {
+        return quiz;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -111,7 +121,11 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showStats == otherCommandResult.showStats
+                && flip == otherCommandResult.flip
+                && flashcardToDisplay.equals(otherCommandResult.flashcardToDisplay)
+                && quiz == otherCommandResult.quiz;
     }
 
     @Override

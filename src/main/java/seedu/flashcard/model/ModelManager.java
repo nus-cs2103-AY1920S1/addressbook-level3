@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -177,13 +178,14 @@ public class ModelManager implements Model {
         ModelManager obj = (ModelManager) other;
         return versionedFlashcardList.equals(obj.versionedFlashcardList)
                 && userPrefs.equals(obj.userPrefs)
-                && filteredFlashcards.equals(obj.filteredFlashcards);
+                && filteredFlashcards.equals(obj.filteredFlashcards)
+                && quiz.equals(obj.quiz);
     }
 
     @Override
     public String generateStatistics() {
         desiredStats.calculate(filteredFlashcards);
-        return desiredStats.results();
+        return desiredStats.getResults();
     }
 
     @Override
@@ -199,6 +201,11 @@ public class ModelManager implements Model {
     @Override
     public void setQuiz(List<Flashcard> quizableFlashcards) {
         quiz.setQuizList(quizableFlashcards);
+    }
+
+    @Override
+    public void setQuizDuration(Integer duration) {
+        quiz.setDuration(duration);
     }
 
     @Override
@@ -224,6 +231,21 @@ public class ModelManager implements Model {
     @Override
     public void commitFlashcardList() {
         versionedFlashcardList.commit();
+    }
+
+    @Override
+    public IntegerProperty getDurationProperty() {
+        return quiz.getDurationProperty();
+    }
+
+    @Override
+    public IntegerProperty getTotalCardsProperty() {
+        return quiz.totalCardsProperty();
+    }
+
+    @Override
+    public IntegerProperty getRemainingCardsProperty() {
+        return quiz.remainingCardsProperty();
     }
 
     /**

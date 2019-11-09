@@ -23,6 +23,7 @@ import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.commands.QuizCommand;
 import seedu.flashcard.logic.commands.QuizTagCommand;
 import seedu.flashcard.logic.commands.RedoCommand;
+import seedu.flashcard.logic.commands.SkipCommand;
 import seedu.flashcard.logic.commands.StatsCommand;
 import seedu.flashcard.logic.commands.UndoCommand;
 import seedu.flashcard.logic.commands.ViewCommand;
@@ -143,6 +144,8 @@ public class FlashcardListParser {
 
         case FlipCommand.COMMAND_WORD:
             return new FlipCommandParser().parse(arguments);
+        case SkipCommand.COMMAND_WORD:
+            return new SkipCommand();
 
         default:
             throw new ParseException(MESSAGE_QUIZ_UNSUPPORTED_COMMAND);
@@ -164,5 +167,6 @@ public class FlashcardListParser {
     public static void setQuizMode(boolean quizMode) {
         FlashcardListParser.quizMode = quizMode;
     }
+
 
 }

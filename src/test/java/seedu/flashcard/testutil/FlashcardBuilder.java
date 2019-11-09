@@ -10,6 +10,7 @@ import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.Score;
 import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 import seedu.flashcard.model.util.SampleDataUtil;
@@ -28,6 +29,7 @@ public class FlashcardBuilder {
     private Definition definition;
     private Set<Tag> tags;
     private List<Choice> choices;
+    private Score score;
 
     public FlashcardBuilder() {
         question = new Question(DEFAULT_QUESTION);
@@ -35,6 +37,7 @@ public class FlashcardBuilder {
         definition = new Definition(DEFAULT_DEFINITION);
         tags = new HashSet<Tag>();
         choices = new ArrayList<Choice>();
+        score = new Score();
     }
 
     /**
@@ -46,6 +49,7 @@ public class FlashcardBuilder {
         this.answer = flashcard.getAnswer();
         this.tags = flashcard.getTags();
         this.definition = flashcard.getDefinition();
+        this.score = flashcard.getScore();
     }
 
     /**
@@ -58,6 +62,7 @@ public class FlashcardBuilder {
         this.tags = flashcard.getTags();
         this.definition = flashcard.getDefinition();
         this.choices = flashcard.getChoices();
+        this.score = flashcard.getScore();
     }
 
     /**
@@ -100,11 +105,19 @@ public class FlashcardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Score} of the {@code Flashcard} that we are building.
+     */
+    public FlashcardBuilder withScore(int correctAns, int incorrectAns) {
+        this.score = new Score(correctAns, incorrectAns);
+        return this;
+    }
+
     public ShortAnswerFlashcard buildShortAnswerFlashcard() {
-        return new ShortAnswerFlashcard(question, definition, tags, answer);
+        return new ShortAnswerFlashcard(question, definition, tags, answer, score);
     }
 
     public McqFlashcard buildMcqFlashcard() {
-        return new McqFlashcard(question, choices, definition, tags, answer);
+        return new McqFlashcard(question, choices, definition, tags, answer, score);
     }
 }

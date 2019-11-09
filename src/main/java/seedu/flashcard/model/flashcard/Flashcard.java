@@ -149,6 +149,10 @@ public abstract class Flashcard {
         }
     }
 
+    public void skipAnswer() {
+        score.incrementWrongAnswer();
+    }
+
     /**
      * Checks whether the card is a MCQ Flashcard.
      * @return Returns true if the card is a McqFlashcard.
@@ -182,7 +186,9 @@ public abstract class Flashcard {
         Flashcard otherFlashcard = (Flashcard) other;
         return otherFlashcard.getQuestion().equals(getQuestion())
                 && otherFlashcard.getDefinition().equals(getDefinition())
-                && otherFlashcard.getTags().equals(getTags());
+                && otherFlashcard.getAnswer().equals(getAnswer())
+                && otherFlashcard.getTags().equals(getTags())
+                && otherFlashcard.getScore().equals(getScore());
     }
 
     @Override
@@ -195,7 +201,6 @@ public abstract class Flashcard {
             builder.append("\nTags:").append("\n");
             getTags().forEach(builder::append);
         }
-
         return builder.toString();
     }
 
