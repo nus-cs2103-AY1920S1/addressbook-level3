@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private LoginWindow loginWindow;
-    private boolean unknown;
+    private boolean isUnknown;
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.unknown = false;
+        this.isUnknown = false;
         reminderWindow = new ReminderWindow();
     }
 
@@ -364,11 +364,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setUnknownFalse() {
-        this.unknown = false;
+        this.isUnknown = false;
     }
 
     private void setUnknownTrue() {
-        this.unknown = true;
+        this.isUnknown = true;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -395,8 +395,8 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
 
-            CommandResult commandResult = logic.execute(commandText, this.unknown);
-            if (this.unknown) {
+            CommandResult commandResult = logic.execute(commandText, this.isUnknown);
+            if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
                     setUnknownFalse();
                 }
