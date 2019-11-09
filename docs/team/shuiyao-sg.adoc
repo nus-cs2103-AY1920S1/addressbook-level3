@@ -70,16 +70,13 @@ include::../UserGuide.adoc[tag=task]
 
 '''
 
-*I also envisioned more advanced features that will come in v2.0 of NUStudy as shown below.*
-
-include::../UserGuide.adoc[tag=task_2.0]
+*I also envisioned more advanced features such as sorting tasks and enabling push notifications that will come in v2.0 of NUStudy.
+You may refer to relevant sections in the User Guide.*
 
 '''
 
 *Apart from addition to my individual work, I also helped the team by adding a command summary of everyone's feature. This
-is shown in the following paragraphs.*
-
-include::../UserGuide.adoc[tag=command_summary]
+is shown in the following paragraphs. You may refer to the Command Summary section in the User Guide.*
 
 == Contributions to the Developer Guide
 '''
@@ -98,8 +95,6 @@ include::../DeveloperGuide.adoc[tag=task_usecase]
 
 '''
 
-*Apart from addition to my individual features, I also modified the diagrams of the UI and Model components as shown below.*
-
-include::../DeveloperGuide.adoc[tag=UIClassDiagram]
-
-include::../DeveloperGuide.adoc[tag=ModelClassDiagram]
+*Apart from addition to my individual features, I also modified the diagrams of the UI and Model components. You may refer
+to Figure 4. Class diagram of the UI component, Figure 5. Detailed class diagram for Panels package and Figure 8. Class diagram of the Model component
+in the Developer Guide.*

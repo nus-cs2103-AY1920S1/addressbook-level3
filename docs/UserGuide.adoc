@@ -494,16 +494,12 @@ The diagram below shows how a revision task looks like:
 image::UserGuideRes/TaskUI.png[600, 600]
 
 NOTE: The revision tasks are not synchronised with the note or the question. Once created, the task content will not
-change if you modify the corresponding note or question. We deliberately disassociate the task from notes and questions once created
-because we would like to allow you to customise the task headings in *version v2.0* of the app.
-
-NOTE: Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist
-in the revision task list. Even if they have different status, they still cannot co-exist
-because it does not make sense to have same tasks but different status.
+change if you modify the corresponding note or question. +
+Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist.
 
 ==== Adding a revision task for a note: `rn`
 You can add a revision task for a note to the current revision task list with this command.
-The heading will copy the title. +
+The heading will copy the title.
 The GUI will display all tasks upon completing the command. +
 Format: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
 
@@ -528,25 +524,20 @@ image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[600, 600]
 
 * All numerical inputs must be integers.
 * `DATE` input format should follow Singapore local date convention (i.e. dd/MM/yyyy).
-* `YEAR` is 4-digit. 0000 < yyyy < 9999.
-* `MONTH` is 2-digit. 00 < MM < 13.
-* `DATE` is 2-digit. 00 < dd < 32.
-* `HOUR` is 2-digit and follows 24-hour format. -01 < HH < 24.
-* `MINUTE` is 2-digit. -01 < mm < 60.
+* `YEAR` is 4-digit, 0000 < yyyy < 9999. `MONTH` is 2-digit, 00 < MM < 13. `DAY` is 2-digit, 00 < dd < 32.
+* `HOUR` is 2-digit and follows 24-hour format, -01 < HH < 24. `MINUTE` is 2-digit, -01 < mm < 60.
+* "2400" and "0000" for `TIME` are both valid and represent 12am on the same day.
 
-NOTE: There are some days of month which are valid for some months but invalid for others, eg. *31* is invalid for February, April,
+NOTE: Some days of month are valid for some months but invalid for others, eg. *31* is invalid for February, April,
 June, September, November; *30* is invalid for February; *29* is invalid for February in common years. But they are valid
-for other scenarios. Sometimes you may get confused about the number of days in a month. For example, you may happen to think
-that there are 31 days in September and you key in "31/09/2019". In this case, the day of month will automatically run
-down to the last valid day of that month.
-
-NOTE: "2400" and "0000" for `TIME` are both considered valid and represent 12am on the same day.
+for other scenarios. The day of month will automatically run down to the last valid day of that month in case you remember
+the number of days of a month wrongly.
 
 ====
 
 ==== Adding a revision task for a question: `rq`
 You can add a revision task for a question to the current revision task list with this command.
-The heading will copy the question body. +
+The heading will copy the question body.
 The GUI will display all tasks upon completing the command. +
 Format: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
 Example: +
@@ -555,7 +546,7 @@ Example: +
 NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Adding a revision task for a note: `rn`>>.
 
 ==== Removing revision task: `rdelete`
-You can remove a particular revision task from current list with this command. +
+You can remove a particular revision task from current list with this command.
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdelete INDEX_OF_TASK` +
 Example: +
@@ -570,7 +561,7 @@ image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[600, 600]
 +
 
 ==== Marking the revision task as done: `rdone`
-You can mark a task as done once you finished it. +
+You can mark a task as done once you finished it.
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdone INDEX` +
 
