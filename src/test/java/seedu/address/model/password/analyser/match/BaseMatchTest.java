@@ -7,6 +7,18 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 class BaseMatchTest {
+
+    private BaseMatch instance = new BaseMatchImpl(0 , 5, "dummy");
+
+    @Test
+    public void getToken() { assertEquals(instance.getToken(), "dummy");}
+
+    @Test
+    public void getStartIndex() { assertTrue(instance.getStartIndex() == 0);}
+
+    @Test
+    public void getEndIndex() { assertTrue(instance.getEndIndex() == 5);}
+
     @Test
     public void testConstructor() {
         BaseMatch instance = new BaseMatchImpl(0, 5, "dummy");

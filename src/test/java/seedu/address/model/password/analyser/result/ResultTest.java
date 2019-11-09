@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.password.Password;
 
 class ResultTest {
+
+    private Password p = new Password()
+    private Result instance = new ResultImpl()
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ResultImpl(null, ResultOutcome.PASS));
