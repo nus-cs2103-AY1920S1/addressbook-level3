@@ -52,10 +52,12 @@ CS ModBuddy is for those who prefer to use a desktop app for planning their modu
 
 ** Enhancements to existing features:
 *** Spearheaded initial tests for refactored models: Module, Semester, StudyPlan to increase coverage from 27% to 38% (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/200[#200])
-*** Improve aesthetics of GUI (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/246[#246])
+*** Wrote additional tests for GUI (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/324[#324])
+*** Improve aesthetics of GUI by fixing unintended bugs with colors (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/246[#246])
 *** Implement reading of required resource file `modulesinfo.json` from within the jar file (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/217[#217]).
 
 ** Project management:
+*** Role: Git Expert and Integration
 *** Managed releases from v1.1 to v1.3 on GitHub
 
 ** Tools:
@@ -83,5 +85,4 @@ include::../UserGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=logic]
 include::../DeveloperGuide.adoc[tag=undoredo]
-include::../DeveloperGuide.adoc[tag=userprofile]
-include::../DeveloperGuide.adoc[tag=valueproposition]
+include::../DeveloperGuide.adoc[tag=parser]

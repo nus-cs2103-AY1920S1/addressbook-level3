@@ -44,25 +44,18 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label studyPlanId;
-
     @FXML
     private Label title;
-
     @FXML
     private Label mcCount;
-
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private StackPane semesterListPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
-
     @FXML
     private StackPane studyPlanTagsPlaceholder;
 
@@ -186,11 +179,9 @@ public class MainWindow extends UiPart<Stage> {
                     commandBox.handleChangeOfActiveStudyPlan();
                 }
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             ResultViewType resultViewType = commandResult.getResultViewType();
             if (resultViewType != null) {
                 handleResult(resultViewType, commandResult.getResultContent());
@@ -231,11 +222,6 @@ public class MainWindow extends UiPart<Stage> {
             ObservableList<Semester> studyPlanContent = (ObservableList<Semester>) resultContent;
             SimpleSemesterListPanel simpleSemesterListPanel = new SimpleSemesterListPanel(studyPlanContent);
             resultDisplay.setResultView(simpleSemesterListPanel.getRoot());
-            break;
-        case COMMIT_HISTORY:
-            //ObservableList<Commit> commitContent = (ObservableList<Commit>) resultContent;
-            //CommitListPanel commitListPanel = new CommitListPanel(commitContent);
-            //resultDisplay.setResultView(commitListPanel.getRoot());
             break;
         default:
             throw new InvalidResultViewTypeException(resultViewType.name());

@@ -107,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying information to the user or refreshing the Ui.
 
 //end::logic[]
 
@@ -174,7 +174,7 @@ Additionally, it implements the following operations:
 * `VersionedModulePlanner#undo()` -- Restores the previous module planner state from its history.
 * `VersionedModulePlanner#redo()` -- Restores a previously undone module planner state from its history.
 
-These operations are exposed in the `Model` interface as `Model#saveToHistory()`, `Model#undo()` and `Model#redo()` respectively.
+These operations are exposed in the `Model` interface as `Model#addToHistory()`, `Model#undo()` and `Model#redo()` respectively.
 
 [NOTE]
 Currently, the undo-redo mechanism does not include/respond to changes to commands involving Commits - saving and removing changes to the storage files.
@@ -185,16 +185,16 @@ Step 1. The user launches the application for the first time. The `VersionedModu
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `addmod CS3233 y1s1` command to add the Module `CS3233` module into Semester `y1s1` in the active study plan. The `addmod` command calls `Model#saveToHistory()`, causing the modified state of the module planner after the `addmod CS3233 y1s1` command executes to be saved in the `historyStateList`, and the `currentStatePointer` is shifted to the newly inserted module planner state.
+Step 2. The user executes `addmod CS3233 y1s1` command to add the Module `CS3233` module into Semester `y1s1` in the active study plan. The `addmod` command calls `Model#addToHistory()`, causing the modified state of the module planner after the `addmod CS3233 y1s1` command executes to be saved in the `historyStateList`, and the `currentStatePointer` is shifted to the newly inserted module planner state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `removemod CS1101s y1s1` to remove the Module `CS1101S` module from Semester `y1s1` in the active study plan. The `remove` command also calls `Model#saveToHistory()`, causing another modified module planner state to be saved into the `historyStateList`.
+Step 3. The user executes `removemod CS1101s y1s1` to remove the Module `CS1101S` module from Semester `y1s1` in the active study plan. The `remove` command also calls `Model#addToHistory()`, causing another modified module planner state to be saved into the `historyStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#saveToHistory()`, so the module planner state will not be saved into the `historyStateList`.
+If a command fails its execution, it will not call `Model#addToHistory()`, so the module planner state will not be saved into the `historyStateList`.
 
 Step 4. The user now decides that removing the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous module planner state, and restores the module planner to that state.
 
@@ -214,9 +214,13 @@ The `redo` command does the opposite -- it calls `Model#redo()`, which shifts th
 [NOTE]
 If the `currentStatePointer` is at index `historyStateList.size() - 1`, pointing to the latest module planner state, then there are no undone module planner states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `history`. Commands that do not modify the module planner, such as `history`, will usually not call `Model#saveToHistory()`, `Model#undo()` or `Model#redo()`. Thus, the `historyStateList` remains unchanged.
+Step 5. The user then decides to execute the command `history`. Commands that do not modify the module planner, such as `history`, will usually not call `Model#addToHistory()`, `Model#undo()` or `Model#redo()`. Thus, the `historyStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -230,6 +234,43 @@ image::UndoRedoState4.png[]
 ** Cons: Tedious because there are a lot of commands and we must ensure that the implementation of each individual command are correct.
 
 //end::undoredo[]
+
+// tag::parser[]
+
+=== Parser
+==== Current Implementation
+
+The current parsing mechanism is facilitated by `ArgumentTokenizer` and `ArgumentMultimap`.
+
+image::ParserDiagram.png[]
+
+Given below is an example usage scenario and how the parsing mechanism behaves at each step.
+
+image::ParserSequenceDiagram.png[]
+
+Step 1. The user enters the `addmod MODULE_CODE SEMESTER`. command to add a module with the moduel code _MODULE_CODE_ to the
+semester with the name _SEMESTER_. In this case, the command entered is `addmod CS2102 Y1S1`.
+
+Step 2. The Ui component sends the commadn to the `LogicManager` to parse the command. The `ModulePlannerParser` detects the COMMAND_WORD of the command, `addmod`, and creates an instance of the `AddModuleParser` class. 
+
+Step 3. The `AddModuleParser` instance then calls `ArgumentTokeniser` static method, tokenise, with arguments _ARG_STRING_, _MODULE_PATTERN_ and _SEMESTER_PATTERN_. These patterns are instances of Java `Patterns` class and are pre-defined in the CliSyntax class. They are passed into the tokenise method so that the `ArgumentTokeniser` knows to parse to find these patterns.
+
+Step 4. The `ArgumentTokeniser` then creates an `ArgumentMultiMap` based on the specified patterns, which is then returned to the `AddModuleParser`.
+
+Step 5. The `ArgumentMultiMap` is then used to obtain the arguments to create an instance of the `AddModuleCommand` class.
+
+==== Design Considerations
+
+===== Aspect: How parser is implemented
+
+* **Alternative 1 (current choice):** Use Java `Pattern` class to detect argument types.
+** Pros: User no longer has to type prefixes before each argument type to declare the parameter of the argument.
+** Cons: Difficult to implement because it requires a lot of corner case detection, and also does not consider the order of arguments being entered.
+* **Alternative 2:** Use prefixes (similar to that implemented in Address Book 3) so that user declares type of parameter before each argument in the command.
+** Pros: Easy to implement.
+** Cons: User has to type in prefixes, which will reduce ease and efficiency of application use.
+
+//end::parser[]
 
 // tag::versiontracking[]
 === Version Tracking

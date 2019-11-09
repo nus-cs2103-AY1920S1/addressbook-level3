@@ -3,66 +3,60 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ModulePlannerParser" as ModulePlannerParser LOGIC_COLOR
+participant ":AddModuleParser" as AddModuleParser LOGIC_COLOR
+participant "ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "a:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "d:AddModuleCommand" as AddModuleCommand LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("addmod\n CS2102 Y1S1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> ModulePlannerParser : parseCommand("addmod \nCS2102 Y1S1")
+activate ModulePlannerParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create AddModuleParser
+ModulePlannerParser -> AddModuleParser
+activate AddModuleParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+AddModuleParser --> ModulePlannerParser
+deactivate AddModuleParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+ModulePlannerParser -> AddModuleParser : parse("CS2102 Y1S1")
+activate AddModuleParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+AddModuleParser -> ArgumentTokenizer : tokenise("CS2102 Y1S1", \n MODULE_PATTERN, \nSEMESTER_PATTERN)
+activate ArgumentTokenizer
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+create ArgumentMultimap
+ArgumentTokenizer -> ArgumentMultimap
+activate ArgumentMultimap
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+ArgumentMultimap --> ArgumentTokenizer: a
+deactivate ArgumentMultimap
+
+ArgumentTokenizer --> AddModuleParser: a
+deactivate ArgumentTokenizer
+
+create AddModuleCommand
+AddModuleParser -> AddModuleCommand
+activate AddModuleCommand
+
+AddModuleCommand --> AddModuleParser : d
+deactivate AddModuleCommand
+
+AddModuleParser --> ModulePlannerParser : d
+deactivate AddModuleParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+AddModuleParser -[hidden]-> ModulePlannerParser
+destroy AddModuleParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+ModulePlannerParser --> LogicManager : d
+deactivate ModulePlannerParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
-activate Model
-
-Model --> DeleteCommand
-deactivate Model
-
-create CommandResult
-DeleteCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> DeleteCommand
-deactivate CommandResult
-
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
 
 [<--LogicManager
 deactivate LogicManager
