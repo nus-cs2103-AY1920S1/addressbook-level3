@@ -68,6 +68,10 @@ public class CardNumber {
         return value;
     }
 
+    public String getCardNumberWithoutDashes() {
+        return value.substring(0, 4) + value.substring(5, 9) + value.substring(10, 14) + value.substring(15, 19);
+    }
+
     @Override
     public String toString() {
         return getEncryptedCardNumber();

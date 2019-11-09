@@ -67,6 +67,14 @@ public class Card {
     }
 
     /**
+     * Returns the non-encrypted CardNumber without dashes
+     * @return non-encrypted CardNumber without dashes
+     */
+    public String getCardNumberWithoutDashes() {
+        return cardNumber.getCardNumberWithoutDashes();
+    }
+
+    /**
      * Returns the non-encrypted CardNumber
      * @return non-encrypted CardNumber
      */
