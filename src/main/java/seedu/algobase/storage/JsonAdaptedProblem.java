@@ -95,7 +95,7 @@ class JsonAdaptedProblem {
         final Id modelId = retrieveId(id);
         final Name modelName = retrieveName(name);
         final Author modelAuthor = retrieveAuthor(author);
-        final WebLink modelWebLink = retrieveWeblink(weblink);
+        final WebLink modelWebLink = retrieveWebLink(weblink);
         final Description modelDescription = retrieveDescription(description);
         final Difficulty modelDifficulty = retrieveDifficulty(difficulty);
         final Remark modelRemark = retrieveRemark(remark);
@@ -173,16 +173,16 @@ class JsonAdaptedProblem {
      * @return the corresponding Weblink Object.
      * @throws IllegalValueException if string format is invalid.
      */
-    public WebLink retrieveWeblink(String weblink) throws IllegalValueException {
+    public WebLink retrieveWebLink(String weblink) throws IllegalValueException {
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WebLink.class.getSimpleName()));
         }
 
-        if (WebLink.isDefaultWeblink(weblink)) {
+        if (WebLink.isDefaultWebLink(weblink)) {
             return WebLink.DEFAULT_WEBLINK;
         }
 
-        if (!WebLink.isValidWeblink(weblink)) {
+        if (!WebLink.isValidWebLink(weblink)) {
             throw new IllegalValueException(WebLink.MESSAGE_CONSTRAINTS);
         }
 

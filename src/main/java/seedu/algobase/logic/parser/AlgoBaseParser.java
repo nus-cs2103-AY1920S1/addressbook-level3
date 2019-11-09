@@ -52,6 +52,9 @@ import seedu.algobase.logic.parser.problem.FindCommandParser;
 import seedu.algobase.logic.parser.problem.SortCommandParser;
 import seedu.algobase.logic.parser.storage.ExportCommandParser;
 import seedu.algobase.logic.parser.storage.ImportCommandParser;
+import seedu.algobase.logic.parser.tag.AddTagCommandParser;
+import seedu.algobase.logic.parser.tag.DeleteTagCommandParser;
+import seedu.algobase.logic.parser.tag.EditTagCommandParser;
 import seedu.algobase.logic.parser.task.AddTaskCommandParser;
 import seedu.algobase.logic.parser.task.CopyTaskCommandParser;
 import seedu.algobase.logic.parser.task.DeleteTaskCommandParser;
@@ -160,8 +163,10 @@ public class AlgoBaseParser {
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
 
+
         // Find Rule
         case AddFindRuleCommand.COMMAND_WORD:
+            // Fallthrough
         case AddFindRuleCommand.SHORT_COMMAND_WORD:
             return new AddFindRuleCommandParser().parse(arguments);
 
@@ -169,6 +174,7 @@ public class AlgoBaseParser {
             return new ApplyCommandParser().parse(arguments);
 
         case DeleteFindRuleCommand.COMMAND_WORD:
+            // Fallthrough
         case DeleteFindRuleCommand.SHORT_COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
 
@@ -181,14 +187,17 @@ public class AlgoBaseParser {
 
         // UI
         case SwitchTabCommand.COMMAND_WORD:
+            // Fallthrough
         case SwitchTabCommand.SHORT_COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 
         case OpenTabCommand.COMMAND_WORD:
+            // Fallthrough
         case OpenTabCommand.SHORT_COMMAND_WORD:
             return new OpenTabCommandParser().parse(arguments);
 
         case CloseTabCommand.COMMAND_WORD:
+            // Fallthrough
         case CloseTabCommand.SHORT_COMMAND_WORD:
             return new CloseTabCommandParser().parse(arguments);
 

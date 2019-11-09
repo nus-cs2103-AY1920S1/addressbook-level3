@@ -102,7 +102,7 @@ public class ProblemCard extends UiPart<Region> {
         description.setTextAlignment(TextAlignment.JUSTIFY);
 
         // Weblink
-        if (!WebLink.isDefaultWeblink(problem.getWebLink())) {
+        if (!WebLink.isDefaultWebLink(problem.getWebLink())) {
             weblink.setText(problem.getWebLink().value);
         } else {
             weblink.setText("Not specified");
@@ -142,7 +142,11 @@ public class ProblemCard extends UiPart<Region> {
         source.setTextAlignment(TextAlignment.JUSTIFY);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label l = new Label(tag.tagName);
+                    l.setStyle("-fx-background-color: " + tag.getColor() + ";");
+                    tags.getChildren().add(l);
+                });
         this.addMouseClickListener();
     }
 
@@ -176,15 +180,15 @@ public class ProblemCard extends UiPart<Region> {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
 
                         logger.info(
-                            "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
-                                + " with a ModelType of " + ModelType.PROBLEM
-                                + " with ID of " + problem.getId()
+                                "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
+                                        + " with a ModelType of " + ModelType.PROBLEM
+                                        + " with ID of " + problem.getId()
                         );
 
                         uiActionExecutor.execute(new UiActionDetails(
-                            UiActionType.OPEN_DETAILS_TAB,
-                            ModelType.PROBLEM,
-                            problem.getId()
+                                UiActionType.OPEN_DETAILS_TAB,
+                                ModelType.PROBLEM,
+                                problem.getId()
                         ));
                     }
                 }

@@ -32,6 +32,8 @@ public class SetPlanCommand extends Command {
     private final Index targetIndex;
 
     public SetPlanCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 

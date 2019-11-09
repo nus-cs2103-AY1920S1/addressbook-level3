@@ -1,7 +1,7 @@
 package seedu.algobase.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.tag.Tag;
@@ -12,25 +12,24 @@ import seedu.algobase.model.tag.Tag;
 class JsonAdaptedTag {
 
     private final String tagName;
+    private final String tagColor;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedTag(@JsonProperty("name") String tagName,
+                          @JsonProperty("color") String tagColor) {
         this.tagName = tagName;
+        this.tagColor = tagColor;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
-    }
-
-    @JsonValue
-    public String getTagName() {
-        return tagName;
+        this.tagName = source.getName();
+        this.tagColor = source.getColor();
     }
 
     /**
@@ -40,9 +39,12 @@ class JsonAdaptedTag {
      */
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_NAME_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        if (!Tag.isValidTagColor(tagColor)) {
+            throw new IllegalValueException(Tag.MESSAGE_COLOR_CONSTRAINTS);
+        }
+        return new Tag(tagName, tagColor);
     }
 
 }

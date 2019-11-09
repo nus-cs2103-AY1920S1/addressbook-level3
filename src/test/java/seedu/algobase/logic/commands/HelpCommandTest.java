@@ -3,7 +3,7 @@ package seedu.algobase.logic.commands;
 import static seedu.algobase.commons.util.AppUtil.getClassStringField;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.algobase.testutil.Assert.assertThrows;
-import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
+import static seedu.algobase.testutil.TypicalAlgoBase.getTypicalAlgoBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,10 @@ import seedu.algobase.model.UserPrefs;
 class HelpCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
+    private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, "
+        + "clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, edittagcolor, exit, "
+        + "find, findplan, help, list, listplan, listtag, sort, switchtab, undonetask]\n"
+        + "More information can be found in the popup window.";
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

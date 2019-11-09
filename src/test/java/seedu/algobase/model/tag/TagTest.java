@@ -1,10 +1,12 @@
 package seedu.algobase.model.tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class TagTest {
+class TagTest {
 
     @Test
     public void testGetName() {
@@ -15,13 +17,13 @@ public class TagTest {
     @Test
     public void testEquals() {
         Tag tag = new Tag("Easy");
-        assertEquals(false, tag.equals(new Tag("easy")));
-        assertEquals(true, tag.equals(new Tag("Easy")));
+        assertFalse(tag.equals(new Tag("easy")));
+        assertTrue(tag.equals(new Tag("Easy")));
     }
 
     @Test
     public void testIsValidTagName() {
-        assertEquals(false, Tag.isValidTagName("very difficult"));
-        assertEquals(true, Tag.isValidTagName("Sort"));
+        assertFalse(Tag.isValidTagName("very difficult"));
+        assertTrue(Tag.isValidTagName("Sort"));
     }
 }

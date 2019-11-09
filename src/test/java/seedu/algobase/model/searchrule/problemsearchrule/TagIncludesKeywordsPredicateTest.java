@@ -1,26 +1,27 @@
+//@@author le0tan
 package seedu.algobase.model.searchrule.problemsearchrule;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 class TagIncludesKeywordsPredicateTest {
     private static final TagIncludesKeywordsPredicate VALID_PREDICATE_ONE =
-        new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("Steven Halim")));
+        new TagIncludesKeywordsPredicate(Collections.singletonList(new Keyword("Steven Halim")));
     private static final TagIncludesKeywordsPredicate VALID_PREDICATE_ONE_COPY =
-        new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("Steven Halim")));
+        new TagIncludesKeywordsPredicate(Collections.singletonList(new Keyword("Steven Halim")));
     private static final TagIncludesKeywordsPredicate VALID_PREDICATE_TWO =
-        new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("Tan Sun Teck")));
+        new TagIncludesKeywordsPredicate(Collections.singletonList(new Keyword("Tan Sun Teck")));
 
     @Test
     void equals() {
-        assertTrue(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_ONE));
-        assertFalse(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_TWO));
-        assertFalse(VALID_PREDICATE_ONE.equals(5));
-        assertFalse(VALID_PREDICATE_ONE.equals(null));
-        assertTrue(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_ONE_COPY));
+        assertEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_ONE);
+        assertNotEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_TWO);
+        assertNotEquals(5, VALID_PREDICATE_ONE);
+        assertNotEquals(null, VALID_PREDICATE_ONE);
+        assertEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_ONE_COPY);
     }
 }

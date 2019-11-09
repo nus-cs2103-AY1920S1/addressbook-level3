@@ -8,6 +8,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_UI_ACTION = "Unknown action";
     public static final String MESSAGE_UNKNOWN_UI_ACTION_PROPERTY = "Unknown action property";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX = "The Find Rule index provided is invalid";
     public static final String MESSAGE_INVALID_PLAN_DISPLAYED_INDEX = "The Plan index provided is invalid";
@@ -21,6 +22,4 @@ public class Messages {
     public static final String MESSAGE_INVALID_KEYWORD_FORMAT = "Invalid keyword format! \n%1$s";
     public static final String MESSAGE_INVALID_NAME_FORMAT = "Invalid name format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DATE = "Due date of task does not lie inside date range of plan.";
-    public static final String MESSAGE_TASK_ALREADY_DONE = "Task [%1$s] already marked as done.";
-    public static final String MESSAGE_TASK_NOT_YET_DONE = "Task [%1$s] not yet marked as done.";
 }

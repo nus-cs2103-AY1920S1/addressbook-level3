@@ -1,11 +1,17 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.tag;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG_COLOR;
 
 import java.util.stream.Stream;
 
 import seedu.algobase.logic.commands.tag.AddTagCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
+import seedu.algobase.logic.parser.Prefix;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.tag.Tag;
 
@@ -21,12 +27,19 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      */
     public AddTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_TAG_COLOR);
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
-        Tag tag = new ParserUtil().parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        String color;
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG_COLOR)) {
+            color = argMultimap.getValue(PREFIX_TAG_COLOR).get();
+        } else {
+            color = Tag.DEFAULT_COLOR;
+        }
+        Tag tag = new ParserUtil().parseTag(argMultimap.getValue(PREFIX_TAG).get(), color);
+
         return new AddTagCommand(tag);
     }
 

@@ -39,6 +39,6 @@ public class EditProblemCommandIntegrationTest {
 
     @Test
     public void editproblem_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("editprob 1 n/changed w/http://127.0.0.1 d/changed t/changed src/changed\n");
+        logicManager.execute("editprob 1 n/changed w/http://google.com d/changed t/changed src/changed\n");
     }
 }

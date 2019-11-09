@@ -35,10 +35,11 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditProblemUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 8;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;
         assert uiActionDetails.get(NAME_INDEX) instanceof String;
@@ -65,7 +66,7 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
 
         String weblinkString = UiParserUtil.parseString(uiActionDetails.get(WEBLINK_INDEX));
         if (!weblinkString.isBlank()) {
-            editProblemDescriptor.setWebLink(ParserUtil.parseWeblink(weblinkString));
+            editProblemDescriptor.setWebLink(ParserUtil.parseWebLink(weblinkString));
         }
 
         String descriptionString = UiParserUtil.parseString(uiActionDetails.get(DESCRIPTION_INDEX));

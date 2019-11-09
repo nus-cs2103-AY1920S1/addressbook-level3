@@ -35,6 +35,9 @@ Predicate <|.. TimeRangePredicate
 PlanNameContainsKeywordsPredicate <--* FindPlanDescriptor
 PlanDescriptionContainsKeywordsPredicate <--* FindPlanDescriptor
 TimeRangePredicate <--* FindPlanDescriptor
+TimeRange <--* LocalDate : startDate
+TimeRange <--* LocalDate : endDate
+
 
 TimeRange <-down- TimeRangePredicate
 
