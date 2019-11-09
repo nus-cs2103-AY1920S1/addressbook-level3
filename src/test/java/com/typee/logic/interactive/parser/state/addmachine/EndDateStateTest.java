@@ -6,6 +6,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYP
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -164,15 +165,27 @@ class EndDateStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // EP : ArgumentMultimap without an end date prefix.
+        // Equivalence Partitions : ArgumentMultimap without an end date prefix,
+        // ArgumentMultimap with duplicate prefixes.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_LOCATION);
-        List<String> args = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
+        // EP :  No end date prefix.
+        List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_LOCATION);
 
-        State initialState = new EndDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 2), args.subList(0, 2)));
-        assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(2, 3), args.subList(2, 3))));
+        // EP : Duplicate prefix.
+        List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_ENGAGEMENT_TYPE);
+        List<String> firstArgs = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
+        List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "meeting");
+
+        State firstState = new EndDateState(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(0, 2), firstArgs.subList(0, 2)));
+        State secondState = new EndDateState(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(0, 2), secondArgs.subList(0, 2)));
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(2, 3), firstArgs.subList(2, 3))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(2, 4), secondArgs.subList(2, 4))));
     }
 
     @Test
@@ -185,7 +198,7 @@ class EndDateStateTest {
     @Test
     void isEndState_valid_returnsFalse() {
         State state = new EndDateState(new ArgumentMultimap());
-        assertEquals(state.isEndState(), false);
+        assertFalse(state.isEndState());
     }
 
     @Test

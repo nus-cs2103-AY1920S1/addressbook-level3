@@ -8,6 +8,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -192,16 +193,29 @@ class AttendeesStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // Equivalence Partition : ArgumentMultimap without an attendees prefix.
+        // Equivalence Partition : ArgumentMultimap without an attendees prefix, duplicate prefixes
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_LOCATION,
-                PREFIX_DESCRIPTION, PREFIX_PRIORITY);
-        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "desc", "low");
+        // EP : No attendees prefix
+        List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_LOCATION, PREFIX_DESCRIPTION, PREFIX_PRIORITY);
 
-        State initialState = new AttendeesState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 5), args.subList(0, 5)));
-        assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(5, 6), args.subList(5, 6))));
+        // EP : Duplicate prefixes
+        List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_LOCATION, PREFIX_DESCRIPTION, PREFIX_ATTENDEES, PREFIX_DESCRIPTION);
+
+        List<String> firstArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "desc", "low");
+        List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "desc",
+                "John | Kelly", "new desc");
+
+        State firstState = new AttendeesState(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(0, 5), firstArgs.subList(0, 5)));
+        State secondState = new AttendeesState(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(0, 5), secondArgs.subList(0, 5)));
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(5, 6), firstArgs.subList(5, 6))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(5, 7), secondArgs.subList(5, 7))));
     }
 
     @Test
@@ -214,7 +228,7 @@ class AttendeesStateTest {
     @Test
     void isEndState_valid_returnsFalse() {
         State state = new AttendeesState(new ArgumentMultimap());
-        assertEquals(state.isEndState(), false);
+        assertFalse(state.isEndState());
     }
 
     @Test

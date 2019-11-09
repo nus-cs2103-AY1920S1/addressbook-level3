@@ -83,9 +83,6 @@ public class FindLocationState extends State implements OptionalState {
 
     @Override
     public boolean canBeSkipped(ArgumentMultimap newArgs) {
-        if (newArgs.getValue(PREFIX_LOCATION).isPresent()) {
-            return false;
-        }
-        return true;
+        return newArgs.getValue(PREFIX_LOCATION).isEmpty();
     }
 }
