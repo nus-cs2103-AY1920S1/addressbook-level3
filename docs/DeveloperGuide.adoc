@@ -775,6 +775,8 @@ Use case ends
 ** Steps 1d1 - 1d2 are repeated until getting a correct input with valid date and time
 * Use case resumes from Step 2
 
+//end::task_usecase[]
+
 [discrete]
 === Use case: Delete a task from revision plan (Shui Yao)
 
@@ -803,7 +805,6 @@ Use case ends
 ** 3a2. Student enters correct input with valid index
 ** Steps 3a1 - 3a2 are repeated until getting a valid index
 * Use case resumes from Step 2
-//end::task_usecase[]
 
 [discrete]
 === Use case: Clear the revision plan (Shui Yao)
