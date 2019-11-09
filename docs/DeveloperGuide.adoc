@@ -524,34 +524,17 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 === Book loaning feature
 
-==== Functionalities
-The functionalities and commands associated with the book loaning feature are:
-
-* `loan sn/BOOK_SN`
-
-** Loans out a book based on its serial number.
-
-* `return INDEX` or `return -all`
-
-** Return a book based on its index or all of the borrower's loaned out book.
-
-* `renew INDEX` or `renew -all`
-
-** Renews a book based on its index or all of the borrower's renewable book.
-
-* `pay AMOUNT`
-
-** Pay a fine amount incurred by overdue books.
-
 ==== Implementation
 
-This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
-at the state when a book is just loaned out can be seen below.
+The functionalities and commands associated with the book loaning feature are `loan`, `return`, `renew` and `pay`.
+This feature set is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`.
+
+The object diagram at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
 image::LoanObjectDiagram.png[width=800, align=center]
 
-In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
+At that instant shown in the diagram, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
 The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
 Both the `Book` and `Borrower` objects also have access to this `Loan` object.
 
@@ -567,7 +550,10 @@ The following activity diagram summarizes what happens when a user enters a loan
 .Activity diagram when a loan command is entered
 image::LoaningActivityDiagram.png[width=580, align=center]
 
-When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
+After `LoanCommand#execute(model)` is called, this series of checks shown in the above diagram are done to determine if
+the book can be loaned to the currently served borrower.
+
+When a book is successfully loaned out to a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
 `LoanRecords` through the call to `Model#addLoan(loan)`.
@@ -598,7 +584,7 @@ The following sequence diagram illustrates the series of method calls when a `Re
 .Sequence diagram illustrating the execution of a RenewCommand
 image::RenewSequenceDiagram.png[width=700, align=center]
 
-Firstly, a list of books that can be renewed is obtained through the `RenewCommand#getRenewingBooks(model)` method.
+As seen in the diagram, firstly, a list of books that can be renewed is obtained through the `RenewCommand#getRenewingBooks(model)` method.
 For each `Loan` object associated with each book, a new instance is created with its original `renewCount` incremented by 1 and its
 `dueDate` extended by the renew period set in the user settings. This is done through the method call to `Loan#renewLoan(extendedDueDate)`.
 The call to `Book#renewBook(renewedLoan)` then returns a new instance of this book with its loan object updated.
@@ -626,22 +612,25 @@ point to the same the same `Loan` object. LiBerry's storage system is such that 
 `BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
 loans are serialized and stored in the user's file system.
 
-* **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
-object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
+* **Alternative 1:** Save the entire `Loan` object in each book in `catalog.json` and save the entirety of every single `Loan`
+object associated with a borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
 ** *Pros*: Easy to implement. No need to read storage files in a specific order.
 ** *Cons*: Storage memory size issues. Same information is duplicated and stored in all 3 storage files. +
 {empty} +
 
-* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
+* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in `catalog.json`
 and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
-`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
+`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` needs to be read
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
 ** *Pros*: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
-Also, `LoanRecords` thus serve as a single source of truth.
-** *Cons*: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
-after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
+** *Cons*: The reading of stored files have to be in a certain correct order. It must be ensured that the correct `Loan` object is referenced
+after reading in `borrowerrecords.json` and `catalog.json`, and also every time a `Loan` object is updated. Method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
+
+*Alternative 2* was chosen as this significantly reduced the file size of the storage files.
+If alternative 1 was used, the memory needed to store each `Loan` object would be 3 times more compared to alternative 2.
+Furthermore, `LoanRecords` could then also serve as a single source of truth for loan data.
 
 ===== Aspect: Data structure to support recording of loans in LoanRecords
 
@@ -656,6 +645,10 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 ** *Pros*: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
 ** *Cons*: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
+
+*Alternative 2* was chosen as the application frequently needs to retrieve and access a `Loan` object based on its `LoanId`.
+Thus, using a `HashMap` would greatly reduce the time needed for such operations. Moreover, the application rarely needed
+to obtain the insertion order of a `Loan` object.
 
 // end::bookLoaningFeatures[]
 
