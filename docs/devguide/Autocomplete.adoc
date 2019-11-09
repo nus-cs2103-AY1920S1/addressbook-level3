@@ -1,11 +1,11 @@
-==== Overview Of Implementation
+=== Overview Of Implementation
 The auto-complete mechanism extends NurseTraverse with 3 functionalities +
 
 - Completing word in command box
 - Suggesting of words that are compatible with previous sub-commands
 - Guide for user to select from the various sub-commands +
 
-Given below is an example usage scenario
+Given below is an example usage scenario when user inputs a letter into the command box +
 
 Step 1:
 When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`, which implements the following operations:
@@ -37,11 +37,23 @@ This will update the number of matched words with the current list and 3 sets of
 -> If the word in the filter list does not start with the last partially typed word, it will be filtered out +
 (Eg: User typed “pat-ad”. “add” and “add-medcon” which are both in the current list will be suggested since they both starts with "ad".)
 
-The following sequence diagram illustrates what happens when user inputs a letter into the command box: +
+The following sequence diagram illustrates the flow of how list is generated when user input is detected : +
 
 image::AutocompleteSequenceDiagram.png[]
 
-==== Design Considerations
+=== Design Considerations
+===== Aspect: Communication between UiParts +
+(`CommandBox`, `AutoCompletePanel` and `ResultDisplay`) +
+
+* **Alternative 1:** Pass in references of each UiParts components around
+** Pros: Simpler to call methods as required, code will be easier to understand and implementation will take less effort
+** Cons: Code will be harder to track since any component with reference to the UiPart can manipulate its property
+
+* **Alternative 2(current choice):** Implement facades and observer patterns
+** Pros: Code is easier to maintain
+** Cons: Less readability
+
+=== Logic Design Considerations
 ===== Aspect: Method to suggest auto-complete words
 
 * **Alternative 1:** Have several lists. First word list, Second word list, etc
@@ -56,6 +68,13 @@ image::AutocompleteSequenceDiagram.png[]
 ** Pros: User will be guided. Very user friendly. Panel will be more organised as words are suggested in sets of the same type.
 ** Cons: Parsing of command line input can be tedious.
 
-==== Logic Design Considerations
+=== UI Design Considerations
+===== Aspect: Location of autocomplete panel
 
-==== UI Design Considerations
+* **Alternative 1:** Place it as a floating window
+** Pros: User is able to resize and can be moved around easily
+** Cons: A floating window may block out some of the UI of the application, and user will have to re-place the autocomplete panel every time the application starts
+
+* **Alternative 2(current choice):** Fix it permanently at a pre-set location
+** Pros: Simpler and user will get use to the its location easier since it is pre-set
+** Cons: Less customisable for user
