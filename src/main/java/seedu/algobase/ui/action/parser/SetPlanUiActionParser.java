@@ -22,10 +22,11 @@ public class SetPlanUiActionParser implements UiParser<SetPlanUiAction> {
 
     @Override
     public SetPlanUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 1;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;
 

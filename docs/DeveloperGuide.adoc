@@ -540,7 +540,6 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author
 
 //@@author tiuweehan
-// tag::gui[]
 === GUI Enhancements
 
 An intuitive GUI facilitates the overall user friendliness of the application.
@@ -551,13 +550,14 @@ In this case, having a GUI will be more beneficial to the user and facilitates a
 Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time.
 This, we introduced tabbing, which facilitates multitasking in AlgoBase, which is an important requirement for competitive programmers.
 
+// tag::gui[]
 ==== Graphical User Interface Enhancements
 
 ===== Current Implementation
 
 The following classes facilitate the handling of GUI actions:
 
-* `UiActionType` - An enum of the types of UI actions that exist in AlgoBase.
+* `UiActionType` - An Enum of the types of UI actions that exist in AlgoBase.
 * `UiActionDetails` - An object containing details of a UI action.
 * `UiAction` - Interface with instructions for executing a UI action.
 * `UiLogicManager` - Manages the overall UI Logic.
@@ -576,7 +576,7 @@ image::gui/EditProblemUiActionSequenceDiagram0.png[]
 
 Step 1: The user edits the `ProblemDetails` controller class through his/her actions in the GUI.
 
-Step 2: The `ProblemDetails` class constructs a new `UiActionDetails` object with using `UiActionType.EditProblem`.
+Step 2: The `ProblemDetails` class constructs a new `UiActionDetails` object of type `UiActionType.EditProblem`.
 
 Step 3: The `executeUiAction` of the `MainWindow` class is called with the `UiActionDetails` object,
 which in turn calls the `execute` method of `UiLogicManager`.
@@ -588,13 +588,13 @@ The following diagram goes into more details on how the `UiLogic` handles the `U
 .Interactions between classes in the `UiLogic`
 image::gui/EditProblemUiActionSequenceDiagram1.png[]
 
-Step 1: The `UiLogicManager` passes the `UiActionDetails` object to the `AlgoBaseActionParser`,
+Step 1: The `UiLogicManager` passes the `UiActionDetails` object to the `AlgoBaseUiActionParser`,
 which in turn passes it to the `EditProblemUiActionParser` based on its Action type.
 
 Step 2: The `EditProblemUiActionParser` converts the `UiActionDetails` object into a `EditProblemUiAction` object,
 and passes it back to the `UiLogicManager`.
 
-Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `CommandResult`.
+Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `UiActionResult`.
 
 ==== Graphical User Interface State
 
@@ -605,14 +605,12 @@ The following class diagram illustrates how the classes in the `GuiState` intera
 .Class Diagram for the `GuiState` class
 image::design/model/GuiPackageDiagram.png[width='60%']
 
-The information stored in the GuiState is linked to the `UI` through listeners. For example, when the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
-
-In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
-
 The following Activity diagram illustrates the series of actions that occur when the user opens a new tab:
 
+.Activity Diagram for Opening a new Tab from the GUI
 image::gui/OpenTabUiActionActivityDiagram.png[]
 
+In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
 The Sequence diagram below also shows how the GuiState is saved to Storage.
 
 .Sequence Diagram for storing new GUI state

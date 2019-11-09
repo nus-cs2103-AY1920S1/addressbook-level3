@@ -33,10 +33,11 @@ public class EditPlanUiActionParser implements UiParser<EditPlanUiAction> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditPlanUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 5;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;
         assert uiActionDetails.get(PLAN_NAME_INDEX) instanceof String;

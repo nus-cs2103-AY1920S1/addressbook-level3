@@ -26,10 +26,11 @@ public class DeletePlanUiActionParser implements UiParser<DeletePlanUiAction> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePlanUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 1;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;
 
