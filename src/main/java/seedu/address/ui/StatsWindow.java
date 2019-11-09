@@ -71,15 +71,7 @@ public class StatsWindow extends UiPart<Stage> {
         final BarChart<String, Number> bc2 = new BarChart<>(xAxisB, yAxisB);
         final LineChart<Number, Number> lc = new LineChart<>(xAxisC, yAxisC);
 
-        bc1.setTitle("Total");
-        bc2.setTitle("Completed in tests");
-        lc.setTitle("Performance Chart");
-        xAxisA.setLabel("Rating");
-        yAxisA.setLabel("Number of FlashCards");
-        xAxisB.setLabel("Rating");
-        yAxisB.setLabel("Number of FlashCards");
-        xAxisC.setLabel("Test Number");
-        yAxisC.setLabel("Percentage");
+        initialize(bc1, bc2, lc, xAxisA, xAxisB, xAxisC, yAxisA, yAxisB, yAxisC);
 
         int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(GOOD)).size();
         int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(HARD)).size();
@@ -152,6 +144,27 @@ public class StatsWindow extends UiPart<Stage> {
         n2.setStyle("-fx-bar-fill: red");
         n2 = bc2.lookup(".data2.chart-bar");
         n2.setStyle("-fx-bar-fill: green");
+    }
+
+    /**
+     * Sets the title & labels the axis of the charts.
+     * Sets the boundary and precision for the axis if needed.
+     */
+    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB, NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC) {
+        bc1.setTitle("Total");
+        bc2.setTitle("Completed in tests");
+        lc.setTitle("Performance Chart");
+        xAxisA.setLabel("Rating");
+        yAxisA.setLabel("Number of FlashCards");
+        xAxisB.setLabel("Rating");
+        yAxisB.setLabel("Number of FlashCards");
+        xAxisC.setLabel("Test Number");
+        yAxisC.setLabel("Percentage");
+
+        yAxisC.setAutoRanging(false);
+        yAxisC.setLowerBound(0);
+        yAxisC.setUpperBound(100);
+        yAxisC.setTickUnit(1);
     }
 
     /**
