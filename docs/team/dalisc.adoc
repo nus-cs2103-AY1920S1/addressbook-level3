@@ -71,6 +71,8 @@ We wrote a User Guide targeted at the users of Mortago. The User Guide containts
 made for the `stats`, `fitler`, and `find` features.
 
 _{start of extract 1: stats command}_
+==== View admission statistics: `stats`
+
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
 The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
@@ -100,6 +102,7 @@ _{end of extract 1}_
 
 
 _{start of extract 2: filter command}_
+==== Filter all entries: `filter`
 
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
@@ -118,6 +121,8 @@ All body entries with car accident as the cause of death and those that are male
 _{end of extract 2}_
 
 _{start of extract 3: find command}_
+==== Locating entries by name: `find`
+
 Finds bodies or workers whose names contain any of the given keywords. +
 
 Format: `find (flag) (keyword)...`
