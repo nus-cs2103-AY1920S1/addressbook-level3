@@ -122,13 +122,7 @@ public class Food {
         }
 
         return otherFood != null
-                && otherFood.getName().equals(getName())
-                && otherFood.getPrice().equals(getPrice())
-                && otherFood.getDescription().equals(getDescription())
-                && otherFood.getCategory().equals(getCategory())
-                && otherFood.getLocation().equals(getLocation())
-                && otherFood.getOpeningHours().equals(getOpeningHours())
-                && otherFood.getRestrictions().equals(getRestrictions());
+                && otherFood.getName().equals(getName());
     }
 
     /**
@@ -146,14 +140,7 @@ public class Food {
         }
 
         Food otherFood = (Food) other;
-        return otherFood.getName().equals(getName())
-                && otherFood.getPrice().equals(getPrice())
-                && otherFood.getDescription().equals(getDescription())
-                && otherFood.getTags().equals(getTags())
-                && otherFood.getCategory().equals(getCategory())
-                && otherFood.getLocation().equals(getLocation())
-                && otherFood.getOpeningHours().equals(getOpeningHours())
-                && otherFood.getRestrictions().equals(getRestrictions());
+        return otherFood.getName().equals(getName());
     }
 
     @Override

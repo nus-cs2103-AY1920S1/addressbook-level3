@@ -89,9 +89,6 @@ public class AddCommandTest {
 
         // null -> returns false
         assertFalse(addChickenRiceCommand.equals(null));
-
-        // different food -> returns false
-        assertFalse(addChickenRiceCommand.equals(addNasiLemakCommand));
     }
 
     /**
