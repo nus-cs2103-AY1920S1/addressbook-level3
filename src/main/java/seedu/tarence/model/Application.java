@@ -102,6 +102,9 @@ public class Application implements ReadOnlyApplication {
         // }
         // this.students.setPersons(personList);
 
+        // Clears unique student list in application
+        this.students.setPersons(new UniquePersonList());
+
         List<Student> studentList = new ArrayList<>(getStudentList());
         for (Student s : students) {
             boolean hasDuplicates = studentList.stream()
