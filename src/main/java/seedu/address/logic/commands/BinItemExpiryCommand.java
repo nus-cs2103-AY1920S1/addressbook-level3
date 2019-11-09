@@ -54,6 +54,7 @@ public class BinItemExpiryCommand extends Command {
         requireAllNonNull(model);
 
         // Set time to live in binItem class
+        assert timeToLiveAmount > 0 : "timeToLiveAmount must be positive.";
         BinItem.setTimeToLive(timeToLiveAmount, timeToLiveUnit);
         for (BinItem b : model.getAddressBook().getBinItemList()) {
             BinItem newBinItem = (new BinItemBuilder(b)

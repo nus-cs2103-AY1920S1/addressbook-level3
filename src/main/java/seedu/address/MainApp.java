@@ -92,7 +92,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
         ModelManager manager = new ModelManager(initialData, userPrefs);
-        // Remove expired items in the bin
+        logger.info("Checking for and removing expired items in the bin.");
         manager.binCleanUp();
         return manager;
     }

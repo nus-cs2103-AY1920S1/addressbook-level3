@@ -90,6 +90,11 @@ public class ModelManager implements Model {
     @Override
     public void setUserSettings(UserSettings userSettings) {
         requireNonNull(userSettings);
+
+        logger.info("Updating user settings:\n"
+            + "    Suggestions -> " + userSettings.isSuggestionsOn() + "\n"
+            + "    timeToLiveAmount -> " + userSettings.getTimeToLiveAmount() + "\n"
+            + "    timeToLiveUnit -> " + userSettings.getTimeToLiveUnit());
         userPrefs.setUserSettings(userSettings);
     }
 
