@@ -1458,15 +1458,30 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a problem
 
+.. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
+   Expected: A problem named 'Sequences' and tagged 'algorithm' is added to AlgoBase.
+.. Test case: `addprob n/1234 ` +
+   Expected: No problem is added. The name of the problem cannot contain numbers.
+
 . Deleting a problem
 
-.. Prerequisites: List all problems using the `listprob` command. Multiple problems in the list.
+.. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `deleteprob 1` +
    Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteprob 0` +
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+. Editing a problem
+
+.. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
+.. Test case: `editprob 1 n/Two Sequences` +
+   Expected: Change the name of the first problem to 'Two Sequences'.
+.. Test case: `editprob 2 t/` +
+   Expected: Removes all tags from the second problem.
+.. Test case: `editprob x` +
+   Expected: No problem is edited. Index of problem should be a valid integer.
 
 === Sorting problems
 
