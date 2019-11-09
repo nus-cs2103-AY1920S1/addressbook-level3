@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -8,9 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 
 /**
@@ -23,6 +26,8 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     private History history = new History();
 
     @FXML
@@ -65,11 +70,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
 
     //@@author SebastianLie
     /**
-     * sets textfield according to key press
-     * for up and down arrow, handles previous and next commands
-     * with 2 stacks, enabling user to scroll through past commands
-     * if no more past or future commands, the textfield will be blank
-     *
+     * handles GUI commands, like history or autocomplete
      * @param keyCode
      */
     private void keyPressed(KeyCode keyCode) {
@@ -88,6 +89,16 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
             } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
             }
+        }
+        if (keyCode == KeyCode.TAB) {
+            try {
+                commandTextField.setAutoCompleteResult();
+            } catch(Exception e) {
+                logger.info("Exception thrown from autocomplete.");
+            }
+        }
+        if (keyCode == KeyCode.ESCAPE) {
+            commandTextField.hidePopUp();
         }
     }
 

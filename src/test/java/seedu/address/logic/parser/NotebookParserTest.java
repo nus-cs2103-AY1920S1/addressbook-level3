@@ -30,9 +30,9 @@ import seedu.address.testutil.EditStudentDescriptorBuilder;
 import seedu.address.testutil.StudentBuilder;
 import seedu.address.testutil.StudentUtil;
 
-public class ClassroomParserTest {
+public class NotebookParserTest {
 
-    private final ClassroomParser parser = new ClassroomParser();
+    private final NotebookParser parser = new NotebookParser();
     /*
     @Test
     public void parseCommand_add() throws Exception {

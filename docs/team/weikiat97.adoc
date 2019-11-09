@@ -52,21 +52,7 @@ The implementation was very challenging as one command had to be suited for vari
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undo_redo]
-
-include::../UserGuide.adoc[tag=add]
-
-include::../UserGuide.adoc[tag=edit]
-
-include::../UserGuide.adoc[tag=list]
-
-include::../UserGuide.adoc[tag=reminder]
-
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=find]
-
-include::../UserGuide.adoc[tag=clear]
+include::../UserGuide.adoc[tag=students]
 
 include::../UserGuide.adoc[tag=reminders_for_assignments]
 
@@ -85,8 +71,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

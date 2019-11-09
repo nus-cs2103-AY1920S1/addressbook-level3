@@ -71,9 +71,7 @@ public class Notebook implements ReadOnlyNotebook {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
         ObservableList<Lesson> newLessonList = newData.getLessonList();
-        for (int i = 0; i < newLessonList.size(); i++) {
-            lessons.add(newLessonList.get(i));
-        }
+        lessons.setLessons(newLessonList);
     }
 
     //=========== Notebook ================================================================================
