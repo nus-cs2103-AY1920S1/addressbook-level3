@@ -25,7 +25,9 @@ public class EndTestCommand extends Command {
 
         model.updatePerformance(model);
         keyboardFlashCardsParser.endTestMode();
-        return new CommandResult("Test ended");
+        CommandResult result = new CommandResult("Test ended");
+        result.setTestMode(false, true);
+        return result;
     }
 
     @Override

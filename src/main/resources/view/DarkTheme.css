@@ -125,13 +125,14 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
+
 }
 
 .stack-pane {
@@ -314,6 +315,12 @@
     -fx-border-width: 0;
 }
 
+#flashcardPane {
+    -fx-background-color: #383838;
+    -fx-background-radius: 5;
+
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -384,3 +391,5 @@
     -fx-text-fill: #FF0000;
     -fx-font-weight: bold;
 }
+
+
