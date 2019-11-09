@@ -1,6 +1,5 @@
 package io.xpire.logic.parser;
 
-import static io.xpire.commons.core.Messages.MESSAGE_VIEW_OPTIONS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static java.util.Objects.requireNonNull;
@@ -19,6 +18,8 @@ import io.xpire.model.ListType;
  * Parses input arguments and creates a new ViewCommand object
  */
 public class ViewCommandParser implements Parser<ViewCommand> {
+
+    public static final String MESSAGE_VIEW_OPTIONS = "Only two lists (main and replenish) are available to view.";
 
     private static final String EMPTY_STRING = "";
     private static final String XPIRE_VIEW = "main";

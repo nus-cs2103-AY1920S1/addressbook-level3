@@ -4,8 +4,8 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,10 +35,10 @@ public class XpireParserTest {
 
     @Test
     public void parse_add() throws ParseException {
-        assertTrue(parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI
-                + "|" + VALID_EXPIRY_DATE_KIWI) instanceof AddCommand);
-        assertTrue(parser.parse(AddCommand.COMMAND_SHORTHAND + "|" + VALID_NAME_KIWI
-                + "|" + VALID_EXPIRY_DATE_KIWI) instanceof AddCommand);
+        assertTrue(parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_APPLE
+                + "|" + VALID_EXPIRY_DATE_APPLE) instanceof AddCommand);
+        assertTrue(parser.parse(AddCommand.COMMAND_SHORTHAND + "|" + VALID_NAME_APPLE
+                + "|" + VALID_EXPIRY_DATE_APPLE) instanceof AddCommand);
     }
 
     @Test

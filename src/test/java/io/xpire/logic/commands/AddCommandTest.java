@@ -4,13 +4,16 @@ import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_KIWI;
 
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_CORIANDER;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_CORIANDER;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_CORIANDER;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,48 +42,48 @@ public class AddCommandTest {
     public void constructor_nullItem_throwsNullPointerException() {
         //name is null
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                null, new ExpiryDate(VALID_EXPIRY_DATE_KIWI), new Quantity(VALID_QUANTITY_KIWI)));
+                null, new ExpiryDate(VALID_EXPIRY_DATE_APPLE), new Quantity(VALID_QUANTITY_APPLE)));
         //expiry date is null
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                new Name(VALID_NAME_KIWI), null, new Quantity(VALID_QUANTITY_KIWI)));
+                new Name(VALID_NAME_APPLE), null, new Quantity(VALID_QUANTITY_APPLE)));
         //quantity is null
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI), null));
+                new Name(VALID_NAME_APPLE), new ExpiryDate(VALID_EXPIRY_DATE_APPLE), null));
     }
 
     @Test
     public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
-        XpireItem kiwi = new XpireItemBuilder().withName(VALID_NAME_KIWI)
-                .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                .withQuantity(VALID_QUANTITY_KIWI).build();
-        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
-                new Quantity(VALID_QUANTITY_KIWI));
+        XpireItem coriander = new XpireItemBuilder().withName(VALID_NAME_CORIANDER)
+                .withExpiryDate(VALID_EXPIRY_DATE_CORIANDER)
+                .withQuantity(VALID_QUANTITY_CORIANDER).build();
+        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_CORIANDER),
+                new ExpiryDate(VALID_EXPIRY_DATE_CORIANDER), new Quantity(VALID_QUANTITY_CORIANDER));
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS_ITEM_ADDED, kiwi);
-        expectedModel.addItem(XPIRE, kiwi);
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS_ITEM_ADDED, coriander);
+        expectedModel.addItem(XPIRE, coriander);
         assertCommandSuccess(addCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
         XpireItem banana = new XpireItemBuilder().withName("Banana").build();
-        AddCommand addKiwiCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
-                new Quantity(VALID_QUANTITY_KIWI));
+        AddCommand addAppleCommand = new AddCommand(new Name(VALID_NAME_APPLE), new ExpiryDate(VALID_EXPIRY_DATE_APPLE),
+                new Quantity(VALID_QUANTITY_APPLE));
         AddCommand addBananaCommand = new AddCommand(new Name(VALID_NAME_BANANA),
                 new ExpiryDate(VALID_EXPIRY_DATE_BANANA), new Quantity(VALID_QUANTITY_BANANA));
         // same object -> returns true
-        assertTrue(addKiwiCommand.equals(addKiwiCommand));
+        assertTrue(addAppleCommand.equals(addAppleCommand));
         // same values -> returns true
-        AddCommand addKiwiCommandCopy = new AddCommand(new Name(VALID_NAME_KIWI),
-                new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
-                new Quantity(VALID_QUANTITY_KIWI));
-        assertTrue(addKiwiCommand.equals(addKiwiCommandCopy));
+        AddCommand addAppleCommandCopy = new AddCommand(new Name(VALID_NAME_APPLE),
+                new ExpiryDate(VALID_EXPIRY_DATE_APPLE),
+                new Quantity(VALID_QUANTITY_APPLE));
+        assertTrue(addAppleCommand.equals(addAppleCommandCopy));
         // different types -> returns false
-        assertFalse(addKiwiCommand.equals(1));
+        assertFalse(addAppleCommand.equals(1));
         // null -> returns false
-        assertFalse(addKiwiCommand == null);
+        assertFalse(addAppleCommand == null);
         // different xpireItem -> returns false
-        assertFalse(addKiwiCommand.equals(addBananaCommand));
+        assertFalse(addAppleCommand.equals(addBananaCommand));
     }
 
 }

@@ -90,14 +90,6 @@ public class XpireItemBuilder {
     }
 
     /**
-     * Sets the {@code ReminderThreshold} of the {@code XpireItem} that we are building.
-     */
-    public XpireItemBuilder withThreshold(String reminderThreshold) {
-        this.reminderThreshold = new ReminderThreshold(reminderThreshold);
-        return this;
-    }
-
-    /**
      * Constructs a new {@code XpireItem} with the modified fields.
      */
     public XpireItem build() {

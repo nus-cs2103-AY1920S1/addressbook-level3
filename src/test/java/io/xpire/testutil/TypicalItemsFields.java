@@ -16,40 +16,41 @@ public class TypicalItemsFields {
     public static final String VALID_NAME_CHOCOLATE = "Chocolate";
     public static final String VALID_NAME_CORIANDER = "Coriander";
     public static final String VALID_NAME_COOKIE = "Cookie";
+    public static final String VALID_NAME_CORN = "Corn";
     public static final String VALID_NAME_DUCK = "Duck";
-    public static final String VALID_NAME_JELLY = "Jelly";
-    public static final String VALID_NAME_KIWI = "Kiwi";
-    public static final String VALID_NAME_EXPIRING_FISH = "Fish";
-    public static final String VALID_NAME_EXPIRED_MILK = "Milk";
-    public static final String VALID_NAME_EXPIRED_ORANGE = "Orange";
+    public static final String VALID_NAME_EGG = "Egg";
+    public static final String VALID_NAME_FISH = "Fish";
+    public static final String VALID_NAME_GRAPE = "Grape";
+    public static final String VALID_NAME_HONEY = "Honey";
+    public static final String VALID_NAME_ICE_CREAM = "Ice cream";
 
-    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now());
-    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7));
-    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14));
     public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30));
-    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1));
+    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7));
+    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now());
     public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7));
 
-    public static final String VALID_EXPIRY_DATE_APPLE = TODAY;
-    public static final String VALID_EXPIRY_DATE_BANANA = IN_TWO_WEEKS;
+    public static final String VALID_EXPIRY_DATE_APPLE = IN_A_WEEK;
+    public static final String VALID_EXPIRY_DATE_BANANA = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/2099";
+    public static final String VALID_EXPIRY_DATE_CORN = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_DUCK = IN_A_MONTH;
-    public static final String VALID_EXPIRY_DATE_KIWI = IN_A_MONTH;
-    public static final String VALID_EXPIRY_DATE_JELLY = IN_A_MONTH;
-    public static final String VALID_EXPIRY_DATE_EXPIRING_FISH = IN_A_WEEK;
-    public static final String VALID_EXPIRY_DATE_EXPIRED_MILK = PASSED_A_WEEK;
-    public static final String VALID_EXPIRY_DATE_EXPIRED_ORANGE = PASSED_A_DAY;
+    public static final String VALID_EXPIRY_DATE_EGG = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_FISH = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_GRAPE = IN_A_WEEK;
+    public static final String VALID_EXPIRY_DATE_HONEY = TODAY;
+    public static final String VALID_EXPIRY_DATE_ICE_CREAM = PASSED_A_WEEK;
 
 
     public static final String VALID_QUANTITY_APPLE = "1";
-    public static final String VALID_QUANTITY_BANANA = "5";
+    public static final String VALID_QUANTITY_BANANA = "1";
     public static final String VALID_QUANTITY_CORIANDER = "999";
+    public static final String VALID_QUANTITY_CORN = "1";
     public static final String VALID_QUANTITY_DUCK = "1";
-    public static final String VALID_QUANTITY_JELLY = "4";
-    public static final String VALID_QUANTITY_KIWI = "2";
-    public static final String VALID_QUANTITY_EXPIRING_FISH = "1";
-    public static final String VALID_QUANTITY_EXPIRED_MILK = "2";
-    public static final String VALID_QUANTITY_EXPIRED_ORANGE = "1";
+    public static final String VALID_QUANTITY_EGG = "10";
+    public static final String VALID_QUANTITY_FISH = "4";
+    public static final String VALID_QUANTITY_GRAPE = "1";
+    public static final String VALID_QUANTITY_HONEY = "1";
+    public static final String VALID_QUANTITY_ICE_CREAM = "2";
 
     public static final String VALID_TAG_CADBURY = "Cadbury";
     public static final String VALID_TAG_COCOA = "Cocoa";
@@ -63,12 +64,13 @@ public class TypicalItemsFields {
     public static final String VALID_REMINDER_THRESHOLD_APPLE = "0";
     public static final String VALID_REMINDER_THRESHOLD_BANANA = "0";
     public static final String VALID_REMINDER_THRESHOLD_CORIANDER = "2";
+    public static final String VALID_REMINDER_THRESHOLD_CORN = "15";
     public static final String VALID_REMINDER_THRESHOLD_DUCK = "0";
-    public static final String VALID_REMINDER_THRESHOLD_JELLY = "3";
-    public static final String VALID_REMINDER_THRESHOLD_KIWI = "20";
-    public static final String VALID_REMINDER_THRESHOLD_EXPIRING_FISH = "8";
-    public static final String VALID_REMINDER_THRESHOLD_EXPIRED_MILK = "0";
-    public static final String VALID_REMINDER_THRESHOLD_EXPIRED_ORANGE = "0";
+    public static final String VALID_REMINDER_THRESHOLD_EGG = "0";
+    public static final String VALID_REMINDER_THRESHOLD_FISH = "10";
+    public static final String VALID_REMINDER_THRESHOLD_GRAPE = "20";
+    public static final String VALID_REMINDER_THRESHOLD_HONEY = "0";
+    public static final String VALID_REMINDER_THRESHOLD_ICE_CREAM = "0";
 
     public static final String INVALID_NAME = "@pple";
     public static final String INVALID_EXPIRY_DATE = "50505000";

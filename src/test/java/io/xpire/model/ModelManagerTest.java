@@ -21,6 +21,7 @@ import io.xpire.testutil.ExpiryDateTrackerBuilder;
 import io.xpire.testutil.ReplenishListBuilder;
 import io.xpire.testutil.TypicalItems;
 
+//@@author JermyTan
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
@@ -83,13 +84,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasItem_itemNotInXpire_returnsFalse() {
-        assertFalse(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
+        assertFalse(this.modelManager.hasItem(XPIRE, TypicalItems.APPLE));
     }
 
     @Test
     public void hasItem_itemInXpire_returnsTrue() {
-        this.modelManager.addItem(XPIRE, TypicalItems.KIWI);
-        assertTrue(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
+        this.modelManager.addItem(XPIRE, TypicalItems.APPLE);
+        assertTrue(this.modelManager.hasItem(XPIRE, TypicalItems.APPLE));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class ModelManagerTest {
     public void equals() {
 
         Xpire xpire = new ExpiryDateTrackerBuilder()
-                .withItem(TypicalItems.KIWI).withItem(TypicalItems.BANANA).build();
+                .withItem(TypicalItems.APPLE).withItem(TypicalItems.BANANA).build();
         ReplenishList replenishList = new ReplenishListBuilder()
                 .withItem(TypicalItems.BAGEL).withItem(TypicalItems.CHOCOLATE).build();
 
@@ -141,7 +142,7 @@ public class ModelManagerTest {
         this.modelManager.setCurrentList(XPIRE);
 
         // different filteredList -> returns false
-        String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
+        String[] keywords = TypicalItems.APPLE.getName().toString().split("\\s+");
         this.modelManager.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertNotEquals(this.modelManager, new ModelManager(lists, userPrefs));
 

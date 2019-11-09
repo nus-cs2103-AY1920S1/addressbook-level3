@@ -1,9 +1,9 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_SUGGESTIONS;
-import static io.xpire.commons.core.Messages.MESSAGE_VIEW_OPTIONS;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static io.xpire.logic.parser.ViewCommandParser.MESSAGE_VIEW_OPTIONS;
 
 import org.junit.jupiter.api.Test;
 

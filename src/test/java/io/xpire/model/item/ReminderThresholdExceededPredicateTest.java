@@ -31,7 +31,7 @@ public class ReminderThresholdExceededPredicateTest {
     }
 
     @Test
-    public void test_nameReminderThresholdExceeded_returnsTrue() {
+    public void test_reminderThresholdExceeded_returnsTrue() {
 
 
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
@@ -54,7 +54,7 @@ public class ReminderThresholdExceededPredicateTest {
     }
 
     @Test
-    public void test_nameReminderThresholdNotExceeded_returnsFalse() {
+    public void test_reminderThresholdNotExceeded_returnsFalse() {
 
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
         LocalDate currentDate = LocalDate.now();

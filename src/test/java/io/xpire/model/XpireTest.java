@@ -1,7 +1,7 @@
 package io.xpire.model;
 
 import static io.xpire.testutil.Assert.assertThrows;
-import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
+import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
@@ -45,9 +45,9 @@ public class XpireTest {
 
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
-        XpireItem editedApple = new XpireItemBuilder(EXPIRED_APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE)
+        XpireItem editedApple = new XpireItemBuilder(APPLE).withExpiryDate(VALID_EXPIRY_DATE_APPLE)
                                                          .withQuantity("1").build();
-        List<XpireItem> newXpireItems = Arrays.asList(EXPIRED_APPLE, editedApple);
+        List<XpireItem> newXpireItems = Arrays.asList(APPLE, editedApple);
         XpireStub newData = new XpireStub(newXpireItems);
         assertThrows(DuplicateItemException.class, () -> xpire.resetData(newData));
     }
@@ -59,19 +59,19 @@ public class XpireTest {
 
     @Test
     public void hasItem_itemNotInExpiryDateTracker_returnsFalse() {
-        assertFalse(xpire.hasItem(EXPIRED_APPLE));
+        assertFalse(xpire.hasItem(APPLE));
     }
 
     @Test
     public void hasItem_itemInExpiryDateTracker_returnsTrue() {
-        xpire.addItem(EXPIRED_APPLE);
-        assertTrue(xpire.hasItem(EXPIRED_APPLE));
+        xpire.addItem(APPLE);
+        assertTrue(xpire.hasItem(APPLE));
     }
 
     @Test
     public void hasItem_itemWithSameIdentityFieldsInExpiryDateTracker_returnsTrue() {
-        xpire.addItem(EXPIRED_APPLE);
-        XpireItem editedAlice = new XpireItemBuilder(EXPIRED_APPLE)
+        xpire.addItem(APPLE);
+        XpireItem editedAlice = new XpireItemBuilder(APPLE)
                 .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
                 .withTags(VALID_TAG_FRUIT)
                 .build();

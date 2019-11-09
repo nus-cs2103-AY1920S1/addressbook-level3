@@ -1,15 +1,15 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_EMPTY_LIST;
-import static io.xpire.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.commons.core.Messages.MESSAGE_SUGGESTIONS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static io.xpire.logic.commands.SearchCommand.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;
-import static io.xpire.testutil.TypicalItems.JELLY;
+import static io.xpire.testutil.TypicalItems.FISH;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -103,7 +103,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(XPIRE, predicate);
         expectedModel.filterCurrentList(XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DUCK, JELLY), model.getCurrentList());
+        assertEquals(Arrays.asList(DUCK, FISH), model.getCurrentList());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(XPIRE, predicate);
         expectedModel.filterCurrentList(XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, DUCK, JELLY), model.getCurrentList());
+        assertEquals(Arrays.asList(BANANA, DUCK, FISH), model.getCurrentList());
     }
 
     @Test
