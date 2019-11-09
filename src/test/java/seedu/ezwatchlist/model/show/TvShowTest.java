@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.testutil.ShowBuilder;
-import seedu.ezwatchlist.testutil.TypicalShows
+import seedu.ezwatchlist.testutil.TypicalShows;
 
 class TvShowTest {
 
@@ -143,9 +143,9 @@ class TvShowTest {
 
         assertEquals(tvShow.getNumOfEpisodesOfSeason(1), 1);
 
-    private Show showWatchedAll = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(195).build();
-    private Show showWatched100 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(100).build();
-    private Show showWatched0 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(0).build();
+    Show showWatchedAll = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(195).build();
+    Show showWatched100 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(100).build();
+    Show showWatched0 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(0).build();
 
     @Test
     public void getNumOfEpisodesWatched() {
@@ -181,5 +181,5 @@ class TvShowTest {
         assertEquals(showWatchedAll.getLastWatchedSeasonEpisode(), 23);
         assertEquals(showWatched100.getLastWatchedSeasonEpisode(), 4);
         assertEquals(showWatched0.getLastWatchedSeasonEpisode(), 0);
-
     }
+}
