@@ -14,8 +14,8 @@ import seedu.revision.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path historyFilePath = Paths.get("data", "history.json");
+    private Path revisionToolFilePath = Paths.get("data" , "revisiontool.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setRevisionToolFilePath(newUserPrefs.getRevisionToolFilePath());
         setHistoryFilePath(newUserPrefs.getHistoryFilePath());
     }
 
@@ -49,17 +49,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getRevisionToolFilePath() {
+        return revisionToolFilePath;
+    }
+
+    public void setRevisionToolFilePath(Path revisionToolFilePath) {
+        requireNonNull(revisionToolFilePath);
+        this.revisionToolFilePath = revisionToolFilePath;
     }
 
     public Path getHistoryFilePath() {
         return historyFilePath;
-    }
-
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
     }
 
     public void setHistoryFilePath(Path historyFilePath) {
@@ -79,20 +79,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
+                && revisionToolFilePath.equals(o.revisionToolFilePath)
                 && historyFilePath.equals(o.historyFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, historyFilePath);
+        return Objects.hash(guiSettings, revisionToolFilePath, historyFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + revisionToolFilePath);
         sb.append("\nLocal data history file location : " + historyFilePath);
         return sb.toString();
     }

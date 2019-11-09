@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.revision.model.AddressBook;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
@@ -16,7 +16,7 @@ import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code RevisionTool} with sample data.
  */
 public class SampleDataUtil {
     public static Answerable[] getSampleAnswerables() {
@@ -194,8 +194,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyRevisionTool getSampleRevisionTool() {
+        RevisionTool sampleAb = new RevisionTool();
         for (Answerable sampleAnswerable : getSampleAnswerables()) {
             sampleAb.addAnswerable(sampleAnswerable);
         }

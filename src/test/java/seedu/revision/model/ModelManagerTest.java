@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.AddressBookBuilder;
+import seedu.revision.testutil.RevisionToolBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new RevisionTool(), new RevisionTool(modelManager.getRevisionTool()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("revision/book/file/path"));
+        userPrefs.setRevisionToolFilePath(Paths.get("revision/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/revision/book/file/path"));
+        userPrefs.setRevisionToolFilePath(Paths.get("new/revision/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -62,14 +62,14 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setRevisionToolFilePath(null));
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("revision/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setRevisionToolFilePath(path);
+        assertEquals(path, modelManager.getRevisionToolFilePath());
     }
 
     @Test
@@ -95,15 +95,15 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withAnswerable(MCQ_STUB)
+        RevisionTool revisionTool = new RevisionToolBuilder().withAnswerable(MCQ_STUB)
                 .withAnswerable(B_ANSWERABLE).build();
-        AddressBook differentAddressBook = new AddressBook();
+        RevisionTool differentRevisionTool = new RevisionTool();
         UserPrefs userPrefs = new UserPrefs();
         History history = new History();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, history);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, history);
+        modelManager = new ModelManager(revisionTool, userPrefs, history);
+        ModelManager modelManagerCopy = new ModelManager(revisionTool, userPrefs, history);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -116,19 +116,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, history)));
+        assertFalse(modelManager.equals(new ModelManager(differentRevisionTool, userPrefs, history)));
 
         // different filteredList -> returns false
         String[] keywords = MCQ_STUB.getQuestion().question.split("\\s+");
         modelManager.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, history)));
+        assertFalse(modelManager.equals(new ModelManager(revisionTool, userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, history)));
+        differentUserPrefs.setRevisionToolFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(revisionTool, differentUserPrefs, history)));
     }
 }

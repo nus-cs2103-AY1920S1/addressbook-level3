@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,25 +21,25 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.testutil.McqBuilder;
 
-public class AddressBookTest {
+public class RevisionToolTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final RevisionTool revisionTool = new RevisionTool();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getAnswerableList());
+        assertEquals(Collections.emptyList(), revisionTool.getAnswerableList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> revisionTool.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyRevisionTool_replacesData() {
+        RevisionTool newData = getTypicalRevisionTool();
+        revisionTool.resetData(newData);
+        assertEquals(newData, revisionTool);
     }
 
     @Test
@@ -48,39 +48,39 @@ public class AddressBookTest {
         Answerable editedAlice = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         List<Answerable> newAnswerables = Arrays.asList(MCQ_STUB, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newAnswerables);
+        RevisionToolStub newData = new RevisionToolStub(newAnswerables);
 
-        assertThrows(DuplicateAnswerableException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateAnswerableException.class, () -> revisionTool.resetData(newData));
     }
 
     @Test
     public void hasAnswerable_nullAnswerable_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasAnswerable(null));
+        assertThrows(NullPointerException.class, () -> revisionTool.hasAnswerable(null));
     }
 
     @Test
-    public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAnswerable(MCQ_STUB));
+    public void hasAnswerable_answerableNotInRevisionTool_returnsFalse() {
+        assertFalse(revisionTool.hasAnswerable(MCQ_STUB));
     }
 
     @Test
-    public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        addressBook.addAnswerable(MCQ_STUB);
-        assertTrue(addressBook.hasAnswerable(MCQ_STUB));
+    public void hasAnswerable_answerableInRevisionTool_returnsTrue() {
+        revisionTool.addAnswerable(MCQ_STUB);
+        assertTrue(revisionTool.hasAnswerable(MCQ_STUB));
     }
 
     @Test
     public void getAnswerableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getAnswerableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> revisionTool.getAnswerableList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose answerables list can violate interface constraints.
+     * A stub ReadOnlyRevisionTool whose answerables list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class RevisionToolStub implements ReadOnlyRevisionTool {
         private final ObservableList<Answerable> answerables = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Answerable> answerables) {
+        RevisionToolStub(Collection<Answerable> answerables) {
             this.answerables.setAll(answerables);
         }
 

@@ -17,10 +17,11 @@ import java.util.List;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
@@ -103,7 +104,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(expectedMessage).build();
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(expectedMessage).build();
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -116,11 +117,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        RevisionTool expectedAddressBook = new RevisionTool(actualModel.getRevisionTool());
         List<Answerable> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAnswerableList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getRevisionTool());
         assertEquals(expectedFilteredList, actualModel.getFilteredAnswerableList());
     }
     /**

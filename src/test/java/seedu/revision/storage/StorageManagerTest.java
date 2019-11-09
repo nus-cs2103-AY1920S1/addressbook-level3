@@ -2,7 +2,7 @@ package seedu.revision.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.revision.commons.core.GuiSettings;
-import seedu.revision.model.AddressBook;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,10 +24,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonRevisionToolStorage revisionToolStorage = new JsonRevisionToolStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonHistoryStorage historyStorage = new JsonHistoryStorage(getTempFilePath("hist"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
+        storageManager = new StorageManager(revisionToolStorage, userPrefsStorage, historyStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -52,18 +52,18 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonRevisionToolStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonRevisionToolStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        RevisionTool original = getTypicalRevisionTool();
+        storageManager.saveRevisionTool(original);
+        ReadOnlyRevisionTool retrieved = storageManager.readRevisionTool().get();
+        assertEquals(original, new RevisionTool(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getRevisionToolFilePath());
     }
 
 }

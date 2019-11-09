@@ -2,7 +2,7 @@ package seedu.revision.logic.commands;
 
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,14 +25,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new History());
+        model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
     }
 
     @Test
     public void execute_newAnswerable_success() throws ParseException {
         Answerable validAnswerable = new McqBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new History());
+        Model expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs(), new History());
         expectedModel.addAnswerable(validAnswerable);
 
         assertCommandSuccess(new AddCommand(validAnswerable), model,
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateAnswerable_throwsCommandException() {
-        Answerable answerableInList = model.getAddressBook().getAnswerableList().get(0);
+        Answerable answerableInList = model.getRevisionTool().getAnswerableList().get(0);
         assertCommandFailure(new AddCommand(answerableInList), model, AddCommand.MESSAGE_DUPLICATE_ANSWERABLE);
     }
 

@@ -24,6 +24,10 @@ public class Mcq extends Answerable {
         super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
+    public Mcq(ArrayList<Answer> correctAnswerList, ArrayList<Answer> wrongAnswerList) {
+        super(correctAnswerList, wrongAnswerList);
+    }
+
     /**
      * Checks whether the input Mcq is valid
      * @param mcq the mcq to validate.
@@ -31,13 +35,9 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
-        if (mcq.getCorrectAnswerList().size() != 1) {
-            return false;
-        }
-        if (mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
-            return false;
-        }
-        if (mcq.getWrongAnswerList().size() != 3) {
+        if (mcq.getCorrectAnswerList().size() != 1
+                || mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))
+                || mcq.getWrongAnswerList().size() != 3) {
             return false;
         }
         return true;

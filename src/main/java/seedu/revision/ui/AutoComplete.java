@@ -18,6 +18,7 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.HistoryCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
@@ -60,6 +61,7 @@ public class AutoComplete extends TextField {
 
     /**
      * Get the existing set of autocomplete entries.
+     * Basically the respective command words.
      */
     public void getEntries() {
         entries.add(AddCommand.COMPLETE_COMMAND);
@@ -75,7 +77,9 @@ public class AutoComplete extends TextField {
         entries.add(RestoreCommand.COMMAND_WORD);
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE);
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_NORMAL);
-        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CHAOS);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_ARCADE);
+        entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CUSTOM);
+        entries.add(HistoryCommand.COMMAND_WORD);
     }
 
     /**

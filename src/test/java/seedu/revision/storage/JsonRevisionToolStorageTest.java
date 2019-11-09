@@ -6,7 +6,7 @@ import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalAnswerables.H_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.I_ANSWERABLE;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.revision.commons.exceptions.DataConversionException;
-import seedu.revision.model.AddressBook;
-import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyRevisionTool;
+import seedu.revision.model.RevisionTool;
 
-public class JsonAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+public class JsonRevisionToolStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRevisionToolStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -30,8 +30,8 @@ public class JsonAddressBookStorageTest {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyRevisionTool> readAddressBook(String filePath) throws Exception {
+        return new JsonRevisionToolStorage(Paths.get(filePath)).readRevisionTool(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -63,26 +63,26 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        AddressBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        RevisionTool original = getTypicalRevisionTool();
+        JsonRevisionToolStorage jsonAddressBookStorage = new JsonRevisionToolStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonAddressBookStorage.saveRevisionTool(original, filePath);
+        ReadOnlyRevisionTool readBack = jsonAddressBookStorage.readRevisionTool(filePath).get();
+        assertEquals(original, new RevisionTool(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addAnswerable(H_ANSWERABLE);
         original.removeAnswerable(MCQ_STUB);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonAddressBookStorage.saveRevisionTool(original, filePath);
+        readBack = jsonAddressBookStorage.readRevisionTool(filePath).get();
+        assertEquals(original, new RevisionTool(readBack));
 
         // Save and read without specifying file path
         original.addAnswerable(I_ANSWERABLE);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        jsonAddressBookStorage.saveRevisionTool(original); // file path not specified
+        readBack = jsonAddressBookStorage.readRevisionTool().get(); // file path not specified
+        assertEquals(original, new RevisionTool(readBack));
 
     }
 
@@ -94,10 +94,10 @@ public class JsonAddressBookStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyRevisionTool addressBook, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonRevisionToolStorage(Paths.get(filePath))
+                    .saveRevisionTool(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -105,6 +105,6 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
+        assertThrows(NullPointerException.class, () -> saveAddressBook(new RevisionTool(), null));
     }
 }

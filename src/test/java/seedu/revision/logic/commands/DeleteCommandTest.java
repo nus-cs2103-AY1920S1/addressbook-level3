@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
 
@@ -28,7 +28,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new History());
+    private Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws ParseException {
@@ -41,7 +41,7 @@ public class DeleteCommandTest {
         String expectedMessage =
                 String.format(DeleteCommand.MESSAGE_DELETE_ANSWERABLE_SUCCESS, answerablesToDelete.toString());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new History());
+        ModelManager expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs(), new History());
         expectedModel.deleteAnswerable(model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased()));
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_ANSWERABLE;
         // ensures that outOfBoundIndex is still in bounds of revision tool list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAnswerableList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRevisionTool().getAnswerableList().size());
 
         ArrayList<Index> indexToDelete = new ArrayList<>();
         indexToDelete.add(outOfBoundIndex);

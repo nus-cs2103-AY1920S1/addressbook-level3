@@ -5,180 +5,60 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.revision.model.Model;
-import seedu.revision.model.ModelManager;
 import seedu.revision.model.quiz.Mode;
-import seedu.revision.model.quiz.NormalMode;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
-    private String feedbackToUser;
+    /** Feedback that will be shown to the user**/
+    private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
-    private boolean showHelp;
+    private final boolean showHelp;
 
     /** The application should exit. */
-    private boolean exit;
+    private final boolean exit;
 
     /** The quiz will start. */
-    private boolean start;
+    private final boolean start;
 
     /** The restore window will open. */
-    private boolean showRestore;
+    private final boolean showRestore;
 
     /** The history window will open. */
-    private boolean showHistory;
+    private final boolean showHistory;
 
     /** The stats window will open. */
-    private boolean showStats;
+    private final boolean showStats;
+
+    /** The answer is correct. */
+    private final boolean isCorrect;
 
     /** The mode of the quiz in session **/
-    private Mode mode;
+    private final Mode mode;
 
     /** To pass the Model. */
-    private Model model;
+    private final Model model;
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} using a {@code CommandResultBuilder}.
+     * and other fields set to their default value. Defensive programming: By taking in a builder, the developer
+     * cannot type in the parameters manually. The builder also assigns default values when initiated.
      */
-    public CommandResult() {
-        this.feedbackToUser = "";
-        this.showHelp = false;
-        this.exit = false;
-        this.start = false;
-        this.showRestore = false;
-        this.showHistory = false;
-        this.showStats = false;
-        this.mode = new NormalMode();
-        this.model = new ModelManager();
-    }
-
-    /**
-     * Instantiates a CommandResult object with the fields updated during building by the factory method.
-     * @param feedbackToUser feedback that will be provided to the user.
-     * @param showHelp true if it is a help command, false otherwise.
-     * @param exit true if it is a exit command, false otherwise.
-     * @param start true if it is a start command, false otherwise.
-     * @param showRestore true if it is a restore command, false otherwise.
-     * @param showHistory true if it is a history command, false otherwise.
-     * @param showStats true if it is a stats command, false otherwise.
-     * @param mode mode that was selected by the user.
-     * @param model model that will be used to restore.
-     */
-    private CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean showRestore,
-                          boolean showHistory, boolean showStats, Mode mode, Model model) {
-        requireNonNull(feedbackToUser);
-        this.feedbackToUser = feedbackToUser;
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.start = start;
-        this.showRestore = showRestore;
-        this.showHistory = showHistory;
-        this.showStats = showStats;
-        this.mode = mode;
-        this.model = model;
-    }
-
-    /**
-     * Adds feedback to the {@code CommandResult} to be returned to the user.
-     * @param feedbackToUser feedback that will be provided to the user.
-     * @return CommandResult with the update feedback.
-     */
-    public CommandResult withFeedBack(String feedbackToUser) {
-        this.feedbackToUser = feedbackToUser;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code HelpCommand}.
-     * @param isHelp input boolean to determine result.
-     * @return {@code CommandResult} with the withHelp boolean updated according to the input.
-     */
-    public CommandResult withHelp(boolean isHelp) {
-        this.showHelp = isHelp;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code ExitCommand}.
-     * @param isExit input boolean to determine result.
-     * @return {@code CommandResult} with the withExit boolean updated according to the input.
-     */
-    public CommandResult withExit(boolean isExit) {
-        this.exit = isExit;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code StartCommand}.
-     * @param isStart input boolean to determine result.
-     * @return {@code CommandResult} with the withStart boolean updated according to the input.
-     */
-    public CommandResult withStart(boolean isStart) {
-        this.start = isStart;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
-     * @param isRestore input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
-     */
-    public CommandResult withRestore(boolean isRestore) {
-        this.showRestore = isRestore;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
-     * @param isHistory input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
-     */
-    public CommandResult withHistory(boolean isHistory) {
-        this.showHistory = isHistory;
-        return this;
-    }
-
-    /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
-     * @param isStats input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
-     */
-    public CommandResult withStats(boolean isStats) {
-        this.showStats = isStats;
-        return this;
-    }
-
-    /**
-     * Adds a {@code Mode} to the {@code CommandResult} to be used to determine the mode when starting the quiz session.
-     * @param mode mode that is chosen by the user.
-     * @return {@code CommandResult} with the updated mode.
-     */
-    public CommandResult withMode(Mode mode) {
-        this.mode = mode;
-        return this;
-    }
-
-    /**
-     * Adds a {@code Mode} to the {@code CommandResult} to be used in the restore command.
-     * @param model current model that is being used.
-     * @return {@code CommandResult} with the updated model.
-     */
-    public CommandResult withModel(Model model) {
-        this.model = model;
-        return this;
-    }
-
-    /**
-     * Builds a new instance of the {@code CommandResult} using the factory method.
-     * @return {@code CommandResult}
-     */
-    public CommandResult build() {
-        return new CommandResult(feedbackToUser, showHelp, exit, start, showRestore, showHistory, showStats,
-                mode, model);
+    public CommandResult(CommandResultBuilder builder) {
+        requireNonNull(builder);
+        this.feedbackToUser = builder.getFeedbackToUser();
+        this.showHelp = builder.isShowHelp();
+        this.exit = builder.isExit();
+        this.start = builder.isStart();
+        this.showRestore = builder.isShowRestore();
+        this.showHistory = builder.isShowHistory();
+        this.showStats = builder.isShowStats();
+        this.isCorrect = builder.isCorrect();
+        this.mode = builder.getMode();
+        this.model = builder.getModel();
     }
 
     public String getFeedbackToUser() {
@@ -209,11 +89,17 @@ public class CommandResult {
         return showStats;
     }
 
+    public boolean isCorrect() {
+        return this.isCorrect;
+    }
+
     public Model getModel() {
+        requireNonNull(this.model);
         return model;
     }
 
     public Mode getMode() {
+        requireNonNull(this.mode);
         return mode;
     }
 
