@@ -1021,22 +1021,32 @@ e.g. `addpolicy n/Senior Care d/care for seniors c/months/10 pr/$50000 [sa/50 ea
 * *List Bin Items* : `listbin`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [pr/PRICE]` +
+* *Edit Policy* : `editpolicy INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [pr/PRICE]` +
 e.g. `editpolicy 1 n/Seniors`
 * *Find Person* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpolicy senior`
-* *Find people by tags*: `findtagpeople TAG [MORE_TAGS]` +
+* *Find People by Tags*: `findtagpeople TAG [MORE_TAGS]` +
 e.g. `findtagpeople smoker diabetic`
-* *Find policy by tags*: `findtagpolicy TAG [MORE_TAGS]` +
+* *Find Policy by Tags*: `findtagpolicy TAG [MORE_TAGS]` +
 e.g. `findtagpolicy accident life`
+* *Find Policyholders*: `findpolicyholders INDEX` +
+e.g. `findpolicyholders 4`
+* *Find Eligible People by Policy*: `eligiblepeople INDEX` +
+e.g. `eligiblepeople 5`
+* *Find Eligible Policies by Person*: `eligiblepolicies INDEX` +
+e.g. `eligiblepolicies 3`
 * *Assign Policy* : `assignpolicy INDEX pol/POLICY NAME` +
 e.g. `assignpolicy 2 pol/Health insurance`
 * *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
 e.g. `addtag 3 t/high_priority`
 * *Add Tag To Policy* : `addpolicytag INDEX t/TAG [MORE_TAGS]` +
 e.g. `addpolicytag 2 t/lifeinsurance`
+* *Add Criteria to Policy* : `addcriteria INDEX cr/CRITERIA [MORE_CRITERIA]` +
+e.g. `addcriteria 2 cr/nonsmoker`
+* *Delete Criteria from Policy* : `addcriteria INDEX cr/CRITERIA [MORE_CRITERIA]` +
+e.g. `deletecriteria 2 cr/nonsmoker`
 * *Delete Person* : `delete INDEX` +
 e.g. `delete 3`
 * *Delete Policy* : `deletepolicy INDEX` +
@@ -1063,3 +1073,4 @@ e.g. `binitemexpiry days/30`
 * *Clear* : `clear`
 * *Help* : `help`
 * *Exit* : `exit`
+
