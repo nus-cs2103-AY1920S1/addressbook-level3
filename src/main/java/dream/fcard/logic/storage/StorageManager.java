@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
@@ -42,8 +43,10 @@ public class StorageManager {
     private static String root;
     private static String decksSubDir = "./decks";
     private static String statsSubDir = "./stats";
-    private static String statsFileName = "stats.json";
-    private static String statsFileFullPath;
+    private static String userStatsFileName = "stats.json";
+    private static String userStatsFileFullPath;
+    private static String deckStatsFileName = "deckstats.json";
+    private static String deckStatsFileFullPath;
     private static String codeSubDir = "./code";
 
     /**
@@ -84,7 +87,7 @@ public class StorageManager {
             root = System.getProperty("user.dir");
         }
         root = FileReadWrite.resolve(root, "./data");
-        resolveStatsPath();
+        resolveUserStatsPath();
         isRootResolved = true;
     }
 
@@ -95,7 +98,7 @@ public class StorageManager {
      */
     public static void provideRoot(String path) {
         root = path;
-        resolveStatsPath();
+        resolveUserStatsPath();
         isRootResolved = true;
     }
 
@@ -241,7 +244,6 @@ public class StorageManager {
             System.out.println("JSON file has errors\n" + e2.getMessage());
         }
         return null;
-        // todo: add parsing for session list in deck
     }
 
     /**
@@ -259,29 +261,31 @@ public class StorageManager {
     // DECK CODE --------------------------------------------------------------
 
     /**
-     * Resolve path to stats file.
+     * Resolve path to user stats file.
      */
-    public static void resolveStatsPath() {
-        statsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + statsFileName);
+    public static void resolveUserStatsPath() {
+        userStatsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + userStatsFileName);
     }
 
     /**
-     * Save stats data.
+     * Save user stats data.
      */
-    public static void saveStats(UserStats userStats) {
+    public static void saveUserStats() {
+        UserStats userStats = StatsHolder.getUserStats();
         resolveRoot();
-        FileReadWrite.write(statsFileFullPath, userStats.getSessionList().toJson().toString());
+        FileReadWrite.write(userStatsFileFullPath, userStats.getSessionList().toJson().toString());
     }
 
     /**
-     * Initialize and load stats data if any.
+     * Initialize and load user stats data if any.
      */
     public static void loadUserStats() {
         resolveRoot();
 
         try {
             ArrayList<Session> arr = new ArrayList<>();
-            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
+            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(
+                userStatsFileFullPath));
             for (JsonValue sessionJson : statsJson.getArray()) {
                 JsonObject sessionJsonObj = sessionJson.getObject();
                 Session session = new Session(
@@ -292,7 +296,6 @@ public class StorageManager {
                 arr.add(session);
             }
             StatsHolder.getUserStats().setSessionList(new SessionList(arr));
-            // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
         } catch (JsonFormatException | NullPointerException e) {
@@ -300,6 +303,22 @@ public class StorageManager {
         } catch (JsonWrongValueException e) {
             System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
         }
+    }
+
+    /**
+     * Resolve path to user stats file.
+     */
+    public static void resolveDeckStatsPath() {
+        deckStatsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + deckStatsFileName);
+    }
+
+    /**
+     * Save deck stats data.
+     */
+    public static void saveDeckStats() {
+        DeckStats deckStats = StatsHolder.getDeckStats();
+        resolveRoot();
+        //FileReadWrite.write(deckStatsFileFullPath, deckStats.getDeckHashMap().toJson().toString());
     }
 
     // STATS CODE -------------------------------------------------------------

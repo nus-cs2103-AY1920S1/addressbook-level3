@@ -51,7 +51,7 @@ public class MainApp extends Application {
                 logger.info("============================ [ Stopping FlashCard Pro ] =============================");
                 StatsHolder.getUserStats().endCurrentSession();
                 StorageManager.saveAll(StateHolder.getState().getDecks());
-                StorageManager.saveStats(StatsHolder.getUserStats());
+                StorageManager.saveUserStats(StatsHolder.getUserStats());
             });
         } catch (IOException e) {
             logger.severe("Failed to load app");

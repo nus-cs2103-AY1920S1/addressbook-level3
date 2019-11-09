@@ -2,7 +2,7 @@
 package dream.fcard.logic.stats;
 
 /**
- * Represents the user's statistics. Contains a SessionList containing all the user's login sessions.
+ * Contains statistics pertaining to the user's login sessions.
  */
 public class UserStats extends Stats {
 

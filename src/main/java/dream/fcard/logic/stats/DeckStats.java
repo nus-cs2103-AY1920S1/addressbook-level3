@@ -1,7 +1,11 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
 
 import java.util.HashMap;
 
+/**
+ * Contains statistics pertaining to the user's deck test sessions.
+ */
 public class DeckStats extends Stats {
 
     /** Data structure mapping decks to their corresponding SessionLists. */
@@ -19,6 +23,11 @@ public class DeckStats extends Stats {
         this.currentSession = null;
         this.currentDeck = null;
         logger.info("New DeckStats object created.");
+    }
+
+    /** Gets the hash map containing session lists for all decks. */
+    public HashMap<String, SessionList> getDeckHashMap() {
+        return this.deckHashMap;
     }
 
     /** Ends the current session, and sets its score. */
