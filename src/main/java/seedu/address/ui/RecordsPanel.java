@@ -28,6 +28,9 @@ public class RecordsPanel extends UiPart<Region> {
     @FXML
     private VBox recordContents;
 
+    @FXML
+    private Label noContent;
+
     public RecordsPanel(Model model, String eventName) {
         super(FXML);
         this.performance = model.getPerformance();
@@ -45,10 +48,17 @@ public class RecordsPanel extends UiPart<Region> {
      */
     public void populateRecords() {
         HashMap<Person, List<Record>> hm = event.getRecords();
-        hm.forEach((person, recordList) -> {
-            AthleteRecords ar = new AthleteRecords(person, recordList);
-            recordContents.getChildren().add(ar.getRoot());
-        });
+        if (hm.isEmpty()) {
+            noContent.setText("There are no records for " + event.getName() + ".\n"
+                + "Use \"performance INDEX e/EVENT_NAME d/DDMMYYYY t/SECONDS\" to start adding records under "
+                + event.getName() + "!");
+        } else {
+            noContent.setText("");
+            hm.forEach((person, recordList) -> {
+                AthleteRecords ar = new AthleteRecords(person, recordList);
+                recordContents.getChildren().add(ar.getRoot());
+            });
+        }
     }
 
 }

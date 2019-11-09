@@ -2,6 +2,7 @@ package seedu.address.model.performance;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPerformance.EVENT_ONE;
 import static seedu.address.testutil.TypicalPerformance.EVENT_TWO;
 
@@ -11,6 +12,12 @@ public class EventTest {
 
     private static final String INVALID_EVENT_NAME = " 50m breaststroke";
     private static final String VALID_EVENT_NAME = "50m breaststroke";
+
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Event(null));
+        assertThrows(NullPointerException.class, () -> new Event(null, null));
+    }
 
     @Test
     public void isSameEvent() {
