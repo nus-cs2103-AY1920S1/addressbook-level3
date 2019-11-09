@@ -102,7 +102,7 @@ public class ProblemCard extends UiPart<Region> {
         description.setTextAlignment(TextAlignment.JUSTIFY);
 
         // Weblink
-        if (!WebLink.isDefaultWeblink(problem.getWebLink())) {
+        if (!WebLink.isDefaultWebLink(problem.getWebLink())) {
             weblink.setText(problem.getWebLink().value);
         } else {
             weblink.setText("Not specified");

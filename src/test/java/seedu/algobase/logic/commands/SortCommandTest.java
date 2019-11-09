@@ -3,7 +3,7 @@ package seedu.algobase.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.algobase.logic.commands.problem.SortCommand.MESSAGE_SUCCESS;
-import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
+import static seedu.algobase.testutil.TypicalAlgoBase.getTypicalAlgoBase;
 
 import java.util.ArrayList;
 import java.util.Comparator;

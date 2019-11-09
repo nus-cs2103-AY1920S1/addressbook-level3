@@ -3,19 +3,17 @@ package seedu.algobase.model.problem;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 /**
  * Represents a Problem's weblink in the algobase.
- * Guarantees: immutable; is valid as declared in {@link #isValidWeblink(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidWebLink(String)}
  */
 public class WebLink implements Comparable<WebLink> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Weblinks should have legal protocols such as https, ftp, gopher, etc.";
+            "Web Links should be legal web URLs.";
     public static final String VALIDATION_REGEX =
-            "<\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]>";
+            "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)"
+            + "?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$";
     public static final String DEFAULT_WEBLINK_STRING = "";
     public static final WebLink DEFAULT_WEBLINK = new WebLink();
 
@@ -28,7 +26,7 @@ public class WebLink implements Comparable<WebLink> {
      */
     public WebLink(String weblink) {
         requireNonNull(weblink);
-        checkArgument(isValidWeblink(weblink), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidWebLink(weblink), MESSAGE_CONSTRAINTS);
         value = weblink;
     }
 
@@ -39,27 +37,22 @@ public class WebLink implements Comparable<WebLink> {
     /**
      * Returns true if a given string matches the default weblink string.
      */
-    public static boolean isDefaultWeblink(String test) {
+    public static boolean isDefaultWebLink(String test) {
         return test.equals(DEFAULT_WEBLINK_STRING);
     }
 
     /**
-     * Returns true if a given {@code Weblink} is a default weblink.
+     * Returns true if a given {@code WebLink} is a default weblink.
      */
-    public static boolean isDefaultWeblink(WebLink test) {
+    public static boolean isDefaultWebLink(WebLink test) {
         return test == DEFAULT_WEBLINK;
     }
 
     /**
      * Returns true if a given string is a valid weblink.
      */
-    public static boolean isValidWeblink(String test) {
-        try {
-            URL url = new URL(test);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
-        }
+    public static boolean isValidWebLink(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

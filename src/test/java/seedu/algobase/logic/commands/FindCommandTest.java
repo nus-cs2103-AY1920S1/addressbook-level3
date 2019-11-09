@@ -6,8 +6,8 @@ import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_QU
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.algobase.testutil.Assert.assertThrows;
+import static seedu.algobase.testutil.TypicalAlgoBase.getTypicalAlgoBase;
 import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
-import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.util.Arrays;
 import java.util.Collections;

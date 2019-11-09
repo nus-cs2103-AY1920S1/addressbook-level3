@@ -147,13 +147,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code weblink} is invalid.
      */
-    public static WebLink parseWeblink(String weblink) throws ParseException {
+    public static WebLink parseWebLink(String weblink) throws ParseException {
         requireNonNull(weblink);
-        String trimmedWeblink = weblink.trim();
-        if (!WebLink.isValidWeblink(trimmedWeblink)) {
+        String trimmedWebLink = weblink.trim();
+        if (!WebLink.isValidWebLink(trimmedWebLink)) {
             throw new ParseException(WebLink.MESSAGE_CONSTRAINTS);
         }
-        return new WebLink(trimmedWeblink);
+        return new WebLink(trimmedWebLink);
     }
 
     /**

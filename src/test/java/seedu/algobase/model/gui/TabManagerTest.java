@@ -1,7 +1,9 @@
 package seedu.algobase.model.gui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -111,15 +113,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(Index.fromZeroBased(4)); // Close last tab
 
         // Check that first tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            true
-        );
+        assertTrue(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -134,15 +130,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(Index.fromZeroBased(3)); // Close second last tab
 
         // Check that second tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -167,15 +157,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(Index.fromZeroBased(4)); // Close last tab
 
         // Check that first tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            true
-        );
+        assertTrue(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -190,15 +174,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(Index.fromZeroBased(3)); // Close second last tab
 
         // Check that second tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -240,15 +218,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(firstTabDataToBeClosed); // Close last tab
 
         // Check that first tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            true
-        );
+        assertTrue(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -263,15 +235,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(secondTabDataToBeClosed); // Close second last tab
 
         // Check that second tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -296,15 +262,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(firstTabDataToBeClosed); // Close last tab
 
         // Check that first tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            true
-        );
+        assertTrue(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -319,15 +279,9 @@ public class TabManagerTest {
         tabManager.closeDetailsTab(secondTabDataToBeClosed); // Close second last tab
 
         // Check that second tab data is removed
-        assertEquals(
-            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(firstTabDataToBeClosed));
 
-        assertEquals(
-            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
-            false
-        );
+        assertFalse(tabManager.getTabsDataList().contains(secondTabDataToBeClosed));
 
         assertEquals(
             tabManager.getTabsDataList().size(),
@@ -363,7 +317,7 @@ public class TabManagerTest {
     /**
      * A Model stub that has a problem list with sample data and a GuiState with 0 tabs in its tab manager.
      */
-    private class NoTabsModelStub extends DefaultModelStub {
+    private static class NoTabsModelStub extends DefaultModelStub {
 
         private GuiState guiState;
         private ObservableList<Problem> internalList;
@@ -391,7 +345,7 @@ public class TabManagerTest {
     /**
      * A Model stub that has a problem list with sample data and a GuiState with 5 tabs in its tab manager.
      */
-    private class FiveTabsModelStub extends DefaultModelStub {
+    private static class FiveTabsModelStub extends DefaultModelStub {
 
         private GuiState guiState;
         private ObservableList<Problem> internalList;
@@ -427,4 +381,5 @@ public class TabManagerTest {
             return guiState;
         }
     }
+
 }

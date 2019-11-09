@@ -272,13 +272,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         plans.remove(key);
     }
 
-    /**
-     * Clear the list of plans
-     */
-    public void clearPlans() {
-        plans.clear();
-    }
-
     @Override
     public ObservableList<Plan> getPlanList() {
         return plans.asUnmodifiableObservableList();

@@ -9,6 +9,9 @@ import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TW
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DIFFICULTY_FACTORIAL;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DIFFICULTY_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_DIFFICULTY_TWO_SUM;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ID_FACTORIAL;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ID_QUICK_SORT;
+import static seedu.algobase.logic.commands.CommandTestUtil.VALID_ID_TWO_SUM;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_FACTORIAL;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.VALID_NAME_TWO_SUM;
@@ -26,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.problem.Problem;
 
 /**
@@ -35,6 +37,7 @@ import seedu.algobase.model.problem.Problem;
 public class TypicalProblems {
 
     public static final Problem QUICK_SORT = new ProblemBuilder()
+        .withId(VALID_ID_QUICK_SORT)
         .withName(VALID_NAME_QUICK_SORT)
         .withDescription(VALID_DESCRIPTION_QUICK_SORT)
         .withAuthor(VALID_AUTHOR_QUICK_SORT)
@@ -44,7 +47,9 @@ public class TypicalProblems {
         .withDifficulty(VALID_DIFFICULTY_QUICK_SORT)
         .withTags("Sorting", "Recursion", "Basics")
         .build();
+
     public static final Problem TWO_SUM = new ProblemBuilder()
+        .withId(VALID_ID_TWO_SUM)
         .withName(VALID_NAME_TWO_SUM)
         .withDescription(VALID_DESCRIPTION_TWO_SUM)
         .withAuthor(VALID_AUTHOR_TWO_SUM)
@@ -55,6 +60,7 @@ public class TypicalProblems {
         .build();
 
     public static final Problem FACTORIAL = new ProblemBuilder()
+        .withId(VALID_ID_FACTORIAL)
         .withName(VALID_NAME_FACTORIAL)
         .withDescription(VALID_DESCRIPTION_FACTORIAL)
         .withAuthor(VALID_AUTHOR_FACTORIAL)
@@ -63,17 +69,6 @@ public class TypicalProblems {
         .withSource(VALID_SOURCE_FACTORIAL)
         .withDifficulty(VALID_DIFFICULTY_FACTORIAL)
         .build();
-
-    /**
-     * Returns an {@code AlgoBase} with all typical problems.
-     */
-    public static AlgoBase getTypicalAlgoBase() {
-        AlgoBase algoBase = new AlgoBase();
-        for (Problem problem : getTypicalProblems()) {
-            algoBase.addProblem(problem);
-        }
-        return algoBase;
-    }
 
     public static List<Problem> getTypicalProblems() {
         return new ArrayList<>(Arrays.asList(QUICK_SORT, TWO_SUM, FACTORIAL));

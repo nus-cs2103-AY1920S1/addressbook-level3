@@ -20,7 +20,6 @@ import seedu.algobase.testutil.ProblemBuilder;
 
 class AddCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -79,4 +78,5 @@ class AddCommandTest {
             return new AlgoBase();
         }
     }
+
 }

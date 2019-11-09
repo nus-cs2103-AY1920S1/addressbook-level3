@@ -1,7 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Arrays;
 
@@ -18,10 +18,11 @@ class DescriptionContainsKeywordsPredicateTest {
 
     @Test
     void equals() {
-        assertTrue(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_ONE));
-        assertFalse(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_TWO));
-        assertFalse(VALID_PREDICATE_ONE.equals(5));
-        assertFalse(VALID_PREDICATE_ONE.equals(null));
-        assertTrue(VALID_PREDICATE_ONE.equals(VALID_PREDICATE_ONE_COPY));
+        assertEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_ONE);
+        assertNotEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_TWO);
+        assertNotEquals(5, VALID_PREDICATE_ONE);
+        assertNotEquals(null, VALID_PREDICATE_ONE);
+        assertEquals(VALID_PREDICATE_ONE, VALID_PREDICATE_ONE_COPY);
     }
+
 }

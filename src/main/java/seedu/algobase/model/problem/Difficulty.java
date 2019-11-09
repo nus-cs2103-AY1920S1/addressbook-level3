@@ -28,7 +28,7 @@ public class Difficulty implements Comparable<Difficulty> {
         value = Double.parseDouble(difficulty);
     }
 
-    private Difficulty() {
+    public Difficulty() {
         value = DEFAULT_DIFFICULTY_VALUE;
     }
 
