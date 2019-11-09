@@ -375,7 +375,7 @@ Format: `renew INDEX` or `renew -all` +
 * `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
 The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
-* You cannot renew books that have reached the maximum renew count or books that are already overdue.
+* You cannot renew overdue books or books that have reached the maximum renew count.
 * If you just loaned out or renewed a book, you cannot renew that same book in the same serve session.
 ****
 
@@ -392,7 +392,7 @@ You receive $12.80 from the borrower to pay off his/her fine. +
 {empty} +
 +
 .The command results display after paying fines.
-image::ug-pay.png[width=500, align=center]
+image::ug-pay.png[width=470, align=center]
 As seen from the screenshot above, after a fine amount is paid, a summary can be seen. You will see any outstanding fine the
 borrower still has. If the borrower pays an amount greater than his/her total outstanding fine, you can refer to the change given line
 to see how much change you should return to the borrower.

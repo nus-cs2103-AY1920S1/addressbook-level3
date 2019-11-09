@@ -562,7 +562,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 
 ===== Loaning
 
-The following activity diagram summarizes what happens when a user enters a loan command:
+The following activity diagram summarizes what happens when a user enters a loan command.
 
 .Activity diagram when a loan command is entered
 image::LoaningActivityDiagram.png[width=580, align=center]

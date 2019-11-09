@@ -38,7 +38,7 @@ object "__currentLoanList:LoanList__" as currentLoanList
 object "__returnedLoanList:LoanList__" as returnedLoanList
 
 LoanRecords --> Loan
-LoanRecords ---> LoanId
+LoanRecords --> LoanId
 Book --> Loan
 Book --> SerialNumber
 Borrower --> currentLoanList
