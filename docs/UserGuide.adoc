@@ -18,7 +18,14 @@ By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than GUI apps.
+ClerkPro is an appointment and queue management system targeted at clerks working in small clinics.
+This desktop application is optimised for individuals who *prefer to work with a Command Line Interface (CLI).*
+while still having the benefits of a Graphical User Interface (GUI).
+
+ClerkPro enables clerks to rapidly manage patient's details, appointments, queues and the staff's duty roster.
+Typing fast allows you to complete your tasks much faster than GUI apps.
+
+Interested? Refer to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
