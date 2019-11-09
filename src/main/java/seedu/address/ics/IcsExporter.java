@@ -77,6 +77,11 @@ public class IcsExporter {
         return stringBuilder.toString();
     }
 
+    //@@author marcusteh1238
+    /**
+     * Generates a unique name for the exported ICS file, based on the current Instant.
+     * @return The file name for the exported ICS file.
+     */
     public static String getExportFileName() {
         String timestamp = DateTime.now().toIcsString();
         return "Horo_export_" + timestamp + ".ics";
