@@ -2,6 +2,8 @@ package seedu.billboard.logic.commands;
 
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.billboard.logic.commands.DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.getDeleteTypicalBillboard;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
@@ -26,7 +28,9 @@ class UndoCommandTest {
         assertCommandFailure(undo, model, Messages.MESSAGE_NOT_UNDOABLE);
         VersionedBillboard.commit(deleteModel);
         String deleteCmd = "delete 1";
-        VersionedBillboard.addCmd(deleteCmd);
+        CommandResult deleteCommandResult = new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, BILLS),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
+        VersionedBillboard.addCmd(deleteCmd, deleteCommandResult);
         String expectedMessage = String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, deleteCmd);
         assertCommandSuccess(undo, deleteModel, expectedMessage, expectedModel);
     }
