@@ -2,13 +2,10 @@ package seedu.planner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.AccommodationManager;
 import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
@@ -47,9 +44,7 @@ public class ClearCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (!isUndoRedo) {
-            Event clearEvent = EventFactory.parse((UndoableCommand) this, model);
-            CommandHistory.addToUndoStack(clearEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(this, model);
         }
 
         model.setAccommodations(new AccommodationManager());
