@@ -3,6 +3,8 @@ package seedu.address.model.lesson;
 import java.util.Calendar;
 import java.util.Objects;
 
+import com.sun.javafx.css.StyleCacheEntry;
+
 /**
  * Represents a Lesson in the Classroom.
  */
@@ -74,6 +76,25 @@ public class Lesson {
                 && otherLesson.getStartTime().equals(this.getStartTime())
                 && otherLesson.getEndTime().equals(this.getEndTime())
                 && otherLesson.getName().equals(this.getName());
+    }
+
+    /**
+     * checks if Lesson time occurs during another Lesson time.
+     * @param toCheck Lesson object.
+     * @return boolean
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        Calendar toCheckStart = toCheck.getStartTime().getTime();
+        Calendar toCheckEnd = toCheck.getEndTime().getTime();
+        Calendar thisStart = this.getStartTime().getTime();
+        Calendar thisEnd = this.getEndTime().getTime();
+        boolean equalStartTime = toCheckStart.compareTo(thisStart) == 0; //check if toCheck start time and end time
+                //|| toCheckStart.compareTo(thisEnd) == 0;                // is equal to this lesson start and end time.
+        boolean equalEndTime = toCheckEnd.compareTo(thisEnd) == 0;
+                //|| toCheckEnd.compareTo(thisStart) == 0;
+        boolean startBetweenLesson = toCheckStart.after(thisStart) && toCheckStart.before(thisEnd); //check if start or
+        boolean endBetweenLesson = toCheckEnd.after(thisStart) && toCheckEnd.before(thisEnd); //end time is between this
+        return equalStartTime || equalEndTime || startBetweenLesson || endBetweenLesson; //lesson time slot.
     }
 
     /**

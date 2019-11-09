@@ -160,6 +160,13 @@ public interface Model {
     void addLesson(Lesson lesson);
 
     /**
+     * takes a Lesson and checks if another lesson exists in the same time period.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    boolean checkTimingExist(Lesson toCheck);
+
+    /**
      * Returns true if a Lesson with the same identity exists in the classroom.
      * @param lesson Lesson object.
      */

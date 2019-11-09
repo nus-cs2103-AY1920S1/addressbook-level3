@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -221,6 +222,12 @@ public class ModelManager implements Model {
     public void addLesson(Lesson lesson) {
         notebook.addLesson(lesson);
         updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+    }
+
+    @Override
+    public boolean checkTimingExist(Lesson toCheck) {
+        requireNonNull(toCheck);
+        return notebook.checkTimingExist(toCheck);
     }
 
     @Override

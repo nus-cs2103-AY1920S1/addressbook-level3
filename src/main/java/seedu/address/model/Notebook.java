@@ -228,6 +228,15 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
     /**
+     * Returns true if another lesson in the list exists in the same period as lesson toCheck.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        return lessons.checkTimingExist(toCheck);
+    }
+
+    /**
      * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
      */
     public boolean hasLesson(Lesson lesson) {
