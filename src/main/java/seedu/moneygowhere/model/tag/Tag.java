@@ -9,8 +9,8 @@ import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric and have at most 64 characters.";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}{1,64}+";
+    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric and have at most 15 characters.";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}{1,15}+";
 
     public final String tagName;
 
