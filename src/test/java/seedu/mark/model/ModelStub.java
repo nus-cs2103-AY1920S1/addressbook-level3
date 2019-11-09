@@ -203,6 +203,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return false;
     }

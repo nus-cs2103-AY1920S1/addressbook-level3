@@ -87,6 +87,19 @@ public class ReminderAssociation {
     }
 
     /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        if (!reminderMap.containsKey(reminder)) {
+            throw new ReminderNotFoundException();
+        }
+        return reminderMap.get(reminder);
+    }
+
+    /**
      * Replaces the bookmark's reminder {@code targetReminder} in the map with {@code editedReminder}.
      * {@code targetReminder} must exist in the map.
      */

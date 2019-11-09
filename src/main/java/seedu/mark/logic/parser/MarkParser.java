@@ -31,6 +31,7 @@ import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FavoriteCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.GotoCommand;
+import seedu.mark.logic.commands.GotoReminderCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ImportCommand;
 import seedu.mark.logic.commands.ListCommand;
@@ -83,6 +84,9 @@ public class MarkParser {
 
         case GotoCommand.COMMAND_WORD:
             return new GotoCommandParser().parse(arguments);
+
+        case GotoReminderCommand.COMMAND_WORD:
+            return new GotoReminderCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new NoArgumentParser<>(ClearCommand::new).parse(arguments);
