@@ -16,7 +16,7 @@ end box
 [-> AddTaskForNoteCommand : execute(model)
 activate AddTaskForNoteCommand
 
-opt !hasValidNoteForTask(model)
+opt required note does not exist in model
     create CommandException
     AddTaskForNoteCommand -> CommandException : CommandException()
     activate CommandException
@@ -24,7 +24,7 @@ opt !hasValidNoteForTask(model)
     deactivate CommandException
 end
 
-opt model.hasTask(toAdd)
+opt task already exists in model
     create CommandException
     AddTaskForNoteCommand -> CommandException : CommandException()
     activate CommandException

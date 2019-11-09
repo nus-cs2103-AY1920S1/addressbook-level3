@@ -424,7 +424,7 @@ Step 2. The `Logic Manager` calls `Command#execute(Model)` which essentially cal
 because of polymorphism.
 
 Step 3. `AddTaskForNoteCommand` calls its own private method `hasValidNote(Model)` which checks if
-the note title input by the user exists in `Model`. If not, a `CommandException` will be thrown and `execute(Model)` stops because non-existing note
+the `Note` with `Title` "UML diagram" exists in `Model`. If not, a `CommandException` will be thrown and `execute(Model)` stops because non-existing note
 title is not allowed to be the heading of any tasks.
 
 Step 4. `AddTaskForNoteCommand` calls `Model#hasTask(Task)` to check whether the `Model` has a task identical to the one
@@ -441,6 +441,14 @@ The following sequence diagram illustrates the interaction between classes when 
 
 .Sequence diagram for `execute(Model)` of `AddTaskForNoteCommand`
 image::task/AddTaskForNoteCommandExecuteSequenceDiagram.png[]
+
+Zooming in to *Step 3*, when calling `hasValidNoteForTask(Model)`, `AddTaskForNoteCommand` creates a new `Note` with a `Title` "UML diagram" and a `Content` "dummy entry".
+The entry of `Content` is not important because `AddTaskForNoteCommand` only records the `Title` of a `Note` and the existence
+of a `Note` is checked against its `Title` only (if the title is in the note list, then the note exists in the list).
+The detailed process is illustrated by the sequence diagram below.
+
+.Sequence diagram for checking existence of a `Note` in the model when `AddTaskForNoteCommand` calls its own `hasValidNoteForTask(Model)`
+image::task/HasValidNoteSequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect: Design of `Task`

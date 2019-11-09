@@ -14,12 +14,17 @@ participant ":AppData" as AppData MODEL_COLOR
 participant ":UniqueNoteList" as UniqueNoteList MODEL_COLOR
 end box
 
+[--> AddTaskForNoteCommand : execute(model)
+activate AddTaskForNoteCommand LOGIC_COLOR
+AddTaskForNoteCommand -> AddTaskForNoteCommand : hasValidNoteForTask(model)
+activate AddTaskForNoteCommand
+
 create Note
 AddTaskForNoteCommand -> Note : Note()
 activate Note
 
     create Title
-    Note -> Title : Title()
+    Note -> Title : Title("UML diagram")
     activate Title
     return t
     deactivate Title
@@ -49,5 +54,10 @@ deactivate AppData
 
 Model --> AddTaskForNoteCommand
 deactivate Model
+
+AddTaskForNoteCommand --> AddTaskForNoteCommand
+deactivate AddTaskForNoteCommand
+[<-- AddTaskForNoteCommand : CommandResult
+deactivate AddTaskForNoteCommand
 
 @enduml
