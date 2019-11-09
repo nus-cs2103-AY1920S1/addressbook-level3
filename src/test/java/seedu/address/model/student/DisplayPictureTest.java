@@ -7,21 +7,21 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class DisplayPictureTest {
-  
+
     @Test
     public void constructor_invalidDisplayPicture_throwsIllegalArgumentException() {
         String inValidFileName = "";
         assertThrows(IllegalArgumentException.class, () -> new DisplayPicture(inValidFileName));
     }
 
-  
+
     @Test
     public void isValidDisplayPicture() {
         // null filename
         assertThrows(NullPointerException.class, () -> DisplayPicture.isValidFormat(null));
 
         // invalid filenames
-      
+
         assertFalse(DisplayPicture.isValidFormat("")); // empty string
         assertFalse(DisplayPicture.isValidFormat(" ")); // spaces only
         assertFalse(DisplayPicture.isValidFormat("asddf"));
