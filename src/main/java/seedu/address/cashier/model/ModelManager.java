@@ -193,7 +193,9 @@ public class ModelManager implements Model {
         for (Item item : salesList) {
             if (item.getDescription().equalsIgnoreCase(description)) {
                 int originalQty = item.getQuantity();
-                item.setQuantity(originalQty + qty);
+                int newQty = originalQty + qty;
+                salesList.remove(item);
+                addItem(description, newQty);
                 return item;
             }
         }
@@ -277,7 +279,7 @@ public class ModelManager implements Model {
      */
     @Override
     public double getTotalAmount() throws AmountExceededException {
-        double total = 0;
+        double total = 0.00;
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
@@ -320,8 +322,14 @@ public class ModelManager implements Model {
      * @return the item edited
      */
     @Override
-    public Item editItem(int index, int qty) {
-        salesList.get(index - 1).setQuantity(qty);
+    public Item editItem(int index, int qty) throws NoSuchItemException {
+        String description = salesList.get(index - 1).getDescription();
+        salesList.remove(index - 1);
+
+        Item i = inventoryList.getOriginalItem(description);
+        Item copyItem = new Item(i.getDescription(), i.getCategory(), qty, i.getCost(), i.getPrice(),
+                Integer.valueOf(i.getId()));
+        salesList.add(index - 1, copyItem);
         return salesList.get(index - 1);
     }
 

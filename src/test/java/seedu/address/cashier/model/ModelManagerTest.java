@@ -67,8 +67,8 @@ public class ModelManagerTest {
     @Test
     public void hasSufficientQuantityToAdd_returnTrue() throws NoSuchItemException {
         modelManager.clearSalesList();
-        setInventoryList();
-        assertTrue(modelManager.hasSufficientQuantityToAdd(FISH_BURGER.getDescription(), 3));
+        setInventoryList2();
+        assertTrue(modelManager.hasSufficientQuantityToAdd(BURGER_AND_CHIPS.getDescription(), 3));
         modelManager.clearSalesList();
     }
 
@@ -87,7 +87,7 @@ public class ModelManagerTest {
     @Test
     public void hasSufficientQuantityToEdit_returnTrue() throws NoSuchItemException {
         setInventoryList();
-        modelManager.addItem(FISH_BURGER);
+        modelManager.addItem(CHIPS);
         assertTrue(modelManager.hasSufficientQuantityToEdit(1, 3));
         modelManager.clearSalesList();
     }
@@ -350,7 +350,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void editItem_successful() throws NoSuchIndexException {
+    public void editItem_successful() throws NoSuchItemException {
         setInventoryList();
         modelManager.addItem(FISH_BURGER);
         int expectedQty = 3;
