@@ -18,7 +18,7 @@ By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than GUI apps.
+This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than Graphical User Interface (GUI) apps.
 
 // tag::ui[]
 == Quick Start
@@ -26,14 +26,14 @@ This desktop application is targeted at clerks working in small clinics. It is d
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ClerkPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for ClerkPro.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The User Interface (UI) should appear in a few seconds.
 +
-image::Ui.png[width="100%"]
+image::Ui.png[]
 +
 . You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 . The figure below shows the layout.
 +
-image::Layout.PNG[width="100%"]
+image::Layout.png[]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
