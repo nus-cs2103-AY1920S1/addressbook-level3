@@ -14,4 +14,6 @@ public interface ReadOnlyUserPrefs {
     Path getDishDatabaseFilePath();
 
     Path getMealLogFilePath();
+
+    Path getCalorieBudgetFilePath();
 }

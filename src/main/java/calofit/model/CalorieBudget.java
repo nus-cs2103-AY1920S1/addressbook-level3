@@ -1,6 +1,7 @@
 package calofit.model;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.OptionalInt;
@@ -28,7 +29,15 @@ public class CalorieBudget {
      * Construct an empty {@link CalorieBudget}.
      */
     public CalorieBudget() {
-        this.budgetHistory = new TreeMap<>();
+        this(Map.of());
+    }
+
+    /**
+     * Construct a {@link CalorieBudget} from existing data.
+     * @param budgets Existing calorie budget data
+     */
+    public CalorieBudget(Map<LocalDate, Integer> budgets) {
+        this.budgetHistory = new TreeMap<>(budgets);
         this.observableHistory = FXCollections.observableMap(budgetHistory);
         this.currentBudget = Bindings.createDoubleBinding(() ->
             budgetHistory.isEmpty()
@@ -36,6 +45,7 @@ public class CalorieBudget {
                 : (double) budgetHistory.floorEntry(todayProperty.get()).getValue(),
             observableHistory, todayProperty);
     }
+
 
     /**
      * Utility method to extract an {@link OptionalInt} from a map entry.
@@ -91,5 +101,9 @@ public class CalorieBudget {
 
     public ObjectProperty<LocalDate> todayProperty() {
         return todayProperty;
+    }
+
+    public NavigableMap<LocalDate, Integer> getBudgets() {
+        return Collections.unmodifiableNavigableMap(this.budgetHistory);
     }
 }

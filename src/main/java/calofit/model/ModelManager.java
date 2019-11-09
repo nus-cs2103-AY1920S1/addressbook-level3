@@ -46,8 +46,9 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
-    public ModelManager(ReadOnlyMealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
-        CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
+    public ModelManager(ReadOnlyMealLog mealLog, ReadOnlyDishDatabase dishDatabase,
+                        ReadOnlyUserPrefs userPrefs, CalorieBudget budget) {
+        CollectionUtil.requireAllNonNull(dishDatabase, userPrefs, budget);
 
         logger.fine("Initializing with dish database: " + dishDatabase + " and user prefs " + userPrefs);
 
@@ -55,7 +56,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.mealLog = new MealLog(mealLog);
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
-        this.budget = new CalorieBudget();
+        this.budget = budget;
         DoubleExpression remainingCalories = budget.currentBudget().subtract(this.mealLog.getTodayCalories());
         suggestedDishFilter = ObservableUtil.mapToObject(remainingCalories,
             remain -> dish -> dish.getCalories().getValue() <= remain);
@@ -67,11 +68,11 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new MealLog(), new DishDatabase(), new UserPrefs());
+        this(new MealLog(), new DishDatabase(), new UserPrefs(), new CalorieBudget());
     }
 
     public ModelManager(ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
-        this(new MealLog(), dishDatabase, userPrefs);
+        this(new MealLog(), dishDatabase, userPrefs, new CalorieBudget());
     }
 
     //=========== UserPrefs ==================================================================================

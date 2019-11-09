@@ -28,7 +28,7 @@ import calofit.testutil.TypicalIndexes;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(TypicalDishes.getTypicalMealLog(),
-            TypicalDishes.getTypicalDishDatabase(), new UserPrefs());
+            TypicalDishes.getTypicalDishDatabase(), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
     //@Test
     //public void execute_validIndexUnfilteredList_success() {

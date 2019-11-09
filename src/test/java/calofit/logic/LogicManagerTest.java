@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.Mockito;
 
 import calofit.logic.commands.AddCommand;
 import calofit.logic.commands.CommandResult;
@@ -21,12 +22,11 @@ import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
 import calofit.model.dish.Dish;
-import calofit.model.dish.ReadOnlyDishDatabase;
-import calofit.model.meal.ReadOnlyMealLog;
-import calofit.storage.JsonDishDatabaseStorage;
-import calofit.storage.JsonMealLogStorage;
-import calofit.storage.JsonUserPrefsStorage;
+import calofit.storage.CalorieBudgetStorage;
+import calofit.storage.DishDatabaseStorage;
+import calofit.storage.MealLogStorage;
 import calofit.storage.StorageManager;
+import calofit.storage.UserPrefsStorage;
 import calofit.testutil.Assert;
 import calofit.testutil.DishBuilder;
 import calofit.testutil.TypicalDishes;
@@ -42,12 +42,12 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDishDatabaseStorage dishDatabaseStorage =
-                new JsonDishDatabaseStorage(temporaryFolder.resolve("dishDb.json"));
-        JsonMealLogStorage mealLogStorage = new JsonMealLogStorage(temporaryFolder.resolve("mealLog.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
-                temporaryFolder.resolve("preferences.json"));
-        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
+        DishDatabaseStorage dishDatabaseStorage = Mockito.mock(DishDatabaseStorage.class);
+        MealLogStorage mealLogStorage = Mockito.mock(MealLogStorage.class);
+        UserPrefsStorage userPrefsStorage = Mockito.mock(UserPrefsStorage.class);
+        CalorieBudgetStorage calorieBudgetStorage = Mockito.mock(CalorieBudgetStorage.class);
+        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage,
+            userPrefsStorage, calorieBudgetStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -72,14 +72,22 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonDishDatabaseIoExceptionThrowingStub
-        JsonDishDatabaseStorage dishDatabaseStorage =
-                new JsonDishDatabaseIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDishDb.json"));
-        JsonMealLogStorage mealLogStorage =
-                new JsonMealLogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMealLog.json"));
-        JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(
-                        temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
+        DishDatabaseStorage dishDatabaseStorage = Mockito.mock(DishDatabaseStorage.class);
+        try {
+            Mockito.doThrow(DUMMY_IO_EXCEPTION).when(dishDatabaseStorage).saveDishDatabase(Mockito.any());
+            Mockito.doThrow(DUMMY_IO_EXCEPTION).when(dishDatabaseStorage)
+                .saveDishDatabase(Mockito.any(), Mockito.any());
+        } catch (IOException e) {
+            //This is an artifact of Mockito using the same method call to configure the object.
+            //We are only configuring behaviour, not actually calling the method.
+        }
+
+        MealLogStorage mealLogStorage = Mockito.mock(MealLogStorage.class);
+        UserPrefsStorage userPrefsStorage = Mockito.mock(UserPrefsStorage.class);
+        CalorieBudgetStorage calorieBudgetStorage = Mockito.mock(CalorieBudgetStorage.class);
+
+        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage,
+            userPrefsStorage, calorieBudgetStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -89,8 +97,8 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addDish(expectedDish);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
@@ -154,33 +162,5 @@ public class LogicManagerTest {
                                       String expectedMessage, Model expectedModel) {
         Assert.assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
-    }
-
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called for {@code DishDatabase}.
-     */
-    private static class JsonDishDatabaseIoExceptionThrowingStub extends JsonDishDatabaseStorage {
-        private JsonDishDatabaseIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveDishDatabase(ReadOnlyDishDatabase dishDatabase, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
-    }
-
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called for MealLog.
-     */
-    private static class JsonMealLogIoExceptionThrowingStub extends JsonMealLogStorage {
-        private JsonMealLogIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveMealLog(ReadOnlyMealLog mealLog, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
     }
 }
