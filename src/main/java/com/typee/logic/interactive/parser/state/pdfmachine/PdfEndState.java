@@ -32,9 +32,9 @@ public class PdfEndState extends EndState {
     @Override
     public Command buildCommand() throws CommandException {
         Index index = fetchIndex();
-        Person sender = fetchSender();
         Person receiver = fetchReceiver();
-        return new PdfCommand(index.getOneBased(), sender, receiver);
+        Person sender = fetchSender();
+        return new PdfCommand(index.getOneBased(), receiver, sender);
     }
 
     /**
