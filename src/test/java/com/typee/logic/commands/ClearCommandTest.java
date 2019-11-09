@@ -14,7 +14,7 @@ import com.typee.model.UserPrefs;
 
 public class ClearCommandTest {
 
-    ClearCommand clearCommand;
+    private ClearCommand clearCommand;
 
     @BeforeEach
     public void setUp() {

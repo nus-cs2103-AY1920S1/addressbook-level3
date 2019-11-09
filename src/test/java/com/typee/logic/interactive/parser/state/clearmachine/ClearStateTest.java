@@ -31,7 +31,7 @@ class ClearStateTest {
     public void transition() {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
         assertThrows(StateTransitionException.class, ()
-                -> clearState.transition(argumentMultimap));
+            -> clearState.transition(argumentMultimap));
     }
 
     @Test
