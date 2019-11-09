@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main/tree/master
 
+By: `AY1920S1-CS2103T-F11-4`      Since: `September 2019`      Licence: `MIT`
+
 NUStudy is an application for managing three kinds of informational material: lecture notes, quizzes and revision tasks.
 It helps users to prepare for exams and tests in university by facilitating their learning.
 
@@ -68,11 +70,13 @@ image::ArchitectureSequenceDiagram.png[]
 [[Design-Ui]]
 === `UI`
 
+// tag::UIClassDiagram[]
 .Class diagram of the `UI` component
 image::UiClassDiagram.png[]
 
 .Detailed class diagram for `Panels` package
 image::PanelPackageClassDiagram.png[]
+// end::UIClassDiagram[]
 
 _API:_ link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -111,9 +115,10 @@ image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === `Model`
-
+// tag::ModelClassDiagram[]
 .Class diagram of the `Model` component
 image::ModelClassDiagram.png[]
+// end::ModelClassDiagram[]
 
 _API:_ link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -422,8 +427,35 @@ The charts will be small and condensed making it difficult to see the data at fi
 This is also more difficult to implement.
 // end::stats[]
 
-=== Add revision task
+// tag::task[]
+=== Revision task management
+Revision task management involves addition, deletion, editing, searching and many other operations on tasks. This section
+explains how task management features are implemented.
+
 ==== Implementation
+
+Revision task management is facilitated by `Model`.
+Commands related to task manipulation extend `Command` class.
+The commands update the `Model` interface which is implemented by `ModelManager` class.
+The `ModelManager` then updates `AppData` which stores all the revision tasks in an internal data structure `TaskList`.
+`TaskList` is essentially an `ObservableList` of `Task`.
+Local data will be updated in the end by `LogicManager`.
+
+The revision task management commands include:
+
+* `AddTaskForNoteCommand` -- Adds a new task for revising note to the app.
+* `AddTaskForQuestionCommand` -- Adds a new task for revising question to the app.
+* `ClearTaskCommand` -- Clears all tasks in the app.
+* `DeleteTaskCommand` -- Deletes a task from the app.
+* `DoneTaskCommand` -- Marks a task as done.
+* `EditTaskCommand` -- Edits fields of a task.
+* `FindTaskCommand` -- Searches for a task with given information.
+* `ListAllTaskCommand` -- Displays all tasks to the user.
+* `ListDoneTaskTaskCommand` -- Displays tasks that have been done to the user.
+* `ListNotDoneTaskCommand` -- Displays tasks that have not been done to the user.
+* `ListOverdueTaskCommand` -- Displays tasks that have passed the scheduled time to the user.
+
+
 `AddTaskForNoteCommand` is implemented to add a task for revising a lecture note with the command `rn`. It extends `Command` class and adds a
 `Task` to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
 `AddTaskForQuestionCommand` is implemented to add a task for revising a question.
@@ -498,7 +530,7 @@ classes have to include the field in common such as `isDone`, which results in d
 ** Cons: It violates the principle of Separation of Concern, making it hard to maintain or extend in the future if more types of
 tasks are needed.
 
-===== Aspect: Design of adding command for task
+===== Aspect: Design of command for adding a task
 * **Alternative 1 (current implementation):** We implement the command as two independent classes, namely `AddTaskForNoteCommand` and
 `AddTaskForQuestionCommand` to support adding `TaskForNote` and `TaskForQuestion` respectively.
 ** Pros: The two types of commands, although similar in logic, receive different parameters and interact with different
@@ -514,6 +546,7 @@ command parsers.
 ** Cons: This approach leads to lower level of abstraction as all concerns of `Task`, regardless of `TaskForNote` or `TaskForQuestion`,
 are wrapped into the same class. It could be difficult to maintain if the behaviors of `TaskForNote` and `TaskForQuestion`
 get more complex and diverse.
+// end::task[]
 
 === Logging
 
@@ -694,6 +727,7 @@ Use case ends
 * Use case resumes from step 2
 // end::usecase[]
 
+// tag::task_usecase[]
 [discrete]
 === Use case: Add a revision task for note to revision plan (Shui Yao)
 
@@ -780,6 +814,7 @@ Use case ends
 3. NUStudy informs the Student that the revision plan is successfully cleared
 
 Use case ends.
+//end::task_usecase[]
 
 // tag::statsUseCase[]
 [discrete]

@@ -483,10 +483,11 @@ To see an overview of your results:
 image::statistics/overview.PNG[600, 600]
 // end::statistics[]
 
+// tag::task[]
 === Revision tasks
 
-This section provides instructions to manipulate revision tasks. The revision tasks help you plan your revision of notes
-and questions.
+You will know more about how to work with revision tasks in this section. The revision tasks help you plan your revision of notes
+and questions. You can do various operations on tasks, including addition, deletion, searching etc.
 
 The diagram below shows how a revision task looks like:
 
@@ -510,12 +511,13 @@ NOTE: `TITLE_OF_NOTE` is case sensitive.
 
 Example: +
 
-1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it.
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it, as
+shown in the diagram below.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[600, 600]
 +
 2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
-The task is added to the task list shown in the middle panel.
+The task is added to the task list shown in the middle panel, as shown in the diagram below.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[600, 600]
 +
@@ -558,11 +560,11 @@ The GUI will display the current list (all-task, done-task, not-done-task or ove
 Format: `rdelete INDEX_OF_TASK` +
 Example: +
 
-1. Type `rdelete 2` in the command input box, and press `Enter` to execute it.
+1. Type `rdelete 2` in the command input box, and press `Enter` to execute it. You can refer to the diagram below for a visual guide.
 +
 image::UserGuideRes/TaskCommands/DeleteTaskCommand.png[600, 600]
 +
-2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list.
+2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list, as shown by the diagram below.
 +
 image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[600, 600]
 +
@@ -574,12 +576,12 @@ Format: `rdone INDEX` +
 
 Example: +
 
-1. Type `rdone 1` in the command input box, and press `Enter` to execute it.
+1. Type `rdone 1` in the command input box, and press `Enter` to execute it, as shown by the diagram below.
 +
 image::UserGuideRes/TaskCommands/DoneTaskCommand.png[600, 600]
 +
 2. The result box will display the message "Revision task marked as done: [Y] ..." with the task details. The status icon
-of the task turns from "[N]" (not done) to "[Y]" (done).
+of the task turns from "[N]" (not done) to "[Y]" (done). You may refer to the diagram below.
 +
 image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[600, 600]
 +
@@ -658,6 +660,7 @@ here are the use cases:
 ==== Clearing current revision plan: `rclear`
 You can remove all revision tasks with this command. +
 Format: `rclear`
+// end::task[]
 
 // tag::v2.0[]
 === Other features coming in v2.0
@@ -670,6 +673,7 @@ You can set a time limit before you start a quiz to train yourself under exam co
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT tl/TIME_LIMIT`
 // end::quizFuture[]
 
+// tag::task_2.0[]
 ==== Enabling push notification: `notify -e`
 You can enable the push notification feature to send a desktop reminder when the task is about to start. +
 Format: `notify -e [-A]`
@@ -684,6 +688,7 @@ Format: `sort o/ORDER f/FIELD` +
 Example: +
 `sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
 `sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
+// end::task_2.0[]
 
 ==== Sharing notes and questions with other users
 You can share your notes and questions with other NUStudy users with Internet connection.
@@ -697,6 +702,7 @@ You can create an account in the application and login with your email and passw
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
 
+// tag::command_summary[]
 == Command summary
 
 *Adding lecture notes:* `addnote t/TITLE c/CONTENT [i/]` +
@@ -791,6 +797,7 @@ eg. `rfind h/hello world` or `rfind dt/01/11/2019` or `rfind tm/1200` +
 *Exitting the app:* `exit` +
 
 *Opening help window:* `help`
+// end::command_summary[]
 
 == FAQ
 
