@@ -75,7 +75,8 @@ public class AddTagCommand extends TagCommand {
 
         model.setExpense(expenseToEdit, editedExpense);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense),
+                false, false, "");
     }
 
     /**

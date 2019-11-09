@@ -77,7 +77,7 @@ public class AddCommand extends Command {
         }
 
         model.addExpense(expense);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, expense));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, expense), false, false, "");
     }
 
     @Override

@@ -29,7 +29,8 @@ public class FilterTagCommand extends TagCommand {
         requireNonNull(model);
         model.updateFilteredExpenses(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()));
+                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()),
+                false, false, "");
     }
 
     @Override
