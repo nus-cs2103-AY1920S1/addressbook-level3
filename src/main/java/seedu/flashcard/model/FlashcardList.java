@@ -43,6 +43,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     public void resetData(ReadOnlyFlashcardList newData) {
         requireNonNull(newData);
         setFlashcards(newData.getFlashcardList());
+        indicateModified(); // include here?
     }
 
     /**

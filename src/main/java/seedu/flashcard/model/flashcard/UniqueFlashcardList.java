@@ -34,6 +34,7 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
     private final ObservableList<Flashcard> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+
     /**
      * Returns true if the list contains an equivalent flashcard as the given argument
      */
@@ -135,8 +136,19 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      * @param tag
      */
     public void removeTag(Tag tag) {
-        for (Flashcard flashcard : internalList) {
-            flashcard.removeTag(tag);
+        for (int i = 0; i < internalList.size(); i++) {
+            Flashcard flashcard = internalList.get(i);
+            Flashcard edited;
+            if (flashcard.isMcq()) {
+                edited = new McqFlashcard((McqFlashcard) flashcard);
+            } else {
+                edited = new ShortAnswerFlashcard((ShortAnswerFlashcard) flashcard);
+            }
+            if (edited.hasTag(tag)) {
+                internalList.remove(i);
+                edited.removeTag(tag);
+                internalList.add(i, edited);
+            }
         }
     }
 

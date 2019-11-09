@@ -37,6 +37,18 @@ public abstract class Flashcard {
     }
 
     /**
+     * Creates a deep copy of a given flashcard.
+     * @param toClone the flashcard to be cloned.
+     */
+    public Flashcard(Flashcard toClone) {
+        this.question = toClone.getQuestion();
+        this.definition = toClone.getDefinition();
+        this.tags.addAll(toClone.getTags());
+        this.answer = toClone.getAnswer();
+        this.score = toClone.getScore();
+    }
+
+    /**
      * This initializer should only be accessed by the storage package, because this initializer ensures the
      * flashcard scores can be reloaded
      */
@@ -148,6 +160,7 @@ public abstract class Flashcard {
     public String fullString() {
         return toString() + "\nAnswer:\n" + answer;
     }
+
 
     /**
      * Check if this flashcard's answer is in choice or not. Only applies for MCQ flashcard.

@@ -236,18 +236,19 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedFlashcardReplaced = change.wasReplaced() && change.getAddedSize()
+                    == change.getRemovedSize()
                     && change.getRemoved().contains(selectedFlashcard.getValue());
-            if (wasSelectedPersonReplaced) {
+            if (wasSelectedFlashcardReplaced) {
                 // Update selectedFlashcard to its new value.
                 int index = change.getRemoved().indexOf(selectedFlashcard.getValue());
                 selectedFlashcard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedFlashcard.getValue().isSameFlashcard(removedPerson));
-            if (wasSelectedPersonRemoved) {
+            boolean wasSelectedFlashcardRemoved = change.getRemoved().stream()
+                    .anyMatch(removedFlashcard -> selectedFlashcard.getValue().isSameFlashcard(removedFlashcard));
+            if (wasSelectedFlashcardRemoved) {
                 // Select the flashcard that came before it in the list,
                 // or clear the selection if there is no such flashcard.
                 selectedFlashcard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
