@@ -42,7 +42,7 @@ It allows the user to export their data into JSON format and import new data fro
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.0` `v1.3.2` (2 releases) on GitHub
+*** Managed releases `v1.0`, `v1.3.2` and `v1.3.3` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** TBA
 ** Documentation:
@@ -54,6 +54,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/67[#67]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/81[#81]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/106[#106]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214]
 *** Contributed to forum discussions: TBA
 *** Reported bugs and suggestions for other teams in the class:
 https://github.com/jiayushe/ped[PE Dry Run]

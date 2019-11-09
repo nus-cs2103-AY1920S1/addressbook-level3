@@ -11,7 +11,7 @@ public class Author implements Comparable<Author> {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Author numbers should only contain numbers, and it should be at least 3 digits long";
+            "Author names should only contain alphanumeric characters and spaces, and it should not be blank";
     public static final String DEFAULT_AUTHOR_STRING = "";
     public static final Author DEFAULT_AUTHOR = new Author();
 

@@ -193,7 +193,7 @@ public class SampleDataUtil {
                         + "the i-th item)."),
                 new Source("LeetCode")),
             new Problem(Id.generateId(),
-                new Name("Is Graph Bipartite?"), Author.DEFAULT_AUTHOR,
+                new Name("Is Graph Bipartite"), Author.DEFAULT_AUTHOR,
                 new WebLink("https://leetcode.com/problems/is-graph-bipartite/"),
                 new Description("Given an undirected graph, return true if and only if it is bipartite."
                         + "Recall that a graph is bipartite if we can split it's set of nodes into two independent "

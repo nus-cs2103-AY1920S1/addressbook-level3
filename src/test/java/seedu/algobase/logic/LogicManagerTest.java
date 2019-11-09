@@ -5,6 +5,7 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_PROBLEM_DISPL
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.algobase.logic.commands.CommandTestUtil.AUTHOR_DESC_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.DESCRIPTION_DESC_QUICK_SORT;
+import static seedu.algobase.logic.commands.CommandTestUtil.DIFFICULTY_DESC_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.NAME_DESC_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.REMARK_DESC_QUICK_SORT;
 import static seedu.algobase.logic.commands.CommandTestUtil.SOURCE_DESC_QUICK_SORT;
@@ -83,7 +84,8 @@ public class LogicManagerTest {
 
         // Execute addprob command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_QUICK_SORT + DESCRIPTION_DESC_QUICK_SORT
-            + AUTHOR_DESC_QUICK_SORT + WEBLINK_DESC_QUICK_SORT + REMARK_DESC_QUICK_SORT + SOURCE_DESC_QUICK_SORT;
+            + DIFFICULTY_DESC_QUICK_SORT + AUTHOR_DESC_QUICK_SORT + WEBLINK_DESC_QUICK_SORT
+            + REMARK_DESC_QUICK_SORT + SOURCE_DESC_QUICK_SORT;
         Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addProblem(expectedProblem);
@@ -92,8 +94,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        // TODO: implementation
+    public void getFilteredProblemList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> model.getFilteredProblemList().remove(0));
     }
 

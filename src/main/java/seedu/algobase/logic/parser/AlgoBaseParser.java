@@ -166,6 +166,7 @@ public class AlgoBaseParser {
 
         // Find Rule
         case AddFindRuleCommand.COMMAND_WORD:
+            // Fallthrough
         case AddFindRuleCommand.SHORT_COMMAND_WORD:
             return new AddFindRuleCommandParser().parse(arguments);
 
@@ -173,6 +174,7 @@ public class AlgoBaseParser {
             return new ApplyCommandParser().parse(arguments);
 
         case DeleteFindRuleCommand.COMMAND_WORD:
+            // Fallthrough
         case DeleteFindRuleCommand.SHORT_COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
 
@@ -185,14 +187,17 @@ public class AlgoBaseParser {
 
         // UI
         case SwitchTabCommand.COMMAND_WORD:
+            // Fallthrough
         case SwitchTabCommand.SHORT_COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 
         case OpenTabCommand.COMMAND_WORD:
+            // Fallthrough
         case OpenTabCommand.SHORT_COMMAND_WORD:
             return new OpenTabCommandParser().parse(arguments);
 
         case CloseTabCommand.COMMAND_WORD:
+            // Fallthrough
         case CloseTabCommand.SHORT_COMMAND_WORD:
             return new CloseTabCommandParser().parse(arguments);
 

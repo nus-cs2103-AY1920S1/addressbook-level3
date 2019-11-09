@@ -1,6 +1,9 @@
+//@@author le0tan
 package seedu.algobase.model.problem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(
                     list);
-        assertEquals(true, predicate.test(QUICK_SORT));
+        assertTrue(predicate.test(QUICK_SORT));
     }
 
     @Test
@@ -34,7 +37,7 @@ class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate predicate =
             new NameContainsKeywordsPredicate(
                     Arrays.asList(new Keyword(QUICK_SORT.getName().fullName.replace(" ", ""))));
-        assertEquals(false, predicate.test(QUICK_SORT));
+        assertFalse(predicate.test(QUICK_SORT));
     }
 
     @Test

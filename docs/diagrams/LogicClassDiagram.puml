@@ -10,40 +10,29 @@ Class HiddenModel #FFFFFF
 
 package Logic {
 
-    package Command {
+    Class XYZCommand
+    Class SimpleCommand
+    Class CommandResult
+    Class "{abstract}\nCommand" as Command
 
-        Class XYZCommand
-        Class SimpleCommand
-        Class CommandResult
-        Class "{abstract}\nCommand" as Command
-        package exceptions {
-            Class CommandException
-        }
-    }
-
-    package Parser {
-        package exceptions {
-            Class ParseException
-        }
-        Interface Parser <<Interface>>
-        Class AlgoBaseParser
-        Class XYZCommandParser
-        Class CliSyntax
-        Class ParserUtil
-        Class ArgumentMultimap
-        Class ArgumentTokenizer
-        Class Prefix
-    }
+    Interface Parser <<Interface>>
+    Class AlgoBaseParser
+    Class XYZCommandParser
+    Class CliSyntax
+    Class ParserUtil
+    Class ArgumentMultimap
+    Class ArgumentTokenizer
+    Class Prefix
 
     Interface Logic <<Interface>>
     Class LogicManager
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+HiddenOutside .down.> Logic
 
-LogicManager ..|> Logic
-LogicManager -->"1" AlgoBaseParser
+LogicManager .right.|> Logic
+LogicManager -down->"1" AlgoBaseParser
 AlgoBaseParser ..> XYZCommandParser: creates >
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
