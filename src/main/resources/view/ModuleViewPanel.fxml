@@ -75,9 +75,10 @@
            <panes>
              <TitledPane fx:id="deadlinesAccordionPane" text="Deadlines">
                <content>
-                     <HBox alignment="CENTER_LEFT" spacing="5" styleClass="background">
+                     <HBox alignment="CENTER_LEFT" spacing="5" styleClass="background" VBox.vgrow="NEVER">
                         <children>
-                           <Label fx:id="deadline" maxHeight="-Infinity" minHeight="-Infinity" styleClass="label-bright" text="\$deadline" />
+                            <Text styleClass="label-bright" />
+                             <TextFlow fx:id="deadline" />
                         </children>
                      </HBox>
                </content>

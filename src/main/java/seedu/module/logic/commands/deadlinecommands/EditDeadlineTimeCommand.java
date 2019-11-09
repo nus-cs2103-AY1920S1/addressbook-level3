@@ -25,6 +25,9 @@ public class EditDeadlineTimeCommand extends EditDeadlineCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         TrackedModule moduleToEditTime = model.getTrackedModuleByIndex(model, index);
+        if (taskListNum <= 0 || taskListNum > moduleToEditTime.getDeadlineList().size()) {
+            throw new CommandException(DeadlineCommand.MESSAGE_TASK_LIST_NUMBER_NOT_FOUND);
+        }
         deadline = moduleToEditTime.getDeadlineList().get(taskListNum - 1);
         deadline.editTime(time);
 
@@ -42,6 +45,6 @@ public class EditDeadlineTimeCommand extends EditDeadlineCommand {
     private String generateSuccessMessage(TrackedModule moduleToEditTime) {
         String message = !deadline.getDescription().isEmpty() ? MESSAGE_EDIT_DEADLINE_SUCCESS
                 : MESSAGE_EDIT_DEADLINE_FAIL;
-        return String.format(message, moduleToEditTime);
+        return String.format(message, moduleToEditTime.getModuleCode() + " " + moduleToEditTime.getTitle());
     }
 }

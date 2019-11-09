@@ -1,6 +1,7 @@
 package seedu.module.model.module;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class DeadlineList {
      */
     public void addDeadline (Deadline deadline) {
         this.deadlineList.add(deadline);
+        Collections.sort(deadlineList, new DeadlineComparator());
     }
 
     /**
@@ -32,8 +34,25 @@ public class DeadlineList {
         this.deadlineList.remove(taskListNum);
     }
 
+    public void deleteAllDeadlineTasks() {
+        this.deadlineList.clear();
+    }
+
     public void markDeadlineTaskAsDone(int taskListNum) {
         deadlineList.get(taskListNum).markAsDone();
+    }
+
+    /**
+     * marks all deadline tasks as done.
+     */
+    public void markAllDone() {
+        for (int i = 0; i < deadlineList.size(); i++) {
+            this.markDeadlineTaskAsDone(i);
+        }
+    }
+
+    public void markDeadlineTaskAsUndone(int taskListNum) {
+        deadlineList.get(taskListNum).markAsUndone();
     }
 
     public void markDeadlineTaskAsInProgress(int taskListNum) {
@@ -50,5 +69,9 @@ public class DeadlineList {
             deadlineString += ((i + 1) + ". " + deadlineList.get(i)) + "\n";
         }
         return deadlineString;
+    }
+
+    public String getDeadlineTask(int i) {
+        return (i + 1) + ". " + deadlineList.get(i).toString();
     }
 }

@@ -25,18 +25,15 @@ public class AddDeadlineCommandParser {
      */
     public AddDeadlineCommand parse(ArgumentMultimap argsMultimap) throws ParseException {
         Index index = ParserUtil.parseIndex(argsMultimap.getPreamble());
-        if (argsMultimap.getValue(PREFIX_DESCRIPTION).isPresent() && argsMultimap.getValue(PREFIX_TIME).isPresent()) {
+        if (argsMultimap.getValue(PREFIX_DESCRIPTION).isPresent() && argsMultimap.getValue(PREFIX_TIME).isPresent()
+                && argsMultimap.getValue(PREFIX_TAG).isPresent()) {
             String description = argsMultimap.getValue(PREFIX_DESCRIPTION).get();
             String time = argsMultimap.getValue(PREFIX_TIME).get();
-            String tag = "";
-            if (argsMultimap.getValue(PREFIX_TAG).isPresent()) {
-                tag = argsMultimap.getValue(PREFIX_TAG).get();
-            }
+            String tag = argsMultimap.getValue(PREFIX_TAG).get();
             Deadline deadline = new Deadline(description, time, tag);
             return new AddDeadlineCommand(index, deadline);
         } else {
-            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            throw new ParseException(AddDeadlineCommand.MESSAGE_USAGE);
         }
-
     }
 }

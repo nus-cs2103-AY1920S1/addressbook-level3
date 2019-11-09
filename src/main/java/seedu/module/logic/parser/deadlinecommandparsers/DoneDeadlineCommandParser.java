@@ -8,7 +8,6 @@ import seedu.module.logic.commands.deadlinecommands.DoneDeadlineCommand;
 import seedu.module.logic.parser.ArgumentMultimap;
 import seedu.module.logic.parser.ParserUtil;
 import seedu.module.logic.parser.exceptions.ParseException;
-import seedu.module.model.module.Deadline;
 
 /**
  * Parses input arguments and marks the deadline object as done.
@@ -32,7 +31,7 @@ public class DoneDeadlineCommandParser {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneDeadlineCommand.MESSAGE_USAGE), e);
             }
         } else {
-            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DoneDeadlineCommand.MESSAGE_USAGE);
         }
     }
 }

@@ -13,8 +13,8 @@ public abstract class EditDeadlineCommand extends DeadlineCommand {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the deadline task identified by the index and task number.\n"
-            + "Parameters: INDEX (must be a positive integer), \n"
+            + ": Edits description or time deadline task identified by the index and task number.\n"
+            + "Parameters: INDEX (must be a positive integer), "
             + "TASK(must be a positive integer), \n"
             + "Example: deadline 2 " + PREFIX_ACTION + " " + COMMAND_WORD + " " + PREFIX_TASK_LIST_NUMBER + " 1 "
             + PREFIX_DESCRIPTION + " new description " + PREFIX_TIME + " new time ";

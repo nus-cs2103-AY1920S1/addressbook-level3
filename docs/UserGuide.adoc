@@ -174,8 +174,9 @@ Examples:
 Format: `deadline MODULE_LIST_NUM a/add d/DESCRIPTION t/TIME p/PRIORITY`
 
 Adds deadline task consisting of description, time and priority tag to the respective module.
-If deadline list is empty, creates a list. Else, adds to the end of the list. Priority tags can be
-`HIGH`, `MEDIUM` OR `LOW`.
+Priority tags can be `HIGH`, `MEDIUM` OR `LOW`. Deadline tasks tagged as `HIGH` is displayed in red, `MEDIUM` in yellow
+and `LOW` in green. Deadline list is sorted according to priority and deadline date and time.
+All fields are compulsory.
 
 Example: `deadline 1 a/add d/tutorial 1 t/22/10/2019 2359 p/HIGH`
 
@@ -202,38 +203,36 @@ Example: `deadline 3 a/edit task/2 t/29/10/2018 2359`
 Format: `deadline MODULE_LIST_NUM a/done task/TASK_NUMBER_IN_LIST`
 
 Marks the deadline task numbered in deadline list
-as *done* with a tick on the checkbox for the respective module.
+as *done* with a tick.
 
 Example: `deadline 1 a/done task/2`
+
+==== `doneAll`
+
+Format: `deadline MODULE_LIST_NUM a/doneAll`
+
+Marks all the deadline tasks in deadline list
+as *done* with a tick.
+
+Example: `deadline 1 a/doneAll`
 
 ==== `in Progress`
 
 Format: `deadline MODULE_LIST_NUM a/inProgress task/TASK_NUMBER_IN_LIST`
 
 Marks the deadline task numbered in deadline list
-as *in-progress* with a dash on the checkbox for the respective module.
+as *in-progress* with a dash.
 
 Example: `deadline 1 a/inProgress task/1`
 
-==== `sort`(Coming in mid V1.4)
+==== `undone`
 
-1.Sort by Time
+Format: `deadline MODULE_LIST_NUM a/undone task/TASK_NUMBER_IN_LIST`
 
-Format: `deadline MODULE_LIST_NUM a/sort by/time`
+Marks the deadline task numbered in deadline list
+as *undone* with empty space.
 
-Sorts deadline tasks according to time, latest deadline at the top and later ones below.
-
-Example: `deadline 1 a/sort by/time`
-
-
-2.Sort by Priority
-
-Format: `deadline MODULE_LIST_NUM a/sort by/priority`
-
-Sorts deadline tasks according to priority, highest priority at the top, followed
-by medium priority and lastly low priority at the bottom.
-
-Example: `deadline 2 a/sort by/priority`
+Example: `deadline 1 a/undone task/1`
 
 ==== `delete`
 
@@ -242,6 +241,14 @@ Format: `deadline MODULE_LIST_NUM a/delete task/TASK_NUMBER_IN_LIST`
 Deletes deadline task numbered from the respective module.
 
 Example: `deadline 1 a/delete task/2`
+
+==== `deleteAll`
+
+Format: `deadline MODULE_LIST_NUM a/deleteAll`
+
+Deletes all the deadline tasks from the respective module.
+
+Example: `deadline 1 a/deleteAll`
 
 === Manage links in modules: `link`
 

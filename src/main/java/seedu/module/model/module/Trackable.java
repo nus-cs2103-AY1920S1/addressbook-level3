@@ -7,5 +7,7 @@ import java.util.List;
  */
 public interface Trackable extends Module {
     String getDeadline();
+    String getDeadlineTask(int i);
+    List<Deadline> getDeadlineList();
     List<Link> getLink();
 }

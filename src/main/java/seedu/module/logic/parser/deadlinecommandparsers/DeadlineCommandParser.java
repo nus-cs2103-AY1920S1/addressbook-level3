@@ -12,6 +12,9 @@ import seedu.module.logic.parser.ArgumentMultimap;
 import seedu.module.logic.parser.ArgumentTokenizer;
 import seedu.module.logic.parser.Parser;
 import seedu.module.logic.parser.exceptions.ParseException;
+import seedu.module.model.module.exceptions.DeadlineInvalidPriorityException;
+import seedu.module.model.module.exceptions.DeadlineMarkException;
+import seedu.module.model.module.exceptions.DeadlineParseException;
 
 /**
  * Parses input arguments and creates a new DeadlineCommand object.
@@ -28,13 +31,13 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION, PREFIX_TASK_LIST_NUMBER,
                 PREFIX_DESCRIPTION, PREFIX_TIME, PREFIX_TAG);
         try {
             if (!argMultimap.getValue(PREFIX_ACTION).isPresent()) {
-                throw new ParseException("Input format error. a/ACTION not found");
+                throw new ParseException("a/ACTION not found");
             }
             if (argMultimap.getValue(PREFIX_ACTION).get().equals("add")) {
                 ArgumentMultimap newArgMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION, PREFIX_DESCRIPTION,
@@ -56,11 +59,21 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
                 ArgumentMultimap newArgMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION,
                         PREFIX_TASK_LIST_NUMBER);
                 return new InProgressDeadlineCommandParser().parse(newArgMultimap);
+            } else if (argMultimap.getValue(PREFIX_ACTION).get().equals("deleteAll")) {
+                ArgumentMultimap newArgMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION);
+                return new DeleteAllDeadlineCommandParser().parse(newArgMultimap);
+            } else if (argMultimap.getValue(PREFIX_ACTION).get().equals("doneAll")) {
+                ArgumentMultimap newArgMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION);
+                return new DoneAllDeadlineCommandParser().parse(newArgMultimap);
+            } else if (argMultimap.getValue(PREFIX_ACTION).get().equals("undone")) {
+                ArgumentMultimap newArgMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION,
+                        PREFIX_TASK_LIST_NUMBER);
+                return new UndoneDeadlineCommandParser().parse(newArgMultimap);
             } else {
                 throw new ParseException("Command not recognised");
             }
-        } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e));
+        } catch (ParseException | DeadlineParseException | DeadlineInvalidPriorityException | DeadlineMarkException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()), e);
         }
     }
 }

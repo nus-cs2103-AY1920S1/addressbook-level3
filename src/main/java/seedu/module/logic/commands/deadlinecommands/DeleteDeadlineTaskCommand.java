@@ -21,13 +21,12 @@ public class DeleteDeadlineTaskCommand extends DeadlineCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes Deadline task identified by the index number used in the displayed Module list.\n"
-            + "Parameters: INDEX (must be a positive integer), \n"
+            + "Parameters: INDEX (must be a positive integer), "
             + "TASK(must be a positive integer) \n"
             + "Example: deadline 2 " + PREFIX_ACTION + " " + COMMAND_WORD + " " + PREFIX_TASK_LIST_NUMBER + " 2";
 
     private Index index;
     private int taskListNum;
-    private TrackedModule moduleToDeleteDeadline;
 
     public DeleteDeadlineTaskCommand(Index index, int taskListNum) {
         this.index = index;
@@ -37,6 +36,9 @@ public class DeleteDeadlineTaskCommand extends DeadlineCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         TrackedModule moduleToDeleteDeadline = model.getTrackedModuleByIndex(model, index);
+        if (taskListNum <= 0 || taskListNum > moduleToDeleteDeadline.getDeadlineList().size()) {
+            throw new CommandException(DeadlineCommand.MESSAGE_TASK_LIST_NUMBER_NOT_FOUND);
+        }
         moduleToDeleteDeadline.deleteDeadlineTask(taskListNum - 1);
 
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
@@ -52,6 +54,6 @@ public class DeleteDeadlineTaskCommand extends DeadlineCommand {
      */
     private String generateSuccessMessage(TrackedModule moduleToDeleteDeadline) {
         String message = MESSAGE_DELETE_DEADLINE_SUCCESS;
-        return String.format(message, moduleToDeleteDeadline);
+        return String.format(message, moduleToDeleteDeadline.getModuleCode() + " " + moduleToDeleteDeadline.getTitle());
     }
 }

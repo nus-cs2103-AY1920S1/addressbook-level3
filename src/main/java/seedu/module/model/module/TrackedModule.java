@@ -54,6 +54,10 @@ public class TrackedModule implements Module, Trackable {
         return deadlineList.toString();
     }
 
+    public String getDeadlineTask(int i) {
+        return deadlineList.getDeadlineTask(i);
+    }
+
     public List<Deadline> getDeadlineList() {
         return deadlineList.getDeadlineList();
     }
@@ -66,12 +70,38 @@ public class TrackedModule implements Module, Trackable {
         deadlineList.markDeadlineTaskAsDone(taskListNum);
     }
 
+    public void markAllDone() {
+        deadlineList.markAllDone();
+    }
+
+    public void markDeadlineTaskAsUndone(int taskListNum) {
+        deadlineList.markDeadlineTaskAsUndone(taskListNum);
+    }
+
     public void markDeadlineTaskAsInProgress(int taskListNum) {
         deadlineList.markDeadlineTaskAsInProgress(taskListNum);
     }
 
     public void deleteDeadlineTask(int taskListNum) {
         deadlineList.deleteDeadlineTask(taskListNum);
+    }
+    public void deleteAllDeadlineTasks() {
+        deadlineList.deleteAllDeadlineTasks();
+    }
+
+    /**
+     * Returns true if there exists a deadline with the same description, time and tag
+     * @param deadline
+     * @return
+     */
+    public boolean hasDeadline(Deadline deadline) {
+        for (Deadline d : deadlineList.getDeadlineList()) {
+            if (deadline.getDescription().equals(d.getDescription()) && deadline.getTime().equals(d.getTime())
+                    && deadline.getTag().equals(d.getTag())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Link> getLink() {
@@ -131,8 +161,7 @@ public class TrackedModule implements Module, Trackable {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModuleCode())
                 .append(" Title: ").append(getTitle())
-                .append(" Description: ").append(getDescription())
-                .append(" Deadline: ").append(getDeadline());
+                .append(" Description: ").append(getDescription());
         return builder.toString();
     }
 
