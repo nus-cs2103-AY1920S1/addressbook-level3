@@ -18,7 +18,7 @@ Role: Team Lead
 Responsibilities:
 
 . CRUD for patients, doctors and appointment models
-. Eager Evaluation
+. Reactive Search (Threading and Logic)
 . Undo/Redo functionality
 . Integration of project items
 
@@ -33,10 +33,9 @@ Role: Developer, DevOps
 Responsibilities:
 
 . AutoCompleter & History
-. Eager Evaluation (UI)
+. Reactive Search (UI and UX)
 . Testing & Version Control
 . UI
-
 
 '''
 
