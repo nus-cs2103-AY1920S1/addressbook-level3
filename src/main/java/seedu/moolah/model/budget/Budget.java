@@ -3,6 +3,7 @@ package seedu.moolah.model.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

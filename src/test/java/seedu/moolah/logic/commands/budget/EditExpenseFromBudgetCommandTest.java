@@ -26,45 +26,53 @@ import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
 import seedu.moolah.testutil.ExpenseBuilder;
+
 
 public class EditExpenseFromBudgetCommandTest {
     private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
 
-    /*
     @Test
     public void run_allFieldsSpecified_success() {
-        Expense editedExpense = new ExpenseBuilder()
+        Index indexLastExpense = Index.fromOneBased(model.getPrimaryBudget().getCurrentPeriodExpenses().size());
+        Expense lastExpense = model.getPrimaryBudget().getCurrentPeriodExpenses().get(indexLastExpense.getZeroBased());
+
+        ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
+        Expense editedExpense = expenseInList
                 .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI)
                 .withPrice(VALID_EXPENSE_PRICE_TAXI)
-                .withCategory(VALID_EXPENSE_CATEGORY_TAXI)
-                .withTimestamp(VALID_EXPENSE_TIMESTAMP_TAXI)
-                .withUniqueIdentifier(CHICKEN_RICE.getUniqueIdentifier().value)
+                .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN)
+                .withTimestamp("22-10-2019")
                 .build();
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
-        EditExpenseFromBudgetCommand editExpenseFromBudgetCommand = new EditExpenseFromBudgetCommand(
-                INDEX_FIRST, descriptor);
 
-        assertTrue(model.getPrimaryBudget().getCurrentPeriodExpenses().get(INDEX_FIRST.getZeroBased())
-                .equals(CHICKEN_RICE));
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+                .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI)
+                .withPrice(VALID_EXPENSE_PRICE_TAXI)
+                .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN)
+                .withTimestamp("22-10-2019")
+                .build();
+        EditExpenseFromBudgetCommand editExpenseFromBudgetCommand = new EditExpenseFromBudgetCommand(
+                indexLastExpense, descriptor);
+
         String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
                 editedExpense);
 
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
-        Expense expenseToEdit = model.getPrimaryBudget().getCurrentPeriodExpenses().get(INDEX_FIRST.getZeroBased());
-        expectedModel.setExpense(expenseToEdit, editedExpense);
+
+        expectedModel.setExpense(lastExpense, editedExpense);
         Budget primaryBudget = expectedModel.getPrimaryBudget();
         Budget primaryBudgetCopy = primaryBudget.deepCopy();
-        primaryBudgetCopy.setExpense(expenseToEdit, editedExpense);
+        primaryBudgetCopy.setExpense(lastExpense, editedExpense);
         expectedModel.setBudget(primaryBudget, primaryBudgetCopy);
+
         expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editExpenseFromBudgetCommand, model, expectedMessage, expectedModel);
     }
 
-     */
 
     @Test
     public void run_someFieldsSpecified_success() {

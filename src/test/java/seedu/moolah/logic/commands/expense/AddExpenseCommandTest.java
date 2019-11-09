@@ -1,12 +1,14 @@
 package seedu.moolah.logic.commands.expense;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -15,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.moolah.commons.core.GuiSettings;
+import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.MooLah;
@@ -38,7 +41,6 @@ public class AddExpenseCommandTest {
         assertThrows(NullPointerException.class, () -> new AddExpenseCommand(null));
     }
 
-    /*
     @Test
     public void run_expenseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
@@ -54,8 +56,6 @@ public class AddExpenseCommandTest {
         assertEquals(expectedExpensesAdded, modelStub.expensesAdded);
         assertEquals(expectedPastModels, modelStub.pastModels);
     }
-
-     */
 
     @Test
     public void run_duplicateExpense_throwsCommandException() {
@@ -298,7 +298,7 @@ public class AddExpenseCommandTest {
 
         @Override
         public Budget getPrimaryBudget() {
-            throw new AssertionError("This method should not be called.");
+            return Budget.DEFAULT_BUDGET;
         }
 
         @Override

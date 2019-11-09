@@ -9,6 +9,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
+import seedu.moolah.testutil.TypicalMooLah;
 
 public class ClearBudgetsCommandTest {
 
@@ -29,6 +30,6 @@ public class ClearBudgetsCommandTest {
         expectedModel.clearBudgets();
 
         assertCommandSuccess(new ClearBudgetsCommand(), model, ClearBudgetsCommand.MESSAGE_SUCCESS, expectedModel);
+        TypicalMooLah.reset();
     }
-
 }

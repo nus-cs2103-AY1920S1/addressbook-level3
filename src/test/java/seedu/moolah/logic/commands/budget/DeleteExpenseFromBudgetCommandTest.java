@@ -1,6 +1,7 @@
 package seedu.moolah.logic.commands.budget;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -24,6 +25,7 @@ public class DeleteExpenseFromBudgetCommandTest {
 
     @Test
     public void run_validIndex_success() {
+        assertEquals(model.getPrimaryBudget().getDescription().fullDescription, "School related expenses");
         assertTrue(model.getPrimaryBudget().getExpenses().size() == 2);
         Expense expenseToDelete = model.getPrimaryBudget().getExpenses().get(INDEX_FIRST.getZeroBased());
         DeleteExpenseFromBudgetCommand deleteExpenseFromBudgetCommand = new DeleteExpenseFromBudgetCommand(INDEX_FIRST);

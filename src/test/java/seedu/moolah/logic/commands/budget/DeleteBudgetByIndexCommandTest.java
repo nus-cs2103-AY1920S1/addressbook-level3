@@ -67,3 +67,4 @@ public class DeleteBudgetByIndexCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }
+

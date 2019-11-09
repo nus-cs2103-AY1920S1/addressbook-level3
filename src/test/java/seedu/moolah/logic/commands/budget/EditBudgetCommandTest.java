@@ -61,12 +61,10 @@ public class EditBudgetCommandTest {
 
         BudgetBuilder budgetInList = new BudgetBuilder(lastBudget);
         Budget editedBudget = budgetInList
-                .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
                 .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
                 .build();
 
         EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
-                .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
                 .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
                 .build();
         EditBudgetCommand editBudgetCommand = new EditBudgetCommand(indexLastBudget, descriptor);
@@ -133,5 +131,4 @@ public class EditBudgetCommandTest {
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditBudgetCommand(INDEX_SECOND, descriptor)));
     }
-
 }

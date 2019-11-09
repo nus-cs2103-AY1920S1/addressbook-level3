@@ -1,6 +1,8 @@
 package seedu.moolah.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -13,6 +15,9 @@ import seedu.moolah.commons.util.JsonUtil;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.testutil.TypicalMooLah;
 
+import static seedu.moolah.testutil.TypicalMooLah.CHICKEN_RICE;
+import static seedu.moolah.testutil.TypicalMooLah.MEE_POK;
+
 public class JsonSerializableMooLahTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMooLahTest");
@@ -23,14 +28,18 @@ public class JsonSerializableMooLahTest {
     private static final Path INVALID_EVENT_FILE = TEST_DATA_FOLDER.resolve("invalidEventMooLah.json");
     private static final Path DUPLICATE_EVENT_FILE = TEST_DATA_FOLDER.resolve("duplicateEventMooLah.json");
 
-    //    @Test
-    //    public void toModelType_typicalExpensesFile_success() throws Exception {
-    //        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-    //                JsonSerializableMooLah.class).get();
-    //        MooLah mooLahFromFile = dataFromFile.toModelType();
-    //        MooLah typicalExpensesMooLah = TypicalMooLah.getTypicalExpensesOnlyMooLah();
-    //        assertEquals(mooLahFromFile, typicalExpensesMooLah);
-    //    }
+    @Test
+    public void toModelType_typicalExpensesFile_success() throws Exception {
+        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
+                JsonSerializableMooLah.class).get();
+        MooLah mooLahFromFile = dataFromFile.toModelType();
+        MooLah typicalExpensesMooLah = TypicalMooLah.getTypicalExpensesOnlyMooLah();
+//        assertTrue(typicalExpensesMooLah.getExpenseList().contains(MEE_POK));
+//        assertTrue(mooLahFromFile.getExpenseList().contains(MEE_POK));
+//        assertFalse(mooLahFromFile.getExpenseList().contains(CHICKEN_RICE));
+//        assertFalse(typicalExpensesMooLah.getExpenseList().contains(CHICKEN_RICE));
+        assertEquals(mooLahFromFile, typicalExpensesMooLah);
+    }
 
     @Test
     public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {
