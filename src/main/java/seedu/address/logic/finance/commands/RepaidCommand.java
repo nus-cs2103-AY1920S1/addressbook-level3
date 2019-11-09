@@ -19,8 +19,8 @@ import seedu.address.model.finance.logentry.LogEntry;
 public class RepaidCommand extends Command {
 
     public static final String COMMAND_WORD = "repaid";
-    public static final String MESSAGE_REPAID_BUDGET =
-            "This budget has already been marked repaid in the finance log.";
+    public static final String MESSAGE_REPAID_LOGENTRY =
+            "This log entry has already been marked repaid in the finance log.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the log entry identified by the index number used "
@@ -29,7 +29,7 @@ public class RepaidCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_LOG_ENTRY_SUCCESS = "Marked log entry as repaid: %1$s";
+    public static final String MESSAGE_REPAID_LOG_ENTRY_SUCCESS = "Marked log entry as repaid: %1$s";
 
     private final Index targetIndex;
 
@@ -58,16 +58,16 @@ public class RepaidCommand extends Command {
                || logEntryToMarkRepaid instanceof LendLogEntry;
 
         if (isBorrowLogEntryType && ((BorrowLogEntry) logEntryToMarkRepaid).isRepaid()) {
-            throw new CommandException(MESSAGE_REPAID_BUDGET);
+            throw new CommandException(MESSAGE_REPAID_LOGENTRY);
         }
         if (isLendLogEntryType && ((LendLogEntry) logEntryToMarkRepaid).isRepaid()) {
-            throw new CommandException(MESSAGE_REPAID_BUDGET);
+            throw new CommandException(MESSAGE_REPAID_LOGENTRY);
         }
 
         model.markLogEntryAsRepaid(
                 isBorrowLogEntryType ? (BorrowLogEntry) logEntryToMarkRepaid
                         : (LendLogEntry) logEntryToMarkRepaid);
-        return new CommandResult(String.format(MESSAGE_DELETE_LOG_ENTRY_SUCCESS, logEntryToMarkRepaid));
+        return new CommandResult(String.format(MESSAGE_REPAID_LOG_ENTRY_SUCCESS, logEntryToMarkRepaid));
     }
 
     @Override

@@ -34,7 +34,7 @@ public class CloneCommand extends Command {
             + "in the displayed list of log entries.\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_LOG_ENTRY_SUCCESS = "Cloned log entry: %1$s";
+    public static final String MESSAGE_CLONED_LOG_ENTRY_SUCCESS = "Cloned log entry: %1$s";
 
     private final Index targetIndex;
 
@@ -80,7 +80,7 @@ public class CloneCommand extends Command {
             logEntryToAdd = new LendLogEntry(amount, tDate, desc, tMethod, catSet, to);
         }
         model.addLogEntry(logEntryToAdd);
-        return new CommandResult(String.format(MESSAGE_DELETE_LOG_ENTRY_SUCCESS, logEntryToAdd));
+        return new CommandResult(String.format(MESSAGE_CLONED_LOG_ENTRY_SUCCESS, logEntryToAdd));
     }
 
     @Override
