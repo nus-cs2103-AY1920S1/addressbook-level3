@@ -455,7 +455,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     public boolean hasCalendar(CalendarWrapper calendar) {
-        return calendars.contains(calendar);
+        return calendars.containsMemberName(calendar);
     }
 
     @Override
