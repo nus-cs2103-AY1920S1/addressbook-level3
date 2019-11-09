@@ -461,8 +461,7 @@ image::LoanSplitActivityDiagram.png[]
 // end::loans[]
 
 // tag::rules[]
-=== Rules Feature
-==== Implementation
+=== Rule Management Feature
 
 The Rules feature exists as an integration onto the Transaction system. It makes use
 of syntax processing, together with scripts to provide an automation solution to
@@ -473,20 +472,41 @@ given that the predicate returns true. This predicate-action split allows us to 
 testing from performing, which helps to increase reusability of individual predicates
 and actions.
 
+==== Implementation
+
 Basic attributes and operators are exposed to provide users a way of writing simple
 tests on transactions without having to manually check and make changes. Storing rules
 works similarly to LoansManager, where individual rules are stored in a
 `RuleManager` which manages all CRUD operations.
 
-All rules are stored in in a JSON file formatted to be retrieved and parsed by the
+All rules are stored in a JSON file when added, formatted to be retrieved and parsed by the
 application when relaunched.
 
-The following class diagram illustrates the structure of the rule model and how it
-integrates with the logic.
+The following class diagram illustrates the structure of the `*Rule*` Model component.
 
-image::RuleClassDiagram.png[]
+.Structure of the Rule Model Component
+image::RuleModelClassDiagram.png[]
 
-_TODO: class diagram_
+NOTE: The rest of the `*Script*` and `*Model*` components have been omitted to give focus on the `Rule` model component.
+
+As mentioned above, rules are defined as a pair of predicate and action, which as seen in the above diagram, is divided into
+the two abstract classes `*RulePredicate*` and `*RuleAction*`. These two classes are abstract due to two implementation
+choices, either a script or an expression. Therefore, their concrete classes are `*PredicateExpression*` and `*ActionExpression*`
+for expressions and `*PredicateScript*` and `*ActionScript*` for scripts respectively.
+
+For predicate expressions, they are formed using binary comparison operations, which means that each expression contains
+an `*Operator*` which takes in two arguments, an `*Attribute*` to represent an attribute of a `*Transaction*`, as well as
+a `*Value*` to represent a given value to test against the attribute.
+
+Action expressions are unary operations, which means that each expression is formed with an `*Operator*` as well, but takes
+only a single argument, a `*Value*` to represent a given value to carry out the operation with.
+
+Predicate and actions implemented as scripts on the other hand are defined with a single `*ScriptName*`, which refers to the
+name of the script it represents.
+
+Each and every `*Rule*` is stored within the `*RuleManager*`, which serves as an interface to manipulating the list of rules.
+For example, `*RuleManager#addRule*` is used to add new rules to the list, whereas `*RuleManager#swapRules*` is used to
+swap the order of two rules in the list.
 
 image::RuleSequenceDiagram.png[]
 
