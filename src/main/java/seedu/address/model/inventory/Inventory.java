@@ -1,13 +1,34 @@
 package seedu.address.model.inventory;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Placeholder javadoc.
  */
 public class Inventory {
-    public final String name;
 
-    public Inventory(String name) {
+    private final String name;
+
+    private BooleanProperty isDoneProperty;
+
+    public Inventory(String name, boolean isDone) {
         this.name = name;
+        this.isDoneProperty = new SimpleBooleanProperty(isDone);
+    }
+
+    public void setIsDone (Boolean boo) {
+        this.isDoneProperty.set(boo);
+    }
+
+    public BooleanProperty getIsDoneProperty() {
+        return this.isDoneProperty;
+    }
+
+    public boolean getIsDone() {
+        return this.isDoneProperty.get();
     }
 
     public String getName() {

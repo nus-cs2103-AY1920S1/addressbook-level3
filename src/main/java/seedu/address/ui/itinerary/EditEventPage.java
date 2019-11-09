@@ -1,28 +1,33 @@
 package seedu.address.ui.itinerary;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.ParserDateUtil.DATE_FORMATTER;
 import static seedu.address.logic.parser.ParserDateUtil.TIME_FORMATTER;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
 
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.events.edit.CancelEditEventCommand;
 import seedu.address.logic.commands.itinerary.events.edit.DoneEditEventCommand;
 import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.model.Model;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.components.form.TimeFormItem;
 import seedu.address.ui.template.Page;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
@@ -36,8 +41,11 @@ public class EditEventPage extends Page<AnchorPane> {
     private TimeFormItem eventStartTimeFormItem;
     private TimeFormItem eventEndTimeFormItem;
     private DoubleFormItem eventTotalBudgetFormItem;
-    //private TextFormItem eventInventoryFormItem;
+    private TextFormItem eventInventoryFormItem;
+    private Button addInventoryButton;
     //private TextFormItem eventBookingFormItem;
+
+    ListView<Inventory> listView;
 
     @javafx.fxml.FXML
     private VBox formItemsPlaceholder;
@@ -72,6 +80,10 @@ public class EditEventPage extends Page<AnchorPane> {
                 eventStartTimeFormItem.setValue(startDate.toLocalTime()));
         currentEditDescriptor.getEndDate().ifPresent(endDate ->
                 eventEndTimeFormItem.setValue(endDate.toLocalTime()));
+
+        //Added by Karan Dev Sapra
+        currentEditDescriptor.getInventoryList().ifPresent(inventoryList ->
+                listView.setItems(FXCollections.observableList(inventoryList.getList())));
     }
 
     /**
@@ -107,24 +119,63 @@ public class EditEventPage extends Page<AnchorPane> {
                     + " " + PREFIX_LOCATION + destinationValue);
         });
 
+        eventInventoryFormItem = new TextFormItem("Inventory Items Needed : ", itemName -> {
+
+            //No need for any action since this is already done by the add button
+            /*
+            mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_ADD_INVENTORY + itemName);*/
+        });
+
+        addInventoryButton = new Button("add");
+
+
+        addInventoryButton.setOnAction((actionEvent) -> {
+            mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_ADD_INVENTORY + eventInventoryFormItem.getValue());
+        });
+
+        listView = new ListView<>();
+
+        listView.setCellFactory(param -> new ListCell<Inventory>() {
+            @Override
+            protected void updateItem(Inventory item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getName() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
+
         eventNameFormItem.getRoot().getStylesheets().clear();
         eventStartTimeFormItem.getRoot().getStylesheets().clear();
         eventEndTimeFormItem.getRoot().getStylesheets().clear();
         eventTotalBudgetFormItem.getRoot().getStylesheets().clear();
         eventDestinationFormItem.getRoot().getStylesheets().clear();
+        eventInventoryFormItem.getRoot().getStylesheets().clear();
 
         eventNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventStartTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventEndTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventInventoryFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+
+        //Looks like this has no effect
+        listView.getStylesheets().add(FORM_ITEM_STYLESHEET);
 
         formItemsPlaceholder.getChildren().addAll(
                 eventNameFormItem.getRoot(),
                 eventStartTimeFormItem.getRoot(),
                 eventEndTimeFormItem.getRoot(),
                 eventTotalBudgetFormItem.getRoot(),
-                eventDestinationFormItem.getRoot());
+                eventDestinationFormItem.getRoot(),
+                eventInventoryFormItem.getRoot(),
+                addInventoryButton,
+                listView);
     }
 
     @FXML
@@ -137,5 +188,32 @@ public class EditEventPage extends Page<AnchorPane> {
     private void handleEditCancel() {
         String commandText = CancelEditEventCommand.COMMAND_WORD;
         mainWindow.executeGuiCommand(commandText);
+    }
+
+    static class XCell extends ListCell<String> {
+        HBox hbox = new HBox();
+        Label label = new Label("");
+        Pane pane = new Pane();
+        Button button = new Button("Del");
+
+        public XCell() {
+            super();
+
+            hbox.getChildren().addAll(label, pane, button);
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            button.setOnAction(event -> getListView().getItems().remove(getItem()));
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(null);
+            setGraphic(null);
+
+            if (item != null && !empty) {
+                label.setText(item);
+                setGraphic(hbox);
+            }
+        }
     }
 }

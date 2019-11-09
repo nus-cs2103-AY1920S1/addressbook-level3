@@ -3,17 +3,12 @@ package seedu.address.logic.commands.itinerary.events.edit;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
-
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -25,7 +20,8 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
-import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
+import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -49,7 +45,8 @@ public class EditEventFieldCommand extends Command {
             + "[" + PREFIX_DATE_END + "END DATE] "
             + "[" + PREFIX_LOCATION + "DESTINATION] "
             + "[" + PREFIX_BUDGET + "TOTAL BUDGET "
-            + "[" + PREFIX_INVENTORY + "<to be implemented> "
+            + "[" + PREFIX_ADD_INVENTORY + "ADD INVENTORY ITEM "
+            + "[" + PREFIX_DELETE_INVENTORY + "DELETE INVENTORY ITEM BY INDEX "
             + "|" + PREFIX_BOOKING + "<to be implemented>]...\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LOCATION + " ABC Zoo "
             + PREFIX_BUDGET + "10";
@@ -111,7 +108,9 @@ public class EditEventFieldCommand extends Command {
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
 
-        private Optional<Inventory> inventory;
+        private Optional<List<Index>> inventoriesToDelete;
+        private Optional<InventoryList> inventoryList;
+
         private Optional<Booking> booking;
 
         public EditEventDescriptor() {
@@ -120,7 +119,8 @@ public class EditEventFieldCommand extends Command {
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
-            inventory = Optional.empty();
+            inventoriesToDelete = Optional.empty();
+            inventoryList = Optional.empty();
             booking = Optional.empty();
 
         }
@@ -135,7 +135,8 @@ public class EditEventFieldCommand extends Command {
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
-            inventory = toCopy.getInventory();
+            inventoriesToDelete = toCopy.getInventoriesToDelete();
+            inventoryList = toCopy.getInventoryList();
             booking = toCopy.getBooking();
         }
 
@@ -150,7 +151,8 @@ public class EditEventFieldCommand extends Command {
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getExpenditure().get().getBudget());
-            setInventory(toCopy.getInventory());
+            inventoriesToDelete = Optional.empty();
+            setInventoryList(toCopy.getInventoryList());
             setBooking(toCopy.getBooking());
         }
 
@@ -179,10 +181,35 @@ public class EditEventFieldCommand extends Command {
 
             newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
                     oldDescriptor.totalBudget.ifPresent(this::setBudget));
-            /*
-            newDescriptor.inventory.ifPresentOrElse(this::setInventory,
-                    () -> oldDescriptor.inventory.ifPresent(this::setInventory));
 
+            newDescriptor.inventoriesToDelete.ifPresent(inventoriesToDelete -> {
+
+                oldDescriptor.inventoryList.ifPresent(inventoryList -> {
+
+                    for (Index index : inventoriesToDelete) {
+
+                        try {
+                            inventoryList.remove(index);
+                        } catch (InventoryNotFoundException e) {
+
+                        }
+                    }
+                });
+            });
+
+            newDescriptor.inventoryList.ifPresentOrElse(inventoryList -> {
+
+                    if (oldDescriptor.inventoryList.isPresent()) {
+                        inventoryList.getList().addAll(0, oldDescriptor.getInventoryList().get().getList());
+                    }
+
+                    setInventoryList(inventoryList);
+
+
+            }, () -> oldDescriptor.inventoryList.ifPresent(this::setInventoryList));
+
+
+            /*
             newDescriptor.booking.ifPresentOrElse(this::setBooking,
                     () -> oldDescriptor.booking.ifPresent(this::setBooking));
              */
@@ -209,7 +236,7 @@ public class EditEventFieldCommand extends Command {
                             new DayNumber(Integer.toString(index + 1)), false);
                     expenditure = Optional.of(newExpenditure);
                 }
-                return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get());
+                return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get(), inventoryList);
             } else {
                 throw new NullPointerException();
             }
@@ -230,7 +257,7 @@ public class EditEventFieldCommand extends Command {
             LocalDateTime endDate = event.getEndDate();
             Location destination = event.getDestination();
             Optional<Booking> booking = event.getBooking();
-            Optional<Inventory> inventory = event.getInventory();
+            Optional<InventoryList> inventoryList = event.getInventoryList();
             Optional<Expenditure> expenditure = event.getExpenditure();
 
             if (this.name.isPresent()) {
@@ -252,21 +279,21 @@ public class EditEventFieldCommand extends Command {
                         new DayNumber(Integer.toString(index + 1)), false);
                 expenditure = Optional.of(newExpenditure);
             }
-            if (this.inventory.isPresent()) {
-                inventory = this.inventory;
+            if (this.inventoryList.isPresent()) {
+                inventoryList = this.inventoryList;
             }
             if (this.booking.isPresent()) {
                 booking = this.booking;
             }
 
-            return new Event(eventName, startDate, endDate, expenditure, destination);
+            return new Event(eventName, startDate, endDate, expenditure, destination, inventoryList);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, booking, inventory);
+            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, booking, inventoryList, inventoriesToDelete);
         }
 
 
@@ -319,17 +346,29 @@ public class EditEventFieldCommand extends Command {
             return booking;
         }
 
-        public Optional<Inventory> getInventory() {
-            return inventory;
+        public Optional<InventoryList> getInventoryList() {
+            return inventoryList;
         }
 
-        private void setInventory(Inventory inventory) {
-            this.inventory = Optional.of(inventory);
+        public Optional<List<Index>> getInventoriesToDelete() {
+            return inventoriesToDelete;
+        }
+
+        public void setInventoryList(InventoryList inventoryList) {
+            this.inventoryList = Optional.of(inventoryList);
         }
 
         // Support optional fields from Event
-        public void setInventory(Optional<Inventory> inventory) {
-            this.inventory = inventory;
+        public void setInventoryList(Optional<InventoryList> inventoryList) {
+            this.inventoryList = inventoryList;
+        }
+
+        public void setInventoriesToDelete (List<Index> inventoriesToDelete) {
+            this.inventoriesToDelete = Optional.of(inventoriesToDelete);
+        }
+
+        public void setInventoriesToDelete (Optional<List<Index>> inventoriesToDelete) {
+            this.inventoriesToDelete = inventoriesToDelete;
         }
 
         private void setBooking(Booking booking) {
@@ -360,8 +399,9 @@ public class EditEventFieldCommand extends Command {
                     && getStartDate().equals(e.getStartDate())
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
-                    && getBudget().equals(e.getBudget());
-//                    && getInventory().equals((e.getInventory()))
+                    && getBudget().equals(e.getBudget())
+                    && getInventoriesToDelete().equals(e.getInventoriesToDelete())
+                    && getInventoryList().equals((e.getInventoryList()));
 //                    && getBooking().equals((e.getBooking()));
         }
 
@@ -376,10 +416,14 @@ public class EditEventFieldCommand extends Command {
                     builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
+
+            this.inventoriesToDelete.ifPresent(inventoriesToDelete -> builder.append(" Inventory Items Deleted: ").append(inventoriesToDelete.size()));
+            this.inventoryList.ifPresent(inventoryList -> builder.append(" Inventory Items Added: ").append(inventoryList.getSize()));
+
             /*
-            this.inventory.ifPresent(inventory -> builder.append(" Inventory: ").append(inventory));
             this.booking.ifPresent(booking -> builder.append(" Booking/s: ").append(booking));
-            */
+             */
+
             return builder.toString();
         }
     }

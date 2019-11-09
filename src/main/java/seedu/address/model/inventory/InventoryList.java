@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
@@ -18,7 +19,10 @@ public class InventoryList {
 
     //public final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
 
-    public final ObservableList<Inventory> list = FXCollections.observableArrayList();
+    public final ObservableList<Inventory> list = FXCollections.observableArrayList(inventory ->
+            new Observable[] {
+                    inventory.getIsDoneProperty()
+            });
 
     public final ObservableList<Inventory> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(list);
@@ -57,6 +61,19 @@ public class InventoryList {
         }
 
         list.add(toAdd);
+    }
+
+    public void markDone (Index index) throws InventoryNotFoundException {
+
+        try {
+            Inventory inventory = list.get(index.getZeroBased());
+
+            inventory.setIsDone(true);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new InventoryNotFoundException("ERROR: INVENTORY ITEM NOT FOUND");
+        }
+
     }
 
     public List<Inventory> getList () {
@@ -98,6 +115,10 @@ public class InventoryList {
         } catch (IndexOutOfBoundsException e) {
             throw new InventoryNotFoundException("ERROR: INVENTORY ITEM NOT FOUND");
         }
+    }
+
+    public int getSize () {
+        return this.list.size();
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.address.ui.inventory;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import seedu.address.model.inventory.InventoryList;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
 
+import java.util.function.Function;
+
 /**
  * {@code Page} class implementing the itinerary landing page.
  */
@@ -33,12 +36,19 @@ public class InventoryPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private TableColumn<Inventory, String> nameColumn;
 
+    @FXML
+    private TableColumn<Inventory, Boolean> isDoneColumn;
+
 
 
     public InventoryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
 
         this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        Function<Inventory, ObservableValue<Boolean>> property = Inventory::getIsDoneProperty;
+
+        this.isDoneColumn.setCellValueFactory(cellData -> property.apply(cellData.getValue()));
 
         fillPage();
     }

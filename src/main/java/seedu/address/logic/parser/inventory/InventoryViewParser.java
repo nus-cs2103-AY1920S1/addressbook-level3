@@ -32,6 +32,9 @@ public class InventoryViewParser implements PageParser<Command> {
             return new AddInventoryParser().parse(arguments);
         case DELETE:
             return new DeleteInventoryParser().parse(arguments);
+        case DONE:
+            return new DoneInventoryParser().parse(arguments);
+
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

@@ -54,6 +54,12 @@ public class DoneEditEventCommand extends Command {
                 if (eventToAdd.getExpenditure().isPresent()) {
                     model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
                 }
+
+                //Added by Karan Dev Sapra
+                if (eventToAdd.getInventoryList().isPresent()) {
+                    model.getPageStatus().getTrip().getInventoryList().getList().addAll(eventToAdd.getInventoryList().get().getList());
+                }
+
                 commandResult = new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, eventToAdd), true);
             } else {
                 //edit the current "selected" event

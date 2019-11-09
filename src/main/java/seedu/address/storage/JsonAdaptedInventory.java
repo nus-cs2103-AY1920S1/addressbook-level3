@@ -13,13 +13,15 @@ public class JsonAdaptedInventory {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Inventory's %s field is missing!";
 
     private final String name;
+    private final boolean isDone;
 
     /**
      * Constructs a {@code JsonAdaptedInventory} with the given JsonAdaptedInventory details.
      */
     @JsonCreator
-    public JsonAdaptedInventory(@JsonProperty("name") String name) {
+    public JsonAdaptedInventory(@JsonProperty("name") String name, @JsonProperty("isDone") boolean isDone) {
         this.name = name;
+        this.isDone = isDone;
     }
 
     /**
@@ -27,6 +29,7 @@ public class JsonAdaptedInventory {
      */
     public JsonAdaptedInventory(Inventory source) {
         this.name = source.getName();
+        this.isDone = source.getIsDone();
     }
 
     /**
@@ -51,6 +54,6 @@ public class JsonAdaptedInventory {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
 
-        return new Inventory(name);
+        return new Inventory(name, isDone);
     }
 }

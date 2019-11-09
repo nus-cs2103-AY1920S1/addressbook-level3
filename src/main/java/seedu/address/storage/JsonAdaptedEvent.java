@@ -1,16 +1,23 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
+
+import javax.swing.text.html.Option;
 
 /**
  * Jackson friendly version of {@code Event}.
@@ -27,6 +34,9 @@ public class JsonAdaptedEvent {
     private final Optional<JsonAdaptedExpenditure> expenditure;
     //private final Optional<Inventory> inventory;
 
+    //Added by Karan Dev Sapra
+    private final Optional<List<JsonAdaptedInventory>> inventoryList;
+
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
      */
@@ -35,7 +45,8 @@ public class JsonAdaptedEvent {
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
             @JsonProperty("destination") String destination,
-            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure
+            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure,
+                            @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList
     //, @JsonProperty("booking")Optional<Booking> booking,
     // @JsonProperty("inventory")Optional<Inventory> inventory
     ) {
@@ -44,6 +55,7 @@ public class JsonAdaptedEvent {
         this.endTime = to;
         this.destination = destination;
         this.expenditure = expenditure;
+        this.inventoryList = inventoryList;
     }
 
     /**
@@ -58,6 +70,26 @@ public class JsonAdaptedEvent {
             this.expenditure = Optional.of(new JsonAdaptedExpenditure(source.getExpenditure().get()));
         } else {
             this.expenditure = Optional.empty();
+        }
+
+        //System.out.println("BEFORE ENTERING THE PRESENCE with inventoryList " + source.getInventoryList());
+
+        if (source.getInventoryList().isPresent()) {
+
+            System.out.println("PRESENCE OF MIND");
+
+            this.inventoryList = Optional.of(new ArrayList<>());
+
+            this.inventoryList.get().addAll(source.getInventoryList().get()
+                    .asUnmodifiableObservableList()
+                    .stream().map(JsonAdaptedInventory::new)
+                    .collect(Collectors.toList())
+            );
+
+
+            //this.inventoryList = Optional.of(source.getInventoryList().get().getList()));
+        } else {
+            this.inventoryList = Optional.empty();
         }
     }
 
@@ -117,8 +149,28 @@ public class JsonAdaptedEvent {
             modelExpenditure = Optional.empty();
         }
 
+        Optional<InventoryList> modelInventoryList;
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination);
+
+        if (inventoryList.isPresent()) {
+
+            final List<Inventory> inventories = new ArrayList<>();
+
+            for (JsonAdaptedInventory inventory : inventoryList.get()) {
+                inventories.add(inventory.toModelType());
+            }
+
+            modelInventoryList = Optional.of(new InventoryList());
+            modelInventoryList.get().set(inventories);
+
+        } else {
+            modelInventoryList = Optional.empty();
+        }
+
+
+
+
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination, modelInventoryList);
     }
 }
 

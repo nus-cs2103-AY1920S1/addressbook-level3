@@ -45,7 +45,7 @@ public class AddInventoryCommand extends Command {
 
         System.out.println("BEFORE");
 
-        Inventory toAdd = new Inventory(name);
+        Inventory toAdd = new Inventory(name, false);
 
         System.out.println("AFTER");
 

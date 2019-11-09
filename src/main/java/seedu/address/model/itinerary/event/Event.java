@@ -8,14 +8,14 @@ import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
 /**
  * Represents a Event in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination.
- * Optional fields: expenditure, booking, inventory.
+ * Optional fields: expenditure, booking, inventoryList.
  */
 public class Event {
     public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
@@ -27,7 +27,7 @@ public class Event {
     private final Location destination;
 
     // Optional fields
-    private final Inventory inventory;
+    private final Optional<InventoryList> inventoryList;
     private final Expenditure expenditure;
     private final Booking booking;
 
@@ -35,7 +35,7 @@ public class Event {
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure expenditure, Inventory inventory, Location destination) {
+                 Expenditure expenditure, Optional<InventoryList> inventoryList, Location destination) {
         requireAllNonNull(name, startDate, endDate);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
 
@@ -45,12 +45,12 @@ public class Event {
         this.booking = booking;
         this.destination = destination;
         this.expenditure = expenditure;
-        this.inventory = inventory;
+        this.inventoryList = inventoryList;
     }
 
-    // temporary constructor until we implement booking and inventory, accepts null for now
+    // temporary constructor until we implement booking and inventoryList, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure expenditure, Location destination) {
+                 Expenditure expenditure, Location destination, Optional<InventoryList> inventoryList) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -59,14 +59,14 @@ public class Event {
         this.booking = null;
         this.destination = destination;
         this.expenditure = expenditure;
-        this.inventory = null;
+        this.inventoryList = inventoryList;
     }
 
     /**
      * Constructs a trip with optional expenditure field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> expenditure, Location destination) {
+                 Optional<Expenditure> expenditure, Location destination, Optional<InventoryList> inventoryList) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -75,7 +75,7 @@ public class Event {
         this.booking = null;
         this.destination = destination;
         this.expenditure = expenditure.orElse(null);
-        this.inventory = null;
+        this.inventoryList = inventoryList;
     }
 
 
@@ -105,8 +105,8 @@ public class Event {
         return Optional.ofNullable(expenditure);
     }
 
-    public Optional<Inventory> getInventory() {
-        return Optional.ofNullable(inventory);
+    public Optional<InventoryList> getInventoryList() {
+        return inventoryList;
     }
 
     public Optional<Booking> getBooking() {
@@ -167,7 +167,7 @@ public class Event {
                 && otherTrip.getDestination().equals(getDestination())
                 && otherTrip.getBooking().equals(getBooking())
                 && otherTrip.getExpenditure().equals(getExpenditure())
-                && otherTrip.getInventory().equals(getInventory());
+                && otherTrip.getInventoryList().equals(getInventoryList());
     }
 
 }
