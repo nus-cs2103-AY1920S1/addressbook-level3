@@ -3,7 +3,6 @@ package seedu.address.calendar.model.date;
 import java.util.Arrays;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 /**
  * Represents year.
  * Guarantees: year is between 1980 and 2200, immutable.

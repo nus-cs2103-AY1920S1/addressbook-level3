@@ -13,17 +13,17 @@ public class ListCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_LIST_FAILED = "There are no events found";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists your events. "
-            + "If no dates are specified, all events will be listed. "
+            + "If no dates are specified, all events will be listed.\n"
             + "Parameters: "
-            + "[" + CliSyntax.PREFIX_START_DAY + " START DAY] "
-            + "[" + CliSyntax.PREFIX_START_MONTH + " START MONTH] "
+            + "[" + CliSyntax.PREFIX_START_DAY + "START DAY] "
+            + "[" + CliSyntax.PREFIX_START_MONTH + "START MONTH] "
             + "[" + CliSyntax.PREFIX_START_YEAR + "START YEAR] "
-            + "[" + CliSyntax.PREFIX_END_DAY + " END DAY]  "
-            + "[" + CliSyntax.PREFIX_END_MONTH + " END MONTH] "
-            + "[" + CliSyntax.PREFIX_END_YEAR + " END YEAR] "
-            + "[" + CliSyntax.PREFIX_PERIOD + " MIN NO. OF DAYS]" + "\n"
-            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 5 " + CliSyntax.PREFIX_START_MONTH
-            + " Dec " + CliSyntax.PREFIX_END_DAY + " 31 " + CliSyntax.PREFIX_PERIOD + " 5";
+            + "[" + CliSyntax.PREFIX_END_DAY + "END DAY]  "
+            + "[" + CliSyntax.PREFIX_END_MONTH + "END MONTH] "
+            + "[" + CliSyntax.PREFIX_END_YEAR + "END YEAR] "
+            + "[" + CliSyntax.PREFIX_PERIOD + "MIN NO. OF DAYS]" + "\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + "5 " + CliSyntax.PREFIX_START_MONTH
+            + "Dec " + CliSyntax.PREFIX_END_DAY + "31 " + CliSyntax.PREFIX_PERIOD + "5";
 
     private Optional<EventQuery> eventQuery;
 

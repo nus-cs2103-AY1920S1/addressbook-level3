@@ -1,8 +1,6 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.CheckCommand;
-import seedu.address.calendar.commands.CommandUtil;
-import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -26,21 +24,11 @@ public class CheckCommandParser {
             throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
-        Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,
-                CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
-
-        Date endDate = DateParser.parseEndDate(argMultimap, startDate, CliSyntax.PREFIX_END_MONTH,
-                CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_END_DAY);
-
-        boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
-
-        if (!isValidPeriod) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CommandUtil.MESSAGE_DATE_RESTRICTION));
+        try {
+            EventQuery eventQuery = ParserUtil.getEventQuery(argMultimap);
+            return new CheckCommand(eventQuery);
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()));
         }
-
-        EventQuery eventQuery = new EventQuery(startDate, endDate);
-
-        return new CheckCommand(eventQuery);
     }
 }

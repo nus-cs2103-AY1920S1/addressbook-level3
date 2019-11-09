@@ -1,9 +1,6 @@
 package seedu.address.calendar.model.event;
 
 import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.date.MonthOfYear;
-import seedu.address.calendar.model.date.Year;
-import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.Interval;
 
 /**

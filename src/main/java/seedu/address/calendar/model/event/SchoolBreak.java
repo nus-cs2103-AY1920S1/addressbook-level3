@@ -2,8 +2,6 @@ package seedu.address.calendar.model.event;
 
 import seedu.address.calendar.model.date.Date;
 
-import java.util.Optional;
-
 /**
  * Represents a school break.
  */
