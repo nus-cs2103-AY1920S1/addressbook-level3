@@ -32,7 +32,7 @@ public class EditTagColorCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: \n"
             + "INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG_COLOR + "TAGCOLOR] \n"
+            + PREFIX_TAG_COLOR + "TAGCOLOR \n"
             + "Tags colors should be one of \"RED\", \"ORANGE\", \"YELLOW\", "
             + "\"GREEN\", \"BLUE\", \"PURPLE\", \"BLACK\", \"TEAL\", \"DEFAULT\". \n"
             + "Example: "
