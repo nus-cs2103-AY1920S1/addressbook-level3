@@ -4,7 +4,7 @@ package seedu.address.inventory.ui;
  * Formats the Ui return responses for different commands to be shown to user.
  */
 public class InventoryMessages {
-    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please input the correct "
             + "command format:\n";
 
     public static final String MESSAGE_NO_SUCH_SORT_COMMAND =

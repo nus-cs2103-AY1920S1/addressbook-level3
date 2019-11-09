@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.util.InventoryList;
@@ -119,6 +120,16 @@ public class CashierModelStub implements Model {
 
     @Override
     public Transaction getCheckoutTransaction() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isValidAmount(String description, int qty) throws NoSuchItemException, AmountExceededException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isValidAmount(int index, int qty) throws NoSuchItemException, AmountExceededException {
         throw new AssertionError("This method should not be called.");
     }
 

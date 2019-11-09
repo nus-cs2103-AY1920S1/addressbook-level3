@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Formats the Ui return responses for different commands to be shown to user.
  */
 public class CashierMessages {
-    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please Please input the correct "
+    public static final String MESSAGE_BEGINNING_FOR_INVALID_COMMAND = "Sorry! Please input the correct "
             + "command format:\n";
 
     public static final String AMOUNT_NOT_A_NUMBER = "Please input a number for the amount being paid.\n";
@@ -75,7 +75,7 @@ public class CashierMessages {
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\nDeleted successfully.\n";
 
-    public static final String MESSAGE_TOTAL_AMOUNT_EXCEEDED = "The total amount cannot exceed $9999. Please"
+    public static final String MESSAGE_TOTAL_AMOUNT_EXCEEDED = "The total amount cannot exceed $999999.99. Please"
             + " reduce the quantity or checkout this item in a separate cart.\n";
 
     /**
