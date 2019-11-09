@@ -53,7 +53,7 @@ public class EditGroceryItemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Amount} of the {@code EditGroceryItemDescriptor} that we are building.
+     * Sets the {@code ExpiryDate} of the {@code EditGroceryItemDescriptor} that we are building.
      */
     public EditGroceryItemDescriptorBuilder withExpiryDate(String expiryDate) {
         descriptor.setExpiryDate(new ExpiryDate(expiryDate));
@@ -61,7 +61,7 @@ public class EditGroceryItemDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditGroceryItemDescriptor} that we are building.
+     * Sets the {@code Set<Tag>} of the {@code EditGroceryItemDescriptor} that we are building.
      */
     public EditGroceryItemDescriptorBuilder withTags(String ... tags) {
         Set<Tag> tagSet = SampleDataUtil.getTagSet(tags);
