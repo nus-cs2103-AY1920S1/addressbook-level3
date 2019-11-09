@@ -142,7 +142,11 @@ public class ProblemCard extends UiPart<Region> {
         source.setTextAlignment(TextAlignment.JUSTIFY);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label l = new Label(tag.tagName);
+                    l.setStyle("-fx-background-color: " + tag.getColor() + ";");
+                    tags.getChildren().add(l);
+                });
         this.addMouseClickListener();
     }
 

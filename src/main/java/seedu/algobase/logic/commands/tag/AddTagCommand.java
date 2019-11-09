@@ -21,11 +21,11 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a Tag to AlgoBase.\n"
             + "Parameters:\n"
-            + PREFIX_TAG + "TAG NAME"
-            + "[" + PREFIX_TAG_COLOR + "]" + "TAG COLOR\n"
+            + PREFIX_TAG + "TAG NAME "
+            + "[" + PREFIX_TAG_COLOR + "TAG COLOR]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_TAG + "Easy"
+            + PREFIX_TAG + "Easy "
             + PREFIX_TAG_COLOR + "BULE";
 
     public static final String MESSAGE_SUCCESS = "New Tag [%1$s] added to AlgoBase.";
