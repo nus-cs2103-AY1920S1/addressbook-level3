@@ -14,7 +14,7 @@ public class ListDiaryCommand extends ListCommand {
 
     public static final String VARIANT_WORD = "diary";
 
-    public static final String MESSAGE_SUCCESS = "Listed all diaries";
+    public static final String MESSAGE_SUCCESS = "Listed all diaries!";
 
     private static Event event;
 

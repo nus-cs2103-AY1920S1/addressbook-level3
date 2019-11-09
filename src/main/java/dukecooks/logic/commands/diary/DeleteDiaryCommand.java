@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandResult;
@@ -26,6 +27,7 @@ public class DeleteDiaryCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_DIARY_SUCCESS = "You have deleted diary with name: %1$s";
 
+    private static Event event;
     private final Index targetIndex;
 
     public DeleteDiaryCommand(Index targetIndex) {
@@ -43,6 +45,11 @@ public class DeleteDiaryCommand extends DeleteCommand {
 
         Diary diaryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDiary(diaryToDelete);
+
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
         return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete));
     }
 

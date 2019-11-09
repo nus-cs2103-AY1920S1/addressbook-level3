@@ -12,7 +12,7 @@ import dukecooks.logic.commands.recipe.ClearRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddRecipeCommand object
+ * Parses input arguments and creates a new ClearCommand object
  */
 public class ClearCommandParser implements Parser<ClearCommand> {
 

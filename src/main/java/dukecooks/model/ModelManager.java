@@ -623,11 +623,6 @@ public class ModelManager implements Model {
     //=========== Diary Records ================================================================================
 
     @Override
-    public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
-        this.diaryRecords.resetData(diaryRecords);
-    }
-
-    @Override
     public ReadOnlyDiary getDiaryRecords() {
         return diaryRecords;
     }

@@ -2,6 +2,7 @@ package dukecooks.logic.commands.diary;
 
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -23,6 +24,7 @@ public class AddDiaryCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "You have added a new diary with name: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks!";
 
+    private static Event event;
     private final Diary toAdd;
 
     /**
@@ -42,6 +44,11 @@ public class AddDiaryCommand extends AddCommand {
         }
 
         model.addDiary(toAdd);
+
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

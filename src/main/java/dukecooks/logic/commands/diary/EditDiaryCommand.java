@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -32,10 +33,11 @@ public class EditDiaryCommand extends EditCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DIARY_NAME + "newDiaryName";
 
-    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
+    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "You have edited the diary: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in the Duke Cooks.";
 
+    private static Event event;
     private final Index index;
     private final EditDiaryDescriptor editDiaryDescriptor;
 
@@ -69,6 +71,11 @@ public class EditDiaryCommand extends EditCommand {
 
         model.setDiary(diaryToEdit, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
+
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
         return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary));
     }
 

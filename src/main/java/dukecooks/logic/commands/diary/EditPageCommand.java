@@ -36,7 +36,7 @@ public class EditPageCommand extends EditCommand {
     public static final String VARIANT_WORD = "page";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the page identified "
-            + "by the sequence shown in the page list. "
+            + "by the page index shown in the page list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DIARY_NAME + "DIARY NAME] "
@@ -47,13 +47,12 @@ public class EditPageCommand extends EditCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PAGE_TITLE + "Sushi";
 
-    public static final String MESSAGE_EDIT_PAGE_SUCCESS = "Edited Page: %1$s";
+    public static final String MESSAGE_EDIT_PAGE_SUCCESS = "You have edited the page: %1$s";
     public static final String MESSAGE_DIARY_NOT_FOUND = "This diary does not exist!";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PAGE = "This page already exists in the Duke Cooks.";
 
     private static Event event;
-
     private final Index index;
     private final DiaryName diaryName;
     private final EditPageDescriptor editPageDescriptor;
@@ -104,7 +103,11 @@ public class EditPageCommand extends EditCommand {
         model.setDiary(targetDiary, newDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PAGE_SUCCESS, editedPage));
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
+        return new CommandResult(String.format(MESSAGE_EDIT_PAGE_SUCCESS, editedPage.getTitle()));
     }
 
     /**

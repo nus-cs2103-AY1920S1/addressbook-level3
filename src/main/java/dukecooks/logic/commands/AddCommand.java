@@ -4,7 +4,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 
 /**
- * Adds a recipe to Duke Cooks.
+ * Adds a component to Duke Cooks.
  */
 public abstract class AddCommand extends Command {
 

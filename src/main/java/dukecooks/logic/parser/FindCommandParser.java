@@ -25,7 +25,7 @@ import dukecooks.logic.parser.mealplan.FindMealPlanWithCommandParser;
 import dukecooks.logic.parser.recipe.FindRecipeCommandParser;
 
 /**
- * Parses input arguments and creates a new FindRecipeCommand object
+ * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
 

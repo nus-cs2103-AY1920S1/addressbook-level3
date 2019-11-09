@@ -378,11 +378,6 @@ public interface Model {
 
     //=========== Diary ======================================================================================
 
-    /**
-     * Replaces Duke Cooks data with the data in {@code diaryRecords}.
-     */
-    void setDiaryRecords(ReadOnlyDiary diaryRecords);
-
     /** Returns DiaryRecords */
     ReadOnlyDiary getDiaryRecords();
 
