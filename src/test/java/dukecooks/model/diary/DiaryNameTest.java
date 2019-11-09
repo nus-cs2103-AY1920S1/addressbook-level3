@@ -31,12 +31,12 @@ public class DiaryNameTest {
         assertFalse(DiaryName.isValidName(" ")); // spaces only
         assertFalse(DiaryName.isValidName("^")); // only non-alphanumeric characters
         assertFalse(DiaryName.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(DiaryName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names > 25 characters
 
         // valid name
         assertTrue(DiaryName.isValidName("peter jack")); // alphabets only
         assertTrue(DiaryName.isValidName("12345")); // numbers only
         assertTrue(DiaryName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(DiaryName.isValidName("Capital Tan")); // with capital letters
-        assertTrue(DiaryName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
     }
 }

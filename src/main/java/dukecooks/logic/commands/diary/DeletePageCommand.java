@@ -17,14 +17,14 @@ import dukecooks.model.diary.components.Page;
 import javafx.collections.ObservableList;
 
 /**
- * Deletes a page from a specified diary, identified using it's displayed index and Diary DiaryName from Duke Cooks.
+ * Deletes a page from a specified diary, identified using it's displayed index from Duke Cooks.
  */
 public class DeletePageCommand extends DeleteCommand {
 
     public static final String VARIANT_WORD = "page";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the page identified by the index number in the specified diary.\n"
+            + ": Deletes the page identified by the page index number in the specified diary.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + ""
             + " page 1 "

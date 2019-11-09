@@ -8,6 +8,7 @@ import dukecooks.commons.util.ImagePicker;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.Page;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -85,14 +86,36 @@ public class DiaryListPanel extends UiPart<Region> {
      */
     void initializePageListView(int targetIndex) {
 
-        ObservableList<Page> pageList = diaryList.get(targetIndex).getPages();
+        // Sets the name of the diary if diary list changes
+        diaryList.addListener((ListChangeListener<Diary>) c -> {
+            refreshPages(targetIndex);
+        });
 
-        // Sets the name of the diary
-        diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().fullName);
+        refreshPages(targetIndex);
+    }
 
-        pageListView.setItems(pageList);
-        pageListView.setCellFactory(listView -> new PageListViewCell());
+    /**
+     * Refreshes the page list view.
+     */
+    void refreshPages(int targetIndex) {
 
+        if (!diaryList.isEmpty()) {
+            pageListView.setVisible(true);
+        }
+
+        // Empty diaryList
+        if (diaryList.isEmpty()) {
+            diaryHeader.setText("You have no available diaries ...");
+            pageListView.setVisible(false);
+        } else if (targetIndex >= diaryList.size()) {
+            // Show the last possible diary entry
+            refreshPages(targetIndex - 1);
+        } else {
+            ObservableList<Page> pageList = diaryList.get(targetIndex).getPages();
+            diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().toString());
+            pageListView.setItems(pageList);
+            pageListView.setCellFactory(listView -> new PageListViewCell());
+        }
     }
 
     /**
@@ -167,11 +190,11 @@ public class DiaryListPanel extends UiPart<Region> {
     }
 
     /**
-     * Executes an AddPageCommand, based on the input provided in the GUI.
+     * Executes an CreatePageCommand, based on the input provided in the GUI.
      */
     @FXML
     void executeInput() {
-        String command = "add page";
+        String command = "create page";
         String diaryInput = " n/ " + diaryNameTextField.getText();
         String titleInput = " t/ " + pageTitleTextField.getText();
         String pageTypeInput = " tp/ " + pageTypeTextField.getText();
@@ -228,7 +251,7 @@ public class DiaryListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);;
             } else {
-                setGraphic(new PageCard(page).getRoot());
+                setGraphic(new PageCard(page, getIndex() + 1).getRoot());
             }
         }
     }

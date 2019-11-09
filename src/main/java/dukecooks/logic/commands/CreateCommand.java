@@ -1,7 +1,7 @@
 package dukecooks.logic.commands;
 
 /**
- * Create command in DukeCooks.
+ * Creates a component in DukeCooks.
  */
 public abstract class CreateCommand extends Command {
 

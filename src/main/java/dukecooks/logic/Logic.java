@@ -136,11 +136,6 @@ public interface Logic {
     Path getUserProfileFilePath();
 
     /**
-     * Returns the user prefs' Duke Cooks file path.
-     */
-    Path getDukeCooksFilePath();
-
-    /**
      * Returns the user prefs' Health Records file path.
      */
     Path getHealthRecordsFilePath();

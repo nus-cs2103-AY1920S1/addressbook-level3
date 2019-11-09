@@ -52,9 +52,15 @@ public class EditPageCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC,
                 DiaryName.MESSAGE_CONSTRAINTS); // invalid diary name
+    }
+
+    @Test
+    public void parse_noFieldEdited_failure() {
+        String userInput = "1 n/ Asian Food";
+        CommandParserTestUtil.assertParseFailure(parser, userInput, EditPageCommand.MESSAGE_NOT_EDITED);
+
     }
 
     @Test

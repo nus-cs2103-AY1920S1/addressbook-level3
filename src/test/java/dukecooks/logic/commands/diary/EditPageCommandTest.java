@@ -50,7 +50,7 @@ public class EditPageCommandTest {
                 descriptor);
 
         CommandResult commandResult = editPageCommand.execute(modelStub);
-        assertEquals(String.format(EditPageCommand.MESSAGE_EDIT_PAGE_SUCCESS, editedPage),
+        assertEquals(String.format(EditPageCommand.MESSAGE_EDIT_PAGE_SUCCESS, editedPage.getTitle()),
                 commandResult.getFeedbackToUser());
     }
 
@@ -70,7 +70,7 @@ public class EditPageCommandTest {
                 descriptor);
 
         CommandResult commandResult = editPageCommand.execute(modelStub);
-        assertEquals(String.format(EditPageCommand.MESSAGE_EDIT_PAGE_SUCCESS, editedPage),
+        assertEquals(String.format(EditPageCommand.MESSAGE_EDIT_PAGE_SUCCESS, editedPage.getTitle()),
                 commandResult.getFeedbackToUser());
     }
 

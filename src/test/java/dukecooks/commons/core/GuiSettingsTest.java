@@ -1,6 +1,8 @@
 package dukecooks.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Point;
 
@@ -32,5 +34,23 @@ public class GuiSettingsTest {
         GuiSettings secondGuiSettings = new GuiSettings();
 
         assertEquals(firstGuiSettings.hashCode(), secondGuiSettings.hashCode());
+    }
+
+    @Test
+    public void test_equals() {
+        GuiSettings firstGuiSettings = new GuiSettings();
+        GuiSettings secondGuiSettings = new GuiSettings();
+        GuiSettings thirdGuiSettings = new GuiSettings(1, 2, 3, 4);
+
+        // same object
+        assertTrue(firstGuiSettings.equals(firstGuiSettings));
+
+        // different object, same fields
+        assertTrue(firstGuiSettings.equals(secondGuiSettings));
+
+        // different objects and fields
+        assertFalse(firstGuiSettings.equals(null));
+        assertFalse(firstGuiSettings.equals(thirdGuiSettings));
+
     }
 }

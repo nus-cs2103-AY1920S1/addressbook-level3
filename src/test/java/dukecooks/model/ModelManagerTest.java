@@ -187,10 +187,6 @@ public class ModelManagerTest {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.hasMealPlan(null));
     }
 
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasExercise(null));
-    }
-
     @Test
     public void hasPerson_personNotInDukeCooks_returnsFalse() {
         assertFalse(modelManager.hasExercise(ABS_ROLLOUT));
