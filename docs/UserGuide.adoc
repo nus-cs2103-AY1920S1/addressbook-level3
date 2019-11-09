@@ -373,7 +373,7 @@ But how? Well, this is the section for you. 😀
 ****
 * To delete a commitment,
 
-    delete n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
+    delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
 
 * To delete a holiday,
 
