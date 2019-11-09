@@ -394,7 +394,7 @@ image::defaultsuccess.png[]
 image::wallet.png[width = "400"]
 
 [NOTE]
-Maximum budget amount is 1 million dollars. +
+Maximum budget amount is $1,000,000. +
 Maximum budget duration is 365 days (1 year).
 
 ==== Sets budget for a number of days: `budget`
@@ -418,7 +418,7 @@ Allows users to top up the money into their wallet.
 *Example*: `topup 10`
 
 *Note*: +
-`AMOUNT` must be a non-negative integer or or non-negative double with 2 decimal places. +
+`AMOUNT` must be a non-negative integer or a non-negative double with 2 decimal places. +
 
 ****
 
@@ -426,17 +426,31 @@ Allows users to top up the money into their wallet.
 If the top up was successful, you should be able to see the update to your wallet immediately.
 //end::budgeting[]
 
+//tag::savings[]
 === Saving
 
-//tag::savings[]
+.Example success message that appears after keying a successful
+image::SavingsSuccessMessage.png[width = 600]
+
+.Example User's savings history after savings were added.
+image::SavingsAdded.png[width = 600]
+
+[NOTE]
+Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000. +
+Your Savings Account has a limit that is imposed by the limitations of the user's computer's memory. +
+We will be introducing a higher limit for savings so user's can aim to save more, but that will be in v2.0.
+
 ==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
 
 ****
-*Format*: `save` +
+*Format*: `save AMOUNT` +
 *Example*: `save 10`
-****
 
+*Note*: +
+`AMOUNT` must be a non-negative integer or a non-negative double with 2 decimal places.
+
+****
 
 [IMPORTANT]
 Make sure you have money in your wallet before you save! You cannot save
@@ -449,14 +463,13 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 |===
 
 [NOTE]
-If you click the "Savings" tab on the right panel, you will be able to view your savings history.
-Also the amount saved is deducted from your wallet.
+If you click the "Savings" tab on the right panel, you will be able to view your savings history. The saving will appear GREEN in the savings history. +
+Also the amount saved is deducted from your wallet, and transferred into your savings account immediately.
 
 ==== Withdraws money from savings account: `withdraw`
 Allows users to log an amount of money to withdraw from his savings account into his wallet.
-//end::savings[]
 
-//tag::withdrawals[]
+
 ****
 *Format*: `withdraw` +
 *Example*: `withdraw 10`
@@ -474,7 +487,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 [NOTE]
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount withdrawn is added into your wallet.
-//end::withdrawals[]
+//end::savings[]
 
 //tag::purchasing[]
 === Purchasing
