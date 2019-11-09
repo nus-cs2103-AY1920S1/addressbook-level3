@@ -87,6 +87,7 @@ class AutoCompleteResultGenerator {
         providers.put("add-s", new AddScheduleGraph(model));
         providers.put("delete-s", new DeleteScheduleGraph(model));
         providers.put("edit-s", new EditScheduleGraph(model));
+        providers.put("clear-s", EmptyProvider.getInstance());
 
         // Archived order commands
         providers.put("switch-a", EmptyProvider.getInstance());
