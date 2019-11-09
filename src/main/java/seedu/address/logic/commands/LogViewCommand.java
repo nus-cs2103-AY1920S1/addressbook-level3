@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.logic.UiManager;
 import seedu.address.ui.UserOutput;
 
+//@@author Kyzure
 /**
  * Represents a Command which adds an EventSource to the Model.
  */

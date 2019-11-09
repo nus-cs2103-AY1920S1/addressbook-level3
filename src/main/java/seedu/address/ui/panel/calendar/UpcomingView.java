@@ -16,7 +16,7 @@ import seedu.address.ui.UiPart;
 import seedu.address.ui.card.UpcomingEventCard;
 import seedu.address.ui.card.UpcomingTaskCard;
 
-
+//@@author Kyzure
 /**
  * An UI that represents the upcoming event or task displayed to the user.
  */

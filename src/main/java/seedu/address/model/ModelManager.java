@@ -7,10 +7,15 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.ModelDataListener;
 import seedu.address.model.tasks.TaskSource;
 
+//@@author bruceskellator
+
 /**
  * Represents a class that manages the {@link ModelData} of Horo.
+ * Horo's Storage, Ui and UndoRedoManager components implement the ModelDataListener interface
+ * which listens for any changes to this ModelData so that they can be updated accordingly.
  */
 public class ModelManager {
+
     private ModelData model;
 
     private final List<ModelDataListener> modelDataListeners;
@@ -25,6 +30,9 @@ public class ModelManager {
         this.modelDataListeners = new ArrayList<>();
     }
 
+    /**
+     * Adds ModelDataListeners.
+     */
     public void addModelDataListener(ModelDataListener listener) {
         this.modelDataListeners.add(listener);
     }
@@ -70,4 +78,14 @@ public class ModelManager {
     public List<TaskSource> getTasks() {
         return this.model.getTasks();
     }
+
+    /**
+     * Returns the original ModelData. This method is used for testing UndoRedoManager.
+     *
+     * @return the original ModelData
+     */
+    public ModelData getModel() {
+        return model;
+    }
+
 }

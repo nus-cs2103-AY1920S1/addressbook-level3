@@ -497,6 +497,7 @@ Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedb
 
 Step 3.3. Next, it create `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterwards.
 
+// tag::uiImplementation[]
 ==== Implementation when changing the date of timeline
 
 .Sequence Diagram for changing the timeline date
@@ -530,6 +531,9 @@ Step 5. Afterwards, it will proceed to repeat step 3 again, which is simply call
 
 Since the sequence for `CalendarViewCommand` is roughly similar, or in fact, more complicated than `ListViewCommand` and `LogViewCommand`, it will not be further explained.
 
+// end::uiImplementation[]
+
+// tag::uiDesign[]
 ==== Design Considerations
 
 The design considerations are more towards how the UI would have look like, as well as how the architecture of the code would have change if depending on the arrangement of the UI.
@@ -559,7 +563,7 @@ image::Ui.png[]
 
 ** **Cons**: :The user will not be able to know what Events or Tasks there are easily, unless they change the view to month view. However, the increase space allows a small section for the upcoming events and tasks which tackles this problem.
 
-==== Aspect: Design of the `LogPanel`
+===== Aspect: Design of the `LogPanel`
 * Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
 
 ** **Pros**: The users can always have a visualization of the success of their commands
@@ -575,6 +579,8 @@ image::Ui.png[]
 ** **Cons**: The user will have to check the `LogPanel`
 
 The initial design is as of the image above showing the old UI. However, we decided to scrape it and did an overhaul of the UI using alternative 2 instead. This is due to our decision of wanting a better-looking and minimalist UI instead of one packed with information.
+
+// end::uiDesign[]
 
 == Documentation
 

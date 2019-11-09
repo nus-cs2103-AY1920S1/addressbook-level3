@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
 
+<!-- @@author Kyzure -->
 <StackPane fx:id="calendarGridDayBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Circle fx:id="calendarDayCircle" fill="#ff7777" radius="14.0" stroke="#ffffff00" strokeType="INSIDE" />
