@@ -462,7 +462,7 @@ image::UiRedesignClassDiagram.png[]
 These windows are opened through their respective commands.
 3. `ReminderCard` and `VisitCard` gets its data from Model, similar to PersonCard.
 
-==== Future implementation
+==== Future implementation `[Coming in v2.0]`
 
 For future GUI design considerations in v2.0 and above, the panels of each feature such as `PersonListPanel` and `ReminderPanel` can be
 separated by tabs, through a dashboard interface. This allows more information to be displayed within each tab, allowing

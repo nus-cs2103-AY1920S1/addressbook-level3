@@ -29,7 +29,7 @@ Responsibilities: Project Manager, Developer, Legal & Compliance, Security, In c
 
 === Gabriel Chia
 image::gachia.png[width="150", align="left"]
-{empty}[http://github.com/gachia[github]] [<<gabrielchia#, portfolio>>]
+{empty}[http://github.com/gachia[github]] [<<gachia#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI, Documentation, Concept Artist
