@@ -34,8 +34,8 @@ class ChangeAppCommandTest {
         Event eventChanged = new EventBuilder(EVENT_BENSON)
                 .withId(eventToChange.getPersonId()).build();
         CommandResult commandResult = new ChangeAppCommand(eventToChange, eventChanged).execute(model);
-        assertEquals(String.format(ChangeAppCommand.MESSAGE_SUCCESS, eventToChange.getPersonId(),
-                eventToChange.getPersonName(), eventToChange.getEventTiming()),
+        assertEquals(String.format(ChangeAppCommand.MESSAGE_SUCCESS, eventChanged.getPersonId(),
+                eventChanged.getPersonName(), eventToChange.getEventTiming(), eventChanged.getEventTiming()),
                 commandResult.getFeedbackToUser());
         new ChangeAppCommand(eventChanged, eventToChange).execute(model);
     }
