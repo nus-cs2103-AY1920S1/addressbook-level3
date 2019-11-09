@@ -9,15 +9,21 @@
 
 == Overview
 
-ClerkPro is a desktop application designed for ease of managing clinic's appointments, queue and scheduling. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ClerkPro is a desktop application designed for ease of managing clinic's appointments, queue and scheduling. The user interacts with it using a CLI, and it has a graphical user interface (GUI) created with JavaFX. It is written in Java, and has about 17 kLoC (cross verified at https://codetabs.com/count-loc/count-loc-online.html & http://line-count.herokuapp.com/AY1920S1-CS2103T-T09-3/main).
 
 == Summary of contributions
 
-* *Major enhancement*: *Major Rework on User Interface (UI) to be capable of full traversal with just keyboard while supporting AutoComplete for the Command Line Interface (CLI), and OmniPanel.*
-** What it does: reduces the mental workload & visual fatigue of user from having to carefully type commands and double checking the typed command or the user guide for supported commands and parameters.
-** Justification: This feature enhances the user experience significantly because it provides optimal focus on primary tasks at hand to reduce visual and cognitive expenditure.
-** Highlights: This enhancement affects interaction against existing UI components as the traversal have to be critically handled from component to component.
+* *Major enhancement*: *Major Rework on User Interface (UI) with AutoComplete with flags.*
+** What it does: Reduces the mental workload & visual fatigue of user from having to carefully type commands and double checking the typed command or the user guide for supported commands and parameters.
+** Justification: Enhances the user experience (UX) design significantly because it provides optimal focus on primary tasks at hand to reduce visual and cognitive expenditure.
+** Highlights: Affects interaction against existing UI components as the traversal have to be critically handled from component to component.
 ** Credits: None
+
+* *Major enhancement*: *Reactive Search (Proposal & UX Concept)*
+** What it does: Prevents un-necessary waiting by the user.
+** Justification: Enhances the UX significantly as user no longer waits to preview the number of possible results.
+** Highlights: Reactive Search should not block the main UI from user upon processing large data-sets.
+** Credits: SakuraBlossom (Threading and Commands), Chrome DevTools Console (Inspiration)
 
 * *Minor enhancement*: added history for the CLI that allows the user to navigate to previous commands using up/down keys.
 
@@ -26,22 +32,20 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 * *Other contributions*:
 
 ** Project management:
-*** Gradle updating & Config for Headed UI Test
-*** Dependencies management and version bumping after compatibility checks.
+*** Updating Gradle wrapper & Configuration for Headed UI Test (Pull Request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/89[#89])
+*** Dependencies management and version bumping for dependencies bug fixes & optimisations after compatibility checks. (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/200[#200])
 *** Setting up Netlify for team repository.
 ** Enhancements to existing features:
-*** Implemented TestFX for minimalistic GUI testing to increase coverage from 56.193% to 73.193% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
+*** Implemented TestFX for minimalistic UI testing to increase coverage from 56.193% to 73.193% (Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
+*** Implemented more UI testing increasing coverage from 67.652% to 73.091% (Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/217[#217])
 ** Documentation:
 *** [TODO] Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-3/main/pull/86#discussion_r337917765[#86], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/78[#78]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/55[1])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CarbonGrid/ped/issues/1[1], https://github.com/CarbonGrid/ped/issues/3[2], https://github.com/CarbonGrid/ped/issues/6[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (TestFX) to the project (https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -59,3 +63,4 @@ include::../UserGuide.adoc[tag=ui]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
+include::../DeveloperGuide.adoc[tag=autocompleteDesignConsideration]

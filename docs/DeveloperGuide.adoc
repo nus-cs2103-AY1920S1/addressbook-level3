@@ -213,6 +213,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -232,27 +233,8 @@ image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Commit Activity Diagram
 image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
 // end::undoredo[]
 
@@ -260,8 +242,9 @@ image::CommitActivityDiagram.png[]
 
 === AutoComplete
 
-We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique alphabets used, m is length of longest word stored.
+We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
+.AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
 
 // end::autocomplete[]
@@ -272,15 +255,30 @@ The queue feature allows the user to enqueue and dequeue a patient from the queu
 * e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
 * e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
 
+Queue supports a few basic commands:
+
+* Enqueue -- Enqueues a patient into the queue. +
+Format: `enqueue <PATIENT_REFERENCE_ID>`
+* Dequeue -- Dequeues a patient from the queue. +
+Format: `dequeue <QUEUE_INDEX>`
+* Next -- Assigns the next patient in the queue to a doctor. +
+Format: `next <ENTRY_ID>`
+* Break -- Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+Format: `break <ENTRY_ID>`
+* Resume -- Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
+Format: `resume <ENTRY_ID>`
+
 ==== Current Implementation
 The queue will be displayed in a list.
 
 The following activity diagram summarizes what happens when a user executes an enqueue command:
 
+.Enqueue Activity Diagram
 image::EnqueueActivityDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an next command:
 
+.Next Activity Diagram
 image::NextActivityDiagram.png[]
 
 Below is an example usage of the queue feature.
@@ -289,66 +287,65 @@ Step 1: User enters the `enqueue E0000001A` command.
 
 Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
 
-Step 3: Patient will then be showed in the queue.
+Step 3: Patient will then displayed in the queue.
 
 === Appointment feature
-The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also helps user to find the missing appointments and settles each missing appointment efficiently.
+The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User also able to find missed appointments and settles each missed appointment efficiently.
 
-* e.g. `newappt -id E0000001A -start 01/11/19 1800 -reoccur m -num 2` - allows the user to create two monthly appointments to patient whose referenceId is E0000001A.
-* e.g. `editappt -entry 1 -end 02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+* e.g. `newappt -id E0000001A -start 01/11/19 1800 -rec m -num 2` - creates two monthly appointments to patient whose referenceId is 001A.
+* e.g. `editappt 1 -start 02/11/19 1800` - edits a patient's first appointment timing to be the input timing if there is no conflict.
 
 ==== Current Implementation
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
-`newappt` Command - Adds a appointment or reoccurring appointments to a patient.
+`newappt` Command - Creates an new appointment or recurring appointments for a patient.
 
-`ackappt` Command - Acknowledges a appointment once the patient reaches.
+`ackappt` Command - Acknowledges an appointment whenever the patient checks in with the clerk.
 
-`appointments` Command - Lists all upcoming appointments or lists a specific patient's upcoming appointments.
+`appointments` Command - Lists all upcoming appointments or appointments which involves the patient whose referenceId contains a certain keyword.
 
-`editappt` Command - Change a current appointment's timing to a different timing.
+`editappt` Command - Edits an appointment timing.
 
-`cancelappt` Command - Cancels a appointment found within the appointment schedule.
+`cancelappt` Command - Cancels an appointment.
 
-`missappt` Command - Lists all missing appointments.
+`missappt` Command - Lists all missed appointments.
 
-`settleappt` Command - Marks a missing appointment's status as settled.
+`settleappt` Command - Marks a missed appointment as settled. Allowing the clerk to track which patient have yet to reschedule an appointment.
 
-The class diagram below illustrates the interactions between the Appointment class and associated classes.
 
-.Appointment class diagram
+.Appointment class diagram illustrating interactions between the Appointment class and associated classes.
 image::AppointmentClassDiagram.png[]
 
-Each Appointment object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` object as they indicates the starting and ending time of the appointment. The `UniqueEventList` contains 0 or more Appointments.
+Each Appointment object consists of a PersonReferenceId, Timing, Status. Timing class has 2 DateTime objects which indicates the start and end time of the appointment. The UniqueEventList contains 0 or more Appointments.
 
 The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePersonList  and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered before making an appointment and the appointment's timing is valid.
 
 ==== `newappt` Command
-The addAppointment command behaves similarly to the registration of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the Appointment object is constructed.
+The `newappt` command is similar to the `new` command of Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
 
-The following activity diagram summarizes what happens when a user executes a AddAppointment command:
+The following activity diagram summarizes what happens when a user executes a `AddAppointment` command:
 
 .Interactions Inside the Logic Component when a user executes a `newappt` command
 image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
 
-The `ackappt` command will mark the patient's the most upcoming appointment's status as Acknowledge when the patient is reaching and it will update `UniqueEventList` to display the rest appointments that are belong to the patient.
+The `ackappt` command marks the patient's the most upcoming appointment as Acknowledged when the patient checks in and also updates UniqueEventList to display appointments belonging to the patient.
 
 ==== `appointments` Command
 
-The appointments command works in two different cases for different purpose.
+The `appointments` command works in two different cases for different purpose.
 
 Case 1: `appointments patientId`
 
-The appointments command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventContainsKeywordPredicate which is created from the patientId argument supplied by the user.
+The `appointments` command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventContainsKeywordPredicate` which is created from the `patientId` argument supplied by the user.
 
 Case 2: `appointments`
 
-The appointments with referce id behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+If appointments is executed without arguments, it executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
 
 ==== `editappt` Command
-The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+The following activity diagram summarizes what happens when a user executes a `editappt` command:
 
 .Interactions Inside the Logic Component when a user executes a `editappt` command
 
@@ -365,13 +362,13 @@ image::CancelAppointmentSequenceDiagram.png[]
 
 ==== `missappt` Command
 
-The missAppointment command searches for appointments that patients did not come. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
+The `missappt` command searches for appointments that the patient did not attend. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
 
 ==== `settleappt` Command
 
-The settleAppointment command helps users to record if they settled missing appointments. It allows users make any missing appointment to be SETTLE once users have settled it. it will updateUniqueAppointmentList to display the rest missing appointments.
+The `settleappt` command helps users to record if they settled missed appointments. It allows users make any missed appointment to be SETTLE once users have settled it. It will also update UniqueEventList to display the other missed appointments.
 
-In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
+In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's `dutyRoster` and `Model#UniqueEventList`. This ensures users can easily make appointments for patients.
 
 ==== Design Considerations
 
@@ -407,7 +404,7 @@ The Duty shift scheduling contains multiple operations to indirectly manipulate 
 
 `newshift` Command - Adds a duty shift or reoccurring duty shifts to a doctor.
 
-`shifts` Command - Lists all duty shifts or lists a specific doctor's duty shifts.
+`shifts` Command - Lists all duty shifts involving the doctor's referenceId which contains the keyword.
 
 `editshift` Command - Change a current duty shift's timing to a different timing.
 
@@ -452,23 +449,77 @@ In future implementations, i.e. v2.0, the valid timing slot will be given after 
 
 ==== Design Considerations
 
-===== Aspect:  How to store Timing fields
+===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Create DateTime and Timing class to store
-** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
-** Cons: Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
-* **Alternative 2:** Store as Strings
-** Pros: Makes it easier to implement.
-** Cons: Requires additional code to convert into DateTIme class when carrying out calculating methods.
+* *Alternative 1 (current choice):* Save the entire address book.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Implementation is easy.
+|*Cons*|
+1. May have performance issues in terms of memory usage.
+|===
 
-===== Aspect: display appointments
+* *Alternative 2:* Individual command knows how to undo/redo by itself.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Use less memory (e.g. for `delete`, just save the person being deleted).
+|*Cons*|
+1. Must ensure that the implementation of each individual command are correct.
+|===
 
-* **Alternative 1 (current choice):** Display appointments in a tab
-** Pros: Creates an intuitive and easily navigable screen to display appointments.
-** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
-* **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
-** Pros: Makes it easier to implement.
-** Cons: Increases difficulty in freely accessing appointments.
+===== Aspect: Data structure to support the undo/redo commands
+
+* *Alternative 1 (current choice):* Use a list to store the history of address book states.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|*Cons*|
+1. Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+|===
+
+* *Alternative 2:* Use `HistoryManager` for undo/redo
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. We do not need to maintain a separate list, and just reuse what is already in the codebase.
+|*Cons*|
+1. Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|===
+
+// tag::autocompleteDesignConsideration[]
+
+===== Aspect: Data structure to implement AutoComplete
+
+* *Alternative 1 (current choice):* Using Trie (as known as Prefix Tree).
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Time Complexity Efficient +
+2. One of the most natural data structure for text prediction.
+|*Cons*|
+1. Requires initialisation. +
+2. Requires rebuilding of strings.
+|===
+
+* *Alternative 2:* Using ArrayList.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Extremely simple to implement.
+|*Cons*|
+1. Time Complexity Inefficient.
+|===
+
+// end::autocompleteDesignConsideration[]
 
 === Logging
 
@@ -584,8 +635,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -888,19 +937,15 @@ Use case ends.
 
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 100000 persons and 100000 events without noticeable lag in User Interface for typical usage.
+.  Should be able to hold up to 1,000,000 persons and 1,000,000 events without noticeable lag in User Interface within typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  No internet required.
 .  System allows user to undo incorrect or accidental destructive actions
 .  App can be downloaded and run via a jar file
-
-_{More to be added}_
 
 [appendix]
 == Glossary

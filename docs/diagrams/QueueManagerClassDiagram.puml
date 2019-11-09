@@ -24,8 +24,8 @@ Package Model {
     QueueManager --> "UniqueElementList<Room>"
     "UniqueElementList<Room>" *--> Room
     UniqueElementList *-down-> UniqueTreeList
-    UniqueTreeList *-down-> Identical
-    QueueList *---> ReferenceId
+    UniqueTreeList *.down.|> Identical
+    QueueList *...|> ReferenceId
 }
 
 
