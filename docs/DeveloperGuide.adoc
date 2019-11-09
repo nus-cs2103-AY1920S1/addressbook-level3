@@ -257,7 +257,7 @@ Each expense also involves some people who will be taken to owe money to the pay
 
 * Amount
 
-The amount of money spent. The value of an `Amount` is stored as a `double`, and ranges from 0.01 to 1000000.
+The amount of money spent. The value of an `Amount` is stored as a `double`, and must be non-negative.
 
 * Description
 
@@ -287,6 +287,31 @@ image::ExpenseClassDiagram.png[]
 ** **Pros:** Ultimate flexibility and addresses the con above.
 ** **Cons:** Significantly complicates the process of expense adding for the user and the verification process in the backend. Many potential issues may arise, such as the issue of reconciling what happens if the amount list specified does not add up to the amount paid by the paying person.
 
+=== Create expense feature
+The mechanism to create expenses is facilitated by `Expense`. Each `Activity` stores a list of `Expense` called `expenses`, representing the expenses incurred in the course of this activity.
+
+When creating an expense, an amount and at least one person (the paying person) must be specified, and information about an expense cannot be modified once it is created. The only exception to this would be to delete an expense, but expenses also cannot be un-deleted once marked as deleted.
+
+
+
+In terms of the name searching logic to specify who is involved, it is identical to that which is used in the creation of activities (see <<Create activity feature>>), but with a few key differences: +
+
+1. The expense will only be created if **all** sets of keywords result in a unique match. For instance, if the user specifies `p/John Doe p/Mary p/James`, but only the keyword `James` does not successfully identify a unique person, then the entire expense will not be created.
+2. The search scope is contextual. If creating an expense outside an activity context, it will search for matches in the entire Address Book. However, in an activity context, it will only search for matches among existing activity participants.
+
+Here is a sample use case in creating an expense:
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/breakfast p/David p/Mary p/Alice` command to create an activity named breakfast with 3 participants added to the activity. The context is then switched to this new activity.
+
+Step 3. The user executes `expense p/David p/Mary e/10 d/nasi lemak` to indicate that David paid $10 for `nasi lemak` that is shared by both David and Mary. `expense` command calls `Activity#addExpense()` and adds the new expense into the activity. The debt algorithm will then instantly recompute the debt matrix (see <<Debt simplification algorithm>>) for the activity, and store the expense object inside the activity's expense list (i.e. `expenses`).
+
+The following sequence diagram shows how the expense adding operation works:
+
+image::ExpenseSequenceDiagram.png[]
+
+NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 // end::expense[]
 // tag::algorithm[]

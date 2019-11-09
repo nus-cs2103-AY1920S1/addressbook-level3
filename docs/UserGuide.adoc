@@ -174,14 +174,13 @@ Creates a new expense with a list of contacts, an amount and an optional descrip
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
-If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity t/ACTIVITY_NAME` was called). The expense and contact(s) will then be added to the activity. +
+If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity t/ACTIVITY_NAME` was called). The expense and contact(s) will then be added to the activity. You may wish to change the title of this new activity using the `edit` command thereafter (refer to <<Edit an existing contact or activity : `edit`>>). +
 
 Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 ****
 * Exactly one expense amount must be provided.
-* The amount specified will be rounded to 2 decimal places.
-* After rounding, the allowable expense amount for any single expense is from $0.01 to $1,000,000.
+* The allowable expense amount for any single expense must range from $0.01 to $1,000,000 when rounded to 2 decimal places.
 ****
 
 Examples:
@@ -192,7 +191,6 @@ If no activity is currently viewed, an error will occur as there is no descripti
 * `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
 Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
 Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
-// end::expense[]
 
 NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
 e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
