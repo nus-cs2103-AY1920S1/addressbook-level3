@@ -26,7 +26,7 @@ public class DashboardCard extends UiPart<Region> {
     public final Dashboard dashboard;
 
     @FXML
-    private HBox cardPane;
+    private HBox dashboardCardPane;
     @FXML
     private Label dashboardName;
     @FXML
