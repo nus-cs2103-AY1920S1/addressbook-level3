@@ -22,8 +22,8 @@ public class DoneAllDeadlineCommand extends DeadlineCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks all the deadline tasks as done.\n"
-            + "Parameters: INDEX (must be a positive integer), \n"
-            + "Example: deadline 2 " + PREFIX_ACTION + " " + COMMAND_WORD;
+            + "Parameters: MODULE_INDEX (must be a positive integer), \n"
+            + "Example: deadline 2 " + PREFIX_ACTION + COMMAND_WORD;
 
     private Index index;
 

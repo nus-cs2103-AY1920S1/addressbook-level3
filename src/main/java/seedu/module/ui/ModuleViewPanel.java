@@ -81,10 +81,6 @@ public class ModuleViewPanel extends UiPart<Region> {
             // Sets the data accordingly
             Trackable trackedModule = ((Trackable) module);
             List<Deadline> deadlineList = trackedModule.getDeadlineList();
-            Text deadlineTitle = new Text("Deadline:  \n");
-            deadlineTitle.setFill(Color.WHITE);
-            deadlineTitle.setFont(Font.font ("Verdana", 15));
-            deadline.getChildren().add(deadlineTitle);
             for (int i = 0; i < deadlineList.size(); i++) {
                 Text text = new Text(trackedModule.getDeadlineTask(i));
                 if (deadlineList.get(i).getTag().equals("HIGH")) {

@@ -21,8 +21,8 @@ public class DeleteAllDeadlineCommand extends DeadlineCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes all Deadline tasks in the displayed Module list.\n"
-            + "Parameters: INDEX (must be a positive integer), \n"
-            + "Example: deadline 2 " + PREFIX_ACTION + " " + COMMAND_WORD;
+            + "Parameters: MODULE_INDEX (must be a positive integer), \n"
+            + "Example: deadline 2 " + PREFIX_ACTION + COMMAND_WORD;
 
     private Index index;
 

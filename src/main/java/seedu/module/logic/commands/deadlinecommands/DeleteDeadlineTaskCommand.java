@@ -20,10 +20,10 @@ public class DeleteDeadlineTaskCommand extends DeadlineCommand {
     public static final String MESSAGE_DELETE_DEADLINE_FAIL = "Unable to delete the deadline task from module: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes Deadline task identified by the index number used in the displayed Module list.\n"
-            + "Parameters: INDEX (must be a positive integer), "
+            + ": Deletes Deadline task identified by the index number used in the deadline list.\n"
+            + "Parameters: MODULE_INDEX (must be a positive integer), "
             + "TASK(must be a positive integer) \n"
-            + "Example: deadline 2 " + PREFIX_ACTION + " " + COMMAND_WORD + " " + PREFIX_TASK_LIST_NUMBER + " 2";
+            + "Example: deadline 2 " + PREFIX_ACTION + COMMAND_WORD + " " + PREFIX_TASK_LIST_NUMBER + "2";
 
     private Index index;
     private int taskListNum;

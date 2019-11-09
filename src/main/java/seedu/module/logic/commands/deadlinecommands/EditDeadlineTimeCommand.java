@@ -6,6 +6,7 @@ import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
 import seedu.module.model.module.Deadline;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.exceptions.DeadlineParseException;
 
 /**
  * Edits deadline time of a module.
@@ -29,7 +30,11 @@ public class EditDeadlineTimeCommand extends EditDeadlineCommand {
             throw new CommandException(DeadlineCommand.MESSAGE_TASK_LIST_NUMBER_NOT_FOUND);
         }
         deadline = moduleToEditTime.getDeadlineList().get(taskListNum - 1);
-        deadline.editTime(time);
+        try {
+            deadline.editTime(time);
+        } catch (DeadlineParseException e) {
+            throw new CommandException(e.getMessage());
+        }
 
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         model.showAllTrackedModules();

@@ -20,14 +20,16 @@ public class AddDeadlineCommand extends DeadlineCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds  a Deadline task to the Module. \n"
+            + "All fields are compulsory \n"
             + "Parameters: "
-            + "INDEX (must be a positive integer) \n"
+            + "MODULE_INDEX (must be a positive integer) \n"
             + PREFIX_ACTION + "add "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_TIME + "TIME \n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DESCRIPTION + " tutorial 1 " + PREFIX_TIME + "2/2/2019 2359 "
-            + PREFIX_TAG + " HIGH";
+            + PREFIX_TIME + "TIME "
+            + PREFIX_TAG + "PRIORITY \n"
+            + "Example: deadline 1 a/" + COMMAND_WORD + " "
+            + PREFIX_DESCRIPTION + "tutorial " + PREFIX_TIME + "2/2/2019 2359 "
+            + PREFIX_TAG + "HIGH";
 
     public static final String MESSAGE_ADD_DEADLINE_SUCCESS = "Added deadline to Module: %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Unable to add deadline to module: %1$s";

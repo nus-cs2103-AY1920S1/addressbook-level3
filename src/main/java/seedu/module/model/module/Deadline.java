@@ -74,7 +74,7 @@ public class Deadline {
      * Marks the deadline task as undone.
      * @throws DeadlineMarkException when task is already undone.
      */
-    public void markAsUndone() {
+    public void markAsUndone() throws DeadlineMarkException {
         if (!isInProgress && !isDone) {
             throw new DeadlineMarkException("Deadline task already undone!");
         } else {
@@ -117,8 +117,13 @@ public class Deadline {
         this.description = newDescription;
     }
 
-    public void editTime(String newTime) {
+    /**
+     * Edits date and time of deadline object.
+     * @param newTime new edited time.
+     */
+    public void editTime(String newTime) throws DeadlineParseException {
         this.time = newTime;
+        this.date = parseDate(time);
     }
 
     /**
