@@ -66,7 +66,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private ListChangeListener<Lesson> listener;
 
-
     @FXML
     private TabPane lessonTabPanel;
 
@@ -377,7 +376,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         } catch (NullPointerException e) {
-            resultDisplay.setFeedbackToUser("Please choose a photo.");
+            logger.info("Null pointer exception.");
+            resultDisplay.setFeedbackToUser("Upload operation cancelled.");
             throw e;
         }
     }
