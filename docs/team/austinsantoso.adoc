@@ -1,0 +1,67 @@
+= Austin Santoso - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MoneyGoWhere
+
+---
+
+== Overview
+
+MoneyGoWhere is a desktop application which aims to help users keep track of their spending, as well as necessary information such as date, cost and name.
+Users can also set a budget, set reminders as well as get stats of the spending.
+
+MoneyGoWhere has a Command Line Interface(CLI) for user to interact with as well as a Graphical User Interface(GUI) built using JavaFx.
+It is written in Java, and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented the `Budget` feature of MoneyGoWhere
+** What it does: Allows users to set a monthly budget.
+** Justification: This feature is a core component in the program. One of the key features of the program is to show the user whether or not the user spends within budget.
+** Highlights: This enhancement requires an in-depth  of the software architecture. It affects other commands as it affected by certain commands.
+
+* *Minor enhancement*: Implemented `showbudget` command to show the user their budget as well as sum of spending in the month set.
+* *Minor enhancement*: Implemented the ability for the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=austinsantoso&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Collated code]]
+
+* *Other contributions*:
+
+** Project management:
+*** posted user stories as issues
+** Enhancements to existing features:
+*** Refactored existing class `Person` to `Spending` (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/54[#54])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/80[#80]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/87[#87]
+*** Reported bugs and suggestions for other teams in the class
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=budget]
+
+include::../UserGuide.adoc[tag=showbudget]
+
+include::../UserGuide.adoc[tag=updown]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=budget]
+
+include::../DeveloperGuide.adoc[tag=updown]
+

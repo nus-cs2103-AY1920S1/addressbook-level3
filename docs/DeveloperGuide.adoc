@@ -253,13 +253,13 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 [[Implementation-UpDown]]
 === Up/Down key
 
-Similar to a typical Command Line Interface(CLI), the up and down key allows the users to through their previous commands.
+Similar to a typical Command Line Interface(CLI), the up and down key allows the users to cycle through their previous commands.
 
 ==== Implementation
 
 The up and down key mechanism is facilitated by the `logic` component of `MoneyGoWhere`.
-When ever a user inputted command is entered, it is stored internally as an `ArrayList` in the `commandHistory` component of `Storage`.
-`CommandHistory` uses an internal index to keep track of its current position in the list.
+When ever a user inputted command is entered, it is stored internally in a list in `commandHistory` component of `Storage`.
+`CommandHistory` has an internal index to keep track of its current position in the list.
 
 Additionally, it implements the following operations:
 
@@ -270,91 +270,44 @@ The index is initially set to -1, to indicate that that no user input has been i
 When ever a user inputs a command, the command is stored at the end of the list and
 the index is set to the size of the list, to indicate that there are no commands beyond after this point.
 
-When the up key is pressed, the index will decrement by 1 and show the user input command stored at that index.
-When the index is currently 0, the first user command inputted, pressing the up key will cause the index to move to -1.
-this returns the empty string, since there are no commands before this point. Any further up key press will have the same
+Calling `getNextCommand()` will cause the index to decrement by 1 and show the user input command stored at that index.
+When the index is currently 0, or the first user command inputted, pressing the up key will cause the index to result in -1.
+This returns the empty string, since there are no commands before this point. Any further up key press will have the same
 outcome, but the index will stay at -1.
 
-When the down key is pressed, the index will increment by 1 and the user inputted command at that index will be returned.
+Calling `getPrevCommand()` will cause the index to increment by 1 and the user inputted command at that index will be returned.
 If the index is currently the last possible value, the last user inputted command, pressing the down key will cause the
-index to increment by 1, which is beyond the index of the list, the empty string will be returned. Any further down key press
+index to increment by 1, which is outside the list, the empty string will be returned. Any further down key press
 will have the same outcome but the index will stay the list size or last possible index + 1.
-
-Given below is an example usage scenario and how the up/down mechanism behaves at each step:
-
-1. The user launches the application for the first time. The `commandHistory` will be initialized with an empty storage ,
-and the `commandHistoryIndex` will have value -1.
-
-image::UpDownState0.png[]
-Initially the storage is empty and the index is set to -1, as shown in the picture above.
-
-2. The user executes `delete 5` command to delete the 5th Spending in the spending book.
-The `delete 5` command is added to the back of  `commandHistory`.
-
-image::UpDownState1.png[]
-
-The user input is stored as a string in the commandHistoryList,
-and the index is set to the size of the list.
-
-[NOTE]
-The index is the same as the size of the list,
-but the index does not point to any particular command, since it is out of bounds
-
-3. The user executes `add n/David ...` to add a new Spending.
-The `add n/David ...` command is added to the back of  `commandHistory`.
-
-image::UpDownState2.png[]
-
-The user input is stored as a string in the commandHistoryList,
-and the index is set to the size of the list, in this case 2.
-
-[NOTE]
-Any command, whether it is valid or not will be stored in `CommandHistory`
-
-4. The user presses the up key.
-
-image::UpDownState3.png[]
-
-The index is decremented by 1, and the user input command at that point is returned
-
-5. The user presses the down key.
-
-image::UpDownState4.png[]
-The index is incremented by 1, resulting it to be out of bounds in the list,
-the empty string is returned.
 
 The following sequence diagram shows how the up/down key mechanism works:
 
+.Sequence diagram for `getNextCommand()`
 image::UpDownSequenceDiagram.png[]
+
+[NOTE]
 `getPrevCommand()` works the same way as the the sequence diagram above for `getNextCommand()`.
 The only difference is which commands get returned.
 
-==== Design Considerations
+The following steps explain the sequence diagram:
 
-===== Aspect: How up & undo executes
+1. The user presses the down key.
+2. `LogicManager` calls  `StorageManager#getNextCommand()`.
+3. `StorageManager#getNextCommand()` calls `CommandHistory#getNextCommand()`
+4. `CommandHistory` returns the next user inputted command.
+5. The returned command is then showed to the user in the `CommandBox`.
 
-[width="90%", cols="1,2,2", options="header",]
-|===
-|Aspect |Alternative 1 (current choice)|Alternative 2
+To summarize what happens when the user presses the down key:
 
-|Where the commands stored.
-|commands are stored in storage. +
-*Pros:* +
-Intuitive. +
-Follows current Architecture.
- +
-*Cons:* +
-more lines of code.
+.Activity diagram for `getNextCommand()`
+image::GetNextCommandActivityDiagram.png[]
 
-|Commands are stored in logic. +
-*Pros:* +
-less oop.
- +
-*Cons:* +
-Does not follow single responsibility principle
-|===
+The following steps explain the activity diagram:
 
-Option 1 was chosen due to it staying with the current Architecture.
+1. The user presses the down key.
+2. `CommandHistory` will increment its index.
+3. If the index is not out of bounds, the user inputted command at the index will be returned
+4. Else, the index is set to the size of the list, and an empty string is returned.
 // end::updown[]
 
 // tag::find[]
@@ -757,6 +710,7 @@ image::GraphDataSequenceDiagram.png[width = "600"]
 
 // end::graph[]
 
+// tag::budget[]
 === Budget Feature
 The `Budget` component has two core features:
 
@@ -764,7 +718,7 @@ The `Budget` component has two core features:
 2. Calculating the remanding budget after all the spending in the same month.
 
 The budget component allows the users to modify the current monthly budget `budget AMOUNT` command, where AMOUNT is a
-double representing the desired monthly budget.
+double representing the desired monthly budget. The amount cannot exceed 1,000,000,000 Singapore dollars.
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
@@ -774,43 +728,69 @@ the sum from the budget.
 ==== Current Implementation
 The current `Budget` component keeps track of three variables:
 
-1. the monthly budget
-2. the current month
-3. the sum of all spending in the same month.
+1. The monthly budget amount.
+2. The month the budget is set.
+3. The sum of all spending in the month.
 
-All of which are saved with the SpendingBook.
+The budget amount and the month the budget is set are saved in the save file, whereas the sum is not.
+Upon initialization, if a save file is found it will automatically set the monthly budget based on the save file's options.
+Once the save file is loaded, the program will check today's month.
+If the month has changed, the budget's set month will change to the current month, and the budget amount will carry over.
+Once the month has been set, it will go through all spending available and sum up all the spending that are in the set month.
+It will then keep track of this sum.
 
-Upon initialization, if a save file is found it will automatically set the monthly budget based on the
-save file's options. If the current month is different from the current month
-the total spending will reset to 0, but the monthly budget will remain the same.
-
-The sum of spending will only be modified when `add` and `delete` commands are called.
-
+Once done initializing, users can set a new monthly budget by executing the `budget` command.
 The sequence diagram below demonstrates how the budget command is executed:
 
 .Sequence Diagram when setting Budget
 image::SetBudgetSequenceDiagram.png[]
-The figure above shows the sequence of events that occur to set the monthly budget.
-The `LogicManager` receives the user input and passes it to the `SpendingBookParser` to parse the user input,
-resulting in a `BudgetCommand`.
-If the user input is valid, the command is then executed to access the Budget in Model and modify the value.
+The figure above shows the sequence of events that occur to set the monthly budget:
+
+1. User first enters "budget 100000".
+2. The `LogicManager` receives the user input and passes it to the `SpendingBookParser`, which passes it to `BudgeCommandParser`
+to parse the user input.
+3. If the user input is valid, a `BudgetCommand` is then created.
+4. The `BudgetCommand` is then executed.
+5. The Budget in Model then set to the new amount.
+
+Budget also keeps track of the sum of all spending in order to show the user how much budget the user has left.
+Initially, it has totaled up all spending in the save file, and then the value is modified with when `add`, `delete` and `edit` commands are called.
+
+The following sequence diagram will demonstrate how Budget modifies its value when the `add` command is used:
+
+.Sequence Diagram for `Budget` when `add` command is called
+image::BudgetAddSpendingSequenceDiagram.png[]
+The diagram above shows what happens when an `addCommand` is being executed. It focuses only on the components that affect `Budget`.
+
+When adding a new `Spending` the following steps happen:
+
+1. The new `Spending` is passed to Model to be added.
+2. The new `Spending` is then passed to `SpendingBook` to be added.
+3. SpendingBook passes the `Spending` to `Budget`.
+4. `Budget` checks whether the `Spending` is in the same month as it is set or not.
+5. If they are in the same month, the sum of `Budget` is updated accordingly.
+
+The same applies to `delete` commands, instead of adding to the sum, it is subtracting from the sum.
+As well as `edit` command, which utilizes both `add` and `delete`.
 
 ==== Design Consideration
 
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 (current choice) |Alternative 2
+|Aspect |Alternative 1 |Alternative 2
 
-|Method to calculate total spending
-|Keep track of the sum and modifies the sum when `add` and `delete` commands are added +
-Pros: does not waste time to calculate sum, easy to implement +
-Cons: none
+|Method to calculate sum of spending
+|Keep track of the sum and modifies the sum when `add`, `delete` and `edit` commands are called +
+Pros: Does not waste time to calculate sum, easy to implement. +
+Cons:
 |Calculate from `SpendingList` each time +
-Pros: seems intuitive +
-Cons: not efficient, requires Budget to access Model, resulting in circular dependency
+Pros: Seems intuitive. +
+Cons: Is not efficient, we need to go through the entire each time/
 
 |===
-The first option is chosen to prevent circular dependency.
+A combination of the two was chosen. During the initialization phase, we read through
+all spending available, but we handle `add`, `delete` and `edit` commands using option 1.
+// end::budget[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
