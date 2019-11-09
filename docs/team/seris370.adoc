@@ -20,7 +20,7 @@ My role was to design and write the codes for the training plan feature. The fol
 == Summary of contributions
 
 * *Major enhancement*: added *the training plan feature*
-** What it does: allows users to create customized training plans with specific starting date and end date and that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done or undone, and they can edit, delete or search for plans.
+** What it does: Allows users to create customized training plans with specific starting date and end date and that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done or undone, and they can edit, delete or search for plans.
 ** Justification: This feature improves the product significantly because it would be inconvenient for a hard-working user to manage a large number of problems without a higher-level component that categorize selected problems.
 ** Highlights: This feature enables users to set specific duration for a training plan, which provides the possibility of various potential enhancements in the future, such as alarming for deadlines, and thus will make AlgoBase more attractive to users.
 
@@ -36,7 +36,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seris370[C
 ** Enhancements to project prototype:
 *** Design plan logic (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/148[#148])
 *** Build Ui prototype for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/72[#72])
-*** Write tests for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#212])
+*** Write tests for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/212[#212])
 ** Community:
 *** PRs reviewed:
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]
@@ -58,7 +58,10 @@ include::../UserGuide.adoc[tag=plan]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#training-plan-feature[Design - Plan] +
-https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#plan[Manual Testing - Plan]
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#training-plan-feature[Design - Plan]
+
 include::../DeveloperGuide.adoc[tag=plan]
+
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/docs/DeveloperGuide.adoc#plan[Manual Testing - Plan]
+
 include::../DeveloperGuide.adoc[tag=plan_test]

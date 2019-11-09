@@ -1508,7 +1508,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `findplan n/bytedance` +
    Expected: The plan named 'ByteDance' is listed.
-.. Test case: `findplan start/2019-01-01 2019-12-12` +
+.. Test case: `findplan start/2019-01-01 end/2019-12-12` +
    Expected: Plans whose time range overlaps with the given time range are listed in the plan panel.
 
 . Deleting a plan
@@ -1517,9 +1517,9 @@ These instructions only provide a starting point for testers to work on; testers
 `delete 1` +
    Expected: The plan with name 'ByteDance' is deleted.
 .. Test case: `listplan` +
-`delete 1`
+`delete 1` +
    Expected: The first plan among all plans is deleted.
-.. Test case: `delete all`
+.. Test case: `delete all` +
 Expected: No plan is deleted. Error message is shown. Plan index must be a valid integer.
 // end::plan_test[]
 
