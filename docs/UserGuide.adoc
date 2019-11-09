@@ -600,6 +600,7 @@ image::MemberStats.png[width="500"]
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
 project member in +Work.
+// end::Statistics[]
 
 ==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
@@ -614,7 +615,7 @@ The resultant statistics displayed shows the proportion of tasks that are undone
 as well as the time taken for each task inputted into +Work.
 
 '''
-// end::Statistics[]
+
 
 // start::Multiline[]
 === Multiline Commands

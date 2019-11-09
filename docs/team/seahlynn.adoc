@@ -80,7 +80,6 @@ each member under individual member cards
 *** Wrote parts of the +Work Developer Guide relating to https://ay1920s1-cs2103t-t12-1.github.io/main/DeveloperGuide.html#member-feature[Member] and https://ay1920s1-cs2103t-t12-1.github.io/main/DeveloperGuide.html#statistics-feature[Statistics]
 
 ** Community
-*** Reviewed PRs (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for another team in the cohort (https://github.com/seahlynn/ped[reports])
 
 == Contributions to the User Guide
@@ -88,7 +87,7 @@ We had to make changes to the original AddressBook User Guide with instructions 
 The following section displays excerpts of my additions to the *+Work User Guide* for the `Statistics` and `Member` features.
 
 [NOTE]
-The rest of my additions to the member commands in +Work's User Guide can be viewed in +Work's complete https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#member-related-commands[User Guide].
+The rest of my additions to the Member and Statistics commands in +Work's User Guide can be viewed in +Work's complete https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#member-related-commands[User Guide].
 
 include::../UserGuide.adoc[tag=MemberCommandsPart1]
 

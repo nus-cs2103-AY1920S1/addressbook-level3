@@ -338,12 +338,12 @@ Data previously saved refers to the statistics calculation done based on list of
 *Step 2.* The user executes the `task-stats` command to retrieve statistics related to the tasks in the application.
 
 The `task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application.
-Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+Using the lists, a Statistics object is formed. `Model#setStatistics` is called to updated the statistics in ProjectDashboard.
 
 The following sequence diagram (Figure 10) shows how the 'task-stats' operation works.
 
 image::GetStatisticsSequenceDiagram.png[]
-Figure 10. Operational flow of 'GetStatisticsCommand'
+Figure 10. Operational flow of `GetStatisticsCommand`
 
 [NOTE]
 The `member-stats` operation is similar to the one shown in figure 10.
