@@ -22,28 +22,42 @@ This section specifies the purpose of this document and design goals of Athletic
 
 === Purpose
 
-This document describes the software architecture and system design of Athletick, a team management desktop application for coaches and team captains of timing-based performance sports. It also includes some of the design considerations for the implementation of Athletick's features.
+This document describes the software architecture and system design of Athletick, a team management desktop
+application for coaches and team captains of timing-based performance sports. It also includes some of the design
+considerations for the implementation of Athletick's features.
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
 === Design goals
 
-Athletick was developed as part of CS2103T, a software engineering module taken in the National University of Singapore. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.
+Athletick was developed as part of CS2103T, a software engineering module taken in the National University of Singapore.
+We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages
+contacts into an application that manages something else. At the end of the project, it should be ready to be
+continued by future developers.
 
-As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI). Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration, the following principles guide the design of Athletick:
+As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI).
+Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration,
+the following principles guide the design of Athletick:
 
 . **Friendlier Syntax**
 +
-In order to cater to beginner and experienced users of Athletick, we have provided shorter aliases for our command words. This helps new users to use intuitive and self-explanatory commands, while advanced users can accomplish their tasks more quickly with a shorter command syntax.
+In order to cater to beginner and experienced users of Athletick, we have provided shorter aliases for our command
+words. This helps new users to use intuitive and self-explanatory commands, while advanced users can accomplish their
+tasks more quickly with a shorter command syntax.
 
 . **Optimised Performance**
 +
-Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing and retrieval of data.
+Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable
+sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing
+and retrieval of data.
 
 
 . **Designer Friendly**
 +
-As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour, adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to understand how they work.
+As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour,
+adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of
+abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to
+understand how they work.
 
 == Setting up
 
@@ -51,7 +65,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == System design
 
-This section introduces the high-level design of Athletick and gives you a basic understanding of how each component operates and interacts with one another.
+This section introduces the high-level design of Athletick and gives you a basic understanding of how each component
+operates and interacts with one another.
 
 [[Design-Architecture]]
 === Architecture
@@ -339,7 +354,9 @@ The following activity diagram summarises what happens when a user executes the 
 
 * **Alternative 2:** Have two separate commands to view attendance and performance separately on the specified date.
 
+
 === Select feature
+//tag::select[]
 The `select` feature allows user to view the profile of a selected athlete.
 
 ==== Implementation
@@ -374,7 +391,7 @@ whether an athlete has been selected and displays the selected athlete's persona
 The diagram below summarises the steps of the example scenario when a user executes the `select` command:
 
 .Activity diagram of `select` command execution
-image::SelectActivityDiagram.png[]
+image::SelectActivityDiagram.png[width=400]
 
 The implementation was done this way because the Ui component interacts with both the Logic and Model component.
 Firstly, the Ui component takes in the input from the user and allows `SelectCommandParser` in Logic component to parse
@@ -424,7 +441,7 @@ down the list of people.
 Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
 other functions such as `DeleteCommand` or `FindCommand` which also uses index. It also reduces the need to type out
 the full name of the selected athlete.
-
+//end::select[]
 === Undo / Redo feature
 The undo command enables users to undo their previous commands while the redo feature enables users to redo their undone commands.
 
@@ -490,7 +507,7 @@ book states does not accumulate. As such, we
 decided to
 go with the first alternative.
 
-
+//tag::photo[]
 === Adding/editing photo feature
 ==== Implementation
 The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for an athlete. The sub feature is
@@ -515,7 +532,7 @@ The following consists of some of the design consideration when I was designing 
 
 Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
 have if special characters were included.
-
+//end::photo[]
 === Filter feature
 
 The filter command enables filtering of athletes based on their tags.
