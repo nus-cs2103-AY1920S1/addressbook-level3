@@ -220,7 +220,7 @@ table.tableblock > .title,
 }
 
 @media print {
-    a[xref] {
+    a[xref]::after {
 	content: underline;
     }
 }
