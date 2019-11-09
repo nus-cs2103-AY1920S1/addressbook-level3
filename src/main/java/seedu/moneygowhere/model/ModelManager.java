@@ -226,11 +226,6 @@ public class ModelManager implements Model {
         return FXCollections.unmodifiableObservableList(sortedList);
     }
 
-    @Override
-    public void updateStatsPredicate(Predicate<Spending> predicate) {
-        statsPredicate = predicate;
-    }
-
     //=========== Filtered Spending List Accessors =============================================================
 
     /**
