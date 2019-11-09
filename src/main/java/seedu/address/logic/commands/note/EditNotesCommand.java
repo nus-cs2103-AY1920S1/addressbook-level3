@@ -3,6 +3,7 @@ package seedu.address.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Notes;
 
@@ -31,6 +33,7 @@ public class EditNotesCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CLASSID + "NAME] "
+            + "[" + PREFIX_TYPE + "TYPE] "
             + "[" + PREFIX_CONTENT + "CONTENT] "
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -85,9 +88,10 @@ public class EditNotesCommand extends Command {
         assert notesToEdit != null;
 
         ClassId updatedCode = editNotesDescriptor.getCode().orElse(notesToEdit.getCode());
+        ClassType updateType = editNotesDescriptor.getClassType().orElse(notesToEdit.getType());
         Content updatedContent = editNotesDescriptor.getContent().orElse(notesToEdit.getContent());
 
-        return new Notes(updatedCode, updatedContent);
+        return new Notes(updatedCode, updateType, updatedContent);
     }
 
     @Override
@@ -114,6 +118,7 @@ public class EditNotesCommand extends Command {
      */
     public static class EditNotesDescriptor {
         private ClassId code;
+        private ClassType type;
         private Content content;
 
         public EditNotesDescriptor() {}
@@ -124,6 +129,7 @@ public class EditNotesCommand extends Command {
          */
         public EditNotesDescriptor(EditNotesDescriptor toCopy) {
             setModuleCode(toCopy.code);
+            setClassType(toCopy.type);
             setContent(toCopy.content);
         }
 
@@ -131,7 +137,7 @@ public class EditNotesCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(code, content);
+            return CollectionUtil.isAnyNonNull(code, type, content);
         }
 
         public void setModuleCode(ClassId code) {
@@ -140,6 +146,14 @@ public class EditNotesCommand extends Command {
 
         public Optional<ClassId> getCode() {
             return Optional.ofNullable(code);
+        }
+
+        public void setClassType(ClassType type) {
+            this.type = type;
+        }
+
+        public Optional<ClassType> getClassType() {
+            return Optional.ofNullable(type);
         }
 
         public void setContent(Content content) {
@@ -166,6 +180,7 @@ public class EditNotesCommand extends Command {
             EditNotesDescriptor e = (EditNotesDescriptor) other;
 
             return getCode().equals(e.getCode())
+                    && getClassType().equals(e.getClassType())
                     && getContent().equals(e.getContent());
         }
     }

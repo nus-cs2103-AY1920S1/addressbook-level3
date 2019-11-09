@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
@@ -16,14 +17,17 @@ public class JsonAdaptedNote {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
 
     private final String classId;
+    private final String type;
     private final String content;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedNote(@JsonProperty("classId") String classId, @JsonProperty("content") String content) {
+    public JsonAdaptedNote(@JsonProperty("classId") String classId,
+                           @JsonProperty("type") String type, @JsonProperty("content") String content) {
         this.classId = classId;
+        this.type = type;
         this.content = content;
     }
 
@@ -32,6 +36,7 @@ public class JsonAdaptedNote {
      */
     public JsonAdaptedNote(Notes source) {
         classId = source.getCode().value;
+        type = source.getType().type;
         content = source.getContent().content;
     }
     /**
@@ -49,6 +54,15 @@ public class JsonAdaptedNote {
         }
         final ClassId modelCode = new ClassId(classId);
 
+        if (type == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleCode.class.getSimpleName()));
+        }
+        if (!ClassType.isValidClassType(type)) {
+            throw new IllegalValueException(ClassType.MESSAGE_CONSTRAINTS);
+        }
+        final ClassType modelType = new ClassType(type);
+
         if (content == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Content.class.getSimpleName()));
@@ -58,7 +72,7 @@ public class JsonAdaptedNote {
         }
         final Content modelContent = new Content(content);
 
-        Notes modelNote = new Notes(modelCode, modelContent);
+        Notes modelNote = new Notes(modelCode, modelType, modelContent);
 
         return modelNote;
     }

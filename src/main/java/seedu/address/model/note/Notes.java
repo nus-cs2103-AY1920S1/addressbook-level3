@@ -9,10 +9,12 @@ import seedu.address.model.classid.ClassId;
  */
 public class Notes {
     private ClassId code;
+    private ClassType type;
     private Content content;
 
-    public Notes(ClassId code, Content content) {
+    public Notes(ClassId code, ClassType type, Content content) {
         this.code = code;
+        this.type = type;
         this.content = content;
     }
 
@@ -32,6 +34,14 @@ public class Notes {
         this.code = code;
     }
 
+    public void setType(ClassType type) {
+        this.type = type;
+    }
+
+    public ClassType getType() {
+        return type;
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -43,6 +53,7 @@ public class Notes {
 
         return otherNotes != null
                 && otherNotes.getCode().equals(getCode())
+                && otherNotes.getType().equals(getType())
                 && (otherNotes.getContent().equals(getContent()));
     }
 
@@ -62,13 +73,14 @@ public class Notes {
 
         Notes otherNotes = (Notes) other;
         return otherNotes.getCode().equals(getCode())
+                && otherNotes.getType().equals(getType())
                 && otherNotes.getContent().equals(getContent());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(code, content);
+        return Objects.hash(code, type, content);
     }
 
     @Override
@@ -76,6 +88,8 @@ public class Notes {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Module Code: ")
                 .append(getCode())
+                .append(" Type: ")
+                .append(getType())
                 .append(" Note: ")
                 .append(getContent());
         return builder.toString();

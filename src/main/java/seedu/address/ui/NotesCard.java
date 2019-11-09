@@ -26,6 +26,8 @@ public class NotesCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label type;
+    @FXML
     private Label content;
 
     public NotesCard(Notes notes, int displayedIndex) {
@@ -33,7 +35,8 @@ public class NotesCard extends UiPart<Region> {
         this.notes = notes;
         id.setText(displayedIndex + ". ");
         index = displayedIndex;
-        classId.setText("ClassId: " + notes.getCode().value);
+        classId.setText("Module: " + notes.getCode().value);
+        type.setText("Type: " + notes.getType().type);
         content.setText("Notes: " + notes.getContent().content);
     }
 
