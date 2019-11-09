@@ -1,6 +1,5 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed engagement list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] ";
+            + "[" + "NAME] ";
 
     public static final String MESSAGE_EDIT_ENGAGEMENT_SUCCESS = "Edited engagement: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
