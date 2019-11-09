@@ -1419,4 +1419,89 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
 .. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
    Expected: Error details shown in the status message, indicating corrupted data file.
 
+=== Switching tabs
+. Switching between Display Tabs
+.. Prerequisites: Currently at the first display tab (Problem).
+.. Test case: `switchtab tt/display i/2` +
+   Expected: The display tab is now at the `Tags` tab.
+.. Test case: `st tt/1 i/2` +
+   Expected: The display tab is now at the `Tags` tab.
+.. Test case: `switchtab tt/display i/0` +
+   Expected: The display tab is not changed. Error message is shown.
+.. Test case: `st tt/1 i/0` +
+   Expected: The display tab is not changed. Error message is shown.
+.. Test case: `switchtab tt/display i/5` +
+   Expected: The display tab is not changed. Error message is shown.
+.. Test case: `st tt/1 i/5` +
+   Expected: The display tab is not changed. Error message is shown.
 
+. Switching between Details Tabs
+.. Prerequisites: At least 2 Details Tabs are opened. Currently at the first Details Tab.
+.. Test case: `switchtab tt/details i/2` +
+   Expected: The details tab is now at the second tab.
+.. Test case: `st tt/2 i/2` +
+   Expected: The details tab is now at the second tab.
+.. Test case: `switchtab tt/details i/0` +
+   Expected: The details tab is not changed. Error message is shown.
+.. Test case: `st tt/2 i/0` +
+   Expected: The details tab is not changed. Error message is shown.
+.. Test case: `switchtab tt/details i/5` (Assuming only 4 details tab exist) +
+   Expected: The details tab is not changed. Error message is shown.
+.. Test case: `st tt/2 i/5` (Assuming only 4 details tab exist) +
+   Expected: The details tab is not changed. Error message is shown.
+
+. Switching to non-existent Tab Type index
+.. Test case: `switchtab tt/0 i/1` +
+   Expected: No tabs are changed. Error message is shown.
+.. Test case: `switchtab tt/3 i/1` +
+   Expected: No tabs are changed. Error message is shown.
+
+=== Opening a new tab
+. Opening a new Details Tabs for a Problem
+.. Prerequisites: At least 1 problem exists.
+.. Test case: `opentab m/problem i/1`
+.. Test case: `ot m/1 i/1`
+.. Test case: `opentab m/problem i/0`
+.. Test case: `ot m/1 i/0`
+.. Test case: `opentab m/problem i/4` (Assuming only 3 problems exist)
+.. Test case: `ot m/1 i/4` (Assuming only 3 problems exist)
+
+. Opening an existing Details Tabs for a Problem
+
+. Opening a Details Tabs for a Plan
+.. Prerequisites: At least 1 plan exist.
+
+. Opening an existing Details Tabs for a Plan
+
+=== Closing an existing tab
+. Closing a Details Tab
+
+=== Editing Problem from GUI
+
+. Editing a Problem from GUI
+.. Prerequisites: At least one problem exists and it is opened in a Details Tab.
+.. Test case: No changes are made to the Problem. +
+   Expected: The _Edit Problem_ button should be disabled and not clickable.
+.. Test case: Some valid changes are made and the user clicks on _Edit Problem_ button. +
+   Expected: Name of the edited problem shown in the status message. Field updates are reflected in the Display, Details and Plan tabs. _Edit Problem_ button is disabled.
+
+=== Deleting Problem from GUI
+
+=== Editing Plan from GUI
+
+=== Deleting Plan from GUI
+
+=== Switching tabs from GUI
+
+. Switching between Display Tabs
+.. Prerequisites: Currently at the first display tab (Problem).
+.. Test case: Click on `Training Plans` Tab +
+   Expected: The display tab is now at the `Training Plans` tab.
+.. Test case: Click on `Tags` Tab +
+   Expected: The display tab is now at the `Tags` tab.
+.. Test case: Click on `Findrules` Tab +
+   Expected: The display tab is now at the `Findrules` tab.
+
+=== Opening a new tab from GUI
+
+=== Closing an existing tab from GUI

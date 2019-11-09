@@ -30,7 +30,7 @@ public class SwitchDisplayTabUiAction extends UiAction {
         try {
             WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
             tabManager.switchDisplayTab(modelIndex);
-            return new UiActionResult(Optional.empty());
+            return new UiActionResult(true, Optional.empty());
         } catch (IndexOutOfBoundsException exception) {
             throw new UiActionException(String.format(MESSAGE_INVALID_TAB_INDEX, modelIndex.getOneBased()));
         }

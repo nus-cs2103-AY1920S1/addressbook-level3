@@ -36,7 +36,7 @@ public class CloseDetailsTabUiAction extends UiAction {
         try {
             WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
             tabManager.closeDetailsTab(new TabData(modelType, modelId));
-            return new UiActionResult(Optional.empty());
+            return new UiActionResult(true, Optional.empty());
         } catch (NoSuchElementException exception) {
             throw new UiActionException(String.format(MESSAGE_INVALID_ELEMENT));
         } catch (IllegalArgumentException exception) {

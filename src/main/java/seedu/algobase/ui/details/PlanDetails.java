@@ -16,6 +16,7 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.ui.UiPart;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionResult;
 import seedu.algobase.ui.action.UiActionType;
 
 /**
@@ -82,7 +83,7 @@ public class PlanDetails extends UiPart<Region> {
                     + " with an end date of " + endDate.getValue().toString()
             );
 
-            uiActionExecutor.execute(new UiActionDetails(
+            UiActionResult uiActionResult = uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.EDIT_PLAN,
                 plan.getId(),
                 planName.getText(),
@@ -91,8 +92,10 @@ public class PlanDetails extends UiPart<Region> {
                 endDate.getValue()
             ));
 
-            logger.info("Disabling the Edit button");
-            editButton.setDisable(true);
+            if (uiActionResult.isSuccessfullyExecuted()) {
+                logger.info("Disabling the Edit button");
+                editButton.setDisable(true);
+            }
             e.consume();
         });
 

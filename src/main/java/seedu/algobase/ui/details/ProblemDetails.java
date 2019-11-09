@@ -16,6 +16,7 @@ import seedu.algobase.model.problem.Problem;
 import seedu.algobase.ui.UiPart;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionResult;
 import seedu.algobase.ui.action.UiActionType;
 
 /**
@@ -110,7 +111,7 @@ public class ProblemDetails extends UiPart<Region> {
                     + " with a source of " + source.getText()
             );
 
-            uiActionExecutor.execute(new UiActionDetails(
+            UiActionResult uiActionResult = uiActionExecutor.execute(new UiActionDetails(
                 UiActionType.EDIT_PROBLEM,
                 problem.getId(),
                 name.getText(),
@@ -122,8 +123,10 @@ public class ProblemDetails extends UiPart<Region> {
                 source.getText()
             ));
 
-            logger.info("Disabling the Edit button");
-            editButton.setDisable(true);
+            if (uiActionResult.isSuccessfullyExecuted()) {
+                logger.info("Disabling the Edit button");
+                editButton.setDisable(true);
+            }
             e.consume();
         });
 

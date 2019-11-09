@@ -12,6 +12,9 @@ public class UiActionResult {
 
     private final Optional<String> feedbackToUser;
 
+    /** Is the UI Action successfully executed*/
+    private final boolean isSuccessful;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -21,9 +24,10 @@ public class UiActionResult {
     /**
      * Constructs a {@code UiActionResult} with the specified fields.
      */
-    public UiActionResult(Optional<String> feedbackToUser, boolean showHelp, boolean exit) {
+    public UiActionResult(boolean isSuccessful, Optional<String> feedbackToUser, boolean showHelp, boolean exit) {
         requireNonNull(feedbackToUser);
 
+        this.isSuccessful = isSuccessful;
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -33,12 +37,16 @@ public class UiActionResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public UiActionResult(Optional<String> feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public UiActionResult(boolean isSuccessful, Optional<String> feedbackToUser) {
+        this(isSuccessful, feedbackToUser, false, false);
     }
 
     public Optional<String> getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public boolean isSuccessfullyExecuted() {
+        return isSuccessful;
     }
 
     public boolean isShowHelp() {

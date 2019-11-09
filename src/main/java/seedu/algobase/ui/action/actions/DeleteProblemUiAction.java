@@ -59,6 +59,7 @@ public class DeleteProblemUiAction extends UiAction {
         model.deleteProblem(problemToDelete);
 
         return new UiActionResult(
+            true,
             Optional.of(String.format(MESSAGE_DELETE_PROBLEM_SUCCESS, problemToDelete.getName()))
         );
     }

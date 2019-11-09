@@ -53,7 +53,10 @@ public class DeletePlanUiAction extends UiAction {
 
         model.deletePlan(planToDelete);
 
-        return new UiActionResult(Optional.of(String.format(MESSAGE_DELETE_PLAN_SUCCESS, planToDelete.getPlanName())));
+        return new UiActionResult(
+            true,
+            Optional.of(String.format(MESSAGE_DELETE_PLAN_SUCCESS, planToDelete.getPlanName()))
+        );
     }
 
     @Override
