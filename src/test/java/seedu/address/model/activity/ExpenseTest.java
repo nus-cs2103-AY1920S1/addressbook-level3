@@ -29,7 +29,8 @@ public class ExpenseTest {
     public void isSettlement_makeSettlement() {
         Expense expense = new Expense(BENSON.getPrimaryKey(), amount, description);
         assertFalse(expense.isSettlement());
-        expense.setIsSettlement(true);
+
+        expense = new Expense(BENSON.getPrimaryKey(), amount, description, true);
         assertTrue(expense.isSettlement());
     }
 }

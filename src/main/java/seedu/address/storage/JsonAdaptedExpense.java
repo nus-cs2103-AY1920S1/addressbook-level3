@@ -62,15 +62,14 @@ class JsonAdaptedExpense {
         final Amount amount = new Amount(this.amount);
         Expense res;
         if (involvedIds == null) {
-            res = new Expense(personId, amount, description);
+            res = new Expense(personId, amount, description, isSettlement);
         } else {
-            res = new Expense(personId, amount, description, involvedIds);
+            res = new Expense(personId, amount, description, isSettlement, involvedIds);
         }
 
         if (isDeleted) {
             res.delete();
         }
-        res.setIsSettlement(isSettlement);
 
         return res;
     }
