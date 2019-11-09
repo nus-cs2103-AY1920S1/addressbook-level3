@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USER;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_NO_PREFIX_CHEAP = "cheap";
     public static final String VALID_TAG_NO_PREFIX_NICE = "nice";
     public static final String VALID_CATEGORY_NO_PREFIX = "Western";
+    public static final String VALID_FILE_NO_PREFIX_JOHN = "john.json";
+    public static final String VALID_FILE_NO_PREFIX_ALICE = "alice.json";
 
     public static final String VALID_NAME_WITH_PREFIX_KFC = " " + PREFIX_NAME + " " + VALID_NAME_NO_PREFIX_KFC;
     public static final String VALID_NAME_WITH_PREFIX_MAC = " " + PREFIX_NAME + " " + VALID_NAME_NO_PREFIX_MAC;
@@ -42,6 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_WITH_PREFIX_CHEAP = " " + PREFIX_TAG + " " + VALID_TAG_NO_PREFIX_CHEAP;
     public static final String VALID_TAG_WITH_PREFIX_NICE = " " + PREFIX_TAG + " " + VALID_TAG_NO_PREFIX_NICE;
     public static final String VALID_CATEGORY_WITH_PREFIX = " " + PREFIX_CATEGORY + " " + VALID_CATEGORY_NO_PREFIX;
+    public static final String VALID_FILE_WITH_PREFIX_JOHN = " " + PREFIX_USER + " " + VALID_FILE_NO_PREFIX_JOHN;
 
     public static final String VALID_NAME_EATBOOK = "Eatbook";
     public static final String VALID_NAME_SETHLUI = "Seth Lui";
@@ -113,6 +117,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredEateryList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the eatery at the given {@code targetIndex} in the
      * {@code model}'s address book.

@@ -20,6 +20,7 @@ public class EateryBuilder {
     public static final String DEFAULT_NAME = "Popeyes";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_CATEGORY = "Western";
+    public static final String DEFAULT_TAG = "fastfood";
 
     public static final Review DEFAULT_GOOD_REVIEW = new Review("good place", 5, 5,
             new Date());

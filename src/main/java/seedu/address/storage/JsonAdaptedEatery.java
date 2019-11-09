@@ -39,8 +39,8 @@ class JsonAdaptedEatery {
                              @JsonProperty("isOpen") String isOpen,
                              @JsonProperty("address") String address,
                              @JsonProperty("category") String category,
-            @JsonProperty("reviews") List<JsonAdaptedReview> reviews,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("reviews") List<JsonAdaptedReview> reviews,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.isOpen = isOpen;
         this.address = address;
@@ -120,7 +120,7 @@ class JsonAdaptedEatery {
         }
         final Category modelCategory = new Category(category);
 
-        final Set<Review> modelReviews = new HashSet<>(eateryReviews);
+        final List<Review> modelReviews = new ArrayList<>(eateryReviews);
         final Set<Tag> modelTags = new HashSet<>(eateryTags);
         Eatery eatery = new Eatery(modelName, modelIsOpen, modelAddress, modelCategory, modelTags);
         eatery.setReviews(modelReviews);

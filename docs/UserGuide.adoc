@@ -1,6 +1,7 @@
 = EatMe User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -18,7 +19,7 @@ By: `Team AY1920S1-CS2103T-W11-3`      Since: `September 2019`      Licence: `MI
 
 == Introduction
 
-EatMe is a *food diary app for people who love good food*. It will help you manage places you have been to, keep track of your experience and expenditure, and even keep you up-to-date with the latest food trends and events!
+EatMe is a *food diary app for people who love good food*. It helps you manage places you have been to, keep track of your experience and expenditure, and even keep you up-to-date with the latest food trends and events!
 
 EatMe is optimized for those who like the speed of a Command Line Interface (CLI) while still maintaining the user-friendliness of a Graphical User Interface (GUI). *Interested to keep track of your favorite food places with maximum efficiency? Try EatMe today!* Jump to the <<Quick Start>> to get started.
 
@@ -81,8 +82,6 @@ Format: `clear`
 
 ==== Importing eateries: `import`
 
-*Coming in v1.4*
-
 Imports eateries from a text file. +
 Format: `import \f [filename]`
 
@@ -90,24 +89,13 @@ Examples:
 
 * `import \f /home/user/eatme-backup-john.txt`
 
-==== Exporting eateries: `export`
-
-*Coming in v1.4*
-
-Exports eateries to a text file. +
-Format: `export \f [filename]`
-
-Examples:
-
-* `export \f /home/user/eatme-backup-john.txt`
-
 ==== Exit the app: `exit`
 
 Format: `exit`
 
 === Main Mode
 
-In Main mode, users will be able to manipulate eateries which users have visited. +
+In Main mode, users will be able to view and manipulate the eateries that they visited. +
 
 ==== Working with Eateries
 ===== Adding an eatery: `add`
@@ -115,14 +103,15 @@ In Main mode, users will be able to manipulate eateries which users have visited
 Adds an eatery to the app. +
 Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
 
+[TIP]
+An eatery can have any number of tags (including 0)
+
 Examples:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
 
 ===== Finding an eatery: `find`
-
-*Coming in v1.4*
 
 Finds an eatery based on name or tag. +
 Format: `find \n [name of eatery]` or `find \t [tag]`
@@ -132,20 +121,10 @@ Examples:
 * `find \n Two Chefs Eating Place`
 * `find \t Chinese`
 
-===== Changing address of an eatery: `changeaddress`
-
-*Coming in v1.4*
-
-Changes the address of an eatery. +
-Format: `changeaddress [id] \a [new address]`
-
-Examples:
-
-* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
 
 ===== Marking an eatery as closed: `close`
 
-Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
+Closes an eatery if the eatery no longer exists. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
 Format: `close [id]`
 
 Examples:
@@ -161,17 +140,66 @@ Examples:
 
 * `reopen 2`
 
+===== Editing an eatery: `edit`
+
+Edits an existing eatery in the application. +
+Format: `edit INDEX {\n NAME} {\c CATEGORY} {\a ADDRESS} {\t TAG}...`
+
+****
+* Edits the eatery at the specified `INDEX`. The index refers to the index number shown in the displayed eatery list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the eatery will be removed i.e adding of tags is not cumulative. To have a cumulative effect, use `addtag` and `removetag`
+* You can remove all the person's tags by typing `\t` without specifying any tags after it.
+****
+Examples:
+
+* `edit 1 \t good-for-groups`
+* `edit 1 \a NUS Biz School`
+
 ===== Reviewing an eatery: `review`
 
 Leaves a review for an eatery. +
 Format: `review [id] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
 
+****
+* Writes a review for the eatery specified by `id` in the displayed eatery list.
+****
 Examples:
 
 * `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
 
-===== Tagging an eatery: `addtag`
+===== Editing a review: `editreview`
 
+Edits an eatery's review. The `show` command helps to view an eatery's reviews.
+Format: `editreview [id] {\d DESCRIPTION} {\p COST} {\r RATING} {\w DATE}`
+
+****
+* Edits the review at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editreview 1 \p 3.6 \r 1`
+
+image::EditReviewCommand.png[width="790"]
+
+===== Deleting a review: `deletereview`
+Deletes an eatery's review. The `show` command helps to view an eatery's reviews.
+Format: `deletereview [id]`
+****
+* Deletes the review at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+****
+Examples:
+
+* `deletereview 2`
+
+image::DeleteReviewCommand.png[width=""790"]
+
+===== Tagging an eatery: `addtag`
+`
 Adds tags to an eatery. +
 Format: `addtag [id] \t [tags]...`
 
@@ -183,12 +211,14 @@ Examples:
 
 Removes tags from an eatery. +
 Format: `removetag [id] \t [tags]...`
-
+****
+* If the tags to be removed are not associated to the eatery in the first place, no changes will be made.
+****
 Examples:
 
 * `removetag 2 \t hawker`
 
-===== Getting a random eatery: `random`
+===== Getting a random eatery: `random` [Coming in v2.0]
 
 Shows a completely random restaurant -- Useful in case you cannot decide what to eat! +
 Format: `random`
@@ -196,20 +226,25 @@ Format: `random`
 ===== Viewing an eatery: `show`
 
 Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.Format: `show [id]`
-
+Format: `show [index]`
+****
+* Shows the eatery at the specified `index`.
+****
 Examples:
 
 * `show 2`
 
 ===== Deleting an eatery: `delete`
 
-Delete an eatery in the application. +
-Format: `delete 1`
+Deletes an eatery in the application. +
+Format: `delete [index]`
+****
+* Deletes the eatery at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+****
+Example: `delete 1`
 
 ==== Visualisation
 ===== Showing overall statistics: `stats`
-
-*Coming in v1.4*
 
 Presents a visual overview of the user’s eateries and reviews. +
 Format: `stats`
@@ -217,7 +252,7 @@ Format: `stats`
 
 === Todo Mode
 
-In Todo mode, users will be able to manipulate eateries which they have yet to visit. +
+In Todo mode, users will be able to manipulate eateries which they are yet to visit. +
 
 ==== Toggling between main and todo modes: `mode`
 
@@ -254,35 +289,6 @@ Examples:
 
 * `find \n Two Chefs Eating Place`
 * `find \t Chinese`
-
-==== Changing address of an eatery: `changeaddress`
-
-*Coming in v1.4*
-
-Changes the address of an eatery. +
-Format: `changeaddress [id] \a [new address]`
-
-Examples:
-
-* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
-
-==== Marking an eatery as closed: `close`
-
-Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
-Format: `close [id]`
-
-Examples:
-
-* `close 2`
-
-==== Reopening a closed eatery: `reopen`
-
-Reopens a previously closed eatery. +
-Format: `reopen [id]`
-
-Examples:
-
-* `reopen 2`
 
 ==== Tagging an eatery: `addtag`
 
@@ -345,10 +351,12 @@ Examples:
 |`add`|Adding an eatery
 |`delete`|Deleting an eatery
 |`find`|Finding an eatery
-|`changeaddress`|Changing address of an eatery
+|`edit`|Editing an eatery
 |`close`|Marking an eatery as closed
 |`reopen`|Reopening a closed eatery
 |`review`|Reviewing an eatery
+|`editreview`|Editing a review
+|`deletereview`|Deleting a review
 |`addtag`|Tagging an eatery
 |`removetag`|Removing tags from an eatery
 |`list`|Listing all eateries

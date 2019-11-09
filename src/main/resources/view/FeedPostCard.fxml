@@ -6,6 +6,5 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="240" prefWidth="240" styleClass="list-item">
     <Label fx:id="source" wrapText="true"/>
-    <Label fx:id="title" wrapText="true" styleClass="h2"/>
-    <Hyperlink fx:id="address" wrapText="true"/>
+    <Hyperlink fx:id="link" wrapText="true"/>
 </VBox>

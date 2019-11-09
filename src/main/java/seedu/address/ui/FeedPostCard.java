@@ -31,22 +31,18 @@ public class FeedPostCard extends UiPart<Region> {
     @FXML
     private Label source;
     @FXML
-    private Label title;
-    @FXML
-    private Hyperlink address;
+    private Hyperlink link;
 
     public FeedPostCard(FeedPost feedPost) {
         super(FXML);
         this.feedPost = feedPost;
 
         source.setText(feedPost.getSource());
-        title.setText(feedPost.getTitle());
-        address.setText(feedPost.getAddress());
 
-        address.setOnAction((ActionEvent e) -> {
+        link.setText(feedPost.getTitle());
+        link.setOnAction((ActionEvent e) -> {
             try {
-                Desktop d = Desktop.getDesktop();
-                d.browse(new URI(feedPost.getAddress()));
+                Desktop.getDesktop().browse(new URI(feedPost.getAddress()));
             } catch (Exception ex) {
                 LogsCenter.getLogger(FeedPostCard.class).warning("Unable to open browser");
             }

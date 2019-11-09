@@ -18,7 +18,6 @@ import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Review;
 import seedu.address.model.eatery.Tag;
 
-
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -29,6 +28,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -112,7 +112,7 @@ public class ParserUtil {
     }
 
     /**
-     *Trims leading and trailing white spaces.
+     * Trims leading and trailing white spaces.
      *
      * @param reviewDescription
      * @throws ParseException if the given {@code reviewDescription} is invalid.
@@ -163,4 +163,13 @@ public class ParserUtil {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.parse(trimmedDate);
     }
+
+    /**
+     * Parses {@code file} into corresponding JSON filename.
+     */
+    public static String parseFile(String file) {
+        requireNonNull(file);
+        return file.endsWith(".json") ? file : file + ".json";
+    }
+
 }
