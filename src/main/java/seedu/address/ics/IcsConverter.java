@@ -1,6 +1,7 @@
 package seedu.address.ics;
 
 import java.time.Instant;
+import java.util.Set;
 
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
@@ -23,6 +24,7 @@ public class IcsConverter {
         String uid = generateUid();
         String dtStamp = DateTime.now().toIcsString();
         String start = event.getStartDateTime().toIcsString();
+        String tagString = getTagString(event.getTags());
 
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
@@ -33,6 +35,9 @@ public class IcsConverter {
             String end = event.getEndDateTime().toIcsString();
             icsStringBuilder
                     .append("\n").append("DTEND:").append(end);
+        }
+        if (!tagString.equals("")) {
+            icsStringBuilder.append("\n").append("DESCRIPTION:").append(tagString);
         }
 
         icsStringBuilder.append("\n").append("END:VEVENT");
@@ -50,7 +55,7 @@ public class IcsConverter {
 
         String uid = generateUid();
         String dtStamp = DateTime.now().toIcsString();
-
+        String tagString = getTagString(task.getTags());
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
                 .append("\n").append("DTSTAMP:").append(dtStamp)
@@ -59,7 +64,9 @@ public class IcsConverter {
         if (task.getDueDate() != null) {
             icsStringBuilder.append("\n").append("DUE:").append(task.getDueDate().toIcsString());
         }
-
+        if (!tagString.equals("")) {
+            icsStringBuilder.append("\n").append("DESCRIPTION:").append(tagString);
+        }
         icsStringBuilder.append("\n").append("END:VTODO");
         return icsStringBuilder.toString();
     }
@@ -72,5 +79,21 @@ public class IcsConverter {
     public static String generateUid() {
         Instant currentInstant = Instant.now();
         return currentInstant + "@Horo";
+    }
+
+    /**
+     * Generates a String representing the tags to be stored in the ICS object's description.
+     * @param tags The tags of the EventSource or TaskSource object.
+     * @return The tags represented by a string, where each tag is surrounded by square brackets (eg. [School][Home]).
+     */
+    public static String getTagString(Set<String> tags) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String tag : tags) {
+            stringBuilder
+                    .append("[")
+                    .append(tag)
+                    .append("]");
+        }
+        return stringBuilder.toString();
     }
 }
