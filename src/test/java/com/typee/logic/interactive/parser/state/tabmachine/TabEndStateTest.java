@@ -1,7 +1,10 @@
 package com.typee.logic.interactive.parser.state.tabmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_TAB;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
