@@ -814,7 +814,7 @@ image::removedislike-all.png[align="center", width=700]
 
 ==== Editing the alias for a specific command: `alias`
 
-Users are able to given an alias word for any given command in $aveNUS. You need to give one `COMMANDWORD` and
+Users are able to give an alias word for any given command in $aveNUS. You need to give one `COMMANDWORD` and
 one optional `ALIASWORD`. If no `ALIASWORD` is given, the `ALIASWORD` for the specific `COMMANDWORD` will be cleared.
 
 [NOTE]
