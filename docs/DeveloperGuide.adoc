@@ -286,6 +286,30 @@ able to perform undo and redo actions when there is no change to be undone or re
 
 ===== Design Considerations
 
+====== Aspect: How undo & redo executes
+* Alternative 1 (current choice): Saves the entire note book.
+** Pros: Easy to implement and can check if current state of note book is equals to previous state of note book easily.
+** Cons: May have performance issues in terms of memory usage.
+
+* Alternative 2: Individual command knows how to undo/redo by itself.
+** Pros: Makes use of lesser memory.
+** Cons: More complex to implement and more prone to bugs because each individual command must be correct to work correctly.
+
+The reason why we chose alternative 1 is to introduce less bugs by adopting a less complex implementation which works
+well with our undo & redo mechanism.
+
+===== Aspect: Data structure to support the undo/redo commands
+* Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, one for redo.
+** Pros: Very easy to implement.
+** Cons: Using two data structures may incur additional overhead in terms of memory.
+
+* Alternative 2: Use a single linked list to store the history of note book states that supports both undo and redo.
+** Pros: May incur less overhead in terms of memory usage as only one data structure is used.
+** Cons: More complex to implement.
+
+The reason why we chose alternative 1 is because it is less complex to implement and the code is much cleaner for better
+readability which helps in future expansion.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
