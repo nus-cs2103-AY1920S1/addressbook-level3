@@ -60,5 +60,6 @@ public class WasteListCommandTestUtil {
             .getWasteStatistic(WASTE_LIST_TWO_MONTHS_AGO.getIterableWasteList());
     public static final WasteStatistic WASTE_STATISTIC_THREE_MONTHS_AGO = WasteStatistic
             .getWasteStatistic(WASTE_LIST_THREE_MONTHS_AGO.getIterableWasteList());
+    public static final WasteStatistic WASTE_STATISTIC_MONTH_NO_WASTELIST = new WasteStatistic(0, 0, 0);
 
 }

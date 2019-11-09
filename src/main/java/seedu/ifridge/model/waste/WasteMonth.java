@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.jfree.data.time.Month;
@@ -140,5 +141,10 @@ public class WasteMonth implements Comparable<WasteMonth> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM yyyy");
         YearMonth yearMonth = YearMonth.of(this.year, this.month);
         return formatter.format(yearMonth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(month, year);
     }
 }

@@ -1,6 +1,5 @@
 package seedu.ifridge.logic.commands.wastelist;
 
-import static java.util.Map.entry;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.WASTE_MONTH_CURRENT_MONTH;
@@ -70,16 +69,16 @@ public class ReportWasteCommandTest {
     }
 
     @Test
-    public void execute_success() {
+    public void execute_allMonthsPresent_success() {
         ReportWasteCommand rwc = new ReportWasteCommand(WASTE_MONTH_THREE_MONTHS_AGO, WASTE_MONTH_CURRENT_MONTH,
                 true, true);
         String successMessage = String.format(ReportWasteCommand.MESSAGE_SUCCESS, WASTE_MONTH_THREE_MONTHS_AGO,
                 WASTE_MONTH_CURRENT_MONTH);
         Map<WasteMonth, WasteStatistic> data = Map.ofEntries(
-                entry(WASTE_MONTH_THREE_MONTHS_AGO, WASTE_STATISTIC_THREE_MONTHS_AGO),
-                entry(WASTE_MONTH_TWO_MONTHS_AGO, WASTE_STATISTIC_TWO_MONTHS_AGO),
-                entry(WASTE_MONTH_LAST_MONTH, WASTE_STATISTIC_LAST_MONTH),
-                entry(WASTE_MONTH_CURRENT_MONTH, WASTE_STATISTIC_CURRENT_MONTH)
+                Map.entry(WASTE_MONTH_THREE_MONTHS_AGO, WASTE_STATISTIC_THREE_MONTHS_AGO),
+                Map.entry(WASTE_MONTH_TWO_MONTHS_AGO, WASTE_STATISTIC_TWO_MONTHS_AGO),
+                Map.entry(WASTE_MONTH_LAST_MONTH, WASTE_STATISTIC_LAST_MONTH),
+                Map.entry(WASTE_MONTH_CURRENT_MONTH, WASTE_STATISTIC_CURRENT_MONTH)
         );
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(),

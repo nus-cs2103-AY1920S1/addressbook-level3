@@ -5,6 +5,7 @@ import static seedu.ifridge.commons.util.AppUtil.checkArgument;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.food.Amount;
@@ -22,6 +23,7 @@ public class WasteStatistic {
     private static final float[] WEIGHTS_FOUR_MONTHS = {0.5f, 0.3f, 0.15f, 0.05f};
     private static final float[] WEIGHTS_THREE_MONTHS = {0.6f, 0.35f, 0.15f};
     private static final float[] WEIGHTS_TWO_MONTHS = {0.8f, 0.2f};
+    private static final float THRESHOLD = 0.0001f;
 
     private float totalWeight;
     private float totalVolume;
@@ -160,14 +162,19 @@ public class WasteStatistic {
             return false;
         }
         WasteStatistic otherWasteStatistic = (WasteStatistic) other;
-        return otherWasteStatistic.getTotalWeight() == this.getTotalWeight()
-                && otherWasteStatistic.getTotalVolume() == this.getTotalVolume()
-                && otherWasteStatistic.getTotalQuantity() == this.getTotalQuantity();
+        return (otherWasteStatistic.getTotalWeight() - this.getTotalWeight() < THRESHOLD)
+                && (otherWasteStatistic.getTotalVolume() - this.getTotalVolume() < THRESHOLD)
+                && (otherWasteStatistic.getTotalQuantity() - this.getTotalQuantity() < THRESHOLD);
     }
 
     @Override
     public String toString() {
         String displayFormat = "Weight = %.3f kg, Volume = %.3f litres, Quantity = %.3f unit(s)";
         return String.format(displayFormat, getTotalWeight(), getTotalVolume(), getTotalQuantity());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalWeight, totalVolume, totalQuantity);
     }
 }
