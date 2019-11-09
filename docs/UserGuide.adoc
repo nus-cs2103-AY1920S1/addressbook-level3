@@ -120,7 +120,11 @@ If there are multiple task times, they will be automatically sorted based on the
 
 Examples:
 
-* `add_task c/CS2103T Lecture  mark/Y tt/20/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00`
+* `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00` +
+
+image:UserGuide/add_task.png[width="500"]
+image:UserGuide/add_task_2.png[width="500"]
+
 * `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 ==== Editing task: `edit_task`
@@ -135,7 +139,11 @@ At least one element inside task should be edited.
 
 Examples:
 
-* `edit_task 2 mark/N`
+* `edit_task 1 c/CS2103` +
+
+image:UserGuide/edit_task.png[width="500"]
+image:UserGuide/edit_task_2.png[width="500"]
+
 * `edit_task 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
 
 
@@ -149,7 +157,10 @@ INDEX must be a positive integer.
 
 Examples:
 
-* `delete_task 1`
+* `delete_task 1` +
+
+image:UserGuide/delete_task.png[width="500"]
+image:UserGuide/delete_task_2.png[width="500"]
 
 ==== Finding tasks based on Module : `find_task_by_module`
 
@@ -165,6 +176,10 @@ Format: `find_task_by_module MODULE ...`
 Examples:
 
 * `find_task_by_module cs2100`
+
+image:UserGuide/find_task_1.png[width="500"]
+image:UserGuide/find_task_2.png[width="500"]
+
 * `find_task_by_module CS2103T, cs2100`
 
 ==== Finding tasks based on Date : `find_task_by_date`
@@ -179,6 +194,10 @@ Format: `find_task_by_date DATE ...`
 Examples:
 
 * `find_task_by_date 20/10/2019`
+
+image:UserGuide/find_task_3.png[width="500"]
+image:UserGuide/find_task_4.png[width="500"]
+
 
 ==== Listing all tasks : `list_task`
 
@@ -523,6 +542,11 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
+image:UserGuide/undo_1.png[width="500"]
+image:UserGuide/undo_2.png[width="500"]
+image:UserGuide/undo_3.png[width="500"]
+image:UserGuide/undo_4.png[width="500"]
+
 * `list_task` +
 `find_earnings` +
 `undo` +
@@ -543,6 +567,11 @@ Examples:
 * `delete 1` +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
+
+image:UserGuide/undo_1.png[width="500"]
+image:UserGuide/redo_2.png[width="500"]
+image:UserGuide/redo_3.png[width="500"]
+image:UserGuide/redo_4.png[width="500"]
 
 * `delete 1` +
 `redo` +
