@@ -95,7 +95,7 @@ public class AddressBookParser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments") + " ";
         switch (commandWord) {
 
         case ListPatientCommand.COMMAND_WORD:
@@ -152,7 +152,7 @@ public class AddressBookParser {
 
 
         case DutyShiftCommand.COMMAND_WORD:
-            return new DutyShiftCommandParser(model).parse(arguments);
+            return new DutyShiftCommandParser().parse(arguments);
 
         case AddDutyShiftCommand.COMMAND_WORD:
             return new AddDutyShiftCommandParser(model).parse(arguments);

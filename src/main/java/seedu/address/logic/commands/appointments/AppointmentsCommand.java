@@ -26,7 +26,7 @@ public class AppointmentsCommand extends NonActionableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose reference Id contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Optional parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " 001A";
+            + "Example: " + COMMAND_WORD + " E0000001A";
 
     private final Predicate<Event> predicate;
 
@@ -39,7 +39,7 @@ public class AppointmentsCommand extends NonActionableCommand {
         if (trimmedArgs.isEmpty()) {
             this.predicate = PREDICATE_SHOW_ALL_EVENTS;
         } else {
-            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs);
         }
     }
 
@@ -49,7 +49,9 @@ public class AppointmentsCommand extends NonActionableCommand {
         model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                        model.getFilteredAppointmentList().size(),
+                        predicate.toString()));
     }
 
     @Override

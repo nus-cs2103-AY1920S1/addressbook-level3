@@ -15,6 +15,7 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.PersonDisplayAllPredicate;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
@@ -26,7 +27,7 @@ public interface Model extends ReferenceIdResolver {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = new PersonDisplayAllPredicate();
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = new EventApprovedPredicate();
 
 
@@ -190,6 +191,11 @@ public interface Model extends ReferenceIdResolver {
      * Checks if the patient is in queue
      */
     boolean isPatientInQueue(ReferenceId id);
+
+    /**
+     * Checks if the patient is being served
+     */
+    boolean isPatientBeingServed(ReferenceId id);
 
     /**
      * Checks if the patient is in queue

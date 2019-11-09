@@ -19,7 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 
 /**
@@ -27,20 +27,20 @@ import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
  */
 public class AddDutyShiftCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "addshift";
+    public static final String COMMAND_WORD = "newshift";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds duty shifts recursively "
             + " to the duty roster. \n"
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
+            + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_START + "PREFIX_START "
             + PREFIX_END + "PREFIX_END "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "S001A "
-            + PREFIX_START + "01/11/19 1800 "
-            + PREFIX_END + "01/11/19 1840 "
+            + PREFIX_ID + "W0000001A "
+            + PREFIX_START + "01/12/19 0900 "
+            + PREFIX_END + "01/12/19 2100 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 
@@ -78,12 +78,12 @@ public class AddDutyShiftCommand extends ReversibleCommand {
         try {
             if (eventList == null) {
                 model.scheduleDutyShift(toAdd);
-                model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(toAdd.getPersonId()));
+                model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(toAdd.getPersonId()));
                 return new CommandResult(String.format(MESSAGE_ADD_SHIFT_SUCCESS, toAdd));
 
             }
             model.scheduleDutyShift(eventList);
-            model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+            model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS_RECURSIVE,
                     eventList.size(),

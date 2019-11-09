@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import javafx.application.Platform;
@@ -11,7 +12,7 @@ import javafx.scene.layout.TilePane;
 import seedu.address.commons.core.OmniPanelTab;
 
 /**
- * The Ui component for AutoComplete.
+ * The Ui component for TabBar.
  */
 public class TabBar extends UiPart<Region> {
 
@@ -20,7 +21,7 @@ public class TabBar extends UiPart<Region> {
     @FXML
     private TilePane tabBar;
 
-    public TabBar(OmniPanel omniPanel) {
+    public TabBar(OmniPanelManager omniPanel) {
         super("TabBar.fxml");
 
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
@@ -43,8 +44,8 @@ public class TabBar extends UiPart<Region> {
             default:
                 return;
             }
-            keyEvent.consume();
             omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+            keyEvent.consume();
         });
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {

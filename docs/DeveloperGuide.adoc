@@ -112,9 +112,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue 001A` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue E0000001A` API call.
 
-.Interactions inside the Logic Component for the `enqueue 001A` Command.
+.Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
 
 
@@ -285,7 +285,7 @@ image::NextActivityDiagram.png[]
 
 Below is an example usage of the queue feature.
 
-Step 1: User enters the `enqueue 001A` command.
+Step 1: User enters the `enqueue E0000001A` command.
 
 Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
 
@@ -294,7 +294,7 @@ Step 3: Patient will then be showed in the queue.
 === Appointment feature
 The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also helps user to find the missed appointments and settles each missing appointment efficiently.
 
-* e.g. `addappt i/001A str/01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
+* e.g. `addappt i/E0000001A str/01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
 * e.g. `changeappt 1 str/02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
 
 ==== Current Implementation
@@ -490,7 +490,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|find all patients who have missed their appointments | keep track of the list of patients whom I need to inform
 
-|`* *` |experienced user|create custom aliases to commands | so that it can save time
+|`* *` |clerk|see relevant information only | so that my focus is not lost
 
 |`* *` |clerk|use auto-complete to predict my commands|save time on verifying its existence and correctness
 
@@ -818,7 +818,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 10000 persons and 10000 events without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100000 persons and 100000 events without noticeable lag in User Interface for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  No internet required.
 .  System allows user to undo incorrect or accidental destructive actions

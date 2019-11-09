@@ -46,6 +46,7 @@ class AddAppCommandTest {
 
         assertThrows(CommandException.class,
                 String.format(ModelManager.MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
+                        duplicateEventToadded.getPersonName().toString(),
                         duplicateEventToadded.getEventTiming().toString()), () -> addapptCommand.execute(model));
     }
 

@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -19,8 +20,8 @@ public class NextCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Next patient has been referred to %s";
     public static final String MESSAGE_DOCTOR_ON_BREAK = "Doctor is currently on break";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
-    public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the list.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a room. "
+    public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the list.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a doctor.\n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -50,7 +51,7 @@ public class NextCommand extends ReversibleCommand {
         model.removeRoom(roomToEdit);
 
         if (model.hasRoom(editedRoom)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ROOM);
+            throw new CommandException(MESSAGE_DUPLICATE_DOCTOR);
         }
 
         model.addRoom(editedRoom);

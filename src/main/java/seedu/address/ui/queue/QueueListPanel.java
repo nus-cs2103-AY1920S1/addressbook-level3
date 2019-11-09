@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.ui.queue;
 
 import java.util.Optional;
@@ -45,6 +46,8 @@ public class QueueListPanel extends UiPart<Region> {
         roomListView.setCellFactory(listView -> new RoomListViewCell(resolver));
         queueListView.setItems(queueList);
         queueListView.setCellFactory(listView -> new QueueListViewCell(resolver));
+        roomListView.setFocusModel(null);
+        queueListView.setFocusModel(null);
     }
 
     /**

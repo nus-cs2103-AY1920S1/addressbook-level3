@@ -21,7 +21,7 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event event;
+    private final Event event;
 
     @FXML
     private HBox cardPane;
@@ -29,6 +29,8 @@ public class EventCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label refId;
+    @FXML
+    private Label name;
     @FXML
     private Label timing;
     @FXML
@@ -39,29 +41,14 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         refId.setText(String.format("[%s] ", event.getPersonId().toString()));
+        name.setText(event.getPersonName().toString());
         timing.setText(event.getEventTiming().toString());
         if (displayStatus) {
+            status.setVisible(true);
             status.setText("Status: " + event.getStatus().getStatusMess());
         } else {
-            status.setText("No status");
+            status.setVisible(false);
+            status.setText("");
         }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EventCard)) {
-            return false;
-        }
-
-        // state check
-        EventCard card = (EventCard) other;
-        return id.getText().equals(card.id.getText())
-                && event.equals(card.event);
     }
 }

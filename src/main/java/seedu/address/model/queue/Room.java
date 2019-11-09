@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.model.queue;
 
 import static java.util.Objects.requireNonNull;
@@ -41,6 +42,10 @@ public class Room implements Identical<Room> {
 
     public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
+    }
+
+    public boolean hasPatientBeingServed() {
+        return patientCurrentlyBeingServed.isPresent();
     }
 
     /**

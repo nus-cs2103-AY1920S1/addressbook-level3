@@ -34,15 +34,18 @@ import seedu.address.model.userprefs.UserPrefs;
 public class ModelManager implements Model {
     public static final String MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF =
             "Scheduling staff doctors for appointments is current unsupported.";
-    public static final String MESSAGE_NOT_ENOUGH_STAFF =
+    public static final String MESSAGE_NOT_ENOUGH_STAFF_FOR_ADD =
             "Insufficient staff doctor(s) on duty from %1$s.\n"
-            + "All %2$d staff doctor(s) have been assigned an appointment.";
+                    + "All %2$d staff doctor(s) have been assigned an appointment on the given timing.\n"
+                    + "Please provide another valid appointment's timing.";
+    public static final String MESSAGE_NOT_ENOUGH_STAFF_FOR_CANCEL =
+            "Insufficient staff doctor(s) on duty from %1$s.\n"
+                    + "All %2$d staff doctor(s) have been assigned an appointment.\n"
+                    + "Please provide another valid duty shift's timing.";
     public static final String MESSAGE_NOT_OVERLAPPING_DUTYSHIFT =
-            "Staff doctor already has a duty shift from %1$s.";
+            "Doctor `%1$s` is already scheduled an existing duty shift from %2$s.";
     public static final String MESSAGE_NOT_OVERLAPPING_APPOINTMENT =
-            "Patient already has an appointment from %1$s.";
-    public static final String MESSAGE_SCHEDULE_DUTYSHIFT_FOR_PATIENTS =
-            "Scheduling patients for duty shifts is not allowed.";
+            "Patient `%1$s` is already scheduled an existing appointment from %2$s.";
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -73,11 +76,11 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(patientAddressBook, userPrefs);
         logger.fine("Initializing with"
-            + "\nLocal patient address book data file location : " + patientAddressBook
-            + "\nLocal staff details data file location : " + staffAddressBook
-            + "\nLocal appointment data file location : " + patientSchedule
-            + "\nLocal duty roster data file location : " + dutyRoster
-            + "\nUser prefs: " + userPrefs);
+                + "\nLocal patient address book data file location : " + patientAddressBook
+                + "\nLocal staff details data file location : " + staffAddressBook
+                + "\nLocal appointment data file location : " + patientSchedule
+                + "\nLocal duty roster data file location : " + dutyRoster
+                + "\nUser prefs: " + userPrefs);
 
         this.staffAddressBook = new AddressBook(staffAddressBook);
         this.patientAddressBook = new AddressBook(patientAddressBook);
@@ -102,8 +105,8 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new AddressBook(),
-            new AppointmentBook(), new AppointmentBook(),
-            new UserPrefs(), new QueueManager());
+                new AppointmentBook(), new AppointmentBook(),
+                new UserPrefs(), new QueueManager());
     }
 
     //=========== User Interface =============================================================================
@@ -145,7 +148,13 @@ public class ModelManager implements Model {
     @Override
     public boolean isPatientInQueue(ReferenceId id) {
         requireNonNull(id);
-        return queueManager.hasId(id);
+        return queueManager.hasIdInQueue(id);
+    }
+
+    @Override
+    public boolean isPatientBeingServed(ReferenceId id) {
+        requireNonNull(id);
+        return queueManager.hasIdInRooms(id);
     }
 
     @Override
@@ -239,6 +248,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         patientAddressBook.setPerson(target, editedPerson);
+        appointmentBook.updatesPersonDetails(target, editedPerson);
     }
 
     @Override
@@ -311,6 +321,7 @@ public class ModelManager implements Model {
     public void setStaff(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         staffAddressBook.setPerson(target, editedPerson);
+        dutyRosterBook.updatesPersonDetails(target, editedPerson);
     }
 
     @Override
@@ -381,8 +392,9 @@ public class ModelManager implements Model {
      * Schedules a given {@code appointment}.
      *
      * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
-     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
-     * involves the same patient given in {@code appointment}, but ignores {@code ignoreEventCase}
+     *                                             is greater or equal to the {@code maxNumberOfConcurrentEvents}
+     *                                             or the events in conflict involves the same patient given
+     *                                             in {@code appointment}, but ignores {@code ignoreEventCase}
      */
     private void checkValidScheduleAppointment(Event appointment, Event ignoreEventCase)
             throws InvalidEventScheduleChangeException {
@@ -399,21 +411,21 @@ public class ModelManager implements Model {
             Event apt = itr.next();
             countNumberOfConcurrentAppointments++;
             if (appointment.getPersonId().isSameAs(apt.getPersonId())
-                && !apt.equals(ignoreEventCase)) {
+                    && !apt.equals(ignoreEventCase)) {
                 throw new InvalidEventScheduleChangeException(
-                        String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
+                        String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT, apt.getPersonName().toString(),
                                 apt.getEventTiming().toString()));
 
             }
         }
 
         if (numOfAvailableStaff <= countNumberOfConcurrentAppointments
-            && !(numOfAvailableStaff == countNumberOfConcurrentAppointments
+                && !(numOfAvailableStaff == countNumberOfConcurrentAppointments
                 && ignoreEventCase != null
                 && !appointment.conflictsWith(ignoreEventCase))) {
 
             throw new InvalidEventScheduleChangeException(
-                    String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                    String.format(MESSAGE_NOT_ENOUGH_STAFF_FOR_ADD,
                             appointment.getEventTiming().toString(),
                             numOfAvailableStaff));
         }
@@ -560,7 +572,7 @@ public class ModelManager implements Model {
 
         if (numOfAvailableStaff <= numOfAppointments) {
             throw new InvalidEventScheduleChangeException(
-                    String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                    String.format(MESSAGE_NOT_ENOUGH_STAFF_FOR_CANCEL,
                             dutyShift.getEventTiming().toString(),
                             numOfAvailableStaff));
         }
@@ -589,7 +601,7 @@ public class ModelManager implements Model {
      * Schedules a given {@code dutyShift}.
      *
      * @throws InvalidEventScheduleChangeException if the events in conflict
-     * involves the same staff member given in {@code dutyShift}
+     *                                             involves the same staff member given in {@code dutyShift}
      */
     private void checkValidScheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
         //TODO: edge case, scheduling a staff member
@@ -603,7 +615,7 @@ public class ModelManager implements Model {
             Event shift = itr.next();
             if (dutyShift.getPersonId().isSameAs(shift.getPersonId())) {
                 throw new InvalidEventScheduleChangeException(
-                        String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT,
+                        String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT, shift.getPersonName().toString(),
                                 shift.getEventTiming().toString()));
 
             }

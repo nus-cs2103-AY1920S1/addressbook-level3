@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import java.util.List;
@@ -103,6 +104,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
                 .getSelectedItem()
                 .getChildren()
                 .forEach(elem -> sb.append(((Text) elem).getText()));
+        sb.append(' ');
         selectionNotifier.notify(sb.toString());
     }
 

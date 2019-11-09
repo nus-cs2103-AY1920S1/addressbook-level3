@@ -21,10 +21,10 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
             + "the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " 001A";
+            + "Example: " + COMMAND_WORD + " E0000001A";
 
-    public static final String MESSAGE_SUCCESS = "This appointment has been acked: %1$s";
-    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has been acked already.";
+    public static final String MESSAGE_SUCCESS = "This appointment has been acknowledged: %1$s";
+    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has been acknowledged already.";
 
     private final Event eventToEdit;
     private final Event editedEvent;

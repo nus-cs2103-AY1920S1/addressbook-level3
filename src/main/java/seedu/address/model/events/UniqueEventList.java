@@ -1,12 +1,15 @@
+//@@author SakuraBlossom
 package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 import seedu.address.model.common.UniqueElementList;
+import seedu.address.model.person.Person;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -81,6 +84,32 @@ public class UniqueEventList extends UniqueElementList<Event> {
         }
         return true;
     }
+
+    /**
+     * Replaces the given person details of {@code target} with {@code editedPerson}.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updatesPersonDetails(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        if (target.getReferenceId().equals(editedPerson.getReferenceId())
+            && target.getName().equals(editedPerson.getName())) {
+            return;
+        }
+
+        ListIterator<Event> iterator = listIterator(0);
+        while (iterator.hasNext()) {
+
+            Event event = iterator.next();
+            if (event.getPersonId().equals(target.getReferenceId())) {
+                iterator.set(new Event(
+                        editedPerson.getReferenceId(),
+                        editedPerson.getName(),
+                        event.getEventTiming(),
+                        event.getStatus()));
+            }
+        }
+    }
 }
 
 /**
@@ -88,7 +117,7 @@ public class UniqueEventList extends UniqueElementList<Event> {
  */
 class SearchEvent extends Event {
     public SearchEvent(Event event) {
-        super(event.getPersonId(), event.getEventTiming(), event.getStatus());
+        super(event.getPersonId(), event.getPersonName(), event.getEventTiming(), event.getStatus());
     }
 
     /**

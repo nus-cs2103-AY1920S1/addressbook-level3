@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.events.predicates;
 
 import java.time.LocalDateTime;
@@ -26,5 +27,10 @@ public class EventsMissedPredicate implements Predicate<Event> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || other instanceof EventsMissedPredicate; // instanceof handles nulls
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Displaying missed appointment(s) which has yet to be settled");
     }
 }

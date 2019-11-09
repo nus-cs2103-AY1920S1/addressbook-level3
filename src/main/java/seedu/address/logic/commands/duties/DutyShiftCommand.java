@@ -22,12 +22,12 @@ import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
  */
 public class DutyShiftCommand extends NonActionableCommand {
 
-    public static final String COMMAND_WORD = "shift";
+    public static final String COMMAND_WORD = "shifts";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose reference Id contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Optional parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " S001A";
+            + "Example: " + COMMAND_WORD + " STAFF001";
 
     private final Predicate<Event> predicate;
 
@@ -40,7 +40,7 @@ public class DutyShiftCommand extends NonActionableCommand {
         if (trimmedArgs.isEmpty()) {
             this.predicate = PREDICATE_SHOW_ALL_EVENTS;
         } else {
-            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs);
         }
     }
 
@@ -50,7 +50,9 @@ public class DutyShiftCommand extends NonActionableCommand {
         model.setTabListing(OmniPanelTab.DUTY_SHIFT_TAB);
         model.updateFilteredDutyShiftList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredDutyShiftList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                        model.getFilteredDutyShiftList().size(),
+                        predicate.toString()));
     }
 
     @Override

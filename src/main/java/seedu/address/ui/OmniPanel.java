@@ -1,13 +1,87 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
-import seedu.address.commons.core.OmniPanelTab;
+import java.util.HashSet;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
+import javafx.util.Callback;
 
 /**
- * Manages OmniPanel of MainWindow.
+ * Generic OmniPanel.
  */
-public interface OmniPanel {
+public abstract class OmniPanel<T> extends UiPart<Region> {
 
-    void setOmniPanelTab(OmniPanelTab omniPanelTab);
+    private static final String FXML = "OmniPanelListView.fxml";
+    private int lastSelectedIndex = 0;
+    private ObservableList<T> ols;
 
-    void regainOmniPanelSelector();
+    @FXML
+    private ListView<T> omniPanelListView;
+
+    protected OmniPanel(HashSet<Runnable> deferredUntilMouseClickOuter) {
+        super(FXML);
+
+        omniPanelListView.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            int size = ols.size();
+            MultipleSelectionModel<T> msm = omniPanelListView.getSelectionModel();
+            switch (keyEvent.getCode()) {
+            case DOWN:
+                if (msm.getSelectedIndex() < size - 1) {
+                    return;
+                }
+                msm.select(0);
+                omniPanelListView.scrollTo(0);
+                keyEvent.consume();
+                return;
+            case UP:
+                if (msm.getSelectedIndex() > 0) {
+                    return;
+                }
+                msm.select(size - 1);
+                omniPanelListView.scrollTo(size - 1);
+                keyEvent.consume();
+                return;
+            case TAB:
+            case LEFT:
+                dropSelector();
+                return;
+            default:
+            }
+        });
+        Runnable dropSelectorDeferred = this::dropSelector;
+        omniPanelListView.setOnMouseExited(e -> deferredUntilMouseClickOuter.add(dropSelectorDeferred));
+        omniPanelListView.setOnMouseEntered(e -> deferredUntilMouseClickOuter.remove(dropSelectorDeferred));
+        omniPanelListView.setOnMouseClicked(e -> omniPanelListView.requestFocus());
+    }
+
+    protected void setItems(ObservableList<T> ols) {
+        omniPanelListView.setItems(ols);
+        this.ols = ols;
+    }
+
+    protected void setCellFactory(Callback<ListView<T>, ListCell<T>> cellFactory) {
+        omniPanelListView.setCellFactory(cellFactory);
+    }
+
+    /**
+     * Saves the current selected index.
+     * Then unselect the cell.
+     */
+    private void dropSelector() {
+        lastSelectedIndex = omniPanelListView.getSelectionModel().getSelectedIndex();
+        omniPanelListView.getSelectionModel().select(-1);
+    }
+
+    /**
+     * Restores the selection on the listview with the lastSelectedIndex.
+     */
+    public void regainSelector() {
+        omniPanelListView.getSelectionModel().select(lastSelectedIndex);
+    }
 }

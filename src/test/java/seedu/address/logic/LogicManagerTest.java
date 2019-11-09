@@ -60,7 +60,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = FindCommand.COMMAND_WORD;
-        String expectedResult = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedResult = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0, "");
         assertCommandSuccess(listCommand, expectedResult, model);
     }
 

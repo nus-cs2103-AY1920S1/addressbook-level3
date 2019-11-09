@@ -45,6 +45,7 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
+    private String lastEagerCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -55,11 +56,42 @@ public class LogicManager implements Logic {
         this.lastEagerEvaluationThread = new Thread();
     }
 
+    /**
+     * Executes the command eagerly.
+     */
+    void runEagerEvaluation(String commandText, Command command,
+                                  Consumer<String> displayResult,
+                                  Thread previousEagerEvaluationThread) {
+        try {
+            Thread.sleep(200);
+            previousEagerEvaluationThread.join();
+        } catch (InterruptedException ex) {
+            logger.info("Skipping eager evaluation execution ");
+            return;
+        }
+
+        logger.info("Starting Eager evaluation execution  - " + commandText);
+        displayResult.accept("searching...");
+
+        try {
+            CommandResult result = command.execute(model);
+            if (!result.getFeedbackToUser().isEmpty()) {
+                logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
+                displayResult.accept(result.getFeedbackToUser());
+            }
+        } catch (CommandException ex) {
+            logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+        } catch (ForceThreadInterruptException ex) {
+            logger.info("Interrupting eager evaluation execution");
+        }
+    }
+
     @Override
     public synchronized CommandResult execute(String commandText)
-        throws CommandException, ParseException {
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        lastEagerCommandWord = "";
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
@@ -86,10 +118,22 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
+
+        //Avoid evaluating the same command
+        String currCommandWord = commandText.trim();
+        if (lastEagerCommandWord.equals(currCommandWord)) {
+            return;
+        }
+        lastEagerCommandWord = currCommandWord;
+
+        // parse command to be eagerly evaluated
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
-        } else if (command instanceof SetFocusOnTabCommand) {
+        }
+
+        // execute set focus on tab
+        if (command instanceof SetFocusOnTabCommand) {
             try {
                 command.execute(model);
             } catch (CommandException ex) {
@@ -98,33 +142,16 @@ public class LogicManager implements Logic {
             return;
         }
 
+        // multi-thread eager evaluation
         assert lastEagerEvaluationThread != null;
         lastEagerEvaluationThread.interrupt();
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
-        lastEagerEvaluationThread = new Thread(() -> {
-            try {
-                Thread.sleep(100);
-                previousEagerEvaluationThread.join(500);
-            } catch (InterruptedException ex) {
-                logger.info("Skipping eager evaluation execution ");
-                return;
-            }
-
-            logger.info("Starting Eager evaluation execution  - " + commandText);
-            displayResult.accept("searching...");
-
-            try {
-                CommandResult result = command.execute(model);
-                if (!result.getFeedbackToUser().isEmpty()) {
-                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
-                    displayResult.accept(result.getFeedbackToUser());
-                }
-            } catch (CommandException ex) {
-                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
-            } catch (ForceThreadInterruptException ex) {
-                logger.info("Interrupting eager evaluation execution");
-            }
-        });
+        lastEagerEvaluationThread = new Thread(() ->
+                runEagerEvaluation(
+                        commandText,
+                        command,
+                        displayResult,
+                        previousEagerEvaluationThread));
         lastEagerEvaluationThread.start();
     }
 

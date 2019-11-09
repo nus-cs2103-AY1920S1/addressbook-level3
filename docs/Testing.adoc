@@ -49,4 +49,4 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
 
 .`Accessibility` permission is granted to `IntelliJ IDEA`
-image::testfx-idea-accessibility-permissions.png[width="600"]
+image::testfx-idea-accessibility-permissions.png[width="100%"]

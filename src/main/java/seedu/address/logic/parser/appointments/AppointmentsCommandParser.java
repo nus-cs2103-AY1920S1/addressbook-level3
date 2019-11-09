@@ -29,6 +29,6 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
         if (trimmedArgs.isEmpty()) {
             return new AppointmentsCommand(new EventApprovedPredicate());
         }
-        return new AppointmentsCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
+        return new AppointmentsCommand(new EventContainsKeywordPredicate(trimmedArgs));
     }
 }

@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
@@ -63,7 +64,9 @@ public class UniquePersonList extends UniqueElementList<Person> {
     @Override
     public void add(Person toAdd) {
         super.add(toAdd);
-        personHashMap.put(toAdd.getReferenceId(), toAdd);
+        ReferenceId referenceId = toAdd.getReferenceId();
+        referenceId.registerId();
+        personHashMap.put(referenceId, toAdd);
         assert personHashMap.size() == internalList.size();
     }
 
@@ -85,7 +88,9 @@ public class UniquePersonList extends UniqueElementList<Person> {
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
-        personHashMap.remove(toRemove.getReferenceId());
+        ReferenceId referenceId = toRemove.getReferenceId();
+        referenceId.unregisterId();
+        personHashMap.remove(referenceId);
         assert personHashMap.size() == internalList.size();
     }
 

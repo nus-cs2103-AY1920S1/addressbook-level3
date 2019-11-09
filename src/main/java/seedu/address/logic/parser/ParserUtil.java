@@ -12,11 +12,11 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -31,6 +31,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_TIMES = "Recusive times should be a positive number";
+    public static final String MESSAGE_NO_IDX = "Please provide a valid integer index";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -40,6 +41,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        if (trimmedIndex.isEmpty()) {
+            throw new ParseException(MESSAGE_NO_IDX);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -60,14 +64,41 @@ public class ParserUtil {
         return listOfEntries.get(oneBasedIndex.getZeroBased());
     }
 
+    //@@author SakuraBlossom
     /**
-     * Parses a {@code String refId} into an {@code ReferenceId}.
+     * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code ReferenceId} is invalid.
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
+     * has been grouped under a different classification.
      */
-    public static ReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
-        return PersonReferenceId.parseStaffReferenceId(staffRefId);
+    public static ReferenceId lookupStaffReferenceId(String staffRefId, String errorMessageOnClassificationError)
+            throws ParseException {
+        try {
+            return PersonReferenceId.lookupStaffReferenceId(staffRefId);
+        } catch (ReferenceIdIncorrectGroupClassificationException ex) {
+            throw new ParseException(String.format("%1$s\n%2$s", ex.getMessage(), errorMessageOnClassificationError));
+        } catch (ParseException ex) {
+            throw ex;
+        }
+    }
+
+    /**
+     * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
+     * has been grouped under a different classification.
+     */
+    public static ReferenceId lookupPatientReferenceId(String patientRefId, String errorMessageOnClassificationError)
+            throws ParseException {
+        try {
+            return PersonReferenceId.lookupPatientReferenceId(patientRefId);
+        } catch (ReferenceIdIncorrectGroupClassificationException ex) {
+            throw new ParseException(String.format("%1$s\n%2$s", ex.getMessage(), errorMessageOnClassificationError));
+        } catch (ParseException ex) {
+            throw ex;
+        }
     }
 
     /**
@@ -76,8 +107,18 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code ReferenceId} is invalid.
      */
-    public static ReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
-        return PersonReferenceId.parsePatientReferenceId(patientRefId);
+    public static ReferenceId issueStaffReferenceId(String staffRefId) throws ParseException {
+        return PersonReferenceId.issueStaffReferenceId(staffRefId);
+    }
+
+    /**
+     * Parses a {@code String refId} into an {@code ReferenceId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ReferenceId} is invalid.
+     */
+    public static ReferenceId issuePatientReferenceId(String patientRefId) throws ParseException {
+        return PersonReferenceId.issuePatientReferenceId(patientRefId);
     }
 
     /**
@@ -186,25 +227,26 @@ public class ParserUtil {
         if (startTiming == null) {
             throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
         }
+        DateTime endTiming = null;
+
         if (end != null) {
-            DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
+            endTiming = DateTime.tryParseSimpleDateFormat(end);
+
             if (endTiming == null) {
                 throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
             }
-            if (!Timing.isValidTimingFromCurrentTime(startTiming, endTiming)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_NOW,
-                        AddAppCommand.MESSAGE_USAGE));
-            }
 
             if (!Timing.isValidTiming(startTiming, endTiming)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_END,
-                        AddAppCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_TIMING_COMPARE_END);
             }
-            return new Timing(startTiming, endTiming);
         }
-        return new Timing(startTiming);
-    }
 
+        if (!Timing.isValidTimingFromCurrentTime(startTiming)) {
+            throw new ParseException(MESSAGE_INVALID_TIMING_COMPARE_NOW);
+        }
+
+        return (endTiming == null) ? new Timing(startTiming) : new Timing(startTiming, endTiming);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -49,7 +50,7 @@ public class ResumeCommandTest {
         ResumeCommand resumeCommand = new ResumeCommand(roomToEdit, editedRoom);
 
         assertCommandFailure(resumeCommand, model,
-                String.format(ResumeCommand.MESSAGE_ALREADY_BACK_FROM_BREAK));
+                String.format(ResumeCommand.MESSAGE_NOT_ON_BREAK));
     }
 
     @Test

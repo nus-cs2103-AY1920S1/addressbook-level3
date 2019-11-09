@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -18,7 +19,7 @@ import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.testutil.TestUtil;
 
@@ -38,10 +39,10 @@ class AppointmentsCommandTest {
         Event firstEvent = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event secondEvent = model.getFilteredAppointmentList().get(INDEX_SECOND_EVENT.getZeroBased());
 
-        EventContainsRefIdPredicate firstPredicate =
-                new EventContainsRefIdPredicate(firstEvent.getPersonId());
-        EventContainsRefIdPredicate secondPredicate =
-                new EventContainsRefIdPredicate(secondEvent.getPersonId());
+        EventMatchesRefIdPredicate firstPredicate =
+                new EventMatchesRefIdPredicate(firstEvent.getPersonId());
+        EventMatchesRefIdPredicate secondPredicate =
+                new EventMatchesRefIdPredicate(secondEvent.getPersonId());
 
         AppointmentsCommand firstApptList = new AppointmentsCommand(firstPredicate);
         AppointmentsCommand secondApptList = new AppointmentsCommand(secondPredicate);
@@ -66,9 +67,9 @@ class AppointmentsCommandTest {
     //    execute_zeroKeywords_noEventFound
     @Test
     public void execute_zeroKeywords_allEventsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
-                model.getFilteredAppointmentList().size());
         AppointmentsCommand command = new AppointmentsCommand(PREDICATE_SHOW_ALL_EVENTS);
+        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
+                model.getFilteredAppointmentList().size(), PREDICATE_SHOW_ALL_EVENTS.toString());
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -76,10 +77,12 @@ class AppointmentsCommandTest {
 
     @Test
     public void execute_invalidKeywords_noEventFound() throws ParseException {
-        String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0);
 
-        EventContainsRefIdPredicate invalidPredicate = new EventContainsRefIdPredicate(
-                PersonReferenceId.parsePatientReferenceId("0000"));
+        EventMatchesRefIdPredicate invalidPredicate = new EventMatchesRefIdPredicate(
+                PersonReferenceId.issuePatientReferenceId(VALID_ID_AMY));
+
+        String expectedMessage = String.format(
+                Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0, invalidPredicate.toString());
 
         AppointmentsCommand command = new AppointmentsCommand(invalidPredicate);
         expectedModel.updateFilteredAppointmentList(invalidPredicate);
@@ -93,13 +96,13 @@ class AppointmentsCommandTest {
     public void execute_validKeywords_eventsFound() {
         Event validEvent = model.getFilteredAppointmentList().get(INDEX_SECOND_EVENT.getZeroBased());
 
-        EventContainsRefIdPredicate validPredicate = new EventContainsRefIdPredicate(validEvent.getPersonId());
+        EventMatchesRefIdPredicate validPredicate = new EventMatchesRefIdPredicate(validEvent.getPersonId());
 
         AppointmentsCommand command = new AppointmentsCommand(validPredicate);
         expectedModel.updateFilteredAppointmentList(validPredicate);
 
         String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW,
-                expectedModel.getFilteredAppointmentList().size());
+                expectedModel.getFilteredAppointmentList().size(), validPredicate.toString());
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         model.updateFilteredAppointmentList(validPredicate);

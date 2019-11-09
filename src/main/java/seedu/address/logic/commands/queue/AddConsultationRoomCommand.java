@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.logic.commands.queue;
 
 import static java.util.Objects.requireNonNull;
@@ -14,15 +15,14 @@ import seedu.address.model.queue.Room;
 public class AddConsultationRoomCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "%s is now on duty";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This room already exists in the list";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This doctor already exists in the list";
 
     public static final String COMMAND_WORD = "onduty";
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The reference ID '%1$s' does not belong "
             + "to any registered doctor!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new room. "
-            + "Parameters: "
-            + "REFERENCE_ID \n"
-            + "Example: " + COMMAND_WORD + " 001A";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to the list of doctors on-duty.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     private final Room roomToAdd;
 
