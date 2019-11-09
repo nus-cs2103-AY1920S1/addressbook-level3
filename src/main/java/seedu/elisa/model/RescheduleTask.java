@@ -86,7 +86,10 @@ public class RescheduleTask extends TimerTask {
         Item newItem;
 
         if (item.hasReminder()) {
-            Reminder newReminder = oldItem.getReminder().get().changeOccurrenceDateTime(newStart);
+            Reminder oldReminder = item.getReminder().get();
+            LocalDateTime newReminderStart = oldReminder.getOccurrenceDateTime()
+                    .plusNanos(Duration.ofMillis(period).toNanos());
+            Reminder newReminder = oldItem.getReminder().get().changeOccurrenceDateTime(newReminderStart);
             newItem = item.changeEvent(newEvent).changeReminder(newReminder);
         } else {
             newItem = item.changeEvent(newEvent);
