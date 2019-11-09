@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.logging.Logger;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -10,12 +12,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandParserTestUtil {
 
+    private static Logger logger = Logger.getLogger(CommandParserTestUtil.class.getName());
+
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */
     public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
         try {
+            logger.info(userInput);
             Command command = parser.parse(userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
@@ -33,6 +38,19 @@ public class CommandParserTestUtil {
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful or has an {@code
+     * IllegalArgumentException} and that the error message equals to {@code expectedMessage}.
+     */
+    public static void assertParseFailureIllegalArgument(Parser parser, String userInput, String expectedMessage) {
+        try {
+            parser.parse(userInput);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (IllegalArgumentException | ParseException e) {
+            assertEquals(expectedMessage, e.getMessage());
         }
     }
 }

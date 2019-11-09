@@ -1,10 +1,10 @@
 package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_CONTENT_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
+import static seedu.address.logic.commands.note.NoteFeatureUtil.NOTE_FRAGMENT_CONTENT_DETECTION_REGEX;
+import static seedu.address.logic.commands.note.NoteFeatureUtil.NOTE_FRAGMENT_END_DETECTION_REGEX;
+import static seedu.address.logic.commands.note.NoteFeatureUtil.NOTE_FRAGMENT_START_DETECTION_REGEX;
+import static seedu.address.logic.commands.note.NoteFeatureUtil.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,21 +49,29 @@ public class Note extends StudyBuddyItem {
     public Content getContentCleanedFromTags() {
         String rawContent = content.toString();
         String cleanedContent = rawContent.replaceAll(NOTE_FRAGMENT_CONTENT_DETECTION_REGEX, "")
-                .replaceAll(NOTE_FRAGMENT_TAG_DETECTION_REGEX, " ")
+                .replaceAll(NOTE_FRAGMENT_TAG_DETECTION_REGEX, "")
+                .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, "")
                 .replaceAll(NOTE_FRAGMENT_START_DETECTION_REGEX, " ")
-                .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, " ")
                 .trim();
         return new Content(cleanedContent);
     }
 
+    private List<NoteFragment> getNoteFragments() {
+        return noteFragments;
+    }
+
     public List<NoteFragment> getFilteredNoteFragments(Predicate<? super NoteFragment> predicate) {
         List<NoteFragment> noteFragmentList = new ArrayList<>();
-        for (NoteFragment noteFragment : noteFragments) {
+        for (NoteFragment noteFragment : getNoteFragments()) {
             if (predicate.test(noteFragment)) {
                 noteFragmentList.add(noteFragment);
             }
         }
         return noteFragmentList;
+    }
+
+    public boolean hasNoteFragments() {
+        return !getNoteFragments().isEmpty();
     }
 
     /**
@@ -102,6 +110,24 @@ public class Note extends StudyBuddyItem {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(title, content, getTags());
+    }
+
+    /**
+     * Returns a String displaying this {@code Note's} information as well as all following {@code NoteFragments'}.
+     * @return Returns a String.
+     */
+    public String toStringWithNoteFragments() {
+        final StringBuilder builder = new StringBuilder(this.toString());
+        if (this.hasNoteFragments()) {
+            builder.append("\n\nNote fragment tags detected:");
+            for (NoteFragment frag : getNoteFragments()) {
+                builder.append(frag.toString())
+                        .append("\n");
+            }
+        } else {
+            builder.append("\n\nThe added Note has no detected note fragment tags!");
+        }
+        return builder.toString();
     }
 
     @Override

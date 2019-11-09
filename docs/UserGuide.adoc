@@ -46,7 +46,6 @@ Do refer to the signs below that will be used across the documents for reference
 Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
 ====
 
-
 [IMPORTANT]
 ====
 Indicates information that are crucial to understand so that you will be able to follow the flow of the document. Confusion may arise if you do not grasp the information here.
@@ -102,9 +101,12 @@ E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/f
 
 === General rules for all commands
 
-* All commands are written in English with alphanumeric characters.
+* All commands are written in English.
 
-* Any indexes provided (denoted by `id`) must be a positive integer (e.g. 1, 2, 3, ...).
+* Some command parameters are restricted to purely alphanumeric characters, while others are just required to not be
+blank.
+
+* Any indexes provided (denoted by '(index)' ) must be a positive integer (e.g. 1, 2, 3, ...).
 
 * All flashcards, notes, and cheatsheets can have a maximum of 10 tags.
 
@@ -203,7 +205,7 @@ Lists all StudyBuddyPro items with matching tags in the application.
         Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
     Note Fragment: 6-2.
-        Title: About
+        Title: About Notes
         Content: highlighted
         Tags: [cs2100]
 
@@ -350,7 +352,7 @@ The user will be prompted once to confirm their deletion.
 	    Title: BinaryQn
 	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
 	    Tags: [cs2100]
-        Hit enter again to confirm your deletion.
+        Please use `delete 6` again to confirm your deletion..
 
 Upon hitting enter, the flashcard will be deleted.
 
@@ -433,16 +435,24 @@ If there are both flashcards due for revision today and overdue flashcards:
 * Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
 of an existing note title.
 
-    Format: add t/TITLE c/CONTENT [tag/TAG]...
+```
+Format: add t/TITLE c/CONTENT [tag/TAG]...
+```
 
-    Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes
-    simultaneously. tag/CS2100
+```
+Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100
+```
 
-    Expected output:
-    New note added:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
-        Tags: [cs2100]
+```
+Expected output:
+
+New note added:
+    Title: Pipelining Definition
+    Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+    Tags: [cs2100]
+
+The added Note has no detected note fragment tags!
+```
 
 * More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
 same time as the note is created.
@@ -450,24 +460,43 @@ same time as the note is created.
 * Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
 `FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
-    Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
+```
+Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
+```
 
-IMPORTANT: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not
+IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the format for note fragment tags is 'TAG/', not
 'tag/'.
+
+WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will
+still be added). StudyBuddyPro will assume that the user has typed the tags correctly.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
-    Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
+Example usage: add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+```
 
+```
 Expected output:
 
-    New note added:
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-        Tags: [about]
+New note added:
+	Title: About Notes
+	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+	Tags: [about]
+
+Note fragment tags detected:
+	Title: About Notes
+	Content: highlighted
+	Tags: [important][highlight]
+
+```
 
 * This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
 "highlighted" and two tags "cs2100" and "important".
+
+NOTE: The spaces around the syntax elements of '/\*', 'C/' etc are part of the syntax. For example, if a note
+fragment tag looks like this: '/* C/highlighted TAG/important */if needed', then the resultant Note will look like
+this: 'highlightedif needed'.
 
 * Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
@@ -483,23 +512,33 @@ Deletes the note of index `NOTE_INDEX`.
 
 The user will be prompted once to confirm their deletion.
 
-    Format: delete (index)
+```
+Format: delete (index)
+```
 
-    Example usage: delete 3
+```
+Example usage: delete 3
+```
 
-    Expected output:
-        Are you sure you would like to delete the following note?
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-        Tags: [about]
-        Hit enter again to confirm your deletion.
+```
+Expected output:
+
+Are you sure you would like to delete the following note?
+
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+    Tags: [about]
+    Please use `delete 3` again to confirm your deletion.
+```
 
 Upon hitting enter, the note will be deleted.
 
-    Deleted note:
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-        Tags: [about]
+```
+Deleted note:
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
+    Tags: [about]
+```
 
 === Viewing a note: `view`
 
@@ -507,53 +546,75 @@ Views the note of index `NOTE_INDEX`. If the note contains any note fragment tag
 
 NOTE: To view the note with its note fragment tags, use the `viewraw` command instead (see Section 6.4).
 
-    Format: view (index)
+```
+Format: view (index)
+```
 
-    Example usage: view 3
+```
+Example usage: view 3
+```
 
-    Expected output:
-    Viewing note:
-        Title: About
-        Content: Notes can be highlighted if needed.
-        Tags: [about]
+```
+Expected output:
+
+Viewing note:
+    Title: About Notes
+    Content: Notes can be highlighted if needed.
+    Tags: [about]
+```
 
 === Viewing a raw note: `viewraw`
 
 Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all note fragment tags.
 
-    Format: viewraw (index)
+```
+Format: viewraw (index)
+```
 
-    Example usage: viewraw 3
+```
+Example usage: viewraw 3
+```
 
-    Expected output:
-    Viewing raw note:
-        Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-        Tags: [about]
+```
+Expected output:
+
+Viewing raw note:
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
+    Tags: [about]
+```
 
 === Listing notes: `list`
 
 * Lists all notes found in StudyBuddyPro.
 
-   Format: list
+```
+Format: list
+```
 
-   Expected output: a complete list of all notes currently in StudyBuddyPro
+```
+Expected output:
 
-    Example output:
-    Listing all notes:
-    1.
-        Title: Pipelining Definition
-        Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
-        Tags: [cs2100]
-    2.
-        Title: UML Diagrams
-        Content: UML Diagrams help with visualizing project structure.
-        Tags: [cs2103t]
+a complete list of all notes currently in StudyBuddyPro
+```
+
+```
+Example output:
+Listing all notes:
+1.
+    Title: Pipelining Definition
+    Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
+    Tags: [cs2100]
+2.
+    Title: UML Diagrams
+    Content: UML Diagrams help with visualizing project structure.
+    Tags: [cs2103t]
+```
 
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
-=== Listing by tags: `filter`
+=== Filtering by tags: `filter`
 
 * Filters the note library by the user specified tag(s).
 * The user must specify at least one tag, and can specify multiple tags.
@@ -561,21 +622,27 @@ visualize specific note fragment tags, use the `filter` command (see Section 6.6
 * Note fragment tags containing all of the specified tags will also be displayed, even if their parent note is
 not tagged.
 
-    Format: filter tag/TAG [tag/TAG]...
+```
+Format: filter tag/TAG [tag/TAG]...
+```
 
-    Example usage: filter tag/difficult
+```
+Example usage: filter tag/difficult
+```
 
-    Expeted output: Filter notes by tag(s) :
-        [difficult]
-        2. Title: Tough Math
-            Content: 1 + 2 is 3.
-            Tags: [difficult]
-        4. Title: MA1521 Chapter 5
-            Content: dy/dx = 0 is turning point of bellcurve.
-            Tags: [difficult][MA1521]
-        5-1. Title: CS2103T
-              Content: sequence diagram
-              Tags: [difficult][diagram]
+```
+Expeted output: Filter notes by tag(s) :
+    [difficult]
+    2. Title: Tough Math
+        Content: 1 + 2 is 3.
+        Tags: [difficult]
+    4. Title: MA1521 Chapter 5
+        Content: dy/dx = 0 is turning point of bellcurve.
+        Tags: [difficult][MA1521]
+    5-1. Title: CS2103T
+          Content: sequence diagram
+          Tags: [difficult][diagram]
+```
 
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
 '5-1' means 'the first note fragment tag in the fifth note'.
@@ -586,16 +653,22 @@ Edits a note's title, content, or tags. The note will be referred to by their or
 
 * The user can specify one of the optional fields to edit.
 
-    Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
+```
+Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
+```
 
-    Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
+```
+Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
+```
 
-    Expected output:
-    Edited Note:
-        Title: Pipelined Definition
-        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
-        Tags: [cs2100finals]
+```
+Expected output:
 
+Edited Note:
+    Title: Pipelined Definition
+    Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+    Tags: [cs2100finals]
+```
 
 == CheatSheet Feature:
 
@@ -684,7 +757,7 @@ The user will be prompted once to confirm their deletion.
         Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
-        Hit enter again to confirm your deletion.
+        Please use `delete 8` again to confirm your deletion.
 
 Upon hitting enter, the specified cheatsheet will be deleted.
 
@@ -852,12 +925,78 @@ do this while Mac users can use the Terminal application.
 
 {To be added}
 
-=== Global Commands
+=== Global Commands (Can be executed in any mode)
+* *Switch* : `switch MODE` +
+e.g `switch fc`
+
+* *Filter All* : `filterall tag/TAG...` +
+e.g `filterall tag/cs2103tuml tag/difficult`
+
+* *List tags* : `taglist`
+
+* *Help* : `help`
+
+* *List* : `list`
+
+* *Exit* : `exit`
 
 === Flashcard Commands
+* *Add* : `add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...` +
+e.g. `add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter cs2103tuml`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *List* : `list`
+
+* *Show* : `show`
+
+* *Remind* : `remind`
 
 === Note Commands
 
+* *Add* : `add t/TITLE c/CONTENT tag/TAG...` +
+e.g. `add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *Viewing a raw note* : `viewraw INDEX` +
+e.g `viewraw 3`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
+
+* *List* : `list`
+
 === CheatSheet Commands
 
+* *Add* : `add t/TITLE [tag/TAG]...` +
+e.g. `add t/CS2100 Midterm CheatSheet tag/cs2100midterm`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Edit* :  `edit INDEX t/TITLE tag/TAG...` +
+e.g `edit 8 t/cs2100 final cheatsheet tag/formula`
+
+* *Show* : `show INDEX` +
+e.g `show 4`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
+
+* *List* : `list`
 

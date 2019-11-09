@@ -63,7 +63,12 @@ public class AddCheatSheetCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CHEATSHEET);
         }
 
+        int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
         model.addCheatSheet(toAdd);
+        int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+        // to assert that one cheatsheet got added
+        assert(newAmountOfCheatSheets == currentAmountOfCheatSheets + 1);
+
         EditCheatSheetCommand.EditCheatSheetDescriptor edit = new EditCheatSheetCommand.EditCheatSheetDescriptor();
         edit.setContents(getRelevantContents(toAdd.getTags(), model));
         CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit, true);

@@ -8,7 +8,7 @@ import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
- * A utility class for Flashcard.
+ * A utility class for Flashcard testing.
  */
 public class FlashcardUtil {
 

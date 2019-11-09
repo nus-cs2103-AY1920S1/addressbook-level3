@@ -10,12 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Title {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Title should not be blank! (Or contain only whitespaces)";
+            "Titles should only contain alphanumeric characters and spaces, and it should not be blank. "
+                    + "\nTitles have a maximum length of 100 characters. "
+                    + "\nDuplicated titles are not allowed."
+                    + "\nAll leading and trailing spaces are ignored.";
 
     /*
-     * Regex for not only whitespaces.
+     * The first character of the title must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(?!^ +$)^.+$*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String fullTitle;
 
@@ -34,7 +38,7 @@ public class Title {
      * Returns true if a given string is a valid title.
      */
     public static boolean isValidTitle(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 100;
     }
 
 

@@ -42,6 +42,11 @@ The usage of tags are highly important in our application. For instance, the aut
 
 This enhancement is highly straightforward and works well with the current application.
 
+*Code contribution*:
+
+** Please refer link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ckb055&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ckb055&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[here]
+to view my code contributions.
+
 *Other contributions*:
 
 * Project management:
@@ -74,6 +79,9 @@ for the filter features.
 The following section describes how user are now able to make good use of tags to find their desired items in our app. The section also contains an excerpt on how the tagging feature can be further improved in the next version of StudyBuddyPro.
 
 === Listing all current Tags in StudyBuddyPro : `taglist`
+
+[NOTE]
+`taglist` and `filterall` are global commands that can be used in any mode in StudyBuddyPro.
 
 Displays a full list of all tags currently in StudyBuddyPro.
 
@@ -168,9 +176,9 @@ The user will be prompted once to confirm their deletion.
     Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
         [ 2. 110 in Binary is 6 is Decimal ]
-    Hit enter again to confirm your deletion.
+    Please use `delete 8` again to confirm your deletion.
 
-Upon deleting any StudyBuddyItem (Flashcard, Note, NoteFragment, CheatSheet), the user will be prompted once to confirm his deletion. The user would only need to hit enter once more to confirm his/her deletion.
+Upon deleting any StudyBuddyItem (Flashcard, Note, NoteFragment, CheatSheet), the user will be prompted once to confirm his deletion. The user would need to key in the delete command once more to confirm his/her deletion.
 
 This will prevent any accidental deletion of wrong items.
 
@@ -187,6 +195,15 @@ Edits a tag by the specified index.
     All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
 
 This allows the user to easily modify the tags of all the items with a single command.
+
+For instance, if the user has items that are tagged [cs2100] and [midterm], and the user wishes to make
+use of such items to include in a cheatsheet for CS2100 finals, the user can input
+
+    edit tag/midterm tag/finals
+
+to conveniently change, for instance, all notes tagged with [midterm] to be tagged with [finals].
+
+This then allows the user to more conveniently generate a cheatsheet for his/her final exams.
 
 == Contributions to the developer guide
 
@@ -262,36 +279,20 @@ All StudyBuddyItems must be updated in response to the deletion/edit.
 * A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
 * As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
-b) *For Auto-generation of CheatSheets  (truncated)*
+b) For Auto-generation of CheatSheets
 
-c) *For TimeTrial Mode (truncated)*
+** Upon adding a cheatsheet, the cheatsheet will make use of tags to automatically pull contents from other features of StudyBuddyPro.
+** StudyBuddyItems with tags that match the user's input will be pulled over.
+** This feature will be further elaborated in the next section, Section 4.4.
 
-=== Deletion prompt feature
-[NOTE]
-The deletion prompting applies to all three modes in StudyBuddyPro.
+c) For TimeTrial Mode
 
-The activity diagram below shows how the user is prompted upon calling a delete command.
+** The TimeTrial Mode of the flashcard feature, will make use of the tagging feature.
+** It will do so by filtering out flashcards with tags that match the user's input.
+** For instance, if a user wishes to revise only important flashcards, he/she could enter the following command, `timetrial important`.
 
-image::kaibindiagrams/activitydiagramdeleteprompt.png[]
-_Diagram 5 : Activity Diagram for prompting user upon deletion._
-
-* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
-
-==== Usage of deletion prompts
-
-* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
-* The user only needs to hit enter once more to successfully delete the item.
-
-==== Design considerations
-Aspect : Deletion prompts versus Undo feature.
-
-Current Implementation (prompting user before delete)
-
-* Pros
-** Much easier to implement as compared to undo feature.
-** Hitting enter once more to delete is highly convenient for the user, as
-compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
-
-* Cons
-** Less versatile than the undo feature.
-** User might still accidentally delete the wrong item.
+[IMPORTANT]
+====
+The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
+====
+** The TimeTrial feature will be further elaborated in Section 4.5.

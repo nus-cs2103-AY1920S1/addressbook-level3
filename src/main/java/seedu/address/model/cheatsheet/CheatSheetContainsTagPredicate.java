@@ -2,7 +2,9 @@ package seedu.address.model.cheatsheet;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,8 +13,11 @@ import seedu.address.model.tag.Tag;
 public class CheatSheetContainsTagPredicate implements Predicate<CheatSheet> {
     private final Set<Tag> tags;
 
+    private final Logger logger = LogsCenter.getLogger(CheatSheetContainsTagPredicate.class.getName());
+
     public CheatSheetContainsTagPredicate (Set<Tag> tags) {
         this.tags = tags;
+        logger.info("Filtering CheatSheets that contain at least the specified tags");
     }
 
     // test on the flashcard to see if he has the tag

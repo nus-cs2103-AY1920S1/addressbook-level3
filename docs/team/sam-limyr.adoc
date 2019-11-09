@@ -14,7 +14,8 @@ details my contributions to this project.
 
 == Summary of Contributions
 
-* *Major contribution*: Added *Notes*, and implemented the ability to *add tags within Notes*.
+* *Major contribution*: Added *Notes*, and implemented the ability to *add tags within Notes* (i.e. intra-content
+tagging).
 ** What Notes are: Notes are pieces of information with titles, content, and optional tags. The operations that they
 support are:
 *** Creation
@@ -31,6 +32,9 @@ support are:
 ** Uses of the Add Tags Within Notes feature:
 *** Allows fine-tuned addition of information to cheatsheets
 *** Allows for specific highlighting of information in notes
+* *Minor contribution*: Implemented the `view` and `viewraw` commands for Notes.
+** What it is: Both commands view a given note fragment tag, but the `view` command also cleans up the syntax of the
+note to remove the leftover syntax from the addition of the note fragment tag.
 
 * *Other contributions*:
 ** Project issue management:
@@ -38,7 +42,8 @@ support are:
 *** Managed release v1.3 (out of v1.0 to v1.4)
 ** Enhancements to existing features:
 *** Wrote test code for all Note-related code
-* <I guess I need to pore through all my PRs and look for other documentation and code refactoring stuff>
+* <I guess I need to pore through all my PRs and look for other documentation and code refactoring stuff; also need
+to look at reposense and compare what's there>
 
 == Contributions to User Guide
 

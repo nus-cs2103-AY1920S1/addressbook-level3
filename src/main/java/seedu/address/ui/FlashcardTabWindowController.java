@@ -20,6 +20,7 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class FlashcardTabWindowController {
 
+    private static final String TIME_TRIAL_END_FEEDBACK = "The time trial has ended!";
     private static final Integer TIMER_DURATION = 5;
     private static final Integer SHOW_ANSWER_DURATION = 3;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
@@ -132,7 +133,7 @@ public class FlashcardTabWindowController {
             cardCount++;
         }
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
-            e -> resetTexts()));
+            e -> resetTextsAfterTimeTrial()));
         timeline.play();
     }
 
@@ -140,6 +141,14 @@ public class FlashcardTabWindowController {
      * Empties the qnsTextArea and ansTextArea.
      */
     private void resetTexts() {
+        qnsTextArea.setText("");
+        ansTextArea.setText("");
+    }
+
+    /**
+     * Empties the qnsTextArea and ansTextArea.
+     */
+    private void resetTextsAfterTimeTrial() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
     }

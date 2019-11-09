@@ -24,7 +24,7 @@ public class Flashcard extends StudyBuddyItem {
      */
     public Flashcard(Question question, Answer answer, Title title, Set<Tag> tags) {
         super(tags);
-        requireAllNonNull(question, answer, tags);
+        requireAllNonNull(question, answer, title, tags);
         this.question = question;
         this.answer = answer;
         this.title = title;
@@ -110,14 +110,8 @@ public class Flashcard extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\tQuestion: ")
-                .append(getQuestion() + "\n")
-                .append("\tAnswer: ")
-                .append(getAnswer() + "\n")
-                .append("\tTitle: ")
+        builder.append("\tTitle: ")
                 .append(getTitle() + "\n")
-                .append("\tStatistics: ")
-                .append(getStatistics() + "\n")
                 .append("\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
