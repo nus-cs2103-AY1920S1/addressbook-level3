@@ -44,7 +44,8 @@ public class Credit {
     /**
      * Returns true if a given string is a valid credit.
      */
-    public static boolean isValidCredit(int credit) {
+    public static boolean isValidCredit(int credit) throws NullPointerException {
+        requireNonNull(credit);
         int value = credit;
         if (value < 23 && value >= 2) {
             return true;
