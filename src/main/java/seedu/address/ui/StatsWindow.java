@@ -3,6 +3,8 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -96,12 +98,14 @@ public class StatsWindow extends UiPart<Stage> {
         seriesB.getData().add(new XYChart.Data(EASY, stats[2]));
 
         XYChart.Series seriesC = new XYChart.Series();
-        ArrayList<Integer> perform = model.getPerformance();
+        ArrayList<Float> perform = model.getPerformance();
         if (perform.size() == 0) {
             seriesC.getData().add(new XYChart.Data(0, 0));
         } else {
             for (int i = 0; i < perform.size(); i++) {
-                seriesC.getData().add(new XYChart.Data(i + 1, perform.get(i).intValue()));
+                BigDecimal bd = new BigDecimal(perform.get(i).floatValue()).setScale(2, RoundingMode.HALF_UP);
+                seriesC.getData().add(new XYChart.Data(i + 1, bd.floatValue()));
+//                seriesC.getData().add(new XYChart.Data(i + 1, perform.get(i).floatValue()));
             }
         }
 

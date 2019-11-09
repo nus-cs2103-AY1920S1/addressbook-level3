@@ -32,7 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Category> categoryList;
     private FlashCardTestModel flashCardTestModel;
-    private ArrayList<Integer> performance;
+    private ArrayList<Float> performance;
 
 
     /**
@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         filteredDeadlines = new FilteredList<>(this.keyboardFlashCards.getDeadlineList());
         categoryList = new FilteredList<>(this.keyboardFlashCards.getCategoryList());
         flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
-        this.performance = new ArrayList<Integer>();
+        this.performance = new ArrayList<Float>();
     }
 
     public ModelManager() {
@@ -169,7 +169,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Integer> getPerformance() {
+    public ArrayList<Float> getPerformance() {
         return performance;
     }
 
@@ -179,8 +179,8 @@ public class ModelManager implements Model {
         int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
         int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
         int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
-        int value;
-        if ((numEasy + numGood + numHard) == 0){
+        float value;
+        if ((numEasy + numGood + numHard) == 0) {
             value = 0;
         }
         else {
