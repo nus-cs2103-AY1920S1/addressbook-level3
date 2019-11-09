@@ -1,4 +1,4 @@
-package seedu.deliverymans.logic.commands.universal;
+package seedu.deliverymans.logic.commands;
 /*
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.deliverymans.logic.commands.CommandTestUtil.assertCommandFailure;

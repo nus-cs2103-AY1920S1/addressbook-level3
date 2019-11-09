@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;

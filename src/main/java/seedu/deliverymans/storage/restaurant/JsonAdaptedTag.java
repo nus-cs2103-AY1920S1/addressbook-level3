@@ -9,7 +9,7 @@ import seedu.deliverymans.model.Tag;
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonAdaptedTag {
+public class JsonAdaptedTag {
 
     private final String tagName;
 

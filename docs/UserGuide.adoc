@@ -17,6 +17,7 @@ endif::[]
 By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
 == Introduction
+This user guide serves to assist you in the navigation and utilization of our application, *DeliveryMANS*.
 
 *DeliveryMANS* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANS* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
@@ -34,6 +35,8 @@ Open the application to begin. Refer to <<Features>> for details of each command
 
 [[Features]]
 == Features
+
+This section covers the list of commands which you can enter into our application.
 
 **Command Types**
 
@@ -159,10 +162,10 @@ Example:  `-assign_order n/Order 1`
 image::userguide\AssignOrder1.png[width="790"]
 
 . If you are successful, the result box displays the message: "".
-image::userguide\AssignOrder1.png[width="790"]
+image::userguide\AssignOrder2.png[width="790"]
 
 . The order list shows the newly assigned order.
-image::userguide\AssignOrder1.png[width="790"]
+image::userguide\AssignOrder3.png[width="790"]
 
 [NOTE]
 ====
@@ -421,9 +424,10 @@ Example: `history 1`
 ====
 
 // end::customerCommand[]
-// tag::restaurantCommand[]
 
 {nbsp} +
+
+// tag::restaurantCommand[]
 
 === Restaurant commands
 
@@ -461,17 +465,17 @@ Example: `delete 1`
 
 {nbsp} +
 
-==== Entering EditMode: `edit`
+==== Entering EditMode: `editmode`
 This command enters EditMode for the restaurant identified by the specified index in the restaurant list.
 Displays the restaurant's details, menu and current orders.
 Unlocks commands for editing details, adding and removing of food items
 in the menu, and adding of rating.
 
-Format: `edit INDEX`
+Format: `editmode INDEX`
 
 * `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
 
-Example: `edit 3`
+Example: `editmode 3`
 
 image::userguide\EditMode.png[width="790"]
 
@@ -561,6 +565,8 @@ will be auto-tagged as "Popular".
 .Note:
 * Food items' quantity ordered will only be updated upon completion of an order.
 ====
+
+// end::restaurantCommand[]
 
 {nbsp} +
 
@@ -723,7 +729,7 @@ Example: `enter 1`
 * Restaurant commands
 - Add a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
 - Delete a restaurant: `delete INDEX`
-- Enter EditMode: `edit INDEX`
+- Enter EditMode: `editmode INDEX`
 - Edit a restaurant's details (under EditMode) : `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 - Add a food item (under EditMode) : `add n/NAME a/PRICE [t/TAG]...`
 - Delete a food item (under EditMode) : `delete INDEX`

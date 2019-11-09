@@ -6,10 +6,10 @@ import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -17,7 +17,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Goes into editing mode for a restaurant
  */
 public class EditModeCommand extends Command {
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editmode";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the restaurant identified "
             + "by the index number used in the displayed restaurant list.\n"
