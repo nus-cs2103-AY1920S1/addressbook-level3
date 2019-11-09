@@ -435,8 +435,9 @@ image::VisualRepresentationSD1.png[]
 ** Cons: Schedules with darker colours cannot be seen from a dark theme UI.
 
 [[Implementation-ClosestLocation]]
-=== Closest Common Location(Micro Service)
-Closest common location utilises Google Maps Api to get the closest common location among a group of various location in NUS.
+=== Closest Common Location
+Closest common location utilises Google Maps Api to get the best center location to meet for a group project meeting.
+We define this location as Closest Common Location.
 
 ==== Definition
 
@@ -453,11 +454,40 @@ Closest common location utilises Google Maps Api to get the closest common locat
 .. Sum the values of the rows to a new row `totalDistance`
 .. The smallest value in the row is the closest common location
 
+Below is an example of how the algorithm is applied on arbitrary vertices `l1...ln` to compute the closest common location
+for `l2,ln-2 and ln1`.
+
+image::gmaps/Algorithm.png[Algorithm]
+
+[#img-GmapsClassDiagram]
+.Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
+
+
 ==== Implementation
 
-Overview of the implementation
+*Consideration*
 
-image::gmaps/GmapsArchitectureDiagram.png[]
+. Google Maps Api only provides free $400 credit per account and every 1000 API call cost USD$10-USD$20.
+. https://developers.google.com/maps/documentation/distance-matrix/usage-and-billing[Google Maps Distance Matrix Api]
+has a limit of 100 elements for every API call.
+. Google Maps Api has bug
+.. Inconsistency in the identifying locations. Example
+... `NUS_LT17` identified as the correct location and `LT17` is not.
+... `NUS_AS6` is not identified as the correct location but `AS6` is identified as the correct location.
+.. Certain locations are not supported by Google Maps
+... `S4` and `S6` is identifiable but `S5` is not.
+.. Some locations are valid on Google Maps Places Api but not on Google Maps Distance Matrix Api.
+. Not all venues on NUSMods are identifiable on Google Maps Api.
+. Some venues on NUSMods are in the same building(ie AS6-0213 and AS6-0214).
+
+*Implementation*
+
+The image below represents the Class Diagram for Closest Common Location component of TimeBook
+
+image::gmaps/GmapsClassDiagram.png[GmapsClassDiagram]
+
+[#img-GmapsClassDiagram]
+.Class Diagram for Closest Common Location Component
 
 There are 3 main aspects to the implementation
 
@@ -483,19 +513,27 @@ location to construct the matrix.
 
 *Steps*
 
-. Check if the name of the location in NUSMods is identifiable on google maps
-.. Call NUSMods api with `Cache#loadVenues`
-.. Sanitize the location name given by NUSMods by appending `NUS_` to the front and removing any characters after `-`
-as the room in the building does not matter
-. Construct matrix.
-.. Get the list of sanitized locations and split into blocks of 10. This is because Google Maps API constraint to
-at most 10 x 10 matrix. Construct the n x n matrix by calling google maps Distance Matrix API.
+. Check if the name of the location in NUSMods is identifiable on google maps. `ProcessVenues#process` is the driver for this step.
+.. Call NUSMods api with `Cache#loadVenues` to get an array of Venues(`String`) in NUS,
+.. Iterate through each venue and sanitize it to Google Maps Identifiable location.
+... Sanitizes the location name given by NUSMods by appending `NUS_` to the front and removing any characters after `-`
+or `/` as the room in the building does not matter. This will help to reduce the cost of Google Maps API calls.
+... `UrlUtil#conditionalLocationName` maps the location name that are not supported on Google Maps to a valid location
+name.
+... Each venue in the array will have a `validLocationName` and `placeId` mapped to it in the
+`Location` class. This will help with the generation of Google Maps Distance Matrix Api and retrieving of the location
+image from Google Maps Maps Static API
+. Construct matrix. `ProcessLocationGraph#process` is the driver for this step.
+.. Get the list of valid location with the relevant data(`placeId` and `validLocationName`)
+.. Divide this list into blocks of 10 to keep under the 100 element limit of Google Maps.
+.. Call Google Maps Distance Matrix Api for all the blocks in the list.
+.. Combine the API response into a single 2-Dimensional array where `distanceMatrix: ArrayList<ArrayList<Long>>`.
+.. Use the constructed 2-Dimensional to instantiate `LocationGraph` which would be utilised to compute all the
+closest common location.
 
 ==== Getting closest location
 
-This is the sequence diagram for when the method `Model.getClosestLocationData` and `Model.getClosestLocationString`
-
-image::gmaps/ClosestLocationSequenceDiagram.png[]
+The algorithm above will be used to compute the closest common location.
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
