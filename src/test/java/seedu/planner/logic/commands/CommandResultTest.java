@@ -4,10 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.planner.testutil.contact.TypicalContacts.ALICE;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 
 public class CommandResultTest {
@@ -43,13 +48,19 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback", true, true);
         CommandResult commandResultWithUiFocus = new CommandResult("feedback",
                 new UiFocus[]{UiFocus.INFO});
-        //CommandResult commandResultWithResultInformationAndUiFocus = new CommandResult("feedback"
-        //        , new ResultInformation[]{new ResultInformation()});
+        CommandResult commandResultWithResultInformationAndUiFocus = new CommandResult(
+                "feedback",
+                new ResultInformation[]{new ResultInformation(ALICE, INDEX_FIRST)},
+                new UiFocus[]{UiFocus.AGENDA}
+        );
 
         //boolean field accessors
         assertTrue(commandResult.isShowHelp() == true);
         assertTrue(commandResult.isExit() == true);
-
+        assertTrue(Arrays.equals(commandResultWithUiFocus.getUiFocus().get(), new UiFocus[]{UiFocus.INFO}));
+        assertTrue(Arrays.equals(commandResultWithResultInformationAndUiFocus.getInformationToUser().get(),
+                new ResultInformation[]{new ResultInformation(ALICE, INDEX_FIRST)}
+        ));
     }
 
     @Test
