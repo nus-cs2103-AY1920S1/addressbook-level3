@@ -6,30 +6,37 @@ import seedu.address.calendar.model.util.Interval;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * Represents an event. It contains information about the event's start and end dates, name and event type.
+ * Guarantees: It cannot be instantiated directly.
+ */
 public class Event extends Interval<Date, Event> {
     protected Date startDate;
     protected Date endDate;
     protected Name name;
-    protected Optional<Info> info;
     protected EventType eventType;
 
-    public Event(Name name, Date startDate, Date endDate, Optional<Info> info, EventType eventType) {
+    /**
+     * Creates an event with the specified name, start date, end date and event type.
+     *
+     * @param name The specified name of the event
+     * @param startDate The specified start date of the event
+     * @param endDate The specified end date of the event
+     * @param eventType The type of event
+     */
+
+    protected Event(Name name, Date startDate, Date endDate, EventType eventType) {
         super(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
         this.name = name;
-        this.info = info;
         this.eventType = eventType;
-    }
-
-    public Event(Name name, Date startDate, Date endDate, EventType eventType) {
-        this(name, startDate, endDate, Optional.empty(), eventType);
     }
 
     public static Event getEventPlaceHolder(EventQuery eventQuery) {
         Name name = new Name("");
         EventType eventType = null;
-        return new Event(name, eventQuery.getStart(), eventQuery.getEnd(), Optional.empty(), eventType);
+        return new Event(name, eventQuery.getStart(), eventQuery.getEnd(), eventType);
     }
 
     public static EventQuery asEventQuery(Event event) {
@@ -52,11 +59,6 @@ public class Event extends Interval<Date, Event> {
 
     public String getEndDateStr() {
         return endDate.asString();
-    }
-
-    public String getInfoStr() {
-        return info.map(i -> i.asString())
-                .orElse("");
     }
 
     public String getEventTypeStr() {

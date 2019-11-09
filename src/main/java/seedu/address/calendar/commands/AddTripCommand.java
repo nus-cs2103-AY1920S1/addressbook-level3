@@ -19,10 +19,8 @@ public class AddTripCommand extends AddCommand {
             + "[" + CliSyntax.PREFIX_END_MONTH + " END MONTH] "
             + "[" + CliSyntax.PREFIX_END_YEAR + " END YEAR] "
             + CliSyntax.PREFIX_NAME + " NAME "
-            + "[" + CliSyntax.PREFIX_INFO + " INFO]" + "\n"
             + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 9 "
-            + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_NAME + " 1 day at Johor "
-            + CliSyntax.PREFIX_INFO + " with friends";
+            + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_NAME + " 1 day at Johor";
 
     protected Trip trip;
 

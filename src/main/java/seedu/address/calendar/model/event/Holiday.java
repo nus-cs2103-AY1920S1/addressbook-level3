@@ -7,10 +7,6 @@ import java.util.Optional;
 public class Holiday extends Event {
     private static final EventType EVENT_TYPE = EventType.HOLIDAY;
 
-    public Holiday(Name name, Date startDate, Date endDate, Optional<Info> info) {
-        super(name, startDate, endDate, info, EVENT_TYPE);
-    }
-
     public Holiday(Name name, Date startDate, Date endDate) {
         super(name, startDate, endDate, EVENT_TYPE);
     }
