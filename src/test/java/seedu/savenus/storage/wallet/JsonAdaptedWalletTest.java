@@ -11,6 +11,7 @@ import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 public class JsonAdaptedWalletTest {
 
     @Test

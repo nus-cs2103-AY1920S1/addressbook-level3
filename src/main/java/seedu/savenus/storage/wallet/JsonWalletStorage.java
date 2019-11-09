@@ -14,6 +14,7 @@ import seedu.savenus.commons.util.FileUtil;
 import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 /**
  * A class to access Wallet data stored as a json file on the hard disk.
  */

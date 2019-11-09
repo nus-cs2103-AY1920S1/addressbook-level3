@@ -9,15 +9,16 @@ import java.time.temporal.ChronoUnit;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+//@@author raikonen
 /**
  * Represents the number of days to budget expiration in the application.
  */
 public class DaysToExpire {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Budget Duration should be a positive integer";
-    public static final String INTEGER_CONSTRAINTS =
-            "Due to Integer limitations, this application will not accept Budget Duration of more than 365 days";
+            "Budget Duration should be a non-negative integer";
+    public static final String BUDGET_DURATION_CONTRAINTS =
+            "This application will not accept Budget Duration of more than 365 days";
     public static final String VALIDATION_REGEX = "0|[1-9]\\d*$";
 
     private final IntegerProperty daysToExpireProperty;
@@ -31,8 +32,19 @@ public class DaysToExpire {
     public DaysToExpire(String newDaysToExpireString) {
         requireNonNull(newDaysToExpireString);
         checkArgument(isValidDaysToExpire(newDaysToExpireString), MESSAGE_CONSTRAINTS);
-        daysToExpireProperty = new SimpleIntegerProperty(Integer.parseInt(newDaysToExpireString));
-        expirationDateTime = LocalDateTime.now().plusDays(Integer.parseInt(newDaysToExpireString));
+        boolean isOutOfRange = false;
+        try {
+            Integer.parseInt(newDaysToExpireString);
+        } catch (NumberFormatException e) {
+            isOutOfRange = true;
+        }
+        if (!isOutOfRange) {
+            daysToExpireProperty = new SimpleIntegerProperty(Integer.parseInt(newDaysToExpireString));
+            expirationDateTime = LocalDateTime.now().plusDays(Integer.parseInt(newDaysToExpireString));
+        } else {
+            daysToExpireProperty = new SimpleIntegerProperty(Integer.MAX_VALUE);
+            expirationDateTime = LocalDateTime.now();
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author raikonen
 public class DaysToExpireTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

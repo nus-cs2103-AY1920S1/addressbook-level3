@@ -9,6 +9,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 import seedu.savenus.storage.food.JsonAdaptedFood;
 
+//@@author raikonen
 /**
  * Jackson-friendly version of {@link Purchase}.
  */

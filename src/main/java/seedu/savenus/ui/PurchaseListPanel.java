@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.purchase.Purchase;
 
+//@@author raikonen
 /**
  * Panel containing the list of purchase.
  */
