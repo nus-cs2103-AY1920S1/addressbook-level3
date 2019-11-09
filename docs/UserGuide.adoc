@@ -410,7 +410,6 @@ Allows the user to set a budget for food expenses.
 
 ****
 
-
 ==== Top up money into wallet: `topup`
 Allows users to top up the money into their wallet.
 ****
@@ -427,14 +426,15 @@ If the top up was successful, you should be able to see the update to your walle
 //end::budgeting[]
 
 //tag::savings[]
-=== Saving
+=== Savings
 
-Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000. +
-Your Savings Account has a limit that is imposed by the limitations of the user's computer's memory. +
+Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000, your savings account has a limit that is imposed by the limitations of the user's computer's memory. +
+The savings account is presented to the user in the display as shown in figure below. +
+
 We will be introducing a higher limit for savings so user's can aim to save more, but that will be in v2.0.
 
-==== Saves money into savings account: `save`
-Allows users to save an amount of money from the user's wallet, into his/her savings account. The savings account is presented to the user in the display as shown in figure below.
+==== Transfer money from user's wallet into savings account: `save`
+The user can save an amount of money from the user's wallet, into his/her savings account.
 
 TODO ADD UI.
 
@@ -465,11 +465,11 @@ image::SavingsSuccessMessage.png[]
 {empty}
 |===
 
-==== Withdraws money from savings account: `withdraw`
-Allows the user to withdraw a sum of from his/her savings account, and add it into his/her wallet.
+==== Withdraw money from user's savings account into wallet: `withdraw`
+The user can withdraw a sum of from his/her savings account, and add it into his/her wallet.
 
 ****
-*Format*: `withdraw` +
+*Format*: `withdraw AMOUNT` +
 *Example*: `withdraw 10`
 
 *Note*: +
@@ -486,14 +486,37 @@ Also, you cannot withdraw an amount that will result in your wallet having more 
 ifdef::env-github[| :white_check_mark: a| You will see a success message and the amount of money you have saved in your savings account.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account. You will be able to view your withdrawals in the savings history tab. The savings will appear RED. ]
 
-.Example savings display when "Savings" is clicked as shown after withdrawals are made.
+.Example withdrawal display when "Savings" is clicked as shown after withdrawals are made.
 image::SavingsWithdrawn.png[]
 
-.Example success message that appears after keying a successful withdrawal.
+{empty}
+
+.Example success message that appears after keying a successful withdrawal. This appears below where the user typed.
 image::WithdrawalSuccessMessage.png[]
 
 {empty}
 |===
+
+==== Displaying only Savings or Withdrawals: `show`
+The user can restrict his/her view of the savings history display, such that the savings history only displays his/her savings or withdrawals.
+
+****
+*Format*: `show TO_DISPLAY` +
+*Example*: `show savings`
+
+*Note*: +
+`TO_DISPLAY` can only include the following parameters: +
+
+- `savings` - Reveals only the user's savings in GREEN
+- `withdrawals` - Reveals only the user's withdrawals in RED
+- `both` - Revert back to the original display of all savings and withdrawals made by the user.
+
+****
+
+[NOTE]
+The restricted display will not be applied after another command is typed. +
+When new command is entered that is not `show` the savings history display is reverted back to display all savings and withdrawals.
+
 
 //end::savings[]
 
