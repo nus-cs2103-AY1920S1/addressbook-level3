@@ -13,7 +13,6 @@ import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.exceptions.CopyError;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
-import cs.f10.t1.nursetraverse.model.appointment.AppointmentSortedByDateTime;
 import cs.f10.t1.nursetraverse.model.appointment.UniqueAppointmentList;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
