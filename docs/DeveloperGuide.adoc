@@ -720,17 +720,6 @@ image::StatsDataSequenceDiagram.png[width = "600"]
 
 4. Finally, the `statsData` is returned to the `MainWindow`. The data will be displayed on the Ui through `StatsPanel#loadData(statsData)` call.
 
-////
-Formatting for html to pdf
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty}
-////
 ==== Design Considerations
 
 [width="90%", cols="1,2,2", options="header",]
