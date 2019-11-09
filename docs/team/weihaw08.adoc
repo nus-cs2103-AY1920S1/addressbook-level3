@@ -12,60 +12,33 @@ enables users to track important information about their exercises and also prov
 the ability to create their own fitness regimes and the ability to provide statistical analysis of their activities.
 Users can also define their own properties which they wish to track for their exercises.
 
+Below is a screenshot of our application:
+
+.A screenshot of ExerHealth application
+image::Ui.png[width="550"]
+
 == Summary of contributions
 
-* *Major enhancement 1*: Provided a feature that *allows user to define their own custom properties*.
+* *Major enhancement 1*: Provided a feature that *allows user to define their own custom properties* and *remove them*.
 
-** What it does: Users can simply add in their own custom properties should they wish to keep track of extra properties
+** What it does: Users can simply add in or remove their own custom properties should they wish to keep track of extra/lesser properties
 for each exercise.
 
-** Justification: This feature was introduced after a quick conversation with our friends who provided us with lots of
-properties which they wish to keep track of for their exercises. However, more likely than not, most properties which
-they suggest are unique to themselves. As such, we have decided to provide a set of default properties (such as calories, date etc)
-which appear frequently among the suggestions while introducing custom properties to provide greater flexibility among
-the various users if they wish to include more information which they wish to track. This customisation can help users to
+** Justification: This feature provides greater flexibility among various users if they wish to include more information which they wish to track. This customisation can help users to
 tailor suit the app for their personal use.
 
-** Highlights: This feature complements well with another feature that was implemented by my team mate, Kee En. By having
-custom properties, users can now produce exercise suggestions based on the custom properties they had created. This enhances
-the utility of both the suggestion and the custom property feature. Furthermore, the implementation of this feature is
-quite challenging as there are a few aspects to take note of:
-
-*** Display of custom properties which requires UI considerations
-*** Representation of custom properties in each exercise
-*** Tracking of custom properties that have been created
-*** Interaction between the add / edit command parsers and the custom properties
-*** Storage of custom properties so that they will not be a one-off thing
-*** Ensure that invalid custom properties do not sneak in into the storage files
-
-** Credits: We will like to thank our friends who gave us the inspiration for this feature.
-
-* *Major enhancement 2*: Provided a feature that *allows user to remove unwanted custom properties*
-
-** What it does: Users can choose to remove a previously defined custom property should they no longer require them.
-
-** Justification: Similar to undo and redo feature, if the user is able to add in a custom property, they should also be
-able to remove them as well. This ensures that the custom property feature is more complete and once again, provides
-the user with greater flexibility in the way they wish to use the exercise tracker.
-
-** Highlights: Users can choose to either remove a custom property from a single exercise or remove a custom property
-completely from the app. So, extra considerations have to be taken care of to ensure that the correct result is obtained
-depending on the user's input.
+** Highlights: This feature complements well with the suggestion feature. By having
+custom properties, users can now produce exercise suggestions based on the custom properties they had created. Furthermore, the implementation of this feature is
+quite challenging as there are a few aspects to take note of: the representation of custom properties in each exercise, the tracking of custom properties that have been created
+and storage of custom properties.
 
 * *Minor enhancement 1*: Added a `viewcustom` command that allows user to view the custom properties that they have defined.
-
-** Justification: This provides a way for user to check the names and prefixes that have been used for each of the custom
-properties. Furthermore, users can use it to remind themselves what kind of custom properties which they have defined. This
-ensures that the custom property feature is more complete and provides greater utility for the users.
 
 * *Minor enhancement 2*: Designed the centre panel UI for exercises. This design helps to display both the default and custom
 properties of each exercise to the user.
 
 * *Minor enhancement 3*: Added a `select` command that allows user to select a specific exercise/regime/schedule/suggestion
 which they wish to view.
-
-** Justification: As our intended target audience are also fast typists, providing them with a keyboard method to select an item which
-they wish to view is very appropriate.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weihaw08&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Contribution]]
 

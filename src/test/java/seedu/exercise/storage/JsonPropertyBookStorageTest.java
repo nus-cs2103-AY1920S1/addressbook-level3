@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.exercise.commons.exceptions.DataConversionException;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.PropertyBook;
+import seedu.exercise.model.property.custom.CustomProperty;
 
 class JsonPropertyBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonPropertyBookStorageTest");

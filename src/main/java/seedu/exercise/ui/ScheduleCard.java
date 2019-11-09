@@ -1,5 +1,7 @@
 package seedu.exercise.ui;
 
+import static seedu.exercise.ui.util.LabelUtil.setLabelTooltip;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -40,6 +42,7 @@ public class ScheduleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(schedule.getRegime().getRegimeName().toString());
         date.setText(getDateStringForDisplay(schedule.getDate().toString()));
+        setLabelTooltip(name);
     }
 
     @Override

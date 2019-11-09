@@ -1,5 +1,7 @@
 package seedu.exercise.ui;
 
+import static seedu.exercise.ui.util.LabelUtil.setLabelTooltip;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -37,5 +39,6 @@ public class RegimeInfoPanel extends UiPart<Region> {
                 regime.getRegimeExercises().asUnmodifiableObservableList());
         exerciseListPanel.setPanelTitleText(EXERCISE_LIST_PANEL_TEXT);
         exerciseListPanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
+        setLabelTooltip(regimeName);
     }
 }

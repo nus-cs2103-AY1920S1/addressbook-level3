@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.ParameterType;
+import seedu.exercise.model.property.custom.CustomProperty;
+import seedu.exercise.model.property.custom.ParameterType;
 
 /**
  * Jackson-friendly version of {@link CustomProperty};

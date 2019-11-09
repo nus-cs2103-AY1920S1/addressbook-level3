@@ -19,6 +19,7 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Resource;
+import seedu.exercise.ui.util.ChartUtil;
 
 /**
  * The Main Window. Provides the basic application layout containing

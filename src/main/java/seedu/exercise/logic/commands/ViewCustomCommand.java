@@ -12,7 +12,7 @@ public class ViewCustomCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all defined custom properties.\n"
         + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_VIEW_CUSTOM_MESSAGE = "Opened custom properties window";
+    public static final String SHOWING_VIEW_CUSTOM_MESSAGE = "Opened custom properties window.";
 
     @Override
     public CommandResult execute(Model model) {

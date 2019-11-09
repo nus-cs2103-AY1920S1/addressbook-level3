@@ -3,9 +3,9 @@ package seedu.exercise.logic.parser;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.exercise.model.property.CustomProperty.FULL_NAME_CONSTRAINTS;
-import static seedu.exercise.model.property.CustomProperty.PREFIX_NAME_CONSTRAINTS;
-import static seedu.exercise.model.property.ParameterType.PARAMETER_CONSTRAINTS;
+import static seedu.exercise.model.property.custom.CustomProperty.FULL_NAME_CONSTRAINTS;
+import static seedu.exercise.model.property.custom.CustomProperty.PREFIX_NAME_CONSTRAINTS;
+import static seedu.exercise.model.property.custom.ParameterType.PARAMETER_CONSTRAINTS;
 import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_END_DATE;
 import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_RATING;
 import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_REMARK;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.logic.commands.CustomAddCommand;
 import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.logic.commands.CustomRemoveCommand;
-import seedu.exercise.model.property.CustomProperty;
+import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 class CustomCommandParserTest {

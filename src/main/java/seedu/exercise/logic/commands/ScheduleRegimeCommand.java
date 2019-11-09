@@ -29,8 +29,8 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCarrierCommand {
 
-    public static final String MESSAGE_SUCCESS = "Regime %1$s scheduled on %2$s";
-    public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book";
+    public static final String MESSAGE_SUCCESS = "Regime %1$s scheduled on %2$s.";
+    public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book.";
     public static final String MESSAGE_CONFLICT = "Regime to be scheduled conflicts with another scheduled regime. "
         + "Opening resolve window...";
     public static final String MESSAGE_DATE_BEFORE_CURRENT_DATE = "Input date falls before today's date. \n"

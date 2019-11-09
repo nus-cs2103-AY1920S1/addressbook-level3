@@ -9,8 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.LogsCenter;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.PropertyBook;
+import seedu.exercise.model.property.custom.CustomProperty;
 
 /**
  * UI component to display all previously defined custom properties.

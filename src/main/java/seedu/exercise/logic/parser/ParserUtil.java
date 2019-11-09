@@ -35,14 +35,14 @@ import seedu.exercise.logic.parser.predicate.ExerciseMusclePredicate;
 import seedu.exercise.logic.parser.predicate.ExercisePredicate;
 import seedu.exercise.logic.parser.predicate.PredicateUtil;
 import seedu.exercise.model.property.Calories;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.model.property.ParameterType;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
+import seedu.exercise.model.property.custom.CustomProperty;
+import seedu.exercise.model.property.custom.ParameterType;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.ui.ListResourceType;
 

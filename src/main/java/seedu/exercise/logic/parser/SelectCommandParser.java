@@ -13,6 +13,7 @@ import seedu.exercise.logic.commands.SelectCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author weihaw08
 /**
  * Parses input arguments and creates a new SelectCommand object.
  */

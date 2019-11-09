@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.parser.Prefix;
+import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 public class PropertyBookTest {

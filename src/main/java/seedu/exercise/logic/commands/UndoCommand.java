@@ -27,8 +27,8 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Undoes the latest command called.\n"
         + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Command undone: \n%1$s";
-    public static final String MESSAGE_EMPTY_UNDO_STACK = "There is no command to undo";
+    public static final String MESSAGE_SUCCESS = "Command undone: \n%1$s.";
+    public static final String MESSAGE_EMPTY_UNDO_STACK = "There is no command to undo.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

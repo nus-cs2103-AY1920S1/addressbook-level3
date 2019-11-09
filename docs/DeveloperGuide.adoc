@@ -208,21 +208,21 @@ and an error message will be displayed to indicate there is no undoable or redoa
 The following two Sequence Diagrams show a sample flow of the execution when an `EditCommand`, which is an
 `UndoableCommand`, has been executed and subsequently undone.
 
-The first diagram (Figure 9) describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
+The first diagram describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
 `EditCommand`. The `EventPayload` is only initialized when the `EditCommand` is executed. The `EventPayload` is
 subsequently used for the initialization of the `EditEvent`.
 
 .The process of storing an EditEvent to EventHistory
 image::UndoableCommandSequenceDiagram.png[]
 
-The second diagram (Figure 10) describes the process of undoing the executed `EditCommand`  using the `UndoCommand`.
+The second diagram here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`.
 When the `UndoCommand` is executed, the `EventHistory` calls the `undo` method of the next `Event` in the undo stack
 (i.e. the `EditEvent`).
 
 .The process of undoing the EditCommand
 image::UndoSequenceDiagram.png[]
 
-Given below is a Class Diagram (Figure 11) to show the associations between Event, Command and Model. It is specifically designed
+Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
 such that only objects that implement the `Event` and `Command` interface will need to handle the `model` class.
 [NOTE]
 The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`,
@@ -231,7 +231,7 @@ The only commands that implements the `UndoableCommand` are `AddCommand`, `Delet
 .The associations between Event, Command and Model
 image::EventClassDiagram.png[]
 
-The following Activity Diagram (Figure 12) summarizes what happens when a user enters undoable commands,
+The following Activity Diagram summarizes what happens when a user enters undoable commands,
 the undo command and the redo command.
 
 .The workflow when a user enters an undoable command and performs undo/redo
@@ -373,12 +373,7 @@ image::ScheduleActivityDiagram.png[]
 ==== Rationale
 A quick conversation with a few of our friends revealed that there are many properties which they intend to keep track
 for exercises. However, it is unlikely that we can implement all of these properties for the exercises as there may
-be too much overhead and we can never be certain that we have met all of the users' needs. As such, we decide to allow
-users to define their own properties should they require them. These custom properties can then be applied to all of the
-exercises, providing more flexibility in terms of tracking the exercises' properties.
-
-Furthermore, as noted by one of our user stories, there are users that love customisations too. This can also come in handy
-when they want to define their own properties for the exercises.
+be too much overhead and we can never be certain that we have met all of the users' needs.
 
 ==== Overview
 This feature is facilitated by both `PropertyBook` and `CustomProperty`. Whenever a user
@@ -427,10 +422,7 @@ added, the prefix set in `CliSyntax` is also updated.
 5. `PropertyBook#removeCustomProperty(CustomProperty)`: Removes a pre-defined custom property. Its associated prefix
 is also removed from the prefix set in `CliSyntax`.
 
-Method 3 is implemented to ensure that the name of a default property is not removed by mistake if the user chooses to
-remove a predefined custom property.
-
-All of the crucial associations mentioned above are summarised in the next class diagram (Figure 16).
+All of the crucial associations mentioned above are summarised in the next class diagram.
 
 .Class diagram of the associations of `PropertyBook` and `CustomProperty`
 image::CustomClassDiagram.png[]
@@ -439,53 +431,50 @@ image::CustomClassDiagram.png[]
 To add a new custom property for the exercises, the user can do it through the command `custom s/PREFIX_NAME f/FULL_NAME
 p/PARAMETER_TYPE`. Examples include `custom s/r f/Rating p/Number` and `custom s/ed f/Ending Date p/Date`.
 
-The following sequence diagram (Figure 17) will illustrate how the custom operation works when a custom
+The following sequence diagram will illustrate how the custom operation works when a custom
 property is *successfully added*.
 
 .Sequence diagram of a successful addition of a custom property
-image::EditedCustomSequenceDiagram.png[]
+image::EditedCustomAddSequenceDiagram.png[]
 
-However, not all additions of a custom property will be successful. The next activity diagram
-(Figure 18) shows the workflow when a new custom property is defined.
+For further clarity, one can identify the above diagram with the following sequence of steps:
+
+*Step 1:* User first defines the custom property they wish to add for the exercises.
+
+*Step 2:* The custom property will be parsed by the app's parser and a new `CustomProperty`
+object is created.
+
+*Step 3:* This `CustomProperty` object will be returned together with a newly created `CustomAddCommand` object.
+
+*Step 4:* The `execute` method of the `CustomAddCommand` method will be called and the `CustomProperty` object
+will be added to `PropertyBook`.
+
+*Step 5:* Finally, a `CommandResult` object will be created and returned.
+
+The above steps illustrate the main success scenario. However, not all additions of a custom property will be successful.
+The next activity diagram shows the workflow when a new custom property is defined.
 
 .Activity diagram of the workflow when a new custom property is added
-image::CustomAddActivityDiagram.png[]
+image::CustomAddActivityDiagram.png[width="500"]
 
 Once a custom property is successfully added into `PropertyBook`, the user can use the prefix of the custom property in
 `add` or `edit` command.
 
 ===== Removing Custom Properties
 Should a user wish to remove a custom property from all of the exercises, he/she can simply make use of the command
-`custom rm/FULL_NAME`. Alternatively, if the user wishes to remove a custom property just from a single exercise, he/she
-can choose to enter `custom rm/FULL_NAME i/INDEX` instead.
+`custom rm/FULL_NAME`. A custom property that has been removed from the ``PropertyBook`` can be re-added back if the user chooses to.
+Alternatively, if the user wishes to remove a custom property just from a single exercise, he/she can choose to enter `custom rm/FULL_NAME i/INDEX` instead.
 
-The following sequence diagram (Figure 19) illustrates how a custom property is removed from all of the exercises
-when a user wishes to remove, say, the `Rating` property from the `PropertyBook`.
+The next sequence diagram illustrates what happens when a custom property is removed from the `PropertyBook`.
 
 .Sequence diagram of a successful removal of a custom property from all exercises
 image::EditedCustomRemoveSequenceDiagram.png[]
-
-Similar to the addition of custom properties, the removal of a custom property involves a sequence of checks to
-ensure that the correct custom property is removed from the correct exercise(s). These checks are summarised in the
-next activity diagram (Figure 20).
-
-.Activity diagram of the workflow when a custom property is to be removed
-image::CustomRemoveActivityDiagram.png[]
-
-A custom property that has been removed from the ``PropertyBook`` can be re-added back if the user chooses to.
-
-===== Viewing Custom Properties
-To allow user to view the custom properties which they have defined, they can enter ``viewcustom`` which will produce
-a table that lists out the name, prefix and parameter type of each custom property they have defined.
-
 ==== Design Considerations
 
 ===== Aspect: `PropertyBook` design
 * **Choice 1 (Current choice)**: Represent `PropertyBook` as a singleton class that will
 act as the only access point for the addition and removal of custom properties.
-** Pros: This prevents situations where there could be 2 instances of `PropertyBook` objects and the addition
-of a custom property is only carried out to one instance and not in the other. Furthermore, having a singleton
-like this helps to provide more utility for methods that rely on the `CustomProperty` objects that have been
+** Pros: Having a singleton helps to provide more utility for methods that rely on the `CustomProperty` objects that have been
 created.
 ** Cons: It makes testing much difficult as the results from the previous test cases are carried over. Furthermore,
 it increases coupling across the code base.
@@ -496,24 +485,19 @@ can be created for different tests.
 ** Cons: There could be situations where 2 instances of `PropertyBook` objects are created and the addition of a
 custom property is done to only one instance and not in the other.
 
-Choice 2 seems like an ideal selection at the start as coupling is reduced and it reduces the likelihood
-of untestable code. However, certain issues arise:
+After much consideration, Choice 1 was implemented with the following reasons:
 
 1. `AddCommandParser` and `EditCommandParser` have to gain access to the `CustomProperty` in order to ensure that the values entered
 for the custom properties in the add/edit commands are valid. However, as the `ExerciseBookParser` in the original code base only takes in a
 `String` as a parameter, there has to be another way of retrieving the custom properties. While we can change the
 `ExerciseBookParser` to take in a data structure containing `CustomProperty` objects, this does not seem good as its responsibility
-is just to ensure that a predefined command is entered and is passed to the correct command parser.
-Thus, it does not require knowledge of any custom properties. So, a slightly better choice in this case
-is to make the data structure holding the `CustomProperty` objects a static variable and parsers that require it can access
+is just to ensure that a predefined command is entered and is passed to the correct command parser.A slightly better choice in this case is to make the data structure holding the `CustomProperty` objects a static variable and parsers that require it can access
 it directly.
 
 2. If the data structure holding the `CustomProperty` object is to be made static, it means that this information is
-shared among all of the `PropertyBook` instances if Choice 2 was implemented instead. Thus, `PropertyBook`
-is acting similarly to a singleton since the information carried by any instance of `PropertyBook` is the same.
+shared among all of the `PropertyBook` instances if Choice 2 was implemented. Thus, `PropertyBook`
+is acting like a singleton and so, a singleton class will be appropriate.
 
-As such, after much consideration, Choice 1 was implemented. To ensure that testing can be carried out better,
-the data inside `PropertyBook` is cleared before each test.
 //end::customfeature[]
 
 // tag::suggest[]
@@ -538,7 +522,7 @@ based on `Muscle` and `CustomProperty`.
 The `SuggestBasic` command displays a list of exercises from our database to the user.
 The `SuggestPossible` command is created by parsing the user's inputs to form a `Predicate` before filtering ExerHealth's database and the user's tracked exercises.
 
-The following activity diagram (Figure 21) summarizes what happens when a user enters a suggest possible command:
+The following activity diagram summarizes what happens when a user enters a suggest possible command:
 
 .Activity diagram showing the workflow of a suggest possible command
 image::SuggestActivityDiagram.png[]
@@ -547,7 +531,7 @@ In detail, when a `SuggestPossibleCommand` is entered, the `Logic` component is 
 The `Predicate` is then used to instantiate a `SuggestPossibleCommand`, and later used to filter a list of `Exercise` when the command is executed.
 The interactions between the multiple objects can be captured using a sequence diagram.
 
-The following sequence diagram (Figure 22) shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
+The following sequence diagram shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
 
 .Sequence diagram of a suggest possible command
 image::SuggestSequenceDiagram.png[]
@@ -571,7 +555,7 @@ to parse the user input to create an `ExercisePredicate` object (named `p` in th
 
 8. `SuggestPossibleCommand` creates a new `CommandResult` to be returned.
 
-In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper (Figure 23).
+In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper.
 
 .Sequence diagram of how an `ExercisePredicate` is created
 
@@ -617,12 +601,12 @@ all in one place as it stores the tags, and creates the predicate and filters th
 ==== Implementation
 Statistics of exercises will be displayed in charts. Supported chart types are Pie Chart, Line Chart and Bar Chart.
 StatsFactory will create Statistic using given parameters.
-The figure (Figure 24) below shows the class diagram of statistics:
+The figure below shows the class diagram of statistics:
 
 .Class diagram of the classes behind the statistics feature
 image::StatisticClassDiagram.png[]
 
-The next figure (Figure 25) shows the activity diagram when user enter a `stats` command:
+The next figure shows the activity diagram when user enter a `stats` command:
 
 .Workflow when a user enters a `stats` command
 image::StatisticActivityDiagram.png[]
@@ -645,7 +629,7 @@ Step 7: `StatsCommand` then calls `Model#setStatistic` to set the `Statistic` in
 
 Step 8: `StatsCommand` creates a new `CommandResult` and return to `LogicManager`.
 
-Shown below is the sequence diagram (Figure 26) when user enters a valid `stats` command:
+Shown below is the sequence diagram when user enters a valid `stats` command:
 
 .Sequence diagram of a `stats` command
 image::StatisticSequenceDiagram.png[]
@@ -963,6 +947,9 @@ quantity, units and calories.
 [[prefix]] Prefix::
 The term that comes before each parameter in the command. For example, the
 prefix in `p/Number` is `p/`.
+
+[[prefixName]] Prefix Name::
+The word that comes before `/` in the prefix. For example, the prefix name of `p/` is `p/
 
 == Instructions for Manual Testing
 

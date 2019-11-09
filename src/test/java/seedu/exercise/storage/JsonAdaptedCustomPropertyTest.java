@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.ParameterType;
+import seedu.exercise.model.property.custom.CustomProperty;
+import seedu.exercise.model.property.custom.ParameterType;
 
 class JsonAdaptedCustomPropertyTest {
     private static final String INVALID_PREFIX_NAME = "1";

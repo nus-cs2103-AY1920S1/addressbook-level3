@@ -1,5 +1,7 @@
 package seedu.exercise.ui;
 
+import static seedu.exercise.ui.util.LabelUtil.setLabelTooltip;
+
 import java.util.Comparator;
 import java.util.Set;
 
@@ -58,6 +60,9 @@ public class ExerciseInfoPanel extends UiPart<Region> {
         setMuscleTags(exercise.getMuscles());
         customPropertiesList = new CustomPropertyListPanel(exercise.getObservableCustomPropertiesList());
         customProperties.getChildren().add(customPropertiesList.getRoot());
+        setLabelTooltip(name);
+        setLabelTooltip(calories);
+        setLabelTooltip(quantityAndUnit);
     }
 
     @Override

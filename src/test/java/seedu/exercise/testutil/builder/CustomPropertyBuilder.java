@@ -1,8 +1,8 @@
 package seedu.exercise.testutil.builder;
 
 import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.ParameterType;
+import seedu.exercise.model.property.custom.CustomProperty;
+import seedu.exercise.model.property.custom.ParameterType;
 
 /**
  * A utility class to help with building CustomProperty objects.

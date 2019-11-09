@@ -11,9 +11,10 @@ import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.PropertyBook;
+import seedu.exercise.model.property.custom.CustomProperty;
 
+//@@author weihaw08
 /**
  * Adds a custom property for the exercises.
  */
@@ -22,17 +23,17 @@ public class CustomAddCommand extends CustomCommand {
     public static final String MESSAGE_USAGE_CUSTOM_ADD = "Parameters: "
         + PREFIX_CUSTOM_NAME + "PREFIX NAME "
         + PREFIX_FULL_NAME + "FULL NAME "
-        + PREFIX_PARAMETER_TYPE + "PARAMETER TYPE\n"
+        + PREFIX_PARAMETER_TYPE + "PARAMETER TYPE\t"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_CUSTOM_NAME + "a "
         + PREFIX_FULL_NAME + "Ratings "
         + PREFIX_PARAMETER_TYPE + "Number";
 
-    public static final String MESSAGE_SUCCESS = "New custom property added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New custom property added: %1$s.";
     public static final String MESSAGE_DUPLICATE_FULL_NAME = "This full name has been used for an "
-        + "existing property";
+        + "existing property.";
     public static final String MESSAGE_DUPLICATE_PREFIX_NAME = "This prefix name has been used for an "
-        + "existing parameter in add/edit command";
+        + "existing parameter in add/edit command.";
 
     private static final Logger logger = LogsCenter.getLogger(CustomAddCommand.class);
     private final CustomProperty toAdd;

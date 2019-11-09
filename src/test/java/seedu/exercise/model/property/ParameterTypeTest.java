@@ -7,6 +7,8 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.model.property.custom.ParameterType;
+
 public class ParameterTypeTest {
 
     @Test

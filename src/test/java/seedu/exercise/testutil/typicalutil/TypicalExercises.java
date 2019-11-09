@@ -45,9 +45,9 @@ public class TypicalExercises {
     public static final Exercise SNAP = new ExerciseBuilder().withName("Snapping").withDate("26/09/2019")
         .withCalories("332").withQuantity("800").withUnit("times").build();
     public static final Exercise SWIMMING = new ExerciseBuilder().withName("Swimming").withDate("27/09/2019")
-            .withCalories("300").withQuantity("10").withUnit("laps").build();
+        .withCalories("300").withQuantity("10").withUnit("laps").build();
     public static final Exercise CYCLING = new ExerciseBuilder().withName("Cycling").withDate("28/09/2019")
-                .withCalories("150").withQuantity("5").withUnit("km").build();
+        .withCalories("150").withQuantity("5").withUnit("km").build();
 
     // Manually added
     public static final Exercise CLAP = new ExerciseBuilder().withName("Clapping").withDate("27/09/2019")
@@ -59,20 +59,20 @@ public class TypicalExercises {
     public static final Exercise AEROBICS = new ExerciseBuilder().withName(VALID_NAME_AEROBICS)
         .withDate(VALID_DATE_AEROBICS).withCalories(VALID_CALORIES_AEROBICS)
         .withQuantity(VALID_QUANTITY_AEROBICS).withUnit(VALID_UNIT_AEROBICS)
-        .withMuscles(VALID_MUSCLE_BASKETBALL).build();
+        .withMuscles(VALID_MUSCLE_AEROBICS).build();
     public static final Exercise BASKETBALL = new ExerciseBuilder().withName(VALID_NAME_BASKETBALL)
         .withDate(VALID_DATE_BASKETBALL).withCalories(VALID_CALORIES_BASKETBALL)
         .withQuantity(VALID_QUANTITY_BASKETBALL).withUnit(VALID_UNIT_BASKETBALL)
         .withMuscles(VALID_MUSCLE_AEROBICS, VALID_MUSCLE_BASKETBALL)
         .build();
     public static final Exercise NOT_ADDED_TO_ANY_LIST_EXERCISE = new ExerciseBuilder()
-            .withName(VALID_NAME_LEGS)
-            .withDate(VALID_DATE)
-            .withCalories(VALID_CALORIES_AEROBICS)
-            .withQuantity(VALID_QUANTITY_BASKETBALL)
-            .withUnit(VALID_UNIT_AEROBICS)
-            .withMuscles(VALID_MUSCLE_BASKETBALL)
-            .build();
+        .withName(VALID_NAME_LEGS)
+        .withDate(VALID_DATE)
+        .withCalories(VALID_CALORIES_AEROBICS)
+        .withQuantity(VALID_QUANTITY_BASKETBALL)
+        .withUnit(VALID_UNIT_AEROBICS)
+        .withMuscles(VALID_MUSCLE_BASKETBALL)
+        .build();
 
     private TypicalExercises() {
     } // prevents instantiation

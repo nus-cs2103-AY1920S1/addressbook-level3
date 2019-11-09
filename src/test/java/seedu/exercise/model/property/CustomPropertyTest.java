@@ -26,6 +26,8 @@ import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.REMARK
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.parser.Prefix;
+import seedu.exercise.model.property.custom.CustomProperty;
+import seedu.exercise.model.property.custom.ParameterType;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 class CustomPropertyTest {

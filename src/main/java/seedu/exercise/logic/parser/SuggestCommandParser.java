@@ -17,9 +17,9 @@ import seedu.exercise.logic.commands.SuggestBasicCommand;
 import seedu.exercise.logic.commands.SuggestCommand;
 import seedu.exercise.logic.commands.SuggestPossibleCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.PropertyBook;
+import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.model.resource.Exercise;
 
 /**
@@ -75,7 +75,7 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
     private static SuggestCommand parsePossible(ArgumentMultimap argMultimap) throws ParseException {
         Set<Muscle> muscles = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
         Map<String, String> customPropertiesMap =
-                ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
+            ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
         int numberOfPredicateTags = getNumberOfPredicateTags(muscles, customPropertiesMap);
 
         if (numberOfPredicateTags == 0) {

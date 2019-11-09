@@ -19,7 +19,7 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class ScheduleCompleteCommand extends ScheduleCommand implements PayloadCarrierCommand {
 
-    public static final String MESSAGE_SUCCESS = "Schedule %1$s completed and added to exercise tracker";
+    public static final String MESSAGE_SUCCESS = "Schedule %1$s completed and added to exercise tracker.";
     public static final String UNIQUE_IDENTIFIER = "scheduleComplete";
 
     private Index index;

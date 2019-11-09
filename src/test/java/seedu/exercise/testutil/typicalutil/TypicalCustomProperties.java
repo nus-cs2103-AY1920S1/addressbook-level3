@@ -9,8 +9,11 @@ import static seedu.exercise.testutil.CommonTestData.VALID_PARAMETER_TYPE_REMARK
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_END_DATE;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_REMARK;
+import static seedu.exercise.testutil.CommonTestData.VALID_VALUE_RATING;
 
-import seedu.exercise.model.property.CustomProperty;
+import java.util.Map;
+
+import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 /**
@@ -34,4 +37,7 @@ public class TypicalCustomProperties {
     public static final CustomProperty END_DATE = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_END_DATE)
             .withFullName(VALID_FULL_NAME_END_DATE).withParameterType(VALID_PARAMETER_TYPE_END_DATE).build();
 
+
+    // Custom Properties Map
+    public static final Map<String, String> RATING_MAP = Map.of(VALID_FULL_NAME_RATING, VALID_VALUE_RATING);
 }

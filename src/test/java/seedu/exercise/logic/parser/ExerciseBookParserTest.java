@@ -7,15 +7,21 @@ import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.PARAMETER_TYPE_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.PREFIX_NAME_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_EXERCISE;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_SUGGESTION;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_REMOVE_CUSTOM_PROPERTY;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
+import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.ExitCommand;
@@ -23,6 +29,7 @@ import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.commands.RedoCommand;
 import seedu.exercise.logic.commands.UndoCommand;
+import seedu.exercise.logic.commands.ViewCustomCommand;
 import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Exercise;
@@ -107,5 +114,18 @@ public class ExerciseBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_custom() throws Exception {
+        assertTrue((parser.parseCommand(CustomCommand.COMMAND_WORD + PREFIX_NAME_DESC_RATING
+            + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING)) instanceof CustomCommand);
+        assertTrue((parser.parseCommand(CustomCommand.COMMAND_WORD + VALID_PREFIX_REMOVE_CUSTOM_PROPERTY
+            + VALID_FULL_NAME_RATING)) instanceof CustomCommand);
+    }
+
+    @Test
+    public void parseCommand_viewCustom() throws Exception {
+        assertTrue(((parser.parseCommand(ViewCustomCommand.COMMAND_WORD)) instanceof ViewCustomCommand));
     }
 }

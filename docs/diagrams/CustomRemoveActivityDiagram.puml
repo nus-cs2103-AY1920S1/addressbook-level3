@@ -18,6 +18,7 @@ if () then ([given name is used])
             endif
         else ([else])
             :Remove custom property of given name from PropertyBook;
+            :Update prefix set in CliSyntax;
             :Update custom properties of exercises;
         endif
 else ([else])

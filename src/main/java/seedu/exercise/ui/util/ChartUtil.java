@@ -1,4 +1,4 @@
-package seedu.exercise.ui;
+package seedu.exercise.ui.util;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;

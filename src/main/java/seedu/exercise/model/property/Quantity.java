@@ -1,7 +1,7 @@
 package seedu.exercise.model.property;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.commons.core.ValidationRegex.ONLY_NUMBERS;
+import static seedu.exercise.commons.core.ValidationRegex.ONLY_NON_NEGATIVE_NUMBERS;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
 /**
@@ -28,7 +28,7 @@ public class Quantity {
      * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
-        return test.matches(ONLY_NUMBERS);
+        return test.matches(ONLY_NON_NEGATIVE_NUMBERS);
     }
 
     @Override

@@ -25,8 +25,8 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Command redone: \n%1$s";
-    public static final String MESSAGE_EMPTY_REDO_STACK = "There is no command to redo";
+    public static final String MESSAGE_SUCCESS = "Command redone: \n%1$s.";
+    public static final String MESSAGE_EMPTY_REDO_STACK = "There is no command to redo.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

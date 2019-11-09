@@ -1,5 +1,7 @@
 package seedu.exercise.ui;
 
+import static seedu.exercise.ui.util.LabelUtil.setLabelTooltip;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -29,5 +31,7 @@ public class RegimeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(regime.getRegimeName().toString());
         exercises.setText(regime.toString());
+
+        setLabelTooltip(name);
     }
 }

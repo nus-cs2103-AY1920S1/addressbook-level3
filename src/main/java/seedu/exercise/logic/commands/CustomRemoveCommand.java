@@ -22,13 +22,14 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author weihaw08
 /**
  * Removes the custom property with the given full name.
  */
 public class CustomRemoveCommand extends CustomCommand {
 
     public static final String MESSAGE_USAGE_CUSTOM_REMOVE = "Parameters: "
-        + PREFIX_REMOVE_CUSTOM + "FULL NAME\n"
+        + PREFIX_REMOVE_CUSTOM + "FULL NAME\t"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_REMOVE_CUSTOM + "Rating ";
 

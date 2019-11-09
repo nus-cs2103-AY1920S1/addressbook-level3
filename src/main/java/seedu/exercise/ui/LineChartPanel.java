@@ -9,6 +9,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.exercise.logic.commands.statistic.Statistic;
+import seedu.exercise.ui.util.ChartUtil;
 
 /**
  * An UI for line chart.

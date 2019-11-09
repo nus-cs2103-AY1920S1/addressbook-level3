@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,12 +14,15 @@
 
 <AnchorPane fx:id="cardPane" prefHeight="644.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="250.0" prefWidth="190.0" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="644.0" prefWidth="501.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="name" prefHeight="74.0" prefWidth="501.0" styleClass="infoPanel_name" text="$name" textOverrun="WORD_ELLIPSIS">
+            <Label fx:id="name" prefWidth="500.0" styleClass="infoPanel_name" text="$name" textOverrun="WORD_ELLIPSIS" wrapText="true">
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
+               <tooltip>
+                  <Tooltip minHeight="100" minWidth="100" styleClass="tooltip" text="Empty Tooltip" />
+               </tooltip>
             </Label>
             <HBox prefHeight="50.0" prefWidth="190.0">
                <children>
@@ -30,7 +34,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="date" styleClass="infoPanel_properties" text="$date">
+                  <Label fx:id="date" styleClass="infoPanel_properties" text="$date" wrapText="true">
                      <padding>
                         <Insets left="5.0" top="15.0" />
                      </padding>
@@ -50,7 +54,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="calories" styleClass="infoPanel_properties" text="$calories">
+                  <Label fx:id="calories" styleClass="infoPanel_properties" text="$calories" wrapText="true">
                      <padding>
                         <Insets left="5.0" top="15.0" />
                      </padding>
@@ -70,7 +74,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="quantityAndUnit" styleClass="infoPanel_properties" text="$quantityAndUnit">
+                  <Label fx:id="quantityAndUnit" styleClass="infoPanel_properties" text="$quantityAndUnit" wrapText="true">
                      <padding>
                         <Insets left="5.0" top="15.0" />
                      </padding>
@@ -96,20 +100,20 @@
                      </padding></FlowPane>
                </children>
             </HBox>
+            <VBox prefHeight="251.0" prefWidth="502.0">
+               <children>
+                  <Label styleClass="infoPanel_customProperties_label" text="Other properties:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <StackPane fx:id="customProperties" prefHeight="202.0" prefWidth="502.0" styleClass="infoPanel_customProperties_listView" />
+               </children>
+            </VBox>
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-      </VBox>
-      <VBox layoutY="425.0" prefHeight="219.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="425.0">
-         <children>
-            <Label styleClass="infoPanel_customProperties_label" text="Other properties:">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <StackPane fx:id="customProperties" prefHeight="193.0" prefWidth="478.0" styleClass="infoPanel_customProperties_listView" />
-         </children>
       </VBox>
    </children>
 </AnchorPane>

@@ -1,13 +1,10 @@
 package seedu.exercise.ui;
 
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Exercise;
 
 /**
@@ -15,7 +12,6 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class SuggestionListPanel extends ResourceListPanel {
     private static final String FXML = "SuggestionListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(SuggestionListPanel.class);
 
     @FXML
     private ListView<Exercise> suggestionListView;

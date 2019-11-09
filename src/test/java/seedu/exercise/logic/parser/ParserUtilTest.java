@@ -26,9 +26,9 @@ import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.Name;
-import seedu.exercise.model.property.ParameterType;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
+import seedu.exercise.model.property.custom.ParameterType;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "D@nce";
@@ -87,7 +87,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndexes_collectionWithInvalidIndex_throwsParseException() {
         assertThrows(ParseException.class, () ->
-                ParserUtil.parseIndexes(Arrays.asList("-1", "0")));
+            ParserUtil.parseIndexes(Arrays.asList("-1", "0")));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ParserUtilTest {
     public void parseIndexes_collectionWithValidMuscles_returnsIndexList() throws Exception {
         ArrayList<Index> actualIndexSet = ParserUtil.parseIndexes(Arrays.asList("1", "2"));
         ArrayList<Index> expectedIndexSet = new ArrayList<>(Arrays.asList(INDEX_ONE_BASED_FIRST,
-                INDEX_ONE_BASED_SECOND));
+            INDEX_ONE_BASED_SECOND));
 
         assertEquals(expectedIndexSet, actualIndexSet);
     }
@@ -386,9 +386,9 @@ public class ParserUtilTest {
     @Test
     public void parsePredicate_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                ParserUtil.parsePredicate(null, new TreeMap<>(), true));
+            ParserUtil.parsePredicate(null, new TreeMap<>(), true));
         assertThrows(NullPointerException.class, () ->
-                ParserUtil.parsePredicate(new HashSet<>(), null, true));
+            ParserUtil.parsePredicate(new HashSet<>(), null, true));
     }
 
     @Test
@@ -397,18 +397,18 @@ public class ParserUtilTest {
         Set<Muscle> muscles = new HashSet<>();
         muscles.add(new Muscle(VALID_MUSCLE_1));
         assertEquals(new ExercisePredicate(false, new ExerciseMusclePredicate(muscles, false)),
-                ParserUtil.parsePredicate(muscles, new TreeMap<>(), false));
+            ParserUtil.parsePredicate(muscles, new TreeMap<>(), false));
 
         //only custom properties, empty muscles
         Map<String, String> customProperties = new TreeMap<>();
         customProperties.put(VALID_CUSTOM_PROPERTY_FULL_NAME, VALID_CUSTOM_PROPERTY_VALUE);
         assertEquals(new ExercisePredicate(true, new ExerciseCustomPropertyPredicate(customProperties, true)),
-                ParserUtil.parsePredicate(new HashSet<>(), customProperties, true));
+            ParserUtil.parsePredicate(new HashSet<>(), customProperties, true));
 
         //both muscles, and custom properties
         assertEquals(new ExercisePredicate(true,
-            new ExerciseMusclePredicate(muscles, true),
-            new ExerciseCustomPropertyPredicate(customProperties, true)),
+                new ExerciseMusclePredicate(muscles, true),
+                new ExerciseCustomPropertyPredicate(customProperties, true)),
             ParserUtil.parsePredicate(muscles, customProperties, true));
     }
 

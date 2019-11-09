@@ -1,5 +1,7 @@
 package seedu.exercise.ui;
 
+import static seedu.exercise.ui.util.LabelUtil.setLabelTooltip;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -53,6 +55,8 @@ public class ExerciseListCard extends UiPart<Region> {
         exercise.getMuscles().stream()
             .sorted(Comparator.comparing(muscle -> muscle.muscleName))
             .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));
+
+        setLabelTooltip(name);
     }
 
     @Override

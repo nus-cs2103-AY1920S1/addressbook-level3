@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.commons.util.JsonUtil;
-import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.PropertyBook;
+import seedu.exercise.model.property.custom.CustomProperty;
 
 class JsonSerializablePropertyBookTest {
 

@@ -38,7 +38,6 @@ public class CommonTestData {
 
     //=======================For valid conflict index=============================
     public static final String VALID_PREFIX_CONFLICT_INDEX = " " + PREFIX_CONFLICT_INDEX + VALID_INDEX;
-    public static final String VALID_PREFIX_CONFLICT_INDEX_2 = " " + PREFIX_CONFLICT_INDEX + VALID_INDEX_2;
 
     ///=======================For valid name=============================
     public static final String VALID_NAME_CARDIO = "cardio";
@@ -94,16 +93,8 @@ public class CommonTestData {
     //=======================For invalid conflict index=============================
     public static final String INVALID_PREFIX_CONFLICT_INDEX_ZERO = " "
         + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ZERO;
-    public static final String INVALID_PREFIX_CONFLICT_INDEX_NEGATIVE = " "
-        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NEGATIVE;
-    public static final String INVALID_PREFIX_CONFLICT_INDEX_ALPHABETS = " "
-        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ALPHABETS;
-    public static final String INVALID_PREFIX_CONFLICT_INDEX_SYMBOLS = " "
-        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_SYMBOLS;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_NOT_ENGLISH = " "
         + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NOT_ENGLISH;
-    public static final String INVALID_PREFIX_CONFLICT_INDEX_EMPTY = " "
-        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_EMPTY;
 
     //=======================For commonly used file names=============================
     public static final String EXERCISE_BOOK_FILE_NAME = "exerciseBook.json";
@@ -201,14 +192,7 @@ public class CommonTestData {
     public static final String PARAMETER_TYPE_DESC_END_DATE = " "
         + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_END_DATE;
     public static final String VALID_VALUE_RATING = "1";
-    public static final String DESC_PREFIX_WITH_VALUE_RATING = " " + VALID_PREFIX_NAME_RATING + '/'
-        + VALID_VALUE_RATING;
     public static final String VALID_VALUE_REMARK = "hi";
-    public static final String DESC_PREFIX_WITH_VALUE_REMARK = " " + VALID_PREFIX_NAME_REMARK + '/'
-        + VALID_VALUE_REMARK;
-    public static final String VALID_VALUE_END_DATE = "24/12/2019";
-    public static final String DESC_PREFIX_WITH_VALUE_END_DATE = " " + VALID_PREFIX_NAME_END_DATE + '/'
-        + VALID_VALUE_END_DATE;
     public static final String VALID_PREFIX_REMOVE_CUSTOM_PROPERTY = " " + PREFIX_REMOVE_CUSTOM;
 
     //=======================For invalid custom properties=============================
@@ -231,13 +215,7 @@ public class CommonTestData {
 
     //=======================For valid operation types=============================
     public static final String VALID_OPERATION_TYPE_AND = "and";
-    public static final String VALID_OPERATION_TYPE_OR = "or";
     public static final String DESC_OPERATION_TYPE_AND = " " + PREFIX_OPERATION_TYPE + VALID_OPERATION_TYPE_AND;
-    public static final String DESC_OPERATION_TYPE_OR = " " + PREFIX_OPERATION_TYPE + VALID_OPERATION_TYPE_OR;
-
-    //=======================For invalid operation types=============================
-    public static final String INVALID_OPERATION_TYPE = "notALogicalOperator";
-    public static final String INVALID_DESC_OPERATION_TYPE = " " + PREFIX_OPERATION_TYPE + INVALID_OPERATION_TYPE;
 
     //=======================For valid exercise toString============================
     public static final String VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY =
