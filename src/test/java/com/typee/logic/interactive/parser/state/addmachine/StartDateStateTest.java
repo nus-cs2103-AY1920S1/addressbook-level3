@@ -5,6 +5,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYP
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -167,7 +168,7 @@ class StartDateStateTest {
     @Test
     void isEndState_valid_returnsFalse() {
         State state = new StartDateState(new ArgumentMultimap());
-        assertEquals(state.isEndState(), false);
+        assertFalse(state.isEndState());
     }
 
     @Test
