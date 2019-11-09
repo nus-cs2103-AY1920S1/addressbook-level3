@@ -4,9 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.statistics.generators.BreakdownGenerator;
 import seedu.billboard.model.statistics.generators.HeatMapGenerator;
@@ -26,21 +28,23 @@ public class ChartBox extends UiPart<Region> {
     private AnchorPane chartContainer;
 
     private ObservableList<Expense> expenses;
-    private DateInterval dateInterval;
-    private StatisticsFormatOptions.Grouping expenseGrouping;
+    private ObservableData<DateInterval> dateInterval;
+    private ObservableData<ExpenseGrouping> expenseGrouping;
     private ExpenseChart currentChart;
 
     public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
                     ObservableData<StatisticsFormatOptions> statsOptions) {
         super(FXML);
         this.expenses = expenses;
-        this.dateInterval = DateInterval.MONTH;
-        this.expenseGrouping = StatisticsFormatOptions.Grouping.NONE;
+        this.dateInterval = new ObservableData<>();
+        this.expenseGrouping = new ObservableData<>();
+        dateInterval.setValue(DateInterval.MONTH);
+        expenseGrouping.setValue(ExpenseGrouping.NONE);
 
         statsType.observe(this::onStatsTypeChanged);
         statsOptions.observe(options -> {
-            options.getNewDateInterval().ifPresent(value -> dateInterval = value);
-            options.getGrouping().ifPresent(value -> expenseGrouping = value);
+            options.getNewDateInterval().ifPresent(value -> dateInterval.setValue(value));
+            options.getGrouping().ifPresent(value -> expenseGrouping.setValue(value));
         });
     }
 

@@ -7,6 +7,7 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_INTERVAL;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.logic.commands.DisplayStatsCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 
@@ -36,8 +37,8 @@ public class DisplayStatsCommandParser implements Parser<DisplayStatsCommand> {
                 .flatMap(DateInterval::intervalFromName)
                 .orElse(null);
 
-        StatisticsFormatOptions.Grouping expenseGrouping = argMultimap.getValue(PREFIX_GROUPING)
-                .flatMap(StatisticsFormatOptions.Grouping::groupingFromName)
+        ExpenseGrouping expenseGrouping = argMultimap.getValue(PREFIX_GROUPING)
+                .flatMap(ExpenseGrouping::groupingFromName)
                 .orElse(null);
 
         StatisticsFormatOptions newOptions = StatisticsFormatOptions.withOptions(newInterval, expenseGrouping);
