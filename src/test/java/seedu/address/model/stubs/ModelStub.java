@@ -77,6 +77,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public List<BankAccountOperation> getTransactionList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyBankAccount getBankAccount() {
         throw new AssertionError("This method should not be called.");
     }

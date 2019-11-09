@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -192,6 +193,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public List<BankAccountOperation> getTransactionList() {
+        Predicate<? super BankAccountOperation> pred = this.filteredTransactions.getPredicate();
+        this.filteredTransactions.setPredicate(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        List<BankAccountOperation> transactionList = new ArrayList<>(this.filteredTransactions);
+        this.filteredTransactions.setPredicate(pred);
+        return transactionList;
+    }
+
+    @Override
     public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
@@ -280,7 +290,7 @@ public class ModelManager implements Model {
                     newTransactions.setTransactions(x.getTransactionHistory());
                     newTransactions.add(added);
                     this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
-                            x.getDate(), x.getBudgets(), x.getCategory()));
+                        x.getDate(), x.getBudgets(), x.getCategory()));
                 }
             }
         });
@@ -295,7 +305,7 @@ public class ModelManager implements Model {
                 newBudgets.setBudgets(x.getBudgets());
                 newBudgets.add(added);
                 this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
-                        newBudgets.asUnmodifiableObservableList()));
+                    newBudgets.asUnmodifiableObservableList()));
             } else {
                 boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
                     if (x.getCategory() != null) {
@@ -309,7 +319,7 @@ public class ModelManager implements Model {
                     newBudgets.setBudgets(x.getBudgets());
                     newBudgets.add(added);
                     this.add(new Projection(x.getTransactionHistory(),
-                            x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                        x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
                 }
             }
         });
@@ -324,7 +334,7 @@ public class ModelManager implements Model {
                 newTransactions.setTransactions(x.getTransactionHistory());
                 newTransactions.remove(deleted);
                 if (newTransactions.asUnmodifiableObservableList().size()
-                        >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
+                    >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
                     this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate()));
                 }
             } else {
@@ -340,7 +350,7 @@ public class ModelManager implements Model {
                     newTransactions.setTransactions(x.getTransactionHistory());
                     newTransactions.remove(deleted);
                     this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
-                            x.getDate(), x.getBudgets(), x.getCategory()));
+                        x.getDate(), x.getBudgets(), x.getCategory()));
                 }
             }
         });
@@ -355,7 +365,7 @@ public class ModelManager implements Model {
                 newBudgets.setBudgets(x.getBudgets());
                 newBudgets.remove(deleted);
                 this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
-                        newBudgets.asUnmodifiableObservableList()));
+                    newBudgets.asUnmodifiableObservableList()));
             } else {
                 boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {
                     if (x.getCategory() != null) {
@@ -369,7 +379,7 @@ public class ModelManager implements Model {
                     newBudgets.setBudgets(x.getBudgets());
                     newBudgets.remove(deleted);
                     this.add(new Projection(x.getTransactionHistory(),
-                            x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                        x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
                 }
             }
         });
