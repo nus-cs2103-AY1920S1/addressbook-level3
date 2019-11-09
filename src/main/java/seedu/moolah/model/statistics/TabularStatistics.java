@@ -135,7 +135,6 @@ public class TabularStatistics implements Statistics {
         return table;
     }
 
-
     /**
      * Creates a new table containing the differences in the two tables of basic statistics
      * @param firstTable The basic statistics of the first time period

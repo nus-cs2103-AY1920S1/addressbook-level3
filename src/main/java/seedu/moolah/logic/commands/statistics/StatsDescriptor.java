@@ -1,5 +1,7 @@
 package seedu.moolah.logic.commands.statistics;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 import seedu.moolah.model.expense.Timestamp;
@@ -15,6 +17,14 @@ public class StatsDescriptor {
 
     public StatsDescriptor() {};
 
+    /**
+     * Copy constructor.
+     */
+    public StatsDescriptor(StatsDescriptor toCopy) {
+        setStartDate(toCopy.startDate);
+        setEndDate(toCopy.endDate);
+    }
+
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
@@ -29,6 +39,15 @@ public class StatsDescriptor {
 
     public Optional<Timestamp> getEndDate() {
         return Optional.ofNullable(endDate);
+    }
+
+    /**
+     * Returns true if start date is before end date.
+     */
+    public boolean isStartBeforeEnd() {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        return startDate.isBefore(endDate);
     }
 
     @Override
@@ -50,7 +69,11 @@ public class StatsDescriptor {
                 && getStartDate().equals(typeCasted.getStartDate());
     }
 
+
 }
+
+
+
 
 
 

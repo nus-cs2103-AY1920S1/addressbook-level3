@@ -226,6 +226,14 @@ public class TrendStatistics implements Statistics {
         return budgetLimitMode;
     }
 
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
     public String toString() {
         return String.format("%s\n%s", getTitle(), getPeriodicTotalExpenditure());
     }

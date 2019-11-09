@@ -54,11 +54,15 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
         boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
         if (isStartPresent && isEndPresent) {
-            checkStartBeforeEnd(argMultimap);
+            //checkStartBeforeEnd(argMultimap);//consider shifting this test into the descriptor
+            //the test should be tested too
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
             statsDescriptor.setStartDate(startDate);
             statsDescriptor.setEndDate(endDate);
+            if (!statsDescriptor.isStartBeforeEnd()) {
+                throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);//is this under message or under the command?
+            }
         } else if (isStartPresent) {
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             statsDescriptor.setStartDate(startDate);
@@ -70,18 +74,18 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         return new StatsCommand(statsDescriptor);
     }
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the StatsCommand
-     * Checks that start date is before the end date of the given {@code ArgumentMultimap}
-     *
-     * @throws ParseException if the detected start date is after the end date
-     */
-    private void checkStartBeforeEnd(ArgumentMultimap argMultimap) throws ParseException {
-        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-        Timestamp endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-        if (endDate.isBefore(startDate)) {
-            throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
-        }
-    }
+//    /**
+//     * Parses the given {@code String} of arguments in the context of the StatsCommand
+//     * Checks that start date is before the end date of the given {@code ArgumentMultimap}
+//     *
+//     * @throws ParseException if the detected start date is after the end date
+//     */
+//    private void checkStartBeforeEnd(ArgumentMultimap argMultimap) throws ParseException {
+//        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
+//        Timestamp endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+//        if (endDate.isBefore(startDate)) {
+//            throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
+//        }
+//    }
 
 }

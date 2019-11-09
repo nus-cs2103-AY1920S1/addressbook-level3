@@ -203,6 +203,14 @@ public class PieChartStatistics implements Statistics {
         this.title = title;
     }
 
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
 
 }
 

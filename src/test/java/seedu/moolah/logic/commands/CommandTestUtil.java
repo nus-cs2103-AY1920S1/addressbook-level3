@@ -24,6 +24,8 @@ import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
+import seedu.moolah.logic.commands.statistics.StatsDescriptor;
+import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
@@ -31,6 +33,8 @@ import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
+import seedu.moolah.testutil.StatsDescriptorBuilder;
+import seedu.moolah.testutil.StatsTrendDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -129,6 +133,24 @@ public class CommandTestUtil {
     public static final EditExpenseCommand.EditExpenseDescriptor DESC_CHICKEN;
     public static final EditEventCommand.EditEventDescriptor DESC_BUFFET;
 
+
+    public static final String VALID_EARLY_TIMESTAMP = "14-01-2019";
+    public static final String VALID_LATE_TIMESTAMP = "16-09-2019";
+
+    public static final String VALID_EARLIER_TIMESTAMP = "13-01-2019";
+    public static final String VALID_LATER_TIMESTAMP = "17-09-2019";
+
+    public static final String VALID_MODE_CATEGORY = "Category";
+    public static final String VALID_MODE_BUDGET = "budget";
+
+    public static final StatsDescriptor VALID_STATS_DESCRIPTOR = new StatsDescriptorBuilder().
+            withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP).build();
+
+    public static final StatsTrendDescriptor VALID_STATS_TREND_DESCRIPTOR = new StatsTrendDescriptorBuilder().
+            withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP).withMode(VALID_MODE_CATEGORY).build();
+
+
+
     public static final String STATS_WITHOUT_PREFIX = " 5";
     public static final String STATS_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
@@ -173,6 +195,8 @@ public class CommandTestUtil {
                 .withTimestamp(VALID_EVENT_TIMESTAMP_BUFFET)
                 .withCategory(VALID_EVENT_CATEGORY_BUFFET).build();
     }
+
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
