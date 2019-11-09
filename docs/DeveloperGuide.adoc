@@ -234,6 +234,7 @@ The decryption process is similar to the encryption process, except that the `EN
 // end::dataencryption[]
 
 === Notes Feature
+==== Key basic features
 Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
 
 The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
@@ -247,6 +248,43 @@ Below is the sub-diagram for retrieving the note through the `open` command.
 ****
 
 image::OpenNoteSequenceDiagramRef.png[]
+
+==== Undo/Redo
+===== Implementation
+The undo/redo mechanism is facilitated by the VersionedNoteBook, which extends NoteBook with a undo/redo history.
+This history is stored in two stacks - the undo stack which store the history of NoteBooks before the current state and
+the redo stack which stores the history of NoteBooks after the current state. The key operations that support this mechanisms are:
+
+`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in its history.
+
+`VersionedNoteBook#undo()` — Restores the previous note book state from its history and returns its corresponding command
+to inform the user what command is undone.
+
+`VersionedNoteBook#redo()` — Restores a previously undone note book state from its history and returns its corresponding
+command to inform the user what command is redone.
+
+Below is a comprehensive activity diagram to illustrate how the undo/redo mechanism works.
+
+image::UndoRedoActivityDiagram.png[]
+
+Undo-able and redo-able commands are commands that modify the modifies the note book. They include: `add`, `delete`,
+`clear`, `edit` and `open`. `open` command is considered undo-able and redo-able because it updates the number of access
+to the note opened.
+
+On an undo command, the current state of the note book is first stored in the history (NoteBook's redo stack) before being
+reverted to the previous notebook state. The previous notebook state is then removed from its history (NoteBook's undo stack).
+
+Similarly, on a redo command, the current state of the note book is first stored in the history (NoteBook's undo stack) before being
+restored to the next notebook state. The next notebook state is then removed from its history (NoteBook's redo stack).
+
+
+When an undoable command is executed, the current state of the `NoteBook` is checked against its previous NoteBook state in
+its history within the commit command. The current state of the `NoteBook` is only saved to its history if it is not equals to
+the previous one. Similarly, the same check is done on `VersionedNoteBook#undo()` command, and only if the current state is not
+equal to the previous one, will the current state be set to the state of its previous `NoteBook`. This is to prevent users from being
+able to perform undo and redo actions when there is no change to be undone or redone.
+
+===== Design Considerations
 
 === Logging
 
