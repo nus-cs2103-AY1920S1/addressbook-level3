@@ -1,8 +1,9 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 0.5
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+skinparam linetype ortho
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
@@ -11,8 +12,17 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class GroceryListPanel
+Class ExpiredGroceryCard
+Class IsExpiringGroceryCard
+Class NotExpiringGroceryCard
+Class WasteListPanel
+Class TemplateListPanel
+Class TemplateListCard
+Class TemplateItemPanel
+Class TemplateItemCard
+Class ShoppingListPanel
+Class ShoppingItemCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -30,31 +40,66 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-left-> HelpWindow
+MainWindow *--> CommandBox
+MainWindow *--> ResultDisplay
+MainWindow *-right-> GroceryListPanel
+MainWindow *-right-> WasteListPanel
+MainWindow *-right-> TemplateListPanel
+MainWindow *-right-> TemplateItemPanel
+MainWindow *-right-> ShoppingListPanel
+MainWindow *--> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+GroceryListPanel -right-> ExpiredGroceryCard
+GroceryListPanel -down-> IsExpiringGroceryCard
+GroceryListPanel -down-> NotExpiringGroceryCard
+WasteListPanel -up-> ExpiredGroceryCard
+WasteListPanel -right-> IsExpiringGroceryCard
+WasteListPanel -down-> NotExpiringGroceryCard
+TemplateListPanel -right-> TemplateListCard
+TemplateItemPanel -right-> TemplateItemCard
+ShoppingListPanel -right-> ShoppingItemCard
 
-MainWindow -left-|> UiPart
+MainWindow -right-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+GroceryListPanel --|> UiPart
+WasteListPanel --|> UiPart
+TemplateListPanel --|> UiPart
+TemplateItemPanel --|> UiPart
+ShoppingListPanel --|> UiPart
+ExpiredGroceryCard --|> UiPart
+IsExpiringGroceryCard --|> UiPart
+NotExpiringGroceryCard --|> UiPart
+TemplateListCard --|> UiPart
+TemplateItemCard --|> UiPart
+ShoppingItemCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow --|> UiPart
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+ExpiredGroceryCard ..> Model
+IsExpiringGroceryCard ..> Model
+NotExpiringGroceryCard ..> Model
+TemplateListCard ..> Model
+TemplateItemCard ..> Model
+ShoppingItemCard ..> Model
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+UiManager -up-> Logic
+MainWindow -up-> Logic
+
+GroceryListPanel -[hidden]left- HelpWindow
+GroceryListPanel -[hidden]down- WasteListPanel
+WasteListPanel -[hidden]down- TemplateListPanel
+TemplateListPanel -[hidden]down- TemplateItemPanel
+TemplateItemPanel -[hidden]down- ShoppingListPanel
+HelpWindow -[hidden]down- CommandBox
+CommandBox -[hidden]down- ResultDisplay
+ResultDisplay -[hidden]down- StatusBarFooter
+ExpiredGroceryCard -[hidden]down- IsExpiringGroceryCard
+IsExpiringGroceryCard -[hidden]down- NotExpiringGroceryCard
+TemplateListCard -[hidden]down- TemplateItemCard
+TemplateItemCard -[hidden]down- ShoppingItemCard
 
 MainWindow -[hidden]-|> UiPart
 @enduml

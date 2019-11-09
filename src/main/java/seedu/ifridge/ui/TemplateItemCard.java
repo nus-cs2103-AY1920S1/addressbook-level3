@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.ifridge.model.food.TemplateItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code TemplateItem}.
  */
 public class TemplateItemCard extends UiPart<Region> {
 
@@ -38,6 +38,9 @@ public class TemplateItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(templateItem.getName().fullName);
         amount.setText(templateItem.getAmount().fullAmt);
+        name.setWrapText(true);
+        id.setWrapText(true);
+        amount.setWrapText(true);
     }
 
     @Override
