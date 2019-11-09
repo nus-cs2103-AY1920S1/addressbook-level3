@@ -48,7 +48,7 @@ It provides you a Graphical User Interface (GUI) so you can easily view their Ev
 === Code Contributed
 
 ==== Sample Code Contributed:
-Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kyzure&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[`Repo Sense Link`] that indicates the amount of code I have written for the project. For more details, the most of the following code are also written by me, and authorship - `//@@author Kyzure`, or `<!-- @@author Kyzure -->` - can be found on the top of the code.
+Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kyzure&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[`Repo Sense Link`] that indicates the amount of code I have written for the project. For more details, the most of the following code are also written by me, and authorship - `//@@author Kyzure`, or `<!-- @@author Kyzure -$$->$$` - can be found on the top of the code.
 
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui[`Ui Controller Code`] - The packages `systemTray` and `listeners` are not written by me, as well as code without my authorship.
 * link:{repoURL}/blob/master/src/main/resources/view[`JavaFX Code for .fxml files`]
