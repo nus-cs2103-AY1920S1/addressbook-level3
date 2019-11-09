@@ -17,6 +17,7 @@ public class Repetitions<Integer> extends ExerciseDetail {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("[Number of repetitions: ")

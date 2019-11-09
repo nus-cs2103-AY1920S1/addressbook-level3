@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Sets<Integer> extends ExerciseDetail {
 
-    public Sets(int sets) {
+    public Sets(java.lang.Integer sets) {
         requireNonNull(sets);
         super.magnitude = sets;
     }
@@ -17,6 +17,7 @@ public class Sets<Integer> extends ExerciseDetail {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("[Number of sets: ")

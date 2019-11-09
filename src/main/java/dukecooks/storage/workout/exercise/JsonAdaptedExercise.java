@@ -93,7 +93,7 @@ public class JsonAdaptedExercise {
         } else if (detail instanceof Distance) {
             return new JsonAdaptedDistance((Distance) detail);
         } else if (detail instanceof Repetitions) {
-            return new JsonAdaptedTiming((Repetitions) detail);
+            return new JsonAdaptedRepetitions((Repetitions) detail);
         } else if (detail instanceof Sets) {
             return new JsonAdaptedSets((Sets) detail);
         } else {
