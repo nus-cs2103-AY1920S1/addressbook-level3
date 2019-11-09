@@ -9,10 +9,12 @@ import static seedu.guilttrip.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Category;
@@ -27,8 +29,8 @@ import seedu.guilttrip.ui.gui.guihandles.AutoExpenseListPanelHandle;
  * Unit test for autoExpense list panel.
  */
 public class AutoExpenseListPanelTest extends GuiUnitTest {
-    private static final ObservableList<AutoExpense> TYPICAL_AUTOEXPENSES
-            = FXCollections.observableList(getTypicalAutoExpenses());
+    private static final ObservableList<AutoExpense> TYPICAL_AUTOEXPENSES =
+            FXCollections.observableList(getTypicalAutoExpenses());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

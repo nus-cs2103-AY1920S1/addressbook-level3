@@ -11,7 +11,7 @@ import seedu.guilttrip.testutil.AutoExpenseBuilder;
 import seedu.guilttrip.ui.autoexpense.AutoExpensesCard;
 import seedu.guilttrip.ui.gui.guihandles.AutoExpenseCardHandle;
 
-public class AutoAutoExpensesCardTest extends GuiUnitTest {
+public class AutoExpenseCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
