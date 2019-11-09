@@ -1,4 +1,4 @@
-Chen Kai Bin - Project Portfolio for StudyBuddyPro
+= Chen Kai Bin - Project Portfolio for StudyBuddyPro
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

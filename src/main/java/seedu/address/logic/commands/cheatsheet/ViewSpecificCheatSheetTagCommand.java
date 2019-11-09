@@ -3,6 +3,8 @@ package seedu.address.logic.commands.cheatsheet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.SHOW;
 
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -13,7 +15,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.CheatsheetTabWindowController;
 
-import java.util.logging.Logger;
 
 /**
  * Views a cheatsheet's contents by a specified tag identified by its displayed index.

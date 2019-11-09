@@ -22,6 +22,11 @@ StudyBuddyPro is a desktop Command Line Interface (CLI) application intended for
 
 StudyBuddyPro provides three main features: Flashcard, Notes and Cheatsheet. These features are used to revise using flashcards, take notes and generate cheatsheets respectively. Additionally, StudyBuddyPro is equipped with a Graphic User Interface (GUI).
 
+.StudyBuddyPro's GUI with explanations
+image::jasmineDiagrams/ssForPppUiDesc.png[]
+
+The above image shows how StudyBuddyPro looks like with the descriptions of each functional areas and icons.
+
 === Syntax
 
 Please do take a look at the syntax notations below as they are used throughout the document.
@@ -79,9 +84,8 @@ Please do refer to the link https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#
 
 ==== Other Contributions:
 
-* Designed the GUI for `view` in the Cheatsheet feature
-* Did cosmetic tweaks to the existing contents of the Developer Guide (DG)
-* PRs reviewed (with non-trivial review comments)
+* Designed the GUI for `view` in the Cheatsheet feature (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/166[#166], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/245[#245])
+* Did cosmetic tweaks to the existing contents of the Developer Guide (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/74[#74], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/177[#177], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/192[#192], link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/203[#203])
 * Reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide (UG)
