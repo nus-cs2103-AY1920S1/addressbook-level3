@@ -180,90 +180,130 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
+// tag::training[]
 === Training feature
 
-Athletick allows users to record training information like date and an athlete's attendance. With this information
-recorded, Athletick allows users to get important information like the team's overall attendance rate and an overview
-of all training sessions in a month.
+*Athletick* allows users to record training information like the date of training and an athlete's attendance. This
+is done using a `training` command. With this information recorded, *Athletick* allows users to get the team's
+overall attendance rate, and get an overview of all training sessions in a month.
 
 ==== Implementation
-To facilitate this, the `Model` has a `TrainingManager` that stores all `Training`
-sessions in Athletick. The class diagram below shows how the different components interact with each other.
+A `[green]#Training#` class stores the training information. To facilitate management of trainings, a
+`[green]#TrainingManager#` class stores all the `[green]#Training#` sessions. The class diagram below shows the
+interaction of different components to produce the training feature.
 
+.Class diagram of the training feature components
 image::training_class_diagram.png[]
 
-The `Training` class contains a date and training attendance, represented by an `AthletickDate` and a `HashMap`
-respectively. The date in the training class represents the date of a training session and training attendance is
-used to check the attendance of a Person. We used the class `AthletickDate` to represent the date of a training
-session. This class is shared across both the `Ui` and backend, allowing training information to be shown in the
-`view calendar` function. The `HashMap` uses `Person` objects as keys and a `Boolean` as it’s value. This is used to
-check whether a `Person` has attended a training session, indicated by the boolean value attached to  a `Person` key.
-If a `Person` attended a training session on that day, the value associated with the key will be  true, and false if
-he did not attend.
+A training session is represented by a `[green]#Training#` class and it contains information like the date of
+training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
+`[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
+information to be used in other features, such as the `view calendar` command. A `[green]#HashMap<Person, Boolean>#`
+represents attendance in `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training
+session. If a `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#`
+will be true, and false if he did not attend.
 
-A `TrainingManager` is used to store and manage all `Training` sessions in Athletick. It has a list of `Training`
-sessions. A `Training` is added to this list whenever a user records a `Training` session using a `TrainingCommand`.
-The sequence diagram below shows how `TrainingManager` stores and manages training records.
+The `[green]#TrainingCommand#` is an abstract class that extends the `[green]#Command#` class and allows users to
+record training sessions. Users have the ability to add training sessions by indicating members present or members
+absent using the `training` or `training -a` commands. The `[green]#TrainingCommandPresent#` and
+`[green]#TrainingCommandAbsent#` are classes that extend `[green]#TrainingCommand#` which allows for this
+polymorphism. They are created by the `[green]#TrainingCommandParser#` class.
 
-image::add_training.png[]
+A `[green]#TrainingManager#` stores and manages all `[green]#Training#` sessions in *Athletick*. It contains a
+list which is used to maintain information of multiple trainings. A `[green]#Training#` is added to this list
+whenever a user executes a `training` command. The activity diagram below shows how training information is
+stored after a user executes the `training` command.
 
-image::delete_training.png[]
+.Activity diagram showing execution of `training` command
+image::training_command_activity_diagram.png[]
 
-`TrainingManager` provides functions for users to calculate the attendance rate of one individual, or the entire
-team. The sequence diagram below shows a use case of how `TrainingManager` gets attendance rate.
+`[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
+individual, or the entire team. The following operations provides this feature:
 
-image::to_add.png[]
+* `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
+* `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
 
-`TrainingManager` also allows users to view `Training` information on a specified date. The sequence diagram below
-shows a use case of how `TrainingManager` gets `Training` information.
+These operations are used by the `select`, `attendance` and `view attendance` commands. The following sequence diagram
+shows how the `TrainingManager` provides other components with attendance rates.
 
-image::to_add.png[]
+.Sequence diagram showing how `view attendance` command gets attendance rate
+image::view_attendance_sequence_diagram.png[]
+
+`[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
+operation:
+
+* `TrainingManager#getTrainingAttendanceListOnDate` -- Returns training attendance on the specified date.
+
+The sequence diagram below shows a use case of how training attendance is obtained from `[green]#TrainingManager#`
+when a `calendar` command is executed.
+
+.Sequence diagram showing how `calendar` command gets training attendance
+image::calendar_sequence_diagram.png[]
 
 ==== Design Considerations
-Aspect: Where to store attendance information of an individual.
 
-* Alternative 1: Extend on the `AddressBook` by storing and tagging each `Person` with number of trainings attended
-and total number of trainings.
+Aspect: How to store attendance information of an individual.
 
-** Pros: Easy to implement.
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1:* Make extensions to the `[green]#AddressBook#` by storing and tagging each `[green]#Person#` with
+number of trainings attended and total number of trainings.
+|*Alternative 2 (Current Choice):* Create separate classes to manage training information.
 
-** Cons: Violates Single Responsibility Principle (SRP) and not useful when we want more detailed information
-(attendance on specific date) about a training session.
+|*Pros*
+|It is easy to implement.
+|Allows storing of specific training information without depending on the `[green]#AddressBook#`. This also allows new
+features to be easily introduced to training in the future.
 
-* Alternative 2 (current choice): Create a separate class to manage Training information.
+|*Cons*
+|Violates software engineering principles (single responsibility principle) and is not useful when we want more
+detailed information (attendance on specific date) about a training session.
+|More time needed to design system architecture.
+|===
 
-** Pros: Allows storing of specific training information without depending on the `AddressBook`.
-
-** Cons: More time needed to design the class.
+Reason of choice: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone classes to
+contain training information. We intend to introduce new features (e.g. training category) in the future and this
+implementation allows us to easily do so.
 
 Aspect: Which data structure to store training attendance.
 
-* Alternative 1: Use a linked list to store training attendance.
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1:* Use a linked list to store training attendance.
+|*Alternative 2 (Current Choice):* Use a hash table to store training attendance.
 
-** Pros: Easy to maintain.
+|*Pros*
+|Most intuitive way to maintain training attendance. Also provides us with functions to easily access and edit data.
+|Makes obtaining information much quicker.
 
-** Cons: Accessing training information requires more time (e.g. accessing attendance rate of one person).
+|*Cons*
+|Accessing accessing attendance and attendance rate of one person takes more time.
+|Requires more effort to maintain and coding of new functions to edit data.
+|===
 
-* Alternative 2 (current choice): Use a hash map to store training attendance.
+Reason of choice: A hash table is used as the `select` and `attendance` commands require the attendance rate of only
+one person. A hash table provides us with the fastest access time to access attendance information of one person.
 
-** Pros: Makes obtaining information much quicker.
+Aspect: How to edit training information.
 
-** Cons: Requires more effort to maintain.
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1 (Current Choice)*: Edit by replacing an existing training with a new training on the same date.
+|*Alternative 2:* Create a command to support editing of training.
 
-Aspect: How to edit training information
+|*Pros*
+|Users no need to type lengthy edit commands.
+|More intuitive to a user who wants to edit.
 
-* Alternative 1 (current choice): Edit by replacing with new training on the same date
+|*Cons*
+|Unable to support multiple trainings on same date.
+|Lengthy commands. Users have the option to edit date, attendance and even add a person.
+|===
 
-** Pros: Users no need to type lengthy edit commands.
+Reason of choice: Editing training information would require long commands which defeats the purpose of having a command
+line interface. Editing training by replacing an old one with the `training` command makes it quicker.
 
-** Cons: Unable to support multiple trainings on same date.
-
-* Alternative 2: Create a command to support editing of training.
-
-** Pros: More intuitive to a user who wants to edit.
-
-** Cons: Lengthy commands. Users have the option to edit date, attendance and even add a person.
-
+// end::training[]
 === Performance feature
 
 === Calendar feature
