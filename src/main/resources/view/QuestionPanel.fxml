@@ -129,4 +129,7 @@
          </font>
       </Label>
    </children>
+   <padding>
+      <Insets right="10.0" />
+   </padding>
 </VBox>

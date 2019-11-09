@@ -1,20 +1,23 @@
 package seedu.address.logic.commands.event;
 
-import static seedu.address.commons.util.EventUtil.convertNumberToColorCategoryList;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_EVENT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
+import static seedu.address.commons.util.EventUtil.isSameVEvent;
 import static seedu.address.commons.util.EventUtil.vEventToString;
 import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.EventUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,115 +37,50 @@ public class EventEditCommand extends EventCommand {
         + "color/ [0 - 23]\n"
         + "Example: event 6 eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
         + "endDateTime/2019-10-21T15:00 recur/none color/1";
-    private static final String START_DATE_LATER_END_DATE = "start date time provided for the event is later "
-            + "than or equal to end date time provided";
-    private static final String BAD_DATE_FORMAT = "Invalid DateTime Format. "
-            + "Please follow the format: yyyy-MM-ddTHH:mm, "
-            + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
-    private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
-    private static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
+    public static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited event: %1$s";
 
+    private final EditVEventDescriptor editVEventDescriptor;
     private final Index index;
-    private final String eventName;
-    private final String startDateTimeString;
-    private final String endDateTimeString;
-    private final String recurTypeString;
-    private final String colorNumberString;
 
     /**
-     * Creates a EventEditCommand object.
+     * Creates a event edit command.
      *
-     * @param index  of question in the list.
-     * @param fields to edit.
+     * @param index                 Index of the event to be edited.
+     * @param editVEventDescriptor Object used to edit the event which was specified.
      */
-    public EventEditCommand(Index index, HashMap<String, String> fields) {
+    public EventEditCommand(Index index, EditVEventDescriptor editVEventDescriptor) {
         this.index = index;
-        this.eventName = fields.get("eventName");
-        this.startDateTimeString = fields.get("startDateTime");
-        this.endDateTimeString = fields.get("endDateTime");
-        this.recurTypeString = fields.get("recurType");
-        this.colorNumberString = fields.get("colorString");
+        this.editVEventDescriptor = editVEventDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
         if (index.getZeroBased() >= model.getVEventList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        if (!isAnyFieldEdited()) {
+        if (!editVEventDescriptor.isAnyFieldEdited()) {
             throw new CommandException(NO_FIELDS_CHANGED);
         }
 
-        //map vEvent to event type for ease of referencing and DRY principle
-        VEvent vEventObject = model.getVEvent(index);
-
-        //event name
-        if (!this.eventName.isBlank()) {
-            //changes made to event name
-            vEventObject.setSummary(this.eventName);
+        VEvent vEventObjectToEdit = model.getVEvent(index);
+        VEvent editedVEvent;
+        try {
+            editedVEvent = createdEditedVEvent(vEventObjectToEdit, editVEventDescriptor);
+        } catch (IllegalValueException ex) {
+            throw new CommandException(ex.getMessage(), ex);
         }
 
-        //color number
-        if (!this.colorNumberString.isBlank()) {
-            try {
-                ArrayList<Categories> categoriesToBeSet = convertNumberToColorCategoryList(colorNumberString);
-                vEventObject.setCategories(categoriesToBeSet);
-            } catch (IllegalValueException ex) {
-                throw new CommandException(ex.getMessage(), ex);
-            }
+        if (!isSameVEvent(editedVEvent, vEventObjectToEdit) && model.hasVEvent(editedVEvent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        //start and end date time
-        LocalDateTime startDateTime = LocalDateTime.from(vEventObject.getDateTimeStart().getValue());
-        LocalDateTime endDateTime = LocalDateTime.from(vEventObject.getDateTimeEnd().getValue());
-        if (!this.startDateTimeString.isBlank()) {
-            try {
-                startDateTime = LocalDateTime.parse(startDateTimeString);
-            } catch (DateTimeParseException dtpEx) {
-                throw new CommandException(BAD_DATE_FORMAT, dtpEx);
-            }
-        }
-        if (!this.endDateTimeString.isBlank()) {
-            try {
-                endDateTime = LocalDateTime.parse(endDateTimeString);
-            } catch (DateTimeParseException dtpEx) {
-                throw new CommandException(BAD_DATE_FORMAT, dtpEx);
-            }
-        }
-        //validate start and end date time
-        if (!validateStartEndDateTime(startDateTime, endDateTime)) {
-            throw new CommandException(START_DATE_LATER_END_DATE);
-        }
-        //set start and end date time
-        vEventObject.setDateTimeEnd(endDateTime);
-        vEventObject.setDateTimeStart(startDateTime);
+        model.setVEvent(index, editedVEvent);
 
-        //Recurrence Rule
-        if (!this.recurTypeString.isBlank()) {
-            if (!EventUtil.validateRecurTypeString(recurTypeString)) {
-                throw new CommandException(INVALID_RECURRENCE_TYPE);
-            }
-            try {
-                vEventObject.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
-
-            } catch (IllegalValueException ex) {
-                throw new CommandException(ex.getMessage(), ex);
-            }
-        }
-
-        model.setVEvent(index, vEventObject);
-
-        return new CommandResult(generateSuccessMessage(vEventObject), CommandResultType.SHOW_SCHEDULE);
-    }
-
-    /**
-     * Returns true if at least one field is edited.
-     */
-    private boolean isAnyFieldEdited() {
-        return !eventName.isBlank() || !startDateTimeString.isBlank() || !endDateTimeString.isBlank()
-                || !recurTypeString.isBlank() || !colorNumberString.isBlank();
+        return new CommandResult(generateSuccessMessage(editedVEvent), CommandResultType.SHOW_SCHEDULE);
     }
 
     /**
@@ -151,7 +89,7 @@ public class EventEditCommand extends EventCommand {
      * @param vEvent that has been editted.
      */
     private String generateSuccessMessage(VEvent vEvent) {
-        return "Edited event: \n" + vEventToString(vEvent);
+        return String.format(MESSAGE_EDIT_EVENT_SUCCESS, vEventToString(vEvent));
     }
 
     @Override
@@ -169,10 +107,128 @@ public class EventEditCommand extends EventCommand {
         //state check
         EventEditCommand e = (EventEditCommand) other;
         return index.equals(e.index)
-            && eventName.equals(e.eventName)
-            && startDateTimeString.equals(e.startDateTimeString)
-            && endDateTimeString.equals(e.endDateTimeString)
-            && recurTypeString.equals(e.recurTypeString)
-            && colorNumberString.equals(e.colorNumberString);
+            && editVEventDescriptor.equals(e.editVEventDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code VEvent} with the details of {@code studentToEdit}
+     * edited with {@code editStudentDescriptor}.
+     */
+    private static VEvent createdEditedVEvent(VEvent vEventToEdit, EditVEventDescriptor editVEventDescriptor)
+            throws IllegalValueException {
+        assert vEventToEdit != null;
+
+        String updatedEventName = editVEventDescriptor.getEventName().orElse(vEventToEdit.getSummary().getValue());
+        LocalDateTime updatedStartDateTime = editVEventDescriptor.getStartDateTime()
+                .orElse(LocalDateTime.from(vEventToEdit.getDateTimeStart().getValue()));
+        LocalDateTime updatedEndDateTime = editVEventDescriptor.getEndDateTime()
+                .orElse(LocalDateTime.from(vEventToEdit.getDateTimeEnd().getValue()));
+        List<Categories> updatedColorCategory = editVEventDescriptor.getColorCategory()
+                .orElse(vEventToEdit.getCategories());
+        RecurrenceRule updatedRecurrenceRule = editVEventDescriptor.getRecurrenceRule()
+                .orElse(vEventToEdit.getRecurrenceRule());
+        String uniqueIdentifier = vEventToEdit.getUniqueIdentifier().getValue();
+
+        if (!validateStartEndDateTime(updatedStartDateTime, updatedEndDateTime)) {
+            throw new IllegalValueException(MESSAGE_INVALID_EVENT_DATETIME_RANGE);
+        }
+
+        return new VEvent().withRecurrenceRule(updatedRecurrenceRule).withCategories(updatedColorCategory)
+                .withDateTimeEnd(updatedEndDateTime).withDateTimeStart(updatedStartDateTime)
+                .withUniqueIdentifier(uniqueIdentifier).withSummary(updatedEventName);
+    }
+
+
+    /**
+     * Stores the details to edit the VEvent with. Each non-empty field value will replace the
+     * corresponding field value of the VEvent.
+     */
+    public static class EditVEventDescriptor {
+        private String eventName;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
+        private RecurrenceRule recurrenceRule;
+        private List<Categories> colorCategory;
+
+        public EditVEventDescriptor() {
+
+        }
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditVEventDescriptor(EventEditCommand.EditVEventDescriptor toCopy) {
+            setEventName(toCopy.eventName);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(eventName, startDateTime, endDateTime, recurrenceRule, colorCategory);
+        }
+
+        public void setEventName(String eventName) {
+            this.eventName = eventName;
+        }
+
+        public Optional<String> getEventName() {
+            return Optional.ofNullable(eventName);
+        }
+
+        public void setStartDateTime(LocalDateTime startDateTime) {
+            this.startDateTime = startDateTime;
+        }
+
+        public Optional<LocalDateTime> getStartDateTime() {
+            return Optional.ofNullable(startDateTime);
+        }
+
+        public void setEndDateTime(LocalDateTime endDateTime) {
+            this.endDateTime = endDateTime;
+        }
+
+        public Optional<LocalDateTime> getEndDateTime() {
+            return Optional.ofNullable(endDateTime);
+        }
+
+        public void setRecurrenceRule(RecurrenceRule recurrenceRule) {
+            this.recurrenceRule = recurrenceRule;
+        }
+
+        public Optional<RecurrenceRule> getRecurrenceRule() {
+            return Optional.ofNullable(recurrenceRule);
+        }
+
+        public void setColorCategory(List<Categories> colorCategory) {
+            this.colorCategory = colorCategory;
+        }
+
+        public Optional<List<Categories> > getColorCategory() {
+            return Optional.ofNullable(colorCategory);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EventEditCommand.EditVEventDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditVEventDescriptor e = (EditVEventDescriptor) other;
+
+            return getEventName().equals(e.getEventName())
+                    && getColorCategory().equals(e.getColorCategory())
+                    && getEndDateTime().equals(e.getEndDateTime())
+                    && getStartDateTime().equals(e.getStartDateTime())
+                    && getColorCategory().equals(e.getColorCategory());
+        }
     }
 }

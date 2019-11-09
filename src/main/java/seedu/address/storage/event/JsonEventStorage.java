@@ -59,8 +59,8 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public void saveEvents(ReadOnlyEvents questions) throws IOException {
-        saveEvents(questions, filePath);
+    public void saveEvents(ReadOnlyEvents events) throws IOException {
+        saveEvents(events, filePath);
     }
 
     /**

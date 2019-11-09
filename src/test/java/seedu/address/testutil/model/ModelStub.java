@@ -269,16 +269,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public String getEventExportPath() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setEventExportPath(String targetExportPath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public LocalDateTime getEventScheduleTargetDateTime() {
         throw new AssertionError("This method should not be called.");
     }
@@ -299,12 +289,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasVEvent(VEvent vEvent) {
+    public String getEventSchedulePrefString() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteVEvent(VEvent vEvent) {
+    public boolean hasVEvent(VEvent vEvent) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -319,17 +309,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setVEvent(VEvent target, VEvent editedVEvent) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void setVEvent(Index index, VEvent editedVEvent) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public String getVEventSummary() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -339,7 +319,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+    public List<Pair<Index, VEvent>> findVEvents(String desiredEventName) {
         throw new AssertionError("This method should not be called.");
     }
 

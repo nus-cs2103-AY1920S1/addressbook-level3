@@ -35,6 +35,7 @@ public class EventSchedulePanel extends UiPart<Region> {
         this.agenda = new ICalendarAgenda(this.vCalendar);
         initCalendar(this.agenda);
         eventScheduleBorderPane.setCenter(agenda);
+        eventScheduleBorderPane.setMaxWidth(Double.MAX_VALUE);
     }
 
     private void initCalendar(ICalendarAgenda agenda) {
@@ -70,12 +71,14 @@ public class EventSchedulePanel extends UiPart<Region> {
         agenda.setAllowDragging(false);
         agenda.setAllowResize(false);
         agenda.setActionCallback(null);
-        agenda.setEditAppointmentCallback(null);
         agenda.setNewAppointmentCallback(null);
         agenda.setSelectedOneAppointmentCallback(null);
         agenda.setNewAppointmentDrawnCallback(null);
         agenda.setAppointmentChangedCallback(null);
-
+        agenda.setOnMouseClicked(null);
+        agenda.setOnMousePressed(null);
+        agenda.setAllowDragging(false);
+        agenda.setOnTouchPressed(null);
     }
 
     /**

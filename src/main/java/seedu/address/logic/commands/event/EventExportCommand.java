@@ -6,27 +6,21 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Represents a view events command.
+ * Represents a export events command. With purpose to generate corresponding command result type.
  */
 public class EventExportCommand extends EventCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your events to a ICS file\n"
-            + "Parameters:\n"
-            + "directory/ [DIR]\n"
-            + "Example: event export directory/Users/John/Desktop";
-    private final String directoryPath;
+            + "Example: event export";
+    public static final String MESSAGE_EXPORT_SUCCESS = "Events successfully export. Check the export directory"
+            + "for your schedule .ics export.";
 
-    public EventExportCommand(String directoryPath) {
-        this.directoryPath = directoryPath;
+    public EventExportCommand() {
+
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setEventExportPath(directoryPath);
-        return new CommandResult(generateSuccessMessage(directoryPath), CommandResultType.EXPORT_CALENDAR);
-    }
-
-    private String generateSuccessMessage(String fullFilePath) {
-        return String.format("Events successfully exported to: %s", fullFilePath);
+        return new CommandResult(MESSAGE_EXPORT_SUCCESS, CommandResultType.EXPORT_CALENDAR);
     }
 }
 

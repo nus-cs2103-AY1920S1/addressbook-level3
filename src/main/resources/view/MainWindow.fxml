@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root maximized="true" minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Njoy Teaching Assistant" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" maximized="true" minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Njoy Teaching Assistant" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -51,13 +51,13 @@
             </VBox>
             <HBox>
                <children>
-              <VBox fx:id="mainPanel" styleClass="pane-with-border">
+              <VBox fx:id="mainPanel" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
                 </padding>
-                <StackPane fx:id="mainPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="mainPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"  maxWidth="Infinity"/>
               </VBox>
-             <HBox fx:id="notesList" alignment="TOP_RIGHT" styleClass="pane-with-border">
+             <HBox fx:id="notesList" alignment="BOTTOM_RIGHT" styleClass="pane-with-border">
                      <children>
                         <VBox>
                            <children>
@@ -66,7 +66,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                        <StackPane fx:id="notesListPanelPlaceholder" />
+                        <StackPane fx:id="notesListPanelPlaceholder"/>
                            </children>
                         </VBox>
                      </children>

@@ -469,10 +469,6 @@ public interface Model {
 
     ReadOnlyVEvents getVEventRecord();
 
-    String getEventExportPath();
-
-    void setEventExportPath(String targetExportPath);
-
     //endregion
 
     //region EventSchedulePrefs
@@ -484,26 +480,23 @@ public interface Model {
     EventScheduleViewMode getEventScheduleViewMode();
 
     void setEventScheduleViewMode(EventScheduleViewMode viewMode);
+
+    String getEventSchedulePrefString();
+
     //endregion
 
     //region VEvents
     boolean hasVEvent(VEvent vEvent);
 
-    void deleteVEvent(VEvent vEvent);
-
     void deleteVEvent(Index index);
 
     void addVEvent(VEvent vEvent);
 
-    void setVEvent(VEvent target, VEvent editedVEvent);
-
     void setVEvent(Index index, VEvent editedVEvent);
-
-    String getVEventSummary();
 
     VEvent getVEvent(Index index);
 
-    List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
+    List<Pair<Index, VEvent>> findVEvents(String desiredEventName);
 
     ObservableList<VEvent> getVEventList();
 

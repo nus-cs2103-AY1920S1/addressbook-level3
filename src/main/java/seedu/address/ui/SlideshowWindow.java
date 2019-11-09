@@ -77,6 +77,11 @@ public class SlideshowWindow extends UiPart<Stage> {
      * Hides the slideshow window.
      */
     public void hide() {
+        /*
+         * Note: it is important to disable fullscreen before hiding else application
+         * might hang.
+         */
+        getRoot().setFullScreen(false);
         getRoot().hide();
     }
 

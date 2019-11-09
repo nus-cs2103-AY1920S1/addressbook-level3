@@ -717,16 +717,6 @@ public class ModelManager implements Model {
         return eventRecord;
     }
 
-    @Override
-    public String getEventExportPath() {
-        return eventRecord.getEventExportPath();
-    }
-
-    @Override
-    public void setEventExportPath(String targetEventExportPath) {
-        eventRecord.setEventExportPath(targetEventExportPath);
-    }
-
     //endregion
 
     //region EventSchedulePrefs
@@ -740,6 +730,11 @@ public class ModelManager implements Model {
         eventSchedulePrefs.setTargetViewDateTime(targetDateTime);
     }
 
+    @Override
+    public String getEventSchedulePrefString() {
+        return eventSchedulePrefs.toString();
+    }
+
 
     @Override
     public EventScheduleViewMode getEventScheduleViewMode() {
@@ -750,7 +745,8 @@ public class ModelManager implements Model {
     public void setEventScheduleViewMode(EventScheduleViewMode viewMode) {
         eventSchedulePrefs.setViewMode(viewMode);
     }
-    //endRegion
+
+    //endregion
 
     //region Events
     @Override
@@ -765,11 +761,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteVEvent(VEvent vEvent) {
-        eventRecord.deleteVEvent(vEvent);
-    }
-
-    @Override
     public void deleteVEvent(Index index) {
         eventRecord.deleteVEvent(index);
     }
@@ -780,20 +771,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setVEvent(VEvent target, VEvent editedVEvent) {
-        requireAllNonNull(target, editedVEvent);
-        eventRecord.setVEvent(target, editedVEvent);
-    }
-
-    @Override
     public void setVEvent(Index index, VEvent editedVEvent) {
         requireAllNonNull(index, editedVEvent);
         eventRecord.setVEvent(index, editedVEvent);
-    }
-
-    @Override
-    public String getVEventSummary() {
-        return eventRecord.getVEventSummary();
     }
 
     @Override
@@ -802,8 +782,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
-        return eventRecord.findVEventsIndex(desiredEventName);
+    public List<Pair<Index, VEvent>> findVEvents(String desiredEventName) {
+        return eventRecord.findVEvents(desiredEventName);
     }
 
     @Override
