@@ -81,6 +81,14 @@ public class EventManager {
         requiredList.add(event);
     }
 
+    /**
+     * Adds an engagement to {@code this}.
+     *
+     * @param event The engagement to be added
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical event already exists
+     * @throws ClashException if the operation can result in clashes between commitments
+     */
     private boolean addEngagement(Event event) throws DuplicateEventException, ClashException {
         if (engagements.containsKey(event)) {
             List<Event> requiredList = engagements.get(event);
@@ -99,6 +107,15 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Adds the engagement to the required list.
+     *
+     * @param event The engagement to be added
+     * @param requiredList The list which contains all engagements that happen over the same period of time
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical engagement already exists
+     * @throws ClashException if the operation can result in clashes in commitments
+     */
     private boolean addEngagement(Event event, List<Event> requiredList) throws DuplicateEventException,
             ClashException {
         boolean isDuplicate = isDuplicateEvent(event, requiredList);
@@ -113,14 +130,19 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Adds an engagement without checking for whether there might be clashes.
+     * Guarantees: only engagements would use this operation
+     *
+     * @param event The engagement to be added
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical engagement already exists
+     */
     public boolean addIgnoreClash(Event event) throws DuplicateEventException {
         if (!event.isBusy()) {
             assert false : "Add without clash command is only available for commitments and trips";
         }
-        return addEngagementIgnoreClash(event);
-    }
 
-    private boolean addEngagementIgnoreClash(Event event) throws DuplicateEventException {
         if (engagements.containsKey(event)) {
             List<Event> requiredList = engagements.get(event);
             addEngagementIgnoreClash(event, requiredList);
@@ -134,6 +156,14 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Adds the engagement to the required list. Potential conflicts in schedule will be ignored.
+     *
+     * @param event The engagement to be added
+     * @param requiredList The list which contains all engagements that happen over the same period of time
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical engagement already exists
+     */
     private boolean addEngagementIgnoreClash(Event event, List<Event> requiredList) throws DuplicateEventException {
         boolean isDuplicate = isDuplicateEvent(event, requiredList);
         if (isDuplicate) {
@@ -151,11 +181,24 @@ public class EventManager {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Checks whether there are duplicate events.
+     * @param event The event that is about to be added
+     * @param eventList The list containing similar events
+     * @return {@code true} if {@code event} does not exist
+     */
     private boolean isDuplicateEvent(Event event, List<Event> eventList) {
         return eventList.stream()
                 .anyMatch(item -> item.isIdentical(event));
     }
 
+    /**
+     * Removes an event from {@code this}.
+     *
+     * @param event The event to be removed
+     * @return {@code true} if the operation is successful
+     * @throws NoSuchElementException if the event to be removed does not exist
+     */
     public boolean remove(Event event) throws NoSuchElementException {
         if (event.isBusy()) {
             return removeEngagement(event);
@@ -172,6 +215,15 @@ public class EventManager {
         return remove(event, vacations, vacationSchedule);
     }
 
+    /**
+     * Helps to remove the event completely.
+     *
+     * @param event The event to be removed
+     * @param hashMap The hashMap which contains a reference to the event
+     * @param schedule The schedule which contains a copy of the event
+     * @return {@code true} if the operation is successful
+     * @throws NoSuchElementException if the event to be removed does not exist
+     */
     private boolean remove(Event event, HashMap<Event, List<Event>> hashMap,
                            IntervalSearchTree<Date, Event> schedule) throws NoSuchElementException {
         if (!hashMap.containsKey(event)) {
@@ -198,6 +250,12 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Gets relevant events (events that happen at the same time) as a formatted {@code String}.
+     *
+     * @param event The event which user wants to remove
+     * @return A formatted {@code String} containing similar events
+     */
     public String getRelevantEventsAsString(Event event) {
         List<Event> relevantList = getEventsAtSpecificTime(event)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -212,11 +270,23 @@ public class EventManager {
                 relevantListStr);
     }
 
+    /**
+     * Gets all events that have the same time frame as {@code eventQuery}.
+     *
+     * @param eventQuery {@code EventQuery} which has the desired start and end dates
+     * @return A stream of relevant events
+     */
     public Stream<Event> getEventsAtSpecificTime(EventQuery eventQuery) {
         Event event = Event.getEventPlaceHolder(eventQuery);
         return getEventsAtSpecificTime(event);
     }
 
+    /**
+     * Gets all events that have the same time frame as {@code event}.
+     *
+     * @param event {@code Event} which has the desired start and end dates
+     * @return A stream of relevant events
+     */
     public Stream<Event> getEventsAtSpecificTime(Event event) {
         List<Event> relevantEvents = new ArrayList<>();
 
@@ -241,6 +311,12 @@ public class EventManager {
         }
     }
 
+    /**
+     * Checks whether the user is available from the specified start date to the specified end date.
+     *
+     * @param eventQuery {@code EventQuery} has the desired start and end date
+     * @return {@code true} if the user is available on all days between the start and end date
+     */
     public boolean isAvailable(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
         boolean hasNoEventsPlanned = !engagedSchedule.hasCollision(placeHolderEvent);
@@ -248,6 +324,12 @@ public class EventManager {
         return hasNoEventsPlanned && hasVacation;
     }
 
+    /**
+     * Suggests possible blocks of time to travel.
+     *
+     * @param eventQuery The time period for which the user is considering to travel
+     * @return The possible time blocks, if any
+     */
     public String suggest(EventQuery eventQuery) {
         return suggestBlocks(eventQuery)
                 .map(Object::toString)
@@ -255,6 +337,13 @@ public class EventManager {
                 .trim();
     }
 
+    /**
+     * Suggests possible blocks of time to travel that meet the {@code minPeriod} requirement.
+     *
+     * @param eventQuery The time period for which the user is considering to travel
+     * @param minPeriod The minimum number of days for which the user wants to travel
+     * @return The possible time blocks, if any
+     */
     public String suggest(EventQuery eventQuery, int minPeriod) {
         return suggestBlocks(eventQuery)
                 .filter(block -> {
@@ -270,7 +359,7 @@ public class EventManager {
                 .trim();
     }
 
-    public Stream<EventQuery> suggestBlocks(EventQuery eventQuery) {
+    private Stream<EventQuery> suggestBlocks(EventQuery eventQuery) {
         List<Event> availableSlots = vacationSchedule.getCollisions(eventQuery);
         Stream<EventQuery> availableConstrainedSlots = getConstrainedSlots(availableSlots, eventQuery).stream();
         Deque<EventQuery> availableBlocks = findBlocks(availableConstrainedSlots);
@@ -439,6 +528,12 @@ public class EventManager {
         }
     }
 
+    /**
+     * Gets all events that happen sometime when {@code eventQuery} happens.
+     *
+     * @param eventQuery The {@code EventQuery} instance which has the desired start and end dates
+     * @return All events that happen while {@code eventQuery} does, if any
+     */
     public Stream<Event> getEvents(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
         Stream<Event> requiredVacations = vacationSchedule.getCollisions(placeHolderEvent).stream();
@@ -446,6 +541,11 @@ public class EventManager {
         return Stream.concat(requiredVacations, requiredEngagements);
     }
 
+    /**
+     * Lists all events of {@code this} as a formatted {@code String}.
+     *
+     * @return A formatted {@code String} of all events
+     */
     public List<String> listAllAsString() {
         return asList()
                 .stream()
@@ -453,6 +553,12 @@ public class EventManager {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Lists all events that happen while {@code eventQuery} does.
+     *
+     * @param eventQuery The {@code EventQuery} instance which has the desired start and end dates
+     * @return A formatted {@code String} of all relevant events
+     */
     public List<String> listRelevantAsString(EventQuery eventQuery) {
         return asListRelevant(eventQuery)
                 .stream()
@@ -473,7 +579,7 @@ public class EventManager {
         return eventList;
     }
 
-    public List<Event> asListRelevant(EventQuery eventQuery) {
+    private List<Event> asListRelevant(EventQuery eventQuery) {
         Stream<Event> relevantVacations = vacationSchedule.getCollisions(eventQuery)
                 .stream()
                 .flatMap(event -> vacations.get(event).stream());
@@ -485,6 +591,9 @@ public class EventManager {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Clears all events from {@code this}.
+     */
     public void clear() {
         engagedSchedule = new IntervalSearchTree<>();
         vacationSchedule = new IntervalSearchTree<>();
