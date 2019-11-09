@@ -36,6 +36,7 @@ public class UntimedExam implements Exam {
 
     @Override
     public FlashCard getCurrentCard() {
+        assert(index >= 0);
         return testDeck.get(index);
     }
 
