@@ -433,8 +433,6 @@ Example: +
 .Month View Command for the Timeline
 image::MonthViewCommandScreenShot.png[]
 
-{empty} +
-
 The `month` command sets the timeline in the Calendary view to that of the specified month. In addition, this command will cause a switch to the Calendar View if it is not the current display.
 
 Command Format: +
@@ -446,21 +444,16 @@ Argument Format: +
 Example: +
 `*month* 11/2019`
 
-{empty} +
-
 ==== Changing Screen View to List View
 
 .List View Command
 image::ListCommandScreenShot.png[]
-
-{empty} +
 
 The `list` command will switch the display to the List View, which displays a list of upcoming events on the left, and a to-do list of tasks on the right side.
 
 Command Format and Example: +
 `*list*`
 
-{empty} +
 
 ==== Changing Screen View to Log View
 
@@ -472,8 +465,6 @@ The `log` command switches the display to the Log View, which displays a catalog
 Command Format and Example: +
 `*log*`
 
-{empty} +
-
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
@@ -482,7 +473,6 @@ Take note that Horo can only post reminders as long as the application is open. 
 .Horo tray icon
 image::HoroIconScreenShot.png[]
 
-{empty} +
 Also take note that notifications are switched on by default upon launch. This status is not carried over between sessions. If you would like to switch notifications off, you would have to do so whenever you start Horo up.
 
 You can tell if notifications are switched on by mousing over the icon in the system tray.
@@ -490,15 +480,12 @@ You can tell if notifications are switched on by mousing over the icon in the sy
 .Mousing over the Horo tray icon
 image::IconMouseOverScreenShot.png[]
 
-{empty} +
 
 ==== Notification Popups
 When Horo posts a notification, it should appear at the bottom-right side of the screen, where the system tray should be.
 
 .A Popup Notification
 image::PopUpScreenShot.png[]
-
-{empty} +
 
 Take note that that following commands are UI-related commands, and are thus unaffected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
@@ -508,7 +495,6 @@ The `notif_on` command switches notifications on. +
 Command Format: +
 `*notif_on*`
 
-{empty} +
 1. If you would like to switch notifications on, type the command *`notif_on`* into the command box and press kbd:[Enter] to execute it. +
 
 .`notif_on` command in the Command Box
@@ -520,15 +506,12 @@ image::NotificationOnCommandBoxScreenShot.png[]
 .Feedback for the `notif_on` command
 image::NotificationOnFeedbackScreenShot.png[]
 
-{empty} +
-
 ==== Switch notifications off
 The `notif_off` command switches notifications off. +
 
 Command Format: +
 `*notif_off*`
 
-{empty} +
 1. If you would like to switch notifications off, type the command *`notif_off`* into the command box and press kbd:[Enter] to execute it. +
 
 .`notif_off` command in the Command Box
@@ -539,8 +522,6 @@ image::NotificationOffCommandBoxScreenShot.png[]
 
 .Feedback for the `notif_off` command
 image::NotificationOffFeedbackScreenShot.png[]
-
-{empty} +
 
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
@@ -560,22 +541,16 @@ The below commands will only affect state-changing, and not UI-related commands.
 .Undo Command
 image::UndoCommandScreenShot.png[]
 
-{empty} +
-
 The `undo` command undoes the previous command. +
 Commands can be undone up to the program's launch.
 
 Command Format: +
 `*undo*`
 
-{empty} +
-
 ==== Redo
 
 .Redo Command
 image::RedoCommandScreenShot.png[]
-
-{empty} +
 
 The `redo` command redoes a previously undone command.
 The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command (e.g. add_event, delete_event, edit).
@@ -591,8 +566,6 @@ If you've ever used another application with undo-redo functionality, just imagi
 
 Command Format: +
 `*redo*`
-
-{empty} +
 
 === iCalendar (ICS) Integration
 
@@ -617,8 +590,6 @@ Command Format: +
 Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
 
-{empty} +
-
 ==== Import other calendar
 
 .Import Command
@@ -635,8 +606,6 @@ Command Format: +
 Example: +
 `*import* "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
 
-{empty} +
-
 === Exiting the program
 
 Exits the program.
@@ -644,14 +613,12 @@ Exits the program.
 Command Format: +
 `*exit*`
 
-{empty} +
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app on the other computer and overwrite the empty data file it creates with Horo's save file.
 
-{empty} +
 
 == Command Summary
 
