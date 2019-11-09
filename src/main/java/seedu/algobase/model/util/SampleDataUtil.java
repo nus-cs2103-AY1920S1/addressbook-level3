@@ -297,8 +297,8 @@ public class SampleDataUtil {
         Plan samplePlan = new Plan(
             new PlanName("Data Structures"),
             new PlanDescription("CS2040 Data Structures"),
-                LocalDate.now(),
-                LocalDate.now().plusMonths(1),
+            LocalDate.now(),
+            LocalDate.now().plusMonths(1),
             tasks1
         );
         sampleAb.addPlan(samplePlan);
