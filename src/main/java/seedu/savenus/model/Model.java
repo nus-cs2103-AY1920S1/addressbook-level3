@@ -20,6 +20,7 @@ import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
 import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
@@ -302,7 +303,7 @@ public interface Model {
     /**
      * Withdraw a sum from the savings account.
      */
-    void withdrawFromSavings(Savings savings);
+    void withdrawFromSavings(Savings savings) throws InsufficientSavingsException;
 
     /**
      * Gets the list of aliases from the model.

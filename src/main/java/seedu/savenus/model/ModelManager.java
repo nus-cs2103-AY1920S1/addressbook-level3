@@ -38,6 +38,7 @@ import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.util.Money;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
@@ -448,14 +449,24 @@ public class ModelManager implements Model {
      * than $0.
      */
     @Override
-    public void withdrawFromSavings(Savings savings) {
+    public void withdrawFromSavings(Savings savings) throws InsufficientSavingsException {
         requireNonNull(savings);
-        savingsAccount.deductFromSavings(savings);
-        RemainingBudget newRemaining = new RemainingBudget(this.getWallet()
-                .getRemainingBudget().getRemainingBudgetAmount()
-                .add(savings.getSavingsAmount().getAmount().abs())
-                .toString());
-        this.getWallet().setRemainingBudget(newRemaining);
+        if (savings.isWithdraw()) {
+            savings.makeWithdraw();
+        }
+        Money toSubtract = savings.getSavingsAmount();
+        Money currentSavingsMoney = savingsAccount.getCurrentSavings().get();
+        if (currentSavingsMoney.getAmount().compareTo(toSubtract.getAmount().abs()) < 0) {
+            throw new InsufficientSavingsException();
+        } else {
+            RemainingBudget newRemaining = new RemainingBudget(this.getWallet()
+                    .getRemainingBudget().getRemainingBudgetAmount()
+                    .add(savings.getSavingsAmount().getAmount().abs())
+                    .toString());
+            this.getWallet().setRemainingBudget(newRemaining);
+            savingsAccount.deductFromSavings(savings);
+            savingsHistory.addToHistory(savings);
+        }
     }
 
     // ================================ Command History Methods ===================================================

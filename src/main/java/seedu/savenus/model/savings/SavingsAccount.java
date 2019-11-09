@@ -3,7 +3,6 @@ package seedu.savenus.model.savings;
 import static java.util.Objects.requireNonNull;
 
 import javafx.beans.property.ObjectProperty;
-import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
 import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.util.Money;
 
@@ -87,19 +86,11 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
     /**
      * Deduct money from the current savings
      */
-    public void deductFromSavings(Savings savings) throws InsufficientSavingsException {
-        // Check whether savings account has enough money.
-        if (savings.isWithdraw()) {
-            savings.makeWithdraw();
-        }
+    public void deductFromSavings(Savings savings) {
         Money toSubtract = savings.getSavingsAmount();
         Money currentSavingsMoney = this.currentSavings.getCurrentSavingsMoney();
-        // Check if current savings is sufficient for the withdrawal amount.
-        if (currentSavingsMoney.getAmount().compareTo(toSubtract.getAmount().abs()) < 0) {
-            throw new InsufficientSavingsException();
-        } else {
-            currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
-        }
+        currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
+
     }
 
     /**

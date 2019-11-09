@@ -50,7 +50,7 @@ public class Savings {
     /**
      * Labels a Saving as a withdrawal instead of a deposit
      */
-    void makeWithdraw() {
+    public void makeWithdraw() {
         // Sanity check again to ensure only a withdrawal can call this.
         if (isWithdraw) {
             this.savingsAmount.negate();
