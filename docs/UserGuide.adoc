@@ -375,6 +375,7 @@ Shows all the students that belong to group with groupID `G01`
 The questions feature is the starting point for creating quizzes and starting a slideshow.
 With questions, you are able to manage your existing questions, and add new ones which will be automatically saved.
 
+// tag::questions-management[]
 [[Feature-Question-Add]]
 ==== Creating a question
 
@@ -416,6 +417,7 @@ choices _'1965', '1963', '1968', '1970'_.
 image::questions/AddQuestion.png[]
 _Creating an open ended question._
 
+// end::questions-management[]
 '''
 
 ==== Editing a question
@@ -506,6 +508,7 @@ _Listing saved questions._
 
 '''
 
+// tag::questions-slideshow[]
 [[Feature-Question-Find]]
 ==== Searching for a question
 
@@ -606,6 +609,8 @@ Here is a summary of the various components of the slideshow feature:
 image::questions/SlideshowFeatureDescription.png[]
 _Description of the various components._
 
+
+// end::questions-slideshow[]
 '''
 
 === Quizzes ​-​ `quiz`

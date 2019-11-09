@@ -191,6 +191,7 @@ The commands when executed, will interface with the methods exposed by the `Mode
 image::QuestionsClassDiagram.png[]
 _Figure 5. Overview of questions classes_
 
+// tag::questions[]
 [[Feature-Question-Add]]
 ==== Add command
 
@@ -389,6 +390,8 @@ will not be confused by the layout.
 ** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
 However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
 questions will have 2 different answer formats and may cause confusion to the user.
+
+// end::questions[]
 
 === Quiz feature
 
