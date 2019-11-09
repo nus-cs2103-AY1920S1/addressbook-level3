@@ -394,10 +394,10 @@ Eg. `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
 The keywords from the command given by user is parsed using `ScheduleCommandParser` which converts the string variable of start time into a LocalDateTime object, while activity index and day index are converted into Index objects.
 These are then passed to the `ScheduleCommand` for execution later on.
 
-Given below is a sequence diagram showing the creation of `ScheduleActivityCommand`:
+Given below is a sequence diagram showing the creation of `ScheduleCommand`:
 
-.Sequence diagram showing how ScheduleActivityCommand is created.
-image::ScheduleActivityCommandCreation.png[]
+.Sequence diagram showing how ScheduleCommand is created.
+image::ScheduleCommandExecution.png[]
 
 After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the `execute()` method of `ScheduleCommand`.
 
@@ -405,8 +405,8 @@ Below are the steps taken during the execution of `ScheduleCommand`:
 
     1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
 
-    2. The `activityIndex` and `dayIndex` will then be used to obtain the target `Activity` from activity list
-and target `Day` from list of days.
+    2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
+and targeted `Day` from list of days.
 
     3. `Activity` will be converted to `ActivityWithTime` using the startDateTime and duration of activity.
 
@@ -415,21 +415,21 @@ and target `Day` from list of days.
     5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
 
 
-Given below is a sequence diagram showing the execution of `ScheduleActivityCommand`:
+Given below is a sequence diagram showing the execution of `ScheduleCommand`:
 
-.Sequence diagram showing how ScheduleActivityCommand executes.
+.Sequence diagram showing how ScheduleCommand executes.
 image::ScheduleActivityExecution.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Update activities for that particular day
 
-* **Alternative 1 :** Create a new `Day` class with updated activity list for that day.
+* **Current Choice:** Create a new `Day` class with the new updated activity list to replace the targeted `Day` class.
 ** Pros: Easier for developer to test the code.
 ** Cons: Might create unnecessary overheads in the code by creating new object every time we schedule an activity.
-* **Alternative 2 (current choice):** Directly updates the activity list in the current `Day` class.
-** Pros: More intuitive and simple to implement. Requires less computational time to execute.
-** Cons: Might make it harder to debug if other functions/classes also depends on the same `Day` class.
+* **Alternative:** Directly updates the activity list in the targeted `Day` class.
+** Pros: Seem more intuitive and simple to implement.
+** Cons: Might make it harder to debug error that surface if many other functions/classes also depends on the same `Day` class.
 // end::scheduleactivity[]
 
 === Logging
