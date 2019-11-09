@@ -1,4 +1,4 @@
-= Lee Wei Ren Matthew - Project Portfolio
+= Lee Wei Ren Matthew - Project Portfolio (NurseTraverse)
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -10,6 +10,8 @@
 == Overview
 
 NurseTraverse is a desktop application meant for community nurse to help manage all the data that a community nurse might need. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+
+NOTE: This PPP may exceed the page limit as the URLs are not printed properly.
 
 == Summary of contributions
 
@@ -31,8 +33,8 @@ Bug Hunting: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/182[#182
 *** Helped coordinate team and help teammates debug code (offline, no documentation)
 ** Enhancements to existing features:
 *** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69]) which was required for this feature and some other features e.g. Appointment Management
-*** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
-*** Added tabbing system to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]) which was required for this feature and some other features e.g. Appointment Management
+*** Updated the GUI color scheme (See https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
+*** Added tabbing system to main window (See https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]) which was required for multiple features e.g. Appointment Management
 ** Documentation:
 *** Setup initial User Guide to guide direction of project: (Pull Requests https://github.com/AY1920S1-CS2103-F10-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103-F10-1/main/pull/37[#37])
 ** Community:
@@ -57,24 +59,24 @@ and offline/Telegram discussions)
 *** Helped in integrating Travis
 *** Integrated Netlify, Coveralls and Codacy to the team repo
 
-The full list of PRs by me (which includes all the PRs for https://github.com/AY1920S1-CS2103-F10-1/main/pull/104[refactoring], updating documentation, impromptu bug fixes and more) can be found https://github.com/AY1920S1-CS2103-F10-1/main/pulls?q=is%3Apr+author%3Acrazoter[here], and the full list of issues by me can be found https://github.com/AY1920S1-CS2103-F10-1/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Acrazoter+[here].
+The full list of PRs by me (which includes all the PRs for https://github.com/AY1920S1-CS2103-F10-1/main/pull/104[refactoring], updating documentation, impromptu bug fixes and more) can be found https://github.com/AY1920S1-CS2103-F10-1/main/pulls?q=is%3Apr+author%3Acrazoter[here], and the full list of issues by me can be found https://github.com/AY1920S1-CS2103-F10-1/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Acrazoter+[here]. You can find my RepoSense Report https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=crazoter&tabRepo=AY1920S1-CS2103-F10-1%2Fmain%5Bmaster%5D[here]. Please note that the page count for this webpage is inaccurate as it displays all the URLs.
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide (aside from the team based components). They showcase my ability to write documentation targeting end-users._
+|_Below are sections I contributed to the User Guide (non-exhaustive to keep within the page limit). They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../userguide/Visit.adoc[]
+//include::../userguide/Visit.adoc[]
 
 include::../userguide/VisitHowTo.adoc[]
 
-include::../userguide/Security.adoc[]
+//include::../userguide/Security.adoc[]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide (aside from the team based components). They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Below are sections I contributed to the Developer Guide (non-exhaustive to keep within the page limit). They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../devguide/VisitsManagement.adoc[]

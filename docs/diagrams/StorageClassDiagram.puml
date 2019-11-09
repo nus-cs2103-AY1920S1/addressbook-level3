@@ -7,6 +7,7 @@ skinparam classBackgroundColor STORAGE_COLOR
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface PatientBookStorage <<Interface>>
+Interface AppointmentBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
@@ -15,14 +16,20 @@ Class JsonPatientBookStorage
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
 StorageManager o--> PatientBookStorage
+StorageManager o--> AppointmentBookStorage
+
+JsonAppointmentBookStorage .left.|> AppointmentBookStorage
+JsonAppointmentBookStorage .> JsonSerializableAppointmentBook
+JsonSerializableAppointmentBook .down.> JsonAdaptedAppointment
+JsonAdaptedAppointment .> JsonAdaptedPatient
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonPatientBookStorage .left.|> PatientBookStorage
-JsonPatientBookStorage .down.> JsonSerializablePatientBookStorage
-JsonSerializablePatientBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTodo
-JsonSerializablePerson .right.> JsonAdaptedTag
-JsonSerializablePerson .down.> JsonAdaptedVisit
+JsonPatientBookStorage .up.|> PatientBookStorage
+JsonPatientBookStorage .down.> JsonSerializablePatientBook
+JsonSerializablePatientBook .right.> JsonAdaptedPatient
+JsonAdaptedPatient .right.> JsonAdaptedTodo
+JsonAdaptedPatient .right.> JsonAdaptedTag
+JsonAdaptedPatient .down.> JsonAdaptedVisit
 JsonAdaptedVisit .right.> JsonAdaptedVisitTask
 JsonAdaptedVisitTask .right.> JsonAdaptedTodo
 @enduml
