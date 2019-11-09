@@ -445,10 +445,9 @@ public class MainWindow extends UiPart<Stage> {
         } else if (targetList instanceof ReminderList) {
             reminderListPanel = new ReminderListPanel(logic.getVisualList());
             reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
-        } else if (targetList instanceof CalendarList) {
-            calendarPanel = new CalendarPanel(logic.getVisualList());
-            calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
         } else { }
+        calendarPanel = new CalendarPanel(logic.getVisualList());
+        calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
     public TaskListPanel getTaskListPanel() {
@@ -496,11 +495,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)
-                    && !(commandResult instanceof OpenCommandResult)
-                    && !(commandResult instanceof CloseCommandResult)) {
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            }
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -525,14 +520,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult instanceof OpenCommandResult) {
                 commandResult = executeOpen(commandResult);
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 
             if (commandResult instanceof CloseCommandResult) {
                 commandResult = executeClose(commandResult);
-
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 
