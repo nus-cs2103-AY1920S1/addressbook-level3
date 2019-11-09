@@ -167,7 +167,7 @@ Format: `info INDEX`
 The figure below shows how an info window might look like.
 ****
 .Info window of a selected book
-image::infowindow.png[width=500]
+image::infowindow.png[width=500, align=center]
 ****
 In the window above, we can see that information related to the book 'Man's Search for Munning' is displayed in a viewable window.
 
@@ -399,7 +399,7 @@ The figure below shows an example of how a loan slip might look like.
 
 ****
 .Printable loan slip generated.
-image::LoanSlip.png[width=250]
+image::LoanSlip.png[width=250, align=center]
 ****
 In the figure above, we can see that the loan slip records all the books borrowed by 'Bill'.
 // end::loanSlip[]

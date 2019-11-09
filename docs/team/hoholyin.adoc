@@ -26,14 +26,6 @@ Additionally, I am responsible for the *code quality and testability* of the tea
 In this portfolio, I will illustrate my contributions in documenting the user guide and developer guide.
 These documentations serve to aid librarians and developers in understanding the features of the software.
 
-Let us begin by taking a look at the main page of our system in the figure below.
-
-.Graphical user interface for LiBerry
-image::Ui.png[]
-{nbsp}
-
-The figure above illustrates the main page librarians will navigate in while using the software.
-
 == Legend
 I have used symbols to give a visual explanation to certain parts of this portfolio. This section aims to explain the meaning behind the usage of these symbols.
 
@@ -73,51 +65,20 @@ Additionally, this document would have to be suitably styled to display a certai
 This feature represents most of the core features of 'LiBerry' in a condensed PDF.
 I have provided a breakdown below as to how this feature achieves the required *depth*, *completeness* and *level of effort*.
 
-* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features.
-The information being displayed in the PDF document are: +
-{nbsp}
-** Borrower-related information:
-*** The name of the borrower
-*** The ID of the borrower +
-{nbsp}
-** Book-related information:
-*** Serial number of book being loaned out
-*** Title of book being loaned out +
-{nbsp}
-** Loan-related information:
-*** Date of loan
-*** List of books being loaned
-*** List of books being renewed
-*** Their respective due dates +
+* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features
 {nbsp}
 
-* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases.
-It was intended for the loan slip to display the following information: +
+* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases. +
 {nbsp}
 
-** Details of Borrower
-** Details of multiple loans in a single loan slip
-** Details of renewed loans
-
-All the above information is accurately displayed in the generated loan slip from 'LiBerry' `v1.4`. +
-{nbsp}
-
-* *Effort*: This feature required an in-depth understanding of: +
-{nbsp}
-** How to leverage on Gradle to add libraries from the Maven Central Repository
-** How to get resources when the application in a `.jar` format
-** How to handle file input
-** How to handle file output
-** How to create PDFs from text
-** How to use the 'iText7' Library suitably for 'LiBerry' by reading and understanding the 'iText7' documentation
-
-These additional information are not in the scope of the course and therefore required intensive research on my part. +
+* *Effort*: This feature required an in-depth understanding of handling external libraries as well as file input and output.
+These information are not taught in the course and therefore required extensive research on my part. +
 {nbsp}
 
 To allow us to fully visualise this feature, let us take a look at how a generated loan slip will looks like.
 
 .Generated Loan Slip
-image::LoanSlip.png[width=350, align=center]
+image::LoanSlip.png[width=250, align=center]
 {nbsp}
 
 In Figure 2, we can see all books loaned by 'Bill' recorded and generated in a printable loan slip.
@@ -160,13 +121,7 @@ I have provided a breakdown below as to how this feature achieves the required *
 * *Depth*: The Book feature is a representation of the cohesive Book component, which supports the ability to:
 ** *Add* a book to the catalog
 ** *Delete* a book from the catalog
-** *Display information* about a book in the catalog, which includes:
-*** Serial number of book
-*** Title of book
-*** Author of book
-*** Genres of book, if any
-*** Loan status (if it is currently on loan or not)
-*** Loan history +
+** *Display information* about a book in the catalog
 {nbsp}
 
 * *Completeness*: This feature is cohesively and completely linked to the other core feature such as the Loan feature and the Borrower feature. +
