@@ -1,9 +1,13 @@
 package seedu.address.storage;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
+import static seedu.address.testutil.TypicalNotes.PIPELINE;
+import static seedu.address.testutil.TypicalFlashcards.CS_ONE;
+import static seedu.address.testutil.TypicalFlashcards.INTELLIJ_ONE;
+import static seedu.address.testutil.TypicalFlashcards.MATH_ONE;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,6 +23,7 @@ import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
 import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
 import seedu.address.model.ReadOnlyStudyBuddyProNotes;
 import seedu.address.model.StudyBuddyPro;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class JsonStudyBuddyProStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonStudyBuddyProStorageTest");
@@ -80,37 +85,38 @@ public class JsonStudyBuddyProStorageTest {
     @Test
     public void read_missingFlashcardFile_emptyResult() throws Exception {
         assertFalse(readStudyBuddyProFlashcards("NonExistentFile.json",
-                "ExistentFile.json", "ExistentFile.json").isPresent());
+                "validNoteStudyBuddyPro.json", "validCheatSheetStudyBuddyPro.json").isPresent());
     }
 
     @Test
     public void read_missingNoteFile_emptyResult() throws Exception {
-        assertFalse(readStudyBuddyProNotes("ExistentFile.json",
-                "NonExistentFile.json", "ExistentFile.json").isPresent());
+        assertFalse(readStudyBuddyProNotes("validFlashcardStudyBuddyPro.json",
+                "NonExistentFile.json", "NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_missingCheatSheetFile_emptyResult() throws Exception {
-        assertFalse(readStudyBuddyProCheatSheets("ExistentFile.json",
-                "ExistentFile.json", "NonExistentFile.json").isPresent());
+        assertFalse(readStudyBuddyProCheatSheets("validFlashcardStudyBuddyPro.json",
+                "validNoteStudyBuddyPro.json", "NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_flashcardsNotJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readStudyBuddyProFlashcards("notJsonFormatFlashcards.json",
-            "JsonFormatNotes.json", "JsonFormatCheatSheets.json"));
+            "validNoteStudyBuddyPro.json", "validCheatSheetStudyBuddyPro.json"));
     }
 
     @Test
     public void read_notesNotJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readStudyBuddyProNotes("JsonFormatFlashcards.json",
-                "notJsonFormatNotes.json", "JsonFormatCheatSheets.json"));
+        assertThrows(DataConversionException.class, () -> readStudyBuddyProNotes("validFlashcardStudyBuddyPro.json",
+                "notJsonFormatNotes.json", "validCheatSheetStudyBuddyPro.json"));
     }
 
     @Test
     public void read_cheatsheetsNotJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readStudyBuddyProCheatSheets("JsonFormatFlashcards.json",
-                "JsonFormatNotes.json", "notJsonFormatCheatSheets.json"));
+        assertThrows(DataConversionException.class, () ->
+                readStudyBuddyProCheatSheets("validFlashcardStudyBuddyPro.json",
+                "validNoteStudyBuddyPro.json", "notJsonFormatCheatSheets.json"));
     }
 
     @Test
@@ -152,33 +158,46 @@ public class JsonStudyBuddyProStorageTest {
                 "invalidAndValidCheatSheetStudyBuddyPro.json"));
     }
 
-    /*
     @Test
     public void readAndSaveStudyBuddyPro_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        StudyBuddyPro original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        Path flashcardsFilePath = testFolder.resolve("TempStudyBuddyProFlashcards.json");
+        Path notesFilePath = testFolder.resolve("TempStudyBuddyProNotes.json");
+        Path cheatsheetsFilePath = testFolder.resolve("TempStudyBuddyProCheatSheets.json");
+
+        StudyBuddyPro original = getTypicalStudyBuddyPro();
+        JsonStudyBuddyProStorage jsonStudyBuddyProStorage = new JsonStudyBuddyProStorage(flashcardsFilePath,
+                notesFilePath, cheatsheetsFilePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveStudyBuddyPro(original, filePath);
-        ReadOnlyStudyBuddyPro readBack = jsonAddressBookStorage.readStudyBuddyPro(filePath).get();
-        assertEquals(original, new StudyBuddyPro(readBack));
+        jsonStudyBuddyProStorage.saveStudyBuddyPro(original, flashcardsFilePath, notesFilePath, cheatsheetsFilePath);
+        ReadOnlyStudyBuddyProFlashcards readBackFlashcards = jsonStudyBuddyProStorage
+                .readStudyBuddyProFlashcards(flashcardsFilePath).get();
+        ReadOnlyStudyBuddyProNotes readBackNotes = jsonStudyBuddyProStorage
+                .readStudyBuddyProNotes(notesFilePath).get();
+        ReadOnlyStudyBuddyProCheatSheets readBackCheatSheets = jsonStudyBuddyProStorage
+                .readStudyBuddyProCheatSheets(cheatsheetsFilePath).get();
+        assertEquals(original, new StudyBuddyPro(readBackFlashcards, readBackNotes, readBackCheatSheets));
 
-        // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
-        jsonAddressBookStorage.saveStudyBuddyPro(original, filePath);
-        readBack = jsonAddressBookStorage.readStudyBuddyPro(filePath).get();
-        assertEquals(original, new StudyBuddyPro(readBack));
+        // Modify data, overwrite exiting file, and read back. Can add more comprehensive tests for notes and
+        // cheatsheets as well
+        original.addFlashcard(new FlashcardBuilder(MATH_ONE).withQuestion("New Question")
+                .withTitle("New Title").build());
+        original.removeFlashcard(CS_ONE);
+        jsonStudyBuddyProStorage.saveStudyBuddyPro(original, flashcardsFilePath, notesFilePath, cheatsheetsFilePath);
+        readBackFlashcards = jsonStudyBuddyProStorage.readStudyBuddyProFlashcards(flashcardsFilePath).get();
+        readBackNotes = jsonStudyBuddyProStorage.readStudyBuddyProNotes(notesFilePath).get();
+        readBackCheatSheets = jsonStudyBuddyProStorage.readStudyBuddyProCheatSheets(cheatsheetsFilePath).get();
+        assertEquals(original, new StudyBuddyPro(readBackFlashcards, readBackNotes, readBackCheatSheets));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonAddressBookStorage.saveStudyBuddyPro(original); // file path not specified
-        readBack = jsonAddressBookStorage.readStudyBuddyPro().get(); // file path not specified
-        assertEquals(original, new StudyBuddyPro(readBack));
+        original.addNote(PIPELINE);
+        jsonStudyBuddyProStorage.saveStudyBuddyPro(original); // file path not specified
+        readBackFlashcards = jsonStudyBuddyProStorage.readStudyBuddyProFlashcards().get(); // file path not specified
+        readBackNotes = jsonStudyBuddyProStorage.readStudyBuddyProNotes().get(); // file path not specified
+        readBackCheatSheets = jsonStudyBuddyProStorage.readStudyBuddyProCheatSheets().get(); // file path not specified
+        assertEquals(original, new StudyBuddyPro(readBackFlashcards, readBackNotes, readBackCheatSheets));
 
     }
-    */
 
     @Test
     public void saveStudyBuddyPro_nullStudyBuddyPro_throwsNullPointerException() {
