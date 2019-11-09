@@ -71,22 +71,20 @@ Allow me to brief you on some useful terms and to give you a context.
 == Summary of contributions
 
 === Major feature
-*Word Bank Management*.
+*Word Bank Management*
 
-* What it does: +
+* *What it does:* +
 ** Enables user to have a high level management for his word banks and cards through CLI and GUI. +
 Is semi-automated by _Dukemon_ to enhance user's learning experience. +
 Consists of four complementary distinct sections.
 
-. *Word bank's data structure and its
-storage system*: +
+. *Word bank's data structure and its storage system*: +
 Allows developers to use and extend this architecture to streamline their feature implementation. +
 Allows user to save and load their word banks. +
 Is implemented with a robust underlying `WordBankList` data structure, with its
 own `WordBankListStorage`,
 along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise its
 data.
-
 
 . *User Commands*: +
 Allows user to customise cards/word banks through `CardCommands` / `WordBankCommands`.
@@ -102,7 +100,7 @@ Likewise, cards that were answered correctly during game play are automatically 
 
 //{nbsp}
 
-* Justification:
+* *Justification:*
 
 ** Well designed architecture and well implemented data structure streamlines integration and allows extension for
 features that builds on top of it. (statistics, game, settings)
@@ -115,7 +113,7 @@ features that builds on top of it. (statistics, game, settings)
 
 //{nbsp}
 
-* Highlights:
+* *Highlights:*
 
 ** There exists multiple ways to design and implement word bank management. Throughout _Dukemon_'s development,
 it has been restructured and rewritten a few times before finally coming to how it is implemented now. +
@@ -139,7 +137,7 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 
 //{nbsp}
 
-* Credits:
+* *Credits:*
 ** Online resources
 *** {empty}[https://github.com/junit-team/junit5[JUnit 5]] [https://openjfx.io/[JavaFX]] [https://github.com/TestFX/TestFX[TestFX]] [https://github.com/FasterXML/jackson[Jackson]]
 *** {empty}[https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm[Drag and drop JavaFX documentation]] [https://www.youtube.com/watch?v=f7KGXUrAH0g&t=320s[Drag and drop video tutorial]]
@@ -164,35 +162,47 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 *** Folders required for related files are created if not present.
 
 === Other contributions
-* *Code contributed*: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[Commits]] [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*:
+** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]]
+** Functional:
+*** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbank[WordBank]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbanklist[WordBankList]]
+*** Storage: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/storage/wordbanks[WordBank storage]]
+*** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/cardcommands[Card commands]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/wordbankcommands[WordBank commands]]
+*** Command parsers: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/open[Card command parser]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/home[WordBank command parser]]
+*** UI: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/WordBankCard.java[Card display]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/LoadBankPanel.java[WordBanks display]]
+*** Data for Dukemon: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/util/SampleDataUtil.java[Default data]]
+
+** Tests:
+*** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/cardcommands[Card command test]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/wordbankcommands[WordBank command test]]
+*** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/storage/wordbanks[WordBank storage test]]
+*** Data for testing: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonSerializableWordBankTest[WordBank test data]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonWordBankListStorageTest[WordBankList test data]]
 
 * *Other contributions* :
-** Discovered and fixed huge amount of bugs across different parts of _Dukemon_. [https://github.com/AY1920S1-CS2103T-T11-2/main/issues?page=1&q=is%3Aissue+is%3Aclosed+assignee%3Achrischenhui[Fixed issues]]
+** Discovered and fixed huge amount of bugs across different parts of _Dukemon_. [https://github.com/AY1920S1-CS2103T-T11-2/main/issues?page=1&q=is%3Aissue+is%3Aclosed+assignee%3Achrischenhui[Issues resolved by me]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/185[Bugs fixed]]
 
 ** Project management:
-*** Selected members and formed the team. Went extra miles to bond the team through fine details.
-*** Heavily scrutinised ideas during early stage of idea development, to ensure belief in our product.
+*** Found members and formed the team. Went extra miles to bond everyone through fine details.
+*** Heavily scrutinised ideas during early stage of idea development, inorder to develop a product idea that our team
+can fully believe in and dedicate effort.
 *** Set up organisation repo, including issues, label and milestones.
-*** Set up Netlify.
+*** Set up Netlify to improve workflow.
 *** Took the initiative to kick start the project when team members were not taking the project seriously.
 
 //** Enhancements to existing features:
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
-** Documentation:
-*** Wrote the skeleton of User Guide: https://https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/UserGuide.adoc.com[#14]
+** *Documentation:*
+*** Apart from my own section within UG, I wrote a major chunk of User Guide's skeleton for my teammates: [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/100/files[UG heavy update 1]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/128/files[UG heavy update 2]] [https://github.com/AY1920S1-CS2103T-T11-2/main/commit/5601a170c8fc889278a7a7cdb2c7b2f05b42ecbd[UG heavy update 3]]
+*** Studied and improved styling for team's UML diagrams. [https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/diagrams/style.puml[Style.puml]]
 
-** Community:
-*** PRs reviewed (with positive feedbacks): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[#42]
-https://github.com/AY1920S1-CS2103T-T11-2/main/pull/210[#43]
-https://github.com/AY1920S1-CS2103T-T11-2/main/pull/218[#44]
+** *Community:*
+*** Reviewed PRs (with positivity): [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[TimeBook]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/210[Jason's new command]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/218[Yida's clean code]]
 
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-//*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs in the form of issues for other teams in the class [https://github.com/chrischenhui/ped/issues[Njar]]
 
-** Tools: +
-JUnit testing +
-https://github.com/AY1920S1-CS2103T-https://www.netlify.com/-2/main/pull/218[Netlify]
+** *Tools:*
+*** JUnit testing +
+*** https://github.com/AY1920S1-CS2103T-https://www.netlify.com/-2/main/pull/218[Netlify]
 
 //*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
