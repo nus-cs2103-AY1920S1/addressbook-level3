@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -113,6 +114,47 @@ public class EventTime implements Comparable<EventTime> {
         }
 
         return true;
+    }
+
+    /**
+     * Concatenates two EventTimes. If the two EventTime overlaps, then returns a list of one element, which
+     * is the result of the concatenation ; else, return a list of two elements.
+     *
+     * @param e1 a time
+     * @param e2 a time
+     * @return a list of either one or two elements
+     */
+    public static List<EventTime> concat(EventTime e1, EventTime e2) {
+        EventTime early = e1.compareTo(e2) > 0 ? e2 : e1;
+        EventTime late = e1.compareTo(e2) > 0 ? e1 : e2;
+
+        if (early.overlaps(late) || early.getEnd().equals(late.getStart())) {
+            return List.of(new EventTime(early.getStart(), late.getEnd()));
+        } else {
+            return List.of(early, late);
+        }
+    }
+
+    /**
+     * Appends a time to a list of EventTime. It will concatenate the incoming event time with an element in the
+     * list if they overlap or connect.
+     * @param lst a list of event time
+     * @param e the element
+     * @return a non-connecting, non-overlapping list of EventTime
+     */
+    public static List<EventTime> append(List<EventTime> lst, EventTime e) {
+        if (lst.isEmpty()) {
+            lst.add(e);
+            return lst;
+        }
+
+        Collections.sort(lst);
+
+        int last = lst.size() - 1;
+        EventTime lastEventTime = lst.remove(last);
+        lst.addAll(EventTime.concat(lastEventTime, e));
+
+        return lst;
     }
 
     /**

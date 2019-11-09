@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NavigableSet;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import seedu.address.model.person.exceptions.SchedulingException;
  * Manages the availability of the owner.
  */
 public class Schedule {
-    public static final String MESSAGE_EMPTY_SCHEDULE = "No task assigned";
+    public static final String MESSAGE_EMPTY_SCHEDULE = "On standby";
     public static final String MESSAGE_EARLIER_AVAILABLE = "An earlier time slot is available. ";
     public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s ";
     public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule. ";
@@ -175,6 +176,7 @@ public class Schedule {
         return this.schedule
                 .subSet(EventTime.parse("0000", START_WORK_TIME), false,
                         EventTime.parse(END_WORK_TIME, "2359"), false).stream()
+                .collect(ArrayList::new, EventTime::append, ArrayList::addAll).stream()
                 .map(EventTime::to24HrString)
                 .reduce((str1, str2) -> str1 + ", " + str2)
                 .orElse(MESSAGE_EMPTY_SCHEDULE);
