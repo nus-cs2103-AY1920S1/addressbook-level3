@@ -218,6 +218,8 @@ table.tableblock > .title,
         content: none !important;
     }
 }
-<style> @media print { a[href]::after { content: none !important; } } </style>
+
+
+
 
 
