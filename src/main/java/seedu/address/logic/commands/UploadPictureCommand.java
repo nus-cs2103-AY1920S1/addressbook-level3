@@ -52,10 +52,10 @@ public class UploadPictureCommand extends Command {
         assert fileName.length() > 5;
         int start = fileName.length() - 3;
 
-        boolean isPNG = fileName.substring(start).equals("png");
-        boolean isJPG = fileName.substring(start).equals("jpg");
+        boolean isPng = fileName.substring(start).equals("png");
+        boolean isJpg = fileName.substring(start).equals("jpg");
 
-        assert isPNG || isJPG;
+        assert isPng || isJpg;
 
         this.index = index;
         this.fileName = fileName;

@@ -47,7 +47,7 @@ public class AutoCompleteTextField extends TextField {
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
-                //TODO make this code better 
+                //TODO make this code better
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
                         .collect(Collectors.toList());
