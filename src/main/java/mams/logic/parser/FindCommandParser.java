@@ -23,8 +23,6 @@ import mams.model.student.StudentContainsKeywordsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    private List<Predicate> predicates = new ArrayList<>();
-
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -40,6 +38,13 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        List<Predicate> predicates = new ArrayList<>();
 
         if (argMultimap.getValue(PREFIX_STUDENT).isPresent()
                 && !argMultimap.getValue(PREFIX_STUDENT).get().isEmpty()) {
