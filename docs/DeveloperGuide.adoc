@@ -728,6 +728,7 @@ Use case ends
 // end::usecase[]
 
 // tag::task_usecase[]
+
 [discrete]
 === Use case: Add a revision task for note to revision plan (Shui Yao)
 
