@@ -4,11 +4,13 @@ import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_C
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.CURRENT_TAB_WATCHED_TAB;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -30,5 +32,10 @@ public class DeleteCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE),
                 CURRENT_TAB_WATCHED_TAB);
+    }
+
+    @Test
+    void parse() throws ParseException {
+        assertThrows(ParseException.class, ()-> parser.parse("-1", "1"));
     }
 }

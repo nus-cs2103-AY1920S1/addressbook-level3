@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
 
         Show showToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteShow(showToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_SHOW_SUCCESS, showToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_SHOW_SUCCESS, showToDelete), true);
     }
 
     @Override

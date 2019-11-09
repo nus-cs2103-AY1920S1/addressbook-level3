@@ -55,6 +55,9 @@ public class AddCommand extends Command {
     public static final String NOT_AT_SEARCH_LIST_PAGE = "'Add Index' command is only available in Search Panel";
 
     private final Show toAdd;
+
+
+
     private final int index;
     private final boolean isFromSearch;
 
@@ -87,7 +90,7 @@ public class AddCommand extends Command {
         }
 
         model.addShow(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**
@@ -111,7 +114,10 @@ public class AddCommand extends Command {
         }
 
         model.addShow(fromImdb);
-        return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb));
+        return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb), true);
+    }
+    public boolean isFromSearch() {
+        return isFromSearch;
     }
 
     @Override

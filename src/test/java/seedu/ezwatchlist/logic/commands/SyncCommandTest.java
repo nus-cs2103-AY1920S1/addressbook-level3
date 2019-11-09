@@ -1,35 +1,34 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
-
+import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_SUCCESS;
+import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_UNSUCCESFUL2;
+import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_UNSUCCESSFUL;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
@@ -38,120 +37,75 @@ import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 
-public class AddCommandTest {
-
+public class SyncCommandTest {
     @Test
-    public void constructor_nullShow_throwsNullPointerException() {
-        Show show = null;
-        assertThrows(NullPointerException.class, () -> new AddCommand(show));
-    }
-
-    @Test
-    public void check_static_fields() {
-        final String messageusage = "add" + ": Adds a show to the watchlist. "
-                + "Parameters: "
-                + PREFIX_NAME + "NAME "
-                + PREFIX_TYPE + "TYPE ('movie' or 'tv') "
-                + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
-                + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
-                + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
-                + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-                + "[" + PREFIX_ACTOR + "ACTOR]...\n"
-                + "Example: " + "add" + " "
-                + PREFIX_NAME + "Joker "
-                + PREFIX_TYPE + "movie "
-                + PREFIX_DATE_OF_RELEASE + "4 October 2019 "
-                + PREFIX_IS_WATCHED + "true "
-                + PREFIX_RUNNING_TIME + "122 "
-                + PREFIX_DESCRIPTION + "Joker is funny "
-                + PREFIX_ACTOR + "Joaquin Phoenix "
-                + PREFIX_ACTOR + "Robert De Niro";
-        assertEquals(AddCommand.MESSAGE_USAGE, messageusage);
-    }
-
-    @Test
-    public void execute_showAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingShowAdded modelStub = new ModelStubAcceptingShowAdded();
-        Show validShow = new ShowBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validShow).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validShow), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validShow), modelStub.showsAdded);
-    }
-
-    @Test
-    public void execute_duplicateShow_throwsCommandException() {
-        Show validShow = new ShowBuilder().build();
-        AddCommand addCommand = new AddCommand(validShow);
-        ModelStub modelStub = new ModelStubWithShow(validShow);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_SHOW, () -> addCommand.execute(modelStub));
-    }
-
-
-
-    @Test
-    void fromSearch() {
-    }
-
-    @Test
-    void testExecute() throws CommandException {
-        ModelStubAcceptingShowAdded modelStub = new ModelStubAcceptingShowAdded();
-        Show validShow = new ShowBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validShow).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validShow), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validShow), modelStub.showsAdded);
-        Show validShow2 = new ShowBuilder().build();
-        AddCommand addCommand = new AddCommand(validShow2);
-        ModelStub modelStub2 = new ModelStubWithShow(validShow2);
-
-        AddCommand fromsearch = new AddCommand(1);
-        //assertEquals();
-    }
-
-    @Test
-    void testFromSearch() {
+    void constructor_nullShow_throwsNullPointerException() {
+        Index index = null;
+        assertThrows(NullPointerException.class, () -> new SyncCommand(index));
     }
 
     @Test
     void testEquals() {
-        Show avenger = new ShowBuilder().withName("Avenger").build();
-        Show bobthebuilder = new ShowBuilder().withName("Bob The Builder").build();
-        AddCommand addAvengerCommand = new AddCommand(avenger);
-        AddCommand addBobCommand = new AddCommand(bobthebuilder);
+        Index index = null;
+        Index index1 = INDEX_FIRST_SHOW;
+        Index index2 = INDEX_SECOND_SHOW;
 
-        AddCommand addIndex0 = new AddCommand(1);
-        AddCommand addIndex1 = new AddCommand(2);
+        SyncCommand syncCommand1 = new SyncCommand(index1);
+        SyncCommand syncCommand2 = new SyncCommand(index2);
+
         // same object -> returns true test using ==
-        assertTrue(addAvengerCommand == addAvengerCommand);
+        assertTrue(syncCommand1 == syncCommand1);
 
         // same object -> returns true
-        assertTrue(addAvengerCommand.equals(addAvengerCommand));
+        assertTrue(syncCommand1.equals(syncCommand1));
 
         // same values -> returns true
-        AddCommand addShowCommandCopy = new AddCommand(avenger);
-        assertTrue(addAvengerCommand.equals(addAvengerCommand));
+        SyncCommand addSyncCommandCopy = new SyncCommand(index1);
+        assertTrue(addSyncCommandCopy.equals(syncCommand1));
 
         // different types -> returns false
-        assertFalse(addAvengerCommand.equals(1));
+        assertFalse(syncCommand1.equals(1));
 
         // null -> returns false
-        assertFalse(addAvengerCommand.equals(null));
+        assertFalse(syncCommand1.equals(null));
 
         // different show -> returns false
-        assertFalse(addAvengerCommand.equals(addBobCommand));
+        assertFalse(syncCommand1.equals(syncCommand2));
 
-        // same index -> returns true
-        assertTrue(addIndex0.equals(addIndex0));
-
-        // null -> returns false
-        assertFalse(addIndex0.equals(null));
     }
 
+    @Test
+    void execute() throws CommandException {
 
+        //check for null model
+        Model model = null;
+        assertThrows(NullPointerException.class, () -> new SyncCommand(INDEX_FIRST_SHOW).execute(model));
+
+        //check for sync command error: User input index is greater than search list size
+        SyncCommand syncCommand = new SyncCommand(INDEX_FIRST_SHOW);
+        WatchList watchList = new WatchList();
+        UserPrefs userPrefs = new UserPrefs();
+        ModelManager modelManager = new ModelManager(watchList, userPrefs);
+        assertThrows(CommandException.class, () -> syncCommand.execute(modelManager));
+
+
+        Show superman = new ShowBuilder().withName("Superman").build();
+        modelManager.addShow(superman);
+        List<Show> search = new ArrayList<>();
+        Show supermanSync = new ShowBuilder().withName("Superman").withRunningTime(125).build();
+        search.add(new ShowBuilder().withName("Superman").withRunningTime(125).build());
+        modelManager.updateSearchResultList(search);
+        CommandResult commandResult = syncCommand.execute(modelManager);
+        Assertions.assertEquals(String.format(MESSAGE_SUCCESS, supermanSync), commandResult.getFeedbackToUser());
+
+        SyncCommand syncCommand1 = new SyncCommand(INDEX_FIRST_SHOW);
+        List<Show> search2 = new ArrayList<>();
+        search2.add(new ShowBuilder().build());
+        modelManager.updateSearchResultList(search2);
+        assertThrows(CommandException.class, MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2, ()->
+                syncCommand1.execute(modelManager));
+
+    }
 
     /**
      * A default model stub that have all of the methods failing.
@@ -294,40 +248,19 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that contains a single show.
-     */
-    private class ModelStubWithShow extends ModelStub {
-        private final Show show;
-
-        ModelStubWithShow(Show show) {
-            requireNonNull(show);
-            this.show = show;
-        }
+    private class ModelStubAcceptingShow extends ModelStub {
+        private ArrayList<Show> showArrayList = new ArrayList<>();
 
         @Override
         public boolean hasShow(Show show) {
             requireNonNull(show);
-            return this.show.isSameShow(show);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the show being added.
-     */
-    private class ModelStubAcceptingShowAdded extends ModelStub {
-        final ArrayList<Show> showsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasShow(Show show) {
-            requireNonNull(show);
-            return showsAdded.stream().anyMatch(show::isSameShow);
+            return showArrayList.stream().anyMatch(show::isSameShow);
         }
 
         @Override
         public void addShow(Show show) {
             requireNonNull(show);
-            showsAdded.add(show);
+            showArrayList.add(show);
         }
 
         @Override
@@ -335,5 +268,4 @@ public class AddCommandTest {
             return new WatchList();
         }
     }
-
 }

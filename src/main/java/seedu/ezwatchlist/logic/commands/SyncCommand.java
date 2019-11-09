@@ -39,20 +39,16 @@ public class SyncCommand extends Command {
         requireNonNull(model);
         List<Show> searchResultList = model.getSearchResultList();
         List<Show> unWatchedList = model.getUnWatchedShowList();
-        System.err.println(unWatchedList);
         if (toSync.getZeroBased() >= searchResultList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
         Name name = fromImdb.getName();
-        System.err.println(name.showName);
         boolean matchingShowName = false;
         int matchingIndex = -1;
         for (int i = 0; i < unWatchedList.size(); i++) {
             Name nameFromUnWatched = unWatchedList.get(i).getName();
-            System.err.println("FROM watchedlist: " + nameFromUnWatched.showName);
             if (name.equals(nameFromUnWatched)) {
-                System.err.println("MATCHED");
                 matchingShowName = true;
                 matchingIndex = i;
                 break;
@@ -61,7 +57,7 @@ public class SyncCommand extends Command {
         if (matchingShowName) {
             Show fromUnWatchedList = unWatchedList.get(matchingIndex);
             model.setShow(fromUnWatchedList, fromImdb);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
         } else {
             throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2);
         }

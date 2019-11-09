@@ -16,7 +16,6 @@ public class GoToParser implements Parser<GoToCommand> {
 
         }
         if (goTo.equals("watchlist") || args.equals("1")) {
-            System.err.println("watchlist");
             return new GoToCommand("1");
         }
         if (goTo.equals("watched") || args.equals("2")) {
