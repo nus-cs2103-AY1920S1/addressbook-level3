@@ -5,6 +5,7 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -385,4 +386,13 @@ public class ModelManager implements Model {
                 ? other.currentUrl.getValue() == null
                 : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
+
+    @Override
+    /**
+     * Starts mark's timer.
+     */
+    public void startTimer(ScheduledExecutorService executor) {
+        versionedMark.deleteExpiredReminder(executor);
+    }
+
 }

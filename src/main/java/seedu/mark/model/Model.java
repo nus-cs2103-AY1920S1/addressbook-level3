@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -270,7 +271,14 @@ public interface Model {
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
+
+    /**
+     * Starts mark's timer.
+     */
+    void startTimer(ScheduledExecutorService executor);
+
     ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
 
     void setOfflineDocNameCurrentlyShowing(String name);
+
 }

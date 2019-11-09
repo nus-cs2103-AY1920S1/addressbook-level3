@@ -143,6 +143,7 @@ public class MarkTest {
         public ObservableValue<String> getOfflineDocCurrentlyShowing() {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 
 }
