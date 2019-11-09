@@ -32,8 +32,10 @@ import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.RemoveDislikeCommand;
 import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SaveCommand;
+import seedu.savenus.logic.commands.ShowCommand;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
+import seedu.savenus.logic.commands.WithdrawCommand;
 
 /**
  * Controller for a help page
@@ -66,8 +68,10 @@ public class HelpWindow extends UiPart<Stage> {
             + RemoveDislikeCommand.COMMAND_WORD + "\n"
             + RemoveLikeCommand.COMMAND_WORD + "\n"
             + SaveCommand.COMMAND_WORD + "\n"
+            + ShowCommand.COMMAND_WORD + "\n"
             + SortCommand.COMMAND_WORD + "\n"
-            + TopUpCommand.COMMAND_WORD + "\n\n"
+            + TopUpCommand.COMMAND_WORD + "\n"
+            + WithdrawCommand.COMMAND_WORD + "\n\n"
             + "Click the Guide button below to open to full user guide.\n"
             + "You will need internet connection to open the user guide.";
 
