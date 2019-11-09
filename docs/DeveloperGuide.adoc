@@ -717,6 +717,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+// tag::notifmanualtesting[]
 === Notification System
 
 . Posting notifications to the desktop
@@ -726,3 +727,4 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
 .. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
    Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+// end::notifmanualtesting[]

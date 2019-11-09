@@ -60,9 +60,16 @@ include::../UserGuide.adoc[tag=chenggengppp]
 // end::ug[]
 
 == Contributions to the Developer Guide
-The following section includes excerpts of my contributions to the Horo Developer Guide, explaining the class architecture and behaviour behind the Notification System.
+The following section includes excerpts of my contributions to the Horo Developer Guide.
 
+=== Class Architecture and Behaviour
+This sub-section includes my explanations of the class architecture and behaviour behind the Notification System.
 
 // tag::dg[]
 include::../DeveloperGuide.adoc[tag=notification]
 // end::dg[]
+
+=== Intructions for Manual Testing
+This sub-section includes instructions I have provided for manual testing of the notification system.
+
+include::../DeveloperGuide.adoc[tag=notifmanualtesting]
