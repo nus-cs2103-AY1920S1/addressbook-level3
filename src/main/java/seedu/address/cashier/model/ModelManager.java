@@ -528,6 +528,9 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isValidAmount(String description, int qty) throws NoSuchItemException, AmountExceededException {
+        assert qty > 0 : "Quantity must be a positive integer.";
+        requireNonNull(description);
+
         double price = inventoryList.getOriginalItem(description).getPrice();
         double itemPrice = price * qty;
         if (itemPrice > 999999.99) {
@@ -546,6 +549,9 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isValidAmount(int index, int qty) throws NoSuchItemException, AmountExceededException {
+        assert qty > 0 : "Quantity must be a positive integer.";
+        assert index > 0 : "Index must be a positive integer.";
+
         String description = salesList.get(index - 1).getDescription();
         return isValidAmount(description, qty);
     }
