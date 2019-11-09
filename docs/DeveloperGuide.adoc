@@ -542,7 +542,7 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSQ.png[width=450]
+image::undoSQ.png[width=450]
 Sequence diagram for undo implementation
 
 ==== Redo Implementation
