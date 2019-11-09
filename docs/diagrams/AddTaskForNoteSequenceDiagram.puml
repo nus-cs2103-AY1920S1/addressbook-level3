@@ -1,100 +1,83 @@
-'@startuml
-'!include style.puml
-'
-'box Logic LOGIC_COLOR_T1
-'participant ":LogicManager" as LogicManager LOGIC_COLOR
-'participant ":AppDataParser" as AppDataParser LOGIC_COLOR
-'participant ":AddTaskForNoteCommandParser" as AddTaskForNoteCommandParser LOGIC_COLOR
-'participant "a:AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
-'participant "result:CommandResult" as CommandResult LOGIC_COLOR
-'end box
-'
-'box Model MODEL_COLOR_T1
-'participant ":Model" as Model MODEL_COLOR
-'participant ":AppData" as AppData MODEL_COLOR
-'participant ":TaskList" as TaskList MODEL_COLOR
-'end box
-'
-'[-> LogicManager : execute("radd t/CS2103T dt/22/10/2019 tm/1400")
-'activate LogicManager
-'
-'LogicManager -> AppDataParser : parseCommand("radd t/CS2103T dt/22/10/2019 tm/1400")
-'activate AppDataParser
-'
-'create AddTaskForNoteCommandParser
-'AppDataParser -> AddTaskForNoteCommandParser
-'activate AddTaskForNoteCommandParser
-'
-'AddTaskForNoteCommandParser --> AppDataParser
-'deactivate AddTaskForNoteCommandParser
-'
-'AppDataParser -> AddTaskForNoteCommandParser : parse("t/CS2103T dt/22/10/2019 tm/1400")
-'activate AddTaskForNoteCommandParser
-'
-'AddTaskForNoteCommandParser -> AddTaskForNoteCommand
-'activate AddTaskForNoteCommand
-'
-'AddTaskForNoteCommand --> AddTaskForNoteCommandParser : a
-'deactivate AddTaskForNoteCommand
-'
-'AddTaskForNoteCommandParser --> AppDataParser : a
-'deactivate AddTaskForNoteCommandParser
-''Hidden arrow to position the destroy marker below the end of the activation bar.
-'AddTaskForNoteCommandParser -[hidden]-> AppDataParser
-'destroy AddTaskForNoteCommandParser
-'
-'AppDataParser --> LogicManager : a
-'deactivate AppDataParser
-'
-'LogicManager -> AddTaskForNoteCommand : execute()
-'activate AddTaskForNoteCommand
-'
-'AddTaskForNoteCommand -> Model : addTask(toAdd)
-'activate Model
-'
-'Model -> AppData : addTask(toAdd)
-'activate AppData
-'
-'AppData -> TaskList : add(toAdd)
-'activate TaskList
-'
-'TaskList --> AppData
-'deactivate TaskList
-'
-'AppData --> Model
-'deactivate AppData
-'
-'Model --> AddTaskForNoteCommand
-'deactivate Model
-'
-'create CommandResult
-'AddTaskForNoteCommand -> CommandResult
-'activate CommandResult
-'
-'CommandResult --> AddTaskForNoteCommand
-'deactivate CommandResult
-'
-'AddTaskForNoteCommand --> LogicManager : result
-'deactivate AddTaskForNoteCommand
-'
-'[<-- LogicManager
-'deactivate LogicManager
-'
-'@enduml
-
 @startuml
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AppDataParser" as AppDataParser LOGIC_COLOR
 participant ":AddTaskForNoteCommandParser" as AddTaskForNoteCommandParser LOGIC_COLOR
 participant "a:AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":AppData" as AppData MODEL_COLOR
-participant ":UniqueNoteList" as UniqueNoteList MODEL_COLOR
 participant ":TaskList" as TaskList MODEL_COLOR
 end box
+
+[-> LogicManager : execute("radd t/CS2103T dt/22/10/2019 tm/1400")
+activate LogicManager
+
+LogicManager -> AppDataParser : parseCommand("radd t/CS2103T dt/22/10/2019 tm/1400")
+activate AppDataParser
+
+create AddTaskForNoteCommandParser
+AppDataParser -> AddTaskForNoteCommandParser
+activate AddTaskForNoteCommandParser
+
+AddTaskForNoteCommandParser --> AppDataParser
+deactivate AddTaskForNoteCommandParser
+
+AppDataParser -> AddTaskForNoteCommandParser : parse("t/CS2103T dt/22/10/2019 tm/1400")
+activate AddTaskForNoteCommandParser
+
+AddTaskForNoteCommandParser -> AddTaskForNoteCommand
+activate AddTaskForNoteCommand
+
+AddTaskForNoteCommand --> AddTaskForNoteCommandParser : a
+deactivate AddTaskForNoteCommand
+
+AddTaskForNoteCommandParser --> AppDataParser : a
+deactivate AddTaskForNoteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTaskForNoteCommandParser -[hidden]-> AppDataParser
+destroy AddTaskForNoteCommandParser
+
+AppDataParser --> LogicManager : a
+deactivate AppDataParser
+
+LogicManager -> AddTaskForNoteCommand : execute()
+activate AddTaskForNoteCommand
+
+AddTaskForNoteCommand -> Model : addTask(toAdd)
+activate Model
+
+Model -> AppData : addTask(toAdd)
+activate AppData
+
+AppData -> TaskList : add(toAdd)
+activate TaskList
+
+TaskList --> AppData
+deactivate TaskList
+
+AppData --> Model
+deactivate AppData
+
+Model --> AddTaskForNoteCommand
+deactivate Model
+
+create CommandResult
+AddTaskForNoteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTaskForNoteCommand
+deactivate CommandResult
+
+AddTaskForNoteCommand --> LogicManager : result
+deactivate AddTaskForNoteCommand
+
+[<-- LogicManager
+deactivate LogicManager
 
 @enduml

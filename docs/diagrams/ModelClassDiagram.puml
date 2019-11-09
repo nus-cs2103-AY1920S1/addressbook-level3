@@ -64,16 +64,16 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AppData *---> "1" UniqueNoteList
 UniqueNoteList o--> "*" Note
-Note *--> Title
-Note *--> Content
+Note *--> "1" Title
+Note *--> "1" Content
 Note *-->"0..1" Image
 
 AppData *---> "1" UniqueQuestionList
 UniqueQuestionList o--> "*" Question
-Question *--> QuestionBody
-Question *--> Answer
-Question *--> Difficulty
-Question *--> Subject
+Question *--> "1" QuestionBody
+Question *--> "1" Answer
+Question *--> "1" Difficulty
+Question *--> "1" Subject
 
 AppData *---> "1" QuizQuestionList
 AppData *---> "1" QuizResultList
@@ -83,7 +83,7 @@ QuizResultList o--> "*" QuizResult
 
 AppData *---> "1" TaskList
 TaskList o-->  "*" Task
-Task *-down-> Heading
+Task *-down-> "1" Heading
 
 }
 
