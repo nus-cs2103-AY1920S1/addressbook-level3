@@ -916,3 +916,21 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Displaying indicators
+
+. Indicators are up to date and shown in the correct format
+
+.. Test case: +
+    `display i/policy-popularity-breakdown f/piechart` +
+    `addpolicy n/Child Care d/Care for children c/days/20 months/11 years/5 pr/$50000 sa/0 ea/10` +
+   Expected: Popularity of child care policy should be 0. Format of indicator should be piechart.
+.. Test case: +
+    `display i/age-group-breakdown f/linechart` +
+    `add n/Norman ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Male` +
+   Expected: Number of people in the age group below 20 years old should increase by 1.
+Format of indicator should be linechart.
+.. Test case: +
+    `display i/gender-breakdown f/barchart` +
+    `add n/Sally ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Female` +
+   Expected: Number of females should increase by 1. Format of indicator should be barchart.
