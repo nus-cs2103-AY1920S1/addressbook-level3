@@ -523,6 +523,7 @@ User case ends.
 [discrete]
 === Use case: New tutorial entry
 Precondition: User selects the command to add a new tutorial.
+
 *MSS*
 
 1. User requests to add a new tutorial to a selected module.
@@ -540,7 +541,15 @@ Use case ends.
 Use case ends.
 
 * 1b. The given module does not exist.
-** 1b1. System shows an error message showing that the given module does not exist.
+** 1b1. System searches for similar modules in the application to the given module.
+*** 1b1a. System finds one or more similar modules.
+**** 1b1a1. System suggests alternative values to user.
+**** 1b1a2. User selects one of the options.
++
+Use case resumes from step 2.
+
+*** 1b1b. System finds no similar modules.
+**** 1b1b1. System shows an error message showing that the given module does not exist.
 +
 Use case ends.
 
@@ -550,8 +559,39 @@ Use case ends.
 User case ends.
 
 [discrete]
+=== Use case: Deleting tutorials
+*Precondition*: User selects the command to delete a tutorial.
+
+*MSS*
+
+1. User requests to a delete a tutorial of a given index.
+2. System deletes the tutorial.
+3. System displays a confirmation message of the deletion.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The entered index is out of range.
+** 1a1. The system displays an error message and alerts the user that their input is out of range.
++
+Use case ends.
+
+* 1b. The entered value for the index is negative, or not a parsable integer.
+** 1b1. System displays an error message along with a prompt on the correct command usage.
++
+Use case ends.
+
+* 1c. The tutorial to be deleted contains one or more students.
+** 1c1. System displays a message informing the user that the tutorial is not empty, and prompts for confirmation.
+** 1c2. User confirms the delete action.
++
+Use case resumes from step 2.
+
+[discrete]
 === Use case: New student entry
 *Precondition*: User selects the command to add a new student.
+
 *MSS*
 
 1. User requests to add a new student into the selected tutorial and module.
@@ -569,13 +609,16 @@ tutorial and module.
 +
 Use case ends.
 
-* 1b. The given tutorial does not exist.
-** 1b1. System shows an error message that the given tutorial does not exist.
+* 1b. The given module or tutorial does not exist.
+** 1b1. System searches for similar module-tutorial combinations in the application to the given module and tutorial.
+*** 1b1a. System finds one or more similar combinations.
+**** 1b1a1. System suggests alternative values to user.
+**** 1b1a2. User selects one of the options.
 +
-Use case ends.
+Use case resumes from step 2.
 
-* 1c. The given module does not exist.
-** 1c1. System shows an error message that the given module does not exist.
+*** 1b1b. System finds no similar combinations.
+**** 1b1b1. System shows an error message showing that the given module or tutorial does not exist.
 +
 Use case ends.
 
@@ -620,9 +663,7 @@ User case ends.
 *MSS*
 
 1. User request to delete a student from a particular tutorial and module.
-2. System prompts for confirmation with full details of student.
-3. User enters confirmation.
-4. System deletes student and shows confirmation.
+2. System deletes student and shows confirmation.
 +
 Use case ends
 
@@ -667,33 +708,33 @@ User case ends
 User case ends.
 
 [discrete]
-=== Use case: Post class attendance.
+=== Use case: Mark class attendance.
 *Preconditions:*
 
-1. Given module exists in the system.
-2. User selects the command to mark a tutorial class' attendance.
+1. User selects the command to mark a tutorial class' attendance.
+2. The given tutorial-module combination exists in the system.
 
 *MSS*
 
-1. User requests to enter attendance for class for particular week.
-2. Application enters attendance for class in the given week.
+1. User requests to enter attendance for a student in a particular tutorial and module for particular week.
+2. System records attendance for the student.
+3. System displays confirmation message.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The given tutorial does not exist.
-** 1a1. System shows an error message that the given tutorial does not exist.
+* 1a. No student name is supplied.
+** 1a1. System displays a student in the tutorial and prompts user to mark attendance for that student.
+** 1a2. User enters attendance for displayed student.
 +
-User case ends.
+Steps 1a1 and 1a2 are repeated for each student in the tutorial.
++
+Use case ends.
 
-* 1b. The given tutorial class already has its attendance marked for that week.
-** 1b1. Application shows an error message that the class already has its
-attendance marked for that week
-
-* 1c. The given input is in an invalid format.
-** 1c1. System shows an error message showing the correct format to add a module.
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
 +
 User case ends.
 
