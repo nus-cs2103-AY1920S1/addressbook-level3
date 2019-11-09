@@ -35,9 +35,10 @@ import seedu.address.model.performance.Event;
  */
 public class DeleteCommandParserTest {
 
+    public static final AthletickDate VALID_DATE = new AthletickDate(25, 12, 2019, 2, "December");
+
     private static final String FLAG_INVALID = "-person";
     private static final String SPACE = " ";
-    public static final AthletickDate VALID_DATE = new AthletickDate(25, 12, 2019, 2, "December");
 
     private DeleteCommandParser parser = new DeleteCommandParser();
 

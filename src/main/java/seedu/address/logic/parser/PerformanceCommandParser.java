@@ -49,7 +49,8 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
         try {
             return ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
         }
     }
 
