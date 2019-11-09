@@ -122,6 +122,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 //@@author
 
 //@@author tiuweehan
+// tag::uilogic[]
 [[Design-UiLogic]]
 === UiLogic Component
 
@@ -138,11 +139,13 @@ link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java
 .  The result of the command execution is encapsulated as a `UiActionResult` object which is passed back to the `Ui`.
 .  In addition, the `UiActionResult` object can also instruct the `Ui` to perform certain actions, such as displaying the results as feedback to the user.
 
+// end::uilogic[]
+// tag::uilogicSequence[]
 .Interactions Inside the UiLogic Component for a `UiActionDetails` with a `UiActionType` of `editPlanUiAction`. This `UiActionDetails` also contains the ID of the problem to be deleted, in this case `11b`.
 image::EditSequenceDiagram.png[]
 
 NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+// end::uilogicSequence[]
 //@@author
 
 //@@author le0tan
@@ -352,13 +355,13 @@ image::tag/TagActivityDiagram.png[]
 
 === Find Problem Feature
 
-Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `find` command to determine the exact set of problems the user wants to include in a training plan.
+Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `findprob` command to determine the exact set of problems the user wants to include in a training plan.
 
 This section will describe in detail the current implementation and design considerations of the find problem feature (i.e. search feature) of AlgoBase.
 
 The following activity diagram summarizes what happens when a user executes the find command:
 
-.Activity Diagram for the Execution of `find` Command
+.Activity Diagram for the Execution of `findprob` Command
 image::find/FindCommandActivityDiagram.png[]
 
 ==== Current Implementation
@@ -433,7 +436,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
-.Sequence Diagram for the Execution of `find` Command
+.Sequence Diagram for the Execution of `findprob` Command
 image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 ==== Design Considerations
@@ -447,12 +450,12 @@ image::find/FindCommandSequenceDiagram.png[width="70%"]
 ** Pros: The implementation would be more straightforward as the logic can update the displayed list directly.
 ** Cons: Leaves room for potential unexpected changes on the displayed problem list as the observable list is open to any kind of operation.
 
-===== Aspect: How to deal with the case where no search restriction is provided (i.e. user types in `find` with no arguments given)
+===== Aspect: How to deal with the case where no search restriction is provided (i.e. user types in `findprob` with no arguments given)
 
 * **Alternative 1 (current choice):** Treat it as an exception and notify the user to provide at least one constraint.
-** Pros: Makes the meaning of `find` command clear - you can’t search for problems without giving any conditions.
+** Pros: Makes the meaning of `findprob` command clear - you can’t search for problems without giving any conditions.
 ** Cons: Has to check there is at least one predicate provided, making the implementation a bit more complicated.
-* **Alternative 2:** Treat it as no restriction (i.e. `find` is equivalent to `list` in this case)
+* **Alternative 2:** Treat it as no restriction (i.e. `findprob` is equivalent to `list` in this case)
 ** Pros: Easier implementation (if all predicates are always-true predicates, using `.and` method to chain them together would naturally result in an always-true predicate).
 ** Cons: Confusing definition of a search function.
 
@@ -471,7 +474,7 @@ image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 === Save Find Rules Feature
 
-AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `find` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
+AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `findprob` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
 
 This section will describe in detail the current implementation and design considerations of the save find rules (or problem search rules) feature of AlgoBase.
 
@@ -537,7 +540,7 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author
 
 //@@author tiuweehan
-// tag::gui
+// tag::gui[]
 === GUI Enhancements
 
 An intuitive GUI facilitates the overall user friendliness of the application.
@@ -548,14 +551,9 @@ In this case, having a GUI will be more beneficial to the user and facilitates a
 Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time.
 This, we introduced tabbing, which facilitates multitasking in AlgoBase, which is an important requirement for competitive programmers.
 
-==== Editing Problems from GUI
+==== Graphical User Interface Enhancements
 
 ===== Current Implementation
-
-When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
-
-.An example of a high level representation of GUI actions.
-image::ArchitectureSequenceDiagram1.png[]
 
 The following classes facilitate the handling of GUI actions:
 
@@ -566,16 +564,12 @@ The following classes facilitate the handling of GUI actions:
 * `AlgoBaseUiActionParser` - Parses a `UiActionDetails` object into an implementation of `UiAction`.
 * `UiActionResult` - The result of executing the UI action.
 
-When the user performs any action in the GUI (e.g. Editing a problem), a `UiActionDetails` object is created with a given `UiActionType`, an enum type.
-This object contains information about the action which will later be used to make changes to the application.
+When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
 
-This `UiActionDetails` object is sent to the `AlgoBaseUiActionParser`, which instantiates a `UiParser` depending on the `UiActionType` of the object.
-The purpose of the `UiParser` is to convert the `UiActionDetails` object into a `UiAction` object.
+.An example of a high level representation of the GUI Actions.
+image::ArchitectureSequenceDiagram1.png[]
 
-The `UiAction` object stores the instructions to make the specified changes to the `Model`, which will run when its `execute` method is called.
-The `UiAction` object is passed along to the `UiLogicManager`, which calls its `execute` method on the `Model` object.
-
-This process is captured by the example in the Sequence Diagrams below.
+This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below.
 
 .Interaction between `UI` and `UiLogic`
 image::gui/EditProblemUiActionSequenceDiagram0.png[]
@@ -602,12 +596,38 @@ and passes it back to the `UiLogicManager`.
 
 Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `CommandResult`.
 
+==== Graphical User Interface State
+
+The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
+
+The following class diagram illustrates how the classes in the `GuiState` interact with one another:
+
+.Class Diagram for the `GuiState` class
+image::design/model/GuiPackageDiagram.png[width='60%']
+
+The information stored in the GuiState is linked to the `UI` through listeners. For example, when the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
+
+In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
+
+The following Activity diagram illustrates the series of actions that occur when the user opens a new tab:
+
+image::gui/OpenTabUiActionActivityDiagram.png[]
+
+The Sequence diagram below also shows how the GuiState is saved to Storage.
+
+.Sequence Diagram for storing new GUI state
+image::gui/SwitchTabsSequenceDiagram3.png[]
+
+The `StorageManager` saves the modified `GuiState` as a new `JSON` file.
+This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
+These wrapper classes can be converted into `JSON` format for storage without any data loss.
+
 ===== Design Considerations
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=======================================================================
 |Aspect| Alternative 1 (Current Choice) | Alternative 2
-| Handling Commands and UI Actions |
+| How to implement Commands and UI Actions in the same application |
 Handle Commands and UI Actions separately.
 
 **Pros**: Higher modularity. Allows separation the different architectures as well
@@ -620,7 +640,7 @@ Handle Commands and UI Actions together.
 **Pros**: Less code and higher reusability.
 
 **Cons**: Higher coupling and less cohesion.
-| Handling different kinds of UI Actions |
+| How to handle different kinds of UI Actions |
 Using a command structure with a central parser and many smaller parsers.
 
 **Pros**: Higher extensibility, easier to add new UI Actions
@@ -636,18 +656,12 @@ Handling each UI action individually.
 |
 |=======================================================================
 
-==== Tabbing Feature
+// end::gui[]
+// start:tab[]
 
-===== Current Implementation
+=== Command Line Tab Management
 
-The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
-
-The information is linked to the `UI` through listeners. When the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
-
-The following class diagram illustrates how the classes in the `GuiState` interact with one another:
-
-.Class Dagram for the `GuiState` class
-image::design/model/GuiPackageDiagram.png[width='60%']
+==== Current Implementation
 
 The following commands facilitate the management of tabs:
 
@@ -699,7 +713,7 @@ Step 7: After the command is executed, the state of the GUI changes. This causes
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
 These wrapper classes can be converted into `JSON` format for storage without any data loss.
 
-===== Design Considerations
+==== Design Considerations
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=======================================================================
@@ -731,7 +745,7 @@ Updating the UI synchronously
 |
 |=======================================================================
 
-// end::gui[]
+// end::tab[]
 //@@author
 
 //@@author Seris370

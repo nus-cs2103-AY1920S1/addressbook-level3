@@ -2,7 +2,6 @@ package seedu.algobase.ui.action.actions;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import seedu.algobase.commons.core.index.Index;
@@ -32,7 +31,7 @@ public class SwitchDetailsTabUiAction extends UiAction {
             WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
             tabManager.switchDetailsTab(modelIndex);
             return new UiActionResult(Optional.empty());
-        } catch (NoSuchElementException exception) {
+        } catch (IndexOutOfBoundsException exception) {
             throw new UiActionException(String.format(MESSAGE_INVALID_TAB_INDEX, modelIndex.getOneBased()));
         }
     }

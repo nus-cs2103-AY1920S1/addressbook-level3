@@ -103,6 +103,7 @@ public class WarningDialog extends UiPart<Stage> {
      */
     @FXML
     private void confirm() {
+        logger.info("Clicked on the confirm button in the warning dialog");
         callback.accept(new Object[] { true, checkbox.isSelected() });
     }
 
@@ -111,6 +112,7 @@ public class WarningDialog extends UiPart<Stage> {
      */
     @FXML
     private void cancel() {
+        logger.info("Clicked on the cancel button in the warning dialog");
         callback.accept(new Object[] { false, false });
     }
 }

@@ -1,6 +1,8 @@
 package seedu.algobase.ui.display;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
@@ -8,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.gui.ReadOnlyTabManager;
 import seedu.algobase.ui.UiPart;
@@ -22,6 +25,8 @@ import seedu.algobase.ui.action.UiActionType;
 public class DisplayTabPane extends UiPart<Region> {
 
     private static final String FXML = "DisplayTabPane.fxml";
+    private static final Logger logger = LogsCenter.getLogger(DisplayTabPane.class);
+
     private final UiActionExecutor uiActionExecutor;
 
     @FXML
@@ -29,7 +34,7 @@ public class DisplayTabPane extends UiPart<Region> {
 
     public DisplayTabPane(ReadOnlyTabManager tabManager, UiActionExecutor uiActionExecutor, DisplayTab... displayTabs) {
         super(FXML);
-        requireNonNull(uiActionExecutor);
+        requireAllNonNull(tabManager, uiActionExecutor);
 
         this.uiActionExecutor = uiActionExecutor;
 
@@ -57,6 +62,10 @@ public class DisplayTabPane extends UiPart<Region> {
      */
     private void addListenerForIndexChange(ObservableIntegerValue displayTabPaneIndex) {
         displayTabPaneIndex.addListener((observable, oldValue, newValue) -> {
+            logger.info(
+                "Selected Display Tab changed to index " + Index.fromZeroBased(newValue.intValue()).getOneBased()
+            );
+
             selectTab((newValue.intValue()));
         });
     }
@@ -68,6 +77,11 @@ public class DisplayTabPane extends UiPart<Region> {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                logger.info(
+                    "Creating new UiActionDetails with type " + UiActionType.SWITCH_DISPLAY_TAB
+                        + " with index value of " + Index.fromZeroBased(newValue.intValue()).getOneBased()
+                );
+
                 uiActionExecutor.execute(new UiActionDetails(
                     UiActionType.SWITCH_DISPLAY_TAB,
                     Index.fromZeroBased(newValue.intValue())
