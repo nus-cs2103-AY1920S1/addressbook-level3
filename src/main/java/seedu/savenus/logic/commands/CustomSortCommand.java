@@ -25,6 +25,11 @@ public class CustomSortCommand extends Command {
         if (model.getAutoSortFlag() == true) {
             return new CommandResult(AUTO_SORT_WARNING);
         }
+
+        // Clear the recommendation system (if it was used)
+        model.setRecommendationSystemInUse(false);
+
+
         ObservableList<Food> foodList = model.getFilteredFoodList();
         CustomSorter sorter = model.getCustomSorter();
         SortedList<Food> sortedList = foodList.sorted(sorter.getComparator());
