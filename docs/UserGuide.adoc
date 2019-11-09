@@ -18,7 +18,43 @@ By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AlgoBase (AB) is for those who prefer to use a desktop app for managing algorithm problems. AlgoBase can let you establish and modify your own training plan for algorithm problems flexibly and it can save several training plans at the same time on your local storage!  Also, you can use diverse tags and search to manage your questions and training plans conveniently. More importantly, AlgoBase is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ALgoBase can get your problem management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy! :-))
+AlgoBase (AB) is a one-stop management platform for Computer Science students preparing for technical interviews.
+**With AlgoBase, say goodbye to tough interview days!**
+
+Tired of having to manually track your progress across multiple websites like Kattis, Hackerrank and Leetcode?
+AlgoBase allows you to pull practice questions from these online repositories (and more!)
+and consolidates them into a single application.
+
+Do you have to prepare for mutliple interviews, and want to customize your preparations for each of them?
+We got you covered! AlgoBase also allows you to create highly flexible training plans to tailor to your individual needs.
+
+Are you a guru that has completed many problems, and want a powerful way to filter through your problems? No worries!
+AlgoBase comes equipped with a comprehensive tag system and a flexible filtering mechanism for your needs.
+
+Are you used to the speed of Command Line tools and find that GUI applications are too slow? Not a problem! AlgoBase is designed for those who prefer to use a desktop app for managing algorithm problems,
+equipped with a robust Command Line Interface (CLI) while still maintaining the benefits of a Graphical User Interface (GUI).
+
+Interested? Jump to the Section 2 to get an "Overview" of the AlgoBase, or Section 3 “Quick Start” to get started with AlgoBase!
+
+// tag::overview[]
+== Overview
+
+AlgoBase is primarily a problem management application, where users can add different algorithm problems from all kinds of sources.
+Within the application, users can create training plans consisting of tasks, where each task is a problem that the user has to complete.
+Upon completing a task, users can mark it as done, which contributes to the progress of their plan.
+
+The figure below illustrates the layout of the AlgoBase application:
+
+.Layout of AlgoBase
+image::gui/AlgoBaseLayout.png[]
+
+AlgoBase is split into following 3 panes:
+
+** _Display Tabs_ – displays a list of items (problem, tag, plan or findrule)
+** _Display Tabs_  – shows details of a specific item
+** _Plan Tab_ – shows details of the current plan
+
+// end::overview[]
 
 == Quick Start
 
@@ -67,7 +103,7 @@ image::UiStartPlan.png[]
 Generates a new problem. +
 Format: `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
 
-* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
+* `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (If no difficulty is provided, *AlgoBase* will internally store the difficulty as 0)
 
 [NOTE]
 Don't provide extreme values like `5.00000...01` as difficulty as computers can't store decimals exactly and some round-off error is unavoidable.
@@ -123,6 +159,7 @@ Displays a list of all existing problems. +
 Format: `listprob`
 
 // tag::sort[]
+
 ==== Sorting problems: `sortprob`
 
 Sorts the current list of results by a specified order and direction. +
@@ -149,10 +186,14 @@ Sorts the current list of problems from lowest to highest difficulty.
 === Searching Problems
 
 // tag::find[]
+
 ==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
 Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
 
 * Name
 ** is case-insensitive. e.g. `henz` will match `Henz`
@@ -163,6 +204,10 @@ Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_B
 ** is case-insensitive
 ** is matched word by word
 ** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
+
+[NOTE]
+Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+
 * Source requires an exact match.
 * Tag
 ** Constraints are separated by spaces. (e.g. `findprob t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
@@ -176,10 +221,7 @@ If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-
 If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
-When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
-
-[NOTE]
-Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+Ensure that `-` only appears once as the connective between two bounds (i.e. negative difficulty is not allowed, as mentioned before). Otherwise the command is considered invalid.
 
 Examples:
 
@@ -467,58 +509,81 @@ Examples:
 * `setplan 10`
 // end::task[]
 
-=== Editing from GUI
+// tag::gui[]
+=== Graphical User Interface (GUI) Enhancements
 
-AlgoBase currently supports editing Problems and Plans from the GUI with an intuitive layout.
+AlgoBase currently supports several GUI features with an intuitive layout, including the following:
 
-==== Editing a Problem / Plan
+* Opening, Closing and Switching between Tabs
+* Editing a Problem / Plan
+* Deleting a Problem / Plan
 
-.Plan with name "Data Structures" is opened.
-image::gui/EditPlanUiAction0.png[width="70%"]
+==== Tabs
 
-Step 1: Select the problem / plan you want to delete by double clicking on it.
+There are 3 types of tabs in AlgoBase. 2 of them, Display and Details tabs, are illustrated in the figure below.
 
-.The name and start date of the plan are modified.
-image::gui/EditPlanUiAction1.png[width="70%"]
-
-Step 2: Make changes to the problem / plan by editing the fields directly.
-
-.The plan is successfully edited.
-image::gui/EditPlanUiAction2.png[width="70%"]
-
-Step 3: Save changes to the problem by clicking on the _"Edit Problem"_ / _"Edit Plan"_ button.
-
-
-==== Deleting a Problem / Plan
-
-.Problem with name "Sequences" is opened.
-image::gui/DeleteProblemUiAction0.png[width="70%"]
-
-Step 1: Select the problem / plan you want to delete by double clicking on it.
-
-.Warning Dialog to confirm problem being deleted.
-image::gui/DeleteProblemUiAction1.png[width="70%"]
-
-Step 2: Click on the red _"Delete Problem"_ / _"Delete Plan"_ button at the bottom right.
-
-Step 3: For _Problems_, select whether you want the problem to be removed from all existing plans.
-
-.The problem is successfully deleted.
-image::gui/DeleteProblemUiAction2.png[width="70%"]
-
-Step 4: Click on _Confirm_.
-
-=== Tabs
-
-There are 2 types of tabs in AlgoBase: Display and Details tabs, as seen in the figure below.
-
-.Types of tabs highlighted in Orange
-image::gui/TabsOverview.png[width="70%"]
+.Types of tabs and their usage
+image::gui/TabsOverview1.png[width="70%"]
 
 
 * **Display tabs** give a high level overview of the contents of a list of items
 (e.g. a list of _problems_ / _tags_ / _plans_ / _findrules_).
 * **Details tabs** give a more detailed description of an item in a display tab.
+
+Much like tabs you see in other applications, tabs in AlgoBase work the same way:
+
+* Switch Tab – Click on a tab to switch tabs
+* Open Tab – Double click on an item in the Display tab to open it in the Details tab
+* Close Tab – Click on the `x` button next to a Details tab to close it.
+
+[NOTE]
+Display Tabs cannot be closed.
+
+==== Editing a Problem / Plan
+
+The following steps show how a user can edit problems or plans from the GUI.
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Plan with name "Data Structures" is opened.
+image::gui/EditPlanUiAction0Annotated.png[width="70%"]
+
+Step 2: Make changes to the problem / plan by editing the fields directly.
+
+.The name and start date of the plan are modified.
+image::gui/EditPlanUiAction1Annotated.png[width="70%"]
+
+Step 3: Save changes to the problem / plan by clicking on the _Edit Problem_ / _Edit Plan_ button.
+
+.The plan is successfully edited.
+image::gui/EditPlanUiAction2Annotated.png[width="70%"]
+
+[NOTE]
+The _Edit Plan_ Button cannot be clicked if there are no changes made to the plan.
+
+==== Deleting a Problem / Plan
+
+The following steps show how a user can delete problems or plans from the GUI.
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Problem with name "Sequences" is opened.
+image::gui/DeleteProblemUiAction0Annotated.png[width="70%"]
+
+Step 2: Click on the red _Delete Problem_ / _Delete Plan_ button at the bottom right.
+To prevent accidental deletion, a warning dialog will appear to confirm if you would like to delete the item.
+Click on the _"confirm"_ button.
+
+.Warning Dialog to confirm problem being deleted.
+image::gui/DeleteProblemUiAction1Annotated.png[width="70%"]
+
+Step 3: Click on _Confirm_.
+
+.The problem is successfully deleted.
+image::gui/DeleteProblemUiAction2Annotated.png[width="70%"]
+
+// end::gui[]
+// tag::tab[]
 
 ==== Switching Tabs: `switchtab`
 
@@ -571,6 +636,7 @@ Examples:
 
 * `closetab i/3` – Closes the third **details** tab
 * `ct i/1` – Same effects as the previous command but in a shorter format.
+// end::tab[]
 
 === Data Management
 

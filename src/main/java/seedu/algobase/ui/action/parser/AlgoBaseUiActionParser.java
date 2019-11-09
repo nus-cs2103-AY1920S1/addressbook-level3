@@ -1,7 +1,11 @@
 package seedu.algobase.ui.action.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_UI_ACTION;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.ui.action.UiAction;
 import seedu.algobase.ui.action.UiActionDetails;
@@ -11,6 +15,8 @@ import seedu.algobase.ui.action.UiActionDetails;
  */
 public class AlgoBaseUiActionParser {
 
+    private static final Logger logger = LogsCenter.getLogger(AlgoBaseUiActionParser.class);
+
     /**
      * Parses user input into UI Action for execution.
      *
@@ -19,6 +25,12 @@ public class AlgoBaseUiActionParser {
      * @throws ParseException if the uiAction does not conform the expected format
      */
     public UiAction parseCommand(UiActionDetails uiActionDetails) throws ParseException {
+        logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
+            + " and size " + uiActionDetails.size());
+
+        requireNonNull(uiActionDetails);
+        requireNonNull(uiActionDetails.getActionWord());
+
         switch (uiActionDetails.getActionWord()) {
 
         // Tabs
