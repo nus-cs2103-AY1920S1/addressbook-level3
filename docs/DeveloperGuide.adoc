@@ -257,7 +257,7 @@ Each expense also involves some people who will be taken to owe money to the pay
 
 * Amount
 
-The amount of money spent. The value of an `Amount` is stored as a `double`, and ranges from 0.01 to 1000000.
+The amount of money spent. The value of an `Amount` is stored as a `double`, and must be non-negative.
 
 * Description
 
@@ -278,17 +278,53 @@ image::ExpenseClassDiagram.png[]
 
 ==== Design considerations
 ===== Aspect: How to actually represent an `Expense`
-* **Alternative 1 (current choice)**: An expense is represented by a paying person, amount, and a list of people involved.
+* **Alternative 1**: An expense is represented by a paying person and an amount. Everyone in the activity is then taken to owe the paying person an equal portion of the paid amount.
+** **Pros:** Extremely simple to use.
+** **Cons:** Overly idealised and simplified and assumes that everyone is involved in every expense. This severely hinders its utility in real scenarios as this is unable to account for even simple deviations in debt patterns.
+
+* **Alternative 2 (current choice)**: An expense is represented by a paying person, amount, and a list of people involved. Everyone who is specified to be involved then owes an equal portion of the paid amount to the paying person.
 ** **Pros:** Reasonable flexibility as it enables a wide range of possible expense sharing combinations.
-** **Cons:** Forces equal split among participants in the involved list. A simple example would be that a group of people can have a meal together but each person's meal would cost a different amount.
+** **Cons:** Forces equal split among participants in the involved list, which is still going to result in limited utility in some real scenarios. A simple example would be that a group of people can have a meal together but each person's meal would cost a different amount.
 ** **Reason for choice:** Although the above con can be a very real issue from a user's standpoint, we believe this is the best balance between flexibility and usability.
 
-* **Alternative 2**: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.
+* **Alternative 3**: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.
 ** **Pros:** Ultimate flexibility and addresses the con above.
-** **Cons:** Significantly complicates the process of expense adding for the user and the verification process in the backend. Many potential issues may arise, such as the issue of reconciling what happens if the amount list specified does not add up to the amount paid by the paying person.
-
-
+** **Cons:** Significantly complicates the backend management of expenses. While this is something that will definitely be addressed in future versions of SplitWiser (e.g. adding a new `varexpense` command that enables this), we opted for a simpler version of `Expense` due to time constraints. The areas that need to be taken into consideration include (but may not limited to):
+*** Design of the command for the user in a way that is intuitive
+*** Managing the event that the amount list does not add up to the amount paid
+*** GUI representation of the more generalised version of `Expense`
 // end::expense[]
+
+// tag::createexpense[]
+=== Create expense feature
+The mechanism to create expenses is facilitated by `Expense`. Each `Activity` stores a list of `Expense` called `expenses`, representing the expenses incurred in the course of this activity.
+
+When creating an expense, an amount and at least one person (the paying person) must be specified, and information about an expense cannot be modified once it is created. The only exception to this would be to delete an expense, but expenses also cannot be un-deleted once marked as deleted.
+
+
+
+In terms of the name searching logic to actually identify who is involved, it is identical to that which is used in the creation of activities (see <<Create activity feature>>), but with a few key differences: +
+
+1. The expense will only be created if **all** sets of keywords result in a unique match. For instance, if the user specifies `p/John Doe p/Mary p/James`, but only the keyword `James` does not successfully identify a unique person, then the entire expense will not be created.
+2. The search scope is contextual. If creating an expense outside an activity context, it will search for matches in the entire Address Book. However, in an activity context, it will only search for matches among existing activity participants.
+
+Here, it is important to realise that duplicating the name searching logic ensures a consistent user experience, as the user has no reason to expect that the search behaviour would be different. For example, if `john` was successfully used to identify a contact named `John Doe` when creating an activity, the user has no reason to expect that `john` would not be able to identify `John Doe` for an expense.
+
+Here is a sample use case in creating an expense:
+
+**Step 1.** The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+**Step 2.** The user executes `activity t/breakfast p/Jo p/Bob p/Alice` command to create an activity named breakfast with 3 participants added to the activity. The context is then switched to this new activity.
+
+**Step 3.** The user executes `expense p/Jo e/10` to indicate that Jo paid $10 for something (unnamed as description is not specified) that is shared by everyone i.e. Bob and Alice. This happens because the default behaviour for `expense` is to assume everyone is involved if no one else is specified explicitly. `expense` command calls `Activity#addExpense()` and adds the new expense into the activity. The debt algorithm will then instantly recompute the debt matrix (see <<Debt simplification algorithm>>) for the activity, and store the expense object inside the activity's expense list (i.e. `expenses`).
+
+The following sequence diagram shows how the expense adding operation works:
+
+image::ExpenseSequenceDiagram.png[]
+
+NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// end::createexpense[]
 // tag::algorithm[]
 === Debt simplification algorithm
 The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
