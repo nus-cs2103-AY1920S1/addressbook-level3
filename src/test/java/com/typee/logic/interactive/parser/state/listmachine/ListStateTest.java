@@ -31,7 +31,7 @@ class ListStateTest {
     public void transition() {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
         assertThrows(StateTransitionException.class, ()
-                -> listState.transition(argumentMultimap));
+            -> listState.transition(argumentMultimap));
     }
 
     @Test
