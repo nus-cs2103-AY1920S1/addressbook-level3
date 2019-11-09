@@ -6,11 +6,13 @@ import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 
 /**
  * Record of the command and data of one atomic commit in the command history. It consists of the
- * {@link MutatorCommand} responsible for the commit and the state of the {@link PatientBook} before the commit.
+ * {@link MutatorCommand} responsible for the commit and the state of the {@link PatientBook} and
+ * {@link AppointmentBook} before the commit.
  */
 public class HistoryRecord {
     private final MutatorCommand command;
     private final PatientBook patientBook;
+    private final AppointmentBook appointmentBook;
 
     /**
      * Constructs a HistoryRecord representing the specified command and state. The state is deeply copied and
@@ -18,10 +20,12 @@ public class HistoryRecord {
      *
      * @param command the command that caused the change in state
      * @param patientBook the state before the execution of the command
+     * @param appointmentBook the state before the execution of the command
      */
-    public HistoryRecord(MutatorCommand command, PatientBook patientBook) {
+    public HistoryRecord(MutatorCommand command, PatientBook patientBook, AppointmentBook appointmentBook) {
         this.command = command;
         this.patientBook = patientBook.deepCopy();
+        this.appointmentBook = appointmentBook.deepCopy();
     }
 
     /** Returns the command stored in this record */
@@ -43,6 +47,23 @@ public class HistoryRecord {
      */
     public PatientBook getCopyOfPatientBook() {
         return patientBook.deepCopy();
+    }
+
+    /**
+     * Returns a read-only reference to the state stored in this record. This method is preferred over
+     * {@link #getCopyOfAppointmentBook()} if the state does not need to be modified as it avoids copying the entire
+     * state.
+     */
+    public ReadOnlyAppointmentBook getReadOnlyAppointmentBook() {
+        return appointmentBook;
+    }
+
+    /**
+     * Returns a deep copy of the state stored in this record. If the state does not need to be modified, it is
+     * recommended to use {@link #getReadOnlyAppointmentBook()} instead.
+     */
+    public AppointmentBook getCopyOfAppointmentBook() {
+        return appointmentBook.deepCopy();
     }
 
     @Override

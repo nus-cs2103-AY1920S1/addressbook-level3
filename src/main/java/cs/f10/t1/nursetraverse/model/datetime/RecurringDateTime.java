@@ -1,13 +1,11 @@
 package cs.f10.t1.nursetraverse.model.datetime;
 
+import static cs.f10.t1.nursetraverse.model.datetime.DateTime.DATE_DISPLAY_FORMATTER;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
-
 
 /**
  * Represents the frequency of a recurring appointment
@@ -65,6 +63,10 @@ public class RecurringDateTime {
         return minutes;
     }
 
+    public Long[] getFreqArray() {
+        return freqArray;
+    }
+
     /**
      * Converts the JSON storage String to an array of type long
      * @return Long[] array
@@ -88,9 +90,8 @@ public class RecurringDateTime {
     /**
      * @return boolean, which is true if frequency is valid
      */
-    public static boolean isValidFrequency(String freq) {
-        Long[] freqLongArray = frequencyStringToLong(freq);
-        return freqLongArray.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
+    public static boolean isValidFrequency(Long[] freq) {
+        return freq.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
     }
 
     /**
@@ -103,7 +104,7 @@ public class RecurringDateTime {
                 numZeros++;
             }
         }
-        return (numZeros == EXPECTED_FREQUENCY_ARRAY_LENGTH);
+        return (numZeros != EXPECTED_FREQUENCY_ARRAY_LENGTH);
     }
 
     /**
@@ -114,20 +115,10 @@ public class RecurringDateTime {
     }
 
     /**
-     * Convert recurring dateTime to a string for JSON storage.
-     * @return dateTime as a string
-     */
-    public String toJacksonJsonString() {
-        List<Long> freqList = new ArrayList<>();
-        Collections.addAll(freqList, years, months, weeks, days, hours, minutes);
-        return CollectionUtil.collectionToString(freqList);
-    }
-
-    /**
      * Gets recurring appointment's next date and time based on current one
      */
-    public DateTime getNextAppointmentDateTime(StartDateTime currentAppointmentDateTime) {
-        LocalDateTime nextAppointmentDateTime =
+    public String getNextAppointmentDateTime(DateTime currentAppointmentDateTime) {
+        LocalDateTime nextAppointmentLocalDateTime =
             currentAppointmentDateTime.dateTime
                     .plusYears(years)
                     .plusMonths(months)
@@ -136,6 +127,45 @@ public class RecurringDateTime {
                     .plusHours(hours)
                     .plusMinutes(minutes);
 
-        return new DateTime(nextAppointmentDateTime.toString());
+        return nextAppointmentLocalDateTime.format(DATE_DISPLAY_FORMATTER);
+    }
+
+    /**
+     * Returns true if both frequencies have the same identity and data fields.
+     * This defines a stronger notion of equality between two frequencies.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RecurringDateTime)) {
+            return false;
+        }
+
+        RecurringDateTime otherFrequency = (RecurringDateTime) other;
+
+        return otherFrequency.getYears().equals(getYears())
+                && otherFrequency.getMonths().equals(getMonths())
+                && otherFrequency.getWeeks().equals(getWeeks())
+                && otherFrequency.getDays().equals(getDays())
+                && otherFrequency.getHours().equals(getHours())
+                && otherFrequency.getMinutes().equals(getMinutes());
+    }
+
+    /**
+     * Converts recurring date time to a string to be displayed in the staged appointments.
+     * @return String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))
+                .append(months == 0 ? "" : ", " + months + (months == 1 ? " month" : ", months"))
+                .append(days == 0 ? "" : ", " + days + (days == 1 ? ", day" : ", days"))
+                .append(hours == 0 ? "" : ", " + hours + (hours == 1 ? ", hour" : ", hours"))
+                .append(minutes == 0 ? "" : ", " + minutes + (minutes == 1 ? " minute" : " minutes"));
+        return builder.toString();
     }
 }

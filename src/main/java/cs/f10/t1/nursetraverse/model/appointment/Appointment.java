@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.model.appointment;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -7,7 +8,6 @@ import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
-import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 /**
@@ -22,7 +22,7 @@ public class Appointment {
     private final RecurringDateTime frequency;
 
     // Data fields
-    private final Index patientIndex;
+    private Index patientIndex;
     private Patient patient;
     private final String description;
 
@@ -52,6 +52,10 @@ public class Appointment {
         return patientIndex;
     }
 
+    public void setPatientIndex(Index patientIndex) {
+        this.patientIndex = patientIndex;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -62,10 +66,6 @@ public class Appointment {
 
     public String getDescription() {
         return description;
-    }
-
-    public Address getAddress() {
-        return patient.getAddress();
     }
 
     /**
@@ -81,7 +81,30 @@ public class Appointment {
         return otherAppointment != null
                 && otherAppointment.getStartDateTime().equals(getStartDateTime())
                 && (otherAppointment.getEndDateTime().equals(getEndDateTime())
-                    || otherAppointment.getFrequency().equals(getFrequency()));
+                && otherAppointment.getFrequency().equals(getFrequency()))
+                && otherAppointment.getPatient().equals(getPatient());
+    }
+
+    /**
+     * Returns true if both appointments have overlapping start and end date times.
+     */
+    public boolean isOverlappingTime(Appointment otherAppointment) {
+        LocalDateTime otherStart = otherAppointment.getStartDateTime().dateTime;
+        LocalDateTime otherEnd = otherAppointment.getEndDateTime().dateTime;
+
+        LocalDateTime thisStart = getStartDateTime().dateTime;
+        LocalDateTime thisEnd = getEndDateTime().dateTime;
+
+        // Case 1 when overlapping: otherStart is before or equal to thisStart AND otherEnd is equal or after thisStart
+        boolean caseOneOverlapTrue = (otherStart.isBefore(thisStart) || otherStart.isEqual(thisStart))
+                                        && (otherEnd.isEqual(thisStart) || otherEnd.isAfter(thisStart));
+
+        // Case 2 when overlapping: otherStart is between or equal to the thisStart and thisEnd
+        boolean caseTwoOverlapTrue = otherStart.isEqual(thisStart)
+                                        || (otherStart.isAfter(thisStart) && otherStart.isBefore(thisEnd));
+
+        return caseOneOverlapTrue || caseTwoOverlapTrue;
+
     }
 
     /**
@@ -103,9 +126,9 @@ public class Appointment {
         return otherAppointment.getStartDateTime().equals(getStartDateTime())
                 && otherAppointment.getEndDateTime().equals(getEndDateTime())
                 && otherAppointment.getFrequency().equals(getFrequency())
+                && otherAppointment.getPatientIndex().equals(getPatientIndex())
                 && otherAppointment.getPatient().equals(getPatient())
-                && otherAppointment.getDescription().equals(getDescription())
-                && otherAppointment.getAddress().equals(getAddress());
+                && otherAppointment.getDescription().equals(getDescription());
     }
 
     @Override
@@ -123,10 +146,10 @@ public class Appointment {
                 .append(getEndDateTime())
                 .append(" Frequency: ")
                 .append(getFrequency())
+                .append(" Patient Index: ")
+                .append(getPatientIndex())
                 .append(" Patient: ")
                 .append(getPatient())
-                .append(" Location: ")
-                .append(getAddress())
                 .append(" Description: ")
                 .append(getDescription());
         return builder.toString();

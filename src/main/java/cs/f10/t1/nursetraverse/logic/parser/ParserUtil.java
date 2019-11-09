@@ -197,6 +197,9 @@ public class ParserUtil {
         if (!StartDateTime.isValidStartDateTime(trimmedStartDateTime)) {
             throw new ParseException(StartDateTime.MESSAGE_CONSTRAINTS);
         }
+        if (!StartDateTime.isAfterSystemDateTime(startDateTime)) {
+            throw new ParseException(StartDateTime.MESSAGE_CONSTRAINTS);
+        }
         return new StartDateTime(trimmedStartDateTime);
     }
 

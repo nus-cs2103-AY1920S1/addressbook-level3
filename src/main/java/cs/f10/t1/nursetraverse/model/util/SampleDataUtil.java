@@ -6,9 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import cs.f10.t1.nursetraverse.commons.core.index.Index;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.PatientBook;
+import cs.f10.t1.nursetraverse.model.ReadOnlyAppointmentBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
@@ -110,6 +115,18 @@ public class SampleDataUtil {
         return resultPatientArr;
     }
 
+    public static Appointment[] getSampleAppointments() {
+        Long zero = Long.parseLong("0");
+        Appointment[] resultAppointmentArr = new Appointment[] {
+            new Appointment(new StartDateTime("01-12-2019 1000"),
+                new EndDateTime("01-12-2019 1200"),
+                new RecurringDateTime(new Long[]{zero, zero, zero, zero, zero, zero}),
+                Index.fromOneBased(1), "Dental checkup")
+        };
+
+        return resultAppointmentArr;
+    }
+
     public static ReadOnlyPatientBook getSamplePatientBook() {
         PatientBook sampleAb = new PatientBook();
         for (Patient samplePatient : getSamplePatients()) {
@@ -168,5 +185,16 @@ public class SampleDataUtil {
      */
     public static List<Visit> collateVisits(Visit... visits) {
         return Arrays.stream(visits).collect(Collectors.toList());
+    }
+
+    public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
+        AppointmentBook sampleAb = new AppointmentBook();
+        Patient[] samplePatients = getSamplePatients();
+        for (Appointment sampleAppointment : getSampleAppointments()) {
+            Patient samplePatient = samplePatients[sampleAppointment.getPatientIndex().getZeroBased()];
+            sampleAppointment.setPatient(samplePatient);
+            sampleAb.addAppointment(sampleAppointment);
+        }
+        return sampleAb;
     }
 }

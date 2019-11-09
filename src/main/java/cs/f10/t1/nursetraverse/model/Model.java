@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,6 +11,7 @@ import cs.f10.t1.nursetraverse.commons.core.GuiSettings;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.appointment.AppointmentSortedByDateTime;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import javafx.collections.ObservableList;
@@ -24,6 +26,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Comparator} that returns an instance of an Appointment Comparator that compares by start date and time */
+    Comparator<Appointment> COMPARATOR_APPOINTMENTS_SORTED_BY_DATE_AND_TIME = new AppointmentSortedByDateTime();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,6 +59,16 @@ public interface Model {
      * Sets the user prefs' patient book file path.
      */
     void setPatientBookFilePath(Path patientBookFilePath);
+
+    /**
+     * Returns the user prefs' appointment book file path.
+     */
+    Path getAppointmentBookFilePath();
+
+    /**
+     * Sets the user prefs' appointment book file path.
+     */
+    void setAppointmentBookFilePath(Path appointmentBookFilePath);
 
     /**
      * Replaces patient book data with the data in {@code patientBook}.
@@ -218,15 +233,32 @@ public interface Model {
     ReadOnlyAppointmentBook getStagedAppointmentBook();
 
     /**
-     * Returns true if an appointment with the same identity as {@code patient} exists in the appointment list.
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the appointment list.
      */
     boolean hasAppointment(Appointment appointment);
+
+    /**
+     * Returns true if an appointment has clashing time as {@code appointment} exists in the appointment list.
+     */
+    boolean hasClashingAppointment(Appointment appointment);
 
     /**
      * Deletes the given appointment.
      * The appointment must exist in the appointment list.
      */
     void deleteAppointment(Appointment target);
+
+    /**
+     * Deletes the given recurring appointment.
+     * Unlike usual delete command, this does not add the next recurring appointment, but permanently deletes it.
+     * The appointment must exist in the appointment list.
+     */
+    void deleteRecurringAppointment(Appointment target);
+
+    /**
+     * Deletes all appointments associated with the {@code target} patient.
+     */
+    void deleteAppointments(Patient target, Index targetIndex);
 
     /**
      * Adds the given appointment.
@@ -242,6 +274,10 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
+    /**
+     * Replaces all appointments' patients that equal {@code patientToEdit} with {@code editedPatient}.
+     */
+    void setAppointments(Patient patientToEdit, Patient editedPatient);
 
     /** Returns an unmodifiable view of the entire appointment list */
     ObservableList<Appointment> getStagedAppointmentList();

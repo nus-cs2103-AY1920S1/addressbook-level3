@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * A UI component that displays information of an {@code Appointment}.
@@ -29,9 +31,9 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label startDateTime;
+    private TextFlow startDateTime;
     @FXML
-    private Label endDateTime;
+    private TextFlow endDateTime;
     @FXML
     private Label patientName;
     @FXML
@@ -45,7 +47,7 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private FlowPane recurDateTime;
     @FXML
-    private Label frequency;
+    private FlowPane frequency;
 
     /**
      * Display UI for an appointment, taking into account its displayed index.
@@ -54,16 +56,28 @@ public class AppointmentCard extends UiPart<Region> {
         super(FXML);
         this.appointment = appointment;
         id.setText(displayedIndex + ". ");
-        startDateTime.setText(appointment.getStartDateTime().toJacksonJsonString());
-        endDateTime.setText(appointment.getEndDateTime().toJacksonJsonString());
+
         patientName.setText(appointment.getPatient().getName().fullName);
         patientPhone.setText(appointment.getPatient().getPhone().value);
         patientAddress.setText(appointment.getPatient().getAddress().value);
         patientEmail.setText(appointment.getPatient().getEmail().value);
+
         if (appointment.getFrequency().isRecurringFrequency()) {
             recurDateTime.getChildren().add(new Label("recurring"));
-            frequency.setText(appointment.getFrequency().toJacksonJsonString());
+            frequency.getChildren().add(new Label("Every " + appointment.getFrequency().toString()));
         }
+
+        Text startDateTimePre = new Text("Starts: ");
+        startDateTimePre.setStyle("-fx-font-weight: bold");
+        Text startDateTimePost = new Text(appointment.getStartDateTime().toUiString());
+
+        Text endDateTimePre = new Text("Ends: ");
+        endDateTimePre.setStyle("-fx-font-weight: bold");
+        Text endDateTimePost = new Text(appointment.getEndDateTime().toUiString());
+
+        startDateTime.getChildren().addAll(startDateTimePre, startDateTimePost);
+        endDateTime.getChildren().addAll(endDateTimePre, endDateTimePost);
+
     }
 
     @Override

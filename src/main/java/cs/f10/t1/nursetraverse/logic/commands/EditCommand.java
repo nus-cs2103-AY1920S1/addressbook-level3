@@ -89,6 +89,9 @@ public class EditCommand extends MutatorCommand {
 
         model.setPatient(patientToEdit, editedPatient);
         model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        model.setAppointments(patientToEdit, editedPatient);
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient));
     }
 
