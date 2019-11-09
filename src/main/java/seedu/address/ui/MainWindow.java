@@ -90,6 +90,10 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        //Set minimum size of window
+        primaryStage.setMinWidth(800);
+        primaryStage.setMinHeight(800);
+
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
