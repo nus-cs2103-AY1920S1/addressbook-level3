@@ -22,6 +22,7 @@ import seedu.scheduler.logic.parser.exceptions.ParseException;
  * Represents an interview timeslot an {@code Interviewee} is allocated.
  */
 public class Slot implements Comparable<Slot> {
+    public static final Slot EMPTY_SLOT = new Slot();
     public static final String STRING_FORMAT = "%s %s-%s";
     public static final String TIMING_FORMAT = "%s-%s";
     public static final String MESSAGE_CONSTRAINTS = "Incorrect slot format! A slot must follow this format: "
@@ -58,6 +59,12 @@ public class Slot implements Comparable<Slot> {
         this.date = date;
         this.start = start;
         this.end = end;
+    }
+
+    private Slot() {
+        this.date = "";
+        this.start = "-";
+        this.end = "";
     }
 
     /**
@@ -99,6 +106,18 @@ public class Slot implements Comparable<Slot> {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checking of empty slot.
+     * @return True if it is an empty slot.
+     */
+    public boolean isEmpty() {
+        if (this.equals(EMPTY_SLOT)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getTiming() {

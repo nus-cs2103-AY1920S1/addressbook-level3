@@ -1,9 +1,10 @@
 package seedu.scheduler.model.person;
 
+import static seedu.scheduler.model.person.Slot.EMPTY_SLOT;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.scheduler.model.tag.Tag;
@@ -134,11 +135,11 @@ public class Interviewee extends Person {
     /**
      * Returns the allocated slot of the interviewee if any, otherwise returns an empty Optional.
      */
-    public Optional<Slot> getAllocatedSlot() {
+    public Slot getAllocatedSlot() {
         if (allocatedSlot != null) {
-            return Optional.of(allocatedSlot);
+            return allocatedSlot;
         } else {
-            return Optional.empty();
+            return EMPTY_SLOT;
         }
     }
 

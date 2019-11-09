@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -210,7 +209,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Optional<Slot> getAllocatedSlot(String intervieweeName) {
+    public Slot getAllocatedSlot(String intervieweeName) {
         throw new AssertionError("This method should not be called.");
     }
 

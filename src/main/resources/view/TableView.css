@@ -8,7 +8,6 @@
     /*-fx-background-color: transparent;*/
 }
 
-
 //Style of each column header in the tableView
 .table-view .column-header {
      -fx-background-color: transparent;
@@ -27,13 +26,15 @@
     -fx-font-size: 15px;
 }
 
+//Style of each entire row in the table view when is hovered
+.table-row-cell:hover {
+    -fx-background-color:rgb(255, 179, 37);
+}
+
  //Style of each table cell
 .table-view .table-cell {
     -fx-font-weight:bold;
     -fx-font-size:15px;
 }
 
-//Style of each entire row in the table view when is hovered
-.table-row-cell:hover {
-    -fx-background-color:rgb(255, 179, 37);
-}
+

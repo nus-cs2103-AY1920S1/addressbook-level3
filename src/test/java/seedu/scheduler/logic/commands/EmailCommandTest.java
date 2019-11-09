@@ -16,7 +16,6 @@ import static seedu.scheduler.testutil.TypicalPersons.getTypicalInterviewerList;
 import java.awt.Desktop;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -146,8 +145,8 @@ public class EmailCommandTest {
         }
 
         @Override
-        public Optional<Slot> getAllocatedSlot(String intervieweeName) {
-            return Optional.of(Slot.fromString(VALID_SLOT_AMY));
+        public Slot getAllocatedSlot(String intervieweeName) {
+            return Slot.fromString(VALID_SLOT_AMY);
         }
 
         @Override
