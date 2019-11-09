@@ -193,11 +193,14 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Order> getCustomerOrders() {
         ArrayList<Order> orders = new ArrayList<>();
+        int count = 0;
         for (Order order : getFilteredOrderList()) {
             if (order.getCustomer().equals(customerDatabase.getCustomerOrders().getUserName())) {
                 orders.add(order);
+                count++;
             }
         }
+        customerDatabase.getCustomerOrders().setNoOfOrders(count);
         ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(orders);
         return modelOrders;
