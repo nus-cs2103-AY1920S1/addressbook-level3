@@ -182,8 +182,7 @@ public class ModelManager implements Model {
         float value;
         if ((numEasy + numGood + numHard) == 0) {
             value = 0;
-        }
-        else {
+        } else {
             value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
         }
         performance.add(value);
