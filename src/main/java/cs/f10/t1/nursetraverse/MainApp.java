@@ -201,6 +201,7 @@ public class MainApp extends Application {
                 + "=============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveAppointmentBook(model.getStagedAppointmentBook());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

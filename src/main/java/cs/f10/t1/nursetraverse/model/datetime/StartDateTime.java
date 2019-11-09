@@ -37,12 +37,4 @@ public class StartDateTime extends DateTime {
         return isValidDateTime(test);
     }
 
-    /**
-     * Returns true if a given string is dateTime after the system's dateTime.
-     */
-    public static boolean isAfterSystemDateTime(String test) {
-        LocalDateTime startDateTime = parseDateTime(test);
-        LocalDateTime systemDateTime = LocalDateTime.now(ZoneId.systemDefault());
-        return startDateTime.isAfter(systemDateTime);
-    }
 }

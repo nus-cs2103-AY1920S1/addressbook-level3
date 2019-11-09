@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.model.datetime;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -10,6 +12,8 @@ public class EndDateTime extends DateTime {
 
     public static final String MESSAGE_CONSTRAINTS = "End " + DateTime.MESSAGE_CONSTRAINTS_BODY;
     public static final EndDateTime UNFINISHED_VISIT_END_DATE_TIME = null;
+    public static final String END_AFTER_SYSTEM_DATE_TIME_CONSTRAINTS = "Start Date Time should be after your local "
+            + "system's date and time.";
 
     /**
      * Constructs an {@code EndDateTime}.
@@ -44,5 +48,14 @@ public class EndDateTime extends DateTime {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns true if a given string is dateTime after the system's dateTime.
+     */
+    public static boolean isAfterSystemDateTime(String test) {
+        LocalDateTime startDateTime = parseDateTime(test);
+        LocalDateTime systemDateTime = LocalDateTime.now(ZoneId.systemDefault());
+        return startDateTime.isAfter(systemDateTime);
     }
 }

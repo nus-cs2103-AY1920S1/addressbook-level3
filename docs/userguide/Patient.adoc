@@ -87,9 +87,10 @@ Format: `pat-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [vt/
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 * When editing visit todos, the existing visit todos of the person will be removed i.e adding of visit todos is not cumulative.
 * You can remove all the person's visit todos by typing `vt/` without specifying any visit todos after it.
+* Editing any of the patient's fields will accordingly update all appointments associated with the patient in the list of appointments to accommodate for the changes.
 ****
 
-TIP: Visit Todos are described in further detail under <<VisitHowTo>>.
+TIP: Refer to <<VisitHowTo>> for more on Visit Todos and <<Appointment>> for more on Appointments.
 
 Examples:
 
@@ -115,6 +116,7 @@ Format: `pat-delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 * All patients with an index number higher than the deleted patient will have their indexes decremented by 1. E.g. after
 deleting index 3, index 4 will become 3, 5 will become 4 and so on.
+* All appointments associated with the patient at the `INDEX` will also be deleted.
 ****
 
 Examples:
