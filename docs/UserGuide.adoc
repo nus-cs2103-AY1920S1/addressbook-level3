@@ -782,7 +782,9 @@ image::AfterRedo.png[width="400"]
 
 === Upcoming features
 
-==== Team roster [coming in v2.0]
+==== Change app theme [coming in v2.0]
+
+==== Generate Team roster [coming in v2.0]
 
 ==== Performance tracker [coming in v2.0]
 
