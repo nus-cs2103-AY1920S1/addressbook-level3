@@ -147,8 +147,10 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 === Replenish List
-// tag:replenishListItems[]
+
+// tag::replenishListItems[]
 ==== Items in the replenish list
+
 ===== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
@@ -173,7 +175,14 @@ image::AutoShiftSequenceDiagram.png[]
 //The following activity diagram summarizes what happens when a user executes a new command:
 
 ===== Design Considerations
-
+//===== Aspect: Data structure to store the items
+//* **Alternative 1 (current choice): **
+//** Pros:
+//** Cons:
+//
+//* **Alternative 2:**
+//** Pros:
+//** Cons:
 ====== Aspect: How expired items are being handled
 * **Alternative 1 (current choice): Once an item expires,
 the item is automatically tagged as `#Expired`.**
@@ -183,17 +192,9 @@ the item is automatically tagged as `#Expired`.**
 * **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
 ** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
-//===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice): **
-//** Pros:
-//** Cons:
-//
-//* **Alternative 2:**
-//** Pros:
-//** Cons:
 // end::replenishListItems[]
 
-// tag:replenishListCommands[]
+// tag::replenishListCommands[]
 ==== Commands in the replenish list
 ===== Implementation
 As shown in  <<Logic component,Section 2.3>> above, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
