@@ -95,7 +95,10 @@ public class ShoppingItem extends Food {
         } else if (!(o instanceof ShoppingItem)) {
             return false;
         } else {
-            return ((ShoppingItem) o).isSameFood(this);
+            return this.getName().equals(((ShoppingItem) o).getName())
+                    && this.getAmount().equals(((ShoppingItem) o).getAmount())
+                    && (this.isBought() == ((ShoppingItem) o).isBought())
+                    && (this.isUrgent() == ((ShoppingItem) o).isUrgent());
         }
     }
 

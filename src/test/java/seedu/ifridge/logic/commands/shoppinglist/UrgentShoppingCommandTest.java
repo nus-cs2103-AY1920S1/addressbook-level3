@@ -37,15 +37,15 @@ public class UrgentShoppingCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         ShoppingItem shoppingItemToUrgent = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
         UrgentShoppingCommand urgentShoppingCommand = new UrgentShoppingCommand(INDEX_FIRST_PERSON);
-        shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
-        String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
-                shoppingItemToUrgent);
 
         ModelManager expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
         expectedModel.urgentShoppingItem(shoppingItemToUrgent);
         expectedModel.sortShoppingItems();
 
+        shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
+        String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
+                shoppingItemToUrgent);
         ShoppingCommandTestUtil.assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
     }
 
@@ -64,15 +64,15 @@ public class UrgentShoppingCommandTest {
 
         ShoppingItem shoppingItemToUrgent = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
         UrgentShoppingCommand urgentShoppingCommand = new UrgentShoppingCommand(INDEX_FIRST_PERSON);
-        shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
-        String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
-                shoppingItemToUrgent);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
         expectedModel.urgentShoppingItem(shoppingItemToUrgent);
         expectedModel.sortShoppingItems();
 
+        shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
+        String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
+                shoppingItemToUrgent);
         ShoppingCommandTestUtil.assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
     }
 
