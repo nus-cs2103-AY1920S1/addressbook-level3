@@ -41,7 +41,7 @@ public class SamplePagesDataUtil {
         return new Page[]{
             new Page(new Title("Planking"), new PageType("exercise"),
                         new PageDescription("This simple maneuver can help strengthen your center of gravity."
-                                + "Also known as “the bridge,” the plank is a versatile core "
+                                + " Also known as “the bridge,” the plank is a versatile core "
                                 + "strengthening exercise that helps athletes improve core stability. The plank has "
                                 + "its roots in yoga and, "
                                 + "like most yoga poses, involves isometric, or long-hold, muscle contractions."
@@ -49,9 +49,9 @@ public class SamplePagesDataUtil {
                         new Image(SampleImageUtil.PATH_TO_PLANKS)),
             new Page(new Title("Zumba"), new PageType("exercise"),
                         new PageDescription("Zumba is a fitness program that combines Latin and international music"
-                                + " dance moves. Zumba routines incorporate interval training —"
+                                + " dance moves. Zumba routines incorporate interval training — "
                                 + "alternating fast and slow rhythms — and resistance training."
-                                + "An aerobic activity, Zumba can count toward the 150 minutes a week of moderate "
+                                + " An aerobic activity, Zumba can count toward the 150 minutes a week of moderate "
                                 + "aerobic activity or 75 minutes a week of vigorous aerobic activity recommended"
                                 + " for most healthy adults by the Department of Health and Human Services."),
                         new Image(SampleImageUtil.PATH_TO_ZUMBA)),
@@ -139,7 +139,7 @@ public class SamplePagesDataUtil {
                         new Image("/images/lowsugar.jpg")),
             new Page(new Title("Planks"), new PageType("exercise"),
                         new PageDescription("This simple maneuver can help strengthen your center of gravity."
-                                + "Also known as “the bridge,” the plank is a "
+                                + " Also known as “the bridge,” the plank is a "
                                 + "versatile core strengthening exercise "
                                 + "that helps athletes improve core stability. The plank has its roots in yoga and, "
                                 + "like most yoga poses, involves isometric, or long-hold, muscle contractions."
@@ -150,7 +150,7 @@ public class SamplePagesDataUtil {
 
     public static Page[] getStudentSamplePages() {
         return new Page[] {
-                new Page(new Title("Sprints"), new PageType("exercise"),
+            new Page(new Title("Sprints"), new PageType("exercise"),
                         new PageDescription("Sprinting is running over a short distance in a limited period of time. "
                                 + "It is used in many sports that incorporate running, typically as a way of quickly "
                                 + "reaching a target or goal, or avoiding or catching an opponent. It can help to "
@@ -158,20 +158,20 @@ public class SamplePagesDataUtil {
                                 + " build strength, among other things. Most importantly, it's quick and perfect for "
                                 + "busy students looking to burn that extra fat away!"),
                         new Image(SampleImageUtil.PATH_TO_SPRINTS)),
-                new Page(new Title("Goji Berries"), new PageType("health"),
+            new Page(new Title("Goji Berries"), new PageType("health"),
                         new PageDescription("Deemed as one of the superfoods, goji berries are life-savers for "
                                 + "students. It has various functions, ranging from protecting the eyes, providing "
                                 + "immune system support, promoting healthy skin and even protection against cancer! "
                                 + "What's more, goji berries can be eaten in many different ways. You could eat it "
                                 + "raw, make a goji berry tea or even add in into soups!"),
                         new Image(SampleImageUtil.PATH_TO_GOJI)),
-                new Page(new Title("Sushi"), new PageType("food"),
+            new Page(new Title("Sushi"), new PageType("food"),
                         new PageDescription("Sushi is a popular Japanese dish made from seasoned rice with fish, "
                                 + "egg, or vegetables. A sushi roll is shaped inside a thin sheet of seaweed. "
                                 + "Sushi comes from a Japanese word meaning \"sour rice,\" and it's the rice that's at "
                                 + "the heart of sushi, even though most Americans think of it as raw fish. It is "
                                 + "also super easy to prepare sushi, making it an absolute perfect choice for the busy "
-                                + "students to prepare!" ),
+                                + "students to prepare!"),
                         new Image(SampleImageUtil.PATH_TO_SUSHI)),
         };
     }

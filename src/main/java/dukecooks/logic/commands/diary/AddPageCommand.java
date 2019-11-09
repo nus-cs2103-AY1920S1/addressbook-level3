@@ -7,7 +7,7 @@ import dukecooks.model.Model;
 
 
 /**
- * Navigates user to the create page screen.
+ * Navigates user to the page creation screen.
  */
 public class AddPageCommand extends AddCommand {
 

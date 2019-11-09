@@ -11,10 +11,9 @@ import dukecooks.logic.parser.diary.CreatePageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new CreateCommand object
+ * Parses input arguments and creates a new CreatePageCommand object
  */
 public class CreateCommandParser implements Parser<CreatePageCommand> {
-
 
     /**
      * Used for initial separation of variant and args.

@@ -32,7 +32,7 @@ public class EditDiaryCommand extends EditCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DIARY_NAME + "newDiaryName";
 
-    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
+    public static final String MESSAGE_EDIT_DIARY_SUCCESS = "You have edited the diary: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in the Duke Cooks.";
 

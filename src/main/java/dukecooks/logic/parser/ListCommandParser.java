@@ -17,7 +17,7 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.health.ListRecordCommandParser;
 
 /**
- * Parses input arguments and creates a new List Command object
+ * Parses input arguments and creates a new ListCommand object
  */
 public class ListCommandParser implements Parser<ListCommand> {
 

@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
 
 
 /**
- * Adds a diary to Duke Cooks.
+ * Creates and adds a page to a specified diary in DukeCooks.
  */
 public class CreatePageCommand extends CreateCommand {
 

@@ -26,7 +26,7 @@ import dukecooks.logic.parser.recipe.AddRecipeCommandParser;
 import dukecooks.logic.parser.workout.AddWorkoutCommandParser;
 
 /**
- * Parses input arguments and creates a new AddRecipeCommand object
+ * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
 

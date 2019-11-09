@@ -24,7 +24,7 @@ public class ViewDiaryCommand extends ViewCommand {
             + "Parameters: "
             + "1";
 
-    public static final String MESSAGE_SUCCESS = "You are viewing diary : %1$s";
+    public static final String MESSAGE_SUCCESS = "You are viewing diary: %1$s";
 
     private static Event event;
 
