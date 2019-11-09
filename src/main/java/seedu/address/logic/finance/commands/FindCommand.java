@@ -9,7 +9,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
 import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
-import seedu.address.model.finance.logentry.LogEntryMatchesAmountPredicate;
 import seedu.address.model.finance.logentry.LogEntryMatchesLogEntryTypesPredicate;
 import seedu.address.model.finance.logentry.LogEntryMatchesPredicate;
 
@@ -33,12 +32,11 @@ public class FindCommand extends Command {
 
     private final LogEntryMatchesPredicate predicate;
 
-    public FindCommand(LogEntryMatchesAmountPredicate amountPredicate,
-                       LogEntryMatchesLogEntryTypesPredicate logEntryTypesPredicate,
+    public FindCommand(LogEntryMatchesLogEntryTypesPredicate logEntryTypesPredicate,
                        LogEntryContainsKeywordsPredicate keywordsPredicate,
                        LogEntryContainsCategoriesPredicate categoriesPredicate) {
         this.predicate = new LogEntryMatchesPredicate(
-                amountPredicate, logEntryTypesPredicate,
+                logEntryTypesPredicate,
                 keywordsPredicate, categoriesPredicate);
     }
 

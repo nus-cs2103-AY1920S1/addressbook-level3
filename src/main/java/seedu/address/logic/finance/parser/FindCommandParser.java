@@ -13,7 +13,6 @@ import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
 import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
-import seedu.address.model.finance.logentry.LogEntryMatchesAmountPredicate;
 import seedu.address.model.finance.logentry.LogEntryMatchesLogEntryTypesPredicate;
 
 /**
@@ -31,11 +30,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_TYPE,
                         PREFIX_KEYWORD, PREFIX_CATEGORY);
 
-        String[] amounts = null;
-        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            amounts = argMultimap.getValue(PREFIX_AMOUNT).get().trim().split("\\s+");
-        }
-
         String[] logEntryTypesToFind = null;
         if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
             logEntryTypesToFind = argMultimap.getValue(PREFIX_TYPE).get().trim().split("\\s+");
@@ -52,19 +46,16 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         // At least one field present
-        boolean isAmountSpecified = amounts != null;
         boolean isLogEntryTypeSpecified = logEntryTypesToFind != null;
         boolean isCatsToFindSpecified = catsToFind != null;
         boolean isKeywordFieldSpecified = keywords != null;
-        if (!isAmountSpecified && !isLogEntryTypeSpecified
+        if (!isLogEntryTypeSpecified
             && !isCatsToFindSpecified && !isKeywordFieldSpecified) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(
-                new LogEntryMatchesAmountPredicate(
-                        amounts == null ? new ArrayList<String>() : Arrays.asList(amounts)),
-                new LogEntryMatchesLogEntryTypesPredicate(
+               new LogEntryMatchesLogEntryTypesPredicate(
                         logEntryTypesToFind == null ? new ArrayList<String>() : Arrays.asList(logEntryTypesToFind)),
                 new LogEntryContainsKeywordsPredicate(
                         keywords == null ? new ArrayList<String>() : Arrays.asList(keywords)),

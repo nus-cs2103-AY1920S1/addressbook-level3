@@ -50,8 +50,8 @@ public class LendLogEntryTest {
     @Test
     public void equals() {
         // same values -> returns true
-        LogEntry logCopy03 = new LogEntryBuilder(LOG04).buildLend();
-        assertTrue(LOG04.equals(logCopy03));
+        LogEntry logCopy04 = new LogEntryBuilder(LOG04).buildLend();
+        assertTrue(LOG04.equals(logCopy04));
 
         // same object -> returns true
         assertTrue(LOG04.equals(LOG04));

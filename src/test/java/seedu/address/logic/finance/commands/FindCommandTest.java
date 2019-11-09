@@ -15,7 +15,6 @@ import seedu.address.model.finance.ModelFinanceManager;
 import seedu.address.model.finance.UserPrefs;
 import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
 import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
-import seedu.address.model.finance.logentry.LogEntryMatchesAmountPredicate;
 import seedu.address.model.finance.logentry.LogEntryMatchesLogEntryTypesPredicate;
 
 /**
@@ -27,11 +26,6 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        LogEntryMatchesAmountPredicate firstAmountPredicate =
-                new LogEntryMatchesAmountPredicate(Collections.singletonList("1"));
-        LogEntryMatchesAmountPredicate secondAmountPredicate =
-                new LogEntryMatchesAmountPredicate(Collections.singletonList("2"));
-
         LogEntryMatchesLogEntryTypesPredicate firstEntryTypePredicate =
                 new LogEntryMatchesLogEntryTypesPredicate(Collections.singletonList("spend"));
         LogEntryMatchesLogEntryTypesPredicate secondEntryTypePredicate =
@@ -48,10 +42,10 @@ public class FindCommandTest {
                 new LogEntryContainsCategoriesPredicate(Collections.singletonList("secondCat"));
 
         FindCommand findFirstCommand =
-                new FindCommand(firstAmountPredicate, firstEntryTypePredicate,
+                new FindCommand(firstEntryTypePredicate,
                         firstKeywordPredicate, firstCatPredicate);
         FindCommand findSecondCommand =
-                new FindCommand(secondAmountPredicate, secondEntryTypePredicate,
+                new FindCommand(secondEntryTypePredicate,
                         secondKeywordPredicate, secondCatPredicate);
 
         // same object -> returns true
@@ -59,7 +53,7 @@ public class FindCommandTest {
 
         // same values -> returns true
         FindCommand findFirstCommandCopy =
-                new FindCommand(firstAmountPredicate, firstEntryTypePredicate,
+                new FindCommand(firstEntryTypePredicate,
                 firstKeywordPredicate, firstCatPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
@@ -71,13 +65,6 @@ public class FindCommandTest {
 
         // different find commands -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code LogEntryMatchesAmountPredicate}.
-     */
-    private LogEntryMatchesAmountPredicate prepareAmountPredicate(String userInput) {
-        return new LogEntryMatchesAmountPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
     /**
