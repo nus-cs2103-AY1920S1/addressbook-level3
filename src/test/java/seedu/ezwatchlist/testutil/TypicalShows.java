@@ -97,8 +97,19 @@ public class TypicalShows {
         }
         return wl;
     }
+    public static WatchList getTypicalWatchList2() {
+        WatchList wl = new WatchList();
+        for (Show show : getTypicalShow2()) {
+            wl.addShow(show);
+        }
+        return wl;
+    }
 
     public static List<Show> getTypicalShow() {
         return new ArrayList<>(Arrays.asList(AVENGERSENDGAME, FIGHTCLUB));
+    }
+    public static List<Show> getTypicalShow2() {
+        return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB,
+                GODFATHER2, THEOFFICE));
     }
 }
