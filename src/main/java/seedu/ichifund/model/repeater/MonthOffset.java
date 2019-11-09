@@ -12,7 +12,7 @@ public class MonthOffset {
     public static final String MESSAGE_CONSTRAINTS =
         "Month offset should be an integer between 1 and 28 inclusive. A value of -1 indicates that the month "
         + "offset is ignored.";
-    public static final String VALIDATION_REGEX = "^$|(-1|[1-9]|1[0-9]|2[0-8])";
+    public static final String VALIDATION_REGEX = "(-1|[1-9]|1[0-9]|2[0-8])";
     public static final MonthOffset MONTH_OFFSET_IGNORED = new MonthOffset("-1");
     public static final MonthOffset MONTH_OFFSET_DEFAULT = new MonthOffset("-1");
 
@@ -21,11 +21,7 @@ public class MonthOffset {
     public MonthOffset(String offset) {
         requireNonNull(offset);
         checkArgument(isValidMonthOffset(offset), MESSAGE_CONSTRAINTS);
-        if (offset.equals("")) {
-            this.value = null;
-        } else {
-            this.value = Integer.parseInt(offset);
-        }
+        this.value = Integer.parseInt(offset);
     }
 
     /**
@@ -53,11 +49,7 @@ public class MonthOffset {
 
     @Override
     public String toString() {
-        if (this.value == null) {
-            return "";
-        } else {
-            return this.value.toString();
-        }
+        return this.value.toString();
     }
 
 }
