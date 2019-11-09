@@ -14,24 +14,31 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.text.TextFlow;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Represents an AutoCompleteTextField that provide command suggestions as user
- * types in command inputs.
+ * The UI component that is responsible for receiving user command inputs.
  */
-public class AutoCompleteTextField extends JFXTextField {
+public class AutoCompleteCommandBox extends JFXTextField {
+    private final CommandExecutor commandExecutor;
+
+    /**
+     * Represents a popup for user to select a command that is suggested.
+     */
+    private ContextMenu commandsPopup;
+
     private SuggestionTemplates suggestionTemplates = new SuggestionTemplates();
-    private final Logger logger = LogsCenter.getLogger(AutoCompleteTextField.class);
+    private final Logger logger = LogsCenter.getLogger(AutoCompleteCommandBox.class);
     /**
      * Represent the list of possible commands users can enter.
      */
@@ -42,31 +49,11 @@ public class AutoCompleteTextField extends JFXTextField {
             "delete mentor", "delete team", "find participant", "find mentor", "find team", "leaderboard", "getTop",
             "score add", "score sub", "score set", "history", "undo", "redo", "import", "export", "help");
 
-    /**
-     * Represents a popup for user to select a command that is suggested.
-     */
-    private ContextMenu commandsPopup;
-
-    /**
-     * Constructs an AutoCompleteTextField that provide command suggestions as user
-     * types in command inputs.
-     */
-    public AutoCompleteTextField() {
+    public AutoCompleteCommandBox(CommandExecutor commandExecutor) {
         super();
-        this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            KeyCombination upCombo = new KeyCodeCombination(KeyCode.UP, KeyCombination.ALT_DOWN);
-            KeyCombination downCombo = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.ALT_DOWN);
+        this.commandExecutor = commandExecutor;
+        this.setPromptText("What can I do for you?");
 
-            if (upCombo.match(event)) {
-                KeyEvent upEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.UP, false, false, true, false);
-                this.fireEvent(upEvent);
-            }
-
-            if (downCombo.match(event)) {
-                KeyEvent downEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.UP, false, false, true, false);
-                this.fireEvent(downEvent);
-            }
-        });
         commandSuggestionSet.addAll(commandSuggestionList);
         commandsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
@@ -86,7 +73,6 @@ public class AutoCompleteTextField extends JFXTextField {
 
                 List<String> finalSuggestionResults = new LinkedList<String>();
                 finalSuggestionResults.addAll(filteredSuggestionResults);
-                logger.info("Number of results:" + finalSuggestionResults.size());
 
                 // Guard clause
                 if (finalSuggestionResults.size() < 1) {
@@ -96,11 +82,9 @@ public class AutoCompleteTextField extends JFXTextField {
 
                 populatePopup(finalSuggestionResults);
                 if (!commandsPopup.isShowing()) {
-                    commandsPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+                    commandsPopup.show(AutoCompleteCommandBox.this, Side.BOTTOM, 0, 0);
                 }
 
-                // Request focus on first item
-                //commandsPopup.getSkin().getNode().requestFocus();
             }
         });
 
@@ -113,7 +97,6 @@ public class AutoCompleteTextField extends JFXTextField {
             }
         });
 
-
     }
 
     /**
@@ -124,14 +107,13 @@ public class AutoCompleteTextField extends JFXTextField {
      */
     private void populatePopup(List<String> finalSuggestionResults) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        int maxSuggestion = 5;
+        final int maxSuggestion = 4;
         int numSuggestion = Math.min(finalSuggestionResults.size(), maxSuggestion);
 
         for (int j = 0; j < numSuggestion; j++) {
             String suggestion = finalSuggestionResults.get(j);
-            logger.info("Command type suggested is: " + suggestion);
             TextFlow suggestionTemplate = getSuggestionTemplate(suggestion);
-            logger.info("Suggestion template is: " + suggestionTemplate.toString());
+
             CustomMenuItem item = new CustomMenuItem(suggestionTemplate, true);
             item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -146,9 +128,7 @@ public class AutoCompleteTextField extends JFXTextField {
         }
         // Clears all current menu items in popup, and adds new items.
         commandsPopup.getItems().clear();
-        logger.info("Number of menu items to be added in pop-up box: " + menuItems.size());
         commandsPopup.getItems().addAll(menuItems);
-        logger.info("number of items in commandsPopup: " + commandsPopup.getItems().size());
     }
 
     private TextFlow getSuggestionTemplate(String suggestion) {
@@ -185,7 +165,6 @@ public class AutoCompleteTextField extends JFXTextField {
         switch (suggestion) {
 
         case "add participant":
-            logger.info("Add participant template is shown on GUI");
             return suggestionTemplates.ADD_PARTICIPANT_TEMPLATE;
 
         case "add team":
@@ -354,6 +333,41 @@ public class AutoCompleteTextField extends JFXTextField {
             logger.info("Other Template is null");
             return null;
         }
+    }
+
+    /**
+     * Sets the text to be displayed in the TextField {@code commandTextField}.
+     *
+     * @param text
+     */
+    public void setTextField(String text) {
+        this.setText(text);
+    }
+
+    /**
+     * Handles the Enter button pressed event.
+     */
+    @FXML
+    public void handleCommandEntered() {
+        try {
+            commandExecutor.execute(getText());
+            setText("");
+        } catch (CommandException | ParseException | AlfredModelHistoryException e) {
+            logger.warning("Exception is thrown");
+        }
+    }
+
+    /**
+     * Represents a function that can execute commands.
+     */
+    @FunctionalInterface
+    public interface CommandExecutor {
+        /**
+         * Executes the command and returns the result.
+         *
+         * @see seedu.address.logic.Logic#execute(String)
+         */
+        CommandResult execute(String commandText) throws CommandException, ParseException, AlfredModelHistoryException;
     }
 
 }

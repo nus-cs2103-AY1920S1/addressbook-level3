@@ -33,7 +33,6 @@ public class RemoveMentorCommandParser implements Parser<RemoveMentorCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);
         String[] individualIds = argMultimap.getPreamble().trim().split("\\s+");
-        logger.info("size of String[] individualIds: " + individualIds.length);
 
         Id mentorId;
         Id teamId;

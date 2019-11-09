@@ -30,7 +30,6 @@ public class AssignMentorCommandParser implements Parser<AssignMentorCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);
         String[] individualIds = argMultimap.getPreamble().trim().split("\\s+");
-        logger.info("size of String[] individualIds: " + individualIds.length);
 
         Id mentorId;
         Id teamId;

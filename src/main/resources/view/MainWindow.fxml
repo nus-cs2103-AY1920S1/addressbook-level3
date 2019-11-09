@@ -87,7 +87,7 @@
                         <bottom>
                             <VBox prefHeight="120.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                                 <children>
-                                    <StackPane fx:id="commandBoxPlaceholder" prefHeight="50.0" style="-fx-background-color: #292734;" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                                    <StackPane fx:id="commandBoxPlaceholder" prefHeight="50.0" style="-fx-background-color: #292734;" styleClass="pane-with-border" stylesheets="@AutoCompleTextField.css" VBox.vgrow="NEVER">
                                         <padding>
                                             <Insets bottom="5" left="10" right="10" top="5" />
                                         </padding>

@@ -33,15 +33,12 @@ public class AddCommandAllocator implements CommandAllocator<AddCommand> {
 
         switch (entity) {
         case CliSyntax.ENTITY_MENTOR:
-            //logger.info("Adding a new Mentor...");
             return new AddMentorCommandParser().parse(args);
 
         case CliSyntax.ENTITY_PARTICIPANT:
-            //logger.info("Adding a new Participant...");
             return new AddParticipantCommandParser().parse(args);
 
         case CliSyntax.ENTITY_TEAM:
-            //logger.info("Adding a new Team...");
             return new AddTeamCommandParser().parse(args);
 
         default:

@@ -27,24 +27,19 @@ public class RemoveCommandAllocator implements CommandAllocator<RemoveCommand> {
         try {
             entity = AlfredParserUtil.getSpecifierFromCommand(userInput);
             args = AlfredParserUtil.getArgumentsFromCommand(userInput);
-            logger.info("Arguments of AssignCommand is: " + args);
         } catch (ParseException pe) {
-            logger.severe("Parse exception is thrown as entity and args cannot pre parsed out from input");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
 
         switch (entity) {
 
         case CliSyntax.ENTITY_PARTICIPANT:
-            logger.info("Assigning Participant to a Team");
             return new RemoveParticipantCommandParser().parse(args);
 
         case CliSyntax.ENTITY_MENTOR:
-            logger.info("Assigning Mentor to a Team");
             return new RemoveMentorCommandParser().parse(args);
 
         default:
-            logger.severe("Parse exception is thrown as String entity is not of either participant or mentor type");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
     }

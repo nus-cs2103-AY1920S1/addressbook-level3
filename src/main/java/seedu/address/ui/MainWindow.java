@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
@@ -49,7 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private JFXButton lastFired;
-    private CommandBox commandBox;
+    private AutoCompleteCommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -91,7 +92,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        //Set minimum size of window
+        // Set minimum size of window
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(800);
 
@@ -143,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-
     /**
      * Fills up all the placeholders of this window.
      */
@@ -159,16 +159,16 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTeamListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand);
+        commandBox = new AutoCompleteCommandBox(this::executeCommand);
 
-        commandBox.getRoot().requestFocus();
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-        setCommandNavigationHandler();
+        commandBox.requestFocus();
+        commandBoxPlaceholder.getChildren().add(commandBox);
+        setHandler();
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                commandBox.setFocusTextField();
+                commandBox.requestFocus();
             }
         });
     }
@@ -177,23 +177,26 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the handlers for the events generated whenever the alt modifier key, as
      * well as the up/down arrow keys are pressed.
      */
-    private void setCommandNavigationHandler() {
+    private void setHandler() {
         final KeyCombination upCombo = new KeyCodeCombination(KeyCode.UP, KeyCombination.ALT_DOWN);
         final KeyCombination downCombo = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.ALT_DOWN);
 
-        this.commandBoxPlaceholder.addEventHandler(KeyEvent.ANY,
-                new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent ke) {
-                        if (upCombo.match(ke)) {
-                            commandBox.setTextField(logic.getPrevCommandString());
-                        }
+        this.commandBoxPlaceholder.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (upCombo.match(ke)) {
+                    commandBox.setTextField(logic.getPrevCommandString());
+                }
 
-                        if (downCombo.match(ke)) {
-                            commandBox.setTextField(logic.getNextCommandString());
-                        }
-                    }
-                });
+                if (downCombo.match(ke)) {
+                    commandBox.setTextField(logic.getNextCommandString());
+                }
+
+                if (KeyCode.ENTER == ke.getCode()) {
+                    commandBox.handleCommandEntered();
+                }
+            }
+        });
     }
 
     /**
@@ -258,8 +261,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void displayStatistics() {
-        logger.info("Statistics object gotten from Logic is: " + logic.getStatistics());
-        logger.info("Statistics panel to be assigned is: " + new StatisticsListPanel(logic.getStatistics()));
         statisticListPanel = new StatisticsListPanel(logic.getStatistics());
         listPanelPlaceholder.getChildren().set(0, statisticListPanel.getRoot());
         lastFired = homeButton;
@@ -362,7 +363,6 @@ public class MainWindow extends UiPart<Stage> {
             throws CommandException, ParseException, AlfredModelHistoryException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -379,7 +379,6 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
-            logger.info("CommandResult has the prefix: " + commandType);
             // TODO: if the current panel is the one being changed, do not change the
             // entityListPlaceholder
             switch (commandType) {
@@ -403,7 +402,6 @@ public class MainWindow extends UiPart<Stage> {
                 lastFired = homeButton;
                 break;
             default:
-                logger.info("The command does not edit any of the list of Entity");
                 break;
             }
             return commandResult;
@@ -411,7 +409,7 @@ public class MainWindow extends UiPart<Stage> {
             if (lastFired != null) {
                 this.fireButton(lastFired);
             }
-            logger.info("Invalid command: " + commandText);
+
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

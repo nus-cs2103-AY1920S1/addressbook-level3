@@ -1,15 +1,11 @@
 package seedu.address.ui.listpanel;
 
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Mentor;
@@ -25,7 +21,6 @@ import seedu.address.ui.UiPart;
 public class EntityListPanel extends UiPart<Region> {
     private static final String FXML = "ListPanel.fxml";
     private PrefixType prefix;
-    private final Logger logger = LogsCenter.getLogger(EntityListPanel.class);
 
     @FXML
     private ListView<Entity> listView;
@@ -35,8 +30,6 @@ public class EntityListPanel extends UiPart<Region> {
     public EntityListPanel(ObservableList<? extends Entity> entityList) {
         super(FXML);
         entityList.forEach(item -> listView.getItems().add(item));
-        logger.info("Size of EntityList is: " + listView.getItems().size());
-        logger.info("Size of EntityListView is: " + listView.getItems().size());
         if (!entityList.isEmpty()) {
             Entity firstItem = entityList.get(0);
             if (firstItem instanceof Participant) {
@@ -49,7 +42,7 @@ public class EntityListPanel extends UiPart<Region> {
                 prefix = PrefixType.M;
                 listView.setCellFactory(listView -> new MentorListViewCell());
             }
-            logger.info("EntityListView has prefix type: " + this.prefix);
+
         }
     }
 
@@ -65,10 +58,8 @@ public class EntityListPanel extends UiPart<Region> {
             if (isEmpty || curr == null) {
                 setGraphic(null);
                 setText(null);
-                logger.info("Item does not exist");
             } else {
                 setGraphic(new EntityCard(curr, getIndex() + 1).getRoot());
-                logger.info("Graphic is set to EntityCard of Mentor type");
             }
         }
     }
@@ -85,10 +76,8 @@ public class EntityListPanel extends UiPart<Region> {
             if (isEmpty || curr == null) {
                 setGraphic(null);
                 setText(null);
-                logger.info("Item does not exist");
             } else {
                 setGraphic(new EntityCard(curr, getIndex() + 1).getRoot());
-                logger.info("Graphic is set to EntityCard of Participant type");
             }
         }
     }
@@ -105,10 +94,8 @@ public class EntityListPanel extends UiPart<Region> {
             if (isEmpty || curr == null) {
                 setGraphic(null);
                 setText(null);
-                logger.info("Item does not exist");
             } else {
                 setGraphic(new EntityCard(curr, getIndex() + 1).getRoot());
-                logger.info("Graphic is set to EntityCard of Team type");
             }
         }
     }

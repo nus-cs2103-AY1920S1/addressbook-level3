@@ -94,12 +94,10 @@ public class AlfredParser {
             break;
 
         case ListCommand.COMMAND_WORD:
-            logger.info("Showing list of a particular entity...");
             c = new ListCommandParser().parse(arguments);
             break;
 
         case SimpleLeaderboardCommand.COMMAND_WORD:
-            logger.info("Executing leaderboard command...");
             c = new LeaderboardCommandParser().parse(arguments);
             break;
 
@@ -145,19 +143,16 @@ public class AlfredParser {
             break;
 
         case AssignCommand.COMMAND_WORD:
-            logger.info("Assigning Entity(Mentor/Participant) to a Team");
             c = new AssignCommandAllocator().allocate(arguments);
             break;
 
         case RemoveCommand.COMMAND_WORD:
-            logger.info("Removing Entity(Mentor/Participant) from a Team");
             c = new RemoveCommandAllocator().allocate(arguments);
             break;
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
         default:
-            logger.info("Unknown command type: " + commandWord);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
         c.setCommandInputString(userInput);

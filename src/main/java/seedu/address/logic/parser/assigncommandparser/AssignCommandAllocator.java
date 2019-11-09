@@ -35,15 +35,12 @@ public class AssignCommandAllocator implements CommandAllocator<AssignCommand> {
         switch (entity) {
 
         case CliSyntax.ENTITY_PARTICIPANT:
-            logger.info("Assigning Participant to a Team");
             return new AssignParticipantCommandParser().parse(args);
 
         case CliSyntax.ENTITY_MENTOR:
-            logger.info("Assigning Mentor to a Team");
             return new AssignMentorCommandParser().parse(args);
 
         default:
-            logger.severe("Parse exception is thrown as String entity is not of either participant or mentor type");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
     }
