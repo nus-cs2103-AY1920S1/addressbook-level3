@@ -46,7 +46,8 @@ public class AddTaskCommandParser {
         if (marking.equals(new Marking("Y"))) {
             System.out.println("yesy");
             ReminderDescription rd = ParserUtil.parseReminderDescription(argMultimap.getValue(PREFIX_CLASSID).get());
-            TreeSet<ReminderTime> reminderTimeList = ParserUtil.parseReminderTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
+            TreeSet<ReminderTime> reminderTimeList =
+                    ParserUtil.parseReminderTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
             AddTaskCommand addtaskreminder = new AddTaskCommand(task);
             addtaskreminder.getReminder(new Reminder(rd, reminderTimeList));
             return addtaskreminder;
