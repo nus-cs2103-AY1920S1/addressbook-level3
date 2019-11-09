@@ -4,7 +4,6 @@ import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.Interval;
 import seedu.address.calendar.model.util.IntervalSearchTree;
 import seedu.address.calendar.model.util.exceptions.NoVacationException;
 
