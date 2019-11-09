@@ -2,6 +2,8 @@ package calofit.model.dish;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import calofit.commons.util.AppUtil;
 //import calofit.commons.util.StringUtil;
 
@@ -39,18 +41,19 @@ public class Calorie {
      * @param test a string
      * @return true if calorie value is valid
      */
-    public static boolean isValidCalorie(String test) {
+    public static Optional<Calorie> tryParseCalorie(String test) {
         requireNonNull(test);
 
         try {
             int value = Integer.parseInt(test);
-            return value >= 0 && value <= 2000000000
-                    && !test.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            if (value >= 0 && value <= 2000000000
+                && !test.startsWith("+")) { // "+1" is successfully parsed by Integer#parseInt(String)
+                return Optional.of(new Calorie(value));
+            }
         } catch (NumberFormatException nfe) {
-            return false;
+            //Fallthrough to return
         }
-        //return StringUtil.isNonZeroUnsignedInteger(test);
-        //return test.matches(VALIDATION_REGEX);
+        return Optional.empty();
     }
 
     @Override
