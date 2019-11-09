@@ -105,7 +105,7 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-There is also a `ScheduleBox` that is one of the tabs in the TabPane of `MainWindow`, the `ScheduleBox` which inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
+There are also `ScheduleBox`, `Finance`, `StatisticBox` which are of the tabs in the TabPane of `MainWindow`, of which all of them inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
