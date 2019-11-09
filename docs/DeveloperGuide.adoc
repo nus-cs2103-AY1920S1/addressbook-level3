@@ -213,6 +213,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -232,6 +233,7 @@ image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Commit Activity Diagram
 image::CommitActivityDiagram.png[]
 
 // end::undoredo[]
@@ -242,6 +244,7 @@ image::CommitActivityDiagram.png[]
 
 We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
+.AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
 
 // end::autocomplete[]
@@ -257,10 +260,12 @@ The queue will be displayed in a list.
 
 The following activity diagram summarizes what happens when a user executes an enqueue command:
 
+.Enqueue Activity Diagram
 image::EnqueueActivityDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an next command:
 
+.Next Activity Diagram
 image::NextActivityDiagram.png[]
 
 Below is an example usage of the queue feature.
@@ -269,35 +274,33 @@ Step 1: User enters the `enqueue E0000001A` command.
 
 Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
 
-Step 3: Patient will then be showed in the queue.
+Step 3: Patient will then displayed in the queue.
 
 === Appointment feature
-The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also helps user to find the missed appointments and settles each missing appointment efficiently.
+The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User also able to find missed appointments and settles each missed appointment efficiently.
 
-* e.g. `newappt -id 001A -start 01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
-* e.g. `editappt -entry 1 -end 02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+* e.g. `newappt -id E0000001A -start 01/11/19 1800 -rec m -num 2` - creates two monthly appointments to patient whose referenceId is 001A.
+* e.g. `editappt 1 -start 02/11/19 1800` - edits a patient's first appointment timing to be the input timing if there is no conflict.
 
 ==== Current Implementation
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
-`newappt` Command - Adds a appointment or reoccurring appointments to a patient.
+`newappt` Command - Creates an new appointment or recurring appointments for a patient.
 
-`ackappt` Command - Acknowledges a appointment once the patient reaches.
+`ackappt` Command - Acknowledges an appointment whenever the patient checks in with the clerk.
 
-`appointments` Command - Lists all upcoming appointment schedule or lists a specific patient's upcoming appointments.
+`appointments` Command - Lists all upcoming appointments or appointments containing a certain keyword.
 
-`editappt` Command - Change a current appointment's timing to a different timing.
+`editappt` Command - Edits an appointment timing.
 
-`cancelappt` Command - Cancels appointments found within the appointment schedule.
+`cancelappt` Command - Cancels an appointment.
 
-`missappt` Command - Lists all missing appointment.
+`missappt` Command - Lists all missed appointments.
 
-`settleappt` Command - Settles a missing appointment when user contact with patient.
+`settleappt` Command - Marks a missed appointment as settled. Allowing the clerk to track which patient have yet to reschedule an appointment.
 
 
-The class diagram below illustrates the interactions between the Appointment class and associated classes.
-
-.Appointment class diagram
+.Appointment class diagram illustrating interactions between the Appointment class and associated classes.
 image::AppointmentClassDiagram.png[]
 
 Each Appointment object consists of a PersonReferenceId, Timing, Status. Timing class has 2 DateTime object as they indicates the starting and ending time of the appointment. The `UniqueEventList` contains 0 or more Appointments.
@@ -305,7 +308,7 @@ Each Appointment object consists of a PersonReferenceId, Timing, Status. Timing 
 The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePersonList  and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
 
 ==== `newappt` Command
-The addAppointment command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+The `newappt` command is similar to the `new` command of Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
 
 The following activity diagram summarizes what happens when a user executes a AddAppointment command:
 
@@ -314,11 +317,11 @@ image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
 
-The ackAppointment command will mark the patient's the most upcoming appointment as Acknowledge when the patient is reaching and it will updateUniqueAppointmentList to display the rest appointments that are belong to the patient.
+The `ackappt` command marks the patient's the most upcoming appointment as Acknowledged when the patient checks in and also updates UniqueEventList to display appointments belonging to the patient.
 
 ==== `appointments` Command
 
-The appointments command works in two different cases for different purpose.
+The `appointments` command works in two different cases for different purpose.
 
 Case 1: `appointments patientId`
 
@@ -326,10 +329,10 @@ The appointments command searches for appointments that were belong to the patie
 
 Case 2: `appointments`
 
-The appointments with referce id behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+If appointments is executed without arguments, it executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
 
 ==== `editappt` Command
-The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+The following activity diagram summarizes what happens when a user executes a `editappt` command:
 
 .Interactions Inside the Logic Component when a user executes a `editappt` command
 
@@ -346,11 +349,11 @@ image::CancelAppointmentSequenceDiagram.png[]
 
 ==== `missappt` Command
 
-The missAppointment command searches for appointments that patients did not come. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
+The `missappt` command searches for appointments that the patient did not attend. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
 
 ==== `settleappt` Command
 
-The settleAppointment command helps users to record if they settled missing appointments. It allows users make any missing appointment to be SETTLE once users have settled it. it will updateUniqueAppointmentList to display the rest missing appointments.
+The `settleappt` command helps users to record if they settled missed appointments. It allows users make any missed appointment to be SETTLE once users have settled it. It will also update UniqueEventList to display the other missed appointments.
 
 In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
 
@@ -359,7 +362,7 @@ In future implementations, i.e. v2.0, the valid timing slot will be given after 
 The duty shift scheduling provides users the ability to schedule duty shift for doctors. It can help doctors to check, add, edit duty shift efficiently.
 
 editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100
-* e.g. `newshift -id STAFF001 -start 01/11/19 0900 -end 01/12/19 2100 reoccur m -num 2` - allows the user to create two monthly duty shifts to doctor whose referenceId is STAFF001.
+* e.g. `newshift -id STAFF001 -start 01/11/19 0900 -end 01/12/19 2100 -reoccur m -num 2` - allows the user to create two monthly duty shifts to doctor whose referenceId is STAFF001.
 * e.g. `editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100` - allows the user to change a doctor's first duty shift to be the input timing if there is no conflict.
 
 ==== Current Implementation
