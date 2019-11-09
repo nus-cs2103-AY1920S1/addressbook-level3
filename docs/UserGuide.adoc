@@ -764,7 +764,7 @@ one optional `ALIASWORD`. If no `ALIASWORD` is given, the `ALIASWORD` for the sp
 Alias Words can only be alphanumeric.
 
 ****
-*Format*: `alias COMMANDWORD [ALIASWORD]`
+*Format*: `alias COMMANDWORD [ALIASWORD]` +
 *Example*: `alias sort shuffleAround`
 ****
 

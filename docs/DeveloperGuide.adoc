@@ -309,7 +309,7 @@ and a withdrawal at a single time.
 .Savings class diagram in Model component.
 image::SavingsAccountClassDiagram.png[align=center, alt=SavingsAccount, width=180]
 
-==== *Adding to the Savings Account*
+==== Adding to the Savings Account
 
 The user may want to add a new saving to his savings account. This can be done with the `save` command.
 
