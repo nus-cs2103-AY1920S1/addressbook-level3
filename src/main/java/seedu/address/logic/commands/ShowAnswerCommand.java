@@ -25,9 +25,11 @@ public class ShowAnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String answer = model.getTestAnswer();
+        //String answer = model.getTestAnswer();
+        model.showAnswer();
+
         keyboardFlashCardsParser.setAwaitingAnswer(false);
-        return new CommandResult(answer);
+        return new CommandResult("To be change: better feedback message");
     }
 
     @Override

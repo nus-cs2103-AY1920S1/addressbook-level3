@@ -2,9 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.ui.TestFlashCardPanel;
 
 //@@author keiteo
 /**
@@ -12,8 +14,11 @@ import seedu.address.model.flashcard.FlashCard;
  */
 public class FlashCardTestModel {
 
+    private static FlashCard currentFlashCard;
+
     private List<FlashCard> testList;
-    private FlashCard currentFlashCard;
+    private List<FlashCard> testListOld = new LinkedList<>();
+    private TestFlashCardPanel testFlashCardPanel;
 
     public FlashCardTestModel(List<FlashCard> testList) {
         this.testList = testList;
@@ -23,9 +28,27 @@ public class FlashCardTestModel {
         return testList.isEmpty();
     }
 
-    public String getQuestion() {
+    public void setFlashcard() {
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
+        testListOld.add(currentFlashCard);
+    }
+
+    //@@author shutingy
+    private void setTestFlashCardPanel() {
+        requireNonNull(currentFlashCard);
+        testFlashCardPanel = new TestFlashCardPanel(currentFlashCard);
+    }
+
+    //@@author shutingy
+    public TestFlashCardPanel getTestFlashCardPanel() {
+        requireNonNull(currentFlashCard);
+        setTestFlashCardPanel();
+        return testFlashCardPanel;
+    }
+
+    public String getQuestion() {
+        requireNonNull(currentFlashCard);
         return currentFlashCard.getQuestion().toString();
     }
 
@@ -34,7 +57,17 @@ public class FlashCardTestModel {
         return currentFlashCard.getAnswer().toString();
     }
 
-    public FlashCard getCurrentFlashCard() {
+    //@@ author shutingy
+
+    /**
+     * link to the gui to display the answer during test mode.
+     */
+    public void showAnswer() {
+        requireNonNull(testFlashCardPanel);
+        testFlashCardPanel.showAnswer();
+    }
+
+    public static FlashCard getCurrentFlashCard() {
         return currentFlashCard;
     }
 

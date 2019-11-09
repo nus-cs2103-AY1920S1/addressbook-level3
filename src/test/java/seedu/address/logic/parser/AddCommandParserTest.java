@@ -8,18 +8,14 @@ import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_LOCATIO
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_2;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_1;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalFlashCards.NORATING;
@@ -33,7 +29,6 @@ import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.Rating;
 import seedu.address.testutil.FlashCardBuilder;
 
 public class AddCommandParserTest {
@@ -56,8 +51,8 @@ public class AddCommandParserTest {
                 + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
         // multiple ratings - last rating accepted
-        assertParseSuccess(parser, QUESTION_DESC_2 + ANSWER_DESC_2 +
-                CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
+        assertParseSuccess(parser, QUESTION_DESC_2 + ANSWER_DESC_2
+                + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
         // multiple categories - all accepted
         FlashCard expectedFlashCardMultipleCategories =

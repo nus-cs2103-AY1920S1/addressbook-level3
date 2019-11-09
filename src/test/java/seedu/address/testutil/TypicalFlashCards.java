@@ -6,16 +6,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTOR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
-import static seedu.address.model.flashcard.Rating.NULL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.poi.util.NullLogger;
 
 import seedu.address.model.KeyboardFlashCards;
 import seedu.address.model.deadline.Deadline;

@@ -18,6 +18,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
+import seedu.address.ui.TestFlashCardPanel;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -257,8 +258,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setTestFlashCard() {
+        flashCardTestModel.setFlashcard();
+    }
+
+    @Override
     public String getTestQuestion() {
         return flashCardTestModel.getQuestion();
+    }
+
+    //@@author shutingy
+    @Override
+    public TestFlashCardPanel getTestFlashCardPanel() {
+        return flashCardTestModel.getTestFlashCardPanel();
     }
 
     @Override
@@ -266,6 +278,14 @@ public class ModelManager implements Model {
         return flashCardTestModel.getAnswer();
 
     }
+
+    //@@author shutingy
+    @Override
+    public void showAnswer() {
+        flashCardTestModel.showAnswer();
+    }
+
+
 
     @Override
     public void endFlashCardTest() {

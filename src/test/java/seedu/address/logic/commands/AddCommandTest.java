@@ -25,6 +25,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.testutil.FlashCardBuilder;
+import seedu.address.ui.TestFlashCardPanel;
 
 public class AddCommandTest {
 
@@ -274,6 +275,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setTestFlashCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String getTestQuestion() {
             throw new AssertionError("This method should not be called.");
         }
@@ -284,12 +290,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public TestFlashCardPanel getTestFlashCardPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<FlashCard> getFlashCardList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public FlashCard getCurrentTestFlashCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAnswer() {
             throw new AssertionError("This method should not be called.");
         }
 

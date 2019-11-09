@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.ui.TestFlashCardPanel;
 
 /**
  * The API of the Model component.
@@ -159,11 +160,18 @@ public interface Model {
 
     boolean hasTestFlashCard();
 
+    void setTestFlashCard();
+
     String getTestQuestion();
 
     String getTestAnswer();
 
+    TestFlashCardPanel getTestFlashCardPanel();
+
     FlashCard getCurrentTestFlashCard();
+
+    //@@author shutingy
+    void showAnswer();
 
     void endFlashCardTest();
 
