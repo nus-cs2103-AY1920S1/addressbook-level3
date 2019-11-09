@@ -22,9 +22,9 @@ Role: Member
 image::philipalexanderb.png[width="150", align="left"]
 {empty}[https://github.com/philipalexanderb[github]]
 
-'''
-
 Role: Member
+
+'''
 
 === Kwong Chung Yue Jerry
 image::jerryk1997.png[width="150", align="left"]
