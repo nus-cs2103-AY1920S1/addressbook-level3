@@ -22,22 +22,30 @@ public class IcsExporter {
     private static final String PROD_ID = "-//Horo//Exported Calendar// v1.0//EN";
     private static final String CALENDAR_VERSION = "2.0";
 
+    private List<EventSource> eventList;
+    private List<TaskSource> taskList;
+
     private ModelManager model;
 
     public IcsExporter(ModelManager model) {
         this.model = model;
+        this.eventList = model.getEvents();
+        this.taskList = model.getTasks();
+        requireNonNull(eventList);
+        requireNonNull(taskList);
     }
 
     /**
      * Saves the events in an ics file, whose location is specified in the parameter.
      * @param filepathString the path of where the file should be made.
-     * @throws IOException if the file or directory cannot be created.
+     * @throws IcsException if the file or directory cannot be created.
      */
     public void export(String filepathString) throws IcsException {
         try {
             Path filepath = Path.of(filepathString);
             createIfMissing(filepath);
-            writeToFile(filepath, generateIcsFileContent());
+
+            writeToFile(filepath, generateIcsFileContent(this.eventList, this.taskList));
         } catch (IOException e) {
             throw new IcsException(EXPORT_ERROR_MESSAGE);
         }
@@ -45,14 +53,11 @@ public class IcsExporter {
 
     /**
      * Generates the contents in the .ics file from the event list.
+     * @param eventList The list of EventSource objects to be exported.
+     * @param taskList The list of TaskSource objects to be exported.
      * @return The .ics file content to be exported.
      */
-    private String generateIcsFileContent() {
-        List<EventSource> eventList = model.getEvents();
-        List<TaskSource> taskList = model.getTasks();
-        requireNonNull(eventList);
-        requireNonNull(taskList);
-
+    protected String generateIcsFileContent(List<EventSource> eventList, List<TaskSource> taskList) {
         StringBuilder stringBuilder = new StringBuilder("BEGIN:VCALENDAR");
         stringBuilder
                 .append("\n").append("VERSION:").append(CALENDAR_VERSION)

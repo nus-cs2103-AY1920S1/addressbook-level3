@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.events.EventSourceBuilder;
 import seedu.address.model.tasks.TaskSource;
 
 /***
@@ -172,7 +173,7 @@ public class IcsParser {
      * @return an EventSource object representing the data provided.
      * @throws IcsException Exception thrown when there was an issue while making the EventSource object.
      */
-    public EventSource parseSingleEvent(String segment) throws IcsException {
+    public static EventSource parseSingleEvent(String segment) throws IcsException {
         String[] lines = segment.split("\\r?\\n");
         String description = "";
         DateTime eventStart = null;
@@ -195,8 +196,14 @@ public class IcsParser {
                 throw new IcsException(FILE_IS_CORRUPTED);
             }
         }
-        return EventSource.newBuilder(description, eventStart)
-            .build();
+        if (description.equals("") || eventStart == null) {
+            throw new IcsException(FILE_IS_CORRUPTED);
+        }
+        EventSourceBuilder builder = EventSource.newBuilder(description, eventStart);
+        if (eventEnd != null) {
+            builder.setEnd(eventEnd);
+        }
+        return builder.build();
     }
 
     /**
@@ -205,7 +212,7 @@ public class IcsParser {
      * @return a TaskSource object representing the data provided.
      * @throws IcsException Exception thrown when there was an issue while making the TaskSource object.
      */
-    public TaskSource parseSingleTask(String segment) throws IcsException {
+    public static TaskSource parseSingleTask(String segment) throws IcsException {
         String[] lines = segment.split("\\r?\\n");
         String description = "";
         DateTime taskStart = null;
