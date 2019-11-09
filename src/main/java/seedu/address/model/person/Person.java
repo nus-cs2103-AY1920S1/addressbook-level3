@@ -108,7 +108,7 @@ public class Person implements Binnable {
         }
 
         return otherPerson != null
-            && otherPerson.getName().equals(getName()) && otherPerson.getNric().equals(getNric());
+            && otherPerson.getNric().equals(getNric());
     }
 
     /**
