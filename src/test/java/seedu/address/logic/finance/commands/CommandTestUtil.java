@@ -75,7 +75,7 @@ public class CommandTestUtil {
     public static final String INVALID_FROM_DESC = " " + PREFIX_FROM + "***";
     public static final String INVALID_TO_DESC = " " + PREFIX_TO + "-_-";
 
-    public static final String PREAMBLE_WHITESPACE = "<amt>  <met>  <item>";
+    public static final String PREAMBLE_WHITESPACE = "<amt>  <met>  <cat>";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditLogEntryDescriptor DESC_LOG1;
