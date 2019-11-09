@@ -241,7 +241,7 @@ public class SampleDataUtil {
             
            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("KLM1209A"),
                        new District(12), new Availability("AVAILABLE")),
-           new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("KLM1208G"), 
+           new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("KLM1208G"),
                        new District(2), new Availability("AVAILABLE")),
            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SGX9213A"),
                        new District(4), new Availability("BUSY")),
@@ -258,8 +258,7 @@ public class SampleDataUtil {
            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("KML5402E"),
                        new District(14), new Availability("AVAILABLE")),
            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("KLM5306G"),
-                       new District(8), new Availability("AVAILABLE")),                       
-                    
+                       new District(8), new Availability("AVAILABLE")),
         };
     }
 
