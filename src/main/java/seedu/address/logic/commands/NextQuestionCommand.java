@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 
 //@@author keiteo
 /**
- * This class provides a skeletal implementation for commands that fetches the next FlashCard from the test model.
+ * This class provides a skeletal implementation for commands that fetch the next FlashCard from the test model.
  */
 abstract class NextQuestionCommand extends Command {
 
