@@ -96,9 +96,9 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             try {
                 double amount = Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get());
-                if (amount >= MAX_AMOUNT_ACCEPTED) {
+                if (amount > MAX_AMOUNT_ACCEPTED) {
                     throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE);
-                } else if (amount <= MIN_AMOUNT_ACCEPTED) {
+                } else if (amount < MIN_AMOUNT_ACCEPTED) {
                     throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL);
                 } else if (amount == ZERO) {
                     throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);

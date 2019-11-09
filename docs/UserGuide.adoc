@@ -100,8 +100,7 @@ This section will contain details on all commands available in the Home tab.
 * The Home Tab shows a list of all transactions made thus far.
 * Each column shows the date, description, category, amount spent and the person responsible for each transaction.
 * You may add, delete or edit transactions within this tab.
-* Leo, our mascot, helps give replies indicating successful addition, deletion and edit of the a transaction
-after a command has been input
+* Leo, our mascot, helps give replies indicating successful commands executed.
 * Leo will also give replies to guide you when there is a wrong input.
 * You may also sort the list of transactions by descending date, by ascending alphabetical order or descending amount.
 * The amount input for a transaction should be positive if the transaction is considered revenue to the club (that is,
@@ -110,7 +109,9 @@ it adds money to the club's funds).
 from the club's funds).
 
 [WARNING]
-There is a limitation to the amount that you may enter which would be -999999.99 to 999999.
+There is a limitation to the amount that you may enter which would be -999999.99 to 999999.99. If more decimal points
+are entered, it will be rounded off to the nearest 2 decimal point.
+
 ====
 
 ==== To Add a Transaction in the Home Tab
@@ -123,7 +124,7 @@ This command allows you to add a transaction to the table and saves it into the 
 ** [blue]`add dt/24-Aug-2019 d/Printer ink c/Miscellaneous a/3.50 p/Alex Yeoh`
 
 [NOTE]
-The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+The format of the date has to be in dd-MMM-yyyy format and is case-sensitive. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person must be someone recorded in the Members Tab and is case-sensitive.
 
 [WARNING]
@@ -140,9 +141,7 @@ to show up in the Reimbursements Tab.
 image::homeUG/HomeAddStep1cr.png[]
 
 [start = 2]
-2. Hit `Enter`.
-
-If the command is successfully added, Leo will respond with a success message and the transaction
+2. Hit `Enter`. If the command is successfully added, Leo will respond with a success message and the transaction
 will be shown in the table. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for Add Command in Home Tab
@@ -178,15 +177,17 @@ it will simply be added to his existing row. This is shown in the screenshot bel
 image::homeUG/HomeAddShowInR.png[width = "400"]
 
 
-==== To Delete Transaction(s) in the Home Tab
+==== To Delete Transactions in the Home Tab
 This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
 * Command
 `delete ID` or `delete p/PERSON`
 
 * Examples
-** Delete by ID: [blue]`delete 1`
-** Delete by Person: [blue]`delete p/Alex Yeoh`
+** Delete by ID: [blue]`delete 1` - Deletes the transaction at the index shown in the table. If the table shows a filtered
+list of transactions due to the Find Command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
+the 1st transaction in the filtered list is deleted.
+** Delete by Person: [blue]`delete p/Alex Yeoh` - Deletes all transactions of the person in full list of transactions.
 
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
@@ -196,9 +197,7 @@ image::homeUG/HomeDeleteStep1cr.png[]
 
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with a success message and the transaction will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
 .Screenshot of a successful user input for Delete by ID Command in Home Tab
 image::homeUG/HomeDeleteStep2cr.png[]
@@ -212,9 +211,7 @@ image::homeUG/HomeDeleteStep2cr.png[]
 image::homeUG/HomeDeletePStep1cr.png[]
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
 //.Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2cr.png[]
@@ -233,21 +230,26 @@ If the person does not have any transactions, Leo will also respond with a messa
 This command allows you to edit an existing transaction in the table and change its details.
 
 * Command:
-`edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+`edit ID [dt/DATE] [d/DESCRIPTION] [c/CATEGORY] [a/AMOUNT] [p/PERSON]`
 
 [NOTE]
-The fields above can vary in their order. It is not compulsory to include all of them but you need to
+The optional fields above can vary in their order. It is not compulsory to include all of them but you need to
 include at least one.
 
 * Examples:
-** [blue]`edit 1 p/Bernice Yu dt/23-Aug-2019`
-** [blue]`edit 3 a/12`
+** [blue]`edit 1 p/Bernice Yu dt/23-Aug-2019` - Edits the transaction at the index shown in the table. If the table shows a filtered
+list of transactions due to the Find Command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
+the 1st transaction in the filtered list is edited.
 
 * Steps:
 1. Type the command with the ID of the transaction to be edited, along with the new parameters to be changed, as shown in the screenshot below:
 
 //.Screenshot of user input into Command Box for Edit Command in Home Tab
 image::homeUG/HomeEditStep1cr.png[]
+
+[NOTE]
+Similar to the Add Command, there is no restriction to the number of characters allowed for the description and
+category.
 
 [start = 2]
 2. Hit `Enter`.
@@ -269,6 +271,13 @@ This command enables you to sort the table of transactions into a specified orde
 ** By amount (from smallest to largest in amount): [blue]`sort amount`
 ** Undo sort: [blue]`sort reset`
 
+* Examples:
+** [blue]`find Alex` +
+[blue]`sort date` - Sorts both the results of the [blue]`find` command shown and the actual transaction list. The Find Command is detailed
+in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab>>. To view the full sorted list,
+enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6. To Go Back to Display the Full List in the Home Tab>>
+
+
 [NOTE]
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
@@ -280,7 +289,11 @@ The undo sort command allows you to view the table of transactions in the order 
 [[findCommandHome]]
 ==== To Find Transactions that Match Keywords in the Home Tab
 This command transactions matching the specified keywords for viewing and for carrying out of subsequent commands,
-based on the filtered table of transactions shown.
+based on the filtered table of transactions shown. The subsequent commands will include: delete, edit and sort.
+
+[NOTE]
+An add command after a find command will cause the table to show all transactions. A find command will always
+find from the full list transactions and show the results.
 
 * Command:
 `find KEYWORDS`
@@ -302,7 +315,7 @@ based on the filtered table of transactions shown.
 Shown below is the table of all transactions:
 
 //.Screenshot of all transactions in Home tab
-image::homeUG/HomeFindCurr.png[width = "400"]
+image::homeUG/HomeFindCurr.png[width = "700"]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
@@ -311,17 +324,15 @@ image::homeUG/HomeFindStep1cr.png[]
 
 
 [start = 2]
-2. Hit `Enter`.
-
-Leo will respond with the number of matching transactions, and the table will show only
+2. Hit `Enter`. Leo will respond with the number of matching transactions, and the table will show only
 transactions matching the keywords. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for find command in Home tab
-image::homeUG/HomeFindStep2.png[width = "400"]
+image::homeUG/HomeFindStep2.png[width = "700"]
 
 
 [start = 3]
-3. Key in `back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
+3. Key in [blue]`back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
 The screenshot below shows the Edit Command being input as the next command:
 
 //.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
@@ -331,13 +342,14 @@ image::homeUG/HomeFindStep3cr.png[]
 The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
 [NOTE]
 If an Add Command is entered, the table will automatically reverse back to the previous view to show the full list of all transactions.
-All other commands require you to input `back` to return to the full list of all transactions.
+All other commands require you to input [blue]`back` to return to the full list of all transactions.
 
-The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
+The screenshot below shows the table after entering [blue]`back` which shows all the transactions in the table again:
 
 .Screenshot of the user input for Back Command after entering Find Command in Home Tab
-image::homeUG/HomeFindStep3Back.png[width="600"]
+image::homeUG/HomeFindStep3Back.png[width="700"]
 
+[[homeBackCommand]]
 ==== To Go Back to Display the Full List in the Home Tab
 This command helps you to display the full transaction list after Find Commands. After a Find Command, you can enter Delete, Edit or Sort Commands
 before entering the Back Command to display the full list.
@@ -372,8 +384,7 @@ A person can have any number of tags (including 0).
 This command shows you a list of all persons in the database.
 
 * Command:
-`list`
-
+[blue]`list`
 
 ==== Edit a Person
 This command enables you to edit an existing person in the database at a specified index.
@@ -428,10 +439,10 @@ This command enables you to delete the specified person from the database.
 
 * Examples:
 
-** `list` +
-`delete 2` - Deletes the 2nd person in the address book.
-** `find Betsy` +
-`delete 1` - Deletes the 1st person in the results of the `find` command.
+** [blue]`list` +
+[blue]`delete 2` - Deletes the 2nd person in the address book.
+** [blue]`find Betsy` +
+[blue]`delete 1` - Deletes the 1st person in the results of the `find` command.
 
 === Reimbursements Tab
 
@@ -784,6 +795,9 @@ The category field is optional. If you are unsure about the description of the d
 the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
+If you input a description of an item that already exists in the inventory, the quantity inputted will be added to
+the existing quantity. If the total quantity exceed the stock available, the system will warn you and prohibit such addition.
+
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
 items with similar description that you might be looking for.
 
@@ -803,6 +817,8 @@ according to the mistyped description.
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does *not* match with the specified category inputted.
+
+
 
 Steps:
 
@@ -1161,12 +1177,12 @@ e.g. `find James Jake`
 
 === Reimbursement
 * *Add deadline*: `deadline p/NAME dt/dd-mmm-yyyy`
-* *Find Reimbursement by Person*: `find p/NAME`
+* *Find reimbursement by person*: `find p/NAME`
 * *Display full list after find/add deadline*: `back`
 * *Mark as done*: `done p/NAME`
 * *Sort by amount*: `sort amount`
 * *Sort by name*: `sort name`
-* *Sort by deadline*: `sort deadline`
+* *Sort by deadline*: `sort date`
 
 === Inventory
 * *Add*: `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
