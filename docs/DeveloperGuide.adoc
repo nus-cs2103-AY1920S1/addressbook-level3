@@ -94,9 +94,9 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2103T-F13-3/main`), you should do the following:
 
-. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:https://github.com/ay1920s1-cs2103t-f13-3/main/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -1024,7 +1024,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:https://github.com/AY1920S1-CS2103T-F13-3/main/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -1082,15 +1082,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:https://github.com/AY1920S1-CS2103T-F13-3/main/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:https://github.com/AY1920S1-CS2103T-F13-3/main/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:https://github.com/AY1920S1-CS2103T-F13-3/main/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -1120,11 +1120,11 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 We have three types of tests:
 
 .  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.moneygowhere.commons.StringUtilTest`
 .  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.moneygowhere.storage.StorageManagerTest`
 .  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.moneygowhere.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -1160,7 +1160,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/moneygowhere/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
