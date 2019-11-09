@@ -84,4 +84,5 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+_{Optionally, you may include other projects in your portfolio.}_ +
+

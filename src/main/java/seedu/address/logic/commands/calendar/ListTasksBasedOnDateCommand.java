@@ -29,7 +29,8 @@ public class ListTasksBasedOnDateCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
-        return new CommandResult(String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
+        return new CommandResult(
+                String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
                 false, false, false, false, true,
                 false, false, false);
     }
