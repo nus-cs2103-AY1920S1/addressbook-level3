@@ -29,14 +29,14 @@ public class SortEndStateTest {
 
     @BeforeEach
     public void setup() {
-        endStateStartAscending = produceEndstateStartAscending();
-        endStateStartDescending = produceEndstateStartDescending();
-        endStateEndAscending = produceEndstateEndAscending();
-        endStateEndDescending = produceEndstateEndDescending();
-        endStatePriorityAscending = produceEndstatePriorityAscending();
-        endStatePriorityDescending = produceEndstatePriorityDescending();
-        endStateDescriptionAscending = produceEndstateDescriptionAscending();
-        endStateDescriptionDescending = produceEndstateDescriptionDescending();
+        endStateStartAscending = produceEndstate("start", "ascending");
+        endStateStartDescending = produceEndstate("start", "descending");
+        endStateEndAscending = produceEndstate("end", "ascending");
+        endStateEndDescending = produceEndstate("end", "descending");
+        endStatePriorityAscending = produceEndstate("priority", "ascending");
+        endStatePriorityDescending = produceEndstate("priority", "descending");
+        endStateDescriptionAscending = produceEndstate("description", "ascending");
+        endStateDescriptionDescending = produceEndstate("description", "descending");
     }
 
     @Test
@@ -93,207 +93,18 @@ public class SortEndStateTest {
      *
      * @return generated SortEndState
      */
-    private EndState produceEndstateStartAscending() {
+    private EndState produceEndstate(String property, String order) {
         EndState postTransitionState;
         ArgumentMultimap sofar = new ArgumentMultimap();
         State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "start");
+        sofar.put(CliSyntax.PREFIX_PROPERTY, property);
         try {
             state = state.transition(sofar);
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
             throw new AssertionError();
         }
-        sofar.put(CliSyntax.PREFIX_ORDER, "ascending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order StartDescending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstateStartDescending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "start");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "descending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order EndAscending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstateEndAscending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "end");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "ascending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order EndDescending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstateEndDescending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "end");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "descending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order PriorityAscending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstatePriorityAscending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "priority");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "ascending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order PriorityDescending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstatePriorityDescending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "priority");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "descending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order DescriptionAscending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstateDescriptionAscending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "description");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "ascending");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        postTransitionState = (EndState) state;
-        return postTransitionState;
-    }
-
-    /**
-     * Generates the SortEndState by the order DescriptionDescending.
-     *
-     * @return generated SortEndState
-     */
-    private EndState produceEndstateDescriptionDescending() {
-        EndState postTransitionState;
-        ArgumentMultimap sofar = new ArgumentMultimap();
-        State state = new PropertyState(new ArgumentMultimap());
-        sofar.put(CliSyntax.PREFIX_PROPERTY, "description");
-        try {
-            state = state.transition(sofar);
-        } catch (StateTransitionException e) {
-            // StateTransitionException should not be thrown here.
-            throw new AssertionError();
-        }
-        sofar.put(CliSyntax.PREFIX_ORDER, "descending");
+        sofar.put(CliSyntax.PREFIX_ORDER, order);
         try {
             state = state.transition(sofar);
         } catch (StateTransitionException e) {
