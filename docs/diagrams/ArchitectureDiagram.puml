@@ -14,6 +14,7 @@ package Horo {
     class NotificationManager
     class StorageManager
     class UiManager
+    class UndoRedoManager
 
     class LogsCenter
     class Main
@@ -23,12 +24,19 @@ class "<$user>" as User
 class "<$documents>" as Documents
 
 CommandManager <..> UiManager
+
 Ics --> ModelManager
-ModelManager ..> UiManager
+
 ModelManager ..> StorageManager
+ModelManager ..> UiManager
+ModelManager ..> UndoRedoManager
+
 NotificationManager --> ModelManager
-User <..> UiManager
 
 StorageManager --> ModelManager
 StorageManager <..> Documents
+
+UndoRedoManager --> ModelManager
+
+User <..> UiManager
 @enduml
