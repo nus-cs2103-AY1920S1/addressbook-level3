@@ -94,6 +94,10 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         return autoCompleteOverlay.isVisible();
     }
 
+    public void hide() {
+        autoCompleteOverlay.setVisible(false);
+    }
+
     /**
      * Handles the Mouse Clicked Event.
      */

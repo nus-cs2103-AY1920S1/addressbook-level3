@@ -8,11 +8,11 @@ https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[G
 https://app.netlify.com/sites/clerkpro/deploys[image:https://api.netlify.com/api/v1/badges/7802a5fb-00fd-4e32-869e-6934507679f2/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="100%"]
+image::docs/images/Ui.png[]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="100%"]
+image::images/Ui.png[]
 endif::[]
 
 * ClerkPro is a clinic management application that minimise mental fatigue & workload of the clerk.
