@@ -1,7 +1,7 @@
 package io.xpire.model.state;
 
 import static io.xpire.model.ListType.XPIRE;
-import static io.xpire.testutil.TypicalItems.KIWI;
+import static io.xpire.testutil.TypicalItems.CORIANDER;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -26,7 +26,7 @@ public class StackManagerTest {
         model = new ModelManager(getTypicalLists(), new UserPrefs());
         model.sortXpire(new XpireMethodOfSorting("date"));
         filteredState = new FilteredState(model);
-        model.addItem(XPIRE, new XpireItemBuilder(KIWI).build());
+        model.addItem(XPIRE, new XpireItemBuilder(CORIANDER).build());
         modifiedState = new ModifiedState(model);
 
     }

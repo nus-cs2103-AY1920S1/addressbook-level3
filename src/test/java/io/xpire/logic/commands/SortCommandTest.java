@@ -1,13 +1,15 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.BANANA;
+import static io.xpire.testutil.TypicalItems.CORN;
 import static io.xpire.testutil.TypicalItems.DUCK;
-import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
-import static io.xpire.testutil.TypicalItems.EXPIRED_MILK;
-import static io.xpire.testutil.TypicalItems.EXPIRED_ORANGE;
-import static io.xpire.testutil.TypicalItems.EXPIRING_FISH;
-import static io.xpire.testutil.TypicalItems.JELLY;
+import static io.xpire.testutil.TypicalItems.EGG;
+import static io.xpire.testutil.TypicalItems.FISH;
+import static io.xpire.testutil.TypicalItems.GRAPE;
+import static io.xpire.testutil.TypicalItems.HONEY;
+import static io.xpire.testutil.TypicalItems.ICE_CREAM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -47,7 +49,7 @@ public class SortCommandTest {
         expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
-                Arrays.asList(EXPIRED_APPLE, BANANA, DUCK, EXPIRING_FISH, JELLY, EXPIRED_MILK, EXPIRED_ORANGE),
+                Arrays.asList(APPLE, BANANA, CORN, DUCK, EGG, FISH, GRAPE, HONEY, ICE_CREAM),
                 model.getCurrentList()
         );
     }
@@ -61,7 +63,7 @@ public class SortCommandTest {
         expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
-                Arrays.asList(EXPIRED_MILK, EXPIRED_ORANGE, EXPIRED_APPLE, EXPIRING_FISH, BANANA, DUCK, JELLY),
+                Arrays.asList(ICE_CREAM, HONEY, APPLE, GRAPE, BANANA, CORN, DUCK, EGG, FISH),
                 model.getCurrentList()
         );
     }
