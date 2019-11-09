@@ -2,7 +2,7 @@ package io.xpire.storage;
 
 import static io.xpire.testutil.TypicalItems.CHOCOLATE;
 import static io.xpire.testutil.TypicalItems.CORIANDER;
-import static io.xpire.testutil.TypicalItems.JELLY;
+import static io.xpire.testutil.TypicalItems.FISH;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class JsonSerializableListTest {
     @Test
     public void toModelType_validItemLists_returnsLists() throws Exception {
         Xpire xpire = new Xpire();
-        List<XpireItem> xpireItems = Arrays.asList(JELLY, CORIANDER);
+        List<XpireItem> xpireItems = Arrays.asList(FISH, CORIANDER);
         xpire.setItems(FXCollections.observableArrayList(xpireItems));
         ReplenishList replenishList = new ReplenishList();
         replenishList.addItem(CHOCOLATE);

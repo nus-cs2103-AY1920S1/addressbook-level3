@@ -1,7 +1,6 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static io.xpire.commons.core.Messages.MESSAGE_INVALID_REMINDER_THRESHOLD;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.index.Index;
@@ -14,6 +13,8 @@ import io.xpire.model.item.ReminderThreshold;
  * Parses input arguments and creates a new SetReminderCommand object.
  */
 public class SetReminderCommandParser implements Parser<SetReminderCommand> {
+    public static final String MESSAGE_INVALID_REMINDER_THRESHOLD = "%s is not a valid reminder threshold.";
+
     private static final int ITEM_INDEX = 0;
     private static final int THRESHOLD_INDEX = 1;
 

@@ -158,10 +158,8 @@ public class CollectionUtilTest {
         Collection<Object> objectCollection = Arrays.asList(objects);
         Collection<String> expected = Arrays.asList(objectStrings);
         assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
-            item -> item.toUpperCase(),
-            item -> item.concat("test")));
-        assertNotEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
-            item -> item.concat("test"),
-            item -> item.toUpperCase()));
+                String::toUpperCase, item -> item.concat("test")));
+        assertNotEquals(expected, CollectionUtil.stringifyCollection(objectCollection, item -> item.concat("test"),
+                String::toUpperCase));
     }
 }
