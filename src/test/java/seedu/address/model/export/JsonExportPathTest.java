@@ -4,6 +4,7 @@ package seedu.address.model.export;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.ExportTestUtil.isRunningOnWindows;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,8 +51,22 @@ public class JsonExportPathTest {
             try {
                 new JsonExportPath(validJsonExportPathString);
             } catch (IllegalArgumentException e) {
-                fail("Valid JSON export path was not recognized as being valid");
+                fail("Valid JSON export path was not recognized as being valid: " + validJsonExportPathString);
             }
         }
     }
+
+    @Test
+    public void jsonExportPath_validWindowsPath_success() {
+        String pathString = "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2).json";
+
+        if (isRunningOnWindows()) {
+            try {
+                new JsonExportPath(pathString);
+            } catch (IllegalArgumentException e) {
+                fail("Valid JSON export path was not recognized as being valid: " + pathString);
+            }
+        }
+    }
+
 }

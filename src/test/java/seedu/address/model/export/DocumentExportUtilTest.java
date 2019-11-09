@@ -23,8 +23,7 @@ public class DocumentExportUtilTest {
     public void exportFlashCardsToDocument_valid_success() {
         List<List<FlashCard>> listsToTest = Arrays.asList(
                 TypicalFlashCards.getTypicalFlashCards(),
-                TypicalFlashCards.getSingletonFlashCardList(),
-                TypicalFlashCards.getEmptyFlashCardList()
+                TypicalFlashCards.getSingletonFlashCardList()
         );
 
         for (List<FlashCard> list : listsToTest) {

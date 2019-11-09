@@ -2,6 +2,8 @@
 
 package seedu.address.model.export;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,6 +34,8 @@ public abstract class ExportPath {
      * @return DirectoryPath representing the path of the most nested directory within the given String
      */
     static DirectoryPath extractDirectoryPath(String exportPathString) {
+        requireNonNull(exportPathString);
+
         return new DirectoryPath(
                 Paths.get(
                         exportPathString
@@ -51,6 +55,25 @@ public abstract class ExportPath {
                 .getPath()
                 .toAbsolutePath()
                 .normalize()
+                .toString();
+    }
+
+    /**
+     * Given a String representing a file path, extract the portion of the String that corresponds to the path
+     * to the file from its immediate parent directory.
+     * e.g. {@code extractFilePathNoDirectoryString("folder/directory/file.ext")} will return {@code "file.ext"}.
+     *
+     * @param fullPathString String representing the full file path
+     * @return String representing path to the file from its immediate parent directory
+     */
+    static String extractFilePathNoDirectoryString(String fullPathString) {
+        requireNonNull(fullPathString);
+
+        Path fullPath = Paths.get(fullPathString);
+        int nameCount = fullPath.getNameCount();
+
+        return fullPath
+                .subpath(nameCount - 1, nameCount)
                 .toString();
     }
 }
