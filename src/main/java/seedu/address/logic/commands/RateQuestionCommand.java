@@ -36,7 +36,6 @@ public class RateQuestionCommand extends NextQuestionCommand {
         requireNonNull(model);
         updateModelStatistics(model);
         updateFlashCardRating(model);
-        //StatsWindow.update();
         return super.execute(model);
     }
 

@@ -171,13 +171,9 @@ public class ModelManager implements Model {
     @Override
     public void updatePerformance(Model model) {
         requireNonNull(model);
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
-        int numGood = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
-        int numHard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
-        int numEasy = model.getFilteredFlashCardList().size();
-
+        int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
+        int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
+        int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
         int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
         performance.add(value);
     }
