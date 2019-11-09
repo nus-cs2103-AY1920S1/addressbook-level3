@@ -2,15 +2,14 @@
 
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.ListBadCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import seedu.address.model.deadline.DueDate;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DUEDATE;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DUEDATE;
+import seedu.address.logic.commands.ListBadCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.deadline.DueDate;
 
 /**
  * Parses input arguments and creates a new AddCommand object
