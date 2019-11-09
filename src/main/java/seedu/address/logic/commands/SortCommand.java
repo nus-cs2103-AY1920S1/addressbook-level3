@@ -55,7 +55,7 @@ public class SortCommand extends Command {
             if (sortFilter == null) {
                 throw new ParseException("error");
             }
-            gotoFilter = sortFilter;
+            this.gotoFilter = sortFilter;
         } catch (ParseException e) {
             e.getMessage();
         }
@@ -116,14 +116,13 @@ public class SortCommand extends Command {
         }
     }
 
-    //    @Override
-    //    public boolean equals(Object other) {
-    //        if (gotoFilter.equals(((SortCommand) other).gotoFilter)) {
-    //            return true;
-    //        } else {
-    //            return false;
-    //        }
-    //    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && gotoFilter.equals(((SortCommand) other).gotoFilter));
+    }
+
 }
 
 

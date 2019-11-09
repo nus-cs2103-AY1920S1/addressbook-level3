@@ -585,38 +585,42 @@ Format: `check INDEX`
 Examples:
 
 ****
-*Checking of a contact in the contacts page:* +
+*Example 1: Checking of a contact in the contacts page:* +
+
 *Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
 
 [[UG-CheckExample1]]
-image::UG-CheckExample1.png[width="800"]
+image::UG-CheckExample1.png[width="500"]
 
 *Step 2:* The result box will display "Contact Shown"
 
 [[UG-CheckExample2]]
-image::UG-CheckExample2.png[width="800"]
+image::UG-CheckExample2.png[width="500"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now
 able to see the claims that belong to this contact
 [[UG-CheckExample3]]
-image::UG-CheckExample3.png[width="800"]
+image::UG-CheckExample3.png[width="400"]
+****
 
-*Checking of a claim in the claims page:* +
+****
+*Example 2: Checking of a claim in the claims page:* +
+
 *Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
 of each individual claim card.
 
-[[UG-CheckExample1]]
-image::UG-CheckExample4.png[width="800"]
+[[UG-CheckExample4]]
+image::UG-CheckExample4.png[width="500"]
 
 *Step 2:* The result box will display "Claim Shown"
 
-[[UG-CheckExample2]]
-image::UG-CheckExample5.png[width="800"]
+[[UG-CheckExample5]]
+image::UG-CheckExample5.png[width="500"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
 details that belong to this claim.
-[[UG-CheckExample3]]
-image::UG-CheckExample6.png[width="600"]
+[[UG-CheckExample6]]
+image::UG-CheckExample6.png[width="300"]
 
 ****
 
@@ -665,8 +669,11 @@ APPROVED and lastly REJECTED.
 Keyword: `sort status`
 
 Format: `sort status`
-
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
+
 `sort status` only applies to the claims list
 
 <<UG-BudgetExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
@@ -687,6 +694,9 @@ Examples:
 
 This feature allows you to sort the various lists according to the contact's name in reverse lexicographical order.
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse name` in the claims list sorts it by desription of the claims
 
@@ -704,6 +714,9 @@ Keyword: `reverse date`
 
 Format: `reverse date`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse date` doesn't apply to contacts list
 
@@ -718,10 +731,13 @@ Keyword: `reverse status`
 
 Format: `reverse status`
 
-// end::reversefeature[]
-
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse status` only applies to the claims list
+
+// end::reversefeature[]
 
 === Deleting a Contact : `delete_contact`
 
@@ -847,7 +863,7 @@ specified index from the user input
 
 //@@author{lawncegoh}
 // tag::checkDatefeature[]
-=== Checking for months or dates
+=== [Proposed Implementation] Checking for months or dates
 
 Checks for the claims or incomes that matches the specific month or date that was typed as input.
 
@@ -868,7 +884,7 @@ current check feature. This is an increment to that feature.
 
 //tag::statsfeature[]
 //@@author{lawncegoh}
-=== Display statistics of the application
+=== [Proposed Implementation] Display statistics of the application
 
 Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
 
