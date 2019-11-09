@@ -301,7 +301,9 @@ image::task/AddTaskSequenceDiagram.png[]
 // end::task[]
 //@@author
 
+
 //@@author LuWenQ
+//tag::tag[]
 === Tag feature
 
 ==== Implementation
@@ -351,6 +353,7 @@ image::tag/TagCommandActivityDiagram.png[]
 * Alternative 2: Simply keep tags as a part of problems. While execute the tag command will search for all tags in problems for every times it execute.
 ** Pros: No need to save the tag separately in the storage, all tags are under problems.
 ** Cons: Difficult to manage tags in different problems. Waste time for computer to execute.
+//end::tag[]
 //@@author
 
 //@@author le0tan
@@ -1493,6 +1496,43 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The current problem list is sorted with respect to name in ascending order.
 .. Test case: `sortprob m/name m/diff` +
    Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
+
+=== Adding a tag
+
+. Adding a tag to the existing AlgoBase
+
+.. Test case: `addtag t/test c/BLUE` +
+   Expected: New Tag [test] added to AlgoBase.
+.. Test case: type in `addtag t/test c/BLUE` for twice +
+   Expected: Tag [test] already exists in AlgoBase.
+
+=== Deleting a tag
+
+. Deleting a tag in the existing AlgoBase
+
+.. Test case: `deletetag 1` +
+   Expected: Tag [test] deleted.
+.. Test case: `deletetag 9999` +
+   Expected: The Tag index provided is invalid
+
+
+=== Editing a tag
+
+. Editing a tag in the existing AlgoBase
+.. Test case: `edittag 1 t/edited c/RED` +
+   Expected: Tag [edited] edited.
+.. Test case: `edittag t/edited c/RED` +
+   Expected: Invalid command format!
+edittag: Edits the details of the Tag identified by the index number used in the displayed Tag list. Existing values will be overwritten by the input values.
+Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
+Example: edittag 1 t/Easy c/BLUE
+
+
+=== Listing tags
+
+. Listing all tags in the existing AlgoBase
+.. Test case: `listtag` +
+   Expected: All tags listed.
 
 === Finding problems
 
