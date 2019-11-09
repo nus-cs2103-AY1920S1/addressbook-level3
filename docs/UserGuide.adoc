@@ -171,36 +171,37 @@ Format: `clear`
 To enter the Module section please enter the command: `switch cap`
 
 ==== Manually add module to record : `add`
-The user can add new modules to the a specific semester, even for future semesters.
+The user can add new modules into the grade tracker.
 
-Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULE_DESCRIPTION MODULE_FACULTY MODULAR_CREDIT GRADE`
-e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <d>This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered. <f>Computing <c>4 <g>A`
+Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULE_FACULTY MODULAR_CREDIT GRADE`
+e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <f>Computing <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <f>NUS Business School <c>4 <g>A`
 
 ==== Delete module from record : `delete`
-Delete a specific module from one of the selected semester.
+Delete a specific module from the list of modules.
 
-Format: `delete MODULE_CODE`
-e.g. `delete CS2103`
+Format: `delete INDEX`
+e.g. `delete 1`
 
 ==== Locating module by module code or title : `find`
-Finds the module with the module code or any module that contains the keyword entered by the user.
-The search is case insensitive. e.g. `cs1010s` matches `CS1010S`
+Finds the module with the matching module code or module description.
 
-The search method adopts the inclusive OR search method that returns any sub-keywords associated with the keyword.
-e.g. searching for `prog meth` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
+The enhanced search is case insensitive and matches any keyword in the module code or description e.g. `cs1010s` matches `CS1010S`
+
+The search method adopts the inclusive OR search method that returns any modules with the keyword.
+e.g. searching for `metho` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
 
 Format: `find MODULE_CODE [MORE_KEYWORDS]`
 e.g. `find CS1010S`, `find Programming Methodology I`
 
 ==== Clear all modules in a specific semester or clean-slate all records : `clear`
-Deletes all modules in the record or delete all modules in a semester. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
-When the only single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. As the action is not reversible, a notification would prompt the user to confirm this non-reversible action.
+Deletes all modules in the record. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
+When the only single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. The action is irreversible.
 
 Format: `clear`
 e.g. `clear`
 
-==== Password protection [Coming in V2.0]
-Prevent unauthorised access to your grades.
+==== Categorisation [Coming in V2.0]
+Categorisation of the modules in their respective semesters.
 
 // tag::quizsection1[]
 === Quiz
