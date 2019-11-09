@@ -10,6 +10,7 @@
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
+:warning-caption: ⚠️ 
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://ay1920s1-cs2103t-t17-2.github.io/main/
@@ -406,7 +407,7 @@ How easy is it?
     show m/Dec
 
 
-IMPORTANT: Do remember that if you leave out the year (as we have done in this example), the current year will be used. This applies to the following commands as well.
+WARNING: Do remember that if you leave out the year (as we have done in this example), the current year will be used. This applies to the following commands as well.
 
 *Step by step:*
 (COMING SOON)
