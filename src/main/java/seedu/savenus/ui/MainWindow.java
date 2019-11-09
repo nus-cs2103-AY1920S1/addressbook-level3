@@ -304,7 +304,8 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)
-                    || commandResult.getFeedbackToUser().equals(InfoCommand.WITHDRAW_INFO)) {
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.WITHDRAW_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SHOW_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
                 }

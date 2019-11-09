@@ -70,6 +70,8 @@ public class InfoCommand extends Command {
 
     public static final String WITHDRAW_INFO = COMMAND_INDICATOR + WithdrawCommand.COMMAND_WORD;
 
+    public static final String SHOW_INFO = COMMAND_INDICATOR + ShowCommand.COMMAND_WORD;
+
     public static final String INVALID_COMMAND_ENTERED_MESSAGE = "Sorry, no information for such command exists!";
 
     public static final String MULTIPLE_COMMAND_ENTERED_MESSAGE =
@@ -143,6 +145,8 @@ public class InfoCommand extends Command {
             return new CommandResult(VIEW_SORT_INFO);
         case WithdrawCommand.COMMAND_WORD :
             return new CommandResult(WITHDRAW_INFO);
+        case ShowCommand.COMMAND_WORD :
+            return new CommandResult(SHOW_INFO);
         default :
             throw new CommandException(INVALID_COMMAND_ENTERED_MESSAGE);
         }

@@ -2,7 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.WithdrawCommand;
 
-//@@author fatclarece
+//@@author fatclarence
 /**
  * Contains information on Withdraw command.
  */
