@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 public class EditExpenseDescriptorTest {

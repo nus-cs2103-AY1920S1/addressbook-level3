@@ -10,7 +10,7 @@ import seedu.address.model.ViewState;
 /**
  * Lists all expenses in the expense list to the user.
  */
-public class ListCommand extends Command {
+public class ListDefaultExpensesCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 

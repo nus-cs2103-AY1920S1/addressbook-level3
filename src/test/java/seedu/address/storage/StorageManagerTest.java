@@ -75,7 +75,7 @@ public class StorageManagerTest {
     public void getExchangeDataFilePath() {
         assertNotNull(storageManager.getExchangeDataFilePath());
     }
-    
+
     public void budgetListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the

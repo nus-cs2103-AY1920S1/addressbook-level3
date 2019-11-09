@@ -41,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_BUDGET_NAME_EGYPT = "Egypt";
     public static final String VALID_BUDGET_AMOUNT_EGYPT = "9999";
     public static final String VALID_BUDGET_CURRENCY_EGYPT = "EUR";
-    public static final String VALID_BUDGET_STARTDATE_EGYPT = "01/01/2019";
-    public static final String VALID_BUDGET_ENDDATE_EGYPT = "31/12/2019";
+    public static final String VALID_BUDGET_START_DATE_EGYPT = "01/01/2019";
+    public static final String VALID_BUDGET_END_DATE_EGYPT = "31/12/2019";
 
     public static final String NAME_DESC_VODKA = " " + PREFIX_NAME + VALID_NAME_VODKA;
     public static final String NAME_DESC_RUM = " " + PREFIX_NAME + VALID_NAME_RUM;
@@ -64,8 +64,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_VODKA;
-    public static final EditCommand.EditExpenseDescriptor DESC_RUM;
+    public static final EditExpenseCommand.EditExpenseDescriptor DESC_VODKA;
+    public static final EditExpenseCommand.EditExpenseDescriptor DESC_RUM;
 
     static {
         DESC_VODKA = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)

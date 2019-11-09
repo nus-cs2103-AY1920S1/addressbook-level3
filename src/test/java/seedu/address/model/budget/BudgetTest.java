@@ -43,6 +43,14 @@ public class BudgetTest {
         // different amount -> returns false
         editedKorea = new BudgetBuilder(KOREA).withAmount(VALID_BUDGET_AMOUNT_EGYPT).build();
         assertFalse(KOREA.isSameBudget(editedKorea));
+
+        // different start date -> returns false
+        editedKorea = new BudgetBuilder(KOREA).withStartDate(VALID_BUDGET_START_DATE_EGYPT).build();
+        assertFalse(KOREA.isSameBudget(editedKorea));
+
+        // different end date -> returns false
+        editedKorea = new BudgetBuilder(KOREA).withEndDate(VALID_BUDGET_END_DATE_EGYPT).build();
+        assertFalse(KOREA.isSameBudget(editedKorea));
     }
 
     @Test

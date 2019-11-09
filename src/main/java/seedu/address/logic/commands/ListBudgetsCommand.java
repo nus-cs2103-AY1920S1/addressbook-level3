@@ -10,9 +10,9 @@ import seedu.address.model.ViewState;
 /**
  * Lists all expenses in the address book to the user.
  */
-public class ViewBudgetListCommand extends Command {
+public class ListBudgetsCommand extends Command {
 
-    public static final String COMMAND_WORD = "budgetlist";
+    public static final String COMMAND_WORD = "listBudgets";
 
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
