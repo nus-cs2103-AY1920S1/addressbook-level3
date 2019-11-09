@@ -23,7 +23,7 @@ public class ReadCardCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + " : Opens and accesses the card identified by "
-            + "the description used in the display list. Checks against"
+            + "the description used in the display list. \nChecks against "
             + "provided CVC as second level of security\n"
             + "Parameters: d/DESCRIPTION v/CVC\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DESCRIPTION + "POSB Debit "
