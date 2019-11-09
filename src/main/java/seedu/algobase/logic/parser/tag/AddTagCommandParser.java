@@ -1,4 +1,4 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.tag;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
@@ -7,6 +7,11 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG_COLOR;
 import java.util.stream.Stream;
 
 import seedu.algobase.logic.commands.tag.AddTagCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
+import seedu.algobase.logic.parser.Prefix;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.tag.Tag;
 

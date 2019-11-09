@@ -2,6 +2,7 @@ package seedu.algobase.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG_COLOR;
 
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
@@ -20,10 +21,12 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a Tag to AlgoBase.\n"
             + "Parameters:\n"
-            + PREFIX_TAG + "TAG NAME\n"
+            + PREFIX_TAG + "TAG NAME"
+            + "[" + PREFIX_TAG_COLOR + "]" + "TAG COLOR\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_TAG + "Easy";
+            + PREFIX_TAG + "Easy"
+            + PREFIX_TAG_COLOR + "BULE";
 
     public static final String MESSAGE_SUCCESS = "New Tag [%1$s] added to AlgoBase.";
     public static final String MESSAGE_DUPLICATE_TAG = "Tag [%1$s] already exists in AlgoBase.";

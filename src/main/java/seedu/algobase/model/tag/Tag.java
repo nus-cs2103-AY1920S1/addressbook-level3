@@ -25,7 +25,7 @@ public class Tag {
                 + "\"BLUE\", "
                 + "\"PURPLE\", "
                 + "\"BLACK\", "
-                + "\"TEAL\" and "
+                + "\"TEAL\" or "
                 + "\"DEFAULT\".";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 

@@ -4,10 +4,17 @@ start
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
-
-if () then ([command changes Tag])
-    : Modify the tag list in AlgoBase;
+if () then ([command is valid])
+    if () then ([command changes Tag])
+        : Modify the tag list in AlgoBase;
+        : Modify the problems has the tag to edit;
+        : Update the UI;
+    else ()
+        : list tag in UI;
+    endif
 else ([else])
+    :Throw an exception;
+	:Update UI to notify the user;
 endif
 stop
 @enduml

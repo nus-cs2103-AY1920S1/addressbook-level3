@@ -47,5 +47,7 @@ public class AddTagCommandIntegrationTest {
         logicManager.execute("addtag t/test5 c/BLUE\n");
         logicManager.execute("addtag t/test6 c/PURPLE\n");
         logicManager.execute("addtag t/test7 c/BLACK\n");
+        logicManager.execute("addtag t/test8 c/TEAL\n");
+        logicManager.execute("addtag t/test9 c/DEFAULT\n");
     }
 }

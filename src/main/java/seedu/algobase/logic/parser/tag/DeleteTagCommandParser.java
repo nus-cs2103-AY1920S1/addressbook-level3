@@ -1,10 +1,12 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.tag;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.problem.DeleteCommand;
 import seedu.algobase.logic.commands.tag.DeleteTagCommand;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
