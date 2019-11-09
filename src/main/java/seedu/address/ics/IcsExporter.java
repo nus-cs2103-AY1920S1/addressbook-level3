@@ -26,10 +26,7 @@ public class IcsExporter {
     private List<EventSource> eventList;
     private List<TaskSource> taskList;
 
-    private ModelManager model;
-
     public IcsExporter(ModelManager model) {
-        this.model = model;
         this.eventList = model.getEvents();
         this.taskList = model.getTasks();
         requireNonNull(eventList);
