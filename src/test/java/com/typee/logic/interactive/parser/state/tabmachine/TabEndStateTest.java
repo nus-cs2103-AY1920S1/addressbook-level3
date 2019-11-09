@@ -22,12 +22,27 @@ import com.typee.ui.Tab;
 class TabEndStateTest {
 
     @Test
-    void buildCommand_validCommand_returnsCommand() {
+    void buildCommand_validTabCalendarCommand_returnsCommand() {
         List<Prefix> prefixes = List.of(PREFIX_TAB);
         List<String> args = List.of("calendar");
 
         EndState state = new TabEndState(ArgumentMultimapBuilder.build(prefixes, args));
         TabCommand tabCommand = new TabCommand(new Tab("Calendar"));
+
+        try {
+            assertEquals(state.buildCommand(), tabCommand);
+        } catch (CommandException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void buildCommand_validTabEngagementCommand_returnsCommand() {
+        List<Prefix> prefixes = List.of(PREFIX_TAB);
+        List<String> args = List.of("engagement");
+
+        EndState state = new TabEndState(ArgumentMultimapBuilder.build(prefixes, args));
+        TabCommand tabCommand = new TabCommand(new Tab("Engagement"));
 
         try {
             assertEquals(state.buildCommand(), tabCommand);
