@@ -251,7 +251,10 @@ Example:
 === Exiting the program
 
 Exits the program. +
-Format: `exit`
+Format: `exit` +
+Special Notation: We strongly recommend you to exit FlashMind using `exit` command instead of directly closing the window.
+The reason is, if you directly close the window, you might lose some of the progress you made in this session. That is, some of the
+quiz scores might not be saved. Through `exit` command, all of your quiz results will be saved properly.
 
 === Saving the data
 
